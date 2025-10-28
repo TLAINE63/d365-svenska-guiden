@@ -232,7 +232,7 @@ const Index = () => {
             <div className="inline-block">
               <span className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
                 <PlayCircle className="inline w-4 h-4 mr-2" />
-                Videoguider & Ärliga Svar
+                Videoguider och Q&A
               </span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
