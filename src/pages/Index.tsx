@@ -444,7 +444,7 @@ const Index = () => {
                   <h4 className="font-semibold text-card-foreground mb-2">Företagsstorlek</h4>
                   <p className="text-muted-foreground">
                     Business Central: &lt;300 användare<br />
-                    Finance & Supply Chain: 300+ användare
+                    Finance & Supply Chain: 20 - XXXXX användare
                   </p>
                 </div>
                 <div>
