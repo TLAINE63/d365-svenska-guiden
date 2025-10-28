@@ -28,7 +28,7 @@ const Index = () => {
     {
       title: "Dynamics 365 Sales",
       description: "Maximera dina försäljningsresultat med intelligent CRM",
-      videoId: "7_rkLkWyvdU",
+      videoId: "TMdY77b1TTg",
     },
     {
       title: "Marketing Automation",
