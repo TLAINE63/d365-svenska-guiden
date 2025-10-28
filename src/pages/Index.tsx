@@ -458,7 +458,7 @@ const Index = () => {
                   <h4 className="font-semibold text-card-foreground mb-2">Budget</h4>
                   <p className="text-muted-foreground">
                     Begränsad budget → Business Central<br />
-                    Större investeringsvilja → Finance & Supply Chain
+                    Större investeringsförmåga → Finance & Supply Chain
                   </p>
                 </div>
               </div>
