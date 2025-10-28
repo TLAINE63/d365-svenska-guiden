@@ -5,6 +5,7 @@ import BigFiveSection from "@/components/BigFiveSection";
 import { PlayCircle, ArrowRight } from "lucide-react";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 import dynamicFactoryLogo from "@/assets/dynamic-factory-logo.jpg";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const erpVideos = [
@@ -309,9 +310,9 @@ const Index = () => {
               </div>
               
               <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <a href="#pricing">
+                <Link to="/business-central">
                   Utforska Affärssystem
-                </a>
+                </Link>
               </Button>
             </div>
 
@@ -343,9 +344,9 @@ const Index = () => {
               </div>
               
               <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <a href="#crm-pricing">
+                <Link to="/crm">
                   Utforska CRM-lösningar
-                </a>
+                </Link>
               </Button>
             </div>
           </div>
@@ -601,8 +602,10 @@ const Index = () => {
                     </p>
                   </div>
                 </div>
-                <Button className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                  Läs mer om Copilot
+                <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+                  <Link to="/copilot">
+                    Läs mer om Copilot
+                  </Link>
                 </Button>
               </div>
             </div>
