@@ -39,6 +39,11 @@ const Index = () => {
       description: "Leverera exceptionell kundservice med AI-driven insikter",
       videoId: "sWKW3Zm3HQs",
     },
+    {
+      title: "Dynamics 365 Contact Center",
+      description: "Moderna kontaktcenterlösningar med AI och automation",
+      videoId: "6pJM3F0nB-U",
+    },
   ];
 
   const pricingPlans = [
