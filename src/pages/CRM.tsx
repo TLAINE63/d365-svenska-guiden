@@ -118,6 +118,18 @@ const CRM = () => {
         "Resebyggare (customer journey)",
       ],
     },
+    {
+      title: "Marketing Attach",
+      description: "Tilläggslicens för befintliga användare",
+      price: "7 500 kr/månad + kontakter",
+      features: [
+        "Alla Marketing-funktioner",
+        "För användare med annan Dynamics 365-licens",
+        "E-postmarknadsföring",
+        "Segmentering & målgrupper",
+        "Leadgenerering och event management",
+      ],
+    },
   ];
 
   const contactCenterPricing = [
@@ -231,7 +243,7 @@ const CRM = () => {
               Baserat på kontaktvolym
             </p>
           </div>
-          <div className="max-w-2xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {marketingPricing.map((plan, index) => (
               <PricingCard key={index} {...plan} />
             ))}
