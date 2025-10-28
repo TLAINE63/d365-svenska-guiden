@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
-import BigFiveSection from "@/components/BigFiveSection";
+import BigFiveCarousel from "@/components/BigFiveCarousel";
 import Navbar from "@/components/Navbar";
 import { PlayCircle, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -362,6 +362,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Big Five Carousel Section */}
+      <BigFiveCarousel />
 
       {/* AI & Copilot Section */}
       <section className="py-20 bg-background">
