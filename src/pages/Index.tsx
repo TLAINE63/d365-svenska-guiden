@@ -1409,7 +1409,7 @@ const Index = () => {
                     </div>
                     
                     <p className="text-sm text-muted-foreground">
-                      Med över 35 års erfarenhet av Microsoft Dynamics 365 hjälper Thomas företag att välja rätt lösning och lyckas med sina ERP- och CRM-projekt.
+                      Med över 25 års erfarenhet av Microsoft Dynamics 365 hjälper Thomas företag att välja rätt lösning och lyckas med sina ERP- och CRM-projekt.
                     </p>
                   </div>
                   
