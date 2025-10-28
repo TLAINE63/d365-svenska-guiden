@@ -451,7 +451,7 @@ const Index = () => {
                   <h4 className="font-semibold text-card-foreground mb-2">Komplexitet</h4>
                   <p className="text-muted-foreground">
                     Enkla till medelkomplexa processer → Business Central<br />
-                    Högt komplexa processer → Finance & Supply Chain
+                    Komplexa processer → Finance & Supply Chain
                   </p>
                 </div>
                 <div>
