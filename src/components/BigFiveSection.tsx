@@ -8,7 +8,7 @@ const bigFiveItems = [
   },
   {
     icon: AlertCircle,
-    title: "Problem & Utmaningar",
+    title: "Utmaningar och Risker",
     description: "Vanliga utmaningar och hur vi löser dem",
   },
   {
