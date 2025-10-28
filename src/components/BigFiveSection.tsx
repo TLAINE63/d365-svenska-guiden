@@ -4,7 +4,7 @@ const bigFiveItems = [
   {
     icon: DollarSign,
     title: "Priser & Kostnader",
-    description: "Transparenta priser för licenser och implementering",
+    description: "Förklaringar och exempel på licenser- och projektpriser",
   },
   {
     icon: AlertCircle,
