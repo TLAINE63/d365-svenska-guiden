@@ -1,10 +1,19 @@
 import { Button } from "@/components/ui/button";
+import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
 
 const Copilot = () => {
+  const copilotVideos = [
+    {
+      title: "Din Egen Copilot Video",
+      description: "Lägg in din YouTube video-ID här",
+      videoId: "dQw4w9WgXcQ", // Byt ut detta mot din YouTube video-ID
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -27,8 +36,27 @@ const Copilot = () => {
         </div>
       </header>
 
-      {/* What is Copilot Section */}
+      {/* Videos Section */}
       <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Videoguider
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Lär dig mer om Copilot för Dynamics 365
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {copilotVideos.map((video, index) => (
+              <VideoCard key={index} {...video} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* What is Copilot Section */}
+      <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -51,7 +79,7 @@ const Copilot = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-secondary/50">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
