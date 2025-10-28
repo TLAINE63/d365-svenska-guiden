@@ -44,6 +44,11 @@ const Index = () => {
       description: "Moderna kontaktcenterlösningar med AI och automation",
       videoId: "6pJM3F0nB-U",
     },
+    {
+      title: "Dynamics 365 Field Service",
+      description: "Optimera fältservice med intelligent schemaläggning och mobilitet",
+      videoId: "6pJM3F0nB-U",
+    },
   ];
 
   const pricingPlans = [
