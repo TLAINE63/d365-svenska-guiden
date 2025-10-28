@@ -13,6 +13,11 @@ import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 const CRM = () => {
   const ceVideos = [
     {
+      title: "Din Egen CRM Video",
+      description: "Lägg in din YouTube video-ID här",
+      videoId: "dQw4w9WgXcQ", // Byt ut detta mot din YouTube video-ID
+    },
+    {
       title: "Dynamics 365 Sales",
       description: "Maximera dina försäljningsresultat med intelligent CRM",
       videoId: "TMdY77b1TTg",
