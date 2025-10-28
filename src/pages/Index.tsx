@@ -25,7 +25,7 @@ const Index = () => {
 
   const ceVideos = [
     {
-      title: "Dynamics 365 Sales Översikt",
+      title: "Dynamics 365 Sales",
       description: "Maximera dina försäljningsresultat med intelligent CRM",
       videoId: "VgFo8s2KhKI",
     },
