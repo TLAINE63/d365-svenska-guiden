@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
+import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import dynamicFactoryLogo from "@/assets/dynamic-factory-logo.jpg";
 
 const FinanceSupplyChain = () => {
   const fscVideos = [
@@ -60,22 +60,13 @@ const FinanceSupplyChain = () => {
 
   return (
     <div className="min-h-screen">
+      <Navbar />
+      
       {/* Header */}
-      <header className="bg-gradient-to-br from-[hsl(var(--primary))] via-[hsl(198,80%,45%)] to-[hsl(var(--accent))] text-primary-foreground relative overflow-hidden">
+      <header className="bg-gradient-to-br from-[hsl(var(--primary))] via-[hsl(198,80%,45%)] to-[hsl(var(--accent))] text-primary-foreground relative overflow-hidden mt-16">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTItMTItNS4zNzMtMTItMTJ6TTAgMTZjMC02LjYyNyA1LjM3My0xMiAxMi0xMnMxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMlMwIDIyLjYyNyAwIDE2em0zNiAzNmMwLTYuNjI3IDUuMzczLTEyIDEyLTEyczEyIDUuMzczIDEyIDEyLTUuMzczIDEyLTEyIDEyLTEyLTUuMzczLTEyLTEyek0wIDUyYzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTJTMCA1OC42MjcgMCA1MnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Link to="/" className="inline-block mb-4">
-              <img 
-                src={dynamicFactoryLogo} 
-                alt="Dynamic Factory" 
-                className="h-16 md:h-20 mx-auto"
-              />
-            </Link>
-            <Link to="/" className="inline-flex items-center text-primary-foreground/90 hover:text-primary-foreground mb-4">
-              <ArrowLeft className="mr-2 w-4 h-4" />
-              Tillbaka till startsidan
-            </Link>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               Finance & Supply Chain
             </h1>
