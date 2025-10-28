@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
+import ContactFormDialog from "@/components/ContactFormDialog";
 import { Mail, Phone } from "lucide-react";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 
@@ -97,12 +98,14 @@ const ContactUs = () => {
                 Låt oss hjälpa dig att hitta rätt Dynamics 365-lösning för din verksamhet. 
                 Vi erbjuder kostnadsfri rådgivning och en skräddarsydd genomgång av dina behov.
               </p>
-              <Button 
-                size="lg"
-                className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
-              >
-                Boka Gratis Konsultation
-              </Button>
+              <ContactFormDialog>
+                <Button 
+                  size="lg"
+                  className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
+                >
+                  Boka Gratis Konsultation
+                </Button>
+              </ContactFormDialog>
             </div>
           </div>
         </div>
