@@ -66,8 +66,8 @@ const ContactUs = () => {
                       
                       <div className="flex items-center justify-center md:justify-start gap-3">
                         <Phone className="w-5 h-5 text-primary" />
-                        <a href="tel:+46123456789" className="text-primary hover:underline">
-                          +46 123 456 789
+                        <a href="tel:+46722324060" className="text-primary hover:underline">
+                          +46 72 232 40 60
                         </a>
                       </div>
                       
