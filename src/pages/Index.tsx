@@ -20,7 +20,7 @@ const Index = () => {
     {
       title: "Business Central för Mindre och Medelstora Företag",
       description: "Komplett affärslösning för växande företag",
-      videoId: "SXYH9lCU9hU",
+      videoId: "X7B99e3mNfI",
     },
   ];
 
