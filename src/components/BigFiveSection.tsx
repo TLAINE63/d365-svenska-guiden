@@ -19,7 +19,7 @@ const bigFiveItems = [
   {
     icon: Star,
     title: "Recensioner",
-    description: "Vad våra kunder säger om Microsoft Dynamics 365",
+    description: "Vad kunder säger om Microsoft Dynamics 365",
   },
   {
     icon: Award,
