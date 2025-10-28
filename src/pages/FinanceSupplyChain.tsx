@@ -84,12 +84,44 @@ const FinanceSupplyChain = () => {
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
               Företagslösning för större och ofta internationella organisationer
             </p>
+            
+            {/* Navigation Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <a href="#videos">Videos</a>
+              </Button>
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <a href="#comparison">F&SC vs Business Central</a>
+              </Button>
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <a href="#pricing">Priser</a>
+              </Button>
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <a href="#project-cost">Vad kostar ett F&SC projekt</a>
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Videos Section */}
-      <section className="py-20 bg-background">
+      <section id="videos" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -108,7 +140,7 @@ const FinanceSupplyChain = () => {
       </section>
 
       {/* Comparison with Business Central */}
-      <section className="py-20 bg-secondary/50">
+      <section id="comparison" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
@@ -214,8 +246,100 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
+      {/* Project Cost Section */}
+      <section id="project-cost" className="py-20 bg-secondary/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Vad kostar ett Finance & Supply Chain-projekt?
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Ungefärliga kostnader för implementering och drift
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Implementation Costs */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-6">Implementeringskostnader</h3>
+                
+                <div className="space-y-4">
+                  <div className="flex justify-between items-start pb-3 border-b border-border">
+                    <div>
+                      <p className="font-semibold text-card-foreground">Mindre omfattning</p>
+                      <p className="text-sm text-muted-foreground">En modul, 20-50 användare</p>
+                    </div>
+                    <p className="text-primary font-bold">2-4M kr</p>
+                  </div>
+                  
+                  <div className="flex justify-between items-start pb-3 border-b border-border">
+                    <div>
+                      <p className="font-semibold text-card-foreground">Medelstor implementation</p>
+                      <p className="text-sm text-muted-foreground">Finance + SCM, 50-200 användare</p>
+                    </div>
+                    <p className="text-primary font-bold">4-10M kr</p>
+                  </div>
+                  
+                  <div className="flex justify-between items-start pb-3">
+                    <div>
+                      <p className="font-semibold text-card-foreground">Global implementation</p>
+                      <p className="text-sm text-muted-foreground">Flera länder, 200+ användare</p>
+                    </div>
+                    <p className="text-primary font-bold">10-30M+ kr</p>
+                  </div>
+                </div>
+                
+                <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
+                  <p className="text-sm text-muted-foreground">
+                    <strong>Inkluderar:</strong> Licensavgifter, implementering, utbildning, datamigration, integrationer och omfattande projektledning
+                  </p>
+                </div>
+              </div>
+
+              {/* Ongoing Costs */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-6">Löpande kostnader</h3>
+                
+                <div className="space-y-4">
+                  <div className="pb-3 border-b border-border">
+                    <p className="font-semibold text-card-foreground mb-2">Licensavgifter</p>
+                    <p className="text-sm text-muted-foreground mb-2">2 200-3 800 kr/användare/månad</p>
+                    <p className="text-xs text-muted-foreground">Beroende på modul och funktionalitet</p>
+                  </div>
+                  
+                  <div className="pb-3 border-b border-border">
+                    <p className="font-semibold text-card-foreground mb-2">Support & underhåll</p>
+                    <p className="text-sm text-muted-foreground mb-2">10-20% av licenskostnaden</p>
+                    <p className="text-xs text-muted-foreground">Omfattande teknisk support och uppdateringar</p>
+                  </div>
+                  
+                  <div className="pb-3 border-b border-border">
+                    <p className="font-semibold text-card-foreground mb-2">Vidareutveckling</p>
+                    <p className="text-sm text-muted-foreground mb-2">500k-2M kr/år</p>
+                    <p className="text-xs text-muted-foreground">Anpassningar, integrationer och nya funktioner</p>
+                  </div>
+                  
+                  <div>
+                    <p className="font-semibold text-card-foreground mb-2">Utbildning & change management</p>
+                    <p className="text-sm text-muted-foreground mb-2">Löpande behov</p>
+                    <p className="text-xs text-muted-foreground">Viktigt för användaracceptans och effektivitet</p>
+                  </div>
+                </div>
+                
+                <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
+                  <p className="text-sm text-muted-foreground">
+                    <strong>Notera:</strong> Implementationstiden är ofta 9-24 månader beroende på omfattning och komplexitet
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-20 bg-secondary/50">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
