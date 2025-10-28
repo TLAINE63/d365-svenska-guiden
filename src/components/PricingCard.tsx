@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface PricingCardProps {
   title: string;
@@ -36,10 +37,11 @@ const PricingCard = ({ title, description, price, features, popular }: PricingCa
           ))}
         </ul>
         <Button 
+          asChild
           className="w-full mt-6 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] hover:opacity-90 text-primary-foreground"
           size="lg"
         >
-          Kontakta oss
+          <Link to="/contact-us">Kontakta oss</Link>
         </Button>
       </CardContent>
     </Card>

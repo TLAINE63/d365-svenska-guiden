@@ -1415,8 +1415,8 @@ const Index = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
             Boka en gratis konsultation så hjälper vi dig att hitta rätt lösning för din verksamhet
           </p>
-          <Button size="lg" variant="secondary" className="text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-            Kontakta Oss Idag
+          <Button asChild size="lg" variant="secondary" className="text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+            <Link to="/contact-us">Kontakta Oss Idag</Link>
           </Button>
         </div>
       </section>

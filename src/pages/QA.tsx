@@ -96,8 +96,8 @@ const QA = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Kontakta oss så hjälper vi dig gärna
             </p>
-            <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
-              Boka Gratis Konsultation
+            <Button asChild className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
+              <Link to="/contact-us">Boka Gratis Konsultation</Link>
             </Button>
           </div>
         </div>
