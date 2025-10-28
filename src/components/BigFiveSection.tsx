@@ -34,7 +34,7 @@ const BigFiveSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            De Stora 5 Frågorna
+            Fem vanliga frågor om Microsoft Dynamics 365
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Vi svarar ärligt på alla frågor du har om Microsoft Dynamics 365
