@@ -117,6 +117,99 @@ const Index = () => {
     },
   ];
 
+  const crmPricingPlans = [
+    {
+      title: "Dynamics 365 Team Member",
+      description: "För användare med begränsade behov",
+      price: "75 kr",
+      features: [
+        "Läsbehörighet i CRM",
+        "Grundläggande rapporter",
+        "Enkel dataåtkomst",
+        "Mobilapp-åtkomst",
+        "Support via e-post",
+      ],
+    },
+    {
+      title: "Sales Professional",
+      description: "För säljteam",
+      price: "650 kr",
+      features: [
+        "Lead och opportunity management",
+        "Kontakt- och kundhantering",
+        "E-postintegration",
+        "Mobilapp",
+        "Rapporter och dashboards",
+      ],
+    },
+    {
+      title: "Sales Enterprise",
+      description: "Avancerad försäljning",
+      price: "950 kr",
+      features: [
+        "Alla Professional-funktioner",
+        "Säljprognoser och AI-insikter",
+        "LinkedIn Sales Navigator",
+        "Anpassade arbetsflöden",
+        "Avancerad automatisering",
+      ],
+    },
+  ];
+
+  const crmPricingPlans2 = [
+    {
+      title: "Customer Service Professional",
+      description: "Grundläggande kundservice",
+      price: "500 kr",
+      features: [
+        "Ärendehantering",
+        "Kunskapsbas",
+        "Service Level Agreements",
+        "Kundportaler",
+        "Mobilstöd",
+      ],
+    },
+    {
+      title: "Customer Service Enterprise",
+      description: "Avancerad kundservice",
+      price: "950 kr",
+      features: [
+        "Alla Professional-funktioner",
+        "Omnichannel routing",
+        "AI-driven support",
+        "Unified routing",
+        "Avancerad analytics",
+      ],
+    },
+  ];
+
+  const crmPricingPlans3 = [
+    {
+      title: "Field Service",
+      description: "Fältservicehantering",
+      price: "950 kr",
+      features: [
+        "Arbetsorderhantering",
+        "Schemaläggning och dispatch",
+        "Mobil fältapp",
+        "Lagerhantering",
+        "Preventivt underhåll",
+      ],
+    },
+    {
+      title: "Marketing",
+      description: "Marknadsföringsautomation",
+      price: "Från 15 000 kr",
+      features: [
+        "E-postmarknadsföring",
+        "Kundresor och segmentering",
+        "Event management",
+        "Lead scoring",
+        "Multi-channel kampanjer",
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -430,6 +523,80 @@ const Index = () => {
           <div className="mt-12 text-center">
             <p className="text-muted-foreground mb-4">
               Alla priser är per användare/månad (exkl. moms) och kan variera beroende på din specifika konfiguration
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section - CRM/Customer Engagement */}
+      <section id="crm-pricing" className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Prisöversikt - CRM (Customer Engagement)
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Transparenta priser för alla Dynamics 365 CRM-applikationer
+            </p>
+          </div>
+
+          {/* Sales Pricing */}
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Dynamics 365 Sales
+              </h3>
+              <p className="text-muted-foreground">
+                För försäljningsteam och säljorganisationer
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {crmPricingPlans.map((plan, index) => (
+                <PricingCard key={index} {...plan} />
+              ))}
+            </div>
+          </div>
+
+          {/* Customer Service Pricing */}
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Dynamics 365 Customer Service
+              </h3>
+              <p className="text-muted-foreground">
+                För kundservice och supportteam
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {crmPricingPlans2.map((plan, index) => (
+                <PricingCard key={index} {...plan} />
+              ))}
+            </div>
+          </div>
+
+          {/* Field Service & Marketing Pricing */}
+          <div>
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Field Service & Marketing
+              </h3>
+              <p className="text-muted-foreground">
+                För fältservice och marknadsföringsautomation
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {crmPricingPlans3.map((plan, index) => (
+                <PricingCard key={index} {...plan} />
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-muted-foreground mb-2">
+              Alla priser är per användare/månad (exkl. moms) och kan variera beroende på din specifika konfiguration
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <strong>OBS:</strong> Marketing är prissatt per organisation och inkluderar upp till 10 000 kontakter
             </p>
           </div>
         </div>
