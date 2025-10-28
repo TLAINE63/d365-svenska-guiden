@@ -610,6 +610,168 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Comparison Section - Sales Licenses */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Dynamics 365 Sales: Professional vs Enterprise vs Premium
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Vilken Sales-licens passar ditt säljteam bäst?
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Sales Professional */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Sales Professional</h3>
+                <p className="text-muted-foreground mb-6">
+                  För mindre säljteam med grundläggande CRM-behov
+                </p>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Passar för:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Små till medelstora säljteam</li>
+                      <li>• Standardiserade försäljningsprocesser</li>
+                      <li>• Grundläggande lead-hantering</li>
+                      <li>• 5-50 användare</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Funktioner:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Lead och opportunity management</li>
+                      <li>• Kontakt- och kundhantering</li>
+                      <li>• E-postintegration (Outlook)</li>
+                      <li>• Mobilapp</li>
+                      <li>• Dashboards och rapporter</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-sm font-semibold text-primary">Pris: 650 kr/användare/månad</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sales Enterprise */}
+              <div className="bg-card rounded-lg p-8 border-2 border-primary shadow-[var(--shadow-hover)]">
+                <div className="inline-block bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full mb-3">
+                  Mest populär
+                </div>
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Sales Enterprise</h3>
+                <p className="text-muted-foreground mb-6">
+                  För professionella säljteam med avancerade behov
+                </p>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Passar för:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Större säljorganisationer</li>
+                      <li>• AI-driven försäljning</li>
+                      <li>• Komplexa säljprocesser</li>
+                      <li>• 20-500+ användare</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Inkluderar allt i Professional plus:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Säljprognoser och AI-insikter</li>
+                      <li>• LinkedIn Sales Navigator</li>
+                      <li>• Anpassade arbetsflöden</li>
+                      <li>• Avancerad automatisering</li>
+                      <li>• Sales insights (AI)</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-sm font-semibold text-primary">Pris: 950 kr/användare/månad</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sales Premium */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Sales Premium</h3>
+                <p className="text-muted-foreground mb-6">
+                  För avancerade säljorganisationer med omfattande krav
+                </p>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Passar för:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Enterprise-organisationer</li>
+                      <li>• Maximal AI och automatisering</li>
+                      <li>• Omfattande integrationer</li>
+                      <li>• 50-1000+ användare</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Inkluderar allt i Enterprise plus:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Conversation intelligence</li>
+                      <li>• Avancerad sales analytics</li>
+                      <li>• Relationship intelligence</li>
+                      <li>• Copilot for Sales (AI-assistent)</li>
+                      <li>• Premium support</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-sm font-semibold text-primary">Pris: 1 500 kr/användare/månad</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Key Decision Factors */}
+            <div className="mt-12 bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+              <h3 className="text-xl font-bold text-card-foreground mb-6">Nyckelfaktorer vid valet</h3>
+              <div className="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-2">AI och Automatisering</h4>
+                  <p className="text-muted-foreground">
+                    Grundläggande CRM → Professional<br />
+                    AI-insikter → Enterprise<br />
+                    Maximal AI → Premium
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-2">Teamstorlek</h4>
+                  <p className="text-muted-foreground">
+                    Små team (5-50) → Professional<br />
+                    Medelstora (20-500) → Enterprise<br />
+                    Enterprise (50+) → Premium
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-2">LinkedIn Integration</h4>
+                  <p className="text-muted-foreground">
+                    Ej nödvändig → Professional<br />
+                    LinkedIn Sales Nav → Enterprise/Premium
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
+                <p className="text-sm text-muted-foreground">
+                  <strong>Tips:</strong> De flesta företag väljer Sales Enterprise för bästa balansen mellan funktionalitet och pris. 
+                  Premium passar främst stora organisationer som vill maximera AI-drivna insikter och automatisering.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section - ERP/Affärssystem */}
       <section id="pricing" className="py-20 bg-background">
         <div className="container mx-auto px-4">
