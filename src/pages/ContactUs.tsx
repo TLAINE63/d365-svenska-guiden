@@ -27,7 +27,7 @@ const ContactUs = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-3xl mx-auto">
               {/* Contact Cards */}
               <Card className="border-border">
                 <CardContent className="p-6">
@@ -72,41 +72,6 @@ const ContactUs = () => {
                   </div>
                 </CardContent>
               </Card>
-
-              <Card className="border-border">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <MapPin className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">Adress</h3>
-                      <p className="text-muted-foreground">
-                        Dynamic Factory AB<br />
-                        Exempelgatan 123<br />
-                        123 45 Stockholm
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <Clock className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">Öppettider</h3>
-                      <p className="text-muted-foreground">
-                        Måndag - Fredag: 08:00 - 17:00<br />
-                        Lördag - Söndag: Stängt
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
 
             {/* CTA Section */}
@@ -136,32 +101,14 @@ const ContactUs = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
               Varför välja oss?
             </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
+            <div className="flex justify-center">
+              <div className="text-center max-w-sm">
                 <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-primary">15+</span>
                 </div>
                 <h3 className="font-semibold text-lg mb-2">Års erfarenhet</h3>
                 <p className="text-muted-foreground">
                   Expertis inom Microsoft Dynamics 365
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-primary">500+</span>
-                </div>
-                <h3 className="font-semibold text-lg mb-2">Nöjda kunder</h3>
-                <p className="text-muted-foreground">
-                  Framgångsrika implementationer
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-primary">24/7</span>
-                </div>
-                <h3 className="font-semibold text-lg mb-2">Support</h3>
-                <p className="text-muted-foreground">
-                  Alltid här när du behöver oss
                 </p>
               </div>
             </div>
