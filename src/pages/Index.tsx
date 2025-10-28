@@ -123,6 +123,80 @@ const Index = () => {
         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
       </header>
 
+      {/* Solution Selector Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Vilken typ av lösning letar du efter?
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Microsoft Dynamics 365 består av två huvudområden. Välj det som passar dina behov bäst.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* ERP/Affärssystem Card */}
+            <div className="bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer group shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-card-foreground mb-3">Affärssystem (ERP)</h3>
+                <p className="text-muted-foreground mb-6">
+                  Hantera ekonomi, lager, produktion och affärsprocesser
+                </p>
+              </div>
+              
+              <div className="space-y-3 mb-6">
+                <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>✓ Effektivisera ekonomihantering och redovisning</li>
+                  <li>✓ Optimera lager och leveranskedja</li>
+                  <li>✓ Hantera tillverkning och produktion</li>
+                  <li>✓ Få kontroll över hela affärsverksamheten</li>
+                </ul>
+              </div>
+              
+              <Button className="w-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] hover:opacity-90 text-primary-foreground">
+                Utforska Affärssystem
+              </Button>
+            </div>
+
+            {/* CRM/Customer Engagement Card */}
+            <div className="bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer group shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-card-foreground mb-3">CRM (Customer Engagement)</h3>
+                <p className="text-muted-foreground mb-6">
+                  Bygg starkare kundrelationer och öka försäljningen
+                </p>
+              </div>
+              
+              <div className="space-y-3 mb-6">
+                <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>✓ Öka försäljning och hantera leads</li>
+                  <li>✓ Förbättra kundservice och support</li>
+                  <li>✓ Automatisera marknadsföring</li>
+                  <li>✓ Få 360° vy av dina kunder</li>
+                </ul>
+              </div>
+              
+              <Button className="w-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] hover:opacity-90 text-primary-foreground">
+                Utforska CRM-lösningar
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Big Five Section */}
       <BigFiveSection />
 
