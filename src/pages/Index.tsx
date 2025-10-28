@@ -145,6 +145,122 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Comparison Section - Business Central vs Finance & Supply Chain */}
+      <section className="py-20 bg-secondary/50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Business Central vs Finance & Supply Chain
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Vilket ERP-system passar bäst för din organisation?
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Business Central */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Business Central</h3>
+                <p className="text-muted-foreground mb-6">
+                  Perfekt för mindre och medelstora företag med upp till 300-500 användare
+                </p>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Passar för:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Mindre och medelstora företag</li>
+                      <li>• Företag med enklare processer</li>
+                      <li>• Snabb implementering (2-6 månader)</li>
+                      <li>• Begränsad budget</li>
+                      <li>• En eller få lokalisationer</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Styrkor:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Lägre kostnader och snabbare ROI</li>
+                      <li>• Enklare att använda och implementera</li>
+                      <li>• Inbyggd integration med Microsoft 365</li>
+                      <li>• Flexibel och skalbar</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-sm font-semibold text-primary">Pris: Från 700 kr/användare/månad</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Finance & Supply Chain */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Finance & Supply Chain</h3>
+                <p className="text-muted-foreground mb-6">
+                  Företagslösning för stora organisationer med komplexa behov
+                </p>
+                
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Passar för:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Stora företag och koncerner</li>
+                      <li>• Komplexa processer och många integrationer</li>
+                      <li>• Globala verksamheter</li>
+                      <li>• Avancerade branschspecifika behov</li>
+                      <li>• Många samtidiga användare</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-card-foreground mb-2">Styrkor:</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li>• Kraftfull funktionalitet och anpassningsbarhet</li>
+                      <li>• Avancerad supply chain management</li>
+                      <li>• Global finansiell hantering</li>
+                      <li>• AI och avancerad analytics</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-sm font-semibold text-primary">Pris: Från 2 500 kr/användare/månad</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Key Decision Factors */}
+            <div className="mt-12 bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+              <h3 className="text-xl font-bold text-card-foreground mb-6">Nyckelfaktorer vid valet</h3>
+              <div className="grid md:grid-cols-3 gap-6 text-sm">
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-2">Företagsstorlek</h4>
+                  <p className="text-muted-foreground">
+                    Business Central: &lt;300 användare<br />
+                    Finance & Supply Chain: 300+ användare
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-2">Komplexitet</h4>
+                  <p className="text-muted-foreground">
+                    Enkla till medelkomplexa processer → Business Central<br />
+                    Högt komplexa processer → Finance & Supply Chain
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-2">Budget</h4>
+                  <p className="text-muted-foreground">
+                    Begränsad budget → Business Central<br />
+                    Större investeringsvilja → Finance & Supply Chain
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Customer Engagement Videos Section */}
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
