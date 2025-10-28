@@ -15,6 +15,7 @@ const Navbar = () => {
     { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
     { label: "Copilot", path: "/copilot" },
     { label: "Q&A", path: "/qa" },
+    { label: "Kontakt", path: "/kontakt" },
   ];
 
   return (

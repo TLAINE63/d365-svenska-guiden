@@ -10,6 +10,7 @@ import BusinessCentral from "./pages/BusinessCentral";
 import FinanceSupplyChain from "./pages/FinanceSupplyChain";
 import Copilot from "./pages/Copilot";
 import QA from "./pages/QA";
+import ContactUs from "./pages/ContactUs";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/qa" element={<QA />} />
+          <Route path="/kontakt" element={<ContactUs />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
