@@ -1354,7 +1354,7 @@ const Index = () => {
                 },
                 {
                   question: "Vad ingår i licenspriset?",
-                  answer: "Licenspriset inkluderar tillgång till systemet, kontinuerliga uppdateringar, säkerhet och grundläggande support. Implementering, anpassningar och utökad support faktureras separat.",
+                  answer: "Licenspriset inkluderar tillgång till systemet, kontinuerliga uppdateringar, säkerhet och grundläggande support. Implementering, eventuella anpassningar, utbildning, förvaltning och utökad support beställs separat av auktoriserad partner.",
                 },
                 {
                   question: "Kan vi integrera med våra befintliga system?",
