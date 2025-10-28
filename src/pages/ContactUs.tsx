@@ -28,31 +28,6 @@ const ContactUs = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="mb-12 max-w-3xl mx-auto">
-              {/* Contact Card */}
-              <Card className="border-border">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <Mail className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">E-post</h3>
-                      <p className="text-muted-foreground mb-2">
-                        Skicka oss ett meddelande
-                      </p>
-                      <a 
-                        href="mailto:info@dynamicfactory.se" 
-                        className="text-primary hover:underline"
-                      >
-                        info@dynamicfactory.se
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
             {/* Contact Person Section */}
             <div className="mb-12">
               <div className="text-center mb-8">
