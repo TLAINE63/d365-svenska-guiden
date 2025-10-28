@@ -3,7 +3,7 @@ import { DollarSign, AlertCircle, GitCompare, Star, Award } from "lucide-react";
 const bigFiveItems = [
   {
     icon: DollarSign,
-    title: "Priser & Kostnader",
+    title: "Licenspriser och Projektkostnader",
     description: "Förklaringar och exempel på licenser- och projektpriser",
   },
   {
