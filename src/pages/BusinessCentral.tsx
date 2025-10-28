@@ -13,6 +13,11 @@ const BusinessCentral = () => {
       description: "Komplett affärslösning för växande företag",
       videoId: "X7B99e3mNfI",
     },
+    {
+      title: "Din Egen Business Central Video",
+      description: "Lägg in din YouTube video-ID här",
+      videoId: "dQw4w9WgXcQ", // Byt ut detta mot din YouTube video-ID
+    },
   ];
 
   const bcPricingPlans = [
