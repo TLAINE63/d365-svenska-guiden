@@ -10,7 +10,7 @@ const Index = () => {
     {
       title: "Introduktion till Dynamics 365 Finance",
       description: "Lär dig grunderna i Microsoft Dynamics 365 Finance och hur det kan transformera din ekonomihantering",
-      videoId: "BkknwKIhULY",
+      videoId: "O5yecO8A_9Q",
     },
     {
       title: "Supply Chain Management Översikt",
