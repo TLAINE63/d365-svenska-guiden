@@ -38,7 +38,7 @@ const Index = () => {
     {
       title: "Customer Service och Support",
       description: "Leverera exceptionell kundservice med AI-drivna insikter",
-      videoId: "ffEVcb-_X2s",
+      videoId: "ewtCAkM55Fc",
     },
     {
       title: "Dynamics 365 Contact Center",
