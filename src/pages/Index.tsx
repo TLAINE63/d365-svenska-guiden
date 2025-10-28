@@ -1350,7 +1350,7 @@ const Index = () => {
                 },
                 {
                   question: "Kan vi börja smått och växa?",
-                  answer: "Absolut! Många av våra kunder börjar med Business Central Essentials och uppgraderar till Premium eller Finance & Operations när verksamheten växer. Microsoft Dynamics 365 är byggt för att skala med din verksamhet.",
+                  answer: "Absolut! Många kunder som börjar med Business Central kanske inte tar alla funktioner i bruk på en gång. Man väljer att växa in i systemet och utöka med fler funktioner allt eftersom. Detsamma gäller definitivt även CRM-delarna, där man kanske börjar med Sales och därefter är det naturligt att fortsätta med antingen Marketing Automation (Customer Insights) eller kanske börja använda Customer Service. Då allt är i samma databas är det enkelt att komma igång med fler applikationer och funktioner när behoven växer. Varje applikation är kraftfull i sig själv, men den överlägsna styrkan kommer i att plattformen hänger ihop. Dessutom är det en naturlig del i hela Microsoftplattformen.",
                 },
                 {
                   question: "Vad ingår i licenspriset?",
