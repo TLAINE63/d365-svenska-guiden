@@ -242,7 +242,7 @@ const Index = () => {
               Ärliga svar på priser, implementering och funktioner. 80% videoinnehåll för att göra det enkelt att förstå.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Button size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(25,95%,60%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+              <Button size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
                 Se Videoguider
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -292,7 +292,7 @@ const Index = () => {
                 </ul>
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(25,95%,60%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+              <Button className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
                 Utforska Affärssystem
               </Button>
             </div>
@@ -321,7 +321,7 @@ const Index = () => {
                 </ul>
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(25,95%,60%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+              <Button className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
                 Utforska CRM-lösningar
               </Button>
             </div>
@@ -779,7 +779,7 @@ const Index = () => {
                 </div>
               </div>
               <div className="mt-8 text-center">
-                <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(25,95%,60%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
+                <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
                   Boka Gratis Konsultation
                 </Button>
               </div>
@@ -838,7 +838,7 @@ const Index = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
             Boka en gratis konsultation så hjälper vi dig att hitta rätt lösning för din verksamhet
           </p>
-          <Button size="lg" variant="secondary" className="text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(25,95%,60%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+          <Button size="lg" variant="secondary" className="text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
             Kontakta Oss Idag
           </Button>
         </div>
