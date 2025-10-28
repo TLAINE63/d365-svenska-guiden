@@ -18,7 +18,7 @@ const ContactUs = () => {
               Kontakta Oss
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
-              Vi hjälper dig att transformera din verksamhet med Microsoft Dynamics 365
+              Vi hjälper dig genom transformationen av din verksamhet med Microsoft Dynamics 365
             </p>
           </div>
         </div>
