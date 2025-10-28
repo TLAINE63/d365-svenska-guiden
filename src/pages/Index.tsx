@@ -239,7 +239,7 @@ const Index = () => {
               Allt du behöver veta om<br />Microsoft Dynamics 365
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
-              Ärliga svar på priser, implementering och funktioner. 80% videoinnehåll för att göra det enkelt att förstå.
+              Svar på vanliga frågor så som priser, implementering och funktioner med videoinnehåll för att göra det enkelt att konsumera.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
               <Button size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
