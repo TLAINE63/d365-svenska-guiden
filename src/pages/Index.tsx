@@ -277,12 +277,12 @@ const Index = () => {
               Vilken typ av lösning letar du efter?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Microsoft Dynamics 365 består av två huvudområden. Välj det som passar dina behov bäst.
+              Microsoft Dynamics 365 erbjuder lösningar för både affärssystem och kundhantering. Välj det som passar dina behov bäst.
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* ERP/Affärssystem Card */}
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Business Central Card */}
             <div className="bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer group shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]">
               <div className="text-center mb-6">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -290,33 +290,69 @@ const Index = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-card-foreground mb-2">Affärssystem (ERP)</h3>
+                <h3 className="text-2xl font-bold text-card-foreground mb-2">Business Central</h3>
                 <div className="flex justify-center gap-2 mb-3">
                   <img src={BusinessCentralIcon} alt="Business Central" className="h-8 w-8" />
-                  <img src={FinanceIcon} alt="Finance" className="h-8 w-8" />
-                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-8 w-8" />
                 </div>
                 <p className="text-sm text-muted-foreground mb-3 font-medium">
-                  Microsoft Dynamics 365 Finance & Supply Chain samt Business Central
+                  För mindre och medelstora företag
                 </p>
                 <p className="text-muted-foreground mb-6">
-                  Hantera ekonomi, lager, produktion och affärsprocesser
+                  Komplett affärslösning med ekonomi, lager och försäljning
                 </p>
               </div>
               
               <div className="space-y-3 mb-6">
                 <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ Effektivisera ekonomihantering och redovisning</li>
-                  <li>✓ Optimera lager och leveranskedja</li>
-                  <li>✓ Hantera tillverkning och produktion</li>
-                  <li>✓ Få kontroll över hela affärsverksamheten</li>
+                  <li>✓ Hantera ekonomi och redovisning</li>
+                  <li>✓ Lagerhantering och inköp</li>
+                  <li>✓ Projekthantering</li>
+                  <li>✓ Snabb implementering</li>
                 </ul>
               </div>
               
               <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
                 <Link to="/business-central">
-                  Utforska Affärssystem
+                  Utforska Business Central
+                </Link>
+              </Button>
+            </div>
+
+            {/* Finance & Supply Chain Card */}
+            <div className="bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer group shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-card-foreground mb-2">Finance & Supply Chain</h3>
+                <div className="flex justify-center gap-2 mb-3">
+                  <img src={FinanceIcon} alt="Finance" className="h-8 w-8" />
+                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-8 w-8" />
+                </div>
+                <p className="text-sm text-muted-foreground mb-3 font-medium">
+                  För större företag och koncerner
+                </p>
+                <p className="text-muted-foreground mb-6">
+                  Avancerad ekonomi, tillverkning och global supply chain
+                </p>
+              </div>
+              
+              <div className="space-y-3 mb-6">
+                <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>✓ Global ekonomihantering</li>
+                  <li>✓ Avancerad tillverkning</li>
+                  <li>✓ Komplex leveranskedja</li>
+                  <li>✓ IoT och AI-integration</li>
+                </ul>
+              </div>
+              
+              <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+                <Link to="/finance-supply-chain">
+                  Utforska Finance & SCM
                 </Link>
               </Button>
             </div>
