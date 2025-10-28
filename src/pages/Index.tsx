@@ -1449,7 +1449,7 @@ const Index = () => {
           <div className="text-center text-muted-foreground">
             <p className="mb-2">© 2025 Dynamic Factory</p>
             <p className="text-sm">
-              Vi svarar ärligt på alla frågor enligt "They Ask, You Answer"-metoden
+              Microsoft Business Applications Evangelister
             </p>
           </div>
         </div>
