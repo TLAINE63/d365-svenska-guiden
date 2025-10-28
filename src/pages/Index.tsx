@@ -75,7 +75,6 @@ const Index = () => {
         "Warehouse Management",
         "Prioriterad support",
       ],
-      popular: true,
     },
     {
       title: "Finance & Operations",
