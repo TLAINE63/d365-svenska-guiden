@@ -1358,7 +1358,7 @@ const Index = () => {
                 },
                 {
                   question: "Kan vi integrera med våra befintliga system?",
-                  answer: "Ja, Dynamics 365 har utmärkta integrationsmöjligheter. Vi kan koppla ihop med de flesta moderna system via API:er, och det finns färdiga kopplingar till populära tredjepartslösningar.",
+                  answer: "Ja, Dynamics 365 har utmärkta integrationsmöjligheter. Har den andra programvaruleverantören redan kopplat sig till Microsoftplattformen (Dataverse), så underlättar detta ytterligare, då \"kopplingen\" redan är gjord. Vi kan koppla ihop med de flesta moderna system via API:er, och det finns färdiga kopplingar till populära tredjepartslösningar.",
                 },
               ].map((faq, index) => (
                 <div key={index} className="bg-card rounded-lg p-6 shadow-[var(--shadow-card)] border border-border">
