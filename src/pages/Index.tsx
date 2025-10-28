@@ -10,17 +10,17 @@ const Index = () => {
     {
       title: "Introduktion till Dynamics 365 Finance",
       description: "Lär dig grunderna i Microsoft Dynamics 365 Finance och hur det kan transformera din ekonomihantering",
-      videoId: "Uf87oOZ-ZpM",
+      videoId: "BkknwKIhULY",
     },
     {
       title: "Supply Chain Management Översikt",
       description: "Upptäck hur Microsoft Dynamics 365 Supply Chain Management optimerar din leveranskedja",
-      videoId: "5OoBvP0Sty0",
+      videoId: "jC1EaSrB-Ak",
     },
     {
       title: "Business Central för Mindre och Medelstora Företag",
       description: "Komplett affärslösning för växande företag",
-      videoId: "jCYI69BFKPE",
+      videoId: "SXYH9lCU9hU",
     },
   ];
 
@@ -28,27 +28,27 @@ const Index = () => {
     {
       title: "Dynamics 365 Sales",
       description: "Maximera dina försäljningsresultat med intelligent CRM",
-      videoId: "VgFo8s2KhKI",
+      videoId: "7_rkLkWyvdU",
     },
     {
       title: "Marketing Automation",
       description: "Skapa personliga kundresor med Microsoft Dynamics 365 Marketing",
-      videoId: "6pJM3F0nB-U",
+      videoId: "iUSj8sC76qk",
     },
     {
       title: "Customer Service och Support",
       description: "Leverera exceptionell kundservice med AI-drivna insikter",
-      videoId: "sWKW3Zm3HQs",
+      videoId: "ffEVcb-_X2s",
     },
     {
       title: "Dynamics 365 Contact Center",
       description: "Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation",
-      videoId: "6pJM3F0nB-U",
+      videoId: "ewtCAkM55Fc",
     },
     {
       title: "Dynamics 365 Field Service",
       description: "Optimera fältservice med intelligent schemaläggning och mobilitet",
-      videoId: "6pJM3F0nB-U",
+      videoId: "OujvbnyGqDY",
     },
   ];
 
