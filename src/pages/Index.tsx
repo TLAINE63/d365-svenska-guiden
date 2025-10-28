@@ -243,12 +243,16 @@ const Index = () => {
               Svar på vanliga frågor så som priser, implementering och funktioner med videoinnehåll för att göra det enkelt att konsumera.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Button size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                Se Videoguider
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+                <a href="#pricing">
+                  Licenspriser
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg border-2 border-white text-white hover:bg-white hover:text-primary">
-                Prisöversikt
+              <Button asChild size="lg" variant="outline" className="text-lg border-2 border-white text-white hover:bg-white hover:text-primary">
+                <a href="#implementation">
+                  Projektkostnader
+                </a>
               </Button>
             </div>
           </div>
@@ -296,8 +300,10 @@ const Index = () => {
                 </ul>
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                Utforska Affärssystem
+              <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+                <a href="#pricing">
+                  Utforska Affärssystem
+                </a>
               </Button>
             </div>
 
@@ -328,8 +334,10 @@ const Index = () => {
                 </ul>
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                Utforska CRM-lösningar
+              <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+                <a href="#crm-pricing">
+                  Utforska CRM-lösningar
+                </a>
               </Button>
             </div>
           </div>
@@ -1163,7 +1171,7 @@ const Index = () => {
       </section>
 
       {/* Implementation Pricing Section */}
-      <section className="py-20 bg-secondary/50">
+      <section id="implementation" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
