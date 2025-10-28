@@ -33,7 +33,7 @@ const Index = () => {
     {
       title: "Marketing Automation",
       description: "Skapa personliga kundresor med Microsoft Dynamics 365 Marketing",
-      videoId: "iUSj8sC76qk",
+      videoId: "41lG3EHo4Lw",
     },
     {
       title: "Customer Service och Support",
@@ -43,7 +43,7 @@ const Index = () => {
     {
       title: "Dynamics 365 Contact Center",
       description: "Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation",
-      videoId: "ewtCAkM55Fc",
+      videoId: "MYl0lN5_-L8",
     },
     {
       title: "Dynamics 365 Field Service",
