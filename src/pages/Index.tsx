@@ -54,7 +54,7 @@ const Index = () => {
   const pricingPlans = [
     {
       title: "Business Central Essentials",
-      description: "För små företag",
+      description: "För mindre företag",
       price: "700 kr",
       features: [
         "Ekonomihantering",
