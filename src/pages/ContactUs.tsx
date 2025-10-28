@@ -28,8 +28,8 @@ const ContactUs = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-3xl mx-auto">
-              {/* Contact Cards */}
+            <div className="mb-12 max-w-3xl mx-auto">
+              {/* Contact Card */}
               <Card className="border-border">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
@@ -46,28 +46,6 @@ const ContactUs = () => {
                         className="text-primary hover:underline"
                       >
                         info@dynamicfactory.se
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <Phone className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg mb-2">Telefon</h3>
-                      <p className="text-muted-foreground mb-2">
-                        Ring oss under kontorstid
-                      </p>
-                      <a 
-                        href="tel:+46123456789" 
-                        className="text-primary hover:underline"
-                      >
-                        +46 123 456 789
                       </a>
                     </div>
                   </div>
@@ -107,6 +85,13 @@ const ContactUs = () => {
                         </svg>
                         <a href="mailto:thomas.laine@dynamicfactory.se" className="text-primary hover:underline">
                           thomas.laine@dynamicfactory.se
+                        </a>
+                      </div>
+                      
+                      <div className="flex items-center justify-center md:justify-start gap-3">
+                        <Phone className="w-5 h-5 text-primary" />
+                        <a href="tel:+46123456789" className="text-primary hover:underline">
+                          +46 123 456 789
                         </a>
                       </div>
                       
