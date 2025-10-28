@@ -297,7 +297,7 @@ const Index = () => {
       <footer className="bg-card border-t border-border py-12">
         <div className="container mx-auto px-4">
           <div className="text-center text-muted-foreground">
-            <p className="mb-2">© 2024 Dynamic Factory</p>
+            <p className="mb-2">© 2025 Dynamic Factory</p>
             <p className="text-sm">
               Vi svarar ärligt på alla frågor enligt "They Ask, You Answer"-metoden
             </p>
