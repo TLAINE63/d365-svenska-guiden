@@ -36,7 +36,7 @@ const Index = () => {
     },
     {
       title: "Customer Service och Support",
-      description: "Leverera exceptionell kundservice med AI-driven insikter",
+      description: "Leverera exceptionell kundservice med AI-drivna insikter",
       videoId: "sWKW3Zm3HQs",
     },
     {
