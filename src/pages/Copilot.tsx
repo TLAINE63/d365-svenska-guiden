@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import CopilotLogo from "@/assets/icons/Copilot.png";
 
 const Copilot = () => {
   return (
@@ -14,7 +15,7 @@ const Copilot = () => {
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <div className="flex justify-center mb-4">
-              <Sparkles className="w-16 h-16 text-primary-foreground" />
+              <img src={CopilotLogo} alt="Copilot" className="h-16 w-16" />
             </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               Microsoft Copilot för Dynamics 365
