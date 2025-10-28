@@ -3,7 +3,7 @@ import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import BigFiveSection from "@/components/BigFiveSection";
 import { PlayCircle, ArrowRight } from "lucide-react";
-import thomasLainePhoto from "@/assets/thomas-laine.jpg";
+import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 
 const Index = () => {
   const erpVideos = [
@@ -1396,7 +1396,7 @@ const Index = () => {
                 
                 <div className="flex-grow text-center md:text-left">
                   <h3 className="text-2xl font-bold text-card-foreground mb-2">Thomas Laine</h3>
-                  <p className="text-lg text-muted-foreground mb-4">Senior Microsoft Dynamics 365 Konsult</p>
+                  <p className="text-lg text-muted-foreground mb-4">Microsoft Business Applications Evangelist</p>
                   
                   <div className="space-y-3">
                     <div className="flex items-center justify-center md:justify-start gap-3">
@@ -1409,7 +1409,7 @@ const Index = () => {
                     </div>
                     
                     <p className="text-sm text-muted-foreground">
-                      Med över 15 års erfarenhet av Microsoft Dynamics 365 hjälper Thomas företag att välja rätt lösning och lyckas med sina ERP- och CRM-projekt.
+                      Med över 35 års erfarenhet av Microsoft Dynamics 365 hjälper Thomas företag att välja rätt lösning och lyckas med sina ERP- och CRM-projekt.
                     </p>
                   </div>
                   
