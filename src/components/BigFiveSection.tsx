@@ -14,17 +14,17 @@ const bigFiveItems = [
   {
     icon: GitCompare,
     title: "Jämförelser",
-    description: "D365 vs andra ERP-system på marknaden",
+    description: "Microsoft Dynamics 365 vs andra ERP-system på marknaden",
   },
   {
     icon: Star,
     title: "Recensioner",
-    description: "Vad våra kunder säger om D365",
+    description: "Vad våra kunder säger om Microsoft Dynamics 365",
   },
   {
     icon: Award,
     title: "Bäst i Klassen",
-    description: "Varför D365 är branschledande",
+    description: "Varför Microsoft Dynamics 365 är branschledande",
   },
 ];
 

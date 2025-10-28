@@ -8,12 +8,12 @@ const Index = () => {
   const erpVideos = [
     {
       title: "Introduktion till Dynamics 365 Finance",
-      description: "Lär dig grunderna i D365 Finance och hur det kan transformera din ekonomihantering",
+      description: "Lär dig grunderna i Microsoft Dynamics 365 Finance och hur det kan transformera din ekonomihantering",
       videoId: "Uf87oOZ-ZpM",
     },
     {
       title: "Supply Chain Management Översikt",
-      description: "Upptäck hur D365 Supply Chain Management optimerar din leveranskedja",
+      description: "Upptäck hur Microsoft Dynamics 365 Supply Chain Management optimerar din leveranskedja",
       videoId: "5OoBvP0Sty0",
     },
     {
@@ -31,7 +31,7 @@ const Index = () => {
     },
     {
       title: "Marketing Automation",
-      description: "Skapa personliga kundresor med D365 Marketing",
+      description: "Skapa personliga kundresor med Microsoft Dynamics 365 Marketing",
       videoId: "6pJM3F0nB-U",
     },
     {
