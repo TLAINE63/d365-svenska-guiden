@@ -1452,7 +1452,7 @@ const Index = () => {
             Boka en gratis konsultation så hjälper vi dig att hitta rätt lösning för din verksamhet
           </p>
           <Button asChild size="lg" variant="secondary" className="text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-            <Link to="/contact-us">Kontakta Oss Idag</Link>
+            <Link to="/kontakt">Kontakta Oss Idag</Link>
           </Button>
         </div>
       </section>

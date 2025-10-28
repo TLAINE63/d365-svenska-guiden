@@ -184,7 +184,7 @@ const Copilot = () => {
               Kontakta oss för att lära dig mer om Copilot för Dynamics 365
             </p>
             <Button asChild className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
-              <Link to="/contact-us">Boka Gratis Konsultation</Link>
+              <Link to="/kontakt">Boka Gratis Konsultation</Link>
             </Button>
           </div>
         </div>

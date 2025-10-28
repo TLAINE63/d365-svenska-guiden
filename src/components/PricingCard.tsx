@@ -41,7 +41,7 @@ const PricingCard = ({ title, description, price, features, popular }: PricingCa
           className="w-full mt-6 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] hover:opacity-90 text-primary-foreground"
           size="lg"
         >
-          <Link to="/contact-us">Kontakta oss</Link>
+          <Link to="/kontakt">Kontakta oss</Link>
         </Button>
       </CardContent>
     </Card>
