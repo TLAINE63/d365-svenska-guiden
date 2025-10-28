@@ -51,7 +51,19 @@ const Index = () => {
     },
   ];
 
-  const pricingPlans = [
+  const bcPricingPlans = [
+    {
+      title: "Business Central Team Member",
+      description: "För användare med begränsade behov",
+      price: "100 kr",
+      features: [
+        "Läsbehörighet",
+        "Grundläggande rapporter",
+        "Tidrapportering",
+        "Godkännanden",
+        "Self-service funktioner",
+      ],
+    },
     {
       title: "Business Central Essentials",
       description: "För mindre företag",
@@ -76,16 +88,31 @@ const Index = () => {
         "Prioriterad support",
       ],
     },
+  ];
+
+  const fscPricingPlans = [
     {
-      title: "Finance & Operations",
-      description: "För stora organisationer",
-      price: "Från 2 500 kr",
+      title: "Dynamics 365 Finance",
+      description: "Avancerad finansiell hantering",
+      price: "Från 2 200 kr",
       features: [
-        "Avancerad ekonomi",
-        "Global Supply Chain",
+        "Global finansiell hantering",
+        "Budgetering och prognoser",
+        "Kostnadsredovisning",
+        "Skattehantering",
+        "Finansiell rapportering",
+      ],
+    },
+    {
+      title: "Dynamics 365 Supply Chain",
+      description: "Komplett supply chain-lösning",
+      price: "Från 2 200 kr",
+      features: [
+        "Avancerad lagerhantering",
+        "Produktionsplanering",
+        "Inköp och logistik",
         "Asset Management",
-        "HR & Payroll",
-        "24/7 Premium support",
+        "IoT Intelligence",
       ],
     },
   ];
@@ -354,25 +381,55 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Pricing Section - ERP/Affärssystem */}
       <section id="pricing" className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Prisöversikt
+              Prisöversikt - Affärssystem (ERP)
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              De vanligaste prisvarianterna för Dynamics 365
+              Transparenta priser för alla Dynamics 365 ERP-applikationer
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {pricingPlans.map((plan, index) => (
-              <PricingCard key={index} {...plan} />
-            ))}
+
+          {/* Business Central Pricing */}
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Business Central
+              </h3>
+              <p className="text-muted-foreground">
+                För mindre och medelstora företag
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {bcPricingPlans.map((plan, index) => (
+                <PricingCard key={index} {...plan} />
+              ))}
+            </div>
           </div>
+
+          {/* Finance & Supply Chain Pricing */}
+          <div>
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Finance & Supply Chain Management
+              </h3>
+              <p className="text-muted-foreground">
+                För stora organisationer och komplexa verksamheter
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {fscPricingPlans.map((plan, index) => (
+                <PricingCard key={index} {...plan} />
+              ))}
+            </div>
+          </div>
+
           <div className="mt-12 text-center">
             <p className="text-muted-foreground mb-4">
-              Alla priser är approximativa och kan variera beroende på din specifika konfiguration
+              Alla priser är per användare/månad (exkl. moms) och kan variera beroende på din specifika konfiguration
             </p>
           </div>
         </div>
