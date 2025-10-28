@@ -208,6 +208,18 @@ const Index = () => {
         "Multi-channel kampanjer",
       ],
     },
+    {
+      title: "Marketing Attach",
+      description: "Marketing-tillägg för befintliga användare",
+      price: "5 300 kr",
+      features: [
+        "Kräver befintlig CE-licens",
+        "E-postmarknadsföring",
+        "Grundläggande kundresor",
+        "Lead management",
+        "Integration med Sales/Service",
+      ],
+    },
   ];
 
   return (
@@ -584,7 +596,7 @@ const Index = () => {
                 För fältservice och marknadsföringsautomation
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {crmPricingPlans3.map((plan, index) => (
                 <PricingCard key={index} {...plan} />
               ))}
@@ -596,7 +608,7 @@ const Index = () => {
               Alla priser är per användare/månad (exkl. moms) och kan variera beroende på din specifika konfiguration
             </p>
             <p className="text-sm text-muted-foreground">
-              <strong>OBS:</strong> Marketing är prissatt per organisation och inkluderar upp till 10 000 kontakter
+              <strong>OBS:</strong> Marketing är prissatt per organisation och inkluderar upp till 10 000 kontakter. Marketing Attach kräver befintlig Sales/Customer Service-licens.
             </p>
           </div>
         </div>
