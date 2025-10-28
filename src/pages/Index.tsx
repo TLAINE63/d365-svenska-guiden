@@ -41,7 +41,7 @@ const Index = () => {
     },
     {
       title: "Dynamics 365 Contact Center",
-      description: "Moderna kontaktcenterlösningar med AI och automation",
+      description: "Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation",
       videoId: "6pJM3F0nB-U",
     },
     {
