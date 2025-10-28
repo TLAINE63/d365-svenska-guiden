@@ -30,14 +30,14 @@ const Index = () => {
       videoId: "VgFo8s2KhKI",
     },
     {
-      title: "Customer Service och Support",
-      description: "Leverera exceptionell kundservice med AI-driven insikter",
-      videoId: "sWKW3Zm3HQs",
-    },
-    {
       title: "Marketing Automation",
       description: "Skapa personliga kundresor med D365 Marketing",
       videoId: "6pJM3F0nB-U",
+    },
+    {
+      title: "Customer Service och Support",
+      description: "Leverera exceptionell kundservice med AI-driven insikter",
+      videoId: "sWKW3Zm3HQs",
     },
   ];
 
