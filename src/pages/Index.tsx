@@ -617,53 +617,169 @@ const Index = () => {
       {/* Implementation Pricing Section */}
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Implementeringskostnader
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Kostnaderna för implementering varierar baserat på dina behov
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Implementeringskostnader
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Kostnaderna för implementering varierar baserat på system och omfattning
+            </p>
+          </div>
+
+          {/* Business Central Implementation */}
+          <div className="max-w-6xl mx-auto mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Business Central
+              </h3>
+              <p className="text-muted-foreground">
+                Implementeringskostnader för mindre och medelstora företag
               </p>
             </div>
-            <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 space-y-6 border border-border">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-card-foreground">Grundimplementering</h3>
-                  <p className="text-muted-foreground">Standarduppsättning av Business Central</p>
-                  <div className="text-3xl font-bold text-primary">150 000 - 300 000 kr</div>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>• 2-4 månaders projekt</li>
-                    <li>• Standardprocesser</li>
-                    <li>• Grundläggande utbildning</li>
-                    <li>• Datamigration</li>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
+                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
+                <p className="text-muted-foreground mb-4">Standarduppsättning med begränsade anpassningar</p>
+                <div className="text-3xl font-bold text-primary mb-6">150 000 - 400 000 kr</div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• 2-4 månaders projekt</li>
+                  <li>• Standardprocesser och funktionalitet</li>
+                  <li>• Grundläggande utbildning</li>
+                  <li>• Datamigration från enklare system</li>
+                  <li>• Få eller inga integrationer</li>
+                  <li>• 5-20 användare</li>
+                </ul>
+              </div>
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
+                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
+                <p className="text-muted-foreground mb-4">Anpassad lösning med integrationer och komplexitet</p>
+                <div className="text-3xl font-bold text-primary mb-6">500 000 - 1 500 000 kr</div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• 4-8 månaders projekt</li>
+                  <li>• Anpassade processer och workflows</li>
+                  <li>• Omfattande utbildning och change management</li>
+                  <li>• Komplex datamigration</li>
+                  <li>• Flera systemintegrationer</li>
+                  <li>• 20-200 användare</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Finance & Supply Chain Implementation */}
+          <div className="max-w-6xl mx-auto mb-16">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Finance & Supply Chain Management
+              </h3>
+              <p className="text-muted-foreground">
+                Implementeringskostnader för stora organisationer
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
+                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
+                <p className="text-muted-foreground mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
+                <div className="text-3xl font-bold text-primary mb-6">1 500 000 - 3 000 000 kr</div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• 6-9 månaders projekt</li>
+                  <li>• Standardprocesser med mindre anpassningar</li>
+                  <li>• Strukturerad utbildning</li>
+                  <li>• Datamigration och validering</li>
+                  <li>• Grundläggande integrationer</li>
+                  <li>• 50-200 användare</li>
+                </ul>
+              </div>
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
+                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
+                <p className="text-muted-foreground mb-4">Globala implementationer med hög komplexitet</p>
+                <div className="text-3xl font-bold text-primary mb-6">3 000 000 - 10 000 000+ kr</div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• 9-18+ månaders projekt</li>
+                  <li>• Omfattande anpassningar och utveckling</li>
+                  <li>• Global rollout och change management</li>
+                  <li>• Komplex datamigration från flera system</li>
+                  <li>• Många systemintegrationer och API:er</li>
+                  <li>• 200-2000+ användare</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* CRM Implementation */}
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                CRM (Customer Engagement)
+              </h3>
+              <p className="text-muted-foreground">
+                Implementeringskostnader för Sales, Service och Marketing
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
+                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
+                <p className="text-muted-foreground mb-4">En eller två CRM-applikationer med standardfunktionalitet</p>
+                <div className="text-3xl font-bold text-primary mb-6">200 000 - 600 000 kr</div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• 2-4 månaders projekt</li>
+                  <li>• Sales eller Customer Service</li>
+                  <li>• Standardprocesser och formulär</li>
+                  <li>• Grundläggande utbildning</li>
+                  <li>• Datamigration av kontakter och affärer</li>
+                  <li>• 10-50 användare</li>
+                </ul>
+              </div>
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
+                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
+                <p className="text-muted-foreground mb-4">Flera CRM-applikationer med anpassningar och integrationer</p>
+                <div className="text-3xl font-bold text-primary mb-6">800 000 - 3 000 000+ kr</div>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• 4-10 månaders projekt</li>
+                  <li>• Sales + Service + Marketing/Field Service</li>
+                  <li>• Anpassade processer och automatiseringar</li>
+                  <li>• Omfattande utbildning och adoption</li>
+                  <li>• Komplex datamigration och integration</li>
+                  <li>• 50-500+ användare</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Common Factors */}
+          <div className="max-w-4xl mx-auto mt-16">
+            <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
+              <h4 className="text-xl font-semibold text-card-foreground mb-6 text-center">
+                Faktorer som påverkar priset
+              </h4>
+              <div className="grid md:grid-cols-3 gap-6 text-sm text-muted-foreground">
+                <div>
+                  <p className="font-semibold text-card-foreground mb-2">Omfattning</p>
+                  <ul className="space-y-1">
+                    <li>• Antal användare</li>
+                    <li>• Antal moduler</li>
+                    <li>• Geografisk spridning</li>
                   </ul>
                 </div>
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-card-foreground">Avancerad Implementering</h3>
-                  <p className="text-muted-foreground">Anpassad lösning med integrationer</p>
-                  <div className="text-3xl font-bold text-primary">500 000 - 2 000 000+ kr</div>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>• 4-12 månaders projekt</li>
-                    <li>• Anpassade processer</li>
-                    <li>• Omfattande utbildning</li>
-                    <li>• Flera integrationer</li>
+                <div>
+                  <p className="font-semibold text-card-foreground mb-2">Komplexitet</p>
+                  <ul className="space-y-1">
+                    <li>• Anpassningsbehov</li>
+                    <li>• Integrationer</li>
+                    <li>• Datavolym och kvalitet</li>
+                  </ul>
+                </div>
+                <div>
+                  <p className="font-semibold text-card-foreground mb-2">Organisation</p>
+                  <ul className="space-y-1">
+                    <li>• Utbildningsbehov</li>
+                    <li>• Change management</li>
+                    <li>• Projektorganisation</li>
                   </ul>
                 </div>
               </div>
-              <div className="pt-6 border-t border-border">
-                <h4 className="font-semibold text-card-foreground mb-3">Faktorer som påverkar priset:</h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
-                  <div>• Antal användare och moduler</div>
-                  <div>• Anpassningsbehov</div>
-                  <div>• Datavolym och kvalitet</div>
-                  <div>• Integrationer med andra system</div>
-                  <div>• Utbildningsbehov</div>
-                  <div>• Geografisk spridning</div>
-                </div>
-              </div>
-              <div className="pt-6">
-                <Button className="w-full md:w-auto bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] hover:opacity-90 text-primary-foreground" size="lg">
+              <div className="mt-8 text-center">
+                <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(25,95%,60%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
                   Boka Gratis Konsultation
                 </Button>
               </div>
