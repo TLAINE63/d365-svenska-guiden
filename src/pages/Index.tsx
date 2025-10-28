@@ -363,9 +363,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Big Five Section */}
-      <BigFiveSection />
-
       {/* AI & Copilot Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
