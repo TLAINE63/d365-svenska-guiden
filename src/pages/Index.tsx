@@ -404,7 +404,7 @@ const Index = () => {
               <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
                 <h3 className="text-2xl font-bold text-card-foreground mb-4">Finance & Supply Chain</h3>
                 <p className="text-muted-foreground mb-6">
-                  Företagslösning för stora organisationer med komplexa behov
+                  Företagslösning för större och ofta internationella organisationer med komplexa behov
                 </p>
                 
                 <div className="space-y-4">
