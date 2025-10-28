@@ -1064,7 +1064,7 @@ const Index = () => {
                 Finance & Supply Chain Management
               </h3>
               <p className="text-muted-foreground">
-                För stora organisationer och komplexa verksamheter
+                För större organisationer med komplexa verksamheter
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
