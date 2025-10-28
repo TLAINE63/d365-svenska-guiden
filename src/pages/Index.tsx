@@ -6,6 +6,12 @@ import Navbar from "@/components/Navbar";
 import { PlayCircle, ArrowRight } from "lucide-react";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 import { Link } from "react-router-dom";
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
 
 const Index = () => {
   const erpVideos = [
@@ -286,6 +292,11 @@ const Index = () => {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-card-foreground mb-2">Affärssystem (ERP)</h3>
+                <div className="flex justify-center gap-2 mb-3">
+                  <img src={BusinessCentralIcon} alt="Business Central" className="h-8 w-8" />
+                  <img src={FinanceIcon} alt="Finance" className="h-8 w-8" />
+                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-8 w-8" />
+                </div>
                 <p className="text-sm text-muted-foreground mb-3 font-medium">
                   Microsoft Dynamics 365 Finance & Supply Chain samt Business Central
                 </p>
@@ -320,6 +331,11 @@ const Index = () => {
                   </svg>
                 </div>
                 <h3 className="text-2xl font-bold text-card-foreground mb-2">CRM (Customer Engagement)</h3>
+                <div className="flex justify-center gap-2 mb-3">
+                  <img src={SalesIcon} alt="Sales" className="h-8 w-8" />
+                  <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8" />
+                  <img src={MarketingIcon} alt="Marketing" className="h-8 w-8" />
+                </div>
                 <p className="text-sm text-muted-foreground mb-3 font-medium">
                   Microsoft Dynamics 365 Sales, Marketing, Service
                 </p>

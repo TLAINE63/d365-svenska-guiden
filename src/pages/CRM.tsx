@@ -4,6 +4,9 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
 
 const CRM = () => {
   const ceVideos = [
@@ -124,6 +127,11 @@ const CRM = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTItMTItNS4zNzMtMTItMTJ6TTAgMTZjMC02LjYyNyA1LjM3My0xMiAxMi0xMnMxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMlMwIDIyLjYyNyAwIDE2em0zNiAzNmMwLTYuNjI3IDUuMzczLTEyIDEyLTEyczEyIDUuMzczIDEyIDEyLTUuMzczIDEyLTEyIDEyLTEyLTUuMzczLTEyLTEyek0wIDUyYzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTJTMCA1OC42MjcgMCA1MnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
           <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className="flex justify-center items-center gap-4 mb-6">
+              <img src={SalesIcon} alt="Sales" className="h-16 w-16" />
+              <img src={CustomerServiceIcon} alt="Customer Service" className="h-16 w-16" />
+              <img src={MarketingIcon} alt="Marketing" className="h-16 w-16" />
+            </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               CRM (Customer Engagement)
             </h1>
@@ -157,9 +165,12 @@ const CRM = () => {
       <section id="sales-pricing" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Dynamics 365 Sales
-            </h2>
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <img src={SalesIcon} alt="Sales" className="h-12 w-12" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Dynamics 365 Sales
+              </h2>
+            </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Priser per användare och månad
             </p>
@@ -176,9 +187,12 @@ const CRM = () => {
       <section id="service-pricing" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Dynamics 365 Customer Service
-            </h2>
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <img src={CustomerServiceIcon} alt="Customer Service" className="h-12 w-12" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Dynamics 365 Customer Service
+              </h2>
+            </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Priser per användare och månad
             </p>
@@ -195,9 +209,12 @@ const CRM = () => {
       <section id="marketing-pricing" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Dynamics 365 Marketing
-            </h2>
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <img src={MarketingIcon} alt="Marketing" className="h-12 w-12" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Dynamics 365 Marketing
+              </h2>
+            </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Baserat på kontaktvolym
             </p>

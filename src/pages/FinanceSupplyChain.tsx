@@ -4,6 +4,8 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 
 const FinanceSupplyChain = () => {
   const fscVideos = [
@@ -67,6 +69,10 @@ const FinanceSupplyChain = () => {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTItMTItNS4zNzMtMTItMTJ6TTAgMTZjMC02LjYyNyA1LjM3My0xMiAxMi0xMnMxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMlMwIDIyLjYyNyAwIDE2em0zNiAzNmMwLTYuNjI3IDUuMzczLTEyIDEyLTEyczEyIDUuMzczIDEyIDEyLTUuMzczIDEyLTEyIDEyLTEyLTUuMzczLTEyLTEyek0wIDUyYzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTJTMCA1OC42MjcgMCA1MnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
         <div className="container mx-auto px-4 py-20 md:py-32 relative">
           <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className="flex justify-center items-center gap-4 mb-6">
+              <img src={FinanceIcon} alt="Finance" className="h-16 w-16" />
+              <img src={SupplyChainIcon} alt="Supply Chain" className="h-16 w-16" />
+            </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               Finance & Supply Chain
             </h1>
