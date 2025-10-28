@@ -12,6 +12,26 @@ const Copilot = () => {
       description: "Lägg in din YouTube video-ID här",
       videoId: "dQw4w9WgXcQ", // Byt ut detta mot din YouTube video-ID
     },
+    {
+      title: "Dynamics 365 Sales Copilot - Review & Demo",
+      description: "En omfattande genomgång av AI-genererade sammanfattningar och mötesförberedelser",
+      videoId: "xCZxq6AEneE",
+    },
+    {
+      title: "AI och Copilot för Dynamics 365 Finance & Operations",
+      description: "Lär dig om AI-funktioner i Finance, Supply Chain Management och Commerce",
+      videoId: "BFPg5GJJjNY",
+    },
+    {
+      title: "Copilot-driven Onboarding Process",
+      description: "Upptäck hur Copilot förbättrar introduktionsprocessen",
+      videoId: "vfyzbGHIa3E",
+    },
+    {
+      title: "Förbättra kundupplevelsen med Dynamics 365 Copilot",
+      description: "Lär dig nyckelfunktioner för att förbättra kundrelationer",
+      videoId: "AoO3Pcooc9A",
+    },
   ];
 
   return (
