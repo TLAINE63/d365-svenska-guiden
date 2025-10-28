@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
+import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 
 const CRM = () => {
   const ceVideos = [
@@ -118,6 +120,36 @@ const CRM = () => {
     },
   ];
 
+  const contactCenterPricing = [
+    {
+      title: "Contact Center",
+      description: "Modern kontaktcenterlösning",
+      price: "Från 1 000 kr",
+      features: [
+        "Omnichannel-stöd (telefon, chatt, e-post)",
+        "AI-driven samtalsassistent",
+        "Real-time analytics",
+        "Intelligent routing",
+        "Integration med Teams",
+      ],
+    },
+  ];
+
+  const fieldServicePricing = [
+    {
+      title: "Field Service",
+      description: "Fältservicehantering",
+      price: "Från 950 kr",
+      features: [
+        "Schemaläggning och resursoptimering",
+        "Mobil arbetsorder-app",
+        "IoT-integration",
+        "Lagerhantering",
+        "Kundsignatur och fakturering",
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -129,14 +161,16 @@ const CRM = () => {
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <div className="flex justify-center items-center gap-4 mb-6">
               <img src={SalesIcon} alt="Sales" className="h-16 w-16" />
-              <img src={CustomerServiceIcon} alt="Customer Service" className="h-16 w-16" />
               <img src={MarketingIcon} alt="Marketing" className="h-16 w-16" />
+              <img src={CustomerServiceIcon} alt="Customer Service" className="h-16 w-16" />
+              <img src={ContactCenterIcon} alt="Contact Center" className="h-16 w-16" />
+              <img src={FieldServiceIcon} alt="Field Service" className="h-16 w-16" />
             </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               CRM (Customer Engagement)
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
-              Microsoft Dynamics 365 Sales, Marketing, Service
+              Microsoft Dynamics 365 Sales, Marketing, Customer Service, Contact Center, Field Service
             </p>
           </div>
         </div>
@@ -183,8 +217,30 @@ const CRM = () => {
         </div>
       </section>
 
-      {/* Service Pricing */}
-      <section id="service-pricing" className="py-20 bg-background">
+      {/* Marketing Pricing */}
+      <section id="marketing-pricing" className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <img src={MarketingIcon} alt="Marketing" className="h-12 w-12" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Dynamics 365 Marketing
+              </h2>
+            </div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Baserat på kontaktvolym
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto">
+            {marketingPricing.map((plan, index) => (
+              <PricingCard key={index} {...plan} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Customer Service Pricing */}
+      <section id="service-pricing" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
@@ -205,22 +261,44 @@ const CRM = () => {
         </div>
       </section>
 
-      {/* Marketing Pricing */}
-      <section id="marketing-pricing" className="py-20 bg-secondary/50">
+      {/* Contact Center Pricing */}
+      <section id="contact-center-pricing" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
-              <img src={MarketingIcon} alt="Marketing" className="h-12 w-12" />
+              <img src={ContactCenterIcon} alt="Contact Center" className="h-12 w-12" />
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Dynamics 365 Marketing
+                Dynamics 365 Contact Center
               </h2>
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Baserat på kontaktvolym
+              Priser per användare och månad
             </p>
           </div>
           <div className="max-w-2xl mx-auto">
-            {marketingPricing.map((plan, index) => (
+            {contactCenterPricing.map((plan, index) => (
+              <PricingCard key={index} {...plan} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Field Service Pricing */}
+      <section id="field-service-pricing" className="py-20 bg-secondary/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="flex justify-center items-center gap-3 mb-4">
+              <img src={FieldServiceIcon} alt="Field Service" className="h-12 w-12" />
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                Dynamics 365 Field Service
+              </h2>
+            </div>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Priser per användare och månad
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto">
+            {fieldServicePricing.map((plan, index) => (
               <PricingCard key={index} {...plan} />
             ))}
           </div>
