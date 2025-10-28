@@ -14,7 +14,7 @@ const bigFiveItems = [
   {
     icon: GitCompare,
     title: "Jämförelser",
-    description: "Microsoft Dynamics 365 vs andra ERP-system på marknaden",
+    description: "Microsoft Dynamics 365 vs andra CRM/ERP-system på marknaden",
   },
   {
     icon: Star,
