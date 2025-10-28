@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
+import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 
 const ContactUs = () => {
   return (
@@ -72,6 +73,59 @@ const ContactUs = () => {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+
+            {/* Contact Person Section */}
+            <div className="mb-12">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Din Kontaktperson
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Har du frågor om Microsoft Dynamics 365? Kontakta oss!
+                </p>
+              </div>
+              
+              <div className="bg-card rounded-lg p-8 md:p-12 border border-border shadow-[var(--shadow-card)]">
+                <div className="flex flex-col md:flex-row items-center gap-8">
+                  <div className="flex-shrink-0">
+                    <img 
+                      src={thomasLainePhoto} 
+                      alt="Thomas Laine - Dynamics 365 Konsult" 
+                      className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-primary/20"
+                    />
+                  </div>
+                  
+                  <div className="flex-grow text-center md:text-left">
+                    <h3 className="text-2xl font-bold text-card-foreground mb-2">Thomas Laine</h3>
+                    <p className="text-lg text-muted-foreground mb-4">Microsoft Business Applications Evangelist</p>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-center md:justify-start gap-3">
+                        <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <a href="mailto:thomas.laine@dynamicfactory.se" className="text-primary hover:underline">
+                          thomas.laine@dynamicfactory.se
+                        </a>
+                      </div>
+                      
+                      <p className="text-sm text-muted-foreground">
+                        Med över 25 års erfarenhet av Microsoft Dynamics 365 hjälper Thomas företag att välja rätt lösning och lyckas med sina ERP- och CRM-projekt.
+                      </p>
+                    </div>
+                    
+                    <div className="mt-6">
+                      <Button 
+                        className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
+                        onClick={() => window.location.href = 'mailto:thomas.laine@dynamicfactory.se'}
+                      >
+                        Skicka e-post
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* CTA Section */}
