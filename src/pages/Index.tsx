@@ -173,7 +173,7 @@ const Index = () => {
               Transparenta Priser
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Inga dolda kostnader. Här är våra licenspriser (exkl. moms)
+              De vanligaste prisvarianterna för Dynamics 365
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
