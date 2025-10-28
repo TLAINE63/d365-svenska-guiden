@@ -10,12 +10,13 @@ import {
 
 const Navbar = () => {
   const menuItems = [
-    { label: "CRM", path: "/crm" },
-    { label: "Business Central", path: "/business-central" },
-    { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
-    { label: "Copilot", path: "/copilot" },
-    { label: "Q&A", path: "/qa" },
-    { label: "Kontakt", path: "/kontakt" },
+    { label: "CRM", path: "/crm", external: false },
+    { label: "Business Central", path: "/business-central", external: false },
+    { label: "Finance & Supply Chain", path: "/finance-supply-chain", external: false },
+    { label: "Copilot", path: "/copilot", external: false },
+    { label: "Q&A", path: "/qa", external: false },
+    { label: "Blogg", path: "https://www.microsoft.com/en-us/dynamics-365/blog/", external: true },
+    { label: "Kontakt", path: "/kontakt", external: false },
   ];
 
   return (
@@ -34,13 +35,25 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
             {menuItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-              >
-                {item.label}
-              </Link>
+              item.external ? (
+                <a
+                  key={item.path}
+                  href={item.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )
             ))}
           </div>
 
@@ -54,13 +67,25 @@ const Navbar = () => {
             <SheetContent>
               <div className="flex flex-col gap-4 mt-8">
                 {menuItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-                  >
-                    {item.label}
-                  </Link>
+                  item.external ? (
+                    <a
+                      key={item.path}
+                      href={item.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  )
                 ))}
               </div>
             </SheetContent>
