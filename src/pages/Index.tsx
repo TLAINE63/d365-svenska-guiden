@@ -117,6 +117,11 @@ const Index = () => {
                   Skillnaden mellan olika D365 Sales licensvarianter?
                 </Link>
               </Button>
+              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
+                <Link to="/qa#bc-vs-fsc" className="text-center">
+                  Passar Business Central eller Finance & Supply Chain bäst?
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
