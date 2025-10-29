@@ -11,227 +11,112 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
-
 const Index = () => {
-  const erpVideos = [
-    {
-      title: "Introduktion till Dynamics 365 Finance",
-      description: "Lär dig grunderna i Microsoft Dynamics 365 Finance och hur det kan transformera din ekonomihantering",
-      videoId: "O5yecO8A_9Q",
-    },
-    {
-      title: "Supply Chain Management Översikt",
-      description: "Upptäck hur Microsoft Dynamics 365 Supply Chain Management optimerar din leveranskedja",
-      videoId: "jC1EaSrB-Ak",
-    },
-    {
-      title: "Business Central för Mindre och Medelstora Företag",
-      description: "Komplett affärslösning för växande företag",
-      videoId: "X7B99e3mNfI",
-    },
-  ];
-
-  const ceVideos = [
-    {
-      title: "Dynamics 365 Sales",
-      description: "Maximera dina försäljningsresultat med intelligent CRM",
-      videoId: "TMdY77b1TTg",
-    },
-    {
-      title: "Marketing Automation",
-      description: "Skapa personliga kundresor med Microsoft Dynamics 365 Marketing",
-      videoId: "41lG3EHo4Lw",
-    },
-    {
-      title: "Customer Service och Support",
-      description: "Leverera exceptionell kundservice med AI-drivna insikter",
-      videoId: "ewtCAkM55Fc",
-    },
-    {
-      title: "Dynamics 365 Contact Center",
-      description: "Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation",
-      videoId: "MYl0lN5_-L8",
-    },
-    {
-      title: "Dynamics 365 Field Service",
-      description: "Optimera fältservice med intelligent schemaläggning och mobilitet",
-      videoId: "OujvbnyGqDY",
-    },
-  ];
-
-  const bcPricingPlans = [
-    {
-      title: "Business Central Team Member",
-      description: "För användare med begränsade behov",
-      price: "100 kr",
-      features: [
-        "Läsbehörighet",
-        "Grundläggande rapporter",
-        "Tidrapportering",
-        "Godkännanden",
-        "Self-service funktioner",
-      ],
-    },
-    {
-      title: "Business Central Essentials",
-      description: "För mindre företag",
-      price: "700 kr",
-      features: [
-        "Ekonomihantering",
-        "Försäljning & Inköp",
-        "Lagerhantering",
-        "Projekthantering",
-        "Support via e-post",
-      ],
-    },
-    {
-      title: "Business Central Premium",
-      description: "För växande företag",
-      price: "1 000 kr",
-      features: [
-        "Alla Essentials-funktioner",
-        "Service Management",
-        "Tillverkning",
-        "Warehouse Management",
-        "Prioriterad support",
-      ],
-    },
-  ];
-
-  const fscPricingPlans = [
-    {
-      title: "Dynamics 365 Finance",
-      description: "Avancerad finansiell hantering",
-      price: "Från 2 200 kr",
-      features: [
-        "Global finansiell hantering",
-        "Budgetering och prognoser",
-        "Kostnadsredovisning",
-        "Skattehantering",
-        "Finansiell rapportering",
-      ],
-    },
-    {
-      title: "Dynamics 365 Supply Chain",
-      description: "Komplett supply chain-lösning",
-      price: "Från 2 200 kr",
-      features: [
-        "Avancerad lagerhantering",
-        "Produktionsplanering",
-        "Inköp och logistik",
-        "Asset Management",
-        "IoT Intelligence",
-      ],
-    },
-  ];
-
-  const crmPricingPlans = [
-    {
-      title: "Dynamics 365 Team Member",
-      description: "För användare med begränsade behov",
-      price: "75 kr",
-      features: [
-        "Läsbehörighet i CRM",
-        "Grundläggande rapporter",
-        "Enkel dataåtkomst",
-        "Mobilapp-åtkomst",
-        "Support via e-post",
-      ],
-    },
-    {
-      title: "Sales Professional",
-      description: "För säljteam",
-      price: "650 kr",
-      features: [
-        "Lead och opportunity management",
-        "Kontakt- och kundhantering",
-        "E-postintegration",
-        "Mobilapp",
-        "Rapporter och dashboards",
-      ],
-    },
-    {
-      title: "Sales Enterprise",
-      description: "Avancerad försäljning",
-      price: "950 kr",
-      features: [
-        "Alla Professional-funktioner",
-        "Säljprognoser och AI-insikter",
-        "LinkedIn Sales Navigator",
-        "Anpassade arbetsflöden",
-        "Avancerad automatisering",
-      ],
-    },
-  ];
-
-  const crmPricingPlans2 = [
-    {
-      title: "Customer Service Professional",
-      description: "Grundläggande kundservice",
-      price: "500 kr",
-      features: [
-        "Ärendehantering",
-        "Kunskapsbas",
-        "Service Level Agreements",
-        "Kundportaler",
-        "Mobilstöd",
-      ],
-    },
-    {
-      title: "Customer Service Enterprise",
-      description: "Avancerad kundservice",
-      price: "950 kr",
-      features: [
-        "Alla Professional-funktioner",
-        "Omnichannel routing",
-        "AI-driven support",
-        "Unified routing",
-        "Avancerad analytics",
-      ],
-    },
-  ];
-
-  const crmPricingPlans3 = [
-    {
-      title: "Field Service",
-      description: "Fältservicehantering",
-      price: "950 kr",
-      features: [
-        "Arbetsorderhantering",
-        "Schemaläggning och dispatch",
-        "Mobil fältapp",
-        "Lagerhantering",
-        "Preventivt underhåll",
-      ],
-    },
-    {
-      title: "Marketing",
-      description: "Marknadsföringsautomation",
-      price: "Från 15 000 kr",
-      features: [
-        "E-postmarknadsföring",
-        "Kundresor och segmentering",
-        "Event management",
-        "Lead scoring",
-        "Multi-channel kampanjer",
-      ],
-    },
-    {
-      title: "Marketing Attach",
-      description: "Marketing-tillägg för befintliga användare",
-      price: "5 300 kr",
-      features: [
-        "Kräver befintlig CE-licens",
-        "E-postmarknadsföring",
-        "Grundläggande kundresor",
-        "Lead management",
-        "Integration med Sales/Service",
-      ],
-    },
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const erpVideos = [{
+    title: "Introduktion till Dynamics 365 Finance",
+    description: "Lär dig grunderna i Microsoft Dynamics 365 Finance och hur det kan transformera din ekonomihantering",
+    videoId: "O5yecO8A_9Q"
+  }, {
+    title: "Supply Chain Management Översikt",
+    description: "Upptäck hur Microsoft Dynamics 365 Supply Chain Management optimerar din leveranskedja",
+    videoId: "jC1EaSrB-Ak"
+  }, {
+    title: "Business Central för Mindre och Medelstora Företag",
+    description: "Komplett affärslösning för växande företag",
+    videoId: "X7B99e3mNfI"
+  }];
+  const ceVideos = [{
+    title: "Dynamics 365 Sales",
+    description: "Maximera dina försäljningsresultat med intelligent CRM",
+    videoId: "TMdY77b1TTg"
+  }, {
+    title: "Marketing Automation",
+    description: "Skapa personliga kundresor med Microsoft Dynamics 365 Marketing",
+    videoId: "41lG3EHo4Lw"
+  }, {
+    title: "Customer Service och Support",
+    description: "Leverera exceptionell kundservice med AI-drivna insikter",
+    videoId: "ewtCAkM55Fc"
+  }, {
+    title: "Dynamics 365 Contact Center",
+    description: "Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation",
+    videoId: "MYl0lN5_-L8"
+  }, {
+    title: "Dynamics 365 Field Service",
+    description: "Optimera fältservice med intelligent schemaläggning och mobilitet",
+    videoId: "OujvbnyGqDY"
+  }];
+  const bcPricingPlans = [{
+    title: "Business Central Team Member",
+    description: "För användare med begränsade behov",
+    price: "100 kr",
+    features: ["Läsbehörighet", "Grundläggande rapporter", "Tidrapportering", "Godkännanden", "Self-service funktioner"]
+  }, {
+    title: "Business Central Essentials",
+    description: "För mindre företag",
+    price: "700 kr",
+    features: ["Ekonomihantering", "Försäljning & Inköp", "Lagerhantering", "Projekthantering", "Support via e-post"]
+  }, {
+    title: "Business Central Premium",
+    description: "För växande företag",
+    price: "1 000 kr",
+    features: ["Alla Essentials-funktioner", "Service Management", "Tillverkning", "Warehouse Management", "Prioriterad support"]
+  }];
+  const fscPricingPlans = [{
+    title: "Dynamics 365 Finance",
+    description: "Avancerad finansiell hantering",
+    price: "Från 2 200 kr",
+    features: ["Global finansiell hantering", "Budgetering och prognoser", "Kostnadsredovisning", "Skattehantering", "Finansiell rapportering"]
+  }, {
+    title: "Dynamics 365 Supply Chain",
+    description: "Komplett supply chain-lösning",
+    price: "Från 2 200 kr",
+    features: ["Avancerad lagerhantering", "Produktionsplanering", "Inköp och logistik", "Asset Management", "IoT Intelligence"]
+  }];
+  const crmPricingPlans = [{
+    title: "Dynamics 365 Team Member",
+    description: "För användare med begränsade behov",
+    price: "75 kr",
+    features: ["Läsbehörighet i CRM", "Grundläggande rapporter", "Enkel dataåtkomst", "Mobilapp-åtkomst", "Support via e-post"]
+  }, {
+    title: "Sales Professional",
+    description: "För säljteam",
+    price: "650 kr",
+    features: ["Lead och opportunity management", "Kontakt- och kundhantering", "E-postintegration", "Mobilapp", "Rapporter och dashboards"]
+  }, {
+    title: "Sales Enterprise",
+    description: "Avancerad försäljning",
+    price: "950 kr",
+    features: ["Alla Professional-funktioner", "Säljprognoser och AI-insikter", "LinkedIn Sales Navigator", "Anpassade arbetsflöden", "Avancerad automatisering"]
+  }];
+  const crmPricingPlans2 = [{
+    title: "Customer Service Professional",
+    description: "Grundläggande kundservice",
+    price: "500 kr",
+    features: ["Ärendehantering", "Kunskapsbas", "Service Level Agreements", "Kundportaler", "Mobilstöd"]
+  }, {
+    title: "Customer Service Enterprise",
+    description: "Avancerad kundservice",
+    price: "950 kr",
+    features: ["Alla Professional-funktioner", "Omnichannel routing", "AI-driven support", "Unified routing", "Avancerad analytics"]
+  }];
+  const crmPricingPlans3 = [{
+    title: "Field Service",
+    description: "Fältservicehantering",
+    price: "950 kr",
+    features: ["Arbetsorderhantering", "Schemaläggning och dispatch", "Mobil fältapp", "Lagerhantering", "Preventivt underhåll"]
+  }, {
+    title: "Marketing",
+    description: "Marknadsföringsautomation",
+    price: "Från 15 000 kr",
+    features: ["E-postmarknadsföring", "Kundresor och segmentering", "Event management", "Lead scoring", "Multi-channel kampanjer"]
+  }, {
+    title: "Marketing Attach",
+    description: "Marketing-tillägg för befintliga användare",
+    price: "5 300 kr",
+    features: ["Kräver befintlig CE-licens", "E-postmarknadsföring", "Grundläggande kundresor", "Lead management", "Integration med Sales/Service"]
+  }];
+  return <div className="min-h-screen bg-background">
       <Navbar />
       
       {/* Hero Section */}
@@ -294,9 +179,7 @@ const Index = () => {
                 <div className="flex justify-center gap-2 mb-3">
                   <img src={BusinessCentralIcon} alt="Business Central" className="h-8 w-8" />
                 </div>
-                <p className="text-sm text-muted-foreground mb-3 font-medium">
-                  För mindre och medelstora företag
-                </p>
+                <p className="text-sm text-muted-foreground mb-3 font-medium">Komplette affärssystem för mindre och medelstora företag</p>
                 <p className="text-muted-foreground mb-6">
                   Komplett affärslösning med ekonomi, lager och försäljning
                 </p>
@@ -671,9 +554,7 @@ const Index = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {erpVideos.map((video, index) => (
-              <VideoCard key={index} {...video} />
-            ))}
+            {erpVideos.map((video, index) => <VideoCard key={index} {...video} />)}
           </div>
         </div>
       </section>
@@ -930,9 +811,7 @@ const Index = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ceVideos.map((video, index) => (
-              <VideoCard key={index} {...video} />
-            ))}
+            {ceVideos.map((video, index) => <VideoCard key={index} {...video} />)}
           </div>
         </div>
       </section>
@@ -1122,9 +1001,7 @@ const Index = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {bcPricingPlans.map((plan, index) => (
-                <PricingCard key={index} {...plan} />
-              ))}
+              {bcPricingPlans.map((plan, index) => <PricingCard key={index} {...plan} />)}
             </div>
           </div>
 
@@ -1139,9 +1016,7 @@ const Index = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {fscPricingPlans.map((plan, index) => (
-                <PricingCard key={index} {...plan} />
-              ))}
+              {fscPricingPlans.map((plan, index) => <PricingCard key={index} {...plan} />)}
             </div>
           </div>
 
@@ -1176,9 +1051,7 @@ const Index = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {crmPricingPlans.map((plan, index) => (
-                <PricingCard key={index} {...plan} />
-              ))}
+              {crmPricingPlans.map((plan, index) => <PricingCard key={index} {...plan} />)}
             </div>
           </div>
 
@@ -1193,9 +1066,7 @@ const Index = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {crmPricingPlans2.map((plan, index) => (
-                <PricingCard key={index} {...plan} />
-              ))}
+              {crmPricingPlans2.map((plan, index) => <PricingCard key={index} {...plan} />)}
             </div>
           </div>
 
@@ -1210,9 +1081,7 @@ const Index = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {crmPricingPlans3.map((plan, index) => (
-                <PricingCard key={index} {...plan} />
-              ))}
+              {crmPricingPlans3.map((plan, index) => <PricingCard key={index} {...plan} />)}
             </div>
           </div>
 
@@ -1414,29 +1283,22 @@ const Index = () => {
               </p>
             </div>
             <div className="space-y-6">
-              {[
-                {
-                  question: "Hur lång tid tar en implementering?",
-                  answer: "Hur lång tid en implementation av Microsoft Dynamics 365 tar beror i väldigt hög grad på omfattningen, företagets storlek, hur mycket anpassning och integration som krävs – men här kommer en ungefärlig översikt och vad du bör räkna med.\n\n⏳ **Tidsramar**\n\nFör ett relativt enkelt upplägg i ett mindre företag: ca 3-6 månader.\n\nFör medelstor organisation med måttlig komplexitet: ofta 6-12 månader.\n\nFör stora företag med många länder, många system att integrera och hög grad av anpassning: 9-24 månader eller mer.\n\nI vissa fall där krav är mycket begripliga och standardlösning räcker kan man snabbt komma igång – t.ex. \"rapid activation\" modell: 6-12 veckor för ett mycket smalt scope.\n\n🧩 **Vad påverkar hur lång tid det tar**\n\nHär är några av de viktigaste faktorerna:\n\nProjektets omfattning (scope) – Vilka moduler i Dynamics 365 ska användas (CRM, ERP, försäljning, service, finans etc), hur många affärsprocesser ska stödjas?\n\nAnpassning och integration – Ju mer specialanpassningar, ju fler externa system som ska kopplas ihop, desto längre tid.\n\nDatamigrering – Hur mycket data, hur många system, hur komplex datakvaliteten är. Dagra migrering kan dra ut projektet.\n\nResurser och organisation – Tillgängliga medarbetare, interna beslut, förändringsledning, utbildning, användaracceptans spelar stor roll.\n\nMetodik och partnerkompetens – Om du har erfaren partner och standardprocesser kan det gå snabbare; om du bygger mycket från grunden tar det längre.\n\nEfterarbete och förändringsarbete (change management) – Att få användarna att använda systemet fullt ut, och att processen fortsätter efter go-live.\n\n✅ **Slutsats för dig**\n\nEftersom du jobbar som Business Developer – och om du funderar på att implementera Dynamics 365 i din organisation – mitt råd är:\n\nSätt upp ett realistiskt tidsspann: t.ex. om det är ett mindre bolag och ni kan hålla er till standardfunktioner, planera 3-6 månader från kick-off till go-live.\n\nOm det är ett större bolag eller flera affärsområden med komplexa behov, räkna med minst 6-12 månader eller mer.\n\nHa in byggstenar som: tydligt scope, minimal \"nice-to-have\" funktionalitet initialt, bra partner, datamigrering planerad tidigt, och utbildning & förändringsledning från dag 1.",
-                },
-                {
-                  question: "Kan vi börja smått och växa?",
-                  answer: "Absolut! Många kunder som börjar med Business Central kanske inte tar alla funktioner i bruk på en gång. Man väljer att växa in i systemet och utöka med fler funktioner allt eftersom. Detsamma gäller definitivt även CRM-delarna, där man kanske börjar med Sales och därefter är det naturligt att fortsätta med antingen Marketing Automation (Customer Insights) eller kanske börja använda Customer Service. Då allt är i samma databas är det enkelt att komma igång med fler applikationer och funktioner när behoven växer. Varje applikation är kraftfull i sig själv, men den överlägsna styrkan kommer i att plattformen hänger ihop. Dessutom är det en naturlig del i hela Microsoftplattformen.",
-                },
-                {
-                  question: "Vad ingår i licenspriset?",
-                  answer: "Licenspriset inkluderar tillgång till systemet, kontinuerliga uppdateringar, säkerhet och grundläggande support. Implementering, eventuella anpassningar, utbildning, förvaltning och utökad support beställs separat av auktoriserad partner.",
-                },
-                {
-                  question: "Kan vi integrera med våra befintliga system?",
-                  answer: "Ja, Dynamics 365 har utmärkta integrationsmöjligheter. Har den andra programvaruleverantören redan kopplat sig till Microsoftplattformen (Dataverse), så underlättar detta ytterligare, då \"kopplingen\" redan är gjord. Vi kan koppla ihop med de flesta moderna system via API:er, och det finns färdiga kopplingar till populära tredjepartslösningar.",
-                },
-              ].map((faq, index) => (
-                <div key={index} className="bg-card rounded-lg p-6 shadow-[var(--shadow-card)] border border-border">
+              {[{
+              question: "Hur lång tid tar en implementering?",
+              answer: "Hur lång tid en implementation av Microsoft Dynamics 365 tar beror i väldigt hög grad på omfattningen, företagets storlek, hur mycket anpassning och integration som krävs – men här kommer en ungefärlig översikt och vad du bör räkna med.\n\n⏳ **Tidsramar**\n\nFör ett relativt enkelt upplägg i ett mindre företag: ca 3-6 månader.\n\nFör medelstor organisation med måttlig komplexitet: ofta 6-12 månader.\n\nFör stora företag med många länder, många system att integrera och hög grad av anpassning: 9-24 månader eller mer.\n\nI vissa fall där krav är mycket begripliga och standardlösning räcker kan man snabbt komma igång – t.ex. \"rapid activation\" modell: 6-12 veckor för ett mycket smalt scope.\n\n🧩 **Vad påverkar hur lång tid det tar**\n\nHär är några av de viktigaste faktorerna:\n\nProjektets omfattning (scope) – Vilka moduler i Dynamics 365 ska användas (CRM, ERP, försäljning, service, finans etc), hur många affärsprocesser ska stödjas?\n\nAnpassning och integration – Ju mer specialanpassningar, ju fler externa system som ska kopplas ihop, desto längre tid.\n\nDatamigrering – Hur mycket data, hur många system, hur komplex datakvaliteten är. Dagra migrering kan dra ut projektet.\n\nResurser och organisation – Tillgängliga medarbetare, interna beslut, förändringsledning, utbildning, användaracceptans spelar stor roll.\n\nMetodik och partnerkompetens – Om du har erfaren partner och standardprocesser kan det gå snabbare; om du bygger mycket från grunden tar det längre.\n\nEfterarbete och förändringsarbete (change management) – Att få användarna att använda systemet fullt ut, och att processen fortsätter efter go-live.\n\n✅ **Slutsats för dig**\n\nEftersom du jobbar som Business Developer – och om du funderar på att implementera Dynamics 365 i din organisation – mitt råd är:\n\nSätt upp ett realistiskt tidsspann: t.ex. om det är ett mindre bolag och ni kan hålla er till standardfunktioner, planera 3-6 månader från kick-off till go-live.\n\nOm det är ett större bolag eller flera affärsområden med komplexa behov, räkna med minst 6-12 månader eller mer.\n\nHa in byggstenar som: tydligt scope, minimal \"nice-to-have\" funktionalitet initialt, bra partner, datamigrering planerad tidigt, och utbildning & förändringsledning från dag 1."
+            }, {
+              question: "Kan vi börja smått och växa?",
+              answer: "Absolut! Många kunder som börjar med Business Central kanske inte tar alla funktioner i bruk på en gång. Man väljer att växa in i systemet och utöka med fler funktioner allt eftersom. Detsamma gäller definitivt även CRM-delarna, där man kanske börjar med Sales och därefter är det naturligt att fortsätta med antingen Marketing Automation (Customer Insights) eller kanske börja använda Customer Service. Då allt är i samma databas är det enkelt att komma igång med fler applikationer och funktioner när behoven växer. Varje applikation är kraftfull i sig själv, men den överlägsna styrkan kommer i att plattformen hänger ihop. Dessutom är det en naturlig del i hela Microsoftplattformen."
+            }, {
+              question: "Vad ingår i licenspriset?",
+              answer: "Licenspriset inkluderar tillgång till systemet, kontinuerliga uppdateringar, säkerhet och grundläggande support. Implementering, eventuella anpassningar, utbildning, förvaltning och utökad support beställs separat av auktoriserad partner."
+            }, {
+              question: "Kan vi integrera med våra befintliga system?",
+              answer: "Ja, Dynamics 365 har utmärkta integrationsmöjligheter. Har den andra programvaruleverantören redan kopplat sig till Microsoftplattformen (Dataverse), så underlättar detta ytterligare, då \"kopplingen\" redan är gjord. Vi kan koppla ihop med de flesta moderna system via API:er, och det finns färdiga kopplingar till populära tredjepartslösningar."
+            }].map((faq, index) => <div key={index} className="bg-card rounded-lg p-6 shadow-[var(--shadow-card)] border border-border">
                   <h3 className="text-lg font-semibold text-card-foreground mb-3">{faq.question}</h3>
                   <p className="text-muted-foreground">{faq.answer}</p>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
@@ -1468,8 +1330,6 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
