@@ -95,26 +95,26 @@ const Index = () => {
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
               Svar på vanliga frågor så som priser, implementering och funktioner med videoinnehåll för att göra det enkelt att konsumera.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <Link to="/qa#priser">
-                  Vad ingår i licenspriset?
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto pt-6 px-4">
+              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
+                <Link to="/qa#priser" className="flex items-center justify-center gap-2">
+                  <span className="flex-1 text-center">Vad ingår i licenspriset?</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <Link to="/qa#implementering">
+              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
+                <Link to="/qa#implementering" className="text-center">
                   Hur lång tid tar en implementering?
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <Link to="/qa#risker">
+              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
+                <Link to="/qa#risker" className="text-center">
                   Vilka risker finns i CRM/ERP projekt?
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <Link to="/qa#sales-appar">
-                  Vad är skillnaden mellan olika Dynamics 365 Sales applikationer?
+              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
+                <Link to="/qa#sales-appar" className="text-center">
+                  Skillnaden mellan olika Sales applikationer?
                 </Link>
               </Button>
             </div>
