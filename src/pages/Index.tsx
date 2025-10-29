@@ -107,6 +107,11 @@ const Index = () => {
                   Hur lång tid tar en implementering?
                 </Link>
               </Button>
+              <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+                <Link to="/qa#risker">
+                  Vilka risker finns i CRM/ERP projekt?
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

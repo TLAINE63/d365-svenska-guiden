@@ -46,6 +46,11 @@ const QA = () => {
       question: "Kan vi testa systemet innan vi bestämmer oss?",
       answer: "Ja, det är möjligt att få en demo eller prova systemet i en testmiljö. Vi rekommenderar att börja med en workshop där vi går igenom era specifika behov och visar hur Dynamics 365 kan lösa era utmaningar. Kontakta oss för att boka en kostnadsfri konsultation.",
     },
+    {
+      id: "risker",
+      question: "Vilka risker finns i CRM/ERP projekt?",
+      answer: "CRM/ERP-projekt är stora investeringar och det finns flera risker att vara medveten om:\n\n⚠️ **Vanliga risker**\n\n**Scope creep** – Projektet växer utanför den ursprungliga planen vilket leder till förseningar och ökade kostnader. Lösning: Tydlig projektplan och change management process.\n\n**Dålig datakvalitet** – Gammal eller felaktig data som migreras in i nya systemet skapar problem. Lösning: Noggrann datarensning och validering innan migrering.\n\n**Bristande användaracceptans** – Medarbetare vill inte använda det nya systemet. Lösning: Involvera användare tidigt, utbildning och tydlig förändringsledning.\n\n**Tekniska integrationsproblem** – Svårigheter att koppla samman med befintliga system. Lösning: Teknisk due diligence och erfaren implementationspartner.\n\n**Otillräckliga resurser** – Både interna och externa resurser kan vara underdimensionerade. Lösning: Realistisk resursplanering från start.\n\n**Bristande ledningsengagemang** – Utan stöd från ledningen tappar projektet momentum. Lösning: Säkerställ executive sponsorship och regelbunden kommunikation.\n\n✅ **Hur vi minimerar riskerna**\n\nVi använder beprövade metodiker, involverar era användare tidigt, har tydliga milstolpar och kommunicerar öppet om utmaningar. Med rätt partner och realistiska förväntningar kan de flesta risker hanteras effektivt.",
+    },
   ];
 
   return (
