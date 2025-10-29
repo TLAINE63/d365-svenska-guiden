@@ -98,6 +98,33 @@ const QA = () => {
               {faqs.map((faq, index) => (
                 <div key={index} id={faq.id} className="bg-card rounded-lg p-8 shadow-[var(--shadow-card)] border border-border scroll-mt-24">
                   <h3 className="text-xl font-bold text-card-foreground mb-4">{faq.question}</h3>
+                  
+                  {/* Visual advantages grid for the first FAQ */}
+                  {faq.id === "fordelar" && (
+                    <div className="mb-8 p-6 bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg border border-primary/20">
+                      <h4 className="text-lg font-semibold text-card-foreground mb-4 text-center">Översikt av fördelar</h4>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                        {[
+                          { icon: "☁️", title: "Allt i molnet" },
+                          { icon: "🔗", title: "En plattform för allt" },
+                          { icon: "🤖", title: "Kraftfull AI med Copilot" },
+                          { icon: "🏢", title: "Microsoft-ekosystemet" },
+                          { icon: "📈", title: "Skalbar och flexibel" },
+                          { icon: "🔒", title: "Säkerhet i världsklass" },
+                          { icon: "📱", title: "Mobilitet" },
+                          { icon: "💰", title: "Lägre totalkostnad" },
+                          { icon: "🔄", title: "Ingen teknisk skuld" },
+                          { icon: "✨", title: "Moderna gränssnitt" },
+                        ].map((advantage, idx) => (
+                          <div key={idx} className="bg-card p-4 rounded-lg border border-border hover:border-primary transition-all hover:shadow-md text-center">
+                            <div className="text-3xl mb-2">{advantage.icon}</div>
+                            <div className="text-xs font-medium text-card-foreground">{advantage.title}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                   <div className="text-muted-foreground whitespace-pre-line">
                     {faq.answer.split('\n').map((line, lineIndex) => {
                       const parts = line.split(/(\*\*.*?\*\*)/g);
