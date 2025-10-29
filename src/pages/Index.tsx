@@ -97,15 +97,15 @@ const Index = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
               <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <a href="#pricing">
-                  Licenspriser
+                <Link to="/qa#priser">
+                  Vad ingår i licenspriset?
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-lg group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                <a href="#implementation">
-                  Projektkostnader
-                </a>
+                <Link to="/qa#implementering">
+                  Hur lång tid tar en implementering?
+                </Link>
               </Button>
             </div>
           </div>
