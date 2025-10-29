@@ -217,9 +217,6 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground mb-3 font-medium">
                   För större företag och koncerner
                 </p>
-                <p className="text-muted-foreground mb-6">
-                  Avancerad ekonomi, tillverkning och global supply chain
-                </p>
               </div>
               
               <div className="space-y-3 mb-6">
