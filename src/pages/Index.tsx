@@ -191,6 +191,7 @@ const Index = () => {
                   <li>✓ Hantera ekonomi och redovisning</li>
                   <li>✓ Order, Lager, Inköp</li>
                   <li>✓ Projekthantering</li>
+                  <li>✓ Material- och Produktionsstyrning</li>
                   <li>✓ Snabb implementering</li>
                 </ul>
               </div>
