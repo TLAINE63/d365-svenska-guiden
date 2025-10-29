@@ -189,7 +189,7 @@ const Index = () => {
                 <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>✓ Hantera ekonomi och redovisning</li>
-                  <li>✓ Lagerhantering och inköp</li>
+                  <li>✓ Order, Lager, Inköp</li>
                   <li>✓ Projekthantering</li>
                   <li>✓ Snabb implementering</li>
                 </ul>
