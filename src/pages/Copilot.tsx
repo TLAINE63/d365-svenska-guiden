@@ -28,9 +28,9 @@ const Copilot = () => {
       videoId: "vfyzbGHIa3E",
     },
     {
-      title: "Förbättra kundupplevelsen med Dynamics 365 Copilot",
-      description: "Lär dig nyckelfunktioner för att förbättra kundrelationer",
-      videoId: "AoO3Pcooc9A",
+      title: "Microsoft 365 Copilot for Service",
+      description: "Officiell Microsoft-video om hur Copilot transformerar kundservice",
+      videoId: "l7gS1y70ErE",
     },
   ];
 
