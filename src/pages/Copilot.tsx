@@ -35,7 +35,15 @@ const Copilot = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen copilot-theme" style={{
+      '--primary': '189 85% 42%',
+      '--primary-foreground': '0 0% 100%',
+      '--accent': '185 90% 50%',
+      '--accent-foreground': '0 0% 100%',
+      '--gradient-primary': 'linear-gradient(135deg, hsl(189 85% 42%) 0%, hsl(185 90% 50%) 100%)',
+      '--gradient-hero': 'linear-gradient(135deg, hsl(189 85% 42%) 0%, hsl(185 90% 50%) 50%, hsl(180 90% 55%) 100%)',
+      '--shadow-accent': '0 8px 30px hsl(185 90% 50% / 0.3)',
+    } as React.CSSProperties}>
       <Navbar />
       
       {/* Header */}
