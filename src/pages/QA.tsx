@@ -98,7 +98,22 @@ const QA = () => {
               {faqs.map((faq, index) => (
                 <div key={index} id={faq.id} className="bg-card rounded-lg p-8 shadow-[var(--shadow-card)] border border-border scroll-mt-24">
                   <h3 className="text-xl font-bold text-card-foreground mb-4">{faq.question}</h3>
-                  <div className="text-muted-foreground whitespace-pre-line">{faq.answer}</div>
+                  <div className="text-muted-foreground whitespace-pre-line">
+                    {faq.answer.split('\n').map((line, lineIndex) => {
+                      const parts = line.split(/(\*\*.*?\*\*)/g);
+                      return (
+                        <span key={lineIndex}>
+                          {parts.map((part, partIndex) => {
+                            if (part.startsWith('**') && part.endsWith('**')) {
+                              return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
+                            }
+                            return part;
+                          })}
+                          {lineIndex < faq.answer.split('\n').length - 1 && <br />}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               ))}
             </div>
