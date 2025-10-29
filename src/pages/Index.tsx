@@ -102,8 +102,9 @@ const Index = () => {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto pt-6 px-4">
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#fordelar" className="text-center">
-                  Vilka är de verkliga fördelarna med Microsoft Dynamics 365?
+                <Link to="/qa#fordelar" className="flex items-center justify-center gap-2">
+                  <span className="flex-1 text-center">Vilka är de verkliga fördelarna med Microsoft Dynamics 365?</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
@@ -113,23 +114,27 @@ const Index = () => {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#implementering" className="text-center">
-                  Hur lång tid tar en implementering?
+                <Link to="/qa#implementering" className="flex items-center justify-center gap-2">
+                  <span className="flex-1 text-center">Hur lång tid tar en implementering?</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#risker" className="text-center">
-                  Vilka typiska risker finns i ett CRM/ERP-projekt?
+                <Link to="/qa#risker" className="flex items-center justify-center gap-2">
+                  <span className="flex-1 text-center">Vilka typiska risker finns i ett CRM/ERP-projekt?</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#bc-vs-fsc" className="text-center">
-                  Hur väljer jag mellan Business Central och Finance & Supply Chain?
+                <Link to="/qa#bc-vs-fsc" className="flex items-center justify-center gap-2">
+                  <span className="flex-1 text-center">Hur väljer jag mellan Business Central och Finance & Supply Chain?</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#crm-appar" className="text-center">
-                  Dynamics 365 CRM består av flera olika applikationer - Förklara lite närmare vilka dessa är
+                <Link to="/qa#crm-appar" className="flex items-center justify-center gap-2">
+                  <span className="flex-1 text-center">Dynamics 365 CRM består av flera olika applikationer - Förklara lite närmare vilka dessa är</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
             </div>
