@@ -114,7 +114,7 @@ const Index = () => {
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
                 <Link to="/qa#sales-appar" className="text-center">
-                  Skillnaden mellan olika Sales applikationer?
+                  Skillnaden mellan olika D365 Sales licensvarianter?
                 </Link>
               </Button>
             </div>
