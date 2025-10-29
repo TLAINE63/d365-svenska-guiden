@@ -30,8 +30,8 @@ const Index = () => {
     description: "Maximera dina försäljningsresultat med intelligent CRM",
     videoId: "TMdY77b1TTg"
   }, {
-    title: "Marketing Automation",
-    description: "Skapa personliga kundresor med Microsoft Dynamics 365 Marketing",
+    title: "Customer Insights Automation",
+    description: "Skapa personliga kundresor med Microsoft Dynamics 365 Customer Insights",
     videoId: "41lG3EHo4Lw"
   }, {
     title: "Customer Service och Support",
@@ -106,13 +106,13 @@ const Index = () => {
     price: "950 kr",
     features: ["Arbetsorderhantering", "Schemaläggning och dispatch", "Mobil fältapp", "Lagerhantering", "Preventivt underhåll"]
   }, {
-    title: "Marketing",
+    title: "Customer Insights",
     description: "Marknadsföringsautomation",
     price: "Från 15 000 kr",
     features: ["E-postmarknadsföring", "Kundresor och segmentering", "Event management", "Lead scoring", "Multi-channel kampanjer"]
   }, {
-    title: "Marketing Attach",
-    description: "Marketing-tillägg för befintliga användare",
+    title: "Customer Insights Attach",
+    description: "Customer Insights-tillägg för befintliga användare",
     price: "5 300 kr",
     features: ["Kräver befintlig CE-licens", "E-postmarknadsföring", "Grundläggande kundresor", "Lead management", "Integration med Sales/Service"]
   }];
@@ -248,10 +248,10 @@ const Index = () => {
                 <div className="flex justify-center gap-2 mb-3">
                   <img src={SalesIcon} alt="Sales" className="h-8 w-8" />
                   <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8" />
-                  <img src={MarketingIcon} alt="Marketing" className="h-8 w-8" />
+                  <img src={MarketingIcon} alt="Customer Insights" className="h-8 w-8" />
                 </div>
                 <p className="text-sm text-muted-foreground mb-3 font-medium">
-                  Microsoft Dynamics 365 Sales, Marketing, Service
+                  Microsoft Dynamics 365 Sales, Customer Insights, Service
                 </p>
                 <p className="text-muted-foreground mb-6">
                   Bygg starkare kundrelationer och öka försäljningen
@@ -803,7 +803,7 @@ const Index = () => {
               Customer Engagement
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Sales, Customer Service och Marketing - allt för att bygga starkare kundrelationer
+              Sales, Customer Service och Customer Insights - allt för att bygga starkare kundrelationer
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1066,11 +1066,11 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Field Service & Marketing Pricing */}
+          {/* Field Service & Customer Insights Pricing */}
           <div>
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-foreground mb-2">
-                Field Service & Marketing
+                Field Service & Customer Insights
               </h3>
               <p className="text-muted-foreground">
                 För fältservice och marknadsföringsautomation
@@ -1086,7 +1086,7 @@ const Index = () => {
               Alla priser är per användare/månad (exkl. moms) och kan variera beroende på din specifika konfiguration
             </p>
             <p className="text-sm text-muted-foreground">
-              <strong>OBS:</strong> Marketing är prissatt per organisation och inkluderar upp till 10 000 kontakter. Marketing Attach kräver befintlig Sales/Customer Service-licens.
+              <strong>OBS:</strong> Customer Insights är prissatt per organisation och inkluderar upp till 10 000 kontakter. Customer Insights Attach kräver befintlig Sales/Customer Service-licens.
             </p>
           </div>
         </div>
@@ -1191,7 +1191,7 @@ const Index = () => {
                 CRM (Customer Engagement)
               </h3>
               <p className="text-muted-foreground">
-                Implementeringskostnader för Sales, Service och Marketing
+                Implementeringskostnader för Sales, Service och Customer Insights
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
@@ -1214,7 +1214,7 @@ const Index = () => {
                 <div className="text-3xl font-bold text-primary mb-6">800 000 - 3 000 000+ kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• 4-10 månaders projekt</li>
-                  <li>• Sales + Service + Marketing/Field Service</li>
+                  <li>• Sales + Service + Customer Insights/Field Service</li>
                   <li>• Anpassade processer och automatiseringar</li>
                   <li>• Omfattande utbildning och adoption</li>
                   <li>• Komplex datamigration och integration</li>

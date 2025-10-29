@@ -23,8 +23,8 @@ const CRM = () => {
       videoId: "TMdY77b1TTg",
     },
     {
-      title: "Marketing Automation",
-      description: "Skapa personliga kundresor med Microsoft Dynamics 365 Marketing",
+      title: "Customer Insights Automation",
+      description: "Skapa personliga kundresor med Microsoft Dynamics 365 Customer Insights",
       videoId: "41lG3EHo4Lw",
     },
     {
@@ -110,9 +110,9 @@ const CRM = () => {
     },
   ];
 
-  const marketingPricing = [
+  const customerInsightsPricing = [
     {
-      title: "Marketing",
+      title: "Customer Insights",
       description: "Marknadsföringsautomation",
       price: "15 000 kr/månad + kontakter",
       features: [
@@ -124,11 +124,11 @@ const CRM = () => {
       ],
     },
     {
-      title: "Marketing Attach",
+      title: "Customer Insights Attach",
       description: "Tilläggslicens för befintliga användare",
       price: "7 500 kr/månad + kontakter",
       features: [
-        "Alla Marketing-funktioner",
+        "Alla Customer Insights-funktioner",
         "För användare med annan Dynamics 365-licens",
         "E-postmarknadsföring",
         "Segmentering & målgrupper",
@@ -178,7 +178,7 @@ const CRM = () => {
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <div className="flex justify-center items-center gap-4 mb-6">
               <img src={SalesIcon} alt="Sales" className="h-16 w-16" />
-              <img src={MarketingIcon} alt="Marketing" className="h-16 w-16" />
+              <img src={MarketingIcon} alt="Customer Insights" className="h-16 w-16" />
               <img src={CustomerServiceIcon} alt="Customer Service" className="h-16 w-16" />
               <img src={ContactCenterIcon} alt="Contact Center" className="h-16 w-16" />
               <img src={FieldServiceIcon} alt="Field Service" className="h-16 w-16" />
@@ -187,7 +187,7 @@ const CRM = () => {
               CRM (Customer Engagement)
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
-              Microsoft Dynamics 365 Sales, Marketing, Customer Service, Contact Center, Field Service
+              Microsoft Dynamics 365 Sales, Customer Insights, Customer Service, Contact Center, Field Service
             </p>
             
             {/* Navigation Buttons */}
@@ -259,14 +259,14 @@ const CRM = () => {
         </div>
       </section>
 
-      {/* Marketing Pricing */}
-      <section id="marketing-pricing" className="py-20 bg-background">
+      {/* Customer Insights Pricing */}
+      <section id="customer-insights-pricing" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="flex justify-center items-center gap-3 mb-4">
-              <img src={MarketingIcon} alt="Marketing" className="h-12 w-12" />
+              <img src={MarketingIcon} alt="Customer Insights" className="h-12 w-12" />
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Dynamics 365 Marketing
+                Dynamics 365 Customer Insights
               </h2>
             </div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -274,7 +274,7 @@ const CRM = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {marketingPricing.map((plan, index) => (
+            {customerInsightsPricing.map((plan, index) => (
               <PricingCard key={index} {...plan} />
             ))}
           </div>
@@ -377,7 +377,7 @@ const CRM = () => {
                   <div className="flex justify-between items-start pb-3 border-b border-border">
                     <div>
                       <p className="font-semibold text-card-foreground">Flera moduler</p>
-                      <p className="text-sm text-muted-foreground">Sales + Marketing + Service, 30-100 användare</p>
+                      <p className="text-sm text-muted-foreground">Sales + Customer Insights + Service, 30-100 användare</p>
                     </div>
                     <p className="text-primary font-bold">400-800k kr</p>
                   </div>
