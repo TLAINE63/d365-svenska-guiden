@@ -215,7 +215,7 @@ const Index = () => {
                   <img src={SupplyChainIcon} alt="Supply Chain" className="h-8 w-8" />
                 </div>
                 <p className="text-sm text-muted-foreground mb-3 font-medium">
-                  För större företag och koncerner
+                  Passar för större ofta internationella verksamheter och koncerner
                 </p>
               </div>
               
