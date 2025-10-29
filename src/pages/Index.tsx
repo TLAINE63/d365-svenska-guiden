@@ -98,7 +98,7 @@ const Index = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto pt-6 px-4">
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
                 <Link to="/qa#fordelar" className="text-center">
-                  Vad är de verkliga fördelarna med Microsoft Dynamics 365?
+                  Vilka är de verkliga fördelarna med Microsoft Dynamics 365?
                 </Link>
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
