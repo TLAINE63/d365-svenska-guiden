@@ -108,7 +108,7 @@ const Index = () => {
               </Button>
               <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
                 <Link to="/qa#priser" className="flex items-center justify-center gap-2">
-                  <span className="flex-1 text-center">Vad ingår i licenspriset?</span>
+                  <span className="flex-1 text-center">Vad finns det för olika licensvarianter?</span>
                   <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
