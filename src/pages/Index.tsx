@@ -179,7 +179,7 @@ const Index = () => {
                 <div className="flex justify-center gap-2 mb-3">
                   <img src={BusinessCentralIcon} alt="Business Central" className="h-8 w-8" />
                 </div>
-                <p className="text-sm text-muted-foreground mb-3 font-medium">Komplette affärssystem för mindre och medelstora företag</p>
+                <p className="text-sm text-muted-foreground mb-3 font-medium">Komplett affärssystem för mindre och medelstora företag</p>
                 <p className="text-muted-foreground mb-6">
                   Komplett affärslösning med ekonomi, lager och försäljning
                 </p>
