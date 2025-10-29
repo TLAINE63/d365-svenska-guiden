@@ -10,6 +10,7 @@ import {
 
 const Navbar = () => {
   const menuItems = [
+    { label: "Konfigurator", path: "/konfigurator", external: false },
     { label: "CRM", path: "/crm", external: false },
     { label: "Business Central", path: "/business-central", external: false },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain", external: false },

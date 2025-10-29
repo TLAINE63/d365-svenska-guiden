@@ -11,6 +11,7 @@ import FinanceSupplyChain from "./pages/FinanceSupplyChain";
 import Copilot from "./pages/Copilot";
 import QA from "./pages/QA";
 import ContactUs from "./pages/ContactUs";
+import Configurator from "./pages/Configurator";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
+          <Route path="/konfigurator" element={<Configurator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
