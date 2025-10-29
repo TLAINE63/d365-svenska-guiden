@@ -190,7 +190,7 @@ const Index = () => {
                   <li>✓ Projekthantering</li>
                   <li>✓ Material- och Produktionsstyrning</li>
                   <li>✓ Serviceorder</li>
-                  <li>✓ Snabb implementering</li>
+                  <li>✓ Inbyggd AI</li>
                 </ul>
               </div>
               
@@ -706,7 +706,7 @@ const Index = () => {
                     <ul className="space-y-2 text-sm text-muted-foreground">
                       <li>• Mindre och medelstora företag</li>
                       <li>• Företag med enklare processer</li>
-                      <li>• Snabb implementering (2-6 månader)</li>
+                      <li>• Inbyggd AI</li>
                       <li>• Begränsad budget</li>
                       <li>• En eller få lokalisationer</li>
                     </ul>
