@@ -139,42 +139,6 @@ const FinanceSupplyChain = () => {
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Business Central */}
-              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-2xl font-bold text-card-foreground mb-4">Business Central</h3>
-                
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="text-xl">💰</span>
-                    <span>Lägre licens- och implementeringskostnad</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-xl">⚡</span>
-                    <span>Snabb implementering (3–6 månader)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-xl">🧑‍💻</span>
-                    <span>Enkel och intuitiv användarupplevelse</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-xl">🔄</span>
-                    <span>Sömlös integration med Microsoft 365</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-xl">📈</span>
-                    <span>Flexibel och skalbar för växande SMB</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-xl">☁️</span>
-                    <span>Molnbaserad med hög säkerhet via Azure</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-xl">🧰</span>
-                    <span>Allt-i-ett-lösning för ekonomi, lager, projekt</span>
-                  </li>
-                </ul>
-              </div>
-
               {/* Finance & Supply Chain Management */}
               <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
                 <h3 className="text-2xl font-bold text-card-foreground mb-4">Finance & Supply Chain Management (F&SCM)</h3>
@@ -207,6 +171,42 @@ const FinanceSupplyChain = () => {
                   <li className="flex items-start gap-2">
                     <span className="text-xl">🏭</span>
                     <span>Branschspecifika moduler och avancerad tillverkning</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Business Central */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Business Central</h3>
+                
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">💰</span>
+                    <span>Lägre licens- och implementeringskostnad</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">⚡</span>
+                    <span>Snabb implementering (3–6 månader)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🧑‍💻</span>
+                    <span>Enkel och intuitiv användarupplevelse</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🔄</span>
+                    <span>Sömlös integration med Microsoft 365</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">📈</span>
+                    <span>Flexibel och skalbar för växande SMB</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">☁️</span>
+                    <span>Molnbaserad med hög säkerhet via Azure</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🧰</span>
+                    <span>Allt-i-ett-lösning för ekonomi, lager, projekt</span>
                   </li>
                 </ul>
               </div>
