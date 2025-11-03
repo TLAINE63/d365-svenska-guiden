@@ -235,9 +235,21 @@ const BusinessCentral = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 Vad kostar ett Business Central-projekt?
               </h2>
-              <p className="text-lg text-muted-foreground">
-                Ungefärliga kostnader för implementering och drift
-              </p>
+              <div className="text-lg text-muted-foreground space-y-4">
+                <p>
+                  Det skiljer väldigt mycket mellan olika typer av ERP projekt och för att få en uppfattning om en ungefärlig kostnad och vad som driver konsultbehov finns några saker som man kan tänka över:
+                </p>
+                <ul className="space-y-2 text-base">
+                  <li>• Hur många bolag/geografiska enheter som ska in (fler bolag = mer komplexitet).</li>
+                  <li>• Hur många användare som ska använda systemet och deras roller (full-användare vs "team member").</li>
+                  <li>• Om ni behöver lagerhantering, produktion, service, flera integrationer (CRM, e-handel, WMS) → högre kostnad.</li>
+                  <li>• Hur mycket data som ska migreras (antal år, många poster, många system).</li>
+                  <li>• Anpassningar: skräddarsydd funktionalitet, rapporter, appar.</li>
+                  <li>• Tidsplan: ju snabbare leverans desto mer resurser krävs, vilket kan öka kostnaden.</li>
+                  <li>• Ändringshantering & utbildning: större förändring i processer kräver mer konsulttid.</li>
+                  <li>• Moln vs on-premises (om det skulle vara on-premises) – men du sa "exklusive licens och support" så infrastruktur kanske ändå påverkar vissa projekt.</li>
+                </ul>
+              </div>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
