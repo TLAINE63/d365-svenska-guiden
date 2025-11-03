@@ -93,34 +93,44 @@ const Index = () => {
       </div>
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden py-12 md:py-20 bg-gradient-to-br from-background via-background to-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            {/* Text Content */}
-            <div className="max-w-2xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-                Allt du behöver veta om Microsoft Dynamics 365
-              </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground mb-8">
-                Upptäck möjligheterna med Microsoftplattformen
-              </p>
+      <header className="relative overflow-hidden h-[500px] md:h-[600px]">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
+            alt="Modern business meeting" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        </div>
+        
+        <div className="relative h-full flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-8 items-center">
+              <div className="max-w-3xl">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  Allt du behöver veta om Microsoft Dynamics 365
+                </h1>
+                <p className="text-xl md:text-2xl text-white/95 mb-8">
+                  Upptäck möjligheterna med Microsoftplattformen
+                </p>
+                
+                <Button 
+                  asChild
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                >
+                  <Link to="/kontakt">Boka gratis rådgivning</Link>
+                </Button>
+              </div>
               
-              <Button 
-                asChild
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
-                <Link to="/kontakt">Boka gratis rådgivning</Link>
-              </Button>
-            </div>
-            
-            {/* Image */}
-            <div className="flex justify-center lg:justify-end">
-              <img 
-                src={BizAppsNetwork} 
-                alt="Microsoft Business Applications Network" 
-                className="w-full max-w-2xl h-auto rounded-lg"
-              />
+              {/* Small Network Image */}
+              <div className="hidden lg:flex justify-end">
+                <img 
+                  src={BizAppsNetwork} 
+                  alt="Microsoft Business Applications Network" 
+                  className="w-64 h-auto opacity-90"
+                />
+              </div>
             </div>
           </div>
         </div>
