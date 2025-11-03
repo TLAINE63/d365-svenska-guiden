@@ -261,26 +261,26 @@ const BusinessCentral = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-start pb-3 border-b border-border">
                     <div>
-                      <p className="font-semibold text-card-foreground">Litet projekt</p>
-                      <p className="text-sm text-muted-foreground">5-10 användare, standardfunktioner</p>
+                      <p className="font-semibold text-card-foreground">Grundimplementering</p>
+                      <p className="text-sm text-muted-foreground">Mer eller mindre "out of the box", men med partners erfarenhet inbyggt</p>
                     </div>
-                    <p className="text-primary font-bold">200-400k kr</p>
+                    <p className="text-primary font-bold">Från 50 000 kr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3 border-b border-border">
                     <div>
-                      <p className="font-semibold text-card-foreground">Medelstort projekt</p>
-                      <p className="text-sm text-muted-foreground">10-50 användare, anpassningar</p>
+                      <p className="font-semibold text-card-foreground">Mellanprojekt</p>
+                      <p className="text-sm text-muted-foreground">Mer avancerad order-lager-inköpshantering, någon integration samt några fler användare</p>
                     </div>
-                    <p className="text-primary font-bold">400-800k kr</p>
+                    <p className="text-primary font-bold">150 000-300 000 kr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3">
                     <div>
-                      <p className="font-semibold text-card-foreground">Stort projekt</p>
-                      <p className="text-sm text-muted-foreground">50+ användare, integrationer</p>
+                      <p className="font-semibold text-card-foreground">Komplext projekt</p>
+                      <p className="text-sm text-muted-foreground">Flera bolag, kanske produktion, många användare, specialanpassningar och flera integrationer</p>
                     </div>
-                    <p className="text-primary font-bold">800k-2M kr</p>
+                    <p className="text-primary font-bold">300 000-800 000 kr eller mer</p>
                   </div>
                 </div>
                 
