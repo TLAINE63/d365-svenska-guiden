@@ -84,8 +84,15 @@ const Index = () => {
   return <div className="min-h-screen bg-background">
       <Navbar />
       
+      {/* Construction Banner */}
+      <div className="bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))] py-3 mt-16">
+        <div className="container mx-auto px-4 text-center">
+          <p className="font-semibold">Denna sida är under konstruktion</p>
+        </div>
+      </div>
+      
       {/* Hero Section */}
-      <header className="relative overflow-hidden mt-16 h-[500px] md:h-[600px]">
+      <header className="relative overflow-hidden h-[500px] md:h-[600px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
