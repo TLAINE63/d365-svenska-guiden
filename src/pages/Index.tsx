@@ -84,182 +84,175 @@ const Index = () => {
   return <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Construction Notice Banner */}
-      <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white py-3 px-4 text-center font-semibold shadow-lg mt-16">
-        Denna site är under uppbyggnad
-      </div>
-      
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTItMTItNS4zNzMtMTItMTJ6TTAgMTZjMC02LjYyNyA1LjM3My0xMiAxMi0xMnMxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMlMwIDIyLjYyNyAwIDE2em0zNiAzNmMwLTYuNjI3IDUuMzczLTEyIDEyLTEyczEyIDUuMzczIDEyIDEyLTUuMzczIDEyLTEyIDEyLTEyLTUuMzczLTEyLTEyek0wIDUyYzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTJTMCA1OC42MjcgMCA1MnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
-        <div className="container mx-auto px-4 py-20 md:py-32 relative">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Allt du behöver veta om<br />Microsoft Dynamics 365
-            </h1>
-            <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
-              Svar på vanliga frågor så som priser, implementering och funktioner med videoinnehåll för att göra det enkelt att konsumera.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto pt-6 px-4">
-              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#fordelar" className="flex items-center justify-center gap-2">
-                  <span className="flex-1 text-center">Vilka är de verkliga fördelarna med Microsoft Dynamics 365?</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#priser" className="flex items-center justify-center gap-2">
-                  <span className="flex-1 text-center">Vad finns det för olika licensvarianter?</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#implementering" className="flex items-center justify-center gap-2">
-                  <span className="flex-1 text-center">Hur lång tid tar ett projekt och vad kostar det?</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#risker" className="flex items-center justify-center gap-2">
-                  <span className="flex-1 text-center">Vilka typiska risker finns i ett CRM/ERP-projekt?</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#bc-vs-fsc" className="flex items-center justify-center gap-2">
-                  <span className="flex-1 text-center">Hur väljer jag mellan Business Central och Finance & Supply Chain?</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="text-sm lg:text-base group bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-auto py-3 whitespace-normal">
-                <Link to="/qa#crm-appar" className="flex items-center justify-center gap-2">
-                  <span className="flex-1 text-center">Dynamics 365 CRM består av flera olika applikationer - Förklara lite närmare vilka dessa är</span>
-                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
+      <header className="relative overflow-hidden bg-background mt-16">
+        <div className="relative h-[500px] md:h-[600px]">
+          {/* Hero Image with Overlay */}
+          <div className="absolute inset-0">
+            <img 
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
+              alt="Modern city skyline" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+          </div>
+          
+          {/* Hero Content */}
+          <div className="relative h-full flex items-center">
+            <div className="container mx-auto px-4 md:px-8">
+              <div className="max-w-3xl">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  Dynamics Hub Sverige
+                </h1>
+                <p className="text-xl md:text-2xl text-white/95 mb-8 max-w-2xl">
+                  Upptäck möjligheterna med Dynamics och Power Platform.<br />
+                  Här samlar vi information och inspiration.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
       </header>
+
+      {/* Quick Links Section */}
+      <section className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+            Vanliga frågor
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+              <Link to="/qa#fordelar">
+                <span className="text-sm">Vilka är de verkliga fördelarna med Microsoft Dynamics 365?</span>
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+              <Link to="/qa#priser">
+                <span className="text-sm">Vad finns det för olika licensvarianter?</span>
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+              <Link to="/qa#implementering">
+                <span className="text-sm">Hur lång tid tar ett projekt och vad kostar det?</span>
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+              <Link to="/qa#risker">
+                <span className="text-sm">Vilka typiska risker finns i ett CRM/ERP-projekt?</span>
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+              <Link to="/qa#bc-vs-fsc">
+                <span className="text-sm">Hur väljer jag mellan Business Central och Finance & Supply Chain?</span>
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+              <Link to="/qa#crm-appar">
+                <span className="text-sm">Dynamics 365 CRM består av flera olika applikationer - Förklara lite närmare</span>
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Solution Selector Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Vilken typ av lösning letar du efter?
+              Välj din lösning
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Microsoft Dynamics 365 erbjuder lösningar för både affärssystem och kundhantering. Välj det som passar dina behov bäst.
+              Microsoft Dynamics 365 erbjuder lösningar för både affärssystem och kundhantering
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* Business Central Card */}
-            <div className="bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer group shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
+            <div className="bg-card rounded-sm p-8 border border-border hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10" />
+                  <h3 className="text-2xl font-bold text-card-foreground">Business Central</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-card-foreground mb-2">Business Central</h3>
-                <div className="flex justify-center gap-2 mb-3">
-                  <img src={BusinessCentralIcon} alt="Business Central" className="h-8 w-8" />
-                </div>
-                <p className="text-sm text-muted-foreground mb-3 font-medium">Komplett affärssystem för mindre och medelstora företag</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Komplett affärssystem för mindre och medelstora företag
+                </p>
               </div>
               
               <div className="space-y-3 mb-6">
-                <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ Hantera ekonomi och redovisning</li>
-                  <li>✓ Order, Lager, Inköp</li>
-                  <li>✓ Projekthantering</li>
-                  <li>✓ Material- och Produktionsstyrning</li>
-                  <li>✓ Serviceorder</li>
-                  <li>✓ Inbyggd AI</li>
+                  <li>• Hantera ekonomi och redovisning</li>
+                  <li>• Order, Lager, Inköp</li>
+                  <li>• Projekthantering</li>
+                  <li>• Material- och Produktionsstyrning</li>
+                  <li>• Serviceorder</li>
+                  <li>• Inbyggd AI</li>
                 </ul>
               </div>
               
-              <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+              <Button asChild variant="outline" className="w-full">
                 <Link to="/business-central">
-                  Utforska Business Central
+                  Läs mer
                 </Link>
               </Button>
             </div>
 
             {/* Finance & Supply Chain Card */}
-            <div className="bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer group shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
+            <div className="bg-card rounded-sm p-8 border border-border hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={FinanceIcon} alt="Finance" className="h-10 w-10" />
+                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
+                  <h3 className="text-2xl font-bold text-card-foreground">Finance & Supply Chain</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-card-foreground mb-2">Finance & Supply Chain</h3>
-                <div className="flex justify-center gap-2 mb-3">
-                  <img src={FinanceIcon} alt="Finance" className="h-8 w-8" />
-                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-8 w-8" />
-                </div>
-                <p className="text-sm text-muted-foreground mb-3 font-medium">
+                <p className="text-sm text-muted-foreground mb-4">
                   Passar för större ofta internationella verksamheter och koncerner
                 </p>
               </div>
               
               <div className="space-y-3 mb-6">
-                <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ Global ekonomihantering</li>
-                  <li>✓ Avancerad tillverkning</li>
-                  <li>✓ Komplex leveranskedja</li>
-                  <li>✓ IoT och AI-integration</li>
+                  <li>• Global ekonomihantering</li>
+                  <li>• Avancerad tillverkning</li>
+                  <li>• Komplex leveranskedja</li>
+                  <li>• IoT och AI-integration</li>
                 </ul>
               </div>
               
-              <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+              <Button asChild variant="outline" className="w-full">
                 <Link to="/finance-supply-chain">
-                  Utforska Finance & SCM
+                  Läs mer
                 </Link>
               </Button>
             </div>
 
             {/* CRM/Customer Engagement Card */}
-            <div className="bg-card rounded-lg p-8 border-2 border-border hover:border-primary transition-all duration-300 cursor-pointer group shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-hover)]">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
+            <div className="bg-card rounded-sm p-8 border border-border hover:shadow-lg transition-all duration-300 cursor-pointer group">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={SalesIcon} alt="Sales" className="h-10 w-10" />
+                  <img src={CustomerServiceIcon} alt="Customer Service" className="h-10 w-10" />
+                  <img src={MarketingIcon} alt="Customer Insights" className="h-10 w-10" />
+                  <h3 className="text-2xl font-bold text-card-foreground">CRM</h3>
                 </div>
-                <h3 className="text-2xl font-bold text-card-foreground mb-2">CRM (Customer Engagement)</h3>
-                <div className="flex justify-center gap-2 mb-3">
-                  <img src={SalesIcon} alt="Sales" className="h-8 w-8" />
-                  <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8" />
-                  <img src={MarketingIcon} alt="Customer Insights" className="h-8 w-8" />
-                </div>
-                <p className="text-sm text-muted-foreground mb-3 font-medium">
+                <p className="text-sm text-muted-foreground mb-4">
                   Microsoft Dynamics 365 Sales, Customer Insights, Service
-                </p>
-                <p className="text-muted-foreground mb-6">
-                  Bygg starkare kundrelationer och öka försäljningen
                 </p>
               </div>
               
               <div className="space-y-3 mb-6">
-                <p className="text-sm font-semibold text-card-foreground">Passar för dig som vill:</p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ Öka försäljning och hantera leads</li>
-                  <li>✓ Förbättra kundservice och support</li>
-                  <li>✓ Automatisera marknadsföring</li>
-                  <li>✓ Få 360° vy av dina kunder</li>
+                  <li>• Öka försäljning och hantera leads</li>
+                  <li>• Förbättra kundservice och support</li>
+                  <li>• Automatisera marknadsföring</li>
+                  <li>• Få 360° vy av dina kunder</li>
                 </ul>
               </div>
               
-              <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+              <Button asChild variant="outline" className="w-full">
                 <Link to="/crm">
-                  Utforska CRM-lösningar
+                  Läs mer
                 </Link>
               </Button>
             </div>
