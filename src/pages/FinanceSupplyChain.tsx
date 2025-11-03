@@ -245,7 +245,7 @@ const FinanceSupplyChain = () => {
               </p>
               
               <div className="max-w-3xl mx-auto">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Faktorer som påverkar storleken på kostnaden:</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-4">Exempel på faktorer som påverkar projektkostnaden:</h3>
                 <div className="bg-card/50 rounded-lg p-6 border border-border/50">
                   <ul className="space-y-3 list-disc list-inside text-base text-card-foreground/90">
                     <li>Antal användare / antal bolag / juridiska enheter</li>
