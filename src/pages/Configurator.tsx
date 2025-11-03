@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import BizAppsHero from "@/assets/biz-apps-hero.png";
 
 type Answer = {
   [key: string]: string;
@@ -381,7 +382,19 @@ const Configurator = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto px-4 py-20 mt-16">
+      
+      {/* Hero Image */}
+      <div className="w-full bg-black py-8 mt-16">
+        <div className="container mx-auto px-4">
+          <img 
+            src={BizAppsHero} 
+            alt="Microsoft Business Applications" 
+            className="w-full max-w-5xl mx-auto h-auto"
+          />
+        </div>
+      </div>
+      
+      <div className="container mx-auto px-4 py-20">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-4">
