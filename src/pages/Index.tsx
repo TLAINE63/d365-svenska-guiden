@@ -99,7 +99,7 @@ const Index = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Microsoft Dynamics 365 Business Central
+                Allt du behöver veta om Microsoft Dynamics 365
               </h1>
               <p className="text-xl md:text-2xl text-white/95 mb-8">
                 Upptäck möjligheterna med Microsoftplattformen
