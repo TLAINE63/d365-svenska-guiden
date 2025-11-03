@@ -389,7 +389,7 @@ const Configurator = () => {
           <img 
             src={BizAppsHero} 
             alt="Microsoft Business Applications" 
-            className="w-full max-w-5xl mx-auto h-auto"
+            className="w-full max-w-2xl mx-auto h-auto"
           />
         </div>
       </div>
