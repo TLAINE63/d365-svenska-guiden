@@ -240,9 +240,24 @@ const FinanceSupplyChain = () => {
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
                 Vad kostar ett Finance & Supply Chain-projekt?
               </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-6">
                 När man talar om implementering av Microsoft Dynamics 365 Finance & Supply Chain Management (ofta benämnt "F&SCM") och dess driftkostnad — utan att räkna med licenskostnader — så finns det ganska stora variationer beroende på omfattning och verksamhetens komplexitet. Här är en översikt med riktmärken och viktiga kostnadsdrivare.
               </p>
+              
+              <div className="max-w-3xl mx-auto">
+                <h3 className="text-xl font-semibold text-foreground mb-4">Faktorer som påverkar storleken på kostnaden:</h3>
+                <div className="bg-card/50 rounded-lg p-6 border border-border/50">
+                  <ul className="space-y-3 list-disc list-inside text-base text-card-foreground/90">
+                    <li>Antal användare / antal bolag / juridiska enheter</li>
+                    <li>Vilka funktioner som ska användas (finans, lager, inköp, produktion, service, distribution)</li>
+                    <li>Antal och komplexitet av integrationer med andra system (CRM, e-handel, WMS, TMS, legacy system)</li>
+                    <li>Behov av specialanpassningar (utöver standardfunktionalitet)</li>
+                    <li>Datamigration: hur många år, från hur många system, hur mycket rensning och konvertering krävs</li>
+                    <li>Geografisk spridning och olika regulatoriska krav per land</li>
+                    <li>Ändringshantering, utbildning, användaracceptans, projektledning</li>
+                  </ul>
+                </div>
+              </div>
             </div>
             
             <div className="space-y-8">
