@@ -85,37 +85,54 @@ const Index = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-background mt-16">
-        <div className="relative h-[500px] md:h-[600px]">
-          {/* Hero Image with Overlay */}
-          <div className="absolute inset-0">
-            <img 
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
-              alt="Modern city skyline" 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-          </div>
-          
-          {/* Hero Content */}
-          <div className="relative h-full flex items-center">
-            <div className="container mx-auto px-4 md:px-8">
-              <div className="max-w-3xl">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  Dynamics Hub Sverige
-                </h1>
-                <p className="text-xl md:text-2xl text-white/95 mb-8 max-w-2xl">
-                  Upptäck möjligheterna med Dynamics och Power Platform.<br />
-                  Här samlar vi information och inspiration.
-                </p>
-              </div>
+      <header className="bg-gradient-to-br from-[hsl(var(--primary))] via-[hsl(198,80%,45%)] to-[hsl(var(--accent))] text-primary-foreground relative overflow-hidden mt-16">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTItMTItNS4zNzMtMTItMTJ6TTAgMTZjMC02LjYyNyA1LjM3My0xMiAxMi0xMnMxMiA1LjM3MyAxMiAxMi01LjM3MyAxMi0xMiAxMlMwIDIyLjYyNyAwIDE2em0zNiAzNmMwLTYuNjI3IDUuMzczLTEyIDEyLTEyczEyIDUuMzczIDEyIDEyLTUuMzczIDEyLTEyIDEyLTEyLTUuMzczLTEyLTEyek0wIDUyYzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTJTMCA1OC42MjcgMCA1MnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-10" />
+        <div className="container mx-auto px-4 py-20 md:py-32 relative">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+              Din Affärspartner för Microsoft Dynamics 365
+            </h1>
+            <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
+              Upptäck möjligheterna med Dynamics och Power Platform - Vi hjälper er växa med moderna affärslösningar
+            </p>
+            
+            {/* Navigation Buttons */}
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <a href="#solutions">Våra Lösningar</a>
+              </Button>
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <a href="#questions">Vanliga Frågor</a>
+              </Button>
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <Link to="/qa">Q&A</Link>
+              </Button>
+              <Button 
+                asChild
+                variant="secondary"
+                className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white"
+              >
+                <Link to="/kontakt">Kontakta Oss</Link>
+              </Button>
             </div>
           </div>
         </div>
       </header>
 
       {/* Quick Links Section */}
-      <section className="py-12 bg-muted/30">
+      <section id="questions" className="py-12 bg-muted/30">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
             Vanliga frågor
@@ -156,7 +173,7 @@ const Index = () => {
       </section>
 
       {/* Solution Selector Section */}
-      <section className="py-20 bg-background">
+      <section id="solutions" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
