@@ -128,7 +128,7 @@ const Index = () => {
                 <img 
                   src={BizAppsNetwork} 
                   alt="Microsoft Business Applications Network" 
-                  className="w-64 h-auto opacity-90"
+                  className="w-[32rem] h-auto opacity-90"
                 />
               </div>
             </div>
