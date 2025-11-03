@@ -273,7 +273,7 @@ const BusinessCentral = () => {
                 
                 <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
                   <p className="text-sm text-muted-foreground">
-                    <strong>Inkluderar:</strong> Licensavgifter, implementering, utbildning, datamigration och projektledning
+                    <strong>Inkluderar:</strong> Implementering, utbildning, datamigration och projektledning
                   </p>
                 </div>
               </div>
