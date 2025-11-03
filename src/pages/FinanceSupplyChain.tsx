@@ -139,74 +139,76 @@ const FinanceSupplyChain = () => {
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Finance & Supply Chain */}
-              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-2xl font-bold text-card-foreground mb-4">Finance & Supply Chain</h3>
-                <p className="text-muted-foreground mb-6">
-                  För större organisationer med komplexa behov
-                </p>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-card-foreground mb-2">Passar för:</h4>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Stora företag och koncerner</li>
-                      <li>• Komplexa processer och många integrationer</li>
-                      <li>• Globala verksamheter</li>
-                      <li>• Avancerade branschspecifika behov</li>
-                      <li>• Många samtidiga användare</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-card-foreground mb-2">Styrkor:</h4>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Kraftfull funktionalitet och anpassningsbarhet</li>
-                      <li>• Avancerad supply chain management</li>
-                      <li>• Global finansiell hantering</li>
-                      <li>• AI och avancerad analytics</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="pt-4 border-t border-border">
-                    <p className="text-sm font-semibold text-primary">Pris: Från 2 500 kr/användare/månad</p>
-                  </div>
-                </div>
-              </div>
-
               {/* Business Central */}
               <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
                 <h3 className="text-2xl font-bold text-card-foreground mb-4">Business Central</h3>
-                <p className="text-muted-foreground mb-6">
-                  För mindre och medelstora företag
-                </p>
                 
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-card-foreground mb-2">Passar för:</h4>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Mindre och medelstora företag</li>
-                      <li>• Företag med enklare processer</li>
-                      <li>• Snabb implementering (2-6 månader)</li>
-                      <li>• Begränsad budget</li>
-                      <li>• En eller få lokalisationer</li>
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h4 className="font-semibold text-card-foreground mb-2">Styrkor:</h4>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      <li>• Lägre kostnader och snabbare ROI</li>
-                      <li>• Enklare att använda och implementera</li>
-                      <li>• Inbyggd integration med Microsoft 365</li>
-                      <li>• Flexibel och skalbar</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="pt-4 border-t border-border">
-                    <p className="text-sm font-semibold text-primary">Pris: Från 700 kr/användare/månad</p>
-                  </div>
-                </div>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">💰</span>
+                    <span>Lägre licens- och implementeringskostnad</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">⚡</span>
+                    <span>Snabb implementering (3–6 månader)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🧑‍💻</span>
+                    <span>Enkel och intuitiv användarupplevelse</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🔄</span>
+                    <span>Sömlös integration med Microsoft 365</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">📈</span>
+                    <span>Flexibel och skalbar för växande SMB</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">☁️</span>
+                    <span>Molnbaserad med hög säkerhet via Azure</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🧰</span>
+                    <span>Allt-i-ett-lösning för ekonomi, lager, projekt</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Finance & Supply Chain Management */}
+              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Finance & Supply Chain Management (F&SCM)</h3>
+                
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🏢</span>
+                    <span>Anpassat för stora och komplexa organisationer</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">📊</span>
+                    <span>Avancerad finansiell styrning och konsolidering</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🔗</span>
+                    <span>Optimerad supply chain och AI-driven logistik</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🌐</span>
+                    <span>Global skalbarhet och efterlevnad</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🧠</span>
+                    <span>Inbyggd AI, Copilot och datadriven analys</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🧩</span>
+                    <span>Djup integration med hela Microsoft-ekosystemet</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🏭</span>
+                    <span>Branschspecifika moduler och avancerad tillverkning</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
