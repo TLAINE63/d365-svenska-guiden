@@ -247,7 +247,6 @@ const BusinessCentral = () => {
                   <li>• Anpassningar: skräddarsydd funktionalitet, rapporter, appar.</li>
                   <li>• Tidsplan: ju snabbare leverans desto mer resurser krävs, vilket kan öka kostnaden.</li>
                   <li>• Ändringshantering & utbildning: större förändring i processer kräver mer konsulttid.</li>
-                  <li>• Moln vs on-premises (om det skulle vara on-premises) – men du sa "exklusive licens och support" så infrastruktur kanske ändå påverkar vissa projekt.</li>
                 </ul>
               </div>
             </div>
