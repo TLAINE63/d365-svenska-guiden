@@ -17,9 +17,9 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
 
-    --primary: 211 100% 50%;
+    --primary: 180 75% 45%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 211 100% 60%;
+    --primary-glow: 180 75% 55%;
 
     --secondary: 0 0% 96%;
     --secondary-foreground: 0 0% 15%;
@@ -27,7 +27,7 @@ All colors MUST be HSL.
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
 
-    --accent: 211 100% 50%;
+    --accent: 180 75% 45%;
     --accent-foreground: 0 0% 100%;
     
     --success: 145 70% 45%;
@@ -38,18 +38,18 @@ All colors MUST be HSL.
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 211 100% 50%;
+    --ring: 180 75% 45%;
 
-    --radius: 0.125rem;
+    --radius: 0.25rem;
     
-    --gradient-primary: linear-gradient(135deg, hsl(211 100% 50%) 0%, hsl(211 100% 60%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(211 100% 50%) 0%, hsl(211 100% 55%) 50%, hsl(211 100% 60%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(211 100% 50%) 0%, hsl(211 100% 55%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(180 75% 45%) 0%, hsl(180 75% 55%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(180 75% 45%) 0%, hsl(180 75% 50%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(0 0% 96%) 0%, hsl(0 0% 98%) 100%);
-    --shadow-card: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
-    --shadow-hover: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
-    --shadow-accent: 0 4px 12px 0 rgba(0, 120, 212, 0.2);
-    --shadow-elegant: 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 4px 12px 0 rgba(0, 0, 0, 0.12);
+    --shadow-accent: 0 4px 12px 0 rgba(0, 150, 150, 0.2);
+    --shadow-elegant: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
     --sidebar-background: 0 0% 98%;
 
@@ -78,9 +78,9 @@ All colors MUST be HSL.
     --popover: 0 0% 12%;
     --popover-foreground: 0 0% 96%;
 
-    --primary: 211 100% 60%;
+    --primary: 180 75% 55%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 211 100% 70%;
+    --primary-glow: 180 75% 65%;
 
     --secondary: 0 0% 18%;
     --secondary-foreground: 0 0% 96%;
@@ -88,7 +88,7 @@ All colors MUST be HSL.
     --muted: 0 0% 16%;
     --muted-foreground: 0 0% 65%;
 
-    --accent: 211 100% 60%;
+    --accent: 180 75% 55%;
     --accent-foreground: 0 0% 100%;
     
     --success: 145 65% 50%;
@@ -99,16 +99,16 @@ All colors MUST be HSL.
 
     --border: 0 0% 20%;
     --input: 0 0% 18%;
-    --ring: 211 100% 60%;
+    --ring: 180 75% 55%;
     
-    --gradient-primary: linear-gradient(135deg, hsl(211 100% 55%) 0%, hsl(211 100% 65%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(211 100% 50%) 0%, hsl(211 100% 60%) 50%, hsl(211 100% 70%) 100%);
-    --gradient-cta: linear-gradient(135deg, hsl(211 100% 60%) 0%, hsl(211 100% 65%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(180 75% 50%) 0%, hsl(180 75% 60%) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(180 75% 55%) 0%, hsl(180 75% 60%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(0 0% 18%) 0%, hsl(0 0% 22%) 100%);
-    --shadow-card: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
-    --shadow-hover: 0 8px 24px 0 rgba(0, 0, 0, 0.5);
-    --shadow-accent: 0 4px 16px 0 rgba(0, 120, 212, 0.3);
-    --shadow-elegant: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 6px 16px 0 rgba(0, 0, 0, 0.4);
+    --shadow-accent: 0 4px 16px 0 rgba(0, 150, 150, 0.3);
+    --shadow-elegant: 0 2px 6px 0 rgba(0, 0, 0, 0.25);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
