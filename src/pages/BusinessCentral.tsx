@@ -242,7 +242,7 @@ const BusinessCentral = () => {
                 <div className="bg-card/50 rounded-lg p-6 border border-border/50">
                   <ul className="space-y-3 list-disc list-inside text-base text-card-foreground/90">
                     <li>Hur många bolag/geografiska enheter som ska in (fler bolag = mer komplexitet)</li>
-                    <li>Hur många användare som ska använda systemet och deras roller (full-användare vs "team member")</li>
+                    <li>Hur många användare som ska använda systemet och deras roller</li>
                     <li>Om ni behöver lagerhantering, produktion, service, flera integrationer (CRM, e-handel, WMS)</li>
                     <li>Hur mycket data som ska migreras (antal år, många poster, många system)</li>
                     <li>Anpassningar: skräddarsydd funktionalitet, rapporter, appar</li>
