@@ -278,7 +278,7 @@ const FinanceSupplyChain = () => {
                 
                 <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
                   <p className="text-sm text-muted-foreground">
-                    <strong>Inkluderar:</strong> Licensavgifter, implementering, utbildning, datamigration, integrationer och omfattande projektledning
+                    <strong>Inkluderar:</strong> Implementering, utbildning, datamigration, integrationer och omfattande projektledning
                   </p>
                 </div>
               </div>
