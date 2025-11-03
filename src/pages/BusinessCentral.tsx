@@ -286,7 +286,7 @@ const BusinessCentral = () => {
                 
                 <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
                   <p className="text-sm text-muted-foreground">
-                    <strong>Inkluderar:</strong> Implementering, utbildning, datamigration och projektledning
+                    Räkna även med en viss förvaltningskostnad/supportavtal (här finns nästan lika många varianter som det finns konsultbolag), kontinuerlig användarutbildning, utbildning i nya versioner/uppdateringar samt eventuell vidareutveckling när verksamheten förändras.
                   </p>
                 </div>
               </div>
