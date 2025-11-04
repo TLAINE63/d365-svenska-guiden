@@ -155,7 +155,7 @@ const Partner = () => {
                 <img 
                   src={thomasLainePhoto} 
                   alt="Thomas Laine" 
-                  className="w-48 h-48 rounded-full object-cover object-[50%_20%] border-4 border-primary/20"
+                  className="w-48 h-48 rounded-full object-cover object-[50%_15%] border-4 border-primary/20"
                 />
               </div>
               <div className="text-center md:text-left">
