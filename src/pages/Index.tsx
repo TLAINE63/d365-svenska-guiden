@@ -58,42 +58,79 @@ const Index = () => {
       </header>
 
       {/* Quick Links Section */}
-      <section id="questions" className="py-12 bg-muted/30">
+      <section id="questions" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
             Vanliga frågor
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
-              <Link to="/qa#fordelar">
-                <span className="text-sm line-clamp-3">Vilka är de verkliga fördelarna med Dynamics 365?</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
-              <Link to="/qa#priser">
-                <span className="text-sm line-clamp-3">Vad finns det för olika licensvarianter?</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
-              <Link to="/qa#implementering">
-                <span className="text-sm line-clamp-3">Hur lång tid tar ett projekt och vad kostar det?</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
-              <Link to="/qa#risker">
-                <span className="text-sm line-clamp-3">Vilka typiska risker finns i ett CRM/ERP-projekt?</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
-              <Link to="/qa#bc-vs-fsc">
-                <span className="text-sm line-clamp-3">Hur väljer jag mellan Business Central och Finance & Supply Chain?</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
-              <Link to="/qa#crm-appar">
-                <span className="text-sm line-clamp-3">Dynamics 365 CRM består av flera olika applikationer - Förklara lite närmare</span>
-              </Link>
-            </Button>
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Fråga 1 */}
+            <div className="bg-card rounded-lg p-6 border border-border shadow-sm">
+              <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-start gap-3">
+                <span className="text-2xl">❓</span>
+                Vad är Microsoft Dynamics 365 – och hur fungerar det?
+              </h3>
+              <div className="space-y-3 text-muted-foreground">
+                <p>• <strong>Vad Dynamics 365 är:</strong> En svit av ERP- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice</p>
+                <p>• <strong>Hur modulerna hänger ihop:</strong> Alla appar delar samma dataplattform och kan integreras sömlöst</p>
+                <p>• <strong>Flexibilitet:</strong> Du kan börja med en enda modul och växa över tid, eller implementera en komplett helhetslösning från start</p>
+              </div>
+            </div>
+
+            {/* Fråga 2 */}
+            <div className="bg-card rounded-lg p-6 border border-border shadow-sm">
+              <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-start gap-3">
+                <span className="text-2xl">❓</span>
+                Vilken Dynamics 365-lösning passar vårt företag bäst?
+              </h3>
+              <div className="space-y-3 text-muted-foreground">
+                <p>Eftersom Dynamics 365 innehåller flera appar (t.ex. Business Central, F&SCM, Sales, Customer Service, Project Operations), undrar många:</p>
+                <p>• <strong>Vilken modul passar vår bransch och storlek?</strong> Mindre företag börjar ofta med Business Central, medan större koncerner väljer F&SCM</p>
+                <p>• <strong>Vad är skillnaden mellan Business Central och F&SCM?</strong> Business Central är ett allt-i-ett system för SMB, medan F&SCM är för komplexa globala verksamheter</p>
+                <p>• <strong>Kan vi kombinera flera appar?</strong> Ja, du kan kombinera exempelvis Business Central med Sales och Customer Service för en komplett lösning</p>
+              </div>
+            </div>
+
+            {/* Fråga 3 */}
+            <div className="bg-card rounded-lg p-6 border border-border shadow-sm">
+              <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-start gap-3">
+                <span className="text-2xl">❓</span>
+                Vad kostar Dynamics 365 – och vad påverkar priset?
+              </h3>
+              <div className="space-y-3 text-muted-foreground">
+                <p>En av de mest sökta frågorna:</p>
+                <p>• <strong>Licenspriser per användare:</strong> Varierar från ca 900 kr/mån för grundläggande licenser upp till 3000+ kr/mån för avancerade användare</p>
+                <p>• <strong>Vad tillkommer:</strong> Implementation, anpassningar, integration, utbildning och löpande support</p>
+                <p>• <strong>Budgetering:</strong> Räkna med en total projektkostnad på 200 000 - 2 000 000 kr beroende på omfattning och komplexitet</p>
+              </div>
+            </div>
+
+            {/* Fråga 4 */}
+            <div className="bg-card rounded-lg p-6 border border-border shadow-sm">
+              <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-start gap-3">
+                <span className="text-2xl">❓</span>
+                Hur lång tid tar det att implementera Dynamics 365?
+              </h3>
+              <div className="space-y-3 text-muted-foreground">
+                <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 6-18 månader för F&SCM, 2-4 månader för CRM-moduler</p>
+                <p>• <strong>Vad krävs internt:</strong> Engagerad projektledare, dedikerade nyckelanvändare och tid för workshop och testning</p>
+                <p>• <strong>Affärsnytta:</strong> Första fördelarna syns ofta redan efter 2-3 månader, full ROI uppnås vanligtvis inom 1-2 år</p>
+              </div>
+            </div>
+
+            {/* Fråga 5 */}
+            <div className="bg-card rounded-lg p-6 border border-border shadow-sm">
+              <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-start gap-3">
+                <span className="text-2xl">❓</span>
+                Hur fungerar Dynamics 365 med våra befintliga system och Microsoft 365?
+              </h3>
+              <div className="space-y-3 text-muted-foreground">
+                <p>Integration är avgörande:</p>
+                <p>• <strong>Microsoft 365-integration:</strong> Sömlös integration med Outlook, Teams och Excel – arbeta direkt i de verktyg du redan använder</p>
+                <p>• <strong>Befintliga system:</strong> Enkelt att koppla samman med e-handel, lönesystem, BI-verktyg och andra affärssystem via API:er</p>
+                <p>• <strong>Power Platform:</strong> Skapa egna appar, automatisera arbetsflöden och bygga dashboards utan att behöva programmera</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
