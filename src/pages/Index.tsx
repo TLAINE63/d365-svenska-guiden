@@ -134,34 +134,34 @@ const Index = () => {
             Vanliga frågor
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
-            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
               <Link to="/qa#fordelar">
-                <span className="text-sm">Vilka är de verkliga fördelarna med Microsoft Dynamics 365?</span>
+                <span className="text-sm line-clamp-3">Vilka är de verkliga fördelarna med Microsoft Dynamics 365?</span>
               </Link>
             </Button>
-            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
               <Link to="/qa#priser">
-                <span className="text-sm">Vad finns det för olika licensvarianter?</span>
+                <span className="text-sm line-clamp-3">Vad finns det för olika licensvarianter?</span>
               </Link>
             </Button>
-            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
               <Link to="/qa#implementering">
-                <span className="text-sm">Hur lång tid tar ett projekt och vad kostar det?</span>
+                <span className="text-sm line-clamp-3">Hur lång tid tar ett projekt och vad kostar det?</span>
               </Link>
             </Button>
-            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
               <Link to="/qa#risker">
-                <span className="text-sm">Vilka typiska risker finns i ett CRM/ERP-projekt?</span>
+                <span className="text-sm line-clamp-3">Vilka typiska risker finns i ett CRM/ERP-projekt?</span>
               </Link>
             </Button>
-            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
               <Link to="/qa#bc-vs-fsc">
-                <span className="text-sm">Hur väljer jag mellan Business Central och Finance & Supply Chain?</span>
+                <span className="text-sm line-clamp-3">Hur väljer jag mellan Business Central och Finance & Supply Chain?</span>
               </Link>
             </Button>
-            <Button asChild variant="outline" className="h-auto py-4 text-left justify-start hover:bg-accent/50">
+            <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
               <Link to="/qa#crm-appar">
-                <span className="text-sm">Dynamics 365 CRM består av flera olika applikationer - Förklara lite närmare</span>
+                <span className="text-sm line-clamp-3">Dynamics 365 CRM består av flera olika applikationer - Förklara lite närmare</span>
               </Link>
             </Button>
           </div>
