@@ -122,15 +122,6 @@ const Index = () => {
                   <Link to="/kontakt">Boka gratis rådgivning</Link>
                 </Button>
               </div>
-              
-              {/* Small Network Image */}
-              <div className="hidden lg:flex justify-end">
-                <img 
-                  src={BizAppsNetwork} 
-                  alt="Microsoft Business Applications Network" 
-                  className="w-[32rem] h-auto opacity-90"
-                />
-              </div>
             </div>
           </div>
         </div>
