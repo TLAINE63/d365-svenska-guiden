@@ -234,6 +234,40 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
+      {/* Key Decision Factors Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+              <h3 className="text-2xl font-bold text-card-foreground mb-6">Nyckelfaktorer vid valet</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-3">Företagsstorlek</h4>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p>Business Central: &lt;300 användare</p>
+                    <p>Finance & Supply Chain: från 20 användare</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-3">Komplexitet</h4>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p>Enkla till medelkomplexa processer → Business Central</p>
+                    <p>Medelkomplexa till Komplexa processer → Finance & Supply Chain</p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-card-foreground mb-3">Budget</h4>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p>Begränsad budget → Business Central</p>
+                    <p>Större investeringsförmåga → Finance & Supply Chain</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Project Cost Section */}
       <section id="project-cost" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
