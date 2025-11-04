@@ -13,6 +13,7 @@ import QA from "./pages/QA";
 import ContactUs from "./pages/ContactUs";
 import Configurator from "./pages/Configurator";
 import InteractiveGuide from "./pages/InteractiveGuide";
+import Partner from "./pages/Partner";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/kontakt" element={<ContactUs />} />
           <Route path="/konfigurator" element={<Configurator />} />
           <Route path="/guide" element={<InteractiveGuide />} />
+          <Route path="/partner" element={<Partner />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

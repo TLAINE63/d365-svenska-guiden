@@ -25,6 +25,7 @@ const Navbar = () => {
     { label: "Business Central", path: "/business-central", external: false },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain", external: false },
     { label: "Copilot", path: "/copilot", external: false },
+    { label: "Partner", path: "/partner", external: false },
     { label: "Q&A", path: "/qa", external: false },
     { label: "Blogg", path: "https://www.microsoft.com/en-us/dynamics-365/blog/", external: true },
     { label: "Kontakt", path: "/kontakt", external: false },
