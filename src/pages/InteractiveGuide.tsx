@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/components/Navbar";
@@ -12,7 +13,7 @@ type Step = "intro" | "company-size" | "improvement" | "approach" | "recommendat
 const InteractiveGuide = () => {
   const [currentStep, setCurrentStep] = useState<Step>("intro");
   const [companySize, setCompanySize] = useState<string>("");
-  const [improvement, setImprovement] = useState<string>("");
+  const [improvements, setImprovements] = useState<string[]>([]);
   const [approach, setApproach] = useState<string>("");
 
   const handleCompanySizeSelect = (value: string) => {
@@ -20,9 +21,18 @@ const InteractiveGuide = () => {
     setCurrentStep("improvement");
   };
 
-  const handleImprovementSelect = (value: string) => {
-    setImprovement(value);
-    setCurrentStep("approach");
+  const toggleImprovement = (value: string) => {
+    setImprovements(prev => 
+      prev.includes(value) 
+        ? prev.filter(item => item !== value)
+        : [...prev, value]
+    );
+  };
+
+  const handleImprovementNext = () => {
+    if (improvements.length > 0) {
+      setCurrentStep("approach");
+    }
   };
 
   const handleApproachSelect = (value: string) => {
@@ -31,30 +41,32 @@ const InteractiveGuide = () => {
   };
 
   const getRecommendations = () => {
-    const recommendations: string[] = [];
+    const recommendations = new Set<string>();
 
-    // Baserat på företagsstorlek
-    if (companySize === "small") {
-      if (improvement === "ekonomi" || improvement === "lager" || improvement === "tillverkning") {
-        recommendations.push("Business Central");
-      }
-    } else if (companySize === "large") {
-      if (improvement === "ekonomi" || improvement === "lager" || improvement === "tillverkning") {
-        recommendations.push("Finance & Supply Chain Management");
-      }
+    // Baserat på företagsstorlek och förbättringsområden
+    const hasERP = improvements.some(imp => ["ekonomi", "lager", "tillverkning"].includes(imp));
+    
+    if (companySize === "small" && hasERP) {
+      recommendations.add("Business Central");
+    } else if (companySize === "large" && hasERP) {
+      recommendations.add("Finance & Supply Chain Management");
     }
 
-    // Baserat på förbättringsområde
-    if (improvement === "försäljning") {
-      recommendations.push("Dynamics 365 Sales");
-    } else if (improvement === "kundservice") {
-      recommendations.push("Dynamics 365 Customer Service");
-      recommendations.push("Contact Center");
-    } else if (improvement === "projekt") {
-      recommendations.push("Dynamics 365 Project Operations");
+    // Baserat på specifika förbättringsområden
+    if (improvements.includes("försäljning")) {
+      recommendations.add("Dynamics 365 Sales");
+    }
+    
+    if (improvements.includes("kundservice")) {
+      recommendations.add("Dynamics 365 Customer Service");
+      recommendations.add("Contact Center");
+    }
+    
+    if (improvements.includes("projekt")) {
+      recommendations.add("Dynamics 365 Project Operations");
     }
 
-    return recommendations;
+    return Array.from(recommendations);
   };
 
   const recommendations = currentStep === "recommendations" ? getRecommendations() : [];
@@ -136,15 +148,21 @@ const InteractiveGuide = () => {
             <Card className="p-8">
               <CardHeader>
                 <CardTitle className="text-2xl">Vad vill ni främst förbättra?</CardTitle>
-                <CardDescription>Välj det område som är viktigast för er verksamhet</CardDescription>
+                <CardDescription>Välj ett eller flera områden som är viktiga för er verksamhet</CardDescription>
               </CardHeader>
-              <CardContent>
-                <RadioGroup onValueChange={handleImprovementSelect} className="space-y-3">
+              <CardContent className="space-y-4">
+                <div className="space-y-3">
                   <div
-                    className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary transition-colors cursor-pointer"
-                    onClick={() => handleImprovementSelect("ekonomi")}
+                    className={`flex items-center space-x-3 p-4 rounded-lg border transition-colors cursor-pointer ${
+                      improvements.includes("ekonomi") ? "border-primary bg-primary/5" : "border-border hover:border-primary"
+                    }`}
+                    onClick={() => toggleImprovement("ekonomi")}
                   >
-                    <RadioGroupItem value="ekonomi" id="ekonomi" />
+                    <Checkbox 
+                      id="ekonomi" 
+                      checked={improvements.includes("ekonomi")}
+                      onCheckedChange={() => toggleImprovement("ekonomi")}
+                    />
                     <Label htmlFor="ekonomi" className="flex-1 cursor-pointer">
                       <div className="font-medium text-card-foreground">Ekonomi och redovisning</div>
                       <div className="text-sm text-muted-foreground mt-1">
@@ -154,10 +172,16 @@ const InteractiveGuide = () => {
                   </div>
 
                   <div
-                    className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary transition-colors cursor-pointer"
-                    onClick={() => handleImprovementSelect("lager")}
+                    className={`flex items-center space-x-3 p-4 rounded-lg border transition-colors cursor-pointer ${
+                      improvements.includes("lager") ? "border-primary bg-primary/5" : "border-border hover:border-primary"
+                    }`}
+                    onClick={() => toggleImprovement("lager")}
                   >
-                    <RadioGroupItem value="lager" id="lager" />
+                    <Checkbox 
+                      id="lager" 
+                      checked={improvements.includes("lager")}
+                      onCheckedChange={() => toggleImprovement("lager")}
+                    />
                     <Label htmlFor="lager" className="flex-1 cursor-pointer">
                       <div className="font-medium text-card-foreground">Lager, logistik och inköp</div>
                       <div className="text-sm text-muted-foreground mt-1">
@@ -167,10 +191,16 @@ const InteractiveGuide = () => {
                   </div>
 
                   <div
-                    className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary transition-colors cursor-pointer"
-                    onClick={() => handleImprovementSelect("tillverkning")}
+                    className={`flex items-center space-x-3 p-4 rounded-lg border transition-colors cursor-pointer ${
+                      improvements.includes("tillverkning") ? "border-primary bg-primary/5" : "border-border hover:border-primary"
+                    }`}
+                    onClick={() => toggleImprovement("tillverkning")}
                   >
-                    <RadioGroupItem value="tillverkning" id="tillverkning" />
+                    <Checkbox 
+                      id="tillverkning" 
+                      checked={improvements.includes("tillverkning")}
+                      onCheckedChange={() => toggleImprovement("tillverkning")}
+                    />
                     <Label htmlFor="tillverkning" className="flex-1 cursor-pointer">
                       <div className="font-medium text-card-foreground">Tillverkning och produktion</div>
                       <div className="text-sm text-muted-foreground mt-1">
@@ -180,10 +210,16 @@ const InteractiveGuide = () => {
                   </div>
 
                   <div
-                    className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary transition-colors cursor-pointer"
-                    onClick={() => handleImprovementSelect("försäljning")}
+                    className={`flex items-center space-x-3 p-4 rounded-lg border transition-colors cursor-pointer ${
+                      improvements.includes("försäljning") ? "border-primary bg-primary/5" : "border-border hover:border-primary"
+                    }`}
+                    onClick={() => toggleImprovement("försäljning")}
                   >
-                    <RadioGroupItem value="försäljning" id="försäljning" />
+                    <Checkbox 
+                      id="försäljning" 
+                      checked={improvements.includes("försäljning")}
+                      onCheckedChange={() => toggleImprovement("försäljning")}
+                    />
                     <Label htmlFor="försäljning" className="flex-1 cursor-pointer">
                       <div className="font-medium text-card-foreground">Försäljning och kundrelationer</div>
                       <div className="text-sm text-muted-foreground mt-1">
@@ -193,10 +229,16 @@ const InteractiveGuide = () => {
                   </div>
 
                   <div
-                    className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary transition-colors cursor-pointer"
-                    onClick={() => handleImprovementSelect("kundservice")}
+                    className={`flex items-center space-x-3 p-4 rounded-lg border transition-colors cursor-pointer ${
+                      improvements.includes("kundservice") ? "border-primary bg-primary/5" : "border-border hover:border-primary"
+                    }`}
+                    onClick={() => toggleImprovement("kundservice")}
                   >
-                    <RadioGroupItem value="kundservice" id="kundservice" />
+                    <Checkbox 
+                      id="kundservice" 
+                      checked={improvements.includes("kundservice")}
+                      onCheckedChange={() => toggleImprovement("kundservice")}
+                    />
                     <Label htmlFor="kundservice" className="flex-1 cursor-pointer">
                       <div className="font-medium text-card-foreground">Kundservice och support</div>
                       <div className="text-sm text-muted-foreground mt-1">
@@ -206,10 +248,16 @@ const InteractiveGuide = () => {
                   </div>
 
                   <div
-                    className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-primary transition-colors cursor-pointer"
-                    onClick={() => handleImprovementSelect("projekt")}
+                    className={`flex items-center space-x-3 p-4 rounded-lg border transition-colors cursor-pointer ${
+                      improvements.includes("projekt") ? "border-primary bg-primary/5" : "border-border hover:border-primary"
+                    }`}
+                    onClick={() => toggleImprovement("projekt")}
                   >
-                    <RadioGroupItem value="projekt" id="projekt" />
+                    <Checkbox 
+                      id="projekt" 
+                      checked={improvements.includes("projekt")}
+                      onCheckedChange={() => toggleImprovement("projekt")}
+                    />
                     <Label htmlFor="projekt" className="flex-1 cursor-pointer">
                       <div className="font-medium text-card-foreground">Projektstyrning och resursplanering</div>
                       <div className="text-sm text-muted-foreground mt-1">
@@ -217,7 +265,16 @@ const InteractiveGuide = () => {
                       </div>
                     </Label>
                   </div>
-                </RadioGroup>
+                </div>
+
+                <Button 
+                  onClick={handleImprovementNext}
+                  disabled={improvements.length === 0}
+                  className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
+                >
+                  Fortsätt
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
               </CardContent>
             </Card>
           )}
@@ -355,7 +412,7 @@ const InteractiveGuide = () => {
                   onClick={() => {
                     setCurrentStep("intro");
                     setCompanySize("");
-                    setImprovement("");
+                    setImprovements([]);
                     setApproach("");
                   }}
                   variant="ghost"
