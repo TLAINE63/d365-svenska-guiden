@@ -368,7 +368,7 @@ const CRM = () => {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid gap-8">
               {/* Implementation Costs */}
               <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
                 <h3 className="text-2xl font-bold text-card-foreground mb-6">Implementeringskostnader</h3>
