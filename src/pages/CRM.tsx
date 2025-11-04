@@ -177,7 +177,7 @@ const CRM = () => {
         "Tid- och kostnadsuppföljning",
         "Fakturering och intäktshantering",
         "Integration med Finance",
-        "AI-driven projektinsikter",
+        "AI-drivna projektinsikter",
       ],
     },
   ];
