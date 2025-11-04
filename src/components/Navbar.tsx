@@ -48,7 +48,7 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  Guide
+                  Din Guide
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -95,7 +95,7 @@ const Navbar = () => {
             <SheetContent>
               <div className="flex flex-col gap-4 mt-8">
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Guide</span>
+                  <span className="text-lg font-semibold text-foreground">Din Guide</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {guideItems.map((item) => (
                       <Link
