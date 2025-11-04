@@ -208,6 +208,10 @@ const FinanceSupplyChain = () => {
                     <span className="text-xl">🧰</span>
                     <span>Allt-i-ett-lösning för ekonomi, order, lager, inköp, produktion, projekt</span>
                   </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-xl">🛒</span>
+                    <span>Marknadsplats med över 6.000 tilläggsappar</span>
+                  </li>
                 </ul>
               </div>
             </div>
