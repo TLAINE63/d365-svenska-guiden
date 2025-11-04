@@ -141,7 +141,7 @@ const FinanceSupplyChain = () => {
             <div className="grid md:grid-cols-2 gap-8">
               {/* Finance & Supply Chain Management */}
               <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-2xl font-bold text-card-foreground mb-4">Finance & Supply Chain Management (F&SCM)</h3>
+                <h3 className="text-2xl font-bold text-card-foreground mb-4">Finance & Supply Chain Management</h3>
                 
                 <ul className="space-y-3 text-muted-foreground">
                   <li className="flex items-start gap-2">
