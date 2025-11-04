@@ -30,7 +30,7 @@ const Partner = () => {
                 Implementationspartner
               </h1>
               <p className="text-xl md:text-2xl text-white/95 mb-8">
-                Tillsammans skapar vi framgångsrika Dynamics 365-lösningar för era kunder
+                Säkerställ verklig affärsnytta tillsammans med rätt partner
               </p>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link to="/kontakt">
