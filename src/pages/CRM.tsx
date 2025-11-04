@@ -214,13 +214,13 @@ const CRM = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Dynamics 365 Customer Engagement – För smartare kundrelationer och effektivare projekt
+              Dynamics 365 Customer Engagement – För smartare kundrelationer
             </h2>
             <p className="text-xl text-muted-foreground mb-6">
-              Skapa starkare kundupplevelser, effektivare service och bättre projektstyrning – allt i en integrerad plattform.
+              Skapa starkare kundupplevelser och effektivare service – allt i en integrerad plattform.
             </p>
             <p className="text-lg text-muted-foreground">
-              Microsoft Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att bygga långsiktiga kundrelationer, leverera förstklassig service och driva projekt med precision. Lösningen kombinerar CRM, kundtjänst och projektstyrning i en modern, molnbaserad plattform.
+              Microsoft Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att bygga långsiktiga kundrelationer och leverera förstklassig service. Lösningen kombinerar CRM och kundtjänst i en modern, molnbaserad plattform.
             </p>
           </div>
         </div>
