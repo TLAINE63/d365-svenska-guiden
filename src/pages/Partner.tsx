@@ -2,32 +2,49 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Users, Handshake, TrendingUp } from "lucide-react";
+import { CheckCircle2, Users, Handshake, TrendingUp, ArrowRight } from "lucide-react";
 
 const Partner = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-20 bg-gradient-to-br from-primary/10 via-background to-accent/10">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Bli vår partner
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              Tillsammans skapar vi framgångsrika Dynamics 365-lösningar för era kunder
-            </p>
-            <Button asChild size="lg" className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-              <Link to="/kontakt">Kontakta oss</Link>
-            </Button>
+      {/* Header */}
+      <header className="relative overflow-hidden mt-16 h-[450px] md:h-[550px]">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=2070" 
+            alt="Business partnership and collaboration" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        </div>
+        
+        <div className="relative h-full flex items-center">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-4 mb-4">
+                <Handshake className="h-12 w-12 text-white" />
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+                Implementationspartner
+              </h1>
+              <p className="text-xl md:text-2xl text-white/95 mb-8">
+                Tillsammans skapar vi framgångsrika Dynamics 365-lösningar för era kunder
+              </p>
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Link to="/kontakt">
+                  <span>Kontakta oss</span>
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
-      </section>
+      </header>
 
       {/* Viktiga frågor Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -295,7 +312,7 @@ const Partner = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-accent/5">
+      <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
@@ -305,7 +322,7 @@ const Partner = () => {
               Kontakta oss för att diskutera hur vi kan samarbeta och skapa värde tillsammans
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link to="/kontakt">Kontakta oss</Link>
               </Button>
               <Button asChild size="lg" variant="outline">
