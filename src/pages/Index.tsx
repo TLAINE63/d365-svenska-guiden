@@ -136,7 +136,7 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
             <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
               <Link to="/qa#fordelar">
-                <span className="text-sm line-clamp-3">Vilka är de verkliga fördelarna med Microsoft Dynamics 365?</span>
+                <span className="text-sm line-clamp-3">Vilka är de verkliga fördelarna med Dynamics 365?</span>
               </Link>
             </Button>
             <Button asChild variant="outline" className="h-24 py-4 px-4 text-left justify-start hover:bg-accent/50">
