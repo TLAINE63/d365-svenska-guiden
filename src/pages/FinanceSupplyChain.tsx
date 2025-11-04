@@ -211,34 +211,9 @@ const FinanceSupplyChain = () => {
                 </ul>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Prisöversikt
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Priser per användare och månad
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {fscPricingPlans.map((plan, index) => (
-              <PricingCard key={index} {...plan} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Key Decision Factors Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
+            {/* Key Decision Factors */}
+            <div className="mt-12 bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
               <h3 className="text-2xl font-bold text-card-foreground mb-6">Nyckelfaktorer vid valet</h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
@@ -264,6 +239,25 @@ const FinanceSupplyChain = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Prisöversikt
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Priser per användare och månad
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {fscPricingPlans.map((plan, index) => (
+              <PricingCard key={index} {...plan} />
+            ))}
           </div>
         </div>
       </section>
