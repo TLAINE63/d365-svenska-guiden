@@ -3,6 +3,12 @@ import Navbar from "@/components/Navbar";
 import BigFiveSection from "@/components/BigFiveSection";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const QA = () => {
   const faqs = [
@@ -104,56 +110,64 @@ const QA = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="space-y-6">
+            <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
-                <div key={index} id={faq.id} className="bg-card rounded-lg p-8 shadow-[var(--shadow-card)] border border-border scroll-mt-24">
-                  <h3 className="text-xl font-bold text-card-foreground mb-4">{faq.question}</h3>
-                  
-                  {/* Visual advantages grid for the first FAQ */}
-                  {faq.id === "fordelar" && (
-                    <div className="mb-8 p-6 bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg border border-primary/20">
-                      <h4 className="text-lg font-semibold text-card-foreground mb-4 text-center">Översikt av fördelar</h4>
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                        {[
-                          { icon: "☁️", title: "Allt i molnet" },
-                          { icon: "🔗", title: "En plattform för allt" },
-                          { icon: "🤖", title: "Kraftfull AI med Copilot" },
-                          { icon: "🏢", title: "Microsoft-ekosystemet" },
-                          { icon: "📈", title: "Skalbar och flexibel" },
-                          { icon: "🔒", title: "Säkerhet i världsklass" },
-                          { icon: "📱", title: "Mobilitet" },
-                          { icon: "💰", title: "Lägre totalkostnad" },
-                          { icon: "🔄", title: "Ingen teknisk skuld" },
-                          { icon: "✨", title: "Moderna gränssnitt" },
-                        ].map((advantage, idx) => (
-                          <div key={idx} className="bg-card p-4 rounded-lg border border-border hover:border-primary transition-all hover:shadow-md text-center">
-                            <div className="text-3xl mb-2">{advantage.icon}</div>
-                            <div className="text-xs font-medium text-card-foreground">{advantage.title}</div>
-                          </div>
-                        ))}
+                <AccordionItem 
+                  key={index} 
+                  value={faq.id}
+                  id={faq.id}
+                  className="bg-card rounded-lg px-8 shadow-[var(--shadow-card)] border border-border scroll-mt-24"
+                >
+                  <AccordionTrigger className="text-xl font-bold text-card-foreground hover:no-underline py-6">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-8">
+                    {/* Visual advantages grid for the first FAQ */}
+                    {faq.id === "fordelar" && (
+                      <div className="mb-8 p-6 bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg border border-primary/20">
+                        <h4 className="text-lg font-semibold text-card-foreground mb-4 text-center">Översikt av fördelar</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                          {[
+                            { icon: "☁️", title: "Allt i molnet" },
+                            { icon: "🔗", title: "En plattform för allt" },
+                            { icon: "🤖", title: "Kraftfull AI med Copilot" },
+                            { icon: "🏢", title: "Microsoft-ekosystemet" },
+                            { icon: "📈", title: "Skalbar och flexibel" },
+                            { icon: "🔒", title: "Säkerhet i världsklass" },
+                            { icon: "📱", title: "Mobilitet" },
+                            { icon: "💰", title: "Lägre totalkostnad" },
+                            { icon: "🔄", title: "Ingen teknisk skuld" },
+                            { icon: "✨", title: "Moderna gränssnitt" },
+                          ].map((advantage, idx) => (
+                            <div key={idx} className="bg-card p-4 rounded-lg border border-border hover:border-primary transition-all hover:shadow-md text-center">
+                              <div className="text-3xl mb-2">{advantage.icon}</div>
+                              <div className="text-xs font-medium text-card-foreground">{advantage.title}</div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
+                    )}
+                    
+                    <div className="text-muted-foreground whitespace-pre-line">
+                      {faq.answer.split('\n').map((line, lineIndex) => {
+                        const parts = line.split(/(\*\*.*?\*\*)/g);
+                        return (
+                          <span key={lineIndex}>
+                            {parts.map((part, partIndex) => {
+                              if (part.startsWith('**') && part.endsWith('**')) {
+                                return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
+                              }
+                              return part;
+                            })}
+                            {lineIndex < faq.answer.split('\n').length - 1 && <br />}
+                          </span>
+                        );
+                      })}
                     </div>
-                  )}
-                  
-                  <div className="text-muted-foreground whitespace-pre-line">
-                    {faq.answer.split('\n').map((line, lineIndex) => {
-                      const parts = line.split(/(\*\*.*?\*\*)/g);
-                      return (
-                        <span key={lineIndex}>
-                          {parts.map((part, partIndex) => {
-                            if (part.startsWith('**') && part.endsWith('**')) {
-                              return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
-                            }
-                            return part;
-                          })}
-                          {lineIndex < faq.answer.split('\n').length - 1 && <br />}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </div>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </div>
       </section>
