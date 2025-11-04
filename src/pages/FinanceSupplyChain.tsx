@@ -6,6 +6,12 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const FinanceSupplyChain = () => {
   const fscVideos = [
@@ -111,42 +117,67 @@ const FinanceSupplyChain = () => {
               </h2>
             </div>
             
-            <div className="space-y-4">
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
-                <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
-                  <span className="text-2xl">❓</span>
-                  <span>Vad är skillnaden mellan Dynamics 365 F&SCM och andra ERP-system?</span>
-                </h3>
-              </div>
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+                  <span className="flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    <span>Vad är skillnaden mellan Dynamics 365 F&SCM och andra ERP-system?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6 pl-11">
+                  Dynamics 365 Finance & Supply Chain Management skiljer sig genom sin skalbarhet för globala organisationer, djupgående integration med Microsoft-ekosystemet, kraftfulla AI- och maskininlärningsfunktioner för prediktiv analys, samt branschspecifika moduler för tillverkning, detaljhandel och distribution. Systemet erbjuder också omfattande compliance-stöd för olika regioner och branscher.
+                </AccordionContent>
+              </AccordionItem>
               
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
-                <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
-                  <span className="text-2xl">❓</span>
-                  <span>Hur mycket kostar Dynamics 365 F&SCM – och vad påverkar priset?</span>
-                </h3>
-              </div>
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+                  <span className="flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    <span>Hur mycket kostar Dynamics 365 F&SCM – och vad påverkar priset?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6 pl-11">
+                  Licenspriser börjar från 2 200 kr/månad för Finance och 2 500 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka moduler ni behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
+                </AccordionContent>
+              </AccordionItem>
               
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
-                <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
-                  <span className="text-2xl">❓</span>
-                  <span>Hur lång tid tar det att implementera F&SCM – och hur ser processen ut?</span>
-                </h3>
-              </div>
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+                  <span className="flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    <span>Hur lång tid tar det att implementera F&SCM – och hur ser processen ut?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6 pl-11">
+                  En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning och komplexitet. Processen följer vanligtvis följande faser: (1) Analys och planering, (2) Design och konfiguration, (3) Datamigrering, (4) Testning och validering, (5) Utbildning, (6) Go-live och (7) Stabilisering. Vi rekommenderar en fasad implementering där ni rullar ut funktionaliteten stegvis för att minimera risker.
+                </AccordionContent>
+              </AccordionItem>
               
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
-                <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
-                  <span className="text-2xl">❓</span>
-                  <span>Hur flexibelt och anpassningsbart är F&SCM för vår verksamhet?</span>
-                </h3>
-              </div>
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+                  <span className="flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    <span>Hur flexibelt och anpassningsbart är F&SCM för vår verksamhet?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6 pl-11">
+                  F&SCM är mycket flexibelt och kan anpassas till komplexa affärsprocesser och branschspecifika krav. Systemet stödjer omfattande konfiguration via Power Platform, samt utveckling av specialanpassningar när det behövs. Det finns också ett rikt ekosystem av ISV-lösningar (Independent Software Vendors) för specifika branscher som tillverkning, detaljhandel, läkemedel och livsmedel.
+                </AccordionContent>
+              </AccordionItem>
               
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
-                <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
-                  <span className="text-2xl">❓</span>
-                  <span>Hur fungerar F&SCM med andra Microsoft-lösningar och tredjepartssystem?</span>
-                </h3>
-              </div>
-            </div>
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+                  <span className="flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    <span>Hur fungerar F&SCM med andra Microsoft-lösningar och tredjepartssystem?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6 pl-11">
+                  F&SCM integreras sömlöst med hela Microsoft-ekosystemet inklusive Microsoft 365, Teams, Power BI och Azure. Systemet har robusta API:er och stöd för integration med tredjepartssystem som CRM-lösningar, e-handelsplattformar, WMS-system, MES-system och IoT-enheter. Integration kan ske via Azure Logic Apps, Power Automate eller direktintegrationer via standardprotokoll.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

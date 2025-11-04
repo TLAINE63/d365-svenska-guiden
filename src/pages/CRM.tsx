@@ -9,6 +9,12 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const CRM = () => {
   const ceVideos = [
@@ -252,52 +258,52 @@ const CRM = () => {
               Vanliga frågor om Dynamics 365 Customer Engagement
             </h2>
             
-            <div className="space-y-6">
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Vad är Dynamics 365 Customer Engagement och vad ingår i det?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att hantera sina kundrelationer. Det inkluderar lösningar för försäljning (Sales), kundservice (Customer Service), marknadsföring (Customer Insights), kontaktcenter (Contact Center), fältservice (Field Service) och projektstyrning (Project Operations). Alla moduler integreras sömlöst och ger en helhetsbild av varje kund.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Hur skiljer sig Dynamics 365 CE från andra CRM-system?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Dynamics 365 CE sticker ut genom sin djupa integration med Microsoft-ekosystemet (Office 365, Teams, Outlook), kraftfulla AI-funktioner via Copilot, flexibel anpassning utan omfattande programmering, samt möjligheten att kombinera CRM med ERP (Business Central eller Finance & Supply Chain) för en komplett affärslösning. Systemet är också byggt för att växa med din verksamhet – från små team till globala organisationer.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Kostnaden varierar beroende på vilka moduler ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250k kr för en modul, upp till 800k-2M kr för en komplett lösning) samt löpande support och anpassningar. Vi hjälper er att hitta rätt paket för era behov och budget.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Hur snabbt kan vi komma igång med Dynamics 365 CE?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Implementeringstiden varierar beroende på omfattning och komplexitet. För en standardimplementering av en enskild modul (t.ex. Sales) kan ni vara igång på 2-3 månader. Större implementeringar med flera moduler och omfattande anpassningar tar normalt 4-6 månader. Vi börjar alltid med en noggrann kravanalys för att säkerställa att lösningen möter era verkliga behov.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Hur anpassningsbart är systemet för vår verksamhet?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Dynamics 365 CE är mycket flexibelt och kan anpassas till de flesta branscher och affärsprocesser. Via Power Platform kan ni bygga egna arbetsflöden, formulär och rapporter utan omfattande programmering. Systemet stödjer också branschspecifika lösningar för bland annat tillverkning, detaljhandel, hälsovård och professionella tjänster. Vi hjälper er att konfigurera systemet så att det passar era unika processer.
-                </p>
-              </div>
-            </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>

@@ -5,6 +5,12 @@ import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const BusinessCentral = () => {
   const bcVideos = [
@@ -102,52 +108,52 @@ const BusinessCentral = () => {
               Vanliga frågor om Dynamics 365 Business Central
             </h2>
             
-            <div className="space-y-6">
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+            <Accordion type="single" collapsible className="space-y-4">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Vad kostar Business Central – och vad påverkar priset?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Business Central har tre licensnivåer: Team Member (100 kr/månad), Essentials (700 kr/månad) och Premium (1 000 kr/månad). Priset påverkas av antal användare, vilka funktioner ni behöver, och om ni väljer molnbaserad eller on-premise-lösning. Till licensavgifterna tillkommer implementeringskostnader som varierar beroende på omfattning och anpassningsbehov.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Är Business Central rätt för mitt företag?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Business Central är optimerat för mindre och medelstora företag (10-300 användare) med behov av ett komplett ERP-system. Det passar särskilt bra för företag som redan använder Microsoft 365 och vill ha en integrerad lösning för ekonomi, lager, försäljning, inköp och produktion. Oavsett bransch – tillverkning, handel, tjänster eller projekt – kan Business Central anpassas till era specifika behov.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Hur lång tid tar det att implementera Business Central?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   En typisk Business Central-implementering tar 3-6 månader beroende på komplexitet och omfattning. För mindre företag med standardprocesser kan det gå snabbare (2-3 månader), medan större projekt med omfattande anpassningar och integrationer kan ta 6-12 månader. Vi rekommenderar en fasad implementering där ni får grundfunktionaliteten först och sedan bygger på med mer avancerade funktioner.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Hur fungerar Business Central med Microsoft 365 och andra system?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Business Central är byggt för att fungera sömlöst med Microsoft 365-paketet. Ni kan arbeta direkt i Outlook, Excel och Teams utan att lämna era vanliga arbetsverktyg. Systemet integreras också enkelt med andra lösningar via API:er och standardkopplingar, inklusive e-handel, CRM-system (som Dynamics 365 Sales), tidrapporteringssystem och bransspecifika tilläggslösningar.
-                </p>
-              </div>
+                </AccordionContent>
+              </AccordionItem>
 
-              <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl font-semibold text-card-foreground mb-3">
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
                   ❓ Hur anpassningsbart är Business Central för våra behov?
-                </h3>
-                <p className="text-muted-foreground">
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
                   Business Central är mycket flexibelt och kan anpassas utan omfattande programmering tack vare Power Platform. Ni kan skapa egna arbetsflöden, rapporter och dashboards som passar era processer. Det finns också hundratals branschspecifika tilläggslösningar (AppSource) för exempelvis bygg, tillverkning, detaljhandel och professionella tjänster. För mer avancerade anpassningar finns möjligheten till utveckling med AL-språket.
-                </p>
-              </div>
-            </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
