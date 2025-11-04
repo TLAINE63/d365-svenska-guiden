@@ -115,35 +115,35 @@ const FinanceSupplyChain = () => {
               <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
                 <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
                   <span className="text-2xl">❓</span>
-                  <span>1. Vad är skillnaden mellan Dynamics 365 F&SCM och andra ERP-system?</span>
+                  <span>Vad är skillnaden mellan Dynamics 365 F&SCM och andra ERP-system?</span>
                 </h3>
               </div>
               
               <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
                 <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
                   <span className="text-2xl">❓</span>
-                  <span>2. Hur mycket kostar Dynamics 365 F&SCM – och vad påverkar priset?</span>
+                  <span>Hur mycket kostar Dynamics 365 F&SCM – och vad påverkar priset?</span>
                 </h3>
               </div>
               
               <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
                 <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
                   <span className="text-2xl">❓</span>
-                  <span>3. Hur lång tid tar det att implementera F&SCM – och hur ser processen ut?</span>
+                  <span>Hur lång tid tar det att implementera F&SCM – och hur ser processen ut?</span>
                 </h3>
               </div>
               
               <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
                 <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
                   <span className="text-2xl">❓</span>
-                  <span>4. Hur flexibelt och anpassningsbart är F&SCM för vår verksamhet?</span>
+                  <span>Hur flexibelt och anpassningsbart är F&SCM för vår verksamhet?</span>
                 </h3>
               </div>
               
               <div className="bg-card rounded-lg p-6 border border-border shadow-[var(--shadow-card)] hover:shadow-lg transition-shadow">
                 <h3 className="text-lg font-semibold text-card-foreground flex items-start gap-3">
                   <span className="text-2xl">❓</span>
-                  <span>5. Hur fungerar F&SCM med andra Microsoft-lösningar och tredjepartssystem?</span>
+                  <span>Hur fungerar F&SCM med andra Microsoft-lösningar och tredjepartssystem?</span>
                 </h3>
               </div>
             </div>
