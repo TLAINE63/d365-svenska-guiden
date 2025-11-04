@@ -17,7 +17,7 @@ import {
 const Navbar = () => {
   const guideItems = [
     { label: "Interaktiv Guide", path: "/guide" },
-    { label: "Avancerad Konfigurator", path: "/konfigurator" },
+    { label: "Konfigurator", path: "/konfigurator" },
   ];
 
   const menuItems = [
