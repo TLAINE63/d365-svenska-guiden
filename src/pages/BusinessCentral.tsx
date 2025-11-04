@@ -176,25 +176,6 @@ const BusinessCentral = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Business Central Essentials vs Premium
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Vilken licens passar bäst för ditt företag?
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {bcPricingPlans.map((plan, index) => (
-              <PricingCard key={index} {...plan} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Project Cost Section */}
       <section id="project-cost" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
@@ -258,8 +239,26 @@ const BusinessCentral = () => {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              </div>
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Business Central Essentials vs Premium
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Vilken licens passar bäst för ditt företag?
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {bcPricingPlans.map((plan, index) => (
+              <PricingCard key={index} {...plan} />
+            ))}
           </div>
         </div>
       </section>
