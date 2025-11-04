@@ -37,6 +37,11 @@ const CRM = () => {
       description: "Optimera fältservice med intelligent schemaläggning och mobilitet",
       videoId: "OujvbnyGqDY",
     },
+    {
+      title: "Dynamics 365 Project Operations",
+      description: "Hantera projekt effektivt från försäljning till leverans",
+      videoId: "U4fj051TZ90",
+    },
   ];
 
   const salesPricing = [
