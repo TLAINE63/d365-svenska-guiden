@@ -216,10 +216,10 @@ const Partner = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Redo att bli partner?
+              Vill du ha hjälp att välja rätt partner?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Kontakta oss för att diskutera hur vi kan samarbeta och skapa värde tillsammans
+              Vi har lång erfarenhet och goda insikter i marknaden och vilka partners som typiskt passar för olika typer av verksamheter och applikationsområden
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
