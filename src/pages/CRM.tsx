@@ -368,43 +368,6 @@ const CRM = () => {
                   </p>
                 </div>
               </div>
-
-              {/* Ongoing Costs */}
-              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-2xl font-bold text-card-foreground mb-6">Löpande kostnader</h3>
-                
-                <div className="space-y-4">
-                  <div className="pb-3 border-b border-border">
-                    <p className="font-semibold text-card-foreground mb-2">Licensavgifter</p>
-                    <p className="text-sm text-muted-foreground mb-2">500-1 500 kr/användare/månad</p>
-                    <p className="text-xs text-muted-foreground">Beroende på modul och funktioner</p>
-                  </div>
-                  
-                  <div className="pb-3 border-b border-border">
-                    <p className="font-semibold text-card-foreground mb-2">Support & underhåll</p>
-                    <p className="text-sm text-muted-foreground mb-2">5-15% av licenskostnaden</p>
-                    <p className="text-xs text-muted-foreground">Teknisk support och systemuppdateringar</p>
-                  </div>
-                  
-                  <div className="pb-3 border-b border-border">
-                    <p className="font-semibold text-card-foreground mb-2">Anpassningar & tillägg</p>
-                    <p className="text-sm text-muted-foreground mb-2">Efter behov</p>
-                    <p className="text-xs text-muted-foreground">Nya funktioner och integrationer</p>
-                  </div>
-                  
-                  <div>
-                    <p className="font-semibold text-card-foreground mb-2">Kontinuerlig utbildning</p>
-                    <p className="text-sm text-muted-foreground mb-2">Efter behov</p>
-                    <p className="text-xs text-muted-foreground">För nya användare och funktioner</p>
-                  </div>
-                </div>
-                
-                <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
-                  <p className="text-sm text-muted-foreground">
-                    <strong>Tips:</strong> CRM-projekt har ofta kortare implementationstid (2-6 månader) och snabbare ROI än ERP-projekt
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
