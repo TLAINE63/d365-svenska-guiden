@@ -1,16 +1,26 @@
 import { Link } from "react-router-dom";
 import dynamicFactoryLogo from "@/assets/dynamic-factory-logo.jpg";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
+  const guideItems = [
+    { label: "Interaktiv Guide", path: "/guide" },
+    { label: "Avancerad Konfigurator", path: "/konfigurator" },
+  ];
+
   const menuItems = [
-    { label: "Första Hjälpen", path: "/konfigurator", external: false },
     { label: "CRM", path: "/crm", external: false },
     { label: "Business Central", path: "/business-central", external: false },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain", external: false },
@@ -35,6 +45,23 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                  Guide
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {guideItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link to={item.path} className="cursor-pointer">
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             {menuItems.map((item) => (
               item.external ? (
                 <a
@@ -67,6 +94,20 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent>
               <div className="flex flex-col gap-4 mt-8">
+                <div className="flex flex-col gap-2">
+                  <span className="text-lg font-semibold text-foreground">Guide</span>
+                  <div className="flex flex-col gap-2 ml-4">
+                    {guideItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
                 {menuItems.map((item) => (
                   item.external ? (
                     <a
