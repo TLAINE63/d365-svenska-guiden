@@ -10,11 +10,6 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 const FinanceSupplyChain = () => {
   const fscVideos = [
     {
-      title: "Din Egen Finance & Supply Chain Video",
-      description: "Lägg in din YouTube video-ID här",
-      videoId: "dQw4w9WgXcQ", // Byt ut detta mot din YouTube video-ID
-    },
-    {
       title: "Introduktion till Dynamics 365 Finance",
       description: "Lär dig grunderna i Microsoft Dynamics 365 Finance och hur det kan transformera din ekonomihantering",
       videoId: "O5yecO8A_9Q",
