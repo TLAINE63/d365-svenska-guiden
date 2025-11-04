@@ -167,6 +167,21 @@ const CRM = () => {
     },
   ];
 
+  const projectOperationsPricing = [
+    {
+      title: "Project Operations",
+      description: "Projekthantering och resursplanering",
+      price: "Från 1 100 kr",
+      features: [
+        "Projektplanering och resurshantering",
+        "Tid- och kostnadsuppföljning",
+        "Fakturering och intäktshantering",
+        "Integration med Finance",
+        "AI-driven projektinsikter",
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -349,6 +364,25 @@ const CRM = () => {
           </div>
           <div className="max-w-2xl mx-auto">
             {fieldServicePricing.map((plan, index) => (
+              <PricingCard key={index} {...plan} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Project Operations Pricing */}
+      <section id="project-operations-pricing" className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              Dynamics 365 Project Operations
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Priser per användare och månad
+            </p>
+          </div>
+          <div className="max-w-2xl mx-auto">
+            {projectOperationsPricing.map((plan, index) => (
               <PricingCard key={index} {...plan} />
             ))}
           </div>
