@@ -379,7 +379,7 @@ const CRM = () => {
                       <p className="font-semibold text-card-foreground">En modul (t.ex. Sales)</p>
                       <p className="text-sm text-muted-foreground">10-30 användare, standardfunktioner</p>
                     </div>
-                    <p className="text-primary font-bold">150-300k kr</p>
+                    <p className="text-primary font-bold">100-250k kr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3 border-b border-border">
