@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { CheckCircle2, Users, Handshake, TrendingUp, ArrowRight } from "lucide-react";
+import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 
 const Partner = () => {
   return (
@@ -148,19 +149,30 @@ const Partner = () => {
       {/* CTA Section */}
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Vill du ha hjälp att välja rätt partner?
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Vi har lång erfarenhet och goda insikter i marknaden och vilka partners som typiskt passar för olika typer av verksamheter och applikationsområden
-            </p>
+          <div className="max-w-3xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-8 items-center mb-8">
+              <div className="flex-shrink-0">
+                <img 
+                  src={thomasLainePhoto} 
+                  alt="Thomas Laine" 
+                  className="w-48 h-48 rounded-full object-cover border-4 border-primary/20"
+                />
+              </div>
+              <div className="text-center md:text-left">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Vill du ha hjälp att välja rätt partner?
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Vi har lång erfarenhet och goda insikter i marknaden och vilka partners som typiskt passar för olika typer av verksamheter och applikationsområden
+                </p>
+              </div>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link to="/kontakt">Kontakta oss</Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <a href="mailto:info@dynamicfactory.se">info@dynamicfactory.se</a>
+                <a href="mailto:thomas.laine@dynamicfactory.se">thomas.laine@dynamicfactory.se</a>
               </Button>
             </div>
           </div>
