@@ -348,8 +348,7 @@ const CRM = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-start pb-3 border-b border-border">
                     <div>
-                      <p className="font-semibold text-card-foreground">En modul (t.ex. Sales)</p>
-                      <p className="text-sm text-muted-foreground">10-30 användare, standardfunktioner</p>
+                      <p className="font-semibold text-card-foreground">Dynamics 365 Sales Enterprise för 10-30 användare, normal "standard"-konfiguration med några mindre kundanpassningar, utbildning, projektledning, Go Live support.</p>
                     </div>
                     <p className="text-primary font-bold">100-250k kr</p>
                   </div>
