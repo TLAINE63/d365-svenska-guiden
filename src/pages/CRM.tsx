@@ -349,7 +349,7 @@ const CRM = () => {
                   <div className="flex justify-between items-start pb-3 border-b border-border">
                     <div>
                       <p className="font-semibold text-card-foreground">Dynamics 365 Sales Enterprise för 10-30 användare</p>
-                      <p className="text-sm text-muted-foreground">Enklare "standard"-konfiguration med några mindre kundanpassningar, utbildning, projektledning, Go Live support.</p>
+                      <p className="text-sm text-muted-foreground">Enklare "standard"-konfiguration med några mindre kundanpassningar, utbildning, projektledning, grundmigrering.</p>
                     </div>
                     <p className="text-primary font-bold">100-250 tkr</p>
                   </div>
