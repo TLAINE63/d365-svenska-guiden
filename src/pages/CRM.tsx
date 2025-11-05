@@ -82,7 +82,7 @@ const CRM = () => {
       features: [
         "Allt i Enterprise",
         "Conversation Intelligence",
-        "Samtalsinspelning & analys",
+        "Relationship scoring",
         "Avancerad försäljningsanalys",
         "Försäljningsplanering",
       ],
