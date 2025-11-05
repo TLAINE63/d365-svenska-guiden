@@ -124,9 +124,10 @@ const CRM = () => {
       features: [
         "E-postmarknadsföring",
         "Segmentering & målgrupper",
+        "Triggers",
         "Leadgenerering",
         "Event management",
-        "Resebyggare (customer journey)",
+        "Kundresor",
       ],
     },
     {
