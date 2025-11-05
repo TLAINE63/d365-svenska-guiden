@@ -31,7 +31,7 @@ const FinanceSupplyChain = () => {
     {
       title: "Dynamics 365 Finance",
       description: "Avancerad finansiell hantering",
-      price: "Från 2 320,70 kr",
+      price: "2 320,70 kr",
       features: [
         "Global finansiell hantering",
         "Bokföring och rapportering",
@@ -43,7 +43,7 @@ const FinanceSupplyChain = () => {
     {
       title: "Supply Chain Management",
       description: "Komplett supply chain-lösning",
-      price: "Från 2 320,70 kr",
+      price: "2 320,70 kr",
       features: [
         "Lagerhantering",
         "Produktionsplanering",
@@ -55,7 +55,7 @@ const FinanceSupplyChain = () => {
     {
       title: "Finance + Supply Chain",
       description: "Komplett ERP-paket",
-      price: "Från 3 800 kr",
+      price: "3 800 kr",
       features: [
         "Alla Finance-funktioner",
         "Alla Supply Chain-funktioner",
