@@ -73,7 +73,6 @@ const CRM = () => {
         "Förutsägande insikter med AI",
         "Avancerad analys",
         "Anpassningsbar automatisering",
-        "LinkedIn Sales Navigator",
       ],
     },
     {
