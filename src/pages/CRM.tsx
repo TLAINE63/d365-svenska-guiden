@@ -358,7 +358,7 @@ const CRM = () => {
                     <div>
                       <p className="font-semibold text-card-foreground">Integrationer mellan Dynamics 365 Sales och exempelvis ett ERP system (inte Business Central)</p>
                     </div>
-                    <p className="text-primary font-bold">400-800k kr</p>
+                    <p className="text-primary font-bold">100-200k kr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3">
