@@ -214,7 +214,7 @@ const BusinessCentral = () => {
                       <p className="font-semibold text-card-foreground">Grundimplementering</p>
                       <p className="text-sm text-muted-foreground">Mer eller mindre "out of the box", men med partners erfarenhet inbyggt</p>
                     </div>
-                    <p className="text-primary font-bold">Från 50 000 kr</p>
+                    <p className="text-primary font-bold">Från 50 tkr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3 border-b border-border">
@@ -222,7 +222,7 @@ const BusinessCentral = () => {
                       <p className="font-semibold text-card-foreground">Mellanprojekt</p>
                       <p className="text-sm text-muted-foreground">Mer avancerad order-lager-inköpshantering, någon integration samt några fler användare</p>
                     </div>
-                    <p className="text-primary font-bold">150 000-300 000 kr</p>
+                    <p className="text-primary font-bold">150-300 tkr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3">
@@ -230,7 +230,7 @@ const BusinessCentral = () => {
                       <p className="font-semibold text-card-foreground">Komplext projekt</p>
                       <p className="text-sm text-muted-foreground">Flera bolag, kanske produktion, många användare, specialanpassningar och flera integrationer</p>
                     </div>
-                    <p className="text-primary font-bold">300 000-800 000 kr eller mer</p>
+                    <p className="text-primary font-bold">300-800 tkr eller mer</p>
                   </div>
                 </div>
                 

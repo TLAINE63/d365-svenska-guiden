@@ -282,7 +282,7 @@ const CRM = () => {
                   ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Kostnaden varierar beroende på vilka moduler ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250k kr för en modul, upp till 800k-2M kr för en komplett lösning) samt löpande support och anpassningar. Vi hjälper er att hitta rätt paket för era behov och budget.
+                  Kostnaden varierar beroende på vilka moduler ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250 tkr för en modul, upp till 800 tkr-2M kr för en komplett lösning) samt löpande support och anpassningar. Vi hjälper er att hitta rätt paket för era behov och budget.
                 </AccordionContent>
               </AccordionItem>
 
@@ -351,14 +351,14 @@ const CRM = () => {
                       <p className="font-semibold text-card-foreground">Dynamics 365 Sales Enterprise för 10-30 användare</p>
                       <p className="text-sm text-muted-foreground">Enklare "standard"-konfiguration med några mindre kundanpassningar, utbildning, projektledning, Go Live support.</p>
                     </div>
-                    <p className="text-primary font-bold">100-250k kr</p>
+                    <p className="text-primary font-bold">100-250 tkr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3 border-b border-border">
                     <div>
                       <p className="font-semibold text-card-foreground">Integrationer mellan Dynamics 365 Sales och exempelvis ett ERP system (inte Business Central)</p>
                     </div>
-                    <p className="text-primary font-bold">100-200k kr</p>
+                    <p className="text-primary font-bold">100-200 tkr</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3">
@@ -366,7 +366,7 @@ const CRM = () => {
                       <p className="font-semibold text-card-foreground">Komplett lösning</p>
                       <p className="text-sm text-muted-foreground">Alla moduler, 100+ användare, integrationer</p>
                     </div>
-                    <p className="text-primary font-bold">800k-2M kr</p>
+                    <p className="text-primary font-bold">800 tkr-2M kr</p>
                   </div>
                 </div>
                 
