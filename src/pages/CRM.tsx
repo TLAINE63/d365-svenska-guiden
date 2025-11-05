@@ -93,7 +93,7 @@ const CRM = () => {
     {
       title: "Customer Service Professional",
       description: "Grundläggande kundservice",
-      price: "500 kr",
+      price: "552,50 kr",
       features: [
         "Ärendehantering",
         "Kunskapsdatabas",
