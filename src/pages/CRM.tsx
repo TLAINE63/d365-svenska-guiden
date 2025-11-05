@@ -147,7 +147,7 @@ const CRM = () => {
     {
       title: "Contact Center",
       description: "Modern kontaktcenterlösning",
-      price: "Från 1 000 kr",
+      price: "Från 1 215,60 kr",
       features: [
         "Omnichannel-stöd (telefon, chatt, e-post)",
         "AI-driven samtalsassistent",
