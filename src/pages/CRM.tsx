@@ -136,10 +136,7 @@ const CRM = () => {
       price: "11 050,90 kr",
       features: [
         "Alla Customer Insights-funktioner",
-        "För användare med annan Dynamics 365-licens",
-        "E-postmarknadsföring",
-        "Segmentering & målgrupper",
-        "Leadgenerering och event management",
+        "Kunder med minst 10 Dynamics 365-användarlicenser",
       ],
     },
   ];
