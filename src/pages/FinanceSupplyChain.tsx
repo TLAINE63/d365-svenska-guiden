@@ -52,18 +52,6 @@ const FinanceSupplyChain = () => {
         "Transport management",
       ],
     },
-    {
-      title: "Finance + Supply Chain",
-      description: "Komplett ERP-paket",
-      price: "3 800 kr",
-      features: [
-        "Alla Finance-funktioner",
-        "Alla Supply Chain-funktioner",
-        "Integrerad lösning",
-        "Avancerad analys",
-        "AI och automatisering",
-      ],
-    },
   ];
 
   return (
