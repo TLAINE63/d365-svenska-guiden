@@ -311,7 +311,7 @@ const Index = () => {
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                   <h4 className="font-semibold mb-2">Kontinuerlig Inlärning</h4>
                   <p className="text-sm text-primary-foreground/80">
-                    Blir smartare ju mer du använder systemet
+                    Kontinuerlig förbättring via användardata och AI-modeller
                   </p>
                 </div>
               </div>
