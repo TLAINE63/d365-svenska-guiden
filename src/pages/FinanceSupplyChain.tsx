@@ -381,7 +381,7 @@ const FinanceSupplyChain = () => {
                       <p className="font-semibold text-card-foreground">Mindre omfattning</p>
                       <p className="text-sm text-muted-foreground">En modul, 20-50 användare</p>
                     </div>
-                    <p className="text-primary font-bold">2-4M kr</p>
+                    <p className="text-primary font-bold">2-4M</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3 border-b border-border">
@@ -389,7 +389,7 @@ const FinanceSupplyChain = () => {
                       <p className="font-semibold text-card-foreground">Medelstor implementation</p>
                       <p className="text-sm text-muted-foreground">Finance + SCM, 50-200 användare</p>
                     </div>
-                    <p className="text-primary font-bold">4-10M kr</p>
+                    <p className="text-primary font-bold">4-10M</p>
                   </div>
                   
                   <div className="flex justify-between items-start pb-3">
@@ -397,7 +397,7 @@ const FinanceSupplyChain = () => {
                       <p className="font-semibold text-card-foreground">Global implementation</p>
                       <p className="text-sm text-muted-foreground">Flera länder, 200+ användare</p>
                     </div>
-                    <p className="text-primary font-bold">10-30M+ kr</p>
+                    <p className="text-primary font-bold">10-30M+</p>
                   </div>
                 </div>
                 
