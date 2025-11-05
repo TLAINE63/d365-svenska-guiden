@@ -31,7 +31,7 @@ const FinanceSupplyChain = () => {
     {
       title: "Dynamics 365 Finance",
       description: "Avancerad finansiell hantering",
-      price: "Från 2 200 kr",
+      price: "Från 2 320,70 kr",
       features: [
         "Global finansiell hantering",
         "Bokföring och rapportering",
@@ -43,7 +43,7 @@ const FinanceSupplyChain = () => {
     {
       title: "Supply Chain Management",
       description: "Komplett supply chain-lösning",
-      price: "Från 2 500 kr",
+      price: "Från 2 320,70 kr",
       features: [
         "Lagerhantering",
         "Produktionsplanering",
@@ -138,7 +138,7 @@ const FinanceSupplyChain = () => {
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6 pl-11">
-                  Licenspriser börjar från 2 200 kr/månad för Finance och 2 500 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka moduler ni behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
+                  Licenspriser börjar från 2 320,70 kr/månad för Finance och 2 320,70 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka moduler ni behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
                 </AccordionContent>
               </AccordionItem>
               
