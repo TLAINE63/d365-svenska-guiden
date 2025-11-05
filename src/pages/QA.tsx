@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import BigFiveSection from "@/components/BigFiveSection";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -103,8 +102,6 @@ const QA = () => {
         </div>
       </header>
 
-      {/* Big Five Section */}
-      <BigFiveSection />
 
       {/* FAQ Section */}
       <section className="py-20 bg-background">
