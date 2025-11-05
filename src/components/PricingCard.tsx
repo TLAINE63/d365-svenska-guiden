@@ -13,7 +13,7 @@ interface PricingCardProps {
 
 const PricingCard = ({ title, description, price, features, popular }: PricingCardProps) => {
   return (
-    <Card className={`relative transition-all duration-300 hover:shadow-[var(--shadow-hover)] ${popular ? 'border-primary shadow-[var(--shadow-card)]' : 'border-border'}`}>
+    <Card className={`relative transition-all duration-300 hover:shadow-[var(--shadow-hover)] flex flex-col ${popular ? 'border-primary shadow-[var(--shadow-card)]' : 'border-border'}`}>
       {popular && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
           Populärast
@@ -27,8 +27,8 @@ const PricingCard = ({ title, description, price, features, popular }: PricingCa
           <div className="text-sm text-muted-foreground mt-1">per användare/månad</div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <ul className="space-y-3">
+      <CardContent className="space-y-4 flex flex-col h-full">
+        <ul className="space-y-3 flex-1">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start gap-2">
               <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
