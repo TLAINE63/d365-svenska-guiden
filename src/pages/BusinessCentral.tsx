@@ -41,9 +41,9 @@ const BusinessCentral = () => {
       features: [
         "Ekonomihantering",
         "Försäljning & Inköp",
+        "Offert- & Orderhantering",
         "Lagerhantering",
         "Projekthantering",
-        "Support via e-post",
       ],
     },
     {
