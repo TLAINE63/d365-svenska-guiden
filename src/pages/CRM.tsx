@@ -54,7 +54,7 @@ const CRM = () => {
     {
       title: "Sales Professional",
       description: "För försäljningsteam",
-      price: "700 kr",
+      price: "718,30 kr",
       features: [
         "Lead- och affärshantering",
         "Kontakt- och kontohantering",
