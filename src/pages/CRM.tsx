@@ -78,7 +78,7 @@ const CRM = () => {
     {
       title: "Sales Premium",
       description: "Premium försäljning",
-      price: "1 500 kr",
+      price: "1 657,60 kr",
       features: [
         "Allt i Enterprise",
         "Conversation Intelligence",
