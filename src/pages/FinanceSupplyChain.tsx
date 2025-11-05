@@ -52,6 +52,18 @@ const FinanceSupplyChain = () => {
         "Transport management",
       ],
     },
+    {
+      title: "Dynamics 365 Human Resources",
+      description: "Förbättra organisatorisk smidighet, optimera HR-program och omvandla medarbetarupplevelser",
+      price: "1 491,90 kr",
+      features: [
+        "Medarbetarhantering",
+        "Rekrytering och onboarding",
+        "Prestationshantering",
+        "Förmånsadministration",
+        "Självbetjäningsportal",
+      ],
+    },
   ];
 
   return (
