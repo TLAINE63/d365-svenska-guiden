@@ -120,7 +120,7 @@ const CRM = () => {
     {
       title: "Customer Insights",
       description: "Marknadsföringsautomation",
-      price: "15 000 kr/månad + kontakter",
+      price: "18 786,60 kr",
       features: [
         "E-postmarknadsföring",
         "Segmentering & målgrupper",
