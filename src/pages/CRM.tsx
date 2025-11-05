@@ -336,7 +336,7 @@ const CRM = () => {
                 Vad kostar ett CRM-projekt?
               </h2>
               <p className="text-lg text-muted-foreground">
-                Ungefärliga kostnader för implementering och drift av Dynamics 365 CRM
+                Kostnaden för ett CRM-projekt med Microsoft Dynamics 365 Customer Engagement (CE) varierar beroende på företagets behov, antal användare och graden av anpassning
               </p>
             </div>
             
