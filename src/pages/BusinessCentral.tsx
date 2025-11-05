@@ -52,10 +52,8 @@ const BusinessCentral = () => {
       price: "1 215,60 kr",
       features: [
         "Alla Essentials-funktioner",
-        "Service Management",
+        "Serviceorderhantering",
         "Tillverkning",
-        "Warehouse Management",
-        "Prioriterad support",
       ],
     },
   ];
