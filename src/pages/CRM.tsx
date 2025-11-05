@@ -177,7 +177,7 @@ const CRM = () => {
     {
       title: "Project Operations",
       description: "Projekthantering och resursplanering",
-      price: "1 160,30 kr",
+      price: "1 491,90 kr",
       features: [
         "Projektplanering och resurshantering",
         "Tid- och kostnadsuppföljning",
