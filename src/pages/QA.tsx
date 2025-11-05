@@ -97,6 +97,9 @@ const QA = () => {
               <p className="text-xl md:text-2xl text-white/95">
                 Svar på de vanligaste frågorna om Dynamics 365
               </p>
+              <p className="text-lg md:text-xl text-white/80 mt-2">
+                (...om man frågar Copilot)
+              </p>
             </div>
           </div>
         </div>
