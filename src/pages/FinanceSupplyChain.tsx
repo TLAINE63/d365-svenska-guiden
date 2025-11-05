@@ -340,7 +340,7 @@ const FinanceSupplyChain = () => {
             ))}
           </div>
           <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
-            Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. Microsoft kan ändra priser och licensmodeller utan föregående avisering. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
+            Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
           </p>
         </div>
       </section>
