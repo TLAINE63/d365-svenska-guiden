@@ -4,7 +4,7 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
 import {
   Accordion,
   AccordionContent,
