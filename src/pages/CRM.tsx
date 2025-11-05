@@ -363,10 +363,10 @@ const CRM = () => {
                   
                   <div className="flex justify-between items-start pb-3">
                     <div>
-                      <p className="font-semibold text-card-foreground">Komplett lösning</p>
-                      <p className="text-sm text-muted-foreground">Alla moduler, 100+ användare, integrationer</p>
+                      <p className="font-semibold text-card-foreground">Dynamics 365 Customer Insights</p>
+                      <p className="text-sm text-muted-foreground">Installation, utbildning, användarstöd, skapande av mallar m.m.</p>
                     </div>
-                    <p className="text-primary font-bold">800 tkr-2M kr</p>
+                    <p className="text-primary font-bold">100-200 tkr</p>
                   </div>
                 </div>
                 
