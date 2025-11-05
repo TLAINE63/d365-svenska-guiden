@@ -69,6 +69,7 @@ const CRM = () => {
       price: "1 160,30 kr",
       features: [
         "Allt i Professional",
+        "Integrerad Copilot",
         "Förutsägande insikter med AI",
         "Avancerad analys",
         "Anpassningsbar automatisering",
