@@ -108,10 +108,13 @@ const CRM = () => {
       price: "1 160,30 kr",
       features: [
         "Allt i Professional",
-        "Omnichannel routing",
-        "AI-drivna insikter",
-        "Resursstyrning",
-        "Avancerad rapportering",
+        "Copilot",
+        "Inbäddad intelligens",
+        "Stöd för flera sessioner",
+        "Enhetlig dirigering",
+        "Analyser och KPI-rapporter",
+        "Prognostisering och schemaläggning",
+        "Portaler",
       ],
     },
   ];
