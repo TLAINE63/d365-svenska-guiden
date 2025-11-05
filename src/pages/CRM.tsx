@@ -66,7 +66,7 @@ const CRM = () => {
     {
       title: "Sales Enterprise",
       description: "Avancerad försäljning",
-      price: "1 000 kr",
+      price: "1 160,30 kr",
       features: [
         "Allt i Professional",
         "Förutsägande insikter med AI",
@@ -105,7 +105,7 @@ const CRM = () => {
     {
       title: "Customer Service Enterprise",
       description: "Avancerad kundservice",
-      price: "950 kr",
+      price: "1 160,30 kr",
       features: [
         "Allt i Professional",
         "Omnichannel routing",
@@ -162,7 +162,7 @@ const CRM = () => {
     {
       title: "Field Service",
       description: "Fältservicehantering",
-      price: "Från 950 kr",
+      price: "1 160,30 kr",
       features: [
         "Schemaläggning och resursoptimering",
         "Mobil arbetsorder-app",
@@ -177,7 +177,7 @@ const CRM = () => {
     {
       title: "Project Operations",
       description: "Projekthantering och resursplanering",
-      price: "Från 1 100 kr",
+      price: "1 160,30 kr",
       features: [
         "Projektplanering och resurshantering",
         "Tid- och kostnadsuppföljning",
