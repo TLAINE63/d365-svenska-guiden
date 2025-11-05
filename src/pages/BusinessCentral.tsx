@@ -25,7 +25,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Team Member",
       description: "För användare med begränsade behov",
-      price: "100 kr",
+      price: "88:40 kr",
       features: [
         "Läsbehörighet",
         "Grundläggande rapporter",
@@ -37,7 +37,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Essentials",
       description: "För mindre företag",
-      price: "700 kr",
+      price: "884:10 kr",
       features: [
         "Ekonomihantering",
         "Försäljning & Inköp",
@@ -49,7 +49,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Premium",
       description: "För växande företag",
-      price: "1 000 kr",
+      price: "1 215:60 kr",
       features: [
         "Alla Essentials-funktioner",
         "Service Management",
@@ -114,7 +114,7 @@ const BusinessCentral = () => {
                   ❓ Vad kostar Business Central – och vad påverkar priset?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Business Central har tre licensnivåer: Team Member (100 kr/månad), Essentials (700 kr/månad) och Premium (1 000 kr/månad). Priset påverkas av antal användare, vilka funktioner ni behöver, och om ni väljer molnbaserad eller on-premise-lösning. Till licensavgifterna tillkommer implementeringskostnader som varierar beroende på omfattning och anpassningsbehov.
+                  Business Central har tre licensnivåer: Team Member (88:40 kr/månad), Essentials (884:10 kr/månad) och Premium (1 215:60 kr/månad). Priset påverkas av antal användare, vilka funktioner ni behöver, och om ni väljer molnbaserad eller on-premise-lösning. Till licensavgifterna tillkommer implementeringskostnader som varierar beroende på omfattning och anpassningsbehov.
                 </AccordionContent>
               </AccordionItem>
 
