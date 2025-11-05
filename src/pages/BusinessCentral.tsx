@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
+import ReleaseWaveImage from "@/assets/bc-release-wave.png";
 import {
   Accordion,
   AccordionContent,
@@ -175,8 +176,31 @@ const BusinessCentral = () => {
         </div>
       </section>
 
+      {/* Latest News Section */}
+      <section id="latest-news" className="py-20 bg-secondary/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Senaste Nytt
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              2026 release wave 1 investment areas för Dynamics 365 Business Central
+            </p>
+          </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-card rounded-lg p-4 border border-border shadow-[var(--shadow-card)] overflow-hidden">
+              <img 
+                src={ReleaseWaveImage} 
+                alt="Dynamics 365 Business Central 2026 release wave 1 investment areas" 
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Project Cost Section */}
-      <section id="project-cost" className="py-20 bg-secondary/50">
+      <section id="project-cost" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
