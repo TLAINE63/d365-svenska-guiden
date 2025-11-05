@@ -372,7 +372,7 @@ const CRM = () => {
                 
                 <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
                   <p className="text-sm text-muted-foreground">
-                    <strong>Inkluderar:</strong> Implementering, konfiguration, datamigration, utbildning och projektledning
+                    Ovan är bara några projektexempel och kan variera mycket beroende på bransch, verksamhet, omfattning och behov
                   </p>
                 </div>
               </div>
