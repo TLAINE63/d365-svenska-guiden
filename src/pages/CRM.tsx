@@ -99,7 +99,6 @@ const CRM = () => {
         "Kunskapsdatabas",
         "Service Level Agreements (SLA)",
         "E-post och chatt",
-        "Självbetjäningsportal",
       ],
     },
     {
