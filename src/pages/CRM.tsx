@@ -133,7 +133,7 @@ const CRM = () => {
     {
       title: "Customer Insights Attach",
       description: "Tilläggslicens för befintliga användare",
-      price: "7 500 kr/månad + kontakter",
+      price: "11 050,90 kr",
       features: [
         "Alla Customer Insights-funktioner",
         "För användare med annan Dynamics 365-licens",
