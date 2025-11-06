@@ -21,8 +21,9 @@ const Index = () => {
   return <div className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Construction Banner */}
-      <div className="bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))] py-3 mt-16">
+      <main>
+        {/* Construction Banner */}
+        <div className="bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))] py-3 mt-16">
         <div className="container mx-auto px-4 text-center">
           <p className="font-semibold">Denna sida är under konstruktion</p>
         </div>
@@ -724,6 +725,7 @@ const Index = () => {
           </Button>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12">
