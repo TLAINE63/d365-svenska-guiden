@@ -33,6 +33,10 @@ const Index = () => {
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600" 
+            srcSet="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=640 640w,
+                    https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1024 1024w,
+                    https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600 1600w"
+            sizes="100vw"
             alt="Modern business meeting" 
             className="w-full h-full object-cover"
             width="1600"
