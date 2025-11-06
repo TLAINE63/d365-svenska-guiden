@@ -101,6 +101,7 @@ const BigFiveCarousel = () => {
             size="icon"
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-background/80 backdrop-blur-sm"
             onClick={goToPrevious}
+            aria-label="Previous slide"
           >
             <ChevronLeft className="h-6 w-6" />
           </Button>
@@ -109,6 +110,7 @@ const BigFiveCarousel = () => {
             size="icon"
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-background/80 backdrop-blur-sm"
             onClick={goToNext}
+            aria-label="Next slide"
           >
             <ChevronRight className="h-6 w-6" />
           </Button>
