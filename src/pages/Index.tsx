@@ -32,9 +32,12 @@ const Index = () => {
       <header className="relative overflow-hidden h-[500px] md:h-[600px]">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600" 
             alt="Modern business meeting" 
             className="w-full h-full object-cover"
+            width="1600"
+            height="1067"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>

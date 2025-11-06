@@ -41,6 +41,9 @@ const Navbar = () => {
               src={dynamicFactoryLogo} 
               alt="Dynamic Factory" 
               className="h-10"
+              width="94"
+              height="40"
+              loading="eager"
             />
           </Link>
 
