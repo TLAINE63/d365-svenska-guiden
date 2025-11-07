@@ -116,14 +116,14 @@ const BigFiveCarousel = () => {
           </Button>
 
           {/* Dots Navigation */}
-          <div className="flex justify-center gap-2 mt-8">
+          <div className="flex justify-center gap-3 mt-8">
             {bigFiveItems.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-6 h-6 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? "bg-primary w-8"
+                    ? "bg-primary w-12"
                     : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
