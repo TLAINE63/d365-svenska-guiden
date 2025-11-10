@@ -39,7 +39,7 @@ const QA = () => {
     {
       id: "jamforelser",
       question: "Vad är skillnaden mellan Business Central och Finance & Supply Chain?",
-      answer: "Business Central är perfekt för mindre och medelstora företag (upp till 300-500 användare) med enklare processer och begränsad budget. Det är snabbare att implementera (2-6 månader) och har lägre kostnader.\n\nFinance & Supply Chain är för stora företag och koncerner med komplexa processer, globala verksamheter och avancerade branschspecifika behov. Det erbjuder kraftfull funktionalitet, avancerad supply chain management och global finansiell hantering.",
+      answer: "Business Central är perfekt för mindre och medelstora företag (upp till 300-500 användare) med enklare processer och begränsad budget. Det är snabbare att implementera (2-6 månader) och har lägre kostnader.\n\nFinance & Supply Chain är för stora företag och koncerner med komplexa processer, globala verksamheter och avancerade branschspecifika behov. Det erbjuder kraftfull funktionalitet, avancerad supply chain management och global finansiell hantering.\n\n💡 Se fler detaljer under rubriken [\"Hur väljer jag mellan Business Central och Finance & Supply Chain?\"](#bc-vs-fsc)",
     },
     {
       id: "support",
