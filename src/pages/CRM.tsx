@@ -221,7 +221,7 @@ const CRM = () => {
                 CRM (Customer Engagement)
               </h1>
               <p className="text-xl md:text-2xl text-white/95 mb-6">
-                Microsoft Dynamics 365 Sales, Customer Insights/Marketing, Customer Service, Contact Center m.m.
+                Microsoft Dynamics 365 Sales, Customer Insights/Marketing, Customer Service, Contact Center, Field Service, Project Operations m.m.
               </p>
               
               <ContactFormDialog>
