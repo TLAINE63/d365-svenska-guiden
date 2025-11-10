@@ -150,7 +150,7 @@ const Index = () => {
                 <AccordionContent className="pb-6">
                   <p className="italic text-muted-foreground mb-3">Under respektive huvudrubrik hittar du en mer detaljerad genomgång av projektkostnader för respektive affärsapplikation</p>
                   <div className="space-y-3 text-muted-foreground">
-                    <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 6-18 månader för F&SCM, 2-4 månader för CRM-applikationer</p>
+                    <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 9-18 månader för F&SCM och för CRM är det väldigt beroende av omfattning i antal användare och vilken av CRM-applikationerna, men räkna med från 2 månader och mer</p>
                     <p>• <strong>Vad krävs internt:</strong> Engagerad projektledare, dedikerade nyckelanvändare och tid för workshop och testning</p>
                     <p>• <strong>Affärsnytta:</strong> Första fördelarna syns ofta redan efter 2-3 månader, full ROI uppnås vanligtvis inom 1-2 år</p>
                   </div>
