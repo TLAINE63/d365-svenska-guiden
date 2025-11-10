@@ -97,7 +97,7 @@ const ContactUs = () => {
                       </Button>
                       <Button 
                         className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
-                        onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink', '_blank')}
+                        onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
                       >
                         <Calendar className="w-4 h-4 mr-2" />
                         Boka möte med mig
