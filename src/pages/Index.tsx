@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
-import BigFiveCarousel from "@/components/BigFiveCarousel";
 import Navbar from "@/components/Navbar";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight } from "lucide-react";
@@ -285,8 +284,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Big Five Carousel Section */}
-      <BigFiveCarousel />
 
       {/* AI & Copilot Section */}
       <section className="py-20 bg-background">
