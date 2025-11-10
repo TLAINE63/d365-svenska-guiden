@@ -132,7 +132,7 @@ const PrivacyPolicy = () => {
               </p>
               <div className="bg-card p-6 rounded-lg border border-border">
                 <p className="font-semibold text-foreground mb-2">Dynamic Factory</p>
-                <p>E-post: info@dynamicfactory.se</p>
+                <p>E-post: thomas.laine@dynamicfactory.se</p>
               </div>
               <p className="leading-relaxed mt-4">
                 Du har även rätt att lämna in ett klagomål till Integritetsskyddsmyndigheten (IMY) 
