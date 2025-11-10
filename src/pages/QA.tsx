@@ -44,7 +44,7 @@ const QA = () => {
     {
       id: "support",
       question: "Vilken support får vi efter implementeringen?",
-      answer: "Efter implementeringen erbjuder vi fortsatt support och förvaltning. Detta inkluderar teknisk support, användarutbildning, systemuppdateringar och löpande optimering av era processer. Vi hjälper er att kontinuerligt utveckla systemet i takt med att era behov växer.",
+      answer: "Efter implementeringen erbjuder de flesta partners fortsatt support och förvaltning. Detta inkluderar teknisk support, användarutbildning, systemuppdateringar och löpande optimering av era processer. Ni bör få hjälp att kontinuerligt utveckla systemet i takt med att era behov växer.",
     },
     {
       id: "copilot",
