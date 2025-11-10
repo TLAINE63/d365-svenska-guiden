@@ -14,6 +14,7 @@ import ContactUs from "./pages/ContactUs";
 import Configurator from "./pages/Configurator";
 import InteractiveGuide from "./pages/InteractiveGuide";
 import Partner from "./pages/Partner";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/konfigurator" element={<Configurator />} />
           <Route path="/guide" element={<InteractiveGuide />} />
           <Route path="/partner" element={<Partner />} />
+          <Route path="/dataskydd" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
