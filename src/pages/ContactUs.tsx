@@ -117,6 +117,19 @@ const ContactUs = () => {
                 Låt oss hjälpa dig att hitta rätt Dynamics 365-lösning för din verksamhet. 
                 Vi erbjuder kostnadsfri rådgivning och en skräddarsydd genomgång av dina behov.
               </p>
+              
+              <div className="flex justify-center mb-8">
+                <div className="text-center max-w-sm">
+                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-primary">15+</span>
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">Års erfarenhet</h3>
+                  <p className="text-muted-foreground">
+                    Expertis inom Microsoft Dynamics 365
+                  </p>
+                </div>
+              </div>
+              
               <ContactFormDialog>
                 <Button 
                   size="lg"
@@ -125,28 +138,6 @@ const ContactUs = () => {
                   Boka Gratis Konsultation
                 </Button>
               </ContactFormDialog>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
-              Varför välja oss?
-            </h2>
-            <div className="flex justify-center">
-              <div className="text-center max-w-sm">
-                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl font-bold text-primary">15+</span>
-                </div>
-                <h3 className="font-semibold text-lg mb-2">Års erfarenhet</h3>
-                <p className="text-muted-foreground">
-                  Expertis inom Microsoft Dynamics 365
-                </p>
-              </div>
             </div>
           </div>
         </div>
