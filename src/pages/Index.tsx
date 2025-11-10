@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
+import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight } from "lucide-react";
@@ -71,6 +72,30 @@ const Index = () => {
           </div>
         </div>
       </header>
+
+      {/* Video Introduction Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Välkommen till Microsoft Dynamics 365
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Se vår genomgång där vi svarar på de vanligaste frågorna om Microsoft Dynamics 365
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <VideoCard
+              title="Frågor och Svar om Microsoft Dynamics 365"
+              description="En komplett genomgång av de viktigaste frågorna och svaren"
+              videoId=""
+            />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Lägg in ditt YouTube video-ID för att visa videon
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Quick Links Section */}
       <section id="questions" className="py-20 bg-muted/30">
