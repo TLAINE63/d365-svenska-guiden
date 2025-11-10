@@ -168,18 +168,18 @@ const Partner = () => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-shadow">
                 <Link to="/kontakt">Kontakta oss</Link>
               </Button>
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
+                className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 shadow-lg hover:shadow-xl transition-shadow"
                 onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
               >
                 <Calendar className="w-4 h-4 mr-2" />
                 Boka möte med mig
               </Button>
-              <Button asChild size="lg" variant="outline">
+              <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg hover:shadow-xl transition-shadow border-2 border-secondary">
                 <a href="mailto:thomas.laine@dynamicfactory.se">Emaila mig här</a>
               </Button>
             </div>
