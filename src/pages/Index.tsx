@@ -73,6 +73,112 @@ const Index = () => {
         </div>
       </header>
 
+      {/* Quick Links Section */}
+      <section id="questions" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+            Vanliga frågor
+          </h2>
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              {/* Fråga 1 */}
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    Vad är Microsoft Dynamics 365 – och hur fungerar det?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>• <strong>Vad Dynamics 365 är:</strong> En svit av ERP- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice</p>
+                    <p>• <strong>Hur applikationerna hänger ihop:</strong> Alla appar delar samma dataplattform och kan integreras sömlöst</p>
+                    <p>• <strong>Flexibilitet:</strong> Du kan börja med en enda applikation och växa över tid, eller implementera en komplett helhetslösning från start</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Fråga 2 */}
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    Vilken Dynamics 365-lösning passar vårt företag bäst?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>Eftersom Dynamics 365 innehåller flera appar (t.ex. Business Central, F&SCM, Sales, Customer Service, Project Operations), undrar många:</p>
+                    <p>• <strong>Vilken modul passar vår bransch och storlek?</strong> Mindre företag börjar ofta med Business Central, medan större koncerner väljer F&SCM</p>
+                    <p>• <strong>Vad är skillnaden mellan Business Central och F&SCM?</strong> Business Central är ett allt-i-ett system för SMB, medan F&SCM är för komplexa globala verksamheter</p>
+                    <p>• <strong>Kan vi kombinera flera appar?</strong> Ja, du kan kombinera exempelvis Business Central med Sales och Customer Service för en komplett lösning</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Fråga 3 */}
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    Vad kostar Dynamics 365 – och vad påverkar priset?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>En av de mest sökta frågorna:</p>
+                    <p>• <strong>Licenspriser per användare:</strong> Varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare (det finns även en så kallad "Tenant-prissättning", dvs per installation, som in första hand gäller Dynamics 365 Customer Insights/Marketing Automation). Titta gärna under respektive huvudrubrik för en mer detaljerad genomgång av licensavgifter.</p>
+                    <p>• <strong>Vad tillkommer:</strong> Implementation, anpassningar, integration, utbildning och löpande support</p>
+                    <p>• <strong>Projektbudget:</strong> Här beror det väldigt mycket på vilken applikation, hur stor verksamheten är och ambitionsnivå. Räkna med en total projektkostnad som startar från 50 000 kr (BC startpaket) till ett 10-tal miljoner (Finance & Supply Chain för internationella Enterprisebolag)</p>
+                    <ContactFormDialog>
+                      <Button variant="link" className="mt-4 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
+                        Kontakta oss så får du snabbt en tydligare uppfattning av såväl licensavgifter som projektkostnader
+                      </Button>
+                    </ContactFormDialog>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Fråga 4 */}
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    Hur lång tid tar det att implementera Dynamics 365?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <p className="italic text-muted-foreground mb-3">Under respektive huvudrubrik hittar du en mer detaljerad genomgång av projektkostnader för respektive affärsapplikation</p>
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 9-18 månader för F&SCM och för CRM är det väldigt beroende av omfattning i antal användare och vilken av CRM-applikationerna, men räkna med från 2 månader och mer</p>
+                    <p>• <strong>Vad krävs internt:</strong> Engagerad projektledare, dedikerade nyckelanvändare och tid för workshop och testning</p>
+                    <p>• <strong>Affärsnytta:</strong> Första fördelarna syns ofta redan efter 2-3 månader, full ROI uppnås vanligtvis inom 1-2 år</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Fråga 5 */}
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    Hur fungerar Dynamics 365 med våra befintliga system och Microsoft 365?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>Integration är avgörande:</p>
+                    <p>• <strong>Microsoft 365-integration:</strong> Sömlös integration med Outlook, Teams och Excel – arbeta direkt i de verktyg du redan använder</p>
+                    <p>• <strong>Befintliga system:</strong> Enkelt att koppla samman med e-handel, lönesystem, BI-verktyg och andra affärssystem via API:er</p>
+                    <p>• <strong>Power Platform:</strong> Skapa egna appar, automatisera arbetsflöden och bygga dashboards utan att behöva programmera</p>
+                    <p>• <strong>Copilot:</strong> Inbyggd AI/Copilot i alla affärsapplikationer och där så kallade Agenter kommer få allt mer utrymme</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        </div>
+      </section>
 
       {/* Solution Selector Section */}
       <section id="solutions" className="py-20 bg-background">
