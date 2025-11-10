@@ -180,7 +180,7 @@ const Partner = () => {
                 Boka möte med mig
               </Button>
               <Button asChild size="lg" variant="outline">
-                <a href="mailto:thomas.laine@dynamicfactory.se">thomas.laine@dynamicfactory.se</a>
+                <a href="mailto:thomas.laine@dynamicfactory.se">Emaila mig här</a>
               </Button>
             </div>
           </div>
