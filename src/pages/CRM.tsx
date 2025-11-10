@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
@@ -18,6 +19,10 @@ import {
 } from "@/components/ui/accordion";
 
 const CRM = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const ceVideos = [
     {
       title: "Dynamics 365 Sales",

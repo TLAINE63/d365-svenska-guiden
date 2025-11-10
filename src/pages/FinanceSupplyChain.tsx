@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import {
@@ -15,6 +16,10 @@ import {
 } from "@/components/ui/accordion";
 
 const FinanceSupplyChain = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fscVideos = [
     {
       title: "Introduktion till Dynamics 365 Finance",
