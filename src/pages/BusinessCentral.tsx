@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
 import ReleaseWaveImage from "@/assets/bc-release-wave.png";
 import {
@@ -15,6 +16,10 @@ import {
 } from "@/components/ui/accordion";
 
 const BusinessCentral = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const bcVideos = [
     {
       title: "Business Central för Mindre och Medelstora Företag",
