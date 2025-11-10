@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 
@@ -99,6 +99,7 @@ const ContactUs = () => {
                         className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
                         onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink', '_blank')}
                       >
+                        <Calendar className="w-4 h-4 mr-2" />
                         Boka möte med mig
                       </Button>
                     </div>
