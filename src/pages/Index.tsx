@@ -557,7 +557,7 @@ const Index = () => {
                   </div>
                 </div>
                 <Button asChild className="w-full bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-                  <Link to="/copilot">
+                  <Link to="/copilot" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                     Läs mer om Copilot
                   </Link>
                 </Button>
