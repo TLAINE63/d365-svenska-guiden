@@ -63,7 +63,7 @@ const ContactUs = () => {
                   
                   <div className="flex-grow text-center md:text-left">
                     <h3 className="text-2xl font-bold text-card-foreground mb-2">Thomas Laine</h3>
-                    <p className="text-lg text-muted-foreground mb-4">Microsoft Business Applications Evangelist</p>
+                    <p className="text-lg text-muted-foreground mb-4">Senior Rådgivare inom Microsoft Business Applications</p>
                     
                     <div className="space-y-3">
                       <div className="flex items-center justify-center md:justify-start gap-3">
