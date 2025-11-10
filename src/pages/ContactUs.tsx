@@ -93,7 +93,7 @@ const ContactUs = () => {
                         onClick={() => window.location.href = 'mailto:thomas.laine@dynamicfactory.se'}
                       >
                         <Mail className="w-4 h-4 mr-2" />
-                        Skicka e-post
+                        Skicka e-post till mig
                       </Button>
                       <Button 
                         className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
