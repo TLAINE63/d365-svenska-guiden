@@ -96,7 +96,7 @@ const ContactUs = () => {
                         Skicka e-post
                       </Button>
                       <Button 
-                        className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                        className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
                         onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
                       >
                         <Calendar className="w-4 h-4 mr-2" />
