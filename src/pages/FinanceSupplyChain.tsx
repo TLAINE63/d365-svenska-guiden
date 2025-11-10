@@ -128,7 +128,7 @@ const FinanceSupplyChain = () => {
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6 pl-11">
-                  Dynamics 365 Finance & Supply Chain Management skiljer sig genom sin skalbarhet för globala organisationer, djupgående integration med Microsoft-ekosystemet, kraftfulla AI- och maskininlärningsfunktioner för prediktiv analys, samt branschspecifika moduler för tillverkning, detaljhandel och distribution. Systemet erbjuder också omfattande compliance-stöd för olika regioner och branscher.
+                  Dynamics 365 Finance & Supply Chain Management skiljer sig genom sin skalbarhet för globala organisationer, djupgående integration med Microsoft-ekosystemet, kraftfulla AI- och maskininlärningsfunktioner för prediktiv analys, samt branschspecifika applikationer för tillverkning, detaljhandel och distribution. Systemet erbjuder också omfattande compliance-stöd för olika regioner och branscher.
                 </AccordionContent>
               </AccordionItem>
               
@@ -140,7 +140,7 @@ const FinanceSupplyChain = () => {
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6 pl-11">
-                  Licenspriser börjar från 2 320,70 kr/månad för Finance och 2 320,70 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka moduler ni behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
+                  Licenspriser börjar från 2 320,70 kr/månad för Finance och 2 320,70 kr/månad för Supply Chain Management. Totalkostnaden påverkas av antal användare, vilka applikationer ni behöver, omfattning av anpassningar, integration med befintliga system samt implementeringstid. För stora organisationer kan implementeringskostnader variera från 2-10 miljoner kronor eller mer, beroende på komplexitet.
                 </AccordionContent>
               </AccordionItem>
               
@@ -248,7 +248,7 @@ const FinanceSupplyChain = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">🏭</span>
-                    <span>Branschspecifika moduler och avancerad tillverkning</span>
+                    <span>Branschspecifika applikationer och avancerad tillverkning</span>
                   </li>
                 </ul>
               </div>

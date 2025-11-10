@@ -266,7 +266,7 @@ const CRM = () => {
                   ❓ Vad är Dynamics 365 Customer Engagement och vad ingår i det?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att hantera sina kundrelationer. Det inkluderar lösningar för försäljning (Sales), kundservice (Customer Service), marknadsföring (Customer Insights), kontaktcenter (Contact Center), fältservice (Field Service) och projektstyrning (Project Operations). Alla moduler integreras sömlöst och ger en helhetsbild av varje kund.
+                  Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att hantera sina kundrelationer. Det inkluderar lösningar för försäljning (Sales), kundservice (Customer Service), marknadsföring (Customer Insights), kontaktcenter (Contact Center), fältservice (Field Service) och projektstyrning (Project Operations). Alla applikationer integreras sömlöst och ger en helhetsbild av varje kund.
                 </AccordionContent>
               </AccordionItem>
 
@@ -284,7 +284,7 @@ const CRM = () => {
                   ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Kostnaden varierar beroende på vilka moduler ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250 tkr för en modul, upp till 800 tkr-2M kr för en komplett lösning) samt löpande support och anpassningar. Vi hjälper er att hitta rätt paket för era behov och budget.
+                  Kostnaden varierar beroende på vilka applikationer ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250 tkr för en applikation, upp till 800 tkr-2M kr för en komplett lösning) samt löpande support och anpassningar. Vi hjälper er att hitta rätt paket för era behov och budget.
                 </AccordionContent>
               </AccordionItem>
 
@@ -293,7 +293,7 @@ const CRM = () => {
                   ❓ Hur snabbt kan vi komma igång med Dynamics 365 CE?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Implementeringstiden varierar beroende på omfattning och komplexitet. För en standardimplementering av en enskild modul (t.ex. Sales) kan ni vara igång på 2-3 månader. Större implementeringar med flera moduler och omfattande anpassningar tar normalt 4-6 månader. Vi börjar alltid med en noggrann kravanalys för att säkerställa att lösningen möter era verkliga behov.
+                  Implementeringstiden varierar beroende på omfattning och komplexitet. För en standardimplementering av en enskild applikation (t.ex. Sales) kan ni vara igång på 2-3 månader. Större implementeringar med flera applikationer och omfattande anpassningar tar normalt 4-6 månader. Vi börjar alltid med en noggrann kravanalys för att säkerställa att lösningen möter era verkliga behov.
                 </AccordionContent>
               </AccordionItem>
 

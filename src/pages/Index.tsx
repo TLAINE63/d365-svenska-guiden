@@ -92,8 +92,8 @@ const Index = () => {
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
                     <p>• <strong>Vad Dynamics 365 är:</strong> En svit av ERP- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice</p>
-                    <p>• <strong>Hur modulerna hänger ihop:</strong> Alla appar delar samma dataplattform och kan integreras sömlöst</p>
-                    <p>• <strong>Flexibilitet:</strong> Du kan börja med en enda modul och växa över tid, eller implementera en komplett helhetslösning från start</p>
+                    <p>• <strong>Hur applikationerna hänger ihop:</strong> Alla appar delar samma dataplattform och kan integreras sömlöst</p>
+                    <p>• <strong>Flexibilitet:</strong> Du kan börja med en enda applikation och växa över tid, eller implementera en komplett helhetslösning från start</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -150,7 +150,7 @@ const Index = () => {
                 <AccordionContent className="pb-6">
                   <p className="italic text-muted-foreground mb-3">Under respektive huvudrubrik hittar du en mer detaljerad genomgång av projektkostnader för respektive affärsapplikation</p>
                   <div className="space-y-3 text-muted-foreground">
-                    <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 6-18 månader för F&SCM, 2-4 månader för CRM-moduler</p>
+                    <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 6-18 månader för F&SCM, 2-4 månader för CRM-applikationer</p>
                     <p>• <strong>Vad krävs internt:</strong> Engagerad projektledare, dedikerade nyckelanvändare och tid för workshop och testning</p>
                     <p>• <strong>Affärsnytta:</strong> Första fördelarna syns ofta redan efter 2-3 månader, full ROI uppnås vanligtvis inom 1-2 år</p>
                   </div>
@@ -687,7 +687,7 @@ const Index = () => {
                   <p className="font-semibold text-card-foreground mb-2">Omfattning</p>
                   <ul className="space-y-1">
                     <li>• Antal användare</li>
-                    <li>• Antal moduler</li>
+                    <li>• Antal applikationer</li>
                     <li>• Geografisk spridning</li>
                   </ul>
                 </div>
