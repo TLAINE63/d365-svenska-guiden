@@ -171,6 +171,7 @@ const Index = () => {
                     <p>• <strong>Microsoft 365-integration:</strong> Sömlös integration med Outlook, Teams och Excel – arbeta direkt i de verktyg du redan använder</p>
                     <p>• <strong>Befintliga system:</strong> Enkelt att koppla samman med e-handel, lönesystem, BI-verktyg och andra affärssystem via API:er</p>
                     <p>• <strong>Power Platform:</strong> Skapa egna appar, automatisera arbetsflöden och bygga dashboards utan att behöva programmera</p>
+                    <p>• <strong>Copilot:</strong> Inbyggd AI/Copilot i alla affärsapplikationer och där så kallade Agenter kommer få allt mer utrymme</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
