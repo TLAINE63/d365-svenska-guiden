@@ -39,7 +39,7 @@ const QA = () => {
     {
       id: "jamforelser",
       question: "Vad är skillnaden mellan Business Central och Finance & Supply Chain?",
-      answer: "Business Central är perfekt för mindre och medelstora företag (upp till 300-500 användare) med enklare processer och begränsad budget. Det är snabbare att implementera (2-6 månader) och har lägre kostnader.\n\nFinance & Supply Chain är för stora företag och koncerner med komplexa processer, globala verksamheter och avancerade branschspecifika behov. Det erbjuder kraftfull funktionalitet, avancerad supply chain management och global finansiell hantering.",
+      answer: "Business Central är perfekt för mindre och medelstora företag (upp till 300-500 användare) med enklare processer och begränsad budget. Det är snabbare att implementera (2-6 månader) och har lägre kostnader.\n\nFinance & Supply Chain är för stora företag och koncerner med komplexa processer, globala verksamheter och avancerade branschspecifika behov. Det erbjuder kraftfull funktionalitet, avancerad supply chain management och global finansiell hantering.\n\n📋 **Läs mer om implementeringskostnader:**\n• [Business Central implementering](/business-central)\n• [Finance & Supply Chain implementering](/finance-supply-chain)",
     },
     {
       id: "support",
@@ -64,12 +64,12 @@ const QA = () => {
     {
       id: "sales-appar",
       question: "Vad är skillnaden mellan olika Dynamics 365 Sales applikationer?",
-      answer: "Dynamics 365 Sales finns i flera olika versioner anpassade för olika behov och budgetar:\n\n📊 **Sales Professional**\n\nPris: Ca 750 kr/användare/månad\n\nMålgrupp: Mindre företag och team som behöver grundläggande CRM-funktionalitet\n\nFunktioner: Leadhantering, kontakthantering, affärsmöjligheter, grundläggande rapporter och prognoser, mobil åtkomst, integration med Microsoft 365\n\nBegränsningar: Färre anpassningsmöjligheter, ingen avancerad AI eller automation\n\n🚀 **Sales Enterprise**\n\nPris: Ca 1,150 kr/användare/månad\n\nMålgrupp: Medel- till stora företag med mer komplexa säljprocesser\n\nFunktioner: Allt i Professional plus avancerad anpassning, arbetsflöden och automation, avancerade prognoser och analyser, säljinsikter och AI-rekommendationer, integration med externa system och verktyg, LinkedIn Sales Navigator integration\n\nFördelar: Full flexibilitet för att anpassa systemet efter era behov\n\n⭐ **Sales Premium**\n\nPris: Ca 1,850 kr/användare/månad\n\nMålgrupp: Stora organisationer med höga krav på automation och AI\n\nFunktioner: Allt i Enterprise plus avancerade Copilot AI-funktioner, konversationsintelligens, automatisk samtalsinspelning och analys, avancerad säljacceleration, predictive scoring och insights\n\nFördelar: Mest kraftfulla AI-verktygen för att maximera säljarnas effektivitet\n\n✅ **Vilken ska ni välja?**\n\nBörja med Professional om ni är ett mindre team med grundläggande behov. Välj Enterprise om ni behöver anpassningar och automation. Satsa på Premium om AI och avancerad analys är kritiskt för er framgång.",
+      answer: "Dynamics 365 Sales finns i flera olika versioner anpassade för olika behov och budgetar:\n\n📊 **Sales Professional**\n\nPris: Ca 750 kr/användare/månad\n\nMålgrupp: Mindre företag och team som behöver grundläggande CRM-funktionalitet\n\nFunktioner: Leadhantering, kontakthantering, affärsmöjligheter, grundläggande rapporter och prognoser, mobil åtkomst, integration med Microsoft 365\n\nBegränsningar: Färre anpassningsmöjligheter, ingen avancerad AI eller automation\n\n🚀 **Sales Enterprise**\n\nPris: Ca 1,150 kr/användare/månad\n\nMålgrupp: Medel- till stora företag med mer komplexa säljprocesser\n\nFunktioner: Allt i Professional plus avancerad anpassning, arbetsflöden och automation, avancerade prognoser och analyser, säljinsikter och AI-rekommendationer, integration med externa system och verktyg, LinkedIn Sales Navigator integration\n\nFördelar: Full flexibilitet för att anpassa systemet efter era behov\n\n⭐ **Sales Premium**\n\nPris: Ca 1,850 kr/användare/månad\n\nMålgrupp: Stora organisationer med höga krav på automation och AI\n\nFunktioner: Allt i Enterprise plus avancerade Copilot AI-funktioner, konversationsintelligens, automatisk samtalsinspelning och analys, avancerad säljacceleration, predictive scoring och insights\n\nFördelar: Mest kraftfulla AI-verktygen för att maximera säljarnas effektivitet\n\n✅ **Vilken ska ni välja?**\n\nBörja med Professional om ni är ett mindre team med grundläggande behov. Välj Enterprise om ni behöver anpassningar och automation. Satsa på Premium om AI och avancerad analys är kritiskt för er framgång.\n\n📋 **Läs mer om CRM implementeringskostnader:**\n• [Dynamics 365 CRM implementering](/crm)",
     },
     {
       id: "bc-vs-fsc",
       question: "Hur väljer jag mellan Business Central och Finance & Supply Chain?",
-      answer: "Valet mellan Business Central och Finance & Supply Chain beror på er organisations storlek, komplexitet och framtida behov:\n\n🏢 **Business Central passar er om:**\n\n• Ni är ett mindre till medelstort företag (upp till 300-500 användare)\n• Ni har relativt standardiserade affärsprocesser\n• Ni vill komma igång snabbt (2-6 månaders implementering)\n• Ni söker en kostnadseffektiv lösning med lägre totalkostnad\n• Ni behöver grundläggande till mellanliggande funktionalitet\n• Ni vill ha en allt-i-ett-lösning som är enkel att underhålla\n\n🌐 **Finance & Supply Chain passar er om:**\n\n• Ni är ett stort företag eller koncern med global verksamhet\n• Ni har komplexa, branschspecifika processer\n• Ni behöver avancerad supply chain management\n• Ni har verksamhet i flera länder med olika valutor och regelverk\n• Ni kräver omfattande anpassningar och skalbarhet\n• Ni har stora datavolymer och avancerade rapporteringsbehov\n• Ni behöver djup integration med andra enterprise-system\n\n💡 **Praktiska skillnader:**\n\nImplementeringstid: BC 2-6 månader vs F&SC 6-24 månader\n\nKostnad: BC lägre licenspriser vs F&SC högre men mer funktionalitet\n\nKomplexitet: BC enklare att använda vs F&SC mer omfattande men kraftfullare\n\nSkalbarhet: BC upp till 500 användare vs F&SC obegränsat\n\n✅ **Vårt råd:**\n\nOm ni är osäkra, börja med Business Central. Det täcker de flesta företags behov och ni kan alltid migrera till Finance & Supply Chain senare om verksamheten växer och blir mer komplex. Kontakta oss för en analys av just era behov.",
+      answer: "Valet mellan Business Central och Finance & Supply Chain beror på er organisations storlek, komplexitet och framtida behov:\n\n🏢 **Business Central passar er om:**\n\n• Ni är ett mindre till medelstort företag (upp till 300-500 användare)\n• Ni har relativt standardiserade affärsprocesser\n• Ni vill komma igång snabbt (2-6 månaders implementering)\n• Ni söker en kostnadseffektiv lösning med lägre totalkostnad\n• Ni behöver grundläggande till mellanliggande funktionalitet\n• Ni vill ha en allt-i-ett-lösning som är enkel att underhålla\n\n🌐 **Finance & Supply Chain passar er om:**\n\n• Ni är ett stort företag eller koncern med global verksamhet\n• Ni har komplexa, branschspecifika processer\n• Ni behöver avancerad supply chain management\n• Ni har verksamhet i flera länder med olika valutor och regelverk\n• Ni kräver omfattande anpassningar och skalbarhet\n• Ni har stora datavolymer och avancerade rapporteringsbehov\n• Ni behöver djup integration med andra enterprise-system\n\n💡 **Praktiska skillnader:**\n\nImplementeringstid: BC 2-6 månader vs F&SC 6-24 månader\n\nKostnad: BC lägre licenspriser vs F&SC högre men mer funktionalitet\n\nKomplexitet: BC enklare att använda vs F&SC mer omfattande men kraftfullare\n\nSkalbarhet: BC upp till 500 användare vs F&SC obegränsat\n\n✅ **Vårt råd:**\n\nOm ni är osäkra, börja med Business Central. Det täcker de flesta företags behov och ni kan alltid migrera till Finance & Supply Chain senare om verksamheten växer och blir mer komplex. Kontakta oss för en analys av just era behov.\n\n📋 **Läs mer om implementeringskostnader:**\n• [Business Central implementering](/business-central)\n• [Finance & Supply Chain implementering](/finance-supply-chain)",
     },
   ];
 
@@ -150,12 +150,25 @@ const QA = () => {
                     
                     <div className="text-muted-foreground whitespace-pre-line">
                       {faq.answer.split('\n').map((line, lineIndex) => {
-                        const parts = line.split(/(\*\*.*?\*\*)/g);
+                        const parts = line.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\))/g);
                         return (
                           <span key={lineIndex}>
                             {parts.map((part, partIndex) => {
                               if (part.startsWith('**') && part.endsWith('**')) {
                                 return <strong key={partIndex}>{part.slice(2, -2)}</strong>;
+                              }
+                              // Handle markdown links [text](url)
+                              const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
+                              if (linkMatch) {
+                                return (
+                                  <Link 
+                                    key={partIndex} 
+                                    to={linkMatch[2]} 
+                                    className="text-primary hover:underline font-medium"
+                                  >
+                                    {linkMatch[1]}
+                                  </Link>
+                                );
                               }
                               return part;
                             })}
