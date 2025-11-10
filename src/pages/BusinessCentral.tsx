@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
@@ -87,13 +88,14 @@ const BusinessCentral = () => {
                 Komplett affärslösning för mindre och medelstora företag
               </p>
               
-              <Button 
-                asChild
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
-                <Link to="/kontakt">Boka gratis rådgivning</Link>
-              </Button>
+              <ContactFormDialog>
+                <Button 
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                >
+                  Boka gratis rådgivning
+                </Button>
+              </ContactFormDialog>
             </div>
           </div>
         </div>

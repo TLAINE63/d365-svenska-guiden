@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
+import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
@@ -70,13 +71,14 @@ const Copilot = () => {
                 AI-driven produktivitet inbyggd i ditt affärssystem
               </p>
               
-              <Button 
-                asChild
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
-                <Link to="/kontakt">Boka gratis rådgivning</Link>
-              </Button>
+              <ContactFormDialog>
+                <Button 
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                >
+                  Boka gratis rådgivning
+                </Button>
+              </ContactFormDialog>
             </div>
           </div>
         </div>

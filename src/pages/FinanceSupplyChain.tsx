@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
+import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -95,13 +96,14 @@ const FinanceSupplyChain = () => {
                 Företagslösning för större och ofta internationella organisationer
               </p>
               
-              <Button 
-                asChild
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
-                <Link to="/kontakt">Boka gratis rådgivning</Link>
-              </Button>
+              <ContactFormDialog>
+                <Button 
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                >
+                  Boka gratis rådgivning
+                </Button>
+              </ContactFormDialog>
             </div>
           </div>
         </div>

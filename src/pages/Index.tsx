@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
 import BigFiveCarousel from "@/components/BigFiveCarousel";
 import Navbar from "@/components/Navbar";
+import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -58,13 +59,14 @@ const Index = () => {
                   Upptäck möjligheterna med Microsoftplattformen
                 </p>
                 
-                <Button 
-                  asChild
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                >
-                  <Link to="/kontakt">Boka gratis rådgivning</Link>
-                </Button>
+                <ContactFormDialog>
+                  <Button 
+                    size="lg"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  >
+                    Boka gratis rådgivning
+                  </Button>
+                </ContactFormDialog>
               </div>
             </div>
           </div>
