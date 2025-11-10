@@ -127,7 +127,7 @@ const Index = () => {
                     <p>En av de mest sökta frågorna:</p>
                     <p>• <strong>Licenspriser per användare:</strong> Varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare (det finns även en så kallad "Tenant-prissättning", dvs per installation)</p>
                     <p>• <strong>Vad tillkommer:</strong> Implementation, anpassningar, integration, utbildning och löpande support</p>
-                    <p>• <strong>Budgetering:</strong> Räkna med en total projektkostnad på 200 000 - 2 000 000 kr beroende på omfattning och komplexitet</p>
+                    <p>• <strong>Projektbudget:</strong> Här beror det väldigt mycket på vilken applikation, hur stor verksamheten är och ambitionsnivå. Räkna med en total projektkostnad som startar från 50 000 kr (BC startpaket) till ett 10-tal miljoner (Finance & Supply Chain för internationella Enterprisebolag)</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
