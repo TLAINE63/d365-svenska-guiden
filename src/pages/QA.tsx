@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
+import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -195,9 +196,11 @@ const QA = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Kontakta oss så hjälper vi dig gärna
             </p>
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground" size="lg">
-              <Link to="/kontakt">Boka Gratis Konsultation</Link>
-            </Button>
+            <ContactFormDialog>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" size="lg">
+                Boka Gratis Konsultation
+              </Button>
+            </ContactFormDialog>
           </div>
         </div>
       </section>

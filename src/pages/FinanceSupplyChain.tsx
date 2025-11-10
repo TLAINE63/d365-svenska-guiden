@@ -433,9 +433,11 @@ const FinanceSupplyChain = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Kontakta oss för en kostnadsfri konsultation
             </p>
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground" size="lg">
-              <Link to="/kontakt">Boka Gratis Konsultation</Link>
-            </Button>
+            <ContactFormDialog>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" size="lg">
+                Boka Gratis Konsultation
+              </Button>
+            </ContactFormDialog>
           </div>
         </div>
       </section>

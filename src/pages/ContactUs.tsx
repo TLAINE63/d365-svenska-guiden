@@ -109,13 +109,14 @@ const ContactUs = () => {
                 Låt oss hjälpa dig att hitta rätt Dynamics 365-lösning för din verksamhet. 
                 Vi erbjuder kostnadsfri rådgivning och en skräddarsydd genomgång av dina behov.
               </p>
-              <Button 
-                asChild
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground"
-              >
-                <Link to="/kontakt">Boka Gratis Konsultation</Link>
-              </Button>
+              <ContactFormDialog>
+                <Button 
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                >
+                  Boka Gratis Konsultation
+                </Button>
+              </ContactFormDialog>
             </div>
           </div>
         </div>

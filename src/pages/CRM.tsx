@@ -545,9 +545,11 @@ const CRM = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Kontakta oss för en kostnadsfri konsultation
             </p>
-            <Button asChild className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
-              <Link to="/kontakt">Boka Gratis Konsultation</Link>
-            </Button>
+            <ContactFormDialog>
+              <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
+                Boka Gratis Konsultation
+              </Button>
+            </ContactFormDialog>
           </div>
         </div>
       </section>
