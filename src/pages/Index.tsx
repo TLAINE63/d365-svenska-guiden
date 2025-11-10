@@ -519,7 +519,7 @@ const Index = () => {
                     Vissa avancerade funktioner kräver separata AI-tillägg.
                   </p>
                   <div className="bg-secondary/30 rounded-lg p-4">
-                    <p className="text-sm text-card-foreground">
+                    <p className="text-xs text-card-foreground italic">
                       <strong>Tips:</strong> Börja med grundfunktionerna i din befintliga licens och utöka gradvis 
                       baserat på användarbehov och ROI.
                     </p>
