@@ -36,7 +36,11 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link 
+            to="/" 
+            className="flex items-center"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <img 
               src={dynamicFactoryLogo} 
               alt="Dynamic Factory" 
