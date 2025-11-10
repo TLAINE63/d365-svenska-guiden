@@ -127,7 +127,7 @@ const Index = () => {
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
                     <p>En av de mest sökta frågorna:</p>
-                    <p>• <strong>Licenspriser per användare:</strong> Varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare (det finns även en så kallad "Tenant-prissättning", dvs per installation)</p>
+                    <p>• <strong>Licenspriser per användare:</strong> Varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare (det finns även en så kallad "Tenant-prissättning", dvs per installation, som in första hand gäller Dynamics 365 Customer Insights/Marketing Automation)</p>
                     <p>• <strong>Vad tillkommer:</strong> Implementation, anpassningar, integration, utbildning och löpande support</p>
                     <p>• <strong>Projektbudget:</strong> Här beror det väldigt mycket på vilken applikation, hur stor verksamheten är och ambitionsnivå. Räkna med en total projektkostnad som startar från 50 000 kr (BC startpaket) till ett 10-tal miljoner (Finance & Supply Chain för internationella Enterprisebolag)</p>
                   </div>
