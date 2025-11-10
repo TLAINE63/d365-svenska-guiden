@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Users, Handshake, TrendingUp, ArrowRight, Calendar } from "lucide-react";
+import { CheckCircle2, Users, Handshake, TrendingUp, ArrowRight, Calendar, MessageSquare, Mail } from "lucide-react";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 
 const Partner = () => {
@@ -169,7 +169,10 @@ const Partner = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-shadow">
-                <Link to="/kontakt">Kontakta oss</Link>
+                <Link to="/kontakt">
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Kontakta oss
+                </Link>
               </Button>
               <Button 
                 size="lg" 
@@ -180,7 +183,10 @@ const Partner = () => {
                 Boka möte med mig
               </Button>
               <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg hover:shadow-xl transition-shadow border-2 border-secondary">
-                <a href="mailto:thomas.laine@dynamicfactory.se">Emaila mig här</a>
+                <a href="mailto:thomas.laine@dynamicfactory.se">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Emaila mig här
+                </a>
               </Button>
             </div>
           </div>
