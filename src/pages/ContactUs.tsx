@@ -87,12 +87,19 @@ const ContactUs = () => {
                       </p>
                     </div>
                     
-                    <div className="mt-6">
+                    <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
                       <Button 
                         className="bg-primary hover:bg-primary/90 text-primary-foreground"
                         onClick={() => window.location.href = 'mailto:thomas.laine@dynamicfactory.se'}
                       >
+                        <Mail className="w-4 h-4 mr-2" />
                         Skicka e-post
+                      </Button>
+                      <Button 
+                        className="bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                        onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink', '_blank')}
+                      >
+                        Boka möte med mig
                       </Button>
                     </div>
                   </div>
