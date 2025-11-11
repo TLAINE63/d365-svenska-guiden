@@ -33,7 +33,7 @@ const BusinessCentral = () => {
     },
     {
       title: "Business Central Demo",
-      description: "Se hur Business Central fungerar i praktiken",
+      description: "Automatised orderhantering med Copilot",
       videoId: "7QJeTXzZaEk",
     },
     {
