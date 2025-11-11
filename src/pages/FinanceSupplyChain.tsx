@@ -207,7 +207,7 @@ const FinanceSupplyChain = () => {
               Videoguider
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Lär dig mer om Finance och Supply Chain Management
+              Här kommer några korta inspirationsvideos om Dynamics 365 Finance och Supply Chain Management samt även Human Resources och Commerce
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
