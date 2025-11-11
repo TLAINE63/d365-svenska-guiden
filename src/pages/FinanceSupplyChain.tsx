@@ -38,7 +38,7 @@ const FinanceSupplyChain = () => {
     },
     {
       title: "Dynamics 365 Commerce",
-      description: "Se hur Finance och Supply Chain Management fungerar i praktiken",
+      description: "Leverera enhetliga, personliga och smidiga köpupplevelser med flera kanaler för kunder och partners.",
       videoId: "2URyNIGX2Js",
     },
   ];
