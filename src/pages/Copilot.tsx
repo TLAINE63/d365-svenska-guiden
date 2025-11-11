@@ -14,11 +14,6 @@ const Copilot = () => {
       videoId: "xCZxq6AEneE",
     },
     {
-      title: "AI och Copilot för Dynamics 365 Finance & Operations",
-      description: "Lär dig om AI-funktioner i Finance, Supply Chain Management och Commerce",
-      videoId: "BFPg5GJJjNY",
-    },
-    {
       title: "Copilot-driven Onboarding Process",
       description: "Upptäck hur Copilot förbättrar introduktionsprocessen",
       videoId: "vfyzbGHIa3E",
