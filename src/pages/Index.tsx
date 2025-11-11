@@ -53,7 +53,7 @@ const Index = () => {
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div className="max-w-3xl">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  Vägledning inom Microsoft Dynamics 365
+                  <span className="whitespace-nowrap">Vägledning inom Microsoft Dynamics 365</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-white/95 mb-8">
                   Upptäck möjligheterna med Microsoftplattformen
@@ -78,10 +78,10 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Välkommen till Microsoft Dynamics 365
+              <span className="whitespace-nowrap">Välkommen till Microsoft Dynamics 365</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring Microsoft Dynamics 365. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
+              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring <span className="whitespace-nowrap">Microsoft Dynamics 365</span>. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -110,7 +110,7 @@ const Index = () => {
                 <AccordionTrigger className="text-left hover:no-underline py-6">
                   <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
                     <span className="text-2xl">❓</span>
-                    Vad är Microsoft Dynamics 365 – och hur fungerar det?
+                    <span>Vad är <span className="whitespace-nowrap">Microsoft Dynamics 365</span> – och hur fungerar det?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
@@ -212,7 +212,7 @@ const Index = () => {
               Välj din lösning
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Microsoft Dynamics 365 erbjuder lösningar för både affärssystem och kundhantering
+              <span className="whitespace-nowrap">Microsoft Dynamics 365</span> erbjuder lösningar för både affärssystem och kundhantering
             </p>
           </div>
           
@@ -286,7 +286,7 @@ const Index = () => {
                   <h3 className="text-2xl font-bold text-card-foreground">CRM</h3>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Microsoft Dynamics 365 Sales, Customer Insights, Service
+                  <span className="whitespace-nowrap">Microsoft Dynamics 365</span> Sales, Customer Insights, Service
                 </p>
               </div>
               
@@ -319,7 +319,7 @@ const Index = () => {
                 AI-Driven Innovation
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Microsoft Copilot i Dynamics 365
+                <span className="whitespace-nowrap">Microsoft Copilot i Dynamics 365</span>
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 AI-assistenten som revolutionerar hur du arbetar med affärssystem och CRM

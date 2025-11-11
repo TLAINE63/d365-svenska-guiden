@@ -14,17 +14,17 @@ const bigFiveItems = [
   {
     icon: GitCompare,
     title: "Jämförelser",
-    description: "Microsoft Dynamics 365 vs andra CRM/ERP-system på marknaden",
+    description: "<span className='whitespace-nowrap'>Microsoft Dynamics 365</span> vs andra CRM/ERP-system på marknaden",
   },
   {
     icon: Star,
     title: "Recensioner",
-    description: "Vad kunder säger om Microsoft Dynamics 365",
+    description: "Vad kunder säger om <span className='whitespace-nowrap'>Microsoft Dynamics 365</span>",
   },
   {
     icon: Award,
     title: "Bäst i Klassen",
-    description: "Varför Microsoft Dynamics 365 är branschledande",
+    description: "Varför <span className='whitespace-nowrap'>Microsoft Dynamics 365</span> är branschledande",
   },
 ];
 
@@ -34,10 +34,10 @@ const BigFiveSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Fem vanliga frågor om Microsoft Dynamics 365
+            <span className="whitespace-nowrap">Fem vanliga frågor om Microsoft Dynamics 365</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Vi svarar ärligt på alla frågor du har om Microsoft Dynamics 365
+            Vi svarar ärligt på alla frågor du har om <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
@@ -50,7 +50,7 @@ const BigFiveSection = () => {
                 <item.icon className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.description}</p>
+              <p className="text-sm text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.description }} />
             </div>
           ))}
         </div>

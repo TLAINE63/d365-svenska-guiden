@@ -85,7 +85,7 @@ const Copilot = () => {
                 <img src={CopilotLogo} alt="Copilot" className="h-12 w-12" />
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                Microsoft Copilot för Dynamics 365
+                <span className="whitespace-nowrap">Microsoft Copilot för Dynamics 365</span>
               </h1>
               <p className="text-xl md:text-2xl text-white/95 mb-6">
                 AI-driven produktivitet inbyggd i ditt affärssystem
@@ -152,7 +152,7 @@ const Copilot = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Exempel på Copilot-funktioner i Dynamics 365
+                <span className="whitespace-nowrap">Exempel på Copilot-funktioner i Dynamics 365</span>
               </h2>
             </div>
             
