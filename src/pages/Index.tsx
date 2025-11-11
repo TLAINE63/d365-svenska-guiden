@@ -81,7 +81,7 @@ const Index = () => {
               Välkommen till Microsoft Dynamics 365
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Se vår genomgång där vi svarar på de vanligaste frågorna om Microsoft Dynamics 365
+              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring Microsoft Dynamics 365. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
