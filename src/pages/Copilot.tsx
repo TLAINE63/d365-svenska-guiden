@@ -48,6 +48,11 @@ const Copilot = () => {
       description: "Lär dig mer om Copilot-funktioner",
       videoId: "m8MCEZ8OBqk",
     },
+    {
+      title: "Copilot i Dynamics 365",
+      description: "Utforska Copilot-funktioner",
+      videoId: "0Bqzjar82OQ",
+    },
   ];
 
   return (
