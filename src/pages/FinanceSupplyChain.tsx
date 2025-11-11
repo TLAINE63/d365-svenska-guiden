@@ -28,7 +28,7 @@ const FinanceSupplyChain = () => {
     },
     {
       title: "Supply Chain Management Översikt",
-      description: "Upptäck hur Microsoft Dynamics 365 Supply Chain Management optimerar din leveranskedja",
+      description: "Den flexibla, samarbetsbaserade, anslutna plattformen som drivs av Microsoft Copilot för att bättre navigera i störningar.",
       videoId: "jC1EaSrB-Ak",
     },
     {
