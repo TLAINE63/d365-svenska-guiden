@@ -9,11 +9,6 @@ import CopilotLogo from "@/assets/icons/Copilot.png";
 const Copilot = () => {
   const copilotVideos = [
     {
-      title: "Dynamics 365 Sales Copilot - Review & Demo",
-      description: "En omfattande genomgång av AI-genererade sammanfattningar och mötesförberedelser",
-      videoId: "xCZxq6AEneE",
-    },
-    {
       title: "Copilot-driven Onboarding Process",
       description: "Upptäck hur Copilot förbättrar introduktionsprocessen",
       videoId: "vfyzbGHIa3E",
