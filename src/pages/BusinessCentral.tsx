@@ -27,7 +27,7 @@ const BusinessCentral = () => {
       videoId: "X7B99e3mNfI",
     },
     {
-      title: "Business Central Översikt",
+      title: "Business Central - Höstrelease 2025",
       description: "Utforska funktioner och möjligheter",
       videoId: "UIL8ej7mSKQ",
     },
