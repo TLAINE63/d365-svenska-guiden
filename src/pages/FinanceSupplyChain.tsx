@@ -37,7 +37,7 @@ const FinanceSupplyChain = () => {
       videoId: "LKmtKeN2hwk",
     },
     {
-      title: "Finance & Supply Chain Management Demo",
+      title: "Dynamics 365 Commerce",
       description: "Se hur Finance och Supply Chain Management fungerar i praktiken",
       videoId: "2URyNIGX2Js",
     },
