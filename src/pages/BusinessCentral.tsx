@@ -27,14 +27,14 @@ const BusinessCentral = () => {
       videoId: "X7B99e3mNfI",
     },
     {
-      title: "Business Central Demo",
-      description: "Se hur Business Central fungerar i praktiken",
-      videoId: "7QJeTXzZaEk",
-    },
-    {
       title: "Business Central Översikt",
       description: "Utforska funktioner och möjligheter",
       videoId: "UIL8ej7mSKQ",
+    },
+    {
+      title: "Business Central Demo",
+      description: "Se hur Business Central fungerar i praktiken",
+      videoId: "7QJeTXzZaEk",
     },
     {
       title: "Business Central - Kom igång",
