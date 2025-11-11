@@ -32,7 +32,7 @@ const FinanceSupplyChain = () => {
       videoId: "jC1EaSrB-Ak",
     },
     {
-      title: "Dynamics 365 Finance & Supply Chain",
+      title: "Dynamics 365 Human Resources",
       description: "Skapa en arbetsplats där människor och verksamhet kan växa",
       videoId: "LKmtKeN2hwk",
     },
