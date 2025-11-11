@@ -35,7 +35,7 @@ const Partner = () => {
               </p>
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Link to="/kontakt">
-                  <span>Kontakta oss</span>
+                  <span>Kontakta oss för vägledning inom partnerlandskapet</span>
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -171,7 +171,7 @@ const Partner = () => {
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-shadow">
                 <Link to="/kontakt">
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Kontakta oss
+                  Kontakta oss för vägledning inom partnerlandskapet
                 </Link>
               </Button>
               <Button 
