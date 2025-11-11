@@ -33,6 +33,11 @@ const Copilot = () => {
       description: "Officiell Microsoft-video om hur Copilot transformerar kundservice",
       videoId: "l7gS1y70ErE",
     },
+    {
+      title: "Microsoft Copilot Demo",
+      description: "Upptäck hur Copilot kan förbättra ditt arbetsflöde",
+      videoId: "_Bs_6zkdmws",
+    },
   ];
 
   return (
