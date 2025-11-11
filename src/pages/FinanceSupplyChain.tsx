@@ -36,6 +36,11 @@ const FinanceSupplyChain = () => {
       description: "Utforska funktioner och möjligheter i Finance & Supply Chain Management",
       videoId: "LKmtKeN2hwk",
     },
+    {
+      title: "Finance & Supply Chain Management Demo",
+      description: "Se hur Finance och Supply Chain Management fungerar i praktiken",
+      videoId: "2URyNIGX2Js",
+    },
   ];
 
   const fscPricingPlans = [
