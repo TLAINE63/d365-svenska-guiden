@@ -23,7 +23,7 @@ const FinanceSupplyChain = () => {
   const fscVideos = [
     {
       title: "Introduktion till Dynamics 365 Finance",
-      description: "Lär dig grunderna i Microsoft Dynamics 365 Finance och hur det kan transformera din ekonomihantering",
+      description: "Maximera insynen i ekonomin och lönsamheten med generativ AI och automatisering",
       videoId: "O5yecO8A_9Q",
     },
     {
