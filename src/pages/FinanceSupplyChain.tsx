@@ -41,6 +41,11 @@ const FinanceSupplyChain = () => {
       description: "Leverera enhetliga, personliga och smidiga köpupplevelser med flera kanaler för kunder och partners.",
       videoId: "2URyNIGX2Js",
     },
+    {
+      title: "Dynamics 365 Finance & Supply Chain",
+      description: "Se hur Finance & Supply Chain kan optimera din verksamhet",
+      videoId: "7lbGGMvL-GU",
+    },
   ];
 
   const fscPricingPlans = [
