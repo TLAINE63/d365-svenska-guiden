@@ -184,10 +184,10 @@ const BusinessCentral = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Videoguider
+              korta inspirationsvideos
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Lär dig mer om Business Central
+              Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
