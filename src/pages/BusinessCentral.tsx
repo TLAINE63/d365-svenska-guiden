@@ -37,8 +37,8 @@ const BusinessCentral = () => {
       videoId: "7QJeTXzZaEk",
     },
     {
-      title: "Business Central - Kom igång",
-      description: "Guide för att komma igång med Business Central",
+      title: "Business Central Demo",
+      description: "Exempel på Copilot",
       videoId: "ayXdXFyFEjY",
     },
   ];
