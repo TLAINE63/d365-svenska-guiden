@@ -33,7 +33,7 @@ const FinanceSupplyChain = () => {
     },
     {
       title: "Dynamics 365 Finance & Supply Chain",
-      description: "Utforska funktioner och möjligheter i Finance & Supply Chain Management",
+      description: "Skapa en arbetsplats där människor och verksamhet kan växa",
       videoId: "LKmtKeN2hwk",
     },
     {
