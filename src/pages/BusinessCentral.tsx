@@ -36,6 +36,11 @@ const BusinessCentral = () => {
       description: "Utforska funktioner och möjligheter",
       videoId: "UIL8ej7mSKQ",
     },
+    {
+      title: "Business Central - Kom igång",
+      description: "Guide för att komma igång med Business Central",
+      videoId: "ayXdXFyFEjY",
+    },
   ];
 
   const bcPricingPlans = [
