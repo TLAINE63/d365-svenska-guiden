@@ -31,6 +31,11 @@ const FinanceSupplyChain = () => {
       description: "Upptäck hur Microsoft Dynamics 365 Supply Chain Management optimerar din leveranskedja",
       videoId: "jC1EaSrB-Ak",
     },
+    {
+      title: "Dynamics 365 Finance & Supply Chain",
+      description: "Utforska funktioner och möjligheter i Finance & Supply Chain Management",
+      videoId: "LKmtKeN2hwk",
+    },
   ];
 
   const fscPricingPlans = [
