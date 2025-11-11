@@ -9,11 +9,6 @@ import CopilotLogo from "@/assets/icons/Copilot.png";
 const Copilot = () => {
   const copilotVideos = [
     {
-      title: "Introduction to Copilot in Microsoft Dynamics 365",
-      description: "Officiell introduktion till Copilot i Dynamics 365 Finance och Operations",
-      videoId: "zHzrCaso-sA",
-    },
-    {
       title: "Dynamics 365 Sales Copilot - Review & Demo",
       description: "En omfattande genomgång av AI-genererade sammanfattningar och mötesförberedelser",
       videoId: "xCZxq6AEneE",
