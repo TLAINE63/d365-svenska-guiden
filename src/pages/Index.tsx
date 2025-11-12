@@ -572,7 +572,7 @@ const Index = () => {
       <section id="implementation" className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
               Implementeringskostnader
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -583,7 +583,7 @@ const Index = () => {
           {/* Business Central Implementation */}
           <div className="max-w-6xl mx-auto mb-16">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-foreground mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 Business Central
               </h3>
               <p className="text-muted-foreground">
@@ -592,7 +592,7 @@ const Index = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
+                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
                 <p className="text-muted-foreground mb-4">Standarduppsättning med begränsade anpassningar</p>
                 <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">150 000 - 400 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -605,7 +605,7 @@ const Index = () => {
                 </ul>
               </div>
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
+                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
                 <p className="text-muted-foreground mb-4">Anpassad lösning med integrationer och komplexitet</p>
                 <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">500 000 - 1 500 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -623,7 +623,7 @@ const Index = () => {
           {/* Finance & Supply Chain Implementation */}
           <div className="max-w-6xl mx-auto mb-16">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-foreground mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 Finance & Supply Chain Management
               </h3>
               <p className="text-muted-foreground">
@@ -632,7 +632,7 @@ const Index = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
+                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
                 <p className="text-muted-foreground mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
                 <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">1 500 000 - 3 000 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -645,7 +645,7 @@ const Index = () => {
                 </ul>
               </div>
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
+                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
                 <p className="text-muted-foreground mb-4">Globala implementationer med hög komplexitet</p>
                 <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">3 000 000 - 10 000 000+ kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -663,7 +663,7 @@ const Index = () => {
           {/* CRM Implementation */}
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-foreground mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 CRM (Customer Engagement)
               </h3>
               <p className="text-muted-foreground">
@@ -672,7 +672,7 @@ const Index = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
+                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
                 <p className="text-muted-foreground mb-4">En eller två CRM-applikationer med standardfunktionalitet</p>
                 <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">200 000 - 600 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -685,7 +685,7 @@ const Index = () => {
                 </ul>
               </div>
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
+                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
                 <p className="text-muted-foreground mb-4">Flera CRM-applikationer med anpassningar och integrationer</p>
                 <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">800 000 - 3 000 000+ kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
