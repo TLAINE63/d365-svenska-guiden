@@ -8,12 +8,12 @@ interface VideoCardProps {
 
 const VideoCard = ({ title, description, videoId }: VideoCardProps) => {
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border bg-card scale-75 origin-top">
-      <CardHeader className="space-y-1.5 p-4">
-        <CardTitle className="text-lg text-card-foreground">{title}</CardTitle>
+    <Card className="overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-hover)] border-border bg-card">
+      <CardHeader className="space-y-1.5 p-4 sm:p-5">
+        <CardTitle className="text-base sm:text-lg text-card-foreground">{title}</CardTitle>
         <CardDescription className="text-sm text-muted-foreground">{description}</CardDescription>
       </CardHeader>
-      <CardContent className="p-4 pt-0">
+      <CardContent className="p-4 sm:p-5 pt-0">
         <div className="relative aspect-video rounded-lg overflow-hidden bg-muted">
           <iframe
             className="absolute inset-0 w-full h-full"

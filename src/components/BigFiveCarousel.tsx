@@ -56,14 +56,14 @@ const BigFiveCarousel = () => {
   };
 
   return (
-    <section className="py-20 bg-secondary/50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            <span className="whitespace-nowrap">Fem vanliga frågor om Microsoft Dynamics 365</span>
+    <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+            Fem vanliga frågor om Microsoft Dynamics 365
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Vi svarar ärligt på alla frågor du har om <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+            Vi svarar ärligt på alla frågor du har om Microsoft Dynamics 365
           </p>
         </div>
 
@@ -75,16 +75,16 @@ const BigFiveCarousel = () => {
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
               {bigFiveItems.map((item, index) => (
-                <div key={index} className="min-w-full px-4">
+                <div key={index} className="min-w-full px-2 sm:px-4">
                   <Link to={item.link}>
-                    <div className="bg-card p-12 rounded-lg border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300 cursor-pointer group">
+                    <div className="bg-card p-6 sm:p-8 md:p-12 rounded-lg border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300 cursor-pointer group">
                       <div className="flex flex-col items-center text-center">
-                        <div className="bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] w-20 h-20 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                          <item.icon className="w-10 h-10 text-primary-foreground" />
+                        <div className="bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] w-16 h-16 sm:w-20 sm:h-20 rounded-lg flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                          <item.icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary-foreground" />
                         </div>
-                        <h3 className="font-bold text-2xl mb-4 text-card-foreground">{item.title}</h3>
-                        <p className="text-lg text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.description }} />
-                        <div className="mt-6 text-primary font-semibold group-hover:underline">
+                        <h3 className="font-bold text-xl sm:text-2xl mb-3 sm:mb-4 text-card-foreground">{item.title}</h3>
+                        <p className="text-base sm:text-lg text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.description }} />
+                        <div className="mt-4 sm:mt-6 text-primary font-semibold group-hover:underline">
                           Läs mer →
                         </div>
                       </div>

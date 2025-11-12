@@ -199,7 +199,7 @@ const CRM = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2070" 
@@ -210,24 +210,24 @@ const CRM = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <div className="flex items-center gap-3 mb-4">
-                <img src={SalesIcon} alt="Sales" className="h-10 w-10" />
-                <img src={MarketingIcon} alt="Customer Insights" className="h-10 w-10" />
-                <img src={CustomerServiceIcon} alt="Customer Service" className="h-10 w-10" />
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+                <img src={SalesIcon} alt="Sales" className="h-8 w-8 sm:h-10 sm:w-10" />
+                <img src={MarketingIcon} alt="Customer Insights" className="h-8 w-8 sm:h-10 sm:w-10" />
+                <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8 sm:h-10 sm:w-10" />
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 CRM (Customer Engagement)
               </h1>
-              <p className="text-xl md:text-2xl text-white/95 mb-6">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6">
                 Microsoft Dynamics 365 Sales, Customer Insights/Marketing, Customer Service, Contact Center, Field Service, Project Operations m.m.
               </p>
               
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
                 >
                   Boka gratis rådgivning
                 </Button>
@@ -238,19 +238,19 @@ const CRM = () => {
       </header>
 
       {/* Introduction Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Microsoft Dynamics 365 Customer Engagement
             </h2>
-            <p className="text-2xl text-foreground mb-6">
+            <p className="text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
               För smartare kundrelationer
             </p>
-            <p className="text-xl text-muted-foreground mb-6">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-4 sm:mb-6">
               Skapa starkare kundupplevelser och effektivare service – allt i en integrerad plattform.
             </p>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               Microsoft Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att bygga långsiktiga kundrelationer och leverera förstklassig service. Lösningen kombinerar CRM och kundtjänst i en modern, molnbaserad plattform.
             </p>
           </div>
@@ -258,16 +258,16 @@ const CRM = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
               Vanliga frågor om Dynamics 365 Customer Engagement
             </h2>
             
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad är Dynamics 365 Customer Engagement och vad ingår i det?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
@@ -316,17 +316,17 @@ const CRM = () => {
       </section>
 
       {/* CRM Videos Section */}
-      <section id="videos" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section id="videos" className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Videoguider
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               Upptäck hur Dynamics 365 CRM kan transformera din kundhantering
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {ceVideos.map((video, index) => (
               <VideoCard key={index} {...video} />
             ))}

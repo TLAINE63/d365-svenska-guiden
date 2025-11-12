@@ -31,7 +31,7 @@ const Index = () => {
       </div>
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden h-[500px] md:h-[600px]">
+      <header className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1600" 
@@ -49,20 +49,20 @@ const Index = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div className="max-w-3xl">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  <span className="whitespace-nowrap">Vägledning inom Microsoft Dynamics 365</span>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6">
+                  Vägledning inom Microsoft Dynamics 365
                 </h1>
-                <p className="text-xl md:text-2xl text-white/95 mb-8">
+                <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
                   Upptäck möjligheterna med Microsoftplattformen
                 </p>
                 
                 <ContactFormDialog>
                   <Button 
                     size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
                   >
                     Boka gratis rådgivning
                   </Button>
@@ -74,14 +74,14 @@ const Index = () => {
       </header>
 
       {/* Video Introduction Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              <span className="whitespace-nowrap">Välkommen till Microsoft Dynamics 365</span>
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Välkommen till Microsoft Dynamics 365
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring <span className="whitespace-nowrap">Microsoft Dynamics 365</span>. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring Microsoft Dynamics 365. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -98,19 +98,19 @@ const Index = () => {
       </section>
 
       {/* Quick Links Section */}
-      <section id="questions" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+      <section id="questions" className="py-12 sm:py-16 md:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
             Vanliga frågor
           </h2>
           <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
               {/* Fråga 1 */}
-              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
-                    <span className="text-2xl">❓</span>
-                    <span>Vad är <span className="whitespace-nowrap">Microsoft Dynamics 365</span> – och hur fungerar det?</span>
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <span>Vad är Microsoft Dynamics 365 – och hur fungerar det?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
@@ -123,11 +123,11 @@ const Index = () => {
               </AccordionItem>
 
               {/* Fråga 2 */}
-              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
-                    <span className="text-2xl">❓</span>
-                    Vilken Dynamics 365-lösning passar vårt företag bäst?
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <span>Vilken Dynamics 365-lösning passar vårt företag bäst?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
@@ -205,18 +205,18 @@ const Index = () => {
       </section>
 
       {/* Solution Selector Section */}
-      <section id="solutions" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section id="solutions" className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Välj din lösning
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              <span className="whitespace-nowrap">Microsoft Dynamics 365</span> erbjuder lösningar för både affärssystem och kundhantering
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+              Microsoft Dynamics 365 erbjuder lösningar för både affärssystem och kundhantering
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {/* Business Central Card */}
             <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
               <div className="mb-6">

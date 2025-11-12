@@ -85,7 +85,7 @@ const BusinessCentral = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=2070" 
@@ -96,22 +96,22 @@ const BusinessCentral = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <div className="flex items-center gap-4 mb-4">
-                <img src={BusinessCentralIcon} alt="Business Central" className="h-12 w-12" />
+              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Business Central
               </h1>
-              <p className="text-xl md:text-2xl text-white/95 mb-6">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
                 Komplett affärslösning för mindre och medelstora företag
               </p>
               
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
                 >
                   Boka gratis rådgivning
                 </Button>
@@ -122,16 +122,16 @@ const BusinessCentral = () => {
       </header>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-8 sm:mb-10 md:mb-12 text-center">
               Vanliga frågor om Dynamics 365 Business Central
             </h2>
             
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad kostar Business Central – och vad påverkar priset?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
@@ -180,17 +180,17 @@ const BusinessCentral = () => {
       </section>
 
       {/* Videos Section */}
-      <section id="videos" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section id="videos" className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Korta inspirationsvideos
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {bcVideos.map((video, index) => (
               <VideoCard key={index} {...video} />
             ))}
@@ -290,17 +290,17 @@ const BusinessCentral = () => {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section id="pricing" className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Business Central Essentials vs Premium
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
               Vilken licens passar bäst för ditt företag?
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
             {bcPricingPlans.map((plan, index) => (
               <PricingCard key={index} {...plan} />
             ))}

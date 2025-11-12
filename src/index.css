@@ -134,4 +134,16 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+    
+    /* Better touch targets */
+    button, a, input, select, textarea {
+      min-height: 44px;
+    }
+  }
 }
