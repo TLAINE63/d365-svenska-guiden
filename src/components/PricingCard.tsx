@@ -23,7 +23,7 @@ const PricingCard = ({ title, description, price, features, popular }: PricingCa
         <CardTitle className="text-lg sm:text-2xl text-card-foreground">{title}</CardTitle>
         <CardDescription className="text-xs sm:text-sm text-muted-foreground">{description}</CardDescription>
         <div className="pt-3 sm:pt-4">
-          <div className="text-2xl sm:text-3xl font-bold text-primary">{price}</div>
+          <div className="text-xl sm:text-2xl font-bold text-primary">{price}</div>
           <div className="text-xs text-muted-foreground mt-1">per användare/månad</div>
         </div>
       </CardHeader>
