@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 
 const PrivacyPolicy = () => {
@@ -149,22 +150,7 @@ const PrivacyPolicy = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-card border-t border-border py-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center text-muted-foreground">
-            <p className="mb-2">© 2025 Dynamic Factory</p>
-            <p className="text-sm mb-3">
-              Microsoft Business Applications Evangelister
-            </p>
-            <div className="flex justify-center gap-4 text-sm">
-              <Link to="/dataskydd" className="hover:text-foreground transition-colors">
-                Dataskyddspolicy
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
