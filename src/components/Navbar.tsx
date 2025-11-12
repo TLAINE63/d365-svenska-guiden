@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import companyLogo from "@/assets/company-logo-final.png";
+import companyLogo from "@/assets/dynamic-factory-logo.jpg";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -43,7 +43,7 @@ const Navbar = () => {
           >
             <img 
               src={companyLogo} 
-              alt="D365 - Vägledning inom Dynamics 365" 
+              alt="Dynamic Factory - Microsoft Business Applications Evangelister" 
               className="h-14"
               width="224"
               height="56"
