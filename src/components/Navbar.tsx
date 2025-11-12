@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import companyLogo from "@/assets/dynamic-factory-logo.jpg";
+import companyLogo from "@/assets/dynamic-factory-logo-new.jpg";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
