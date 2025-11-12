@@ -19,12 +19,12 @@ const PricingCard = ({ title, description, price, features, popular }: PricingCa
           Populärast
         </div>
       )}
-      <CardHeader className="space-y-2 text-center pb-6 sm:pb-8 pt-6 sm:pt-8 px-4 sm:px-6">
-        <CardTitle className="text-xl sm:text-2xl text-card-foreground">{title}</CardTitle>
-        <CardDescription className="text-sm text-muted-foreground">{description}</CardDescription>
+      <CardHeader className="space-y-2 text-center pb-4 sm:pb-8 pt-4 sm:pt-8 px-4 sm:px-6">
+        <CardTitle className="text-lg sm:text-2xl text-card-foreground">{title}</CardTitle>
+        <CardDescription className="text-xs sm:text-sm text-muted-foreground">{description}</CardDescription>
         <div className="pt-3 sm:pt-4">
-          <div className="text-3xl sm:text-4xl font-bold text-primary">{price}</div>
-          <div className="text-xs sm:text-sm text-muted-foreground mt-1">per användare/månad</div>
+          <div className="text-2xl sm:text-3xl font-bold text-primary">{price}</div>
+          <div className="text-xs text-muted-foreground mt-1">per användare/månad</div>
         </div>
       </CardHeader>
       <CardContent className="space-y-3 sm:space-y-4 flex flex-col h-full px-4 sm:px-6">
