@@ -3,9 +3,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { Mail, Phone, Calendar, Linkedin } from "lucide-react";
+import { Mail, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
+import linkedinLogo from "@/assets/linkedin-logo.jfif";
 
 const ContactUs = () => {
   return (
@@ -84,7 +85,7 @@ const ContactUs = () => {
                       </div>
                       
                       <div className="flex items-center justify-center md:justify-start gap-3">
-                        <Linkedin className="w-5 h-5 text-primary" />
+                        <img src={linkedinLogo} alt="LinkedIn" className="w-5 h-5" />
                         <a href="https://linkedin.com/in/thomaslaine" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                           linkedin.com/in/thomaslaine
                         </a>

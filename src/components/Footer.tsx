@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Linkedin } from "lucide-react";
+import linkedinLogo from "@/assets/linkedin-logo.jfif";
 
 const Footer = () => {
   return (
@@ -16,7 +16,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <Linkedin className="w-4 h-4 text-primary" />
+            <img src={linkedinLogo} alt="LinkedIn" className="w-5 h-5" />
             <a 
               href="https://linkedin.com/in/thomaslaine" 
               target="_blank" 
