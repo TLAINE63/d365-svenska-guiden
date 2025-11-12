@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import dynamicFactoryLogo from "@/assets/dynamic-factory-logo.jpg";
+import companyLogo from "@/assets/company-logo-final.png";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,10 +42,10 @@ const Navbar = () => {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <img 
-              src={dynamicFactoryLogo} 
-              alt="Dynamic Factory" 
+              src={companyLogo} 
+              alt="D365 - Vägledning inom Dynamics 365" 
               className="h-10"
-              width="94"
+              width="160"
               height="40"
               loading="eager"
             />
