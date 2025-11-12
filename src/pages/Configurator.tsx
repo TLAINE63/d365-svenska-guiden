@@ -303,15 +303,16 @@ const Configurator = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="container mx-auto px-4 py-20 mt-16">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-4" />
-              <h1 className="text-4xl font-bold text-foreground mb-4">Din Rekommendation</h1>
-              <p className="text-lg text-muted-foreground">
-                Baserat på dina svar rekommenderar vi följande lösning
-              </p>
-            </div>
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 mt-16">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 sm:mb-4 px-2">
+              Din Rekommendation
+            </h1>
+            <p className="text-base sm:text-lg text-muted-foreground px-4">
+              Baserat på dina svar rekommenderar vi följande lösning
+            </p>
+          </div>
 
             <Card className="p-8 mb-8 border-2 border-primary bg-gradient-to-br from-primary/5 to-accent/5">
               <div className="text-center mb-6">

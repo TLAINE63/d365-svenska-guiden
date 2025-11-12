@@ -92,7 +92,7 @@ const FinanceSupplyChain = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2070" 
@@ -103,23 +103,23 @@ const FinanceSupplyChain = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <div className="flex items-center gap-3 mb-4">
-                <img src={FinanceIcon} alt="Finance" className="h-12 w-12" />
-                <img src={SupplyChainIcon} alt="Supply Chain" className="h-12 w-12" />
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+                <img src={FinanceIcon} alt="Finance" className="h-10 w-10 sm:h-12 sm:w-12" />
+                <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Finance & Supply Chain
               </h1>
-              <p className="text-xl md:text-2xl text-white/95 mb-6">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
                 Företagslösning för större och ofta internationella organisationer
               </p>
               
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
                 >
                   Boka gratis rådgivning
                 </Button>
@@ -130,18 +130,18 @@ const FinanceSupplyChain = () => {
       </header>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Vanliga frågor om Finance & Supply Chain
               </h2>
             </div>
             
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="item-1" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
                     <span>Vad är skillnaden mellan Dynamics 365 F&SCM och andra ERP-system?</span>

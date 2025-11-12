@@ -79,7 +79,7 @@ const QA = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[400px] md:h-[450px]">
+      <header className="relative overflow-hidden mt-16 h-[300px] sm:h-[400px] md:h-[450px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=2070" 
@@ -90,15 +90,15 @@ const QA = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Vanliga Frågor
               </h1>
-              <p className="text-xl md:text-2xl text-white/95">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95">
                 Svar på de vanligaste frågorna om Dynamics 365
               </p>
-              <p className="text-lg md:text-xl text-white/80 mt-2">
+              <p className="text-base sm:text-lg md:text-xl text-white/80 mt-1 sm:mt-2">
                 (...om man frågar Copilot)
               </p>
             </div>
@@ -108,18 +108,18 @@ const QA = () => {
 
 
       {/* FAQ Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-4">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
               {faqs.map((faq, index) => (
                 <AccordionItem 
                   key={index} 
                   value={faq.id}
                   id={faq.id}
-                  className="bg-card rounded-lg px-8 shadow-[var(--shadow-card)] border border-border scroll-mt-24"
+                  className="bg-card rounded-lg px-4 sm:px-6 md:px-8 shadow-[var(--shadow-card)] border border-border scroll-mt-24"
                 >
-                  <AccordionTrigger className="text-xl font-bold text-card-foreground hover:no-underline py-6">
+                  <AccordionTrigger className="text-lg sm:text-xl font-bold text-card-foreground hover:no-underline py-4 sm:py-6">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="pb-8">

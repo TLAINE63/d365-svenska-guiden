@@ -75,16 +75,16 @@ const InteractiveGuide = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-20 mt-16">
+      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-20 mt-16">
         <div className="max-w-4xl mx-auto">
           {/* Intro */}
           {currentStep === "intro" && (
-            <div className="text-center space-y-8">
+            <div className="text-center space-y-6 sm:space-y-8">
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3 sm:mb-4 px-2">
                   Hitta rätt Dynamics 365-lösning för din verksamhet
                 </h1>
-                <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
                   Välkommen till vår interaktiva guide! Här hjälper vi dig att identifiera vilken Dynamics 365-lösning som passar bäst för din verksamhet – oavsett om du söker ett nytt ERP-system, CRM-lösning eller en kombination.
                 </p>
               </div>
@@ -92,7 +92,7 @@ const InteractiveGuide = () => {
               <Button 
                 size="lg"
                 onClick={() => setCurrentStep("company-size")}
-                className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
+                className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-12 text-base sm:text-lg w-full sm:w-auto"
               >
                 Börja här
                 <ArrowRight className="w-5 h-5 ml-2" />

@@ -12,7 +12,7 @@ const ContactUs = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[400px] md:h-[450px]">
+      <header className="relative overflow-hidden mt-16 h-[300px] sm:h-[400px] md:h-[450px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=2070" 
@@ -23,12 +23,12 @@ const ContactUs = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Kontakta Oss
               </h1>
-              <p className="text-xl md:text-2xl text-white/95">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95">
                 Vi hjälper dig genom transformationen av din verksamhet med Microsoft Dynamics 365
               </p>
             </div>
@@ -37,16 +37,16 @@ const ContactUs = () => {
       </header>
 
       {/* Contact Information */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             {/* Contact Person Section */}
-            <div className="mb-12">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <div className="mb-8 sm:mb-10 md:mb-12">
+              <div className="text-center mb-6 sm:mb-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                   Din Kontaktperson
                 </h2>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-base sm:text-lg text-muted-foreground px-2">
                   Har du frågor om Microsoft Dynamics 365? Kontakta oss!
                 </p>
               </div>

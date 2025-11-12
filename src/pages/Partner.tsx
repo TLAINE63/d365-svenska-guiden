@@ -11,7 +11,7 @@ const Partner = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=2070" 
@@ -22,18 +22,18 @@ const Partner = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <div className="flex items-center gap-4 mb-4">
-                <Handshake className="h-12 w-12 text-white" />
+              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                <Handshake className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Implementationspartner
               </h1>
-              <p className="text-xl md:text-2xl text-white/95 mb-8">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
                 Säkerställ verklig affärsnytta tillsammans med rätt partner
               </p>
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto">
                 <Link to="/kontakt">
                   <span>Kontakta oss för vägledning inom partnerlandskapet</span>
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -45,14 +45,14 @@ const Partner = () => {
       </header>
 
       {/* Viktiga frågor Section */}
-      <section className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Fem viktiga frågor vid val av implementationspartner
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-base sm:text-lg text-muted-foreground px-2">
                 Här är fem viktiga frågor du (eller din organisation) bör ställa er själva inför valet av implementationspartner för Dynamics 365
               </p>
             </div>

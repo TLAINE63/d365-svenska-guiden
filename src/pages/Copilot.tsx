@@ -68,7 +68,7 @@ const Copilot = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2070" 
@@ -79,22 +79,22 @@ const Copilot = () => {
         </div>
         
         <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <div className="flex items-center mb-4">
-                <img src={CopilotLogo} alt="Copilot" className="h-12 w-12" />
+              <div className="flex items-center mb-3 sm:mb-4">
+                <img src={CopilotLogo} alt="Copilot" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                <span className="whitespace-nowrap">Microsoft Copilot för Dynamics 365</span>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+                Microsoft Copilot för Dynamics 365
               </h1>
-              <p className="text-xl md:text-2xl text-white/95 mb-6">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
                 AI-driven produktivitet inbyggd i ditt affärssystem
               </p>
               
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
                 >
                   Boka gratis rådgivning
                 </Button>
@@ -105,14 +105,14 @@ const Copilot = () => {
       </header>
 
       {/* What is Copilot Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <div className="text-center mb-8 sm:mb-10 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Vad är Copilot?
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-base sm:text-lg text-muted-foreground">
                 Din AI-assistent för smartare arbetsflöden
               </p>
             </div>
