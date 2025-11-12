@@ -594,7 +594,7 @@ const Index = () => {
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
                 <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
                 <p className="text-muted-foreground mb-4">Standarduppsättning med begränsade anpassningar</p>
-                <div className="text-3xl font-bold text-primary mb-6">150 000 - 400 000 kr</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">150 000 - 400 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• 2-4 månaders projekt</li>
                   <li>• Standardprocesser och funktionalitet</li>
@@ -607,7 +607,7 @@ const Index = () => {
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
                 <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
                 <p className="text-muted-foreground mb-4">Anpassad lösning med integrationer och komplexitet</p>
-                <div className="text-3xl font-bold text-primary mb-6">500 000 - 1 500 000 kr</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">500 000 - 1 500 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• 4-8 månaders projekt</li>
                   <li>• Anpassade processer och workflows</li>
@@ -634,7 +634,7 @@ const Index = () => {
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
                 <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
                 <p className="text-muted-foreground mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
-                <div className="text-3xl font-bold text-primary mb-6">1 500 000 - 3 000 000 kr</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">1 500 000 - 3 000 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• 6-9 månaders projekt</li>
                   <li>• Standardprocesser med mindre anpassningar</li>
@@ -647,7 +647,7 @@ const Index = () => {
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
                 <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
                 <p className="text-muted-foreground mb-4">Globala implementationer med hög komplexitet</p>
-                <div className="text-3xl font-bold text-primary mb-6">3 000 000 - 10 000 000+ kr</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">3 000 000 - 10 000 000+ kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• 9-18+ månaders projekt</li>
                   <li>• Omfattande anpassningar och utveckling</li>
@@ -674,7 +674,7 @@ const Index = () => {
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
                 <h4 className="text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
                 <p className="text-muted-foreground mb-4">En eller två CRM-applikationer med standardfunktionalitet</p>
-                <div className="text-3xl font-bold text-primary mb-6">200 000 - 600 000 kr</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">200 000 - 600 000 kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• 2-4 månaders projekt</li>
                   <li>• Sales eller Customer Service</li>
@@ -687,7 +687,7 @@ const Index = () => {
               <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
                 <h4 className="text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
                 <p className="text-muted-foreground mb-4">Flera CRM-applikationer med anpassningar och integrationer</p>
-                <div className="text-3xl font-bold text-primary mb-6">800 000 - 3 000 000+ kr</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary mb-6">800 000 - 3 000 000+ kr</div>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• 4-10 månaders projekt</li>
                   <li>• Sales + Service + Customer Insights/Field Service</li>
