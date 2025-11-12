@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { Mail, Phone, Calendar } from "lucide-react";
+import { Mail, Phone, Calendar, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
 
@@ -79,6 +79,13 @@ const ContactUs = () => {
                         <Phone className="w-5 h-5 text-primary" />
                         <a href="tel:+46722324060" className="text-primary hover:underline">
                           +46 72 232 40 60
+                        </a>
+                      </div>
+                      
+                      <div className="flex items-center justify-center md:justify-start gap-3">
+                        <Linkedin className="w-5 h-5 text-primary" />
+                        <a href="https://linkedin.com/in/thomaslaine" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                          linkedin.com/in/thomaslaine
                         </a>
                       </div>
                       
