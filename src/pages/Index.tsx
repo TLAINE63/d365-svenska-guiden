@@ -53,7 +53,7 @@ const Index = () => {
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div className="max-w-3xl">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6">
-                  Vägledning inom Microsoft Dynamics 365
+                  Vägledning inom <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
                   Upptäck möjligheterna med Microsoftplattformen
@@ -78,10 +78,10 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Välkommen till Microsoft Dynamics 365
+              Välkommen till <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
-              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring Microsoft Dynamics 365. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
+              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring <span className="whitespace-nowrap">Microsoft Dynamics 365</span>. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -212,7 +212,7 @@ const Index = () => {
               Välj din lösning
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-              Microsoft Dynamics 365 erbjuder lösningar för både affärssystem och kundhantering
+              <span className="whitespace-nowrap">Microsoft Dynamics 365</span> erbjuder lösningar för både affärssystem och kundhantering
             </p>
           </div>
           
