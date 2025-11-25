@@ -156,7 +156,7 @@ const ContactUs = () => {
                     Behovsanalys och ROI kalkyl
                   </h3>
                   <p className="text-muted-foreground">
-                    Vi går igenom din nuvarande situation och diskuterar vilka lösningar som passar bäst för just er verksamhet.
+                    Vi går igenom din nuvarande situation och diskuterar vilka lösningar som passar bäst för just er verksamhet. Dessutom kan vi ta fram ett första utkast till en ROI (Return on Investment)-kalkyl.
                   </p>
                 </Card>
 
