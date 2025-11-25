@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
+import VideoCard from "@/components/VideoCard";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -107,6 +108,29 @@ const QA = () => {
         </div>
       </header>
 
+      {/* Top 10 Questions Video Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Topp 10 Vanliga Frågor om Microsoft Dynamics 365
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              Få snabba svar på de 10 vanligaste frågorna om Microsoft Dynamics 365
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <VideoCard
+              title="Topp 10 Vanliga Frågor om Dynamics 365"
+              description="De viktigaste frågorna och svaren samlade i en video"
+              videoId=""
+            />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Lägg in ditt YouTube video-ID för att visa videon
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
