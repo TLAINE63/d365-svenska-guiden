@@ -153,7 +153,7 @@ const ContactUs = () => {
                 <Card className="p-6 border-border bg-card">
                   <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-center gap-2">
                     <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                    Behovsanalys
+                    Behovsanalys och ROI kalkyl
                   </h3>
                   <p className="text-muted-foreground">
                     Vi går igenom din nuvarande situation och diskuterar vilka lösningar som passar bäst för just er verksamhet.
