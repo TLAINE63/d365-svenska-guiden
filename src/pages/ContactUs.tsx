@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
+import VideoCard from "@/components/VideoCard";
 import { Mail, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import thomasLainePhoto from "@/assets/thomas-laine-real.jpg";
@@ -126,6 +127,15 @@ const ContactUs = () => {
                 <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
                   Vi tror på transparens och tydlighet från första kontakten. Här är exakt vad du kan förvänta dig.
                 </p>
+              </div>
+
+              {/* Services Introduction Video */}
+              <div className="mb-12 max-w-4xl mx-auto">
+                <VideoCard
+                  title="Thomas berättar om våra tjänster"
+                  description="En personlig genomgång av hur vi hjälper företag med Microsoft Dynamics 365 – från första kontakt till långsiktigt samarbete."
+                  videoId=""
+                />
               </div>
 
               <div className="grid md:grid-cols-2 gap-6 mb-12">
