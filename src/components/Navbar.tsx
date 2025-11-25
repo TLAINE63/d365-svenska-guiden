@@ -45,6 +45,8 @@ const Navbar = () => {
               src={companyLogo} 
               alt="Dynamic Factory - Microsoft Business Applications Evangelister" 
               className="h-12 w-auto object-contain"
+              width="113"
+              height="48"
               loading="eager"
             />
           </Link>
