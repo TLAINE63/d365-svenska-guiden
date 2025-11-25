@@ -74,21 +74,21 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Video Introduction Section */}
+      {/* Personal Introduction Video Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Välkommen till <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
+              Personlig Introduktion
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
-              Här försöker vi samla in svaren på de allra vanligaste frågorna som du typiskt har kring <span className="whitespace-nowrap">Microsoft Dynamics 365</span>. Vi skrapar så klart bara på ytan, men kanske kan det ge dig en liten vägvisning. Dyker det upp fler frågor, är du välkommen att kontakta oss, så försöker vi hjälpa dig vidare
+              Hej! Jag heter Thomas Laine och har arbetat med Microsoft Dynamics 365 i många år. Här vill jag ge dig en personlig introduktion till plattformen och vad den kan göra för dig och ditt företag.
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
             <VideoCard
-              title="Frågor och Svar om Microsoft Dynamics 365"
-              description="En komplett genomgång av de viktigaste frågorna och svaren"
+              title="Personlig Introduktion till Microsoft Dynamics 365"
+              description="Thomas Laine berättar om Dynamics 365 och hur det kan hjälpa ditt företag"
               videoId=""
             />
             <p className="text-center text-sm text-muted-foreground mt-4 italic">

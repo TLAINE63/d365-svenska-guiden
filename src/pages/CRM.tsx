@@ -335,6 +335,30 @@ const CRM = () => {
         </div>
       </section>
 
+      {/* Implementation Costs Video Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Implementationspriser för CRM
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              Vad kostar det att implementera Dynamics 365 Customer Engagement?
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <VideoCard
+              title="CRM-projekt: Kostnader och Genomförande"
+              description="En ärlig genomgång av vad det kostar att implementera CRM"
+              videoId=""
+            />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Lägg in ditt YouTube video-ID för att visa videon
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Project Cost Section */}
       <section id="project-cost" className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -385,6 +409,30 @@ const CRM = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* License Pricing Video Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Licenspriser för CRM-lösningar
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              Förstå de olika licensmodellerna för Sales, Customer Service, Customer Insights och mer
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <VideoCard
+              title="CRM Licenspriser: En Komplett Guide"
+              description="Vilka licenser finns och vad passar för er organisation?"
+              videoId=""
+            />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Lägg in ditt YouTube video-ID för att visa videon
+            </p>
           </div>
         </div>
       </section>
