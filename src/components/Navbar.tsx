@@ -80,12 +80,12 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  ERP
+                  Microsoft AI
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50">
-                {erpItems.map((item) => (
+                {aiItems.map((item) => (
                   <DropdownMenuItem key={item.path} asChild>
                     <Link to={item.path} className="cursor-pointer">
                       {item.label}
@@ -97,12 +97,12 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  Microsoft AI
+                  ERP
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50">
-                {aiItems.map((item) => (
+                {erpItems.map((item) => (
                   <DropdownMenuItem key={item.path} asChild>
                     <Link to={item.path} className="cursor-pointer">
                       {item.label}
@@ -158,9 +158,9 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">ERP</span>
+                  <span className="text-lg font-semibold text-foreground">Microsoft AI</span>
                   <div className="flex flex-col gap-2 ml-4">
-                    {erpItems.map((item) => (
+                    {aiItems.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
@@ -172,9 +172,9 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Microsoft AI</span>
+                  <span className="text-lg font-semibold text-foreground">ERP</span>
                   <div className="flex flex-col gap-2 ml-4">
-                    {aiItems.map((item) => (
+                    {erpItems.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
