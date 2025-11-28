@@ -212,10 +212,10 @@ const FinanceSupplyChain = () => {
             <div className="text-center mb-8 sm:mb-10">
               <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
                 <span>✨</span>
-                <span>Microsoft Ignite 2025 - Agents för F&SCM</span>
+                <span>Microsoft Ignite 2025 - Agenter för F&SCM</span>
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
-                AI & Agents för Finance & Supply Chain
+                AI & Agenter för Finance & Supply Chain
               </h2>
               <p className="text-lg text-muted-foreground">
                 Enterprise AI för komplex finans- och supply chain-hantering
@@ -263,10 +263,10 @@ const FinanceSupplyChain = () => {
                     <span className="text-xl">⚡</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">Agents för Finance & Supply Chain</h3>
-                    <p className="text-muted-foreground mb-4">
-                      Autonoma AI-system för enterprise-processer
-                    </p>
+                  <h3 className="text-xl font-bold text-foreground mb-2">Agenter för Finance & Supply Chain</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Autonoma AI-system för enterprise-processer
+                  </p>
                   </div>
                 </div>
                 <div className="space-y-4">
@@ -331,7 +331,7 @@ const FinanceSupplyChain = () => {
             <div className="mt-8 text-center">
               <Button asChild size="lg" variant="outline">
                 <Link to="/agents">
-                  Utforska Agents för Enterprise
+                  Utforska Agenter för Enterprise
                   <span className="ml-2">→</span>
                 </Link>
               </Button>

@@ -53,7 +53,7 @@ const Agents = () => {
                 <span>Microsoft Ignite 2025 - Det senaste inom AI</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Microsoft Agents
+                Microsoft Agenter
               </h1>
               <p className="text-xl sm:text-2xl md:text-3xl text-white/95 mb-2">
                 Nästa generation av AI-automation
@@ -67,7 +67,7 @@ const Agents = () => {
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
                 >
-                  Lär dig mer om Agents
+                  Lär dig mer om Agenter
                 </Button>
               </ContactFormDialog>
             </div>
@@ -81,10 +81,10 @@ const Agents = () => {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Vad är Microsoft Agents?
+                Vad är Microsoft Agenter?
               </h2>
               <p className="text-lg sm:text-xl text-muted-foreground">
-                Från Copilot till Agents - evolutionen av AI i Dynamics 365
+                Från Copilot till Agenter - evolutionen av AI i Dynamics 365
               </p>
             </div>
 
@@ -99,8 +99,8 @@ const Agents = () => {
                     Autonoma AI-agenter som arbetar för dig
                   </h3>
                   <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                    Microsoft Agents representerar nästa steg i AI-evolutionen. Medan Copilot fungerar som din 
-                    AI-assistent som hjälper dig med uppgifter, är Agents autonoma AI-system som kan utföra 
+                    Microsoft Agenter representerar nästa steg i AI-evolutionen. Medan Copilot fungerar som din 
+                    AI-assistent som hjälper dig med uppgifter, är Agenter autonoma AI-system som kan utföra 
                     komplexa arbetsflöden självständigt, fatta beslut och koordinera med andra system - 
                     allt baserat på dina affärsregler och prioriteringar.
                   </p>
@@ -133,7 +133,7 @@ const Agents = () => {
                   <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center">
                     <Zap className="w-5 h-5 text-primary-foreground" />
                   </div>
-                  <h4 className="text-lg font-bold text-foreground">Agents</h4>
+                  <h4 className="text-lg font-bold text-foreground">Agenter</h4>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">
                   Autonoma AI-system som arbetar självständigt
@@ -156,10 +156,10 @@ const Agents = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Nyckelfunktioner hos Microsoft Agents
+                Nyckelfunktioner hos Microsoft Agenter
               </h2>
               <p className="text-lg text-muted-foreground">
-                Vad gör Agents till en spelväxlare för affärsprocesser?
+                Vad gör Agenter till en spelväxlare för affärsprocesser?
               </p>
             </div>
 
@@ -178,7 +178,7 @@ const Agents = () => {
                 {
                   icon: <Users className="w-6 h-6" />,
                   title: "Multi-Agent Samarbete",
-                  description: "Flera Agents kan samarbeta och koordinera för att lösa komplexa affärsproblem tillsammans"
+                  description: "Flera Agenter kan samarbeta och koordinera för att lösa komplexa affärsproblem tillsammans"
                 },
                 {
                   icon: <ArrowRight className="w-6 h-6" />,
@@ -188,7 +188,7 @@ const Agents = () => {
                 {
                   icon: <Sparkles className="w-6 h-6" />,
                   title: "Kontinuerlig Inlärning",
-                  description: "Agents lär sig och förbättras över tid genom att observera mönster och resultat"
+                  description: "Agenter lär sig och förbättras över tid genom att observera mönster och resultat"
                 },
                 {
                   icon: <Zap className="w-6 h-6" />,
@@ -215,7 +215,7 @@ const Agents = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Agents i Dynamics 365
+                Agenter i Dynamics 365
               </h2>
               <p className="text-lg text-muted-foreground">
                 Praktiska användningsområden för autonoma AI-agenter
@@ -364,7 +364,7 @@ const Agents = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Lär dig mer om Microsoft Agents
+              Lär dig mer om Microsoft Agenter
             </h2>
             <p className="text-lg text-muted-foreground">
               Videor och demos från Microsoft Ignite
@@ -387,7 +387,7 @@ const Agents = () => {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10 sm:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Fördelar med Microsoft Agents
+                Fördelar med Microsoft Agenter
               </h2>
               <p className="text-lg text-muted-foreground">
                 Varför bör ditt företag satsa på autonoma AI-agenter?
@@ -418,7 +418,7 @@ const Agents = () => {
                 },
                 {
                   title: "Skalbarhet",
-                  description: "Enkelt att skala upp eller ner baserat på affärsbehov utan att behöva anställa fler",
+                  description: "Enkelt att skala upp eller ner baserat på affärsbehov utan att behöva anställa",
                   stat: "Obegränsad skalning"
                 },
                 {
@@ -448,7 +448,7 @@ const Agents = () => {
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5 rounded-2xl p-8 border border-primary/20">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 text-center">
-                Agents + Copilot = Perfekt Kombination
+                Agenter + Copilot = Perfekt Kombination
               </h2>
               <p className="text-lg text-muted-foreground text-center mb-8">
                 Det bästa av båda världarna för maximal AI-nytta
@@ -467,9 +467,9 @@ const Agents = () => {
                   </div>
                 </div>
                 <div className="bg-card rounded-lg p-6 border border-border">
-                  <h4 className="font-bold text-card-foreground mb-3">Agents för Processerna</h4>
+                  <h4 className="font-bold text-card-foreground mb-3">Agenter för Processerna</h4>
                   <p className="text-sm text-muted-foreground mb-3">
-                    Agents hanterar repetitiva och komplexa arbetsflöden självständigt, 
+                    Agenter hanterar repetitiva och komplexa arbetsflöden självständigt, 
                     arbetar 24/7 och koordinerar mellan system och team.
                   </p>
                   <div className="text-xs text-muted-foreground space-y-1">
@@ -489,7 +489,7 @@ const Agents = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Redo att utforska Microsoft Agents?
+              Redo att utforska Microsoft Agenter?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
               Kontakta oss för att diskutera hur autonoma AI-agenter kan transformera era affärsprocesser

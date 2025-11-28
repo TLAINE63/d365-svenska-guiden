@@ -219,7 +219,7 @@ const Index = () => {
                 <span>Microsoft Ignite 2025 - Nyhet</span>
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
-                Microsoft Agents
+                Microsoft Agenter
               </h2>
               <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-2">
                 Nästa generation av AI-automation i Dynamics 365
@@ -238,17 +238,17 @@ const Index = () => {
                       <span className="text-xl">🤖</span>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-card-foreground mb-2">Vad är Agents?</h3>
-                      <p className="text-sm sm:text-base text-muted-foreground">
-                        Medan <strong>Copilot</strong> fungerar som din AI-assistent som hjälper dig med uppgifter, 
-                        är <strong>Agents</strong> autonoma AI-system som kan utföra komplexa arbetsflöden självständigt, 
-                        fatta beslut och koordinera med andra system - allt baserat på dina affärsregler.
-                      </p>
+                    <h3 className="text-xl font-bold text-card-foreground mb-2">Vad är Agenter?</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground">
+                      Medan <strong>Copilot</strong> fungerar som din AI-assistent som hjälper dig med uppgifter, 
+                      är <strong>Agenter</strong> autonoma AI-system som kan utföra komplexa arbetsflöden självständigt, 
+                      fatta beslut och koordinera med andra system - allt baserat på dina affärsregler.
+                    </p>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <h4 className="font-semibold text-card-foreground text-sm mb-3">Exempel på Agents:</h4>
+                  <h4 className="font-semibold text-card-foreground text-sm mb-3">Exempel på Agenter:</h4>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-start gap-2">
                       <span className="text-primary font-bold">💼</span>
@@ -308,7 +308,7 @@ const Index = () => {
                   <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center">
                     <span className="text-xl">⚡</span>
                   </div>
-                  <h4 className="text-lg font-bold text-foreground">Agents</h4>
+                  <h4 className="text-lg font-bold text-foreground">Agenter</h4>
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">
                   Autonoma AI-system som arbetar självständigt
@@ -326,7 +326,7 @@ const Index = () => {
             <div className="text-center">
               <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground">
                 <Link to="/agents">
-                  Upptäck Microsoft Agents
+                  Upptäck Microsoft Agenter
                   <span className="ml-2">→</span>
                 </Link>
               </Button>
