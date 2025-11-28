@@ -20,10 +20,13 @@ const Navbar = () => {
     { label: "Konfigurator", path: "/konfigurator" },
   ];
 
+  const erpItems = [
+    { label: "Business Central", path: "/business-central" },
+    { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
+  ];
+
   const menuItems = [
     { label: "CRM", path: "/crm", external: false },
-    { label: "Business Central", path: "/business-central", external: false },
-    { label: "Finance & Supply Chain", path: "/finance-supply-chain", external: false },
     { label: "Copilot", path: "/copilot", external: false },
     { label: "Agenter", path: "/agents", external: false },
     { label: "Partner", path: "/partner", external: false },
@@ -71,6 +74,23 @@ const Navbar = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                  ERP
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {erpItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link to={item.path} className="cursor-pointer">
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             {menuItems.map((item) => (
               item.external ? (
                 <a
@@ -107,6 +127,20 @@ const Navbar = () => {
                   <span className="text-lg font-semibold text-foreground">Din Guide</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {guideItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-lg font-semibold text-foreground">ERP</span>
+                  <div className="flex flex-col gap-2 ml-4">
+                    {erpItems.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
