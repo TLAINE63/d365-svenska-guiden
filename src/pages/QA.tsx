@@ -222,7 +222,7 @@ const QA = () => {
               Kontakta oss så hjälper vi dig gärna
             </p>
             <ContactFormDialog>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" size="lg">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16" size="lg">
                 Boka Gratis Konsultation
               </Button>
             </ContactFormDialog>

@@ -65,7 +65,7 @@ const Agents = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16"
                 >
                   Lär dig mer om Agenter
                 </Button>
@@ -496,7 +496,7 @@ const Agents = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ContactFormDialog>
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16">
                   Boka Gratis Konsultation
                 </Button>
               </ContactFormDialog>

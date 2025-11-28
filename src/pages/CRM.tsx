@@ -228,7 +228,7 @@ const CRM = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16"
                 >
                   Boka gratis rådgivning
                 </Button>
@@ -595,7 +595,7 @@ const CRM = () => {
               Kontakta oss för en kostnadsfri konsultation
             </p>
             <ContactFormDialog>
-              <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
+              <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 h-14 sm:h-16" size="lg">
                 Boka Gratis Konsultation
               </Button>
             </ContactFormDialog>
