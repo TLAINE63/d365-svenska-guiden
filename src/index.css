@@ -38,6 +38,22 @@ All colors MUST be HSL.
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
+    
+    /* Product area colors */
+    --business-central: 180 85% 20%;
+    --business-central-foreground: 0 0% 100%;
+    
+    --crm: 25 95% 45%;
+    --crm-foreground: 0 0% 100%;
+    
+    --finance-supply: 220 70% 35%;
+    --finance-supply-foreground: 0 0% 100%;
+    
+    --copilot: 270 70% 50%;
+    --copilot-foreground: 0 0% 100%;
+    
+    --agents: 145 75% 40%;
+    --agents-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;

@@ -57,6 +57,26 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "business-central": {
+          DEFAULT: "hsl(var(--business-central))",
+          foreground: "hsl(var(--business-central-foreground))",
+        },
+        crm: {
+          DEFAULT: "hsl(var(--crm))",
+          foreground: "hsl(var(--crm-foreground))",
+        },
+        "finance-supply": {
+          DEFAULT: "hsl(var(--finance-supply))",
+          foreground: "hsl(var(--finance-supply-foreground))",
+        },
+        copilot: {
+          DEFAULT: "hsl(var(--copilot))",
+          foreground: "hsl(var(--copilot-foreground))",
+        },
+        agents: {
+          DEFAULT: "hsl(var(--agents))",
+          foreground: "hsl(var(--agents-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

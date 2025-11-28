@@ -120,7 +120,7 @@ const FinanceSupplyChain = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
                   Boka gratis rådgivning
                 </Button>
@@ -633,7 +633,7 @@ const FinanceSupplyChain = () => {
               Kontakta oss för en kostnadsfri konsultation
             </p>
             <ContactFormDialog>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16 rounded-xl" size="lg">
+              <Button className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground h-14 sm:h-16 rounded-xl" size="lg">
                 Boka Gratis Konsultation
               </Button>
             </ContactFormDialog>
