@@ -187,13 +187,13 @@ const BusinessCentral = () => {
             <div className="text-center mb-8 sm:mb-10">
               <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
                 <span>✨</span>
-                <span>Microsoft Ignite 2025 - Agents i Business Central</span>
+                <span>Microsoft Ignite 2025 - Agenter i Business Central</span>
               </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
-                AI & Agents för Business Central
+                AI & Agenter för Business Central
               </h2>
               <p className="text-lg text-muted-foreground">
-                Copilot hjälper dig, Agents arbetar för dig
+                Copilot hjälper dig, Agenter arbetar för dig
               </p>
             </div>
 
@@ -238,10 +238,10 @@ const BusinessCentral = () => {
                     <span className="text-xl">⚡</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">Agents i Business Central</h3>
-                    <p className="text-muted-foreground mb-4">
-                      Autonoma AI-system som arbetar självständigt 24/7
-                    </p>
+                  <h3 className="text-xl font-bold text-foreground mb-2">Agenter i Business Central</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Autonoma AI-system som arbetar självständigt 24/7
+                  </p>
                   </div>
                 </div>
                 <div className="space-y-4">
@@ -288,7 +288,7 @@ const BusinessCentral = () => {
             <div className="mt-8 text-center">
               <Button asChild size="lg" variant="outline">
                 <Link to="/agents">
-                  Upptäck fler Agents-användningsområden
+                  Upptäck fler Agenter-användningsområden
                   <span className="ml-2">→</span>
                 </Link>
               </Button>

@@ -182,7 +182,7 @@ const Copilot = () => {
                 Microsoft Copilot är en AI-driven assistent som är integrerad direkt i Dynamics 365. 
                 Med Copilot kan du automatisera rutinuppgifter, få intelligenta insikter och fatta snabbare beslut 
                 baserade på dina affärsdata. Copilot stödjer användaren genom att ge förslag, generera innehåll 
-                och hjälpa till med analyser - medan Microsoft Agents tar det ett steg längre genom att 
+                och hjälpa till med analyser - medan Microsoft Agenter tar det ett steg längre genom att 
                 autonomt utföra hela arbetsflöden.
               </p>
             </div>
