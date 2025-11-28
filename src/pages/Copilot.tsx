@@ -105,6 +105,66 @@ const Copilot = () => {
         </div>
       </header>
 
+      {/* Agents Intro Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-card rounded-2xl p-6 sm:p-8 border-2 border-primary/20">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-2xl">✨</span>
+                </div>
+                <div>
+                  <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-semibold mb-2">
+                    Microsoft Ignite 2025
+                  </div>
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-card-foreground mb-3">
+                    Från Copilot till Agents - Nästa steg i AI-evolutionen
+                  </h2>
+                  <p className="text-base sm:text-lg text-muted-foreground mb-4">
+                    Medan <strong>Copilot</strong> fungerar som din AI-assistent som hjälper dig med uppgifter, 
+                    representerar <strong>Agents</strong> nästa generation - autonoma AI-system som arbetar 
+                    självständigt 24/7 för att lösa komplexa affärsprocesser.
+                  </p>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div className="bg-secondary/30 rounded-lg p-4">
+                  <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                    <span>👤</span> Copilot
+                  </h4>
+                  <ul className="space-y-1 text-muted-foreground">
+                    <li>• Hjälper användaren med uppgifter</li>
+                    <li>• Kräver användarinteraktion</li>
+                    <li>• Ger förslag och rekommendationer</li>
+                    <li>• Arbetar inom en applikation</li>
+                  </ul>
+                </div>
+                <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg p-4 border border-primary/20">
+                  <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                    <span>⚡</span> Agents
+                  </h4>
+                  <ul className="space-y-1 text-foreground/90 font-medium">
+                    <li>• Utför hela arbetsflöden automatiskt</li>
+                    <li>• Arbetar självständigt 24/7</li>
+                    <li>• Fattar beslut baserat på affärsregler</li>
+                    <li>• Koordinerar mellan system och team</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-6 text-center">
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/agents">
+                    Läs mer om Microsoft Agents
+                    <span className="ml-2">→</span>
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* What is Copilot Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
@@ -121,7 +181,9 @@ const Copilot = () => {
               <p className="text-center mb-8">
                 Microsoft Copilot är en AI-driven assistent som är integrerad direkt i Dynamics 365. 
                 Med Copilot kan du automatisera rutinuppgifter, få intelligenta insikter och fatta snabbare beslut 
-                baserade på dina affärsdata.
+                baserade på dina affärsdata. Copilot stödjer användaren genom att ge förslag, generera innehåll 
+                och hjälpa till med analyser - medan Microsoft Agents tar det ett steg längre genom att 
+                autonomt utföra hela arbetsflöden.
               </p>
             </div>
           </div>

@@ -9,6 +9,7 @@ import CRM from "./pages/CRM";
 import BusinessCentral from "./pages/BusinessCentral";
 import FinanceSupplyChain from "./pages/FinanceSupplyChain";
 import Copilot from "./pages/Copilot";
+import Agents from "./pages/Agents";
 import QA from "./pages/QA";
 import ContactUs from "./pages/ContactUs";
 import Configurator from "./pages/Configurator";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/business-central" element={<BusinessCentral />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/copilot" element={<Copilot />} />
+          <Route path="/agents" element={<Agents />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
           <Route path="/konfigurator" element={<Configurator />} />

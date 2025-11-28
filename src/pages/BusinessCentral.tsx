@@ -180,6 +180,123 @@ const BusinessCentral = () => {
         </div>
       </section>
 
+      {/* AI & Agents Section for Business Central */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-8 sm:mb-10">
+              <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                <span>✨</span>
+                <span>Microsoft Ignite 2025 - Agents i Business Central</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
+                AI & Agents för Business Central
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Copilot hjälper dig, Agents arbetar för dig
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              {/* Copilot Features */}
+              <div className="bg-card rounded-xl p-6 sm:p-8 border border-border">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-xl">👤</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-card-foreground mb-2">Copilot i Business Central</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Din AI-assistent för dagliga uppgifter
+                    </p>
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li>• Generera produktbeskrivningar automatiskt</li>
+                      <li>• Analysera banktransaktioner med AI</li>
+                      <li>• Skapa försäljningsrader från dokument</li>
+                      <li>• Intelligenta inköpsförslag</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li>• Hjälper med e-postutkast</li>
+                      <li>• Föreslår kontouppställningar</li>
+                      <li>• Ger insikter i realtid</li>
+                      <li>• Stöttar användare i arbetsflöden</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Agents Features */}
+              <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-6 sm:p-8 border-2 border-primary/30">
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-xl">⚡</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Agents i Business Central</h3>
+                    <p className="text-muted-foreground mb-4">
+                      Autonoma AI-system som arbetar självständigt 24/7
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="bg-card/50 backdrop-blur-sm rounded-lg p-4">
+                    <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                      <span>📦</span> Inventory Management Agent
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      Övervakar lagernivåer kontinuerligt, skapar automatiskt inköpsorder baserat på säkerhetslager och prognoser, 
+                      och förhandlar priser med leverantörer enligt dina affärsregler
+                    </p>
+                  </div>
+                  <div className="bg-card/50 backdrop-blur-sm rounded-lg p-4">
+                    <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                      <span>💰</span> Finance Agent
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      Automatiserar fakturahantering, utför bankavstämningar, processar betalningar och leverantörsreskontra, 
+                      samt identifierar och flaggar avvikelser för granskning
+                    </p>
+                  </div>
+                  <div className="bg-card/50 backdrop-blur-sm rounded-lg p-4">
+                    <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                      <span>📊</span> Production Planning Agent
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      Optimerar produktionsplanering baserat på order, lager och kapacitet. Schemalägger automatiskt 
+                      produktionsorder och koordinerar med leverantörer för material
+                    </p>
+                  </div>
+                  <div className="bg-card/50 backdrop-blur-sm rounded-lg p-4">
+                    <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
+                      <span>💼</span> Customer Service Agent
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      Hanterar kundförfrågningar om orderstatus, fakturauppgifter och leveransinformation autonomt. 
+                      Eskalerar komplexa ärenden till rätt person med fullständig kontext
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 text-center">
+              <Button asChild size="lg" variant="outline">
+                <Link to="/agents">
+                  Upptäck fler Agents-användningsområden
+                  <span className="ml-2">→</span>
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Videos Section */}
       <section id="videos" className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">

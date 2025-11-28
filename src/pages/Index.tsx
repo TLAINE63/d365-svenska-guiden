@@ -196,11 +196,141 @@ const Index = () => {
                     <p>• <strong>Microsoft 365-integration:</strong> Sömlös integration med Outlook, Teams och Excel – arbeta direkt i de verktyg du redan använder</p>
                     <p>• <strong>Befintliga system:</strong> Enkelt att koppla samman med e-handel, lönesystem, BI-verktyg och andra affärssystem via API:er</p>
                     <p>• <strong>Power Platform:</strong> Skapa egna appar, automatisera arbetsflöden och bygga dashboards utan att behöva programmera</p>
-                    <p>• <strong>Copilot:</strong> Inbyggd AI/Copilot i alla affärsapplikationer och där så kallade Agenter kommer få allt mer utrymme</p>
+                    <p>• <strong>AI & Agents:</strong> Inbyggd AI/Copilot i alla affärsapplikationer och där autonoma Agenter revolutionerar affärsprocesser</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+          </div>
+        </div>
+      </section>
+
+      {/* Microsoft Agents Section - NEW! */}
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full filter blur-3xl"></div>
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-8 sm:mb-10">
+              <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                <span className="text-lg">✨</span>
+                <span>Microsoft Ignite 2025 - Nyhet</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
+                Microsoft Agents
+              </h2>
+              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-2">
+                Nästa generation av AI-automation i Dynamics 365
+              </p>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
+                Autonoma AI-agenter som arbetar självständigt 24/7 för att lösa komplexa affärsuppgifter och koordinera mellan system
+              </p>
+            </div>
+
+            {/* Main Concept Card */}
+            <div className="bg-card rounded-2xl p-6 sm:p-8 border-2 border-primary/20 mb-8 hover:shadow-2xl transition-all">
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <span className="text-xl">🤖</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-card-foreground mb-2">Vad är Agents?</h3>
+                      <p className="text-sm sm:text-base text-muted-foreground">
+                        Medan <strong>Copilot</strong> fungerar som din AI-assistent som hjälper dig med uppgifter, 
+                        är <strong>Agents</strong> autonoma AI-system som kan utföra komplexa arbetsflöden självständigt, 
+                        fatta beslut och koordinera med andra system - allt baserat på dina affärsregler.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-card-foreground text-sm mb-3">Exempel på Agents:</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-start gap-2">
+                      <span className="text-primary font-bold">💼</span>
+                      <div>
+                        <strong className="text-card-foreground">Sales Agent:</strong>
+                        <span className="text-muted-foreground"> Kvalificerar leads, skickar uppföljningar, föreslår priser</span>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-primary font-bold">🎧</span>
+                      <div>
+                        <strong className="text-card-foreground">Service Agent:</strong>
+                        <span className="text-muted-foreground"> Löser ärenden automatiskt, eskalerar vid behov</span>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-primary font-bold">📦</span>
+                      <div>
+                        <strong className="text-card-foreground">Supply Chain Agent:</strong>
+                        <span className="text-muted-foreground"> Optimerar lager, hanterar leverantörer, löser störningar</span>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-primary font-bold">💰</span>
+                      <div>
+                        <strong className="text-card-foreground">Finance Agent:</strong>
+                        <span className="text-muted-foreground"> Processar fakturor, utför avstämningar, skapar prognoser</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Comparison: Copilot vs Agents */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center">
+                    <span className="text-xl">👤</span>
+                  </div>
+                  <h4 className="text-lg font-bold text-card-foreground">Copilot</h4>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  AI-assistent som stödjer användaren
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>✓ Hjälper med uppgifter på begäran</li>
+                  <li>✓ Kräver användarinteraktion</li>
+                  <li>✓ Ger förslag och rekommendationer</li>
+                  <li>✓ Arbetar inom en applikation</li>
+                </ul>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary/10 to-accent/10 backdrop-blur-sm rounded-xl p-6 border-2 border-primary/30">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center">
+                    <span className="text-xl">⚡</span>
+                  </div>
+                  <h4 className="text-lg font-bold text-foreground">Agents</h4>
+                </div>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Autonoma AI-system som arbetar självständigt
+                </p>
+                <ul className="space-y-2 text-sm text-foreground/90 font-medium">
+                  <li>✓ Utför hela arbetsflöden automatiskt</li>
+                  <li>✓ Arbetar självständigt 24/7</li>
+                  <li>✓ Fattar beslut baserat på affärsregler</li>
+                  <li>✓ Koordinerar mellan system och team</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="text-center">
+              <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground">
+                <Link to="/agents">
+                  Upptäck Microsoft Agents
+                  <span className="ml-2">→</span>
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
