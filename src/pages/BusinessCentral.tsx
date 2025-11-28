@@ -112,7 +112,7 @@ const BusinessCentral = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16"
                 >
                   Boka gratis rådgivning
                 </Button>
@@ -488,7 +488,7 @@ const BusinessCentral = () => {
               Kontakta oss för en kostnadsfri konsultation
             </p>
             <ContactFormDialog>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground" size="lg">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16" size="lg">
                 Boka Gratis Konsultation
               </Button>
             </ContactFormDialog>

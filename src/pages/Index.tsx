@@ -63,7 +63,7 @@ const Index = () => {
                 <ContactFormDialog>
                   <Button 
                     size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16"
                   >
                     Starta här med en gratis rådgivning
                   </Button>

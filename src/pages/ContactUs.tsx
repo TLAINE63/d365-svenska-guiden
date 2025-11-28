@@ -274,7 +274,7 @@ const ContactUs = () => {
               <ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16"
                 >
                   Boka Gratis Konsultation
                 </Button>
