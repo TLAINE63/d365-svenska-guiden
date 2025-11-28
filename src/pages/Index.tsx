@@ -65,7 +65,7 @@ const Index = () => {
                     size="lg"
                     className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto"
                   >
-                    Boka gratis rådgivning
+                    Starta här med en gratis rådgivning
                   </Button>
                 </ContactFormDialog>
               </div>
