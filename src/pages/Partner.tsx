@@ -34,10 +34,10 @@ const Partner = () => {
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
                 Säkerställ verklig affärsnytta tillsammans med rätt partner
               </p>
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-12 sm:h-auto">
+              <Button asChild size="lg" className="bg-warning hover:bg-warning/90 text-warning-foreground w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl">
                 <Link to="/kontakt">
                   <span>Kontakta oss för vägledning inom partnerlandskapet</span>
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
             </div>
@@ -193,9 +193,9 @@ const Partner = () => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-shadow">
+              <Button asChild size="lg" className="bg-warning hover:bg-warning/90 text-warning-foreground h-16 sm:h-20 text-lg sm:text-xl px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl">
                 <Link to="/kontakt">
-                  <MessageSquare className="w-4 h-4 mr-2" />
+                  <MessageSquare className="w-5 h-5 mr-2" />
                   Kontakta oss för vägledning inom partnerlandskapet
                 </Link>
               </Button>
