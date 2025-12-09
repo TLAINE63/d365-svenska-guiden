@@ -266,7 +266,138 @@ const NeedsAnalysis = () => {
     }
   };
 
+  // ERP Recommendation Logic
+  const getERPRecommendation = (): { product: string; score: number; reasons: string[]; description: string } => {
+    let bcScore = 0;
+    let fscScore = 0;
+    const bcReasons: string[] = [];
+    const fscReasons: string[] = [];
+
+    // Company size analysis
+    const smallCompany = ["< 10", "10-49", "50-199"].includes(data.employees);
+    const mediumCompany = ["200-499", "500-999"].includes(data.employees);
+    const largeCompany = ["1.000-4.999", "> 5.000"].includes(data.employees);
+
+    if (smallCompany) {
+      bcScore += 30;
+      bcReasons.push("Företagsstorlek passar utmärkt för Business Central");
+    } else if (mediumCompany) {
+      bcScore += 15;
+      fscScore += 15;
+      bcReasons.push("Medelstort företag - båda alternativen kan passa");
+      fscReasons.push("Medelstort företag - kan dra nytta av avancerade funktioner");
+    } else if (largeCompany) {
+      fscScore += 30;
+      fscReasons.push("Stor organisation passar utmärkt för Finance & Supply Chain");
+    }
+
+    // Revenue analysis
+    const lowRevenue = ["< 49 MSEK", "50-499 MSEK"].includes(data.revenue);
+    const highRevenue = ["1.000-4.999 MSEK", "> 5.000 MSEK"].includes(data.revenue);
+
+    if (lowRevenue) {
+      bcScore += 20;
+      bcReasons.push("Omsättningsnivå är typisk för Business Central-kunder");
+    } else if (highRevenue) {
+      fscScore += 20;
+      fscReasons.push("Hög omsättning motiverar investeringen i F&SC");
+    }
+
+    // Industry analysis
+    const manufacturingIndustries = ["Tillverkning", "Livsmedel & Dryck", "Läkemedel & Life Science"];
+    const distributionIndustries = ["Distribution & Grossist", "Transport & Logistik"];
+    const enterpriseIndustries = ["Energi & Utilities", "Finans & Försäkring"];
+
+    data.industries.forEach(industry => {
+      if (manufacturingIndustries.includes(industry)) {
+        fscScore += 10;
+        fscReasons.push(`${industry} gynnas av avancerad tillverkningshantering i F&SC`);
+      }
+      if (distributionIndustries.includes(industry)) {
+        bcScore += 5;
+        fscScore += 5;
+      }
+      if (enterpriseIndustries.includes(industry)) {
+        fscScore += 15;
+        fscReasons.push(`${industry} kräver ofta enterprise-funktionalitet`);
+      }
+    });
+
+    // Geography analysis
+    if (data.geography.includes("Globalt") || data.geography.includes("Europa")) {
+      fscScore += 15;
+      fscReasons.push("Global verksamhet kräver avancerad multi-site hantering");
+    }
+    if (data.geography.includes("Endast Sverige") || data.geography.includes("Norden")) {
+      bcScore += 10;
+      bcReasons.push("Regional verksamhet hanteras väl av Business Central");
+    }
+
+    // Module complexity analysis
+    const complexModules = ["Tillverkning & Produktion", "Service & Fältservice"];
+    const basicModules = ["Ekonomi & Redovisning", "Försäljning & CRM", "Inköp & Leverantörer"];
+
+    data.modules.forEach(module => {
+      if (complexModules.includes(module)) {
+        fscScore += 10;
+        fscReasons.push(`${module} har starkare stöd i F&SC`);
+      }
+      if (basicModules.includes(module)) {
+        bcScore += 5;
+      }
+    });
+
+    // Module count - more modules often means more complexity
+    if (data.modules.length > 6) {
+      fscScore += 10;
+      fscReasons.push("Stort antal moduler indikerar komplex verksamhet");
+    }
+
+    // Challenge analysis
+    if (data.challenges.includes("Svårt att skala verksamheten")) {
+      fscScore += 10;
+      fscReasons.push("Skalbarhetsbehov gynnas av F&SC");
+    }
+    if (data.challenges.includes("Höga underhållskostnader")) {
+      bcScore += 10;
+      bcReasons.push("Business Central har generellt lägre TCO");
+    }
+
+    // Determine recommendation
+    const isBC = bcScore >= fscScore;
+    
+    const bcDescription = `**Dynamics 365 Business Central** är Microsofts molnbaserade affärssystem för små och medelstora företag. Det erbjuder:
+
+• **Komplett ERP-lösning** - Ekonomi, försäljning, inköp, lager och projekt i ett system
+• **Smidig implementation** - Snabbare uppstart och lägre implementationskostnad
+• **Microsoft-integration** - Sömlös koppling till Microsoft 365, Power BI och Teams
+• **Flexibel prissättning** - Licensmodell anpassad för mindre organisationer
+• **Stort partnernätverk** - Många svenska partners med branschexpertis
+• **Copilot AI** - Inbyggd AI-assistent för ökad produktivitet
+
+Business Central passar företag som vill ha ett kraftfullt men lättanvänt affärssystem med snabb avkastning på investeringen.`;
+
+    const fscDescription = `**Dynamics 365 Finance & Supply Chain Management** är Microsofts enterprise-plattform för komplexa organisationer. Det erbjuder:
+
+• **Avancerad ekonomistyrning** - Koncernredovisning, budgetering och finansiell analys
+• **Komplex tillverkning** - Stöd för make-to-order, processproduktion och lean manufacturing
+• **Global Supply Chain** - Multi-site, multi-warehouse och avancerad logistik
+• **Prediktiv analys** - AI-driven efterfrågeprognos och lageroptimering
+• **Regulatorisk efterlevnad** - Stöd för internationella redovisningsstandarder
+• **Enterprise-skalbarhet** - Hanterar stora transaktionsvolymer och komplex organisationsstruktur
+
+Finance & Supply Chain passar organisationer med höga krav på funktionalitet, global närvaro och komplexa affärsprocesser.`;
+
+    return {
+      product: isBC ? "Business Central" : "Finance & Supply Chain Management",
+      score: isBC ? bcScore : fscScore,
+      reasons: isBC ? bcReasons.slice(0, 5) : fscReasons.slice(0, 5),
+      description: isBC ? bcDescription : fscDescription
+    };
+  };
+
   const generateDocument = () => {
+    const recommendation = getERPRecommendation();
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
@@ -399,6 +530,93 @@ const NeedsAnalysis = () => {
     pdf.text(`E-post: ${data.email}`, pageWidth / 2, contactY + 8);
     
     yPos += 55;
+
+    // RECOMMENDATION SECTION - Prominent placement
+    addNewPageIfNeeded(100);
+    
+    // Recommendation box with golden/highlight color
+    const recommendationColor: [number, number, number] = recommendation.product === "Business Central" 
+      ? [25, 118, 210] // Blue for BC
+      : [156, 39, 176]; // Purple for F&SC
+    
+    pdf.setFillColor(...recommendationColor);
+    pdf.roundedRect(margin, yPos, contentWidth, 18, 3, 3, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(14);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("VÅR REKOMMENDATION", margin + 5, yPos + 12);
+    yPos += 25;
+    
+    // Product name
+    pdf.setTextColor(...recommendationColor);
+    pdf.setFontSize(18);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(`Microsoft Dynamics 365 ${recommendation.product}`, margin, yPos);
+    yPos += 12;
+    
+    // Reasons box
+    if (recommendation.reasons.length > 0) {
+      pdf.setFillColor(245, 245, 250);
+      const reasonsBoxHeight = recommendation.reasons.length * 8 + 15;
+      addNewPageIfNeeded(reasonsBoxHeight + 10);
+      pdf.roundedRect(margin, yPos, contentWidth, reasonsBoxHeight, 2, 2, 'F');
+      
+      pdf.setTextColor(100, 100, 100);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("Baserat på er behovsanalys:", margin + 5, yPos + 10);
+      yPos += 18;
+      
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      recommendation.reasons.forEach((reason) => {
+        pdf.setFillColor(...recommendationColor);
+        pdf.circle(margin + 8, yPos - 1.5, 1.5, 'F');
+        const reasonLines = pdf.splitTextToSize(reason, contentWidth - 20);
+        pdf.text(reasonLines, margin + 13, yPos);
+        yPos += reasonLines.length * 5 + 3;
+      });
+      yPos += 5;
+    }
+    
+    // Description section
+    addNewPageIfNeeded(80);
+    yPos += 5;
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(`Om ${recommendation.product}:`, margin, yPos);
+    yPos += 8;
+    
+    // Parse and render the description (handle markdown-like formatting)
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "normal");
+    
+    const descriptionLines = recommendation.description.split('\n');
+    descriptionLines.forEach((line) => {
+      addNewPageIfNeeded(8);
+      
+      // Handle bold text markers
+      let cleanLine = line.replace(/\*\*/g, '');
+      
+      if (line.startsWith('•')) {
+        pdf.setFillColor(...recommendationColor);
+        pdf.circle(margin + 3, yPos - 1.5, 1.5, 'F');
+        const textLines = pdf.splitTextToSize(cleanLine.substring(2), contentWidth - 10);
+        pdf.text(textLines, margin + 8, yPos);
+        yPos += textLines.length * 5 + 2;
+      } else if (cleanLine.trim()) {
+        const textLines = pdf.splitTextToSize(cleanLine, contentWidth);
+        pdf.text(textLines, margin, yPos);
+        yPos += textLines.length * 5 + 2;
+      } else {
+        yPos += 3;
+      }
+    });
+    
+    yPos += 10;
+    drawLine(yPos, recommendationColor);
+    yPos += 15;
 
     // Section 1: Company Size
     addSectionHeader("FÖRETAGSSTORLEK", "1");
