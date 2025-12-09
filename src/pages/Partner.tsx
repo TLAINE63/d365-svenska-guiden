@@ -193,24 +193,24 @@ const Partner = () => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-16 sm:h-20 text-lg sm:text-xl px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold shadow-lg hover:shadow-xl transition-all rounded-xl">
                 <Link to="/kontakt">
                   <MessageSquare className="w-5 h-5 mr-2" />
-                  Kontakta oss för vägledning inom partnerlandskapet
+                  Kontakta oss
                 </Link>
               </Button>
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold shadow-lg hover:shadow-xl transition-all rounded-xl"
                 onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ep=mlink', '_blank')}
               >
-                <Calendar className="w-4 h-4 mr-2" />
-                Boka möte med mig
+                <Calendar className="w-5 h-5 mr-2" />
+                Boka möte
               </Button>
-              <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground shadow-lg hover:shadow-xl transition-shadow border-2 border-secondary">
+              <Button asChild size="lg" className="bg-muted hover:bg-muted/80 text-muted-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold shadow-lg hover:shadow-xl transition-all rounded-xl border border-border">
                 <a href="mailto:thomas.laine@dynamicfactory.se">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Emaila mig här
+                  <Mail className="w-5 h-5 mr-2" />
+                  Emaila mig
                 </a>
               </Button>
             </div>
