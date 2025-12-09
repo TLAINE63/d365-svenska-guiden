@@ -1072,38 +1072,110 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
   };
 
   if (isComplete) {
+    const recommendation = getERPRecommendation();
+    const isBC = recommendation.product === "Business Central";
+    
     return (
       <div className="min-h-screen flex flex-col bg-background">
         <Navbar />
         <main className="flex-grow pt-24 pb-12">
-          <div className="container mx-auto px-4 max-w-2xl">
-            <Card className="text-center">
-              <CardContent className="pt-12 pb-8">
-                <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-6" />
-                <h2 className="text-2xl font-bold mb-4">Tack för din behovsanalys!</h2>
-                <p className="text-muted-foreground mb-6">
-                  Ditt dokument har laddats ned. Vi kommer att kontakta dig inom kort för att diskutera era behov och hur vi kan hjälpa er.
+          <div className="container mx-auto px-4 max-w-4xl">
+            {/* Success Message */}
+            <Card className="text-center mb-8">
+              <CardContent className="pt-8 pb-6">
+                <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                <h2 className="text-2xl font-bold mb-2">Tack för din behovsanalys!</h2>
+                <p className="text-muted-foreground">
+                  Ditt dokument har laddats ned. Vi kommer att kontakta dig inom kort.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button asChild className="bg-primary">
+              </CardContent>
+            </Card>
+
+            {/* Recommendation Card */}
+            <Card className={`mb-8 border-2 ${isBC ? 'border-blue-500' : 'border-purple-500'}`}>
+              <CardHeader className={`${isBC ? 'bg-blue-500' : 'bg-purple-500'} text-white rounded-t-lg`}>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <Sparkles className="w-6 h-6" />
+                  Vår Rekommendation
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <h3 className={`text-2xl sm:text-3xl font-bold mb-4 ${isBC ? 'text-blue-600' : 'text-purple-600'}`}>
+                  Microsoft Dynamics 365 {recommendation.product}
+                </h3>
+                
+                {/* Reasons */}
+                {recommendation.reasons.length > 0 && (
+                  <div className="bg-muted/50 rounded-lg p-4 mb-6">
+                    <h4 className="font-semibold text-sm text-muted-foreground mb-3">
+                      Baserat på er behovsanalys:
+                    </h4>
+                    <ul className="space-y-2">
+                      {recommendation.reasons.map((reason, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isBC ? 'text-blue-500' : 'text-purple-500'}`} />
+                          <span className="text-sm">{reason}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Description */}
+                <div className="prose prose-sm max-w-none">
+                  <h4 className="font-semibold mb-3">Om {recommendation.product}:</h4>
+                  <div className="space-y-2 text-muted-foreground">
+                    {recommendation.description.split('\n').map((line, index) => {
+                      const cleanLine = line.replace(/\*\*/g, '');
+                      if (line.startsWith('•')) {
+                        return (
+                          <div key={index} className="flex items-start gap-2">
+                            <span className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${isBC ? 'bg-blue-500' : 'bg-purple-500'}`} />
+                            <span>{cleanLine.substring(2)}</span>
+                          </div>
+                        );
+                      } else if (cleanLine.trim()) {
+                        return <p key={index} className="text-foreground">{cleanLine}</p>;
+                      }
+                      return null;
+                    })}
+                  </div>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                  <Button 
+                    asChild 
+                    className={`flex-1 ${isBC ? 'bg-blue-500 hover:bg-blue-600' : 'bg-purple-500 hover:bg-purple-600'}`}
+                  >
+                    <a href={isBC ? "/business-central" : "/finance-supply-chain"}>
+                      Läs mer om {recommendation.product}
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" className="flex-1">
                     <a href="mailto:thomas.laine@dynamicfactory.se">
                       Kontakta oss direkt
                     </a>
                   </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setData(initialData);
-                      setCurrentStep(1);
-                      setShowContactForm(false);
-                      setIsComplete(false);
-                    }}
-                  >
-                    Starta ny analys
-                  </Button>
                 </div>
               </CardContent>
             </Card>
+
+            {/* Actions */}
+            <div className="flex justify-center">
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setData(initialData);
+                  setCurrentStep(1);
+                  setShowContactForm(false);
+                  setIsComplete(false);
+                }}
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Starta ny analys
+              </Button>
+            </div>
           </div>
         </main>
         <Footer />
