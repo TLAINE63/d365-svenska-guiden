@@ -61,24 +61,6 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
-            
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  Microsoft AI
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border z-50">
-                {aiItems.map((item) => (
-                  <DropdownMenuItem key={item.path} asChild>
-                    <Link to={item.path} className="cursor-pointer">
-                      {item.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
@@ -105,6 +87,23 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50">
                 {crmItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link to={item.path} className="cursor-pointer">
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                  Microsoft AI
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-background border border-border z-50">
+                {aiItems.map((item) => (
                   <DropdownMenuItem key={item.path} asChild>
                     <Link to={item.path} className="cursor-pointer">
                       {item.label}
@@ -145,21 +144,6 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent>
               <div className="flex flex-col gap-4 mt-8">
-                
-                <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Microsoft AI</span>
-                  <div className="flex flex-col gap-2 ml-4">
-                    {aiItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
                 <div className="flex flex-col gap-2">
                   <span className="text-lg font-semibold text-foreground">ERP</span>
                   <div className="flex flex-col gap-2 ml-4">
@@ -178,6 +162,20 @@ const Navbar = () => {
                   <span className="text-lg font-semibold text-foreground">CRM</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {crmItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-lg font-semibold text-foreground">Microsoft AI</span>
+                  <div className="flex flex-col gap-2 ml-4">
+                    {aiItems.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
