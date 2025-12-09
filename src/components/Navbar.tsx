@@ -23,6 +23,7 @@ const Navbar = () => {
   const erpItems = [
     { label: "Business Central", path: "/business-central" },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
+    { label: "Behovsanalys", path: "/behovsanalys" },
   ];
 
   const aiItems = [
