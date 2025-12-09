@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Building2, Globe, Boxes, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
+import jsPDF from "jspdf";
 
 interface AnalysisData {
   // Step 1
@@ -266,76 +267,242 @@ const NeedsAnalysis = () => {
   };
 
   const generateDocument = () => {
-    const content = `
-BEHOVSANALYS - DYNAMICS 365 ERP
-================================
-Genererad: ${new Date().toLocaleDateString('sv-SE')}
+    const pdf = new jsPDF();
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 20;
+    const contentWidth = pageWidth - margin * 2;
+    let yPos = margin;
 
-KONTAKTINFORMATION
-------------------
-Företag: ${data.companyName}
-Kontaktperson: ${data.contactName}
-Telefon: ${data.phone}
-E-post: ${data.email}
+    // Helper functions
+    const addNewPageIfNeeded = (requiredSpace: number) => {
+      if (yPos + requiredSpace > pageHeight - margin) {
+        pdf.addPage();
+        yPos = margin;
+        return true;
+      }
+      return false;
+    };
 
-1. FÖRETAGSSTORLEK
-------------------
-Antal anställda: ${data.employees}
-Omsättning: ${data.revenue}
+    const drawLine = (y: number, color: [number, number, number] = [0, 150, 136]) => {
+      pdf.setDrawColor(...color);
+      pdf.setLineWidth(0.5);
+      pdf.line(margin, y, pageWidth - margin, y);
+    };
 
-2. BRANSCH
-----------
-${data.industries.join(', ')}${data.industryOther ? `\nÖvrigt: ${data.industryOther}` : ''}
+    const addSectionHeader = (title: string, number: string) => {
+      addNewPageIfNeeded(25);
+      pdf.setFillColor(0, 150, 136);
+      pdf.roundedRect(margin, yPos, contentWidth, 12, 2, 2, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(12);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(`${number}. ${title}`, margin + 5, yPos + 8);
+      yPos += 18;
+      pdf.setTextColor(51, 51, 51);
+    };
 
-3. GEOGRAFI
------------
-${data.geography.join(', ')}${data.geographyOther ? `\nSpecifika marknader: ${data.geographyOther}` : ''}
+    const addContentRow = (label: string, value: string) => {
+      addNewPageIfNeeded(12);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(100, 100, 100);
+      pdf.text(label, margin, yPos);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      
+      const valueLines = pdf.splitTextToSize(value || "Ej angivet", contentWidth - 50);
+      pdf.text(valueLines, margin + 50, yPos);
+      yPos += Math.max(8, valueLines.length * 5) + 4;
+    };
 
-4. FUNKTIONER & MODULER
------------------------
-${data.modules.join(', ')}${data.modulesOther ? `\nÖvriga behov: ${data.modulesOther}` : ''}
+    const addBulletList = (items: string[], otherText?: string) => {
+      if (items.length === 0 && !otherText) {
+        pdf.setFontSize(10);
+        pdf.setTextColor(150, 150, 150);
+        pdf.text("Inga val gjorda", margin + 5, yPos);
+        yPos += 8;
+        return;
+      }
+      
+      pdf.setFontSize(10);
+      pdf.setTextColor(51, 51, 51);
+      items.forEach((item) => {
+        addNewPageIfNeeded(8);
+        pdf.setFillColor(0, 150, 136);
+        pdf.circle(margin + 3, yPos - 1.5, 1.5, 'F');
+        pdf.text(item, margin + 8, yPos);
+        yPos += 7;
+      });
+      
+      if (otherText) {
+        addNewPageIfNeeded(8);
+        pdf.setFont("helvetica", "italic");
+        pdf.setTextColor(100, 100, 100);
+        const otherLines = pdf.splitTextToSize(`Övrigt: ${otherText}`, contentWidth - 10);
+        pdf.text(otherLines, margin + 5, yPos);
+        yPos += otherLines.length * 5 + 3;
+        pdf.setFont("helvetica", "normal");
+      }
+      yPos += 5;
+    };
 
-5. INTEGRATIONER
-----------------
-${data.integrations.join(', ')}${data.integrationsOther ? `\nÖvriga integrationer: ${data.integrationsOther}` : ''}
+    // Header with gradient-like effect
+    pdf.setFillColor(0, 150, 136);
+    pdf.rect(0, 0, pageWidth, 50, 'F');
+    pdf.setFillColor(0, 120, 110);
+    pdf.rect(0, 45, pageWidth, 5, 'F');
+    
+    // Title
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(24);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("BEHOVSANALYS", margin, 25);
+    pdf.setFontSize(14);
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Dynamics 365 ERP", margin, 35);
+    
+    // Date badge
+    pdf.setFillColor(255, 255, 255);
+    pdf.roundedRect(pageWidth - 60, 15, 45, 20, 3, 3, 'F');
+    pdf.setTextColor(0, 150, 136);
+    pdf.setFontSize(8);
+    pdf.text("Genererad", pageWidth - 55, 23);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(new Date().toLocaleDateString('sv-SE'), pageWidth - 55, 31);
+    
+    yPos = 65;
 
-6. NUVARANDE SYSTEM
--------------------
-Nuvarande ERP: ${data.currentERP}
-Installationsår: ${data.erpInstallYear || 'Ej angivet'}
-Övriga system: ${data.otherSystems.join(', ')}${data.otherSystemsDetails ? `\nDetaljer: ${data.otherSystemsDetails}` : ''}
+    // Contact Information Box
+    pdf.setFillColor(245, 245, 245);
+    pdf.roundedRect(margin, yPos, contentWidth, 45, 3, 3, 'F');
+    pdf.setDrawColor(0, 150, 136);
+    pdf.setLineWidth(1);
+    pdf.line(margin, yPos, margin, yPos + 45);
+    
+    pdf.setTextColor(0, 150, 136);
+    pdf.setFontSize(12);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("KONTAKTINFORMATION", margin + 8, yPos + 12);
+    
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "normal");
+    
+    const contactY = yPos + 22;
+    pdf.setFont("helvetica", "bold");
+    pdf.text(data.companyName, margin + 8, contactY);
+    pdf.setFont("helvetica", "normal");
+    pdf.text(data.contactName, margin + 8, contactY + 8);
+    pdf.text(`Tel: ${data.phone}`, pageWidth / 2, contactY);
+    pdf.text(`E-post: ${data.email}`, pageWidth / 2, contactY + 8);
+    
+    yPos += 55;
 
-7. UTMANINGAR
--------------
-${data.challenges.join(', ')}${data.challengesOther ? `\nÖvriga utmaningar: ${data.challengesOther}` : ''}
+    // Section 1: Company Size
+    addSectionHeader("FÖRETAGSSTORLEK", "1");
+    addContentRow("Anställda:", data.employees);
+    addContentRow("Omsättning:", data.revenue);
+    yPos += 5;
 
-8. NYCKELTAL
-------------
-${data.kpis.join(', ')}${data.kpisOther ? `\nÖvriga nyckeltal: ${data.kpisOther}` : ''}
+    // Section 2: Industry
+    addSectionHeader("BRANSCH", "2");
+    addBulletList(data.industries, data.industryOther);
 
-9. AI & FRAMTID
----------------
-Intresse för AI: ${data.aiInterest}
-Användningsområden: ${data.aiUseCases.join(', ')}${data.aiDetails ? `\nDetaljer: ${data.aiDetails}` : ''}
+    // Section 3: Geography
+    addSectionHeader("GEOGRAFI", "3");
+    addBulletList(data.geography, data.geographyOther);
 
-10. ÖVRIG INFORMATION
----------------------
-${data.additionalInfo || 'Ingen övrig information angiven.'}
+    // Section 4: Modules
+    addSectionHeader("FUNKTIONER & MODULER", "4");
+    addBulletList(data.modules, data.modulesOther);
 
-================================
-Detta dokument är genererat via Dynamic Factory Behovsanalys.
-Kontakta oss för en djupare genomgång: thomas.laine@dynamicfactory.se
-    `;
+    // Section 5: Integrations
+    addSectionHeader("INTEGRATIONER", "5");
+    addBulletList(data.integrations, data.integrationsOther);
 
-    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    // Section 6: Current Systems
+    addSectionHeader("NUVARANDE SYSTEM", "6");
+    addContentRow("ERP-system:", data.currentERP);
+    addContentRow("Installationsår:", data.erpInstallYear);
+    if (data.otherSystems.length > 0) {
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(100, 100, 100);
+      pdf.text("Övriga system:", margin, yPos);
+      yPos += 7;
+      addBulletList(data.otherSystems, data.otherSystemsDetails);
+    }
+
+    // Section 7: Challenges
+    addSectionHeader("UTMANINGAR", "7");
+    addBulletList(data.challenges, data.challengesOther);
+
+    // Section 8: KPIs
+    addSectionHeader("NYCKELTAL", "8");
+    addBulletList(data.kpis, data.kpisOther);
+
+    // Section 9: AI & Future
+    addSectionHeader("AI & FRAMTID", "9");
+    addContentRow("Intresse:", data.aiInterest);
+    if (data.aiUseCases.length > 0) {
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(100, 100, 100);
+      pdf.text("Användningsområden:", margin, yPos);
+      yPos += 7;
+      addBulletList(data.aiUseCases);
+    }
+    if (data.aiDetails) {
+      addNewPageIfNeeded(15);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "italic");
+      pdf.setTextColor(100, 100, 100);
+      const detailLines = pdf.splitTextToSize(data.aiDetails, contentWidth - 10);
+      pdf.text(detailLines, margin + 5, yPos);
+      yPos += detailLines.length * 5 + 5;
+    }
+
+    // Section 10: Additional Info
+    addSectionHeader("ÖVRIG INFORMATION", "10");
+    if (data.additionalInfo) {
+      pdf.setFontSize(10);
+      pdf.setTextColor(51, 51, 51);
+      const infoLines = pdf.splitTextToSize(data.additionalInfo, contentWidth - 10);
+      addNewPageIfNeeded(infoLines.length * 5 + 10);
+      pdf.text(infoLines, margin + 5, yPos);
+      yPos += infoLines.length * 5 + 10;
+    } else {
+      pdf.setFontSize(10);
+      pdf.setTextColor(150, 150, 150);
+      pdf.text("Ingen övrig information angiven.", margin + 5, yPos);
+      yPos += 10;
+    }
+
+    // Footer
+    addNewPageIfNeeded(30);
+    yPos = pageHeight - 35;
+    drawLine(yPos);
+    yPos += 8;
+    
+    pdf.setFillColor(0, 150, 136);
+    pdf.roundedRect(margin, yPos, contentWidth, 22, 3, 3, 'F');
+    
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Dynamic Factory", margin + 8, yPos + 9);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.text("Kontakta oss för en djupare genomgång", margin + 8, yPos + 16);
+    
+    pdf.setFontSize(9);
+    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 9);
+    pdf.text("www.dynamicfactory.se", pageWidth - margin - 55, yPos + 16);
+
+    // Save PDF
+    pdf.save(`Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
     setIsComplete(true);
   };
 
