@@ -31,8 +31,12 @@ const Navbar = () => {
     { label: "Agenter", path: "/agents" },
   ];
 
+  const crmItems = [
+    { label: "CRM Översikt", path: "/crm" },
+    { label: "CRM Behovsanalys", path: "/crm-behovsanalys" },
+  ];
+
   const menuItems = [
-    { label: "CRM", path: "/crm", external: false },
     { label: "Partner", path: "/partner", external: false },
     { label: "Q&A", path: "/qa", external: false },
     { label: "Blogg", path: "https://www.microsoft.com/en-us/dynamics-365/blog/", external: true },
@@ -112,6 +116,23 @@ const Navbar = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                  CRM
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-background border border-border z-50">
+                {crmItems.map((item) => (
+                  <DropdownMenuItem key={item.path} asChild>
+                    <Link to={item.path} className="cursor-pointer">
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             {menuItems.map((item) => (
               item.external ? (
                 <a
@@ -176,6 +197,20 @@ const Navbar = () => {
                   <span className="text-lg font-semibold text-foreground">ERP</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {erpItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <span className="text-lg font-semibold text-foreground">CRM</span>
+                  <div className="flex flex-col gap-2 ml-4">
+                    {crmItems.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}

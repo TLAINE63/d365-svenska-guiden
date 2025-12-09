@@ -17,6 +17,7 @@ import InteractiveGuide from "./pages/InteractiveGuide";
 import Partner from "./pages/Partner";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NeedsAnalysis from "./pages/NeedsAnalysis";
+import CRMNeedsAnalysis from "./pages/CRMNeedsAnalysis";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/partner" element={<Partner />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/behovsanalys" element={<NeedsAnalysis />} />
+          <Route path="/crm-behovsanalys" element={<CRMNeedsAnalysis />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
