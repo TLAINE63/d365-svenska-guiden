@@ -32,7 +32,7 @@ const CRM = () => {
     },
     {
       title: "Dynamics 365 Customer Insights",
-      description: "Skapa personliga kundresor med Microsoft Dynamics 365 Customer Insights",
+      description: "Skapa personliga kundresor med Microsoft Dynamics 365 Customer Insights / Marketing Automation",
       videoId: "41lG3EHo4Lw",
     },
     {
