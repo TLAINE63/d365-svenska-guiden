@@ -34,7 +34,7 @@ const slides: HeroSlide[] = [
     backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=65&w=1600",
     title: (
       <>
-        Hitta rätt <span className="text-[hsl(var(--business-central))]">ERP-system</span> för ditt företag
+        Hitta rätt <span className="text-emerald-400">ERP-system</span> för ditt företag
       </>
     ),
     subtitle: "Gör vår ERP Behovsanalys och få en personlig rekommendation",
