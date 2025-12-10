@@ -51,7 +51,7 @@ const slides: HeroSlide[] = [
         Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
       </>
     ),
-    subtitle: "Gör vår CRM Behovsanalys och upptäck vilken lösning som passar dig",
+    subtitle: "Gör vår digitala CRM Behovsanalys och upptäck vilka Dynamics 365 Applikationer som passar din verksamhet",
     ctaType: "link",
     ctaText: "Starta CRM Behovsanalys",
     ctaLink: "/crm-behovsanalys",
