@@ -4,6 +4,7 @@ import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
+import HeroCarousel from "@/components/HeroCarousel";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -31,48 +32,8 @@ const Index = () => {
         </div>
       </div>
       
-      {/* Hero Section */}
-      <header className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=65&w=1600" 
-            srcSet="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=65&w=640 640w,
-                    https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=65&w=1024 1024w,
-                    https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=65&w=1600 1600w"
-            sizes="100vw"
-            alt="Modern business meeting"
-            className="w-full h-full object-cover"
-            width="1600"
-            height="1067"
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative h-full flex items-center">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <div className="max-w-3xl">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6">
-                  Din guide inom <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
-                </h1>
-                <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
-                  Upptäck möjligheterna med Microsoftplattformen
-                </p>
-                
-                <ContactFormDialog>
-                  <Button 
-                    size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  >
-                    Starta här med en gratis rådgivning
-                  </Button>
-                </ContactFormDialog>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Hero Carousel */}
+      <HeroCarousel />
 
       {/* Personal Introduction Video Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
