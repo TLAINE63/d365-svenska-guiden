@@ -109,7 +109,7 @@ const HeroCarousel = () => {
 
       {/* Content */}
       <div className="relative h-full flex items-center">
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto px-12 sm:px-16 md:px-20">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="max-w-3xl">
               <h1
