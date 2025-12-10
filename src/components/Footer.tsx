@@ -10,6 +10,9 @@ const Footer = () => {
           <p className="text-sm mb-3">
             Microsoft Business Applications Evangelister
           </p>
+          <p className="text-xs mb-3 max-w-2xl mx-auto italic">
+            Disclaimer: Information på denna hemsida har ambitionen att ge en neutral bild av marknaden, men utvecklingen går fort och därför är det alltid en god idé att kontrollera senaste nytt i detaljerna.
+          </p>
           <div className="flex justify-center gap-4 text-sm mb-4">
             <Link to="/dataskydd" className="hover:text-foreground transition-colors">
               Dataskyddspolicy
