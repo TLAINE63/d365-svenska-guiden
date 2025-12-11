@@ -217,6 +217,15 @@ const partners: Partner[] = [
     applications: ["Business Central"],
     industries: ["Tjänsteföretag", "Handel"],
     companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Azets",
+    logo: "https://www.azets.com/globalassets/azets-logo.svg",
+    website: "https://www.azets.se",
+    description: "Nordisk leverantör av affärssystem och redovisningstjänster med stark Dynamics 365 Business Central-kompetens. Kombinerar systemleverans med ekonomitjänster.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Handel", "Alla branscher"],
+    companySize: ["Små", "Medelstora"]
   }
 ];
 
