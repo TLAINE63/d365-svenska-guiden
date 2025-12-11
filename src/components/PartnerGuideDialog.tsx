@@ -16,6 +16,7 @@ import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
 interface Partner {
   name: string;
   logo: string;
+  website: string;
   description: string;
   applications: string[];
   industries: string[];
@@ -345,6 +346,14 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                         </Badge>
                       ))}
                     </div>
+                    <a 
+                      href={partner.website} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2"
+                    >
+                      Besök hemsida →
+                    </a>
                   </CardContent>
                 </Card>
               ))}

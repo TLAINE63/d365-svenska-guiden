@@ -12,6 +12,7 @@ import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 export interface Partner {
   name: string;
   logo: string;
+  website: string;
   description: string;
   applications: string[];
   industries: string[];
@@ -20,164 +21,166 @@ export interface Partner {
 
 const partners: Partner[] = [
   {
-    name: "Exempelpartner 1",
-    logo: "https://via.placeholder.com/150x60?text=Partner+1",
-    description: "En ledande Dynamics 365-partner med fokus på tillverkningsindustrin. Över 15 års erfarenhet av ERP-implementationer.",
-    applications: ["Business Central", "Finance & SCM"],
+    name: "NAB Solutions",
+    logo: "https://www.nabsolutions.se/wp-content/uploads/2021/03/nab-logo.png",
+    website: "https://www.nabsolutions.se",
+    description: "Specialister på Dynamics 365 Business Central med lång erfarenhet av implementationer för svenska företag. Fokus på tillverkning och distribution.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning", "Distribution", "Handel"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Fellowmind (Absfront)",
+    logo: "https://www.fellowmind.com/globalassets/images/fellowmind-logo.svg",
+    website: "https://www.fellowmind.com/sv-se/",
+    description: "En av Nordens största Dynamics 365-partners med bred kompetens inom både ERP och CRM. Tidigare Absfront, nu del av Fellowmind.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Alla branscher"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Bisqo",
+    logo: "https://bisqo.com/wp-content/uploads/2023/03/Bisqo-Logo-Black.png",
+    website: "https://bisqo.com",
+    description: "Specialister på Dynamics 365 Business Central med fokus på snabba och kostnadseffektiva implementationer för växande företag.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Handel", "Distribution"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Navcite",
+    logo: "https://navcite.se/wp-content/uploads/2022/01/navcite-logo.svg",
+    website: "https://navcite.se",
+    description: "Erfaren Business Central-partner med specialistkompetens inom tillverkningsindustrin och integration mot tredjepartssystem.",
+    applications: ["Business Central"],
     industries: ["Tillverkning", "Distribution"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Exempelpartner 2",
-    logo: "https://via.placeholder.com/150x60?text=Partner+2",
-    description: "Specialister på CRM-lösningar med stark kompetens inom försäljning och kundservice. Certifierade Microsoft Gold-partner.",
-    applications: ["Sales", "Customer Service"],
-    industries: ["Tjänsteföretag", "Retail"],
     companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Exempelpartner 3",
-    logo: "https://via.placeholder.com/150x60?text=Partner+3",
-    description: "Helhetsleverantör med bred kompetens inom hela Dynamics 365-portföljen. Erfarna projektledare och konsulter.",
-    applications: ["Business Central", "Sales", "Marketing"],
-    industries: ["Alla branscher"],
-    companySize: ["Små", "Medelstora", "Stora"]
+    name: "Inbiz",
+    logo: "https://www.inbiz.se/wp-content/uploads/2021/08/inbiz-logo.png",
+    website: "https://www.inbiz.se",
+    description: "Microsoft Gold Partner med fokus på Dynamics 365 Business Central och Power Platform. Stark kompetens inom integration och anpassningar.",
+    applications: ["Business Central", "Power Platform"],
+    industries: ["Tjänsteföretag", "Handel"],
+    companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Exempelpartner 4",
-    logo: "https://via.placeholder.com/150x60?text=Partner+4",
-    description: "Nischad partner för offentlig sektor med djup kunskap om upphandlingsprocesser och regelverk.",
-    applications: ["Finance & SCM", "Customer Service"],
-    industries: ["Offentlig sektor"],
-    companySize: ["Stora"]
+    name: "CRM Konsulterna",
+    logo: "https://crmkonsulterna.se/wp-content/uploads/2020/09/crm-konsulterna-logo.png",
+    website: "https://crmkonsulterna.se",
+    description: "Specialister på Dynamics 365 Customer Engagement med fokus på Sales, Marketing och Customer Service. Experter på kundresor och försäljningsprocesser.",
+    applications: ["Sales", "Marketing", "Customer Service"],
+    industries: ["B2B", "Tjänsteföretag"],
+    companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Exempelpartner 5",
-    logo: "https://via.placeholder.com/150x60?text=Partner+5",
-    description: "Experter på Field Service och fältserviceoptimering. Stark mobilkompetens och IoT-integrationer.",
-    applications: ["Field Service", "Customer Service"],
-    industries: ["Fastighet", "Energi", "Underhåll"],
+    name: "Columbus",
+    logo: "https://www.columbusglobal.com/hubfs/columbus-logo-black.svg",
+    website: "https://www.columbusglobal.com/sv",
+    description: "Global Dynamics 365-partner med stark nordisk närvaro. Erbjuder helhetslösningar inom ERP, CRM och digital transformation.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Retail", "Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
-    name: "Exempelpartner 6",
-    logo: "https://via.placeholder.com/150x60?text=Partner+6",
-    description: "Startup-fokuserad partner med snabba implementationer och flexibla prismodeller för växande företag.",
-    applications: ["Business Central", "Sales"],
-    industries: ["Tech", "Startup"],
-    companySize: ["Små"]
+    name: "Navet",
+    logo: "https://navet.se/wp-content/uploads/2020/12/navet-logo.svg",
+    website: "https://navet.se",
+    description: "Dynamics 365 Business Central-specialister med fokus på svensk marknad. Erbjuder även branschlösningar och tilläggsprodukter.",
+    applications: ["Business Central"],
+    industries: ["Handel", "Tjänsteföretag"],
+    companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Exempelpartner 7",
-    logo: "https://via.placeholder.com/150x60?text=Partner+7",
-    description: "Internationell partner med närvaro i Norden, Europa och USA. Erfarenhet av globala utrullningar.",
+    name: "BE-terna",
+    logo: "https://www.be-terna.com/hubfs/BE-terna%20Logo.svg",
+    website: "https://www.be-terna.com/sv",
+    description: "Internationell Dynamics 365-partner med stark kompetens inom Finance & Supply Chain Management för större företag.",
     applications: ["Finance & SCM", "Business Central"],
-    industries: ["Tillverkning", "Logistik"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Exempelpartner 8",
-    logo: "https://via.placeholder.com/150x60?text=Partner+8",
-    description: "Marketing Automation-specialister med fokus på kundresor och leadgenerering i Dynamics 365.",
-    applications: ["Marketing", "Customer Insights"],
-    industries: ["B2B", "E-handel"],
-    companySize: ["Medelstora"]
-  },
-  {
-    name: "Exempelpartner 9",
-    logo: "https://via.placeholder.com/150x60?text=Partner+9",
-    description: "Partner med stark kompetens inom integration och anpassningar. Utvecklar egna tilläggslösningar.",
-    applications: ["Business Central", "Finance & SCM"],
-    industries: ["Alla branscher"],
+    industries: ["Tillverkning", "Retail", "Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
-    name: "Exempelpartner 10",
-    logo: "https://via.placeholder.com/150x60?text=Partner+10",
-    description: "Fokus på detaljhandel och e-handel med Dynamics 365 Commerce och integrerade lösningar.",
-    applications: ["Business Central", "Commerce"],
-    industries: ["Retail", "E-handel"],
-    companySize: ["Medelstora"]
-  },
-  {
-    name: "Exempelpartner 11",
-    logo: "https://via.placeholder.com/150x60?text=Partner+11",
-    description: "Konsultbolag med bas i Stockholm och kontor i hela Norden. Stark projektledningskompetens.",
-    applications: ["Finance & SCM", "Sales"],
-    industries: ["Tillverkning", "Distribution"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Exempelpartner 12",
-    logo: "https://via.placeholder.com/150x60?text=Partner+12",
-    description: "AI och Copilot-specialister som hjälper företag att maximera värdet av Microsoft AI i Dynamics 365.",
-    applications: ["Copilot", "Sales", "Customer Service"],
-    industries: ["Tech", "Finans"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Exempelpartner 13",
-    logo: "https://via.placeholder.com/150x60?text=Partner+13",
-    description: "Erfaren partner inom bygg- och fastighetsbranschen med branschspecifika lösningar.",
-    applications: ["Business Central", "Field Service"],
-    industries: ["Bygg", "Fastighet"],
-    companySize: ["Medelstora"]
-  },
-  {
-    name: "Exempelpartner 14",
-    logo: "https://via.placeholder.com/150x60?text=Partner+14",
-    description: "Partner med fokus på livsmedels- och processindustrin. Experter på spårbarhet och kvalitet.",
+    name: "Implema",
+    logo: "https://www.implema.se/wp-content/uploads/2021/03/implema-logo.svg",
+    website: "https://www.implema.se",
+    description: "Helhetsleverantör av Dynamics 365 med fokus på Finance & Supply Chain Management. Stark kompetens inom processindustri och tillverkning.",
     applications: ["Finance & SCM", "Business Central"],
-    industries: ["Livsmedel", "Process"],
+    industries: ["Tillverkning", "Process", "Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
-    name: "Exempelpartner 15",
-    logo: "https://via.placeholder.com/150x60?text=Partner+15",
-    description: "Snabbväxande partner med modern approach och agila implementationsmetoder.",
-    applications: ["Business Central", "Sales"],
-    industries: ["Tjänsteföretag", "Konsult"],
+    name: "Navipro",
+    logo: "https://navipro.se/wp-content/uploads/2021/01/navipro-logo.png",
+    website: "https://navipro.se",
+    description: "Business Central-partner med fokus på svenska små och medelstora företag. Erbjuder snabba standardimplementationer.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Handel"],
     companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Exempelpartner 16",
-    logo: "https://via.placeholder.com/150x60?text=Partner+16",
-    description: "Specialister på finanssektorn med djup kunskap om regelverk och compliance-krav.",
-    applications: ["Finance & SCM", "Customer Service"],
-    industries: ["Bank", "Försäkring", "Finans"],
-    companySize: ["Stora"]
+    name: "Engage Group",
+    logo: "https://engagegroup.se/wp-content/uploads/2022/01/engage-group-logo.svg",
+    website: "https://engagegroup.se",
+    description: "Nordisk Dynamics 365-partner med fokus på CRM och Customer Engagement. Specialister på Sales, Marketing och Customer Service.",
+    applications: ["Sales", "Marketing", "Customer Service", "Field Service"],
+    industries: ["Tjänsteföretag", "B2B"],
+    companySize: ["Medelstora"]
   },
   {
-    name: "Exempelpartner 17",
-    logo: "https://via.placeholder.com/150x60?text=Partner+17",
-    description: "Partner med stark kompetens inom hälso- och sjukvårdssektorn samt life science.",
-    applications: ["Customer Service", "Field Service"],
-    industries: ["Hälsa", "Life Science"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Exempelpartner 18",
-    logo: "https://via.placeholder.com/150x60?text=Partner+18",
-    description: "Erfaren leverantör av molnmigrationer och uppgraderingar från äldre Dynamics-versioner.",
-    applications: ["Business Central", "Finance & SCM"],
-    industries: ["Alla branscher"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Exempelpartner 19",
-    logo: "https://via.placeholder.com/150x60?text=Partner+19",
-    description: "Boutiquekonsultbolag med högseniora konsulter och personlig service.",
-    applications: ["Business Central", "Sales"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Exempelpartner 20",
-    logo: "https://via.placeholder.com/150x60?text=Partner+20",
-    description: "Stor internationell systemintegratör med omfattande resurser och global räckvidd.",
+    name: "CGI",
+    logo: "https://www.cgi.com/sites/default/files/2019-12/cgi-logo.svg",
+    website: "https://www.cgi.com/sv",
+    description: "Global IT-konsult med omfattande Dynamics 365-kompetens. Erbjuder helhetslösningar för stora organisationer och offentlig sektor.",
     applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Enterprise", "Multinationella"],
+    industries: ["Offentlig sektor", "Finans", "Energi"],
     companySize: ["Stora"]
+  },
+  {
+    name: "TietoEvry",
+    logo: "https://www.tietoevry.com/siteassets/company/images/logos/tietoevry_logo.svg",
+    website: "https://www.tietoevry.com/sv",
+    description: "Nordisk teknologijätte med bred Dynamics 365-kompetens. Stark inom offentlig sektor, finans och stora enterprise-kunder.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Offentlig sektor", "Finans", "Bank"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Cosmo Consult",
+    logo: "https://www.cosmoconsult.com/fileadmin/_processed_/5/8/csm_COSMO_CONSULT_Logo_RGB_b35e8c5f3e.png",
+    website: "https://www.cosmoconsult.com/sv-se/",
+    description: "Internationell Dynamics 365-partner med stark närvaro i Norden. Specialister på Business Central med egna branschlösningar.",
+    applications: ["Business Central", "Finance & SCM"],
+    industries: ["Tillverkning", "Projektföretag", "Distribution"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Capgemini",
+    logo: "https://www.capgemini.com/wp-content/themes/capgemini2020/assets/images/logo.svg",
+    website: "https://www.capgemini.com/se-en/",
+    description: "Global konsultjätte med omfattande Dynamics 365-praktik. Fokus på stora transformationsprojekt och enterprise-kunder.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Finans", "Retail", "Energi"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Sogeti",
+    logo: "https://www.sogeti.se/globalassets/sogeti-logo.svg",
+    website: "https://www.sogeti.se",
+    description: "Del av Capgemini-gruppen med fokus på teknisk implementation och utveckling. Stark kompetens inom Power Platform och integrationer.",
+    applications: ["Business Central", "Power Platform", "Sales"],
+    industries: ["Alla branscher"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Goodfellows",
+    logo: "https://goodfellows.se/wp-content/uploads/2021/03/goodfellows-logo.svg",
+    website: "https://goodfellows.se",
+    description: "Boutiquekonsultbolag specialiserat på Dynamics 365 CRM och Customer Engagement. Personlig service och högseniora konsulter.",
+    applications: ["Sales", "Customer Service", "Marketing"],
+    industries: ["Tjänsteföretag", "B2B"],
+    companySize: ["Små", "Medelstora"]
   }
 ];
 
@@ -334,7 +337,7 @@ const ValjPartner = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {partners.map((partner, index) => (
-              <Card key={index} className="border border-border hover:border-primary/50 transition-colors">
+              <Card key={index} className="border border-border hover:border-primary/50 transition-colors flex flex-col">
                 <CardHeader className="pb-3">
                   <div className="h-16 flex items-center justify-center mb-3">
                     <img 
@@ -345,7 +348,7 @@ const ValjPartner = () => {
                   </div>
                   <CardTitle className="text-lg text-center">{partner.name}</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 flex-1 flex flex-col">
                   <p className="text-sm text-muted-foreground">
                     {partner.description}
                   </p>
@@ -381,6 +384,18 @@ const ValjPartner = () => {
                         </Badge>
                       ))}
                     </div>
+                  </div>
+
+                  <div className="mt-auto pt-4">
+                    <a 
+                      href={partner.website} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
+                    >
+                      Besök hemsida
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
                   </div>
                 </CardContent>
               </Card>
