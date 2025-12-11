@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -6,8 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Users, ArrowRight, Calendar, MessageSquare, Mail, Building2, Award, Target, Shield } from "lucide-react";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
+import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 
-interface Partner {
+export interface Partner {
   name: string;
   logo: string;
   description: string;
@@ -180,9 +182,18 @@ const partners: Partner[] = [
 ];
 
 const ValjPartner = () => {
+  const [guideOpen, setGuideOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
+      {/* Partner Guide Dialog */}
+      <PartnerGuideDialog 
+        open={guideOpen} 
+        onOpenChange={setGuideOpen} 
+        partners={partners}
+      />
       
       {/* Header */}
       <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
@@ -207,11 +218,13 @@ const ValjPartner = () => {
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
                 Hitta rätt implementationspartner för din Dynamics 365-resa
               </p>
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl">
-                <Link to="/kontakt">
-                  <span>Få hjälp att välja rätt partner</span>
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+              <Button 
+                size="lg" 
+                className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl"
+                onClick={() => setGuideOpen(true)}
+              >
+                <span>Få hjälp att välja rätt partner</span>
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>
           </div>
