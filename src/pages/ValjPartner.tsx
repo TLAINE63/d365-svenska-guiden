@@ -181,6 +181,42 @@ const partners: Partner[] = [
     applications: ["Sales", "Customer Service", "Marketing"],
     industries: ["Tjänsteföretag", "B2B"],
     companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Cepheo",
+    logo: "https://cepheo.com/wp-content/uploads/2022/01/cepheo-logo.svg",
+    website: "https://cepheo.com",
+    description: "Nordisk Dynamics 365-partner med stark kompetens inom både ERP och CRM. Erbjuder helhetslösningar för medelstora och stora företag.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Distribution", "Tjänsteföretag"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Dizparc",
+    logo: "https://dizparc.com/wp-content/uploads/2021/03/dizparc-logo.svg",
+    website: "https://dizparc.com",
+    description: "Erfaren Dynamics 365-partner med fokus på Business Central och integrationer. Stark kompetens inom svensk tillverkningsindustri.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning", "Distribution", "Handel"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "ECIT",
+    logo: "https://www.ecit.com/wp-content/uploads/2021/08/ecit-logo.svg",
+    website: "https://www.ecit.com/se/",
+    description: "Nordisk IT-partner med bred Dynamics 365-kompetens. Erbjuder både ERP-implementation och managed services för företag i alla storlekar.",
+    applications: ["Business Central", "Finance & SCM"],
+    industries: ["Tjänsteföretag", "Handel", "Distribution"],
+    companySize: ["Små", "Medelstora", "Stora"]
+  },
+  {
+    name: "Yellow Solutions",
+    logo: "https://yellowsolutions.se/wp-content/uploads/2021/01/yellow-solutions-logo.png",
+    website: "https://yellowsolutions.se",
+    description: "Specialister på Dynamics 365 Business Central med fokus på svenska små och medelstora företag. Snabba implementationer och personlig service.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Handel"],
+    companySize: ["Små", "Medelstora"]
   }
 ];
 
