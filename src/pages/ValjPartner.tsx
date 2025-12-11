@@ -226,6 +226,24 @@ const partners: Partner[] = [
     applications: ["Business Central"],
     industries: ["Tjänsteföretag", "Handel", "Alla branscher"],
     companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Accigo",
+    logo: "https://accigo.se/wp-content/uploads/2021/03/accigo-logo.svg",
+    website: "https://accigo.se",
+    description: "Specialister på Dynamics 365 Customer Engagement och Power Platform. Stark kompetens inom CRM, försäljning och kundservice.",
+    applications: ["Sales", "Customer Service", "Marketing", "Power Platform"],
+    industries: ["Tjänsteföretag", "B2B", "Finans"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Two i Sverige",
+    logo: "https://two.se/wp-content/uploads/2021/01/two-logo.svg",
+    website: "https://two.se",
+    description: "Dynamics 365-partner med fokus på Business Central och Finance & SCM. Erbjuder helhetslösningar för svenska företag med internationella ambitioner.",
+    applications: ["Business Central", "Finance & SCM"],
+    industries: ["Tillverkning", "Distribution", "Handel"],
+    companySize: ["Medelstora", "Stora"]
   }
 ];
 
