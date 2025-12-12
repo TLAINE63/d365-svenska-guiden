@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Users, ArrowRight, Calendar, MessageSquare, Mail, Building2, Award, Target, Shield, Filter, X } from "lucide-react";
+import VideoCard from "@/components/VideoCard";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 
@@ -458,7 +459,30 @@ const ValjPartner = () => {
         </div>
       </section>
 
-      {/* Partners Section */}
+      {/* Partner Selection Video Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Att välja rätt partner
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
+              Valet av implementationspartner är avgörande för projektets framgång. Här diskuterar vi de viktigaste faktorerna att tänka på när du väljer din Dynamics 365-partner.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <VideoCard
+              title="Så väljer du rätt implementationspartner"
+              description="Viktiga överväganden och frågor att ställa"
+              videoId=""
+            />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Lägg in ditt YouTube video-ID för att visa videon
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
