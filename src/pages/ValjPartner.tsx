@@ -52,8 +52,17 @@ const partners: Partner[] = [
     website: "https://absfront.se",
     description: "Specialister på CRM och Customer Experience inom Dynamics 365, Power Platform och Data. Fokus på kundupplevelser utan gränser.",
     applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tjänsteföretag", "Alla branscher"],
+    industries: ["Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Accenture",
+    logo: "https://www.accenture.com/content/dam/accenture/final/images/icons/symbol/Accent_Global_Subbrand_Logo.svg",
+    website: "https://www.accenture.com/se-en",
+    description: "Global konsultjätte och en av världens största Microsoft-partners. Omfattande Dynamics 365-praktik för stora transformationsprojekt och enterprise-kunder.",
+    applications: ["Finance & SCM", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Bank & Finans", "Retail", "Energisektorn", "Offentlig sektor"],
+    companySize: ["Stora"]
   },
   {
     name: "Accigo",
@@ -65,12 +74,21 @@ const partners: Partner[] = [
     companySize: ["Medelstora", "Stora"]
   },
   {
+    name: "Avanade",
+    logo: "https://www.avanade.com/-/media/logo/avanade-logo.svg",
+    website: "https://www.avanade.com/sv-se",
+    description: "Joint venture mellan Accenture och Microsoft. Världens största leverantör av Microsoft-tjänster med djup expertis inom hela Dynamics 365-plattformen.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
     name: "Azets",
     logo: "https://www.azets.se/globalassets/azets-logo.svg",
     website: "https://www.azets.se",
     description: "Nordisk leverantör av affärssystem och redovisningstjänster med stark Dynamics 365 Business Central-kompetens. Kombinerar systemleverans med ekonomitjänster.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail", "Alla branscher"],
+    industries: ["Tjänsteföretag", "Retail"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -90,6 +108,15 @@ const partners: Partner[] = [
     applications: ["Finance & SCM", "Sales", "Customer Service"],
     industries: ["Bank & Finans", "Retail", "Energisektorn"],
     companySize: ["Stora"]
+  },
+  {
+    name: "Cegeka",
+    logo: "https://www.cegeka.com/hubfs/Cegeka_September2022/Images/cegeka-logo.svg",
+    website: "https://www.cegeka.com/sv-se",
+    description: "Europeisk IT-partner med fokus på digital transformation. Stark kompetens inom Dynamics 365 och Azure för medelstora och stora företag.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
+    companySize: ["Medelstora", "Stora"]
   },
   {
     name: "Cepheo",
@@ -133,7 +160,7 @@ const partners: Partner[] = [
     website: "https://crmkonsulterna.se",
     description: "Vi placerar kunden i centrum. Specialister på Dynamics 365 Customer Engagement, CRM och Power Platform.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service"],
-    industries: ["Tjänsteföretag", "Alla branscher"],
+    industries: ["Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -160,7 +187,7 @@ const partners: Partner[] = [
     website: "https://engagegroup.se",
     description: "Experts In Dynamics 365. Your Local Partner With Global Reach. Fokus på CRM och Customer Engagement.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service"],
-    industries: ["Tjänsteföretag", "Alla branscher"],
+    industries: ["Tjänsteföretag"],
     companySize: ["Medelstora"]
   },
   {
@@ -173,13 +200,40 @@ const partners: Partner[] = [
     companySize: ["Små", "Medelstora"]
   },
   {
+    name: "EY",
+    logo: "https://assets.ey.com/content/dam/ey-sites/ey-com/en_gl/generic/logos/20170526-ey-logo.svg",
+    website: "https://www.ey.com/sv_se",
+    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på stora transformationsprojekt, finans och revision.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
     name: "Fellowmind",
     logo: "https://www.fellowmind.com/globalassets/images/fellowmind-logo.svg",
     website: "https://www.fellowmind.com/sv-se/",
     description: "Microsoft EMEA Channel Partner of the Year 2025. En av Nordens största Dynamics 365-partners med bred kompetens inom ERP och CRM.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Alla branscher"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
     companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "FourOne",
+    logo: "https://fourone.se/wp-content/uploads/2023/01/fourone-logo.svg",
+    website: "https://fourone.se",
+    description: "Nordisk CRM-specialist med fokus på Dynamics 365 Customer Engagement och Power Platform. Hjälper företag att skapa bättre kundrelationer.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service"],
+    industries: ["Tjänsteföretag", "E-handel"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Fujitsu",
+    logo: "https://www.fujitsu.com/global/Images/fujitsu-logo.svg",
+    website: "https://www.fujitsu.com/se/",
+    description: "Global IT-tjänsteleverantör med omfattande Microsoft-partnerskap. Erbjuder Dynamics 365-lösningar för stora enterprise-kunder.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Offentlig sektor", "Energisektorn"],
+    companySize: ["Stora"]
   },
   {
     name: "Goodfellows",
@@ -189,6 +243,24 @@ const partners: Partner[] = [
     applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
     industries: ["Tjänsteföretag", "E-handel"],
     companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "HCL Technologies",
+    logo: "https://www.hcltech.com/themes/custom/flavor/logo.svg",
+    website: "https://www.hcltech.com",
+    description: "Global IT-tjänsteleverantör med omfattande Microsoft Dynamics 365-erfarenhet. Stark närvaro inom stora enterprise-implementationer.",
+    applications: ["Finance & SCM", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tillverkning", "Bank & Finans", "Retail"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "HSO",
+    logo: "https://www.hso.com/hubfs/HSO_Logo.svg",
+    website: "https://www.hso.com/sv",
+    description: "Global Microsoft-partner specialiserad på Dynamics 365 och molntjänster. Stark branschexpertis inom tillverkning, distribution och retail.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
+    companySize: ["Medelstora", "Stora"]
   },
   {
     name: "Implema",
@@ -207,6 +279,15 @@ const partners: Partner[] = [
     applications: ["Business Central"],
     industries: ["Tjänsteföretag", "Retail"],
     companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "KPMG",
+    logo: "https://assets.kpmg.com/content/dam/kpmg/share/logo/kpmg-logo.svg",
+    website: "https://kpmg.com/se/sv",
+    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora transformationsprojekt.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    companySize: ["Stora"]
   },
   {
     name: "NAB Solutions",
@@ -236,13 +317,58 @@ const partners: Partner[] = [
     companySize: ["Små", "Medelstora"]
   },
   {
+    name: "Nexer",
+    logo: "https://nexergroup.com/wp-content/uploads/2022/01/nexer-logo.svg",
+    website: "https://nexergroup.com/sv",
+    description: "Svensk IT-konsult med global räckvidd. Stark kompetens inom Dynamics 365 och digital transformation för medelstora och stora företag.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Retail", "Tjänsteföretag"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "PWC",
+    logo: "https://www.pwc.com/content/dam/pwc/gx/en/logos/pwc-logo.svg",
+    website: "https://www.pwc.se",
+    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora enterprise-transformationer.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Sherpas",
+    logo: "https://sherpas.se/wp-content/uploads/2022/01/sherpas-logo.svg",
+    website: "https://sherpas.se",
+    description: "Nordic Microsoft Expert Partner med fokus på kundupplevelser och digital transformation. Specialister på Dynamics 365 och Power Platform.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service"],
+    industries: ["Tjänsteföretag", "E-handel", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
     name: "Sogeti",
     logo: "https://www.sogeti.se/globalassets/sogeti-logo.svg",
     website: "https://www.sogeti.se",
     description: "Vi är Valuemakers. Del av Capgemini-gruppen med fokus på teknisk implementation, utveckling och Power Platform.",
     applications: ["Business Central", "Sales"],
-    industries: ["Alla branscher"],
+    industries: ["Tillverkning", "Tjänsteföretag", "Retail"],
     companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Sopra Steria",
+    logo: "https://www.soprasteria.com/~/media/soprasteria/soprasteria-logo.svg",
+    website: "https://www.soprasteria.se",
+    description: "Europeisk teknologikonsult med stark närvaro i Norden. Omfattande Dynamics 365-kompetens för offentlig sektor och stora företag.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "TCS (Tata Consultancy Services)",
+    logo: "https://www.tcs.com/content/dam/tcs/images/logos/tcs-logo.svg",
+    website: "https://www.tcs.com",
+    description: "Global IT-tjänsteleverantör och en av världens största Microsoft-partners. Fokus på stora enterprise-transformationer och globala implementationer.",
+    applications: ["Finance & SCM", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
+    companySize: ["Stora"]
   },
   {
     name: "TietoEvry",
