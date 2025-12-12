@@ -19,7 +19,9 @@ const allApplications = [
   "Customer Insights (Marketing)",
   "Field Service",
   "Contact Center",
-  "Project Operations"
+  "Project Operations",
+  "Commerce",
+  "Human Resources"
 ];
 
 // All available industries for filtering
