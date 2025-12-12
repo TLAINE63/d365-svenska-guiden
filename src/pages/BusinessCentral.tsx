@@ -11,133 +11,13 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
 import ReleaseWaveImage from "@/assets/bc-release-wave.png";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { partners } from "@/data/partners";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-interface Partner {
-  name: string;
-  logo: string;
-  website: string;
-  description: string;
-  applications: string[];
-  industries: string[];
-  companySize: string[];
-}
-
-const allPartners: Partner[] = [
-  {
-    name: "NAB Solutions",
-    logo: "",
-    website: "https://www.nabsolutions.se",
-    description: "Specialister på Dynamics 365 Business Central med lång erfarenhet av implementationer för svenska företag. Fokus på tillverkning och distribution.",
-    applications: ["Business Central"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Navcite",
-    logo: "",
-    website: "https://navcite.se",
-    description: "Small company feeling - Big company experience. Affärssystem med Infor M3 och Microsoft Business Central.",
-    applications: ["Business Central"],
-    industries: ["Tillverkning", "Grossist"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "InBiz",
-    logo: "",
-    website: "https://www.inbiz.se",
-    description: "Din trygga partner för Microsoft Dynamics. Sedan 2005 har vi hjälpt våra kunder att få det bästa ur sitt affärssystem.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Dizparc",
-    logo: "",
-    website: "https://dizparc.com",
-    description: "Förverkliga din digitala potential. Lokala verksamheter på flera orter som hjälper dig skapa hållbara digitala lösningar.",
-    applications: ["Business Central"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Evidi (fd. Navipro)",
-    logo: "",
-    website: "https://navipro.se",
-    description: "From NaviPro to Evidi - A New Era of Possibilities. Nordisk Microsoft-partner med djup expertis inom hela Microsoft-plattformen.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Navet",
-    logo: "",
-    website: "https://navet.se",
-    description: "Vi skapar bättre affärer tillsammans. Vi förstår verksamheter, teknik och relationer. Del av Addovation Group.",
-    applications: ["Business Central"],
-    industries: ["Retail", "Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Azets",
-    logo: "",
-    website: "https://www.azets.se",
-    description: "Nordisk leverantör av affärssystem och redovisningstjänster med stark Dynamics 365 Business Central-kompetens.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Cosmo Consult",
-    logo: "",
-    website: "https://www.cosmoconsult.com/sv-se/",
-    description: "Internationell Dynamics 365-partner med stark närvaro i Norden. Specialister på Business Central med egna branschlösningar.",
-    applications: ["Business Central", "Finance & SCM"],
-    industries: ["Tillverkning", "Tjänsteföretag", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Fellowmind",
-    logo: "",
-    website: "https://www.fellowmind.com/sv-se/",
-    description: "Microsoft EMEA Channel Partner of the Year 2025. En av Nordens största Dynamics 365-partners med bred kompetens inom ERP och CRM.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Columbus",
-    logo: "",
-    website: "https://www.columbusglobal.com/sv",
-    description: "Global Dynamics 365-partner med stark nordisk närvaro. Digital Value. Human Intelligence - helhetslösningar inom ERP och CRM.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Retail", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Cepheo",
-    logo: "",
-    website: "https://cepheo.com",
-    description: "Erfaren nordisk Dynamics 365-partner med över 39 års erfarenhet. Digital Empowerment för medelstora och stora företag.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "HSO",
-    logo: "",
-    website: "https://www.hso.com/sv",
-    description: "Global Microsoft-partner specialiserad på Dynamics 365 och molntjänster. Stark branschexpertis inom tillverkning, distribution och retail.",
-    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
-    companySize: ["Medelstora", "Stora"]
-  },
-];
 
 const BusinessCentral = () => {
   useEffect(() => {
@@ -146,7 +26,7 @@ const BusinessCentral = () => {
 
   // Filter partners that work with Business Central
   const bcPartners = useMemo(() => {
-    return allPartners
+    return partners
       .filter(partner => partner.applications.includes("Business Central"))
       .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
   }, []);

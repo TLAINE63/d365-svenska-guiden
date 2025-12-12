@@ -11,144 +11,13 @@ import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { partners } from "@/data/partners";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-interface Partner {
-  name: string;
-  website: string;
-  description: string;
-  applications: string[];
-  industries: string[];
-  companySize: string[];
-}
-
-const allPartners: Partner[] = [
-  {
-    name: "Accenture",
-    website: "https://www.accenture.com/se-en",
-    description: "Global konsultjätte och en av världens största Microsoft-partners. Omfattande Dynamics 365-praktik för stora transformationsprojekt och enterprise-kunder.",
-    applications: ["Finance & SCM", "Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Bank & Finans", "Retail", "Energisektorn", "Offentlig sektor"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Avanade",
-    website: "https://www.avanade.com/sv-se",
-    description: "Joint venture mellan Accenture och Microsoft. Världens största leverantör av Microsoft-tjänster med djup expertis inom hela Dynamics 365-plattformen.",
-    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "BE-terna",
-    website: "https://www.be-terna.com/sv",
-    description: "Internationell partner med fokus på digital framtid. Del av Telefónica Tech med stark kompetens inom ERP, CRM och dataanalys.",
-    applications: ["Finance & SCM", "Business Central"],
-    industries: ["Tillverkning", "Retail", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Capgemini",
-    website: "https://www.capgemini.com/se-en/",
-    description: "Global konsultjätte med omfattande Dynamics 365-praktik. Fokus på stora transformationsprojekt och enterprise-kunder.",
-    applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Bank & Finans", "Retail", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "CGI",
-    website: "https://www.cgi.com/se",
-    description: "Global IT-konsult med omfattande Dynamics 365-kompetens. Erbjuder helhetslösningar för stora organisationer och offentlig sektor.",
-    applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Columbus",
-    website: "https://www.columbusglobal.com/sv",
-    description: "Global Dynamics 365-partner med stark nordisk närvaro. Digital Value. Human Intelligence - helhetslösningar inom ERP och CRM.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Retail", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Cosmo Consult",
-    website: "https://www.cosmoconsult.com/sv-se/",
-    description: "Internationell Dynamics 365-partner med stark närvaro i Norden. Specialister på Business Central med egna branschlösningar.",
-    applications: ["Business Central", "Finance & SCM"],
-    industries: ["Tillverkning", "Tjänsteföretag", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "EY",
-    website: "https://www.ey.com/sv_se",
-    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora transformationsprojekt.",
-    applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Fellowmind",
-    website: "https://www.fellowmind.com/sv-se/",
-    description: "Microsoft EMEA Channel Partner of the Year 2025. En av Nordens största Dynamics 365-partners med bred kompetens inom ERP och CRM.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "HSO",
-    website: "https://www.hso.com/sv",
-    description: "Global Microsoft-partner specialiserad på Dynamics 365 och molntjänster. Stark branschexpertis inom tillverkning, distribution och retail.",
-    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Implema",
-    website: "https://www.implema.se",
-    description: "Snabbt, säkert och redo för framtiden. Accelerera din affär med SAP och Microsoft Dynamics.",
-    applications: ["Finance & SCM", "Business Central"],
-    industries: ["Tillverkning", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "KPMG",
-    website: "https://kpmg.com/se/sv",
-    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora transformationsprojekt.",
-    applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "PWC",
-    website: "https://www.pwc.se",
-    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora enterprise-transformationer.",
-    applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Sopra Steria",
-    website: "https://www.soprasteria.se",
-    description: "Europeisk teknologikonsult med stark närvaro i Norden. Omfattande Dynamics 365-kompetens för offentlig sektor och stora företag.",
-    applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "TCS (Tata Consultancy Services)",
-    website: "https://www.tcs.com",
-    description: "Global IT-tjänsteleverantör och en av världens största Microsoft-partners. Fokus på stora enterprise-transformationer och globala implementationer.",
-    applications: ["Finance & SCM", "Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-];
 
 const FinanceSupplyChain = () => {
   useEffect(() => {
@@ -157,7 +26,7 @@ const FinanceSupplyChain = () => {
 
   // Filter partners that work with Finance & SCM
   const fscPartners = useMemo(() => {
-    return allPartners
+    return partners
       .filter(partner => partner.applications.includes("Finance & SCM"))
       .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
   }, []);

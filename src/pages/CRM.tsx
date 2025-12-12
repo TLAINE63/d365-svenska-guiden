@@ -14,122 +14,13 @@ import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { partners, crmApplications } from "@/data/partners";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-interface Partner {
-  name: string;
-  website: string;
-  description: string;
-  applications: string[];
-  industries: string[];
-  companySize: string[];
-}
-
-const crmApplications = ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"];
-
-const allPartners: Partner[] = [
-  {
-    name: "Absfront",
-    website: "https://absfront.se",
-    description: "Specialister på CRM och Customer Experience inom Dynamics 365, Power Platform och Data. Fokus på kundupplevelser utan gränser.",
-    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Accigo",
-    website: "https://accigo.se",
-    description: "Microsoft Dynamics 365 Partner of The Year 2024. Smart digital transformation med fokus på Customer Engagement och Power Platform.",
-    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tjänsteföretag", "Bank & Finans"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "CRM Konsulterna",
-    website: "https://crmkonsulterna.se",
-    description: "Vi placerar kunden i centrum. Specialister på Dynamics 365 Customer Engagement, CRM och Power Platform.",
-    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Engage Group",
-    website: "https://engagegroup.se",
-    description: "Experts In Dynamics 365. Your Local Partner With Global Reach. Fokus på CRM och Customer Engagement.",
-    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Medelstora"]
-  },
-  {
-    name: "Fellowmind",
-    website: "https://www.fellowmind.com/sv-se/",
-    description: "Microsoft EMEA Channel Partner of the Year 2025. En av Nordens största Dynamics 365-partners med bred kompetens inom ERP och CRM.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "FourOne",
-    website: "https://fourone.se",
-    description: "Nordisk CRM-specialist med fokus på Dynamics 365 Customer Engagement och Power Platform. Hjälper företag att skapa bättre kundrelationer.",
-    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service"],
-    industries: ["Tjänsteföretag", "E-handel"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Goodfellows",
-    website: "https://goodfellows.se",
-    description: "Goodfellows IT, support & drift blir en del av Upheads. Välkommen till det goda livet med personlig IT-service.",
-    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tjänsteföretag", "E-handel"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Sherpas",
-    website: "https://sherpas.se",
-    description: "Nordic Microsoft Expert Partner med fokus på kundupplevelser och digital transformation. Specialister på Dynamics 365 och Power Platform.",
-    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service"],
-    industries: ["Tjänsteföretag", "E-handel", "Retail"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Avanade",
-    website: "https://www.avanade.com/sv-se",
-    description: "Joint venture mellan Accenture och Microsoft. Världens största leverantör av Microsoft-tjänster med djup expertis inom hela Dynamics 365-plattformen.",
-    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Columbus",
-    website: "https://www.columbusglobal.com/sv",
-    description: "Global Dynamics 365-partner med stark nordisk närvaro. Digital Value. Human Intelligence - helhetslösningar inom ERP och CRM.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Retail", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Cepheo",
-    website: "https://cepheo.com",
-    description: "Erfaren nordisk Dynamics 365-partner med över 39 års erfarenhet. Digital Empowerment för medelstora och stora företag.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "HSO",
-    website: "https://www.hso.com/sv",
-    description: "Global Microsoft-partner specialiserad på Dynamics 365 och molntjänster. Stark branschexpertis inom tillverkning, distribution och retail.",
-    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
-    companySize: ["Medelstora", "Stora"]
-  },
-];
 
 const CRM = () => {
   useEffect(() => {
@@ -138,7 +29,7 @@ const CRM = () => {
 
   // Filter partners that work with CRM applications
   const crmPartners = useMemo(() => {
-    return allPartners
+    return partners
       .filter(partner => partner.applications.some(app => crmApplications.includes(app)))
       .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
   }, []);
