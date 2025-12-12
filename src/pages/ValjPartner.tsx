@@ -554,7 +554,7 @@ const ValjPartner = () => {
               </p>
               <Button 
                 size="lg" 
-                className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl"
+                className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl"
                 onClick={() => setGuideOpen(true)}
               >
                 <span>Få hjälp att välja rätt partner</span>
