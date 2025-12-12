@@ -380,6 +380,96 @@ const partners: Partner[] = [
     companySize: ["Stora"]
   },
   {
+    name: "B3 Consulting Group",
+    logo: "https://b3.se/wp-content/uploads/2022/01/b3-logo.svg",
+    website: "https://b3.se",
+    description: "Svensk IT- och managementkonsult med bred Dynamics 365-kompetens. Fokus på digital transformation och affärsutveckling för medelstora och stora företag.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tjänsteföretag", "Offentlig sektor", "Bank & Finans"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Bisqo",
+    logo: "https://bisqo.se/wp-content/uploads/2022/01/bisqo-logo.svg",
+    website: "https://bisqo.se",
+    description: "Microsoft Dynamics 365 Partner med fokus på Business Central. Hjälper svenska företag att växa med smarta affärssystemlösningar.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Excitec (Brightcom)",
+    logo: "https://excitec.se/wp-content/uploads/2022/01/excitec-logo.svg",
+    website: "https://excitec.se",
+    description: "Del av Brightcom-gruppen. Specialister på Microsoft Dynamics 365 Business Central och Power Platform för svenska företag.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Innofactor",
+    logo: "https://www.innofactor.com/hubfs/Innofactor_Logo.svg",
+    website: "https://www.innofactor.com/sv",
+    description: "Nordisk Microsoft-partner med fokus på digital transformation. Stark kompetens inom Dynamics 365, Azure och Power Platform.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Offentlig sektor", "Tjänsteföretag", "Bank & Finans"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "JMA Maskindata",
+    logo: "https://jma.se/wp-content/uploads/2022/01/jma-logo.svg",
+    website: "https://jma.se",
+    description: "Specialister på affärssystem för tillverkande företag. Lång erfarenhet av Microsoft Dynamics och branschanpassade lösningar.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Knowit",
+    logo: "https://www.knowit.se/globalassets/knowit-logo.svg",
+    website: "https://www.knowit.se",
+    description: "Nordisk digitaliseringskonsult med bred Microsoft-kompetens. Fokus på hållbar digitalisering och kundupplevelser.",
+    applications: ["Business Central", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tjänsteföretag", "Offentlig sektor", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Nemely",
+    logo: "https://nemely.se/wp-content/uploads/2022/01/nemely-logo.svg",
+    website: "https://nemely.se",
+    description: "Microsoft Dynamics 365 Partner specialiserad på CRM och kundengagemang. Hjälper företag att optimera sina kundrelationer.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tjänsteföretag", "E-handel"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Releye",
+    logo: "https://releye.se/wp-content/uploads/2022/01/releye-logo.svg",
+    website: "https://releye.se",
+    description: "Microsoft-partner med fokus på Dynamics 365 och Power Platform. Hjälper företag att automatisera processer och förbättra kundupplevelser.",
+    applications: ["Business Central", "Sales", "Customer Service"],
+    industries: ["Tjänsteföretag", "Retail"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Sirocco Group",
+    logo: "https://siroccogroup.com/wp-content/uploads/2022/01/sirocco-logo.svg",
+    website: "https://siroccogroup.com",
+    description: "International Microsoft Dynamics 365 Partner med fokus på CRM och kundengagemang. Expert på kundupplevelser och digital transformation.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service"],
+    industries: ["Tjänsteföretag", "E-handel", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Softronic",
+    logo: "https://softronic.se/wp-content/uploads/2022/01/softronic-logo.svg",
+    website: "https://softronic.se",
+    description: "Svensk IT-konsult med lång erfarenhet av Microsoft-lösningar. Fokus på systemutveckling och digitalisering för offentlig sektor och stora företag.",
+    applications: ["Business Central", "Finance & SCM", "Sales"],
+    industries: ["Offentlig sektor", "Tjänsteföretag"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
     name: "Two i Sverige",
     logo: "https://two.se/wp-content/uploads/2023/01/two-logo.svg",
     website: "https://two.se",
@@ -387,6 +477,15 @@ const partners: Partner[] = [
     applications: ["Business Central", "Finance & SCM"],
     industries: ["Tillverkning", "Grossist", "Retail"],
     companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Zelly",
+    logo: "https://zelly.se/wp-content/uploads/2022/01/zelly-logo.svg",
+    website: "https://zelly.se",
+    description: "Microsoft Dynamics 365 Partner med fokus på CRM och kundservice. Specialister på att bygga starka kundrelationer och optimera serviceprocesser.",
+    applications: ["Sales", "Customer Service", "Field Service"],
+    industries: ["Tjänsteföretag", "E-handel"],
+    companySize: ["Små", "Medelstora"]
   }
 ];
 
