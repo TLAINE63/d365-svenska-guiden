@@ -4,11 +4,13 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
@@ -16,9 +18,148 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+interface Partner {
+  name: string;
+  website: string;
+  description: string;
+  applications: string[];
+  industries: string[];
+  companySize: string[];
+}
+
+const allPartners: Partner[] = [
+  {
+    name: "Accenture",
+    website: "https://www.accenture.com/se-en",
+    description: "Global konsultjätte och en av världens största Microsoft-partners. Omfattande Dynamics 365-praktik för stora transformationsprojekt och enterprise-kunder.",
+    applications: ["Finance & SCM", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Bank & Finans", "Retail", "Energisektorn", "Offentlig sektor"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Avanade",
+    website: "https://www.avanade.com/sv-se",
+    description: "Joint venture mellan Accenture och Microsoft. Världens största leverantör av Microsoft-tjänster med djup expertis inom hela Dynamics 365-plattformen.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "BE-terna",
+    website: "https://www.be-terna.com/sv",
+    description: "Internationell partner med fokus på digital framtid. Del av Telefónica Tech med stark kompetens inom ERP, CRM och dataanalys.",
+    applications: ["Finance & SCM", "Business Central"],
+    industries: ["Tillverkning", "Retail", "Grossist"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Capgemini",
+    website: "https://www.capgemini.com/se-en/",
+    description: "Global konsultjätte med omfattande Dynamics 365-praktik. Fokus på stora transformationsprojekt och enterprise-kunder.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Bank & Finans", "Retail", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "CGI",
+    website: "https://www.cgi.com/se",
+    description: "Global IT-konsult med omfattande Dynamics 365-kompetens. Erbjuder helhetslösningar för stora organisationer och offentlig sektor.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Columbus",
+    website: "https://www.columbusglobal.com/sv",
+    description: "Global Dynamics 365-partner med stark nordisk närvaro. Digital Value. Human Intelligence - helhetslösningar inom ERP och CRM.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Retail", "Grossist"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Cosmo Consult",
+    website: "https://www.cosmoconsult.com/sv-se/",
+    description: "Internationell Dynamics 365-partner med stark närvaro i Norden. Specialister på Business Central med egna branschlösningar.",
+    applications: ["Business Central", "Finance & SCM"],
+    industries: ["Tillverkning", "Tjänsteföretag", "Grossist"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "EY",
+    website: "https://www.ey.com/sv_se",
+    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora transformationsprojekt.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Fellowmind",
+    website: "https://www.fellowmind.com/sv-se/",
+    description: "Microsoft EMEA Channel Partner of the Year 2025. En av Nordens största Dynamics 365-partners med bred kompetens inom ERP och CRM.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "HSO",
+    website: "https://www.hso.com/sv",
+    description: "Global Microsoft-partner specialiserad på Dynamics 365 och molntjänster. Stark branschexpertis inom tillverkning, distribution och retail.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Implema",
+    website: "https://www.implema.se",
+    description: "Snabbt, säkert och redo för framtiden. Accelerera din affär med SAP och Microsoft Dynamics.",
+    applications: ["Finance & SCM", "Business Central"],
+    industries: ["Tillverkning", "Grossist"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "KPMG",
+    website: "https://kpmg.com/se/sv",
+    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora transformationsprojekt.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "PWC",
+    website: "https://www.pwc.se",
+    description: "Global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. Fokus på finans, revision och stora enterprise-transformationer.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Sopra Steria",
+    website: "https://www.soprasteria.se",
+    description: "Europeisk teknologikonsult med stark närvaro i Norden. Omfattande Dynamics 365-kompetens för offentlig sektor och stora företag.",
+    applications: ["Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "TCS (Tata Consultancy Services)",
+    website: "https://www.tcs.com",
+    description: "Global IT-tjänsteleverantör och en av världens största Microsoft-partners. Fokus på stora enterprise-transformationer och globala implementationer.",
+    applications: ["Finance & SCM", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+];
+
 const FinanceSupplyChain = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Filter partners that work with Finance & SCM
+  const fscPartners = useMemo(() => {
+    return allPartners
+      .filter(partner => partner.applications.includes("Finance & SCM"))
+      .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
   }, []);
 
   const fscVideos = [
@@ -622,8 +763,101 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Finance & Supply Chain-partners
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Här är ett urval av partners som arbetar med Dynamics 365 Finance & Supply Chain i Sverige
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {fscPartners.map((partner, index) => (
+              <Card 
+                key={index} 
+                className="group relative border-0 bg-gradient-to-br from-card via-card to-muted/30 hover:from-primary/5 hover:via-card hover:to-accent/5 transition-all duration-300 flex flex-col shadow-lg hover:shadow-2xl hover:shadow-primary/10 transform hover:-translate-y-2 hover:scale-[1.02]"
+                style={{
+                  boxShadow: '0 4px 20px -4px hsl(var(--primary) / 0.1), 0 8px 16px -8px hsl(var(--muted) / 0.3)'
+                }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-finance-supply via-accent to-finance-supply rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity" />
+                
+                <CardHeader className="pb-3 pt-5">
+                  <CardTitle className="text-lg text-center font-bold text-foreground group-hover:text-finance-supply transition-colors">
+                    {partner.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 flex-1 flex flex-col">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {partner.description}
+                  </p>
+                  
+                  <div className="bg-muted/30 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Applikationer:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.applications.map((app, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs bg-finance-supply/10 text-finance-supply border-0">
+                          {app}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/20 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Branscher:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.industries.map((industry, i) => (
+                        <Badge key={i} variant="outline" className="text-xs border-accent/30 text-muted-foreground">
+                          {industry}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/20 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Företagsstorlek:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.companySize.map((size, i) => (
+                        <Badge key={i} variant="outline" className="text-xs bg-accent/10 border-accent/30 text-accent-foreground">
+                          {size}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-4">
+                    <a 
+                      href={partner.website} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-finance-supply hover:text-finance-supply/80 group/link"
+                    >
+                      Besök hemsida
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/valj-partner">
+                Se alla partners
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
