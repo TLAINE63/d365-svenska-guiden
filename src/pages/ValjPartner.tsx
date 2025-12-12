@@ -457,13 +457,6 @@ const ValjPartner = () => {
             {filteredPartners.map((partner, index) => (
               <Card key={index} className="border border-border hover:border-primary/50 transition-colors flex flex-col">
                 <CardHeader className="pb-3">
-                  <div className="h-16 flex items-center justify-center mb-3">
-                    <img 
-                      src={partner.logo} 
-                      alt={`${partner.name} logotyp`}
-                      className="max-h-12 max-w-full object-contain"
-                    />
-                  </div>
                   <CardTitle className="text-lg text-center">{partner.name}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4 flex-1 flex flex-col">
