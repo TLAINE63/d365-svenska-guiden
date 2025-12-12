@@ -4,14 +4,16 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
@@ -19,9 +21,126 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+interface Partner {
+  name: string;
+  website: string;
+  description: string;
+  applications: string[];
+  industries: string[];
+  companySize: string[];
+}
+
+const crmApplications = ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"];
+
+const allPartners: Partner[] = [
+  {
+    name: "Absfront",
+    website: "https://absfront.se",
+    description: "Specialister på CRM och Customer Experience inom Dynamics 365, Power Platform och Data. Fokus på kundupplevelser utan gränser.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tjänsteföretag"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Accigo",
+    website: "https://accigo.se",
+    description: "Microsoft Dynamics 365 Partner of The Year 2024. Smart digital transformation med fokus på Customer Engagement och Power Platform.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tjänsteföretag", "Bank & Finans"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "CRM Konsulterna",
+    website: "https://crmkonsulterna.se",
+    description: "Vi placerar kunden i centrum. Specialister på Dynamics 365 Customer Engagement, CRM och Power Platform.",
+    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service"],
+    industries: ["Tjänsteföretag"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Engage Group",
+    website: "https://engagegroup.se",
+    description: "Experts In Dynamics 365. Your Local Partner With Global Reach. Fokus på CRM och Customer Engagement.",
+    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service"],
+    industries: ["Tjänsteföretag"],
+    companySize: ["Medelstora"]
+  },
+  {
+    name: "Fellowmind",
+    website: "https://www.fellowmind.com/sv-se/",
+    description: "Microsoft EMEA Channel Partner of the Year 2025. En av Nordens största Dynamics 365-partners med bred kompetens inom ERP och CRM.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "FourOne",
+    website: "https://fourone.se",
+    description: "Nordisk CRM-specialist med fokus på Dynamics 365 Customer Engagement och Power Platform. Hjälper företag att skapa bättre kundrelationer.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service"],
+    industries: ["Tjänsteföretag", "E-handel"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Goodfellows",
+    website: "https://goodfellows.se",
+    description: "Goodfellows IT, support & drift blir en del av Upheads. Välkommen till det goda livet med personlig IT-service.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tjänsteföretag", "E-handel"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Sherpas",
+    website: "https://sherpas.se",
+    description: "Nordic Microsoft Expert Partner med fokus på kundupplevelser och digital transformation. Specialister på Dynamics 365 och Power Platform.",
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service"],
+    industries: ["Tjänsteföretag", "E-handel", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Avanade",
+    website: "https://www.avanade.com/sv-se",
+    description: "Joint venture mellan Accenture och Microsoft. Världens största leverantör av Microsoft-tjänster med djup expertis inom hela Dynamics 365-plattformen.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service", "Customer Insights (Marketing)"],
+    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
+    companySize: ["Stora"]
+  },
+  {
+    name: "Columbus",
+    website: "https://www.columbusglobal.com/sv",
+    description: "Global Dynamics 365-partner med stark nordisk närvaro. Digital Value. Human Intelligence - helhetslösningar inom ERP och CRM.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Retail", "Grossist"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Cepheo",
+    website: "https://cepheo.com",
+    description: "Erfaren nordisk Dynamics 365-partner med över 39 års erfarenhet. Digital Empowerment för medelstora och stora företag.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "HSO",
+    website: "https://www.hso.com/sv",
+    description: "Global Microsoft-partner specialiserad på Dynamics 365 och molntjänster. Stark branschexpertis inom tillverkning, distribution och retail.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+];
+
 const CRM = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Filter partners that work with CRM applications
+  const crmPartners = useMemo(() => {
+    return allPartners
+      .filter(partner => partner.applications.some(app => crmApplications.includes(app)))
+      .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
   }, []);
 
   const ceVideos = [
@@ -581,6 +700,99 @@ const CRM = () => {
           <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
             Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
           </p>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              CRM-partners
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {crmPartners.map((partner, index) => (
+              <Card 
+                key={index} 
+                className="group relative border-0 bg-gradient-to-br from-card via-card to-muted/30 hover:from-primary/5 hover:via-card hover:to-accent/5 transition-all duration-300 flex flex-col shadow-lg hover:shadow-2xl hover:shadow-primary/10 transform hover:-translate-y-2 hover:scale-[1.02]"
+                style={{
+                  boxShadow: '0 4px 20px -4px hsl(var(--primary) / 0.1), 0 8px 16px -8px hsl(var(--muted) / 0.3)'
+                }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-crm via-accent to-crm rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity" />
+                
+                <CardHeader className="pb-3 pt-5">
+                  <CardTitle className="text-lg text-center font-bold text-foreground group-hover:text-crm transition-colors">
+                    {partner.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 flex-1 flex flex-col">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {partner.description}
+                  </p>
+                  
+                  <div className="bg-muted/30 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Applikationer:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.applications.map((app, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs bg-crm/10 text-crm border-0">
+                          {app}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/20 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Branscher:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.industries.map((industry, i) => (
+                        <Badge key={i} variant="outline" className="text-xs border-accent/30 text-muted-foreground">
+                          {industry}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/20 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Företagsstorlek:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.companySize.map((size, i) => (
+                        <Badge key={i} variant="outline" className="text-xs bg-accent/10 border-accent/30 text-accent-foreground">
+                          {size}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-4">
+                    <a 
+                      href={partner.website} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-crm hover:text-crm/80 group/link"
+                    >
+                      Besök hemsida
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/valj-partner">
+                Se alla partners
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
