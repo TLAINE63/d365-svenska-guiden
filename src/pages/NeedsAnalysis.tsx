@@ -91,7 +91,8 @@ const employeeOptions = [
 ];
 
 const revenueOptions = [
-  "< 49 MSEK",
+  "1-9 MSEK",
+  "10-49 MSEK",
   "50-499 MSEK",
   "500-999 MSEK",
   "1.000-4.999 MSEK",
