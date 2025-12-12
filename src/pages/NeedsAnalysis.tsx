@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,16 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Building2, Globe, Boxes, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 import jsPDF from "jspdf";
 import SelectionCard from "@/components/SelectionCard";
+
+// Contact form validation schema
+const contactFormSchema = z.object({
+  companyName: z.string().trim().min(1, "Företagsnamn krävs").max(100, "Företagsnamn får max vara 100 tecken"),
+  contactName: z.string().trim().min(1, "Namn krävs").max(100, "Namn får max vara 100 tecken"),
+  phone: z.string().trim().min(1, "Telefonnummer krävs").max(20, "Telefonnummer får max vara 20 tecken"),
+  email: z.string().trim().min(1, "E-postadress krävs").email("Ogiltig e-postadress").max(255, "E-postadress får max vara 255 tecken"),
+});
+
+type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
 interface AnalysisData {
   // Step 1
@@ -220,6 +231,7 @@ const NeedsAnalysis = () => {
   const [data, setData] = useState<AnalysisData>(initialData);
   const [showContactForm, setShowContactForm] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
 
   const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
@@ -397,6 +409,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
   };
 
   const generateDocument = () => {
+    if (!validateContactForm()) {
+      return;
+    }
+    
     const recommendation = getERPRecommendation();
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -722,6 +738,30 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // Save PDF
     pdf.save(`Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
     setIsComplete(true);
+  };
+
+  const validateContactForm = (): boolean => {
+    const result = contactFormSchema.safeParse({
+      companyName: data.companyName,
+      contactName: data.contactName,
+      phone: data.phone,
+      email: data.email,
+    });
+
+    if (!result.success) {
+      const errors: ContactFormErrors = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0] as keyof ContactFormErrors;
+        if (!errors[field]) {
+          errors[field] = err.message;
+        }
+      });
+      setContactErrors(errors);
+      return false;
+    }
+
+    setContactErrors({});
+    return true;
   };
 
   const isContactFormValid = () => {
@@ -1258,9 +1298,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         id="companyName"
                         placeholder="Ditt företag AB"
                         value={data.companyName}
-                        onChange={(e) => setData({ ...data, companyName: e.target.value })}
-                        className="mt-2"
+                        onChange={(e) => {
+                          setData({ ...data, companyName: e.target.value });
+                          if (contactErrors.companyName) {
+                            setContactErrors({ ...contactErrors, companyName: undefined });
+                          }
+                        }}
+                        className={`mt-2 ${contactErrors.companyName ? 'border-destructive' : ''}`}
                       />
+                      {contactErrors.companyName && (
+                        <p className="text-sm text-destructive mt-1">{contactErrors.companyName}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="contactName">Ditt namn *</Label>
@@ -1268,9 +1316,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         id="contactName"
                         placeholder="Förnamn Efternamn"
                         value={data.contactName}
-                        onChange={(e) => setData({ ...data, contactName: e.target.value })}
-                        className="mt-2"
+                        onChange={(e) => {
+                          setData({ ...data, contactName: e.target.value });
+                          if (contactErrors.contactName) {
+                            setContactErrors({ ...contactErrors, contactName: undefined });
+                          }
+                        }}
+                        className={`mt-2 ${contactErrors.contactName ? 'border-destructive' : ''}`}
                       />
+                      {contactErrors.contactName && (
+                        <p className="text-sm text-destructive mt-1">{contactErrors.contactName}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="phone">Telefonnummer *</Label>
@@ -1279,9 +1335,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         type="tel"
                         placeholder="+46 70 123 45 67"
                         value={data.phone}
-                        onChange={(e) => setData({ ...data, phone: e.target.value })}
-                        className="mt-2"
+                        onChange={(e) => {
+                          setData({ ...data, phone: e.target.value });
+                          if (contactErrors.phone) {
+                            setContactErrors({ ...contactErrors, phone: undefined });
+                          }
+                        }}
+                        className={`mt-2 ${contactErrors.phone ? 'border-destructive' : ''}`}
                       />
+                      {contactErrors.phone && (
+                        <p className="text-sm text-destructive mt-1">{contactErrors.phone}</p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="email">E-postadress *</Label>
@@ -1290,9 +1354,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         type="email"
                         placeholder="namn@foretag.se"
                         value={data.email}
-                        onChange={(e) => setData({ ...data, email: e.target.value })}
-                        className="mt-2"
+                        onChange={(e) => {
+                          setData({ ...data, email: e.target.value });
+                          if (contactErrors.email) {
+                            setContactErrors({ ...contactErrors, email: undefined });
+                          }
+                        }}
+                        className={`mt-2 ${contactErrors.email ? 'border-destructive' : ''}`}
                       />
+                      {contactErrors.email && (
+                        <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>
+                      )}
                     </div>
                   </div>
                 </div>
