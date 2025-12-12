@@ -565,21 +565,6 @@ const ValjPartner = () => {
         </div>
       </header>
 
-      {/* Introduction Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-              Varför är partnerval så viktigt?
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8">
-              Valet av implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
-              En bra partner kan vara skillnaden mellan ett framgångsrikt projekt och ett som kostar mer tid och pengar än planerat.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Fem viktiga frågor Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
@@ -588,6 +573,10 @@ const ValjPartner = () => {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Fem viktiga frågor vid val av implementationspartner
               </h2>
+              <p className="text-base sm:text-lg text-muted-foreground px-2 mb-4">
+                Valet av implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
+                En bra partner kan vara skillnaden mellan ett framgångsrikt projekt och ett som kostar mer tid och pengar än planerat.
+              </p>
               <p className="text-base sm:text-lg text-muted-foreground px-2">
                 Här är fem viktiga frågor du (eller din organisation) bör ställa er själva inför valet av implementationspartner för Dynamics 365
               </p>
