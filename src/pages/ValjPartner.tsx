@@ -485,8 +485,8 @@ const ValjPartner = () => {
                   onClick={() => setSelectedIndustry(selectedIndustry === industry ? null : industry)}
                   className={`transition-all rounded-full px-4 ${
                     selectedIndustry === industry 
-                      ? "bg-gradient-to-r from-accent to-accent/80 text-accent-foreground shadow-lg shadow-accent/25 scale-105" 
-                      : "border-accent/30 text-accent-foreground hover:bg-accent/10 hover:border-accent/50 hover:scale-105"
+                      ? "bg-gradient-to-r from-accent to-accent/80 text-white shadow-lg shadow-accent/25 scale-105" 
+                      : "border-foreground/30 text-foreground hover:bg-accent/10 hover:border-accent hover:text-accent hover:scale-105"
                   }`}
                 >
                   {industry}
