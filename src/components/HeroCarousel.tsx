@@ -57,6 +57,20 @@ const slides: HeroSlide[] = [
     ctaLink: "/crm-behovsanalys",
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
   },
+  {
+    id: 4,
+    backgroundImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=65&w=1600",
+    title: (
+      <>
+        Hitta rätt <span className="text-amber-400">implementationspartner</span>
+      </>
+    ),
+    subtitle: "Utforska vår partnerkatalog och hitta den perfekta partnern för ditt Dynamics 365-projekt",
+    ctaType: "link",
+    ctaText: "Utforska partners här",
+    ctaLink: "/valj-partner",
+    buttonColor: "bg-amber-500 hover:bg-amber-600",
+  },
 ];
 
 const HeroCarousel = () => {
