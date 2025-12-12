@@ -6,12 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Users, Headphones, Wrench, Megaphone, Target, Building2, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 import jsPDF from "jspdf";
+import SelectionCard from "@/components/SelectionCard";
 
 interface CRMAnalysisData {
   // Step 1 - Company size
@@ -688,42 +687,45 @@ const CRMNeedsAnalysis = () => {
           <div className="space-y-6">
             <div>
               <Label className="text-base font-semibold mb-3 block">Antal anställda i företaget</Label>
-              <RadioGroup value={data.employees} onValueChange={(value) => setData({ ...data, employees: value })}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {employeeOptions.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <RadioGroupItem value={option} id={`emp-${option}`} />
-                      <Label htmlFor={`emp-${option}`} className="cursor-pointer">{option}</Label>
-                    </div>
-                  ))}
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {employeeOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.employees === option}
+                    onClick={() => setData({ ...data, employees: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Storlek på säljteam</Label>
-              <RadioGroup value={data.salesTeamSize} onValueChange={(value) => setData({ ...data, salesTeamSize: value })}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {teamSizeOptions.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <RadioGroupItem value={option} id={`sales-${option}`} />
-                      <Label htmlFor={`sales-${option}`} className="cursor-pointer">{option}</Label>
-                    </div>
-                  ))}
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {teamSizeOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.salesTeamSize === option}
+                    onClick={() => setData({ ...data, salesTeamSize: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Storlek på kundserviceteam</Label>
-              <RadioGroup value={data.serviceTeamSize} onValueChange={(value) => setData({ ...data, serviceTeamSize: value })}>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {teamSizeOptions.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <RadioGroupItem value={option} id={`service-${option}`} />
-                      <Label htmlFor={`service-${option}`} className="cursor-pointer">{option}</Label>
-                    </div>
-                  ))}
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {teamSizeOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.serviceTeamSize === option}
+                    onClick={() => setData({ ...data, serviceTeamSize: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         );
@@ -733,29 +735,29 @@ const CRMNeedsAnalysis = () => {
           <div className="space-y-6">
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilket CRM-system använder ni idag?</Label>
-              <RadioGroup value={data.currentCRM} onValueChange={(value) => setData({ ...data, currentCRM: value })}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {currentCRMOptions.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <RadioGroupItem value={option} id={`crm-${option}`} />
-                      <Label htmlFor={`crm-${option}`} className="cursor-pointer">{option}</Label>
-                    </div>
-                  ))}
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {currentCRMOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.currentCRM === option}
+                    onClick={() => setData({ ...data, currentCRM: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag? (välj alla som stämmer)</Label>
               <div className="grid grid-cols-1 gap-3">
                 {crmChallengeOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`challenge-${option}`}
-                      checked={data.crmChallenges.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("crmChallenges", option)}
-                    />
-                    <Label htmlFor={`challenge-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.crmChallenges.includes(option)}
+                    onClick={() => handleCheckboxChange("crmChallenges", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
               <Textarea
@@ -773,29 +775,29 @@ const CRMNeedsAnalysis = () => {
           <div className="space-y-6">
             <div>
               <Label className="text-base font-semibold mb-3 block">Hur komplex är er säljprocess?</Label>
-              <RadioGroup value={data.salesProcessComplexity} onValueChange={(value) => setData({ ...data, salesProcessComplexity: value })}>
-                <div className="grid grid-cols-1 gap-3">
-                  {salesComplexityOptions.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <RadioGroupItem value={option} id={`complexity-${option}`} />
-                      <Label htmlFor={`complexity-${option}`} className="cursor-pointer">{option}</Label>
-                    </div>
-                  ))}
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-1 gap-3">
+                {salesComplexityOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.salesProcessComplexity === option}
+                    onClick={() => setData({ ...data, salesProcessComplexity: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka säljfunktioner behöver ni? (välj alla som stämmer)</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {salesNeedOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`sales-need-${option}`}
-                      checked={data.salesNeeds.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("salesNeeds", option)}
-                    />
-                    <Label htmlFor={`sales-need-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.salesNeeds.includes(option)}
+                    onClick={() => handleCheckboxChange("salesNeeds", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
               <Textarea
@@ -815,14 +817,13 @@ const CRMNeedsAnalysis = () => {
               <Label className="text-base font-semibold mb-3 block">Vilka kanaler använder ni för kundservice?</Label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {serviceChannelOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`channel-${option}`}
-                      checked={data.serviceChannels.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("serviceChannels", option)}
-                    />
-                    <Label htmlFor={`channel-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.serviceChannels.includes(option)}
+                    onClick={() => handleCheckboxChange("serviceChannels", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
             </div>
@@ -830,14 +831,13 @@ const CRMNeedsAnalysis = () => {
               <Label className="text-base font-semibold mb-3 block">Vilka kundservicefunktioner behöver ni? (välj alla som stämmer)</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {serviceNeedOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`service-need-${option}`}
-                      checked={data.serviceNeeds.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("serviceNeeds", option)}
-                    />
-                    <Label htmlFor={`service-need-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.serviceNeeds.includes(option)}
+                    onClick={() => handleCheckboxChange("serviceNeeds", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
               <Textarea
@@ -851,40 +851,39 @@ const CRMNeedsAnalysis = () => {
         );
 
       case 5:
+        const fieldServiceRadioOptions = [
+          { value: "Ja", label: "Ja" },
+          { value: "Nej", label: "Nej" },
+          { value: "Planerar att starta", label: "Planerar att starta" }
+        ];
         return (
           <div className="space-y-6">
             <div>
               <Label className="text-base font-semibold mb-3 block">Har ni fältserviceverksamhet?</Label>
-              <RadioGroup value={data.hasFieldService} onValueChange={(value) => setData({ ...data, hasFieldService: value })}>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Ja" id="field-yes" />
-                    <Label htmlFor="field-yes" className="cursor-pointer">Ja</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Nej" id="field-no" />
-                    <Label htmlFor="field-no" className="cursor-pointer">Nej</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Planerar att starta" id="field-plan" />
-                    <Label htmlFor="field-plan" className="cursor-pointer">Planerar att starta</Label>
-                  </div>
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {fieldServiceRadioOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    selected={data.hasFieldService === option.value}
+                    onClick={() => setData({ ...data, hasFieldService: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
             {(data.hasFieldService === "Ja" || data.hasFieldService === "Planerar att starta") && (
               <div>
                 <Label className="text-base font-semibold mb-3 block">Vilka fältservicefunktioner behöver ni?</Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {fieldServiceNeedOptions.map((option) => (
-                    <div key={option} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`field-need-${option}`}
-                        checked={data.fieldServiceNeeds.includes(option)}
-                        onCheckedChange={() => handleCheckboxChange("fieldServiceNeeds", option)}
-                      />
-                      <Label htmlFor={`field-need-${option}`} className="cursor-pointer">{option}</Label>
-                    </div>
+                    <SelectionCard
+                      key={option}
+                      label={option}
+                      selected={data.fieldServiceNeeds.includes(option)}
+                      onClick={() => handleCheckboxChange("fieldServiceNeeds", option)}
+                      type="checkbox"
+                    />
                   ))}
                 </div>
                 <Textarea
@@ -905,14 +904,13 @@ const CRMNeedsAnalysis = () => {
               <Label className="text-base font-semibold mb-3 block">Vilka marknadsföringskanaler använder ni?</Label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {marketingChannelOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`mkt-channel-${option}`}
-                      checked={data.marketingChannels.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("marketingChannels", option)}
-                    />
-                    <Label htmlFor={`mkt-channel-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.marketingChannels.includes(option)}
+                    onClick={() => handleCheckboxChange("marketingChannels", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
             </div>
@@ -920,14 +918,13 @@ const CRMNeedsAnalysis = () => {
               <Label className="text-base font-semibold mb-3 block">Vilka marknadsföringsfunktioner behöver ni?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {marketingNeedOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`mkt-need-${option}`}
-                      checked={data.marketingNeeds.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("marketingNeeds", option)}
-                    />
-                    <Label htmlFor={`mkt-need-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.marketingNeeds.includes(option)}
+                    onClick={() => handleCheckboxChange("marketingNeeds", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
               <Textarea
@@ -947,14 +944,13 @@ const CRMNeedsAnalysis = () => {
               <Label className="text-base font-semibold mb-3 block">Vilka integrationer är viktiga för er?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {integrationOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`integration-${option}`}
-                      checked={data.integrations.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("integrations", option)}
-                    />
-                    <Label htmlFor={`integration-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.integrations.includes(option)}
+                    onClick={() => handleCheckboxChange("integrations", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
               <Textarea
@@ -974,14 +970,13 @@ const CRMNeedsAnalysis = () => {
               <Label className="text-base font-semibold mb-3 block">Vilka nyckeltal (KPI:er) är viktigast för er?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {kpiOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`kpi-${option}`}
-                      checked={data.kpis.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("kpis", option)}
-                    />
-                    <Label htmlFor={`kpi-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.kpis.includes(option)}
+                    onClick={() => handleCheckboxChange("kpis", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
               <Textarea
@@ -995,43 +990,39 @@ const CRMNeedsAnalysis = () => {
         );
 
       case 9:
+        const aiInterestOptions = [
+          { value: "Mycket intresserade", label: "Mycket intresserade" },
+          { value: "Ganska intresserade", label: "Ganska intresserade" },
+          { value: "Lite intresserade", label: "Lite intresserade" },
+          { value: "Ej intresserade just nu", label: "Ej intresserade just nu" }
+        ];
         return (
           <div className="space-y-6">
             <div>
               <Label className="text-base font-semibold mb-3 block">Hur intresserade är ni av AI och automation?</Label>
-              <RadioGroup value={data.aiInterest} onValueChange={(value) => setData({ ...data, aiInterest: value })}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Mycket intresserade" id="ai-high" />
-                    <Label htmlFor="ai-high" className="cursor-pointer">Mycket intresserade</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Ganska intresserade" id="ai-medium" />
-                    <Label htmlFor="ai-medium" className="cursor-pointer">Ganska intresserade</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Lite intresserade" id="ai-low" />
-                    <Label htmlFor="ai-low" className="cursor-pointer">Lite intresserade</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Ej intresserade just nu" id="ai-none" />
-                    <Label htmlFor="ai-none" className="cursor-pointer">Ej intresserade just nu</Label>
-                  </div>
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiInterestOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    selected={data.aiInterest === option.value}
+                    onClick={() => setData({ ...data, aiInterest: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka AI-användningsområden är intressanta?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {aiUseCaseOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`ai-${option}`}
-                      checked={data.aiUseCases.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange("aiUseCases", option)}
-                    />
-                    <Label htmlFor={`ai-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.aiUseCases.includes(option)}
+                    onClick={() => handleCheckboxChange("aiUseCases", option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
             </div>

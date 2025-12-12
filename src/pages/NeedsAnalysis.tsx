@@ -5,12 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Building2, Globe, Boxes, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 import jsPDF from "jspdf";
+import SelectionCard from "@/components/SelectionCard";
 
 interface AnalysisData {
   // Step 1
@@ -735,33 +734,31 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="space-y-8">
             <div>
               <h3 className="text-lg font-semibold mb-4">Antal anställda</h3>
-              <RadioGroup
-                value={data.employees}
-                onValueChange={(value) => setData({ ...data, employees: value })}
-                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3"
-              >
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {employeeOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <RadioGroupItem value={option} id={`emp-${option}`} />
-                    <Label htmlFor={`emp-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.employees === option}
+                    onClick={() => setData({ ...data, employees: option })}
+                    type="radio"
+                  />
                 ))}
-              </RadioGroup>
+              </div>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Omsättning</h3>
-              <RadioGroup
-                value={data.revenue}
-                onValueChange={(value) => setData({ ...data, revenue: value })}
-                className="grid grid-cols-2 sm:grid-cols-3 gap-3"
-              >
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {revenueOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <RadioGroupItem value={option} id={`rev-${option}`} />
-                    <Label htmlFor={`rev-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.revenue === option}
+                    onClick={() => setData({ ...data, revenue: option })}
+                    type="radio"
+                  />
                 ))}
-              </RadioGroup>
+              </div>
             </div>
           </div>
         );
@@ -772,14 +769,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <p className="text-muted-foreground">Välj en eller flera branscher som bäst beskriver er verksamhet.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {industryOptions.map((option) => (
-                <div key={option} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`ind-${option}`}
-                    checked={data.industries.includes(option)}
-                    onCheckedChange={() => handleCheckboxChange('industries', option)}
-                  />
-                  <Label htmlFor={`ind-${option}`} className="cursor-pointer">{option}</Label>
-                </div>
+                <SelectionCard
+                  key={option}
+                  label={option}
+                  selected={data.industries.includes(option)}
+                  onClick={() => handleCheckboxChange('industries', option)}
+                  type="checkbox"
+                />
               ))}
             </div>
             <div>
@@ -801,14 +797,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <p className="text-muted-foreground">Var bedriver ni er verksamhet?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {geographyOptions.map((option) => (
-                <div key={option} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`geo-${option}`}
-                    checked={data.geography.includes(option)}
-                    onCheckedChange={() => handleCheckboxChange('geography', option)}
-                  />
-                  <Label htmlFor={`geo-${option}`} className="cursor-pointer">{option}</Label>
-                </div>
+                <SelectionCard
+                  key={option}
+                  label={option}
+                  selected={data.geography.includes(option)}
+                  onClick={() => handleCheckboxChange('geography', option)}
+                  type="checkbox"
+                />
               ))}
             </div>
             <div>
@@ -830,14 +825,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <p className="text-muted-foreground">Vilka funktioner och moduler är viktigast för er verksamhet?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {moduleOptions.map((option) => (
-                <div key={option} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`mod-${option}`}
-                    checked={data.modules.includes(option)}
-                    onCheckedChange={() => handleCheckboxChange('modules', option)}
-                  />
-                  <Label htmlFor={`mod-${option}`} className="cursor-pointer">{option}</Label>
-                </div>
+                <SelectionCard
+                  key={option}
+                  label={option}
+                  selected={data.modules.includes(option)}
+                  onClick={() => handleCheckboxChange('modules', option)}
+                  type="checkbox"
+                />
               ))}
             </div>
             <div>
@@ -859,14 +853,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <p className="text-muted-foreground">Vilka integrationer behöver ni mot andra system?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {integrationOptions.map((option) => (
-                <div key={option} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`int-${option}`}
-                    checked={data.integrations.includes(option)}
-                    onCheckedChange={() => handleCheckboxChange('integrations', option)}
-                  />
-                  <Label htmlFor={`int-${option}`} className="cursor-pointer">{option}</Label>
-                </div>
+                <SelectionCard
+                  key={option}
+                  label={option}
+                  selected={data.integrations.includes(option)}
+                  onClick={() => handleCheckboxChange('integrations', option)}
+                  type="checkbox"
+                />
               ))}
             </div>
             <div>
@@ -887,18 +880,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="space-y-6">
             <div>
               <h3 className="text-lg font-semibold mb-4">Nuvarande ERP-system</h3>
-              <RadioGroup
-                value={data.currentERP}
-                onValueChange={(value) => setData({ ...data, currentERP: value })}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-3"
-              >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {erpSystemOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <RadioGroupItem value={option} id={`erp-${option}`} />
-                    <Label htmlFor={`erp-${option}`} className="cursor-pointer text-sm">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.currentERP === option}
+                    onClick={() => setData({ ...data, currentERP: option })}
+                    type="radio"
+                  />
                 ))}
-              </RadioGroup>
+              </div>
             </div>
             <div>
               <Label htmlFor="erpInstallYear">Installationsår (ungefärligt)</Label>
@@ -915,14 +907,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <h3 className="text-lg font-semibold mb-4">Övriga system i verksamheten</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {otherSystemOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`other-${option}`}
-                      checked={data.otherSystems.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange('otherSystems', option)}
-                    />
-                    <Label htmlFor={`other-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.otherSystems.includes(option)}
+                    onClick={() => handleCheckboxChange('otherSystems', option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
             </div>
@@ -945,14 +936,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <p className="text-muted-foreground">Vilka utmaningar upplever ni som behöver hanteras i ett nytt affärssystem?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {challengeOptions.map((option) => (
-                <div key={option} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`chal-${option}`}
-                    checked={data.challenges.includes(option)}
-                    onCheckedChange={() => handleCheckboxChange('challenges', option)}
-                  />
-                  <Label htmlFor={`chal-${option}`} className="cursor-pointer">{option}</Label>
-                </div>
+                <SelectionCard
+                  key={option}
+                  label={option}
+                  selected={data.challenges.includes(option)}
+                  onClick={() => handleCheckboxChange('challenges', option)}
+                  type="checkbox"
+                />
               ))}
             </div>
             <div>
@@ -974,14 +964,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <p className="text-muted-foreground">Vilka nyckeltal är viktigast för er verksamhet att följa och förbättra?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {kpiOptions.map((option) => (
-                <div key={option} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`kpi-${option}`}
-                    checked={data.kpis.includes(option)}
-                    onCheckedChange={() => handleCheckboxChange('kpis', option)}
-                  />
-                  <Label htmlFor={`kpi-${option}`} className="cursor-pointer">{option}</Label>
-                </div>
+                <SelectionCard
+                  key={option}
+                  label={option}
+                  selected={data.kpis.includes(option)}
+                  onClick={() => handleCheckboxChange('kpis', option)}
+                  type="checkbox"
+                />
               ))}
             </div>
             <div>
@@ -998,45 +987,39 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 9:
+        const aiInterestOptions = [
+          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
+          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
+          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
+          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" }
+        ];
         return (
           <div className="space-y-6">
             <div>
               <h3 className="text-lg font-semibold mb-4">Hur intresserade är ni av AI i affärssystemet?</h3>
-              <RadioGroup
-                value={data.aiInterest}
-                onValueChange={(value) => setData({ ...data, aiInterest: value })}
-                className="space-y-3"
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Mycket intresserade" id="ai-high" />
-                  <Label htmlFor="ai-high" className="cursor-pointer">Mycket intresserade - Vi vill vara i framkant</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Ganska intresserade" id="ai-medium" />
-                  <Label htmlFor="ai-medium" className="cursor-pointer">Ganska intresserade - Vi vill utforska möjligheterna</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Avvaktande" id="ai-low" />
-                  <Label htmlFor="ai-low" className="cursor-pointer">Avvaktande - Vi vill se konkreta användningsfall först</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Inte intresserade just nu" id="ai-none" />
-                  <Label htmlFor="ai-none" className="cursor-pointer">Inte intresserade just nu</Label>
-                </div>
-              </RadioGroup>
+              <div className="grid grid-cols-1 gap-3">
+                {aiInterestOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    selected={data.aiInterest === option.value}
+                    onClick={() => setData({ ...data, aiInterest: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {aiUseCaseOptions.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`ai-${option}`}
-                      checked={data.aiUseCases.includes(option)}
-                      onCheckedChange={() => handleCheckboxChange('aiUseCases', option)}
-                    />
-                    <Label htmlFor={`ai-${option}`} className="cursor-pointer">{option}</Label>
-                  </div>
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.aiUseCases.includes(option)}
+                    onClick={() => handleCheckboxChange('aiUseCases', option)}
+                    type="checkbox"
+                  />
                 ))}
               </div>
             </div>
