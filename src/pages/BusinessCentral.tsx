@@ -4,11 +4,13 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
 import ReleaseWaveImage from "@/assets/bc-release-wave.png";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
@@ -16,9 +18,137 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+interface Partner {
+  name: string;
+  logo: string;
+  website: string;
+  description: string;
+  applications: string[];
+  industries: string[];
+  companySize: string[];
+}
+
+const allPartners: Partner[] = [
+  {
+    name: "NAB Solutions",
+    logo: "",
+    website: "https://www.nabsolutions.se",
+    description: "Specialister på Dynamics 365 Business Central med lång erfarenhet av implementationer för svenska företag. Fokus på tillverkning och distribution.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Navcite",
+    logo: "",
+    website: "https://navcite.se",
+    description: "Small company feeling - Big company experience. Affärssystem med Infor M3 och Microsoft Business Central.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning", "Grossist"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "InBiz",
+    logo: "",
+    website: "https://www.inbiz.se",
+    description: "Din trygga partner för Microsoft Dynamics. Sedan 2005 har vi hjälpt våra kunder att få det bästa ur sitt affärssystem.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Retail"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Dizparc",
+    logo: "",
+    website: "https://dizparc.com",
+    description: "Förverkliga din digitala potential. Lokala verksamheter på flera orter som hjälper dig skapa hållbara digitala lösningar.",
+    applications: ["Business Central"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Evidi (fd. Navipro)",
+    logo: "",
+    website: "https://navipro.se",
+    description: "From NaviPro to Evidi - A New Era of Possibilities. Nordisk Microsoft-partner med djup expertis inom hela Microsoft-plattformen.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Retail"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Navet",
+    logo: "",
+    website: "https://navet.se",
+    description: "Vi skapar bättre affärer tillsammans. Vi förstår verksamheter, teknik och relationer. Del av Addovation Group.",
+    applications: ["Business Central"],
+    industries: ["Retail", "Tjänsteföretag"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Azets",
+    logo: "",
+    website: "https://www.azets.se",
+    description: "Nordisk leverantör av affärssystem och redovisningstjänster med stark Dynamics 365 Business Central-kompetens.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Retail"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
+    name: "Cosmo Consult",
+    logo: "",
+    website: "https://www.cosmoconsult.com/sv-se/",
+    description: "Internationell Dynamics 365-partner med stark närvaro i Norden. Specialister på Business Central med egna branschlösningar.",
+    applications: ["Business Central", "Finance & SCM"],
+    industries: ["Tillverkning", "Tjänsteföretag", "Grossist"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Fellowmind",
+    logo: "",
+    website: "https://www.fellowmind.com/sv-se/",
+    description: "Microsoft EMEA Channel Partner of the Year 2025. En av Nordens största Dynamics 365-partners med bred kompetens inom ERP och CRM.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Columbus",
+    logo: "",
+    website: "https://www.columbusglobal.com/sv",
+    description: "Global Dynamics 365-partner med stark nordisk närvaro. Digital Value. Human Intelligence - helhetslösningar inom ERP och CRM.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Retail", "Grossist"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Cepheo",
+    logo: "",
+    website: "https://cepheo.com",
+    description: "Erfaren nordisk Dynamics 365-partner med över 39 års erfarenhet. Digital Empowerment för medelstora och stora företag.",
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
+    companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "HSO",
+    logo: "",
+    website: "https://www.hso.com/sv",
+    description: "Global Microsoft-partner specialiserad på Dynamics 365 och molntjänster. Stark branschexpertis inom tillverkning, distribution och retail.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Service"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
+    companySize: ["Medelstora", "Stora"]
+  },
+];
+
 const BusinessCentral = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  // Filter partners that work with Business Central
+  const bcPartners = useMemo(() => {
+    return allPartners
+      .filter(partner => partner.applications.includes("Business Central"))
+      .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
   }, []);
 
   const bcVideos = [
@@ -474,6 +604,99 @@ const BusinessCentral = () => {
           <p className="text-sm italic text-muted-foreground text-center mt-8 max-w-4xl mx-auto">
             Observera: Priserna ovan är exempelpriser baserade på Microsofts offentliga prislista vid tidpunkten för sammanställningen. För exakta och aktuella priser, inklusive eventuella rabatter eller volymavtal, rekommenderas att en offert tas fram i samråd med en auktoriserad Microsoft-partner eller direkt via Microsoft.
           </p>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Business Central-partners
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Här är ett urval av partners som arbetar med Dynamics 365 Business Central i Sverige
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {bcPartners.map((partner, index) => (
+              <Card 
+                key={index} 
+                className="group relative border-0 bg-gradient-to-br from-card via-card to-muted/30 hover:from-primary/5 hover:via-card hover:to-accent/5 transition-all duration-300 flex flex-col shadow-lg hover:shadow-2xl hover:shadow-primary/10 transform hover:-translate-y-2 hover:scale-[1.02]"
+                style={{
+                  boxShadow: '0 4px 20px -4px hsl(var(--primary) / 0.1), 0 8px 16px -8px hsl(var(--muted) / 0.3)'
+                }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-business-central via-accent to-business-central rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity" />
+                
+                <CardHeader className="pb-3 pt-5">
+                  <CardTitle className="text-lg text-center font-bold text-foreground group-hover:text-business-central transition-colors">
+                    {partner.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4 flex-1 flex flex-col">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {partner.description}
+                  </p>
+                  
+                  <div className="bg-muted/30 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Applikationer:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.applications.map((app, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs bg-business-central/10 text-business-central border-0">
+                          {app}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/20 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Branscher:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.industries.map((industry, i) => (
+                        <Badge key={i} variant="outline" className="text-xs border-accent/30 text-muted-foreground">
+                          {industry}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-muted/20 rounded-lg p-3">
+                    <p className="text-xs font-semibold text-foreground mb-2">Företagsstorlek:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {partner.companySize.map((size, i) => (
+                        <Badge key={i} variant="outline" className="text-xs bg-accent/10 border-accent/30 text-accent-foreground">
+                          {size}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mt-auto pt-4">
+                    <a 
+                      href={partner.website} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-business-central hover:text-business-central/80 group/link"
+                    >
+                      Besök hemsida
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                    </a>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button asChild variant="outline" size="lg">
+              <Link to="/valj-partner">
+                Se alla partners
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
