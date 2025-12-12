@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,16 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Users, Headphones, Wrench, Megaphone, Target, Building2, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 import jsPDF from "jspdf";
 import SelectionCard from "@/components/SelectionCard";
+
+// Contact form validation schema
+const contactFormSchema = z.object({
+  companyName: z.string().trim().min(1, "Företagsnamn krävs").max(100, "Företagsnamn får max vara 100 tecken"),
+  contactName: z.string().trim().min(1, "Namn krävs").max(100, "Namn får max vara 100 tecken"),
+  phone: z.string().trim().max(20, "Telefonnummer får max vara 20 tecken").optional(),
+  email: z.string().trim().min(1, "E-postadress krävs").email("Ogiltig e-postadress").max(255, "E-postadress får max vara 255 tecken"),
+});
+
+type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
 interface CRMAnalysisData {
   // Step 1 - Company size
@@ -254,6 +265,7 @@ const CRMNeedsAnalysis = () => {
   const [data, setData] = useState<CRMAnalysisData>(initialData);
   const [showContactForm, setShowContactForm] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
 
   const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
@@ -460,7 +472,35 @@ const CRMNeedsAnalysis = () => {
     return { products: scoredProducts };
   };
 
+  const validateContactForm = (): boolean => {
+    const result = contactFormSchema.safeParse({
+      companyName: data.companyName,
+      contactName: data.contactName,
+      phone: data.phone,
+      email: data.email,
+    });
+
+    if (!result.success) {
+      const errors: ContactFormErrors = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0] as keyof ContactFormErrors;
+        if (!errors[field]) {
+          errors[field] = err.message;
+        }
+      });
+      setContactErrors(errors);
+      return false;
+    }
+
+    setContactErrors({});
+    return true;
+  };
+
   const generateDocument = () => {
+    if (!validateContactForm()) {
+      return;
+    }
+    
     const recommendation = getCRMRecommendation();
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -1068,27 +1108,54 @@ const CRMNeedsAnalysis = () => {
           <Input
             id="companyName"
             value={data.companyName}
-            onChange={(e) => setData({ ...data, companyName: e.target.value })}
+            onChange={(e) => {
+              setData({ ...data, companyName: e.target.value });
+              if (contactErrors.companyName) {
+                setContactErrors({ ...contactErrors, companyName: undefined });
+              }
+            }}
             placeholder="Ert företagsnamn"
+            className={contactErrors.companyName ? 'border-destructive' : ''}
           />
+          {contactErrors.companyName && (
+            <p className="text-sm text-destructive mt-1">{contactErrors.companyName}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="contactName">Ditt namn *</Label>
           <Input
             id="contactName"
             value={data.contactName}
-            onChange={(e) => setData({ ...data, contactName: e.target.value })}
+            onChange={(e) => {
+              setData({ ...data, contactName: e.target.value });
+              if (contactErrors.contactName) {
+                setContactErrors({ ...contactErrors, contactName: undefined });
+              }
+            }}
             placeholder="För- och efternamn"
+            className={contactErrors.contactName ? 'border-destructive' : ''}
           />
+          {contactErrors.contactName && (
+            <p className="text-sm text-destructive mt-1">{contactErrors.contactName}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="phone">Telefon</Label>
           <Input
             id="phone"
             value={data.phone}
-            onChange={(e) => setData({ ...data, phone: e.target.value })}
+            onChange={(e) => {
+              setData({ ...data, phone: e.target.value });
+              if (contactErrors.phone) {
+                setContactErrors({ ...contactErrors, phone: undefined });
+              }
+            }}
             placeholder="Telefonnummer"
+            className={contactErrors.phone ? 'border-destructive' : ''}
           />
+          {contactErrors.phone && (
+            <p className="text-sm text-destructive mt-1">{contactErrors.phone}</p>
+          )}
         </div>
         <div>
           <Label htmlFor="email">E-post *</Label>
@@ -1096,9 +1163,18 @@ const CRMNeedsAnalysis = () => {
             id="email"
             type="email"
             value={data.email}
-            onChange={(e) => setData({ ...data, email: e.target.value })}
+            onChange={(e) => {
+              setData({ ...data, email: e.target.value });
+              if (contactErrors.email) {
+                setContactErrors({ ...contactErrors, email: undefined });
+              }
+            }}
             placeholder="din.email@foretag.se"
+            className={contactErrors.email ? 'border-destructive' : ''}
           />
+          {contactErrors.email && (
+            <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>
+          )}
         </div>
       </div>
     </div>
