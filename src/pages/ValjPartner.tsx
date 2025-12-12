@@ -21,6 +21,22 @@ const allApplications = [
   "Project Operations"
 ];
 
+// All available industries for filtering
+const allIndustries = [
+  "Tillverkning",
+  "Distribution",
+  "Handel",
+  "Tjänsteföretag",
+  "B2B",
+  "Retail",
+  "E-handel",
+  "Offentlig sektor",
+  "Finans",
+  "Energi",
+  "Logistik",
+  "Bygg"
+];
+
 export interface Partner {
   name: string;
   logo: string;
@@ -253,14 +269,30 @@ const partners: Partner[] = [
 const ValjPartner = () => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [selectedApplication, setSelectedApplication] = useState<string | null>(null);
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
 
-  // Filter partners based on selected application
+  // Filter partners based on selected application and industry
   const filteredPartners = useMemo(() => {
-    if (!selectedApplication) return partners;
-    return partners.filter(partner => 
-      partner.applications.includes(selectedApplication)
-    );
-  }, [selectedApplication]);
+    let result = partners;
+    
+    if (selectedApplication) {
+      result = result.filter(partner => 
+        partner.applications.includes(selectedApplication)
+      );
+    }
+    
+    if (selectedIndustry) {
+      result = result.filter(partner => 
+        partner.industries.some(ind => 
+          ind.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
+          selectedIndustry.toLowerCase().includes(ind.toLowerCase()) ||
+          ind === "Alla branscher"
+        )
+      );
+    }
+    
+    return result;
+  }, [selectedApplication, selectedIndustry]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -436,23 +468,58 @@ const ValjPartner = () => {
                 </Button>
               ))}
             </div>
-            {selectedApplication && (
-              <div className="text-center mt-4">
-                <p className="text-sm text-muted-foreground">
-                  Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners 
-                  som levererar <span className="font-semibold text-primary">{selectedApplication}</span>
-                </p>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={() => setSelectedApplication(null)}
-                  className="mt-2 text-muted-foreground hover:text-foreground"
-                >
-                  Visa alla partners
-                </Button>
-              </div>
-            )}
           </div>
+
+          {/* Industry Filter */}
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Building2 className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">Filtrera på bransch:</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {allIndustries.map((industry) => (
+                <Button
+                  key={industry}
+                  variant={selectedIndustry === industry ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedIndustry(selectedIndustry === industry ? null : industry)}
+                  className={`transition-all rounded-full px-4 ${
+                    selectedIndustry === industry 
+                      ? "bg-gradient-to-r from-accent to-accent/80 text-accent-foreground shadow-lg shadow-accent/25 scale-105" 
+                      : "border-accent/30 text-accent-foreground hover:bg-accent/10 hover:border-accent/50 hover:scale-105"
+                  }`}
+                >
+                  {industry}
+                  {selectedIndustry === industry && (
+                    <X className="ml-2 h-3 w-3" />
+                  )}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Filter Results Summary */}
+          {(selectedApplication || selectedIndustry) && (
+            <div className="text-center mb-8">
+              <p className="text-sm text-muted-foreground">
+                Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
+                {selectedApplication && <> som levererar <span className="font-semibold text-primary">{selectedApplication}</span></>}
+                {selectedApplication && selectedIndustry && <> och</>}
+                {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
+              </p>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => {
+                  setSelectedApplication(null);
+                  setSelectedIndustry(null);
+                }}
+                className="mt-2 text-muted-foreground hover:text-foreground"
+              >
+                Rensa alla filter
+              </Button>
+            </div>
+          )}
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredPartners.map((partner, index) => (
