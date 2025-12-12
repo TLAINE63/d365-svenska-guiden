@@ -328,14 +328,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               {suggestedPartners.map((partner, index) => (
                 <Card key={index} className="border border-border">
                   <CardHeader className="pb-2">
-                    <div className="flex items-center gap-4">
-                      <img 
-                        src={partner.logo} 
-                        alt={`${partner.name} logotyp`}
-                        className="h-10 w-auto object-contain"
-                      />
-                      <CardTitle className="text-lg">{partner.name}</CardTitle>
-                    </div>
+                    <CardTitle className="text-lg">{partner.name}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <p className="text-sm text-muted-foreground">{partner.description}</p>
