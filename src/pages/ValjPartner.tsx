@@ -28,7 +28,6 @@ const allIndustries = [
   "Distribution",
   "Handel",
   "Tjänsteföretag",
-  "B2B",
   "Retail",
   "E-handel",
   "Offentlig sektor",
@@ -537,8 +536,8 @@ const ValjPartner = () => {
                   onClick={() => setSelectedIndustry(selectedIndustry === industry ? null : industry)}
                   className={`transition-all rounded-full px-4 ${
                     selectedIndustry === industry 
-                      ? "bg-gradient-to-r from-accent to-accent/80 text-white shadow-lg shadow-accent/25 scale-105" 
-                      : "border-foreground/30 text-foreground hover:bg-accent/10 hover:border-accent hover:text-accent hover:scale-105"
+                      ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/25 scale-105 border-0" 
+                      : "border-emerald-500/40 text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 hover:border-emerald-500 hover:scale-105"
                   }`}
                 >
                   {industry}
