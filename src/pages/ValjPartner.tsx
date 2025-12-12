@@ -30,13 +30,22 @@ const partners: Partner[] = [
     companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Fellowmind (Absfront)",
+    name: "Fellowmind",
     logo: "https://www.fellowmind.com/globalassets/images/fellowmind-logo.svg",
     website: "https://www.fellowmind.com/sv-se/",
-    description: "En av Nordens största Dynamics 365-partners med bred kompetens inom både ERP och CRM. Tidigare Absfront, nu del av Fellowmind.",
+    description: "En av Nordens största Dynamics 365-partners med bred kompetens inom både ERP och CRM. Stark närvaro i Sverige, Norge, Finland och Danmark.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
     industries: ["Alla branscher"],
     companySize: ["Medelstora", "Stora"]
+  },
+  {
+    name: "Absfront",
+    logo: "https://absfront.se/wp-content/uploads/2021/01/absfront-logo.svg",
+    website: "https://absfront.se",
+    description: "Specialister på Dynamics 365 Business Central med djup kompetens inom ekonomi och projekthantering. Fokus på svenska tjänsteföretag.",
+    applications: ["Business Central"],
+    industries: ["Tjänsteföretag", "Konsultbolag", "Projektintensiva verksamheter"],
+    companySize: ["Små", "Medelstora"]
   },
   {
     name: "Bisqo",
