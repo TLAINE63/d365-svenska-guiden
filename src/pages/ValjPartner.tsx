@@ -494,9 +494,9 @@ const ValjPartner = () => {
   const [selectedApplication, setSelectedApplication] = useState<string | null>(null);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
 
-  // Filter partners based on selected application and industry
+  // Filter and sort partners alphabetically
   const filteredPartners = useMemo(() => {
-    let result = partners;
+    let result = [...partners];
     
     if (selectedApplication) {
       result = result.filter(partner => 
@@ -514,7 +514,8 @@ const ValjPartner = () => {
       );
     }
     
-    return result;
+    // Sort alphabetically by name
+    return result.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
   }, [selectedApplication, selectedIndustry]);
 
   return (
