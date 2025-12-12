@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Users, ArrowRight, Calendar, MessageSquare, Mail, Building2, Award, Target, Shield } from "lucide-react";
+import { Users, ArrowRight, Calendar, MessageSquare, Mail, Building2, Award, Target, Shield, Filter, X } from "lucide-react";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
+
+// All available Dynamics 365 applications for filtering
+const allApplications = [
+  "Business Central",
+  "Finance & SCM",
+  "Sales",
+  "Customer Service",
+  "Marketing",
+  "Field Service",
+  "Power Platform"
+];
 
 export interface Partner {
   name: string;
@@ -240,6 +251,15 @@ const partners: Partner[] = [
 
 const ValjPartner = () => {
   const [guideOpen, setGuideOpen] = useState(false);
+  const [selectedApplication, setSelectedApplication] = useState<string | null>(null);
+
+  // Filter partners based on selected application
+  const filteredPartners = useMemo(() => {
+    if (!selectedApplication) return partners;
+    return partners.filter(partner => 
+      partner.applications.includes(selectedApplication)
+    );
+  }, [selectedApplication]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -389,8 +409,52 @@ const ValjPartner = () => {
             </p>
           </div>
 
+          {/* Application Filter */}
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Filter className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">Filtrera på applikation:</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {allApplications.map((app) => (
+                <Button
+                  key={app}
+                  variant={selectedApplication === app ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedApplication(selectedApplication === app ? null : app)}
+                  className={`transition-all ${
+                    selectedApplication === app 
+                      ? "bg-primary text-primary-foreground shadow-md" 
+                      : "hover:bg-primary/10"
+                  }`}
+                >
+                  {app}
+                  {selectedApplication === app && (
+                    <X className="ml-2 h-3 w-3" />
+                  )}
+                </Button>
+              ))}
+            </div>
+            {selectedApplication && (
+              <div className="text-center mt-4">
+                <p className="text-sm text-muted-foreground">
+                  Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners 
+                  som levererar <span className="font-semibold text-primary">{selectedApplication}</span>
+                </p>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => setSelectedApplication(null)}
+                  className="mt-2 text-muted-foreground hover:text-foreground"
+                >
+                  Visa alla partners
+                </Button>
+              </div>
+            )}
+          </div>
+
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {partners.map((partner, index) => (
+            {filteredPartners.map((partner, index) => (
               <Card key={index} className="border border-border hover:border-primary/50 transition-colors flex flex-col">
                 <CardHeader className="pb-3">
                   <div className="h-16 flex items-center justify-center mb-3">
