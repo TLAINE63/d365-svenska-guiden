@@ -15,7 +15,7 @@ const allApplications = [
   "Finance & SCM",
   "Sales",
   "Customer Service",
-  "Marketing",
+  "Customer Insights (Marketing)",
   "Field Service",
   "Power Platform"
 ];
@@ -36,7 +36,7 @@ const partners: Partner[] = [
     logo: "https://absfront.se/wp-content/uploads/2020/11/absfront-logo.svg",
     website: "https://absfront.se",
     description: "Specialister på CRM och Customer Experience inom Dynamics 365, Power Platform och Data. Fokus på kundupplevelser utan gränser.",
-    applications: ["Sales", "Customer Service", "Marketing", "Power Platform"],
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Power Platform"],
     industries: ["Tjänsteföretag", "B2B", "Alla branscher"],
     companySize: ["Små", "Medelstora"]
   },
@@ -45,7 +45,7 @@ const partners: Partner[] = [
     logo: "https://accigo.se/wp-content/uploads/2023/01/Accigo-logo.svg",
     website: "https://accigo.se",
     description: "Microsoft Dynamics 365 Partner of The Year 2024. Smart digital transformation med fokus på Customer Engagement och Power Platform.",
-    applications: ["Sales", "Customer Service", "Marketing", "Power Platform"],
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Power Platform"],
     industries: ["Tjänsteföretag", "B2B", "Finans"],
     companySize: ["Medelstora", "Stora"]
   },
@@ -117,7 +117,7 @@ const partners: Partner[] = [
     logo: "https://crmkonsulterna.se/wp-content/uploads/2023/01/crmk-logo.svg",
     website: "https://crmkonsulterna.se",
     description: "Vi placerar kunden i centrum. Specialister på Dynamics 365 Customer Engagement, CRM och Power Platform.",
-    applications: ["Sales", "Marketing", "Customer Service"],
+    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service"],
     industries: ["B2B", "Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
   },
@@ -144,7 +144,7 @@ const partners: Partner[] = [
     logo: "https://engagegroup.se/wp-content/uploads/2022/01/engage-group-logo.svg",
     website: "https://engagegroup.se",
     description: "Experts In Dynamics 365. Your Local Partner With Global Reach. Fokus på CRM och Customer Engagement.",
-    applications: ["Sales", "Marketing", "Customer Service", "Field Service"],
+    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service"],
     industries: ["Tjänsteföretag", "B2B"],
     companySize: ["Medelstora"]
   },
@@ -171,7 +171,7 @@ const partners: Partner[] = [
     logo: "https://goodfellows.se/wp-content/uploads/2021/03/goodfellows-logo.svg",
     website: "https://goodfellows.se",
     description: "Goodfellows IT, support & drift blir en del av Upheads. Välkommen till det goda livet med personlig IT-service.",
-    applications: ["Sales", "Customer Service", "Marketing"],
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
     industries: ["Tjänsteföretag", "B2B"],
     companySize: ["Små", "Medelstora"]
   },
