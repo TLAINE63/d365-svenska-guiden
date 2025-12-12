@@ -37,7 +37,7 @@ const partners: Partner[] = [
     logo: "https://absfront.se/wp-content/uploads/2020/11/absfront-logo.svg",
     website: "https://absfront.se",
     description: "Specialister på CRM och Customer Experience inom Dynamics 365, Power Platform och Data. Fokus på kundupplevelser utan gränser.",
-    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Power Platform"],
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
     industries: ["Tjänsteföretag", "B2B", "Alla branscher"],
     companySize: ["Små", "Medelstora"]
   },
@@ -46,7 +46,7 @@ const partners: Partner[] = [
     logo: "https://accigo.se/wp-content/uploads/2023/01/Accigo-logo.svg",
     website: "https://accigo.se",
     description: "Microsoft Dynamics 365 Partner of The Year 2024. Smart digital transformation med fokus på Customer Engagement och Power Platform.",
-    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)", "Power Platform"],
+    applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
     industries: ["Tjänsteföretag", "B2B", "Finans"],
     companySize: ["Medelstora", "Stora"]
   },
@@ -190,7 +190,7 @@ const partners: Partner[] = [
     logo: "https://www.inbiz.se/wp-content/uploads/2021/08/inbiz-logo.png",
     website: "https://www.inbiz.se",
     description: "Din trygga partner för Microsoft Dynamics. Sedan 2005 har vi hjälpt våra kunder att få det bästa ur sitt affärssystem.",
-    applications: ["Business Central", "Power Platform"],
+    applications: ["Business Central"],
     industries: ["Tjänsteföretag", "Handel"],
     companySize: ["Små", "Medelstora"]
   },
@@ -226,7 +226,7 @@ const partners: Partner[] = [
     logo: "https://www.sogeti.se/globalassets/sogeti-logo.svg",
     website: "https://www.sogeti.se",
     description: "Vi är Valuemakers. Del av Capgemini-gruppen med fokus på teknisk implementation, utveckling och Power Platform.",
-    applications: ["Business Central", "Power Platform", "Sales"],
+    applications: ["Business Central", "Sales"],
     industries: ["Alla branscher"],
     companySize: ["Medelstora", "Stora"]
   },
