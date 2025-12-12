@@ -12,7 +12,7 @@ import Copilot from "./pages/Copilot";
 import Agents from "./pages/Agents";
 import QA from "./pages/QA";
 import ContactUs from "./pages/ContactUs";
-import Partner from "./pages/Partner";
+
 import ValjPartner from "./pages/ValjPartner";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NeedsAnalysis from "./pages/NeedsAnalysis";
@@ -35,7 +35,7 @@ const App = () => (
           <Route path="/agents" element={<Agents />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
-          <Route path="/partner" element={<Partner />} />
+          
           <Route path="/valj-partner" element={<ValjPartner />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/behovsanalys" element={<NeedsAnalysis />} />
