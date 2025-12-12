@@ -33,7 +33,7 @@ const Navbar = () => {
   ];
 
   const menuItems = [
-    { label: "Välj Partner", path: "/valj-partner", external: false },
+    { label: "Välj Partner", path: "/valj-partner", external: false, highlight: true },
     { label: "Q&A", path: "/qa", external: false },
     { label: "Blogg", path: "https://www.microsoft.com/en-us/dynamics-365/blog/", external: true },
     { label: "Kontakt", path: "/kontakt", external: false },
@@ -127,7 +127,11 @@ const Navbar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                  className={`text-sm font-medium transition-colors ${
+                    item.highlight 
+                      ? "text-amber-500 hover:text-amber-600" 
+                      : "text-foreground hover:text-primary"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -201,7 +205,11 @@ const Navbar = () => {
                     <Link
                       key={item.path}
                       to={item.path}
-                      className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                      className={`text-lg font-medium transition-colors ${
+                        item.highlight 
+                          ? "text-amber-500 hover:text-amber-600" 
+                          : "text-foreground hover:text-primary"
+                      }`}
                     >
                       {item.label}
                     </Link>
