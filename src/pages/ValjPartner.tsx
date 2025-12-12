@@ -356,73 +356,101 @@ const ValjPartner = () => {
         </div>
       </section>
 
-      {/* Key Factors Section */}
+      {/* Fem viktiga frågor Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-                Viktiga faktorer vid partnerval
+                Fem viktiga frågor vid val av implementationspartner
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground px-2">
-                Här är de viktigaste aspekterna att överväga när du väljer din Dynamics 365-partner
+                Här är fem viktiga frågor du (eller din organisation) bör ställa er själva inför valet av implementationspartner för Dynamics 365
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card className="border-2 border-border">
+            <div className="space-y-6">
+              {/* Fråga 1 */}
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-xl">
-                    <Building2 className="h-6 w-6 text-primary" />
-                    Branscherfarenhet
+                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+                    <span className="text-2xl">✅</span>
+                    Har partnern erfarenhet av vår bransch och våra processer?
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">
-                    En partner med erfarenhet inom din bransch förstår dina unika utmaningar och kan snabbare leverera värde.
-                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Har de genomfört liknande projekt tidigare?</li>
+                    <li>• Förstår de våra specifika krav inom t.ex. tillverkning, tjänster, handel eller offentlig sektor?</li>
+                  </ul>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border">
+              {/* Fråga 2 */}
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-xl">
-                    <Award className="h-6 w-6 text-primary" />
-                    Microsoft-certifieringar
+                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+                    <span className="text-2xl">✅</span>
+                    Hur ser deras implementationsmetodik ut?
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">
-                    Kontrollera att partnern har rätt Microsoft-kompetenser och certifieringar för de produkter du behöver.
-                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Arbetar de enligt en beprövad metod (t.ex. Microsoft's Success by Design)?</li>
+                    <li>• Hur hanterar de projektledning, förändringsledning och utbildning?</li>
+                    <li>• Erbjuder de en snabbstart eller paketerad lösning?</li>
+                  </ul>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border">
+              {/* Fråga 3 */}
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-xl">
-                    <Target className="h-6 w-6 text-primary" />
-                    Implementationsmetodik
+                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+                    <span className="text-2xl">✅</span>
+                    Vilken typ av support och förvaltning erbjuder de efter implementationen?
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">
-                    En beprövad projektmetodik säkerställer att projektet levereras i tid och inom budget.
-                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Finns det en tydlig plan för support, uppgraderingar och vidareutveckling?</li>
+                    <li>• Har de en dedikerad supportorganisation?</li>
+                    <li>• Erbjuder de SLA:er och proaktiv förvaltning?</li>
+                  </ul>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-border">
+              {/* Fråga 4 */}
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-3 text-xl">
-                    <Shield className="h-6 w-6 text-primary" />
-                    Support & Förvaltning
+                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+                    <span className="text-2xl">✅</span>
+                    Hur transparenta är de med kostnader och tidsplan?
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">
-                    Eftermarknadsstöd är avgörande för långsiktig framgång. Säkerställ att partnern erbjuder bra supportavtal.
-                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Får vi en tydlig offert med alla kostnader specificerade?</li>
+                    <li>• Hur hanterar de förändringar i omfattning?</li>
+                    <li>• Har de referensprojekt med liknande budget och tidsram?</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Fråga 5 */}
+              <Card className="border-0 bg-gradient-to-br from-card via-card to-muted/30 shadow-lg hover:shadow-xl transition-all">
+                <CardHeader>
+                  <CardTitle className="flex items-start gap-3 text-lg sm:text-xl">
+                    <span className="text-2xl">✅</span>
+                    Hur väl passar de vår organisationskultur och arbetssätt?
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Är de lyhörda, pedagogiska och samarbetsvilliga?</li>
+                    <li>• Känns de som en långsiktig partner snarare än bara en leverantör?</li>
+                    <li>• Har vi god personkemi med deras team?</li>
+                  </ul>
                 </CardContent>
               </Card>
             </div>
