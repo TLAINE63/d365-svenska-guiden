@@ -17,7 +17,8 @@ const allApplications = [
   "Customer Service",
   "Customer Insights (Marketing)",
   "Field Service",
-  "Power Platform"
+  "Contact Center",
+  "Project Operations"
 ];
 
 export interface Partner {
