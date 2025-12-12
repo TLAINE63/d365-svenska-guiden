@@ -433,9 +433,9 @@ const CRMNeedsAnalysis = () => {
 • **Customer Communication** - Automatiserade uppdateringar till kund`
       },
       marketing: {
-        name: "Dynamics 365 Marketing",
+        name: "Dynamics 365 Customer Insights (Marketing)",
         icon: "📣",
-        description: `**Dynamics 365 Marketing** (Customer Insights - Journeys) skapar personaliserade kundupplevelser i stor skala.
+        description: `**Dynamics 365 Customer Insights (Marketing)** (Customer Insights - Journeys) skapar personaliserade kundupplevelser i stor skala.
 
 • **Marketing Automation** - Automatiserade kampanjer och workflows
 • **Customer Journeys** - Visuell design av kundresor

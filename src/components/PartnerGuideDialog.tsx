@@ -36,8 +36,7 @@ const applicationOptions = [
   "Sales",
   "Customer Service",
   "Field Service",
-  "Marketing",
-  "Customer Insights",
+  "Customer Insights (Marketing)",
   "Commerce",
   "Copilot"
 ];
