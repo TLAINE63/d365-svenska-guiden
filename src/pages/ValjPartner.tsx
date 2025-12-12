@@ -423,10 +423,10 @@ const ValjPartner = () => {
                   variant={selectedApplication === app ? "default" : "outline"}
                   size="sm"
                   onClick={() => setSelectedApplication(selectedApplication === app ? null : app)}
-                  className={`transition-all ${
+                  className={`transition-all rounded-full px-4 ${
                     selectedApplication === app 
-                      ? "bg-primary text-primary-foreground shadow-md" 
-                      : "hover:bg-primary/10"
+                      ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 scale-105" 
+                      : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 hover:scale-105"
                   }`}
                 >
                   {app}
