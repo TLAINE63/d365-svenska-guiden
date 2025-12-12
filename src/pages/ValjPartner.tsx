@@ -52,7 +52,7 @@ const partners: Partner[] = [
     website: "https://absfront.se",
     description: "Specialister på CRM och Customer Experience inom Dynamics 365, Power Platform och Data. Fokus på kundupplevelser utan gränser.",
     applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tjänsteföretag", "B2B", "Alla branscher"],
+    industries: ["Tjänsteföretag", "Alla branscher"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -61,7 +61,7 @@ const partners: Partner[] = [
     website: "https://accigo.se",
     description: "Microsoft Dynamics 365 Partner of The Year 2024. Smart digital transformation med fokus på Customer Engagement och Power Platform.",
     applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tjänsteföretag", "B2B", "Finans"],
+    industries: ["Tjänsteföretag", "Bank & Finans"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -70,7 +70,7 @@ const partners: Partner[] = [
     website: "https://www.azets.se",
     description: "Nordisk leverantör av affärssystem och redovisningstjänster med stark Dynamics 365 Business Central-kompetens. Kombinerar systemleverans med ekonomitjänster.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Handel", "Alla branscher"],
+    industries: ["Tjänsteföretag", "Retail", "Alla branscher"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -79,7 +79,7 @@ const partners: Partner[] = [
     website: "https://www.be-terna.com/sv",
     description: "Internationell partner med fokus på digital framtid. Del av Telefónica Tech med stark kompetens inom ERP, CRM och dataanalys.",
     applications: ["Finance & SCM", "Business Central"],
-    industries: ["Tillverkning", "Retail", "Distribution"],
+    industries: ["Tillverkning", "Retail", "Grossist"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -88,7 +88,7 @@ const partners: Partner[] = [
     website: "https://www.capgemini.com/se-en/",
     description: "Global konsultjätte med omfattande Dynamics 365-praktik. Fokus på stora transformationsprojekt och enterprise-kunder.",
     applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Finans", "Retail", "Energi"],
+    industries: ["Bank & Finans", "Retail", "Energisektorn"],
     companySize: ["Stora"]
   },
   {
@@ -97,7 +97,7 @@ const partners: Partner[] = [
     website: "https://cepheo.com",
     description: "Erfaren nordisk Dynamics 365-partner med över 39 års erfarenhet. Digital Empowerment för medelstora och stora företag.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Distribution", "Tjänsteföretag"],
+    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -106,7 +106,7 @@ const partners: Partner[] = [
     website: "https://www.cgi.com/se",
     description: "Global IT-konsult med omfattande Dynamics 365-kompetens. Erbjuder helhetslösningar för stora organisationer och offentlig sektor.",
     applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Offentlig sektor", "Finans", "Energi"],
+    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
     companySize: ["Stora"]
   },
   {
@@ -115,7 +115,7 @@ const partners: Partner[] = [
     website: "https://www.columbusglobal.com/sv",
     description: "Global Dynamics 365-partner med stark nordisk närvaro. Digital Value. Human Intelligence - helhetslösningar inom ERP och CRM.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Tillverkning", "Retail", "Distribution"],
+    industries: ["Tillverkning", "Retail", "Grossist"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -124,7 +124,7 @@ const partners: Partner[] = [
     website: "https://www.cosmoconsult.com/sv-se/",
     description: "Internationell Dynamics 365-partner med stark närvaro i Norden. Specialister på Business Central med egna branschlösningar.",
     applications: ["Business Central", "Finance & SCM"],
-    industries: ["Tillverkning", "Projektföretag", "Distribution"],
+    industries: ["Tillverkning", "Tjänsteföretag", "Grossist"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -133,7 +133,7 @@ const partners: Partner[] = [
     website: "https://crmkonsulterna.se",
     description: "Vi placerar kunden i centrum. Specialister på Dynamics 365 Customer Engagement, CRM och Power Platform.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service"],
-    industries: ["B2B", "Tjänsteföretag"],
+    industries: ["Tjänsteföretag", "Alla branscher"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -142,7 +142,7 @@ const partners: Partner[] = [
     website: "https://dizparc.com",
     description: "Förverkliga din digitala potential. Lokala verksamheter på flera orter som hjälper dig skapa hållbara digitala lösningar.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Distribution", "Handel"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -151,7 +151,7 @@ const partners: Partner[] = [
     website: "https://www.ecit.com/se/",
     description: "Din partner - nu och i framtiden. Nordisk IT-partner med bred kompetens inom ekonomi, IT och affärslösningar.",
     applications: ["Business Central", "Finance & SCM"],
-    industries: ["Tjänsteföretag", "Handel", "Distribution"],
+    industries: ["Tjänsteföretag", "Retail", "Grossist"],
     companySize: ["Små", "Medelstora", "Stora"]
   },
   {
@@ -160,7 +160,7 @@ const partners: Partner[] = [
     website: "https://engagegroup.se",
     description: "Experts In Dynamics 365. Your Local Partner With Global Reach. Fokus på CRM och Customer Engagement.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service"],
-    industries: ["Tjänsteföretag", "B2B"],
+    industries: ["Tjänsteföretag", "Alla branscher"],
     companySize: ["Medelstora"]
   },
   {
@@ -169,7 +169,7 @@ const partners: Partner[] = [
     website: "https://navipro.se",
     description: "From NaviPro to Evidi - A New Era of Possibilities. Nordisk Microsoft-partner med djup expertis inom hela Microsoft-plattformen.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Handel"],
+    industries: ["Tjänsteföretag", "Retail"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -187,7 +187,7 @@ const partners: Partner[] = [
     website: "https://goodfellows.se",
     description: "Goodfellows IT, support & drift blir en del av Upheads. Välkommen till det goda livet med personlig IT-service.",
     applications: ["Sales", "Customer Service", "Customer Insights (Marketing)"],
-    industries: ["Tjänsteföretag", "B2B"],
+    industries: ["Tjänsteföretag", "E-handel"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -196,7 +196,7 @@ const partners: Partner[] = [
     website: "https://www.implema.se",
     description: "Snabbt, säkert och redo för framtiden. Accelerera din affär med SAP och Microsoft Dynamics.",
     applications: ["Finance & SCM", "Business Central"],
-    industries: ["Tillverkning", "Process", "Distribution"],
+    industries: ["Tillverkning", "Grossist"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -205,7 +205,7 @@ const partners: Partner[] = [
     website: "https://www.inbiz.se",
     description: "Din trygga partner för Microsoft Dynamics. Sedan 2005 har vi hjälpt våra kunder att få det bästa ur sitt affärssystem.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Handel"],
+    industries: ["Tjänsteföretag", "Retail"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -214,7 +214,7 @@ const partners: Partner[] = [
     website: "https://www.nabsolutions.se",
     description: "Specialister på Dynamics 365 Business Central med lång erfarenhet av implementationer för svenska företag. Fokus på tillverkning och distribution.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Distribution", "Handel"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -223,7 +223,7 @@ const partners: Partner[] = [
     website: "https://navcite.se",
     description: "Small company feeling - Big company experience. Affärssystem med Infor M3 och Microsoft Business Central.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Distribution"],
+    industries: ["Tillverkning", "Grossist"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -232,7 +232,7 @@ const partners: Partner[] = [
     website: "https://navet.se",
     description: "Vi skapar bättre affärer tillsammans. Vi förstår verksamheter, teknik och relationer. Del av Addovation Group.",
     applications: ["Business Central"],
-    industries: ["Handel", "Tjänsteföretag"],
+    industries: ["Retail", "Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -250,7 +250,7 @@ const partners: Partner[] = [
     website: "https://www.tietoevry.com/sv",
     description: "Nordisk teknologijätte med bred Dynamics 365-kompetens. Stark inom offentlig sektor, finans och stora enterprise-kunder.",
     applications: ["Finance & SCM", "Sales", "Customer Service"],
-    industries: ["Offentlig sektor", "Finans", "Bank"],
+    industries: ["Offentlig sektor", "Bank & Finans"],
     companySize: ["Stora"]
   },
   {
@@ -259,7 +259,7 @@ const partners: Partner[] = [
     website: "https://two.se",
     description: "We are CombinedX. Experter på affärssystem och business intelligence. Minut för minut ser vi till att det gör det.",
     applications: ["Business Central", "Finance & SCM"],
-    industries: ["Tillverkning", "Distribution", "Handel"],
+    industries: ["Tillverkning", "Grossist", "Retail"],
     companySize: ["Medelstora", "Stora"]
   }
 ];
