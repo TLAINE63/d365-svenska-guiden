@@ -794,6 +794,28 @@ const CRMNeedsAnalysis = () => {
     
     yPos += 55;
 
+    // Recommendation to contact and visit partner section
+    addNewPageIfNeeded(45);
+    pdf.setFillColor(232, 245, 233);
+    pdf.roundedRect(margin, yPos, contentWidth, 38, 3, 3, 'F');
+    pdf.setDrawColor(76, 175, 80);
+    pdf.setLineWidth(1);
+    pdf.line(margin, yPos, margin, yPos + 38);
+    
+    pdf.setTextColor(46, 125, 50);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("REKOMMENDATION", margin + 8, yPos + 11);
+    
+    pdf.setTextColor(56, 95, 58);
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "normal");
+    pdf.text("• Kontakta oss på Dynamic Factory för en kostnadsfri rådgivning", margin + 8, yPos + 20);
+    pdf.text("• Besök vår partnerkatalog på dynamicfactory.se/valj-partner för att hitta rätt", margin + 8, yPos + 27);
+    pdf.text("  implementationspartner som matchar era CRM-behov", margin + 8, yPos + 33);
+    
+    yPos += 45;
+
     // Disclaimer
     addNewPageIfNeeded(25);
     pdf.setTextColor(120, 120, 120);
