@@ -670,3 +670,19 @@ export const partners: Partner[] = [
 
 // CRM applications for filtering
 export const crmApplications = ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"];
+
+// All unique industries from partners
+export const allIndustries = [
+  "Alla branscher",
+  "Tillverkning",
+  "Tjänsteföretag", 
+  "E-handel",
+  "Retail",
+  "Distribution",
+  "Bygg & Fastighet",
+  "Logistik",
+  "Bank & Finans",
+  "Energisektorn",
+  "Offentlig sektor",
+  "Tech"
+];
