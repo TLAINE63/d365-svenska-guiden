@@ -11,6 +11,8 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Building2, Globe, Boxes, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 import jsPDF from "jspdf";
 import SelectionCard from "@/components/SelectionCard";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 // Contact form validation schema
 const contactFormSchema = z.object({
@@ -232,6 +234,8 @@ const NeedsAnalysis = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const { toast } = useToast();
 
   const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
@@ -408,7 +412,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     };
   };
 
-  const generateDocument = () => {
+  const generateDocument = async () => {
     if (!validateContactForm()) {
       return;
     }
@@ -737,6 +741,48 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // Save PDF
     pdf.save(`Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
+    
+    // Send email notification
+    setIsSendingEmail(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-analysis-email", {
+        body: {
+          analysisType: "ERP",
+          companyName: data.companyName,
+          contactName: data.contactName,
+          phone: data.phone,
+          email: data.email,
+          analysisData: {
+            "Anställda": data.employees,
+            "Omsättning": data.revenue,
+            "Bransch": data.industries.join(", ") || "Ej angivet",
+            "Geografi": data.geography.join(", ") || "Ej angivet",
+            "Moduler": data.modules.join(", ") || "Ej angivet",
+            "Integrationer": data.integrations.join(", ") || "Ej angivet",
+            "Nuvarande ERP": data.currentERP || "Ej angivet",
+            "Utmaningar": data.challenges.join(", ") || "Ej angivet",
+            "KPI:er": data.kpis.join(", ") || "Ej angivet",
+            "AI-intresse": data.aiInterest || "Ej angivet",
+            "Övrig info": data.additionalInfo || "Ej angivet",
+          },
+          recommendation: {
+            product: recommendation.product,
+            reasons: recommendation.reasons,
+          },
+        },
+      });
+
+      if (error) {
+        console.error("Error sending analysis email:", error);
+      } else {
+        console.log("Analysis email sent successfully");
+      }
+    } catch (error) {
+      console.error("Failed to send analysis email:", error);
+    } finally {
+      setIsSendingEmail(false);
+    }
+    
     setIsComplete(true);
   };
 

@@ -12,6 +12,8 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Users, Headphones, Wrench, Megaphone, Target, Building2, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 import jsPDF from "jspdf";
 import SelectionCard from "@/components/SelectionCard";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 // Contact form validation schema
 const contactFormSchema = z.object({
@@ -266,6 +268,8 @@ const CRMNeedsAnalysis = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const { toast } = useToast();
 
   const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
@@ -496,7 +500,7 @@ const CRMNeedsAnalysis = () => {
     return true;
   };
 
-  const generateDocument = () => {
+  const generateDocument = async () => {
     if (!validateContactForm()) {
       return;
     }
@@ -717,6 +721,49 @@ const CRMNeedsAnalysis = () => {
     }
 
     pdf.save(`CRM_Behovsanalys_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}.pdf`);
+    
+    // Send email notification
+    setIsSendingEmail(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-analysis-email", {
+        body: {
+          analysisType: "CRM",
+          companyName: data.companyName,
+          contactName: data.contactName,
+          phone: data.phone || "",
+          email: data.email,
+          analysisData: {
+            "Anställda": data.employees,
+            "Säljteam": data.salesTeamSize,
+            "Serviceteam": data.serviceTeamSize,
+            "Nuvarande CRM": data.currentCRM || "Ej angivet",
+            "Utmaningar": data.crmChallenges.join(", ") || "Ej angivet",
+            "Säljbehov": data.salesNeeds.join(", ") || "Ej angivet",
+            "Servicebehov": data.serviceNeeds.join(", ") || "Ej angivet",
+            "Fältservice": data.hasFieldService || "Ej angivet",
+            "Marknadsföring": data.marketingNeeds.join(", ") || "Ej angivet",
+            "Integrationer": data.integrations.join(", ") || "Ej angivet",
+            "KPI:er": data.kpis.join(", ") || "Ej angivet",
+            "AI-intresse": data.aiInterest || "Ej angivet",
+          },
+          recommendation: recommendation.products.length > 0 ? {
+            product: recommendation.products.map(p => p.name).join(", "),
+            reasons: recommendation.products.flatMap(p => p.reasons).slice(0, 5),
+          } : undefined,
+        },
+      });
+
+      if (error) {
+        console.error("Error sending CRM analysis email:", error);
+      } else {
+        console.log("CRM analysis email sent successfully");
+      }
+    } catch (error) {
+      console.error("Failed to send CRM analysis email:", error);
+    } finally {
+      setIsSendingEmail(false);
+    }
+    
     setIsComplete(true);
   };
 
