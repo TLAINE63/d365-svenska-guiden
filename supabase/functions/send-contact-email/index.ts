@@ -7,10 +7,61 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Simple in-memory rate limiting (resets on function cold start)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT = 5; // Max requests per window
+const RATE_WINDOW_MS = 60 * 1000; // 1 minute window
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+  
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_WINDOW_MS });
+    return false;
+  }
+  
+  if (record.count >= RATE_LIMIT) {
+    return true;
+  }
+  
+  record.count++;
+  return false;
+}
+
+// HTML sanitization to prevent XSS in emails
+function sanitizeHtml(input: string): string {
+  return input
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+// Validation functions
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 255;
+}
+
+function isValidName(name: string): boolean {
+  return typeof name === "string" && name.trim().length > 0 && name.length <= 100;
+}
+
+function isValidPhone(phone: string | undefined): boolean {
+  if (!phone || phone === "") return true; // Optional field
+  return typeof phone === "string" && phone.length <= 30;
+}
+
+function isValidDescription(description: string): boolean {
+  return typeof description === "string" && description.trim().length > 0 && description.length <= 5000;
+}
+
 interface ContactEmailRequest {
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   description: string;
 }
 
@@ -22,8 +73,73 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, phone, description }: ContactEmailRequest = await req.json();
-    console.log("Received contact form submission from:", name, email);
+    // Get client IP for rate limiting
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
+                     req.headers.get("cf-connecting-ip") || 
+                     "unknown";
+    
+    // Check rate limit
+    if (isRateLimited(clientIp)) {
+      console.log(`Rate limit exceeded for IP: ${clientIp}`);
+      return new Response(
+        JSON.stringify({ error: "Too many requests. Please try again later." }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Parse and validate request body
+    let body: ContactEmailRequest;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(
+        JSON.stringify({ error: "Invalid JSON payload" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    const { name, email, phone, description } = body;
+
+    // Server-side validation
+    const errors: string[] = [];
+    
+    if (!isValidName(name)) {
+      errors.push("Name is required and must be less than 100 characters");
+    }
+    if (!isValidEmail(email)) {
+      errors.push("Valid email is required");
+    }
+    if (!isValidPhone(phone)) {
+      errors.push("Phone number must be less than 30 characters");
+    }
+    if (!isValidDescription(description)) {
+      errors.push("Description is required and must be less than 5000 characters");
+    }
+
+    if (errors.length > 0) {
+      console.log("Validation errors:", errors);
+      return new Response(
+        JSON.stringify({ error: "Validation failed", details: errors }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Sanitize inputs for HTML email
+    const safeName = sanitizeHtml(name.trim());
+    const safeEmail = sanitizeHtml(email.trim());
+    const safePhone = phone ? sanitizeHtml(phone.trim()) : "Ej angivet";
+    const safeDescription = sanitizeHtml(description.trim());
+
+    console.log("Sending contact email from:", safeName, safeEmail);
 
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -34,14 +150,14 @@ serve(async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Dynamic Factory <noreply@dynamicfactory.se>",
         to: ["thomas.laine@dynamicfactory.se"],
-        subject: `Ny kontaktförfrågan från ${name}`,
+        subject: `Ny kontaktförfrågan från ${safeName}`,
         html: `
           <h1>Ny kontaktförfrågan</h1>
-          <p><strong>Namn:</strong> ${name}</p>
-          <p><strong>E-post:</strong> ${email}</p>
-          <p><strong>Telefon:</strong> ${phone || "Ej angivet"}</p>
+          <p><strong>Namn:</strong> ${safeName}</p>
+          <p><strong>E-post:</strong> ${safeEmail}</p>
+          <p><strong>Telefon:</strong> ${safePhone}</p>
           <h2>Meddelande:</h2>
-          <p>${description}</p>
+          <p>${safeDescription}</p>
         `,
       }),
     });
@@ -60,7 +176,7 @@ serve(async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in send-contact-email function:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "An error occurred while processing your request" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
