@@ -21,6 +21,7 @@ const buttonVariants = cva(
         "finance-supply": "bg-finance-supply text-finance-supply-foreground hover:bg-finance-supply/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
         "copilot": "bg-copilot text-copilot-foreground hover:bg-copilot/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
         "agents": "bg-agents text-agents-foreground hover:bg-agents/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
+        "amber": "bg-amber-500 text-white hover:bg-amber-600 shadow-sm hover:shadow-md hover:-translate-y-0.5",
       },
       size: {
         default: "h-10 px-4 py-2",

@@ -446,7 +446,7 @@ const ValjPartner = () => {
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-border/50">
-                    <Button asChild variant="default" className="w-full">
+                    <Button asChild variant="amber" className="w-full">
                       <a 
                         href={partner.website} 
                         target="_blank" 
