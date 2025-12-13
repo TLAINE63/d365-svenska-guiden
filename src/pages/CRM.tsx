@@ -4,7 +4,8 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft, ArrowRight, Filter, Building2, Users, X, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
@@ -656,88 +657,34 @@ const CRM = () => {
           </div>
 
           {/* Application Filter */}
-          <div className="mb-8 sm:mb-10">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Filter className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Filtrera på applikation:</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {crmApplications.map((app) => (
-                <Button
-                  key={app}
-                  variant={selectedApplications.includes(app) ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => toggleApplication(app)}
-                  className={`transition-all rounded-full px-4 ${
-                    selectedApplications.includes(app) 
-                      ? "bg-gradient-to-r from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-105" 
-                      : "border-crm/30 text-crm hover:bg-crm/10 hover:border-crm/50 hover:scale-105"
-                  }`}
-                >
-                  {app}
-                  {selectedApplications.includes(app) && (
-                    <X className="ml-2 h-3 w-3" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
+          <MultiFilterButtons
+            title="Filtrera på applikation"
+            icon="application"
+            options={crmApplications.map(app => ({ label: app, value: app }))}
+            selectedValues={selectedApplications}
+            onToggle={toggleApplication}
+            colorScheme="crm"
+          />
 
           {/* Industry Filter */}
-          <div className="mb-8 sm:mb-10">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Building2 className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Filtrera på bransch:</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {allIndustries.map((industry) => (
-                <Button
-                  key={industry}
-                  variant={selectedIndustry === industry ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedIndustry(selectedIndustry === industry ? null : industry)}
-                  className={`transition-all rounded-full px-4 ${
-                    selectedIndustry === industry 
-                      ? "bg-gradient-to-r from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-105" 
-                      : "border-crm/30 text-crm hover:bg-crm/10 hover:border-crm/50 hover:scale-105"
-                  }`}
-                >
-                  {industry}
-                  {selectedIndustry === industry && (
-                    <X className="ml-2 h-3 w-3" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
+          <FilterButtons
+            title="Filtrera på bransch"
+            icon="industry"
+            options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+            selectedValue={selectedIndustry}
+            onSelect={setSelectedIndustry}
+            colorScheme="crm"
+          />
 
           {/* Company Size Filter */}
-          <div className="mb-8 sm:mb-10">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Users className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Hur många anställda finns på ert företag?</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {companySizeFilters.map((sizeOption) => (
-                <Button
-                  key={sizeOption.label}
-                  variant={selectedCompanySize === sizeOption.label ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCompanySize(selectedCompanySize === sizeOption.label ? null : sizeOption.label)}
-                  className={`transition-all rounded-full px-4 ${
-                    selectedCompanySize === sizeOption.label 
-                      ? "bg-gradient-to-r from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-105" 
-                      : "border-crm/30 text-crm hover:bg-crm/10 hover:border-crm/50 hover:scale-105"
-                  }`}
-                >
-                  {sizeOption.label}
-                  {selectedCompanySize === sizeOption.label && (
-                    <X className="ml-2 h-3 w-3" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
+          <FilterButtons
+            title="Hur många anställda finns på ert företag?"
+            icon="employees"
+            options={companySizeFilters.map(f => ({ label: f.label, value: f.label }))}
+            selectedValue={selectedCompanySize}
+            onSelect={setSelectedCompanySize}
+            colorScheme="crm"
+          />
 
           {/* Filter Results Summary */}
           {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
