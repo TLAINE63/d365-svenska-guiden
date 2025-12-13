@@ -68,11 +68,11 @@ const BigFiveCarousel = () => {
         </div>
 
         {/* Carousel */}
-        <div className="relative max-w-4xl mx-auto">
-          <div className="overflow-hidden">
+        <div className="relative max-w-4xl mx-auto" style={{ contain: 'layout' }}>
+          <div className="overflow-hidden" style={{ contain: 'strict' }}>
             <div
               className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+              style={{ transform: `translateX(-${currentIndex * 100}%)`, willChange: 'transform' }}
             >
               {bigFiveItems.map((item, index) => (
                 <div key={index} className="min-w-full px-2 sm:px-4">
