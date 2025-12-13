@@ -4,7 +4,7 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft, ArrowRight, Filter, Building2, Users, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Filter, Building2, Users, X, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
@@ -818,16 +818,17 @@ const CRM = () => {
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-border/50">
-                    <a 
-                      href={partner.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-crm hover:text-crm/80 transition-colors group/link"
-                      onClick={() => trackPartnerClick(partner.name, partner.website, "CRM")}
-                    >
-                      Besök hemsida
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
-                    </a>
+                    <Button asChild size="sm" className="w-full bg-crm hover:bg-crm/90">
+                      <a 
+                        href={partner.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={() => trackPartnerClick(partner.name, partner.website, "CRM")}
+                      >
+                        Besök hemsida
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </a>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

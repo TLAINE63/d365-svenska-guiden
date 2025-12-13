@@ -11,7 +11,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, ExternalLink } from "lucide-react";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 interface Partner {
@@ -336,15 +336,17 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                         </Badge>
                       ))}
                     </div>
-                    <a 
-                      href={partner.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2"
-                      onClick={() => trackPartnerClick(partner.name, partner.website, "Partner Guide")}
-                    >
-                      Besök hemsida →
-                    </a>
+                    <Button asChild size="sm" className="w-full mt-3 bg-primary hover:bg-primary/90">
+                      <a 
+                        href={partner.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={() => trackPartnerClick(partner.name, partner.website, "Partner Guide")}
+                      >
+                        Besök hemsida
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
