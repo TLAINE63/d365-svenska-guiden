@@ -1,8 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
-const SMTP_USER = Deno.env.get("SMTP_USER") || "";
-const SMTP_PASSWORD = Deno.env.get("SMTP_PASSWORD") || "";
+const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -142,46 +140,64 @@ serve(async (req: Request): Promise<Response> => {
     const safeDescription = sanitizeHtml(description.trim());
 
     console.log("Sending contact email from:", safeName, safeEmail);
-    console.log("Using SMTP user:", SMTP_USER);
 
-    // Create SMTP client for Microsoft 365 with STARTTLS
-    const client = new SMTPClient({
-      connection: {
-        hostname: "smtp.office365.com",
-        port: 587,
-        tls: false,
-        auth: {
-          username: SMTP_USER,
-          password: SMTP_PASSWORD,
-        },
+    const emailResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
-      pool: false,
-      debug: {
-        log: true,
-      },
+      body: JSON.stringify({
+        from: "Dynamic Factory Kontakt <onboarding@resend.dev>",
+        to: ["thomas.laine@dynamicfactory.se"],
+        reply_to: email.trim(),
+        subject: `[Kontaktformulär] ${safeName} - Ny förfrågan`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+            <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px;">
+              <h1 style="margin: 0; font-size: 24px;">📬 Ny kontaktförfrågan</h1>
+              <p style="margin: 10px 0 0 0; opacity: 0.9;">från dynamicfactory.se</p>
+            </div>
+            
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 120px;">Namn:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #eee;">${safeName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold;">E-post:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #eee;"><a href="mailto:${safeEmail}" style="color: #2d5a87;">${safeEmail}</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 12px 0; border-bottom: 1px solid #eee; font-weight: bold;">Telefon:</td>
+                <td style="padding: 12px 0; border-bottom: 1px solid #eee;">${safePhone}</td>
+              </tr>
+            </table>
+            
+            <div style="margin-top: 20px;">
+              <h2 style="font-size: 18px; color: #1e3a5f; margin-bottom: 10px;">Meddelande:</h2>
+              <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 4px solid #2d5a87;">
+                <p style="margin: 0; white-space: pre-wrap;">${safeDescription}</p>
+              </div>
+            </div>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #666; font-size: 12px;">
+              <p>Detta meddelande skickades via kontaktformuläret på dynamicfactory.se</p>
+              <p>Svara direkt på detta mail för att kontakta ${safeName}</p>
+            </div>
+          </div>
+        `,
+      }),
     });
 
-    // Send email via Microsoft 365 SMTP
-    await client.send({
-      from: SMTP_USER,
-      to: "thomas.laine@dynamicfactory.se",
-      subject: `Ny kontaktförfrågan från ${safeName}`,
-      content: "auto",
-      html: `
-        <h1>Ny kontaktförfrågan</h1>
-        <p><strong>Namn:</strong> ${safeName}</p>
-        <p><strong>E-post:</strong> ${safeEmail}</p>
-        <p><strong>Telefon:</strong> ${safePhone}</p>
-        <h2>Meddelande:</h2>
-        <p>${safeDescription}</p>
-      `,
-    });
+    const responseData = await emailResponse.json();
+    console.log("Contact email response:", responseData);
 
-    await client.close();
+    if (!emailResponse.ok) {
+      throw new Error(responseData.message || "Failed to send email");
+    }
 
-    console.log("Contact email sent successfully via M365 SMTP");
-
-    return new Response(JSON.stringify({ success: true }), {
+    return new Response(JSON.stringify({ success: true, data: responseData }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
