@@ -707,10 +707,20 @@ const partners: Partner[] = [
   }
 ];
 
+// Company size filter options with mapping to partner data values
+const companySizeFilters = [
+  { label: "Småföretag (1-49 anställda)", values: ["Små"] },
+  { label: "Mindre/Mellanstora företag (50-199)", values: ["Små", "Medelstora"] },
+  { label: "Medelstora/Större företag (200-999)", values: ["Medelstora", "Stora"] },
+  { label: "Större företag (1.000-5.000)", values: ["Stora"] },
+  { label: "Enterprisebolag (+5.000 anställda)", values: ["Stora", "Enterprise"] }
+];
+
 const ValjPartner = () => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
 
   const toggleApplication = (app: string) => {
     setSelectedApplications(prev => 
@@ -739,10 +749,19 @@ const ValjPartner = () => {
         )
       );
     }
+
+    if (selectedCompanySize) {
+      const sizeFilter = companySizeFilters.find(f => f.label === selectedCompanySize);
+      if (sizeFilter) {
+        result = result.filter(partner => 
+          partner.companySize.some(size => sizeFilter.values.includes(size))
+        );
+      }
+    }
     
     // Sort alphabetically by name
     return result.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
-  }, [selectedApplications, selectedIndustry]);
+  }, [selectedApplications, selectedIndustry, selectedCompanySize]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -988,14 +1007,44 @@ const ValjPartner = () => {
             </div>
           </div>
 
+          {/* Company Size Filter */}
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Users className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">Filtrera på företagsstorlek:</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {companySizeFilters.map((sizeOption) => (
+                <Button
+                  key={sizeOption.label}
+                  variant={selectedCompanySize === sizeOption.label ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCompanySize(selectedCompanySize === sizeOption.label ? null : sizeOption.label)}
+                  className={`transition-all rounded-full px-4 ${
+                    selectedCompanySize === sizeOption.label 
+                      ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 scale-105" 
+                      : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 hover:scale-105"
+                  }`}
+                >
+                  {sizeOption.label}
+                  {selectedCompanySize === sizeOption.label && (
+                    <X className="ml-2 h-3 w-3" />
+                  )}
+                </Button>
+              ))}
+            </div>
+          </div>
+
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
                 {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
-                {selectedApplications.length > 0 && selectedIndustry && <> och</>}
+                {selectedApplications.length > 0 && (selectedIndustry || selectedCompanySize) && <>,</>}
                 {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
+                {selectedIndustry && selectedCompanySize && <> och</>}
+                {selectedCompanySize && <> för <span className="font-semibold text-primary">{selectedCompanySize}</span></>}
               </p>
               <Button 
                 variant="ghost" 
@@ -1003,6 +1052,7 @@ const ValjPartner = () => {
                 onClick={() => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
+                  setSelectedCompanySize(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
