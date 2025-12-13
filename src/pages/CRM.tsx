@@ -768,62 +768,60 @@ const CRM = () => {
             {crmPartners.map((partner, index) => (
               <Card 
                 key={index} 
-                className="group relative border-0 bg-gradient-to-br from-card via-card to-muted/30 hover:from-primary/5 hover:via-card hover:to-accent/5 transition-all duration-300 flex flex-col shadow-lg hover:shadow-2xl hover:shadow-primary/10 transform hover:-translate-y-2 hover:scale-[1.02]"
-                style={{
-                  boxShadow: '0 4px 20px -4px hsl(var(--primary) / 0.1), 0 8px 16px -8px hsl(var(--muted) / 0.3)'
-                }}
+                className="group relative border border-border/50 bg-card hover:bg-crm/5 transition-all duration-300 flex flex-col shadow-md hover:shadow-xl transform hover:-translate-y-1"
               >
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-crm via-accent to-crm rounded-t-lg opacity-60 group-hover:opacity-100 transition-opacity" />
+                {/* Top accent line */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-crm via-accent to-crm rounded-t-lg opacity-70 group-hover:opacity-100 transition-opacity" />
                 
-                <CardHeader className="pb-3 pt-5">
-                  <CardTitle className="text-lg text-center font-bold text-foreground group-hover:text-crm transition-colors">
+                <CardHeader className="pb-2 pt-6">
+                  <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-crm transition-colors leading-tight">
                     {partner.name}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 flex-1 flex flex-col">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
+                <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                     {partner.description}
                   </p>
                   
-                  <div className="bg-muted/30 rounded-lg p-3">
-                    <p className="text-xs font-semibold text-foreground mb-2">Applikationer:</p>
-                    <div className="flex flex-wrap gap-1">
+                  <div className="bg-crm/5 rounded-lg p-3 border border-crm/10">
+                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Applikationer</p>
+                    <div className="flex flex-wrap gap-1.5">
                       {partner.applications.map((app, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs bg-crm/10 text-crm border-0">
+                        <Badge key={i} variant="secondary" className="text-xs bg-crm/10 text-crm border-0 font-medium">
                           {app}
                         </Badge>
                       ))}
                     </div>
                   </div>
 
-                  <div className="bg-muted/20 rounded-lg p-3">
-                    <p className="text-xs font-semibold text-foreground mb-2">Branscher:</p>
-                    <div className="flex flex-wrap gap-1">
+                  <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
+                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branscher</p>
+                    <div className="flex flex-wrap gap-1.5">
                       {partner.industries.map((industry, i) => (
-                        <Badge key={i} variant="outline" className="text-xs border-accent/30 text-muted-foreground">
+                        <Badge key={i} variant="outline" className="text-xs border-accent/40 text-muted-foreground bg-transparent">
                           {industry}
                         </Badge>
                       ))}
                     </div>
                   </div>
 
-                  <div className="bg-muted/20 rounded-lg p-3">
-                    <p className="text-xs font-semibold text-foreground mb-2">Företagsstorlek:</p>
-                    <div className="flex flex-wrap gap-1">
+                  <div className="bg-secondary/50 rounded-lg p-3 border border-border/50">
+                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Företagsstorlek</p>
+                    <div className="flex flex-wrap gap-1.5">
                       {partner.companySize.map((size, i) => (
-                        <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/30 text-foreground font-medium">
+                        <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/20 text-foreground font-medium">
                           {size}
                         </Badge>
                       ))}
                     </div>
                   </div>
 
-                  <div className="mt-auto pt-4">
+                  <div className="mt-auto pt-4 border-t border-border/50">
                     <a 
                       href={partner.website} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-crm hover:text-crm/80 group/link"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-crm hover:text-crm/80 transition-colors group/link"
                     >
                       Besök hemsida
                       <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
