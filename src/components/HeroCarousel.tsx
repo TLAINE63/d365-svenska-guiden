@@ -100,7 +100,7 @@ const HeroCarousel = () => {
   const slide = slides[currentSlide];
 
   return (
-    <header className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]">
+    <header className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]" style={{ contain: 'layout size', willChange: 'auto' }}>
       {/* Background Images */}
       {slides.map((s, index) => (
         <div
@@ -108,6 +108,7 @@ const HeroCarousel = () => {
           className={`absolute inset-0 transition-opacity duration-700 ${
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
+          style={{ contain: 'strict' }}
         >
           <img
             src={s.backgroundImage}
@@ -116,6 +117,8 @@ const HeroCarousel = () => {
             width="1600"
             height="1067"
             fetchPriority={index === 0 ? "high" : "low"}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>
