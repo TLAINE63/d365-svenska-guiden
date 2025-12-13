@@ -4,9 +4,9 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Filter, Building2, Users, X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
@@ -14,7 +14,7 @@ import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { partners, crmApplications } from "@/data/partners";
+import { partners, crmApplications, allIndustries } from "@/data/partners";
 import {
   Accordion,
   AccordionContent,
@@ -22,17 +22,65 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+// Company size filter options
+const companySizeFilters = [
+  { label: "Småföretag (1-49 anställda)", values: ["Små"] },
+  { label: "Mindre/Mellanstora företag (50-199)", values: ["Små", "Medelstora"] },
+  { label: "Medelstora/Större företag (200-999)", values: ["Medelstora", "Stora"] },
+  { label: "Större företag (1.000-5.000)", values: ["Stora"] },
+  { label: "Enterprisebolag (+5.000 anställda)", values: ["Stora", "Enterprise"] }
+];
+
 const CRM = () => {
+  const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+
+  const toggleApplication = (app: string) => {
+    setSelectedApplications(prev => 
+      prev.includes(app) 
+        ? prev.filter(a => a !== app)
+        : [...prev, app]
+    );
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   // Filter partners that work with CRM applications
   const crmPartners = useMemo(() => {
-    return partners
-      .filter(partner => partner.applications.some(app => crmApplications.includes(app)))
-      .sort((a, b) => a.name.localeCompare(b.name, 'sv'));
-  }, []);
+    let result = partners.filter(partner => 
+      partner.applications.some(app => crmApplications.includes(app))
+    );
+
+    if (selectedApplications.length > 0) {
+      result = result.filter(partner => 
+        selectedApplications.some(app => partner.applications.includes(app))
+      );
+    }
+    
+    if (selectedIndustry) {
+      result = result.filter(partner => 
+        partner.industries.some(ind => 
+          ind.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
+          selectedIndustry.toLowerCase().includes(ind.toLowerCase()) ||
+          ind === "Alla branscher"
+        )
+      );
+    }
+
+    if (selectedCompanySize) {
+      const sizeFilter = companySizeFilters.find(f => f.label === selectedCompanySize);
+      if (sizeFilter) {
+        result = result.filter(partner => 
+          partner.companySize.some(size => sizeFilter.values.includes(size))
+        );
+      }
+    }
+    
+    return result.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
+  }, [selectedApplications, selectedIndustry, selectedCompanySize]);
 
   const ceVideos = [
     {
@@ -601,10 +649,120 @@ const CRM = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               CRM-partners
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-              Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige
+            <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
+              Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
             </p>
           </div>
+
+          {/* Application Filter */}
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Filter className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">Filtrera på applikation:</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {crmApplications.map((app) => (
+                <Button
+                  key={app}
+                  variant={selectedApplications.includes(app) ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => toggleApplication(app)}
+                  className={`transition-all rounded-full px-4 ${
+                    selectedApplications.includes(app) 
+                      ? "bg-gradient-to-r from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-105" 
+                      : "border-crm/30 text-crm hover:bg-crm/10 hover:border-crm/50 hover:scale-105"
+                  }`}
+                >
+                  {app}
+                  {selectedApplications.includes(app) && (
+                    <X className="ml-2 h-3 w-3" />
+                  )}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Industry Filter */}
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Building2 className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">Filtrera på bransch:</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {allIndustries.map((industry) => (
+                <Button
+                  key={industry}
+                  variant={selectedIndustry === industry ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedIndustry(selectedIndustry === industry ? null : industry)}
+                  className={`transition-all rounded-full px-4 ${
+                    selectedIndustry === industry 
+                      ? "bg-gradient-to-r from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-105" 
+                      : "border-crm/30 text-crm hover:bg-crm/10 hover:border-crm/50 hover:scale-105"
+                  }`}
+                >
+                  {industry}
+                  {selectedIndustry === industry && (
+                    <X className="ml-2 h-3 w-3" />
+                  )}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Company Size Filter */}
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Users className="h-5 w-5 text-muted-foreground" />
+              <span className="text-sm font-medium text-muted-foreground">Hur många anställda finns på ert företag?</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {companySizeFilters.map((sizeOption) => (
+                <Button
+                  key={sizeOption.label}
+                  variant={selectedCompanySize === sizeOption.label ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCompanySize(selectedCompanySize === sizeOption.label ? null : sizeOption.label)}
+                  className={`transition-all rounded-full px-4 ${
+                    selectedCompanySize === sizeOption.label 
+                      ? "bg-gradient-to-r from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-105" 
+                      : "border-crm/30 text-crm hover:bg-crm/10 hover:border-crm/50 hover:scale-105"
+                  }`}
+                >
+                  {sizeOption.label}
+                  {selectedCompanySize === sizeOption.label && (
+                    <X className="ml-2 h-3 w-3" />
+                  )}
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          {/* Filter Results Summary */}
+          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
+            <div className="text-center mb-8">
+              <p className="text-sm text-muted-foreground">
+                Visar <span className="font-semibold text-foreground">{crmPartners.length}</span> partners
+                {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-crm">{selectedApplications.join(', ')}</span></>}
+                {selectedApplications.length > 0 && (selectedIndustry || selectedCompanySize) && <>,</>}
+                {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
+                {selectedIndustry && selectedCompanySize && <> och</>}
+                {selectedCompanySize && <> för <span className="font-semibold text-crm">{selectedCompanySize}</span></>}
+              </p>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => {
+                  setSelectedApplications([]);
+                  setSelectedIndustry(null);
+                  setSelectedCompanySize(null);
+                }}
+                className="mt-2 text-muted-foreground hover:text-foreground"
+              >
+                Rensa alla filter
+              </Button>
+            </div>
+          )}
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {crmPartners.map((partner, index) => (
@@ -653,7 +811,7 @@ const CRM = () => {
                     <p className="text-xs font-semibold text-foreground mb-2">Företagsstorlek:</p>
                     <div className="flex flex-wrap gap-1">
                       {partner.companySize.map((size, i) => (
-                        <Badge key={i} variant="outline" className="text-xs bg-accent/10 border-accent/30 text-accent-foreground">
+                        <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/30 text-foreground font-medium">
                           {size}
                         </Badge>
                       ))}
