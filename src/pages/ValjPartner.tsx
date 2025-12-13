@@ -946,8 +946,8 @@ const ValjPartner = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Dynamics 365-partners
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-              Här är ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige
+            <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
+              Här är ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
             </p>
           </div>
 
