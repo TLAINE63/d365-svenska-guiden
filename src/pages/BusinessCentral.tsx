@@ -12,6 +12,7 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { partners, allIndustries } from "@/data/partners";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -645,6 +646,7 @@ const BusinessCentral = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm font-semibold text-business-central hover:text-business-central/80 transition-colors group/link"
+                      onClick={() => trackPartnerClick(partner.name, partner.website, "Business Central")}
                     >
                       Besök hemsida
                       <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />

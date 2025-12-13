@@ -10,6 +10,7 @@ import VideoCard from "@/components/VideoCard";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import { partners, Partner } from "@/data/partners";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 // All available Dynamics 365 applications for filtering
 const allApplications = [
@@ -450,6 +451,7 @@ const ValjPartner = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
+                      onClick={() => trackPartnerClick(partner.name, partner.website, "Välj Partner")}
                     >
                       Besök hemsida
                       <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />

@@ -12,6 +12,7 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { partners, allIndustries } from "@/data/partners";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -812,6 +813,7 @@ const FinanceSupplyChain = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm font-semibold text-finance-supply hover:text-finance-supply/80 transition-colors group/link"
+                      onClick={() => trackPartnerClick(partner.name, partner.website, "Finance & Supply Chain")}
                     >
                       Besök hemsida
                       <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
