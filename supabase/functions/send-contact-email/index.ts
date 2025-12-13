@@ -149,7 +149,7 @@ serve(async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Dynamic Factory <onboarding@resend.dev>",
-        to: ["thomas.laine@dynamicfactory.se"],
+        to: ["thomas.laine@dynamicfactory.se", "tlaine@live.se"],
         subject: `Ny kontaktförfrågan från ${safeName}`,
         html: `
           <h1>Ny kontaktförfrågan</h1>
