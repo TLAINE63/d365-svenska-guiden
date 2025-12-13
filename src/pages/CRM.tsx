@@ -15,6 +15,7 @@ import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { partners, crmApplications, allIndustries } from "@/data/partners";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -822,6 +823,7 @@ const CRM = () => {
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm font-semibold text-crm hover:text-crm/80 transition-colors group/link"
+                      onClick={() => trackPartnerClick(partner.name, partner.website, "CRM")}
                     >
                       Besök hemsida
                       <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />

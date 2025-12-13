@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.send-analysis-email]
 verify_jwt = false
+
+[functions.track-partner-click]
+verify_jwt = false

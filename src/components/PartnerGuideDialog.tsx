@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 interface Partner {
   name: string;
@@ -340,6 +341,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2"
+                      onClick={() => trackPartnerClick(partner.name, partner.website, "Partner Guide")}
                     >
                       Besök hemsida →
                     </a>
