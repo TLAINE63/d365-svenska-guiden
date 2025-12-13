@@ -267,7 +267,7 @@ const ValjPartner = () => {
             options={allApplications.map(app => ({ label: app, value: app }))}
             selectedValues={selectedApplications}
             onToggle={toggleApplication}
-            colorScheme="primary"
+            colorScheme="amber"
           />
 
           {/* Industry Filter */}
@@ -277,7 +277,7 @@ const ValjPartner = () => {
             options={allIndustries.map(ind => ({ label: ind, value: ind }))}
             selectedValue={selectedIndustry}
             onSelect={setSelectedIndustry}
-            colorScheme="primary"
+            colorScheme="amber"
           />
 
           {/* Company Size Filter */}
@@ -287,7 +287,7 @@ const ValjPartner = () => {
             options={companySizeFilters.map(f => ({ label: f.label, value: f.label }))}
             selectedValue={selectedCompanySize}
             onSelect={setSelectedCompanySize}
-            colorScheme="primary"
+            colorScheme="amber"
           />
 
           {/* Filter Results Summary */}

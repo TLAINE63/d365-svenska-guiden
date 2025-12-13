@@ -12,7 +12,7 @@ interface FilterButtonsProps {
   options: FilterOption[];
   selectedValue: string | null;
   onSelect: (value: string | null) => void;
-  colorScheme?: "primary" | "business-central" | "crm" | "finance-supply";
+  colorScheme?: "primary" | "business-central" | "crm" | "finance-supply" | "amber";
 }
 
 interface MultiFilterButtonsProps {
@@ -21,7 +21,7 @@ interface MultiFilterButtonsProps {
   options: FilterOption[];
   selectedValues: string[];
   onToggle: (value: string) => void;
-  colorScheme?: "primary" | "business-central" | "crm" | "finance-supply";
+  colorScheme?: "primary" | "business-central" | "crm" | "finance-supply" | "amber";
 }
 
 const iconMap = {
@@ -46,6 +46,10 @@ const colorSchemes = {
   "finance-supply": {
     selected: "bg-finance-supply text-white border-finance-supply shadow-lg shadow-finance-supply/30",
     unselected: "bg-card border-border hover:border-finance-supply/50 hover:bg-finance-supply/5 text-foreground",
+  },
+  amber: {
+    selected: "bg-amber-500 text-white border-amber-500 shadow-lg shadow-amber-500/30",
+    unselected: "bg-card border-border hover:border-amber-400/50 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-foreground",
   },
 };
 
