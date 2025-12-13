@@ -43,6 +43,8 @@ const formSchema = z.object({
   }).max(1000, {
     message: "Beskrivningen får vara max 1000 tecken.",
   }),
+  // Honeypot field - should always be empty (bots will fill it)
+  website: z.string().max(0, { message: "" }).optional().or(z.literal("")),
 });
 
 interface ContactFormDialogProps {
@@ -61,10 +63,23 @@ const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
       email: "",
       phone: "",
       description: "",
+      website: "", // Honeypot field
     },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // Honeypot check - if website field is filled, it's a bot
+    if (values.website && values.website.length > 0) {
+      // Silently reject but pretend success to confuse bots
+      toast({
+        title: "Tack för din förfrågan!",
+        description: "Vi återkommer till dig så snart som möjligt.",
+      });
+      form.reset();
+      setOpen(false);
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
@@ -74,6 +89,7 @@ const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
           email: values.email,
           phone: values.phone || "",
           description: values.description,
+          honeypot: values.website || "", // Send honeypot for server-side check
         },
       });
 
@@ -170,6 +186,19 @@ const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
                     />
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* Honeypot field - hidden from users, bots will fill it */}
+            <FormField
+              control={form.control}
+              name="website"
+              render={({ field }) => (
+                <FormItem className="absolute -left-[9999px] opacity-0 h-0 overflow-hidden" aria-hidden="true">
+                  <FormLabel>Website</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Leave empty" tabIndex={-1} autoComplete="off" {...field} />
+                  </FormControl>
                 </FormItem>
               )}
             />
