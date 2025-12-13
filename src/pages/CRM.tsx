@@ -779,7 +779,7 @@ const CRM = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     {partner.description}
                   </p>
                   
