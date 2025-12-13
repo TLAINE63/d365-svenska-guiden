@@ -62,6 +62,7 @@ interface CRMAnalysisData {
   aiDetails: string;
   // Step 10 - Additional info
   additionalInfo: string;
+  currentPartners: string;
   // Contact info
   companyName: string;
   contactName: string;
@@ -96,6 +97,7 @@ const initialData: CRMAnalysisData = {
   aiUseCases: [],
   aiDetails: "",
   additionalInfo: "",
+  currentPartners: "",
   companyName: "",
   contactName: "",
   phone: "",
@@ -713,9 +715,21 @@ const CRMNeedsAnalysis = () => {
     }
 
     addSectionHeader("Övrig Information", "10");
+    if (data.currentPartners) {
+      pdf.setFont("helvetica", "bold");
+      pdf.text("Microsoft-partners:", margin, yPos);
+      yPos += 6;
+      const partnerLines = pdf.splitTextToSize(data.currentPartners, contentWidth);
+      pdf.setFont("helvetica", "normal");
+      pdf.text(partnerLines, margin, yPos);
+      yPos += partnerLines.length * 5 + 5;
+    }
     if (data.additionalInfo) {
+      pdf.setFont("helvetica", "bold");
+      pdf.text("Övrigt:", margin, yPos);
+      yPos += 6;
       const infoLines = pdf.splitTextToSize(data.additionalInfo, contentWidth);
-      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "normal");
       pdf.text(infoLines, margin, yPos);
     }
 
@@ -744,6 +758,8 @@ const CRMNeedsAnalysis = () => {
             "Integrationer": data.integrations.join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
+            "Microsoft-partners": data.currentPartners || "Ej angivet",
+            "Övrig info": data.additionalInfo || "Ej angivet",
           },
           recommendation: recommendation.products.length > 0 ? {
             product: recommendation.products.map(p => p.name).join(", "),
@@ -1126,6 +1142,15 @@ const CRMNeedsAnalysis = () => {
       case 10:
         return (
           <div className="space-y-6">
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Har ni kontakt med några Microsoftpartners idag? Vilka är det?</Label>
+              <Textarea
+                placeholder="Ange vilka Microsoft-partners ni eventuellt har kontakt med..."
+                value={data.currentPartners}
+                onChange={(e) => setData({ ...data, currentPartners: e.target.value })}
+                className="min-h-[100px]"
+              />
+            </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Övrig information</Label>
               <Textarea
