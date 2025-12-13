@@ -190,19 +190,23 @@ const HeroCarousel = () => {
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
       </button>
 
-      {/* Dots Indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+      {/* Dots Indicator - using padding to meet 24px touch target while keeping visual dot small */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-0">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === currentSlide
-                ? "bg-white w-8"
-                : "bg-white/50 hover:bg-white/70"
-            }`}
+            className="p-2 group"
             aria-label={`Gå till slide ${index + 1}`}
-          />
+          >
+            <span
+              className={`block rounded-full transition-all ${
+                index === currentSlide
+                  ? "bg-white w-8 h-3"
+                  : "bg-white/50 group-hover:bg-white/70 w-3 h-3"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </header>
