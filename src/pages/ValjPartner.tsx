@@ -709,16 +709,24 @@ const partners: Partner[] = [
 
 const ValjPartner = () => {
   const [guideOpen, setGuideOpen] = useState(false);
-  const [selectedApplication, setSelectedApplication] = useState<string | null>(null);
+  const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+
+  const toggleApplication = (app: string) => {
+    setSelectedApplications(prev => 
+      prev.includes(app) 
+        ? prev.filter(a => a !== app)
+        : [...prev, app]
+    );
+  };
 
   // Filter and sort partners alphabetically
   const filteredPartners = useMemo(() => {
     let result = [...partners];
     
-    if (selectedApplication) {
+    if (selectedApplications.length > 0) {
       result = result.filter(partner => 
-        partner.applications.includes(selectedApplication)
+        selectedApplications.some(app => partner.applications.includes(app))
       );
     }
     
@@ -734,7 +742,7 @@ const ValjPartner = () => {
     
     // Sort alphabetically by name
     return result.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
-  }, [selectedApplication, selectedIndustry]);
+  }, [selectedApplications, selectedIndustry]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -934,17 +942,17 @@ const ValjPartner = () => {
               {allApplications.map((app) => (
                 <Button
                   key={app}
-                  variant={selectedApplication === app ? "default" : "outline"}
+                  variant={selectedApplications.includes(app) ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setSelectedApplication(selectedApplication === app ? null : app)}
+                  onClick={() => toggleApplication(app)}
                   className={`transition-all rounded-full px-4 ${
-                    selectedApplication === app 
+                    selectedApplications.includes(app) 
                       ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 scale-105" 
                       : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 hover:scale-105"
                   }`}
                 >
                   {app}
-                  {selectedApplication === app && (
+                  {selectedApplications.includes(app) && (
                     <X className="ml-2 h-3 w-3" />
                   )}
                 </Button>
@@ -981,19 +989,19 @@ const ValjPartner = () => {
           </div>
 
           {/* Filter Results Summary */}
-          {(selectedApplication || selectedIndustry) && (
+          {(selectedApplications.length > 0 || selectedIndustry) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
-                {selectedApplication && <> som levererar <span className="font-semibold text-primary">{selectedApplication}</span></>}
-                {selectedApplication && selectedIndustry && <> och</>}
+                {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
+                {selectedApplications.length > 0 && selectedIndustry && <> och</>}
                 {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
               </p>
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
-                  setSelectedApplication(null);
+                  setSelectedApplications([]);
                   setSelectedIndustry(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
