@@ -148,7 +148,7 @@ serve(async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Dynamic Factory <noreply@dynamicfactory.se>",
+        from: "Dynamic Factory <onboarding@resend.dev>",
         to: ["thomas.laine@dynamicfactory.se"],
         subject: `Ny kontaktförfrågan från ${safeName}`,
         html: `
