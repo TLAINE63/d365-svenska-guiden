@@ -1011,7 +1011,7 @@ const ValjPartner = () => {
           <div className="mb-8 sm:mb-10">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Users className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Filtrera på företagsstorlek:</span>
+              <span className="text-sm font-medium text-muted-foreground">Hur många anställda finns på ert företag?</span>
             </div>
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {companySizeFilters.map((sizeOption) => (
