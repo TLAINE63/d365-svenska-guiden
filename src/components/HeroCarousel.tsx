@@ -18,7 +18,7 @@ interface HeroSlide {
 const slides: HeroSlide[] = [
   {
     id: 1,
-    backgroundImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=65&w=1600",
+    backgroundImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Din guide inom <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
@@ -31,7 +31,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: 2,
-    backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=65&w=1600",
+    backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Hitta rätt <span className="text-emerald-400">ERP-system</span> för ditt företag
@@ -45,7 +45,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: 3,
-    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=65&w=1600",
+    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
@@ -59,7 +59,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: 4,
-    backgroundImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=65&w=1600",
+    backgroundImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Hitta rätt <span className="text-amber-400">implementationspartner</span>
