@@ -144,16 +144,20 @@ serve(async (req: Request): Promise<Response> => {
     console.log("Sending contact email from:", safeName, safeEmail);
     console.log("Using SMTP user:", SMTP_USER);
 
-    // Create SMTP client for Microsoft 365
+    // Create SMTP client for Microsoft 365 with STARTTLS
     const client = new SMTPClient({
       connection: {
         hostname: "smtp.office365.com",
         port: 587,
-        tls: true,
+        tls: false,
         auth: {
           username: SMTP_USER,
           password: SMTP_PASSWORD,
         },
+      },
+      pool: false,
+      debug: {
+        log: true,
       },
     });
 
