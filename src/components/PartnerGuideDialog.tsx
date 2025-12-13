@@ -336,7 +336,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                         </Badge>
                       ))}
                     </div>
-                    <Button asChild size="sm" className="w-full mt-3 bg-primary hover:bg-primary/90">
+                    <Button asChild variant="default" className="w-full mt-3">
                       <a 
                         href={partner.website} 
                         target="_blank" 
@@ -344,7 +344,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                         onClick={() => trackPartnerClick(partner.name, partner.website, "Partner Guide")}
                       >
                         Besök hemsida
-                        <ExternalLink className="h-4 w-4 ml-2" />
+                        <ExternalLink className="h-4 w-4" />
                       </a>
                     </Button>
                   </CardContent>

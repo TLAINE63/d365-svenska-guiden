@@ -5,16 +5,22 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        // Product-specific variants
+        "business-central": "bg-business-central text-business-central-foreground hover:bg-business-central/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
+        "crm": "bg-crm text-crm-foreground hover:bg-crm/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
+        "finance-supply": "bg-finance-supply text-finance-supply-foreground hover:bg-finance-supply/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
+        "copilot": "bg-copilot text-copilot-foreground hover:bg-copilot/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
+        "agents": "bg-agents text-agents-foreground hover:bg-agents/85 shadow-sm hover:shadow-md hover:-translate-y-0.5",
       },
       size: {
         default: "h-10 px-4 py-2",
