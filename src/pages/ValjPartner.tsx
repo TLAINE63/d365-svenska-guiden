@@ -446,7 +446,7 @@ const ValjPartner = () => {
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-border/50">
-                    <Button asChild size="sm" className="w-full bg-primary hover:bg-primary/90">
+                    <Button asChild variant="default" className="w-full">
                       <a 
                         href={partner.website} 
                         target="_blank" 
@@ -454,7 +454,7 @@ const ValjPartner = () => {
                         onClick={() => trackPartnerClick(partner.name, partner.website, "Välj Partner")}
                       >
                         Besök hemsida
-                        <ExternalLink className="h-4 w-4 ml-2" />
+                        <ExternalLink className="h-4 w-4" />
                       </a>
                     </Button>
                   </div>

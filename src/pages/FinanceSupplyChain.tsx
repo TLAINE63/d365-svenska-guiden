@@ -808,7 +808,7 @@ const FinanceSupplyChain = () => {
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-border/50">
-                    <Button asChild size="sm" className="w-full bg-finance-supply hover:bg-finance-supply/90">
+                    <Button asChild variant="finance-supply" className="w-full">
                       <a 
                         href={partner.website} 
                         target="_blank" 
@@ -816,7 +816,7 @@ const FinanceSupplyChain = () => {
                         onClick={() => trackPartnerClick(partner.name, partner.website, "Finance & Supply Chain")}
                       >
                         Besök hemsida
-                        <ExternalLink className="h-4 w-4 ml-2" />
+                        <ExternalLink className="h-4 w-4" />
                       </a>
                     </Button>
                   </div>
