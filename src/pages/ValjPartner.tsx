@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Users, ArrowRight, Calendar, MessageSquare, Mail, Building2, Award, Target, Shield, Filter, X, ExternalLink } from "lucide-react";
+import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink } from "lucide-react";
+import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import { partners, Partner } from "@/data/partners";
@@ -260,88 +261,34 @@ const ValjPartner = () => {
           </div>
 
           {/* Application Filter */}
-          <div className="mb-8 sm:mb-10">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Filter className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Filtrera på applikation:</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {allApplications.map((app) => (
-                <Button
-                  key={app}
-                  variant={selectedApplications.includes(app) ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => toggleApplication(app)}
-                  className={`transition-all rounded-full px-4 ${
-                    selectedApplications.includes(app) 
-                      ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 scale-105" 
-                      : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 hover:scale-105"
-                  }`}
-                >
-                  {app}
-                  {selectedApplications.includes(app) && (
-                    <X className="ml-2 h-3 w-3" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
+          <MultiFilterButtons
+            title="Filtrera på applikation"
+            icon="application"
+            options={allApplications.map(app => ({ label: app, value: app }))}
+            selectedValues={selectedApplications}
+            onToggle={toggleApplication}
+            colorScheme="primary"
+          />
 
           {/* Industry Filter */}
-          <div className="mb-8 sm:mb-10">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Building2 className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Filtrera på bransch:</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {allIndustries.map((industry) => (
-                <Button
-                  key={industry}
-                  variant={selectedIndustry === industry ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedIndustry(selectedIndustry === industry ? null : industry)}
-                  className={`transition-all rounded-full px-4 ${
-                    selectedIndustry === industry 
-                      ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 scale-105" 
-                      : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 hover:scale-105"
-                  }`}
-                >
-                  {industry}
-                  {selectedIndustry === industry && (
-                    <X className="ml-2 h-3 w-3" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
+          <FilterButtons
+            title="Filtrera på bransch"
+            icon="industry"
+            options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+            selectedValue={selectedIndustry}
+            onSelect={setSelectedIndustry}
+            colorScheme="primary"
+          />
 
           {/* Company Size Filter */}
-          <div className="mb-8 sm:mb-10">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Users className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm font-medium text-muted-foreground">Hur många anställda finns på ert företag?</span>
-            </div>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {companySizeFilters.map((sizeOption) => (
-                <Button
-                  key={sizeOption.label}
-                  variant={selectedCompanySize === sizeOption.label ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCompanySize(selectedCompanySize === sizeOption.label ? null : sizeOption.label)}
-                  className={`transition-all rounded-full px-4 ${
-                    selectedCompanySize === sizeOption.label 
-                      ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25 scale-105" 
-                      : "border-primary/30 text-primary hover:bg-primary/10 hover:border-primary/50 hover:scale-105"
-                  }`}
-                >
-                  {sizeOption.label}
-                  {selectedCompanySize === sizeOption.label && (
-                    <X className="ml-2 h-3 w-3" />
-                  )}
-                </Button>
-              ))}
-            </div>
-          </div>
+          <FilterButtons
+            title="Hur många anställda finns på ert företag?"
+            icon="employees"
+            options={companySizeFilters.map(f => ({ label: f.label, value: f.label }))}
+            selectedValue={selectedCompanySize}
+            onSelect={setSelectedCompanySize}
+            colorScheme="primary"
+          />
 
           {/* Filter Results Summary */}
           {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
