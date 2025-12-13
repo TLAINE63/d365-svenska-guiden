@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const formSchema = z.object({
   name: z.string().trim().min(2, {
@@ -50,6 +51,7 @@ interface ContactFormDialogProps {
 
 const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
   const [open, setOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,26 +64,43 @@ const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // Create mailto link with form data
-    const subject = encodeURIComponent("Förfrågan om gratis konsultation - Dynamics 365");
-    const body = encodeURIComponent(
-      `Namn: ${values.name}\nE-post: ${values.email}\nTelefonnummer: ${values.phone || "Ej angivet"}\n\nBeskrivning:\n${values.description}`
-    );
-    const mailtoLink = `mailto:thomas.laine@dynamicfactory.se?subject=${subject}&body=${body}`;
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: values.name,
+          email: values.email,
+          phone: values.phone || "",
+          description: values.description,
+        },
+      });
 
-    // Open mailto link
-    window.location.href = mailtoLink;
+      if (error) {
+        console.error("Error sending email:", error);
+        throw error;
+      }
 
-    // Show success message
-    toast({
-      title: "Tack för din förfrågan!",
-      description: "Vi återkommer till dig så snart som möjligt.",
-    });
+      console.log("Email sent successfully:", data);
 
-    // Reset form and close dialog
-    form.reset();
-    setOpen(false);
+      toast({
+        title: "Tack för din förfrågan!",
+        description: "Vi återkommer till dig så snart som möjligt.",
+      });
+
+      form.reset();
+      setOpen(false);
+    } catch (error) {
+      console.error("Failed to send contact email:", error);
+      toast({
+        title: "Något gick fel",
+        description: "Försök igen eller kontakta oss direkt via e-post.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -160,14 +179,16 @@ const ContactFormDialog = ({ children }: ContactFormDialogProps) => {
                 variant="outline"
                 onClick={() => setOpen(false)}
                 className="flex-1"
+                disabled={isSubmitting}
               >
                 Avbryt
               </Button>
               <Button
                 type="submit"
                 className="flex-1 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
+                disabled={isSubmitting}
               >
-                Skicka förfrågan
+                {isSubmitting ? "Skickar..." : "Skicka förfrågan"}
               </Button>
             </div>
           </form>
