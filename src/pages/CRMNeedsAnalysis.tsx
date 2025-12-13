@@ -602,7 +602,45 @@ const CRMNeedsAnalysis = () => {
     pdf.setFont("helvetica", "bold");
     pdf.text(new Date().toLocaleDateString('sv-SE'), pageWidth - 55, 30);
 
-    yPos = 65;
+    yPos = 60;
+
+    // Introduction text
+    pdf.setTextColor(80, 80, 80);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "italic");
+    const introText = "Detta dokument sammanfattar er CRM-behovsanalys för Dynamics 365 Customer Engagement. Analysen ger en första indikation på vilka CRM-applikationer som passar era behov bäst och ligger till grund för vidare diskussion.";
+    const introLines = pdf.splitTextToSize(introText, contentWidth);
+    pdf.text(introLines, margin, yPos);
+    yPos += introLines.length * 5 + 8;
+
+    // Contact Information Box
+    pdf.setFillColor(240, 245, 255);
+    pdf.roundedRect(margin, yPos, contentWidth, 50, 3, 3, 'F');
+    pdf.setDrawColor(30, 58, 138);
+    pdf.setLineWidth(1);
+    pdf.line(margin, yPos, margin, yPos + 50);
+    
+    pdf.setTextColor(30, 58, 138);
+    pdf.setFontSize(12);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("KONTAKTINFORMATION", margin + 8, yPos + 12);
+    
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "normal");
+    
+    const contactY = yPos + 22;
+    pdf.setFont("helvetica", "bold");
+    pdf.text(data.companyName, margin + 8, contactY);
+    pdf.setFont("helvetica", "normal");
+    pdf.text(data.contactName, margin + 8, contactY + 8);
+    pdf.text(`Tel: ${data.phone || "Ej angivet"}`, margin + 8, contactY + 16);
+    pdf.text(`E-post: ${data.email}`, pageWidth / 2, contactY);
+    pdf.setFontSize(9);
+    pdf.setTextColor(100, 100, 100);
+    pdf.text(`Analys genomförd: ${new Date().toLocaleDateString('sv-SE')}`, pageWidth / 2, contactY + 8);
+    
+    yPos += 58;
 
     // Recommendation section
     if (recommendation.products.length > 0) {
@@ -615,39 +653,36 @@ const CRMNeedsAnalysis = () => {
       yPos += 22;
 
       recommendation.products.forEach((product, index) => {
-        addNewPageIfNeeded(50);
+        addNewPageIfNeeded(55);
         
         pdf.setFillColor(240, 245, 255);
-        pdf.roundedRect(margin, yPos, contentWidth, 35, 2, 2, 'F');
+        pdf.roundedRect(margin, yPos, contentWidth, 42, 2, 2, 'F');
         
         pdf.setTextColor(30, 58, 138);
         pdf.setFontSize(12);
         pdf.setFont("helvetica", "bold");
         pdf.text(`${index + 1}. ${product.name}`, margin + 5, yPos + 10);
         
+        // Add score indicator
+        pdf.setFontSize(8);
+        pdf.setTextColor(100, 100, 100);
+        pdf.text(`Matchningspoäng: ${product.score}%`, pageWidth - margin - 40, yPos + 10);
+        
         pdf.setTextColor(51, 51, 51);
         pdf.setFontSize(9);
         pdf.setFont("helvetica", "normal");
         let reasonY = yPos + 18;
-        product.reasons.slice(0, 3).forEach(reason => {
+        product.reasons.slice(0, 4).forEach(reason => {
           pdf.text(`• ${reason}`, margin + 8, reasonY);
           reasonY += 5;
         });
         
-        yPos += 40;
+        yPos += 47;
       });
       yPos += 5;
     }
 
-    // Contact info
-    addSectionHeader("Kontaktinformation", "");
-    addContentRow("Företag:", data.companyName);
-    addContentRow("Kontakt:", data.contactName);
-    addContentRow("Telefon:", data.phone);
-    addContentRow("E-post:", data.email);
-    yPos += 5;
-
-    // Sections
+    // Sections with enhanced formatting
     addSectionHeader("Företagsstorlek", "1");
     addContentRow("Anställda:", data.employees);
     addContentRow("Säljteam:", data.salesTeamSize);
@@ -731,7 +766,66 @@ const CRMNeedsAnalysis = () => {
       const infoLines = pdf.splitTextToSize(data.additionalInfo, contentWidth);
       pdf.setFont("helvetica", "normal");
       pdf.text(infoLines, margin, yPos);
+      yPos += infoLines.length * 5 + 5;
     }
+
+    // Next Steps Section
+    addNewPageIfNeeded(60);
+    yPos += 5;
+    pdf.setFillColor(255, 248, 225);
+    pdf.roundedRect(margin, yPos, contentWidth, 45, 3, 3, 'F');
+    pdf.setDrawColor(255, 193, 7);
+    pdf.setLineWidth(1);
+    pdf.line(margin, yPos, margin, yPos + 45);
+    
+    pdf.setTextColor(180, 130, 0);
+    pdf.setFontSize(12);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("NÄSTA STEG", margin + 8, yPos + 12);
+    
+    pdf.setTextColor(100, 80, 0);
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "normal");
+    const nextStepsY = yPos + 20;
+    pdf.text("1. Vi kontaktar er inom 1-2 arbetsdagar för att diskutera resultatet", margin + 8, nextStepsY);
+    pdf.text("2. Gemensam genomgång av era CRM-behov och vår rekommendation", margin + 8, nextStepsY + 6);
+    pdf.text("3. Presentation av lämpliga implementationspartners", margin + 8, nextStepsY + 12);
+    pdf.text("4. Detaljerad offert och projektplan vid fortsatt intresse", margin + 8, nextStepsY + 18);
+    
+    yPos += 55;
+
+    // Disclaimer
+    addNewPageIfNeeded(25);
+    pdf.setTextColor(120, 120, 120);
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "italic");
+    const disclaimerText = "Denna analys ger en första indikation baserat på de uppgifter ni angett. En fullständig behovsanalys bör genomföras tillsammans med en certifierad Microsoft-partner för att säkerställa optimal CRM-lösning.";
+    const disclaimerLines = pdf.splitTextToSize(disclaimerText, contentWidth);
+    pdf.text(disclaimerLines, margin, yPos);
+    yPos += disclaimerLines.length * 4 + 5;
+
+    // Footer
+    addNewPageIfNeeded(35);
+    yPos = pageHeight - 40;
+    pdf.setDrawColor(30, 58, 138);
+    pdf.setLineWidth(0.5);
+    pdf.line(margin, yPos, pageWidth - margin, yPos);
+    yPos += 8;
+    
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 28, 3, 3, 'F');
+    
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Dynamic Factory", margin + 8, yPos + 10);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
+    
+    pdf.setFontSize(9);
+    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 10);
+    pdf.text("www.dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
 
     pdf.save(`CRM_Behovsanalys_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}.pdf`);
     
