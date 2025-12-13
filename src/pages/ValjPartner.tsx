@@ -1051,7 +1051,7 @@ const ValjPartner = () => {
                     <p className="text-xs font-semibold text-foreground mb-2">Företagsstorlek:</p>
                     <div className="flex flex-wrap gap-1">
                       {partner.companySize.map((size, i) => (
-                        <Badge key={i} variant="outline" className="text-xs bg-accent/10 border-accent/30 text-accent-foreground">
+                        <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/30 text-foreground font-medium">
                           {size}
                         </Badge>
                       ))}
