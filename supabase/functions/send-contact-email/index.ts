@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SMTP_USER = Deno.env.get("SMTP_USER") || "";
+const SMTP_PASSWORD = Deno.env.get("SMTP_PASSWORD") || "";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -140,36 +142,42 @@ serve(async (req: Request): Promise<Response> => {
     const safeDescription = sanitizeHtml(description.trim());
 
     console.log("Sending contact email from:", safeName, safeEmail);
+    console.log("Using SMTP user:", SMTP_USER);
 
-    const emailResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
+    // Create SMTP client for Microsoft 365
+    const client = new SMTPClient({
+      connection: {
+        hostname: "smtp.office365.com",
+        port: 587,
+        tls: true,
+        auth: {
+          username: SMTP_USER,
+          password: SMTP_PASSWORD,
+        },
       },
-      body: JSON.stringify({
-        from: "Dynamic Factory <onboarding@resend.dev>",
-        to: ["thomas.laine@dynamicfactory.se"],
-        subject: `Ny kontaktförfrågan från ${safeName}`,
-        html: `
-          <h1>Ny kontaktförfrågan</h1>
-          <p><strong>Namn:</strong> ${safeName}</p>
-          <p><strong>E-post:</strong> ${safeEmail}</p>
-          <p><strong>Telefon:</strong> ${safePhone}</p>
-          <h2>Meddelande:</h2>
-          <p>${safeDescription}</p>
-        `,
-      }),
     });
 
-    const responseData = await emailResponse.json();
-    console.log("Contact email response:", responseData);
+    // Send email via Microsoft 365 SMTP
+    await client.send({
+      from: SMTP_USER,
+      to: "thomas.laine@dynamicfactory.se",
+      subject: `Ny kontaktförfrågan från ${safeName}`,
+      content: "auto",
+      html: `
+        <h1>Ny kontaktförfrågan</h1>
+        <p><strong>Namn:</strong> ${safeName}</p>
+        <p><strong>E-post:</strong> ${safeEmail}</p>
+        <p><strong>Telefon:</strong> ${safePhone}</p>
+        <h2>Meddelande:</h2>
+        <p>${safeDescription}</p>
+      `,
+    });
 
-    if (!emailResponse.ok) {
-      throw new Error(responseData.message || "Failed to send email");
-    }
+    await client.close();
 
-    return new Response(JSON.stringify({ success: true, data: responseData }), {
+    console.log("Contact email sent successfully via M365 SMTP");
+
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
