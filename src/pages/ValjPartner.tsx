@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Users, ArrowRight, Calendar, MessageSquare, Mail, Building2, Award, Target, Shield, Filter, X } from "lucide-react";
+import { Users, ArrowRight, Calendar, MessageSquare, Mail, Building2, Award, Target, Shield, Filter, X, ExternalLink } from "lucide-react";
 import VideoCard from "@/components/VideoCard";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
@@ -446,16 +446,17 @@ const ValjPartner = () => {
                   </div>
 
                   <div className="mt-auto pt-4 border-t border-border/50">
-                    <a 
-                      href={partner.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
-                      onClick={() => trackPartnerClick(partner.name, partner.website, "Välj Partner")}
-                    >
-                      Besök hemsida
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
-                    </a>
+                    <Button asChild size="sm" className="w-full bg-primary hover:bg-primary/90">
+                      <a 
+                        href={partner.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={() => trackPartnerClick(partner.name, partner.website, "Välj Partner")}
+                      >
+                        Besök hemsida
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </a>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
