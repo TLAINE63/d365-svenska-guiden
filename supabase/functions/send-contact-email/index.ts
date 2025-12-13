@@ -63,6 +63,7 @@ interface ContactEmailRequest {
   email: string;
   phone?: string;
   description: string;
+  honeypot?: string; // Honeypot field - should always be empty
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -104,7 +105,17 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    const { name, email, phone, description } = body;
+    const { name, email, phone, description, honeypot } = body;
+
+    // Honeypot check - if filled, it's likely a bot
+    if (honeypot && honeypot.length > 0) {
+      console.log(`Honeypot triggered from IP: ${clientIp}`);
+      // Return success to confuse bots, but don't send email
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
 
     // Server-side validation
     const errors: string[] = [];
