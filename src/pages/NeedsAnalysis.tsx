@@ -156,7 +156,6 @@ const integrationOptions = [
   "Webshop",
   "API:er till kundsystem",
   "Microsoft 365",
-  "Power Platform",
 ];
 
 const erpSystemOptions = [

@@ -233,7 +233,6 @@ const integrationOptions = [
   "Telefoni/Växel (CTI)",
   "Marketing automation-verktyg",
   "Power BI",
-  "Power Platform",
   "Azure / molntjänster",
 ];
 
