@@ -487,15 +487,6 @@ export const partners: Partner[] = [
     companySize: ["Stora"]
   },
   {
-    name: "Triatech",
-    logo: "",
-    website: "https://triatech.se",
-    description: "Triatech är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "Two i Sverige (CombinedX)",
     logo: "https://two.se/wp-content/uploads/2023/01/two-logo.svg",
     website: "https://two.se/erp-hos-two/business-central/",
@@ -509,15 +500,6 @@ export const partners: Partner[] = [
     logo: "",
     website: "https://updateab.se",
     description: "Update Affärssystem är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Xenit",
-    logo: "",
-    website: "https://xenit.se/dynamics-365/",
-    description: "Xenit är en Microsoft Dynamics 365 Business Central-partner med fokus på molnlösningar. De hjälper svenska företag att migrera till molnet och optimera sina affärsprocesser genom moderna, skalbara lösningar i Azure.",
     applications: ["Business Central"],
     industries: ["Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
