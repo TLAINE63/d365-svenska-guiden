@@ -460,8 +460,8 @@ const Index = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
               Implementeringskostnader
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Kostnaderna för implementering varierar baserat på system och omfattning
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Kostnaderna för implementering varierar baserat på system och omfattning. Nedan följer några exempel på projektkostnader för olika Dynamics 365 applikationer för att du skall få en känsla för omfattningen och tidsramen för att genomföra en lyckad implementation. Bransch, storlek på företag, behov och komplexitet samt många andra faktorer påverkar självklart.
             </p>
           </div>
 
