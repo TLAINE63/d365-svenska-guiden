@@ -285,14 +285,24 @@ const CRM = () => {
                 Microsoft Dynamics 365 Sales, Customer Insights/Marketing, Customer Service, Contact Center, Field Service, Project Operations m.m.
               </p>
               
-              <ContactFormDialog>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <ContactFormDialog>
+                  <Button 
+                    size="lg"
+                    className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  >
+                    Boka gratis rådgivning
+                  </Button>
+                </ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Boka gratis rådgivning
+                  Hitta rätt partner
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-              </ContactFormDialog>
+              </div>
             </div>
           </div>
         </div>
@@ -645,21 +655,15 @@ const CRM = () => {
       </section>
 
       {/* Partners Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+      <section id="partners" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-10 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               CRM-partners
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto mb-6">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
               Här är ett urval av partners som arbetar med Dynamics 365 Customer Engagement i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
             </p>
-            <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white">
-              <Link to="/valj-partner" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                Utforska hela partnerkatalogen
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
           </div>
 
           {/* Application Filter */}
