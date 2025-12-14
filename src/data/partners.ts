@@ -181,15 +181,6 @@ export const partners: Partner[] = [
     companySize: ["Medelstora"]
   },
   {
-    name: "Eventful",
-    logo: "",
-    website: "https://eventful.se",
-    description: "Eventful är en Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med implementation och support av affärssystem. De fokuserar på att leverera lösningar som möter kundernas specifika behov.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "Exsitec (Brightcom)",
     logo: "https://excitec.se/wp-content/uploads/2022/01/excitec-logo.svg",
     website: "https://excitec.se/affarssystem/",
