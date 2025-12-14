@@ -325,15 +325,6 @@ export const partners: Partner[] = [
     companySize: ["Stora"]
   },
   {
-    name: "Lumini",
-    logo: "",
-    website: "https://lumini.se",
-    description: "Lumini är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter kundernas verksamhetsbehov.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "Midpoint",
     logo: "",
     website: "https://midpoint.se",
@@ -421,15 +412,6 @@ export const partners: Partner[] = [
     description: "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform. De hjälper företag att automatisera processer och förbättra kundupplevelser genom moderna, integrerade lösningar som kombinerar CRM med Power Apps och Power Automate.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tjänsteföretag", "Retail"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Right People Group",
-    logo: "",
-    website: "https://rightpeoplegroup.com/sv/it-konsult/microsoft-dynamics/",
-    description: "Right People Group är en Microsoft Dynamics 365 Business Central-partner som erbjuder konsulttjänster och resursbemanning för svenska företag. De hjälper organisationer att hitta rätt kompetens för sina Dynamics 365-projekt.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
   },
   {
