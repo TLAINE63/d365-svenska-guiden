@@ -505,10 +505,10 @@ export const partners: Partner[] = [
     companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Yellow Solutions",
+    name: "Yellow Solution",
     logo: "",
-    website: "https://yellowsolutions.se",
-    description: "Yellow Solutions är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
+    website: "https://yellowsolution.se",
+    description: "Yellow Solution är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
     applications: ["Business Central"],
     industries: ["Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
