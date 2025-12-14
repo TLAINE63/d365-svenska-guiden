@@ -37,15 +37,6 @@ export const partners: Partner[] = [
     companySize: ["Medelstora", "Stora"]
   },
   {
-    name: "Altitude 365",
-    logo: "",
-    website: "https://altitude365.se",
-    description: "Altitude 365 är en specialiserad Microsoft Dynamics 365 Business Central-partner som fokuserar på svenska små och medelstora företag. De erbjuder implementering, anpassning och support för att optimera affärsprocesser och hjälpa företag att effektivisera sin verksamhet genom molnbaserade affärssystemlösningar.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "Avanade",
     logo: "https://www.avanade.com/-/media/logo/avanade-logo.svg",
     website: "https://www.avanade.com/sv-se/solutions/microsoft-business-applications",
@@ -125,24 +116,6 @@ export const partners: Partner[] = [
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
     industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
     companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "Codeunit 80",
-    logo: "",
-    website: "https://codeunit80.se",
-    description: "Codeunit 80 är en specialiserad Microsoft Dynamics 365 Business Central-partner som erbjuder utveckling, implementation och support för svenska företag. Med djup teknisk expertis inom Business Central-plattformen hjälper de kunder att anpassa och optimera sina affärssystem.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Cognizant",
-    logo: "",
-    website: "https://www.cognizant.com/se/sv/services/microsoft-business-group",
-    description: "Cognizant är en global IT-konsult med bred Microsoft-kompetens och erfarenhet av stora enterprise-implementationer. De kombinerar strategisk rådgivning med teknisk implementation och hjälper stora organisationer att modernisera sina affärsprocesser genom Dynamics 365 och relaterade Microsoft-teknologier.",
-    applications: ["Business Central"],
-    industries: ["Tillverkning", "Bank & Finans"],
-    companySize: ["Stora"]
   },
   {
     name: "Coligo",
