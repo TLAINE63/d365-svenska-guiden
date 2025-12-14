@@ -505,9 +505,15 @@ const BusinessCentral = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Business Central-partners
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto mb-6">
               Här är ett urval av partners som arbetar med Dynamics 365 Business Central i Sverige. Välj vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
             </p>
+            <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white">
+              <Link to="/valj-partner" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                Utforska hela partnerkatalogen
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
 
           {/* Industry Filter */}
