@@ -552,7 +552,7 @@ const Index = () => {
                 CRM (Customer Engagement)
               </h3>
               <p className="text-muted-foreground">
-                Implementeringskostnader för Sales, Service och Customer Insights
+                Exempel på implementeringskostnader för Sales, Service och Customer Insights/Marketing Automation
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
