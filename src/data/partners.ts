@@ -244,15 +244,6 @@ export const partners: Partner[] = [
     companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Haldor",
-    logo: "",
-    website: "https://haldor.se",
-    description: "Haldor är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "HCL Technologies",
     logo: "https://www.hcltech.com/themes/custom/flavor/logo.svg",
     website: "https://www.hcltech.com/technology-software-services/enterprise-application-services/microsoft-ecosystem",
