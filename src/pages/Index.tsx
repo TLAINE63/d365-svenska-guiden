@@ -620,7 +620,7 @@ const Index = () => {
               <div className="mt-8 text-center">
                 <ContactFormDialog>
                   <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
-                    Boka Gratis Konsultation
+                    Boka en Gratis vägledning för din verksamhet
                   </Button>
                 </ContactFormDialog>
               </div>
