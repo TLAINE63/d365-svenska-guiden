@@ -242,6 +242,25 @@ const BusinessCentral = () => {
         </div>
       </section>
 
+      {/* Videos Section */}
+      <section id="videos" className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Korta inspirationsvideos
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
+              Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {bcVideos.map((video, index) => (
+              <VideoCard key={index} {...video} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* AI & Agents Section for Business Central */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10">
         <div className="container mx-auto px-4 sm:px-6">
@@ -358,27 +377,6 @@ const BusinessCentral = () => {
           </div>
         </div>
       </section>
-
-      {/* Videos Section */}
-      <section id="videos" className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Korta inspirationsvideos
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-              Här har vi samlat ett antal väldigt korta videos som kan ge en viss inblick i möjligheterna med Business Central
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {bcVideos.map((video, index) => (
-              <VideoCard key={index} {...video} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-
       {/* Implementation Costs Video Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
