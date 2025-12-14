@@ -325,15 +325,6 @@ export const partners: Partner[] = [
     companySize: ["Stora"]
   },
   {
-    name: "Midpoint",
-    logo: "",
-    website: "https://midpoint.se",
-    description: "Midpoint är en Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med affärssystemlösningar. De erbjuder implementation, anpassning och support för att optimera verksamhetsprocesser.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "NAB Solutions",
     logo: "https://www.nabsolutions.se/wp-content/uploads/2021/03/nab-logo.png",
     website: "https://www.nabsolutions.se/dynamics-365-business-central/",
