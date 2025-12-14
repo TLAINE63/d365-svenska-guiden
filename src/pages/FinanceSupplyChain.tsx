@@ -253,6 +253,18 @@ const FinanceSupplyChain = () => {
                   F&SCM integreras sömlöst med hela Microsoft-ekosystemet inklusive Microsoft 365, Teams, Power BI och Azure. Systemet har robusta API:er och stöd för integration med tredjepartssystem som CRM-lösningar, e-handelsplattformar, WMS-system, MES-system och IoT-enheter. Integration kan ske via Azure Logic Apps, Power Automate eller direktintegrationer via standardprotokoll.
                 </AccordionContent>
               </AccordionItem>
+              
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+                  <span className="flex items-start gap-3">
+                    <span className="text-2xl">❓</span>
+                    <span>Vilken partner borde passa vår verksamhet bäst?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6 pl-11">
+                  Rätt partner beror på er bransch, företagsstorlek och specifika behov. För F&SCM-implementeringar rekommenderar vi partners med erfarenhet av komplexa, globala projekt och som har relevant branschexpertis. På vår <a href="/valj-partner" className="text-finance-supply hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
           </div>
         </div>

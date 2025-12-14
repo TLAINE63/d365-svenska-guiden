@@ -381,6 +381,15 @@ const CRM = () => {
                   Dynamics 365 CE är mycket flexibelt och kan anpassas till de flesta branscher och affärsprocesser. Via Power Platform kan ni bygga egna arbetsflöden, formulär och rapporter utan omfattande programmering. Systemet stödjer också branschspecifika lösningar för bland annat tillverkning, detaljhandel, hälsovård och professionella tjänster. Vi hjälper er att konfigurera systemet så att det passar era unika processer.
                 </AccordionContent>
               </AccordionItem>
+
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+                  ❓ Vilken partner borde passa vår verksamhet bäst?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  Rätt partner beror på er bransch, företagsstorlek och vilka CRM-applikationer ni behöver. Vi rekommenderar att ni väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna ni är intresserade av. På vår <a href="/valj-partner" className="text-crm hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
           </div>
         </div>
