@@ -154,30 +154,12 @@ export const partners: Partner[] = [
     companySize: ["Små", "Medelstora"]
   },
   {
-    name: "Cygate",
-    logo: "",
-    website: "https://cygate.se/erbjudanden/microsoft/",
-    description: "Cygate är en Microsoft Dynamics 365 Business Central-partner med fokus på IT-säkerhet och molnlösningar. Som del av Telia Company kombinerar de affärssystemexpertis med säkerhetskompetens för att hjälpa företag att implementera trygga och stabila lösningar i molnet.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "Dizparc",
     logo: "https://dizparc.com/wp-content/uploads/2023/01/dizparc-logo-white.svg",
     website: "https://dizparc.se/erbjudande/affarssystem/",
     description: "Dizparc hjälper företag att förverkliga sin digitala potential genom lokala verksamheter på flera orter i Sverige. De skapar hållbara digitala lösningar med fokus på affärssystem, e-handel och molnbaserad infrastruktur. Med gedigen verksamhetsförståelse och förändringsledning hjälper de företag att öka lönsamhet och konkurrensfördelar genom Dynamics 365 Business Central.",
     applications: ["Business Central"],
     industries: ["Tillverkning", "Grossist", "Retail"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "Dynamicskonsult.se",
-    logo: "",
-    website: "https://dynamicskonsult.se",
-    description: "Dynamicskonsult.se är en specialiserad Microsoft Dynamics 365 Business Central-konsult för svenska företag. De erbjuder expertis inom implementation, anpassning och support av affärssystem och hjälper kunder att få ut maximalt värde av sina systemlösningar.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -188,24 +170,6 @@ export const partners: Partner[] = [
     applications: ["Business Central"],
     industries: ["Tjänsteföretag", "Retail", "Grossist"],
     companySize: ["Små", "Medelstora", "Stora"]
-  },
-  {
-    name: "Effekt SPU",
-    logo: "",
-    website: "https://effektspu.se",
-    description: "Effekt SPU är en Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med affärssystemlösningar. De erbjuder implementation, anpassning och support för att optimera verksamhetsprocesser.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
-    name: "EG Sverige",
-    logo: "",
-    website: "https://eg.se/affarslosningar/",
-    description: "EG Sverige är en nordisk IT-partner med fokus på Dynamics 365 Finance & Supply Chain Management. De erbjuder branschspecifika lösningar för tillverkande företag och grossister, med expertis inom hela livscykeln från implementation till förvaltning och optimering.",
-    applications: ["Finance & SCM"],
-    industries: ["Tillverkning", "Grossist"],
-    companySize: ["Medelstora", "Stora"]
   },
   {
     name: "Engage Group",
