@@ -420,7 +420,7 @@ const Index = () => {
               skillnaden mellan ett projekt som levererar verkligt affärsvärde och ett som aldrig når sin fulla potential.
             </p>
             <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white">
-              <Link to="/valj-partner">
+              <Link to="/valj-partner" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 Hitta rätt partner
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
