@@ -190,6 +190,111 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Solution Selector Section */}
+      <section id="solutions" className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Välj din lösning
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+              <span className="whitespace-nowrap">Microsoft Dynamics 365</span> erbjuder lösningar för både affärssystem och kundhantering
+            </p>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+            {/* Business Central Card */}
+            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10" />
+                  <h3 className="text-2xl font-bold text-card-foreground">Business Central</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Komplett affärssystem för mindre och medelstora företag
+                </p>
+              </div>
+              
+              <div className="space-y-3 mb-6">
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Hantera ekonomi och redovisning</li>
+                  <li>• Order, Lager, Inköp</li>
+                  <li>• Projekthantering</li>
+                  <li>• Material- och Produktionsstyrning</li>
+                  <li>• Serviceorder</li>
+                  <li>• Inbyggd AI</li>
+                </ul>
+              </div>
+              
+              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
+                <Link to="/business-central">
+                  Läs mer
+                </Link>
+              </Button>
+            </div>
+
+            {/* Finance & Supply Chain Card */}
+            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={FinanceIcon} alt="Finance" className="h-10 w-10" />
+                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
+                  <h3 className="text-2xl font-bold text-card-foreground">Finance & Supply Chain</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Passar för större ofta internationella verksamheter och koncerner
+                </p>
+              </div>
+              
+              <div className="space-y-3 mb-6">
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Global ekonomihantering</li>
+                  <li>• Avancerad tillverkning</li>
+                  <li>• Komplex leveranskedja</li>
+                  <li>• IoT och AI-integration</li>
+                </ul>
+              </div>
+              
+              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
+                <Link to="/finance-supply-chain">
+                  Läs mer
+                </Link>
+              </Button>
+            </div>
+
+            {/* CRM/Customer Engagement Card */}
+            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <img src={SalesIcon} alt="Sales" className="h-10 w-10" />
+                  <img src={CustomerServiceIcon} alt="Customer Service" className="h-10 w-10" />
+                  <img src={MarketingIcon} alt="Customer Insights" className="h-10 w-10" />
+                  <h3 className="text-2xl font-bold text-card-foreground">CRM</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  <span className="whitespace-nowrap">Microsoft Dynamics 365</span> Sales, Customer Insights, Service
+                </p>
+              </div>
+              
+              <div className="space-y-3 mb-6">
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Öka försäljning och hantera leads</li>
+                  <li>• Förbättra kundservice och support</li>
+                  <li>• Automatisera marknadsföring</li>
+                  <li>• Få 360° vy av dina kunder</li>
+                </ul>
+              </div>
+              
+              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
+                <Link to="/crm">
+                  Läs mer
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Microsoft Agents Section - NEW! */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -313,111 +418,6 @@ const Index = () => {
                 <Link to="/agents">
                   Upptäck Microsoft Agenter
                   <span className="ml-2">→</span>
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Solution Selector Section */}
-      <section id="solutions" className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Välj din lösning
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-              <span className="whitespace-nowrap">Microsoft Dynamics 365</span> erbjuder lösningar för både affärssystem och kundhantering
-            </p>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-            {/* Business Central Card */}
-            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10" />
-                  <h3 className="text-2xl font-bold text-card-foreground">Business Central</h3>
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Komplett affärssystem för mindre och medelstora företag
-                </p>
-              </div>
-              
-              <div className="space-y-3 mb-6">
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Hantera ekonomi och redovisning</li>
-                  <li>• Order, Lager, Inköp</li>
-                  <li>• Projekthantering</li>
-                  <li>• Material- och Produktionsstyrning</li>
-                  <li>• Serviceorder</li>
-                  <li>• Inbyggd AI</li>
-                </ul>
-              </div>
-              
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
-                <Link to="/business-central">
-                  Läs mer
-                </Link>
-              </Button>
-            </div>
-
-            {/* Finance & Supply Chain Card */}
-            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <img src={FinanceIcon} alt="Finance" className="h-10 w-10" />
-                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
-                  <h3 className="text-2xl font-bold text-card-foreground">Finance & Supply Chain</h3>
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Passar för större ofta internationella verksamheter och koncerner
-                </p>
-              </div>
-              
-              <div className="space-y-3 mb-6">
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Global ekonomihantering</li>
-                  <li>• Avancerad tillverkning</li>
-                  <li>• Komplex leveranskedja</li>
-                  <li>• IoT och AI-integration</li>
-                </ul>
-              </div>
-              
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
-                <Link to="/finance-supply-chain">
-                  Läs mer
-                </Link>
-              </Button>
-            </div>
-
-            {/* CRM/Customer Engagement Card */}
-            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <img src={SalesIcon} alt="Sales" className="h-10 w-10" />
-                  <img src={CustomerServiceIcon} alt="Customer Service" className="h-10 w-10" />
-                  <img src={MarketingIcon} alt="Customer Insights" className="h-10 w-10" />
-                  <h3 className="text-2xl font-bold text-card-foreground">CRM</h3>
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  <span className="whitespace-nowrap">Microsoft Dynamics 365</span> Sales, Customer Insights, Service
-                </p>
-              </div>
-              
-              <div className="space-y-3 mb-6">
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Öka försäljning och hantera leads</li>
-                  <li>• Förbättra kundservice och support</li>
-                  <li>• Automatisera marknadsföring</li>
-                  <li>• Få 360° vy av dina kunder</li>
-                </ul>
-              </div>
-              
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
-                <Link to="/crm">
-                  Läs mer
                 </Link>
               </Button>
             </div>
