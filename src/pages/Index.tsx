@@ -161,6 +161,30 @@ const Index = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+
+              {/* Fråga 6 */}
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
+                    <span className="text-2xl">🤝</span>
+                    Vilka Microsoftpartners borde passa vår verksamhet bäst?
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>Att välja rätt implementationspartner är avgörande för ett lyckat projekt. Här är några viktiga faktorer:</p>
+                    <p>• <strong>Branschkunskap:</strong> Välj en partner med erfarenhet från din bransch och som förstår dina specifika utmaningar</p>
+                    <p>• <strong>Kompetens:</strong> Se till att partnern har certifierade konsulter inom de Dynamics 365-applikationer du behöver</p>
+                    <p>• <strong>Storlek och kapacitet:</strong> En partner som matchar din företagsstorlek och kan växa med dina behov</p>
+                    <p>• <strong>Geografisk närvaro:</strong> Lokal närvaro kan vara viktig för löpande support och samarbete</p>
+                    <p className="pt-2">
+                      <Link to="/valj-partner" className="text-primary hover:underline font-semibold">
+                        → Utforska vårt partnerkatalog för att hitta rätt match för ditt företag
+                      </Link>
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
           </div>
         </div>
