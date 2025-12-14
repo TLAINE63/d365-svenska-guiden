@@ -118,39 +118,12 @@ export const partners: Partner[] = [
     companySize: ["Medelstora", "Stora"]
   },
   {
-    name: "Cellip",
-    logo: "",
-    website: "https://cellip.com",
-    description: "Cellip är en Microsoft Dynamics 365 Business Central-partner med fokus på molnbaserade kommunikationslösningar. De kombinerar affärssystemexpertis med kommunikationsteknik för att hjälpa företag att integrera sina affärsprocesser med moderna kommunikationsverktyg och skapa effektivare arbetsflöden.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "Cepheo",
     logo: "https://cepheo.com/wp-content/uploads/2022/01/cepheo-logo.svg",
     website: "https://cepheo.com/solutions/erp/",
     description: "Cepheo är en av de mest erfarna Microsoft Dynamics 365-partners i Norden med över 37 års branscherfarenhet och 28 års samarbete med Microsoft. Med mer än 450 specialister på 13 platser i Skandinavien levererar de Digital Empowerment genom full-stack-lösningar baserade på Dynamics 365, Power Platform och Azure. De hjälper företag att framtidssäkra sin verksamhet och utnyttja kraften i data och teknik för bättre beslut.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
     industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
-    companySize: ["Medelstora", "Stora"]
-  },
-  {
-    name: "CGI",
-    logo: "https://www.cgi.com/sites/default/files/2019-12/cgi-logo.svg",
-    website: "https://www.cgi.com/se/sv/solutions/enterprise-resource-planning",
-    description: "CGI är en global IT-konsult med omfattande Dynamics 365-kompetens och stark närvaro i Sverige. De erbjuder helhetslösningar för stora organisationer och offentlig sektor, med fokus på att kombinera affärsförståelse med teknisk expertis. Deras breda erfarenhet inkluderar implementation av både ERP och CRM-lösningar för komplexa verksamheter.",
-    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
-    companySize: ["Stora"]
-  },
-  {
-    name: "Claremont (Zington)",
-    logo: "",
-    website: "https://zington.se/erbjudanden/microsoft-dynamics-365/",
-    description: "Claremont, som nu verkar under namnet Zington, är en Microsoft Dynamics 365-partner med fokus på Finance & Supply Chain Management. De hjälper tillverkande företag och grossister att optimera sina affärsprocesser genom implementation och support av enterprise-ERP-lösningar.",
-    applications: ["Finance & SCM"],
-    industries: ["Tillverkning", "Grossist"],
     companySize: ["Medelstora", "Stora"]
   },
   {
