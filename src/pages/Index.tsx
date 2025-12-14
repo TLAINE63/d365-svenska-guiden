@@ -512,7 +512,7 @@ const Index = () => {
                 Finance & Supply Chain Management
               </h3>
               <p className="text-muted-foreground">
-                Implementeringskostnader för stora organisationer
+                Exempel på implementeringskostnader för medelstora till större organisationer
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
