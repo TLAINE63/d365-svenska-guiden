@@ -228,6 +228,15 @@ const BusinessCentral = () => {
                   Business Central är mycket flexibelt och kan anpassas utan omfattande programmering tack vare Power Platform. Ni kan skapa egna arbetsflöden, rapporter och dashboards som passar era processer. Det finns också hundratals branschspecifika tilläggslösningar (AppSource) för exempelvis bygg, tillverkning, detaljhandel och professionella tjänster. För mer avancerade anpassningar finns möjligheten till utveckling med AL-språket.
                 </AccordionContent>
               </AccordionItem>
+
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+                  ❓ Vilken partner borde passa vår verksamhet bäst?
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-6">
+                  Rätt partner beror på er bransch, företagsstorlek och specifika behov. Vi rekommenderar att ni väljer en partner med erfarenhet från liknande implementeringar i er bransch och som har certifieringar för Business Central. På vår <a href="/valj-partner" className="text-business-central hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
           </div>
         </div>
