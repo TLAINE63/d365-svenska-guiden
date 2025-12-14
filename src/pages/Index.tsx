@@ -472,7 +472,7 @@ const Index = () => {
                 Business Central
               </h3>
               <p className="text-muted-foreground">
-                Implementeringskostnader för mindre och medelstora företag
+                Exempel på implementeringskostnader för mindre och medelstora företag
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
