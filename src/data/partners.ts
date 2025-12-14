@@ -280,7 +280,7 @@ export const partners: Partner[] = [
     companySize: ["Medelstora", "Stora"]
   },
   {
-    name: "Itm8 (Addpro)",
+    name: "Itm8",
     logo: "",
     website: "https://itm8.se/affarssystem/",
     description: "Itm8, tidigare Addpro, är en Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med affärssystemlösningar. De erbjuder implementation, anpassning och support för att optimera verksamhetsprocesser och stödja tillväxt.",
