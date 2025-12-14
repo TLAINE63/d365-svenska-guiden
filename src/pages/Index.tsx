@@ -634,7 +634,7 @@ const Index = () => {
       <section className="py-20 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Redo att Komma Igång?
+            Redo att komma igång?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
             Boka en gratis konsultation så hjälper vi dig att hitta rätt lösning för din verksamhet
