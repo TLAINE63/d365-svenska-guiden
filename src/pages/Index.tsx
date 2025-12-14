@@ -401,6 +401,34 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Partner Selection Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="flex justify-center mb-6">
+              <div className="bg-amber-500/20 w-16 h-16 rounded-full flex items-center justify-center">
+                <span className="text-3xl">🤝</span>
+              </div>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Vikten av rätt implementationspartner
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
+              Att välja rätt implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
+              En bra partner förstår din bransch, har beprövad erfarenhet och blir en långsiktig samarbetspartner – 
+              inte bara en leverantör. Fel val kan kosta tid, pengar och frustration, medan rätt partner kan vara 
+              skillnaden mellan ett projekt som levererar verkligt affärsvärde och ett som aldrig når sin fulla potential.
+            </p>
+            <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white">
+              <Link to="/valj-partner">
+                Hitta rätt partner
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
 
       {/* AI & Copilot Section */}
       <section className="py-20 bg-background">
