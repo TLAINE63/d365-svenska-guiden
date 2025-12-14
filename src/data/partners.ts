@@ -118,15 +118,6 @@ export const partners: Partner[] = [
     companySize: ["Medelstora", "Stora"]
   },
   {
-    name: "Coligo",
-    logo: "",
-    website: "https://coligo.se",
-    description: "Coligo är en Microsoft Dynamics 365 Business Central-partner med fokus på molnlösningar för svenska företag. De hjälper organisationer att migrera till molnet och optimera sina affärsprocesser genom moderna, skalbara lösningar.",
-    applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
-    companySize: ["Små", "Medelstora"]
-  },
-  {
     name: "Columbus",
     logo: "https://www.columbusglobal.com/hubfs/columbus-logo-black.svg",
     website: "https://www.columbusglobal.com/sv/microsoft-dynamics-365",
