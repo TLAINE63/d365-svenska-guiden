@@ -222,7 +222,7 @@ const ContactUs = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-foreground mb-1">Partnervärdering</h4>
+                      <h4 className="font-semibold text-foreground mb-1">Partnerutvärdering</h4>
                       <p className="text-sm text-muted-foreground">Hjälp att välja rätt implementeringspartner</p>
                     </div>
                   </div>
