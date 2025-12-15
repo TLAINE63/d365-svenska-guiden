@@ -19,7 +19,7 @@ const Navbar = () => {
 
     { label: "Business Central", path: "/business-central" },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
-    { label: "ERP Behovsanalys", path: "/behovsanalys" },
+    { label: "Affärssystem (ERP) Behovsanalys", path: "/behovsanalys" },
   ];
 
   const aiItems = [
@@ -64,7 +64,7 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  ERP
+                  Affärssystem (ERP)
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -145,7 +145,7 @@ const Navbar = () => {
             <SheetContent>
               <div className="flex flex-col gap-4 mt-8">
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">ERP</span>
+                  <span className="text-lg font-semibold text-foreground">Affärssystem (ERP)</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {erpItems.map((item) => (
                       <Link

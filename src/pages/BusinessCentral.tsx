@@ -198,7 +198,7 @@ const BusinessCentral = () => {
                   ❓ Är Business Central rätt för mitt företag?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Business Central är optimerat för mindre och medelstora företag (10-300 användare) med behov av ett komplett ERP-system. Det passar särskilt bra för företag som redan använder Microsoft 365 och vill ha en integrerad lösning för ekonomi, lager, försäljning, inköp och produktion. Oavsett bransch – tillverkning, handel, tjänster eller projekt – kan Business Central anpassas till era specifika behov.
+                  Business Central är optimerat för mindre och medelstora företag (10-300 användare) med behov av ett komplett affärssystem (ERP). Det passar särskilt bra för företag som redan använder Microsoft 365 och vill ha en integrerad lösning för ekonomi, lager, försäljning, inköp och produktion. Oavsett bransch – tillverkning, handel, tjänster eller projekt – kan Business Central anpassas till era specifika behov.
                 </AccordionContent>
               </AccordionItem>
 
@@ -411,7 +411,7 @@ const BusinessCentral = () => {
               </h2>
               <div className="max-w-3xl mx-auto">
                 <p className="text-lg text-muted-foreground mb-6">
-                  Det skiljer väldigt mycket mellan olika typer av ERP projekt och för att få en uppfattning om en ungefärlig kostnad och vad som driver konsultbehov finns några saker som man kan tänka över:
+                  Det skiljer väldigt mycket mellan olika typer av affärssystem (ERP)-projekt och för att få en uppfattning om en ungefärlig kostnad och vad som driver konsultbehov finns några saker som man kan tänka över:
                 </p>
                 <div className="bg-card/50 rounded-lg p-6 border border-border/50">
                   <ul className="space-y-3 list-disc list-inside text-base text-card-foreground/90">

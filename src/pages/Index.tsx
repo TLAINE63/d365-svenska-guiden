@@ -77,7 +77,7 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>• <strong>Vad Dynamics 365 är:</strong> En svit av ERP- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice</p>
+                    <p>• <strong>Vad Dynamics 365 är:</strong> En svit av affärssystem (ERP)- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice</p>
                     <p>• <strong>Hur applikationerna hänger ihop:</strong> Alla appar delar samma dataplattform och kan integreras sömlöst</p>
                     <p>• <strong>Flexibilitet:</strong> Du kan börja med en enda applikation och växa över tid, eller implementera en komplett helhetslösning från start</p>
                   </div>
