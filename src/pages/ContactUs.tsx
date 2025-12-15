@@ -130,49 +130,6 @@ const ContactUs = () => {
                 />
               </div>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-12">
-                {/* Process Steps */}
-                <Card className="p-6 border-border bg-card">
-                  <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-center gap-2">
-                    <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
-                    Första kontakten
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Vi försöker att svara inom 24 timmar och bokar ett första samtal där vi lyssnar på dina behov och utmaningar. Kostnadsfritt
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border bg-card">
-                  <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-center gap-2">
-                    <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
-                    Behovsanalys och ROI kalkyl
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Vi går igenom din nuvarande situation och diskuterar vilka lösningar som passar bäst för just er verksamhet. Dessutom kan vi ta fram ett första utkast till en ROI (Return on Investment)-kalkyl.
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border bg-card">
-                  <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-center gap-2">
-                    <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
-                    Skräddarsytt förslag
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Du får ett tydligt förslag med rekommenderade lösningar, tidplan och transparent prissättning.
-                  </p>
-                </Card>
-
-                <Card className="p-6 border-border bg-card">
-                  <h3 className="text-xl font-bold text-card-foreground mb-4 flex items-center gap-2">
-                    <span className="bg-primary text-primary-foreground w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
-                    Implementering
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Vi guidar er genom hela processen - från upphandling till implementation och support.
-                  </p>
-                </Card>
-              </div>
-
               {/* Services Offered */}
               <div className="bg-secondary/20 rounded-lg p-8">
                 <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
