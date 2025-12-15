@@ -4,27 +4,27 @@ const bigFiveItems = [
   {
     icon: DollarSign,
     title: "Licenspriser och Projektkostnader",
-    description: "Förklaringar och exempel på licenser- och projektpriser",
+    description: <>Förklaringar och exempel på licenser- och projektpriser</>,
   },
   {
     icon: AlertCircle,
     title: "Utmaningar och Risker",
-    description: "Vanliga utmaningar och hur vi löser dem",
+    description: <>Vanliga utmaningar och hur vi löser dem</>,
   },
   {
     icon: GitCompare,
     title: "Jämförelser",
-    description: "<span className='whitespace-nowrap'>Microsoft Dynamics 365</span> vs andra CRM/ERP-system på marknaden",
+    description: <><span className='whitespace-nowrap'>Microsoft Dynamics 365</span> vs andra CRM/ERP-system på marknaden</>,
   },
   {
     icon: Star,
     title: "Recensioner",
-    description: "Vad kunder säger om <span className='whitespace-nowrap'>Microsoft Dynamics 365</span>",
+    description: <>Vad kunder säger om <span className='whitespace-nowrap'>Microsoft Dynamics 365</span></>,
   },
   {
     icon: Award,
     title: "Bäst i Klassen",
-    description: "Varför <span className='whitespace-nowrap'>Microsoft Dynamics 365</span> är branschledande",
+    description: <>Varför <span className='whitespace-nowrap'>Microsoft Dynamics 365</span> är branschledande</>,
   },
 ];
 
@@ -50,7 +50,7 @@ const BigFiveSection = () => {
                 <item.icon className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="font-semibold text-lg mb-2 text-card-foreground">{item.title}</h3>
-              <p className="text-sm text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.description }} />
+              <p className="text-sm text-muted-foreground">{item.description}</p>
             </div>
           ))}
         </div>

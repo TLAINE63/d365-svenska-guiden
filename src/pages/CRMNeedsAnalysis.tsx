@@ -1420,11 +1420,17 @@ const CRMNeedsAnalysis = () => {
                             </div>
                             <div className="prose prose-sm max-w-none text-muted-foreground">
                               {product.description.split('\n\n').map((paragraph, i) => (
-                                <p key={i} className="text-sm mb-2" dangerouslySetInnerHTML={{ 
-                                  __html: paragraph
-                                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                    .replace(/• /g, '<br/>• ')
-                                }} />
+                                <p key={i} className="text-sm mb-2">
+                                  {paragraph.split(/(\*\*.*?\*\*|• )/).map((part, j) => {
+                                    if (part.startsWith('**') && part.endsWith('**')) {
+                                      return <strong key={j}>{part.slice(2, -2)}</strong>;
+                                    }
+                                    if (part === '• ') {
+                                      return <><br key={j} />• </>;
+                                    }
+                                    return part;
+                                  })}
+                                </p>
                               ))}
                             </div>
                           </CardContent>
