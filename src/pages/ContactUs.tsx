@@ -138,7 +138,7 @@ const ContactUs = () => {
                     Första kontakten
                   </h3>
                   <p className="text-muted-foreground">
-                    Vi svarar inom 24 timmar och bokar ett första samtal där vi lyssnar på dina behov och utmaningar.
+                    Vi försöker att svara inom 24 timmar och bokar ett första samtal där vi lyssnar på dina behov och utmaningar. Kostnadsfritt
                   </p>
                 </Card>
 
