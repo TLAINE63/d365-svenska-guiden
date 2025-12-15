@@ -34,12 +34,12 @@ const slides: HeroSlide[] = [
     backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
-        Hitta rätt <span className="text-emerald-400">ERP-system</span> för ditt företag
+        Hitta rätt <span className="text-emerald-400">affärssystem (ERP)</span> för ditt företag
       </>
     ),
-    subtitle: "Gör vår ERP Behovsanalys och få en personlig rekommendation",
+    subtitle: "Gör vår Affärssystem (ERP) Behovsanalys och få en personlig rekommendation",
     ctaType: "link",
-    ctaText: "Gör din digitala ERP Behovsanalys här",
+    ctaText: "Gör din digitala Affärssystem (ERP) Behovsanalys här",
     ctaLink: "/behovsanalys",
     buttonColor: "bg-[hsl(var(--business-central))] hover:bg-[hsl(var(--business-central))]/90",
   },

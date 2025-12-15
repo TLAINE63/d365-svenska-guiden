@@ -383,7 +383,7 @@ const NeedsAnalysis = () => {
     
     const bcDescription = `**Dynamics 365 Business Central** är Microsofts molnbaserade affärssystem för små och medelstora företag. Det erbjuder:
 
-• **Komplett ERP-lösning** - Ekonomi, försäljning, inköp, lager och projekt i ett system
+• **Komplett Affärssystem (ERP)-lösning** - Ekonomi, försäljning, inköp, lager och projekt i ett system
 • **Smidig implementation** - Snabbare uppstart och lägre implementationskostnad
 • **Microsoft-integration** - Sömlös koppling till Microsoft 365, Power BI och Teams
 • **Flexibel prissättning** - Licensmodell anpassad för mindre organisationer
@@ -510,7 +510,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("BEHOVSANALYS", margin, 25);
     pdf.setFontSize(14);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 ERP", margin, 35);
+    pdf.text("Dynamics 365 Affärssystem (ERP)", margin, 35);
     
     // Date badge
     pdf.setFillColor(255, 255, 255);
@@ -528,7 +528,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setTextColor(80, 80, 80);
     pdf.setFontSize(10);
     pdf.setFont("helvetica", "italic");
-    const introText = "Detta dokument sammanfattar er behovsanalys för ett nytt ERP-system baserat på Microsoft Dynamics 365. Analysen har genomförts via Dynamic Factorys digitala verktyg och ger en första indikation på vilket system som passar era behov bäst.";
+    const introText = "Detta dokument sammanfattar er behovsanalys för ett nytt affärssystem (ERP) baserat på Microsoft Dynamics 365. Analysen har genomförts via Dynamic Factorys digitala verktyg och ger en första indikation på vilket system som passar era behov bäst.";
     const introLines = pdf.splitTextToSize(introText, contentWidth);
     pdf.text(introLines, margin, yPos);
     yPos += introLines.length * 5 + 8;
