@@ -361,6 +361,15 @@ export const partners: Partner[] = [
     companySize: ["Små", "Medelstora"]
   },
   {
+    name: "Norteam",
+    logo: "",
+    website: "https://www.norteam.se/",
+    description: "Norteam är en Microsoft Dynamics 365-partner med kompetens inom Business Central och Dynamics 365 Sales. De hjälper svenska företag att effektivisera sina affärsprocesser genom moderna ERP- och CRM-lösningar.",
+    applications: ["Business Central", "Sales"],
+    industries: ["Tjänsteföretag"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
     name: "Nexer",
     logo: "https://nexergroup.com/wp-content/uploads/2022/01/nexer-logo.svg",
     website: "https://nexergroup.com/sv/tjanster/dynamics-365/",
