@@ -640,7 +640,7 @@ const Index = () => {
             Boka en gratis konsultation så hjälper vi dig att hitta rätt lösning och rätt Microsoftpartner för din verksamhet
           </p>
           <Button asChild size="lg" variant="secondary" className="text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-            <Link to="/kontakt">Kontakta Oss Idag</Link>
+            <Link to="/kontakt">Kontakta oss idag!</Link>
           </Button>
         </div>
       </section>
