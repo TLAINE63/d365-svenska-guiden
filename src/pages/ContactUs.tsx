@@ -45,14 +45,6 @@ const ContactUs = () => {
           <div className="max-w-5xl mx-auto">
             {/* Contact Person Section */}
             <div className="mb-8 sm:mb-10 md:mb-12">
-              <div className="text-center mb-6 sm:mb-8">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-                  Din kontaktperson
-                </h2>
-                <p className="text-base sm:text-lg text-muted-foreground px-2">
-                  Har du frågor om Microsoft Dynamics 365? Kontakta oss!
-                </p>
-              </div>
               
               <div className="bg-card rounded-lg p-8 md:p-12 border border-border shadow-[var(--shadow-card)]">
                 <div className="flex flex-col md:flex-row items-center gap-8">
