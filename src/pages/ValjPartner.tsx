@@ -42,7 +42,7 @@ const allIndustries = [
 // Company size filter options with mapping to partner data values
 const companySizeFilters = [
   { label: "Småföretag (1-49 anställda)", values: ["Små"] },
-  { label: "Mindre/Mellanstora företag (50-199)", values: ["Små", "Medelstora"] },
+  { label: "Mindre/Medelstora företag (50-199)", values: ["Små", "Medelstora"] },
   { label: "Medelstora/Större företag (200-999)", values: ["Medelstora", "Stora"] },
   { label: "Större företag (1.000-5.000)", values: ["Stora"] },
   { label: "Enterprisebolag (+5.000 anställda)", values: ["Stora", "Enterprise"] }
