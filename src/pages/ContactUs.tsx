@@ -47,7 +47,7 @@ const ContactUs = () => {
             <div className="mb-8 sm:mb-10 md:mb-12">
               <div className="text-center mb-6 sm:mb-8">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-                  Din Kontaktperson
+                  Din kontaktperson
                 </h2>
                 <p className="text-base sm:text-lg text-muted-foreground px-2">
                   Har du frågor om Microsoft Dynamics 365? Kontakta oss!
