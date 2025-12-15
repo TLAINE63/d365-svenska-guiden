@@ -7,31 +7,31 @@ const bigFiveItems = [
   {
     icon: DollarSign,
     title: "Licenspriser och Projektkostnader",
-    description: "Förklaringar och exempel på licenser- och projektpriser",
+    description: <>Förklaringar och exempel på licenser- och projektpriser</>,
     link: "/qa#priser",
   },
   {
     icon: AlertCircle,
     title: "Utmaningar och Risker",
-    description: "Vanliga utmaningar och hur vi löser dem",
+    description: <>Vanliga utmaningar och hur vi löser dem</>,
     link: "/qa#utmaningar",
   },
   {
     icon: GitCompare,
     title: "Jämförelser",
-    description: "<span className='whitespace-nowrap'>Microsoft Dynamics 365</span> vs andra CRM/ERP-system på marknaden",
+    description: <><span className='whitespace-nowrap'>Microsoft Dynamics 365</span> vs andra CRM/ERP-system på marknaden</>,
     link: "/qa#jamforelser",
   },
   {
     icon: Star,
     title: "Recensioner",
-    description: "Vad kunder säger om <span className='whitespace-nowrap'>Microsoft Dynamics 365</span>",
+    description: <>Vad kunder säger om <span className='whitespace-nowrap'>Microsoft Dynamics 365</span></>,
     link: "/qa#recensioner",
   },
   {
     icon: Award,
     title: "Bäst i Klassen",
-    description: "Varför <span className='whitespace-nowrap'>Microsoft Dynamics 365</span> är branschledande",
+    description: <>Varför <span className='whitespace-nowrap'>Microsoft Dynamics 365</span> är branschledande</>,
     link: "/qa#bast",
   },
 ];
@@ -83,7 +83,7 @@ const BigFiveCarousel = () => {
                           <item.icon className="w-8 h-8 sm:w-10 sm:h-10 text-primary-foreground" />
                         </div>
                         <h3 className="font-bold text-xl sm:text-2xl mb-3 sm:mb-4 text-card-foreground">{item.title}</h3>
-                        <p className="text-base sm:text-lg text-muted-foreground" dangerouslySetInnerHTML={{ __html: item.description }} />
+                        <p className="text-base sm:text-lg text-muted-foreground">{item.description}</p>
                         <div className="mt-4 sm:mt-6 text-primary font-semibold group-hover:underline">
                           Läs mer →
                         </div>
