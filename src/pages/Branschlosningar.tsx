@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -75,6 +75,7 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
 };
 
 const Branschlosningar = () => {
+  const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState<ProductFilter>("all");
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
 
@@ -246,12 +247,18 @@ const Branschlosningar = () => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 bg-muted/30 rounded-lg">
-                <p className="text-muted-foreground mb-4">
-                  Inga partners hittades med denna kombination av bransch och produkt.
+              <div className="text-center py-12 bg-muted/30 rounded-xl border border-border">
+                <p className="text-foreground text-xl font-medium mb-2">
+                  Va? Är det ingen partner som fokuserar på just min bransch?
                 </p>
-                <Button variant="outline" onClick={handleBackToIndustries}>
-                  Välj en annan bransch
+                <p className="text-muted-foreground text-lg mb-6">
+                  Ingen fara, kontakta oss så hjälper vi dig att hitta en lämplig partner!
+                </p>
+                <Button 
+                  onClick={() => navigate('/kontakta-oss')}
+                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                >
+                  Kontakta oss
                 </Button>
               </div>
             )}
