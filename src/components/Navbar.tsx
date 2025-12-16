@@ -36,7 +36,6 @@ const Navbar = () => {
     { label: "Branschlösningar", path: "/branschlosningar", external: false },
     { label: "Välj Partner", path: "/valj-partner", external: false },
     { label: "Q&A", path: "/qa", external: false },
-    { label: "Blogg", path: "https://www.microsoft.com/en-us/dynamics-365/blog/", external: true },
     { label: "Kontakt", path: "/kontakt", external: false },
   ];
 
