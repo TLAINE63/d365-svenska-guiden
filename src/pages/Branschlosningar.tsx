@@ -124,7 +124,7 @@ const Branschlosningar = () => {
             Hittar du inte din bransch?
           </h2>
           <p className="text-muted-foreground mb-6">
-            Kontakta oss så hjälper vi dig att hitta rätt lösning för just din verksamhet.
+            Kontakta oss så hjälper vi dig att hitta rätt lösning och partner för just din verksamhet.
           </p>
           <Link
             to="/kontakt"
