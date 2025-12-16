@@ -65,7 +65,7 @@ const Branschlosningar = () => {
             Branschlösningar
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Hitta rätt Dynamics 365-lösning för din bransch. Välj din bransch nedan för att se vilka Microsoft-lösningar som passar bäst.
+            Välj din bransch nedan för att se vilka Microsoftpartners som har god verksamhetskunskap inom din bransch.
           </p>
           
           {/* Search */}
