@@ -1,33 +1,50 @@
 import { Link } from "react-router-dom";
-import { Search, Factory, Building2, ShoppingCart, Truck, Stethoscope, HardHat, Leaf, Utensils, Monitor, Wrench, Users, Briefcase, Store, Zap, Package } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 
+// Industry images
+import tillverkningImg from "@/assets/industries/tillverkning.jpg";
+import handelDistributionImg from "@/assets/industries/handel-distribution.jpg";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.jpg";
+import transportLogistikImg from "@/assets/industries/transport-logistik.jpg";
+import fastigheterImg from "@/assets/industries/fastigheter.jpg";
+import livsmedel from "@/assets/industries/livsmedel.jpg";
+import lakemedelLifeScienceImg from "@/assets/industries/lakemedel-life-science.jpg";
+import energiImg from "@/assets/industries/energi.jpg";
+import serviceUnderhallImg from "@/assets/industries/service-underhall.jpg";
+import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
+import itTechImg from "@/assets/industries/it-tech.jpg";
+import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
+import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.jpg";
+import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
+import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
+
 interface Industry {
   name: string;
   slug: string;
-  icon: React.ElementType;
+  image: string;
   description: string;
 }
 
 const industries: Industry[] = [
-  { name: "Tillverkning", slug: "tillverkning", icon: Factory, description: "Affärssystem för tillverkande företag" },
-  { name: "Handel & Distribution", slug: "handel-distribution", icon: ShoppingCart, description: "Lösningar för handels- och distributionsföretag" },
-  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", icon: HardHat, description: "System för bygg- och entreprenadföretag" },
-  { name: "Transport & Logistik", slug: "transport-logistik", icon: Truck, description: "Affärssystem för transport och logistik" },
-  { name: "Fastigheter", slug: "fastigheter", icon: Building2, description: "Lösningar för fastighetsbranschen" },
-  { name: "Livsmedel", slug: "livsmedel", icon: Utensils, description: "System för livsmedelsindustrin" },
-  { name: "Läkemedel & Life Science", slug: "lakemedel-life-science", icon: Stethoscope, description: "Lösningar för läkemedel och life science" },
-  { name: "Energi", slug: "energi", icon: Zap, description: "Affärssystem för energisektorn" },
-  { name: "Service & Underhåll", slug: "service-underhall", icon: Wrench, description: "System för serviceföretag" },
-  { name: "Konsultföretag", slug: "konsultforetag", icon: Briefcase, description: "Lösningar för konsultbolag" },
-  { name: "IT & Tech", slug: "it-tech", icon: Monitor, description: "Affärssystem för IT-branschen" },
-  { name: "Detaljhandel", slug: "detaljhandel", icon: Store, description: "System för detaljhandeln" },
-  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", icon: Users, description: "Lösningar för medlemsorganisationer" },
-  { name: "Miljö & Återvinning", slug: "miljo-atervinning", icon: Leaf, description: "System för miljö- och återvinningsbranschen" },
-  { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", icon: Package, description: "Lösningar för parti- och agenturhandel" },
+  { name: "Tillverkning", slug: "tillverkning", image: tillverkningImg, description: "Affärssystem för tillverkande företag" },
+  { name: "Handel & Distribution", slug: "handel-distribution", image: handelDistributionImg, description: "Lösningar för handels- och distributionsföretag" },
+  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "System för bygg- och entreprenadföretag" },
+  { name: "Transport & Logistik", slug: "transport-logistik", image: transportLogistikImg, description: "Affärssystem för transport och logistik" },
+  { name: "Fastigheter", slug: "fastigheter", image: fastigheterImg, description: "Lösningar för fastighetsbranschen" },
+  { name: "Livsmedel", slug: "livsmedel", image: livsmedel, description: "System för livsmedelsindustrin" },
+  { name: "Läkemedel & Life Science", slug: "lakemedel-life-science", image: lakemedelLifeScienceImg, description: "Lösningar för läkemedel och life science" },
+  { name: "Energi", slug: "energi", image: energiImg, description: "Affärssystem för energisektorn" },
+  { name: "Service & Underhåll", slug: "service-underhall", image: serviceUnderhallImg, description: "System för serviceföretag" },
+  { name: "Konsultföretag", slug: "konsultforetag", image: konsultforetagImg, description: "Lösningar för konsultbolag" },
+  { name: "IT & Tech", slug: "it-tech", image: itTechImg, description: "Affärssystem för IT-branschen" },
+  { name: "Detaljhandel", slug: "detaljhandel", image: detaljhandelImg, description: "System för detaljhandeln" },
+  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", image: medlemsorganisationerImg, description: "Lösningar för medlemsorganisationer" },
+  { name: "Miljö & Återvinning", slug: "miljo-atervinning", image: miljoAtervinningImg, description: "System för miljö- och återvinningsbranschen" },
+  { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel" },
 ];
 
 const Branschlosningar = () => {
@@ -68,19 +85,26 @@ const Branschlosningar = () => {
       {/* Industries Grid */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {filteredIndustries.map((industry) => (
               <Link
                 key={industry.slug}
                 to={`/branschlosningar/${industry.slug}`}
-                className="group flex items-center gap-3 p-4 bg-card border border-border rounded-lg hover:border-primary hover:shadow-md transition-all duration-200"
+                className="group flex flex-col bg-card border border-border rounded-lg overflow-hidden hover:border-primary hover:shadow-lg transition-all duration-200"
               >
-                <div className="flex-shrink-0 w-12 h-12 bg-muted rounded-lg flex items-center justify-center group-hover:bg-primary/10 transition-colors">
-                  <industry.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="aspect-square overflow-hidden">
+                  <img
+                    src={industry.image}
+                    alt={industry.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
                 </div>
-                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                  {industry.name}
-                </span>
+                <div className="p-3 text-center">
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                    {industry.name}
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
