@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 // Industry images
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -22,37 +21,47 @@ import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.
 import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
 import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
 
+type ProductFilter = "all" | "bc" | "fsc" | "crm";
+
 interface Industry {
   name: string;
   slug: string;
   image: string;
   description: string;
+  products: ProductFilter[];
 }
 
 const industries: Industry[] = [
-  { name: "Tillverkning", slug: "tillverkning", image: tillverkningImg, description: "Affärssystem för tillverkande företag" },
-  { name: "Handel & Distribution", slug: "handel-distribution", image: handelDistributionImg, description: "Lösningar för handels- och distributionsföretag" },
-  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "System för bygg- och entreprenadföretag" },
-  { name: "Transport & Logistik", slug: "transport-logistik", image: transportLogistikImg, description: "Affärssystem för transport och logistik" },
-  { name: "Fastigheter", slug: "fastigheter", image: fastigheterImg, description: "Lösningar för fastighetsbranschen" },
-  { name: "Livsmedel", slug: "livsmedel", image: livsmedel, description: "System för livsmedelsindustrin" },
-  { name: "Läkemedel & Life Science", slug: "lakemedel-life-science", image: lakemedelLifeScienceImg, description: "Lösningar för läkemedel och life science" },
-  { name: "Energi", slug: "energi", image: energiImg, description: "Affärssystem för energisektorn" },
-  { name: "Service & Underhåll", slug: "service-underhall", image: serviceUnderhallImg, description: "System för serviceföretag" },
-  { name: "Konsultföretag", slug: "konsultforetag", image: konsultforetagImg, description: "Lösningar för konsultbolag" },
-  { name: "IT & Tech", slug: "it-tech", image: itTechImg, description: "Affärssystem för IT-branschen" },
-  { name: "Detaljhandel", slug: "detaljhandel", image: detaljhandelImg, description: "System för detaljhandeln" },
-  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", image: medlemsorganisationerImg, description: "Lösningar för medlemsorganisationer" },
-  { name: "Miljö & Återvinning", slug: "miljo-atervinning", image: miljoAtervinningImg, description: "System för miljö- och återvinningsbranschen" },
-  { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel" },
+  { name: "Tillverkning", slug: "tillverkning", image: tillverkningImg, description: "Affärssystem för tillverkande företag", products: ["bc", "fsc"] },
+  { name: "Handel & Distribution", slug: "handel-distribution", image: handelDistributionImg, description: "Lösningar för handels- och distributionsföretag", products: ["bc", "fsc", "crm"] },
+  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "System för bygg- och entreprenadföretag", products: ["bc", "fsc", "crm"] },
+  { name: "Transport & Logistik", slug: "transport-logistik", image: transportLogistikImg, description: "Affärssystem för transport och logistik", products: ["bc", "fsc"] },
+  { name: "Fastigheter", slug: "fastigheter", image: fastigheterImg, description: "Lösningar för fastighetsbranschen", products: ["bc", "fsc", "crm"] },
+  { name: "Livsmedel", slug: "livsmedel", image: livsmedel, description: "System för livsmedelsindustrin", products: ["bc", "fsc"] },
+  { name: "Läkemedel & Life Science", slug: "lakemedel-life-science", image: lakemedelLifeScienceImg, description: "Lösningar för läkemedel och life science", products: ["bc", "fsc", "crm"] },
+  { name: "Energi", slug: "energi", image: energiImg, description: "Affärssystem för energisektorn", products: ["fsc", "crm"] },
+  { name: "Service & Underhåll", slug: "service-underhall", image: serviceUnderhallImg, description: "System för serviceföretag", products: ["bc", "fsc", "crm"] },
+  { name: "Konsultföretag", slug: "konsultforetag", image: konsultforetagImg, description: "Lösningar för konsultbolag", products: ["bc", "crm"] },
+  { name: "IT & Tech", slug: "it-tech", image: itTechImg, description: "Affärssystem för IT-branschen", products: ["bc", "crm"] },
+  { name: "Detaljhandel", slug: "detaljhandel", image: detaljhandelImg, description: "System för detaljhandeln", products: ["bc", "fsc", "crm"] },
+  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", image: medlemsorganisationerImg, description: "Lösningar för medlemsorganisationer", products: ["bc", "crm"] },
+  { name: "Miljö & Återvinning", slug: "miljo-atervinning", image: miljoAtervinningImg, description: "System för miljö- och återvinningsbranschen", products: ["bc", "fsc"] },
+  { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel", products: ["bc", "fsc"] },
+];
+
+const filterOptions: { value: ProductFilter; label: string; variant: "default" | "business-central" | "finance-supply" | "crm" }[] = [
+  { value: "all", label: "Alla", variant: "default" },
+  { value: "bc", label: "Business Central", variant: "business-central" },
+  { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply" },
+  { value: "crm", label: "CRM / Customer Engagement", variant: "crm" },
 ];
 
 const Branschlosningar = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState<ProductFilter>("all");
 
-  const filteredIndustries = industries.filter((industry) =>
-    industry.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredIndustries = selectedFilter === "all" 
+    ? industries 
+    : industries.filter((industry) => industry.products.includes(selectedFilter));
 
   return (
     <div className="min-h-screen bg-background">
@@ -68,16 +77,22 @@ const Branschlosningar = () => {
             Välj din bransch nedan för att se vilka Microsoftpartners som har god verksamhetskunskap inom din bransch.
           </p>
           
-          {/* Search */}
-          <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Sök bransch..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 h-12 text-base"
-            />
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+            {filterOptions.map((option) => (
+              <Button
+                key={option.value}
+                variant={selectedFilter === option.value ? option.variant : "outline"}
+                onClick={() => setSelectedFilter(option.value)}
+                className={`text-sm sm:text-base ${
+                  selectedFilter === option.value 
+                    ? "" 
+                    : "hover:bg-muted"
+                }`}
+              >
+                {option.label}
+              </Button>
+            ))}
           </div>
         </div>
       </section>
@@ -111,7 +126,7 @@ const Branschlosningar = () => {
 
           {filteredIndustries.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Inga branscher hittades för "{searchTerm}"</p>
+              <p className="text-muted-foreground">Inga branscher hittades för det valda filtret.</p>
             </div>
           )}
         </div>
