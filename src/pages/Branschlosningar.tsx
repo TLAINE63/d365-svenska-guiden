@@ -249,7 +249,7 @@ const Branschlosningar = () => {
             ) : (
               <div className="text-center py-12 bg-muted/30 rounded-xl border border-border">
                 <p className="text-foreground text-xl font-medium mb-2">
-                  Va? Är det ingen partner som fokuserar på just min bransch?
+                  Är det ingen partner som är listad för just denna bransch?
                 </p>
                 <p className="text-muted-foreground text-lg mb-6">
                   Ingen fara, kontakta oss så hjälper vi dig att hitta en lämplig partner!
