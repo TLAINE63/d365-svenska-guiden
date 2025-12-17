@@ -25,9 +25,10 @@ const slides: HeroSlide[] = [
       </>
     ),
     subtitle: "Upptäck möjligheterna med Microsoftplattformen",
-    ctaType: "contact",
-    ctaText: "Starta här med en gratis rådgivning",
-    buttonColor: "bg-primary hover:bg-primary/90",
+    ctaType: "link",
+    ctaText: "Starta med att välja vilken bransch du tillhör",
+    ctaLink: "/branschlosningar",
+    buttonColor: "bg-amber-500 hover:bg-amber-600",
   },
   {
     id: 2,
