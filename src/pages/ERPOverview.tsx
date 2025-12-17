@@ -109,8 +109,8 @@ const ERPOverview = () => {
                 </div>
                 
                 <p className="text-muted-foreground mb-6">
-                  Perfekt för små och medelstora företag som behöver ett komplett, 
-                  användarvänligt affärssystem.
+                  Perfekt för mindre och medelstora företag som behöver ett komplett, 
+                  kraftfullt och användarvänligt affärssystem.
                 </p>
                 
                 <ul className="space-y-3 text-muted-foreground mb-6">
