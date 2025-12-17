@@ -54,6 +54,9 @@ const industryOptions = [
   "Konsulttjänster",
   "Offentlig sektor",
   "Energi & Utilities",
+  "Transport & Logistik",
+  "Fastigheter",
+  "Medlemsorganisationer",
   "Utbildning",
   "Nonprofit"
 ];
@@ -65,9 +68,12 @@ const marketOptions = [
 ];
 
 const sizeOptions = [
-  { value: "sma", label: "Små (1-50 anställda)" },
-  { value: "medelstora", label: "Medelstora (51-250 anställda)" },
-  { value: "stora", label: "Stora (250+ anställda)" }
+  { value: "1-49", label: "1-49 anställda" },
+  { value: "50-99", label: "50-99 anställda" },
+  { value: "100-249", label: "100-249 anställda" },
+  { value: "250-999", label: "250-999 anställda" },
+  { value: "1000-4999", label: "1.000-4.999 anställda" },
+  { value: "5000+", label: "Mer än 5.000 anställda" }
 ];
 
 const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialogProps) => {
@@ -121,13 +127,18 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     });
 
     // Size match
-    const sizeMap: Record<string, string> = {
-      "sma": "Små",
-      "medelstora": "Medelstora",
-      "stora": "Stora"
+    const sizeMap: Record<string, string[]> = {
+      "1-49": ["1-49"],
+      "50-99": ["50-99"],
+      "100-249": ["100-249"],
+      "250-999": ["250-999"],
+      "1000-4999": ["1.000-4.999"],
+      "5000+": [">5.000"]
     };
-    if (selectedSize && partner.companySize.includes(sizeMap[selectedSize])) {
-      score += 2;
+    if (selectedSize && sizeMap[selectedSize]) {
+      if (partner.companySize.some(size => sizeMap[selectedSize].includes(size))) {
+        score += 2;
+      }
     }
 
     // Market match - bonus for international partners if international selected
