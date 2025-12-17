@@ -497,7 +497,7 @@ const Agents = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <ContactFormDialog>
                 <Button size="lg" className="bg-agents hover:bg-agents/90 text-agents-foreground h-14 sm:h-16 rounded-xl">
-                  Boka Gratis Konsultation
+                  Boka en kostnadsfri AI-rådgivning
                 </Button>
               </ContactFormDialog>
               <Button size="lg" variant="outline" asChild>

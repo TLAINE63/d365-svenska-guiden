@@ -97,7 +97,7 @@ const Copilot = () => {
                   size="lg"
                   className="bg-copilot hover:bg-copilot/90 text-copilot-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
-                  Boka gratis rådgivning
+                  Boka en kostnadsfri AI-rådgivning
                 </Button>
               </ContactFormDialog>
             </div>
