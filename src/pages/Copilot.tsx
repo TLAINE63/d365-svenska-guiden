@@ -115,9 +115,6 @@ const Copilot = () => {
                   <span className="text-2xl">✨</span>
                 </div>
                 <div>
-                  <div className="inline-flex items-center gap-2 bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-semibold mb-2">
-                    Microsoft Ignite 2025
-                  </div>
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-card-foreground mb-3">
                     Från Copilot till Agents - Nästa steg i AI-evolutionen
                   </h2>

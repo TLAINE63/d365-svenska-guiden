@@ -318,10 +318,6 @@ const FinanceSupplyChain = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-8 sm:mb-10">
-              <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                <span>✨</span>
-                <span>Microsoft Ignite 2025 - Agenter för F&SCM</span>
-              </div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
                 AI & Agenter för Finance & Supply Chain
               </h2>
