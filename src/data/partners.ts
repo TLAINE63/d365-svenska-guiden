@@ -15,7 +15,7 @@ export const partners: Partner[] = [
     website: "https://absfront.se/erbjudanden/crm/",
     description: "Absfront är specialister på CRM och Customer Experience inom Microsoft Dynamics 365, Power Platform och Data. De hjälper företag att skapa kundupplevelser utan gränser genom att kombinera strategi, teknik och förändringsledning. Med fokus på att bygga starka kundrelationer erbjuder de helhetslösningar från behovsanalys till implementation och vidareutveckling.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -24,7 +24,7 @@ export const partners: Partner[] = [
     website: "https://www.accenture.com/se-en/services/microsoft-index",
     description: "Accenture är en global konsultjätte och en av världens största Microsoft-partners med omfattande expertis inom Dynamics 365. De fokuserar på stora digitala transformationsprojekt för enterprise-kunder och kombinerar djup branschkunskap med teknisk spetskompetens. Som strategisk partner hjälper de organisationer att omforma sina affärsprocesser genom intelligent automation och AI-drivna lösningar.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Bank & Finans", "Retail", "Energisektorn", "Offentlig sektor"],
+    industries: ["Bank & Försäkring", "Handel (Retail & eCommerce)", "Energi & Utilities", "Offentlig sektor"],
     companySize: ["Stora"]
   },
   {
@@ -33,7 +33,7 @@ export const partners: Partner[] = [
     website: "https://accigo.se/microsoft-dynamics-365/",
     description: "Accigo utsågs till Microsoft Dynamics 365 Partner of The Year 2024 i Sverige. De är en nordisk Microsoft-partner som driver smart digital transformation med fokus på Customer Engagement, Power Platform och Modern Work. Med Microsoft Solutions Partner-certifiering inom Business Applications, Modern Work och Security levererar de enligt Microsofts högsta standard och hjälper företag att förflytta verksamheter genom digital förändring.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag", "Bank & Finans"],
+    industries: ["Konsulttjänster", "Bank & Försäkring"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -42,7 +42,7 @@ export const partners: Partner[] = [
     website: "https://www.avanade.com/sv-se/solutions/microsoft-business-applications",
     description: "Avanade är ett joint venture mellan Accenture och Microsoft och världens största leverantör av Microsoft-tjänster. Med djup expertis inom hela Dynamics 365-plattformen levererar de end-to-end-lösningar för enterprise-kunder. De kombinerar affärsförståelse med teknisk innovation för att hjälpa organisationer att modernisera sina verksamhetskritiska processer inom försäljning, service, ekonomi och supply chain.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
+    industries: ["Tillverkningsindustrin", "Bank & Försäkring", "Handel (Retail & eCommerce)", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -51,7 +51,7 @@ export const partners: Partner[] = [
     website: "https://www.azets.se/affarslosningar/affarssystem/",
     description: "Azets är en nordisk leverantör av affärssystem och redovisningstjänster med stark kompetens inom Dynamics 365 Business Central. De erbjuder en unik kombination av systemleverans och ekonomitjänster, vilket ger kunder tillgång till både teknisk expertis och redovisningskompetens. Deras helhetslösning passar särskilt företag som vill ha en partner för både affärssystem och ekonomisk rådgivning.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -60,7 +60,7 @@ export const partners: Partner[] = [
     website: "https://b3.se/erbjudanden/microsoft/",
     description: "B3 Consulting Group är en svensk IT- och managementkonsult med bred Dynamics 365-kompetens. De fokuserar på digital transformation och affärsutveckling för medelstora och stora företag, och kombinerar strategisk rådgivning med teknisk implementation. Med erfarenhet från både privat och offentlig sektor hjälper de organisationer att realisera värdet av sina Microsoft-investeringar.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag", "Offentlig sektor", "Bank & Finans"],
+    industries: ["Konsulttjänster", "Offentlig sektor", "Bank & Försäkring"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -69,7 +69,7 @@ export const partners: Partner[] = [
     website: "https://bedege.se",
     description: "Bedege är en specialiserad Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med implementation och support av affärssystem. De fokuserar på att leverera anpassade lösningar som möter kundernas specifika verksamhetsbehov och erbjuder personlig service genom hela projektets livscykel.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -78,7 +78,7 @@ export const partners: Partner[] = [
     website: "https://www.be-terna.com/sv/losningar/microsoft",
     description: "BE-terna är en internationell partner som vägleder företag till en säker digital framtid. Som del av Telefónica Tech erbjuder de ERP, CRM, BI, dataanalys och automationslösningar i samarbete med Microsoft, Infor, Qlik och UiPath. De levererar branschspecifika lösningar perfekt anpassade för tillverkning, retail och distribution, med fokus på att förbättra verksamhet och servicekvalitet.",
     applications: ["Finance & SCM"],
-    industries: ["Tillverkning", "Retail", "Grossist"],
+    industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Grossist/Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -87,7 +87,7 @@ export const partners: Partner[] = [
     website: "https://www.bisqo.se/businesscentral/",
     description: "Bisqo är experter inom Dynamics 365 Business Central och CRM på Power Platform. Deras strategi bygger på en kraftfull kombination av ERP och CRM där de skapar smarta, skalbara och framtidssäkra lösningar. Med fokus på standardiserade system, paketlösningar och serviceavtal hjälper de svenska företag att effektivisera sina affärsprocesser och få snabb start med långsiktig utveckling.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -96,7 +96,7 @@ export const partners: Partner[] = [
     website: "https://www.capgemini.com/solutions/microsoft/",
     description: "Capgemini är en global konsultjätte med omfattande Dynamics 365-praktik och djup branschexpertis. De fokuserar på stora transformationsprojekt för enterprise-kunder och kombinerar strategisk rådgivning med teknisk implementation. Med närvaro i över 50 länder hjälper de multinationella organisationer att modernisera sina affärsprocesser genom Microsoft-teknologi och AI-drivna lösningar.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Bank & Finans", "Retail", "Energisektorn"],
+    industries: ["Bank & Försäkring", "Handel (Retail & eCommerce)", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -105,7 +105,7 @@ export const partners: Partner[] = [
     website: "https://www.cegeka.com/sv-se/solutions/microsoft",
     description: "Cegeka är en europeisk IT-partner med fokus på digital transformation och stark kompetens inom Dynamics 365 och Azure. De hjälper medelstora och stora företag att optimera sina affärsprocesser genom molnbaserade lösningar och erbjuder end-to-end-tjänster från strategi till implementation och förvaltning.",
     applications: ["Finance & SCM"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -114,7 +114,7 @@ export const partners: Partner[] = [
     website: "https://cepheo.com/solutions/erp/",
     description: "Cepheo är en av de mest erfarna Microsoft Dynamics 365-partners i Norden med över 37 års branscherfarenhet och 28 års samarbete med Microsoft. Med mer än 450 specialister på 13 platser i Skandinavien levererar de Digital Empowerment genom full-stack-lösningar baserade på Dynamics 365, Power Platform och Azure. De hjälper företag att framtidssäkra sin verksamhet och utnyttja kraften i data och teknik för bättre beslut.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -123,7 +123,7 @@ export const partners: Partner[] = [
     website: "https://www.columbusglobal.com/sv/microsoft-dynamics-365",
     description: "Columbus är en global Dynamics 365-partner med stark nordisk närvaro och mottot 'Digital Value. Human Intelligence'. De hjälper organisationer att transformera sin verksamhet genom att maximera investeringar i Microsoft-teknologi och förbereda dem för framtiden. Med djup branschexpertis inom tillverkning, retail och distribution levererar de helhetslösningar inom ERP och CRM som kombinerar kultur, processer och ny teknologi.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Retail", "Grossist"],
+    industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Grossist/Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -132,7 +132,7 @@ export const partners: Partner[] = [
     website: "https://www.cosmoconsult.com/se-sv/loesningar/microsoft-dynamics-365-business-central/",
     description: "Cosmo Consult är en internationell Dynamics 365-partner med stark närvaro i Norden och specialistkompetens inom Business Central. De erbjuder egna branschlösningar för tillverkning, tjänsteföretag och distribution, och kombinerar standardfunktionalitet med anpassningar för specifika verksamhetsbehov. Med fokus på digital transformation hjälper de företag att effektivisera sina processer.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Tjänsteföretag", "Grossist"],
+    industries: ["Tillverkningsindustrin", "Konsulttjänster", "Grossist/Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -141,7 +141,7 @@ export const partners: Partner[] = [
     website: "https://www.crmkonsulterna.se/dynamics-365/",
     description: "CRM Konsulterna utsågs till Dynamics 365 Customer Engagement Partner of the Year 2023 av Microsoft Sverige. De placerar kunden i centrum och är övertygade om att starka kundrelationer är grunden för lyckade affärer. Med specialisering på Dynamics 365 CE och Power Platform stöttar de företag genom hela kundresan – från marknad och sälj till kundservice – med inbyggd AI och automatisering.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -150,7 +150,7 @@ export const partners: Partner[] = [
     website: "https://dizparc.se/erbjudande/affarssystem/",
     description: "Dizparc hjälper företag att förverkliga sin digitala potential genom lokala verksamheter på flera orter i Sverige. De skapar hållbara digitala lösningar med fokus på affärssystem, e-handel och molnbaserad infrastruktur. Med gedigen verksamhetsförståelse och förändringsledning hjälper de företag att öka lönsamhet och konkurrensfördelar genom Dynamics 365 Business Central.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -159,7 +159,7 @@ export const partners: Partner[] = [
     website: "https://www.ecit.com/se/affarssystem/",
     description: "ECIT är en nordisk IT-partner som erbjuder hög kompetens, tjänster och produkter inom ekonomi, IT och affärslösningar. Med mottot 'Din partner – nu och i framtiden' kombinerar de systemlösningar med lön- och redovisningstjänster. De hjälper företag att välja rätt affärssystem och erbjuder långsiktigt partnerskap för både teknik och ekonomifunktion.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail", "Grossist"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)", "Grossist/Distribution"],
     companySize: ["Små", "Medelstora", "Stora"]
   },
   {
@@ -168,7 +168,7 @@ export const partners: Partner[] = [
     website: "https://engagenow.com/our-services/",
     description: "Engage Group är 'Experts in Dynamics 365' med en bevisad meritlista inom globala utrullningar. De tillhör den exklusiva Microsoft Inner Circle – topp 1% av alla Microsoft-partners världen över. Med djup Dynamics 365-expertis levererar de skalbara lösningar som maximerar ROI för stora organisationer och hjälper dem att utnyttja kraften i Microsoft-plattformen fullt ut.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Medelstora"]
   },
   {
@@ -177,7 +177,7 @@ export const partners: Partner[] = [
     website: "https://excitec.se/affarssystem/",
     description: "Exsitec, del av Brightcom-gruppen, är specialister på Microsoft Dynamics 365 Business Central och Power Platform för svenska företag. De kombinerar affärssystemexpertis med Power Platform-kompetens för att hjälpa kunder att automatisera processer och skapa moderna, integrerade lösningar.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -186,7 +186,7 @@ export const partners: Partner[] = [
     website: "https://www.ey.com/sv_se/services/consulting/technology/microsoft",
     description: "EY är en global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. De fokuserar på stora transformationsprojekt inom finans och revision för enterprise-kunder, och kombinerar djup branschkunskap med teknisk expertis. Med global räckvidd hjälper de multinationella organisationer att modernisera sina affärsprocesser och uppnå digitala ambitioner.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    industries: ["Bank & Försäkring", "Offentlig sektor", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -195,7 +195,7 @@ export const partners: Partner[] = [
     website: "https://www.fellowmind.com/sv-se/tjanster/microsoft-dynamics-365/",
     description: "Fellowmind utsågs till Microsoft EMEA Channel Partner of the Year 2025 – det mest prestigefyllda partnerpriset i Europa. Med mottot 'Creating Connected Companies' hjälper de människor att trivas med teknologi i arbetet. Som en av Nordens största Dynamics 365-partners erbjuder de bred kompetens inom både ERP och CRM, och har framgångsrikt hjälpt kunder som Fastighets AB Balder och Hässelby Blommor att digitalisera sina affärsprocesser.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Grossist", "Tjänsteföretag", "Retail"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -204,7 +204,7 @@ export const partners: Partner[] = [
     website: "https://forefront.se/erbjudande/microsoft/",
     description: "Forefront Consulting är en Microsoft Dynamics 365 Finance & Supply Chain Management-partner med fokus på tillverkande företag och grossister. De kombinerar teknisk expertis med affärsförståelse för att hjälpa företag att optimera sina verksamhetskritiska processer.",
     applications: ["Finance & SCM"],
-    industries: ["Tillverkning", "Grossist"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -213,7 +213,7 @@ export const partners: Partner[] = [
     website: "https://fourone.se/erp/",
     description: "FourOne är en nordisk specialist på Dynamics 365 Finance & Supply Chain Management med fokus på tjänsteföretag och e-handel. De hjälper företag att implementera och optimera sina ERP-lösningar och erbjuder expertis inom integration och automation.",
     applications: ["Finance & SCM"],
-    industries: ["Tjänsteföretag", "E-handel"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -222,7 +222,7 @@ export const partners: Partner[] = [
     website: "https://www.fujitsu.com/se/services/application-modernization/enterprise-applications/",
     description: "Fujitsu är en global IT-tjänsteleverantör med omfattande Microsoft-partnerskap och närvaro i Sverige. De erbjuder Dynamics 365-lösningar för stora enterprise-kunder inom tillverkning, offentlig sektor och energisektorn, med fokus på kompletta digitala transformationer.",
     applications: ["Finance & SCM"],
-    industries: ["Tillverkning", "Offentlig sektor", "Energisektorn"],
+    industries: ["Tillverkningsindustrin", "Offentlig sektor", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -231,7 +231,7 @@ export const partners: Partner[] = [
     website: "https://goodfellows.se/affarssystem/",
     description: "Goodfellows, som blivit en del av Upheads, erbjuder personlig IT-service med fokus på Dynamics 365 Business Central. Med mottot 'Välkommen till det goda livet' kombinerar de affärssystemexpertis med IT-support och drift för att ge kunder en helhetslösning.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "E-handel"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -240,7 +240,7 @@ export const partners: Partner[] = [
     website: "https://www.hcltech.com/technology-software-services/enterprise-application-services/microsoft-ecosystem",
     description: "HCL Technologies är en global IT-tjänsteleverantör med omfattande Microsoft Dynamics 365-erfarenhet och stark närvaro inom stora enterprise-implementationer. De hjälper multinationella organisationer att modernisera sina affärsprocesser genom end-to-end-lösningar som kombinerar affärsförståelse med teknisk innovation.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Bank & Finans", "Retail"],
+    industries: ["Tillverkningsindustrin", "Bank & Försäkring", "Handel (Retail & eCommerce)"],
     companySize: ["Stora"]
   },
   {
@@ -249,7 +249,7 @@ export const partners: Partner[] = [
     website: "https://www.hso.com/solutions/microsoft-dynamics-365",
     description: "HSO utsågs till vinnare av 2025 Microsoft Dynamics 365 Sales & Customer Insights Partner of the Year Award. De är en global Microsoft-partner specialiserad på Dynamics 365 och molntjänster, med stark branschexpertis inom tillverkning, distribution och retail. Med investeringar från Bain Capital accelererar de AI-driven tillväxt och hjälper kunder att omvandla AI till verklig affärsnytta.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -258,7 +258,7 @@ export const partners: Partner[] = [
     website: "https://implema.se/microsoft-dynamics/",
     description: "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'. De är specialister på både SAP och Microsoft Dynamics med fokus på Finance & Supply Chain Management. Med gedigen erfarenhet av ERP-implementationer hjälper de tillverkande företag och grossister att optimera sina verksamhetskritiska processer.",
     applications: ["Finance & SCM"],
-    industries: ["Tillverkning", "Grossist"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -267,7 +267,7 @@ export const partners: Partner[] = [
     website: "https://www.inbiz.se/microsoft-partner/",
     description: "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005. De arbetar med distribuerande företag, tjänsteföretag med avtals- och projektbaserad verksamhet samt tillverkande industrier. Med färdiga lösningsförslag, tilläggslösningar och processkompetens ger de en förutsebar resa i både implementation av nya system och vidareutveckling av befintliga miljöer. Användarvänlighet, robusthet och automatisering är ledorden.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -276,7 +276,7 @@ export const partners: Partner[] = [
     website: "https://www.innofactor.com/se/vad-vi-gor/losningar/dynamics-365/",
     description: "Innofactor är en Microsoft Cloud Solutions Partner med Microsofts högsta partnerbeteckning. Med 'Years of Innovating to Make the World Work Better' som vision hjälper de företag att digitalisera och utveckla affärsprocesser genom hela Microsofts lösningsportfölj. De har expertis inom Modern Work, Business Applications, Security, Azure och AI och hjälper kunder att dra nytta av GPT och AI-teknologi.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service"],
-    industries: ["Offentlig sektor", "Tjänsteföretag", "Bank & Finans"],
+    industries: ["Offentlig sektor", "Konsulttjänster", "Bank & Försäkring"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -285,7 +285,7 @@ export const partners: Partner[] = [
     website: "https://itm8.se/affarssystem/",
     description: "Itm8, tidigare Addpro, är en Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med affärssystemlösningar. De erbjuder implementation, anpassning och support för att optimera verksamhetsprocesser och stödja tillväxt.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -294,7 +294,7 @@ export const partners: Partner[] = [
     website: "https://jma.se/affarssystem/",
     description: "JMA Maskindata är specialister på affärssystem för tillverkande företag med lång erfarenhet av Microsoft Dynamics och branschanpassade lösningar. De förstår tillverkningsindustrins unika behov och erbjuder lösningar som optimerar produktion, lager och ekonomi i en integrerad plattform.",
     applications: ["Business Central"],
-    industries: ["Tillverkning"],
+    industries: ["Tillverkningsindustrin"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -303,7 +303,7 @@ export const partners: Partner[] = [
     website: "https://www.knowit.se/vart-erbjudande/solutions/",
     description: "Knowit är en nordisk digitaliseringskonsult med bred Microsoft-kompetens och fokus på hållbar digitalisering. Med mottot 'Building the future takes a whole set of digitalization skills' kombinerar de strategi, design och teknik för att hjälpa företag att skapa en hållbar framtid. De har erfarenhet från både privat och offentlig sektor.",
     applications: ["Finance & SCM"],
-    industries: ["Tjänsteföretag", "Offentlig sektor", "Retail"],
+    industries: ["Konsulttjänster", "Offentlig sektor", "Handel (Retail & eCommerce)"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -312,7 +312,7 @@ export const partners: Partner[] = [
     website: "https://kpmg.com/se/sv/home/tjanster/advisory/microsoft.html",
     description: "KPMG är en global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. De fokuserar på finans, revision och stora transformationsprojekt för enterprise-kunder och kombinerar djup branschkunskap med teknisk expertis för att hjälpa organisationer att modernisera sina verksamhetskritiska processer.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    industries: ["Bank & Försäkring", "Offentlig sektor", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -321,7 +321,7 @@ export const partners: Partner[] = [
     website: "https://www.nabsolutions.se/dynamics-365-business-central/",
     description: "NAB Solutions är specialister på Dynamics 365 Business Central med lång erfarenhet av implementationer för svenska företag. De har särskilt fokus på tillverkning och distribution och erbjuder både implementation av nya system och förvaltning av befintliga lösningar. Med branschkunskap och teknisk expertis hjälper de kunder att få ut maximalt värde.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -330,7 +330,7 @@ export const partners: Partner[] = [
     website: "https://www.navcite.com/microsoft-business-central/",
     description: "Navcite kombinerar 'Small company feeling – Big company experience' och erbjuder affärssystem med Infor M3 och Microsoft Business Central. De förstår att varje företag är unikt och fokuserar på att leverera lösningar som passar specifika verksamhetsbehov. Med lokal närvaro och personlig service hjälper de tillverkande företag och grossister.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Grossist"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -339,7 +339,7 @@ export const partners: Partner[] = [
     website: "https://navet.se/affarssystem/",
     description: "Navet, del av Aderian Group, skapar bättre affärer tillsammans med sina kunder. Med mottot 'Vi förstår verksamheter, teknik och relationer' kombinerar de affärsförståelse med teknisk expertis. De hjälper företag inom retail och tjänstesektorn att välja och implementera rätt affärssystem för sina behov.",
     applications: ["Business Central"],
-    industries: ["Retail", "Tjänsteföretag"],
+    industries: ["Handel (Retail & eCommerce)", "Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -348,7 +348,7 @@ export const partners: Partner[] = [
     website: "https://navipro.se/dynamics-365-business-central/",
     description: "Navipro har transformerats till Evidi – 'A New Era of Possibilities'. Som nordisk Microsoft-partner erbjuder de djup expertis inom hela Microsoft-plattformen med fokus på Dynamics 365 Business Central. De hjälper företag att modernisera sina affärsprocesser och utnyttja nya möjligheter i molnet.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag", "Retail"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -357,7 +357,7 @@ export const partners: Partner[] = [
     website: "https://nemely.se/dynamics-365/",
     description: "Nemely är en Microsoft Dynamics 365 Partner specialiserad på CRM och kundengagemang. De hjälper företag att optimera sina kundrelationer genom Dynamics 365 Sales, Customer Service och Marketing, med fokus på att skapa värde genom bättre kundupplevelser och effektivare processer.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag", "E-handel"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -366,7 +366,7 @@ export const partners: Partner[] = [
     website: "https://www.norteam.se/",
     description: "Norteam är en Microsoft Dynamics 365-partner med kompetens inom Business Central och Dynamics 365 Sales. De hjälper svenska företag att effektivisera sina affärsprocesser genom moderna ERP- och CRM-lösningar.",
     applications: ["Business Central", "Sales"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -375,7 +375,7 @@ export const partners: Partner[] = [
     website: "https://nexergroup.com/sv/tjanster/dynamics-365/",
     description: "Nexer är en svensk IT-konsult med global räckvidd och stark kompetens inom Dynamics 365 och digital transformation. De erbjuder ett brett tjänsteutbud inom design, kommunikation, tech och utveckling och hjälper medelstora och stora företag att skapa konkurrensfördelar genom digitalisering.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Retail", "Tjänsteföretag"],
+    industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Konsulttjänster"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -384,7 +384,7 @@ export const partners: Partner[] = [
     website: "https://www.pwc.se/sv/tjanster/consulting/technology/microsoft.html",
     description: "PWC är en global konsult- och revisionsjätte med omfattande Dynamics 365-praktik. De fokuserar på finans, revision och stora enterprise-transformationer och kombinerar strategisk rådgivning med teknisk implementation. Med djup branschkunskap hjälper de organisationer att modernisera sina verksamhetskritiska processer.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Bank & Finans", "Offentlig sektor", "Energisektorn"],
+    industries: ["Bank & Försäkring", "Offentlig sektor", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -393,7 +393,7 @@ export const partners: Partner[] = [
     website: "https://regentor.se",
     description: "Regentor är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -402,7 +402,7 @@ export const partners: Partner[] = [
     website: "https://releye.se/dynamics-365/",
     description: "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform. De hjälper företag att automatisera processer och förbättra kundupplevelser genom moderna, integrerade lösningar som kombinerar CRM med Power Apps och Power Automate.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag", "Retail"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -411,7 +411,7 @@ export const partners: Partner[] = [
     website: "https://sherpas.se/plattformar/dynamics-365-f-scm/",
     description: "Sherpas hjälper företag och organisationer med data, system och digitalisering. Med kontor i Skellefteå och Stockholm påstår de att 'bära kartan är en sak, att ha någon som kan visa dig vägen är en helt annan'. De erbjuder Dynamics 365 Finance & SCM och Business Central samt egna lösningar som Sherpas Projektportal och VLS.",
     applications: ["Business Central", "Finance & SCM"],
-    industries: ["Tjänsteföretag", "E-handel", "Retail"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -420,7 +420,7 @@ export const partners: Partner[] = [
     website: "https://www.siroccogroup.com/microsoft-dynamics-365/",
     description: "Sirocco Group är en internationell boutique-konsult och utvecklingsbyrå specialiserad på CRM och digital transformation. Som oberoende och kundfokuserad partner överbryggar de gapet mellan affärsbehov, processer och teknologi. De är ledande inom kundrelationshantering och säljautomation för företag med höga ambitioner.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag", "E-handel", "Retail"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -429,7 +429,7 @@ export const partners: Partner[] = [
     website: "https://www.softronic.se/services/microsoft-dynamics-365/",
     description: "Softronic är en svensk IT-konsult med mottot 'GoodTech – ledande teknik som gör gott i samhället'. De erbjuder innovativa digitala lösningar som skapar verklig samhällsnytta och har lång erfarenhet av Microsoft-lösningar. Med fokus på offentlig sektor och tjänsteföretag hjälper de organisationer att digitalisera för en mer hållbar framtid.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor", "Tjänsteföretag"],
+    industries: ["Offentlig sektor", "Konsulttjänster"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -438,7 +438,7 @@ export const partners: Partner[] = [
     website: "https://www.sogeti.se/tjanster/microsoft/",
     description: "Sogeti är 'Valuemakers' och del av Capgemini-gruppen med fokus på teknisk implementation, utveckling och Power Platform. De kombinerar global kraft med lokal närvaro och hjälper medelstora och stora företag att realisera värdet av sina Microsoft-investeringar genom expertis inom Dynamics 365 och Azure.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Tjänsteföretag", "Retail"],
+    industries: ["Tillverkningsindustrin", "Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -447,7 +447,7 @@ export const partners: Partner[] = [
     website: "https://www.soprasteria.se/losningar/microsoft",
     description: "Sopra Steria är en europeisk teknologikonsult med stark närvaro i Norden och omfattande Dynamics 365-kompetens. De fokuserar på offentlig sektor och stora företag inom finans och energi, och erbjuder end-to-end-lösningar från strategi till implementation och förvaltning.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Offentlig sektor", "Bank & Finans", "Energisektorn"],
+    industries: ["Offentlig sektor", "Bank & Försäkring", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -456,7 +456,7 @@ export const partners: Partner[] = [
     website: "https://stratiteq.com/solutions/microsoft-dynamics-365/",
     description: "Stratiteq är en Microsoft Dynamics 365-partner med fokus på CRM och Customer Engagement. De hjälper medelstora företag att optimera sina kundrelationer och säljprocesser genom moderna, integrerade lösningar.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Medelstora"]
   },
   {
@@ -465,7 +465,7 @@ export const partners: Partner[] = [
     website: "https://www.tcs.com/what-we-do/products-platforms/microsoft-business-applications",
     description: "TCS är en global IT-tjänsteleverantör och en av världens största Microsoft-partners. De fokuserar på stora enterprise-transformationer och globala implementationer av Dynamics 365, med omfattande branscherfarenhet inom tillverkning, finans, retail och energi.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Tillverkning", "Bank & Finans", "Retail", "Energisektorn"],
+    industries: ["Tillverkningsindustrin", "Bank & Försäkring", "Handel (Retail & eCommerce)", "Energi & Utilities"],
     companySize: ["Stora"]
   },
   {
@@ -474,7 +474,7 @@ export const partners: Partner[] = [
     website: "https://www.tietoevry.com/sv/tjanster/microsoft/",
     description: "TietoEvry är en nordisk teknologijätte med bred Dynamics 365-kompetens och stark position inom offentlig sektor och finans. De erbjuder helhetslösningar som kombinerar branschkunskap med teknisk expertis och hjälper stora organisationer att modernisera sina affärsprocesser.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations", "Commerce", "Human Resources"],
-    industries: ["Offentlig sektor", "Bank & Finans"],
+    industries: ["Offentlig sektor", "Bank & Försäkring"],
     companySize: ["Stora"]
   },
   {
@@ -483,7 +483,7 @@ export const partners: Partner[] = [
     website: "https://two.se/erp-hos-two/business-central/",
     description: "Two, del av CombinedX, är experter på affärssystem och business intelligence. Med mottot 'Minut för minut ser vi till att det gör det' erbjuder de Dynamics 365 Business Central och Jeeves ERP tillsammans med Power BI. De ger företag möjlighet att ta rätt beslut i rätt tid genom insikter och lösningar som ökar tempot.",
     applications: ["Business Central"],
-    industries: ["Tillverkning", "Grossist", "Retail"],
+    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["Medelstora", "Stora"]
   },
   {
@@ -492,7 +492,7 @@ export const partners: Partner[] = [
     website: "https://updateab.se",
     description: "Update Affärssystem är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -501,7 +501,7 @@ export const partners: Partner[] = [
     website: "https://yellowsolution.se",
     description: "Yellow Solution är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag. De fokuserar på att leverera anpassade lösningar som möter specifika verksamhetsbehov.",
     applications: ["Business Central"],
-    industries: ["Tjänsteföretag"],
+    industries: ["Konsulttjänster"],
     companySize: ["Små", "Medelstora"]
   },
   {
@@ -510,7 +510,7 @@ export const partners: Partner[] = [
     website: "https://zelly.se/dynamics-365/",
     description: "Zelly, del av Aderian Group, är en Microsoft Dynamics 365 Partner med fokus på CRM och kundservice. De är specialister på att bygga starka kundrelationer och optimera serviceprocesser genom Dynamics 365 Customer Engagement och Power Platform.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tjänsteföretag", "E-handel"],
+    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["Små", "Medelstora"]
   }
 ];
@@ -521,15 +521,15 @@ export const crmApplications = ["Sales", "Customer Service", "Customer Insights 
 // All unique industries from partners
 export const allIndustries = [
   "Alla branscher",
-  "Tillverkning",
-  "Tjänsteföretag", 
-  "E-handel",
-  "Retail",
-  "Distribution",
-  "Bygg & Fastighet",
-  "Logistik",
-  "Bank & Finans",
-  "Energisektorn",
+  "Tillverkningsindustrin",
+  "Handel (Retail & eCommerce)",
+  "Grossist/Distribution",
+  "Bank & Försäkring",
+  "Hälso- & sjukvård",
+  "Life Science",
+  "Konsulttjänster",
   "Offentlig sektor",
-  "Tech"
+  "Energi & Utilities",
+  "Utbildning",
+  "Nonprofit"
 ];

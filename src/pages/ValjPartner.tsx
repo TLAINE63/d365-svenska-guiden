@@ -28,15 +28,17 @@ const allApplications = [
 
 // All available industries for filtering
 const allIndustries = [
-  "Tillverkning",
-  "Grossist",
-  "Tjänsteföretag",
-  "Retail",
-  "E-handel",
+  "Tillverkningsindustrin",
+  "Handel (Retail & eCommerce)",
+  "Grossist/Distribution",
+  "Bank & Försäkring",
+  "Hälso- & sjukvård",
+  "Life Science",
+  "Konsulttjänster",
   "Offentlig sektor",
-  "Bank & Finans",
-  "Energisektorn",
-  "Bygg & Entreprenad"
+  "Energi & Utilities",
+  "Utbildning",
+  "Nonprofit"
 ];
 
 // Company size filter options with mapping to partner data values
