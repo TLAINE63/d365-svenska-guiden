@@ -67,7 +67,7 @@ const Agents = () => {
                   size="lg"
                   className="bg-agents hover:bg-agents/90 text-agents-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
-                  Lär dig mer om Agenter
+                  Boka in en kostnadsfri AI-rådgivning
                 </Button>
               </ContactFormDialog>
             </div>
