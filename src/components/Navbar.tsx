@@ -16,7 +16,7 @@ import {
 
 const Navbar = () => {
   const erpItems = [
-
+    { label: "ERP Översikt", path: "/erp" },
     { label: "Business Central", path: "/business-central" },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
     { label: "Affärssystem (ERP) Behovsanalys", path: "/behovsanalys" },
