@@ -45,15 +45,17 @@ const applicationOptions = [
 ];
 
 const industryOptions = [
-  "Tillverkning",
-  "Grossist",
-  "Tjänsteföretag",
-  "Retail",
-  "E-handel",
+  "Tillverkningsindustrin",
+  "Handel (Retail & eCommerce)",
+  "Grossist/Distribution",
+  "Bank & Försäkring",
+  "Hälso- & sjukvård",
+  "Life Science",
+  "Konsulttjänster",
   "Offentlig sektor",
-  "Bank & Finans",
-  "Energisektorn",
-  "Bygg & Entreprenad"
+  "Energi & Utilities",
+  "Utbildning",
+  "Nonprofit"
 ];
 
 const marketOptions = [

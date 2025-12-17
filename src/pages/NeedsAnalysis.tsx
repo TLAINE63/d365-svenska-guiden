@@ -113,16 +113,17 @@ const revenueOptions = [
 ];
 
 const industryOptions = [
-  "Tillverkning",
-  "Distribution & Grossist",
-  "Detaljhandel",
-  "Bygg & Fastighet",
-  "Professionella tjänster",
-  "Transport & Logistik",
-  "Livsmedel & Dryck",
-  "Läkemedel & Life Science",
+  "Tillverkningsindustrin",
+  "Handel (Retail & eCommerce)",
+  "Grossist/Distribution",
+  "Bank & Försäkring",
+  "Hälso- & sjukvård",
+  "Life Science",
+  "Konsulttjänster",
+  "Offentlig sektor",
   "Energi & Utilities",
-  "Finans & Försäkring",
+  "Utbildning",
+  "Nonprofit",
 ];
 
 const geographyOptions = [
