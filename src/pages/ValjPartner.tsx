@@ -72,6 +72,25 @@ const geographyFilters = [
   { label: "Internationellt", value: "Internationellt" }
 ];
 
+// Helper function to convert company sizes to readable categories
+const getCompanySizeCategories = (sizes: string[]): string[] => {
+  const categories = new Set<string>();
+  
+  sizes.forEach(size => {
+    if (size === "1-49" || size === "50-99") {
+      categories.add("SMB (1-99 anställda)");
+    }
+    if (size === "100-249" || size === "250-999") {
+      categories.add("Mid-market (100-999)");
+    }
+    if (size === "1.000-4.999" || size === ">5.000") {
+      categories.add("Enterprise (1.000+)");
+    }
+  });
+  
+  return Array.from(categories);
+};
+
 const ValjPartner = () => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
@@ -427,11 +446,11 @@ const ValjPartner = () => {
                   </div>
 
                   <div className="bg-secondary/50 rounded-lg p-3 border border-border/50">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Företagsstorlek</p>
+                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Inriktade på företagsstorlek</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {partner.companySize.map((size, i) => (
+                      {getCompanySizeCategories(partner.companySize).map((category, i) => (
                         <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/20 text-foreground font-medium">
-                          {size}
+                          {category}
                         </Badge>
                       ))}
                     </div>
