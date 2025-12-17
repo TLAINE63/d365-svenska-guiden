@@ -491,8 +491,8 @@ export const partners: Partner[] = [
     logo: "",
     website: "https://www.transformant.se/",
     description: "Transformant erbjuder konsulttjänster, affärssystem och integrationer för företag som vill förändras. Med fokus på Microsoft Dynamics och modern teknik hjälper de kunder att ta steget från nuläge till önskat läge. De kombinerar strategisk rådgivning med praktisk implementation och erbjuder flexibla lösningar anpassade efter kundens behov.",
-    applications: ["Business Central"],
-    industries: ["Konsulttjänster"],
+    applications: ["Business Central", "Finance & SCM"],
+    industries: ["Konsulttjänster", "Offentlig sektor"],
     companySize: ["Små", "Medelstora"]
   },
   {
