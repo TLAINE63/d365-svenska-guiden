@@ -89,6 +89,16 @@ const Branschlosningar = () => {
     
     const requiredApps = getApplicationsForProduct(selectedFilter);
     
+    // Helper to get the lowest industry index for a partner (0, 1, 2, or Infinity if not found)
+    const getIndustryPriority = (partner: Partner): number => {
+      for (let i = 0; i < partner.industries.length; i++) {
+        if (selectedIndustry.partnerIndustries.includes(partner.industries[i])) {
+          return i;
+        }
+      }
+      return Infinity;
+    };
+    
     return partners.filter((partner) => {
       // Check if partner has any of the required applications
       const hasApp = partner.applications.some(app => requiredApps.includes(app));
@@ -97,7 +107,16 @@ const Branschlosningar = () => {
         selectedIndustry.partnerIndustries.includes(ind)
       );
       return hasApp && hasIndustry;
-    }).sort((a, b) => a.name.localeCompare(b.name, 'sv'));
+    }).sort((a, b) => {
+      // First sort by industry priority (index 0, 1, 2)
+      const priorityA = getIndustryPriority(a);
+      const priorityB = getIndustryPriority(b);
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+      // If same priority, sort alphabetically
+      return a.name.localeCompare(b.name, 'sv');
+    });
   }, [selectedFilter, selectedIndustry]);
 
   const handleIndustryClick = (industry: Industry) => {
