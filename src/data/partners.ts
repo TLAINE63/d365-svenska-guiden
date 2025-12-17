@@ -10,6 +10,15 @@ export interface Partner {
 
 export const partners: Partner[] = [
   {
+    name: "4PS",
+    logo: "",
+    website: "https://www.4ps.se/",
+    description: "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjuder end-to-end-funktionalitet med 100% realtidsvisibilitet på projekt. Med över 450 kunder hjälper de företag i byggbranschen att maximera lönsamhet och effektivisera hela projektlivscykeln.",
+    applications: ["Business Central"],
+    industries: ["Bygg & Entreprenad", "Service & Underhåll"],
+    companySize: ["Små", "Medelstora", "Stora"]
+  },
+  {
     name: "Absfront",
     logo: "https://absfront.se/wp-content/uploads/2020/11/absfront-logo.svg",
     website: "https://absfront.se/erbjudanden/crm/",
@@ -478,6 +487,15 @@ export const partners: Partner[] = [
     companySize: ["Stora"]
   },
   {
+    name: "Transformant",
+    logo: "",
+    website: "https://www.transformant.se/",
+    description: "Transformant erbjuder konsulttjänster, affärssystem och integrationer för företag som vill förändras. Med fokus på Microsoft Dynamics och modern teknik hjälper de kunder att ta steget från nuläge till önskat läge. De kombinerar strategisk rådgivning med praktisk implementation och erbjuder flexibla lösningar anpassade efter kundens behov.",
+    applications: ["Business Central"],
+    industries: ["Konsulttjänster"],
+    companySize: ["Små", "Medelstora"]
+  },
+  {
     name: "Two i Sverige (CombinedX)",
     logo: "https://two.se/wp-content/uploads/2023/01/two-logo.svg",
     website: "https://two.se/erp-hos-two/business-central/",
@@ -525,11 +543,13 @@ export const allIndustries = [
   "Handel (Retail & eCommerce)",
   "Grossist/Distribution",
   "Bank & Försäkring",
+  "Bygg & Entreprenad",
   "Hälso- & sjukvård",
   "Life Science",
   "Konsulttjänster",
   "Offentlig sektor",
   "Energi & Utilities",
+  "Service & Underhåll",
   "Utbildning",
   "Nonprofit"
 ];
