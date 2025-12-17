@@ -164,7 +164,7 @@ const ERPOverview = () => {
                 <ul className="space-y-3 text-muted-foreground mb-6">
                   <li className="flex items-start gap-2">
                     <span className="text-xl">🏢</span>
-                    <span>Anpassat för stora och komplexa organisationer</span>
+                    <span>Anpassat för större, internationella organisationer</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">📊</span>
