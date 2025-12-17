@@ -120,7 +120,7 @@ const ERPOverview = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">⚡</span>
-                    <span>Snabb implementation (3-6 månader)</span>
+                    <span>Snabb implementation (vanligt med 3-6 månader)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">💰</span>
