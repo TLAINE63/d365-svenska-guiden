@@ -48,10 +48,6 @@ const Agents = () => {
         <div className="relative h-full flex items-center">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold mb-4 sm:mb-6">
-                <Sparkles className="h-4 w-4" />
-                <span>Microsoft Ignite 2025 - Det senaste inom AI</span>
-              </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Microsoft Agenter
               </h1>
