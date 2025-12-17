@@ -180,7 +180,7 @@ const ERPOverview = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">🏭</span>
-                    <span>Branschspecifika applikationer och tillverkning</span>
+                    <span>Flera branschspecifika applikationer inom bl.a. tillverkning och supply chain</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">🧩</span>
