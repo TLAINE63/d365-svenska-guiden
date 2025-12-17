@@ -53,8 +53,8 @@ const industries: Industry[] = [
   { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel", products: ["bc", "fsc"], partnerIndustries: ["Grossist", "Distribution"] },
 ];
 
-const filterOptions: { value: ProductFilter; label: string; variant: "default" | "business-central" | "finance-supply" | "crm" }[] = [
-  { value: "all", label: "Alla", variant: "default" },
+const filterOptions: { value: ProductFilter; label: string; variant: "amber" | "business-central" | "finance-supply" | "crm" }[] = [
+  { value: "all", label: "Alla", variant: "amber" },
   { value: "bc", label: "Business Central", variant: "business-central" },
   { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply" },
   { value: "crm", label: "CRM / Customer Engagement", variant: "crm" },
@@ -328,7 +328,7 @@ const Branschlosningar = () => {
               </p>
               <Link
                 to="/kontakt"
-                className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 bg-amber-500 text-white rounded-lg font-medium hover:bg-amber-600 transition-colors"
               >
                 Kontakta oss
               </Link>
