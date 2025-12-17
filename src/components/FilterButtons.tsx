@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { X, Building2, Users, AppWindow } from "lucide-react";
+import { X, Building2, Users, AppWindow, DollarSign, Globe } from "lucide-react";
 
 interface FilterOption {
   label: string;
@@ -8,7 +8,7 @@ interface FilterOption {
 
 interface FilterButtonsProps {
   title: string;
-  icon: "industry" | "employees" | "application";
+  icon: "industry" | "employees" | "application" | "revenue" | "geography";
   options: FilterOption[];
   selectedValue: string | null;
   onSelect: (value: string | null) => void;
@@ -17,7 +17,7 @@ interface FilterButtonsProps {
 
 interface MultiFilterButtonsProps {
   title: string;
-  icon: "industry" | "employees" | "application";
+  icon: "industry" | "employees" | "application" | "revenue" | "geography";
   options: FilterOption[];
   selectedValues: string[];
   onToggle: (value: string) => void;
@@ -28,6 +28,8 @@ const iconMap = {
   industry: Building2,
   employees: Users,
   application: AppWindow,
+  revenue: DollarSign,
+  geography: Globe,
 };
 
 const colorSchemes = {
