@@ -228,7 +228,7 @@ const ContactUs = () => {
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground h-14 sm:h-16 rounded-xl"
                 >
-                  Boka Gratis Konsultation
+                  Boka in en kostnadsfri rådgivning
                 </Button>
               </ContactFormDialog>
             </div>

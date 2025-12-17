@@ -737,7 +737,7 @@ const FinanceSupplyChain = () => {
             </p>
             <ContactFormDialog>
               <Button className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground h-14 sm:h-16 rounded-xl" size="lg">
-                Boka Gratis Konsultation
+                Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>
           </div>

@@ -685,7 +685,7 @@ const BusinessCentral = () => {
             </p>
             <ContactFormDialog>
               <Button className="bg-business-central hover:bg-business-central/90 text-business-central-foreground h-14 sm:h-16 rounded-xl" size="lg">
-                Boka Gratis Konsultation
+                Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>
           </div>

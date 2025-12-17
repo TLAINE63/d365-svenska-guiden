@@ -846,7 +846,7 @@ const CRM = () => {
             </p>
             <ContactFormDialog>
               <Button className="bg-crm hover:bg-crm/90 text-crm-foreground h-14 sm:h-16 rounded-xl" size="lg">
-                Boka Gratis Konsultation
+                Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>
           </div>

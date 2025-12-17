@@ -529,7 +529,7 @@ const Copilot = () => {
             </p>
             <ContactFormDialog>
               <Button className="bg-copilot hover:bg-copilot/90 text-copilot-foreground h-14 sm:h-16 rounded-xl" size="lg">
-                Boka Gratis Konsultation
+                Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>
           </div>

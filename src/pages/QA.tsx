@@ -223,7 +223,7 @@ const QA = () => {
             </p>
             <ContactFormDialog>
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground h-16 sm:h-20 text-lg sm:text-xl rounded-xl px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all" size="lg">
-                Boka Gratis Konsultation
+                Boka in en kostnadsfri rådgivning
               </Button>
             </ContactFormDialog>
           </div>
