@@ -73,8 +73,13 @@ const FinanceSupplyChain = () => {
       }
     }
     
-    // Sort by industry priority (if industry selected), then alphabetically
+    // Sort by FSC ranking first, then industry priority, then alphabetically
     return result.sort((a, b) => {
+      const rankA = a.rankings?.fsc ?? 999;
+      const rankB = b.rankings?.fsc ?? 999;
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
       if (selectedIndustry) {
         const priorityA = getIndustryPriority(a, selectedIndustry);
         const priorityB = getIndustryPriority(b, selectedIndustry);

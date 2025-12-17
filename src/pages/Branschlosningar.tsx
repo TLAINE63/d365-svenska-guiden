@@ -89,6 +89,20 @@ const Branschlosningar = () => {
     
     const requiredApps = getApplicationsForProduct(selectedFilter);
     
+    // Helper to get the product ranking based on selected filter
+    const getProductRanking = (partner: Partner): number => {
+      switch (selectedFilter) {
+        case "bc":
+          return partner.rankings?.bc ?? 999;
+        case "fsc":
+          return partner.rankings?.fsc ?? 999;
+        case "crm":
+          return partner.rankings?.crm ?? 999;
+        default:
+          return 999;
+      }
+    };
+    
     // Helper to get the lowest industry index for a partner (0, 1, 2, or Infinity if not found)
     const getIndustryPriority = (partner: Partner): number => {
       for (let i = 0; i < partner.industries.length; i++) {
@@ -108,12 +122,20 @@ const Branschlosningar = () => {
       );
       return hasApp && hasIndustry;
     }).sort((a, b) => {
-      // First sort by industry priority (index 0, 1, 2)
+      // First sort by product ranking
+      const rankA = getProductRanking(a);
+      const rankB = getProductRanking(b);
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
+      
+      // Then by industry priority (index 0, 1, 2)
       const priorityA = getIndustryPriority(a);
       const priorityB = getIndustryPriority(b);
       if (priorityA !== priorityB) {
         return priorityA - priorityB;
       }
+      
       // If same priority, sort alphabetically
       return a.name.localeCompare(b.name, 'sv');
     });

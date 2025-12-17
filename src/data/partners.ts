@@ -8,6 +8,11 @@ export interface Partner {
   companySize: string[];
   revenue: string[];
   geography: string;
+  rankings?: {
+    bc?: number;
+    fsc?: number;
+    crm?: number;
+  };
 }
 
 export const partners: Partner[] = [
@@ -21,7 +26,8 @@ export const partners: Partner[] = [
     industries: ["Bygg & Entreprenad"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 1 }
   },
   {
     name: "Accigo",
@@ -32,7 +38,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster", "Handel (Retail & eCommerce)", "Fastigheter"],
     companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 2, fsc: 2, crm: 2 }
   },
   {
     name: "Azets",
@@ -43,7 +50,8 @@ export const partners: Partner[] = [
     industries: ["Konsulttjänster", "Handel (Retail & eCommerce)", "Tillverkningsindustrin"],
     companySize: ["1-49", "50-99", "100-249"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 2 }
   },
   {
     name: "B3 Consulting Group",
@@ -54,7 +62,8 @@ export const partners: Partner[] = [
     industries: ["Konsulttjänster", "Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Offentlig sektor", "Bank & Försäkring", "Hälso- & sjukvård"],
     companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 1, crm: 6 }
   },
   {
     name: "Bedege",
@@ -65,7 +74,8 @@ export const partners: Partner[] = [
     industries: ["Handel (Retail & eCommerce)"],
     companySize: ["50-99", "100-249"],
     revenue: ["25-99 MSEK", "100-499 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 2 }
   },
   {
     name: "Bisqo",
@@ -76,7 +86,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)", "Konsulttjänster"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 3, crm: 1 }
   },
   {
     name: "Cepheo",
@@ -87,7 +98,8 @@ export const partners: Partner[] = [
     industries: ["Energi & Utilities", "Handel (Retail & eCommerce)", "Tillverkningsindustrin", "Grossist/Distribution", "Offentlig sektor"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 1, fsc: 1, crm: 8 }
   },
   {
     name: "Columbus",
@@ -98,7 +110,8 @@ export const partners: Partner[] = [
     industries: ["Life Science", "Tillverkningsindustrin", "Handel (Retail & eCommerce)"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { bc: 1, fsc: 1, crm: 1 }
   },
   {
     name: "Cosmo Consult",
@@ -106,10 +119,11 @@ export const partners: Partner[] = [
     website: "https://www.cosmoconsult.com/se-sv/loesningar/microsoft-dynamics-365-business-central/",
     description: "Cosmo Consult är en internationell Dynamics 365-partner med stark närvaro i Norden och specialistkompetens inom Business Central.",
     applications: ["Business Central"],
-    industries: ["Bygg & Entreprenad", "Handel (Retail & eCommerce)", "Life Science"],
+    industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Bygg & Entreprenad"],
     companySize: ["50-99", "100-249", "1.000-4.999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "1.000-4.999 MSEK"],
-    geography: "Europa"
+    geography: "Europa",
+    rankings: { bc: 1 }
   },
   {
     name: "Dizparc",
@@ -120,7 +134,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Transport & Logistik"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 4 }
   },
   {
     name: "ECIT",
@@ -128,10 +143,11 @@ export const partners: Partner[] = [
     website: "https://www.ecit.com/se/affarssystem/",
     description: "ECIT är en nordisk IT-partner som erbjuder hög kompetens, tjänster och produkter inom ekonomi, IT och affärslösningar.",
     applications: ["Business Central"],
-    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Transport & Logistik"],
+    industries: ["Konsulttjänster", "Grossist/Distribution", "Hälso- & sjukvård"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 3 }
   },
   {
     name: "Effekt SPU",
@@ -142,7 +158,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 9 }
   },
   {
     name: "Enqore",
@@ -153,7 +170,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster", "Energi & Utilities"],
     companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 5, crm: 4 }
   },
   {
     name: "Evidi",
@@ -164,7 +182,8 @@ export const partners: Partner[] = [
     industries: ["Konsulttjänster", "Bygg & Entreprenad"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 5 }
   },
   {
     name: "Exsitec",
@@ -175,7 +194,8 @@ export const partners: Partner[] = [
     industries: ["Grossist/Distribution", "Tillverkningsindustrin", "Handel (Retail & eCommerce)"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 2 }
   },
   {
     name: "Fellowmind",
@@ -186,7 +206,8 @@ export const partners: Partner[] = [
     industries: ["Grossist/Distribution", "Transport & Logistik", "Handel (Retail & eCommerce)", "Tillverkningsindustrin", "Offentlig sektor"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Europa"
+    geography: "Europa",
+    rankings: { bc: 1, fsc: 3, crm: 5 }
   },
   {
     name: "Goodfellows",
@@ -197,7 +218,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 8 }
   },
   {
     name: "InBiz",
@@ -208,7 +230,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 2 }
   },
   {
     name: "Itm8",
@@ -216,10 +239,11 @@ export const partners: Partner[] = [
     website: "https://itm8.se/affarssystem/",
     description: "Itm8 är en Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med affärssystemlösningar.",
     applications: ["Business Central"],
-    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
+    industries: ["Grossist/Distribution", "Tillverkningsindustrin", "Konsulttjänster"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 3 }
   },
   {
     name: "JMA Maskindata",
@@ -230,7 +254,8 @@ export const partners: Partner[] = [
     industries: ["Bygg & Entreprenad", "Grossist/Distribution", "Transport & Logistik"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 2 }
   },
   {
     name: "Knowit",
@@ -238,10 +263,11 @@ export const partners: Partner[] = [
     website: "https://www.knowit.se/vart-erbjudande/solutions/",
     description: "Knowit är en nordisk digitaliseringskonsult med bred Microsoft-kompetens och fokus på hållbar digitalisering.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Konsulttjänster", "Offentlig sektor", "Bank & Försäkring", "Hälso- & sjukvård"],
+    industries: ["Offentlig sektor", "Bank & Försäkring", "Hälso- & sjukvård", "Konsulttjänster"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { bc: 6, fsc: 1, crm: 1 }
   },
   {
     name: "NAB Solutions",
@@ -252,7 +278,8 @@ export const partners: Partner[] = [
     industries: ["Medlemsorganisationer", "Nonprofit", "Tillverkningsindustrin", "Utbildning"],
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 1, crm: 1 }
   },
   {
     name: "Navcite",
@@ -263,7 +290,8 @@ export const partners: Partner[] = [
     industries: ["Konsulttjänster", "Tillverkningsindustrin", "Grossist/Distribution"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 4 }
   },
   {
     name: "Navet",
@@ -274,7 +302,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 7 }
   },
   {
     name: "Regentor",
@@ -285,7 +314,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Transport & Logistik", "Handel (Retail & eCommerce)", "Grossist/Distribution"],
     companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 8, crm: 9 }
   },
   {
     name: "Sherpas",
@@ -296,7 +326,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Konsulttjänster", "Handel (Retail & eCommerce)"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 5 }
   },
   {
     name: "Softronic",
@@ -307,18 +338,20 @@ export const partners: Partner[] = [
     industries: ["Handel (Retail & eCommerce)", "Transport & Logistik", "Tillverkningsindustrin", "Offentlig sektor", "Bank & Försäkring"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 1, crm: 3 }
   },
   {
     name: "Transformant",
     logo: "",
     website: "https://www.transformant.se/",
     description: "Transformant erbjuder konsulttjänster, affärssystem och integrationer för företag som vill förändras.",
-    applications: ["Business Central", "Finance & SCM"],
+    applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Offentlig sektor", "Konsulttjänster", "Nonprofit", "Fastigheter", "Bygg & Entreprenad"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 1, fsc: 1, crm: 1 }
   },
   {
     name: "Update Affärssystem",
@@ -329,7 +362,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 6 }
   },
   {
     name: "Yellow Solution",
@@ -340,7 +374,8 @@ export const partners: Partner[] = [
     industries: ["Transport & Logistik", "Grossist/Distribution", "Tillverkningsindustrin"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { bc: 1 }
   },
   {
     name: "EY",
@@ -351,9 +386,10 @@ export const partners: Partner[] = [
     industries: ["Bank & Försäkring", "Offentlig sektor", "Konsulttjänster"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { bc: 1, fsc: 4, crm: 5 }
   },
-  // Finance & Supply Chain Partners (additional)
+  // Finance & Supply Chain Partners
   {
     name: "Accenture",
     logo: "https://www.accenture.com/content/dam/accenture/final/images/icons/symbol/Accent_Global_Subbrand_Logo.svg",
@@ -363,7 +399,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Energi & Utilities", "Bank & Försäkring", "Offentlig sektor"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 1, crm: 3 }
   },
   {
     name: "Avanade",
@@ -374,7 +411,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Bank & Försäkring", "Hälso- & sjukvård", "Handel (Retail & eCommerce)"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 2, crm: 2 }
   },
   {
     name: "BE-terna",
@@ -385,7 +423,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Transport & Logistik", "Grossist/Distribution"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Europa"
+    geography: "Europa",
+    rankings: { fsc: 1, crm: 2 }
   },
   {
     name: "Capgemini",
@@ -396,7 +435,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Energi & Utilities", "Bank & Försäkring", "Handel (Retail & eCommerce)", "Offentlig sektor"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 2, crm: 4 }
   },
   {
     name: "Cegeka",
@@ -407,7 +447,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Life Science", "Handel (Retail & eCommerce)"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Europa"
+    geography: "Europa",
+    rankings: { fsc: 3, crm: 3 }
   },
   {
     name: "Engage Group",
@@ -418,7 +459,8 @@ export const partners: Partner[] = [
     industries: ["Offentlig sektor", "Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Utbildning", "Nonprofit"],
     companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { fsc: 1, crm: 7 }
   },
   {
     name: "Fujitsu",
@@ -426,10 +468,11 @@ export const partners: Partner[] = [
     website: "https://www.fujitsu.com/se/services/application-modernization/enterprise-applications/",
     description: "Fujitsu är en global IT-tjänsteleverantör med omfattande Microsoft-partnerskap och närvaro i Sverige.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor", "Bank & Försäkring", "Energi & Utilities", "Tillverkningsindustrin"],
+    industries: ["Offentlig sektor", "Tillverkningsindustrin", "Bank & Försäkring", "Energi & Utilities"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 9, crm: 4 }
   },
   {
     name: "HCL Technologies",
@@ -437,10 +480,11 @@ export const partners: Partner[] = [
     website: "https://www.hcltech.com/technology-software-services/enterprise-application-services/microsoft-ecosystem",
     description: "HCL Technologies är en global IT-tjänsteleverantör med omfattande Microsoft Dynamics 365-erfarenhet.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustrin", "Bank & Försäkring", "Handel (Retail & eCommerce)", "Life Science"],
+    industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Life Science", "Bank & Försäkring"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 5, crm: 5 }
   },
   {
     name: "HSO",
@@ -448,10 +492,11 @@ export const partners: Partner[] = [
     website: "https://www.hso.com/solutions/microsoft-dynamics-365",
     description: "HSO utsågs till vinnare av 2025 Microsoft Dynamics 365 Sales & Customer Insights Partner of the Year Award.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Handel (Retail & eCommerce)", "Tillverkningsindustrin", "Konsulttjänster", "Hälso- & sjukvård", "Grossist/Distribution"],
+    industries: ["Handel (Retail & eCommerce)", "Tillverkningsindustrin", "Konsulttjänster", "Hälso- & sjukvård"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 5, crm: 4 }
   },
   {
     name: "Implema",
@@ -462,7 +507,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { fsc: 2, crm: 6 }
   },
   {
     name: "Innofactor",
@@ -473,7 +519,8 @@ export const partners: Partner[] = [
     industries: ["Offentlig sektor", "Hälso- & sjukvård", "Energi & Utilities", "Utbildning"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { fsc: 1, crm: 8 }
   },
   {
     name: "KPMG",
@@ -484,7 +531,8 @@ export const partners: Partner[] = [
     industries: ["Bank & Försäkring", "Offentlig sektor", "Tillverkningsindustrin", "Konsulttjänster"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 8, crm: 6 }
   },
   {
     name: "Nexer",
@@ -495,7 +543,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Offentlig sektor", "Handel (Retail & eCommerce)"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { fsc: 2, crm: 3 }
   },
   {
     name: "Sogeti",
@@ -506,7 +555,8 @@ export const partners: Partner[] = [
     industries: ["Offentlig sektor", "Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Bank & Försäkring"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Europa"
+    geography: "Europa",
+    rankings: { fsc: 3, crm: 2 }
   },
   {
     name: "Sopra Steria",
@@ -517,7 +567,8 @@ export const partners: Partner[] = [
     industries: ["Offentlig sektor", "Bank & Försäkring", "Energi & Utilities"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Europa"
+    geography: "Europa",
+    rankings: { fsc: 2, crm: 1 }
   },
   {
     name: "TCS",
@@ -528,9 +579,10 @@ export const partners: Partner[] = [
     industries: ["Bank & Försäkring", "Tillverkningsindustrin", "Handel (Retail & eCommerce)"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
-    geography: "Internationellt"
+    geography: "Internationellt",
+    rankings: { fsc: 6, crm: 7 }
   },
-  // CRM Partners (additional)
+  // CRM Partners
   {
     name: "CRM Konsulterna",
     logo: "https://crmkonsulterna.se/wp-content/uploads/2023/01/crmk-logo.svg",
@@ -540,7 +592,8 @@ export const partners: Partner[] = [
     industries: ["Konsulttjänster", "Handel (Retail & eCommerce)", "Offentlig sektor"],
     companySize: ["1-49", "50-99", "100-249"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { crm: 5 }
   },
   {
     name: "Nemely",
@@ -551,7 +604,8 @@ export const partners: Partner[] = [
     industries: ["Handel (Retail & eCommerce)", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { crm: 3 }
   },
   {
     name: "Releye",
@@ -562,7 +616,8 @@ export const partners: Partner[] = [
     industries: ["Handel (Retail & eCommerce)", "Konsulttjänster", "Grossist/Distribution"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { crm: 5 }
   },
   {
     name: "Sirocco Group",
@@ -573,7 +628,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Energi & Utilities", "Offentlig sektor"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { crm: 1 }
   },
   {
     name: "Stratiteq",
@@ -584,7 +640,8 @@ export const partners: Partner[] = [
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Konsulttjänster"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
-    geography: "Norden"
+    geography: "Norden",
+    rankings: { crm: 9 }
   },
   {
     name: "Zelly",
@@ -595,7 +652,8 @@ export const partners: Partner[] = [
     industries: ["Handel (Retail & eCommerce)", "Grossist/Distribution", "Konsulttjänster"],
     companySize: ["1-49", "50-99", "100-249"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
-    geography: "Sverige"
+    geography: "Sverige",
+    rankings: { crm: 6 }
   }
 ];
 
@@ -649,3 +707,8 @@ export const geographyOptions = [
   "Europa",
   "Internationellt"
 ];
+
+// Helper function to get ranking for a product
+export const getPartnerRanking = (partner: Partner, product: 'bc' | 'fsc' | 'crm'): number => {
+  return partner.rankings?.[product] ?? 999;
+};

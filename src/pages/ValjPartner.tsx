@@ -108,6 +108,32 @@ const ValjPartner = () => {
     return Infinity;
   };
 
+  // Helper to determine which product ranking to use based on selected applications
+  const getProductRanking = (partner: Partner): number => {
+    // Determine which product type is primarily selected
+    const hasBCApp = selectedApplications.includes("Business Central");
+    const hasFSCApp = selectedApplications.includes("Finance & SCM");
+    const hasCRMApp = selectedApplications.some(app => 
+      ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
+    );
+    
+    if (hasBCApp && !hasFSCApp && !hasCRMApp) {
+      return partner.rankings?.bc ?? 999;
+    }
+    if (hasFSCApp && !hasBCApp && !hasCRMApp) {
+      return partner.rankings?.fsc ?? 999;
+    }
+    if (hasCRMApp && !hasBCApp && !hasFSCApp) {
+      return partner.rankings?.crm ?? 999;
+    }
+    
+    // If mixed or no specific apps selected, return lowest ranking across all
+    const bcRank = partner.rankings?.bc ?? 999;
+    const fscRank = partner.rankings?.fsc ?? 999;
+    const crmRank = partner.rankings?.crm ?? 999;
+    return Math.min(bcRank, fscRank, crmRank);
+  };
+
   // Filter and sort partners
   const filteredPartners = useMemo(() => {
     let result = [...partners];
@@ -149,8 +175,16 @@ const ValjPartner = () => {
       result = result.filter(partner => validGeographies.includes(partner.geography));
     }
     
-    // Sort by industry priority (if industry selected), then alphabetically
+    // Sort by product ranking first, then industry priority, then alphabetically
     return result.sort((a, b) => {
+      // First sort by product ranking
+      const rankA = getProductRanking(a);
+      const rankB = getProductRanking(b);
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
+      
+      // Then by industry priority
       if (selectedIndustry) {
         const priorityA = getIndustryPriority(a, selectedIndustry);
         const priorityB = getIndustryPriority(b, selectedIndustry);
@@ -158,6 +192,7 @@ const ValjPartner = () => {
           return priorityA - priorityB;
         }
       }
+      
       return a.name.localeCompare(b.name, 'sv');
     });
   }, [selectedApplications, selectedIndustry, selectedCompanySize, selectedGeography]);
