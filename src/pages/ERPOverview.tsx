@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList } from "lucide-react";
 import { useEffect } from "react";
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 

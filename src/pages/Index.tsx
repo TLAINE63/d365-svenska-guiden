@@ -13,7 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
