@@ -124,7 +124,7 @@ const ERPOverview = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">💰</span>
-                    <span>Lägre licenskostnader och TCO</span>
+                    <span>Jämförelsevis låga licenskostnader och ofta väldigt bra TCO</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">🎯</span>
