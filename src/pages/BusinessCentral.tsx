@@ -8,7 +8,7 @@ import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral.png";
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
