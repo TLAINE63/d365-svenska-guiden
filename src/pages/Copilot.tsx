@@ -112,7 +112,7 @@ const Copilot = () => {
             <div className="bg-card rounded-2xl p-6 sm:p-8 border-2 border-primary/20">
               <div className="flex items-start gap-4 mb-4">
                 <div className="bg-gradient-to-br from-primary to-accent w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-2xl">✨</span>
+                  <img src={CopilotLogo} alt="Copilot" className="h-8 w-8" />
                 </div>
                 <div>
                   <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-card-foreground mb-3">
@@ -128,7 +128,7 @@ const Copilot = () => {
               <div className="grid md:grid-cols-2 gap-4 text-sm">
                 <div className="bg-secondary/30 rounded-lg p-4">
                   <h4 className="font-semibold text-card-foreground mb-2 flex items-center gap-2">
-                    <span>👤</span> Copilot
+                    <img src={CopilotLogo} alt="Copilot" className="h-5 w-5" /> Copilot
                   </h4>
                   <ul className="space-y-1 text-muted-foreground">
                     <li>• Hjälper användaren med uppgifter</li>
