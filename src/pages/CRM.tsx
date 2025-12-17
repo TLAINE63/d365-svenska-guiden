@@ -50,6 +50,18 @@ const CRM = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Helper to get the lowest industry index for a partner (for sorting by industry priority)
+  const getIndustryPriority = (partner: typeof partners[0], industry: string | null): number => {
+    if (!industry) return 0;
+    for (let i = 0; i < partner.industries.length; i++) {
+      if (partner.industries[i].toLowerCase().includes(industry.toLowerCase()) ||
+          industry.toLowerCase().includes(partner.industries[i].toLowerCase())) {
+        return i;
+      }
+    }
+    return Infinity;
+  };
+
   // Filter partners that work with CRM applications
   const crmPartners = useMemo(() => {
     let result = partners.filter(partner => 
@@ -81,7 +93,17 @@ const CRM = () => {
       }
     }
     
-    return result.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
+    // Sort by industry priority (if industry selected), then alphabetically
+    return result.sort((a, b) => {
+      if (selectedIndustry) {
+        const priorityA = getIndustryPriority(a, selectedIndustry);
+        const priorityB = getIndustryPriority(b, selectedIndustry);
+        if (priorityA !== priorityB) {
+          return priorityA - priorityB;
+        }
+      }
+      return a.name.localeCompare(b.name, 'sv');
+    });
   }, [selectedApplications, selectedIndustry, selectedCompanySize]);
 
   const ceVideos = [
