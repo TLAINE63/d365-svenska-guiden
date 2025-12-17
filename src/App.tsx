@@ -11,6 +11,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const CRM = lazy(() => import("./pages/CRM"));
 const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
+const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Agents = lazy(() => import("./pages/Agents"));
 const QA = lazy(() => import("./pages/QA"));
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/crm" element={<CRM />} />
             <Route path="/business-central" element={<BusinessCentral />} />
             <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
+            <Route path="/erp" element={<ERPOverview />} />
             <Route path="/copilot" element={<Copilot />} />
             <Route path="/agents" element={<Agents />} />
             <Route path="/qa" element={<QA />} />
