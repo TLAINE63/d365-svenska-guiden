@@ -128,10 +128,10 @@ const Branschlosningar = () => {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
             Branschlösningar
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
             {selectedIndustry 
               ? `Partners inom ${selectedIndustry.name} med ${getProductLabel()}-kompetens`
-              : "Välj din bransch nedan för att se vilka Microsoftpartners som har god verksamhetskunskap inom din bransch."
+              : "Välj ut en Dynamics 365 lösning nedan och därefter den bransch som du tillhör, för att se vilka Microsoftpartners som har god verksamhetskunskap inom denna bransch."
             }
           </p>
           
