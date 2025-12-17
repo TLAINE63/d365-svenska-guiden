@@ -136,7 +136,7 @@ const ERPOverview = () => {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-xl">🔌</span>
-                    <span>Rikt ekosystem av tillägg via Microsoft Marketplace</span>
+                    <span>Rikt ekosystem av tillägg via Microsoft Marketplace med fler än 7.000 tilläggsappar</span>
                   </li>
                 </ul>
                 
