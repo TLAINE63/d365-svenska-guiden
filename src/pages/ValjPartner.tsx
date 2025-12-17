@@ -54,11 +54,31 @@ const companySizeFilters = [
   { label: "Mer än 5.000 anställda", values: [">5.000"] }
 ];
 
+// Revenue filter options
+const revenueFilters = [
+  { label: "1-24 MSEK", values: ["1-24 MSEK"] },
+  { label: "25-99 MSEK", values: ["25-99 MSEK"] },
+  { label: "100-499 MSEK", values: ["100-499 MSEK"] },
+  { label: "500-999 MSEK", values: ["500-999 MSEK"] },
+  { label: "1.000-4.999 MSEK", values: ["1.000-4.999 MSEK"] },
+  { label: "Mer än 5.000 MSEK", values: [">5.000 MSEK"] }
+];
+
+// Geography filter options
+const geographyFilters = [
+  { label: "Sverige", value: "Sverige" },
+  { label: "Norden", value: "Norden" },
+  { label: "Europa", value: "Europa" },
+  { label: "Internationellt", value: "Internationellt" }
+];
+
 const ValjPartner = () => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
+  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
 
   const toggleApplication = (app: string) => {
     setSelectedApplications(prev => 
@@ -96,10 +116,31 @@ const ValjPartner = () => {
         );
       }
     }
+
+    if (selectedRevenue) {
+      const revenueFilter = revenueFilters.find(f => f.label === selectedRevenue);
+      if (revenueFilter) {
+        result = result.filter(partner => 
+          partner.revenue.some(rev => revenueFilter.values.includes(rev))
+        );
+      }
+    }
+
+    if (selectedGeography) {
+      // Geography hierarchy: Internationellt > Europa > Norden > Sverige
+      const geographyHierarchy: Record<string, string[]> = {
+        "Sverige": ["Sverige", "Norden", "Europa", "Internationellt"],
+        "Norden": ["Norden", "Europa", "Internationellt"],
+        "Europa": ["Europa", "Internationellt"],
+        "Internationellt": ["Internationellt"]
+      };
+      const validGeographies = geographyHierarchy[selectedGeography] || [selectedGeography];
+      result = result.filter(partner => validGeographies.includes(partner.geography));
+    }
     
     // Sort alphabetically by name
     return result.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
-  }, [selectedApplications, selectedIndustry, selectedCompanySize]);
+  }, [selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -296,16 +337,36 @@ const ValjPartner = () => {
             colorScheme="amber"
           />
 
+          {/* Revenue Filter */}
+          <FilterButtons
+            title="Vilken är er omsättning?"
+            icon="revenue"
+            options={revenueFilters.map(f => ({ label: f.label, value: f.label }))}
+            selectedValue={selectedRevenue}
+            onSelect={setSelectedRevenue}
+            colorScheme="amber"
+          />
+
+          {/* Geography Filter */}
+          <FilterButtons
+            title="Ange geografi som måste täckas in"
+            icon="geography"
+            options={geographyFilters.map(f => ({ label: f.label, value: f.value }))}
+            selectedValue={selectedGeography}
+            onSelect={setSelectedGeography}
+            colorScheme="amber"
+          />
+
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedRevenue || selectedGeography) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
                 {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
-                {selectedApplications.length > 0 && (selectedIndustry || selectedCompanySize) && <>,</>}
                 {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
-                {selectedIndustry && selectedCompanySize && <> och</>}
                 {selectedCompanySize && <> för <span className="font-semibold text-primary">{selectedCompanySize}</span></>}
+                {selectedRevenue && <> med omsättning <span className="font-semibold text-primary">{selectedRevenue}</span></>}
+                {selectedGeography && <> i <span className="font-semibold text-accent">{selectedGeography}</span></>}
               </p>
               <Button 
                 variant="ghost" 
@@ -314,6 +375,8 @@ const ValjPartner = () => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
                   setSelectedCompanySize(null);
+                  setSelectedRevenue(null);
+                  setSelectedGeography(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >

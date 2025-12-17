@@ -6,6 +6,8 @@ export interface Partner {
   applications: string[];
   industries: string[];
   companySize: string[];
+  revenue: string[];
+  geography: string;
 }
 
 export const partners: Partner[] = [
@@ -17,7 +19,9 @@ export const partners: Partner[] = [
     description: "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjuder end-to-end-funktionalitet med 100% realtidsvisibilitet på projekt.",
     applications: ["Business Central"],
     industries: ["Bygg & Entreprenad"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Accigo",
@@ -26,7 +30,9 @@ export const partners: Partner[] = [
     description: "Accigo utsågs till Microsoft Dynamics 365 Partner of The Year 2024 i Sverige. De är en nordisk Microsoft-partner som driver smart digital transformation med fokus på Customer Engagement, Power Platform och Modern Work.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster", "Handel (Retail & eCommerce)", "Fastigheter"],
-    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"]
+    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Azets",
@@ -35,7 +41,9 @@ export const partners: Partner[] = [
     description: "Azets är en nordisk leverantör av affärssystem och redovisningstjänster med stark kompetens inom Dynamics 365 Business Central. De erbjuder en unik kombination av systemleverans och ekonomitjänster.",
     applications: ["Business Central"],
     industries: ["Konsulttjänster", "Handel (Retail & eCommerce)", "Tillverkningsindustrin"],
-    companySize: ["1-49", "50-99", "100-249"]
+    companySize: ["1-49", "50-99", "100-249"],
+    revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
+    geography: "Norden"
   },
   {
     name: "B3 Consulting Group",
@@ -44,7 +52,9 @@ export const partners: Partner[] = [
     description: "B3 Consulting Group är en svensk IT- och managementkonsult med bred Dynamics 365-kompetens. De fokuserar på digital transformation och affärsutveckling för medelstora och stora företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Konsulttjänster", "Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Offentlig sektor", "Bank & Försäkring", "Hälso- & sjukvård"],
-    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"]
+    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Bedege",
@@ -53,7 +63,9 @@ export const partners: Partner[] = [
     description: "Bedege är en specialiserad Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med implementation och support av affärssystem.",
     applications: ["Business Central"],
     industries: ["Handel (Retail & eCommerce)"],
-    companySize: ["50-99", "100-249"]
+    companySize: ["50-99", "100-249"],
+    revenue: ["25-99 MSEK", "100-499 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Bisqo",
@@ -62,7 +74,9 @@ export const partners: Partner[] = [
     description: "Bisqo är experter inom Dynamics 365 Business Central och CRM på Power Platform. Deras strategi bygger på en kraftfull kombination av ERP och CRM.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)", "Konsulttjänster"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Cepheo",
@@ -71,7 +85,9 @@ export const partners: Partner[] = [
     description: "Cepheo är en av de mest erfarna Microsoft Dynamics 365-partners i Norden med över 37 års branscherfarenhet och 28 års samarbete med Microsoft.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Energi & Utilities", "Handel (Retail & eCommerce)", "Tillverkningsindustrin", "Grossist/Distribution", "Offentlig sektor"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Columbus",
@@ -80,7 +96,9 @@ export const partners: Partner[] = [
     description: "Columbus är en global Dynamics 365-partner med stark nordisk närvaro och mottot 'Digital Value. Human Intelligence'. De hjälper organisationer att transformera sin verksamhet.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Life Science", "Tillverkningsindustrin", "Handel (Retail & eCommerce)"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "Cosmo Consult",
@@ -89,7 +107,9 @@ export const partners: Partner[] = [
     description: "Cosmo Consult är en internationell Dynamics 365-partner med stark närvaro i Norden och specialistkompetens inom Business Central.",
     applications: ["Business Central"],
     industries: ["Bygg & Entreprenad", "Handel (Retail & eCommerce)", "Life Science"],
-    companySize: ["50-99", "100-249", "1.000-4.999"]
+    companySize: ["50-99", "100-249", "1.000-4.999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "1.000-4.999 MSEK"],
+    geography: "Europa"
   },
   {
     name: "Dizparc",
@@ -98,7 +118,9 @@ export const partners: Partner[] = [
     description: "Dizparc hjälper företag att förverkliga sin digitala potential genom lokala verksamheter på flera orter i Sverige.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Transport & Logistik"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "ECIT",
@@ -107,7 +129,9 @@ export const partners: Partner[] = [
     description: "ECIT är en nordisk IT-partner som erbjuder hög kompetens, tjänster och produkter inom ekonomi, IT och affärslösningar.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Transport & Logistik"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Effekt SPU",
@@ -116,7 +140,9 @@ export const partners: Partner[] = [
     description: "Effekt SPU är en Microsoft Dynamics 365 Business Central-partner med fokus på tillverkningsindustrin och distribution.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Enqore",
@@ -125,7 +151,9 @@ export const partners: Partner[] = [
     description: "Enqore är en Microsoft Dynamics 365-partner med expertis inom både Business Central och CRM. De hjälper nordiska företag med ERP och kundengagemang.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster", "Energi & Utilities"],
-    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"]
+    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Evidi",
@@ -134,7 +162,9 @@ export const partners: Partner[] = [
     description: "Evidi (tidigare Navipro) är en nordisk Microsoft-partner med djup expertis inom Microsoft-plattformen med fokus på Dynamics 365 Business Central.",
     applications: ["Business Central"],
     industries: ["Konsulttjänster", "Bygg & Entreprenad"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Exsitec",
@@ -143,7 +173,9 @@ export const partners: Partner[] = [
     description: "Exsitec är specialister på Microsoft Dynamics 365 Business Central och Power Platform för svenska företag.",
     applications: ["Business Central"],
     industries: ["Grossist/Distribution", "Tillverkningsindustrin", "Handel (Retail & eCommerce)"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Fellowmind",
@@ -152,7 +184,9 @@ export const partners: Partner[] = [
     description: "Fellowmind utsågs till Microsoft EMEA Channel Partner of the Year 2025 – det mest prestigefyllda partnerpriset i Europa.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Grossist/Distribution", "Transport & Logistik", "Handel (Retail & eCommerce)", "Tillverkningsindustrin", "Offentlig sektor"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Europa"
   },
   {
     name: "Goodfellows",
@@ -161,7 +195,9 @@ export const partners: Partner[] = [
     description: "Goodfellows erbjuder personlig IT-service med fokus på Dynamics 365 Business Central.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "InBiz",
@@ -170,7 +206,9 @@ export const partners: Partner[] = [
     description: "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
-    companySize: ["1-49", "50-99", "250-999"]
+    companySize: ["1-49", "50-99", "250-999"],
+    revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Itm8",
@@ -179,7 +217,9 @@ export const partners: Partner[] = [
     description: "Itm8 är en Microsoft Dynamics 365 Business Central-partner som hjälper svenska företag med affärssystemlösningar.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "JMA Maskindata",
@@ -188,7 +228,9 @@ export const partners: Partner[] = [
     description: "JMA Maskindata är specialister på affärssystem för tillverkande företag med lång erfarenhet av Microsoft Dynamics.",
     applications: ["Business Central"],
     industries: ["Bygg & Entreprenad", "Grossist/Distribution", "Transport & Logistik"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Knowit",
@@ -197,7 +239,9 @@ export const partners: Partner[] = [
     description: "Knowit är en nordisk digitaliseringskonsult med bred Microsoft-kompetens och fokus på hållbar digitalisering.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Konsulttjänster", "Offentlig sektor", "Bank & Försäkring", "Hälso- & sjukvård"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "NAB Solutions",
@@ -206,7 +250,9 @@ export const partners: Partner[] = [
     description: "NAB Solutions är specialister på Dynamics 365 Business Central och CRM med lång erfarenhet av implementationer för svenska företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Medlemsorganisationer", "Nonprofit", "Tillverkningsindustrin", "Utbildning"],
-    companySize: ["1-49", "50-99", "250-999"]
+    companySize: ["1-49", "50-99", "250-999"],
+    revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Navcite",
@@ -215,7 +261,9 @@ export const partners: Partner[] = [
     description: "Navcite kombinerar 'Small company feeling – Big company experience' och erbjuder affärssystem med Infor M3 och Microsoft Business Central.",
     applications: ["Business Central"],
     industries: ["Konsulttjänster", "Tillverkningsindustrin", "Grossist/Distribution"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Navet",
@@ -224,7 +272,9 @@ export const partners: Partner[] = [
     description: "Navet skapar bättre affärer tillsammans med sina kunder med mottot 'Vi förstår verksamheter, teknik och relationer'.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Regentor",
@@ -233,7 +283,9 @@ export const partners: Partner[] = [
     description: "Regentor är en Microsoft Dynamics 365-partner som erbjuder implementation och support för svenska företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Transport & Logistik", "Handel (Retail & eCommerce)", "Grossist/Distribution"],
-    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"]
+    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Sherpas",
@@ -242,7 +294,9 @@ export const partners: Partner[] = [
     description: "Sherpas hjälper företag och organisationer med data, system och digitalisering.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Konsulttjänster", "Handel (Retail & eCommerce)"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Softronic",
@@ -251,7 +305,9 @@ export const partners: Partner[] = [
     description: "Softronic är en svensk IT-konsult med mottot 'GoodTech – ledande teknik som gör gott i samhället'.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Handel (Retail & eCommerce)", "Transport & Logistik", "Tillverkningsindustrin", "Offentlig sektor", "Bank & Försäkring"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Transformant",
@@ -260,7 +316,9 @@ export const partners: Partner[] = [
     description: "Transformant erbjuder konsulttjänster, affärssystem och integrationer för företag som vill förändras.",
     applications: ["Business Central", "Finance & SCM"],
     industries: ["Offentlig sektor", "Konsulttjänster", "Nonprofit", "Fastigheter", "Bygg & Entreprenad"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Update Affärssystem",
@@ -269,7 +327,9 @@ export const partners: Partner[] = [
     description: "Update Affärssystem är en Microsoft Dynamics 365 Business Central-partner som erbjuder implementation och support för svenska företag.",
     applications: ["Business Central"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Yellow Solution",
@@ -278,7 +338,9 @@ export const partners: Partner[] = [
     description: "Yellow Solution är en Microsoft Dynamics 365 Business Central-partner med fokus på transport och logistik.",
     applications: ["Business Central"],
     industries: ["Transport & Logistik", "Grossist/Distribution", "Tillverkningsindustrin"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "EY",
@@ -287,7 +349,9 @@ export const partners: Partner[] = [
     description: "EY är en global konsult- och revisionsjätte med omfattande Dynamics 365-praktik.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Bank & Försäkring", "Offentlig sektor", "Konsulttjänster"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   // Finance & Supply Chain Partners (additional)
   {
@@ -297,7 +361,9 @@ export const partners: Partner[] = [
     description: "Accenture är en global konsultjätte och en av världens största Microsoft-partners med omfattande expertis inom Dynamics 365.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Energi & Utilities", "Bank & Försäkring", "Offentlig sektor"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "Avanade",
@@ -306,7 +372,9 @@ export const partners: Partner[] = [
     description: "Avanade är ett joint venture mellan Accenture och Microsoft och världens största leverantör av Microsoft-tjänster.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Bank & Försäkring", "Hälso- & sjukvård", "Handel (Retail & eCommerce)"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "BE-terna",
@@ -315,7 +383,9 @@ export const partners: Partner[] = [
     description: "BE-terna är en internationell partner som vägleder företag till en säker digital framtid.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Transport & Logistik", "Grossist/Distribution"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Europa"
   },
   {
     name: "Capgemini",
@@ -324,7 +394,9 @@ export const partners: Partner[] = [
     description: "Capgemini är en global konsultjätte med omfattande Dynamics 365-praktik och djup branschexpertis.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Energi & Utilities", "Bank & Försäkring", "Handel (Retail & eCommerce)", "Offentlig sektor"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "Cegeka",
@@ -333,7 +405,9 @@ export const partners: Partner[] = [
     description: "Cegeka är en europeisk IT-partner med fokus på digital transformation och stark kompetens inom Dynamics 365 och Azure.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Life Science", "Handel (Retail & eCommerce)"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Europa"
   },
   {
     name: "Engage Group",
@@ -342,7 +416,9 @@ export const partners: Partner[] = [
     description: "Engage Group är 'Experts in Dynamics 365' med en bevisad meritlista inom globala utrullningar. De tillhör den exklusiva Microsoft Inner Circle.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Offentlig sektor", "Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Utbildning", "Nonprofit"],
-    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"]
+    companySize: ["50-99", "100-249", "250-999", "1.000-4.999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Fujitsu",
@@ -351,7 +427,9 @@ export const partners: Partner[] = [
     description: "Fujitsu är en global IT-tjänsteleverantör med omfattande Microsoft-partnerskap och närvaro i Sverige.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Offentlig sektor", "Bank & Försäkring", "Energi & Utilities", "Tillverkningsindustrin"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "HCL Technologies",
@@ -360,7 +438,9 @@ export const partners: Partner[] = [
     description: "HCL Technologies är en global IT-tjänsteleverantör med omfattande Microsoft Dynamics 365-erfarenhet.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Bank & Försäkring", "Handel (Retail & eCommerce)", "Life Science"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "HSO",
@@ -369,7 +449,9 @@ export const partners: Partner[] = [
     description: "HSO utsågs till vinnare av 2025 Microsoft Dynamics 365 Sales & Customer Insights Partner of the Year Award.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Handel (Retail & eCommerce)", "Tillverkningsindustrin", "Konsulttjänster", "Hälso- & sjukvård", "Grossist/Distribution"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "Implema",
@@ -378,7 +460,9 @@ export const partners: Partner[] = [
     description: "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Innofactor",
@@ -387,7 +471,9 @@ export const partners: Partner[] = [
     description: "Innofactor är en Microsoft Cloud Solutions Partner med Microsofts högsta partnerbeteckning.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Offentlig sektor", "Hälso- & sjukvård", "Energi & Utilities", "Utbildning"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "KPMG",
@@ -396,7 +482,9 @@ export const partners: Partner[] = [
     description: "KPMG är en global konsult- och revisionsjätte med omfattande Dynamics 365-praktik.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Bank & Försäkring", "Offentlig sektor", "Tillverkningsindustrin", "Konsulttjänster"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   {
     name: "Nexer",
@@ -405,7 +493,9 @@ export const partners: Partner[] = [
     description: "Nexer är en svensk IT-konsult med global räckvidd och stark kompetens inom Dynamics 365.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Offentlig sektor", "Handel (Retail & eCommerce)"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Sogeti",
@@ -414,7 +504,9 @@ export const partners: Partner[] = [
     description: "Sogeti är 'Valuemakers' och del av Capgemini-gruppen med fokus på teknisk implementation.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Offentlig sektor", "Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Bank & Försäkring"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Europa"
   },
   {
     name: "Sopra Steria",
@@ -423,7 +515,9 @@ export const partners: Partner[] = [
     description: "Sopra Steria är en europeisk teknologikonsult med stark närvaro i Norden och omfattande Dynamics 365-kompetens.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Offentlig sektor", "Bank & Försäkring", "Energi & Utilities"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Europa"
   },
   {
     name: "TCS",
@@ -432,7 +526,9 @@ export const partners: Partner[] = [
     description: "TCS är en global IT-tjänsteleverantör och en av världens största Microsoft-partners.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Bank & Försäkring", "Tillverkningsindustrin", "Handel (Retail & eCommerce)"],
-    companySize: ["250-999", "1.000-4.999", ">5.000"]
+    companySize: ["250-999", "1.000-4.999", ">5.000"],
+    revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
+    geography: "Internationellt"
   },
   // CRM Partners (additional)
   {
@@ -442,7 +538,9 @@ export const partners: Partner[] = [
     description: "CRM Konsulterna utsågs till Dynamics 365 Customer Engagement Partner of the Year 2023 av Microsoft Sverige.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Konsulttjänster", "Handel (Retail & eCommerce)", "Offentlig sektor"],
-    companySize: ["1-49", "50-99", "100-249"]
+    companySize: ["1-49", "50-99", "100-249"],
+    revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Nemely",
@@ -451,7 +549,9 @@ export const partners: Partner[] = [
     description: "Nemely är en Microsoft Dynamics 365 Partner specialiserad på CRM och kundengagemang.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Handel (Retail & eCommerce)", "Grossist/Distribution", "Konsulttjänster"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Releye",
@@ -460,7 +560,9 @@ export const partners: Partner[] = [
     description: "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Handel (Retail & eCommerce)", "Konsulttjänster", "Grossist/Distribution"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Sverige"
   },
   {
     name: "Sirocco Group",
@@ -469,7 +571,9 @@ export const partners: Partner[] = [
     description: "Sirocco Group är en internationell boutique-konsult och utvecklingsbyrå specialiserad på CRM och digital transformation.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Energi & Utilities", "Offentlig sektor"],
-    companySize: ["100-249", "250-999", "1.000-4.999"]
+    companySize: ["100-249", "250-999", "1.000-4.999"],
+    revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Stratiteq",
@@ -478,7 +582,9 @@ export const partners: Partner[] = [
     description: "Stratiteq är en Microsoft Dynamics 365-partner med fokus på CRM och Customer Engagement.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Konsulttjänster"],
-    companySize: ["50-99", "100-249", "250-999"]
+    companySize: ["50-99", "100-249", "250-999"],
+    revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
+    geography: "Norden"
   },
   {
     name: "Zelly",
@@ -487,7 +593,9 @@ export const partners: Partner[] = [
     description: "Zelly är en Microsoft Dynamics 365 Partner med fokus på CRM och kundservice.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
     industries: ["Handel (Retail & eCommerce)", "Grossist/Distribution", "Konsulttjänster"],
-    companySize: ["1-49", "50-99", "100-249"]
+    companySize: ["1-49", "50-99", "100-249"],
+    revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
+    geography: "Sverige"
   }
 ];
 
@@ -522,4 +630,22 @@ export const companySizes = [
   "250-999",
   "1.000-4.999",
   ">5.000"
+];
+
+// Revenue options for filtering
+export const revenueOptions = [
+  "1-24 MSEK",
+  "25-99 MSEK",
+  "100-499 MSEK",
+  "500-999 MSEK",
+  "1.000-4.999 MSEK",
+  ">5.000 MSEK"
+];
+
+// Geography options for filtering
+export const geographyOptions = [
+  "Sverige",
+  "Norden",
+  "Europa",
+  "Internationellt"
 ];
