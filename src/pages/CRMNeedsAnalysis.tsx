@@ -26,8 +26,10 @@ const contactFormSchema = z.object({
 type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
 interface CRMAnalysisData {
-  // Step 1 - Company size
+  // Step 1 - Company size and industry
   employees: string;
+  industries: string[];
+  industryOther: string;
   salesTeamSize: string;
   serviceTeamSize: string;
   // Step 2 - Current situation
@@ -72,6 +74,8 @@ interface CRMAnalysisData {
 
 const initialData: CRMAnalysisData = {
   employees: "",
+  industries: [],
+  industryOther: "",
   salesTeamSize: "",
   serviceTeamSize: "",
   currentCRM: "",
@@ -105,11 +109,29 @@ const initialData: CRMAnalysisData = {
 };
 
 const employeeOptions = [
-  "< 10",
-  "10-49",
-  "50-199",
-  "200-499",
-  "500+",
+  "1-49 anställda",
+  "50-99 anställda",
+  "100-249 anställda",
+  "250-999 anställda",
+  "1.000-4.999 anställda",
+  "Mer än 5.000 anställda",
+];
+
+const industryOptions = [
+  "Tillverkningsindustrin",
+  "Handel (Retail & eCommerce)",
+  "Grossist/Distribution",
+  "Bank & Försäkring",
+  "Hälso- & sjukvård",
+  "Life Science",
+  "Konsulttjänster",
+  "Offentlig sektor",
+  "Energi & Utilities",
+  "Transport & Logistik",
+  "Fastigheter",
+  "Medlemsorganisationer",
+  "Utbildning",
+  "Nonprofit",
 ];
 
 const teamSizeOptions = [
@@ -683,8 +705,12 @@ const CRMNeedsAnalysis = () => {
     }
 
     // Sections with enhanced formatting
-    addSectionHeader("Företagsstorlek", "1");
+    addSectionHeader("Företagsstorlek & Bransch", "1");
     addContentRow("Anställda:", data.employees);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Bransch:", margin, yPos);
+    yPos += 6;
+    addBulletList(data.industries, data.industryOther);
     addContentRow("Säljteam:", data.salesTeamSize);
     addContentRow("Serviceteam:", data.serviceTeamSize);
 
@@ -863,6 +889,7 @@ const CRMNeedsAnalysis = () => {
           email: data.email,
           analysisData: {
             "Anställda": data.employees,
+            "Bransch": data.industries.join(", ") || "Ej angivet",
             "Säljteam": data.salesTeamSize,
             "Serviceteam": data.serviceTeamSize,
             "Nuvarande CRM": data.currentCRM || "Ej angivet",
@@ -915,6 +942,31 @@ const CRMNeedsAnalysis = () => {
                     type="radio"
                   />
                 ))}
+              </div>
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Bransch</Label>
+              <p className="text-sm text-muted-foreground mb-3">Välj en eller flera branscher som bäst beskriver er verksamhet.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {industryOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.industries.includes(option)}
+                    onClick={() => handleCheckboxChange('industries', option)}
+                    type="checkbox"
+                  />
+                ))}
+              </div>
+              <div className="mt-3">
+                <Label htmlFor="industryOther">Annan bransch</Label>
+                <Input
+                  id="industryOther"
+                  placeholder="Ange annan bransch..."
+                  value={data.industryOther}
+                  onChange={(e) => setData({ ...data, industryOther: e.target.value })}
+                  className="mt-2"
+                />
               </div>
             </div>
             <div>
