@@ -196,6 +196,46 @@ const D365ContactCenter = () => {
         </div>
       </section>
 
+      {/* Implementation Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
+              Hur lång tid tar en implementation och vad ligger kostnaden på?
+            </h2>
+            <div className="bg-card rounded-2xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">⏱️ Tidsåtgång</h3>
+                  <p className="text-muted-foreground mb-4">
+                    En typisk implementation av Contact Center tar <strong>3-6 månader</strong> beroende på kanaler och integrationer.
+                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• <strong>Grundläggande telefoni:</strong> 2-3 månader</li>
+                    <li>• <strong>Med chatt och e-post:</strong> 3-4 månader</li>
+                    <li>• <strong>Full omnikanal med AI:</strong> 4-6 månader</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">💰 Kostnad</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Implementationskostnaden beror på antal agenter, kanaler och AI-funktionalitet.
+                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• <strong>Grundläggande:</strong> 250 000 - 500 000 kr</li>
+                    <li>• <strong>Med fler kanaler:</strong> 500 000 - 900 000 kr</li>
+                    <li>• <strong>Komplett med AI-bots:</strong> 900 000 - 2 000 000 kr</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mt-6 italic">
+                * Priserna är uppskattningar och varierar beroende på partner, omfattning och specifika krav. Kontakta en partner för en exakt offert.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Partners Section */}
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" />
 
