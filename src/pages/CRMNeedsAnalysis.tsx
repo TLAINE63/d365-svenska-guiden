@@ -199,6 +199,12 @@ const salesChallengeOptions = [
 // Service-specific challenges (hidden when serviceTeamSize is "Ej tillämpligt")
 const serviceChallengeOptions = [
   "Bristande kundservice och uppföljning",
+  "Långa väntetider och köer",
+  "Svårt att hantera flera kanaler (telefon, e-post, chat)",
+  "Bristande ärendehistorik och kundöversikt",
+  "Ineffektiv ärendehantering och eskalering",
+  "Saknar självbetjäning för kunder",
+  "Svårt att mäta och följa upp kundnöjdhet",
 ];
 
 const salesNeedOptions = [
