@@ -220,6 +220,46 @@ const D365Sales = () => {
         </div>
       </section>
 
+      {/* Implementation Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 sm:mb-8 text-center">
+              Hur lång tid tar en implementation och vad ligger kostnaden på?
+            </h2>
+            <div className="bg-card rounded-2xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">⏱️ Tidsåtgång</h3>
+                  <p className="text-muted-foreground mb-4">
+                    En typisk implementation av Dynamics 365 Sales tar <strong>2-4 månader</strong> beroende på komplexitet och antal användare.
+                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• <strong>Liten implementation (5-15 användare):</strong> 6-10 veckor</li>
+                    <li>• <strong>Medelstor (15-50 användare):</strong> 2-3 månader</li>
+                    <li>• <strong>Stor (50+ användare):</strong> 3-6 månader</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-3">💰 Kostnad</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Implementationskostnaden varierar beroende på anpassningar, integrationer och datamigrering.
+                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• <strong>Liten implementation:</strong> 100 000 - 250 000 kr</li>
+                    <li>• <strong>Medelstor:</strong> 250 000 - 600 000 kr</li>
+                    <li>• <strong>Stor med anpassningar:</strong> 600 000 - 1 500 000 kr</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mt-6 italic">
+                * Priserna är uppskattningar och varierar beroende på partner, omfattning och specifika krav. Kontakta en partner för en exakt offert.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Partners Section */}
       <ApplicationPartners applicationFilter="Sales" pageSource="D365 Sales" />
 
