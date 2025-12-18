@@ -33,7 +33,6 @@ const Navbar = () => {
   ];
 
   const menuItems = [
-    { label: "Branschlösningar", path: "/branschlosningar", external: false },
     { label: "Välj Partner", path: "/valj-partner", external: false },
     { label: "Q&A", path: "/qa", external: false },
     { label: "Kontakt", path: "/kontakt", external: false },
@@ -61,6 +60,12 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
+            <Link
+              to="/branschlosningar"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Branschlösningar
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
@@ -144,6 +149,12 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent>
               <div className="flex flex-col gap-4 mt-8">
+                <Link
+                  to="/branschlosningar"
+                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  Branschlösningar
+                </Link>
                 <div className="flex flex-col gap-2">
                   <span className="text-lg font-semibold text-foreground">Affärssystem (ERP)</span>
                   <div className="flex flex-col gap-2 ml-4">
