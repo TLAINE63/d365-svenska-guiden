@@ -156,17 +156,26 @@ const currentCRMOptions = [
   "Annat system",
 ];
 
-const crmChallengeOptions = [
+// Common challenges (always shown)
+const commonChallengeOptions = [
   "Dålig översikt över kunder och affärsmöjligheter",
-  "Ineffektiv säljprocess",
-  "Bristande kundservice och uppföljning",
-  "Svårt att samordna sälj och marknad",
   "Saknar integration med andra system",
   "Manuellt och tidskrävande arbete",
   "Bristande rapportering och analys",
   "Svårt att skala med verksamheten",
   "Dålig mobilupplevelse",
   "Saknar AI och automationsfunktioner",
+];
+
+// Sales-specific challenges (hidden when salesTeamSize is "Ej tillämpligt")
+const salesChallengeOptions = [
+  "Ineffektiv säljprocess",
+  "Svårt att samordna sälj och marknad",
+];
+
+// Service-specific challenges (hidden when serviceTeamSize is "Ej tillämpligt")
+const serviceChallengeOptions = [
+  "Bristande kundservice och uppföljning",
 ];
 
 const salesNeedOptions = [
@@ -1020,7 +1029,25 @@ const CRMNeedsAnalysis = () => {
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag? (välj alla som stämmer)</Label>
               <div className="grid grid-cols-1 gap-3">
-                {crmChallengeOptions.map((option) => (
+                {commonChallengeOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.crmChallenges.includes(option)}
+                    onClick={() => handleCheckboxChange("crmChallenges", option)}
+                    type="checkbox"
+                  />
+                ))}
+                {data.salesTeamSize !== "Ej tillämpligt" && salesChallengeOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.crmChallenges.includes(option)}
+                    onClick={() => handleCheckboxChange("crmChallenges", option)}
+                    type="checkbox"
+                  />
+                ))}
+                {data.serviceTeamSize !== "Ej tillämpligt" && serviceChallengeOptions.map((option) => (
                   <SelectionCard
                     key={option}
                     label={option}
