@@ -28,7 +28,7 @@ type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>,
 interface CRMAnalysisData {
   // Step 1 - Company size and industry
   employees: string;
-  industries: string[];
+  industry: string;
   industryOther: string;
   salesTeamSize: string;
   serviceTeamSize: string;
@@ -77,7 +77,7 @@ interface CRMAnalysisData {
 
 const initialData: CRMAnalysisData = {
   employees: "",
-  industries: [],
+  industry: "",
   industryOther: "",
   salesTeamSize: "",
   serviceTeamSize: "",
@@ -742,7 +742,7 @@ const CRMNeedsAnalysis = () => {
     pdf.setFont("helvetica", "bold");
     pdf.text("Bransch:", margin, yPos);
     yPos += 6;
-    addBulletList(data.industries, data.industryOther);
+    addBulletList(data.industry ? [data.industry] : [], data.industryOther);
     addContentRow("Säljteam:", data.salesTeamSize);
     addContentRow("Serviceteam:", data.serviceTeamSize);
 
@@ -922,7 +922,7 @@ const CRMNeedsAnalysis = () => {
           email: data.email,
           analysisData: {
             "Anställda": data.employees,
-            "Bransch": data.industries.join(", ") || "Ej angivet",
+            "Bransch": data.industry || "Ej angivet",
             "Säljteam": data.salesTeamSize,
             "Serviceteam": data.serviceTeamSize,
             "Nuvarande CRM": data.currentCRMOther || data.currentCRM || "Ej angivet",
@@ -980,15 +980,15 @@ const CRMNeedsAnalysis = () => {
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Bransch</Label>
-              <p className="text-sm text-muted-foreground mb-3">Välj en eller flera branscher som bäst beskriver er verksamhet.</p>
+              <p className="text-sm text-muted-foreground mb-3">Välj den bransch som bäst beskriver er verksamhet.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {industryOptions.map((option) => (
                   <SelectionCard
                     key={option}
                     label={option}
-                    selected={data.industries.includes(option)}
-                    onClick={() => handleCheckboxChange('industries', option)}
-                    type="checkbox"
+                    selected={data.industry === option}
+                    onClick={() => setData({ ...data, industry: option })}
+                    type="radio"
                   />
                 ))}
               </div>
