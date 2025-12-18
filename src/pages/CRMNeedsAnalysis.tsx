@@ -42,6 +42,8 @@ interface CRMAnalysisData {
   salesNeedsOther: string;
   salesProcessComplexity: string;
   // Step 4 - Customer Service needs
+  currentServiceSystem: string;
+  currentServiceSystemOther: string;
   serviceNeeds: string[];
   serviceNeedsOther: string;
   serviceChannels: string[];
@@ -86,6 +88,8 @@ const initialData: CRMAnalysisData = {
   salesNeeds: [],
   salesNeedsOther: "",
   salesProcessComplexity: "",
+  currentServiceSystem: "",
+  currentServiceSystemOther: "",
   serviceNeeds: [],
   serviceNeedsOther: "",
   serviceChannels: [],
@@ -155,6 +159,24 @@ const currentCRMOptions = [
   "Zoho CRM",
   "Excel",
   "Inget CRM-system/manuella processer",
+];
+
+const currentServiceSystemOptions = [
+  "Microsoft Dynamics 365 Customer Service",
+  "Salesforce Service Cloud",
+  "Zendesk",
+  "Freshdesk",
+  "ServiceNow",
+  "Puzzel",
+  "Genesys",
+  "Telia ACE",
+  "Talkdesk",
+  "NICE",
+  "Mitel",
+  "Avaya",
+  "TopDesk",
+  "Jira Service Management",
+  "Inget system/manuella processer",
 ];
 
 // Common challenges (always shown)
@@ -739,6 +761,7 @@ const CRMNeedsAnalysis = () => {
     addBulletList(data.salesNeeds, data.salesNeedsOther);
 
     addSectionHeader("Kundservicebehov", "4");
+    addContentRow("Nuvarande kundservicesystem:", data.currentServiceSystemOther || data.currentServiceSystem);
     pdf.setFont("helvetica", "bold");
     pdf.text("Kanaler:", margin, yPos);
     yPos += 6;
@@ -905,6 +928,7 @@ const CRMNeedsAnalysis = () => {
             "Nuvarande CRM": data.currentCRMOther || data.currentCRM || "Ej angivet",
             "Utmaningar": data.crmChallenges.join(", ") || "Ej angivet",
             "Säljbehov": data.salesNeeds.join(", ") || "Ej angivet",
+            "Nuvarande kundservicesystem": data.currentServiceSystemOther || data.currentServiceSystem || "Ej angivet",
             "Servicebehov": data.serviceNeeds.join(", ") || "Ej angivet",
             "Fältservice": data.hasFieldService || "Ej angivet",
             "Marknadsföring": data.marketingNeeds.join(", ") || "Ej angivet",
@@ -1121,6 +1145,30 @@ const CRMNeedsAnalysis = () => {
       case 4:
         return (
           <div className="space-y-6">
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Vilket system använder ni idag inom kategorin kundservice/ärendehantering/Contact Center?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {currentServiceSystemOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.currentServiceSystem === option}
+                    onClick={() => setData({ ...data, currentServiceSystem: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+              <div className="mt-4">
+                <Label htmlFor="currentServiceSystemOther">Annat system</Label>
+                <Input
+                  id="currentServiceSystemOther"
+                  placeholder="Skriv namnet på ert nuvarande kundservice-system..."
+                  value={data.currentServiceSystemOther}
+                  onChange={(e) => setData({ ...data, currentServiceSystemOther: e.target.value })}
+                  className="mt-2"
+                />
+              </div>
+            </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka kanaler använder ni för kundservice?</Label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
