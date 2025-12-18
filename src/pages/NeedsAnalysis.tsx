@@ -174,7 +174,6 @@ const erpSystemOptions = [
   "Infor",
   "Sage",
   "Unit4",
-  "Manuella processer / Excel",
 ];
 
 const otherSystemOptions = [
