@@ -205,6 +205,7 @@ const serviceChallengeOptions = [
   "Ineffektiv ärendehantering och eskalering",
   "Saknar självbetjäning för kunder",
   "Svårt att mäta och följa upp kundnöjdhet",
+  "Svårt att få en samlad bild över vilka supportkanaler som fungerar bättre eller sämre",
 ];
 
 const salesNeedOptions = [
