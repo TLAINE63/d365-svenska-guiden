@@ -212,8 +212,8 @@ const D365ContactCenter = () => {
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• <strong>Grundläggande telefoni:</strong> 2-3 månader</li>
-                    <li>• <strong>Med chatt och e-post:</strong> 3-4 månader</li>
-                    <li>• <strong>Full omnikanal med AI:</strong> 4-6 månader</li>
+                    <li>• <strong>Med chatt och e-post:</strong> 5-7 månader</li>
+                    <li>• <strong>Full omnikanal med AI:</strong> 8-12 månader</li>
                   </ul>
                 </div>
                 <div>
