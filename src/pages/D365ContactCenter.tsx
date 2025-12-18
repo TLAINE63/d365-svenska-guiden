@@ -4,6 +4,7 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
+import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
@@ -73,11 +74,10 @@ const D365ContactCenter = () => {
                 </ContactFormDialog>
                 <Button 
                   size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white/10 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  Se priser
+                  Hitta rätt partner
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
@@ -195,6 +195,9 @@ const D365ContactCenter = () => {
           </p>
         </div>
       </section>
+
+      {/* Partners Section */}
+      <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" />
 
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-crm">
