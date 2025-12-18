@@ -183,7 +183,6 @@ const otherSystemOptions = [
   "Ärendehantering/Servicesystem",
   "Microsoft Teams",
   "SharePoint",
-  "Adobe Creative Cloud",
   "CAD-system",
 ];
 
