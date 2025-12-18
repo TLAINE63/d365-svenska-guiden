@@ -1045,7 +1045,7 @@ const CRMNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag? (välj alla som stämmer)</Label>
+              <Label className="text-base font-semibold mb-3 block">Generella utmaningar (välj alla som stämmer)</Label>
               <div className="grid grid-cols-1 gap-3">
                 {commonChallengeOptions.map((option) => (
                   <SelectionCard
@@ -1056,25 +1056,41 @@ const CRMNeedsAnalysis = () => {
                     type="checkbox"
                   />
                 ))}
-                {data.salesTeamSize !== "Ej tillämpligt" && salesChallengeOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.crmChallenges.includes(option)}
-                    onClick={() => handleCheckboxChange("crmChallenges", option)}
-                    type="checkbox"
-                  />
-                ))}
-                {data.serviceTeamSize !== "Ej tillämpligt" && serviceChallengeOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.crmChallenges.includes(option)}
-                    onClick={() => handleCheckboxChange("crmChallenges", option)}
-                    type="checkbox"
-                  />
-                ))}
               </div>
+            </div>
+            {data.salesTeamSize !== "Ej tillämpligt" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Utmaningar inom försäljning</Label>
+                <div className="grid grid-cols-1 gap-3">
+                  {salesChallengeOptions.map((option) => (
+                    <SelectionCard
+                      key={option}
+                      label={option}
+                      selected={data.crmChallenges.includes(option)}
+                      onClick={() => handleCheckboxChange("crmChallenges", option)}
+                      type="checkbox"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            {data.serviceTeamSize !== "Ej tillämpligt" && (
+              <div>
+                <Label className="text-base font-semibold mb-3 block">Utmaningar inom kundservice</Label>
+                <div className="grid grid-cols-1 gap-3">
+                  {serviceChallengeOptions.map((option) => (
+                    <SelectionCard
+                      key={option}
+                      label={option}
+                      selected={data.crmChallenges.includes(option)}
+                      onClick={() => handleCheckboxChange("crmChallenges", option)}
+                      type="checkbox"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            <div>
               <Textarea
                 placeholder="Övriga utmaningar..."
                 value={data.challengesOther}
