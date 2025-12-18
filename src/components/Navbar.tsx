@@ -33,7 +33,6 @@ const Navbar = () => {
   ];
 
   const menuItems = [
-    { label: "Välj Partner", path: "/valj-partner", external: false },
     { label: "Q&A", path: "/qa", external: false },
     { label: "Kontakt", path: "/kontakt", external: false },
   ];
@@ -65,6 +64,12 @@ const Navbar = () => {
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               Branschlösningar
+            </Link>
+            <Link
+              to="/valj-partner"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Välj Partner
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -154,6 +159,12 @@ const Navbar = () => {
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
                   Branschlösningar
+                </Link>
+                <Link
+                  to="/valj-partner"
+                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  Välj Partner
                 </Link>
                 <div className="flex flex-col gap-2">
                   <span className="text-lg font-semibold text-foreground">Affärssystem (ERP)</span>
