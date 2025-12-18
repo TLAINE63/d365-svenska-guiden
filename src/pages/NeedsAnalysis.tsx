@@ -32,7 +32,7 @@ interface AnalysisData {
   industry: string;
   industryOther: string;
   // Step 3
-  geography: string[];
+  geography: string;
   geographyOther: string;
   // Step 4
   modules: string[];
@@ -69,7 +69,7 @@ const initialData: AnalysisData = {
   revenue: "",
   industry: "",
   industryOther: "",
-  geography: [],
+  geography: "",
   geographyOther: "",
   modules: [],
   modulesOther: "",
@@ -931,7 +931,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // Section 3: Geography
     addSectionHeader("GEOGRAFI", "3");
-    addBulletList(data.geography, data.geographyOther);
+    addBulletList(data.geography ? [data.geography] : [], data.geographyOther);
 
     // Section 4: Modules
     addSectionHeader("FUNKTIONER & MODULER", "4");
@@ -1094,7 +1094,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Anställda": data.employees,
             "Omsättning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
-            "Geografi": data.geography.join(", ") || "Ej angivet",
+            "Geografi": data.geography || "Ej angivet",
             "Moduler": data.modules.join(", ") || "Ej angivet",
             "Integrationer": data.integrations.join(", ") || "Ej angivet",
             "Nuvarande ERP": data.currentERP || "Ej angivet",
@@ -1225,9 +1225,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <SelectionCard
                   key={option}
                   label={option}
-                  selected={data.geography.includes(option)}
-                  onClick={() => handleCheckboxChange('geography', option)}
-                  type="checkbox"
+                  selected={data.geography === option}
+                  onClick={() => setData({ ...data, geography: option })}
+                  type="radio"
                 />
               ))}
             </div>
