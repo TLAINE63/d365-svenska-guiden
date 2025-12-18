@@ -141,10 +141,10 @@ const moduleOptions = [
   "Försäljning & CRM",
   "Inköp & Leverantörer",
   "Lager & Logistik",
-  "Tillverkning & Produktion",
+  "Produktion & Montering",
   "Projekthantering",
   "Service & Fältservice",
-  "HR & Lönehantering",
+  "Offert & Order",
   "E-handel",
   "Business Intelligence & Rapportering",
 ];
