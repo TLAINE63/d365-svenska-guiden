@@ -159,7 +159,6 @@ const integrationOptions = [
 ];
 
 const erpSystemOptions = [
-  "Microsoft Dynamics 365 Business Central",
   "Microsoft Dynamics NAV",
   "Microsoft Dynamics AX",
   "SAP",
@@ -1031,7 +1030,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         return (
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold mb-4">Nuvarande ERP-system</h3>
+              <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {erpSystemOptions.map((option) => (
                   <SelectionCard
