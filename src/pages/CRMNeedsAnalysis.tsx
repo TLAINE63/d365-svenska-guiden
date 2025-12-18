@@ -34,6 +34,7 @@ interface CRMAnalysisData {
   serviceTeamSize: string;
   // Step 2 - Current situation
   currentCRM: string;
+  currentCRMOther: string;
   crmChallenges: string[];
   challengesOther: string;
   // Step 3 - Sales needs
@@ -79,6 +80,7 @@ const initialData: CRMAnalysisData = {
   salesTeamSize: "",
   serviceTeamSize: "",
   currentCRM: "",
+  currentCRMOther: "",
   crmChallenges: [],
   challengesOther: "",
   salesNeeds: [],
@@ -153,7 +155,6 @@ const currentCRMOptions = [
   "Zoho CRM",
   "Excel",
   "Inget CRM-system/manuella processer",
-  "Annat system",
 ];
 
 // Common challenges (always shown)
@@ -724,7 +725,7 @@ const CRMNeedsAnalysis = () => {
     addContentRow("Serviceteam:", data.serviceTeamSize);
 
     addSectionHeader("Nuvarande Situation", "2");
-    addContentRow("Nuvarande CRM:", data.currentCRM);
+    addContentRow("Nuvarande CRM:", data.currentCRMOther || data.currentCRM);
     pdf.setFont("helvetica", "bold");
     pdf.text("Utmaningar:", margin, yPos);
     yPos += 6;
@@ -901,7 +902,7 @@ const CRMNeedsAnalysis = () => {
             "Bransch": data.industries.join(", ") || "Ej angivet",
             "Säljteam": data.salesTeamSize,
             "Serviceteam": data.serviceTeamSize,
-            "Nuvarande CRM": data.currentCRM || "Ej angivet",
+            "Nuvarande CRM": data.currentCRMOther || data.currentCRM || "Ej angivet",
             "Utmaningar": data.crmChallenges.join(", ") || "Ej angivet",
             "Säljbehov": data.salesNeeds.join(", ") || "Ej angivet",
             "Servicebehov": data.serviceNeeds.join(", ") || "Ej angivet",
@@ -1024,6 +1025,16 @@ const CRMNeedsAnalysis = () => {
                     type="radio"
                   />
                 ))}
+              </div>
+              <div className="mt-4">
+                <Label htmlFor="currentCRMOther">Annat system</Label>
+                <Input
+                  id="currentCRMOther"
+                  placeholder="Skriv namnet på ert nuvarande CRM-system..."
+                  value={data.currentCRMOther}
+                  onChange={(e) => setData({ ...data, currentCRMOther: e.target.value })}
+                  className="mt-2"
+                />
               </div>
             </div>
             <div>
