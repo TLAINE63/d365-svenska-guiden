@@ -1084,7 +1084,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 7:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka utmaningar upplever ni som behöver hanteras i ett nytt affärssystem?</p>
+            <p className="text-muted-foreground">Vilka utmaningar upplever ni idag i ert nuvarande?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {challengeOptions.map((option) => (
                 <SelectionCard
