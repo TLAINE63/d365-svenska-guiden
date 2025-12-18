@@ -662,7 +662,6 @@ export const crmApplications = ["Sales", "Customer Service", "Customer Insights 
 
 // All unique industries from partners
 export const allIndustries = [
-  "Alla branscher",
   "Tillverkningsindustrin",
   "Handel (Retail & eCommerce)",
   "Grossist/Distribution",
