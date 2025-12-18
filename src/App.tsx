@@ -23,6 +23,11 @@ const CRMNeedsAnalysis = lazy(() => import("./pages/CRMNeedsAnalysis"));
 const SalesMarketingNeedsAnalysis = lazy(() => import("./pages/SalesMarketingNeedsAnalysis"));
 const CustomerServiceNeedsAnalysis = lazy(() => import("./pages/CustomerServiceNeedsAnalysis"));
 const Branschlosningar = lazy(() => import("./pages/Branschlosningar"));
+const D365Sales = lazy(() => import("./pages/D365Sales"));
+const D365Marketing = lazy(() => import("./pages/D365Marketing"));
+const D365CustomerService = lazy(() => import("./pages/D365CustomerService"));
+const D365FieldService = lazy(() => import("./pages/D365FieldService"));
+const D365ContactCenter = lazy(() => import("./pages/D365ContactCenter"));
 
 const queryClient = new QueryClient();
 
