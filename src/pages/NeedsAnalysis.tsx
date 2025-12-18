@@ -150,15 +150,12 @@ const moduleOptions = [
 ];
 
 const integrationOptions = [
-  "Bank & Betalningar",
   "E-handelsplattform",
-  "EDI / Peppol",
   "CRM-system",
-  "Lönesystem",
   "Transportbokning",
-  "Webshop",
-  "API:er till kundsystem",
   "Microsoft 365",
+  "BI/Rapportverktyg",
+  "WMS/3PL",
 ];
 
 const erpSystemOptions = [
