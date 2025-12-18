@@ -94,13 +94,12 @@ const initialData: AnalysisData = {
 };
 
 const employeeOptions = [
-  "< 10",
-  "10-49",
-  "50-199",
-  "200-499",
-  "500-999",
-  "1.000-4.999",
-  "> 5.000",
+  "1-49 anställda",
+  "50-99 anställda",
+  "100-249 anställda",
+  "250-999 anställda",
+  "1.000-4.999 anställda",
+  "Mer än 5.000 anställda",
 ];
 
 const revenueOptions = [
@@ -122,6 +121,9 @@ const industryOptions = [
   "Konsulttjänster",
   "Offentlig sektor",
   "Energi & Utilities",
+  "Transport & Logistik",
+  "Fastigheter",
+  "Medlemsorganisationer",
   "Utbildning",
   "Nonprofit",
 ];
