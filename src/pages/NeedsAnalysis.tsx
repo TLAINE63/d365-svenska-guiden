@@ -1325,7 +1325,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   id="currentERPOther"
                   placeholder="Skriv namnet på ert nuvarande system..."
                   value={data.currentERPOther}
-                  onChange={(e) => setData({ ...data, currentERPOther: e.target.value, currentERP: "" })}
+                  onChange={(e) => setData({ ...data, currentERPOther: e.target.value })}
                   className="mt-2"
                 />
               </div>
