@@ -99,7 +99,7 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  CRM (Sälj & Marknad)
+                  Marknad & Sälj
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -116,7 +116,7 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  CRM (Kundservice)
+                  Kundservice
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -206,7 +206,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">CRM (Sälj & Marknad)</span>
+                  <span className="text-lg font-semibold text-foreground">Marknad & Sälj</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {crmSalesItems.map((item) => (
                       <Link
@@ -220,7 +220,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">CRM (Kundservice)</span>
+                  <span className="text-lg font-semibold text-foreground">Kundservice</span>
                   <div className="flex flex-col gap-2 ml-4">
                     {crmServiceItems.map((item) => (
                       <Link
