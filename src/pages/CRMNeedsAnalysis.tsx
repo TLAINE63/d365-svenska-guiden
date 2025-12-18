@@ -1014,7 +1014,7 @@ const CRMNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilket CRM-system använder ni idag?</Label>
+              <Label className="text-base font-semibold mb-3 block">Vilket CRM-system (inom kategorin försäljning) använder ni idag?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {currentCRMOptions.map((option) => (
                   <SelectionCard
