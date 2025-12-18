@@ -63,6 +63,11 @@ const App = () => (
             <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
             <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
             <Route path="/branschlosningar" element={<Branschlosningar />} />
+            <Route path="/d365-sales" element={<D365Sales />} />
+            <Route path="/d365-marketing" element={<D365Marketing />} />
+            <Route path="/d365-customer-service" element={<D365CustomerService />} />
+            <Route path="/d365-field-service" element={<D365FieldService />} />
+            <Route path="/d365-contact-center" element={<D365ContactCenter />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
