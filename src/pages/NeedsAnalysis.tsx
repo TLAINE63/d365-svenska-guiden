@@ -186,16 +186,26 @@ const otherSystemOptions = [
 ];
 
 const challengeOptions = [
+  "Stark tillväxt eller internationalisering",
+  "Större omorganisation/koncernstruktur",
+  "Förvärv/sammanslagning",
   "Bristande översikt och rapportering",
   "Manuella och tidskrävande processer",
-  "Dålig integration mellan system",
-  "Svårt att skala verksamheten",
+  "Dålig integration med övriga system i verksamheten",
   "Höga underhållskostnader",
   "Föråldrad teknik utan support",
   "Bristande mobilitet och tillgänglighet",
   "Svårt att hitta kompetens",
-  "Regulatoriska krav (GDPR, etc.)",
+  "Förändrade regulatoriska krav",
   "Behov av bättre kundinsikter",
+  "Ekonomi och styrning funkar – men kräver för mycket manuellt jobb (bokslut tar för lång tid, många excel-kranar, bristande spårbarhet/audit trail, otydlig kostnadsfördelning)",
+  "Fragmenterade system och dubbelregistrering (data i silos, sköra/dyra integrationer)",
+  "Brister i lager- och leveransprecision (bristande spårbarhet batch/serie/lot, planering på känsla)",
+  "Processerna är inte standardiserade eller skalbara (varje avdelning jobbar på sitt sätt, svårt att rulla ut nya produkter/marknader)",
+  "Affären har ändrats – ERP:et hänger inte med (nya affärsmodeller, ökad internationell komplexitet)",
+  "Bristande rapportering och beslutstöd (svårt att få prognoser, scenarioanalys, KPI:er man kan lita på)",
+  "Gamla, kraftigt kundanpassade on-prem-lösningar (dyra uppgraderingar, prestanda-/driftsproblem)",
+  "Order-to-cash eller procure-to-pay tar för lång tid (mycket brandsläckning, beroende av nyckelpersoner)",
 ];
 
 const kpiOptions = [
