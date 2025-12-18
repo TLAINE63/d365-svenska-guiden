@@ -374,6 +374,10 @@ const commonAiUseCases = [
   "Intelligent kundservice (chatbots)",
   "Dokumenthantering och analys",
   "Automatiserad rapportgenerering",
+  "Copilot för Excel och rapportering",
+  "AI-assisterad budgetering och prognoser",
+  "Anomalidetektering i transaktioner",
+  "Intelligent leverantörsrekommendation",
 ];
 
 // Industry-specific AI use cases mapping

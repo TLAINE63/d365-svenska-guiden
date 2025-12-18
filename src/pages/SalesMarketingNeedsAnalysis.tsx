@@ -217,6 +217,13 @@ const aiUseCaseOptions = [
   "Automatiserade arbetsflöden",
   "Nästa bästa åtgärd (NBA)",
   "Content-generering för marknadsföring",
+  "Konversationsintelligens (samtalsanalys och coaching)",
+  "AI-assisterad pipeline-prognos",
+  "Kundsegmentering och lookalike-audiences",
+  "Personaliserade kundresor",
+  "A/B-testoptimering med AI",
+  "Social listening och varumärkesbevakning",
+  "Automatiserad mötesbokning och uppföljning",
 ];
 
 const SalesMarketingNeedsAnalysis = () => {

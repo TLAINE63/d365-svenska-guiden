@@ -217,6 +217,13 @@ const aiUseCaseOptions = [
   "Prediktiv service (förutse problem)",
   "Automatiserade arbetsflöden",
   "AI-genererade kunskapsartiklar",
+  "Röstanalys och transkription (Contact Center)",
+  "Agent-coaching i realtid",
+  "Automatiserad kvalitetsgranskning",
+  "Proaktiv kundkontakt baserad på beteende",
+  "Ärendeprioritering baserad på affärspåverkan",
+  "Self-service kunskapsrekommendationer",
+  "IoT-baserad fältserviceoptimering",
 ];
 
 const CustomerServiceNeedsAnalysis = () => {
