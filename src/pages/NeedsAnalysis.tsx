@@ -171,6 +171,7 @@ const erpSystemOptions = [
   "IFS",
   "Infor",
   "Sage",
+  "Unit4",
   "Manuella processer / Excel",
   "Annat system",
 ];
