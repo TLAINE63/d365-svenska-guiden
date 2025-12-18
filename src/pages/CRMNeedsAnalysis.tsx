@@ -151,8 +151,8 @@ const currentCRMOptions = [
   "Lime CRM",
   "SuperOffice",
   "Zoho CRM",
-  "Excel / Manuella processer",
-  "Inget CRM-system",
+  "Excel",
+  "Inget CRM-system/manuella processer",
   "Annat system",
 ];
 
