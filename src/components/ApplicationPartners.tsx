@@ -8,13 +8,14 @@ import { FilterButtons } from "@/components/FilterButtons";
 import { partners, allIndustries } from "@/data/partners";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
-// Company size filter options
+// Company size filter options - matching partner data values
 const companySizeFilters = [
-  { label: "Små- och mindre företag (1-49 anställda)", values: ["Små"] },
-  { label: "Mindre/Medelstora företag (50-199)", values: ["Små", "Medelstora"] },
-  { label: "Medelstora/Större företag (200-999)", values: ["Medelstora", "Stora"] },
-  { label: "Större företag (1.000-5.000)", values: ["Stora"] },
-  { label: "Enterprisebolag (+5.000 anställda)", values: ["Stora", "Enterprise"] }
+  { label: "1-49 anställda", values: ["1-49"] },
+  { label: "50-99 anställda", values: ["50-99"] },
+  { label: "100-249 anställda", values: ["100-249"] },
+  { label: "250-999 anställda", values: ["250-999"] },
+  { label: "1.000-4.999 anställda", values: ["1.000-4.999"] },
+  { label: "Mer än 5.000 anställda", values: [">5.000"] }
 ];
 
 interface ApplicationPartnersProps {
