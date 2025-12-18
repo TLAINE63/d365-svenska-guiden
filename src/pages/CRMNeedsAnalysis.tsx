@@ -984,7 +984,7 @@ const CRMNeedsAnalysis = () => {
               </div>
             </div>
             <div>
-              <Label className="text-base font-semibold mb-3 block">Storlek på kundserviceteam</Label>
+              <Label className="text-base font-semibold mb-3 block">Storlek på kundservice-/Contact Centerteam</Label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {teamSizeOptions.map((option) => (
                   <SelectionCard
