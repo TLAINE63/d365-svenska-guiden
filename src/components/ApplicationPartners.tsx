@@ -1,0 +1,211 @@
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { FilterButtons } from "@/components/FilterButtons";
+import { partners, allIndustries } from "@/data/partners";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
+
+// Company size filter options
+const companySizeFilters = [
+  { label: "Små- och mindre företag (1-49 anställda)", values: ["Små"] },
+  { label: "Mindre/Medelstora företag (50-199)", values: ["Små", "Medelstora"] },
+  { label: "Medelstora/Större företag (200-999)", values: ["Medelstora", "Stora"] },
+  { label: "Större företag (1.000-5.000)", values: ["Stora"] },
+  { label: "Enterprisebolag (+5.000 anställda)", values: ["Stora", "Enterprise"] }
+];
+
+interface ApplicationPartnersProps {
+  applicationFilter: string;
+  pageSource: string;
+}
+
+const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartnersProps) => {
+  const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+
+  const filteredPartners = useMemo(() => {
+    let result = partners.filter(partner => 
+      partner.applications.includes(applicationFilter)
+    );
+    
+    if (selectedIndustry) {
+      result = result.filter(partner => 
+        partner.industries.some(ind => 
+          ind.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
+          selectedIndustry.toLowerCase().includes(ind.toLowerCase()) ||
+          ind === "Alla branscher"
+        )
+      );
+    }
+
+    if (selectedCompanySize) {
+      const sizeFilter = companySizeFilters.find(f => f.label === selectedCompanySize);
+      if (sizeFilter) {
+        result = result.filter(partner => 
+          partner.companySize.some(size => sizeFilter.values.includes(size))
+        );
+      }
+    }
+    
+    // Sort by CRM ranking first, then alphabetically
+    return result.sort((a, b) => {
+      const rankA = a.rankings?.crm ?? 999;
+      const rankB = b.rankings?.crm ?? 999;
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
+      return a.name.localeCompare(b.name, 'sv');
+    });
+  }, [applicationFilter, selectedIndustry, selectedCompanySize]);
+
+  return (
+    <section id="partners" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+            Hitta rätt partner
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
+            Här är ett urval av partners som arbetar med {applicationFilter} i Sverige. 
+            Filtrera på bransch och företagsstorlek för att hitta partners som passar dig bäst.
+          </p>
+        </div>
+
+        {/* Industry Filter */}
+        <FilterButtons
+          title="Filtrera på bransch"
+          icon="industry"
+          options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+          selectedValue={selectedIndustry}
+          onSelect={setSelectedIndustry}
+          colorScheme="crm"
+        />
+
+        {/* Company Size Filter */}
+        <FilterButtons
+          title="Hur många anställda finns på ert företag?"
+          icon="employees"
+          options={companySizeFilters.map(f => ({ label: f.label, value: f.label }))}
+          selectedValue={selectedCompanySize}
+          onSelect={setSelectedCompanySize}
+          colorScheme="crm"
+        />
+
+        {/* Filter Results Summary */}
+        {(selectedIndustry || selectedCompanySize) && (
+          <div className="text-center mb-8">
+            <p className="text-sm text-muted-foreground">
+              Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
+              {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
+              {selectedIndustry && selectedCompanySize && <> och</>}
+              {selectedCompanySize && <> för <span className="font-semibold text-crm">{selectedCompanySize}</span></>}
+            </p>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => {
+                setSelectedIndustry(null);
+                setSelectedCompanySize(null);
+              }}
+              className="mt-2 text-muted-foreground hover:text-foreground"
+            >
+              Rensa alla filter
+            </Button>
+          </div>
+        )}
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredPartners.map((partner, index) => (
+            <Card 
+              key={index} 
+              className="group relative border border-border/50 bg-card hover:bg-crm/5 transition-all duration-300 flex flex-col shadow-md hover:shadow-xl transform hover:-translate-y-1"
+            >
+              {/* Top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-crm via-accent to-crm rounded-t-lg opacity-70 group-hover:opacity-100 transition-opacity" />
+              
+              <CardHeader className="pb-2 pt-6">
+                <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-crm transition-colors leading-tight">
+                  {partner.name}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {partner.description}
+                </p>
+                
+                <div className="bg-crm/5 rounded-lg p-3 border border-crm/10">
+                  <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Applikationer</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {partner.applications.map((app, i) => (
+                      <Badge key={i} variant="secondary" className="text-xs bg-crm/10 text-crm border-0 font-medium">
+                        {app}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
+                  <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branscher</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {partner.industries.map((industry, i) => (
+                      <Badge key={i} variant="outline" className="text-xs border-accent/40 text-muted-foreground bg-transparent">
+                        {industry}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-secondary/50 rounded-lg p-3 border border-border/50">
+                  <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Företagsstorlek</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {partner.companySize.map((size, i) => (
+                      <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/20 text-foreground font-medium">
+                        {size}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-auto pt-4 border-t border-border/50">
+                  <Button asChild variant="crm" className="w-full">
+                    <a 
+                      href={partner.website} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      onClick={() => trackPartnerClick(partner.name, partner.website, pageSource)}
+                    >
+                      Besök hemsida
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {filteredPartners.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">
+              Inga partners hittades med de valda filtren. Försök att ändra dina filterval.
+            </p>
+          </div>
+        )}
+
+        <div className="text-center mt-8">
+          <Button asChild variant="outline" size="lg">
+            <Link to="/valj-partner">
+              Se alla partners
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ApplicationPartners;
