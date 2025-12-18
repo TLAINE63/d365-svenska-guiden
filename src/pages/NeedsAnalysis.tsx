@@ -175,7 +175,6 @@ const erpSystemOptions = [
   "Sage",
   "Unit4",
   "Manuella processer / Excel",
-  "Annat system",
 ];
 
 const otherSystemOptions = [
@@ -946,9 +945,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // Section 6: Current Systems
     addSectionHeader("NUVARANDE SYSTEM", "6");
-    const erpDisplayValue = data.currentERP === "Annat system" && data.currentERPOther 
-      ? `Annat system: ${data.currentERPOther}` 
-      : data.currentERP;
+    const erpDisplayValue = data.currentERPOther || data.currentERP;
     addContentRow("ERP-system:", erpDisplayValue);
     addContentRow("Installationsår:", data.erpInstallYear);
     if (data.otherSystems.length > 0) {
@@ -1103,9 +1100,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Geografi": data.geography || "Ej angivet",
             "Moduler": data.modules.join(", ") || "Ej angivet",
             "Integrationer": data.integrations.join(", ") || "Ej angivet",
-            "Nuvarande ERP": data.currentERP === "Annat system" && data.currentERPOther 
-              ? `Annat system: ${data.currentERPOther}` 
-              : (data.currentERP || "Ej angivet"),
+            "Nuvarande ERP": data.currentERPOther || data.currentERP || "Ej angivet",
             "Utmaningar": data.challenges.join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
@@ -1324,18 +1319,16 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   />
                 ))}
               </div>
-              {data.currentERP === "Annat system" && (
-                <div className="mt-4">
-                  <Label htmlFor="currentERPOther">Ange systemnamn</Label>
-                  <Input
-                    id="currentERPOther"
-                    placeholder="Skriv namnet på ert nuvarande system..."
-                    value={data.currentERPOther}
-                    onChange={(e) => setData({ ...data, currentERPOther: e.target.value })}
-                    className="mt-2"
-                  />
-                </div>
-              )}
+              <div className="mt-4">
+                <Label htmlFor="currentERPOther">Annat system</Label>
+                <Input
+                  id="currentERPOther"
+                  placeholder="Skriv namnet på ert nuvarande system..."
+                  value={data.currentERPOther}
+                  onChange={(e) => setData({ ...data, currentERPOther: e.target.value, currentERP: "" })}
+                  className="mt-2"
+                />
+              </div>
             </div>
             <div>
               <Label htmlFor="erpInstallYear">Installationsår (ungefärligt)</Label>
