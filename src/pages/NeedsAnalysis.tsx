@@ -179,11 +179,9 @@ const erpSystemOptions = [
 const otherSystemOptions = [
   "Microsoft 365 (Office)",
   "Power BI",
-  "Salesforce",
-  "HubSpot",
-  "Zendesk",
-  "Jira",
-  "Slack / Teams",
+  "CRM-system",
+  "Ärendehantering/Servicesystem",
+  "Microsoft Teams",
   "SharePoint",
   "Adobe Creative Cloud",
   "CAD-system",
@@ -1059,7 +1057,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               />
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4">Övriga system i verksamheten</h3>
+              <h3 className="text-lg font-semibold mb-4">Övriga system som används i verksamheten</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {otherSystemOptions.map((option) => (
                   <SelectionCard
