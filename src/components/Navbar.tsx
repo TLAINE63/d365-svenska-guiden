@@ -41,7 +41,6 @@ const Navbar = () => {
   ];
 
   const menuItems = [
-    { label: "Q&A", path: "/qa", external: false },
     { label: "Kontakt", path: "/kontakt", external: false },
   ];
 
