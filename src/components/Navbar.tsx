@@ -31,13 +31,14 @@ const Navbar = () => {
     { label: "CRM Översikt", path: "/crm" },
     { label: "Dynamics 365 Sales", path: "/crm#sales" },
     { label: "Dynamics 365 Marketing", path: "/crm#marketing" },
-    { label: "CRM Behovsanalys", path: "/crm-behovsanalys" },
+    { label: "Behovsanalys Sälj & Marknad", path: "/salj-marknad-behovsanalys" },
   ];
 
   const crmServiceItems = [
     { label: "Dynamics 365 Customer Service", path: "/crm#customer-service" },
     { label: "Dynamics 365 Field Service", path: "/crm#field-service" },
     { label: "Dynamics 365 Contact Center", path: "/crm#contact-center" },
+    { label: "Behovsanalys Kundservice", path: "/kundservice-behovsanalys" },
   ];
 
   const menuItems = [
