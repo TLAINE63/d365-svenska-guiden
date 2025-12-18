@@ -29,7 +29,7 @@ interface AnalysisData {
   employees: string;
   revenue: string;
   // Step 2
-  industries: string[];
+  industry: string;
   industryOther: string;
   // Step 3
   geography: string[];
@@ -67,7 +67,7 @@ interface AnalysisData {
 const initialData: AnalysisData = {
   employees: "",
   revenue: "",
-  industries: [],
+  industry: "",
   industryOther: "",
   geography: [],
   geographyOther: "",
@@ -347,9 +347,9 @@ const industryKpiMapping: Record<string, string[]> = {
   ],
 };
 
-// Function to get KPIs based on selected industries
-const getKpisForIndustries = (selectedIndustries: string[]): string[] => {
-  if (selectedIndustries.length === 0) {
+// Function to get KPIs based on selected industry
+const getKpisForIndustry = (selectedIndustry: string): string[] => {
+  if (!selectedIndustry) {
     // If no industry selected, show all common KPIs plus a generic set
     return [
       ...commonKpis,
@@ -361,30 +361,141 @@ const getKpisForIndustries = (selectedIndustries: string[]): string[] => {
     ];
   }
 
-  const industrySpecificKpis = new Set<string>();
-  
-  selectedIndustries.forEach(industry => {
-    const kpis = industryKpiMapping[industry];
-    if (kpis) {
-      kpis.forEach(kpi => industrySpecificKpis.add(kpi));
-    }
-  });
+  const industrySpecificKpis = industryKpiMapping[selectedIndustry] || [];
 
   // Combine common KPIs with industry-specific ones
-  return [...commonKpis, ...Array.from(industrySpecificKpis)];
+  return [...commonKpis, ...industrySpecificKpis];
 };
 
-const aiUseCaseOptions = [
+// Common AI use cases that apply to all industries
+const commonAiUseCases = [
   "Automatiserad fakturering och bokföring",
   "Intelligent kundservice (chatbots)",
-  "Försäljningsprognoser",
-  "Lageroptimering",
-  "Produktionsplanering",
   "Dokumenthantering och analys",
-  "Prediktivt underhåll",
   "Automatiserad rapportgenerering",
-  "Personaliserade kundupplevelser",
 ];
+
+// Industry-specific AI use cases mapping
+const industryAiUseCaseMapping: Record<string, string[]> = {
+  "Tillverkningsindustrin": [
+    "Produktionsplanering med AI",
+    "Prediktivt underhåll",
+    "Kvalitetskontroll med datorseende",
+    "Efterfrågeprognos",
+    "Lageroptimering",
+  ],
+  "Handel (Retail & eCommerce)": [
+    "Personaliserade kundupplevelser",
+    "Dynamisk prissättning",
+    "Efterfrågeprognos",
+    "Lageroptimering",
+    "Rekommendationsmotorer",
+    "Kundsegmentering",
+  ],
+  "Grossist/Distribution": [
+    "Lageroptimering",
+    "Ruttplanering och logistik",
+    "Efterfrågeprognos",
+    "Leverantörsanalys",
+    "Automatiserad orderhantering",
+  ],
+  "Bank & Försäkring": [
+    "Bedrägeridetektering",
+    "Riskbedömning",
+    "Automatiserad skadehantering",
+    "Kundanalys och segmentering",
+    "Compliance-övervakning",
+  ],
+  "Hälso- & sjukvård": [
+    "Patientflödesoptimering",
+    "Diagnosstöd",
+    "Resursplanering",
+    "Medicinsk bildanalys",
+    "Prediktiv hälsoanalys",
+  ],
+  "Life Science": [
+    "Forskningsdataanalys",
+    "Kvalitetskontroll",
+    "Regulatorisk efterlevnad",
+    "Klinisk prövningsoptimering",
+    "Batch-optimering",
+  ],
+  "Konsulttjänster": [
+    "Projektprognos",
+    "Resursallokering",
+    "Kompetensmatching",
+    "Automatiserad tidrapportering",
+    "Försäljningsprognoser",
+  ],
+  "Offentlig sektor": [
+    "Ärendehantering med AI",
+    "Medborgarservice chatbots",
+    "Resursoptimering",
+    "Prediktiv analys för planering",
+    "Automatiserad compliance",
+  ],
+  "Energi & Utilities": [
+    "Prediktivt underhåll",
+    "Efterfrågeprognos",
+    "Nätoptimering",
+    "Energieffektiviseringsanalys",
+    "Feldetektering",
+  ],
+  "Transport & Logistik": [
+    "Ruttoptimering",
+    "Prediktivt underhåll av fordon",
+    "Lastplanering",
+    "Efterfrågeprognos",
+    "Realtidsspårning och ETA",
+  ],
+  "Fastigheter": [
+    "Fastighetsvärdeprognoser",
+    "Hyresgästanalys",
+    "Prediktivt underhåll",
+    "Energioptimering",
+    "Marknadsanalys",
+  ],
+  "Medlemsorganisationer": [
+    "Medlemsengagemangsprediktion",
+    "Personaliserad kommunikation",
+    "Eventplanering",
+    "Churn-analys",
+    "Automatiserad medlemsservice",
+  ],
+  "Utbildning": [
+    "Studentprognoser",
+    "Personaliserat lärande",
+    "Schemaoptimering",
+    "Automatiserad bedömning",
+    "Tidiga varningssystem",
+  ],
+  "Nonprofit": [
+    "Givarbeteendeanalys",
+    "Kampanjoptimering",
+    "Resursallokering",
+    "Effektmätning",
+    "Automatiserad kommunikation",
+  ],
+};
+
+// Function to get AI use cases based on selected industry
+const getAiUseCasesForIndustry = (selectedIndustry: string): string[] => {
+  if (!selectedIndustry) {
+    // If no industry selected, show common use cases plus generic ones
+    return [
+      ...commonAiUseCases,
+      "Försäljningsprognoser",
+      "Lageroptimering",
+      "Prediktivt underhåll",
+      "Personaliserade kundupplevelser",
+    ];
+  }
+
+  const industrySpecificUseCases = industryAiUseCaseMapping[selectedIndustry] || [];
+
+  // Combine common use cases with industry-specific ones
+  return [...commonAiUseCases, ...industrySpecificUseCases];
+};
 
 const NeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -478,24 +589,24 @@ const NeedsAnalysis = () => {
     }
 
     // Industry analysis
-    const manufacturingIndustries = ["Tillverkning", "Livsmedel & Dryck", "Läkemedel & Life Science"];
-    const distributionIndustries = ["Distribution & Grossist", "Transport & Logistik"];
-    const enterpriseIndustries = ["Energi & Utilities", "Finans & Försäkring"];
+    const manufacturingIndustries = ["Tillverkning", "Livsmedel & Dryck", "Läkemedel & Life Science", "Tillverkningsindustrin", "Life Science"];
+    const distributionIndustries = ["Distribution & Grossist", "Transport & Logistik", "Grossist/Distribution"];
+    const enterpriseIndustries = ["Energi & Utilities", "Finans & Försäkring", "Bank & Försäkring"];
 
-    data.industries.forEach(industry => {
-      if (manufacturingIndustries.includes(industry)) {
+    if (data.industry) {
+      if (manufacturingIndustries.includes(data.industry)) {
         fscScore += 10;
-        fscReasons.push(`${industry} gynnas av avancerad tillverkningshantering i F&SC`);
+        fscReasons.push(`${data.industry} gynnas av avancerad tillverkningshantering i F&SC`);
       }
-      if (distributionIndustries.includes(industry)) {
+      if (distributionIndustries.includes(data.industry)) {
         bcScore += 5;
         fscScore += 5;
       }
-      if (enterpriseIndustries.includes(industry)) {
+      if (enterpriseIndustries.includes(data.industry)) {
         fscScore += 15;
-        fscReasons.push(`${industry} kräver ofta enterprise-funktionalitet`);
+        fscReasons.push(`${data.industry} kräver ofta enterprise-funktionalitet`);
       }
-    });
+    }
 
     // Geography analysis
     if (data.geography.includes("Globalt") || data.geography.includes("Europa")) {
@@ -816,7 +927,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // Section 2: Industry
     addSectionHeader("BRANSCH", "2");
-    addBulletList(data.industries, data.industryOther);
+    addBulletList(data.industry ? [data.industry] : [], data.industryOther);
 
     // Section 3: Geography
     addSectionHeader("GEOGRAFI", "3");
@@ -982,7 +1093,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           analysisData: {
             "Anställda": data.employees,
             "Omsättning": data.revenue,
-            "Bransch": data.industries.join(", ") || "Ej angivet",
+            "Bransch": data.industry || "Ej angivet",
             "Geografi": data.geography.join(", ") || "Ej angivet",
             "Moduler": data.modules.join(", ") || "Ej angivet",
             "Integrationer": data.integrations.join(", ") || "Ej angivet",
@@ -1080,15 +1191,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 2:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Välj en eller flera branscher som bäst beskriver er verksamhet.</p>
+            <p className="text-muted-foreground">Välj den bransch som bäst beskriver er verksamhet.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {industryOptions.map((option) => (
                 <SelectionCard
                   key={option}
                   label={option}
-                  selected={data.industries.includes(option)}
-                  onClick={() => handleCheckboxChange('industries', option)}
-                  type="checkbox"
+                  selected={data.industry === option}
+                  onClick={() => setData({ ...data, industry: option })}
+                  type="radio"
                 />
               ))}
             </div>
@@ -1273,13 +1384,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 8:
-        const dynamicKpis = getKpisForIndustries(data.industries);
+        const dynamicKpis = getKpisForIndustry(data.industry);
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka nyckeltal är viktigast för er verksamhet att följa och förbättra?</p>
-            {data.industries.length > 0 && (
+            {data.industry && (
               <p className="text-sm text-primary">
-                Nyckeltalen nedan är anpassade efter din valda bransch: {data.industries.join(", ")}
+                Nyckeltalen nedan är anpassade efter din valda bransch: {data.industry}
               </p>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1331,8 +1442,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
+              {data.industry && (
+                <p className="text-sm text-primary mb-4">
+                  AI-användningsområdena nedan är anpassade efter din valda bransch: {data.industry}
+                </p>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {aiUseCaseOptions.map((option) => (
+                {getAiUseCasesForIndustry(data.industry).map((option) => (
                   <SelectionCard
                     key={option}
                     label={option}
