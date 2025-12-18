@@ -1038,30 +1038,6 @@ const CRMNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilket CRM-system (inom kategorin försäljning) använder ni idag?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {currentCRMOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.currentCRM === option}
-                    onClick={() => setData({ ...data, currentCRM: option })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-              <div className="mt-4">
-                <Label htmlFor="currentCRMOther">Annat system</Label>
-                <Input
-                  id="currentCRMOther"
-                  placeholder="Skriv namnet på ert nuvarande CRM-system..."
-                  value={data.currentCRMOther}
-                  onChange={(e) => setData({ ...data, currentCRMOther: e.target.value })}
-                  className="mt-2"
-                />
-              </div>
-            </div>
-            <div>
               <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag? (välj alla som stämmer)</Label>
               <div className="grid grid-cols-1 gap-3">
                 {commonChallengeOptions.map((option) => (
@@ -1105,6 +1081,30 @@ const CRMNeedsAnalysis = () => {
       case 3:
         return (
           <div className="space-y-6">
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Vilket CRM-system (inom kategorin försäljning) använder ni idag?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {currentCRMOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.currentCRM === option}
+                    onClick={() => setData({ ...data, currentCRM: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+              <div className="mt-4">
+                <Label htmlFor="currentCRMOther">Annat system</Label>
+                <Input
+                  id="currentCRMOther"
+                  placeholder="Skriv namnet på ert nuvarande CRM-system..."
+                  value={data.currentCRMOther}
+                  onChange={(e) => setData({ ...data, currentCRMOther: e.target.value })}
+                  className="mt-2"
+                />
+              </div>
+            </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Hur komplex är er säljprocess?</Label>
               <div className="grid grid-cols-1 gap-3">
