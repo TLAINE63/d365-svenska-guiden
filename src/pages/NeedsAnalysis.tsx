@@ -208,18 +208,171 @@ const challengeOptions = [
   "Order-to-cash eller procure-to-pay tar för lång tid (mycket brandsläckning, beroende av nyckelpersoner)",
 ];
 
-const kpiOptions = [
+// Common KPIs that apply to all industries
+const commonKpis = [
   "Omsättning och tillväxt",
   "Bruttomarginal",
-  "Lagervärde och omsättningshastighet",
-  "Kundnöjdhet (NPS/CSAT)",
-  "Leveransprecision",
-  "Produktivitet per anställd",
   "Kassaflöde",
-  "Ordervärde (AOV)",
-  "Ledtider i produktion",
-  "Kostnad per order",
+  "Produktivitet per anställd",
+  "Kundnöjdhet (NPS/CSAT)",
 ];
+
+// Industry-specific KPIs mapping
+const industryKpiMapping: Record<string, string[]> = {
+  "Tillverkningsindustrin": [
+    "Ledtider i produktion",
+    "OEE (Overall Equipment Effectiveness)",
+    "Lagervärde och omsättningshastighet",
+    "Leveransprecision",
+    "Produktionskostnad per enhet",
+    "Kassationsgrad/spill",
+    "Kapacitetsutnyttjande",
+  ],
+  "Handel (Retail & eCommerce)": [
+    "Ordervärde (AOV)",
+    "Konverteringsgrad",
+    "Lagervärde och omsättningshastighet",
+    "Kundlivstidsvärde (CLV)",
+    "Returer och reklamationer",
+    "Försäljning per kvadratmeter",
+    "Webbtrafik och bounce rate",
+  ],
+  "Grossist/Distribution": [
+    "Leveransprecision",
+    "Lagervärde och omsättningshastighet",
+    "Ordervärde (AOV)",
+    "Fyllnadsgrad",
+    "Kostnad per order",
+    "Ledtid order-till-leverans",
+    "Kundretention",
+  ],
+  "Bank & Försäkring": [
+    "Skadefrekvens",
+    "Combined ratio",
+    "Kundanskaffningskostnad (CAC)",
+    "Kundlivstidsvärde (CLV)",
+    "Regelefterlevnad",
+    "Handläggningstid",
+    "Digital adoptionsgrad",
+  ],
+  "Hälso- & sjukvård": [
+    "Patientnöjdhet",
+    "Väntetider",
+    "Beläggningsgrad",
+    "Kostnad per patient",
+    "Återinläggningsfrekvens",
+    "Personaltäthet",
+    "Kvalitetsindikatorer",
+  ],
+  "Life Science": [
+    "Time-to-market",
+    "R&D-kostnad per projekt",
+    "Regulatorisk efterlevnad",
+    "Batchavkastning",
+    "Kvalitetsavvikelser",
+    "Spårbarhet (batch/lot)",
+    "Kliniska prövningsresultat",
+  ],
+  "Konsulttjänster": [
+    "Faktureringsgrad",
+    "Debiteringsgrad per konsult",
+    "Projektlönsamhet",
+    "Kundnöjdhet per uppdrag",
+    "Personalomsättning",
+    "Pipeline-värde",
+    "Genomsnittlig projekttid",
+  ],
+  "Offentlig sektor": [
+    "Handläggningstid",
+    "Medborgarnöjdhet",
+    "Budgetutfall",
+    "Digitala tjänster (andel)",
+    "Tillgänglighet",
+    "Regelefterlevnad",
+    "Kostnad per ärende",
+  ],
+  "Energi & Utilities": [
+    "Leveranssäkerhet",
+    "Nätförluster",
+    "Kostnad per producerad enhet",
+    "Hållbarhetsmål (CO2, förnybart)",
+    "Kundavbrott (SAIDI/SAIFI)",
+    "Underhållskostnad",
+    "Kapacitetsutnyttjande",
+  ],
+  "Transport & Logistik": [
+    "Leveransprecision",
+    "Fyllnadsgrad",
+    "Kostnad per km/ton",
+    "Fordonsutnyttjande",
+    "Bränsleförbrukning",
+    "Ledtid",
+    "Skadefrekvens",
+  ],
+  "Fastigheter": [
+    "Uthyrningsgrad",
+    "Hyresintäkt per kvm",
+    "Driftkostnad per kvm",
+    "Vakansgrad",
+    "Underhållskostnad",
+    "Hyresgästnöjdhet",
+    "Energiförbrukning",
+  ],
+  "Medlemsorganisationer": [
+    "Medlemstillväxt",
+    "Medlemsretention",
+    "Engagemangsgrad",
+    "Intäkt per medlem",
+    "Evenemangsdeltagande",
+    "Frivilliginsatser",
+    "Kommunikationsräckvidd",
+  ],
+  "Utbildning": [
+    "Genomströmning",
+    "Studentnöjdhet",
+    "Kostnad per student",
+    "Lärartäthet",
+    "Betygssnitt",
+    "Anställningsbarhet efter examen",
+    "Forskningsoutput",
+  ],
+  "Nonprofit": [
+    "Insamlade medel",
+    "Administrationskostnad (%)",
+    "Givarretention",
+    "Projekteffektivitet",
+    "Volontärengagemang",
+    "Räckvidd (personer hjälpta)",
+    "Transparens och rapportering",
+  ],
+};
+
+// Function to get KPIs based on selected industries
+const getKpisForIndustries = (selectedIndustries: string[]): string[] => {
+  if (selectedIndustries.length === 0) {
+    // If no industry selected, show all common KPIs plus a generic set
+    return [
+      ...commonKpis,
+      "Lagervärde och omsättningshastighet",
+      "Leveransprecision",
+      "Ordervärde (AOV)",
+      "Ledtider i produktion",
+      "Kostnad per order",
+    ];
+  }
+
+  const industrySpecificKpis = new Set<string>();
+  
+  selectedIndustries.forEach(industry => {
+    const kpis = industryKpiMapping[industry];
+    if (kpis) {
+      kpis.forEach(kpi => industrySpecificKpis.add(kpi));
+    }
+  });
+
+  // Combine common KPIs with industry-specific ones
+  return [...commonKpis, ...Array.from(industrySpecificKpis)];
+};
 
 const aiUseCaseOptions = [
   "Automatiserad fakturering och bokföring",
@@ -1120,11 +1273,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 8:
+        const dynamicKpis = getKpisForIndustries(data.industries);
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka nyckeltal är viktigast för er verksamhet att följa och förbättra?</p>
+            {data.industries.length > 0 && (
+              <p className="text-sm text-primary">
+                Nyckeltalen nedan är anpassade efter din valda bransch: {data.industries.join(", ")}
+              </p>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {kpiOptions.map((option) => (
+              {dynamicKpis.map((option) => (
                 <SelectionCard
                   key={option}
                   label={option}
