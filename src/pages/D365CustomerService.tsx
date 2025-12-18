@@ -226,8 +226,8 @@ const D365CustomerService = () => {
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• <strong>Grundläggande ärendehantering:</strong> 6-10 veckor</li>
-                    <li>• <strong>Med kunskapsbas och portal:</strong> 2-4 månader</li>
-                    <li>• <strong>Omnikanal implementation:</strong> 4-6 månader</li>
+                    <li>• <strong>Med kunskapsbas och portal:</strong> 4-6 månader</li>
+                    <li>• <strong>Omnikanal implementation:</strong> 8-12 månader</li>
                   </ul>
                 </div>
                 <div>

@@ -212,8 +212,8 @@ const D365FieldService = () => {
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• <strong>Grundläggande (10-20 tekniker):</strong> 2-3 månader</li>
-                    <li>• <strong>Med schemaoptimering:</strong> 3-4 månader</li>
-                    <li>• <strong>Komplett med IoT:</strong> 4-6 månader</li>
+                    <li>• <strong>Med schemaoptimering:</strong> 5-7 månader</li>
+                    <li>• <strong>Komplett med IoT:</strong> 8-12 månader</li>
                   </ul>
                 </div>
                 <div>

@@ -222,8 +222,8 @@ const D365Marketing = () => {
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• <strong>Grundläggande setup:</strong> 6-8 veckor</li>
-                    <li>• <strong>Med kundresor och automatisering:</strong> 2-3 månader</li>
-                    <li>• <strong>Komplett implementation:</strong> 3-5 månader</li>
+                    <li>• <strong>Med kundresor och automatisering:</strong> 4-6 månader</li>
+                    <li>• <strong>Komplett implementation:</strong> 6-10 månader</li>
                   </ul>
                 </div>
                 <div>
