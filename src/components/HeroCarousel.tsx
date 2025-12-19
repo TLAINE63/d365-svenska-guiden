@@ -4,12 +4,33 @@ import { Link } from "react-router-dom";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+// Industry images for first slide
+import tillverkningImg from "@/assets/industries/tillverkning.jpg";
+import handelDistributionImg from "@/assets/industries/handel-distribution.jpg";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.jpg";
+import transportLogistikImg from "@/assets/industries/transport-logistik.jpg";
+import fastigheterImg from "@/assets/industries/fastigheter.jpg";
+import serviceUnderhallImg from "@/assets/industries/service-underhall.jpg";
+import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
+import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
+
+const featuredIndustries = [
+  { name: "Tillverkning", image: tillverkningImg },
+  { name: "Handel", image: handelDistributionImg },
+  { name: "Bygg", image: byggEntreprenadImg },
+  { name: "Transport", image: transportLogistikImg },
+  { name: "Fastigheter", image: fastigheterImg },
+  { name: "Service", image: serviceUnderhallImg },
+  { name: "Konsult", image: konsultforetagImg },
+  { name: "Detaljhandel", image: detaljhandelImg },
+];
+
 interface HeroSlide {
   id: number;
   backgroundImage: string;
   title: React.ReactNode;
   subtitle: string;
-  ctaType: "contact" | "link";
+  ctaType: "contact" | "link" | "industries";
   ctaText: string;
   ctaLink?: string;
   buttonColor?: string;
@@ -24,9 +45,9 @@ const slides: HeroSlide[] = [
         Din guide inom <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
       </>
     ),
-    subtitle: "Upptäck möjligheterna med Microsoftplattformen",
-    ctaType: "link",
-    ctaText: "Starta med att välja vilken bransch du tillhör",
+    subtitle: "Välj din bransch för att komma igång",
+    ctaType: "industries",
+    ctaText: "Se alla branscher",
     ctaLink: "/branschlosningar",
     buttonColor: "bg-amber-500 hover:bg-amber-600",
   },
@@ -127,43 +148,94 @@ const HeroCarousel = () => {
 
       {/* Content */}
       <div className="relative h-full flex items-center">
-        <div className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-20">
-          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
-            <div className="max-w-3xl">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+          {slide.ctaType === "industries" ? (
+            // First slide with industries grid
+            <div className="animate-fade-in">
               <h1
                 key={currentSlide}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4 md:mb-6 animate-fade-in"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2 sm:mb-3 md:mb-4"
               >
                 {slide.title}
               </h1>
               <p
                 key={`subtitle-${currentSlide}`}
-                className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6 md:mb-8 animate-fade-in"
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-4 sm:mb-5 md:mb-6"
               >
                 {slide.subtitle}
               </p>
-
-              {slide.ctaType === "contact" ? (
-                <ContactFormDialog>
-                  <Button
-                    size="lg"
-                    className={`${slide.buttonColor} text-primary-foreground w-full sm:w-auto text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 rounded-xl animate-fade-in`}
+              
+              {/* Industries Grid */}
+              <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-2 sm:gap-3 mb-4 sm:mb-5">
+                {featuredIndustries.map((industry) => (
+                  <Link
+                    key={industry.name}
+                    to="/branschlosningar"
+                    className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-3 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
                   >
-                    {slide.ctaText}
-                  </Button>
-                </ContactFormDialog>
-              ) : (
-                <Link to={slide.ctaLink || "/"}>
-                  <Button
-                    size="lg"
-                    className={`${slide.buttonColor} text-white w-full sm:w-auto text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 rounded-xl animate-fade-in`}
-                  >
-                    {slide.ctaText}
-                  </Button>
-                </Link>
-              )}
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden mb-1 sm:mb-2 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">
+                      <img
+                        src={industry.image}
+                        alt={industry.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        loading="eager"
+                      />
+                    </div>
+                    <span className="text-[10px] sm:text-xs text-white/90 font-medium text-center leading-tight">
+                      {industry.name}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+              
+              <Link to={slide.ctaLink || "/"}>
+                <Button
+                  size="lg"
+                  className={`${slide.buttonColor} text-white text-xs sm:text-sm md:text-base h-10 sm:h-12 md:h-14 rounded-xl`}
+                >
+                  {slide.ctaText}
+                </Button>
+              </Link>
             </div>
-          </div>
+          ) : (
+            // Other slides with regular layout
+            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+              <div className="max-w-3xl">
+                <h1
+                  key={currentSlide}
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4 md:mb-6 animate-fade-in"
+                >
+                  {slide.title}
+                </h1>
+                <p
+                  key={`subtitle-${currentSlide}`}
+                  className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6 md:mb-8 animate-fade-in"
+                >
+                  {slide.subtitle}
+                </p>
+
+                {slide.ctaType === "contact" ? (
+                  <ContactFormDialog>
+                    <Button
+                      size="lg"
+                      className={`${slide.buttonColor} text-primary-foreground w-full sm:w-auto text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 rounded-xl animate-fade-in`}
+                    >
+                      {slide.ctaText}
+                    </Button>
+                  </ContactFormDialog>
+                ) : (
+                  <Link to={slide.ctaLink || "/"}>
+                    <Button
+                      size="lg"
+                      className={`${slide.buttonColor} text-white w-full sm:w-auto text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 rounded-xl animate-fade-in`}
+                    >
+                      {slide.ctaText}
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
