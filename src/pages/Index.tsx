@@ -103,16 +103,16 @@ const Index = () => {
               </AccordionItem>
 
               {/* Fråga 3 */}
-              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
-                    <span className="text-2xl">❓</span>
-                    Vad kostar Dynamics 365 – och vad påverkar priset?
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <span>Vad kostar Dynamics 365 – och vad påverkar priset?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>En av de mest sökta frågorna:</p>
+                    <p className="italic mb-3">En av de mest sökta frågorna:</p>
                     <p>• <strong>Licenspriser per användare:</strong> Varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare (det finns även en så kallad "Tenant-prissättning", dvs per installation, som in första hand gäller Dynamics 365 Customer Insights/Marketing Automation). Titta gärna under respektive huvudrubrik för en mer detaljerad genomgång av licensavgifter.</p>
                     <p>• <strong>Vad tillkommer:</strong> Implementation, anpassningar, integration, utbildning och löpande support</p>
                     <p>• <strong>Projektbudget:</strong> Här beror det väldigt mycket på vilken applikation, hur stor verksamheten är och ambitionsnivå. Räkna med en total projektkostnad som startar från 50 000 kr (BC startpaket) till ett 10-tal miljoner (Finance & Supply Chain för internationella Enterprisebolag)</p>
@@ -126,16 +126,16 @@ const Index = () => {
               </AccordionItem>
 
               {/* Fråga 4 */}
-              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
-                    <span className="text-2xl">❓</span>
-                    Hur lång tid tar det att implementera Dynamics 365?
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <span>Hur lång tid tar det att implementera Dynamics 365?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
-                  <p className="italic text-muted-foreground mb-3">Under respektive huvudrubrik hittar du en mer detaljerad genomgång av projektkostnader för respektive affärsapplikation</p>
                   <div className="space-y-3 text-muted-foreground">
+                    <p className="italic mb-3">Under respektive huvudrubrik hittar du en mer detaljerad genomgång av projektkostnader för respektive affärsapplikation</p>
                     <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 9-18 månader för F&SCM och för CRM är det väldigt beroende av omfattning i antal användare och vilken av CRM-applikationerna, men räkna med från 2 månader och mer</p>
                     <p>• <strong>Vad krävs internt:</strong> Engagerad projektledare, dedikerade nyckelanvändare och tid för workshop och testning</p>
                     <p>• <strong>Affärsnytta:</strong> Första fördelarna syns ofta redan efter 2-3 månader, full ROI uppnås vanligtvis inom 1-2 år</p>
@@ -144,16 +144,16 @@ const Index = () => {
               </AccordionItem>
 
               {/* Fråga 5 */}
-              <AccordionItem value="item-5" className="bg-card rounded-lg px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
-                    <span className="text-2xl">❓</span>
-                    Hur fungerar Dynamics 365 med våra befintliga system och Microsoft 365?
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <span>Hur fungerar Dynamics 365 med våra befintliga system och Microsoft 365?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Integration är avgörande:</p>
+                    <p className="italic mb-3">Integration är avgörande:</p>
                     <p>• <strong>Microsoft 365-integration:</strong> Sömlös integration med Outlook, Teams och Excel – arbeta direkt i de verktyg du redan använder</p>
                     <p>• <strong>Befintliga system:</strong> Enkelt att koppla samman med e-handel, lönesystem, BI-verktyg och andra affärssystem via API:er</p>
                     <p>• <strong>Power Platform:</strong> Skapa egna appar, automatisera arbetsflöden och bygga dashboards utan att behöva programmera</p>
@@ -163,16 +163,16 @@ const Index = () => {
               </AccordionItem>
 
               {/* Fråga 6 */}
-              <AccordionItem value="item-6" className="bg-card rounded-lg px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="text-xl font-bold text-card-foreground flex items-start gap-3">
-                    <span className="text-2xl">🤝</span>
-                    Vilka Microsoftpartners borde passa vår verksamhet bäst?
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">🤝</span>
+                    <span>Vilka Microsoftpartners borde passa vår verksamhet bäst?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Att välja rätt implementationspartner är avgörande för ett lyckat projekt. Här är några viktiga faktorer:</p>
+                    <p className="italic mb-3">Att välja rätt implementationspartner är avgörande för ett lyckat projekt. Här är några viktiga faktorer:</p>
                     <p>• <strong>Branschkunskap:</strong> Välj en partner med erfarenhet från din bransch och som förstår dina specifika utmaningar</p>
                     <p>• <strong>Kompetens:</strong> Se till att partnern har certifierade konsulter inom de Dynamics 365-applikationer du behöver</p>
                     <p>• <strong>Storlek och kapacitet:</strong> En partner som matchar din företagsstorlek och kan växa med dina behov</p>
