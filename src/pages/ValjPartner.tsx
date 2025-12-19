@@ -26,12 +26,13 @@ const allApplications = [
   "Human Resources"
 ];
 
-// All available industries for filtering
+// All available industries for filtering (synced with partners.ts)
 const allIndustries = [
   "Tillverkningsindustrin",
   "Handel (Retail & eCommerce)",
   "Grossist/Distribution",
   "Bank & Försäkring",
+  "Bygg & Entreprenad",
   "Hälso- & sjukvård",
   "Life Science",
   "Konsulttjänster",
