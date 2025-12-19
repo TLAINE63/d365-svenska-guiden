@@ -127,18 +127,18 @@ const HeroCarousel = () => {
 
       {/* Content */}
       <div className="relative h-full flex items-center">
-        <div className="container mx-auto px-12 sm:px-16 md:px-20">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+        <div className="container mx-auto px-4 sm:px-8 md:px-16 lg:px-20">
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center">
             <div className="max-w-3xl">
               <h1
                 key={currentSlide}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 sm:mb-6 animate-fade-in"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4 md:mb-6 animate-fade-in"
               >
                 {slide.title}
               </h1>
               <p
                 key={`subtitle-${currentSlide}`}
-                className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8 animate-fade-in"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6 md:mb-8 animate-fade-in"
               >
                 {slide.subtitle}
               </p>
@@ -147,7 +147,7 @@ const HeroCarousel = () => {
                 <ContactFormDialog>
                   <Button
                     size="lg"
-                    className={`${slide.buttonColor} text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl animate-fade-in`}
+                    className={`${slide.buttonColor} text-primary-foreground w-full sm:w-auto text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 rounded-xl animate-fade-in`}
                   >
                     {slide.ctaText}
                   </Button>
@@ -156,7 +156,7 @@ const HeroCarousel = () => {
                 <Link to={slide.ctaLink || "/"}>
                   <Button
                     size="lg"
-                    className={`${slide.buttonColor} text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl animate-fade-in`}
+                    className={`${slide.buttonColor} text-white w-full sm:w-auto text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 rounded-xl animate-fade-in`}
                   >
                     {slide.ctaText}
                   </Button>
