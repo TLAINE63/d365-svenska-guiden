@@ -202,21 +202,21 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {/* Business Central Card */}
-            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10" />
-                  <h3 className="text-2xl font-bold text-card-foreground">Business Central</h3>
+            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
+              <div className="mb-4 sm:mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                  <img src={BusinessCentralIcon} alt="Business Central" className="h-8 w-8 sm:h-10 sm:w-10" />
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Business Central</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                   Komplett affärssystem för mindre och medelstora företag
                 </p>
               </div>
               
-              <div className="space-y-3 mb-6">
-                <ul className="space-y-2 text-sm text-muted-foreground">
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• Hantera ekonomi och redovisning</li>
                   <li>• Order, Lager, Inköp</li>
                   <li>• Projekthantering</li>
@@ -226,7 +226,7 @@ const Index = () => {
                 </ul>
               </div>
               
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
+              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
                 <Link to="/business-central">
                   Läs mer
                 </Link>
@@ -234,20 +234,22 @@ const Index = () => {
             </div>
 
             {/* Finance & Supply Chain Card */}
-            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <img src={FinanceIcon} alt="Finance" className="h-10 w-10" />
-                  <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10" />
-                  <h3 className="text-2xl font-bold text-card-foreground">Finance & Supply Chain</h3>
+            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
+              <div className="mb-4 sm:mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+                  <div className="flex gap-1">
+                    <img src={FinanceIcon} alt="Finance" className="h-8 w-8 sm:h-10 sm:w-10" />
+                    <img src={SupplyChainIcon} alt="Supply Chain" className="h-8 w-8 sm:h-10 sm:w-10" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Finance & SCM</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Passar för större ofta internationella verksamheter och koncerner
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                  Passar för större internationella verksamheter och koncerner
                 </p>
               </div>
               
-              <div className="space-y-3 mb-6">
-                <ul className="space-y-2 text-sm text-muted-foreground">
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• Global ekonomihantering</li>
                   <li>• Avancerad tillverkning</li>
                   <li>• Komplex leveranskedja</li>
@@ -255,7 +257,7 @@ const Index = () => {
                 </ul>
               </div>
               
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
+              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
                 <Link to="/finance-supply-chain">
                   Läs mer
                 </Link>
@@ -263,21 +265,23 @@ const Index = () => {
             </div>
 
             {/* CRM/Customer Engagement Card */}
-            <div className="bg-card rounded-lg p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <img src={SalesIcon} alt="Sales" className="h-10 w-10" />
-                  <img src={CustomerServiceIcon} alt="Customer Service" className="h-10 w-10" />
-                  <img src={MarketingIcon} alt="Customer Insights" className="h-10 w-10" />
-                  <h3 className="text-2xl font-bold text-card-foreground">CRM</h3>
+            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300 sm:col-span-2 lg:col-span-1">
+              <div className="mb-4 sm:mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+                  <div className="flex gap-1">
+                    <img src={SalesIcon} alt="Sales" className="h-8 w-8 sm:h-10 sm:w-10" />
+                    <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8 sm:h-10 sm:w-10" />
+                    <img src={MarketingIcon} alt="Customer Insights" className="h-8 w-8 sm:h-10 sm:w-10" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">CRM</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  <span className="whitespace-nowrap">Microsoft Dynamics 365</span> Sales, Customer Insights, Service
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                  Sales, Customer Insights, Service
                 </p>
               </div>
               
-              <div className="space-y-3 mb-6">
-                <ul className="space-y-2 text-sm text-muted-foreground">
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• Öka försäljning och hantera leads</li>
                   <li>• Förbättra kundservice och support</li>
                   <li>• Automatisera marknadsföring</li>
@@ -285,7 +289,7 @@ const Index = () => {
                 </ul>
               </div>
               
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground">
+              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
                 <Link to="/crm">
                   Läs mer
                 </Link>
@@ -450,33 +454,33 @@ const Index = () => {
       </section>
 
       {/* Implementation Pricing Section */}
-      <section id="implementation" className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <section id="implementation" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
               Implementeringskostnader
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Kostnaderna för implementering varierar baserat på system och omfattning. Nedan följer några exempel på projektkostnader för olika Dynamics 365 applikationer för att du skall få en känsla för omfattningen och tidsramen för att genomföra en lyckad implementation. Bransch, storlek på företag, behov och komplexitet samt många andra faktorer påverkar självklart.
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+              Kostnaderna för implementering varierar baserat på system och omfattning. Nedan följer några exempel på projektkostnader för olika Dynamics 365 applikationer för att du skall få en känsla för omfattningen och tidsramen för att genomföra en lyckad implementation.
             </p>
           </div>
 
           {/* Business Central Implementation */}
-          <div className="max-w-6xl mx-auto mb-16">
-            <div className="text-center mb-8">
+          <div className="max-w-6xl mx-auto mb-10 sm:mb-12 md:mb-16">
+            <div className="text-center mb-6 sm:mb-8">
               <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 Business Central
               </h3>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Exempel på implementeringskostnader för mindre och medelstora företag
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
-                <p className="text-muted-foreground mb-4">Standarduppsättning med begränsade anpassningar</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-6">150 000 - 400 000 kr</div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Standarduppsättning med begränsade anpassningar</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">150 000 - 400 000 kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• 2-4 månaders projekt</li>
                   <li>• Standardprocesser och funktionalitet</li>
                   <li>• Grundläggande utbildning</li>
@@ -485,14 +489,14 @@ const Index = () => {
                   <li>• 5-20 användare</li>
                 </ul>
               </div>
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
-                <p className="text-muted-foreground mb-4">Anpassad lösning med integrationer och komplexitet</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-6">500 000 - 1 500 000 kr</div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Anpassad lösning med integrationer och komplexitet</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">500 000 - 1 500 000 kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• 4-8 månaders projekt</li>
                   <li>• Anpassade processer och workflows</li>
-                  <li>• Omfattande utbildning och change management</li>
+                  <li>• Omfattande utbildning</li>
                   <li>• Komplex datamigration</li>
                   <li>• Flera systemintegrationer</li>
                   <li>• 20-200 användare</li>
@@ -502,21 +506,21 @@ const Index = () => {
           </div>
 
           {/* Finance & Supply Chain Implementation */}
-          <div className="max-w-6xl mx-auto mb-16">
-            <div className="text-center mb-8">
+          <div className="max-w-6xl mx-auto mb-10 sm:mb-12 md:mb-16">
+            <div className="text-center mb-6 sm:mb-8">
               <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 Finance & Supply Chain Management
               </h3>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Exempel på implementeringskostnader för medelstora till större organisationer
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
-                <p className="text-muted-foreground mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-6">1 500 000 - 3 000 000 kr</div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">1 500 000 - 3 000 000 kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• 6-9 månaders projekt</li>
                   <li>• Standardprocesser med mindre anpassningar</li>
                   <li>• Strukturerad utbildning</li>
@@ -525,16 +529,16 @@ const Index = () => {
                   <li>• 50-200 användare</li>
                 </ul>
               </div>
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
-                <p className="text-muted-foreground mb-4">Globala implementationer med hög komplexitet</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-6">3 000 000 - 10 000 000+ kr</div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Globala implementationer med hög komplexitet</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">3 000 000 - 10 000 000+ kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• 9-18+ månaders projekt</li>
                   <li>• Omfattande anpassningar och utveckling</li>
                   <li>• Global rollout och change management</li>
-                  <li>• Komplex datamigration från flera system</li>
-                  <li>• Många systemintegrationer och API:er</li>
+                  <li>• Komplex datamigration</li>
+                  <li>• Många systemintegrationer</li>
                   <li>• 200-2000+ användare</li>
                 </ul>
               </div>
@@ -543,38 +547,38 @@ const Index = () => {
 
           {/* CRM Implementation */}
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8">
+            <div className="text-center mb-6 sm:mb-8">
               <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 CRM (Customer Engagement)
               </h3>
-              <p className="text-muted-foreground">
-                Exempel på implementeringskostnader för Sales, Service och Customer Insights/Marketing Automation
+              <p className="text-sm sm:text-base text-muted-foreground">
+                Exempel på implementeringskostnader för Sales, Service och Customer Insights
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mindre standardimplementationer</h4>
-                <p className="text-muted-foreground mb-4">En eller två CRM-applikationer med standardfunktionalitet</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-6">200 000 - 600 000 kr</div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">En eller två CRM-applikationer med standardfunktionalitet</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">200 000 - 600 000 kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• 2-4 månaders projekt</li>
                   <li>• Sales eller Customer Service</li>
                   <li>• Standardprocesser och formulär</li>
                   <li>• Grundläggande utbildning</li>
-                  <li>• Datamigration av kontakter och affärer</li>
+                  <li>• Datamigration av kontakter</li>
                   <li>• 10-50 användare</li>
                 </ul>
               </div>
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-                <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4">Mer avancerade och omfattande implementationer</h4>
-                <p className="text-muted-foreground mb-4">Flera CRM-applikationer med anpassningar och integrationer</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-6">800 000 - 3 000 000+ kr</div>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Flera CRM-applikationer med anpassningar</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">800 000 - 3 000 000+ kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• 4-10 månaders projekt</li>
-                  <li>• Sales + Service + Customer Insights/Field Service</li>
-                  <li>• Anpassade processer och automatiseringar</li>
-                  <li>• Omfattande utbildning och adoption</li>
-                  <li>• Komplex datamigration och integration</li>
+                  <li>• Sales + Service + Customer Insights</li>
+                  <li>• Anpassade processer</li>
+                  <li>• Omfattande utbildning</li>
+                  <li>• Komplex datamigration</li>
                   <li>• 50-500+ användare</li>
                 </ul>
               </div>
@@ -582,12 +586,12 @@ const Index = () => {
           </div>
 
           {/* Common Factors */}
-          <div className="max-w-4xl mx-auto mt-16">
-            <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-8 border border-border">
-              <h4 className="text-xl font-semibold text-card-foreground mb-6 text-center">
+          <div className="max-w-4xl mx-auto mt-10 sm:mt-12 md:mt-16">
+            <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+              <h4 className="text-lg sm:text-xl font-semibold text-card-foreground mb-4 sm:mb-6 text-center">
                 Faktorer som påverkar priset
               </h4>
-              <div className="grid md:grid-cols-3 gap-6 text-sm text-muted-foreground">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-xs sm:text-sm text-muted-foreground">
                 <div>
                   <p className="font-semibold text-card-foreground mb-2">Omfattning</p>
                   <ul className="space-y-1">
@@ -613,10 +617,10 @@ const Index = () => {
                   </ul>
                 </div>
               </div>
-              <div className="mt-8 text-center">
+              <div className="mt-6 sm:mt-8 text-center">
                 <ContactFormDialog>
-                  <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0" size="lg">
-                    Boka en Gratis vägledning för din verksamhet
+                  <Button className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0 text-sm sm:text-base" size="lg">
+                    Boka en Gratis vägledning
                   </Button>
                 </ContactFormDialog>
               </div>
@@ -627,15 +631,15 @@ const Index = () => {
 
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             Redo att komma igång?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
-            Boka en gratis konsultation så hjälper vi dig att hitta rätt lösning och rätt Microsoftpartner för din verksamhet
+          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-primary-foreground/90">
+            Boka en gratis konsultation så hjälper vi dig hitta rätt lösning för din verksamhet
           </p>
-          <Button asChild size="lg" variant="secondary" className="text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
+          <Button asChild size="lg" variant="secondary" className="text-sm sm:text-base md:text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
             <Link to="/kontakt">Kontakta oss idag!</Link>
           </Button>
         </div>
