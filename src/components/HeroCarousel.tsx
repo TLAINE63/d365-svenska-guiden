@@ -56,12 +56,12 @@ const slides: HeroSlide[] = [
     backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
-        Hitta rätt <span className="text-emerald-400">affärssystem (ERP)</span> för ditt företag
+        Hitta rätt <span className="text-emerald-400">affärssystem</span>
       </>
     ),
-    subtitle: "Gör vår Affärssystem (ERP) Behovsanalys och få en personlig rekommendation",
+    subtitle: "Gör vår digitala ERP-behovsanalys och få en personlig rekommendation",
     ctaType: "link",
-    ctaText: "Gör din digitala Affärssystem (ERP) Behovsanalys här",
+    ctaText: "Starta behovsanalysen",
     ctaLink: "/behovsanalys",
     buttonColor: "bg-[hsl(var(--business-central))] hover:bg-[hsl(var(--business-central))]/90",
   },
@@ -73,9 +73,9 @@ const slides: HeroSlide[] = [
         Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
       </>
     ),
-    subtitle: "Gör vår digitala CRM Behovsanalys och upptäck vilka Dynamics 365 Applikationer som passar din verksamhet",
+    subtitle: "Gör vår CRM-behovsanalys och hitta rätt Dynamics 365-applikationer",
     ctaType: "link",
-    ctaText: "Gör din digitala CRM Behovsanalys här",
+    ctaText: "Starta CRM-analysen",
     ctaLink: "/crm-behovsanalys",
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
   },
