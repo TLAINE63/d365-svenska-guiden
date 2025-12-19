@@ -13,6 +13,13 @@ import fastigheterImg from "@/assets/industries/fastigheter.jpg";
 import serviceUnderhallImg from "@/assets/industries/service-underhall.jpg";
 import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
+import energiImg from "@/assets/industries/energi.jpg";
+import itTechImg from "@/assets/industries/it-tech.jpg";
+import lakemedelImg from "@/assets/industries/lakemedel-life-science.jpg";
+import livsmedelsImg from "@/assets/industries/livsmedel.jpg";
+import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.jpg";
+import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
+import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
 
 const featuredIndustries = [
   { name: "Tillverkning", image: tillverkningImg },
@@ -23,6 +30,13 @@ const featuredIndustries = [
   { name: "Service", image: serviceUnderhallImg },
   { name: "Konsult", image: konsultforetagImg },
   { name: "Detaljhandel", image: detaljhandelImg },
+  { name: "Energi", image: energiImg },
+  { name: "IT & Tech", image: itTechImg },
+  { name: "Life Science", image: lakemedelImg },
+  { name: "Livsmedel", image: livsmedelsImg },
+  { name: "Föreningar", image: medlemsorganisationerImg },
+  { name: "Miljö", image: miljoAtervinningImg },
+  { name: "Partihandel", image: partiAgenturhandelImg },
 ];
 
 interface HeroSlide {
@@ -166,14 +180,14 @@ const HeroCarousel = () => {
               </p>
               
               {/* Industries Grid */}
-              <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-8 gap-2 sm:gap-3 mb-4 sm:mb-5">
+              <div className="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-15 gap-1.5 sm:gap-2 mb-4 sm:mb-5">
                 {featuredIndustries.map((industry) => (
                   <Link
                     key={industry.name}
                     to="/branschlosningar"
-                    className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-3 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
+                    className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
                   >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden mb-1 sm:mb-2 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full overflow-hidden mb-1 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">
                       <img
                         src={industry.image}
                         alt={industry.name}
