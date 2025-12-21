@@ -30,7 +30,7 @@ const Navbar = () => {
   const crmSalesItems = [
     { label: "CRM Översikt", path: "/crm" },
     { label: "Dynamics 365 Sales", path: "/d365-sales" },
-    { label: "Dynamics 365 Marketing", path: "/d365-marketing" },
+    { label: "Dynamics 365 Customer Insights", path: "/d365-marketing" },
     { label: "Behovsanalys Sälj & Marknad", path: "/salj-marknad-behovsanalys" },
   ];
 
