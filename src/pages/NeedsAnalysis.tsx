@@ -118,6 +118,7 @@ const industryOptions = [
   "Handel (Retail & eCommerce)",
   "Grossist/Distribution",
   "Bank & Försäkring",
+  "Bygg & Entreprenad",
   "Hälso- & sjukvård",
   "Life Science",
   "Konsulttjänster",

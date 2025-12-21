@@ -9,7 +9,7 @@ import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
-import { partners, Partner } from "@/data/partners";
+import { partners, Partner, allIndustries } from "@/data/partners";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 // All available Dynamics 365 applications for filtering
@@ -24,25 +24,6 @@ const allApplications = [
   "Project Operations",
   "Commerce",
   "Human Resources"
-];
-
-// All available industries for filtering (synced with partners.ts)
-const allIndustries = [
-  "Tillverkningsindustrin",
-  "Handel (Retail & eCommerce)",
-  "Grossist/Distribution",
-  "Bank & Försäkring",
-  "Bygg & Entreprenad",
-  "Hälso- & sjukvård",
-  "Life Science",
-  "Konsulttjänster",
-  "Offentlig sektor",
-  "Energi & Utilities",
-  "Transport & Logistik",
-  "Fastigheter",
-  "Medlemsorganisationer",
-  "Utbildning",
-  "Nonprofit"
 ];
 
 // Company size filter options with mapping to partner data values
