@@ -140,8 +140,8 @@ const D365FieldService = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad innebär IoT-integration?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
@@ -149,8 +149,8 @@ const D365FieldService = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur fungerar mobilappen för fälttekniker?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
@@ -158,8 +158,8 @@ const D365FieldService = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Kan Field Service integreras med Customer Service?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
