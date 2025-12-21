@@ -233,8 +233,8 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
                     <span>Hur mycket kostar Dynamics 365 F&SCM – och vad påverkar priset?</span>
@@ -245,8 +245,8 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
                     <span>Hur lång tid tar det att implementera F&SCM – och hur ser processen ut?</span>
@@ -257,8 +257,8 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
                     <span>Hur flexibelt och anpassningsbart är F&SCM för vår verksamhet?</span>
@@ -269,8 +269,8 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-5" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
                     <span>Hur fungerar F&SCM med andra Microsoft-lösningar och tredjepartssystem?</span>
@@ -281,8 +281,8 @@ const FinanceSupplyChain = () => {
                 </AccordionContent>
               </AccordionItem>
               
-              <AccordionItem value="item-6" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-lg font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   <span className="flex items-start gap-3">
                     <span className="text-2xl">❓</span>
                     <span>Vilken partner borde passa vår verksamhet bäst?</span>

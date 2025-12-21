@@ -150,8 +150,8 @@ const D365Marketing = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-2" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur fungerar kundresor i Customer Insights?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
@@ -159,8 +159,8 @@ const D365Marketing = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-3" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Kan Customer Insights integreras med Dynamics 365 Sales?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
@@ -168,8 +168,8 @@ const D365Marketing = () => {
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-4" className="bg-card rounded-lg px-6 border border-border shadow-[var(--shadow-card)]">
-                <AccordionTrigger className="text-xl font-semibold text-card-foreground hover:no-underline py-6">
+              <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-[var(--shadow-card)]">
+                <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad är skillnaden på licenserna?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
