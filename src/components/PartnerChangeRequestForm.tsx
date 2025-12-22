@@ -117,6 +117,16 @@ const PartnerChangeRequestForm = ({
 
       if (error) throw error;
 
+      // Send email notification to admin (fire and forget)
+      supabase.functions.invoke("manage-change-requests", {
+        body: {
+          action: "notify-new",
+          partnerName,
+          requesterName: requesterName.trim(),
+          requesterEmail: requesterEmail.trim(),
+        },
+      }).catch(console.error);
+
       toast({
         title: "Ändringsförfrågan skickad",
         description: "Vi granskar dina ändringar och återkommer inom kort.",
