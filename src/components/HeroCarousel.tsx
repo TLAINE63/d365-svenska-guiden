@@ -59,7 +59,7 @@ const slides: HeroSlide[] = [
         Din guide inom <span className="whitespace-nowrap">Microsoft Dynamics 365</span>
       </>
     ),
-    subtitle: "Välj din bransch för att komma igång",
+    subtitle: "Välj den bransch du tillhör, så kan vi guida dig rätt",
     ctaType: "industries",
     ctaText: "Se alla branscher",
     ctaLink: "/branschlosningar",
