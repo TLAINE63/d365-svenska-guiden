@@ -44,6 +44,57 @@ export type Database = {
         }
         Relationships: []
       }
+      partners: {
+        Row: {
+          address: string | null
+          applications: string[] | null
+          created_at: string
+          description: string | null
+          email: string | null
+          id: string
+          industries: string[] | null
+          is_featured: boolean | null
+          logo_url: string | null
+          name: string
+          phone: string | null
+          slug: string
+          updated_at: string
+          website: string
+        }
+        Insert: {
+          address?: string | null
+          applications?: string[] | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          industries?: string[] | null
+          is_featured?: boolean | null
+          logo_url?: string | null
+          name: string
+          phone?: string | null
+          slug: string
+          updated_at?: string
+          website: string
+        }
+        Update: {
+          address?: string | null
+          applications?: string[] | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          id?: string
+          industries?: string[] | null
+          is_featured?: boolean | null
+          logo_url?: string | null
+          name?: string
+          phone?: string | null
+          slug?: string
+          updated_at?: string
+          website?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
