@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, CheckCircle, ExternalLink } from "lucide-react";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 
 interface Partner {
   name: string;
@@ -351,7 +351,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                     </div>
                     <Button asChild variant="default" className="w-full mt-3">
                       <a 
-                        href={partner.website} 
+                        href={buildPartnerUrl(partner.website, partner.name, { 
+                          application: selectedApps[0],
+                          industry: selectedIndustries[0]
+                        })} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         onClick={() => trackPartnerClick(partner.name, partner.website, "Partner Guide")}

@@ -12,7 +12,7 @@ import MarketingIcon from "@/assets/icons/Marketing.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { partners, crmApplications, allIndustries } from "@/data/partners";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -369,7 +369,10 @@ const CRM = () => {
                   <div className="mt-auto pt-4 border-t border-border/50">
                     <Button asChild variant="crm" className="w-full">
                       <a 
-                        href={partner.website} 
+                        href={buildPartnerUrl(partner.website, partner.name, { 
+                          application: 'CRM', 
+                          industry: selectedIndustry || undefined 
+                        })} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         onClick={() => trackPartnerClick(partner.name, partner.website, "CRM")}

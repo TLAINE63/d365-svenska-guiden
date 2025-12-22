@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { partners, Partner, crmApplications } from "@/data/partners";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import { ArrowLeft, ExternalLink, Building2, Briefcase, Users } from "lucide-react";
 
 // Industry images
@@ -275,7 +275,10 @@ const Branschlosningar = () => {
                     </div>
 
                     <a
-                      href={partner.website}
+                      href={buildPartnerUrl(partner.website, partner.name, { 
+                        application: selectedFilter, 
+                        industry: selectedIndustry?.name 
+                      })}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => handlePartnerClick(partner)}
