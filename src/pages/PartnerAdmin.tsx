@@ -9,7 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Lock, X } from "lucide-react";
+import { Plus, Pencil, Trash2, Lock, Upload } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import {
   usePartners,
   useCreatePartner,
@@ -39,11 +40,38 @@ const PartnerAdmin = () => {
   const [editingPartner, setEditingPartner] = useState<DatabasePartner | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [isImporting, setIsImporting] = useState(false);
 
-  const { data: partners = [], isLoading } = usePartners();
+  const { data: partners = [], isLoading, refetch } = usePartners();
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
+
+  const handleImportPartners = async () => {
+    setIsImporting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("import-partners", {
+        body: { password },
+      });
+
+      if (error) throw error;
+      if (data.error) throw new Error(data.error);
+
+      toast({
+        title: "Import klar",
+        description: `${data.imported} partners importerade, ${data.skipped} överhoppade`,
+      });
+      refetch();
+    } catch (error: any) {
+      toast({
+        title: "Fel vid import",
+        description: error.message || "Kunde inte importera partners",
+        variant: "destructive",
+      });
+    } finally {
+      setIsImporting(false);
+    }
+  };
 
   // Form state
   const [formData, setFormData] = useState<PartnerInput>({
@@ -213,15 +241,25 @@ const PartnerAdmin = () => {
       <Navbar />
 
       <div className="container mx-auto px-4 py-8 mt-16">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold">Partner-administration</h1>
             <p className="text-muted-foreground">Hantera partnerbeskrivningar och information</p>
           </div>
-          <Button onClick={openCreateDialog}>
-            <Plus className="mr-2 h-4 w-4" />
-            Lägg till partner
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              onClick={handleImportPartners}
+              disabled={isImporting}
+            >
+              <Upload className="mr-2 h-4 w-4" />
+              {isImporting ? "Importerar..." : "Importera partners"}
+            </Button>
+            <Button onClick={openCreateDialog}>
+              <Plus className="mr-2 h-4 w-4" />
+              Lägg till partner
+            </Button>
+          </div>
         </div>
 
         {isLoading ? (

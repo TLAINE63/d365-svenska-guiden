@@ -59,12 +59,9 @@ export function usePartner(slug: string | undefined) {
         .from("partners")
         .select("*")
         .eq("slug", slug)
-        .single();
+        .maybeSingle();
 
-      if (error) {
-        if (error.code === "PGRST116") return null; // Not found
-        throw error;
-      }
+      if (error) throw error;
       return data;
     },
     enabled: !!slug,
