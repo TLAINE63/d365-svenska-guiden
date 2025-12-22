@@ -420,9 +420,14 @@ const ValjPartner = () => {
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-t-lg opacity-70 group-hover:opacity-100 transition-opacity" />
                 
                 <CardHeader className="pb-2 pt-6">
-                  <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
-                    {partner.name}
-                  </CardTitle>
+                  <Link 
+                    to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    className="hover:text-primary transition-colors"
+                  >
+                    <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
+                      {partner.name}
+                    </CardTitle>
+                  </Link>
                 </CardHeader>
                 <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -462,7 +467,13 @@ const ValjPartner = () => {
                     </div>
                   </div>
 
-                  <div className="mt-auto pt-4 border-t border-border/50">
+                  <div className="mt-auto pt-4 border-t border-border/50 space-y-2">
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
+                        Läs mer
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
                     <Button asChild variant="amber" className="w-full">
                       <a 
                         href={buildPartnerUrl(partner.website, partner.name, { 
