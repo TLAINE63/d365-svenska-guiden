@@ -10,7 +10,7 @@ import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import { partners, Partner, allIndustries } from "@/data/partners";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 
 // All available Dynamics 365 applications for filtering
 const allApplications = [
@@ -465,7 +465,10 @@ const ValjPartner = () => {
                   <div className="mt-auto pt-4 border-t border-border/50">
                     <Button asChild variant="amber" className="w-full">
                       <a 
-                        href={partner.website} 
+                        href={buildPartnerUrl(partner.website, partner.name, { 
+                          application: selectedApplications[0], 
+                          industry: selectedIndustry || undefined 
+                        })} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         onClick={() => trackPartnerClick(partner.name, partner.website, "Välj Partner")}

@@ -13,7 +13,7 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { partners, allIndustries } from "@/data/partners";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -648,7 +648,10 @@ const BusinessCentral = () => {
                   <div className="mt-auto pt-4 border-t border-border/50">
                     <Button asChild variant="business-central" className="w-full">
                       <a 
-                        href={partner.website} 
+                        href={buildPartnerUrl(partner.website, partner.name, { 
+                          application: 'Business-Central', 
+                          industry: selectedIndustry || undefined 
+                        })} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         onClick={() => trackPartnerClick(partner.name, partner.website, "Business Central")}

@@ -13,7 +13,7 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { partners, allIndustries } from "@/data/partners";
-import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -700,7 +700,10 @@ const FinanceSupplyChain = () => {
                   <div className="mt-auto pt-4 border-t border-border/50">
                     <Button asChild variant="finance-supply" className="w-full">
                       <a 
-                        href={partner.website} 
+                        href={buildPartnerUrl(partner.website, partner.name, { 
+                          application: 'Finance-SCM', 
+                          industry: selectedIndustry || undefined 
+                        })} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         onClick={() => trackPartnerClick(partner.name, partner.website, "Finance & Supply Chain")}
