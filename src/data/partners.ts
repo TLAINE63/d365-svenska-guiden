@@ -119,7 +119,22 @@ export const partners: Partner[] = [
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
-    rankings: { bc: 6, fsc: 1, crm: 1 }
+    rankings: { bc: 6, fsc: 1, crm: 1 },
+    industryExpertise: [
+      {
+        industry: "Offentlig sektor",
+        description: "Djup förståelse för offentlig förvaltning med erfarenhet av kommuner, regioner och statliga myndigheter. Fokus på regelefterlevnad och transparens."
+      },
+      {
+        industry: "Hälso- & sjukvård",
+        description: "Specialistkompetens inom vårdsektorn med lösningar för patienthantering, journalsystem och integrationer mot befintliga vårdplattformar."
+      },
+      {
+        industry: "Bank & Försäkring",
+        application: "Finance & SCM",
+        description: "Expertis inom finanssektorn med fokus på compliance, riskhantering och automatiserade finansprocesser."
+      }
+    ]
   },
   {
     name: "NAB Solutions",
@@ -131,7 +146,22 @@ export const partners: Partner[] = [
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
     geography: "Sverige",
-    rankings: { bc: 1, crm: 1 }
+    rankings: { bc: 1, crm: 1 },
+    industryExpertise: [
+      {
+        industry: "Medlemsorganisationer",
+        description: "Specialiserade lösningar för föreningar och medlemsorganisationer med medlemshantering, avgiftshantering och eventplanering."
+      },
+      {
+        industry: "Nonprofit",
+        description: "Erfarenhet av ideella organisationer med fokus på bidragshantering, givardatabaser och projektredovisning."
+      },
+      {
+        industry: "Utbildning",
+        application: "Business Central",
+        description: "Lösningar för utbildningssektorn med kurshantering, deltagaradministration och ekonomistyrning."
+      }
+    ]
   },
   {
     name: "Navcite",
@@ -143,7 +173,19 @@ export const partners: Partner[] = [
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
-    rankings: { bc: 4 }
+    rankings: { bc: 4 },
+    industryExpertise: [
+      {
+        industry: "Tillverkningsindustrin",
+        application: "Business Central",
+        description: "Stark kompetens inom tillverkande företag med fokus på produktionsplanering och MRP."
+      },
+      {
+        industry: "Grossist/Distribution",
+        application: "Business Central",
+        description: "Optimerade lösningar för grossister med lagerhantering, inköpsoptimering och EDI-integrationer."
+      }
+    ]
   },
   {
     name: "Norteam",
@@ -155,7 +197,17 @@ export const partners: Partner[] = [
     companySize: ["1-49", "50-99", "100-249"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
     geography: "Sverige",
-    rankings: { bc: 3, crm: 5 }
+    rankings: { bc: 3, crm: 5 },
+    industryExpertise: [
+      {
+        industry: "Konsulttjänster",
+        description: "Expertis inom tjänsteföretag med fokus på projektredovisning, tidrapportering och resursplanering."
+      },
+      {
+        industry: "Handel (Retail & eCommerce)",
+        description: "Lösningar för handelsföretag med e-handelsintegrationer, kassasystem och omnikanal-strategier."
+      }
+    ]
   },
   // Finance & Supply Chain Partners (Paying)
   {
@@ -168,7 +220,23 @@ export const partners: Partner[] = [
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Europa",
-    rankings: { fsc: 1, crm: 2 }
+    rankings: { fsc: 1, crm: 2 },
+    industryExpertise: [
+      {
+        industry: "Tillverkningsindustrin",
+        application: "Finance & SCM",
+        description: "Internationell erfarenhet av komplex tillverkning med fokus på supply chain optimization, produktionsplanering och global utrullning."
+      },
+      {
+        industry: "Transport & Logistik",
+        application: "Finance & SCM",
+        description: "Specialiserade lösningar för transport och logistik med warehouse management, fleet management och ruttoptimering."
+      },
+      {
+        industry: "Handel (Retail & eCommerce)",
+        description: "Omnikanalslösningar för retail med POS-integration, e-handel och kundlojalitetsprogram."
+      }
+    ]
   },
   {
     name: "Implema",
@@ -180,7 +248,19 @@ export const partners: Partner[] = [
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
-    rankings: { fsc: 2, crm: 6 }
+    rankings: { fsc: 2, crm: 6 },
+    industryExpertise: [
+      {
+        industry: "Tillverkningsindustrin",
+        application: "Finance & SCM",
+        description: "Djup erfarenhet av tillverkningsindustrin med fokus på processtillverkning, diskret tillverkning och lean manufacturing."
+      },
+      {
+        industry: "Grossist/Distribution",
+        application: "Finance & SCM",
+        description: "Optimerade distributionslösningar med avancerad lagerhantering, inköpsoptimering och leverantörssamarbete."
+      }
+    ]
   },
   {
     name: "Innofactor",
@@ -192,7 +272,23 @@ export const partners: Partner[] = [
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
-    rankings: { fsc: 1, crm: 8 }
+    rankings: { fsc: 1, crm: 8 },
+    industryExpertise: [
+      {
+        industry: "Offentlig sektor",
+        application: "Finance & SCM",
+        description: "Ledande partner för offentlig sektor i Norden med lösningar för kommuner, regioner och statliga verk. Expertis inom upphandling och budgethantering."
+      },
+      {
+        industry: "Hälso- & sjukvård",
+        description: "Omfattande erfarenhet av vårdsektorn med fokus på patientflöden, resursoptimering och integration mot journalsystem."
+      },
+      {
+        industry: "Energi & Utilities",
+        application: "Finance & SCM",
+        description: "Specialistkompetens inom energisektorn med lösningar för asset management, nätplanering och regulatorisk rapportering."
+      }
+    ]
   },
   {
     name: "Nexer",
@@ -204,7 +300,23 @@ export const partners: Partner[] = [
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
-    rankings: { fsc: 2, crm: 3 }
+    rankings: { fsc: 2, crm: 3 },
+    industryExpertise: [
+      {
+        industry: "Tillverkningsindustrin",
+        application: "Finance & SCM",
+        description: "Global erfarenhet av tillverkningsföretag med fokus på internationella utrullningar och multi-site hantering."
+      },
+      {
+        industry: "Offentlig sektor",
+        description: "Stark närvaro inom offentlig sektor med förståelse för offentlig upphandling och compliance-krav."
+      },
+      {
+        industry: "Handel (Retail & eCommerce)",
+        application: "Sales",
+        description: "Omnikanalslösningar med fokus på kundupplevelse, personalisering och e-handelsintegration."
+      }
+    ]
   },
   // CRM Partners (Paying)
   {
@@ -217,7 +329,19 @@ export const partners: Partner[] = [
     companySize: ["1-49", "50-99", "100-249"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
     geography: "Sverige",
-    rankings: { crm: 5 }
+    rankings: { crm: 5 },
+    industryExpertise: [
+      {
+        industry: "Konsulttjänster",
+        application: "Sales",
+        description: "Expertis inom säljdrivna tjänsteföretag med fokus på pipeline-hantering, offertsystem och kundvård."
+      },
+      {
+        industry: "Offentlig sektor",
+        application: "Customer Service",
+        description: "Lösningar för medborgarservice med ärendehantering, självbetjäningsportaler och integration mot befintliga system."
+      }
+    ]
   },
   {
     name: "Nemely",
@@ -229,7 +353,19 @@ export const partners: Partner[] = [
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
-    rankings: { crm: 3 }
+    rankings: { crm: 3 },
+    industryExpertise: [
+      {
+        industry: "Handel (Retail & eCommerce)",
+        application: "Customer Insights (Marketing)",
+        description: "Stark kompetens inom retail-marknadsföring med fokus på kundresor, segmentering och personaliserade kampanjer."
+      },
+      {
+        industry: "Grossist/Distribution",
+        application: "Sales",
+        description: "Säljlösningar för grossister med B2B-kundportaler, prislistor och orderhantering."
+      }
+    ]
   },
   {
     name: "Releye",
@@ -241,7 +377,19 @@ export const partners: Partner[] = [
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
-    rankings: { crm: 5 }
+    rankings: { crm: 5 },
+    industryExpertise: [
+      {
+        industry: "Handel (Retail & eCommerce)",
+        application: "Sales",
+        description: "Omnikanalslösningar för handelsföretag med integration mot e-handel, kassasystem och lagerhantering."
+      },
+      {
+        industry: "Konsulttjänster",
+        application: "Project Operations",
+        description: "Lösningar för tjänsteföretag med projekthantering, resursplanering och tidrapportering."
+      }
+    ]
   },
   {
     name: "Sirocco Group",
@@ -253,7 +401,23 @@ export const partners: Partner[] = [
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
-    rankings: { crm: 1 }
+    rankings: { crm: 1 },
+    industryExpertise: [
+      {
+        industry: "Tillverkningsindustrin",
+        application: "Sales",
+        description: "CRM-lösningar för tillverkande företag med fokus på distributörshantering, konfigurationsbaserad försäljning och aftermarket."
+      },
+      {
+        industry: "Energi & Utilities",
+        application: "Customer Service",
+        description: "Kundservicelösningar för energibolag med ärendehantering, avbrottsrapportering och kundportaler."
+      },
+      {
+        industry: "Offentlig sektor",
+        description: "Digital transformation för offentlig sektor med medborgarengagemang och processautomatisering."
+      }
+    ]
   },
   {
     name: "Sopra Steria",
@@ -265,7 +429,23 @@ export const partners: Partner[] = [
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
     geography: "Europa",
-    rankings: { fsc: 2, crm: 1 }
+    rankings: { fsc: 2, crm: 1 },
+    industryExpertise: [
+      {
+        industry: "Offentlig sektor",
+        application: "Finance & SCM",
+        description: "Ledande europeisk partner för offentlig sektor med erfarenhet av stora nationella implementationer och digitala transformationsprogram."
+      },
+      {
+        industry: "Bank & Försäkring",
+        application: "Finance & SCM",
+        description: "Djup förståelse för finanssektorn med fokus på regulatorisk efterlevnad, riskhantering och digital kundupplevelse."
+      },
+      {
+        industry: "Energi & Utilities",
+        description: "Omfattande erfarenhet inom energisektorn med lösningar för smarta nät, kundhantering och hållbarhetsrapportering."
+      }
+    ]
   }
 ];
 
