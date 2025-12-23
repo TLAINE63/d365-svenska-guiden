@@ -1,20 +1,18 @@
-import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Globe, Mail, Phone, MapPin, ExternalLink, Building2, Pencil } from "lucide-react";
+import { ArrowLeft, Globe, Mail, Phone, MapPin, ExternalLink, Building2 } from "lucide-react";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import { Helmet } from "react-helmet";
-import PartnerChangeRequestForm from "@/components/PartnerChangeRequestForm";
+
 const PartnerProfile = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: dbPartner, isLoading } = usePartner(slug);
-  const [showChangeForm, setShowChangeForm] = useState(false);
   // Fallback to static data if not in database
   const staticPartner = staticPartners.find(
     (p) => p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === slug
@@ -248,22 +246,6 @@ const PartnerProfile = () => {
                 </CardContent>
               </Card>
 
-              <Card className="bg-primary/5 border-primary/20">
-                <CardContent className="pt-6">
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Representerar du {partner.name}? Föreslå uppdateringar till er profil.
-                  </p>
-                  <Button 
-                    variant="outline" 
-                    className="w-full"
-                    onClick={() => setShowChangeForm(!showChangeForm)}
-                  >
-                    <Pencil className="mr-2 h-4 w-4" />
-                    {showChangeForm ? "Dölj formulär" : "Uppdatera profil"}
-                  </Button>
-                </CardContent>
-              </Card>
-
               <Card className="bg-muted/30">
                 <CardContent className="pt-6">
                   <p className="text-sm text-muted-foreground mb-4">
@@ -278,27 +260,6 @@ const PartnerProfile = () => {
               </Card>
             </div>
           </div>
-
-          {/* Change Request Form */}
-          {showChangeForm && dbPartner && (
-            <div className="mt-12">
-              <PartnerChangeRequestForm
-                partnerId={dbPartner.id}
-                partnerName={partner.name}
-                currentData={{
-                  description: partner.description,
-                  logo_url: partner.logo_url,
-                  website: partner.website,
-                  email: partner.email,
-                  phone: partner.phone,
-                  address: partner.address,
-                  applications: partner.applications,
-                  industries: partner.industries,
-                }}
-                onSuccess={() => setShowChangeForm(false)}
-              />
-            </div>
-          )}
         </div>
       </section>
 
