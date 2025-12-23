@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink } from "lucide-react";
+import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
-import { partners, Partner, allIndustries } from "@/data/partners";
+import { partners, Partner, allIndustries, IndustryExpertise } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 
 // All available Dynamics 365 applications for filtering
@@ -114,6 +114,38 @@ const ValjPartner = () => {
     const fscRank = partner.rankings?.fsc ?? 999;
     const crmRank = partner.rankings?.crm ?? 999;
     return Math.min(bcRank, fscRank, crmRank);
+  };
+
+  // Helper to find matching industry expertise for a partner
+  const getMatchingExpertise = (partner: Partner): IndustryExpertise | null => {
+    if (!partner.industryExpertise || partner.industryExpertise.length === 0) return null;
+    
+    // First try to find exact match for both industry and application
+    if (selectedIndustry && selectedApplications.length > 0) {
+      const exactMatch = partner.industryExpertise.find(exp => 
+        exp.industry.toLowerCase().includes(selectedIndustry.toLowerCase()) &&
+        exp.application && selectedApplications.includes(exp.application)
+      );
+      if (exactMatch) return exactMatch;
+    }
+    
+    // Then try to find match for just industry
+    if (selectedIndustry) {
+      const industryMatch = partner.industryExpertise.find(exp => 
+        exp.industry.toLowerCase().includes(selectedIndustry.toLowerCase())
+      );
+      if (industryMatch) return industryMatch;
+    }
+    
+    // Then try to find match for just application
+    if (selectedApplications.length > 0) {
+      const appMatch = partner.industryExpertise.find(exp => 
+        exp.application && selectedApplications.includes(exp.application)
+      );
+      if (appMatch) return appMatch;
+    }
+    
+    return null;
   };
 
   // Filter and sort partners
@@ -430,6 +462,30 @@ const ValjPartner = () => {
                   </Link>
                 </CardHeader>
                 <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
+                  {/* Show industry expertise if matching filters */}
+                  {(() => {
+                    const expertise = getMatchingExpertise(partner);
+                    if (expertise && (selectedIndustry || selectedApplications.length > 0)) {
+                      return (
+                        <div className="bg-gradient-to-r from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/10 rounded-lg p-3 border border-amber-200 dark:border-amber-700/50">
+                          <div className="flex items-start gap-2">
+                            <Star className="h-4 w-4 text-amber-500 mt-0.5 shrink-0 fill-amber-500" />
+                            <div>
+                              <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1 uppercase tracking-wide">
+                                Branschexpertis: {expertise.industry}
+                                {expertise.application && ` • ${expertise.application}`}
+                              </p>
+                              <p className="text-sm text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
+                                {expertise.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
+
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {partner.description}
                   </p>
