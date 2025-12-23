@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, Lock, Upload, Check, X, Clock, Eye } from "lucide-react";
+import { PartnerCsvUpload } from "@/components/PartnerCsvUpload";
 import { supabase } from "@/integrations/supabase/client";
 import {
   usePartners,
@@ -294,14 +295,19 @@ const PartnerAdmin = () => {
             <h1 className="text-3xl font-bold">Partner-administration</h1>
             <p className="text-muted-foreground">Hantera partnerbeskrivningar och godkänn ändringar</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
+            <PartnerCsvUpload
+              password={password}
+              existingPartners={partners.map(p => ({ id: p.id, name: p.name, slug: p.slug }))}
+              onImportComplete={refetch}
+            />
             <Button 
               variant="outline" 
               onClick={handleImportPartners}
               disabled={isImporting}
             >
               <Upload className="mr-2 h-4 w-4" />
-              {isImporting ? "Importerar..." : "Importera partners"}
+              {isImporting ? "Importerar..." : "Importera statiska"}
             </Button>
             <Button onClick={openCreateDialog}>
               <Plus className="mr-2 h-4 w-4" />
