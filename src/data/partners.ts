@@ -1,3 +1,9 @@
+export interface IndustryExpertise {
+  industry: string;
+  application?: string; // Om tomt gäller det alla applikationer
+  description: string;
+}
+
 export interface Partner {
   name: string;
   logo: string;
@@ -13,6 +19,7 @@ export interface Partner {
     fsc?: number;
     crm?: number;
   };
+  industryExpertise?: IndustryExpertise[];
 }
 
 export const partners: Partner[] = [
@@ -27,7 +34,14 @@ export const partners: Partner[] = [
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
-    rankings: { bc: 1 }
+    rankings: { bc: 1 },
+    industryExpertise: [
+      {
+        industry: "Bygg & Entreprenad",
+        application: "Business Central",
+        description: "4PS har utvecklat en komplett branschlösning för bygg- och entreprenadföretag med projektstyrning, resursplanering och integrerad ekonomi. Över 20 års erfarenhet inom branschen."
+      }
+    ]
   },
   {
     name: "Bisqo",
@@ -39,7 +53,18 @@ export const partners: Partner[] = [
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
-    rankings: { bc: 3, crm: 1 }
+    rankings: { bc: 3, crm: 1 },
+    industryExpertise: [
+      {
+        industry: "Tillverkningsindustrin",
+        application: "Business Central",
+        description: "Bisqo har specialkompetens inom tillverkande företag med fokus på produktionsplanering, lagerhantering och kvalitetskontroll i Business Central."
+      },
+      {
+        industry: "Grossist/Distribution",
+        description: "Stark erfarenhet av distributions- och grossistföretag med optimerade flöden för inköp, lager och försäljning."
+      }
+    ]
   },
   {
     name: "InBiz",
@@ -51,7 +76,14 @@ export const partners: Partner[] = [
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
     geography: "Sverige",
-    rankings: { bc: 2 }
+    rankings: { bc: 2 },
+    industryExpertise: [
+      {
+        industry: "Tillverkningsindustrin",
+        application: "Business Central",
+        description: "Över 15 års erfarenhet av tillverkande företag med fokus på legotillverkning och diskret tillverkning."
+      }
+    ]
   },
   {
     name: "JMA Maskindata",
@@ -63,7 +95,19 @@ export const partners: Partner[] = [
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
-    rankings: { bc: 2 }
+    rankings: { bc: 2 },
+    industryExpertise: [
+      {
+        industry: "Bygg & Entreprenad",
+        application: "Business Central",
+        description: "Lång erfarenhet av maskinuthyrning och byggföretag med fokus på projektredovisning och maskinhantering."
+      },
+      {
+        industry: "Transport & Logistik",
+        application: "Business Central",
+        description: "Specialiserade lösningar för transport- och logistikföretag med spårbarhet och ruttoptimering."
+      }
+    ]
   },
   {
     name: "Knowit",
