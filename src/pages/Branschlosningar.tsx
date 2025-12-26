@@ -170,7 +170,7 @@ const Branschlosningar = () => {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
             {selectedIndustry 
               ? `Partners inom ${selectedIndustry.name} med ${getProductLabel()}-kompetens`
-              : "Hitta partners med branschkunskap inom Dynamics 365. Följ stegen nedan för att se vilka Microsoft-partners som har god verksamhetskunskap inom din bransch."
+              : "Hitta rätt partner för ditt Dynamics 365 projekt. Följ stegen nedan för att se vilka Microsoft-partners som har god verksamhetskunskap inom din bransch."
             }
           </p>
 
