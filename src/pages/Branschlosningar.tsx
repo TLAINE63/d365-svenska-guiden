@@ -24,7 +24,7 @@ import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.
 import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
 import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
 
-type ProductFilter = "bc" | "fsc" | "crm";
+type ProductFilter = "bc" | "fsc" | "crm" | null;
 
 interface Industry {
   name: string;
@@ -75,7 +75,7 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
 
 const Branschlosningar = () => {
   const navigate = useNavigate();
-  const [selectedFilter, setSelectedFilter] = useState<ProductFilter>("bc");
+  const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
 
   // Show all industries regardless of selected filter
@@ -140,6 +140,7 @@ const Branschlosningar = () => {
   }, [selectedFilter, selectedIndustry]);
 
   const handleIndustryClick = (industry: Industry) => {
+    if (!selectedFilter) return; // Must select a solution first
     setSelectedIndustry(industry);
   };
 
@@ -173,17 +174,29 @@ const Branschlosningar = () => {
             }
           </p>
 
-          {/* Step indicator - simplified since product is always selected */}
+          {/* Step indicator */}
           {!selectedIndustry && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-8">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-green-500 bg-green-500/10 text-green-600">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold bg-green-500 text-white">
-                  ✓
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 ${
+                selectedFilter 
+                  ? "border-green-500 bg-green-500/10 text-green-600" 
+                  : "border-amber-500 bg-amber-500/10 text-amber-600 font-medium"
+              }`}>
+                <span className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold text-white ${
+                  selectedFilter ? "bg-green-500" : "bg-amber-500"
+                }`}>
+                  {selectedFilter ? "✓" : "1"}
                 </span>
                 <span>Välj Dynamics 365-lösning</span>
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold bg-amber-500 text-white">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 ${
+                selectedFilter 
+                  ? "border-amber-500 bg-amber-500/10 text-amber-600 font-medium" 
+                  : "border-muted-foreground/30 bg-muted/30 text-muted-foreground"
+              }`}>
+                <span className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold ${
+                  selectedFilter ? "bg-amber-500 text-white" : "bg-muted-foreground/30 text-muted-foreground"
+                }`}>
                   2
                 </span>
                 <span>Välj bransch</span>
@@ -333,18 +346,25 @@ const Branschlosningar = () => {
                   <button
                     key={industry.slug}
                     onClick={() => handleIndustryClick(industry)}
-                    className="group flex flex-col bg-card border border-border rounded-lg overflow-hidden transition-all duration-200 text-left hover:border-primary hover:shadow-lg cursor-pointer"
+                    disabled={!selectedFilter}
+                    className={`group flex flex-col bg-card border border-border rounded-lg overflow-hidden transition-all duration-200 text-left ${
+                      selectedFilter 
+                        ? "hover:border-primary hover:shadow-lg cursor-pointer" 
+                        : "opacity-60 cursor-not-allowed"
+                    }`}
                   >
                     <div className="aspect-square overflow-hidden">
                       <img
                         src={industry.image}
                         alt={industry.name}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className={`w-full h-full object-cover transition-transform duration-300 ${selectedFilter ? "group-hover:scale-105" : ""}`}
                         loading="lazy"
                       />
                     </div>
                     <div className="p-3 text-center">
-                      <span className="text-sm font-medium transition-colors line-clamp-2 text-foreground group-hover:text-primary">
+                      <span className={`text-sm font-medium transition-colors line-clamp-2 ${
+                        selectedFilter ? "text-foreground group-hover:text-primary" : "text-muted-foreground"
+                      }`}>
                         {industry.name}
                       </span>
                     </div>
