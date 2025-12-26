@@ -78,7 +78,8 @@ const Branschlosningar = () => {
   const [selectedFilter, setSelectedFilter] = useState<ProductFilter>("bc");
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
 
-  const filteredIndustries = industries.filter((industry) => industry.products.includes(selectedFilter));
+  // Show all industries regardless of selected filter
+  const displayedIndustries = industries;
 
   // Filter partners based on selected product and industry
   const filteredPartners = useMemo(() => {
@@ -328,7 +329,7 @@ const Branschlosningar = () => {
           <section className="py-12 px-4">
             <div className="container mx-auto max-w-6xl">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {filteredIndustries.map((industry) => (
+                {displayedIndustries.map((industry) => (
                   <button
                     key={industry.slug}
                     onClick={() => handleIndustryClick(industry)}
@@ -351,9 +352,9 @@ const Branschlosningar = () => {
                 ))}
               </div>
 
-              {filteredIndustries.length === 0 && (
+              {displayedIndustries.length === 0 && (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">Inga branscher hittades för det valda filtret.</p>
+                  <p className="text-muted-foreground">Inga branscher hittades.</p>
                 </div>
               )}
             </div>
