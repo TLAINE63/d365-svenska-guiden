@@ -172,9 +172,43 @@ const Branschlosningar = () => {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
             {selectedIndustry 
               ? `Partners inom ${selectedIndustry.name} med ${getProductLabel()}-kompetens`
-              : "Välj ut en Dynamics 365 lösning nedan och därefter den bransch som du tillhör, för att se vilka Microsoftpartners som har god verksamhetskunskap inom denna bransch."
+              : "Hitta partners med branschkunskap inom Dynamics 365. Följ stegen nedan för att se vilka Microsoft-partners som har god verksamhetskunskap inom din bransch."
             }
           </p>
+
+          {/* Step indicators */}
+          {!selectedIndustry && (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-8">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 transition-all ${
+                selectedFilter === "all" 
+                  ? "border-amber-500 bg-amber-500/10 text-amber-600 font-medium" 
+                  : "border-green-500 bg-green-500/10 text-green-600"
+              }`}>
+                <span className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold ${
+                  selectedFilter === "all" 
+                    ? "bg-amber-500 text-white" 
+                    : "bg-green-500 text-white"
+                }`}>
+                  {selectedFilter === "all" ? "1" : "✓"}
+                </span>
+                <span>Välj Dynamics 365-lösning</span>
+              </div>
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 transition-all ${
+                selectedFilter === "all" 
+                  ? "border-muted text-muted-foreground" 
+                  : "border-amber-500 bg-amber-500/10 text-amber-600 font-medium"
+              }`}>
+                <span className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold ${
+                  selectedFilter === "all" 
+                    ? "bg-muted text-muted-foreground" 
+                    : "bg-amber-500 text-white"
+                }`}>
+                  2
+                </span>
+                <span>Välj bransch</span>
+              </div>
+            </div>
+          )}
           
           {/* Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
