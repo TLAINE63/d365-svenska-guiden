@@ -1,7 +1,27 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const ADMIN_PASSWORD = Deno.env.get("PARTNER_ADMIN_PASSWORD") || "d365admin2024";
+// Rate limiting for brute-force protection
+const adminRateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const ADMIN_RATE_LIMIT = 5; // Max attempts per window
+const ADMIN_RATE_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
+function isAdminRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const record = adminRateLimitMap.get(ip);
+  
+  if (!record || now > record.resetTime) {
+    adminRateLimitMap.set(ip, { count: 1, resetTime: now + ADMIN_RATE_WINDOW_MS });
+    return false;
+  }
+  
+  if (record.count >= ADMIN_RATE_LIMIT) {
+    return true;
+  }
+  
+  record.count++;
+  return false;
+}
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -36,12 +56,32 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Rate limiting check
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    
+    if (isAdminRateLimited(clientIp)) {
+      console.log(`Rate limited IP: ${clientIp}`);
+      return new Response(
+        JSON.stringify({ error: "För många inloggningsförsök. Försök igen om 5 minuter." }),
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     const body: RequestBody = await req.json();
     const { action, partner, id, password } = body;
 
-    // Validate password
+    // Validate password - require environment variable, no fallback
+    const ADMIN_PASSWORD = Deno.env.get("PARTNER_ADMIN_PASSWORD");
+    if (!ADMIN_PASSWORD) {
+      console.error("PARTNER_ADMIN_PASSWORD environment variable is not configured");
+      return new Response(
+        JSON.stringify({ error: "Serverfel: Autentisering ej konfigurerad" }),
+        { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    
     if (password !== ADMIN_PASSWORD) {
-      console.log("Invalid password attempt");
+      console.log(`Invalid password attempt from IP: ${clientIp}`);
       return new Response(
         JSON.stringify({ error: "Ogiltigt lösenord" }),
         { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
