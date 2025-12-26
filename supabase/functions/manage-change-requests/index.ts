@@ -1,6 +1,28 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
+// Rate limiting for brute-force protection
+const adminRateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const ADMIN_RATE_LIMIT = 5; // Max attempts per window
+const ADMIN_RATE_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+
+function isAdminRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const record = adminRateLimitMap.get(ip);
+  
+  if (!record || now > record.resetTime) {
+    adminRateLimitMap.set(ip, { count: 1, resetTime: now + ADMIN_RATE_WINDOW_MS });
+    return false;
+  }
+  
+  if (record.count >= ADMIN_RATE_LIMIT) {
+    return true;
+  }
+  
+  record.count++;
+  return false;
+}
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -53,12 +75,35 @@ serve(async (req) => {
   try {
     const { action, id, password, adminNotes, partnerName, requesterEmail, requesterName } = await req.json();
 
+    // Rate limiting check for admin actions (not for notify-new which is public)
+    if (action !== "notify-new") {
+      const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+      
+      if (isAdminRateLimited(clientIp)) {
+        console.log(`Rate limited IP: ${clientIp}`);
+        return new Response(
+          JSON.stringify({ error: "För många inloggningsförsök. Försök igen om 5 minuter." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+    }
+
     // Validate password for admin actions
     const adminPassword = Deno.env.get("PARTNER_ADMIN_PASSWORD");
     
     // Allow "notify-new" action without password (called from frontend after insert)
     if (action !== "notify-new") {
-      if (!adminPassword || password !== adminPassword) {
+      if (!adminPassword) {
+        console.error("PARTNER_ADMIN_PASSWORD environment variable is not configured");
+        return new Response(
+          JSON.stringify({ error: "Serverfel: Autentisering ej konfigurerad" }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      if (password !== adminPassword) {
+        const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+        console.log(`Invalid password attempt from IP: ${clientIp}`);
         return new Response(
           JSON.stringify({ error: "Felaktigt lösenord" }),
           { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
