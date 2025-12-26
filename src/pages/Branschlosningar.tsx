@@ -199,7 +199,7 @@ const Branschlosningar = () => {
                 }`}>
                   2
                 </span>
-                <span>Välj bransch</span>
+                <span>Välj bransch nedan</span>
               </div>
             </div>
           )}
