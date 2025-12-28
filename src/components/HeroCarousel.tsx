@@ -3,8 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import erpBehovsanalysPdf from "@/assets/diagnosis-report.png";
-import crmBehovsanalysPdf from "@/assets/crm-behovsanalys-pdf.png";
 import partnersHeroImg from "@/assets/partners-comparison-hero.png";
 
 // Industry images for first slide
@@ -82,7 +80,7 @@ const slides: HeroSlide[] = [
     ctaText: "Starta behovsanalysen",
     ctaLink: "/behovsanalys",
     buttonColor: "bg-[hsl(var(--business-central))] hover:bg-[hsl(var(--business-central))]/90",
-    heroImage: erpBehovsanalysPdf,
+    
   },
   {
     id: 3,
@@ -97,7 +95,7 @@ const slides: HeroSlide[] = [
     ctaText: "Starta CRM-analysen",
     ctaLink: "/crm-behovsanalys",
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
-    heroImage: crmBehovsanalysPdf,
+    
   },
   {
     id: 4,
