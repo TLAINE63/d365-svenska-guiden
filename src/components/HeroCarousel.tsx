@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PartnerComparisonHero from "@/components/PartnerComparisonHero";
-import ERPAnalysisHero from "@/components/ERPAnalysisHero";
-import CRMAnalysisHero from "@/components/CRMAnalysisHero";
 
 // Industry images for first slide
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -51,7 +49,7 @@ interface HeroSlide {
   ctaText: string;
   ctaLink?: string;
   buttonColor?: string;
-  customContent?: "erp" | "crm" | "partners" | boolean;
+  customContent?: boolean;
 }
 
 const slides: HeroSlide[] = [
@@ -71,6 +69,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: 2,
+    backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Hitta rätt <span className="text-emerald-400">affärssystem</span>
@@ -81,10 +80,10 @@ const slides: HeroSlide[] = [
     ctaText: "Starta behovsanalysen",
     ctaLink: "/behovsanalys",
     buttonColor: "bg-[hsl(var(--business-central))] hover:bg-[hsl(var(--business-central))]/90",
-    customContent: "erp",
   },
   {
     id: 3,
+    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
@@ -95,21 +94,20 @@ const slides: HeroSlide[] = [
     ctaText: "Starta CRM-analysen",
     ctaLink: "/crm-behovsanalys",
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
-    customContent: "crm",
   },
   {
     id: 4,
     title: (
       <>
-        Hitta din <span className="text-amber-400">rätta partner</span>
+        Hitta rätt <span className="text-amber-400">implementationspartner</span>
       </>
     ),
-    subtitle: "Utforska vår partnerkatalog och hitta rätt partner för ditt Dynamics 365-projekt",
+    subtitle: "Utforska vår partnerkatalog och hitta den perfekta partnern för ditt Dynamics 365-projekt",
     ctaType: "link",
     ctaText: "Utforska partners här",
     ctaLink: "/valj-partner",
     buttonColor: "bg-amber-500 hover:bg-amber-600",
-    customContent: "partners",
+    customContent: true,
   },
 ];
 
@@ -225,7 +223,7 @@ const HeroCarousel = () => {
               </Link>
             </div>
           ) : slide.customContent ? (
-            // Custom content slides (ERP analysis or Partner comparison)
+            // Partner slide with custom hero content
             <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center h-full">
               <div className="max-w-xl">
                 <h1
@@ -251,11 +249,9 @@ const HeroCarousel = () => {
                 </Link>
               </div>
               
-              {/* Custom hero content based on type */}
+              {/* Custom partner comparison hero with floating offers */}
               <div className="hidden lg:flex items-center justify-center animate-fade-in">
-                {slide.customContent === "erp" && <ERPAnalysisHero />}
-                {slide.customContent === "crm" && <CRMAnalysisHero />}
-                {slide.customContent === "partners" && <PartnerComparisonHero />}
+                <PartnerComparisonHero />
               </div>
             </div>
           ) : (

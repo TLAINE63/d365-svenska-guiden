@@ -35,22 +35,26 @@ const Index = () => {
       {/* Hero Carousel */}
       <HeroCarousel />
 
-      {/* Industry Knowledge Section */}
+      {/* Personal Introduction Video Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Välj en partner som förstår din bransch
+              Personlig Introduktion
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
-              En framgångsrik Dynamics 365-implementation kräver mer än teknisk kompetens. Din partner måste förstå de unika utmaningarna och möjligheterna i just din bransch – från regulatoriska krav och branschspecifika processer till best practices och vanliga fallgropar. Med rätt branschkunskap kan din partner leverera en lösning som verkligen stödjer ditt sätt att arbeta och skapar verkligt affärsvärde från dag ett.
+              Hej! Jag heter Thomas Laine och har arbetat med Microsoft Dynamics 365 i många år. Här vill jag ge dig en personlig introduktion till plattformen och vad den kan göra för dig och ditt företag.
             </p>
-            <Button asChild variant="outline" className="hover:bg-accent hover:text-accent-foreground">
-              <Link to="/branschlosningar" className="inline-flex items-center gap-2">
-                Utforska branschlösningar
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <VideoCard
+              title="Personlig Introduktion till Microsoft Dynamics 365"
+              description="Thomas Laine berättar om Dynamics 365 och hur det kan hjälpa ditt företag"
+              videoId=""
+            />
+            <p className="text-center text-sm text-muted-foreground mt-4 italic">
+              Lägg in ditt YouTube video-ID för att visa videon
+            </p>
           </div>
         </div>
       </section>
@@ -168,7 +172,7 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p className="italic mb-3">Att välja rätt partner är avgörande för ett lyckat projekt. Här är några viktiga faktorer:</p>
+                    <p className="italic mb-3">Att välja rätt implementationspartner är avgörande för ett lyckat projekt. Här är några viktiga faktorer:</p>
                     <p>• <strong>Branschkunskap:</strong> Välj en partner med erfarenhet från din bransch och som förstår dina specifika utmaningar</p>
                     <p>• <strong>Kompetens:</strong> Se till att partnern har certifierade konsulter inom de Dynamics 365-applikationer du behöver</p>
                     <p>• <strong>Storlek och kapacitet:</strong> En partner som matchar din företagsstorlek och kan växa med dina behov</p>
@@ -460,10 +464,10 @@ const Index = () => {
               </div>
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Vikten av rätt partner
+              Vikten av rätt implementationspartner
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
-              Att välja rätt partner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation.
+              Att välja rätt implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
               En bra partner förstår din bransch, har beprövad erfarenhet och blir en långsiktig samarbetspartner – 
               inte bara en leverantör. Fel val kan kosta tid, pengar och frustration, medan rätt partner kan vara 
               skillnaden mellan ett projekt som levererar verkligt affärsvärde och ett som aldrig når sin fulla potential.
