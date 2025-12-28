@@ -227,7 +227,7 @@ const ValjPartner = () => {
       <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2070" 
+            src={partnersComparisonImg} 
             alt="Teamwork and partnership selection" 
             className="w-full h-full object-cover"
           />
@@ -263,15 +263,6 @@ const ValjPartner = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            {/* Illustrative Image */}
-            <div className="mb-8 sm:mb-10 md:mb-12 rounded-xl overflow-hidden shadow-xl">
-              <img 
-                src={partnersComparisonImg} 
-                alt="Två personer jämför olika partnerofferter" 
-                className="w-full h-auto object-cover"
-              />
-            </div>
-            
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Fem viktiga frågor vid val av implementationspartner
