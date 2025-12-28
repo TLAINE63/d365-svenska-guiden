@@ -32,7 +32,7 @@ const ContactUs = () => {
                 Innan du bestämmer dig
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95">
-                Låt oss guida dig i valet av Dynamics 365 lösning och implementationspartner
+                Låt oss guida dig i valet av Dynamics 365 lösning och partner
               </p>
             </div>
           </div>
