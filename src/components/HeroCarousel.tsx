@@ -260,50 +260,48 @@ const HeroCarousel = () => {
               </div>
             </div>
           ) : (
-            // Other slides with regular layout
-            <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center">
-              <div className="max-w-3xl order-2 lg:order-1">
-                <h1
-                  key={currentSlide}
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-2 sm:mb-3 md:mb-6 animate-fade-in"
-                >
-                  {slide.title}
-                </h1>
-                <p
-                  key={`subtitle-${currentSlide}`}
-                  className="text-sm sm:text-base md:text-lg lg:text-2xl text-white/95 mb-3 sm:mb-4 md:mb-8 animate-fade-in"
-                >
-                  {slide.subtitle}
-                </p>
+            // Other slides with regular layout - vertical stacking
+            <div className="flex flex-col items-center text-center">
+              <h1
+                key={currentSlide}
+                className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-2 sm:mb-3 animate-fade-in"
+              >
+                {slide.title}
+              </h1>
+              <p
+                key={`subtitle-${currentSlide}`}
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 mb-3 sm:mb-4 animate-fade-in max-w-2xl"
+              >
+                {slide.subtitle}
+              </p>
 
-                {slide.ctaType === "contact" ? (
-                  <ContactFormDialog>
-                    <Button
-                      size="lg"
-                      className={`${slide.buttonColor} text-primary-foreground w-full sm:w-auto text-xs sm:text-sm md:text-lg h-10 sm:h-12 md:h-16 rounded-xl animate-fade-in`}
-                    >
-                      {slide.ctaText}
-                    </Button>
-                  </ContactFormDialog>
-                ) : (
-                  <Link to={slide.ctaLink || "/"}>
-                    <Button
-                      size="lg"
-                      className={`${slide.buttonColor} text-white w-full sm:w-auto text-xs sm:text-sm md:text-lg h-10 sm:h-12 md:h-16 rounded-xl animate-fade-in`}
-                    >
-                      {slide.ctaText}
-                    </Button>
-                  </Link>
-                )}
-              </div>
+              {slide.ctaType === "contact" ? (
+                <ContactFormDialog>
+                  <Button
+                    size="lg"
+                    className={`${slide.buttonColor} text-primary-foreground text-xs sm:text-sm md:text-lg h-10 sm:h-12 md:h-14 rounded-xl animate-fade-in`}
+                  >
+                    {slide.ctaText}
+                  </Button>
+                </ContactFormDialog>
+              ) : (
+                <Link to={slide.ctaLink || "/"}>
+                  <Button
+                    size="lg"
+                    className={`${slide.buttonColor} text-white text-xs sm:text-sm md:text-lg h-10 sm:h-12 md:h-14 rounded-xl animate-fade-in`}
+                  >
+                    {slide.ctaText}
+                  </Button>
+                </Link>
+              )}
               
-              {/* Hero image for slides with heroImage */}
+              {/* Hero image below the button */}
               {slide.heroImage && (
-                <div className="flex items-center justify-center animate-fade-in order-1 lg:order-2">
+                <div className="flex items-center justify-center animate-fade-in mt-4 sm:mt-6">
                   <img
                     src={slide.heroImage}
                     alt="Behovsanalys PDF"
-                    className="max-w-[140px] sm:max-w-[180px] md:max-w-xs lg:max-w-md w-full drop-shadow-2xl hover:scale-105 transition-transform duration-300 mix-blend-screen"
+                    className="max-h-[120px] sm:max-h-[160px] md:max-h-[200px] w-auto drop-shadow-2xl hover:scale-105 transition-transform duration-300 mix-blend-screen"
                   />
                 </div>
               )}
