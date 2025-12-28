@@ -107,7 +107,7 @@ const slides: HeroSlide[] = [
         Hitta rätt <span className="text-amber-400">partner</span>
       </>
     ),
-    subtitle: "Utforska vår partnerkatalog och hitta den perfekta partnern för ditt Dynamics 365-projekt",
+    subtitle: "Utforska vår partnerkatalog och hitta rätt partner för ditt Dynamics 365-projekt",
     ctaType: "link",
     ctaText: "Utforska partners här",
     ctaLink: "/valj-partner",
