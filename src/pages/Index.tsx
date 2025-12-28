@@ -35,29 +35,6 @@ const Index = () => {
       {/* Hero Carousel */}
       <HeroCarousel />
 
-      {/* Personal Introduction Video Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Personlig Introduktion
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
-              Hej! Jag heter Thomas Laine och har arbetat med Microsoft Dynamics 365 i många år. Här vill jag ge dig en personlig introduktion till plattformen och vad den kan göra för dig och ditt företag.
-            </p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <VideoCard
-              title="Personlig Introduktion till Microsoft Dynamics 365"
-              description="Thomas Laine berättar om Dynamics 365 och hur det kan hjälpa ditt företag"
-              videoId=""
-            />
-            <p className="text-center text-sm text-muted-foreground mt-4 italic">
-              Lägg in ditt YouTube video-ID för att visa videon
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Quick Links Section */}
       <section id="questions" className="py-12 sm:py-16 md:py-20 bg-muted/30">
