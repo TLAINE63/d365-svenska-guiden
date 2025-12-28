@@ -303,7 +303,7 @@ const HeroCarousel = () => {
                   <img
                     src={slide.heroImage}
                     alt="Behovsanalys PDF"
-                    className="max-w-[140px] sm:max-w-[180px] md:max-w-xs lg:max-w-md w-full drop-shadow-2xl hover:scale-105 transition-transform duration-300"
+                    className="max-w-[140px] sm:max-w-[180px] md:max-w-xs lg:max-w-md w-full drop-shadow-2xl hover:scale-105 transition-transform duration-300 mix-blend-screen"
                   />
                 </div>
               )}
