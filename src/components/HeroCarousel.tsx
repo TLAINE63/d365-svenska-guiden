@@ -166,37 +166,6 @@ const HeroCarousel = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
               
-              {/* Floating offer bubbles for partner slide - positioned on the right side only */}
-              {s.id === 4 && (
-                <div className="hidden md:block">
-                  <div className="absolute top-8 lg:top-12 right-4 lg:right-8 xl:right-16 bg-white rounded-xl shadow-xl p-3 animate-fade-in border border-gray-100 min-w-[140px] z-10">
-                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #1</div>
-                    <div className="text-base font-bold text-emerald-600 mb-2 text-left">850 000 kr</div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">X</div>
-                      <span className="text-xs text-gray-600 text-left">Partner X</span>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-32 lg:top-40 right-8 lg:right-16 xl:right-24 bg-white rounded-xl shadow-xl p-3 animate-fade-in border border-gray-100 min-w-[140px] z-10" style={{ animationDelay: "0.2s" }}>
-                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #2</div>
-                    <div className="text-base font-bold text-blue-600 mb-2 text-left">1 420 000 kr</div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Y</div>
-                      <span className="text-xs text-gray-600 text-left">Partner Y</span>
-                    </div>
-                  </div>
-
-                  <div className="absolute top-56 lg:top-64 right-4 lg:right-8 xl:right-16 bg-white rounded-xl shadow-xl p-3 animate-fade-in border border-gray-100 min-w-[140px] z-10" style={{ animationDelay: "0.4s" }}>
-                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #3</div>
-                    <div className="text-base font-bold text-amber-600 mb-2 text-left">680 000 kr</div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
-                      <span className="text-xs text-gray-600 text-left">Partner Z</span>
-                    </div>
-                  </div>
-                </div>
-              )}
             </>
           ) : null}
         </div>
@@ -256,6 +225,38 @@ const HeroCarousel = () => {
           ) : (
             // Other slides with regular layout - vertical stacking
             <div className="flex flex-col items-center text-center">
+              {/* Offer bubbles for partner slide - centered above heading */}
+              {slide.id === 4 && (
+                <div className="hidden md:flex justify-center gap-4 mb-4 animate-fade-in">
+                  <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]">
+                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #1</div>
+                    <div className="text-base font-bold text-emerald-600 mb-2 text-left">850 000 kr</div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">X</div>
+                      <span className="text-xs text-gray-600 text-left">Partner X</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]" style={{ animationDelay: "0.2s" }}>
+                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #2</div>
+                    <div className="text-base font-bold text-blue-600 mb-2 text-left">1 420 000 kr</div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Y</div>
+                      <span className="text-xs text-gray-600 text-left">Partner Y</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]" style={{ animationDelay: "0.4s" }}>
+                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #3</div>
+                    <div className="text-base font-bold text-amber-600 mb-2 text-left">680 000 kr</div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
+                      <span className="text-xs text-gray-600 text-left">Partner Z</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
               <h1
                 key={currentSlide}
                 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-2 sm:mb-3 animate-fade-in"
