@@ -166,39 +166,36 @@ const HeroCarousel = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
               
-              {/* Floating offer bubbles for partner slide */}
+              {/* Floating offer bubbles for partner slide - positioned on the right side only */}
               {s.id === 4 && (
-                <>
-                  <div className="absolute top-16 sm:top-20 md:top-24 right-8 sm:right-16 md:right-24 lg:right-32 bg-white rounded-xl shadow-xl p-3 sm:p-4 animate-fade-in border border-gray-100 min-w-[130px] sm:min-w-[150px] z-10">
-                    <div className="text-xs sm:text-sm font-bold text-gray-800 mb-1 text-left">Offert #1</div>
-                    <div className="text-base sm:text-lg font-bold text-emerald-600 mb-2 text-left">850 000 kr</div>
+                <div className="hidden md:block">
+                  <div className="absolute top-8 lg:top-12 right-4 lg:right-8 xl:right-16 bg-white rounded-xl shadow-xl p-3 animate-fade-in border border-gray-100 min-w-[140px] z-10">
+                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #1</div>
+                    <div className="text-base font-bold text-emerald-600 mb-2 text-left">850 000 kr</div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">A</div>
-                      <span className="text-xs text-gray-600 text-left">Partner A</span>
+                      <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">X</div>
+                      <span className="text-xs text-gray-600 text-left">Partner X</span>
                     </div>
-                    <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white border-r border-b border-gray-100 rotate-45 transform" />
                   </div>
 
-                  <div className="absolute top-32 sm:top-40 md:top-48 right-4 sm:right-8 md:right-12 lg:right-16 bg-white rounded-xl shadow-xl p-3 sm:p-4 animate-fade-in border border-gray-100 min-w-[130px] sm:min-w-[150px] z-10" style={{ animationDelay: "0.2s" }}>
-                    <div className="text-xs sm:text-sm font-bold text-gray-800 mb-1 text-left">Offert #2</div>
-                    <div className="text-base sm:text-lg font-bold text-blue-600 mb-2 text-left">920 000 kr</div>
+                  <div className="absolute top-32 lg:top-40 right-8 lg:right-16 xl:right-24 bg-white rounded-xl shadow-xl p-3 animate-fade-in border border-gray-100 min-w-[140px] z-10" style={{ animationDelay: "0.2s" }}>
+                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #2</div>
+                    <div className="text-base font-bold text-blue-600 mb-2 text-left">1 420 000 kr</div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">B</div>
-                      <span className="text-xs text-gray-600 text-left">Partner B</span>
+                      <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Y</div>
+                      <span className="text-xs text-gray-600 text-left">Partner Y</span>
                     </div>
-                    <div className="absolute -bottom-2 left-8 w-4 h-4 bg-white border-r border-b border-gray-100 rotate-45 transform" />
                   </div>
 
-                  <div className="absolute bottom-24 sm:bottom-28 md:bottom-32 right-12 sm:right-20 md:right-28 lg:right-40 bg-white rounded-xl shadow-xl p-3 sm:p-4 animate-fade-in border border-gray-100 min-w-[130px] sm:min-w-[150px] z-10" style={{ animationDelay: "0.4s" }}>
-                    <div className="text-xs sm:text-sm font-bold text-gray-800 mb-1 text-left">Offert #3</div>
-                    <div className="text-base sm:text-lg font-bold text-amber-600 mb-2 text-left">780 000 kr</div>
+                  <div className="absolute top-56 lg:top-64 right-4 lg:right-8 xl:right-16 bg-white rounded-xl shadow-xl p-3 animate-fade-in border border-gray-100 min-w-[140px] z-10" style={{ animationDelay: "0.4s" }}>
+                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #3</div>
+                    <div className="text-base font-bold text-amber-600 mb-2 text-left">680 000 kr</div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-amber-500 rounded-full flex items-center justify-center text-white text-xs font-bold">C</div>
-                      <span className="text-xs text-gray-600 text-left">Partner C</span>
+                      <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
+                      <span className="text-xs text-gray-600 text-left">Partner Z</span>
                     </div>
-                    <div className="absolute -top-2 left-8 w-4 h-4 bg-white border-l border-t border-gray-100 rotate-45 transform" />
                   </div>
-                </>
+                </div>
               )}
             </>
           ) : null}
