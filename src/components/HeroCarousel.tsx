@@ -293,11 +293,22 @@ const HeroCarousel = () => {
               {/* Hero image below the button */}
               {slide.heroImage && (
                 <div className="flex items-center justify-center animate-fade-in mt-4 sm:mt-6">
-                  <img
-                    src={slide.heroImage}
-                    alt="Behovsanalys PDF"
-                    className="max-h-[120px] sm:max-h-[160px] md:max-h-[200px] w-auto drop-shadow-2xl hover:scale-105 transition-transform duration-300 mix-blend-screen"
-                  />
+                  <div className="relative hover:scale-105 transition-transform duration-300">
+                    <img
+                      src={slide.heroImage}
+                      alt={slide.id === 2 ? "ERP Behovsanalys" : "CRM Behovsanalys"}
+                      className="max-h-[120px] sm:max-h-[160px] md:max-h-[200px] w-auto drop-shadow-2xl"
+                    />
+                    {/* Text overlay for folder images */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                      <span className="text-emerald-600 font-bold text-sm sm:text-lg md:text-xl drop-shadow-sm">
+                        {slide.id === 2 ? "ERP" : "CRM"}
+                      </span>
+                      <span className="text-gray-800 font-semibold text-xs sm:text-sm md:text-base drop-shadow-sm">
+                        Behovsanalys
+                      </span>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
