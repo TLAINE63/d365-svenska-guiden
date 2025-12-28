@@ -465,45 +465,6 @@ const Index = () => {
             </p>
           </div>
 
-          {/* Business Central Implementation */}
-          <div className="max-w-6xl mx-auto mb-10 sm:mb-12 md:mb-16">
-            <div className="text-center mb-6 sm:mb-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                Business Central
-              </h3>
-              <p className="text-sm sm:text-base text-muted-foreground">
-                Exempel på implementeringskostnader för mindre och medelstora företag
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
-                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
-                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Standarduppsättning med begränsade anpassningar</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">150 000 - 400 000 kr</div>
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• 2-4 månaders projekt</li>
-                  <li>• Standardprocesser och funktionalitet</li>
-                  <li>• Grundläggande utbildning</li>
-                  <li>• Datamigration från enklare system</li>
-                  <li>• Få eller inga integrationer</li>
-                  <li>• 5-20 användare</li>
-                </ul>
-              </div>
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
-                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
-                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Anpassad lösning med integrationer och komplexitet</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">500 000 - 1 500 000 kr</div>
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• 4-8 månaders projekt</li>
-                  <li>• Anpassade processer och workflows</li>
-                  <li>• Omfattande utbildning</li>
-                  <li>• Komplex datamigration</li>
-                  <li>• Flera systemintegrationer</li>
-                  <li>• 20-200 användare</li>
-                </ul>
-              </div>
-            </div>
-          </div>
 
           {/* Finance & Supply Chain Implementation */}
           <div className="max-w-6xl mx-auto mb-10 sm:mb-12 md:mb-16">
