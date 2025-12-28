@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PartnerComparisonHero from "@/components/PartnerComparisonHero";
+import erpBehovsanalysPdf from "@/assets/erp-behovsanalys-pdf.png";
 
 // Industry images for first slide
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -50,6 +51,7 @@ interface HeroSlide {
   ctaLink?: string;
   buttonColor?: string;
   customContent?: boolean;
+  heroImage?: string;
 }
 
 const slides: HeroSlide[] = [
@@ -80,6 +82,7 @@ const slides: HeroSlide[] = [
     ctaText: "Starta behovsanalysen",
     ctaLink: "/behovsanalys",
     buttonColor: "bg-[hsl(var(--business-central))] hover:bg-[hsl(var(--business-central))]/90",
+    heroImage: erpBehovsanalysPdf,
   },
   {
     id: 3,
@@ -291,6 +294,17 @@ const HeroCarousel = () => {
                   </Link>
                 )}
               </div>
+              
+              {/* Hero image for slides with heroImage */}
+              {slide.heroImage && (
+                <div className="hidden lg:flex items-center justify-center animate-fade-in">
+                  <img
+                    src={slide.heroImage}
+                    alt="ERP Behovsanalys PDF"
+                    className="max-w-md w-full drop-shadow-2xl hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              )}
             </div>
           )}
         </div>
