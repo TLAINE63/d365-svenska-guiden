@@ -519,72 +519,79 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
-      {/* Project Cost Section */}
-      <section id="project-cost" className="py-20 bg-secondary/50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Vad kostar ett Finance & Supply Chain-projekt?
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-6">
-                När man talar om implementering av Microsoft Dynamics 365 Finance & Supply Chain Management (ofta benämnt "F&SCM") och dess driftkostnad — utan att räkna med licenskostnader — så finns det ganska stora variationer beroende på omfattning och verksamhetens komplexitet. Här är en översikt med riktmärken och viktiga kostnadsdrivare.
-              </p>
-              
-              <div className="max-w-3xl mx-auto">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Exempel på faktorer som påverkar projektkostnaden:</h3>
-                <div className="bg-card/50 rounded-lg p-6 border border-border/50">
-                  <ul className="space-y-3 list-disc list-inside text-base text-card-foreground/90">
-                    <li>Antal användare / antal bolag / juridiska enheter</li>
-                    <li>Vilka funktioner som ska användas (finans, lager, inköp, produktion, service, distribution)</li>
-                    <li>Antal och komplexitet av integrationer med andra system (CRM, e-handel, WMS, TMS, legacy system)</li>
-                    <li>Behov av specialanpassningar (utöver standardfunktionalitet)</li>
-                    <li>Datamigration: hur många år, från hur många system, hur mycket rensning och konvertering krävs</li>
-                    <li>Geografisk spridning och olika regulatoriska krav per land</li>
-                    <li>Ändringshantering, utbildning, användaracceptans, projektledning</li>
-                  </ul>
-                </div>
+      {/* Implementation Costs Section */}
+      <section id="implementation" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+              Implementeringskostnader
+            </h2>
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
+              Kostnaderna för implementering varierar baserat på omfattning och komplexitet. Nedan följer exempel på projektkostnader för Dynamics 365 Finance & Supply Chain för att ge en känsla för omfattningen och tidsramen.
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">1 500 000 - 3 000 000 kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
+                  <li>• 6-9 månaders projekt</li>
+                  <li>• Standardprocesser med mindre anpassningar</li>
+                  <li>• Strukturerad utbildning</li>
+                  <li>• Datamigration och validering</li>
+                  <li>• Grundläggande integrationer</li>
+                  <li>• 50-200 användare</li>
+                </ul>
+              </div>
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Globala implementationer med hög komplexitet</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">3 000 000 - 10 000 000+ kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
+                  <li>• 9-18+ månaders projekt</li>
+                  <li>• Omfattande anpassningar och utveckling</li>
+                  <li>• Global rollout och change management</li>
+                  <li>• Komplex datamigration</li>
+                  <li>• Många systemintegrationer</li>
+                  <li>• 200-2000+ användare</li>
+                </ul>
               </div>
             </div>
-            
-            <div className="space-y-8">
-              {/* Implementation Costs */}
-              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl sm:text-2xl font-bold text-card-foreground mb-6">Implementeringskostnader</h3>
-                
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start pb-3 border-b border-border">
-                    <div>
-                      <p className="font-semibold text-card-foreground">Mindre omfattning</p>
-                      <p className="text-sm text-muted-foreground">En modul, 20-50 användare</p>
-                    </div>
-                    <p className="text-primary font-bold">2-4M</p>
-                  </div>
-                  
-                  <div className="flex justify-between items-start pb-3 border-b border-border">
-                    <div>
-                      <p className="font-semibold text-card-foreground">Medelstor implementation</p>
-                      <p className="text-sm text-muted-foreground">Finance + SCM, 50-200 användare</p>
-                    </div>
-                    <p className="text-primary font-bold">4-10M</p>
-                  </div>
-                  
-                  <div className="flex justify-between items-start pb-3">
-                    <div>
-                      <p className="font-semibold text-card-foreground">Global implementation</p>
-                      <p className="text-sm text-muted-foreground">Flera länder, 200+ användare</p>
-                    </div>
-                    <p className="text-primary font-bold">10-30M+</p>
-                  </div>
-                </div>
-                
-                <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
-                  <p className="text-sm text-muted-foreground">
-                    <strong>Inkluderar:</strong> Implementering, utbildning, datamigration, integrationer och omfattande projektledning. Räkna även med en viss förvaltningskostnad/supportavtal (här finns nästan lika många varianter som det finns konsultbolag), kontinuerlig användarutbildning, utbildning i nya versioner/uppdateringar samt eventuell vidareutveckling när verksamheten förändras.
-                  </p>
-                </div>
-              </div>
+          </div>
 
+          {/* Common Factors */}
+          <div className="max-w-4xl mx-auto mt-10 sm:mt-12 md:mt-16">
+            <div className="bg-card rounded-lg p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+              <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-4">Faktorer som påverkar kostnaden</h3>
+              <ul className="grid sm:grid-cols-2 gap-3 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  Antal användare och bolag/juridiska enheter
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  Vilka moduler som ska användas
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  Antal och komplexitet av integrationer
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  Behov av specialanpassningar
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  Datamigrering och konvertering
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  Geografisk spridning och regulatoriska krav
+                </li>
+              </ul>
             </div>
           </div>
         </div>
