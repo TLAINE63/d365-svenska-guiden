@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PartnerComparisonHero from "@/components/PartnerComparisonHero";
+import ERPAnalysisHero from "@/components/ERPAnalysisHero";
 
 // Industry images for first slide
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -49,7 +50,7 @@ interface HeroSlide {
   ctaText: string;
   ctaLink?: string;
   buttonColor?: string;
-  customContent?: boolean;
+  customContent?: "erp" | "partners" | boolean;
 }
 
 const slides: HeroSlide[] = [
@@ -69,7 +70,6 @@ const slides: HeroSlide[] = [
   },
   {
     id: 2,
-    backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Hitta rätt <span className="text-emerald-400">affärssystem</span>
@@ -80,6 +80,7 @@ const slides: HeroSlide[] = [
     ctaText: "Starta behovsanalysen",
     ctaLink: "/behovsanalys",
     buttonColor: "bg-[hsl(var(--business-central))] hover:bg-[hsl(var(--business-central))]/90",
+    customContent: "erp",
   },
   {
     id: 3,
@@ -107,7 +108,7 @@ const slides: HeroSlide[] = [
     ctaText: "Utforska partners här",
     ctaLink: "/valj-partner",
     buttonColor: "bg-amber-500 hover:bg-amber-600",
-    customContent: true,
+    customContent: "partners",
   },
 ];
 
@@ -223,7 +224,7 @@ const HeroCarousel = () => {
               </Link>
             </div>
           ) : slide.customContent ? (
-            // Partner slide with custom hero content
+            // Custom content slides (ERP analysis or Partner comparison)
             <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center h-full">
               <div className="max-w-xl">
                 <h1
@@ -249,9 +250,10 @@ const HeroCarousel = () => {
                 </Link>
               </div>
               
-              {/* Custom partner comparison hero with floating offers */}
+              {/* Custom hero content based on type */}
               <div className="hidden lg:flex items-center justify-center animate-fade-in">
-                <PartnerComparisonHero />
+                {slide.customContent === "erp" && <ERPAnalysisHero />}
+                {slide.customContent === "partners" && <PartnerComparisonHero />}
               </div>
             </div>
           ) : (
