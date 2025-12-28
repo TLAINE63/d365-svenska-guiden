@@ -466,45 +466,6 @@ const Index = () => {
           </div>
 
 
-          {/* Finance & Supply Chain Implementation */}
-          <div className="max-w-6xl mx-auto mb-10 sm:mb-12 md:mb-16">
-            <div className="text-center mb-6 sm:mb-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
-                Finance & Supply Chain Management
-              </h3>
-              <p className="text-sm sm:text-base text-muted-foreground">
-                Exempel på implementeringskostnader för medelstora till större organisationer
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
-                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
-                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Grundläggande uppsättning med standardfunktionalitet</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">1 500 000 - 3 000 000 kr</div>
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• 6-9 månaders projekt</li>
-                  <li>• Standardprocesser med mindre anpassningar</li>
-                  <li>• Strukturerad utbildning</li>
-                  <li>• Datamigration och validering</li>
-                  <li>• Grundläggande integrationer</li>
-                  <li>• 50-200 användare</li>
-                </ul>
-              </div>
-              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
-                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
-                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Globala implementationer med hög komplexitet</p>
-                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">3 000 000 - 10 000 000+ kr</div>
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• 9-18+ månaders projekt</li>
-                  <li>• Omfattande anpassningar och utveckling</li>
-                  <li>• Global rollout och change management</li>
-                  <li>• Komplex datamigration</li>
-                  <li>• Många systemintegrationer</li>
-                  <li>• 200-2000+ användare</li>
-                </ul>
-              </div>
-            </div>
-          </div>
 
           {/* CRM Implementation */}
           <div className="max-w-6xl mx-auto">
