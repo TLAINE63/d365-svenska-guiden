@@ -230,7 +230,7 @@ const HeroCarousel = () => {
                 <div className="hidden md:flex justify-center gap-4 mb-4 animate-fade-in">
                   <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]">
                     <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #1</div>
-                    <div className="text-base font-bold text-emerald-600 mb-2 text-left">850 000 kr</div>
+                    <div className="text-base font-bold text-emerald-600 mb-2 text-left">190 000 kr</div>
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">X</div>
                       <span className="text-xs text-gray-600 text-left">Partner X</span>
@@ -239,7 +239,7 @@ const HeroCarousel = () => {
 
                   <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]" style={{ animationDelay: "0.2s" }}>
                     <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #2</div>
-                    <div className="text-base font-bold text-blue-600 mb-2 text-left">1 420 000 kr</div>
+                    <div className="text-base font-bold text-blue-600 mb-2 text-left">475 000 kr</div>
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Y</div>
                       <span className="text-xs text-gray-600 text-left">Partner Y</span>
@@ -248,7 +248,7 @@ const HeroCarousel = () => {
 
                   <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]" style={{ animationDelay: "0.4s" }}>
                     <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #3</div>
-                    <div className="text-base font-bold text-amber-600 mb-2 text-left">680 000 kr</div>
+                    <div className="text-base font-bold text-amber-600 mb-2 text-left">725 000 kr</div>
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
                       <span className="text-xs text-gray-600 text-left">Partner Z</span>
