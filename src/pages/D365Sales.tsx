@@ -93,7 +93,7 @@ const D365Sales = () => {
                     size="lg"
                     className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka gratis rådgivning
+                    Boka en kostnadsfri rådgivning
                   </Button>
                 </ContactFormDialog>
                 <Button 
@@ -277,7 +277,7 @@ const D365Sales = () => {
               size="lg"
               className="bg-white text-crm hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
-              Boka gratis rådgivning
+              Boka en kostnadsfri rådgivning
             </Button>
           </ContactFormDialog>
         </div>

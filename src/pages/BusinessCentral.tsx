@@ -185,7 +185,7 @@ const BusinessCentral = () => {
                     size="lg"
                     className="bg-business-central hover:bg-business-central/90 text-business-central-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka gratis rådgivning
+                    Boka en kostnadsfri rådgivning
                   </Button>
                 </ContactFormDialog>
                 <Button 
