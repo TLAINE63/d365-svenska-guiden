@@ -445,29 +445,6 @@ const BusinessCentral = () => {
         </div>
       </section>
 
-      {/* License Pricing Video Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Licenspriser för Business Central
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
-              Förstå skillnaderna mellan Team Member, Essentials och Premium licenserna
-            </p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <VideoCard
-              title="Business Central Licenspriser Förklarade"
-              description="Vilken licens passar bäst för ditt företag?"
-              videoId=""
-            />
-            <p className="text-center text-sm text-muted-foreground mt-4 italic">
-              Lägg in ditt YouTube video-ID för att visa videon
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* Pricing Section */}
       <section id="pricing" className="py-12 sm:py-16 md:py-20 bg-background">
