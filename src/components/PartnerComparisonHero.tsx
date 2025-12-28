@@ -8,7 +8,7 @@ const PartnerComparisonHero = () => {
         <img
           src={partnersHeroImg}
           alt="Man och kvinna jämför offerter från Microsoft-partners"
-          className="max-h-[350px] sm:max-h-[400px] md:max-h-[450px] w-auto object-contain rounded-lg mix-blend-screen"
+          className="max-h-[350px] sm:max-h-[400px] md:max-h-[450px] w-auto object-contain rounded-lg"
         />
         
         {/* Floating offer bubbles */}
