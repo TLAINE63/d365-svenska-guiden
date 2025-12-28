@@ -425,67 +425,43 @@ const BusinessCentral = () => {
       </section>
 
       {/* Project Cost Section */}
-      <section id="project-cost" className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Vad kostar ett Business Central-projekt?
+      <section id="project-cost" className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-2">
+                Implementeringskostnader för Business Central
               </h2>
-              <div className="max-w-3xl mx-auto">
-                <p className="text-lg text-muted-foreground mb-6">
-                  Det skiljer väldigt mycket mellan olika typer av affärssystem (ERP)-projekt och för att få en uppfattning om en ungefärlig kostnad och vad som driver konsultbehov finns några saker som man kan tänka över:
-                </p>
-                <div className="bg-card/50 rounded-lg p-6 border border-border/50">
-                  <ul className="space-y-3 list-disc list-inside text-base text-card-foreground/90">
-                    <li>Hur många bolag/geografiska enheter som ska in (fler bolag = mer komplexitet)</li>
-                    <li>Hur många användare som ska använda systemet och deras roller</li>
-                    <li>Om ni behöver lagerhantering, produktion, service, flera integrationer (CRM, e-handel, WMS)</li>
-                    <li>Hur mycket data som ska migreras (antal år, många poster, många system)</li>
-                    <li>Anpassningar: skräddarsydd funktionalitet, rapporter, appar</li>
-                    <li>Tidsplan: ju snabbare leverans desto mer resurser krävs, vilket kan öka kostnaden</li>
-                    <li>Ändringshantering & utbildning: större förändring i processer kräver mer konsulttid</li>
-                  </ul>
-                </div>
-              </div>
+              <p className="text-sm sm:text-base text-muted-foreground">
+                Exempel på implementeringskostnader för mindre och medelstora företag
+              </p>
             </div>
-            
-            <div className="space-y-8">
-              {/* Implementation Costs */}
-              <div className="bg-card rounded-lg p-8 border border-border shadow-[var(--shadow-card)]">
-                <h3 className="text-xl sm:text-2xl font-bold text-card-foreground mb-6">Implementeringskostnader</h3>
-                
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start pb-3 border-b border-border">
-                    <div>
-                      <p className="font-semibold text-card-foreground">Grundimplementering</p>
-                      <p className="text-sm text-muted-foreground">Mer eller mindre "out of the box", men med partners erfarenhet inbyggt</p>
-                    </div>
-                    <p className="text-primary font-bold">Från 50 tkr</p>
-                  </div>
-                  
-                  <div className="flex justify-between items-start pb-3 border-b border-border">
-                    <div>
-                      <p className="font-semibold text-card-foreground">Mellanprojekt</p>
-                      <p className="text-sm text-muted-foreground">Mer avancerad order-lager-inköpshantering, någon integration samt några fler användare</p>
-                    </div>
-                    <p className="text-primary font-bold">150-300 tkr</p>
-                  </div>
-                  
-                  <div className="flex justify-between items-start pb-3">
-                    <div>
-                      <p className="font-semibold text-card-foreground">Komplext projekt</p>
-                      <p className="text-sm text-muted-foreground">Flera bolag, kanske produktion, många användare, specialanpassningar och flera integrationer</p>
-                    </div>
-                    <p className="text-primary font-bold">300-800 tkr eller mer</p>
-                  </div>
-                </div>
-                
-                <div className="mt-6 p-4 bg-secondary/30 rounded-lg">
-                  <p className="text-sm text-muted-foreground">
-                    Räkna även med en viss förvaltningskostnad/supportavtal (här finns nästan lika många varianter som det finns konsultbolag), kontinuerlig användarutbildning, utbildning i nya versioner/uppdateringar samt eventuell vidareutveckling när verksamheten förändras.
-                  </p>
-                </div>
+            <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mindre standardimplementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Standarduppsättning med begränsade anpassningar</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">150 000 - 400 000 kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
+                  <li>• 2-4 månaders projekt</li>
+                  <li>• Standardprocesser och funktionalitet</li>
+                  <li>• Grundläggande utbildning</li>
+                  <li>• Datamigration från enklare system</li>
+                  <li>• Få eller inga integrationer</li>
+                  <li>• 5-20 användare</li>
+                </ul>
+              </div>
+              <div className="bg-card rounded-lg shadow-[var(--shadow-card)] p-4 sm:p-6 md:p-8 border border-border">
+                <h4 className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground mb-3 sm:mb-4">Mer avancerade implementationer</h4>
+                <p className="text-sm text-muted-foreground mb-3 sm:mb-4">Anpassad lösning med integrationer och komplexitet</p>
+                <div className="text-lg sm:text-xl md:text-2xl font-bold text-primary mb-4 sm:mb-6">500 000 - 1 500 000 kr</div>
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
+                  <li>• 4-8 månaders projekt</li>
+                  <li>• Anpassade processer och workflows</li>
+                  <li>• Omfattande utbildning</li>
+                  <li>• Komplex datamigration</li>
+                  <li>• Flera systemintegrationer</li>
+                  <li>• 20-200 användare</li>
+                </ul>
               </div>
             </div>
           </div>
