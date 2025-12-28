@@ -202,7 +202,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
             {/* Business Central Card */}
             <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
               <div className="mb-4 sm:mb-6">
@@ -264,33 +264,62 @@ const Index = () => {
               </Button>
             </div>
 
-            {/* CRM/Customer Engagement Card */}
-            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300 sm:col-span-2 lg:col-span-1">
+            {/* Marknad & Sälj Card */}
+            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
               <div className="mb-4 sm:mb-6">
                 <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
                   <div className="flex gap-1">
                     <img src={SalesIcon} alt="Sales" className="h-8 w-8 sm:h-10 sm:w-10" />
-                    <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8 sm:h-10 sm:w-10" />
                     <img src={MarketingIcon} alt="Customer Insights" className="h-8 w-8 sm:h-10 sm:w-10" />
                   </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">CRM</h3>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Marknad & Sälj</h3>
                 </div>
                 <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-                  Sales, Customer Insights, Service
+                  Sales och Customer Insights
                 </p>
               </div>
               
               <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
                 <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
                   <li>• Öka försäljning och hantera leads</li>
-                  <li>• Förbättra kundservice och support</li>
                   <li>• Automatisera marknadsföring</li>
-                  <li>• Få 360° vy av dina kunder</li>
+                  <li>• AI-driven kundinsikt</li>
+                  <li>• Pipeline-hantering</li>
                 </ul>
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
                 <Link to="/crm">
+                  Läs mer
+                </Link>
+              </Button>
+            </div>
+
+            {/* Kundservice Card */}
+            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
+              <div className="mb-4 sm:mb-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
+                  <div className="flex gap-1">
+                    <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8 sm:h-10 sm:w-10" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Kundservice</h3>
+                </div>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                  Customer Service, Field Service, Contact Center
+                </p>
+              </div>
+              
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
+                  <li>• Förbättra kundservice och support</li>
+                  <li>• Fältservice och arbetsorder</li>
+                  <li>• Omnikanalskommunikation</li>
+                  <li>• AI-assisterad ärendehantering</li>
+                </ul>
+              </div>
+              
+              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
+                <Link to="/d365-customer-service">
                   Läs mer
                 </Link>
               </Button>
