@@ -212,8 +212,8 @@ const ERPOverview = () => {
               Första hjälpen
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Vår ERP-behovsanalys tar bara några minuter och ger dig en tydlig 
-              rekommendation baserad på ditt företags specifika förutsättningar.
+              Vår ERP-behovsanalys tar bara några minuter och ger dig en 
+              vägledning baserad på ditt företags specifika förutsättningar.
             </p>
             <Link to="/behovsanalys">
               <Button 
