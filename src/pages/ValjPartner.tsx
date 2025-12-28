@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
-import partnersComparisonImg from "@/assets/partners-comparison-confused.jpg";
+import partnersComparisonImg from "@/assets/partners-comparison-proposals.png";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import { partners, Partner, allIndustries, IndustryExpertise } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
