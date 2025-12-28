@@ -35,26 +35,22 @@ const Index = () => {
       {/* Hero Carousel */}
       <HeroCarousel />
 
-      {/* Personal Introduction Video Section */}
+      {/* Industry Knowledge Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center mb-6 sm:mb-8">
+          <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Personlig Introduktion
+              Välj en partner som förstår din bransch
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8">
-              Hej! Jag heter Thomas Laine och har arbetat med Microsoft Dynamics 365 i många år. Här vill jag ge dig en personlig introduktion till plattformen och vad den kan göra för dig och ditt företag.
+              En framgångsrik Dynamics 365-implementation kräver mer än teknisk kompetens. Din partner måste förstå de unika utmaningarna och möjligheterna i just din bransch – från regulatoriska krav och branschspecifika processer till best practices och vanliga fallgropar. Med rätt branschkunskap kan din partner leverera en lösning som verkligen stödjer ditt sätt att arbeta och skapar verkligt affärsvärde från dag ett.
             </p>
-          </div>
-          <div className="max-w-4xl mx-auto">
-            <VideoCard
-              title="Personlig Introduktion till Microsoft Dynamics 365"
-              description="Thomas Laine berättar om Dynamics 365 och hur det kan hjälpa ditt företag"
-              videoId=""
-            />
-            <p className="text-center text-sm text-muted-foreground mt-4 italic">
-              Lägg in ditt YouTube video-ID för att visa videon
-            </p>
+            <Button asChild variant="outline" className="hover:bg-accent hover:text-accent-foreground">
+              <Link to="/branschlosningar" className="inline-flex items-center gap-2">
+                Utforska branschlösningar
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
