@@ -5,6 +5,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PartnerComparisonHero from "@/components/PartnerComparisonHero";
 import ERPAnalysisHero from "@/components/ERPAnalysisHero";
+import CRMAnalysisHero from "@/components/CRMAnalysisHero";
 
 // Industry images for first slide
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -50,7 +51,7 @@ interface HeroSlide {
   ctaText: string;
   ctaLink?: string;
   buttonColor?: string;
-  customContent?: "erp" | "partners" | boolean;
+  customContent?: "erp" | "crm" | "partners" | boolean;
 }
 
 const slides: HeroSlide[] = [
@@ -84,7 +85,6 @@ const slides: HeroSlide[] = [
   },
   {
     id: 3,
-    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
@@ -95,6 +95,7 @@ const slides: HeroSlide[] = [
     ctaText: "Starta CRM-analysen",
     ctaLink: "/crm-behovsanalys",
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
+    customContent: "crm",
   },
   {
     id: 4,
@@ -253,6 +254,7 @@ const HeroCarousel = () => {
               {/* Custom hero content based on type */}
               <div className="hidden lg:flex items-center justify-center animate-fade-in">
                 {slide.customContent === "erp" && <ERPAnalysisHero />}
+                {slide.customContent === "crm" && <CRMAnalysisHero />}
                 {slide.customContent === "partners" && <PartnerComparisonHero />}
               </div>
             </div>
