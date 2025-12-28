@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import erpBehovsanalysPdf from "@/assets/erp-behovsanalys-pdf.png";
+import erpBehovsanalysPdf from "@/assets/diagnosis-report.png";
 import crmBehovsanalysPdf from "@/assets/crm-behovsanalys-pdf.png";
 import partnersHeroImg from "@/assets/partners-comparison-hero.png";
 
