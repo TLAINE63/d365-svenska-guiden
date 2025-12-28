@@ -99,7 +99,7 @@ const slides: HeroSlide[] = [
     id: 4,
     title: (
       <>
-        Hitta rätt <span className="text-amber-400">implementationspartner</span>
+        Hitta rätt <span className="text-amber-400">partner</span>
       </>
     ),
     subtitle: "Utforska vår partnerkatalog och hitta den perfekta partnern för ditt Dynamics 365-projekt",
