@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
+import partnersComparisonImg from "@/assets/partners-comparison-confused.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import { partners, Partner, allIndustries, IndustryExpertise } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
@@ -262,6 +263,15 @@ const ValjPartner = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
+            {/* Illustrative Image */}
+            <div className="mb-8 sm:mb-10 md:mb-12 rounded-xl overflow-hidden shadow-xl">
+              <img 
+                src={partnersComparisonImg} 
+                alt="Två personer jämför olika partnerofferter" 
+                className="w-full h-auto object-cover"
+              />
+            </div>
+            
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
                 Fem viktiga frågor vid val av implementationspartner
