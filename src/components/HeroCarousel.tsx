@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import PartnerComparisonHero from "@/components/PartnerComparisonHero";
 
 // Industry images for first slide
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -41,13 +42,14 @@ const featuredIndustries = [
 
 interface HeroSlide {
   id: number;
-  backgroundImage: string;
+  backgroundImage?: string;
   title: React.ReactNode;
   subtitle: string;
   ctaType: "contact" | "link" | "industries";
   ctaText: string;
   ctaLink?: string;
   buttonColor?: string;
+  customContent?: boolean;
 }
 
 const slides: HeroSlide[] = [
@@ -95,7 +97,6 @@ const slides: HeroSlide[] = [
   },
   {
     id: 4,
-    backgroundImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
         Hitta rätt <span className="text-amber-400">implementationspartner</span>
@@ -106,6 +107,7 @@ const slides: HeroSlide[] = [
     ctaText: "Utforska partners här",
     ctaLink: "/valj-partner",
     buttonColor: "bg-amber-500 hover:bg-amber-600",
+    customContent: true,
   },
 ];
 
@@ -137,7 +139,7 @@ const HeroCarousel = () => {
 
   return (
     <header className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]" style={{ contain: 'layout size', willChange: 'auto' }}>
-      {/* Background Images */}
+      {/* Background Images or Custom Content */}
       {slides.map((s, index) => (
         <div
           key={s.id}
@@ -146,17 +148,26 @@ const HeroCarousel = () => {
           }`}
           style={{ contain: 'strict' }}
         >
-          <img
-            src={s.backgroundImage}
-            alt=""
-            className="w-full h-full object-cover"
-            width="1600"
-            height="1067"
-            fetchPriority={index === 0 ? "high" : "low"}
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+          {s.customContent ? (
+            <>
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+            </>
+          ) : s.backgroundImage ? (
+            <>
+              <img
+                src={s.backgroundImage}
+                alt=""
+                className="w-full h-full object-cover"
+                width="1600"
+                height="1067"
+                fetchPriority={index === 0 ? "high" : "low"}
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+            </>
+          ) : null}
         </div>
       ))}
 
@@ -210,6 +221,38 @@ const HeroCarousel = () => {
                   {slide.ctaText}
                 </Button>
               </Link>
+            </div>
+          ) : slide.customContent ? (
+            // Partner slide with custom hero content
+            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center h-full">
+              <div className="max-w-xl">
+                <h1
+                  key={currentSlide}
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4 md:mb-6 animate-fade-in"
+                >
+                  {slide.title}
+                </h1>
+                <p
+                  key={`subtitle-${currentSlide}`}
+                  className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6 md:mb-8 animate-fade-in"
+                >
+                  {slide.subtitle}
+                </p>
+
+                <Link to={slide.ctaLink || "/"}>
+                  <Button
+                    size="lg"
+                    className={`${slide.buttonColor} text-white w-full sm:w-auto text-sm sm:text-base md:text-lg h-12 sm:h-14 md:h-16 rounded-xl animate-fade-in`}
+                  >
+                    {slide.ctaText}
+                  </Button>
+                </Link>
+              </div>
+              
+              {/* Custom partner comparison hero with floating offers */}
+              <div className="hidden lg:flex items-center justify-center animate-fade-in">
+                <PartnerComparisonHero />
+              </div>
             </div>
           ) : (
             // Other slides with regular layout
