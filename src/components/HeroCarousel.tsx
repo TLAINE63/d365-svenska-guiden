@@ -5,6 +5,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import PartnerComparisonHero from "@/components/PartnerComparisonHero";
 import erpBehovsanalysPdf from "@/assets/erp-behovsanalys-pdf.png";
+import crmBehovsanalysPdf from "@/assets/crm-behovsanalys-pdf.png";
 
 // Industry images for first slide
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -97,6 +98,7 @@ const slides: HeroSlide[] = [
     ctaText: "Starta CRM-analysen",
     ctaLink: "/crm-behovsanalys",
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
+    heroImage: crmBehovsanalysPdf,
   },
   {
     id: 4,
