@@ -856,7 +856,7 @@ const CRMNeedsAnalysis = () => {
     const nextStepsY = yPos + 20;
     pdf.text("1. Vi kontaktar er inom 1-2 arbetsdagar för att diskutera resultatet", margin + 8, nextStepsY);
     pdf.text("2. Gemensam genomgång av era CRM-behov och vår rekommendation", margin + 8, nextStepsY + 6);
-    pdf.text("3. Presentation av lämpliga implementationspartners", margin + 8, nextStepsY + 12);
+    pdf.text("3. Presentation av lämpliga partners", margin + 8, nextStepsY + 12);
     pdf.text("4. Detaljerad offert och projektplan vid fortsatt intresse", margin + 8, nextStepsY + 18);
     
     yPos += 55;
@@ -879,7 +879,7 @@ const CRMNeedsAnalysis = () => {
     pdf.setFont("helvetica", "normal");
     pdf.text("• Kontakta oss på Dynamic Factory för en kostnadsfri rådgivning", margin + 8, yPos + 20);
     pdf.text("• Besök vår partnerkatalog på dynamicfactory.se/valj-partner för att hitta rätt", margin + 8, yPos + 27);
-    pdf.text("  implementationspartner som matchar era CRM-behov", margin + 8, yPos + 33);
+    pdf.text("  partner som matchar era CRM-behov", margin + 8, yPos + 33);
     
     yPos += 45;
 
