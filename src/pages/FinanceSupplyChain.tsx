@@ -193,7 +193,7 @@ const FinanceSupplyChain = () => {
                     size="lg"
                     className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka gratis rådgivning
+                    Boka en kostnadsfri rådgivning
                   </Button>
                 </ContactFormDialog>
                 <Button 
