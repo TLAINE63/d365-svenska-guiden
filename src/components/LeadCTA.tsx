@@ -19,8 +19,10 @@ import { Send, CheckCircle, Filter } from "lucide-react";
 interface LeadCTAProps {
   sourcePage: string;
   selectedProduct?: string;
+  selectedProducts?: string[];
   selectedIndustry?: string;
   selectedCompanySize?: string;
+  selectedGeography?: string;
   variant?: "inline" | "card";
   title?: string;
   description?: string;
@@ -36,14 +38,16 @@ const companySizeOptions = [
 export const LeadCTA = ({
   sourcePage,
   selectedProduct,
+  selectedProducts,
   selectedIndustry,
   selectedCompanySize,
+  selectedGeography,
   variant = "card",
   title = "Få hjälp att hitta rätt partner",
   description = "Lämna dina kontaktuppgifter så hjälper vi dig att hitta den partner som passar bäst för dina behov.",
 }: LeadCTAProps) => {
   const { toast } = useToast();
-  const hasFilters = selectedProduct || selectedIndustry;
+  const hasFilters = selectedProduct || (selectedProducts && selectedProducts.length > 0) || selectedIndustry || selectedCompanySize || selectedGeography;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -213,7 +217,7 @@ export const LeadCTA = ({
         <p className="text-muted-foreground text-sm">{description}</p>
         
         {/* Display selected filters */}
-        {(selectedProduct || selectedIndustry) && (
+        {hasFilters && (
           <div className="mt-4 p-3 bg-background/50 rounded-lg border border-border/50">
             <div className="flex items-center gap-2 mb-2">
               <Filter className="h-4 w-4 text-muted-foreground" />
@@ -225,9 +229,24 @@ export const LeadCTA = ({
                   {selectedProduct}
                 </Badge>
               )}
+              {selectedProducts && selectedProducts.map(product => (
+                <Badge key={product} variant="secondary" className="text-xs">
+                  {product}
+                </Badge>
+              ))}
               {selectedIndustry && (
                 <Badge variant="outline" className="text-xs">
                   {selectedIndustry}
+                </Badge>
+              )}
+              {selectedCompanySize && (
+                <Badge variant="outline" className="text-xs bg-muted/50">
+                  {selectedCompanySize}
+                </Badge>
+              )}
+              {selectedGeography && (
+                <Badge variant="outline" className="text-xs bg-primary/10">
+                  {selectedGeography}
                 </Badge>
               )}
             </div>
