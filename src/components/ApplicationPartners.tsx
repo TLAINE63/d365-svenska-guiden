@@ -214,7 +214,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
               selectedProduct={applicationFilter}
               selectedIndustry={selectedIndustry || undefined}
               title="Låt oss hjälpa dig att hitta rätt partner"
-              description="Lämna dina uppgifter så matchar vi dig med de partners som passar dina behov och tar fram lämplig kontaktperson hos dessa partners."
+              description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
             />
           </div>
         )}
