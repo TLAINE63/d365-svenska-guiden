@@ -234,7 +234,7 @@ const BusinessCentral = () => {
                   ❓ Hur lång tid tar det att implementera Business Central?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  En typisk Business Central-implementering tar 3-6 månader beroende på komplexitet och omfattning. För mindre företag med standardprocesser kan det gå snabbare (2-3 månader), medan större projekt med omfattande anpassningar och integrationer kan ta 6-12 månader. Vi rekommenderar en fasad implementering där ni får grundfunktionaliteten först och sedan bygger på med mer avancerade funktioner.
+                  En typisk Business Central-implementering tar 3-6 månader beroende på komplexitet och omfattning. För mindre företag med standardprocesser kan det gå snabbare (2-3 månader), medan större projekt med omfattande anpassningar och integrationer kan ta 6-12 månader. Vissa rekommenderar en fasad implementering där ni får grundfunktionaliteten först och sedan bygger på med mer avancerade funktioner.
                 </AccordionContent>
               </AccordionItem>
 
