@@ -246,7 +246,7 @@ const HeroCarousel = () => {
 
                   <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]" style={{ animationDelay: "0.4s" }}>
                     <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #3</div>
-                    <div className="text-base font-bold text-amber-600 mb-2 text-left">725 000 kr</div>
+                    <div className="text-base font-bold text-amber-600 mb-2 text-left">450 000 kr</div>
                     <div className="flex items-center gap-2">
                       <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
                       <span className="text-xs text-gray-600 text-left">Partner Z</span>
