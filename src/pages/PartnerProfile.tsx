@@ -140,17 +140,6 @@ const PartnerProfile = () => {
                 {partner.description}
               </p>
 
-              <a
-                href={partnerUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={handleWebsiteClick}
-              >
-                <Button size="lg" className="gap-2">
-                  Besök hemsida
-                  <ExternalLink className="h-4 w-4" />
-                </Button>
-              </a>
             </div>
           </div>
         </div>

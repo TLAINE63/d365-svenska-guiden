@@ -171,19 +171,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
                   </div>
                 </div>
 
-                <div className="mt-auto pt-4 border-t border-border/50">
-                  <Button asChild variant="crm" className="w-full">
-                    <a 
-                      href={partner.website} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      onClick={() => trackPartnerClick(partner.name, partner.website, pageSource)}
-                    >
-                      Besök hemsida
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
-                  </Button>
-                </div>
               </CardContent>
             </Card>
           ))}

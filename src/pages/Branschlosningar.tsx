@@ -309,19 +309,6 @@ const Branschlosningar = () => {
                       </div>
                     </div>
 
-                    <a
-                      href={buildPartnerUrl(partner.website, partner.name, { 
-                        application: selectedFilter, 
-                        industry: selectedIndustry?.name 
-                      })}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => handlePartnerClick(partner)}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-                    >
-                      Besök hemsida
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
                   </div>
                 ))}
               </div>
