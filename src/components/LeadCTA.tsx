@@ -43,7 +43,7 @@ export const LeadCTA = ({
   description = "Lämna dina kontaktuppgifter så hjälper vi dig att hitta den partner som passar bäst för dina behov.",
 }: LeadCTAProps) => {
   const { toast } = useToast();
-  const hasFilters = selectedProduct || selectedIndustry || selectedCompanySize;
+  const hasFilters = selectedProduct || selectedIndustry;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -231,7 +231,7 @@ export const LeadCTA = ({
         <p className="text-muted-foreground text-sm">{description}</p>
         
         {/* Display selected filters */}
-        {hasFilters && (
+        {(selectedProduct || selectedIndustry) && (
           <div className="mt-4 p-3 bg-background/50 rounded-lg border border-border/50">
             <div className="flex items-center gap-2 mb-2">
               <Filter className="h-4 w-4 text-muted-foreground" />
@@ -246,11 +246,6 @@ export const LeadCTA = ({
               {selectedIndustry && (
                 <Badge variant="outline" className="text-xs">
                   {selectedIndustry}
-                </Badge>
-              )}
-              {selectedCompanySize && (
-                <Badge variant="outline" className="text-xs bg-secondary/50">
-                  {selectedCompanySize}
                 </Badge>
               )}
             </div>
