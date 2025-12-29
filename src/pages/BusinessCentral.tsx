@@ -216,7 +216,7 @@ const BusinessCentral = () => {
                   ❓ Vad kostar Business Central – och vad påverkar priset?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Business Central har tre licensnivåer: Team Member (88,40 kr/månad), Essentials (884,10 kr/månad) och Premium (1 215,60 kr/månad). Priset påverkas av antal användare, vilka funktioner ni behöver, och om ni väljer molnbaserad eller on-premise-lösning. Till licensavgifterna tillkommer implementeringskostnader som varierar beroende på omfattning och anpassningsbehov.
+                  Business Central har i praktiken två typer av användare. Antingen är man en "vanlig" användare, med tillgång till allt (styrs sedan mer detaljerat av behörighetsroller) eller så finns det även en enklare användare som kallas Team Member, där man kan utföra mer begränsade arbetsuppgifter. Den "vanliga" användaren finns i två varianter: Essentials och Premium. Med Premium får man allt i Essentials plus funktionerna inom tillverkning och serviceorderhantering. Mer detaljer om detta finns att läsa om i Microsofts licensguide för Dynamics 365. Licenspriserna, eller mer korrekt prenumerationspriset är för Team Member (88,40 kr/månad), Essentials (884,10 kr/månad) och Premium (1 215,60 kr/månad). Till detta tillkommer självklart implementeringskostnader som varierar beroende på omfattning, integrationer och anpassningsbehov.
                 </AccordionContent>
               </AccordionItem>
 
