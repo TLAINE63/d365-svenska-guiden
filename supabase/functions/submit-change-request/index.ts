@@ -1,10 +1,24 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+// Get allowed origins for CORS
+const ALLOWED_ORIGINS = [
+  "https://d365-svenska-guiden.lovable.app",
+  "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
+  "http://localhost:5173",
+  "http://localhost:8080",
+];
+
+function getCorsHeaders(req: Request): Record<string, string> {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Credentials": "true",
+  };
+}
 
 // Rate limiting
 const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
@@ -87,6 +101,8 @@ interface ChangeRequestBody {
 }
 
 serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
+  
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -287,6 +303,7 @@ serve(async (req) => {
     );
   } catch (error: any) {
     console.error("Error in submit-change-request:", error);
+    const corsHeaders = getCorsHeaders(req);
     return new Response(
       JSON.stringify({ error: "Ett oväntat fel uppstod" }),
       { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
