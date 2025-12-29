@@ -410,7 +410,7 @@ const BusinessCentral = () => {
                 Implementeringskostnader för Business Central
               </h2>
               <p className="text-sm sm:text-base text-muted-foreground">
-                Exempel på implementeringskostnader för mindre och medelstora företag
+                Nedan följer ett par exempel på Business Centralprojekt, mer för att du skall få en generell uppfattning. Beroende på bransch, företagsstorlek, anpassningar, integrationer m.m. så kan det skilja mycket. Det kan även skilja en del mellan olika implementationspartners beroende på erfarenhet, färdiga paketeringar osv. Testa gärna under "Välj Partner" eller gå in under menyn "Branschlösningar" för att få lite tips om partners.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
