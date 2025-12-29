@@ -11,3 +11,9 @@ verify_jwt = false
 
 [functions.submit-change-request]
 verify_jwt = false
+
+[functions.submit-lead]
+verify_jwt = false
+
+[functions.manage-leads]
+verify_jwt = false

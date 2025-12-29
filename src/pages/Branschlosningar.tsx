@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { partners, Partner, crmApplications } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
+import LeadCTA from "@/components/LeadCTA";
 
 // Industry images
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -386,21 +387,15 @@ const Branschlosningar = () => {
             </div>
           </section>
 
-          {/* CTA Section */}
+          {/* Lead CTA Section */}
           <section className="py-16 px-4 bg-muted/30">
-            <div className="container mx-auto max-w-4xl text-center">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
-                Hittar du inte din bransch?
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                Kontakta oss så hjälper vi dig att hitta rätt lösning och partner för just din verksamhet.
-              </p>
-              <Link
-                to="/kontakt"
-                className="inline-flex items-center justify-center px-6 py-3 bg-amber-500 text-white rounded-lg font-medium hover:bg-amber-600 transition-colors"
-              >
-                Kontakta oss
-              </Link>
+            <div className="container mx-auto max-w-xl">
+              <LeadCTA
+                sourcePage="/branschlosningar"
+                selectedProduct={selectedFilter || undefined}
+                title="Behöver du hjälp att hitta rätt partner?"
+                description="Lämna dina uppgifter så matchar vi dig med partners som passar din bransch och behov."
+              />
             </div>
           </section>
         </>

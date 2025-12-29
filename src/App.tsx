@@ -30,6 +30,7 @@ const D365FieldService = lazy(() => import("./pages/D365FieldService"));
 const D365ContactCenter = lazy(() => import("./pages/D365ContactCenter"));
 const PartnerProfile = lazy(() => import("./pages/PartnerProfile"));
 const PartnerAdmin = lazy(() => import("./pages/PartnerAdmin"));
+const LeadAdmin = lazy(() => import("./pages/LeadAdmin"));
 
 const queryClient = new QueryClient();
 
@@ -72,6 +73,7 @@ const App = () => (
             <Route path="/d365-contact-center" element={<D365ContactCenter />} />
             <Route path="/partner/:slug" element={<PartnerProfile />} />
             <Route path="/partner-admin" element={<PartnerAdmin />} />
+            <Route path="/lead-admin" element={<LeadAdmin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      leads: {
+        Row: {
+          admin_notes: string | null
+          assigned_partners: string[] | null
+          company_name: string
+          company_size: string | null
+          contact_name: string
+          created_at: string
+          email: string
+          forwarded_at: string | null
+          id: string
+          industry: string | null
+          message: string | null
+          phone: string | null
+          selected_product: string | null
+          source_page: string | null
+          source_type: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          assigned_partners?: string[] | null
+          company_name: string
+          company_size?: string | null
+          contact_name: string
+          created_at?: string
+          email: string
+          forwarded_at?: string | null
+          id?: string
+          industry?: string | null
+          message?: string | null
+          phone?: string | null
+          selected_product?: string | null
+          source_page?: string | null
+          source_type?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          assigned_partners?: string[] | null
+          company_name?: string
+          company_size?: string | null
+          contact_name?: string
+          created_at?: string
+          email?: string
+          forwarded_at?: string | null
+          id?: string
+          industry?: string | null
+          message?: string | null
+          phone?: string | null
+          selected_product?: string | null
+          source_page?: string | null
+          source_type?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partner_change_requests: {
         Row: {
           admin_notes: string | null
