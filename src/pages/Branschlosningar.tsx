@@ -349,7 +349,7 @@ const Branschlosningar = () => {
                 selectedProduct={getProductLabel() || undefined}
                 selectedIndustry={selectedIndustry?.name}
                 title="Låt oss hjälpa dig att hitta rätt partner"
-                description="Lämna dina uppgifter så matchar vi dig med partners som passar din bransch och behov."
+                description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
               />
             </div>
           </div>
@@ -404,8 +404,8 @@ const Branschlosningar = () => {
               <LeadCTA
                 sourcePage="/branschlosningar"
                 selectedProduct={selectedFilter || undefined}
-                title="Behöver du hjälp att hitta rätt partner?"
-                description="Lämna dina uppgifter så matchar vi dig med partners som passar din bransch och behov."
+                title="Låt oss hjälpa dig att hitta rätt partner"
+                description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
               />
             </div>
           </section>
