@@ -341,6 +341,17 @@ const Branschlosningar = () => {
                 </Button>
               </div>
             )}
+
+            {/* Lead CTA - shows after partner list */}
+            <div className="max-w-xl mx-auto mt-12">
+              <LeadCTA
+                sourcePage="/branschlosningar"
+                selectedProduct={getProductLabel() || undefined}
+                selectedIndustry={selectedIndustry?.name}
+                title="Behöver du hjälp att välja rätt partner?"
+                description="Lämna dina uppgifter så matchar vi dig med partners som passar din bransch och behov."
+              />
+            </div>
           </div>
         </section>
       ) : (
