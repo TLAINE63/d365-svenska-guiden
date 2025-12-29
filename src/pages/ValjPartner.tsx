@@ -560,7 +560,7 @@ const ValjPartner = () => {
                 sourcePage="/valj-partner"
                 selectedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
                 selectedIndustry={selectedIndustry || undefined}
-                title="Behöver du hjälp att välja rätt partner?"
+                title="Låt oss hjälpa dig att hitta rätt partner"
                 description="Lämna dina uppgifter så matchar vi dig med de partners som passar dina behov och tar fram lämplig kontaktperson hos dessa partners."
               />
             </div>

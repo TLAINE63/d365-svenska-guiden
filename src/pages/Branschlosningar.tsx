@@ -348,7 +348,7 @@ const Branschlosningar = () => {
                 sourcePage="/branschlosningar"
                 selectedProduct={getProductLabel() || undefined}
                 selectedIndustry={selectedIndustry?.name}
-                title="Behöver du hjälp att välja rätt partner?"
+                title="Låt oss hjälpa dig att hitta rätt partner"
                 description="Lämna dina uppgifter så matchar vi dig med partners som passar din bransch och behov."
               />
             </div>
