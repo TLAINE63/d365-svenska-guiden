@@ -648,17 +648,6 @@ const FinanceSupplyChain = () => {
                     </div>
                   </div>
 
-                  <div className="bg-secondary/50 rounded-lg p-3 border border-border/50">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Företagsstorlek</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {partner.companySize.map((size, i) => (
-                        <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/20 text-foreground font-medium">
-                          {size}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
                 </CardContent>
               </Card>
             ))}

@@ -515,17 +515,6 @@ const ValjPartner = () => {
                     </div>
                   </div>
 
-                  <div className="bg-secondary/50 rounded-lg p-3 border border-border/50">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Inriktade på företagsstorlek</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {getCompanySizeCategories(partner.companySize).map((category, i) => (
-                        <Badge key={i} variant="outline" className="text-xs bg-secondary border-primary/20 text-foreground font-medium">
-                          {category}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
                   <div className="mt-auto pt-4 border-t border-border/50">
                     <Button asChild variant="outline" className="w-full">
                       <Link to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
