@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.track-partner-click]
 verify_jwt = false
+
+[functions.submit-change-request]
+verify_jwt = false
