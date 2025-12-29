@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
+import LeadCTA from "@/components/LeadCTA";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
@@ -386,6 +387,19 @@ const CRM = () => {
               </Card>
             ))}
           </div>
+
+          {/* Lead CTA - shows when partners are filtered */}
+          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
+            <div className="max-w-xl mx-auto mt-12">
+              <LeadCTA
+                sourcePage="/crm"
+                selectedProduct="CRM"
+                selectedIndustry={selectedIndustry || undefined}
+                title="Behöver du hjälp att välja rätt CRM-partner?"
+                description="Lämna dina uppgifter så matchar vi dig med partners som passar dina behov."
+              />
+            </div>
+          )}
 
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">

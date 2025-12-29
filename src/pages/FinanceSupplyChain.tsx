@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
+import LeadCTA from "@/components/LeadCTA";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -678,6 +679,19 @@ const FinanceSupplyChain = () => {
               </Card>
             ))}
           </div>
+
+          {/* Lead CTA - shows when partners are filtered */}
+          {(selectedIndustry || selectedCompanySize) && (
+            <div className="max-w-xl mx-auto mt-12">
+              <LeadCTA
+                sourcePage="/finance-supply-chain"
+                selectedProduct="Finance & Supply Chain"
+                selectedIndustry={selectedIndustry || undefined}
+                title="Behöver du hjälp att välja rätt partner?"
+                description="Lämna dina uppgifter så matchar vi dig med partners som passar dina behov."
+              />
+            </div>
+          )}
 
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">
