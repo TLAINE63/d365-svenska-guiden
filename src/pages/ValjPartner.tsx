@@ -244,7 +244,7 @@ const ValjPartner = () => {
                 Välj Partner
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
-                Hitta rätt implementationspartner för din Dynamics 365-resa
+                Hitta rätt implementationspartner till din Dynamics 365-resa
               </p>
               <Button 
                 size="lg" 
