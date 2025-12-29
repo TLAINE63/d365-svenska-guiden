@@ -194,7 +194,7 @@ const PartnerProfile = () => {
               <Card className="bg-muted/30">
                 <CardContent className="pt-6">
                   <p className="text-sm text-muted-foreground mb-4">
-                    Vill du komma i kontakt med {partner.name}? Besök deras hemsida eller kontakta oss så hjälper vi dig.
+                    Vill du komma i kontakt med {partner.name}? Kontakta oss så hjälper vi till att förmedla dig till rätt kontakt.
                   </p>
                   <Link to="/kontakt">
                     <Button variant="outline" className="w-full">
