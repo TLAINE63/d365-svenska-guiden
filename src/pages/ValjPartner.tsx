@@ -289,6 +289,7 @@ const ValjPartner = () => {
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• Har de genomfört liknande projekt tidigare?</li>
                     <li>• Förstår de våra specifika krav inom t.ex. tillverkning, tjänster, handel eller offentlig sektor?</li>
+                    <li>• Har de kanske en branschspecifik lösning som passar vår verksamhet?</li>
                   </ul>
                 </CardContent>
               </Card>
