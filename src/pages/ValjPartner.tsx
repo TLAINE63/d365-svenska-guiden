@@ -10,6 +10,7 @@ import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import partnersComparisonImg from "@/assets/partners-comparison-proposals.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
+import LeadCTA from "@/components/LeadCTA";
 import { partners, Partner, allIndustries, IndustryExpertise } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 
@@ -551,6 +552,19 @@ const ValjPartner = () => {
               </Card>
             ))}
           </div>
+
+          {/* Lead CTA - shows when partners are filtered */}
+          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
+            <div className="max-w-xl mx-auto mt-12">
+              <LeadCTA
+                sourcePage="/valj-partner"
+                selectedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
+                selectedIndustry={selectedIndustry || undefined}
+                title="Behöver du hjälp att välja rätt partner?"
+                description="Lämna dina uppgifter så matchar vi dig med partners som passar dina behov."
+              />
+            </div>
+          )}
         </div>
       </section>
 
