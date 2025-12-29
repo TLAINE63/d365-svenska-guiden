@@ -533,9 +533,10 @@ const ValjPartner = () => {
             <div className="max-w-xl mx-auto mt-12">
               <LeadCTA
                 sourcePage="/valj-partner"
-                selectedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
+                selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
                 selectedIndustry={selectedIndustry || undefined}
                 selectedCompanySize={selectedCompanySize || undefined}
+                selectedGeography={selectedGeography || undefined}
                 title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
                 description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
               />
