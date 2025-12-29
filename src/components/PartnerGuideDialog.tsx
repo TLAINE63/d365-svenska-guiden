@@ -349,20 +349,6 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                         </Badge>
                       ))}
                     </div>
-                    <Button asChild variant="default" className="w-full mt-3">
-                      <a 
-                        href={buildPartnerUrl(partner.website, partner.name, { 
-                          application: selectedApps[0],
-                          industry: selectedIndustries[0]
-                        })} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onClick={() => trackPartnerClick(partner.name, partner.website, "Partner Guide")}
-                      >
-                        Besök hemsida
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
                   </CardContent>
                 </Card>
               ))}

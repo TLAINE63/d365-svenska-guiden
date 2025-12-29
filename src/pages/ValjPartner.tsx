@@ -526,26 +526,12 @@ const ValjPartner = () => {
                     </div>
                   </div>
 
-                  <div className="mt-auto pt-4 border-t border-border/50 space-y-2">
+                  <div className="mt-auto pt-4 border-t border-border/50">
                     <Button asChild variant="outline" className="w-full">
                       <Link to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
                         Öppna partnerkortet
                         <ArrowRight className="h-4 w-4" />
                       </Link>
-                    </Button>
-                    <Button asChild variant="amber" className="w-full">
-                      <a 
-                        href={buildPartnerUrl(partner.website, partner.name, { 
-                          application: selectedApplications[0], 
-                          industry: selectedIndustry || undefined 
-                        })} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onClick={() => trackPartnerClick(partner.name, partner.website, "Välj Partner")}
-                      >
-                        Besök hemsida
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
                     </Button>
                   </div>
                 </CardContent>
