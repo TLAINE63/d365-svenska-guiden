@@ -168,24 +168,6 @@ export const LeadCTA = ({
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="company_size">Företagsstorlek</Label>
-        <Select
-          value={formData.company_size}
-          onValueChange={(value) => setFormData({ ...formData, company_size: value })}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Välj antal anställda" />
-          </SelectTrigger>
-          <SelectContent>
-            {companySizeOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
 
       <div className="space-y-2">
         <Label htmlFor="message">Meddelande (valfritt)</Label>
