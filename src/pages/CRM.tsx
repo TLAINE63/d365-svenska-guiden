@@ -395,7 +395,7 @@ const CRM = () => {
                 sourcePage="/crm"
                 selectedProduct="CRM"
                 selectedIndustry={selectedIndustry || undefined}
-                title="Behöver du hjälp att välja rätt CRM-partner?"
+                title="Låt oss hjälpa dig att hitta rätt partner"
                 description="Lämna dina uppgifter så matchar vi dig med de partners som passar dina behov och tar fram lämplig kontaktperson hos dessa partners."
               />
             </div>
