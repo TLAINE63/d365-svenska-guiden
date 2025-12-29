@@ -190,50 +190,6 @@ const PartnerProfile = () => {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Kontakt</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <a
-                    href={partnerUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={handleWebsiteClick}
-                    className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Globe className="h-5 w-5 shrink-0" />
-                    <span className="truncate">{new URL(partner.website).hostname}</span>
-                  </a>
-
-                  {partner.email && (
-                    <a
-                      href={`mailto:${partner.email}`}
-                      className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <Mail className="h-5 w-5 shrink-0" />
-                      <span className="truncate">{partner.email}</span>
-                    </a>
-                  )}
-
-                  {partner.phone && (
-                    <a
-                      href={`tel:${partner.phone}`}
-                      className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      <Phone className="h-5 w-5 shrink-0" />
-                      <span>{partner.phone}</span>
-                    </a>
-                  )}
-
-                  {partner.address && (
-                    <div className="flex items-start gap-3 text-muted-foreground">
-                      <MapPin className="h-5 w-5 shrink-0 mt-0.5" />
-                      <span>{partner.address}</span>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
 
               <Card className="bg-muted/30">
                 <CardContent className="pt-6">
