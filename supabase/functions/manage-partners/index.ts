@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { timingSafeEqual } from "https://deno.land/std@0.190.0/crypto/timing_safe_equal.ts";
 
 // Rate limiting for brute-force protection
 const adminRateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -23,10 +24,38 @@ function isAdminRateLimited(ip: string): boolean {
   return false;
 }
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+// Constant-time password comparison to prevent timing attacks
+function constantTimeCompare(a: string, b: string): boolean {
+  try {
+    // Pad both strings to same length to prevent length-based timing
+    const maxLen = Math.max(a.length, b.length, 64);
+    const aBytes = new TextEncoder().encode(a.padEnd(maxLen, '\0'));
+    const bBytes = new TextEncoder().encode(b.padEnd(maxLen, '\0'));
+    
+    return timingSafeEqual(aBytes, bBytes);
+  } catch {
+    return false;
+  }
+}
+
+// Get allowed origins for CORS
+const ALLOWED_ORIGINS = [
+  "https://d365-svenska-guiden.lovable.app",
+  "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
+  "http://localhost:5173",
+  "http://localhost:8080",
+];
+
+function getCorsHeaders(req: Request): Record<string, string> {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Credentials": "true",
+  };
+}
 
 interface PartnerData {
   slug: string;
@@ -50,6 +79,8 @@ interface RequestBody {
 }
 
 serve(async (req: Request): Promise<Response> => {
+  const corsHeaders = getCorsHeaders(req);
+  
   // Handle CORS preflight
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -80,7 +111,8 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
     
-    if (password !== ADMIN_PASSWORD) {
+    // Use constant-time comparison to prevent timing attacks
+    if (!constantTimeCompare(password || "", ADMIN_PASSWORD)) {
       console.log(`Invalid password attempt from IP: ${clientIp}`);
       return new Response(
         JSON.stringify({ error: "Ogiltigt lösenord" }),
@@ -211,6 +243,7 @@ serve(async (req: Request): Promise<Response> => {
     }
   } catch (error: unknown) {
     console.error("Error in manage-partners:", error);
+    const corsHeaders = getCorsHeaders(req);
     const message = error instanceof Error ? error.message : "Ett fel uppstod";
     return new Response(
       JSON.stringify({ error: message }),
