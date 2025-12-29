@@ -224,12 +224,12 @@ const ValjPartner = () => {
       />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 h-screen">
         <div className="absolute inset-0">
           <img 
             src={partnersComparisonImg} 
             alt="Teamwork and partnership selection" 
-            className="w-full h-full object-cover object-[center_5%]"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>
