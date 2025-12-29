@@ -105,27 +105,42 @@ const PartnerChangeRequestForm = ({
       return;
     }
 
+    // Client-side validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(requesterEmail.trim())) {
+      toast({
+        title: "Ogiltig e-postadress",
+        description: "Ange en giltig e-postadress",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (requesterName.trim().length > 100) {
+      toast({
+        title: "Namn för långt",
+        description: "Namnet får max vara 100 tecken",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("partner_change_requests").insert({
-        partner_id: partnerId,
-        requester_name: requesterName.trim(),
-        requester_email: requesterEmail.trim(),
-        changes: changes,
+      // Use server-side validated edge function instead of direct insert
+      const { data, error } = await supabase.functions.invoke("submit-change-request", {
+        body: {
+          partner_id: partnerId,
+          partner_name: partnerName,
+          requester_name: requesterName.trim(),
+          requester_email: requesterEmail.trim(),
+          changes: changes,
+        },
       });
 
       if (error) throw error;
-
-      // Send email notification to admin (fire and forget)
-      supabase.functions.invoke("manage-change-requests", {
-        body: {
-          action: "notify-new",
-          partnerName,
-          requesterName: requesterName.trim(),
-          requesterEmail: requesterEmail.trim(),
-        },
-      }).catch(console.error);
+      if (data?.error) throw new Error(data.error);
 
       toast({
         title: "Ändringsförfrågan skickad",
@@ -163,6 +178,7 @@ const PartnerChangeRequestForm = ({
                 value={requesterName}
                 onChange={(e) => setRequesterName(e.target.value)}
                 placeholder="Förnamn Efternamn"
+                maxLength={100}
                 required
               />
             </div>
@@ -174,6 +190,7 @@ const PartnerChangeRequestForm = ({
                 value={requesterEmail}
                 onChange={(e) => setRequesterEmail(e.target.value)}
                 placeholder="din@email.se"
+                maxLength={255}
                 required
               />
             </div>
@@ -188,6 +205,7 @@ const PartnerChangeRequestForm = ({
               value={changes.website}
               onChange={(e) => setChanges({ ...changes, website: e.target.value })}
               placeholder="https://example.com"
+              maxLength={500}
             />
           </div>
 
@@ -199,6 +217,7 @@ const PartnerChangeRequestForm = ({
               onChange={(e) => setChanges({ ...changes, description: e.target.value })}
               rows={4}
               placeholder="Beskriv ert företag och era tjänster..."
+              maxLength={5000}
             />
           </div>
 
@@ -210,6 +229,7 @@ const PartnerChangeRequestForm = ({
               value={changes.logo_url}
               onChange={(e) => setChanges({ ...changes, logo_url: e.target.value })}
               placeholder="https://example.com/logo.png"
+              maxLength={500}
             />
           </div>
 
@@ -221,6 +241,7 @@ const PartnerChangeRequestForm = ({
                 type="email"
                 value={changes.email}
                 onChange={(e) => setChanges({ ...changes, email: e.target.value })}
+                maxLength={255}
               />
             </div>
             <div>
@@ -229,6 +250,7 @@ const PartnerChangeRequestForm = ({
                 id="phone"
                 value={changes.phone}
                 onChange={(e) => setChanges({ ...changes, phone: e.target.value })}
+                maxLength={30}
               />
             </div>
           </div>
@@ -239,6 +261,7 @@ const PartnerChangeRequestForm = ({
               id="address"
               value={changes.address}
               onChange={(e) => setChanges({ ...changes, address: e.target.value })}
+              maxLength={300}
             />
           </div>
 
