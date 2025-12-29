@@ -11,14 +11,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle, Filter } from "lucide-react";
 
 interface LeadCTAProps {
   sourcePage: string;
   selectedProduct?: string;
   selectedIndustry?: string;
+  selectedCompanySize?: string;
   variant?: "inline" | "card";
   title?: string;
   description?: string;
@@ -35,11 +37,13 @@ export const LeadCTA = ({
   sourcePage,
   selectedProduct,
   selectedIndustry,
+  selectedCompanySize,
   variant = "card",
   title = "Få hjälp att hitta rätt partner",
   description = "Lämna dina kontaktuppgifter så hjälper vi dig att hitta den partner som passar bäst för dina behov.",
 }: LeadCTAProps) => {
   const { toast } = useToast();
+  const hasFilters = selectedProduct || selectedIndustry || selectedCompanySize;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -225,6 +229,33 @@ export const LeadCTA = ({
       <CardHeader>
         <CardTitle className="text-xl">{title}</CardTitle>
         <p className="text-muted-foreground text-sm">{description}</p>
+        
+        {/* Display selected filters */}
+        {hasFilters && (
+          <div className="mt-4 p-3 bg-background/50 rounded-lg border border-border/50">
+            <div className="flex items-center gap-2 mb-2">
+              <Filter className="h-4 w-4 text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Dina val</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {selectedProduct && (
+                <Badge variant="secondary" className="text-xs">
+                  {selectedProduct}
+                </Badge>
+              )}
+              {selectedIndustry && (
+                <Badge variant="outline" className="text-xs">
+                  {selectedIndustry}
+                </Badge>
+              )}
+              {selectedCompanySize && (
+                <Badge variant="outline" className="text-xs bg-secondary/50">
+                  {selectedCompanySize}
+                </Badge>
+              )}
+            </div>
+          </div>
+        )}
       </CardHeader>
       <CardContent>{content}</CardContent>
     </Card>

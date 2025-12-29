@@ -577,6 +577,7 @@ const BusinessCentral = () => {
                 sourcePage="/business-central"
                 selectedProduct="Business Central"
                 selectedIndustry={selectedIndustry || undefined}
+                selectedCompanySize={selectedCompanySize || undefined}
                 title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
                 description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
               />
