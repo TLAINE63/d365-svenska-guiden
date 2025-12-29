@@ -229,7 +229,7 @@ const ValjPartner = () => {
           <img 
             src={partnersComparisonImg} 
             alt="Teamwork and partnership selection" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-[center_60%]"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>
