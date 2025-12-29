@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { partners, Partner, crmApplications } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
-import { ArrowLeft, ExternalLink, Building2, Briefcase, Users } from "lucide-react";
+import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
 
 // Industry images
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -203,7 +203,13 @@ const Branschlosningar = () => {
               </div>
             </div>
           )}
-          
+
+          {/* Blinking arrow pointing to product selection */}
+          {!selectedFilter && !selectedIndustry && (
+            <div className="flex justify-center mb-4">
+              <ArrowDown className="h-8 w-8 text-amber-500 animate-bounce" />
+            </div>
+          )}
           {/* Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
             {filterOptions.map((option) => (
