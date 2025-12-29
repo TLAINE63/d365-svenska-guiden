@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
+import LeadCTA from "@/components/LeadCTA";
 import { partners, allIndustries } from "@/data/partners";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
@@ -204,6 +205,19 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
             </Link>
           </Button>
         </div>
+
+        {/* Lead CTA - shows when partners are filtered */}
+        {(selectedIndustry || selectedCompanySize) && (
+          <div className="max-w-xl mx-auto mt-12">
+            <LeadCTA
+              sourcePage={pageSource}
+              selectedProduct={applicationFilter}
+              selectedIndustry={selectedIndustry || undefined}
+              title="Behöver du hjälp att välja rätt partner?"
+              description="Lämna dina uppgifter så matchar vi dig med partners som passar dina behov."
+            />
+          </div>
+        )}
       </div>
     </section>
   );
