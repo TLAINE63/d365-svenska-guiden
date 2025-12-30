@@ -156,41 +156,6 @@ const moduleOptions = [
   "Business Intelligence & Rapportering",
 ];
 
-const integrationOptions = [
-  "E-handelsplattform",
-  "CRM-system",
-  "Transportbokning",
-  "Microsoft 365",
-  "BI/Rapportverktyg",
-  "WMS/3PL",
-];
-
-const erpSystemOptions = [
-  "Microsoft Dynamics NAV",
-  "Microsoft Dynamics AX",
-  "SAP",
-  "Oracle",
-  "Visma",
-  "Fortnox",
-  "Pyramid",
-  "Monitor",
-  "Jeeves",
-  "IFS",
-  "Infor",
-  "Sage",
-  "Unit4",
-];
-
-const otherSystemOptions = [
-  "Microsoft 365 (Office)",
-  "Power BI",
-  "CRM-system",
-  "Ärendehantering/Servicesystem",
-  "Microsoft Teams",
-  "SharePoint",
-  "CAD-system",
-];
-
 const challengeOptions = [
   "Stark tillväxt eller internationalisering",
   "Större omorganisation/koncernstruktur",
