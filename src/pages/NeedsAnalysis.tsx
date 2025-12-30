@@ -1356,7 +1356,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
               <div className="border-2 border-border rounded-lg overflow-hidden">
                 <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                  <div className="p-3 font-medium text-sm">Produkt</div>
+                  <div className="p-3 font-medium text-sm">ERP/Affärssystem</div>
                   <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
                 </div>
                 {data.currentSystems.map((system, index) => (
