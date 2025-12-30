@@ -363,6 +363,14 @@ const ValjPartner = () => {
                 </CardContent>
               </Card>
             </div>
+            
+            {/* LeadCTA under hjälp att välja rätt partner */}
+            <div className="mt-10 sm:mt-12">
+              <LeadCTA 
+                sourcePage="valj-partner-hjalp-section"
+                variant="inline"
+              />
+            </div>
           </div>
         </div>
       </section>
