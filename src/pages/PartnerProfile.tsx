@@ -1,5 +1,4 @@
 import { useParams, Link } from "react-router-dom";
-import { useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -36,25 +35,6 @@ const PartnerProfile = () => {
     updated_at: "",
   } : null);
 
-  // Find related partners based on shared applications or industries
-  // IMPORTANT: This hook must be called before any early returns
-  const relatedPartners = useMemo(() => {
-    if (!partner) return [];
-    
-    return staticPartners
-      .filter(p => {
-        // Exclude current partner
-        const pSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-        if (pSlug === slug) return false;
-        
-        // Check for shared applications or industries
-        const hasSharedApp = p.applications.some(app => partner.applications.includes(app));
-        const hasSharedIndustry = p.industries.some(ind => partner.industries.includes(ind));
-        
-        return hasSharedApp || hasSharedIndustry;
-      })
-      .slice(0, 6); // Limit to 6 related partners
-  }, [partner, slug]);
 
   if (isLoading) {
     return (
@@ -199,59 +179,6 @@ const PartnerProfile = () => {
               description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
             />
 
-            {/* Related Partners */}
-            {relatedPartners.length > 0 && (
-              <div className="pt-8">
-                <h2 className="text-2xl font-bold text-foreground mb-6">
-                  Andra partners med liknande kompetens
-                </h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {relatedPartners.map((relatedPartner) => {
-                    const relatedSlug = relatedPartner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                    return (
-                      <Link
-                        key={relatedPartner.name}
-                        to={`/partner/${relatedSlug}`}
-                        className="block"
-                      >
-                        <Card className="h-full hover:shadow-lg transition-shadow border-border hover:border-primary/30">
-                          <CardContent className="p-4">
-                            <div className="flex items-center gap-3 mb-3">
-                              <div className="w-12 h-12 bg-muted rounded-lg flex items-center justify-center shrink-0">
-                                {relatedPartner.logo ? (
-                                  <img
-                                    src={relatedPartner.logo}
-                                    alt={relatedPartner.name}
-                                    className="max-w-full max-h-full object-contain p-1"
-                                  />
-                                ) : (
-                                  <Building2 className="w-6 h-6 text-muted-foreground" />
-                                )}
-                              </div>
-                              <h3 className="font-semibold text-foreground line-clamp-2">
-                                {relatedPartner.name}
-                              </h3>
-                            </div>
-                            <div className="flex flex-wrap gap-1">
-                              {relatedPartner.applications.slice(0, 2).map((app) => (
-                                <Badge key={app} variant="secondary" className="text-xs">
-                                  {app}
-                                </Badge>
-                              ))}
-                              {relatedPartner.applications.length > 2 && (
-                                <Badge variant="outline" className="text-xs">
-                                  +{relatedPartner.applications.length - 2}
-                                </Badge>
-                              )}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </section>
