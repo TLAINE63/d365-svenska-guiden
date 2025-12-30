@@ -448,9 +448,14 @@ const SalesMarketingNeedsAnalysis = () => {
     addSection("Integrationer", data.integrations.join(", ") || "Ej angivet");
     addSection("KPI:er", data.kpis.join(", ") || "Ej angivet");
 
-    pdf.save(`Behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}.pdf`);
+    // Generate PDF as base64 for email attachment
+    const pdfFilename = `Behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+    const pdfBase64 = pdf.output('datauristring').split(',')[1];
+    
+    // Save PDF locally
+    pdf.save(`${pdfFilename}.pdf`);
 
-    // Send email
+    // Send email with PDF attachment
     setIsSendingEmail(true);
     try {
       await supabase.functions.invoke("send-analysis-email", {
@@ -476,6 +481,8 @@ const SalesMarketingNeedsAnalysis = () => {
             product: recommendation.products.map(p => p.name).join(", "),
             reasons: recommendation.products.flatMap(p => p.reasons).slice(0, 5),
           } : undefined,
+          pdfBase64: pdfBase64,
+          pdfFilename: pdfFilename,
         },
       });
     } catch (error) {

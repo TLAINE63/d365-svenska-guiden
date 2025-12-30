@@ -69,16 +69,24 @@ function isValidPhone(phone: string | undefined): boolean {
   return typeof phone === "string" && phone.length <= 30;
 }
 
-function isValidAnalysisType(type: string): type is "ERP" | "CRM" {
-  return type === "ERP" || type === "CRM";
+function isValidAnalysisType(type: string): boolean {
+  const validTypes = ["ERP", "CRM", "Kundservice", "Sälj & Marknad"];
+  return validTypes.includes(type);
 }
 
 function isValidAnalysisData(data: unknown): data is Record<string, unknown> {
   return typeof data === "object" && data !== null && !Array.isArray(data);
 }
 
+function isValidBase64(str: string): boolean {
+  if (typeof str !== "string") return false;
+  // Check if it's a valid base64 string (basic check)
+  const base64Regex = /^[A-Za-z0-9+/=]+$/;
+  return base64Regex.test(str) && str.length > 0;
+}
+
 interface AnalysisEmailRequest {
-  analysisType: "ERP" | "CRM";
+  analysisType: string;
   companyName: string;
   contactName: string;
   phone?: string;
@@ -88,6 +96,8 @@ interface AnalysisEmailRequest {
     product: string;
     reasons: string[];
   };
+  pdfBase64?: string;
+  pdfFilename?: string;
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -138,14 +148,16 @@ serve(async (req: Request): Promise<Response> => {
       phone, 
       email, 
       analysisData,
-      recommendation 
+      recommendation,
+      pdfBase64,
+      pdfFilename
     } = body;
     
     // Server-side validation
     const errors: string[] = [];
     
     if (!isValidAnalysisType(analysisType)) {
-      errors.push("Analysis type must be 'ERP' or 'CRM'");
+      errors.push("Analysis type must be 'ERP', 'CRM', 'Kundservice', or 'Sälj & Marknad'");
     }
     if (!isValidName(companyName)) {
       errors.push("Company name is required and must be less than 100 characters");
@@ -162,6 +174,9 @@ serve(async (req: Request): Promise<Response> => {
     if (!isValidAnalysisData(analysisData)) {
       errors.push("Analysis data must be a valid object");
     }
+    if (pdfBase64 && !isValidBase64(pdfBase64)) {
+      errors.push("PDF data must be valid base64");
+    }
 
     if (errors.length > 0) {
       console.log("Validation errors:", errors);
@@ -175,6 +190,7 @@ serve(async (req: Request): Promise<Response> => {
     }
 
     console.log(`Processing ${analysisType} analysis from:`, companyName, contactName);
+    console.log(`PDF attachment included: ${!!pdfBase64}`);
 
     // Sanitize and format analysis data
     const formatAnalysisData = (data: Record<string, unknown>): string => {
@@ -197,6 +213,7 @@ serve(async (req: Request): Promise<Response> => {
     const safeContactName = sanitizeHtml(contactName.trim().slice(0, 100));
     const safePhone = phone ? sanitizeHtml(phone.trim().slice(0, 30)) : "Ej angivet";
     const safeEmail = sanitizeHtml(email.trim().slice(0, 255));
+    const safeAnalysisType = sanitizeHtml(analysisType);
 
     const recommendationHtml = recommendation 
       ? `
@@ -209,31 +226,51 @@ serve(async (req: Request): Promise<Response> => {
       `
       : "";
 
+    // Build email payload
+    const emailPayload: Record<string, unknown> = {
+      from: "Dynamic Factory <onboarding@resend.dev>",
+      to: ["thomas.laine@dynamicfactory.se"],
+      subject: `Ny ${safeAnalysisType}-behovsanalys från ${safeCompanyName}`,
+      html: `
+        <h1>Ny ${safeAnalysisType}-behovsanalys slutförd</h1>
+        
+        <h2>Kontaktinformation</h2>
+        <p><strong>Företag:</strong> ${safeCompanyName}</p>
+        <p><strong>Kontaktperson:</strong> ${safeContactName}</p>
+        <p><strong>Telefon:</strong> ${safePhone}</p>
+        <p><strong>E-post:</strong> ${safeEmail}</p>
+        
+        <h2>Analysresultat</h2>
+        ${formatAnalysisData(analysisData)}
+        
+        ${recommendationHtml}
+        
+        <hr>
+        <p style="color: #666; font-size: 12px;">
+          ${pdfBase64 ? "📎 PDF-analysen är bifogad i detta mail." : "OBS: PDF-bilaga kunde inte genereras."}
+        </p>
+      `,
+    };
+
+    // Add PDF attachment if provided
+    if (pdfBase64 && pdfFilename) {
+      const safeFilename = pdfFilename.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100) + ".pdf";
+      emailPayload.attachments = [
+        {
+          filename: safeFilename,
+          content: pdfBase64,
+        },
+      ];
+      console.log(`Adding PDF attachment: ${safeFilename}`);
+    }
+
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
-      body: JSON.stringify({
-        from: "Dynamic Factory <onboarding@resend.dev>",
-        to: ["thomas.laine@dynamicfactory.se"],
-        subject: `Ny ${analysisType}-behovsanalys från ${safeCompanyName}`,
-        html: `
-          <h1>Ny ${analysisType}-behovsanalys slutförd</h1>
-          
-          <h2>Kontaktinformation</h2>
-          <p><strong>Företag:</strong> ${safeCompanyName}</p>
-          <p><strong>Kontaktperson:</strong> ${safeContactName}</p>
-          <p><strong>Telefon:</strong> ${safePhone}</p>
-          <p><strong>E-post:</strong> ${safeEmail}</p>
-          
-          <h2>Analysresultat</h2>
-          ${formatAnalysisData(analysisData)}
-          
-          ${recommendationHtml}
-        `,
-      }),
+      body: JSON.stringify(emailPayload),
     });
 
     const responseData = await emailResponse.json();

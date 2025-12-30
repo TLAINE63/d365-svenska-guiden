@@ -916,9 +916,14 @@ const CRMNeedsAnalysis = () => {
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 10);
     pdf.text("www.dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
 
-    pdf.save(`CRM_Behovsanalys_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}.pdf`);
+    // Generate PDF as base64 for email attachment
+    const pdfFilename = `CRM_Behovsanalys_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
+    const pdfBase64 = pdf.output('datauristring').split(',')[1];
     
-    // Send email notification
+    // Save PDF locally
+    pdf.save(`${pdfFilename}.pdf`);
+    
+    // Send email notification with PDF attachment
     setIsSendingEmail(true);
     try {
       const { error } = await supabase.functions.invoke("send-analysis-email", {
@@ -950,6 +955,8 @@ const CRMNeedsAnalysis = () => {
             product: recommendation.products.map(p => p.name).join(", "),
             reasons: recommendation.products.flatMap(p => p.reasons).slice(0, 5),
           } : undefined,
+          pdfBase64: pdfBase64,
+          pdfFilename: pdfFilename,
         },
       });
 

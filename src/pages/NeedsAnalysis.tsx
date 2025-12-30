@@ -1084,10 +1084,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 10);
     pdf.text("www.dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
 
-    // Save PDF
-    pdf.save(`Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`);
+    // Generate PDF as base64 for email attachment
+    const pdfFilename = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
+    const pdfBase64 = pdf.output('datauristring').split(',')[1]; // Get base64 part only
     
-    // Send email notification
+    // Save PDF locally
+    pdf.save(`${pdfFilename}.pdf`);
+    
+    // Send email notification with PDF attachment
     setIsSendingEmail(true);
     try {
       const { error } = await supabase.functions.invoke("send-analysis-email", {
@@ -1114,6 +1118,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             product: recommendation.product,
             reasons: recommendation.reasons,
           },
+          pdfBase64: pdfBase64,
+          pdfFilename: pdfFilename,
         },
       });
 
