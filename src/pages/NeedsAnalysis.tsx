@@ -1048,7 +1048,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFontSize(9);
     pdf.setFont("helvetica", "normal");
     pdf.text("• Kontakta oss på Dynamic Factory för en kostnadsfri rådgivning", margin + 8, yPos + 20);
-    pdf.text("• Besök vår partnerkatalog på dynamicfactory.se/valj-partner för att hitta rätt", margin + 8, yPos + 27);
+    pdf.text("• Besök vår partnerkatalog på d365.se/valj-partner för att hitta rätt", margin + 8, yPos + 27);
     pdf.text("  implementationspartner som matchar era behov", margin + 8, yPos + 33);
     
     yPos += 45;
@@ -1081,8 +1081,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     
     pdf.setFontSize(9);
-    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 10);
-    pdf.text("www.dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
+    pdf.text("thomas.laine@d365.se", pageWidth - margin - 55, yPos + 10);
+    pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 18);
 
     // Generate PDF as base64 for email attachment
     const pdfFilename = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
@@ -1595,7 +1595,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     </a>
                   </Button>
                   <Button asChild variant="outline" className="flex-1">
-                    <a href="mailto:thomas.laine@dynamicfactory.se">
+                    <a href="mailto:thomas.laine@d365.se">
                       Kontakta oss direkt
                     </a>
                   </Button>
