@@ -1320,6 +1320,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         return (
           <div className="space-y-6">
             <div>
+              <h2 className="text-xl font-bold mb-2">Nuvarande situation</h2>
+              <p className="text-muted-foreground mb-6">Vad är anledningen till att du är ute och söker efter alternativa ERP/Affärssystem?</p>
+            </div>
+            <div>
               <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
               <div className="border-2 border-border rounded-lg overflow-hidden">
                 <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
