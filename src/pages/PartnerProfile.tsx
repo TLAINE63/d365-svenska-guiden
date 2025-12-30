@@ -9,8 +9,8 @@ import { ArrowLeft, Building2 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners } from "@/data/partners";
-import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import { Helmet } from "react-helmet";
+
 const PartnerProfile = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: dbPartner, isLoading } = usePartner(slug);
@@ -36,15 +36,25 @@ const PartnerProfile = () => {
     updated_at: "",
   } : null);
 
-  const handleWebsiteClick = () => {
-    if (partner) {
-      trackPartnerClick(
-        partner.name,
-        partner.website,
-        "partner-profile"
-      );
-    }
-  };
+  // Find related partners based on shared applications or industries
+  // IMPORTANT: This hook must be called before any early returns
+  const relatedPartners = useMemo(() => {
+    if (!partner) return [];
+    
+    return staticPartners
+      .filter(p => {
+        // Exclude current partner
+        const pSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        if (pSlug === slug) return false;
+        
+        // Check for shared applications or industries
+        const hasSharedApp = p.applications.some(app => partner.applications.includes(app));
+        const hasSharedIndustry = p.industries.some(ind => partner.industries.includes(ind));
+        
+        return hasSharedApp || hasSharedIndustry;
+      })
+      .slice(0, 6); // Limit to 6 related partners
+  }, [partner, slug]);
 
   if (isLoading) {
     return (
@@ -80,34 +90,6 @@ const PartnerProfile = () => {
       </div>
     );
   }
-
-  const partnerUrl = buildPartnerUrl(
-    partner.website,
-    partner.name,
-    {
-      application: partner.applications[0] || "",
-      industry: partner.industries[0] || ""
-    }
-  );
-
-  // Find related partners based on shared applications or industries
-  const relatedPartners = useMemo(() => {
-    if (!partner) return [];
-    
-    return staticPartners
-      .filter(p => {
-        // Exclude current partner
-        const pSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-        if (pSlug === slug) return false;
-        
-        // Check for shared applications or industries
-        const hasSharedApp = p.applications.some(app => partner.applications.includes(app));
-        const hasSharedIndustry = p.industries.some(ind => partner.industries.includes(ind));
-        
-        return hasSharedApp || hasSharedIndustry;
-      })
-      .slice(0, 6); // Limit to 6 related partners
-  }, [partner, slug]);
 
   return (
     <div className="min-h-screen bg-background">
