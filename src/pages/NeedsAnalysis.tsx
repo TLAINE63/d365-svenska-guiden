@@ -41,9 +41,7 @@ interface AnalysisData {
   integrations: string[];
   integrationsOther: string;
   // Step 6
-  currentERP: string;
-  currentERPOther: string;
-  erpInstallYear: string;
+  currentSystems: { product: string; year: string }[];
   otherSystems: string[];
   otherSystemsDetails: string;
   // Step 7
@@ -76,9 +74,11 @@ const initialData: AnalysisData = {
   modulesOther: "",
   integrations: [],
   integrationsOther: "",
-  currentERP: "",
-  currentERPOther: "",
-  erpInstallYear: "",
+  currentSystems: [
+    { product: "", year: "" },
+    { product: "", year: "" },
+    { product: "", year: "" },
+  ],
   otherSystems: [],
   otherSystemsDetails: "",
   challenges: [],
@@ -949,16 +949,26 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // Section 6: Current Systems
     addSectionHeader("NUVARANDE SYSTEM", "6");
-    const erpDisplayValue = data.currentERPOther || data.currentERP;
-    addContentRow("ERP-system:", erpDisplayValue);
-    addContentRow("Installationsår:", data.erpInstallYear);
-    if (data.otherSystems.length > 0) {
+    const filledSystems = data.currentSystems.filter(s => s.product.trim());
+    if (filledSystems.length > 0) {
+      filledSystems.forEach((system, index) => {
+        const yearText = system.year ? ` (driftsattes ${system.year})` : "";
+        addContentRow(`System ${index + 1}:`, `${system.product}${yearText}`);
+      });
+    } else {
+      addContentRow("System:", "Ej angivet");
+    }
+    if (data.otherSystemsDetails) {
       pdf.setFontSize(10);
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(100, 100, 100);
       pdf.text("Övriga system:", margin, yPos);
       yPos += 7;
-      addBulletList(data.otherSystems, data.otherSystemsDetails);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(0, 0, 0);
+      const lines = pdf.splitTextToSize(data.otherSystemsDetails, contentWidth - 10);
+      pdf.text(lines, margin + 5, yPos);
+      yPos += lines.length * 5 + 3;
     }
 
     // Section 7: Challenges
@@ -1108,7 +1118,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Geografi": data.geography || "Ej angivet",
             "Moduler": data.modules.join(", ") || "Ej angivet",
             "Integrationer": data.integrations.join(", ") || "Ej angivet",
-            "Nuvarande ERP": data.currentERPOther || data.currentERP || "Ej angivet",
+            "Nuvarande system": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
             "Utmaningar": data.challenges.join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
@@ -1318,38 +1328,41 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="space-y-6">
             <div>
               <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {erpSystemOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.currentERP === option}
-                    onClick={() => setData({ ...data, currentERP: option })}
-                    type="radio"
-                  />
+              <div className="border rounded-lg overflow-hidden">
+                <div className="grid grid-cols-2 bg-muted/50 border-b">
+                  <div className="p-3 font-medium text-sm">Produkt</div>
+                  <div className="p-3 font-medium text-sm border-l">Driftsattes år</div>
+                </div>
+                {data.currentSystems.map((system, index) => (
+                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b' : ''}`}>
+                    <div className="p-2">
+                      <Input
+                        placeholder="T.ex. SAP, Visma, NAV..."
+                        value={system.product}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], product: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                      />
+                    </div>
+                    <div className="p-2 border-l">
+                      <Input
+                        type="number"
+                        placeholder="T.ex. 2015"
+                        value={system.year}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], year: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 max-w-[120px]"
+                      />
+                    </div>
+                  </div>
                 ))}
               </div>
-              <div className="mt-4">
-                <Label htmlFor="currentERPOther">Annat system</Label>
-                <Input
-                  id="currentERPOther"
-                  placeholder="Skriv namnet på ert nuvarande system..."
-                  value={data.currentERPOther}
-                  onChange={(e) => setData({ ...data, currentERPOther: e.target.value })}
-                  className="mt-2"
-                />
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="erpInstallYear">Installationsår (ungefärligt)</Label>
-              <Input
-                id="erpInstallYear"
-                type="number"
-                placeholder="T.ex. 2015"
-                value={data.erpInstallYear}
-                onChange={(e) => setData({ ...data, erpInstallYear: e.target.value })}
-                className="mt-2 max-w-[150px]"
-              />
             </div>
             <div>
               <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
