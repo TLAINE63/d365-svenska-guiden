@@ -169,41 +169,44 @@ const PartnerProfile = () => {
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto space-y-8">
-            {/* Applications */}
-            {partner.applications.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Kompetens inom Dynamics 365</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {partner.applications.map((app) => (
-                      <Badge key={app} variant="secondary" className="text-sm">
-                        {app}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            {/* Applications & Industries side by side */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Applications */}
+              {partner.applications.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Kompetens inom Dynamics 365</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {partner.applications.map((app) => (
+                        <Badge key={app} variant="secondary" className="text-sm">
+                          {app}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
-            {/* Industries */}
-            {partner.industries.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Branscher i fokus</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {partner.industries.map((ind) => (
-                      <Badge key={ind} variant="outline" className="text-sm">
-                        {ind}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+              {/* Industries */}
+              {partner.industries.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Branscher i fokus</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {partner.industries.map((ind) => (
+                        <Badge key={ind} variant="outline" className="text-sm">
+                          {ind}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
 
             {/* Lead CTA */}
             <LeadCTA
