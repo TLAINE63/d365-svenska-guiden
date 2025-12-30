@@ -19,6 +19,14 @@ const companySizeFilters = [
   { label: "Mer än 5.000 anställda", values: [">5.000"] }
 ];
 
+// Geography filter options
+const geographyFilters = [
+  { label: "Sverige", value: "Sverige" },
+  { label: "Norden", value: "Norden" },
+  { label: "Europa", value: "Europa" },
+  { label: "Internationellt", value: "Internationellt" }
+];
+
 interface ApplicationPartnersProps {
   applicationFilter: string;
   pageSource: string;
@@ -27,6 +35,7 @@ interface ApplicationPartnersProps {
 const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartnersProps) => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
 
   const filteredPartners = useMemo(() => {
     let result = partners.filter(partner => 
@@ -50,6 +59,18 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
           partner.companySize.some(size => sizeFilter.values.includes(size))
         );
       }
+    }
+
+    if (selectedGeography) {
+      // Geography hierarchy: Internationellt > Europa > Norden > Sverige
+      const geographyHierarchy: Record<string, string[]> = {
+        "Sverige": ["Sverige", "Norden", "Europa", "Internationellt"],
+        "Norden": ["Norden", "Europa", "Internationellt"],
+        "Europa": ["Europa", "Internationellt"],
+        "Internationellt": ["Internationellt"]
+      };
+      const validGeographies = geographyHierarchy[selectedGeography] || [selectedGeography];
+      result = result.filter(partner => validGeographies.includes(partner.geography));
     }
     
     // Determine which product ranking to use based on application filter
@@ -76,7 +97,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       }
       return a.name.localeCompare(b.name, 'sv');
     });
-  }, [applicationFilter, selectedIndustry, selectedCompanySize]);
+  }, [applicationFilter, selectedIndustry, selectedCompanySize, selectedGeography]);
 
   return (
     <section id="partners" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
@@ -111,14 +132,26 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
           colorScheme="crm"
         />
 
+        {/* Geography Filter */}
+        <FilterButtons
+          title="Ange geografi som måste täckas in"
+          icon="geography"
+          options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
+          selectedValue={selectedGeography}
+          onSelect={setSelectedGeography}
+          colorScheme="crm"
+        />
+
         {/* Filter Results Summary */}
-        {(selectedIndustry || selectedCompanySize) && (
+        {(selectedIndustry || selectedCompanySize || selectedGeography) && (
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground">
               Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
               {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
-              {selectedIndustry && selectedCompanySize && <> och</>}
+              {(selectedIndustry && (selectedCompanySize || selectedGeography)) && <>,</>}
               {selectedCompanySize && <> för <span className="font-semibold text-crm">{selectedCompanySize}</span></>}
+              {(selectedCompanySize && selectedGeography) && <> och</>}
+              {selectedGeography && <> med täckning i <span className="font-semibold text-crm">{selectedGeography}</span></>}
             </p>
             <Button 
               variant="ghost" 
@@ -126,6 +159,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
               onClick={() => {
                 setSelectedIndustry(null);
                 setSelectedCompanySize(null);
+                setSelectedGeography(null);
               }}
               className="mt-2 text-muted-foreground hover:text-foreground"
             >
@@ -198,7 +232,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         </div>
 
         {/* Lead CTA - shows when partners are filtered */}
-        {(selectedIndustry || selectedCompanySize) && (
+        {(selectedIndustry || selectedCompanySize || selectedGeography) && (
           <div className="max-w-xl mx-auto mt-12">
             <LeadCTA
               sourcePage={pageSource}
