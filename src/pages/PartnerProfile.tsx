@@ -137,7 +137,7 @@ const PartnerProfile = () => {
               {partner.applications.length > 0 && (
                 <Card>
                   <CardHeader>
-                    <CardTitle>Kompetens inom Dynamics 365</CardTitle>
+                    <CardTitle>Kompetenser inom Dynamics 365</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
