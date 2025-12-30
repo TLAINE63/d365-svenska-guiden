@@ -1337,7 +1337,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b' : ''}`}>
                     <div className="p-2">
                       <Input
-                        placeholder="T.ex. SAP, Visma, NAV..."
+                        placeholder=""
                         value={system.product}
                         onChange={(e) => {
                           const newSystems = [...data.currentSystems];
