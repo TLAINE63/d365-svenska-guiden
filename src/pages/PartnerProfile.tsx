@@ -195,7 +195,7 @@ const PartnerProfile = () => {
               sourcePage={`partner-profile-${partner.slug}`}
               selectedProducts={partner.applications}
               selectedIndustry={partner.industries[0]}
-              title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
+              title="Låt oss hjälpa dig (helt kostnadsfritt) att komma i kontakt med rätt partner"
               description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
             />
 
