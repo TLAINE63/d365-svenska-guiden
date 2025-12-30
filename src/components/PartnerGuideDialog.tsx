@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -335,23 +336,38 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
             </div>
             
             <div className="space-y-4">
-              {suggestedPartners.map((partner, index) => (
-                <Card key={index} className="border border-border">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">{partner.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <p className="text-sm text-muted-foreground">{partner.description}</p>
-                    <div className="flex flex-wrap gap-1">
-                      {partner.applications.map((app, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs">
-                          {app}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              {suggestedPartners.map((partner, index) => {
+                const partnerSlug = partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                const profileUrl = `/partner/${partnerSlug}${selectedApps.length > 0 ? `?product=${encodeURIComponent(selectedApps[0])}` : ""}${selectedIndustries.length > 0 ? `${selectedApps.length > 0 ? "&" : "?"}industry=${encodeURIComponent(selectedIndustries[0])}` : ""}`;
+                
+                return (
+                  <Card key={index} className="border border-border">
+                    <CardHeader className="pb-2">
+                      <Link to={profileUrl} onClick={() => onOpenChange(false)}>
+                        <CardTitle className="text-lg hover:text-primary transition-colors">
+                          {partner.name}
+                        </CardTitle>
+                      </Link>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <p className="text-sm text-muted-foreground">{partner.description}</p>
+                      <div className="flex flex-wrap gap-1">
+                        {partner.applications.map((app, i) => (
+                          <Badge key={i} variant="secondary" className="text-xs">
+                            {app}
+                          </Badge>
+                        ))}
+                      </div>
+                      <Button asChild variant="outline" size="sm" className="w-full mt-2">
+                        <Link to={profileUrl} onClick={() => onOpenChange(false)}>
+                          Öppna partnerkortet
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
 
             <p className="text-sm text-muted-foreground">
