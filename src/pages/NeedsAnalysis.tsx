@@ -1315,6 +1315,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
           </div>
         );
+
+      case 6:
         return (
           <div className="space-y-6">
             <div>
