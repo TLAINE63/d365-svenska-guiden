@@ -38,8 +38,7 @@ interface AnalysisData {
   modules: string[];
   modulesOther: string;
   // Step 5
-  integrations: string[];
-  integrationsOther: string;
+  integrationSystems: { system: string; importance: string }[];
   // Step 6
   currentSystems: { product: string; year: string }[];
   otherSystems: string[];
@@ -72,8 +71,13 @@ const initialData: AnalysisData = {
   geographyOther: "",
   modules: [],
   modulesOther: "",
-  integrations: [],
-  integrationsOther: "",
+  integrationSystems: [
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+  ],
   currentSystems: [
     { product: "", year: "" },
     { product: "", year: "" },
@@ -945,7 +949,18 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     // Section 5: Integrations
     addSectionHeader("INTEGRATIONER", "5");
-    addBulletList(data.integrations, data.integrationsOther);
+    const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
+    if (filledIntegrations.length > 0) {
+      filledIntegrations.forEach((integration) => {
+        const importanceText = integration.importance ? ` (${integration.importance})` : "";
+        addContentRow("System:", `${integration.system}${importanceText}`);
+      });
+    } else {
+      pdf.setFontSize(10);
+      pdf.setTextColor(150, 150, 150);
+      pdf.text("Inga integrationer angivna", margin + 5, yPos);
+      yPos += 8;
+    }
 
     // Section 6: Current Systems
     addSectionHeader("NUVARANDE SYSTEM", "6");
@@ -1117,7 +1132,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Bransch": data.industry || "Ej angivet",
             "Geografi": data.geography || "Ej angivet",
             "Moduler": data.modules.join(", ") || "Ej angivet",
-            "Integrationer": data.integrations.join(", ") || "Ej angivet",
+            "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => s.system).join(", ") || "Ej angivet",
             "Nuvarande system": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
             "Utmaningar": data.challenges.join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
@@ -1298,32 +1313,43 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 5:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka integrationer behöver ni mot andra system?</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {integrationOptions.map((option) => (
-                <SelectionCard
-                  key={option}
-                  label={option}
-                  selected={data.integrations.includes(option)}
-                  onClick={() => handleCheckboxChange('integrations', option)}
-                  type="checkbox"
-                />
+            <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
+            <div className="border-2 border-border rounded-lg overflow-hidden">
+              <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                <div className="p-3 font-medium text-sm">Övriga relevanta produkter/system</div>
+                <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integration med detta system</div>
+              </div>
+              {data.integrationSystems.map((integration, index) => (
+                <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                  <div className="p-2">
+                    <Input
+                      placeholder=""
+                      value={integration.system}
+                      onChange={(e) => {
+                        const newSystems = [...data.integrationSystems];
+                        newSystems[index] = { ...newSystems[index], system: e.target.value };
+                        setData({ ...data, integrationSystems: newSystems });
+                      }}
+                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                  <div className="p-2 border-l-2 border-border">
+                    <Input
+                      placeholder=""
+                      value={integration.importance}
+                      onChange={(e) => {
+                        const newSystems = [...data.integrationSystems];
+                        newSystems[index] = { ...newSystems[index], importance: e.target.value };
+                        setData({ ...data, integrationSystems: newSystems });
+                      }}
+                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                </div>
               ))}
-            </div>
-            <div>
-              <Label htmlFor="integrationsOther">Övriga integrationer</Label>
-              <Textarea
-                id="integrationsOther"
-                placeholder="Beskriv övriga integrationsbehov..."
-                value={data.integrationsOther}
-                onChange={(e) => setData({ ...data, integrationsOther: e.target.value })}
-                className="mt-2"
-              />
             </div>
           </div>
         );
-
-      case 6:
         return (
           <div className="space-y-6">
             <div>
