@@ -517,7 +517,7 @@ const ValjPartner = () => {
                   </p>
                   
                   <div className="bg-primary/5 rounded-lg p-3 border border-primary/10">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Applikationer</p>
+                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Kompetenser inom:</p>
                     <div className="flex flex-wrap gap-1.5">
                       {partner.applications.map((app, i) => (
                         <Badge key={i} variant="secondary" className="text-xs bg-primary/10 text-primary border-0 font-medium">
