@@ -4,7 +4,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Globe, Mail, Phone, MapPin, ExternalLink, Building2 } from "lucide-react";
+import { ArrowLeft, Building2 } from "lucide-react";
+import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
@@ -190,19 +191,13 @@ const PartnerProfile = () => {
 
             {/* Sidebar */}
             <div className="space-y-6">
-
-              <Card className="bg-muted/30">
-                <CardContent className="pt-6">
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Vill du komma i kontakt med {partner.name}? Kontakta oss så hjälper vi till att förmedla dig till rätt kontakt.
-                  </p>
-                  <Link to="/kontakt">
-                    <Button variant="outline" className="w-full">
-                      Kontakta oss
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+              <LeadCTA
+                sourcePage={`partner-profile-${partner.slug}`}
+                selectedProducts={partner.applications}
+                selectedIndustry={partner.industries[0]}
+                title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
+                description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
+              />
             </div>
           </div>
         </div>
