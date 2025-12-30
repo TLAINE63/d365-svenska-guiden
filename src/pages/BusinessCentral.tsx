@@ -566,6 +566,14 @@ const BusinessCentral = () => {
                     </div>
                   </div>
 
+                  <div className="mt-auto pt-4 border-t border-border/50">
+                    <Button asChild variant="outline" className="w-full">
+                      <Link to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
+                        Öppna partnerkortet
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
