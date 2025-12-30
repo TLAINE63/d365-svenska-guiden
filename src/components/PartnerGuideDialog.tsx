@@ -221,7 +221,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-background">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl">
-            {step <= totalSteps ? `Steg ${step} av ${totalSteps}` : "Dina förslag"}
+            {step <= totalSteps ? `Steg ${step} av ${totalSteps}` : "Partnerförslag"}
           </DialogTitle>
         </DialogHeader>
 
