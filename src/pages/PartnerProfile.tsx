@@ -150,10 +150,10 @@ const PartnerProfile = () => {
               {partner.applications.length > 0 && (
                 <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-primary/5 overflow-hidden group hover:shadow-xl transition-shadow duration-300">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
-                  <CardHeader className="relative">
-                    <CardTitle className="flex items-center gap-2 text-primary">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <Briefcase className="w-5 h-5" />
+                  <CardHeader className="relative pb-3">
+                    <CardTitle className="flex items-center gap-3 text-foreground text-lg font-bold tracking-tight">
+                      <div className="p-2.5 rounded-xl bg-primary/15 shadow-sm">
+                        <Briefcase className="w-5 h-5 text-primary" />
                       </div>
                       Kompetenser inom Dynamics 365
                     </CardTitle>
@@ -177,10 +177,10 @@ const PartnerProfile = () => {
               {partner.industries.length > 0 && (
                 <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-accent/5 overflow-hidden group hover:shadow-xl transition-shadow duration-300">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
-                  <CardHeader className="relative">
-                    <CardTitle className="flex items-center gap-2 text-accent">
-                      <div className="p-2 rounded-lg bg-accent/10">
-                        <Target className="w-5 h-5" />
+                  <CardHeader className="relative pb-3">
+                    <CardTitle className="flex items-center gap-3 text-foreground text-lg font-bold tracking-tight">
+                      <div className="p-2.5 rounded-xl bg-accent/15 shadow-sm">
+                        <Target className="w-5 h-5 text-accent" />
                       </div>
                       Branscher i fokus
                     </CardTitle>
