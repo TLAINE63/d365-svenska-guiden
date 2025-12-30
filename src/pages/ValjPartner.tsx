@@ -118,6 +118,21 @@ const ValjPartner = () => {
     return Math.min(bcRank, fscRank, crmRank);
   };
 
+  // Helper to build partner profile URL with filter context
+  const buildPartnerProfileUrl = (partnerName: string) => {
+    const baseUrl = `/partner/${partnerName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    const params = new URLSearchParams();
+    
+    // Only pass the first selected application if any
+    if (selectedApplications.length > 0) {
+      params.set("product", selectedApplications[0]);
+    }
+    if (selectedIndustry) {
+      params.set("industry", selectedIndustry);
+    }
+    
+    return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+  };
   // Helper to find matching industry expertise for a partner
   const getMatchingExpertise = (partner: Partner): IndustryExpertise | null => {
     if (!partner.industryExpertise || partner.industryExpertise.length === 0) return null;
@@ -464,7 +479,7 @@ const ValjPartner = () => {
                 
                 <CardHeader className="pb-2 pt-6">
                   <Link 
-                    to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    to={buildPartnerProfileUrl(partner.name)}
                     className="hover:text-primary transition-colors"
                   >
                     <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
@@ -525,7 +540,7 @@ const ValjPartner = () => {
 
                   <div className="mt-auto pt-4 border-t border-border/50">
                     <Button asChild variant="outline" className="w-full">
-                      <Link to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
+                      <Link to={buildPartnerProfileUrl(partner.name)}>
                         Öppna partnerkortet
                         <ArrowRight className="h-4 w-4" />
                       </Link>

@@ -79,6 +79,26 @@ const Branschlosningar = () => {
   const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
 
+  // Helper to build partner profile URL with filter context
+  const buildPartnerProfileUrl = (partnerName: string) => {
+    const baseUrl = `/partner/${partnerName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    const params = new URLSearchParams();
+    
+    // Pass the selected product
+    if (selectedFilter) {
+      const appName = selectedFilter === "bc" ? "Business Central" : 
+                      selectedFilter === "fsc" ? "Finance & SCM" : 
+                      selectedFilter === "crm" ? "CRM" : "";
+      if (appName) params.set("product", appName);
+    }
+    // Pass the selected industry
+    if (selectedIndustry) {
+      params.set("industry", selectedIndustry.name);
+    }
+    
+    return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+  };
+
   // Show all industries regardless of selected filter
   const displayedIndustries = industries;
 
@@ -312,7 +332,7 @@ const Branschlosningar = () => {
                       </div>
 
                       <Link 
-                        to={`/partner/${partnerSlug}`}
+                        to={buildPartnerProfileUrl(partner.name)}
                         className="text-sm text-primary hover:text-primary/80 hover:underline inline-flex items-center gap-1"
                       >
                         Öppna partnerkortet

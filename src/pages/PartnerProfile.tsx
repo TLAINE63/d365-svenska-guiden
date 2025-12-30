@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,11 @@ import { Helmet } from "react-helmet";
 
 const PartnerProfile = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
+  
+  // Get filter context from URL params
+  const selectedProduct = searchParams.get("product") || undefined;
+  const selectedIndustry = searchParams.get("industry") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   // Fallback to static data if not in database
   const staticPartner = staticPartners.find(
@@ -200,8 +205,9 @@ const PartnerProfile = () => {
             <LeadCTA
               sourcePage={`partner-profile-${partner.slug}`}
               partnerName={partner.name}
-              selectedProducts={partner.applications}
-              selectedIndustry={partner.industries[0]}
+              selectedProduct={selectedProduct}
+              selectedProducts={selectedProduct ? undefined : partner.applications}
+              selectedIndustry={selectedIndustry || partner.industries[0]}
               title="Låt oss hjälpa dig (helt kostnadsfritt) att komma i kontakt med rätt partner"
               description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
             />
