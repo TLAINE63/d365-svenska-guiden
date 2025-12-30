@@ -199,6 +199,7 @@ const PartnerProfile = () => {
             {/* Lead CTA */}
             <LeadCTA
               sourcePage={`partner-profile-${partner.slug}`}
+              partnerName={partner.name}
               selectedProducts={partner.applications}
               selectedIndustry={partner.industries[0]}
               title="Låt oss hjälpa dig (helt kostnadsfritt) att komma i kontakt med rätt partner"

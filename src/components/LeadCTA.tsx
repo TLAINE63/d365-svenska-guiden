@@ -23,6 +23,7 @@ interface LeadCTAProps {
   selectedIndustry?: string;
   selectedCompanySize?: string;
   selectedGeography?: string;
+  partnerName?: string;
   variant?: "inline" | "card";
   title?: string;
   description?: string;
@@ -42,12 +43,13 @@ export const LeadCTA = ({
   selectedIndustry,
   selectedCompanySize,
   selectedGeography,
+  partnerName,
   variant = "card",
   title = "Få hjälp att hitta rätt partner",
   description = "Lämna dina kontaktuppgifter så hjälper vi dig att hitta den partner som passar bäst för dina behov.",
 }: LeadCTAProps) => {
   const { toast } = useToast();
-  const hasFilters = selectedProduct || (selectedProducts && selectedProducts.length > 0) || selectedIndustry || selectedCompanySize || selectedGeography;
+  const hasFilters = partnerName || selectedProduct || (selectedProducts && selectedProducts.length > 0) || selectedIndustry || selectedCompanySize || selectedGeography;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -224,6 +226,11 @@ export const LeadCTA = ({
               <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Dina val</span>
             </div>
             <div className="flex flex-wrap gap-2">
+              {partnerName && (
+                <Badge className="text-xs bg-primary text-primary-foreground">
+                  {partnerName}
+                </Badge>
+              )}
               {selectedProduct && (
                 <Badge variant="secondary" className="text-xs">
                   {selectedProduct}
