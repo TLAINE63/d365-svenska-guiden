@@ -52,10 +52,25 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       }
     }
     
-    // Sort by CRM ranking first, then alphabetically
+    // Determine which product ranking to use based on application filter
+    const getProductRanking = (partner: typeof partners[0]): number => {
+      if (applicationFilter === "Business Central") {
+        return partner.rankings?.bc ?? 999;
+      }
+      if (applicationFilter === "Finance & SCM") {
+        return partner.rankings?.fsc ?? 999;
+      }
+      // CRM applications
+      if (["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(applicationFilter)) {
+        return partner.rankings?.crm ?? 999;
+      }
+      return 999;
+    };
+    
+    // Sort by product ranking first, then alphabetically
     return result.sort((a, b) => {
-      const rankA = a.rankings?.crm ?? 999;
-      const rankB = b.rankings?.crm ?? 999;
+      const rankA = getProductRanking(a);
+      const rankB = getProductRanking(b);
       if (rankA !== rankB) {
         return rankA - rankB;
       }
