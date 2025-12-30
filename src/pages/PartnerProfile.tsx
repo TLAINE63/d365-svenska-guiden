@@ -173,7 +173,7 @@ const PartnerProfile = () => {
               {partner.industries.length > 0 && (
                 <Card>
                   <CardHeader>
-                    <CardTitle>Branscher</CardTitle>
+                    <CardTitle>Branscher i fokus</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
