@@ -113,7 +113,7 @@ export const LeadCTA = ({
             <CheckCircle className="h-12 w-12 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">Tack för ditt intresse!</h3>
             <p className="text-muted-foreground">
-              Vi har tagit emot din förfrågan och återkommer inom kort med förslag på lämpliga partners.
+              Vi har tagit emot din förfrågan och återkommer inom kort med förslag på lämpliga partners och kontaktpersoner.
             </p>
           </div>
         </CardContent>
