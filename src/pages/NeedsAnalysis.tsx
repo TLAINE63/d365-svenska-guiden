@@ -1352,24 +1352,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               />
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-4">Övriga system som används i verksamheten</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {otherSystemOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.otherSystems.includes(option)}
-                    onClick={() => handleCheckboxChange('otherSystems', option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="otherSystemsDetails">Övriga systemdetaljer</Label>
+              <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
               <Textarea
                 id="otherSystemsDetails"
-                placeholder="Beskriv eventuella övriga system..."
+                placeholder="Beskriv vilka övriga system som används i verksamheten, t.ex. Microsoft 365, Power BI, CRM-system, ärendehantering, CAD-system..."
                 value={data.otherSystemsDetails}
                 onChange={(e) => setData({ ...data, otherSystemsDetails: e.target.value })}
                 className="mt-2"
