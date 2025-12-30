@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, CheckCircle, ExternalLink } from "lucide-react";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
+import LeadCTA from "@/components/LeadCTA";
 
 interface Partner {
   name: string;
@@ -370,9 +371,13 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               })}
             </div>
 
-            <p className="text-sm text-muted-foreground">
-              Vill du ha hjälp att komma i kontakt med dessa partners? Kontakta oss så hjälper vi dig vidare.
-            </p>
+            <LeadCTA
+              sourcePage="partner-guide-dialog"
+              selectedProducts={selectedApps}
+              selectedIndustry={selectedIndustries[0]}
+              title="Låt oss hjälpa dig vidare"
+              description="Lämna dina uppgifter så hjälper vi dig att komma i kontakt med rätt partner och kontaktperson."
+            />
           </div>
         )}
 
