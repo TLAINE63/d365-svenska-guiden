@@ -3,6 +3,17 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 import { timingSafeEqual } from "https://deno.land/std@0.190.0/crypto/timing_safe_equal.ts";
 
+// Sanitize HTML to prevent XSS in emails
+function sanitizeHtml(input: string | null | undefined): string {
+  if (!input) return "";
+  return String(input)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 // Get allowed origins for CORS
 const ALLOWED_ORIGINS = [
   "https://d365-svenska-guiden.lovable.app",
@@ -156,12 +167,24 @@ const handler = async (req: Request): Promise<Response> => {
         if (resendApiKey && partner_emails?.length > 0) {
           const resend = new Resend(resendApiKey);
           
+          // Sanitize lead data to prevent XSS in emails
+          const safeLead = {
+            company_name: sanitizeHtml(lead.company_name),
+            contact_name: sanitizeHtml(lead.contact_name),
+            email: sanitizeHtml(lead.email),
+            phone: sanitizeHtml(lead.phone),
+            company_size: sanitizeHtml(lead.company_size),
+            industry: sanitizeHtml(lead.industry),
+            selected_product: sanitizeHtml(lead.selected_product),
+            message: sanitizeHtml(lead.message),
+          };
+
           for (const partnerEmail of partner_emails) {
             await resend.emails.send({
               from: "Dynamic Factory <onboarding@resend.dev>",
               to: [partnerEmail],
               reply_to: "thomas.laine@dynamicfactory.se",
-              subject: `Ny kundförfrågan: ${lead.company_name}`,
+              subject: `Ny kundförfrågan: ${safeLead.company_name}`,
               html: `
                 <h2>Ny kundförfrågan via Dynamic Factory</h2>
                 
@@ -169,20 +192,20 @@ const handler = async (req: Request): Promise<Response> => {
                 
                 <h3>Kunduppgifter</h3>
                 <ul>
-                  <li><strong>Företag:</strong> ${lead.company_name}</li>
-                  <li><strong>Kontaktperson:</strong> ${lead.contact_name}</li>
-                  <li><strong>E-post:</strong> ${lead.email}</li>
-                  <li><strong>Telefon:</strong> ${lead.phone || "Ej angivet"}</li>
+                  <li><strong>Företag:</strong> ${safeLead.company_name}</li>
+                  <li><strong>Kontaktperson:</strong> ${safeLead.contact_name}</li>
+                  <li><strong>E-post:</strong> ${safeLead.email}</li>
+                  <li><strong>Telefon:</strong> ${safeLead.phone || "Ej angivet"}</li>
                 </ul>
                 
                 <h3>Behov</h3>
                 <ul>
-                  <li><strong>Företagsstorlek:</strong> ${lead.company_size || "Ej angivet"}</li>
-                  <li><strong>Bransch:</strong> ${lead.industry || "Ej angivet"}</li>
-                  <li><strong>Produkt:</strong> ${lead.selected_product || "Ej angivet"}</li>
+                  <li><strong>Företagsstorlek:</strong> ${safeLead.company_size || "Ej angivet"}</li>
+                  <li><strong>Bransch:</strong> ${safeLead.industry || "Ej angivet"}</li>
+                  <li><strong>Produkt:</strong> ${safeLead.selected_product || "Ej angivet"}</li>
                 </ul>
                 
-                ${lead.message ? `<h3>Meddelande från kunden</h3><p>${lead.message}</p>` : ""}
+                ${safeLead.message ? `<h3>Meddelande från kunden</h3><p>${safeLead.message}</p>` : ""}
                 
                 <hr>
                 <p>Vänligen kontakta kunden direkt. Svara på detta mail om ni har frågor.</p>

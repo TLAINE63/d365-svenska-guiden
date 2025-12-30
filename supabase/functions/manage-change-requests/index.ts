@@ -2,6 +2,17 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { timingSafeEqual } from "https://deno.land/std@0.190.0/crypto/timing_safe_equal.ts";
 
+// Sanitize HTML to prevent XSS in emails
+function sanitizeHtml(input: string | null | undefined): string {
+  if (!input) return "";
+  return String(input)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 // Rate limiting for brute-force protection
 const adminRateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const ADMIN_RATE_LIMIT = 5; // Max attempts per window
@@ -152,13 +163,18 @@ serve(async (req) => {
         // Send email notification to admin about new change request
         console.log(`Sending notification for new change request from ${requesterName} for ${partnerName}`);
         
+        // Sanitize user-provided data to prevent XSS
+        const safePartnerName = sanitizeHtml(partnerName);
+        const safeRequesterName = sanitizeHtml(requesterName);
+        const safeRequesterEmail = sanitizeHtml(requesterEmail);
+        
         await sendEmail(
           ADMIN_EMAIL,
-          `Ny ändringsförfrågan för ${partnerName}`,
+          `Ny ändringsförfrågan för ${safePartnerName}`,
           `
             <h2>Ny ändringsförfrågan</h2>
-            <p>En ny ändringsförfrågan har skickats in för partnern <strong>${partnerName}</strong>.</p>
-            <p><strong>Inskickad av:</strong> ${requesterName} (${requesterEmail})</p>
+            <p>En ny ändringsförfrågan har skickats in för partnern <strong>${safePartnerName}</strong>.</p>
+            <p><strong>Inskickad av:</strong> ${safeRequesterName} (${safeRequesterEmail})</p>
             <p>Logga in på admin-panelen för att granska och godkänna eller avvisa förfrågan.</p>
           `
         );
@@ -257,16 +273,21 @@ serve(async (req) => {
           throw updateRequestError;
         }
 
+        // Sanitize data for email to prevent XSS
+        const safeRequesterName = sanitizeHtml(request.requester_name);
+        const safePartnerName = sanitizeHtml(partnerData?.name || 'partnern');
+        const safeAdminNotes = sanitizeHtml(adminNotes);
+
         // Send email notification to requester
         await sendEmail(
           request.requester_email,
-          `Din ändringsförfrågan för ${partnerData?.name || 'partnern'} har godkänts`,
+          `Din ändringsförfrågan för ${safePartnerName} har godkänts`,
           `
             <h2>Ändringsförfrågan godkänd</h2>
-            <p>Hej ${request.requester_name},</p>
-            <p>Din ändringsförfrågan för <strong>${partnerData?.name || 'partnern'}</strong> har granskats och godkänts.</p>
+            <p>Hej ${safeRequesterName},</p>
+            <p>Din ändringsförfrågan för <strong>${safePartnerName}</strong> har granskats och godkänts.</p>
             <p>Ändringarna är nu publicerade på webbplatsen.</p>
-            ${adminNotes ? `<p><strong>Kommentar från admin:</strong> ${adminNotes}</p>` : ''}
+            ${safeAdminNotes ? `<p><strong>Kommentar från admin:</strong> ${safeAdminNotes}</p>` : ''}
             <p>Med vänliga hälsningar,<br>Dynamic Factory</p>
           `
         );
@@ -320,15 +341,20 @@ serve(async (req) => {
           throw error;
         }
 
+        // Sanitize data for email to prevent XSS
+        const safeRequesterName = sanitizeHtml(request.requester_name);
+        const safePartnerName = sanitizeHtml(partnerData?.name || 'partnern');
+        const safeAdminNotes = sanitizeHtml(adminNotes);
+
         // Send email notification to requester
         await sendEmail(
           request.requester_email,
-          `Din ändringsförfrågan för ${partnerData?.name || 'partnern'} har avvisats`,
+          `Din ändringsförfrågan för ${safePartnerName} har avvisats`,
           `
             <h2>Ändringsförfrågan avvisad</h2>
-            <p>Hej ${request.requester_name},</p>
-            <p>Din ändringsförfrågan för <strong>${partnerData?.name || 'partnern'}</strong> har granskats och avvisats.</p>
-            ${adminNotes ? `<p><strong>Anledning:</strong> ${adminNotes}</p>` : '<p>Kontakta oss om du har frågor.</p>'}
+            <p>Hej ${safeRequesterName},</p>
+            <p>Din ändringsförfrågan för <strong>${safePartnerName}</strong> har granskats och avvisats.</p>
+            ${safeAdminNotes ? `<p><strong>Anledning:</strong> ${safeAdminNotes}</p>` : '<p>Kontakta oss om du har frågor.</p>'}
             <p>Med vänliga hälsningar,<br>Dynamic Factory</p>
           `
         );
