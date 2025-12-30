@@ -264,53 +264,63 @@ const Branschlosningar = () => {
             {/* Partners grid */}
             {filteredPartners.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredPartners.map((partner) => (
-                  <div
-                    key={partner.name}
-                    className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 hover:shadow-lg transition-all duration-200"
-                  >
-                    <h3 className="text-xl font-semibold text-foreground mb-3">{partner.name}</h3>
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{partner.description}</p>
-                    
-                    <div className="space-y-3 mb-4">
-                      <div className="flex items-start gap-2">
-                        <Briefcase className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                        <div className="flex flex-wrap gap-1">
-                          {partner.applications.slice(0, 4).map((app) => (
-                            <span key={app} className="text-xs bg-muted px-2 py-0.5 rounded">
-                              {app}
-                            </span>
-                          ))}
-                          {partner.applications.length > 4 && (
-                            <span className="text-xs text-muted-foreground">+{partner.applications.length - 4}</span>
-                          )}
+                {filteredPartners.map((partner) => {
+                  const partnerSlug = partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                  return (
+                    <div
+                      key={partner.name}
+                      className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 hover:shadow-lg transition-all duration-200"
+                    >
+                      <h3 className="text-xl font-semibold text-foreground mb-3">{partner.name}</h3>
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{partner.description}</p>
+                      
+                      <div className="space-y-3 mb-4">
+                        <div className="flex items-start gap-2">
+                          <Briefcase className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <div className="flex flex-wrap gap-1">
+                            {partner.applications.slice(0, 4).map((app) => (
+                              <span key={app} className="text-xs bg-muted px-2 py-0.5 rounded">
+                                {app}
+                              </span>
+                            ))}
+                            {partner.applications.length > 4 && (
+                              <span className="text-xs text-muted-foreground">+{partner.applications.length - 4}</span>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-2">
+                          <Building2 className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <div className="flex flex-wrap gap-1">
+                            {partner.industries.slice(0, 3).map((ind) => (
+                              <span key={ind} className="text-xs bg-muted px-2 py-0.5 rounded">
+                                {ind}
+                              </span>
+                            ))}
+                            {partner.industries.length > 3 && (
+                              <span className="text-xs text-muted-foreground">+{partner.industries.length - 3}</span>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-2">
+                          <Users className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <span className="text-xs text-muted-foreground">
+                            {partner.companySize.join(", ")} företag
+                          </span>
                         </div>
                       </div>
-                      
-                      <div className="flex items-start gap-2">
-                        <Building2 className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                        <div className="flex flex-wrap gap-1">
-                          {partner.industries.slice(0, 3).map((ind) => (
-                            <span key={ind} className="text-xs bg-muted px-2 py-0.5 rounded">
-                              {ind}
-                            </span>
-                          ))}
-                          {partner.industries.length > 3 && (
-                            <span className="text-xs text-muted-foreground">+{partner.industries.length - 3}</span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start gap-2">
-                        <Users className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                        <span className="text-xs text-muted-foreground">
-                          {partner.companySize.join(", ")} företag
-                        </span>
-                      </div>
-                    </div>
 
-                  </div>
-                ))}
+                      <Link 
+                        to={`/partner/${partnerSlug}`}
+                        className="text-sm text-primary hover:text-primary/80 hover:underline inline-flex items-center gap-1"
+                      >
+                        Öppna partnerkortet
+                        <ExternalLink className="h-3 w-3" />
+                      </Link>
+                    </div>
+                  );
+                })}
               </div>
             ) : (
               <div className="text-center py-12 bg-muted/30 rounded-xl border border-border">
