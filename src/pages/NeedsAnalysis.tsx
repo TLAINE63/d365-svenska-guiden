@@ -1328,13 +1328,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="space-y-6">
             <div>
               <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
-              <div className="border rounded-lg overflow-hidden">
-                <div className="grid grid-cols-2 bg-muted/50 border-b">
+              <div className="border-2 border-border rounded-lg overflow-hidden">
+                <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
                   <div className="p-3 font-medium text-sm">Produkt</div>
-                  <div className="p-3 font-medium text-sm border-l">Driftsattes år</div>
+                  <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
                 </div>
                 {data.currentSystems.map((system, index) => (
-                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b' : ''}`}>
+                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
                     <div className="p-2">
                       <Input
                         placeholder=""
@@ -1347,7 +1347,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                       />
                     </div>
-                    <div className="p-2 border-l">
+                    <div className="p-2 border-l-2 border-border">
                       <Input
                         type="number"
                         placeholder="T.ex. 2015"
