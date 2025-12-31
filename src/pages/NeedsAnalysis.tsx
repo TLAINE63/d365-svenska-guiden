@@ -1459,7 +1459,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             />
 
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Hur upplever ni dessa områden idag?</h3>
+              <p className="text-muted-foreground">Låt oss hjälpa dig på traven lite. Nedan listas några vanliga exempel på som påverkar verksamheten så pass mycket att det är dags att se över nuvarande ERP/Affärssystem. Klicka gärna i de områden som stämmer för din verksamhet.</p>
               <div className="space-y-6">
                 {situationChallengeCategories.map((category) => (
                   <div key={category.id} className="border rounded-lg p-4 space-y-3">
