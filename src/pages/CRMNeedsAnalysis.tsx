@@ -1669,7 +1669,11 @@ const CRMNeedsAnalysis = () => {
                 const isActive = currentStep === index + 1;
                 const isCompleted = currentStep > index + 1;
                 return (
-                  <div key={index} className="flex flex-col items-center min-w-[80px]">
+                  <button
+                    key={index}
+                    onClick={() => setCurrentStep(index + 1)}
+                    className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity"
+                  >
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${
                       isActive ? 'bg-crm text-white' : 
                       isCompleted ? 'bg-crm/20 text-crm' : 
@@ -1680,7 +1684,7 @@ const CRMNeedsAnalysis = () => {
                     <span className={`text-xs text-center ${isActive ? 'text-crm font-medium' : 'text-muted-foreground'}`}>
                       {title}
                     </span>
-                  </div>
+                  </button>
                 );
               })}
             </div>
