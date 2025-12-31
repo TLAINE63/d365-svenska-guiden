@@ -1667,6 +1667,40 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </CardContent>
             </Card>
 
+            {/* Contact Card */}
+            <Card className="mb-8 border-2 border-primary/30 bg-gradient-to-r from-primary/5 to-primary/10">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-lg">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary-foreground font-bold text-sm">TL</span>
+                  </div>
+                  <div>
+                    <p className="text-foreground font-bold">Thomas Laine</p>
+                    <p className="text-sm text-muted-foreground font-normal">Partner & Rådgivare, Dynamic Factory</p>
+                  </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Har du frågor om din behovsanalys eller vill diskutera hur Dynamics 365 kan hjälpa er verksamhet? Tveka inte att kontakta mig.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button asChild className="flex-1" variant="outline">
+                    <a href="mailto:thomas.laine@dynamicfactory.se">
+                      <span className="mr-2">✉️</span>
+                      thomas.laine@dynamicfactory.se
+                    </a>
+                  </Button>
+                  <Button asChild className="flex-1" variant="outline">
+                    <a href="tel:+46706789012">
+                      <span className="mr-2">📞</span>
+                      070-678 90 12
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Actions */}
             <div className="flex justify-center">
               <Button
