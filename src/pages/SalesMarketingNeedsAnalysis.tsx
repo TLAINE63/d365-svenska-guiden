@@ -267,21 +267,74 @@ const kpiOptions = [
   "Kampanjeffektivitet",
 ];
 
-const aiUseCaseOptions = [
-  "Prediktiv lead scoring",
-  "Intelligenta säljrekommendationer",
-  "E-postassistent (AI-genererad text)",
-  "Insikter från kunddata",
-  "Automatiserade arbetsflöden",
-  "Nästa bästa åtgärd (NBA)",
-  "Content-generering för marknadsföring",
-  "Konversationsintelligens (samtalsanalys och coaching)",
-  "AI-assisterad pipeline-prognos",
-  "Kundsegmentering och lookalike-audiences",
-  "Personaliserade kundresor",
-  "A/B-testoptimering med AI",
-  "Social listening och varumärkesbevakning",
-  "Automatiserad mötesbokning och uppföljning",
+// AI use cases with descriptions for Sales & Marketing
+const aiUseCaseCategories = [
+  {
+    id: "lead-scoring",
+    title: "Predictive Lead & Opportunity Scoring",
+    description: "AI rangordnar leads och affärer baserat på köpsannolikhet, affärsstorlek och tid till avslut. Tar hänsyn till historik, beteendedata, bransch, engagemang och liknande kunder.",
+    benefit: "Affärsnytta: Sälj fokuserar på rätt affärer → högre win-rate, kortare säljcykler."
+  },
+  {
+    id: "next-best-action",
+    title: "Next Best Action / Next Best Offer",
+    description: "AI föreslår nästa steg i affären: ring, maila, boka möte. Vilket budskap eller erbjudande som fungerar bäst. Anpassas efter affärsfas, kundbeteende och tidigare utfall.",
+    benefit: "Affärsnytta: Mindre gissningar, mer konsekvent och skalbar försäljning."
+  },
+  {
+    id: "forecasting",
+    title: "AI-baserad säljprognos (Forecasting)",
+    description: "Prognoser som justeras löpande baserat på pipeline-kvalitet, säljarbeteende och historiska mönster. Identifierar affärer som ser bra ut men sannolikt inte stänger.",
+    benefit: "Affärsnytta: Ledningen får prognoser man kan lita på."
+  },
+  {
+    id: "conversation-intelligence",
+    title: "Conversation Intelligence",
+    description: "Analys av möten, samtal och mejl: tonläge, köpsignaler, objektioner. AI sammanfattar möten och uppdaterar CRM automatiskt.",
+    benefit: "Affärsnytta: Mindre admin, bättre coachning, snabbare onboarding av nya säljare."
+  },
+  {
+    id: "churn-expansion",
+    title: "Churn & Expansion Prediction (Account Intelligence)",
+    description: "Identifierar kunder som riskerar churn. Upptäcker signaler för merförsäljning och uppgradering.",
+    benefit: "Affärsnytta: Proaktiv kundbearbetning istället för reaktiv brandkårsutryckning."
+  },
+  {
+    id: "ai-segmentering",
+    title: "AI-driven segmentering",
+    description: "Dynamiska målgrupper baserat på beteende, intent-data och liknande kunder (lookalikes). Segment uppdateras automatiskt i realtid.",
+    benefit: "Affärsnytta: Rätt budskap till rätt person – automatiskt."
+  },
+  {
+    id: "predictive-nurturing",
+    title: "Predictive Nurturing & Timing",
+    description: "AI avgör när en kontakt är redo för sälj och vilket innehåll som ska skickas. Anpassar flöden per individ, inte per kampanj.",
+    benefit: "Affärsnytta: Högre MQL→SQL-konvertering, mindre spam."
+  },
+  {
+    id: "personalisering",
+    title: "Personalisering i stor skala",
+    description: "Dynamiskt innehåll i email, landningssidor och ads. Baserat på kundens bransch, roll, beteende och fas i köpresan.",
+    benefit: "Affärsnytta: Personlig upplevelse utan manuell handpåläggning."
+  },
+  {
+    id: "kampanjoptimering",
+    title: "Kampanjoptimering i realtid",
+    description: "AI testar automatiskt ämnesrader, CTA och kanalval. Budget flyttas till de kampanjer som faktiskt konverterar.",
+    benefit: "Affärsnytta: Mer effekt per marknadsföringskrona."
+  },
+  {
+    id: "attribution",
+    title: "Attribution & Revenue Intelligence",
+    description: "AI analyserar vilka aktiviteter som verkligen driver affär. Multi-touch attribution utan Excel-gymnastik.",
+    benefit: "Affärsnytta: Marknad kan bevisa sitt bidrag till intäkter."
+  },
+  {
+    id: "ai-assistent",
+    title: "AI-assistent (Copilot-liknande funktioner)",
+    description: "Fråga CRM på naturligt språk: \"Vilka leads bör sälj ringa idag?\" \"Vilka kampanjer driver pipeline just nu?\" Sammanfattar, föreslår och automatiserar.",
+    benefit: "Affärsnytta: CRM blir ett arbetsverktyg – inte ett rapportsystem."
+  }
 ];
 
 const SalesMarketingNeedsAnalysis = () => {
@@ -811,36 +864,16 @@ const SalesMarketingNeedsAnalysis = () => {
 
       case 6:
         const aiInterestOptions = [
-          { value: "Mycket intresserade", label: "Mycket intresserade" },
-          { value: "Ganska intresserade", label: "Ganska intresserade" },
-          { value: "Lite intresserade", label: "Lite intresserade" },
-          { value: "Ej intresserade just nu", label: "Ej intresserade just nu" }
+          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
+          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
+          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
+          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" }
         ];
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka nyckeltal (KPI:er) är viktigast för er?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {kpiOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.kpis.includes(option)}
-                    onClick={() => handleCheckboxChange("kpis", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-              <Textarea
-                placeholder="Övriga KPI:er..."
-                value={data.kpisOther}
-                onChange={(e) => setData({ ...data, kpisOther: e.target.value })}
-                className="mt-3"
-              />
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Hur intresserade är ni av AI och automation?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <h3 className="text-lg font-semibold mb-4">Hur intresserade är ni av AI i CRM-systemet?</h3>
+              <div className="grid grid-cols-1 gap-3">
                 {aiInterestOptions.map((option) => (
                   <SelectionCard
                     key={option.value}
@@ -853,18 +886,49 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
             </div>
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka AI-användningsområden är intressanta?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {aiUseCaseOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.aiUseCases.includes(option)}
-                    onClick={() => handleCheckboxChange("aiUseCases", option)}
-                    type="checkbox"
-                  />
+              <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
+              <div className="grid grid-cols-1 gap-4">
+                {aiUseCaseCategories.map((category) => (
+                  <div
+                    key={category.id}
+                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
+                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                      data.aiUseCases.includes(category.title)
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        data.aiUseCases.includes(category.title)
+                          ? 'border-primary bg-primary'
+                          : 'border-muted-foreground'
+                      }`}>
+                        {data.aiUseCases.includes(category.title) && (
+                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
+                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
+            </div>
+            <div>
+              <Label htmlFor="aiDetails">Beskriv hur AI skulle kunna hjälpa er verksamhet</Label>
+              <Textarea
+                id="aiDetails"
+                placeholder="Beskriv era tankar om AI..."
+                value={data.aiDetails}
+                onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
+                className="mt-2"
+              />
             </div>
           </div>
         );
