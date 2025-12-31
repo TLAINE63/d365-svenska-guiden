@@ -752,7 +752,7 @@ const CustomerServiceNeedsAnalysis = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert kundservice-system?</h3>
+            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
             <Textarea
               id="currentSituationReason"
               placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt kundservice-system..."
