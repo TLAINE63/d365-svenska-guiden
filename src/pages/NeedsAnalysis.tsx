@@ -1093,7 +1093,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     
     pdf.setFontSize(9);
-    pdf.text("thomas.laine@d365.se", pageWidth - margin - 55, yPos + 10);
+    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 10);
     pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 18);
 
     // Generate PDF as base64 for email attachment
@@ -1609,7 +1609,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     </a>
                   </Button>
                   <Button asChild variant="outline" className="flex-1">
-                    <a href="mailto:thomas.laine@d365.se">
+                    <a href="mailto:thomas.laine@dynamicfactory.se">
                       Kontakta oss direkt
                     </a>
                   </Button>
