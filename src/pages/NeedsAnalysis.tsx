@@ -486,11 +486,11 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 11;
+  const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    Building2, Globe, Globe, Server, AlertTriangle, Link2, Boxes, AlertTriangle, BarChart3, Sparkles, FileText
+    Building2, Globe, Globe, Server, AlertTriangle, Link2, Boxes, AlertTriangle, Sparkles, FileText
   ];
 
   const stepTitles = [
@@ -502,7 +502,6 @@ const NeedsAnalysis = () => {
     "Integrationer",
     "Funktioner & Moduler",
     "Utmaningar",
-    "Nyckeltal",
     "AI & Framtid",
     "Övrig Information",
   ];
@@ -980,12 +979,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addSectionHeader("UTMANINGAR", "8");
     addBulletList(data.challenges, data.challengesOther);
 
-    // Section 9: KPIs
-    addSectionHeader("NYCKELTAL", "9");
-    addBulletList(data.kpis, data.kpisOther);
-
-    // Section 10: AI & Future
-    addSectionHeader("AI & FRAMTID", "10");
+    // Section 9: AI & Future
+    addSectionHeader("AI & FRAMTID", "9");
     addContentRow("Intresse:", data.aiInterest);
     if (data.aiUseCases.length > 0) {
       pdf.setFontSize(10);
@@ -1005,8 +1000,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += detailLines.length * 5 + 5;
     }
 
-    // Section 11: Additional Info
-    addSectionHeader("ÖVRIG INFORMATION", "11");
+    // Section 10: Additional Info
+    addSectionHeader("ÖVRIG INFORMATION", "10");
     if (data.additionalInfo) {
       pdf.setFontSize(10);
       pdf.setTextColor(51, 51, 51);
@@ -1461,40 +1456,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 9:
-        const dynamicKpis = getKpisForIndustry(data.industry);
-        return (
-          <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka nyckeltal är viktigast för er verksamhet att följa och förbättra?</p>
-            {data.industry && (
-              <p className="text-sm text-primary">
-                Nyckeltalen nedan är anpassade efter din valda bransch: {data.industry}
-              </p>
-            )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {dynamicKpis.map((option) => (
-                <SelectionCard
-                  key={option}
-                  label={option}
-                  selected={data.kpis.includes(option)}
-                  onClick={() => handleCheckboxChange('kpis', option)}
-                  type="checkbox"
-                />
-              ))}
-            </div>
-            <div>
-              <Label htmlFor="kpisOther">Övriga nyckeltal</Label>
-              <Textarea
-                id="kpisOther"
-                placeholder="Beskriv övriga nyckeltal..."
-                value={data.kpisOther}
-                onChange={(e) => setData({ ...data, kpisOther: e.target.value })}
-                className="mt-2"
-              />
-            </div>
-          </div>
-        );
-
-      case 10:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1549,7 +1510,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 11:
+      case 10:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Finns det något övrigt ni vill berätta om ert projekt eller era behov?</p>
