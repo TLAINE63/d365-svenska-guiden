@@ -38,6 +38,8 @@ interface AnalysisData {
   modules: string[];
   modulesOther: string;
   // Step 5
+  currentSituationReason: string;
+  // Step 6
   integrationSystems: { system: string; importance: string }[];
   // Step 6
   currentSystems: { product: string; year: string }[];
@@ -71,6 +73,7 @@ const initialData: AnalysisData = {
   geographyOther: "",
   modules: [],
   modulesOther: "",
+  currentSituationReason: "",
   integrationSystems: [
     { system: "", importance: "" },
     { system: "", importance: "" },
@@ -481,11 +484,11 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 10;
+  const totalSteps = 11;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    Building2, Globe, Globe, Boxes, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText
+    Building2, Globe, Globe, Boxes, AlertTriangle, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText
   ];
 
   const stepTitles = [
@@ -493,6 +496,7 @@ const NeedsAnalysis = () => {
     "Bransch",
     "Geografi",
     "Funktioner & Moduler",
+    "Nuvarande situation",
     "Integrationer",
     "Nuvarande System",
     "Utmaningar",
@@ -913,7 +917,24 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addBulletList(data.modules, data.modulesOther);
 
     // Section 5: Integrations
-    addSectionHeader("INTEGRATIONER", "5");
+    // Section 5: Current Situation Reason
+    addSectionHeader("NUVARANDE SITUATION", "5");
+    if (data.currentSituationReason) {
+      pdf.setFontSize(10);
+      pdf.setTextColor(51, 51, 51);
+      const reasonLines = pdf.splitTextToSize(data.currentSituationReason, contentWidth - 10);
+      addNewPageIfNeeded(reasonLines.length * 5 + 10);
+      pdf.text(reasonLines, margin + 5, yPos);
+      yPos += reasonLines.length * 5 + 5;
+    } else {
+      pdf.setFontSize(10);
+      pdf.setTextColor(150, 150, 150);
+      pdf.text("Ingen information angiven.", margin + 5, yPos);
+      yPos += 8;
+    }
+
+    // Section 6: Integrations
+    addSectionHeader("INTEGRATIONER", "6");
     const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
     if (filledIntegrations.length > 0) {
       filledIntegrations.forEach((integration) => {
@@ -927,8 +948,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 8;
     }
 
-    // Section 6: Current Systems
-    addSectionHeader("NUVARANDE SYSTEM", "6");
+    // Section 7: Current Systems
+    addSectionHeader("NUVARANDE SYSTEM", "7");
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     if (filledSystems.length > 0) {
       filledSystems.forEach((system, index) => {
@@ -951,16 +972,16 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += lines.length * 5 + 3;
     }
 
-    // Section 7: Challenges
-    addSectionHeader("UTMANINGAR", "7");
+    // Section 8: Challenges
+    addSectionHeader("UTMANINGAR", "8");
     addBulletList(data.challenges, data.challengesOther);
 
-    // Section 8: KPIs
-    addSectionHeader("NYCKELTAL", "8");
+    // Section 9: KPIs
+    addSectionHeader("NYCKELTAL", "9");
     addBulletList(data.kpis, data.kpisOther);
 
-    // Section 9: AI & Future
-    addSectionHeader("AI & FRAMTID", "9");
+    // Section 10: AI & Future
+    addSectionHeader("AI & FRAMTID", "10");
     addContentRow("Intresse:", data.aiInterest);
     if (data.aiUseCases.length > 0) {
       pdf.setFontSize(10);
@@ -980,8 +1001,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += detailLines.length * 5 + 5;
     }
 
-    // Section 10: Additional Info
-    addSectionHeader("ÖVRIG INFORMATION", "10");
+    // Section 11: Additional Info
+    addSectionHeader("ÖVRIG INFORMATION", "11");
     if (data.additionalInfo) {
       pdf.setFontSize(10);
       pdf.setTextColor(51, 51, 51);
@@ -1278,6 +1299,23 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 5:
         return (
           <div className="space-y-6">
+            <div>
+              <h2 className="text-xl font-bold mb-2">Nuvarande situation</h2>
+              <p className="text-muted-foreground mb-4">Vad är anledningen till att du är ute och söker efter alternativa ERP/Affärssystem?</p>
+            </div>
+            <Textarea
+              id="currentSituationReason"
+              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt affärssystem..."
+              value={data.currentSituationReason}
+              onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
+              className="min-h-[150px]"
+            />
+          </div>
+        );
+
+      case 6:
+        return (
+          <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
             <div className="border-2 border-border rounded-lg overflow-hidden">
               <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
@@ -1316,13 +1354,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
-            <div>
-              <h2 className="text-xl font-bold mb-2">Nuvarande situation</h2>
-              <p className="text-muted-foreground mb-6">Vad är anledningen till att du är ute och söker efter alternativa ERP/Affärssystem?</p>
-            </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
               <div className="border-2 border-border rounded-lg overflow-hidden">
@@ -1374,7 +1408,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka utmaningar upplever ni idag i ert nuvarande?</p>
@@ -1402,7 +1436,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 8:
+      case 9:
         const dynamicKpis = getKpisForIndustry(data.industry);
         return (
           <div className="space-y-6">
@@ -1436,7 +1470,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 9:
+      case 10:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1491,7 +1525,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 10:
+      case 11:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Finns det något övrigt ni vill berätta om ert projekt eller era behov?</p>
