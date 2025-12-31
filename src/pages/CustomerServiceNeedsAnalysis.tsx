@@ -29,6 +29,7 @@ interface CustomerServiceAnalysisData {
   industry: string;
   industryOther: string;
   serviceTeamSize: string;
+  fieldServiceTeamSize: string;
   currentSystems: { product: string; year: string }[];
   otherSystemsDetails: string;
   situationChallenges: Record<string, string>;
@@ -55,6 +56,7 @@ const initialData: CustomerServiceAnalysisData = {
   industry: "",
   industryOther: "",
   serviceTeamSize: "",
+  fieldServiceTeamSize: "",
   currentSystems: [
     { product: "", year: "" },
     { product: "", year: "" },
@@ -119,6 +121,7 @@ const teamSizeOptions = [
   "16-50",
   "51-100",
   "100+",
+  "Ej relevant",
 ];
 
 // Customer Service Situation challenge categories
@@ -649,13 +652,27 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Storlek på kundservice-/Contact Centerteam</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {teamSizeOptions.map((option) => (
                   <SelectionCard
                     key={option}
                     label={option}
                     selected={data.serviceTeamSize === option}
                     onClick={() => setData({ ...data, serviceTeamSize: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Storlek på fältserviceteam</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {teamSizeOptions.map((option) => (
+                  <SelectionCard
+                    key={option}
+                    label={option}
+                    selected={data.fieldServiceTeamSize === option}
+                    onClick={() => setData({ ...data, fieldServiceTeamSize: option })}
                     type="radio"
                   />
                 ))}
