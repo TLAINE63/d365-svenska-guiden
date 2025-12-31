@@ -29,7 +29,6 @@ interface CustomerServiceAnalysisData {
   industry: string;
   industryOther: string;
   serviceTeamSize: string;
-  fieldServiceTeamSize: string;
   currentSystems: { product: string; year: string }[];
   otherSystemsDetails: string;
   situationChallenges: Record<string, string>;
@@ -56,7 +55,6 @@ const initialData: CustomerServiceAnalysisData = {
   industry: "",
   industryOther: "",
   serviceTeamSize: "",
-  fieldServiceTeamSize: "",
   currentSystems: [
     { product: "", year: "" },
     { product: "", year: "" },
@@ -298,15 +296,14 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 7;
+  const totalSteps = 6;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Target, Wrench, Target, BarChart3, FileText];
+  const stepIcons = [Building2, Target, Target, Target, BarChart3, FileText];
   const stepTitles = [
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
-    "Fältservice",
     "Integrationer",
     "AI & Framtid",
     "Övrig Information",
@@ -664,20 +661,6 @@ const CustomerServiceNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Storlek på fältserviceteam</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {teamSizeOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.fieldServiceTeamSize === option}
-                    onClick={() => setData({ ...data, fieldServiceTeamSize: option })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         );
 
@@ -806,53 +789,6 @@ const CustomerServiceNeedsAnalysis = () => {
         );
 
       case 4:
-        const fieldServiceRadioOptions = [
-          { value: "Ja", label: "Ja" },
-          { value: "Nej", label: "Nej" },
-          { value: "Planerar att starta", label: "Planerar att starta" }
-        ];
-        return (
-          <div className="space-y-6">
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Har ni fältserviceverksamhet?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {fieldServiceRadioOptions.map((option) => (
-                  <SelectionCard
-                    key={option.value}
-                    label={option.label}
-                    selected={data.hasFieldService === option.value}
-                    onClick={() => setData({ ...data, hasFieldService: option.value })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-            </div>
-            {(data.hasFieldService === "Ja" || data.hasFieldService === "Planerar att starta") && (
-              <div>
-                <Label className="text-base font-semibold mb-3 block">Vilka fältservicefunktioner behöver ni?</Label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {fieldServiceNeedOptions.map((option) => (
-                    <SelectionCard
-                      key={option}
-                      label={option}
-                      selected={data.fieldServiceNeeds.includes(option)}
-                      onClick={() => handleCheckboxChange("fieldServiceNeeds", option)}
-                      type="checkbox"
-                    />
-                  ))}
-                </div>
-                <Textarea
-                  placeholder="Övriga fältservicebehov..."
-                  value={data.fieldServiceNeedsOther}
-                  onChange={(e) => setData({ ...data, fieldServiceNeedsOther: e.target.value })}
-                  className="mt-3"
-                />
-              </div>
-            )}
-          </div>
-        );
-
-      case 5:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -903,7 +839,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 5:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -974,7 +910,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 6:
         return (
           <div className="space-y-6">
             <div>
