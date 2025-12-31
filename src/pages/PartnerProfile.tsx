@@ -18,12 +18,19 @@ const PartnerProfile = () => {
   const selectedProduct = searchParams.get("product") || undefined;
   const selectedIndustry = searchParams.get("industry") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
+  
   // Fallback to static data if not in database
-  const staticPartner = staticPartners.find(
-    (p) => p.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") === slug
-  );
+  // Generate slug consistently: lowercase, keep only alphanumeric and hyphens
+  const staticPartner = staticPartners.find((p) => {
+    const generatedSlug = p.name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+    return generatedSlug === slug;
+  });
 
-  const partner = dbPartner || (staticPartner ? {
+  // Use dbPartner if available, otherwise fall back to static partner data
+  const partner = dbPartner ?? (staticPartner ? {
     id: slug || "",
     slug: slug || "",
     name: staticPartner.name,
