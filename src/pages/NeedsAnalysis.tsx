@@ -488,17 +488,17 @@ const NeedsAnalysis = () => {
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    Building2, Globe, Globe, Boxes, AlertTriangle, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText
+    Building2, Globe, Globe, Server, AlertTriangle, Link2, Boxes, AlertTriangle, BarChart3, Sparkles, FileText
   ];
 
   const stepTitles = [
     "Företagsstorlek",
     "Bransch",
     "Geografi",
-    "Funktioner & Moduler",
+    "Nuvarande System",
     "Nuvarande situation",
     "Integrationer",
-    "Nuvarande System",
+    "Funktioner & Moduler",
     "Utmaningar",
     "Nyckeltal",
     "AI & Framtid",
@@ -912,11 +912,30 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addSectionHeader("GEOGRAFI", "3");
     addBulletList(data.geography ? [data.geography] : [], data.geographyOther);
 
-    // Section 4: Modules
-    addSectionHeader("FUNKTIONER & MODULER", "4");
-    addBulletList(data.modules, data.modulesOther);
+    // Section 4: Current Systems
+    addSectionHeader("NUVARANDE SYSTEM", "4");
+    const filledSystems = data.currentSystems.filter(s => s.product.trim());
+    if (filledSystems.length > 0) {
+      filledSystems.forEach((system, index) => {
+        const yearText = system.year ? ` (driftsattes ${system.year})` : "";
+        addContentRow(`System ${index + 1}:`, `${system.product}${yearText}`);
+      });
+    } else {
+      addContentRow("System:", "Ej angivet");
+    }
+    if (data.otherSystemsDetails) {
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(100, 100, 100);
+      pdf.text("Övriga system:", margin, yPos);
+      yPos += 7;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(0, 0, 0);
+      const otherLines = pdf.splitTextToSize(data.otherSystemsDetails, contentWidth - 10);
+      pdf.text(otherLines, margin + 5, yPos);
+      yPos += otherLines.length * 5 + 3;
+    }
 
-    // Section 5: Integrations
     // Section 5: Current Situation Reason
     addSectionHeader("NUVARANDE SITUATION", "5");
     if (data.currentSituationReason) {
@@ -948,29 +967,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 8;
     }
 
-    // Section 7: Current Systems
-    addSectionHeader("NUVARANDE SYSTEM", "7");
-    const filledSystems = data.currentSystems.filter(s => s.product.trim());
-    if (filledSystems.length > 0) {
-      filledSystems.forEach((system, index) => {
-        const yearText = system.year ? ` (driftsattes ${system.year})` : "";
-        addContentRow(`System ${index + 1}:`, `${system.product}${yearText}`);
-      });
-    } else {
-      addContentRow("System:", "Ej angivet");
-    }
-    if (data.otherSystemsDetails) {
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(100, 100, 100);
-      pdf.text("Övriga system:", margin, yPos);
-      yPos += 7;
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(0, 0, 0);
-      const lines = pdf.splitTextToSize(data.otherSystemsDetails, contentWidth - 10);
-      pdf.text(lines, margin + 5, yPos);
-      yPos += lines.length * 5 + 3;
-    }
+    // Section 7: Modules
+    addSectionHeader("FUNKTIONER & MODULER", "7");
+    addBulletList(data.modules, data.modulesOther);
 
     // Section 8: Challenges
     addSectionHeader("UTMANINGAR", "8");
@@ -1271,25 +1270,51 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 4:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka funktioner och moduler är viktigast för er verksamhet?</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {moduleOptions.map((option) => (
-                <SelectionCard
-                  key={option}
-                  label={option}
-                  selected={data.modules.includes(option)}
-                  onClick={() => handleCheckboxChange('modules', option)}
-                  type="checkbox"
-                />
-              ))}
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
+              <div className="border-2 border-border rounded-lg overflow-hidden">
+                <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                  <div className="p-3 font-medium text-sm">ERP/Affärssystem</div>
+                  <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
+                </div>
+                {data.currentSystems.map((system, index) => (
+                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                    <div className="p-2">
+                      <Input
+                        placeholder=""
+                        value={system.product}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], product: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                      />
+                    </div>
+                    <div className="p-2 border-l-2 border-border">
+                      <Input
+                        type="number"
+                        placeholder="T.ex. 2015"
+                        value={system.year}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], year: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 max-w-[120px]"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
             <div>
-              <Label htmlFor="modulesOther">Övriga funktioner</Label>
+              <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
               <Textarea
-                id="modulesOther"
-                placeholder="Beskriv övriga funktioner ni behöver..."
-                value={data.modulesOther}
-                onChange={(e) => setData({ ...data, modulesOther: e.target.value })}
+                id="otherSystemsDetails"
+                placeholder="Beskriv vilka övriga system som används i verksamheten, t.ex. Microsoft 365, Power BI, CRM-system, ärendehantering, CAD-system..."
+                value={data.otherSystemsDetails}
+                onChange={(e) => setData({ ...data, otherSystemsDetails: e.target.value })}
                 className="mt-2"
               />
             </div>
@@ -1357,51 +1382,25 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 7:
         return (
           <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Nuvarande Affärssystem/ERP</h3>
-              <div className="border-2 border-border rounded-lg overflow-hidden">
-                <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                  <div className="p-3 font-medium text-sm">ERP/Affärssystem</div>
-                  <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
-                </div>
-                {data.currentSystems.map((system, index) => (
-                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
-                    <div className="p-2">
-                      <Input
-                        placeholder=""
-                        value={system.product}
-                        onChange={(e) => {
-                          const newSystems = [...data.currentSystems];
-                          newSystems[index] = { ...newSystems[index], product: e.target.value };
-                          setData({ ...data, currentSystems: newSystems });
-                        }}
-                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                      />
-                    </div>
-                    <div className="p-2 border-l-2 border-border">
-                      <Input
-                        type="number"
-                        placeholder="T.ex. 2015"
-                        value={system.year}
-                        onChange={(e) => {
-                          const newSystems = [...data.currentSystems];
-                          newSystems[index] = { ...newSystems[index], year: e.target.value };
-                          setData({ ...data, currentSystems: newSystems });
-                        }}
-                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 max-w-[120px]"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <p className="text-muted-foreground">Vilka funktioner och moduler är viktigast för er verksamhet?</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {moduleOptions.map((option) => (
+                <SelectionCard
+                  key={option}
+                  label={option}
+                  selected={data.modules.includes(option)}
+                  onClick={() => handleCheckboxChange('modules', option)}
+                  type="checkbox"
+                />
+              ))}
             </div>
             <div>
-              <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
+              <Label htmlFor="modulesOther">Övriga funktioner</Label>
               <Textarea
-                id="otherSystemsDetails"
-                placeholder="Beskriv vilka övriga system som används i verksamheten, t.ex. Microsoft 365, Power BI, CRM-system, ärendehantering, CAD-system..."
-                value={data.otherSystemsDetails}
-                onChange={(e) => setData({ ...data, otherSystemsDetails: e.target.value })}
+                id="modulesOther"
+                placeholder="Beskriv övriga funktioner ni behöver..."
+                value={data.modulesOther}
+                onChange={(e) => setData({ ...data, modulesOther: e.target.value })}
                 className="mt-2"
               />
             </div>
