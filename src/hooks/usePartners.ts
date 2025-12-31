@@ -32,23 +32,29 @@ export interface PartnerInput {
   is_featured?: boolean;
 }
 
-// Fetch all partners from database
+// Fetch all partners from database (public view - excludes sensitive contact info)
 export function usePartners() {
   return useQuery({
     queryKey: ["partners"],
     queryFn: async (): Promise<DatabasePartner[]> => {
       const { data, error } = await supabase
-        .from("partners")
+        .from("partners_public")
         .select("*")
         .order("name");
 
       if (error) throw error;
-      return data || [];
+      // Add null values for fields not in the public view
+      return (data || []).map(p => ({
+        ...p,
+        email: null,
+        phone: null,
+        address: null,
+      }));
     },
   });
 }
 
-// Fetch a single partner by slug
+// Fetch a single partner by slug (public view - excludes sensitive contact info)
 export function usePartner(slug: string | undefined) {
   return useQuery({
     queryKey: ["partner", slug],
@@ -56,13 +62,20 @@ export function usePartner(slug: string | undefined) {
       if (!slug) return null;
       
       const { data, error } = await supabase
-        .from("partners")
+        .from("partners_public")
         .select("*")
         .eq("slug", slug)
         .maybeSingle();
 
       if (error) throw error;
-      return data;
+      if (!data) return null;
+      // Add null values for fields not in the public view
+      return {
+        ...data,
+        email: null,
+        phone: null,
+        address: null,
+      };
     },
     enabled: !!slug,
   });

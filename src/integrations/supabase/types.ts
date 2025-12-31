@@ -119,6 +119,13 @@ export type Database = {
             referencedRelation: "partners"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "partner_change_requests_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
         ]
       }
       partner_clicks: {
@@ -204,7 +211,48 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      partners_public: {
+        Row: {
+          applications: string[] | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          industries: string[] | null
+          is_featured: boolean | null
+          logo_url: string | null
+          name: string | null
+          slug: string | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          applications?: string[] | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          industries?: string[] | null
+          is_featured?: boolean | null
+          logo_url?: string | null
+          name?: string | null
+          slug?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          applications?: string[] | null
+          created_at?: string | null
+          description?: string | null
+          id?: string | null
+          industries?: string[] | null
+          is_featured?: boolean | null
+          logo_url?: string | null
+          name?: string | null
+          slug?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
