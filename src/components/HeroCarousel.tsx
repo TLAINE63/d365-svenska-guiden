@@ -100,7 +100,7 @@ const slides: HeroSlide[] = [
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
     secondaryCtaText: "Starta Behovsanalysen för Kundservice",
     secondaryCtaLink: "/kundservice-behovsanalys",
-    secondaryButtonColor: "bg-purple-600 hover:bg-purple-700",
+    secondaryButtonColor: "bg-[hsl(var(--customer-service))] hover:bg-[hsl(var(--customer-service))]/90",
   },
   {
     id: 4,

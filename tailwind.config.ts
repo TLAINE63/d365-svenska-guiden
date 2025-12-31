@@ -77,6 +77,10 @@ export default {
           DEFAULT: "hsl(var(--agents))",
           foreground: "hsl(var(--agents-foreground))",
         },
+        "customer-service": {
+          DEFAULT: "hsl(var(--customer-service))",
+          foreground: "hsl(var(--customer-service-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
