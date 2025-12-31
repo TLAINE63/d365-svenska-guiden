@@ -694,7 +694,7 @@ const SalesMarketingNeedsAnalysis = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert CRM/Säljsystem?</h3>
+            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert CRM System (Sälj- och/eller Marketing Automation)?</h3>
             <Textarea
               id="currentSituationReason"
               placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt CRM-system..."
@@ -705,7 +705,7 @@ const SalesMarketingNeedsAnalysis = () => {
 
             <div className="space-y-4">
               <p className="text-muted-foreground">
-                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som CRM/Säljsystem-projekt brukar adressera. 
+                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som CRM-projekt (Sälj- och/eller Marketing Automation) brukar adressera. 
                 Klicka gärna i de områden som stämmer för din verksamhet.
               </p>
               <div className="space-y-6">
