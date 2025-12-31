@@ -226,13 +226,19 @@ serve(async (req: Request): Promise<Response> => {
       `
       : "";
 
-    // Build email payload
+    // Build email payload - send to customer with CC to admin
     const emailPayload: Record<string, unknown> = {
       from: "Dynamic Factory <onboarding@resend.dev>",
-      to: ["thomas.laine@dynamicfactory.se"],
-      subject: `Ny ${safeAnalysisType}-behovsanalys från ${safeCompanyName}`,
+      to: [email], // Send to customer
+      cc: ["thomas.laine@dynamicfactory.se"], // Copy to admin
+      reply_to: "thomas.laine@dynamicfactory.se",
+      subject: `Din ${safeAnalysisType}-behovsanalys från d365.se`,
       html: `
-        <h1>Ny ${safeAnalysisType}-behovsanalys slutförd</h1>
+        <h1>Tack för din ${safeAnalysisType}-behovsanalys!</h1>
+        
+        <p>Hej ${safeContactName},</p>
+        
+        <p>Tack för att du genomförde vår behovsanalys. Här är en sammanfattning av dina svar och vår rekommendation.</p>
         
         <h2>Kontaktinformation</h2>
         <p><strong>Företag:</strong> ${safeCompanyName}</p>
@@ -245,9 +251,20 @@ serve(async (req: Request): Promise<Response> => {
         
         ${recommendationHtml}
         
+        <h2>Nästa steg</h2>
+        <p>Vi kontaktar dig inom kort för att diskutera hur vi kan hjälpa er vidare. Du är också välkommen att kontakta oss direkt:</p>
+        <p>
+          <strong>Thomas Laine</strong><br>
+          Partner & Rådgivare, Dynamic Factory<br>
+          E-post: <a href="mailto:thomas.laine@dynamicfactory.se">thomas.laine@dynamicfactory.se</a><br>
+          Tel: 070-678 90 12
+        </p>
+        
         <hr>
         <p style="color: #666; font-size: 12px;">
-          ${pdfBase64 ? "📎 PDF-analysen är bifogad i detta mail." : "OBS: PDF-bilaga kunde inte genereras."}
+          ${pdfBase64 ? "📎 PDF-analysen är bifogad i detta mail." : ""}
+          <br>
+          Detta mail skickades från <a href="https://d365.se">d365.se</a>
         </p>
       `,
     };
