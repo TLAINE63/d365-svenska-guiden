@@ -46,6 +46,7 @@ interface SalesMarketingAnalysisData {
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
+  wishlist: string;
   additionalInfo: string;
   currentPartners: string;
   companyName: string;
@@ -80,6 +81,7 @@ const initialData: SalesMarketingAnalysisData = {
   aiInterest: "",
   aiUseCases: [],
   aiDetails: "",
+  wishlist: "",
   additionalInfo: "",
   currentPartners: "",
   companyName: "",
@@ -287,10 +289,10 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 8;
+  const totalSteps = 9;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Target, Users, Megaphone, Target, BarChart3, FileText];
+  const stepIcons = [Building2, Target, Target, Users, Megaphone, Target, Sparkles, BarChart3, FileText];
   const stepTitles = [
     "Företagsinformation",
     "Nuvarande Situation",
@@ -298,6 +300,7 @@ const SalesMarketingNeedsAnalysis = () => {
     "Försäljningsbehov",
     "Marknadsföring",
     "Integrationer",
+    "Önskelista",
     "KPI & AI",
     "Övrig Information",
   ];
@@ -854,6 +857,22 @@ const SalesMarketingNeedsAnalysis = () => {
         );
 
       case 7:
+        return (
+          <div className="space-y-6">
+            <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt CRM-system för sälj och/eller marknadsföring?</p>
+            <div>
+              <Textarea
+                id="wishlist"
+                placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
+                value={data.wishlist}
+                onChange={(e) => setData({ ...data, wishlist: e.target.value })}
+                className="min-h-[200px]"
+              />
+            </div>
+          </div>
+        );
+
+      case 8:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade" },
           { value: "Ganska intresserade", label: "Ganska intresserade" },
@@ -913,7 +932,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 9:
         return (
           <div className="space-y-6">
             <div>
