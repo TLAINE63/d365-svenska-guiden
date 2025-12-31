@@ -29,8 +29,8 @@ interface SalesMarketingAnalysisData {
   industry: string;
   industryOther: string;
   salesTeamSize: string;
-  currentCRM: string;
-  currentCRMOther: string;
+  currentSystems: { product: string; year: string }[];
+  otherSystemsDetails: string;
   challenges: string[];
   challengesOther: string;
   salesNeeds: string[];
@@ -59,8 +59,12 @@ const initialData: SalesMarketingAnalysisData = {
   industry: "",
   industryOther: "",
   salesTeamSize: "",
-  currentCRM: "",
-  currentCRMOther: "",
+  currentSystems: [
+    { product: "", year: "" },
+    { product: "", year: "" },
+    { product: "", year: "" },
+  ],
+  otherSystemsDetails: "",
   challenges: [],
   challengesOther: "",
   salesNeeds: [],
@@ -119,17 +123,6 @@ const teamSizeOptions = [
   "100+",
 ];
 
-const currentCRMOptions = [
-  "Microsoft Dynamics 365",
-  "Salesforce",
-  "HubSpot",
-  "Pipedrive",
-  "Lime CRM",
-  "SuperOffice",
-  "Zoho CRM",
-  "Excel",
-  "Inget CRM-system/manuella processer",
-];
 
 const challengeOptions = [
   "Dålig översikt över kunder och affärsmöjligheter",
@@ -441,7 +434,11 @@ const SalesMarketingNeedsAnalysis = () => {
     };
 
     addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Säljteam: ${data.salesTeamSize}`);
-    addSection("Nuvarande CRM", data.currentCRMOther || data.currentCRM || "Ej angivet");
+    const filledSystems = data.currentSystems.filter(s => s.product.trim());
+    const systemsText = filledSystems.length > 0 
+      ? filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")
+      : "Ej angivet";
+    addSection("Nuvarande CRM", systemsText);
     addSection("Utmaningar", data.challenges.join(", ") || "Ej angivet");
     addSection("Säljbehov", data.salesNeeds.join(", ") || "Ej angivet");
     addSection("Marknadsföringsbehov", data.marketingNeeds.join(", ") || "Ej angivet");
@@ -469,7 +466,7 @@ const SalesMarketingNeedsAnalysis = () => {
             "Anställda": data.employees,
             "Bransch": data.industry || data.industryOther || "Ej angivet",
             "Säljteam": data.salesTeamSize,
-            "Nuvarande CRM": data.currentCRMOther || data.currentCRM || "Ej angivet",
+            "Nuvarande CRM": data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ") || "Ej angivet",
             "Utmaningar": data.challenges.join(", ") || "Ej angivet",
             "Säljbehov": data.salesNeeds.join(", ") || "Ej angivet",
             "Marknadsföring": data.marketingNeeds.join(", ") || "Ej angivet",
@@ -558,28 +555,52 @@ const SalesMarketingNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilket CRM-system använder ni idag?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {currentCRMOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.currentCRM === option}
-                    onClick={() => setData({ ...data, currentCRM: option })}
-                    type="radio"
-                  />
+              <h3 className="text-lg font-semibold mb-4">Nuvarande CRM-system</h3>
+              <div className="border-2 border-border rounded-lg overflow-hidden">
+                <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                  <div className="p-3 font-medium text-sm">CRM-system</div>
+                  <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
+                </div>
+                {data.currentSystems.map((system, index) => (
+                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                    <div className="p-2">
+                      <Input
+                        placeholder=""
+                        value={system.product}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], product: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                      />
+                    </div>
+                    <div className="p-2 border-l-2 border-border">
+                      <Input
+                        type="number"
+                        placeholder="T.ex. 2020"
+                        value={system.year}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], year: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 max-w-[120px]"
+                      />
+                    </div>
+                  </div>
                 ))}
               </div>
-              <div className="mt-4">
-                <Label htmlFor="currentCRMOther">Annat system</Label>
-                <Input
-                  id="currentCRMOther"
-                  placeholder="Skriv namnet på ert nuvarande CRM-system..."
-                  value={data.currentCRMOther}
-                  onChange={(e) => setData({ ...data, currentCRMOther: e.target.value })}
-                  className="mt-2"
-                />
-              </div>
+            </div>
+            <div>
+              <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
+              <Textarea
+                id="otherSystemsDetails"
+                placeholder="Beskriv vilka övriga system som används, t.ex. e-handelsplattform, marketing automation, ekonomisystem..."
+                value={data.otherSystemsDetails}
+                onChange={(e) => setData({ ...data, otherSystemsDetails: e.target.value })}
+                className="mt-2"
+              />
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag?</Label>
