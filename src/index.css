@@ -54,6 +54,9 @@ All colors MUST be HSL.
     
     --agents: 145 75% 40%;
     --agents-foreground: 0 0% 100%;
+    
+    --customer-service: 280 65% 50%;
+    --customer-service-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
