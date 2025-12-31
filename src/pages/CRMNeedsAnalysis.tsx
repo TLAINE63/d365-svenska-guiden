@@ -913,7 +913,7 @@ const CRMNeedsAnalysis = () => {
     pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     
     pdf.setFontSize(9);
-    pdf.text("thomas.laine@d365.se", pageWidth - margin - 55, yPos + 10);
+    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 10);
     pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 18);
 
     // Generate PDF as base64 for email attachment
