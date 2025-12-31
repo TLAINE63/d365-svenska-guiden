@@ -421,139 +421,51 @@ const getKpisForIndustry = (selectedIndustry: string): string[] => {
   return [...commonKpis, ...industrySpecificKpis];
 };
 
-// Common AI use cases that apply to all industries
-const commonAiUseCases = [
-  "Automatiserad fakturering och bokföring",
-  "Intelligent kundservice (chatbots)",
-  "Dokumenthantering och analys",
-  "Automatiserad rapportgenerering",
-  "Copilot för Excel och rapportering",
-  "AI-assisterad budgetering och prognoser",
-  "Anomalidetektering i transaktioner",
-  "Intelligent leverantörsrekommendation",
-];
-
-// Industry-specific AI use cases mapping
-const industryAiUseCaseMapping: Record<string, string[]> = {
-  "Tillverkningsindustrin": [
-    "Produktionsplanering med AI",
-    "Prediktivt underhåll",
-    "Kvalitetskontroll med datorseende",
-    "Efterfrågeprognos",
-    "Lageroptimering",
-  ],
-  "Handel (Retail & eCommerce)": [
-    "Personaliserade kundupplevelser",
-    "Dynamisk prissättning",
-    "Efterfrågeprognos",
-    "Lageroptimering",
-    "Rekommendationsmotorer",
-    "Kundsegmentering",
-  ],
-  "Grossist/Distribution": [
-    "Lageroptimering",
-    "Ruttplanering och logistik",
-    "Efterfrågeprognos",
-    "Leverantörsanalys",
-    "Automatiserad orderhantering",
-  ],
-  "Bank & Försäkring": [
-    "Bedrägeridetektering",
-    "Riskbedömning",
-    "Automatiserad skadehantering",
-    "Kundanalys och segmentering",
-    "Compliance-övervakning",
-  ],
-  "Hälso- & sjukvård": [
-    "Patientflödesoptimering",
-    "Diagnosstöd",
-    "Resursplanering",
-    "Medicinsk bildanalys",
-    "Prediktiv hälsoanalys",
-  ],
-  "Life Science": [
-    "Forskningsdataanalys",
-    "Kvalitetskontroll",
-    "Regulatorisk efterlevnad",
-    "Klinisk prövningsoptimering",
-    "Batch-optimering",
-  ],
-  "Konsulttjänster": [
-    "Projektprognos",
-    "Resursallokering",
-    "Kompetensmatching",
-    "Automatiserad tidrapportering",
-    "Försäljningsprognoser",
-  ],
-  "Offentlig sektor": [
-    "Ärendehantering med AI",
-    "Medborgarservice chatbots",
-    "Resursoptimering",
-    "Prediktiv analys för planering",
-    "Automatiserad compliance",
-  ],
-  "Energi & Utilities": [
-    "Prediktivt underhåll",
-    "Efterfrågeprognos",
-    "Nätoptimering",
-    "Energieffektiviseringsanalys",
-    "Feldetektering",
-  ],
-  "Transport & Logistik": [
-    "Ruttoptimering",
-    "Prediktivt underhåll av fordon",
-    "Lastplanering",
-    "Efterfrågeprognos",
-    "Realtidsspårning och ETA",
-  ],
-  "Fastigheter": [
-    "Fastighetsvärdeprognoser",
-    "Hyresgästanalys",
-    "Prediktivt underhåll",
-    "Energioptimering",
-    "Marknadsanalys",
-  ],
-  "Medlemsorganisationer": [
-    "Medlemsengagemangsprediktion",
-    "Personaliserad kommunikation",
-    "Eventplanering",
-    "Churn-analys",
-    "Automatiserad medlemsservice",
-  ],
-  "Utbildning": [
-    "Studentprognoser",
-    "Personaliserat lärande",
-    "Schemaoptimering",
-    "Automatiserad bedömning",
-    "Tidiga varningssystem",
-  ],
-  "Nonprofit": [
-    "Givarbeteendeanalys",
-    "Kampanjoptimering",
-    "Resursallokering",
-    "Effektmätning",
-    "Automatiserad kommunikation",
-  ],
-};
-
-// Function to get AI use cases based on selected industry
-const getAiUseCasesForIndustry = (selectedIndustry: string): string[] => {
-  if (!selectedIndustry) {
-    // If no industry selected, show common use cases plus generic ones
-    return [
-      ...commonAiUseCases,
-      "Försäljningsprognoser",
-      "Lageroptimering",
-      "Prediktivt underhåll",
-      "Personaliserade kundupplevelser",
-    ];
+// AI use cases with descriptions
+const aiUseCaseCategories = [
+  {
+    id: "prognoser-planering",
+    title: "Prognoser & planering",
+    description: "Efterfrågeprognoser som justeras i realtid baserat på historik, säsong, kampanjer och externa faktorer. Produktions- och kapacitetsplanering som minimerar flaskhalsar och övertid. Likviditetsprognoser med bättre precision än traditionella Excel-modeller.",
+    benefit: "Affärsnytta: Mindre lager, färre bristsituationer, bättre kassaflöde."
+  },
+  {
+    id: "automatiserad-ekonomi",
+    title: "Automatiserad ekonomi & redovisning",
+    description: "Automatisk kontering av leverantörsfakturor baserat på tidigare beteenden. Avvikelsedetektering som flaggar fel, dubbletter eller potentiellt bedrägeri. Prediktiv bokslutsanalys som visar var problem sannolikt uppstår innan månadsbokslut.",
+    benefit: "Affärsnytta: Lägre administrativa kostnader, snabbare bokslut, minskad risk."
+  },
+  {
+    id: "smart-inkop",
+    title: "Smart inköp & supply chain",
+    description: "Rekommenderade inköpstidpunkter baserat på prisutveckling, leveranstider och efterfrågan. Leverantörsranking som tar hänsyn till pris, kvalitet, leveransprecision och risk. Riskanalys (t.ex. sannolikhet för leveransförseningar).",
+    benefit: "Affärsnytta: Lägre inköpskostnader och mer robust leveranskedja."
+  },
+  {
+    id: "forsaljning-kundhantering",
+    title: "Försäljning & kundhantering",
+    description: "Lead scoring – AI prioriterar affärer med högst sannolikhet att stängas. Nästa-bästa-åtgärd: systemet föreslår när, hur och med vilket erbjudande säljaren bör kontakta kunden. Kundanalyser som förutser churn eller korsförsäljningsmöjligheter.",
+    benefit: "Affärsnytta: Högre win-rate och mer träffsäkra säljinsatser."
+  },
+  {
+    id: "hr-resursoptimering",
+    title: "HR & resursoptimering",
+    description: "Prediktion av personalomsättning baserat på mönster i frånvaro, prestation och engagemang. Smart schemaläggning som balanserar kostnad, kompetens och arbetsbelastning. Kompetensmatchning för projekt och interna roller.",
+    benefit: "Affärsnytta: Lägre personalomsättning och bättre nyttjande av kompetens."
+  },
+  {
+    id: "beslutsstod-realtid",
+    title: "Beslutsstöd i realtid",
+    description: "AI-drivna dashboards som inte bara visar siffror – utan förklarar varför något händer. Simuleringar: \"Vad händer med marginalen om vi höjer priset 3 %?\" Automatiska rekommendationer istället för statiska rapporter.",
+    benefit: "Affärsnytta: Snabbare och bättre beslut på alla nivåer."
+  },
+  {
+    id: "naturligt-sprak",
+    title: "Naturligt språk & användarupplevelse",
+    description: "Fråga ERP-systemet på vanlig svenska: \"Vilka kunder riskerar att sluta handla nästa kvartal?\" \"Var tappar vi mest marginal just nu?\" AI sammanfattar rapporter och föreslår åtgärder.",
+    benefit: "Affärsnytta: Lägre tröskel till insikter – fler använder systemet rätt."
   }
-
-  const industrySpecificUseCases = industryAiUseCaseMapping[selectedIndustry] || [];
-
-  // Combine common use cases with industry-specific ones
-  return [...commonAiUseCases, ...industrySpecificUseCases];
-};
+];
 
 const NeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -1601,20 +1513,36 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
-              {data.industry && (
-                <p className="text-sm text-primary mb-4">
-                  AI-användningsområdena nedan är anpassade efter din valda bransch: {data.industry}
-                </p>
-              )}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {getAiUseCasesForIndustry(data.industry).map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.aiUseCases.includes(option)}
-                    onClick={() => handleCheckboxChange('aiUseCases', option)}
-                    type="checkbox"
-                  />
+              <div className="grid grid-cols-1 gap-4">
+                {aiUseCaseCategories.map((category) => (
+                  <div
+                    key={category.id}
+                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
+                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                      data.aiUseCases.includes(category.title)
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        data.aiUseCases.includes(category.title)
+                          ? 'border-primary bg-primary'
+                          : 'border-muted-foreground'
+                      }`}>
+                        {data.aiUseCases.includes(category.title) && (
+                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
+                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
