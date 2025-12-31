@@ -31,8 +31,7 @@ interface SalesMarketingAnalysisData {
   salesTeamSize: string;
   currentSystems: { product: string; year: string }[];
   otherSystemsDetails: string;
-  challenges: string[];
-  challengesOther: string;
+  situationChallenges: Record<string, string>;
   salesNeeds: string[];
   salesNeedsOther: string;
   salesProcessComplexity: string;
@@ -65,8 +64,7 @@ const initialData: SalesMarketingAnalysisData = {
     { product: "", year: "" },
   ],
   otherSystemsDetails: "",
-  challenges: [],
-  challengesOther: "",
+  situationChallenges: {},
   salesNeeds: [],
   salesNeedsOther: "",
   salesProcessComplexity: "",
@@ -124,19 +122,77 @@ const teamSizeOptions = [
 ];
 
 
-const challengeOptions = [
-  "Dålig översikt över kunder och affärsmöjligheter",
-  "Saknar integration med andra system",
-  "Manuellt och tidskrävande arbete",
-  "Bristande rapportering och analys",
-  "Svårt att skala med verksamheten",
-  "Dålig mobilupplevelse",
-  "Saknar AI och automationsfunktioner",
-  "Ineffektiv säljprocess",
-  "Svårt att samordna sälj och marknad",
-  "Bristande leadhantering",
-  "Saknar insyn i säljpipeline",
+// CRM Situation challenge categories
+const situationChallengeCategories = [
+  {
+    id: "lead_to_cash",
+    title: "Lead-to-cash är trasigt",
+    subtitle: "Leads konverteras i CRM men dör i överlämningen",
+    items: [
+      "Order läggs manuellt i ERP",
+      "Ingen spårbarhet från kampanj → intäkt",
+    ],
+    quote: "\"Vi vet inte vilka kampanjer som faktiskt ger affär.\"",
+    quoteSource: "Sälj/Marknad säger:",
+  },
+  {
+    id: "offerter_prissattning",
+    title: "Offerter och prissättning är manuella",
+    subtitle: "Priser ligger i Excel eller \"i huvudet på seniora säljare\"",
+    items: [
+      "Rabatter ges utan kontroll",
+      "Offerter tar dagar istället för timmar",
+    ],
+    quote: "\"Vi tappar affärer på ledtid – inte på pris.\"",
+    quoteSource: "Sälj säger:",
+  },
+  {
+    id: "crm_sanning",
+    title: "CRM saknar \"sanning\"",
+    subtitle: "Kunddata skiljer sig mellan CRM, ERP och fakturering",
+    items: [
+      "Sälj litar inte på systemet → jobbar utanför",
+      "Prognoser är mer gissning än fakta",
+    ],
+    quote: "\"Vi kan inte styra försäljningen på magkänsla.\"",
+    quoteSource: "Ledningens reaktion:",
+  },
+  {
+    id: "produktivitet",
+    title: "Systemet bromsar säljarnas produktivitet",
+    subtitle: "Mycket administration, för lite kundtid",
+    items: [
+      "Dubbelregistrering i flera system",
+      "Mobilitet och användarupplevelse är usel",
+    ],
+    quote: "CRM uppdateras i efterhand – om alls.",
+    quoteSource: "Säljarnas beteende:",
+  },
+  {
+    id: "go_to_market",
+    title: "Nya go-to-market-initiativ faller",
+    subtitle: "ABM, inbound, partnerförsäljning går inte att stödja",
+    items: [
+      "Marketing automation saknar korrekt masterdata",
+      "Kampanjer kan inte personaliseras",
+    ],
+    quote: "\"Vi har verktyg – men ingen fungerande grund.\"",
+    quoteSource: "Marknad säger:",
+  },
+  {
+    id: "kundupplevelse",
+    title: "Kundupplevelsen blir inkonsekvent",
+    subtitle: "Kunden får olika svar från sälj, support och ekonomi",
+    items: [
+      "Ingen ser helheten: avtal, order, leverans, fakturor",
+      "Uppföljning sker för sent",
+    ],
+    quote: "Kunder börjar klaga eller byta leverantör.",
+    quoteSource: "Extern signal:",
+  },
 ];
+
+const situationChallengeOptions = ["Betydande utmaning", "Viss utmaning", "Inget problem idag"];
 
 const salesNeedOptions = [
   "Lead-hantering och kvalificering",
@@ -269,6 +325,16 @@ const SalesMarketingNeedsAnalysis = () => {
     }
   };
 
+  const handleSituationChallengeChange = (categoryId: string, value: string) => {
+    setData({
+      ...data,
+      situationChallenges: {
+        ...data.situationChallenges,
+        [categoryId]: value,
+      },
+    });
+  };
+
   const getRecommendation = () => {
     const recommendations: { sales: { score: number; reasons: string[] }; marketing: { score: number; reasons: string[] } } = {
       sales: { score: 0, reasons: [] },
@@ -296,10 +362,14 @@ const SalesMarketingNeedsAnalysis = () => {
       recommendations.marketing.score += 15;
       recommendations.marketing.reasons.push("Multichannel-marknadsföring kräver centraliserad plattform");
     }
-    if (data.challenges.includes("Svårt att samordna sälj och marknad")) {
-      recommendations.marketing.score += 20;
-      recommendations.sales.score += 10;
-      recommendations.marketing.reasons.push("Behov av sälj-marknad-integration");
+    // Check for significant challenges
+    const significantChallenges = Object.entries(data.situationChallenges).filter(
+      ([_, value]) => value === "Betydande utmaning"
+    );
+    if (significantChallenges.length > 0) {
+      recommendations.sales.score += significantChallenges.length * 5;
+      recommendations.marketing.score += significantChallenges.length * 3;
+      recommendations.sales.reasons.push(`${significantChallenges.length} betydande utmaningar identifierade`);
     }
 
     const products = [];
@@ -440,7 +510,14 @@ const SalesMarketingNeedsAnalysis = () => {
       ? filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")
       : "Ej angivet";
     addSection("Nuvarande CRM", systemsText);
-    addSection("Utmaningar", data.challenges.join(", ") || "Ej angivet");
+    const challengesText = Object.entries(data.situationChallenges)
+      .filter(([_, value]) => value && value !== "Inget problem idag")
+      .map(([key, value]) => {
+        const category = situationChallengeCategories.find(c => c.id === key);
+        return category ? `${category.title}: ${value}` : `${key}: ${value}`;
+      })
+      .join("; ") || "Ej angivet";
+    addSection("Utmaningar", challengesText);
     addSection("Säljbehov", data.salesNeeds.join(", ") || "Ej angivet");
     addSection("Marknadsföringsbehov", data.marketingNeeds.join(", ") || "Ej angivet");
     addSection("Integrationer", data.integrations.join(", ") || "Ej angivet");
@@ -468,7 +545,13 @@ const SalesMarketingNeedsAnalysis = () => {
             "Bransch": data.industry || data.industryOther || "Ej angivet",
             "Säljteam": data.salesTeamSize,
             "Nuvarande CRM": data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ") || "Ej angivet",
-            "Utmaningar": data.challenges.join(", ") || "Ej angivet",
+            "Utmaningar": Object.entries(data.situationChallenges)
+              .filter(([_, value]) => value && value !== "Inget problem idag")
+              .map(([key, value]) => {
+                const category = situationChallengeCategories.find(c => c.id === key);
+                return category ? `${category.title}: ${value}` : `${key}: ${value}`;
+              })
+              .join("; ") || "Ej angivet",
             "Säljbehov": data.salesNeeds.join(", ") || "Ej angivet",
             "Marknadsföring": data.marketingNeeds.join(", ") || "Ej angivet",
             "Integrationer": data.integrations.join(", ") || "Ej angivet",
@@ -609,25 +692,44 @@ const SalesMarketingNeedsAnalysis = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag?</Label>
-              <div className="grid grid-cols-1 gap-3">
-                {challengeOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.challenges.includes(option)}
-                    onClick={() => handleCheckboxChange("challenges", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-              <Textarea
-                placeholder="Övriga utmaningar..."
-                value={data.challengesOther}
-                onChange={(e) => setData({ ...data, challengesOther: e.target.value })}
-                className="mt-3"
-              />
+            <p className="text-muted-foreground">
+              Nedan listas några vanliga utmaningar som CRM/Säljsystem-projekt brukar adressera. 
+              Klicka gärna i de områden som stämmer för din verksamhet.
+            </p>
+            <div className="space-y-6">
+              {situationChallengeCategories.map((category) => (
+                <div key={category.id} className="border rounded-lg p-4 space-y-3">
+                  <div>
+                    <h4 className="font-bold text-foreground">{category.title}</h4>
+                    <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
+                  </div>
+                  <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                    {category.items.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                  <div className="bg-muted/50 p-3 rounded-md">
+                    <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
+                    <p className="text-sm italic text-foreground">{category.quote}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {situationChallengeOptions.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => handleSituationChallengeChange(category.id, option)}
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                          data.situationChallenges[category.id] === option
+                            ? "bg-primary text-primary-foreground shadow-md"
+                            : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        }`}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         );
