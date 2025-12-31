@@ -29,20 +29,16 @@ interface CustomerServiceAnalysisData {
   industry: string;
   industryOther: string;
   serviceTeamSize: string;
-  currentServiceSystem: string;
-  currentServiceSystemOther: string;
-  challenges: string[];
-  challengesOther: string;
-  serviceNeeds: string[];
-  serviceNeedsOther: string;
+  currentSystems: { product: string; year: string }[];
+  otherSystemsDetails: string;
+  situationChallenges: Record<string, string>;
+  currentSituationReason: string;
   serviceChannels: string[];
   hasFieldService: string;
   fieldServiceNeeds: string[];
   fieldServiceNeedsOther: string;
-  integrations: string[];
-  integrationsOther: string;
-  kpis: string[];
-  kpisOther: string;
+  integrationSystems: { system: string; importance: string }[];
+  wishlist: string;
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
@@ -59,20 +55,26 @@ const initialData: CustomerServiceAnalysisData = {
   industry: "",
   industryOther: "",
   serviceTeamSize: "",
-  currentServiceSystem: "",
-  currentServiceSystemOther: "",
-  challenges: [],
-  challengesOther: "",
-  serviceNeeds: [],
-  serviceNeedsOther: "",
+  currentSystems: [
+    { product: "", year: "" },
+    { product: "", year: "" },
+    { product: "", year: "" },
+  ],
+  otherSystemsDetails: "",
+  situationChallenges: {},
+  currentSituationReason: "",
   serviceChannels: [],
   hasFieldService: "",
   fieldServiceNeeds: [],
   fieldServiceNeedsOther: "",
-  integrations: [],
-  integrationsOther: "",
-  kpis: [],
-  kpisOther: "",
+  integrationSystems: [
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+  ],
+  wishlist: "",
   aiInterest: "",
   aiUseCases: [],
   aiDetails: "",
@@ -119,51 +121,77 @@ const teamSizeOptions = [
   "100+",
 ];
 
-const currentServiceSystemOptions = [
-  "Microsoft Dynamics 365 Customer Service",
-  "Salesforce Service Cloud",
-  "Zendesk",
-  "Freshdesk",
-  "ServiceNow",
-  "Puzzel",
-  "Genesys",
-  "Telia ACE",
-  "Talkdesk",
-  "NICE",
-  "Mitel",
-  "Avaya",
-  "TopDesk",
-  "Jira Service Management",
-  "Inget system/manuella processer",
+// Customer Service Situation challenge categories
+const situationChallengeCategories = [
+  {
+    id: "kunder_aterkommande",
+    title: "Kunder återkommer med samma frågor",
+    subtitle: "Ingen riktig ärendehistorik eller knowledge base",
+    items: [
+      "Agenter börjar om från noll varje gång",
+      "Ingen självbetjäning för kunder",
+    ],
+    quote: "\"Vi svarar på samma frågor om och om igen.\"",
+    quoteSource: "Kundservice säger:",
+  },
+  {
+    id: "kanaler_splittrade",
+    title: "Kanaler är splittrade",
+    subtitle: "Telefon, e-post, chat och social media hanteras i olika system",
+    items: [
+      "Ingen helhetsbild över kundens ärenden",
+      "Kunder får olika svar beroende på kanal",
+    ],
+    quote: "\"Vi vet inte om kunden redan pratat med oss i en annan kanal.\"",
+    quoteSource: "Agenternas frustration:",
+  },
+  {
+    id: "sla_eskalering",
+    title: "SLA och eskalering fungerar inte",
+    subtitle: "Ärenden faller mellan stolarna eller eskaleras för sent",
+    items: [
+      "Ingen automatisk prioritering",
+      "Svårt att mäta och följa upp kundnöjdhet",
+    ],
+    quote: "\"Vi upptäcker problem först när kunden klagar.\"",
+    quoteSource: "Ledningens reaktion:",
+  },
+  {
+    id: "faltservice_integration",
+    title: "Fältservice och inneservice är inte integrerade",
+    subtitle: "Tekniker saknar information om kundens historik",
+    items: [
+      "Dubbelbokningar och ineffektiv ruttplanering",
+      "Reservdelar saknas vid servicebesök",
+    ],
+    quote: "\"Teknikerna vet inte vad kundservice lovat kunden.\"",
+    quoteSource: "Fältservice säger:",
+  },
+  {
+    id: "agenter_improduktiva",
+    title: "Agenter lägger tid på fel saker",
+    subtitle: "Mycket manuellt arbete och systembyten",
+    items: [
+      "Registrering i flera system",
+      "Ingen AI-assistans eller automatisering",
+    ],
+    quote: "Vi hinner inte ta hand om kunderna ordentligt.",
+    quoteSource: "Agenternas beteende:",
+  },
+  {
+    id: "ingen_insyn",
+    title: "Ledningen har ingen insyn i kundservicen",
+    subtitle: "Svårt att få rapporter och nyckeltal",
+    items: [
+      "Oklart hur bra vi presterar mot SLA",
+      "Ingen överblick över vanliga problemområden",
+    ],
+    quote: "Vi kan inte fatta datadrivna beslut.",
+    quoteSource: "Ledningens frustration:",
+  },
 ];
 
-const challengeOptions = [
-  "Bristande kundservice och uppföljning",
-  "Långa väntetider och köer",
-  "Svårt att hantera flera kanaler (telefon, e-post, chat)",
-  "Bristande ärendehistorik och kundöversikt",
-  "Ineffektiv ärendehantering och eskalering",
-  "Saknar självbetjäning för kunder",
-  "Svårt att mäta och följa upp kundnöjdhet",
-  "Svårt att få en samlad bild över vilka supportkanaler som fungerar bättre eller sämre",
-  "Saknar integration med andra system",
-  "Manuellt och tidskrävande arbete",
-  "Bristande rapportering och analys",
-  "Saknar AI och automationsfunktioner",
-];
-
-const serviceNeedOptions = [
-  "Ärendehantering (case management)",
-  "Knowledge base / FAQ",
-  "SLA-hantering",
-  "Omnichannel support",
-  "Självbetjäningsportal",
-  "Ärendeeskalering och routing",
-  "Kundundersökningar och feedback",
-  "Live chat",
-  "Chatbot / virtuell agent",
-  "360° kundvy",
-];
+const situationChallengeOptions = ["Betydande utmaning", "Viss utmaning", "Inget problem idag"];
 
 const serviceChannelOptions = [
   "Telefon",
@@ -188,43 +216,74 @@ const fieldServiceNeedOptions = [
   "Fakturaunderlag",
 ];
 
-const integrationOptions = [
-  "Microsoft 365 (Outlook, Teams)",
-  "ERP-system",
-  "Ekonomisystem",
-  "Telefoni/Växel (CTI)",
-  "Power BI",
-  "Azure / molntjänster",
-  "CRM-system (för sälj)",
-  "IoT-plattform",
-];
-
-const kpiOptions = [
-  "Kundnöjdhet (NPS/CSAT)",
-  "Första svarstid",
-  "Ärendelösningstid",
-  "First Contact Resolution (FCR)",
-  "Churn rate",
-  "Agentproduktivitet",
-  "Servicekostnad per ärende",
-  "SLA-efterlevnad",
-];
-
-const aiUseCaseOptions = [
-  "Automatiserad ärendeklassificering",
-  "Chatbot för kundservice",
-  "Intelligenta svar-förslag för agenter",
-  "Sentimentanalys",
-  "Prediktiv service (förutse problem)",
-  "Automatiserade arbetsflöden",
-  "AI-genererade kunskapsartiklar",
-  "Röstanalys och transkription (Contact Center)",
-  "Agent-coaching i realtid",
-  "Automatiserad kvalitetsgranskning",
-  "Proaktiv kundkontakt baserad på beteende",
-  "Ärendeprioritering baserad på affärspåverkan",
-  "Self-service kunskapsrekommendationer",
-  "IoT-baserad fältserviceoptimering",
+// AI use cases with descriptions for Customer Service
+const aiUseCaseCategories = [
+  {
+    id: "intelligent-routing",
+    title: "Intelligent ärenderouting och prioritering",
+    description: "AI analyserar inkommande ärenden och dirigerar dem till rätt agent baserat på kompetens, kapacitet och ärendets komplexitet. Prioritering sker automatiskt baserat på kund, ärendetyp och affärspåverkan.",
+    benefit: "Affärsnytta: Snabbare hantering, rätt kompetens på rätt ärende, nöjdare kunder."
+  },
+  {
+    id: "agent-assist",
+    title: "Agent Assist - Realtidsförslag",
+    description: "AI lyssnar på konversationen och föreslår svar, kunskapsartiklar och nästa steg i realtid. Minskar söktid och säkerställer konsekvent kvalitet.",
+    benefit: "Affärsnytta: Snabbare ärendehantering, bättre FCR, kortare upplärning."
+  },
+  {
+    id: "sentiment-analysis",
+    title: "Sentimentanalys och tidig varning",
+    description: "AI analyserar kundens tonläge i text och röst. Identifierar frustrerade kunder och triggar eskalering eller proaktiv uppföljning.",
+    benefit: "Affärsnytta: Minska churn genom att fånga missnöjda kunder tidigt."
+  },
+  {
+    id: "chatbot-virtual-agent",
+    title: "Chatbot och virtuell agent",
+    description: "AI-driven självbetjäning som hanterar vanliga frågor dygnet runt. Sömlös överlämning till mänsklig agent vid behov.",
+    benefit: "Affärsnytta: Lägre kostnad per ärende, tillgänglig 24/7, frigör agenter."
+  },
+  {
+    id: "predictive-service",
+    title: "Prediktiv service och underhåll",
+    description: "AI analyserar produktdata och IoT-signaler för att förutse problem innan de uppstår. Proaktiva servicebesök istället för brandkårsutryckningar.",
+    benefit: "Affärsnytta: Högre kundnöjdhet, lägre servicekostnader, längre livslängd."
+  },
+  {
+    id: "knowledge-generation",
+    title: "AI-genererad kunskapsbas",
+    description: "AI skapar och uppdaterar kunskapsartiklar automatiskt baserat på lösta ärenden. Identifierar luckor och föreslår förbättringar.",
+    benefit: "Affärsnytta: Alltid uppdaterad knowledge base utan manuellt arbete."
+  },
+  {
+    id: "quality-management",
+    title: "Automatiserad kvalitetsgranskning",
+    description: "AI analyserar samtal och ärenden för att bedöma agenters prestation. Identifierar coachingmöjligheter och best practices.",
+    benefit: "Affärsnytta: Konsekvent kvalitet, effektiv coaching, bättre kundupplevelse."
+  },
+  {
+    id: "workforce-optimization",
+    title: "Workforce Management & Optimering",
+    description: "AI prognostiserar ärendevolymer och optimerar bemanning. Tar hänsyn till säsongsvariationer, kampanjer och historiska mönster.",
+    benefit: "Affärsnytta: Rätt bemanning vid rätt tid, lägre väntetider, lägre kostnader."
+  },
+  {
+    id: "field-service-optimization",
+    title: "Fältserviceoptimering med AI",
+    description: "AI optimerar rutter, schemaläggning och resursallokering för tekniker. Tar hänsyn till kompetens, reservdelar och kundprioritet.",
+    benefit: "Affärsnytta: Fler jobb per dag, mindre körning, bättre kundupplevelse."
+  },
+  {
+    id: "voice-transcription",
+    title: "Röstanalys och transkription",
+    description: "AI transkriberar samtal automatiskt och extraherar nyckelinsikter. Sammanfattar ärenden och uppdaterar CRM.",
+    benefit: "Affärsnytta: Mindre admin, bättre dokumentation, snabbare uppföljning."
+  },
+  {
+    id: "copilot-assistant",
+    title: "AI-assistent (Copilot-liknande funktioner)",
+    description: "Fråga systemet på naturligt språk: \"Visa alla öppna ärenden för VIP-kunder\" eller \"Sammanfatta kundens historik\". AI hjälper med rapporter och analys.",
+    benefit: "Affärsnytta: Kundservice blir ett kraftfullt analysverktyg – inte bara ett ärendesystem."
+  }
 ];
 
 const CustomerServiceNeedsAnalysis = () => {
@@ -239,14 +298,14 @@ const CustomerServiceNeedsAnalysis = () => {
   const totalSteps = 7;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Headphones, Wrench, Target, BarChart3, FileText];
+  const stepIcons = [Building2, Target, Target, Wrench, Target, BarChart3, FileText];
   const stepTitles = [
     "Företagsinformation",
     "Nuvarande Situation",
-    "Kundservicebehov",
+    "Utmaningar",
     "Fältservice",
     "Integrationer",
-    "KPI & AI",
+    "AI & Framtid",
     "Övrig Information",
   ];
 
@@ -275,6 +334,16 @@ const CustomerServiceNeedsAnalysis = () => {
     }
   };
 
+  const handleSituationChallengeChange = (categoryId: string, value: string) => {
+    setData({
+      ...data,
+      situationChallenges: {
+        ...data.situationChallenges,
+        [categoryId]: value,
+      },
+    });
+  };
+
   const getRecommendation = () => {
     const recommendations: { 
       customerService: { score: number; reasons: string[] }; 
@@ -286,9 +355,9 @@ const CustomerServiceNeedsAnalysis = () => {
       contactCenter: { score: 0, reasons: [] },
     };
 
-    if (data.serviceNeeds.length > 0) {
-      recommendations.customerService.score += data.serviceNeeds.length * 5;
-      recommendations.customerService.reasons.push(`${data.serviceNeeds.length} servicefunktioner identifierade`);
+    if (data.serviceChannels.length > 0) {
+      recommendations.customerService.score += data.serviceChannels.length * 5;
+      recommendations.customerService.reasons.push(`${data.serviceChannels.length} servicekanaler identifierade`);
     }
     if (data.serviceChannels.length >= 3) {
       recommendations.customerService.score += 15;
@@ -299,6 +368,16 @@ const CustomerServiceNeedsAnalysis = () => {
     if (data.serviceTeamSize && !["1-5"].includes(data.serviceTeamSize)) {
       recommendations.customerService.score += 15;
       recommendations.customerService.reasons.push("Större serviceteam behöver strukturerad ärendehantering");
+    }
+
+    // Check for significant challenges
+    const significantChallenges = Object.entries(data.situationChallenges).filter(
+      ([_, value]) => value === "Betydande utmaning"
+    );
+    if (significantChallenges.length > 0) {
+      recommendations.customerService.score += significantChallenges.length * 5;
+      recommendations.contactCenter.score += significantChallenges.length * 3;
+      recommendations.customerService.reasons.push(`${significantChallenges.length} betydande utmaningar identifierade`);
     }
 
     if (data.hasFieldService === "Ja" || data.hasFieldService === "Planerar att starta") {
@@ -457,13 +536,22 @@ const CustomerServiceNeedsAnalysis = () => {
     };
 
     addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Serviceteam: ${data.serviceTeamSize}`);
-    addSection("Nuvarande system", data.currentServiceSystemOther || data.currentServiceSystem || "Ej angivet");
-    addSection("Utmaningar", data.challenges.join(", ") || "Ej angivet");
+    const filledSystems = data.currentSystems.filter(s => s.product.trim());
+    const systemsText = filledSystems.length > 0 
+      ? filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")
+      : "Ej angivet";
+    addSection("Nuvarande system", systemsText);
+    const challengesText = Object.entries(data.situationChallenges)
+      .filter(([_, value]) => value && value !== "Inget problem idag")
+      .map(([key, value]) => {
+        const category = situationChallengeCategories.find(c => c.id === key);
+        return category ? `${category.title}: ${value}` : `${key}: ${value}`;
+      })
+      .join("; ") || "Ej angivet";
+    addSection("Utmaningar", challengesText);
     addSection("Supportkanaler", data.serviceChannels.join(", ") || "Ej angivet");
-    addSection("Servicebehov", data.serviceNeeds.join(", ") || "Ej angivet");
     addSection("Fältservice", data.hasFieldService === "Ja" ? data.fieldServiceNeeds.join(", ") || "Ja" : data.hasFieldService || "Ej angivet");
-    addSection("Integrationer", data.integrations.join(", ") || "Ej angivet");
-    addSection("KPI:er", data.kpis.join(", ") || "Ej angivet");
+    addSection("Integrationer", data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet");
 
     // Generate PDF as base64 for email attachment
     const pdfFilename = `Behovsanalys_Kundservice_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
@@ -486,13 +574,17 @@ const CustomerServiceNeedsAnalysis = () => {
             "Anställda": data.employees,
             "Bransch": data.industry || data.industryOther || "Ej angivet",
             "Serviceteam": data.serviceTeamSize,
-            "Nuvarande system": data.currentServiceSystemOther || data.currentServiceSystem || "Ej angivet",
-            "Utmaningar": data.challenges.join(", ") || "Ej angivet",
+            "Nuvarande system": data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ") || "Ej angivet",
+            "Utmaningar": Object.entries(data.situationChallenges)
+              .filter(([_, value]) => value && value !== "Inget problem idag")
+              .map(([key, value]) => {
+                const category = situationChallengeCategories.find(c => c.id === key);
+                return category ? `${category.title}: ${value}` : `${key}: ${value}`;
+              })
+              .join("; ") || "Ej angivet",
             "Supportkanaler": data.serviceChannels.join(", ") || "Ej angivet",
-            "Servicebehov": data.serviceNeeds.join(", ") || "Ej angivet",
             "Fältservice": data.hasFieldService || "Ej angivet",
-            "Integrationer": data.integrations.join(", ") || "Ej angivet",
-            "KPI:er": data.kpis.join(", ") || "Ej angivet",
+            "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
           },
           recommendation: recommendation.products.length > 0 ? {
@@ -576,55 +668,53 @@ const CustomerServiceNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilket kundservicesystem använder ni idag?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {currentServiceSystemOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.currentServiceSystem === option}
-                    onClick={() => setData({ ...data, currentServiceSystem: option })}
-                    type="radio"
-                  />
+              <h3 className="text-lg font-semibold mb-4">Nuvarande kundservice-system</h3>
+              <div className="border-2 border-border rounded-lg overflow-hidden">
+                <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                  <div className="p-3 font-medium text-sm">Kundservice-/Contact Center-system</div>
+                  <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
+                </div>
+                {data.currentSystems.map((system, index) => (
+                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                    <div className="p-2">
+                      <Input
+                        placeholder=""
+                        value={system.product}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], product: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                      />
+                    </div>
+                    <div className="p-2 border-l-2 border-border">
+                      <Input
+                        type="number"
+                        placeholder="T.ex. 2020"
+                        value={system.year}
+                        onChange={(e) => {
+                          const newSystems = [...data.currentSystems];
+                          newSystems[index] = { ...newSystems[index], year: e.target.value };
+                          setData({ ...data, currentSystems: newSystems });
+                        }}
+                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 max-w-[120px]"
+                      />
+                    </div>
+                  </div>
                 ))}
-              </div>
-              <div className="mt-4">
-                <Label htmlFor="currentServiceSystemOther">Annat system</Label>
-                <Input
-                  id="currentServiceSystemOther"
-                  placeholder="Skriv namnet på ert nuvarande system..."
-                  value={data.currentServiceSystemOther}
-                  onChange={(e) => setData({ ...data, currentServiceSystemOther: e.target.value })}
-                  className="mt-2"
-                />
               </div>
             </div>
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag?</Label>
-              <div className="grid grid-cols-1 gap-3">
-                {challengeOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.challenges.includes(option)}
-                    onClick={() => handleCheckboxChange("challenges", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
+              <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
               <Textarea
-                placeholder="Övriga utmaningar..."
-                value={data.challengesOther}
-                onChange={(e) => setData({ ...data, challengesOther: e.target.value })}
-                className="mt-3"
+                id="otherSystemsDetails"
+                placeholder="Beskriv vilka övriga system som används, t.ex. ERP, telefoni, CRM för sälj..."
+                value={data.otherSystemsDetails}
+                onChange={(e) => setData({ ...data, otherSystemsDetails: e.target.value })}
+                className="mt-2"
               />
             </div>
-          </div>
-        );
-
-      case 3:
-        return (
-          <div className="space-y-6">
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka kanaler använder ni för kundservice?</Label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -639,25 +729,61 @@ const CustomerServiceNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka kundservicefunktioner behöver ni?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {serviceNeedOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.serviceNeeds.includes(option)}
-                    onClick={() => handleCheckboxChange("serviceNeeds", option)}
-                    type="checkbox"
-                  />
+          </div>
+        );
+
+      case 3:
+        return (
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert kundservice-system?</h3>
+            <Textarea
+              id="currentSituationReason"
+              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt kundservice-system..."
+              value={data.currentSituationReason}
+              onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
+              className="min-h-[150px]"
+            />
+
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
+                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som kundservice-projekt brukar adressera. 
+                Klicka gärna i de områden som stämmer för din verksamhet.
+              </p>
+              <div className="space-y-6">
+                {situationChallengeCategories.map((category) => (
+                  <div key={category.id} className="border rounded-lg p-4 space-y-3">
+                    <div>
+                      <h4 className="font-bold text-foreground">{category.title}</h4>
+                      <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
+                    </div>
+                    <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                      {category.items.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
+                    <div className="bg-muted/50 p-3 rounded-md">
+                      <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
+                      <p className="text-sm italic text-foreground">{category.quote}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {situationChallengeOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => handleSituationChallengeChange(category.id, option)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                            data.situationChallenges[category.id] === option
+                              ? "bg-primary text-primary-foreground shadow-md"
+                              : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
-              <Textarea
-                placeholder="Övriga servicebehov..."
-                value={data.serviceNeedsOther}
-                onChange={(e) => setData({ ...data, serviceNeedsOther: e.target.value })}
-                className="mt-3"
-              />
             </div>
           </div>
         );
@@ -712,24 +838,49 @@ const CustomerServiceNeedsAnalysis = () => {
       case 5:
         return (
           <div className="space-y-6">
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka integrationer är viktiga för er?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {integrationOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.integrations.includes(option)}
-                    onClick={() => handleCheckboxChange("integrations", option)}
-                    type="checkbox"
-                  />
-                ))}
+            <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
+            <div className="border-2 border-border rounded-lg overflow-hidden">
+              <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                <div className="p-3 font-medium text-sm">Övriga relevanta produkter/system</div>
+                <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integration med detta system</div>
               </div>
+              {data.integrationSystems.map((integration, index) => (
+                <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                  <div className="p-2">
+                    <Input
+                      placeholder=""
+                      value={integration.system}
+                      onChange={(e) => {
+                        const newSystems = [...data.integrationSystems];
+                        newSystems[index] = { ...newSystems[index], system: e.target.value };
+                        setData({ ...data, integrationSystems: newSystems });
+                      }}
+                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                  <div className="p-2 border-l-2 border-border">
+                    <Input
+                      placeholder=""
+                      value={integration.importance}
+                      onChange={(e) => {
+                        const newSystems = [...data.integrationSystems];
+                        newSystems[index] = { ...newSystems[index], importance: e.target.value };
+                        setData({ ...data, integrationSystems: newSystems });
+                      }}
+                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div>
+              <p className="text-muted-foreground mt-6 mb-2">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
               <Textarea
-                placeholder="Övriga integrationer..."
-                value={data.integrationsOther}
-                onChange={(e) => setData({ ...data, integrationsOther: e.target.value })}
-                className="mt-3"
+                id="wishlist"
+                placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
+                value={data.wishlist}
+                onChange={(e) => setData({ ...data, wishlist: e.target.value })}
+                className="min-h-[150px]"
               />
             </div>
           </div>
@@ -737,36 +888,16 @@ const CustomerServiceNeedsAnalysis = () => {
 
       case 6:
         const aiInterestOptions = [
-          { value: "Mycket intresserade", label: "Mycket intresserade" },
-          { value: "Ganska intresserade", label: "Ganska intresserade" },
-          { value: "Lite intresserade", label: "Lite intresserade" },
-          { value: "Ej intresserade just nu", label: "Ej intresserade just nu" }
+          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
+          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
+          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
+          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" }
         ];
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka nyckeltal (KPI:er) är viktigast för er?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {kpiOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.kpis.includes(option)}
-                    onClick={() => handleCheckboxChange("kpis", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-              <Textarea
-                placeholder="Övriga KPI:er..."
-                value={data.kpisOther}
-                onChange={(e) => setData({ ...data, kpisOther: e.target.value })}
-                className="mt-3"
-              />
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Hur intresserade är ni av AI och automation?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <h3 className="text-lg font-semibold mb-4">Hur intresserade är ni av AI i kundservice-systemet?</h3>
+              <div className="grid grid-cols-1 gap-3">
                 {aiInterestOptions.map((option) => (
                   <SelectionCard
                     key={option.value}
@@ -779,18 +910,49 @@ const CustomerServiceNeedsAnalysis = () => {
               </div>
             </div>
             <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka AI-användningsområden är intressanta?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {aiUseCaseOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.aiUseCases.includes(option)}
-                    onClick={() => handleCheckboxChange("aiUseCases", option)}
-                    type="checkbox"
-                  />
+              <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
+              <div className="grid grid-cols-1 gap-4">
+                {aiUseCaseCategories.map((category) => (
+                  <div
+                    key={category.id}
+                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
+                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                      data.aiUseCases.includes(category.title)
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        data.aiUseCases.includes(category.title)
+                          ? 'border-primary bg-primary'
+                          : 'border-muted-foreground'
+                      }`}>
+                        {data.aiUseCases.includes(category.title) && (
+                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
+                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
+            </div>
+            <div>
+              <Label htmlFor="aiDetails">Beskriv hur AI skulle kunna hjälpa er verksamhet</Label>
+              <Textarea
+                id="aiDetails"
+                placeholder="Beskriv era tankar om AI..."
+                value={data.aiDetails}
+                onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
+                className="mt-2"
+              />
             </div>
           </div>
         );
