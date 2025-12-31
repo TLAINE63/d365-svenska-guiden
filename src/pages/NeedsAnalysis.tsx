@@ -34,9 +34,8 @@ interface AnalysisData {
   // Step 3
   geography: string;
   geographyOther: string;
-  // Step 4
-  modules: string[];
-  modulesOther: string;
+  // Step 4 (Önskelista)
+  wishlist: string;
   // Step 5
   currentSituationReason: string;
   situationChallenges: Record<string, string>;
@@ -73,8 +72,7 @@ const initialData: AnalysisData = {
   industryOther: "",
   geography: "",
   geographyOther: "",
-  modules: [],
-  modulesOther: "",
+  wishlist: "",
   currentSituationReason: "",
   situationChallenges: {},
   decisionTimeline: "",
@@ -580,7 +578,7 @@ const NeedsAnalysis = () => {
     "Nuvarande System",
     "Nuvarande situation",
     "Integrationer",
-    "Funktioner & Moduler",
+    "Önskelista",
     "Utmaningar",
     "AI & Framtid",
     "Övrig Information",
@@ -680,24 +678,23 @@ const NeedsAnalysis = () => {
       bcReasons.push("Regional verksamhet hanteras väl av Business Central");
     }
 
-    // Module complexity analysis
-    const complexModules = ["Tillverkning & Produktion", "Service & Fältservice"];
-    const basicModules = ["Ekonomi & Redovisning", "Försäljning & CRM", "Inköp & Leverantörer"];
-
-    data.modules.forEach(module => {
-      if (complexModules.includes(module)) {
-        fscScore += 10;
-        fscReasons.push(`${module} har starkare stöd i F&SC`);
-      }
-      if (basicModules.includes(module)) {
-        bcScore += 5;
+    // Wishlist complexity analysis (based on keywords in free text)
+    const complexKeywords = ["tillverkning", "produktion", "service", "fältservice", "projekt"];
+    const wishlistLower = data.wishlist.toLowerCase();
+    
+    complexKeywords.forEach(keyword => {
+      if (wishlistLower.includes(keyword)) {
+        fscScore += 5;
+        if (keyword === "tillverkning" || keyword === "produktion") {
+          fscReasons.push("Behov av tillverkningsfunktionalitet");
+        }
       }
     });
 
-    // Module count - more modules often means more complexity
-    if (data.modules.length > 6) {
+    // Wishlist length - longer wishlist often means more complexity
+    if (data.wishlist.length > 500) {
       fscScore += 10;
-      fscReasons.push("Stort antal moduler indikerar komplex verksamhet");
+      fscReasons.push("Omfattande önskelista indikerar komplex verksamhet");
     }
 
     // Challenge analysis
@@ -1079,9 +1076,27 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 8;
     }
 
-    // Section 7: Modules
-    addSectionHeader("FUNKTIONER & MODULER", "7");
-    addBulletList(data.modules, data.modulesOther);
+    // Section 7: Wishlist
+    addSectionHeader("ÖNSKELISTA", "7");
+    if (data.wishlist.trim()) {
+      const wishlistLines = pdf.splitTextToSize(data.wishlist, contentWidth - 10);
+      wishlistLines.forEach((line: string) => {
+        if (yPos > 270) {
+          pdf.addPage();
+          yPos = 20;
+        }
+        pdf.setFontSize(10);
+        pdf.setTextColor(80, 80, 80);
+        pdf.text(line, margin + 5, yPos);
+        yPos += 6;
+      });
+      yPos += 4;
+    } else {
+      pdf.setFontSize(10);
+      pdf.setTextColor(150, 150, 150);
+      pdf.text("Ingen önskelista angiven", margin + 5, yPos);
+      yPos += 8;
+    }
 
     // Section 8: Challenges
     addSectionHeader("UTMANINGAR", "8");
@@ -1224,7 +1239,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Omsättning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
             "Geografi": data.geography || "Ej angivet",
-            "Moduler": data.modules.join(", ") || "Ej angivet",
+            "Önskelista": data.wishlist || "Ej angivet",
             "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => s.system).join(", ") || "Ej angivet",
             "Nuvarande system": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
             "Utmaningar": data.challenges.join(", ") || "Ej angivet",
@@ -1554,26 +1569,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       case 7:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka funktioner och moduler är viktigast för er verksamhet?</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {moduleOptions.map((option) => (
-                <SelectionCard
-                  key={option}
-                  label={option}
-                  selected={data.modules.includes(option)}
-                  onClick={() => handleCheckboxChange('modules', option)}
-                  type="checkbox"
-                />
-              ))}
-            </div>
+            <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt framtida affärssystem/ERP?</p>
             <div>
-              <Label htmlFor="modulesOther">Övriga funktioner</Label>
               <Textarea
-                id="modulesOther"
-                placeholder="Beskriv övriga funktioner ni behöver..."
-                value={data.modulesOther}
-                onChange={(e) => setData({ ...data, modulesOther: e.target.value })}
-                className="mt-2"
+                id="wishlist"
+                placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
+                value={data.wishlist}
+                onChange={(e) => setData({ ...data, wishlist: e.target.value })}
+                className="min-h-[200px]"
               />
             </div>
           </div>
