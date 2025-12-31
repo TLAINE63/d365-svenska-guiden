@@ -32,6 +32,7 @@ interface SalesMarketingAnalysisData {
   currentSystems: { product: string; year: string }[];
   otherSystemsDetails: string;
   situationChallenges: Record<string, string>;
+  currentSituationReason: string;
   salesNeeds: string[];
   salesNeedsOther: string;
   salesProcessComplexity: string;
@@ -65,6 +66,7 @@ const initialData: SalesMarketingAnalysisData = {
   ],
   otherSystemsDetails: "",
   situationChallenges: {},
+  currentSituationReason: "",
   salesNeeds: [],
   salesNeedsOther: "",
   salesProcessComplexity: "",
@@ -692,44 +694,55 @@ const SalesMarketingNeedsAnalysis = () => {
       case 3:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">
-              Nedan listas några vanliga utmaningar som CRM/Säljsystem-projekt brukar adressera. 
-              Klicka gärna i de områden som stämmer för din verksamhet.
-            </p>
-            <div className="space-y-6">
-              {situationChallengeCategories.map((category) => (
-                <div key={category.id} className="border rounded-lg p-4 space-y-3">
-                  <div>
-                    <h4 className="font-bold text-foreground">{category.title}</h4>
-                    <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
+            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert CRM/Säljsystem?</h3>
+            <Textarea
+              id="currentSituationReason"
+              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt CRM-system..."
+              value={data.currentSituationReason}
+              onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
+              className="min-h-[150px]"
+            />
+
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
+                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som CRM/Säljsystem-projekt brukar adressera. 
+                Klicka gärna i de områden som stämmer för din verksamhet.
+              </p>
+              <div className="space-y-6">
+                {situationChallengeCategories.map((category) => (
+                  <div key={category.id} className="border rounded-lg p-4 space-y-3">
+                    <div>
+                      <h4 className="font-bold text-foreground">{category.title}</h4>
+                      <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
+                    </div>
+                    <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                      {category.items.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
+                    <div className="bg-muted/50 p-3 rounded-md">
+                      <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
+                      <p className="text-sm italic text-foreground">{category.quote}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {situationChallengeOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => handleSituationChallengeChange(category.id, option)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                            data.situationChallenges[category.id] === option
+                              ? "bg-primary text-primary-foreground shadow-md"
+                              : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                    {category.items.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                  <div className="bg-muted/50 p-3 rounded-md">
-                    <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
-                    <p className="text-sm italic text-foreground">{category.quote}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {situationChallengeOptions.map((option) => (
-                      <button
-                        key={option}
-                        type="button"
-                        onClick={() => handleSituationChallengeChange(category.id, option)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                          data.situationChallenges[category.id] === option
-                            ? "bg-primary text-primary-foreground shadow-md"
-                            : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                        }`}
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         );
