@@ -564,11 +564,11 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 10;
+  const totalSteps = 9;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    Building2, Globe, Globe, Server, AlertTriangle, Link2, Boxes, AlertTriangle, Sparkles, FileText
+    Building2, Globe, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
   ];
 
   const stepTitles = [
@@ -579,7 +579,6 @@ const NeedsAnalysis = () => {
     "Nuvarande situation",
     "Integrationer",
     "Önskelista",
-    "Utmaningar",
     "AI & Framtid",
     "Övrig Information",
   ];
@@ -1098,12 +1097,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 8;
     }
 
-    // Section 8: Challenges
-    addSectionHeader("UTMANINGAR", "8");
-    addBulletList(data.challenges, data.challengesOther);
-
-    // Section 9: AI & Future
-    addSectionHeader("AI & FRAMTID", "9");
+    // Section 8: AI & Future
+    addSectionHeader("AI & FRAMTID", "8");
     addContentRow("Intresse:", data.aiInterest);
     if (data.aiUseCases.length > 0) {
       pdf.setFontSize(10);
@@ -1123,8 +1118,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += detailLines.length * 5 + 5;
     }
 
-    // Section 10: Additional Info
-    addSectionHeader("ÖVRIG INFORMATION", "10");
+    // Section 9: Additional Info
+    addSectionHeader("ÖVRIG INFORMATION", "9");
     if (data.additionalInfo) {
       pdf.setFontSize(10);
       pdf.setTextColor(51, 51, 51);
@@ -1242,7 +1237,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Önskelista": data.wishlist || "Ej angivet",
             "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => s.system).join(", ") || "Ej angivet",
             "Nuvarande system": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
-            "Utmaningar": data.challenges.join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
             "Övrig info": data.additionalInfo || "Ej angivet",
@@ -1583,34 +1577,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 8:
-        return (
-          <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka utmaningar upplever ni idag i ert nuvarande?</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {challengeOptions.map((option) => (
-                <SelectionCard
-                  key={option}
-                  label={option}
-                  selected={data.challenges.includes(option)}
-                  onClick={() => handleCheckboxChange('challenges', option)}
-                  type="checkbox"
-                />
-              ))}
-            </div>
-            <div>
-              <Label htmlFor="challengesOther">Övriga utmaningar</Label>
-              <Textarea
-                id="challengesOther"
-                placeholder="Beskriv övriga utmaningar..."
-                value={data.challengesOther}
-                onChange={(e) => setData({ ...data, challengesOther: e.target.value })}
-                className="mt-2"
-              />
-            </div>
-          </div>
-        );
-
-      case 9:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1665,7 +1631,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 10:
+      case 9:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Finns det något övrigt ni vill berätta om ert projekt eller era behov?</p>
