@@ -488,7 +488,7 @@ const NeedsAnalysis = () => {
     "Bransch",
     "Geografi",
     "Nuvarande System",
-    "Nuvarande situation",
+    "Utmaningar",
     "Integrationer",
     "Önskelista",
     "AI & Framtid",
