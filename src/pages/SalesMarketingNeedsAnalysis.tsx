@@ -39,8 +39,7 @@ interface SalesMarketingAnalysisData {
   marketingNeeds: string[];
   marketingNeedsOther: string;
   marketingChannels: string[];
-  integrations: string[];
-  integrationsOther: string;
+  integrationSystems: { system: string; importance: string }[];
   kpis: string[];
   kpisOther: string;
   aiInterest: string;
@@ -74,8 +73,13 @@ const initialData: SalesMarketingAnalysisData = {
   marketingNeeds: [],
   marketingNeedsOther: "",
   marketingChannels: [],
-  integrations: [],
-  integrationsOther: "",
+  integrationSystems: [
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+    { system: "", importance: "" },
+  ],
   kpis: [],
   kpisOther: "",
   aiInterest: "",
@@ -523,7 +527,7 @@ const SalesMarketingNeedsAnalysis = () => {
     addSection("Utmaningar", challengesText);
     addSection("Säljbehov", data.salesNeeds.join(", ") || "Ej angivet");
     addSection("Marknadsföringsbehov", data.marketingNeeds.join(", ") || "Ej angivet");
-    addSection("Integrationer", data.integrations.join(", ") || "Ej angivet");
+    addSection("Integrationer", data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet");
     addSection("KPI:er", data.kpis.join(", ") || "Ej angivet");
 
     // Generate PDF as base64 for email attachment
@@ -557,7 +561,7 @@ const SalesMarketingNeedsAnalysis = () => {
               .join("; ") || "Ej angivet",
             "Säljbehov": data.salesNeeds.join(", ") || "Ej angivet",
             "Marknadsföring": data.marketingNeeds.join(", ") || "Ej angivet",
-            "Integrationer": data.integrations.join(", ") || "Ej angivet",
+            "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
           },
@@ -751,25 +755,40 @@ const SalesMarketingNeedsAnalysis = () => {
       case 4:
         return (
           <div className="space-y-6">
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka integrationer är viktiga för er?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {integrationOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.integrations.includes(option)}
-                    onClick={() => handleCheckboxChange("integrations", option)}
-                    type="checkbox"
-                  />
-                ))}
+            <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
+            <div className="border-2 border-border rounded-lg overflow-hidden">
+              <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                <div className="p-3 font-medium text-sm">Övriga relevanta produkter/system</div>
+                <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integration med detta system</div>
               </div>
-              <Textarea
-                placeholder="Övriga integrationer..."
-                value={data.integrationsOther}
-                onChange={(e) => setData({ ...data, integrationsOther: e.target.value })}
-                className="mt-3"
-              />
+              {data.integrationSystems.map((integration, index) => (
+                <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                  <div className="p-2">
+                    <Input
+                      placeholder=""
+                      value={integration.system}
+                      onChange={(e) => {
+                        const newSystems = [...data.integrationSystems];
+                        newSystems[index] = { ...newSystems[index], system: e.target.value };
+                        setData({ ...data, integrationSystems: newSystems });
+                      }}
+                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                  <div className="p-2 border-l-2 border-border">
+                    <Input
+                      placeholder=""
+                      value={integration.importance}
+                      onChange={(e) => {
+                        const newSystems = [...data.integrationSystems];
+                        newSystems[index] = { ...newSystems[index], importance: e.target.value };
+                        setData({ ...data, integrationSystems: newSystems });
+                      }}
+                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         );
