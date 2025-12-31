@@ -303,7 +303,7 @@ const SalesMarketingNeedsAnalysis = () => {
     "Utmaningar",
     "Integrationer",
     "Önskelista",
-    "KPI & AI",
+    "AI & Framtid",
     "Övrig Information",
   ];
 
