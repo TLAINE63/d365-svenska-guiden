@@ -229,13 +229,14 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 7;
+  const totalSteps = 8;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Users, Megaphone, Target, BarChart3, FileText];
+  const stepIcons = [Building2, Target, Target, Users, Megaphone, Target, BarChart3, FileText];
   const stepTitles = [
     "Företagsinformation",
     "Nuvarande Situation",
+    "Utmaningar",
     "Försäljningsbehov",
     "Marknadsföring",
     "Integrationer",
@@ -602,6 +603,12 @@ const SalesMarketingNeedsAnalysis = () => {
                 className="mt-2"
               />
             </div>
+          </div>
+        );
+
+      case 3:
+        return (
+          <div className="space-y-6">
             <div>
               <Label className="text-base font-semibold mb-3 block">Vilka utmaningar upplever ni idag?</Label>
               <div className="grid grid-cols-1 gap-3">
@@ -625,7 +632,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-6">
             <div>
@@ -665,7 +672,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             <div>
@@ -705,7 +712,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <div>
@@ -731,7 +738,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade" },
           { value: "Ganska intresserade", label: "Ganska intresserade" },
@@ -791,7 +798,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <div>
