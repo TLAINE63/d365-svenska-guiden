@@ -39,6 +39,7 @@ interface AnalysisData {
   modulesOther: string;
   // Step 5
   currentSituationReason: string;
+  decisionTimeline: string;
   // Step 6
   integrationSystems: { system: string; importance: string }[];
   // Step 6
@@ -74,6 +75,7 @@ const initialData: AnalysisData = {
   modules: [],
   modulesOther: "",
   currentSituationReason: "",
+  decisionTimeline: "",
   integrationSystems: [
     { system: "", importance: "" },
     { system: "", importance: "" },
@@ -951,6 +953,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.text("Ingen information angiven.", margin + 5, yPos);
       yPos += 8;
     }
+    if (data.decisionTimeline) {
+      addContentRow("Beslutstidslinje:", data.decisionTimeline);
+    }
 
     // Section 6: Integrations
     addSectionHeader("INTEGRATIONER", "6");
@@ -1322,6 +1327,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 5:
+        const decisionTimelineOptions = [
+          { value: "Under kommande halvår", label: "Under kommande halvår" },
+          { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
+          { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
+          { value: "Inga planer just nu", label: "Inga planer just nu" },
+        ];
         return (
           <div className="space-y-6">
             <div>
@@ -1335,6 +1346,20 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
               className="min-h-[150px]"
             />
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {decisionTimelineOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    selected={data.decisionTimeline === option.value}
+                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         );
 
