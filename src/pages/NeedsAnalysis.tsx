@@ -39,6 +39,7 @@ interface AnalysisData {
   modulesOther: string;
   // Step 5
   currentSituationReason: string;
+  situationChallenges: Record<string, string>;
   decisionTimeline: string;
   // Step 6
   integrationSystems: { system: string; importance: string }[];
@@ -75,6 +76,7 @@ const initialData: AnalysisData = {
   modules: [],
   modulesOther: "",
   currentSituationReason: "",
+  situationChallenges: {},
   decisionTimeline: "",
   integrationSystems: [
     { system: "", importance: "" },
@@ -103,6 +105,84 @@ const initialData: AnalysisData = {
   phone: "",
   email: "",
 };
+
+// Situation challenge categories for Step 5
+const situationChallengeCategories = [
+  {
+    id: "tillvaxt",
+    title: "Tillväxt & förändrad affär",
+    subtitle: "Affären växer snabbare än systemen klarar av",
+    items: [
+      "Kraftig omsättnings- eller personalökning",
+      "Expansion till nya länder/marknader",
+      "Nya affärsmodeller (abonnemang, e-handel, tjänstefiering)",
+      "Fler bolag eller juridiska enheter",
+    ],
+  },
+  {
+    id: "ma",
+    title: "M&A, avknoppningar eller koncernförändringar",
+    subtitle: "Strukturförändringar som spräcker systemlandskapet",
+    items: [
+      "Förvärv av bolag med andra system",
+      "Fusioner som kräver konsolidering",
+      "Avknoppning från moderbolag",
+    ],
+  },
+  {
+    id: "foraldrat",
+    title: "Befintligt ERP är föråldrat eller riskfyllt",
+    subtitle: "Teknisk skuld blir affärsrisk",
+    items: [
+      "Systemet är on-prem, tungt anpassat, svårt att uppgradera",
+      "Leverantören slutar supportera versionen",
+      "Brist på integrationer / API:er",
+      "Svårt att hitta kompetens på marknaden",
+    ],
+  },
+  {
+    id: "ekonomistyrning",
+    title: "Ekonomistyrning & rapportering brister",
+    subtitle: "Ledningen upplever bristande kontrollfunktioner",
+    items: [
+      "Lång bokslutsprocess (många manuella steg)",
+      "Ingen realtidsvy på lönsamhet, kassaflöde eller lager",
+      "Svårt att följa upp projekt, affärer eller kunder",
+    ],
+  },
+  {
+    id: "regelverk",
+    title: "Regelverk, compliance & risk",
+    subtitle: "Yttre krav som inte går att ignorera",
+    items: [
+      "Nya lagkrav (ex. redovisning, skatt, spårbarhet)",
+      "Branschkrav (life science, tillverkning, finans)",
+      "Internrevision eller extern revision som slår larm",
+    ],
+  },
+  {
+    id: "ineffektivitet",
+    title: "Operativ ineffektivitet",
+    subtitle: "Folk jobbar runt systemet istället för i det",
+    items: [
+      "Mycket manuellt arbete i inköp, order, lager",
+      "Fel i order, fakturering eller leveranser",
+      "Processer skiljer sig mellan avdelningar",
+    ],
+  },
+  {
+    id: "digitalisering",
+    title: "Strategisk digitalisering",
+    subtitle: "ERP blir en möjliggörare, inte bara ett stöd",
+    items: [
+      "Initiativ kring automation, AI eller datadrivet beslutsfattande",
+      "CRM, BI eller e-handel kräver stabil masterdata",
+      "Ledningen vill standardisera och skala",
+    ],
+  },
+];
+
+const situationChallengeOptions = ["Betydande utmaning", "Viss utmaning", "Inget problem idag"];
 
 const employeeOptions = [
   "1-49 anställda",
@@ -954,6 +1034,32 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.text("Ingen information angiven.", margin + 5, yPos);
       yPos += 8;
     }
+
+    // Situation challenges
+    const situationChallengeEntries = Object.entries(data.situationChallenges).filter(([_, value]) => value);
+    if (situationChallengeEntries.length > 0) {
+      yPos += 5;
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(100, 100, 100);
+      pdf.text("Bedömning av utmaningsområden:", margin + 5, yPos);
+      yPos += 8;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      
+      situationChallengeEntries.forEach(([categoryId, value]) => {
+        addNewPageIfNeeded(8);
+        const category = situationChallengeCategories.find(c => c.id === categoryId);
+        if (category) {
+          pdf.setFillColor(0, 150, 136);
+          pdf.circle(margin + 3 + 5, yPos - 1.5, 1.5, 'F');
+          pdf.text(`${category.title}: ${value}`, margin + 8 + 5, yPos);
+          yPos += 7;
+        }
+      });
+      yPos += 5;
+    }
+
     if (data.decisionTimeline) {
       addContentRow("Beslutstidslinje:", data.decisionTimeline);
     }
@@ -1330,6 +1436,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
           { value: "Inga planer just nu", label: "Inga planer just nu" },
         ];
+
+        const handleSituationChallengeChange = (categoryId: string, value: string) => {
+          setData({
+            ...data,
+            situationChallenges: {
+              ...data.situationChallenges,
+              [categoryId]: value,
+            },
+          });
+        };
+
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att du är ute och söker efter alternativa ERP/Affärssystem?</h3>
@@ -1340,6 +1457,42 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
               className="min-h-[150px]"
             />
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Hur upplever ni dessa områden idag?</h3>
+              <div className="space-y-6">
+                {situationChallengeCategories.map((category) => (
+                  <div key={category.id} className="border rounded-lg p-4 space-y-3">
+                    <div>
+                      <h4 className="font-bold text-foreground">{category.title}</h4>
+                      <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
+                    </div>
+                    <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                      {category.items.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {situationChallengeOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => handleSituationChallengeChange(category.id, option)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                            data.situationChallenges[category.id] === option
+                              ? "bg-primary text-primary-foreground shadow-md"
+                              : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div>
               <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
