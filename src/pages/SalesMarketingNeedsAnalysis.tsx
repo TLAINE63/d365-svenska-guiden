@@ -558,7 +558,7 @@ const SalesMarketingNeedsAnalysis = () => {
               <h3 className="text-lg font-semibold mb-4">Nuvarande CRM-system</h3>
               <div className="border-2 border-border rounded-lg overflow-hidden">
                 <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                  <div className="p-3 font-medium text-sm">CRM-system</div>
+                  <div className="p-3 font-medium text-sm">CRM-system (för Sälj- och/eller Marknadsavdelningen)</div>
                   <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
                 </div>
                 {data.currentSystems.map((system, index) => (
