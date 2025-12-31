@@ -45,11 +45,14 @@ interface HeroSlide {
   backgroundImage?: string;
   title: React.ReactNode;
   subtitle: string;
-  ctaType: "contact" | "link" | "industries";
+  ctaType: "contact" | "link" | "industries" | "dual-link";
   ctaText: string;
   ctaLink?: string;
   buttonColor?: string;
   heroImage?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  secondaryButtonColor?: string;
 }
 
 const slides: HeroSlide[] = [
@@ -90,12 +93,14 @@ const slides: HeroSlide[] = [
         Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
       </>
     ),
-    subtitle: "Gör vår CRM-behovsanalys och hitta rätt Dynamics 365-applikation",
-    ctaType: "link",
-    ctaText: "Starta CRM-analysen",
-    ctaLink: "/crm-behovsanalys",
+    subtitle: "Välj behovsanalys utifrån ditt fokusområde",
+    ctaType: "dual-link",
+    ctaText: "Starta Behovsanalysen för Sälj & Marknad",
+    ctaLink: "/salj-marknad-behovsanalys",
     buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
-    
+    secondaryCtaText: "Starta Behovsanalysen för Kundservice",
+    secondaryCtaLink: "/kundservice-behovsanalys",
+    secondaryButtonColor: "bg-purple-600 hover:bg-purple-700",
   },
   {
     id: 4,
@@ -277,6 +282,25 @@ const HeroCarousel = () => {
                     {slide.ctaText}
                   </Button>
                 </ContactFormDialog>
+              ) : slide.ctaType === "dual-link" ? (
+                <div className="flex flex-col sm:flex-row gap-3 animate-fade-in">
+                  <Link to={slide.ctaLink || "/"}>
+                    <Button
+                      size="lg"
+                      className={`${slide.buttonColor} text-white text-xs sm:text-sm md:text-base h-10 sm:h-12 md:h-14 rounded-xl w-full`}
+                    >
+                      {slide.ctaText}
+                    </Button>
+                  </Link>
+                  <Link to={slide.secondaryCtaLink || "/"}>
+                    <Button
+                      size="lg"
+                      className={`${slide.secondaryButtonColor} text-white text-xs sm:text-sm md:text-base h-10 sm:h-12 md:h-14 rounded-xl w-full`}
+                    >
+                      {slide.secondaryCtaText}
+                    </Button>
+                  </Link>
+                </div>
               ) : (
                 <Link to={slide.ctaLink || "/"}>
                   <Button
