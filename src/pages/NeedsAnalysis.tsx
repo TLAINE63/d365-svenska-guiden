@@ -487,7 +487,7 @@ const NeedsAnalysis = () => {
     "Företagsstorlek",
     "Bransch",
     "Geografi",
-    "Nuvarande System",
+    "Nuvarande Situation",
     "Utmaningar",
     "Integrationer",
     "Önskelista",
@@ -904,7 +904,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addBulletList(data.geography ? [data.geography] : [], data.geographyOther);
 
     // Section 4: Current Systems
-    addSectionHeader("NUVARANDE SYSTEM", "4");
+    addSectionHeader("NUVARANDE SITUATION", "4");
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     if (filledSystems.length > 0) {
       filledSystems.forEach((system, index) => {
@@ -1148,7 +1148,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Geografi": data.geography || "Ej angivet",
             "Önskelista": data.wishlist || "Ej angivet",
             "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => s.system).join(", ") || "Ej angivet",
-            "Nuvarande system": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
+            "Nuvarande situation": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
             "Övrig info": data.additionalInfo || "Ej angivet",
