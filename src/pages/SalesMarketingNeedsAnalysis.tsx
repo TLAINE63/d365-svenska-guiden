@@ -289,16 +289,14 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 9;
+  const totalSteps = 7;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Target, Users, Megaphone, Target, Sparkles, BarChart3, FileText];
+  const stepIcons = [Building2, Target, Target, Target, Sparkles, BarChart3, FileText];
   const stepTitles = [
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
-    "Försäljningsbehov",
-    "Marknadsföring",
     "Integrationer",
     "Önskelista",
     "KPI & AI",
@@ -754,86 +752,6 @@ const SalesMarketingNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
-              <Label className="text-base font-semibold mb-3 block">Hur komplex är er säljprocess?</Label>
-              <div className="grid grid-cols-1 gap-3">
-                {salesComplexityOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.salesProcessComplexity === option}
-                    onClick={() => setData({ ...data, salesProcessComplexity: option })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka säljfunktioner behöver ni?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {salesNeedOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.salesNeeds.includes(option)}
-                    onClick={() => handleCheckboxChange("salesNeeds", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-              <Textarea
-                placeholder="Övriga säljbehov..."
-                value={data.salesNeedsOther}
-                onChange={(e) => setData({ ...data, salesNeedsOther: e.target.value })}
-                className="mt-3"
-              />
-            </div>
-          </div>
-        );
-
-      case 5:
-        return (
-          <div className="space-y-6">
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka marknadsföringskanaler använder ni?</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {marketingChannelOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.marketingChannels.includes(option)}
-                    onClick={() => handleCheckboxChange("marketingChannels", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka marknadsföringsfunktioner behöver ni?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {marketingNeedOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.marketingNeeds.includes(option)}
-                    onClick={() => handleCheckboxChange("marketingNeeds", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-              <Textarea
-                placeholder="Övriga marknadsföringsbehov..."
-                value={data.marketingNeedsOther}
-                onChange={(e) => setData({ ...data, marketingNeedsOther: e.target.value })}
-                className="mt-3"
-              />
-            </div>
-          </div>
-        );
-
-      case 6:
-        return (
-          <div className="space-y-6">
-            <div>
               <Label className="text-base font-semibold mb-3 block">Vilka integrationer är viktiga för er?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {integrationOptions.map((option) => (
@@ -856,7 +774,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 5:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt CRM-system för sälj och/eller marknadsföring?</p>
@@ -872,7 +790,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 6:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade" },
           { value: "Ganska intresserade", label: "Ganska intresserade" },
@@ -932,7 +850,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 9:
+      case 7:
         return (
           <div className="space-y-6">
             <div>
