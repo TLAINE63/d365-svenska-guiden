@@ -7,6 +7,8 @@ import { partners, Partner, crmApplications } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
+import LeadMagnetBanner from "@/components/LeadMagnetBanner";
+import UrgencyBadge from "@/components/UrgencyBadge";
 
 // Industry images
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -86,6 +88,7 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
 const Branschlosningar = () => {
   const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
+  const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
 
   // Helper to build partner profile URL with filter context
@@ -405,8 +408,11 @@ const Branschlosningar = () => {
               </div>
             )}
 
-            {/* Lead CTA - shows after partner list */}
+            {/* Lead CTA - shows after partner list with urgency */}
             <div className="max-w-xl mx-auto mt-12">
+              <div className="flex justify-center mb-4">
+                <UrgencyBadge variant="spots" spotsLeft={3} />
+              </div>
               <LeadCTA
                 sourcePage="/branschlosningar"
                 selectedProduct={getProductLabel() || undefined}
@@ -419,6 +425,18 @@ const Branschlosningar = () => {
         </section>
       ) : (
         <>
+          {/* Lead Magnet Banner */}
+          {showLeadMagnet && (
+            <section className="px-4 pt-4">
+              <div className="container mx-auto max-w-4xl">
+                <LeadMagnetBanner 
+                  sourcePage="/branschlosningar" 
+                  onClose={() => setShowLeadMagnet(false)}
+                />
+              </div>
+            </section>
+          )}
+
           {/* Industries Grid */}
           <section className="py-12 px-4">
             <div className="container mx-auto max-w-6xl">
@@ -461,9 +479,12 @@ const Branschlosningar = () => {
             </div>
           </section>
 
-          {/* Lead CTA Section */}
+          {/* Lead CTA Section with Urgency */}
           <section className="py-16 px-4 bg-muted/30">
             <div className="container mx-auto max-w-xl">
+              <div className="flex justify-center mb-4">
+                <UrgencyBadge variant="spots" spotsLeft={3} />
+              </div>
               <LeadCTA
                 sourcePage="/branschlosningar"
                 selectedProduct={selectedFilter || undefined}
