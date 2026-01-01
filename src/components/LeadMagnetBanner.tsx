@@ -31,19 +31,23 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke("submit-lead", {
+      const { data, error } = await supabase.functions.invoke("submit-lead", {
         body: {
           email,
           company_name: "Lead Magnet Download",
-          contact_name: email.split("@")[0],
+          contact_name: email.split("@")[0] || "Lead",
           source_page: sourcePage,
           source_type: "lead_magnet",
           message: "Laddat ner guiden 'Så väljer du rätt Dynamics 365-partner'",
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Lead magnet error:", error);
+        throw error;
+      }
 
+      console.log("Lead magnet success:", data);
       setIsSubmitted(true);
       toast({
         title: "Guiden skickas till din e-post!",
@@ -53,7 +57,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       console.error("Error submitting lead:", error);
       toast({
         title: "Något gick fel",
-        description: "Försök igen senare.",
+        description: "Kontrollera att du har angett en giltig e-postadress.",
         variant: "destructive",
       });
     } finally {
