@@ -14,6 +14,7 @@ interface LeadMagnetBannerProps {
 export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps) => {
   const { toast } = useToast();
   const [email, setEmail] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -28,6 +29,12 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       return;
     }
 
+    // Honeypot check - if filled, silently "succeed" to fool bots
+    if (honeypot) {
+      setIsSubmitted(true);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -39,6 +46,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
           source_page: sourcePage,
           source_type: "lead_magnet",
           message: "Laddat ner guiden 'Så väljer du rätt Dynamics 365-partner'",
+          _hp: honeypot, // Honeypot field for server-side validation
         },
       });
 
@@ -112,6 +120,17 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
         </div>
         
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+          {/* Honeypot field - hidden from humans, visible to bots */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            className="absolute -left-[9999px] opacity-0 pointer-events-none"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
           <Input
             type="email"
             value={email}
