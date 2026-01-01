@@ -220,19 +220,26 @@ const Branschlosningar = () => {
             </div>
           )}
           {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
             {filterOptions.map((option) => (
               <Button
                 key={option.value}
                 variant={selectedFilter === option.value ? option.variant : "outline"}
+                size="lg"
                 onClick={() => {
                   setSelectedFilter(option.value);
                   setSelectedIndustry(null);
                 }}
-                className={`text-sm sm:text-base ${
+                className={`text-base sm:text-lg font-bold px-6 sm:px-8 py-3 sm:py-4 h-auto transition-all duration-200 ${
                   selectedFilter === option.value 
-                    ? "" 
-                    : "hover:bg-muted"
+                    ? "ring-2 ring-offset-2 ring-offset-background shadow-lg scale-105" 
+                    : "hover:bg-muted border-2 hover:border-primary/50 hover:shadow-md"
+                } ${
+                  option.value === "bc" && selectedFilter !== option.value ? "border-business-central/40 text-business-central hover:bg-business-central/10" : ""
+                } ${
+                  option.value === "fsc" && selectedFilter !== option.value ? "border-finance-supply/40 text-finance-supply hover:bg-finance-supply/10" : ""
+                } ${
+                  option.value === "crm" && selectedFilter !== option.value ? "border-crm/40 text-crm hover:bg-crm/10" : ""
                 }`}
               >
                 {option.label}
