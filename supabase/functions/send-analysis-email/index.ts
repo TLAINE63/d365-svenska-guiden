@@ -214,7 +214,7 @@ serve(async (req: Request): Promise<Response> => {
 
     // Build email payload - send to customer with CC to admin
     const emailPayload: Record<string, unknown> = {
-      from: "Dynamic Factory <onboarding@resend.dev>",
+      from: "D365 Guiden <noreply@cloudahead.se>",
       to: [email], // Send to customer
       cc: ["thomas.laine@dynamicfactory.se"], // Copy to admin
       reply_to: "thomas.laine@dynamicfactory.se",
@@ -286,7 +286,7 @@ serve(async (req: Request): Promise<Response> => {
 
     // Send separate admin notification email
     const adminNotificationPayload = {
-      from: "Dynamic Factory <onboarding@resend.dev>",
+      from: "D365 Guiden <noreply@cloudahead.se>",
       to: ["thomas.laine@dynamicfactory.se"],
       reply_to: email, // Reply goes to customer
       subject: `🔔 Ny ${safeAnalysisType}-behovsanalys från ${safeCompanyName}`,
