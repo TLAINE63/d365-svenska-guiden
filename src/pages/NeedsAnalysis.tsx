@@ -1351,13 +1351,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 5:
-        const decisionTimelineOptions = [
-          { value: "Under kommande halvår", label: "Under kommande halvår" },
-          { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
-          { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
-          { value: "Inga planer just nu", label: "Inga planer just nu" },
-        ];
-
         const handleSituationChallengeChange = (categoryId: string, value: string) => {
           setData({
             ...data,
@@ -1413,21 +1406,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 ))}
               </div>
             </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {decisionTimelineOptions.map((option) => (
-                  <SelectionCard
-                    key={option.value}
-                    label={option.label}
-                    selected={data.decisionTimeline === option.value}
-                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-            </div>
           </div>
         );
 
@@ -1473,6 +1451,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
 
       case 7:
+        const decisionTimelineOptions = [
+          { value: "Under kommande halvår", label: "Under kommande halvår" },
+          { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
+          { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
+          { value: "Inga planer just nu", label: "Inga planer just nu" },
+        ];
+
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt framtida affärssystem/ERP?</p>
@@ -1484,6 +1469,21 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 onChange={(e) => setData({ ...data, wishlist: e.target.value })}
                 className="min-h-[200px]"
               />
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {decisionTimelineOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    selected={data.decisionTimeline === option.value}
+                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         );
