@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { partners, Partner, crmApplications } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
-import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown, LayoutGrid, TrendingUp, Megaphone, Headphones } from "lucide-react";
+import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 
 // Industry images
@@ -24,6 +24,12 @@ import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
 import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.jpg";
 import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
 import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
+
+// Product icons
+import businessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import financeIcon from "@/assets/icons/Finance.svg";
+import salesIcon from "@/assets/icons/Sales.svg";
+import customerServiceIcon from "@/assets/icons/CustomerService.svg";
 
 type ProductFilter = "bc" | "fsc" | "crm-sales" | "crm-service" | null;
 
@@ -54,11 +60,11 @@ const industries: Industry[] = [
   { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel", products: ["bc", "fsc"], partnerIndustries: ["Grossist/Distribution"] },
 ];
 
-const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm"; icon: React.ReactNode }[] = [
-  { value: "bc", label: "Business Central", variant: "business-central", icon: <LayoutGrid className="h-5 w-5" /> },
-  { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply", icon: <TrendingUp className="h-5 w-5" /> },
-  { value: "crm-sales", label: "Sales & Customer Insights (Marketing Automation)", variant: "crm", icon: <Megaphone className="h-5 w-5" /> },
-  { value: "crm-service", label: "Customer Service & Field Service & Contact Center", variant: "crm", icon: <Headphones className="h-5 w-5" /> },
+const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm"; icon: string }[] = [
+  { value: "bc", label: "Business Central", variant: "business-central", icon: businessCentralIcon },
+  { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply", icon: financeIcon },
+  { value: "crm-sales", label: "Sales & Customer Insights (Marketing Automation)", variant: "crm", icon: salesIcon },
+  { value: "crm-service", label: "Customer Service & Field Service & Contact Center", variant: "crm", icon: customerServiceIcon },
 ];
 
 // Map product filter to application names
@@ -247,7 +253,7 @@ const Branschlosningar = () => {
                   (option.value === "crm-sales" || option.value === "crm-service") && selectedFilter !== option.value ? "border-crm/40 text-crm hover:bg-crm/10" : ""
                 }`}
               >
-                {option.icon}
+                <img src={option.icon} alt="" className="h-6 w-6" />
                 {option.label}
               </Button>
             ))}
