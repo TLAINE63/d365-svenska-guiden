@@ -15,5 +15,17 @@ verify_jwt = false
 [functions.submit-lead]
 verify_jwt = false
 
+[functions.admin-login]
+verify_jwt = false
+
 [functions.manage-leads]
+verify_jwt = false
+
+[functions.manage-partners]
+verify_jwt = false
+
+[functions.manage-change-requests]
+verify_jwt = false
+
+[functions.import-partners]
 verify_jwt = false
