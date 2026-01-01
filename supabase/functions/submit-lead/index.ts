@@ -7,6 +7,7 @@ const ALLOWED_ORIGINS = [
   "https://d365-svenska-guiden.lovable.app",
   "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
   "https://d9e90f0f-f133-4101-acbb-fd63a5b8b573.lovableproject.com",
+  "https://id-preview--d9e90f0f-f133-4101-acbb-fd63a5b8b573.lovable.app",
   "http://localhost:5173",
   "http://localhost:8080",
 ];
