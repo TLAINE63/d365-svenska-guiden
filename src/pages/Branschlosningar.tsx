@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { partners, Partner, crmApplications } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
-import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
+import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown, LayoutGrid, TrendingUp, Megaphone, Headphones } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 
 // Industry images
@@ -54,11 +54,11 @@ const industries: Industry[] = [
   { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel", products: ["bc", "fsc"], partnerIndustries: ["Grossist/Distribution"] },
 ];
 
-const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm" }[] = [
-  { value: "bc", label: "Business Central", variant: "business-central" },
-  { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply" },
-  { value: "crm-sales", label: "Sales & Customer Insights (Marketing Automation)", variant: "crm" },
-  { value: "crm-service", label: "Customer Service & Field Service & Contact Center", variant: "crm" },
+const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm"; icon: React.ReactNode }[] = [
+  { value: "bc", label: "Business Central", variant: "business-central", icon: <LayoutGrid className="h-5 w-5" /> },
+  { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply", icon: <TrendingUp className="h-5 w-5" /> },
+  { value: "crm-sales", label: "Sales & Customer Insights (Marketing Automation)", variant: "crm", icon: <Megaphone className="h-5 w-5" /> },
+  { value: "crm-service", label: "Customer Service & Field Service & Contact Center", variant: "crm", icon: <Headphones className="h-5 w-5" /> },
 ];
 
 // Map product filter to application names
@@ -235,7 +235,7 @@ const Branschlosningar = () => {
                   setSelectedFilter(option.value);
                   setSelectedIndustry(null);
                 }}
-                className={`w-full text-sm sm:text-base font-bold px-4 sm:px-6 py-4 sm:py-5 h-auto min-h-[70px] transition-all duration-200 ${
+                className={`w-full text-sm sm:text-base font-bold px-4 sm:px-6 py-4 sm:py-5 h-auto min-h-[70px] transition-all duration-200 flex items-center justify-center gap-2 ${
                   selectedFilter === option.value 
                     ? "ring-2 ring-offset-2 ring-offset-background shadow-lg scale-[1.02]" 
                     : "hover:bg-muted border-2 hover:border-primary/50 hover:shadow-md"
@@ -247,6 +247,7 @@ const Branschlosningar = () => {
                   (option.value === "crm-sales" || option.value === "crm-service") && selectedFilter !== option.value ? "border-crm/40 text-crm hover:bg-crm/10" : ""
                 }`}
               >
+                {option.icon}
                 {option.label}
               </Button>
             ))}
