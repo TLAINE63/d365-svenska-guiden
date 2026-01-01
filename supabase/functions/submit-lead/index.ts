@@ -77,6 +77,7 @@ interface LeadRequest {
   source_page?: string;
   source_type?: string;
   message?: string;
+  _hp?: string; // Honeypot field
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -99,6 +100,15 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const data: LeadRequest = await req.json();
+
+    // Honeypot check - if filled, silently "succeed" to fool bots
+    if (data._hp) {
+      console.log("Honeypot triggered - bot detected");
+      return new Response(
+        JSON.stringify({ success: true, id: "blocked" }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     // Validate required fields
     if (!data.company_name || !data.contact_name || !data.email) {
