@@ -298,15 +298,16 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 6;
+  const totalSteps = 7;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Target, Target, BarChart3, FileText];
+  const stepIcons = [Building2, Target, Target, Target, Target, BarChart3, FileText];
   const stepTitles = [
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
     "Integrationer",
+    "Önskelista",
     "AI & Framtid",
     "Övrig Information",
   ];
@@ -828,14 +829,20 @@ const CustomerServiceNeedsAnalysis = () => {
                 </div>
               ))}
             </div>
+          </div>
+        );
+
+      case 5:
+        return (
+          <div className="space-y-6">
+            <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
             <div>
-              <p className="text-muted-foreground mt-6 mb-2">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
               <Textarea
                 id="wishlist"
                 placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
                 value={data.wishlist}
                 onChange={(e) => setData({ ...data, wishlist: e.target.value })}
-                className="min-h-[150px]"
+                className="min-h-[200px]"
               />
             </div>
 
@@ -861,7 +868,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -932,7 +939,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <div>
