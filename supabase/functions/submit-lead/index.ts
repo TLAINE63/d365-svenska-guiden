@@ -2,19 +2,23 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 
-// Get allowed origins for CORS
-const ALLOWED_ORIGINS = [
-  "https://d365-svenska-guiden.lovable.app",
-  "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
-  "https://d9e90f0f-f133-4101-acbb-fd63a5b8b573.lovableproject.com",
-  "https://id-preview--d9e90f0f-f133-4101-acbb-fd63a5b8b573.lovable.app",
-  "http://localhost:5173",
-  "http://localhost:8080",
-];
+// Get allowed origins for CORS - allow all Lovable preview domains
+function isAllowedOrigin(origin: string): boolean {
+  if (!origin) return false;
+  
+  // Allow localhost for development
+  if (origin.startsWith("http://localhost:")) return true;
+  
+  // Allow all Lovable domains (production and preview)
+  if (origin.endsWith(".lovable.app")) return true;
+  if (origin.endsWith(".lovableproject.com")) return true;
+  
+  return false;
+}
 
 function getCorsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get("origin") || "";
-  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allowedOrigin = isAllowedOrigin(origin) ? origin : "https://d365-svenska-guiden.lovable.app";
   
   return {
     "Access-Control-Allow-Origin": allowedOrigin,
