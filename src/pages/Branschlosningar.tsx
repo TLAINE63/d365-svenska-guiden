@@ -25,7 +25,7 @@ import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.
 import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
 import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
 
-type ProductFilter = "bc" | "fsc" | "crm" | null;
+type ProductFilter = "bc" | "fsc" | "crm-sales" | "crm-service" | null;
 
 interface Industry {
   name: string;
@@ -38,18 +38,18 @@ interface Industry {
 
 const industries: Industry[] = [
   { name: "Tillverkning", slug: "tillverkning", image: tillverkningImg, description: "Affärssystem för tillverkande företag", products: ["bc", "fsc"], partnerIndustries: ["Tillverkningsindustrin"] },
-  { name: "Handel & Distribution", slug: "handel-distribution", image: handelDistributionImg, description: "Lösningar för handels- och distributionsföretag", products: ["bc", "fsc", "crm"], partnerIndustries: ["Grossist/Distribution", "Handel (Retail & eCommerce)"] },
-  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "System för bygg- och entreprenadföretag", products: ["bc", "fsc", "crm"], partnerIndustries: ["Bygg & Entreprenad"] },
+  { name: "Handel & Distribution", slug: "handel-distribution", image: handelDistributionImg, description: "Lösningar för handels- och distributionsföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Grossist/Distribution", "Handel (Retail & eCommerce)"] },
+  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "System för bygg- och entreprenadföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Bygg & Entreprenad"] },
   { name: "Transport & Logistik", slug: "transport-logistik", image: transportLogistikImg, description: "Affärssystem för transport och logistik", products: ["bc", "fsc"], partnerIndustries: ["Transport & Logistik", "Grossist/Distribution"] },
-  { name: "Fastigheter", slug: "fastigheter", image: fastigheterImg, description: "Lösningar för fastighetsbranschen", products: ["bc", "fsc", "crm"], partnerIndustries: ["Fastigheter", "Bygg & Entreprenad"] },
+  { name: "Fastigheter", slug: "fastigheter", image: fastigheterImg, description: "Lösningar för fastighetsbranschen", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Fastigheter", "Bygg & Entreprenad"] },
   { name: "Livsmedel", slug: "livsmedel", image: livsmedel, description: "System för livsmedelsindustrin", products: ["bc", "fsc"], partnerIndustries: ["Tillverkningsindustrin", "Grossist/Distribution"] },
-  { name: "Läkemedel & Life Science", slug: "lakemedel-life-science", image: lakemedelLifeScienceImg, description: "Lösningar för läkemedel och life science", products: ["bc", "fsc", "crm"], partnerIndustries: ["Life Science", "Hälso- & sjukvård"] },
-  { name: "Energi", slug: "energi", image: energiImg, description: "Affärssystem för energisektorn", products: ["fsc", "crm"], partnerIndustries: ["Energi & Utilities"] },
-  { name: "Service & Underhåll", slug: "service-underhall", image: serviceUnderhallImg, description: "System för serviceföretag", products: ["bc", "fsc", "crm"], partnerIndustries: ["Konsulttjänster"] },
-  { name: "Konsultföretag", slug: "konsultforetag", image: konsultforetagImg, description: "Lösningar för konsultbolag", products: ["bc", "crm"], partnerIndustries: ["Konsulttjänster"] },
-  { name: "IT & Tech", slug: "it-tech", image: itTechImg, description: "Affärssystem för IT-branschen", products: ["bc", "crm"], partnerIndustries: ["Konsulttjänster"] },
-  { name: "Detaljhandel", slug: "detaljhandel", image: detaljhandelImg, description: "System för detaljhandeln", products: ["bc", "fsc", "crm"], partnerIndustries: ["Handel (Retail & eCommerce)"] },
-  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", image: medlemsorganisationerImg, description: "Lösningar för medlemsorganisationer", products: ["bc", "crm"], partnerIndustries: ["Medlemsorganisationer", "Nonprofit", "Offentlig sektor"] },
+  { name: "Läkemedel & Life Science", slug: "lakemedel-life-science", image: lakemedelLifeScienceImg, description: "Lösningar för läkemedel och life science", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Life Science", "Hälso- & sjukvård"] },
+  { name: "Energi", slug: "energi", image: energiImg, description: "Affärssystem för energisektorn", products: ["fsc", "crm-sales", "crm-service"], partnerIndustries: ["Energi & Utilities"] },
+  { name: "Service & Underhåll", slug: "service-underhall", image: serviceUnderhallImg, description: "System för serviceföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
+  { name: "Konsultföretag", slug: "konsultforetag", image: konsultforetagImg, description: "Lösningar för konsultbolag", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
+  { name: "IT & Tech", slug: "it-tech", image: itTechImg, description: "Affärssystem för IT-branschen", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
+  { name: "Detaljhandel", slug: "detaljhandel", image: detaljhandelImg, description: "System för detaljhandeln", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Handel (Retail & eCommerce)"] },
+  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", image: medlemsorganisationerImg, description: "Lösningar för medlemsorganisationer", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Medlemsorganisationer", "Nonprofit", "Offentlig sektor"] },
   { name: "Miljö & Återvinning", slug: "miljo-atervinning", image: miljoAtervinningImg, description: "System för miljö- och återvinningsbranschen", products: ["bc", "fsc"], partnerIndustries: ["Tillverkningsindustrin", "Konsulttjänster"] },
   { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel", products: ["bc", "fsc"], partnerIndustries: ["Grossist/Distribution"] },
 ];
@@ -57,7 +57,8 @@ const industries: Industry[] = [
 const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm" }[] = [
   { value: "bc", label: "Business Central", variant: "business-central" },
   { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply" },
-  { value: "crm", label: "CRM / Customer Engagement", variant: "crm" },
+  { value: "crm-sales", label: "CRM - Sales & Customer Insights (Marketing Automation)", variant: "crm" },
+  { value: "crm-service", label: "CRM - Customer Service & Field Service & Contact Center", variant: "crm" },
 ];
 
 // Map product filter to application names
@@ -67,8 +68,10 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
       return ["Business Central"];
     case "fsc":
       return ["Finance & SCM"];
-    case "crm":
-      return crmApplications;
+    case "crm-sales":
+      return ["Sales", "Customer Insights"];
+    case "crm-service":
+      return ["Customer Service", "Field Service", "Contact Center"];
     default:
       return [];
   }
@@ -88,7 +91,8 @@ const Branschlosningar = () => {
     if (selectedFilter) {
       const appName = selectedFilter === "bc" ? "Business Central" : 
                       selectedFilter === "fsc" ? "Finance & SCM" : 
-                      selectedFilter === "crm" ? "CRM" : "";
+                      selectedFilter === "crm-sales" ? "CRM Sales" : 
+                      selectedFilter === "crm-service" ? "CRM Service" : "";
       if (appName) params.set("product", appName);
     }
     // Pass the selected industry
@@ -115,7 +119,8 @@ const Branschlosningar = () => {
           return partner.rankings?.bc ?? 999;
         case "fsc":
           return partner.rankings?.fsc ?? 999;
-        case "crm":
+        case "crm-sales":
+        case "crm-service":
           return partner.rankings?.crm ?? 999;
         default:
           return 999;
@@ -239,7 +244,7 @@ const Branschlosningar = () => {
                 } ${
                   option.value === "fsc" && selectedFilter !== option.value ? "border-finance-supply/40 text-finance-supply hover:bg-finance-supply/10" : ""
                 } ${
-                  option.value === "crm" && selectedFilter !== option.value ? "border-crm/40 text-crm hover:bg-crm/10" : ""
+                  (option.value === "crm-sales" || option.value === "crm-service") && selectedFilter !== option.value ? "border-crm/40 text-crm hover:bg-crm/10" : ""
                 }`}
               >
                 {option.label}
