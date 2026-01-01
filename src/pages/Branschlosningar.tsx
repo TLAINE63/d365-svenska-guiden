@@ -225,7 +225,7 @@ const Branschlosningar = () => {
             </div>
           )}
           {/* Filter Buttons */}
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto">
             {filterOptions.map((option) => (
               <Button
                 key={option.value}
@@ -235,9 +235,9 @@ const Branschlosningar = () => {
                   setSelectedFilter(option.value);
                   setSelectedIndustry(null);
                 }}
-                className={`text-base sm:text-lg font-bold px-6 sm:px-8 py-3 sm:py-4 h-auto transition-all duration-200 ${
+                className={`w-full text-sm sm:text-base font-bold px-4 sm:px-6 py-4 sm:py-5 h-auto min-h-[70px] transition-all duration-200 ${
                   selectedFilter === option.value 
-                    ? "ring-2 ring-offset-2 ring-offset-background shadow-lg scale-105" 
+                    ? "ring-2 ring-offset-2 ring-offset-background shadow-lg scale-[1.02]" 
                     : "hover:bg-muted border-2 hover:border-primary/50 hover:shadow-md"
                 } ${
                   option.value === "bc" && selectedFilter !== option.value ? "border-business-central/40 text-business-central hover:bg-business-central/10" : ""
