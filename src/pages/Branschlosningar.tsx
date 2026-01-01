@@ -194,12 +194,12 @@ const Branschlosningar = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-12 px-4 bg-gradient-to-b from-muted/50 to-background">
+      <section className="pt-24 pb-6 px-4 bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto max-w-6xl text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3">
             Branschlösningar
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto mb-4">
             {selectedIndustry 
               ? `Partners inom ${selectedIndustry.name} med ${getProductLabel()}-kompetens`
               : "Hitta rätt partner för ditt Dynamics 365 projekt. Följ stegen nedan för att se vilka Microsoft-partners som har god verksamhetskunskap inom din bransch."
@@ -208,13 +208,13 @@ const Branschlosningar = () => {
 
           {/* Step indicator */}
           {!selectedIndustry && (
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-8">
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 ${
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4">
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm ${
                 selectedFilter 
                   ? "border-green-500 bg-green-500/10 text-green-600" 
                   : "border-amber-500 bg-amber-500/10 text-amber-600 font-medium"
               }`}>
-                <span className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold text-white ${
+                <span className={`flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold text-white ${
                   selectedFilter ? "bg-green-500" : "bg-amber-500"
                 }`}>
                   {selectedFilter ? "✓" : "1"}
@@ -226,12 +226,12 @@ const Branschlosningar = () => {
 
           {/* Blinking arrow pointing to product selection */}
           {!selectedFilter && !selectedIndustry && (
-            <div className="flex justify-center mb-4">
-              <ArrowDown className="h-8 w-8 text-amber-500 animate-bounce" />
+            <div className="flex justify-center mb-2">
+              <ArrowDown className="h-6 w-6 text-amber-500 animate-bounce" />
             </div>
           )}
           {/* Filter Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
             {filterOptions.map((option) => (
               <button
                 key={option.value}
@@ -239,14 +239,14 @@ const Branschlosningar = () => {
                   setSelectedFilter(option.value);
                   setSelectedIndustry(null);
                 }}
-                className={`group w-full text-sm sm:text-base font-semibold px-5 sm:px-6 py-5 sm:py-6 min-h-[80px] rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 ${
+                className={`group w-full text-xs sm:text-sm font-semibold px-3 sm:px-4 py-3 sm:py-4 min-h-[56px] rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${
                   selectedFilter === option.value 
                     ? option.value === "bc" 
-                      ? "bg-gradient-to-br from-business-central to-business-central/80 text-white shadow-xl shadow-business-central/25 scale-[1.02]"
+                      ? "bg-gradient-to-br from-business-central to-business-central/80 text-white shadow-lg shadow-business-central/25 scale-[1.02]"
                       : option.value === "fsc"
-                        ? "bg-gradient-to-br from-finance-supply to-finance-supply/80 text-white shadow-xl shadow-finance-supply/25 scale-[1.02]"
-                        : "bg-gradient-to-br from-crm to-crm/80 text-white shadow-xl shadow-crm/25 scale-[1.02]"
-                    : "bg-card border border-border/50 hover:border-border shadow-sm hover:shadow-lg"
+                        ? "bg-gradient-to-br from-finance-supply to-finance-supply/80 text-white shadow-lg shadow-finance-supply/25 scale-[1.02]"
+                        : "bg-gradient-to-br from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-[1.02]"
+                    : "bg-card border border-border/50 hover:border-border shadow-sm hover:shadow-md"
                 } ${
                   option.value === "bc" && selectedFilter !== option.value 
                     ? "hover:bg-business-central/5 hover:border-business-central/30" 
@@ -261,7 +261,7 @@ const Branschlosningar = () => {
                     : ""
                 }`}
               >
-                <div className={`flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 ${
+                <div className={`flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300 ${
                   selectedFilter === option.value 
                     ? "bg-white/20" 
                     : option.value === "bc" 
@@ -270,7 +270,7 @@ const Branschlosningar = () => {
                         ? "bg-finance-supply/10 group-hover:bg-finance-supply/20"
                         : "bg-crm/10 group-hover:bg-crm/20"
                 }`}>
-                  <img src={option.icon} alt="" className="h-6 w-6" />
+                  <img src={option.icon} alt="" className="h-5 w-5" />
                 </div>
                 <span className={selectedFilter !== option.value 
                   ? option.value === "bc" 
@@ -289,17 +289,17 @@ const Branschlosningar = () => {
           {/* Step 2 indicator - shown after solution is selected */}
           {selectedFilter && !selectedIndustry && (
             <>
-              <div className="flex justify-center mt-8">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
-                  <span className="flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold bg-amber-500 text-white">
+              <div className="flex justify-center mt-4">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium text-sm">
+                  <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-amber-500 text-white">
                     2
                   </span>
                   <span>Välj bransch nedan</span>
                 </div>
               </div>
               {/* Arrow pointing to industry selection */}
-              <div className="flex justify-center mt-4">
-                <ArrowDown className="h-8 w-8 text-amber-500 animate-bounce" />
+              <div className="flex justify-center mt-2">
+                <ArrowDown className="h-6 w-6 text-amber-500 animate-bounce" />
               </div>
             </>
           )}
