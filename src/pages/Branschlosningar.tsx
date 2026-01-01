@@ -210,18 +210,6 @@ const Branschlosningar = () => {
                 </span>
                 <span>Börja med att välja Dynamics 365-lösning</span>
               </div>
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 ${
-                selectedFilter 
-                  ? "border-amber-500 bg-amber-500/10 text-amber-600 font-medium" 
-                  : "border-muted-foreground/30 bg-muted/30 text-muted-foreground"
-              }`}>
-                <span className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold ${
-                  selectedFilter ? "bg-amber-500 text-white" : "bg-muted-foreground/30 text-muted-foreground"
-                }`}>
-                  2
-                </span>
-                <span>Välj bransch nedan</span>
-              </div>
             </div>
           )}
 
@@ -251,6 +239,18 @@ const Branschlosningar = () => {
               </Button>
             ))}
           </div>
+
+          {/* Step 2 indicator - shown after solution is selected */}
+          {selectedFilter && !selectedIndustry && (
+            <div className="flex justify-center mt-8">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
+                <span className="flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold bg-amber-500 text-white">
+                  2
+                </span>
+                <span>Välj bransch nedan</span>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
