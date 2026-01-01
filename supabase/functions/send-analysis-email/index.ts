@@ -281,6 +281,7 @@ serve(async (req: Request): Promise<Response> => {
       console.log(`Adding PDF attachment: ${safeFilename}`);
     }
 
+    // Send customer email
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -291,10 +292,91 @@ serve(async (req: Request): Promise<Response> => {
     });
 
     const responseData = await emailResponse.json();
-    console.log("Analysis email response:", responseData);
+    console.log("Customer email response:", responseData);
 
     if (!emailResponse.ok) {
-      throw new Error(responseData.message || "Failed to send email");
+      throw new Error(responseData.message || "Failed to send customer email");
+    }
+
+    // Send separate admin notification email
+    const adminNotificationPayload = {
+      from: "Dynamic Factory <onboarding@resend.dev>",
+      to: ["thomas.laine@dynamicfactory.se"],
+      reply_to: email, // Reply goes to customer
+      subject: `🔔 Ny ${safeAnalysisType}-behovsanalys från ${safeCompanyName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: linear-gradient(135deg, #0078D4 0%, #00BCF2 100%); padding: 20px; border-radius: 8px 8px 0 0;">
+            <h1 style="color: white; margin: 0; font-size: 24px;">📋 Ny behovsanalys inskickad</h1>
+          </div>
+          
+          <div style="background: #f8f9fa; padding: 20px; border: 1px solid #e9ecef;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><strong>Typ av analys:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;">${safeAnalysisType}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><strong>Företag:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;">${safeCompanyName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><strong>Kontaktperson:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;">${safeContactName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><strong>E-post:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><a href="mailto:${safeEmail}">${safeEmail}</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><strong>Telefon:</strong></td>
+                <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;">${safePhone}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0;"><strong>Tidpunkt:</strong></td>
+                <td style="padding: 8px 0;">${new Date().toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" })}</td>
+              </tr>
+            </table>
+          </div>
+          
+          ${recommendation ? `
+          <div style="background: #e7f3ff; padding: 15px; margin-top: 15px; border-radius: 6px; border-left: 4px solid #0078D4;">
+            <h3 style="margin: 0 0 10px 0; color: #0078D4;">💡 Rekommendation</h3>
+            <p style="margin: 0;"><strong>${sanitizeHtml(String(recommendation.product))}</strong></p>
+          </div>
+          ` : ""}
+          
+          <div style="background: white; padding: 20px; border: 1px solid #e9ecef; border-top: none;">
+            <h3 style="margin: 0 0 15px 0;">Sammanfattning av svar</h3>
+            ${formatAnalysisData(analysisData)}
+          </div>
+          
+          <div style="background: #f1f1f1; padding: 15px; border-radius: 0 0 8px 8px; text-align: center;">
+            <p style="margin: 0; color: #666; font-size: 12px;">
+              ${pdfBase64 ? "📎 PDF-analysen är bifogad i kundmailet." : ""}
+              <br>
+              Notifikation från <a href="https://d365.se">d365.se</a>
+            </p>
+          </div>
+        </div>
+      `,
+    };
+
+    const adminResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify(adminNotificationPayload),
+    });
+
+    const adminData = await adminResponse.json();
+    console.log("Admin notification response:", adminData);
+
+    if (!adminResponse.ok) {
+      console.error("Failed to send admin notification:", adminData);
+      // Don't throw - customer email was already sent successfully
     }
 
     return new Response(JSON.stringify({ success: true, data: responseData }), {
