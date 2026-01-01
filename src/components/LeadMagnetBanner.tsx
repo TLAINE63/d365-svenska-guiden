@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Download, FileText, CheckCircle, X } from "lucide-react";
+import { generatePartnerGuide } from "@/utils/generatePartnerGuide";
 
 interface LeadMagnetBannerProps {
   sourcePage: string;
@@ -87,14 +88,12 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
             <h3 className="font-semibold text-foreground">Tack! Guiden är på väg</h3>
             <p className="text-sm text-muted-foreground">
               Kolla din inkorg om några minuter. Kommer inte mailet fram?{" "}
-              <a 
-                href="/guides/valj-ratt-dynamics-365-partner.pdf" 
-                target="_blank" 
-                rel="noopener noreferrer"
+              <button 
+                onClick={generatePartnerGuide}
                 className="text-primary hover:underline font-medium"
               >
                 Ladda ner guiden direkt här
-              </a>
+              </button>
             </p>
           </div>
         </div>
