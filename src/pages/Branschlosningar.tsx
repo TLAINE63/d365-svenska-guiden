@@ -410,7 +410,8 @@ const Branschlosningar = () => {
 
             {/* Lead CTA - shows after partner list with urgency */}
             <div className="max-w-xl mx-auto mt-12">
-              <div className="flex justify-center mb-4">
+              <div className="flex flex-col items-center gap-2 mb-4">
+                <UrgencyBadge variant="consultation" />
                 <UrgencyBadge variant="spots" spotsLeft={3} />
               </div>
               <LeadCTA
@@ -482,7 +483,8 @@ const Branschlosningar = () => {
           {/* Lead CTA Section with Urgency */}
           <section className="py-16 px-4 bg-muted/30">
             <div className="container mx-auto max-w-xl">
-              <div className="flex justify-center mb-4">
+              <div className="flex flex-col items-center gap-2 mb-4">
+                <UrgencyBadge variant="consultation" />
                 <UrgencyBadge variant="spots" spotsLeft={3} />
               </div>
               <LeadCTA

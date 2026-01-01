@@ -2,7 +2,7 @@ import { Clock, Users, Flame } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 interface UrgencyBadgeProps {
-  variant?: "spots" | "time" | "demand";
+  variant?: "spots" | "time" | "demand" | "consultation";
   spotsLeft?: number;
   className?: string;
 }
@@ -44,6 +44,18 @@ export const UrgencyBadge = ({
       >
         <Flame className="h-3 w-3 mr-1" />
         Hög efterfrågan just nu
+      </Badge>
+    );
+  }
+
+  if (variant === "consultation") {
+    return (
+      <Badge 
+        variant="outline" 
+        className={`bg-emerald-500/10 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 animate-pulse ${className}`}
+      >
+        <Clock className="h-3 w-3 mr-1" />
+        Begränsat antal kostnadsfria rådgivningstillfällen denna månad
       </Badge>
     );
   }
