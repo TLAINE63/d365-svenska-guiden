@@ -11,6 +11,7 @@ import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import partnersComparisonImg from "@/assets/partners-comparison-proposals.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import LeadCTA from "@/components/LeadCTA";
+import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import { partners, Partner, allIndustries, IndustryExpertise } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 
@@ -66,6 +67,7 @@ const getCompanySizeCategories = (sizes: string[]): string[] => {
 };
 
 const ValjPartner = () => {
+  const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [guideOpen, setGuideOpen] = useState(false);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
@@ -381,6 +383,18 @@ const ValjPartner = () => {
           </div>
         </div>
       </section>
+
+      {/* Lead Magnet Banner after Fem viktiga frågor */}
+      {showLeadMagnet && (
+        <section className="px-4 py-8 bg-muted/30">
+          <div className="container mx-auto max-w-4xl">
+            <LeadMagnetBanner 
+              sourcePage="/valj-partner" 
+              onClose={() => setShowLeadMagnet(false)}
+            />
+          </div>
+        </section>
+      )}
 
 
       <section className="py-12 sm:py-16 md:py-20 bg-background">
