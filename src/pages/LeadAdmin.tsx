@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -33,9 +33,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { partners } from "@/data/partners";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { Eye, Send, Trash2, RefreshCw } from "lucide-react";
+import { Eye, Send, Trash2, RefreshCw, LogOut } from "lucide-react";
 
 interface Lead {
   id: string;
@@ -65,8 +66,9 @@ const statusLabels: Record<string, { label: string; variant: "default" | "second
 
 const LeadAdmin = () => {
   const { toast } = useToast();
-  const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, isLoading: authLoading, token, login, logout } = useAdminAuth();
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
   const [leads, setLeads] = useState<Lead[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
@@ -76,19 +78,26 @@ const LeadAdmin = () => {
   const [adminNotes, setAdminNotes] = useState("");
 
   const fetchLeads = async () => {
+    if (!token) return;
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "list", password },
+        body: { action: "list", token },
       });
 
       if (error) throw error;
+      if (data.error) {
+        if (data.error.includes("gått ut") || data.error.includes("session")) {
+          logout();
+        }
+        throw new Error(data.error);
+      }
       setLeads(data.leads || []);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching leads:", error);
       toast({
         title: "Fel",
-        description: "Kunde inte hämta leads",
+        description: error.message || "Kunde inte hämta leads",
         variant: "destructive",
       });
     } finally {
@@ -96,67 +105,90 @@ const LeadAdmin = () => {
     }
   };
 
+  // Fetch leads when authenticated
+  useEffect(() => {
+    if (isAuthenticated && token) {
+      fetchLeads();
+    }
+  }, [isAuthenticated, token]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const { error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "list", password },
-      });
-
-      if (error) throw error;
-      setIsAuthenticated(true);
-      fetchLeads();
-    } catch {
-      toast({
-        title: "Fel",
-        description: "Ogiltigt lösenord",
-        variant: "destructive",
-      });
+    setLoginError("");
+    const result = await login(loginPassword);
+    if (!result.success) {
+      setLoginError(result.error || "Inloggning misslyckades");
     }
+    setLoginPassword(""); // Clear password from state immediately
   };
 
   const handleStatusChange = async (leadId: string, status: string) => {
+    if (!token) {
+      toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+      logout();
+      return;
+    }
     try {
-      const { error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "update", password, id: leadId, status },
+      const { data, error } = await supabase.functions.invoke("manage-leads", {
+        body: { action: "update", token, id: leadId, status },
       });
 
       if (error) throw error;
+      if (data.error) throw new Error(data.error);
       
       setLeads(leads.map(l => l.id === leadId ? { ...l, status } : l));
       toast({ title: "Status uppdaterad" });
-    } catch (error) {
+    } catch (error: any) {
+      if (error.message?.includes("gått ut") || error.message?.includes("session")) {
+        logout();
+      }
       toast({
         title: "Fel",
-        description: "Kunde inte uppdatera status",
+        description: error.message || "Kunde inte uppdatera status",
         variant: "destructive",
       });
     }
   };
 
   const handleSaveNotes = async () => {
-    if (!selectedLead) return;
+    if (!selectedLead || !token) {
+      if (!token) {
+        toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+        logout();
+      }
+      return;
+    }
     
     try {
-      const { error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "update", password, id: selectedLead.id, admin_notes: adminNotes },
+      const { data, error } = await supabase.functions.invoke("manage-leads", {
+        body: { action: "update", token, id: selectedLead.id, admin_notes: adminNotes },
       });
 
       if (error) throw error;
+      if (data.error) throw new Error(data.error);
       
       setLeads(leads.map(l => l.id === selectedLead.id ? { ...l, admin_notes: adminNotes } : l));
       toast({ title: "Anteckningar sparade" });
-    } catch {
+    } catch (error: any) {
+      if (error.message?.includes("gått ut") || error.message?.includes("session")) {
+        logout();
+      }
       toast({
         title: "Fel",
-        description: "Kunde inte spara anteckningar",
+        description: error.message || "Kunde inte spara anteckningar",
         variant: "destructive",
       });
     }
   };
 
   const handleForward = async () => {
-    if (!selectedLead || selectedPartners.length === 0) return;
+    if (!selectedLead || selectedPartners.length === 0 || !token) {
+      if (!token) {
+        toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+        logout();
+      }
+      return;
+    }
 
     try {
       // Generate placeholder emails for partners (real emails would come from database)
@@ -164,10 +196,10 @@ const LeadAdmin = () => {
         return `kontakt@${name.toLowerCase().replace(/\s+/g, '').replace(/[åä]/g, 'a').replace(/ö/g, 'o')}.se`;
       });
 
-      const { error } = await supabase.functions.invoke("manage-leads", {
+      const { data, error } = await supabase.functions.invoke("manage-leads", {
         body: {
           action: "forward",
-          password,
+          token,
           id: selectedLead.id,
           partner_emails: partnerEmails,
           partner_names: selectedPartners,
@@ -175,6 +207,7 @@ const LeadAdmin = () => {
       });
 
       if (error) throw error;
+      if (data.error) throw new Error(data.error);
 
       setLeads(leads.map(l => 
         l.id === selectedLead.id 
@@ -185,10 +218,13 @@ const LeadAdmin = () => {
       setIsForwardDialogOpen(false);
       setSelectedPartners([]);
       toast({ title: "Lead vidarebefordrad till partners" });
-    } catch {
+    } catch (error: any) {
+      if (error.message?.includes("gått ut") || error.message?.includes("session")) {
+        logout();
+      }
       toast({
         title: "Fel",
-        description: "Kunde inte vidarebefordra lead",
+        description: error.message || "Kunde inte vidarebefordra lead",
         variant: "destructive",
       });
     }
@@ -196,24 +232,45 @@ const LeadAdmin = () => {
 
   const handleDelete = async (leadId: string) => {
     if (!confirm("Är du säker på att du vill ta bort denna lead?")) return;
+    if (!token) {
+      toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+      logout();
+      return;
+    }
 
     try {
-      const { error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "delete", password, id: leadId },
+      const { data, error } = await supabase.functions.invoke("manage-leads", {
+        body: { action: "delete", token, id: leadId },
       });
 
       if (error) throw error;
+      if (data.error) throw new Error(data.error);
       
       setLeads(leads.filter(l => l.id !== leadId));
       toast({ title: "Lead borttagen" });
-    } catch {
+    } catch (error: any) {
+      if (error.message?.includes("gått ut") || error.message?.includes("session")) {
+        logout();
+      }
       toast({
         title: "Fel",
-        description: "Kunde inte ta bort lead",
+        description: error.message || "Kunde inte ta bort lead",
         variant: "destructive",
       });
     }
   };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-grow flex items-center justify-center p-4">
+          <p className="text-muted-foreground">Laddar...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -231,10 +288,13 @@ const LeadAdmin = () => {
                   <Input
                     id="password"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Ange adminlösenord"
                   />
+                  {loginError && (
+                    <p className="text-sm text-destructive">{loginError}</p>
+                  )}
                 </div>
                 <Button type="submit" className="w-full">
                   Logga in
@@ -254,10 +314,16 @@ const LeadAdmin = () => {
       <main className="flex-grow container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Lead Administration</h1>
-          <Button onClick={fetchLeads} variant="outline" disabled={isLoading}>
-            <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
-            Uppdatera
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={logout} variant="outline">
+              <LogOut className="mr-2 h-4 w-4" />
+              Logga ut
+            </Button>
+            <Button onClick={fetchLeads} variant="outline" disabled={isLoading}>
+              <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
+              Uppdatera
+            </Button>
+          </div>
         </div>
 
         <Card>
