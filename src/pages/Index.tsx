@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
+import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -459,7 +460,8 @@ const Index = () => {
         </div>
       </section>
 
-
+      {/* Lead Magnet Banner */}
+      <LeadMagnetBanner sourcePage="index" />
 
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
