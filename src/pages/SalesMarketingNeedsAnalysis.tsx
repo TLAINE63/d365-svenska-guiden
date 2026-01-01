@@ -368,6 +368,7 @@ const SalesMarketingNeedsAnalysis = () => {
     } else {
       setShowContactForm(true);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
@@ -376,6 +377,7 @@ const SalesMarketingNeedsAnalysis = () => {
     } else if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCheckboxChange = (field: keyof SalesMarketingAnalysisData, value: string) => {
