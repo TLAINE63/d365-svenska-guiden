@@ -208,7 +208,7 @@ const Branschlosningar = () => {
                 }`}>
                   {selectedFilter ? "✓" : "1"}
                 </span>
-                <span>Välj Dynamics 365-lösning</span>
+                <span>Börja med att välja Dynamics 365-lösning</span>
               </div>
               <div className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 ${
                 selectedFilter 
