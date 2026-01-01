@@ -209,18 +209,12 @@ const Branschlosningar = () => {
             }
           </p>
 
-          {/* Step indicator */}
-          {!selectedIndustry && (
+          {/* Step indicator - only show before solution is selected */}
+          {!selectedIndustry && !selectedFilter && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4">
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm ${
-                selectedFilter 
-                  ? "border-green-500 bg-green-500/10 text-green-600" 
-                  : "border-amber-500 bg-amber-500/10 text-amber-600 font-medium"
-              }`}>
-                <span className={`flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold text-white ${
-                  selectedFilter ? "bg-green-500" : "bg-amber-500"
-                }`}>
-                  {selectedFilter ? "✓" : "1"}
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-amber-500 text-white">
+                  1
                 </span>
                 <span>Börja med att välja Dynamics 365-lösning</span>
               </div>
