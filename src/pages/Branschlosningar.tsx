@@ -480,21 +480,23 @@ const Branschlosningar = () => {
             </div>
           </section>
 
-          {/* Lead CTA Section with Urgency */}
-          <section className="py-16 px-4 bg-muted/30">
-            <div className="container mx-auto max-w-xl">
-              <div className="flex flex-col items-center gap-2 mb-4">
-                <UrgencyBadge variant="consultation" />
-                <UrgencyBadge variant="spots" spotsLeft={3} />
+          {/* Lead CTA Section with Urgency - only show before solution is selected */}
+          {!selectedFilter && (
+            <section className="py-16 px-4 bg-muted/30">
+              <div className="container mx-auto max-w-xl">
+                <div className="flex flex-col items-center gap-2 mb-4">
+                  <UrgencyBadge variant="consultation" />
+                  <UrgencyBadge variant="spots" spotsLeft={3} />
+                </div>
+                <LeadCTA
+                  sourcePage="/branschlosningar"
+                  selectedProduct={selectedFilter || undefined}
+                  title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
+                  description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
+                />
               </div>
-              <LeadCTA
-                sourcePage="/branschlosningar"
-                selectedProduct={selectedFilter || undefined}
-                title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
-                description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
-              />
-            </div>
-          </section>
+            </section>
+          )}
         </>
       )}
 
