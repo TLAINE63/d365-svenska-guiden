@@ -254,14 +254,20 @@ const Branschlosningar = () => {
 
           {/* Step 2 indicator - shown after solution is selected */}
           {selectedFilter && !selectedIndustry && (
-            <div className="flex justify-center mt-8">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
-                <span className="flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold bg-amber-500 text-white">
-                  2
-                </span>
-                <span>Välj bransch nedan</span>
+            <>
+              <div className="flex justify-center mt-8">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold bg-amber-500 text-white">
+                    2
+                  </span>
+                  <span>Välj bransch nedan</span>
+                </div>
               </div>
-            </div>
+              {/* Arrow pointing to industry selection */}
+              <div className="flex justify-center mt-4">
+                <ArrowDown className="h-8 w-8 text-amber-500 animate-bounce" />
+              </div>
+            </>
           )}
         </div>
       </section>
