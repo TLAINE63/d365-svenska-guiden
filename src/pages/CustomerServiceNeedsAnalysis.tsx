@@ -39,6 +39,7 @@ interface CustomerServiceAnalysisData {
   fieldServiceNeedsOther: string;
   integrationSystems: { system: string; importance: string }[];
   wishlist: string;
+  decisionTimeline: string;
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
@@ -75,6 +76,7 @@ const initialData: CustomerServiceAnalysisData = {
     { system: "", importance: "" },
   ],
   wishlist: "",
+  decisionTimeline: "",
   aiInterest: "",
   aiUseCases: [],
   aiDetails: "",
@@ -835,6 +837,26 @@ const CustomerServiceNeedsAnalysis = () => {
                 onChange={(e) => setData({ ...data, wishlist: e.target.value })}
                 className="min-h-[150px]"
               />
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { value: "Under kommande halvår", label: "Under kommande halvår" },
+                  { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
+                  { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
+                  { value: "Inga planer just nu", label: "Inga planer just nu" },
+                ].map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    selected={data.decisionTimeline === option.value}
+                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         );
