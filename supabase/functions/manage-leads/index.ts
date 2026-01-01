@@ -1,7 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
-import { timingSafeEqual } from "https://deno.land/std@0.190.0/crypto/timing_safe_equal.ts";
 
 // Sanitize HTML to prevent XSS in emails
 function sanitizeHtml(input: string | null | undefined): string {
@@ -33,40 +32,71 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
-// Rate limiting for admin actions
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT = 10;
-const RATE_LIMIT_WINDOW = 5 * 60 * 1000;
+// JWT verification using HMAC-SHA256
+async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; payload?: Record<string, unknown>; error?: string }> {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      return { valid: false, error: "Invalid token format" };
+    }
 
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-  
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return false;
+    const [encodedHeader, encodedPayload, encodedSignature] = parts;
+    const dataToVerify = `${encodedHeader}.${encodedPayload}`;
+
+    // Verify signature
+    const encoder = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      "raw",
+      encoder.encode(secret),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["verify"]
+    );
+
+    const signatureBytes = base64UrlDecode(encodedSignature);
+    const isValid = await crypto.subtle.verify("HMAC", key, signatureBytes as unknown as BufferSource, encoder.encode(dataToVerify));
+
+    if (!isValid) {
+      return { valid: false, error: "Invalid signature" };
+    }
+
+    // Decode and validate payload
+    const payload = JSON.parse(atob(base64UrlToBase64(encodedPayload)));
+
+    // Check expiration
+    const now = Math.floor(Date.now() / 1000);
+    if (payload.exp && payload.exp < now) {
+      return { valid: false, error: "Token expired" };
+    }
+
+    // Check role
+    if (payload.role !== "admin") {
+      return { valid: false, error: "Insufficient permissions" };
+    }
+
+    return { valid: true, payload };
+  } catch (error) {
+    console.error("JWT verification error:", error);
+    return { valid: false, error: "Token verification failed" };
   }
-  
-  if (record.count >= RATE_LIMIT) {
-    return true;
-  }
-  
-  record.count++;
-  return false;
 }
 
-// Constant-time password comparison to prevent timing attacks
-function constantTimeCompare(a: string, b: string): boolean {
-  try {
-    // Pad both strings to same length to prevent length-based timing
-    const maxLen = Math.max(a.length, b.length, 64);
-    const aBytes = new TextEncoder().encode(a.padEnd(maxLen, '\0'));
-    const bBytes = new TextEncoder().encode(b.padEnd(maxLen, '\0'));
-    
-    return timingSafeEqual(aBytes, bBytes);
-  } catch {
-    return false;
+function base64UrlToBase64(str: string): string {
+  let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  while (base64.length % 4) {
+    base64 += '=';
   }
+  return base64;
+}
+
+function base64UrlDecode(str: string): Uint8Array {
+  const base64 = base64UrlToBase64(str);
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -77,29 +107,23 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const clientIP = req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip") || "unknown";
-    if (isRateLimited(clientIP)) {
-      return new Response(
-        JSON.stringify({ error: "Rate limited" }),
-        { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+    const { action, token, ...data } = await req.json();
 
-    const { action, password, ...data } = await req.json();
-
-    // Verify admin password using constant-time comparison
-    const adminPassword = Deno.env.get("PARTNER_ADMIN_PASSWORD");
-    if (!adminPassword) {
-      console.error("PARTNER_ADMIN_PASSWORD environment variable is not configured");
+    // Validate JWT token
+    const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!JWT_SECRET) {
+      console.error("JWT secret not available");
       return new Response(
         JSON.stringify({ error: "Serverfel: Autentisering ej konfigurerad" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-    
-    if (!constantTimeCompare(password || "", adminPassword)) {
+
+    const verification = await verifyJWT(token || "", JWT_SECRET);
+    if (!verification.valid) {
+      console.log(`Invalid token: ${verification.error}`);
       return new Response(
-        JSON.stringify({ error: "Ogiltigt lösenord" }),
+        JSON.stringify({ error: verification.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }

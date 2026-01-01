@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import { timingSafeEqual } from "https://deno.land/std@0.190.0/crypto/timing_safe_equal.ts";
 
 // Sanitize HTML to prevent XSS in emails
 function sanitizeHtml(input: string | null | undefined): string {
@@ -11,42 +10,6 @@ function sanitizeHtml(input: string | null | undefined): string {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
-}
-
-// Rate limiting for brute-force protection
-const adminRateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const ADMIN_RATE_LIMIT = 5; // Max attempts per window
-const ADMIN_RATE_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
-
-function isAdminRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const record = adminRateLimitMap.get(ip);
-  
-  if (!record || now > record.resetTime) {
-    adminRateLimitMap.set(ip, { count: 1, resetTime: now + ADMIN_RATE_WINDOW_MS });
-    return false;
-  }
-  
-  if (record.count >= ADMIN_RATE_LIMIT) {
-    return true;
-  }
-  
-  record.count++;
-  return false;
-}
-
-// Constant-time password comparison to prevent timing attacks
-function constantTimeCompare(a: string, b: string): boolean {
-  try {
-    // Pad both strings to same length to prevent length-based timing
-    const maxLen = Math.max(a.length, b.length, 64);
-    const aBytes = new TextEncoder().encode(a.padEnd(maxLen, '\0'));
-    const bBytes = new TextEncoder().encode(b.padEnd(maxLen, '\0'));
-    
-    return timingSafeEqual(aBytes, bBytes);
-  } catch {
-    return false;
-  }
 }
 
 // Get allowed origins for CORS
@@ -66,6 +29,73 @@ function getCorsHeaders(req: Request): Record<string, string> {
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
     "Access-Control-Allow-Credentials": "true",
   };
+}
+
+// JWT verification using HMAC-SHA256
+async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; payload?: Record<string, unknown>; error?: string }> {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      return { valid: false, error: "Invalid token format" };
+    }
+
+    const [encodedHeader, encodedPayload, encodedSignature] = parts;
+    const dataToVerify = `${encodedHeader}.${encodedPayload}`;
+
+    // Verify signature
+    const encoder = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      "raw",
+      encoder.encode(secret),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["verify"]
+    );
+
+    const signatureBytes = base64UrlDecode(encodedSignature);
+    const isValid = await crypto.subtle.verify("HMAC", key, signatureBytes as unknown as BufferSource, encoder.encode(dataToVerify));
+
+    if (!isValid) {
+      return { valid: false, error: "Invalid signature" };
+    }
+
+    // Decode and validate payload
+    const payload = JSON.parse(atob(base64UrlToBase64(encodedPayload)));
+
+    // Check expiration
+    const now = Math.floor(Date.now() / 1000);
+    if (payload.exp && payload.exp < now) {
+      return { valid: false, error: "Token expired" };
+    }
+
+    // Check role
+    if (payload.role !== "admin") {
+      return { valid: false, error: "Insufficient permissions" };
+    }
+
+    return { valid: true, payload };
+  } catch (error) {
+    console.error("JWT verification error:", error);
+    return { valid: false, error: "Token verification failed" };
+  }
+}
+
+function base64UrlToBase64(str: string): string {
+  let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  while (base64.length % 4) {
+    base64 += '=';
+  }
+  return base64;
+}
+
+function base64UrlDecode(str: string): Uint8Array {
+  const base64 = base64UrlToBase64(str);
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes;
 }
 
 const ADMIN_EMAIL = "info@dynamicfactory.se";
@@ -103,7 +133,6 @@ async function sendEmail(to: string, subject: string, html: string) {
     return result;
   } catch (error) {
     console.error("Error sending email:", error);
-    // Don't throw - email failure shouldn't block the main operation
   }
 }
 
@@ -115,76 +144,57 @@ serve(async (req) => {
   }
 
   try {
-    const { action, id, password, adminNotes, partnerName, requesterEmail, requesterName } = await req.json();
-
-    // Rate limiting check for admin actions (not for notify-new which is public)
-    if (action !== "notify-new") {
-      const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-      
-      if (isAdminRateLimited(clientIp)) {
-        console.log(`Rate limited IP: ${clientIp}`);
-        return new Response(
-          JSON.stringify({ error: "För många inloggningsförsök. Försök igen om 5 minuter." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-    }
-
-    // Validate password for admin actions
-    const adminPassword = Deno.env.get("PARTNER_ADMIN_PASSWORD");
-    
-    // Allow "notify-new" action without password (called from frontend after insert)
-    if (action !== "notify-new") {
-      if (!adminPassword) {
-        console.error("PARTNER_ADMIN_PASSWORD environment variable is not configured");
-        return new Response(
-          JSON.stringify({ error: "Serverfel: Autentisering ej konfigurerad" }),
-          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      
-      // Use constant-time comparison to prevent timing attacks
-      if (!constantTimeCompare(password || "", adminPassword)) {
-        const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
-        console.log(`Invalid password attempt from IP: ${clientIp}`);
-        return new Response(
-          JSON.stringify({ error: "Felaktigt lösenord" }),
-          { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-    }
+    const { action, id, token, adminNotes, partnerName, requesterEmail, requesterName } = await req.json();
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
+    // "notify-new" action doesn't require authentication (called from public form submission)
+    if (action === "notify-new") {
+      console.log(`Sending notification for new change request from ${requesterName} for ${partnerName}`);
+      
+      const safePartnerName = sanitizeHtml(partnerName);
+      const safeRequesterName = sanitizeHtml(requesterName);
+      const safeRequesterEmail = sanitizeHtml(requesterEmail);
+      
+      await sendEmail(
+        ADMIN_EMAIL,
+        `Ny ändringsförfrågan för ${safePartnerName}`,
+        `
+          <h2>Ny ändringsförfrågan</h2>
+          <p>En ny ändringsförfrågan har skickats in för partnern <strong>${safePartnerName}</strong>.</p>
+          <p><strong>Inskickad av:</strong> ${safeRequesterName} (${safeRequesterEmail})</p>
+          <p>Logga in på admin-panelen för att granska och godkänna eller avvisa förfrågan.</p>
+        `
+      );
+
+      return new Response(
+        JSON.stringify({ success: true, message: "Notifiering skickad" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // All other actions require JWT authentication
+    const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!JWT_SECRET) {
+      console.error("JWT secret not available");
+      return new Response(
+        JSON.stringify({ error: "Serverfel: Autentisering ej konfigurerad" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const verification = await verifyJWT(token || "", JWT_SECRET);
+    if (!verification.valid) {
+      console.log(`Invalid token: ${verification.error}`);
+      return new Response(
+        JSON.stringify({ error: verification.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     switch (action) {
-      case "notify-new": {
-        // Send email notification to admin about new change request
-        console.log(`Sending notification for new change request from ${requesterName} for ${partnerName}`);
-        
-        // Sanitize user-provided data to prevent XSS
-        const safePartnerName = sanitizeHtml(partnerName);
-        const safeRequesterName = sanitizeHtml(requesterName);
-        const safeRequesterEmail = sanitizeHtml(requesterEmail);
-        
-        await sendEmail(
-          ADMIN_EMAIL,
-          `Ny ändringsförfrågan för ${safePartnerName}`,
-          `
-            <h2>Ny ändringsförfrågan</h2>
-            <p>En ny ändringsförfrågan har skickats in för partnern <strong>${safePartnerName}</strong>.</p>
-            <p><strong>Inskickad av:</strong> ${safeRequesterName} (${safeRequesterEmail})</p>
-            <p>Logga in på admin-panelen för att granska och godkänna eller avvisa förfrågan.</p>
-          `
-        );
-
-        return new Response(
-          JSON.stringify({ success: true, message: "Notifiering skickad" }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-
       case "list": {
         console.log("Fetching change requests...");
         
@@ -218,7 +228,6 @@ serve(async (req) => {
 
         console.log(`Approving change request ${id}...`);
 
-        // Get the change request
         const { data: request, error: fetchError } = await supabase
           .from("partner_change_requests")
           .select(`
@@ -233,10 +242,9 @@ serve(async (req) => {
           throw new Error("Ändringsförfrågan hittades inte");
         }
 
-        const changes = request.changes as Record<string, any>;
+        const changes = request.changes as Record<string, unknown>;
         const partnerData = request.partner as { name: string } | null;
 
-        // Update the partner with the changes
         const { error: updatePartnerError } = await supabase
           .from("partners")
           .update({
@@ -257,7 +265,6 @@ serve(async (req) => {
           throw updatePartnerError;
         }
 
-        // Update the change request status
         const { error: updateRequestError } = await supabase
           .from("partner_change_requests")
           .update({
@@ -273,12 +280,10 @@ serve(async (req) => {
           throw updateRequestError;
         }
 
-        // Sanitize data for email to prevent XSS
         const safeRequesterName = sanitizeHtml(request.requester_name);
         const safePartnerName = sanitizeHtml(partnerData?.name || 'partnern');
         const safeAdminNotes = sanitizeHtml(adminNotes);
 
-        // Send email notification to requester
         await sendEmail(
           request.requester_email,
           `Din ändringsförfrågan för ${safePartnerName} har godkänts`,
@@ -309,7 +314,6 @@ serve(async (req) => {
 
         console.log(`Rejecting change request ${id}...`);
 
-        // Get the change request first to send email
         const { data: request, error: fetchError } = await supabase
           .from("partner_change_requests")
           .select(`
@@ -341,12 +345,10 @@ serve(async (req) => {
           throw error;
         }
 
-        // Sanitize data for email to prevent XSS
         const safeRequesterName = sanitizeHtml(request.requester_name);
         const safePartnerName = sanitizeHtml(partnerData?.name || 'partnern');
         const safeAdminNotes = sanitizeHtml(adminNotes);
 
-        // Send email notification to requester
         await sendEmail(
           request.requester_email,
           `Din ändringsförfrågan för ${safePartnerName} har avvisats`,
@@ -372,11 +374,12 @@ serve(async (req) => {
           { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error in manage-change-requests:", error);
     const corsHeaders = getCorsHeaders(req);
+    const errorMessage = error instanceof Error ? error.message : "Ett fel uppstod";
     return new Response(
-      JSON.stringify({ error: error.message || "Ett fel uppstod" }),
+      JSON.stringify({ error: errorMessage }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
