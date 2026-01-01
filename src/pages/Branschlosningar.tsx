@@ -231,31 +231,58 @@ const Branschlosningar = () => {
             </div>
           )}
           {/* Filter Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
             {filterOptions.map((option) => (
-              <Button
+              <button
                 key={option.value}
-                variant={selectedFilter === option.value ? option.variant : "outline"}
-                size="lg"
                 onClick={() => {
                   setSelectedFilter(option.value);
                   setSelectedIndustry(null);
                 }}
-                className={`w-full text-sm sm:text-base font-bold px-4 sm:px-6 py-4 sm:py-5 h-auto min-h-[70px] transition-all duration-200 flex items-center justify-center gap-2 ${
+                className={`group w-full text-sm sm:text-base font-semibold px-5 sm:px-6 py-5 sm:py-6 min-h-[80px] rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 ${
                   selectedFilter === option.value 
-                    ? "ring-2 ring-offset-2 ring-offset-background shadow-lg scale-[1.02]" 
-                    : "hover:bg-muted border-2 hover:border-primary/50 hover:shadow-md"
+                    ? option.value === "bc" 
+                      ? "bg-gradient-to-br from-business-central to-business-central/80 text-white shadow-xl shadow-business-central/25 scale-[1.02]"
+                      : option.value === "fsc"
+                        ? "bg-gradient-to-br from-finance-supply to-finance-supply/80 text-white shadow-xl shadow-finance-supply/25 scale-[1.02]"
+                        : "bg-gradient-to-br from-crm to-crm/80 text-white shadow-xl shadow-crm/25 scale-[1.02]"
+                    : "bg-card border border-border/50 hover:border-border shadow-sm hover:shadow-lg"
                 } ${
-                  option.value === "bc" && selectedFilter !== option.value ? "border-business-central/40 text-business-central hover:bg-business-central/10" : ""
+                  option.value === "bc" && selectedFilter !== option.value 
+                    ? "hover:bg-business-central/5 hover:border-business-central/30" 
+                    : ""
                 } ${
-                  option.value === "fsc" && selectedFilter !== option.value ? "border-finance-supply/40 text-finance-supply hover:bg-finance-supply/10" : ""
+                  option.value === "fsc" && selectedFilter !== option.value 
+                    ? "hover:bg-finance-supply/5 hover:border-finance-supply/30" 
+                    : ""
                 } ${
-                  (option.value === "crm-sales" || option.value === "crm-service") && selectedFilter !== option.value ? "border-crm/40 text-crm hover:bg-crm/10" : ""
+                  (option.value === "crm-sales" || option.value === "crm-service") && selectedFilter !== option.value 
+                    ? "hover:bg-crm/5 hover:border-crm/30" 
+                    : ""
                 }`}
               >
-                <img src={option.icon} alt="" className="h-6 w-6" />
-                {option.label}
-              </Button>
+                <div className={`flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 ${
+                  selectedFilter === option.value 
+                    ? "bg-white/20" 
+                    : option.value === "bc" 
+                      ? "bg-business-central/10 group-hover:bg-business-central/20"
+                      : option.value === "fsc"
+                        ? "bg-finance-supply/10 group-hover:bg-finance-supply/20"
+                        : "bg-crm/10 group-hover:bg-crm/20"
+                }`}>
+                  <img src={option.icon} alt="" className="h-6 w-6" />
+                </div>
+                <span className={selectedFilter !== option.value 
+                  ? option.value === "bc" 
+                    ? "text-business-central" 
+                    : option.value === "fsc" 
+                      ? "text-finance-supply" 
+                      : "text-crm"
+                  : ""
+                }>
+                  {option.label}
+                </span>
+              </button>
             ))}
           </div>
 
