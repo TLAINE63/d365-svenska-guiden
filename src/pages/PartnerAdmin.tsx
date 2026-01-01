@@ -8,9 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Lock, Upload, Check, X, Clock, Eye } from "lucide-react";
+import { Plus, Pencil, Trash2, Lock, Upload } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   usePartners,
@@ -21,12 +20,6 @@ import {
   DatabasePartner,
   PartnerInput,
 } from "@/hooks/usePartners";
-import {
-  useChangeRequests,
-  useApproveChangeRequest,
-  useRejectChangeRequest,
-  ChangeRequest,
-} from "@/hooks/usePartnerChangeRequests";
 import { allIndustries } from "@/data/partners";
 
 const allApplications = [
@@ -48,16 +41,11 @@ const PartnerAdmin = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [isImporting, setIsImporting] = useState(false);
-  const [viewingRequest, setViewingRequest] = useState<ChangeRequest | null>(null);
-  const [adminNotes, setAdminNotes] = useState("");
 
   const { data: partners = [], isLoading, refetch } = usePartners();
-  const { data: changeRequests = [], isLoading: isLoadingRequests, refetch: refetchRequests } = useChangeRequests(password);
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
-  const approveRequest = useApproveChangeRequest();
-  const rejectRequest = useRejectChangeRequest();
 
   const handleImportPartners = async () => {
     setIsImporting(true);
@@ -191,39 +179,6 @@ const PartnerAdmin = () => {
     }
   };
 
-  const handleApproveRequest = async (request: ChangeRequest) => {
-    try {
-      await approveRequest.mutateAsync({ id: request.id, password, adminNotes });
-      toast({ title: "Ändringar godkända", description: "Partnerprofilen har uppdaterats." });
-      setViewingRequest(null);
-      setAdminNotes("");
-      refetch();
-      refetchRequests();
-    } catch (error: any) {
-      toast({
-        title: "Fel",
-        description: error.message || "Kunde inte godkänna ändringar",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleRejectRequest = async (request: ChangeRequest) => {
-    try {
-      await rejectRequest.mutateAsync({ id: request.id, password, adminNotes });
-      toast({ title: "Ändringsförfrågan avvisad" });
-      setViewingRequest(null);
-      setAdminNotes("");
-      refetchRequests();
-    } catch (error: any) {
-      toast({
-        title: "Fel",
-        description: error.message || "Kunde inte avvisa förfrågan",
-        variant: "destructive",
-      });
-    }
-  };
-
   const toggleApplication = (app: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -241,9 +196,6 @@ const PartnerAdmin = () => {
         : [...(prev.industries || []), ind],
     }));
   };
-
-  const pendingRequests = changeRequests.filter((r) => r.status === "pending");
-  const reviewedRequests = changeRequests.filter((r) => r.status !== "pending");
 
   if (!isAuthenticated) {
     return (
@@ -292,7 +244,7 @@ const PartnerAdmin = () => {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold">Partner-administration</h1>
-            <p className="text-muted-foreground">Hantera partnerbeskrivningar och godkänn ändringar</p>
+            <p className="text-muted-foreground">Hantera partnerbeskrivningar</p>
           </div>
           <div className="flex gap-2">
             <Button 
@@ -310,160 +262,76 @@ const PartnerAdmin = () => {
           </div>
         </div>
 
-        <Tabs defaultValue="partners" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="partners">Partners ({partners.length})</TabsTrigger>
-            <TabsTrigger value="requests" className="relative">
-              Ändringsförfrågningar
-              {pendingRequests.length > 0 && (
-                <Badge className="ml-2 bg-amber-500 text-white">{pendingRequests.length}</Badge>
-              )}
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="partners">
-            {isLoading ? (
-              <p className="text-muted-foreground">Laddar partners...</p>
-            ) : partners.length === 0 ? (
-              <Card>
-                <CardContent className="py-12 text-center text-muted-foreground">
-                  Inga partners har lagts till ännu. Klicka på "Lägg till partner" för att komma igång.
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid gap-4">
-                {partners.map((partner) => (
-                  <Card key={partner.id}>
-                    <CardContent className="py-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          {partner.logo_url ? (
-                            <img
-                              src={partner.logo_url}
-                              alt={partner.name}
-                              className="w-12 h-12 object-contain rounded"
-                            />
-                          ) : (
-                            <div className="w-12 h-12 bg-muted rounded flex items-center justify-center text-muted-foreground text-xs">
-                              Logo
-                            </div>
-                          )}
-                          <div>
-                            <h3 className="font-semibold">{partner.name}</h3>
-                            <p className="text-sm text-muted-foreground line-clamp-1">
-                              {partner.description || "Ingen beskrivning"}
-                            </p>
-                            <div className="flex gap-1 mt-1">
-                              {partner.applications.slice(0, 3).map((app) => (
-                                <Badge key={app} variant="secondary" className="text-xs">
-                                  {app}
-                                </Badge>
-                              ))}
-                              {partner.applications.length > 3 && (
-                                <Badge variant="outline" className="text-xs">
-                                  +{partner.applications.length - 3}
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
+        {isLoading ? (
+          <p className="text-muted-foreground">Laddar partners...</p>
+        ) : partners.length === 0 ? (
+          <Card>
+            <CardContent className="py-12 text-center text-muted-foreground">
+              Inga partners har lagts till ännu. Klicka på "Lägg till partner" för att komma igång.
+            </CardContent>
+          </Card>
+        ) : (
+          <div className="grid gap-4">
+            {partners.map((partner) => (
+              <Card key={partner.id}>
+                <CardContent className="py-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      {partner.logo_url ? (
+                        <img
+                          src={partner.logo_url}
+                          alt={partner.name}
+                          className="w-12 h-12 object-contain rounded"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 bg-muted rounded flex items-center justify-center text-muted-foreground text-xs">
+                          Logo
                         </div>
-                        <div className="flex gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => openEditDialog(partner)}
-                          >
-                            <Pencil className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="text-destructive hover:text-destructive"
-                            onClick={() => setDeleteConfirmId(partner.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
+                      )}
+                      <div>
+                        <h3 className="font-semibold">{partner.name}</h3>
+                        <p className="text-sm text-muted-foreground line-clamp-1">
+                          {partner.description || "Ingen beskrivning"}
+                        </p>
+                        <div className="flex gap-1 mt-1">
+                          {partner.applications.slice(0, 3).map((app) => (
+                            <Badge key={app} variant="secondary" className="text-xs">
+                              {app}
+                            </Badge>
+                          ))}
+                          {partner.applications.length > 3 && (
+                            <Badge variant="outline" className="text-xs">
+                              +{partner.applications.length - 3}
+                            </Badge>
+                          )}
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
-          </TabsContent>
-
-          <TabsContent value="requests">
-            {isLoadingRequests ? (
-              <p className="text-muted-foreground">Laddar ändringsförfrågningar...</p>
-            ) : changeRequests.length === 0 ? (
-              <Card>
-                <CardContent className="py-12 text-center text-muted-foreground">
-                  Inga ändringsförfrågningar har skickats in ännu.
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => openEditDialog(partner)}
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-destructive hover:text-destructive"
+                        onClick={() => setDeleteConfirmId(partner.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
-            ) : (
-              <div className="space-y-6">
-                {pendingRequests.length > 0 && (
-                  <div>
-                    <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-amber-500" />
-                      Väntar på granskning ({pendingRequests.length})
-                    </h2>
-                    <div className="grid gap-4">
-                      {pendingRequests.map((request) => (
-                        <Card key={request.id} className="border-amber-200 bg-amber-50/50">
-                          <CardContent className="py-4">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <h3 className="font-semibold">{request.partner?.name || "Okänd partner"}</h3>
-                                <p className="text-sm text-muted-foreground">
-                                  Från: {request.requester_name} ({request.requester_email})
-                                </p>
-                                <p className="text-xs text-muted-foreground mt-1">
-                                  Skickad: {new Date(request.created_at).toLocaleDateString("sv-SE")}
-                                </p>
-                              </div>
-                              <Button size="sm" onClick={() => setViewingRequest(request)}>
-                                <Eye className="mr-2 h-4 w-4" />
-                                Granska
-                              </Button>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {reviewedRequests.length > 0 && (
-                  <div>
-                    <h2 className="text-lg font-semibold mb-4">Tidigare granskade</h2>
-                    <div className="grid gap-4">
-                      {reviewedRequests.slice(0, 10).map((request) => (
-                        <Card key={request.id} className="opacity-75">
-                          <CardContent className="py-4">
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <h3 className="font-semibold">{request.partner?.name || "Okänd partner"}</h3>
-                                <p className="text-sm text-muted-foreground">
-                                  {request.requester_name} • {new Date(request.created_at).toLocaleDateString("sv-SE")}
-                                </p>
-                              </div>
-                              <Badge variant={request.status === "approved" ? "default" : "destructive"}>
-                                {request.status === "approved" ? "Godkänd" : "Avvisad"}
-                              </Badge>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </TabsContent>
-        </Tabs>
+            ))}
+          </div>
+        )}
       </div>
+
       {/* Create/Edit Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
@@ -648,63 +516,6 @@ const PartnerAdmin = () => {
               Ta bort
             </Button>
           </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Review Change Request Dialog */}
-      <Dialog open={!!viewingRequest} onOpenChange={() => { setViewingRequest(null); setAdminNotes(""); }}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Granska ändringsförfrågan</DialogTitle>
-          </DialogHeader>
-          {viewingRequest && (
-            <div className="space-y-4">
-              <div className="p-4 bg-muted/50 rounded-lg">
-                <p className="text-sm"><strong>Partner:</strong> {viewingRequest.partner?.name}</p>
-                <p className="text-sm"><strong>Från:</strong> {viewingRequest.requester_name} ({viewingRequest.requester_email})</p>
-                <p className="text-sm"><strong>Skickad:</strong> {new Date(viewingRequest.created_at).toLocaleString("sv-SE")}</p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-2">Föreslagna ändringar:</h4>
-                <pre className="text-xs bg-muted p-4 rounded-lg overflow-auto max-h-60">
-                  {JSON.stringify(viewingRequest.changes, null, 2)}
-                </pre>
-              </div>
-
-              <div>
-                <Label htmlFor="adminNotes">Admin-anteckningar (valfritt)</Label>
-                <Textarea
-                  id="adminNotes"
-                  value={adminNotes}
-                  onChange={(e) => setAdminNotes(e.target.value)}
-                  placeholder="Lägg till anteckningar..."
-                  rows={2}
-                />
-              </div>
-
-              <DialogFooter className="gap-2">
-                <Button variant="outline" onClick={() => { setViewingRequest(null); setAdminNotes(""); }}>
-                  Avbryt
-                </Button>
-                <Button
-                  variant="destructive"
-                  onClick={() => handleRejectRequest(viewingRequest)}
-                  disabled={rejectRequest.isPending}
-                >
-                  <X className="mr-2 h-4 w-4" />
-                  Avvisa
-                </Button>
-                <Button
-                  onClick={() => handleApproveRequest(viewingRequest)}
-                  disabled={approveRequest.isPending}
-                >
-                  <Check className="mr-2 h-4 w-4" />
-                  Godkänn
-                </Button>
-              </DialogFooter>
-            </div>
-          )}
         </DialogContent>
       </Dialog>
 

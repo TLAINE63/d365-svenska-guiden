@@ -9,9 +9,6 @@ verify_jwt = false
 [functions.track-partner-click]
 verify_jwt = false
 
-[functions.submit-change-request]
-verify_jwt = false
-
 [functions.submit-lead]
 verify_jwt = false
 
@@ -22,9 +19,6 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.manage-partners]
-verify_jwt = false
-
-[functions.manage-change-requests]
 verify_jwt = false
 
 [functions.import-partners]
