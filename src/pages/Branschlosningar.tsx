@@ -57,8 +57,8 @@ const industries: Industry[] = [
 const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm" }[] = [
   { value: "bc", label: "Business Central", variant: "business-central" },
   { value: "fsc", label: "Finance & Supply Chain", variant: "finance-supply" },
-  { value: "crm-sales", label: "CRM - Sales & Customer Insights (Marketing Automation)", variant: "crm" },
-  { value: "crm-service", label: "CRM - Customer Service & Field Service & Contact Center", variant: "crm" },
+  { value: "crm-sales", label: "Sales & Customer Insights (Marketing Automation)", variant: "crm" },
+  { value: "crm-service", label: "Customer Service & Field Service & Contact Center", variant: "crm" },
 ];
 
 // Map product filter to application names
