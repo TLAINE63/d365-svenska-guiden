@@ -177,39 +177,107 @@ const handler = async (req: Request): Promise<Response> => {
       try {
         const resend = new Resend(resendApiKey);
         
+        // Determine if this is a lead magnet download
+        const isLeadMagnet = sanitizedData.source_type === "lead_magnet";
+        const emailSubject = isLeadMagnet 
+          ? `📥 Guide nedladdad: ${sanitizedData.email}`
+          : `🎯 Ny lead: ${sanitizedData.company_name}`;
+        
         await resend.emails.send({
           from: "Dynamic Factory <onboarding@resend.dev>",
           to: ["thomas.laine@dynamicfactory.se"],
           reply_to: sanitizedData.email,
-          subject: `Ny lead: ${sanitizedData.company_name}`,
+          subject: emailSubject,
           html: `
-            <h2>Ny lead från webbplatsen</h2>
-            
-            <h3>Kontaktuppgifter</h3>
-            <ul>
-              <li><strong>Företag:</strong> ${sanitizedData.company_name}</li>
-              <li><strong>Kontaktperson:</strong> ${sanitizedData.contact_name}</li>
-              <li><strong>E-post:</strong> ${sanitizedData.email}</li>
-              <li><strong>Telefon:</strong> ${sanitizedData.phone || "Ej angivet"}</li>
-            </ul>
-            
-            <h3>Kvalificeringsdata</h3>
-            <ul>
-              <li><strong>Företagsstorlek:</strong> ${sanitizedData.company_size || "Ej angivet"}</li>
-              <li><strong>Bransch:</strong> ${sanitizedData.industry || "Ej angivet"}</li>
-              <li><strong>Produkt:</strong> ${sanitizedData.selected_product || "Ej angivet"}</li>
-            </ul>
-            
-            <h3>Källa</h3>
-            <ul>
-              <li><strong>Sida:</strong> ${sanitizedData.source_page || "Okänd"}</li>
-              <li><strong>Typ:</strong> ${sanitizedData.source_type}</li>
-            </ul>
-            
-            ${sanitizedData.message ? `<h3>Meddelande</h3><p>${sanitizedData.message}</p>` : ""}
-            
-            <hr>
-            <p><a href="https://d9e90f0f-f133-4101-acbb-fd63a5b8b573.lovableproject.com/lead-admin">Hantera leads i admin →</a></p>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+              <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 20px; border-radius: 8px 8px 0 0;">
+                <h2 style="color: white; margin: 0;">
+                  ${isLeadMagnet ? "📥 Ny guide-nedladdning" : "🎯 Ny lead från webbplatsen"}
+                </h2>
+              </div>
+              
+              <div style="background: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; border-top: none;">
+                ${isLeadMagnet ? `
+                  <div style="background: #ecfdf5; border-left: 4px solid #10b981; padding: 12px; margin-bottom: 20px;">
+                    <strong>Nedladdad guide:</strong><br>
+                    ${sanitizedData.message || "Så väljer du rätt Dynamics 365-partner"}
+                  </div>
+                ` : ""}
+                
+                <h3 style="color: #374151; border-bottom: 2px solid #10b981; padding-bottom: 8px;">
+                  Kontaktuppgifter
+                </h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                  <tr>
+                    <td style="padding: 8px 0; color: #6b7280; width: 120px;">E-post:</td>
+                    <td style="padding: 8px 0; color: #111827;"><strong>${sanitizedData.email}</strong></td>
+                  </tr>
+                  ${!isLeadMagnet ? `
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Företag:</td>
+                      <td style="padding: 8px 0; color: #111827;">${sanitizedData.company_name}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Kontaktperson:</td>
+                      <td style="padding: 8px 0; color: #111827;">${sanitizedData.contact_name}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Telefon:</td>
+                      <td style="padding: 8px 0; color: #111827;">${sanitizedData.phone || "Ej angivet"}</td>
+                    </tr>
+                  ` : ""}
+                </table>
+                
+                ${!isLeadMagnet ? `
+                  <h3 style="color: #374151; border-bottom: 2px solid #10b981; padding-bottom: 8px; margin-top: 24px;">
+                    Kvalificeringsdata
+                  </h3>
+                  <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280; width: 120px;">Företagsstorlek:</td>
+                      <td style="padding: 8px 0; color: #111827;">${sanitizedData.company_size || "Ej angivet"}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Bransch:</td>
+                      <td style="padding: 8px 0; color: #111827;">${sanitizedData.industry || "Ej angivet"}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px 0; color: #6b7280;">Produkt:</td>
+                      <td style="padding: 8px 0; color: #111827;">${sanitizedData.selected_product || "Ej angivet"}</td>
+                    </tr>
+                  </table>
+                ` : ""}
+                
+                <h3 style="color: #374151; border-bottom: 2px solid #10b981; padding-bottom: 8px; margin-top: 24px;">
+                  Källa
+                </h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                  <tr>
+                    <td style="padding: 8px 0; color: #6b7280; width: 120px;">Sida:</td>
+                    <td style="padding: 8px 0; color: #111827;">${sanitizedData.source_page || "Okänd"}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px 0; color: #6b7280;">Typ:</td>
+                    <td style="padding: 8px 0; color: #111827;">${isLeadMagnet ? "Lead Magnet (Guide-nedladdning)" : sanitizedData.source_type}</td>
+                  </tr>
+                </table>
+                
+                ${sanitizedData.message && !isLeadMagnet ? `
+                  <h3 style="color: #374151; border-bottom: 2px solid #10b981; padding-bottom: 8px; margin-top: 24px;">
+                    Meddelande
+                  </h3>
+                  <p style="color: #374151; background: white; padding: 12px; border-radius: 4px; border: 1px solid #e5e7eb;">
+                    ${sanitizedData.message}
+                  </p>
+                ` : ""}
+              </div>
+              
+              <div style="background: #374151; padding: 16px; border-radius: 0 0 8px 8px; text-align: center;">
+                <a href="https://www.d365.se/lead-admin" style="color: #10b981; text-decoration: none; font-weight: bold;">
+                  Hantera leads i admin →
+                </a>
+              </div>
+            </div>
           `,
         });
         
