@@ -81,14 +81,14 @@ export function usePartner(slug: string | undefined) {
   });
 }
 
-// Create a new partner (requires admin password via edge function)
+// Create a new partner (requires admin token via edge function)
 export function useCreatePartner() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ partner, password }: { partner: PartnerInput; password: string }) => {
+    mutationFn: async ({ partner, token }: { partner: PartnerInput; token: string }) => {
       const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "create", partner, password },
+        body: { action: "create", partner, token },
       });
 
       if (error) throw error;
@@ -101,14 +101,14 @@ export function useCreatePartner() {
   });
 }
 
-// Update an existing partner (requires admin password via edge function)
+// Update an existing partner (requires admin token via edge function)
 export function useUpdatePartner() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, partner, password }: { id: string; partner: Partial<PartnerInput>; password: string }) => {
+    mutationFn: async ({ id, partner, token }: { id: string; partner: Partial<PartnerInput>; token: string }) => {
       const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "update", id, partner, password },
+        body: { action: "update", id, partner, token },
       });
 
       if (error) throw error;
@@ -122,14 +122,14 @@ export function useUpdatePartner() {
   });
 }
 
-// Delete a partner (requires admin password via edge function)
+// Delete a partner (requires admin token via edge function)
 export function useDeletePartner() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, password }: { id: string; password: string }) => {
+    mutationFn: async ({ id, token }: { id: string; token: string }) => {
       const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "delete", id, password },
+        body: { action: "delete", id, token },
       });
 
       if (error) throw error;

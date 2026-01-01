@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Lock, Upload } from "lucide-react";
+import { Plus, Pencil, Trash2, Lock, Upload, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   usePartners,
@@ -20,6 +20,7 @@ import {
   DatabasePartner,
   PartnerInput,
 } from "@/hooks/usePartners";
+import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { allIndustries } from "@/data/partners";
 
 const allApplications = [
@@ -35,8 +36,9 @@ const allApplications = [
 
 const PartnerAdmin = () => {
   const { toast } = useToast();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState("");
+  const { isAuthenticated, isLoading: authLoading, token, login, logout } = useAdminAuth();
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
   const [editingPartner, setEditingPartner] = useState<DatabasePartner | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -48,10 +50,11 @@ const PartnerAdmin = () => {
   const deletePartner = useDeletePartner();
 
   const handleImportPartners = async () => {
+    if (!token) return;
     setIsImporting(true);
     try {
       const { data, error } = await supabase.functions.invoke("import-partners", {
-        body: { password },
+        body: { token },
       });
 
       if (error) throw error;
@@ -88,11 +91,14 @@ const PartnerAdmin = () => {
     is_featured: false,
   });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.trim()) {
-      setIsAuthenticated(true);
+    setLoginError("");
+    const result = await login(loginPassword);
+    if (!result.success) {
+      setLoginError(result.error || "Inloggning misslyckades");
     }
+    setLoginPassword(""); // Clear password from state immediately
   };
 
   const resetForm = () => {
@@ -137,13 +143,18 @@ const PartnerAdmin = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!token) {
+      toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+      logout();
+      return;
+    }
 
     try {
       if (editingPartner) {
         await updatePartner.mutateAsync({
           id: editingPartner.id,
           partner: formData,
-          password,
+          token,
         });
         toast({ title: "Partner uppdaterad", description: `${formData.name} har uppdaterats.` });
       } else {
@@ -151,12 +162,15 @@ const PartnerAdmin = () => {
           ...formData,
           slug: formData.slug || generateSlug(formData.name),
         };
-        await createPartner.mutateAsync({ partner: dataWithSlug, password });
+        await createPartner.mutateAsync({ partner: dataWithSlug, token });
         toast({ title: "Partner skapad", description: `${formData.name} har lagts till.` });
       }
       setIsDialogOpen(false);
       resetForm();
     } catch (error: any) {
+      if (error.message?.includes("gått ut") || error.message?.includes("session")) {
+        logout();
+      }
       toast({
         title: "Fel",
         description: error.message || "Något gick fel",
@@ -166,11 +180,19 @@ const PartnerAdmin = () => {
   };
 
   const handleDelete = async (id: string) => {
+    if (!token) {
+      toast({ title: "Fel", description: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+      logout();
+      return;
+    }
     try {
-      await deletePartner.mutateAsync({ id, password });
+      await deletePartner.mutateAsync({ id, token });
       toast({ title: "Partner borttagen" });
       setDeleteConfirmId(null);
     } catch (error: any) {
+      if (error.message?.includes("gått ut") || error.message?.includes("session")) {
+        logout();
+      }
       toast({
         title: "Fel",
         description: error.message || "Kunde inte ta bort partner",
@@ -197,6 +219,18 @@ const PartnerAdmin = () => {
     }));
   };
 
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <div className="container mx-auto px-4 py-20 mt-16 text-center">
+          <p className="text-muted-foreground">Laddar...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background">
@@ -219,10 +253,13 @@ const PartnerAdmin = () => {
                   <Input
                     id="password"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Ange lösenord"
                   />
+                  {loginError && (
+                    <p className="text-sm text-destructive mt-1">{loginError}</p>
+                  )}
                 </div>
                 <Button type="submit" className="w-full">
                   Logga in
@@ -247,6 +284,13 @@ const PartnerAdmin = () => {
             <p className="text-muted-foreground">Hantera partnerbeskrivningar</p>
           </div>
           <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              onClick={logout}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Logga ut
+            </Button>
             <Button 
               variant="outline" 
               onClick={handleImportPartners}
