@@ -89,7 +89,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
             <p className="text-sm text-muted-foreground">
               Kolla din inkorg om några minuter. Kommer inte mailet fram?{" "}
               <button 
-                onClick={generatePartnerGuide}
+                onClick={() => generatePartnerGuide()}
                 className="text-primary hover:underline font-medium"
               >
                 Ladda ner guiden direkt här
