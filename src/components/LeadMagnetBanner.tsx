@@ -85,7 +85,17 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
           <CheckCircle className="h-8 w-8 text-green-500 flex-shrink-0" />
           <div>
             <h3 className="font-semibold text-foreground">Tack! Guiden är på väg</h3>
-            <p className="text-sm text-muted-foreground">Kolla din inkorg om några minuter.</p>
+            <p className="text-sm text-muted-foreground">
+              Kolla din inkorg om några minuter. Kommer inte mailet fram?{" "}
+              <a 
+                href="/guides/valj-ratt-dynamics-365-partner.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:underline font-medium"
+              >
+                Ladda ner guiden direkt här
+              </a>
+            </p>
           </div>
         </div>
       </Card>
