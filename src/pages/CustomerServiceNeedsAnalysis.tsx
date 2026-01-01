@@ -318,6 +318,7 @@ const CustomerServiceNeedsAnalysis = () => {
     } else {
       setShowContactForm(true);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
@@ -326,6 +327,7 @@ const CustomerServiceNeedsAnalysis = () => {
     } else if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCheckboxChange = (field: keyof CustomerServiceAnalysisData, value: string) => {

@@ -360,6 +360,7 @@ const CRMNeedsAnalysis = () => {
     } else {
       setShowContactForm(true);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
@@ -368,6 +369,7 @@ const CRMNeedsAnalysis = () => {
     } else if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCheckboxChange = (field: keyof CRMAnalysisData, value: string) => {
