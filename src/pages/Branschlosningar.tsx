@@ -420,18 +420,6 @@ const Branschlosningar = () => {
         </section>
       ) : (
         <>
-          {/* Lead Magnet Banner */}
-          {showLeadMagnet && (
-            <section className="px-4 pt-4">
-              <div className="container mx-auto max-w-4xl">
-                <LeadMagnetBanner 
-                  sourcePage="/branschlosningar" 
-                  onClose={() => setShowLeadMagnet(false)}
-                />
-              </div>
-            </section>
-          )}
-
           {/* Industries Grid */}
           <section className="py-12 px-4">
             <div className="container mx-auto max-w-6xl">
@@ -473,6 +461,18 @@ const Branschlosningar = () => {
               )}
             </div>
           </section>
+
+          {/* Lead Magnet Banner - below industries */}
+          {showLeadMagnet && (
+            <section className="px-4 pb-8">
+              <div className="container mx-auto max-w-4xl">
+                <LeadMagnetBanner 
+                  sourcePage="/branschlosningar" 
+                  onClose={() => setShowLeadMagnet(false)}
+                />
+              </div>
+            </section>
+          )}
 
           {/* Lead CTA Section with Urgency - only show before solution is selected */}
           {!selectedFilter && (
