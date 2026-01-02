@@ -8,7 +8,7 @@ import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
-import UrgencyBadge from "@/components/UrgencyBadge";
+
 
 // Industry images
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
@@ -402,12 +402,8 @@ const Branschlosningar = () => {
               </div>
             )}
 
-            {/* Lead CTA - shows after partner list with urgency */}
+            {/* Lead CTA - shows after partner list */}
             <div className="max-w-xl mx-auto mt-12">
-              <div className="flex flex-col items-center gap-2 mb-4">
-                <UrgencyBadge variant="consultation" />
-                <UrgencyBadge variant="spots" spotsLeft={3} />
-              </div>
               <LeadCTA
                 sourcePage="/branschlosningar"
                 selectedProduct={getProductLabel() || undefined}
@@ -477,14 +473,10 @@ const Branschlosningar = () => {
             </section>
           )}
 
-          {/* Lead CTA Section with Urgency - only show before solution is selected */}
+          {/* Lead CTA Section - only show before solution is selected */}
           {!selectedFilter && (
             <section className="py-16 px-4 bg-muted/30">
               <div className="container mx-auto max-w-xl">
-                <div className="flex flex-col items-center gap-2 mb-4">
-                  <UrgencyBadge variant="consultation" />
-                  <UrgencyBadge variant="spots" spotsLeft={3} />
-                </div>
                 <LeadCTA
                   sourcePage="/branschlosningar"
                   selectedProduct={selectedFilter || undefined}
