@@ -465,7 +465,7 @@ const Branschlosningar = () => {
           {/* Lead Magnet Banner - below industries */}
           {showLeadMagnet && (
             <section className="px-4 pb-8">
-              <div className="container mx-auto max-w-4xl">
+              <div className="container mx-auto max-w-5xl">
                 <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-foreground">
                   Få hjälp att välja rätt partner
                 </h2>
