@@ -102,7 +102,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
   }
 
   return (
-    <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-4 sm:p-6 relative overflow-hidden rounded-2xl">
+    <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-4 sm:p-6 relative overflow-hidden rounded-2xl shadow-lg shadow-primary/10">
       {onClose && (
         <button onClick={onClose} className="absolute top-2 right-2 text-muted-foreground hover:text-foreground z-10">
           <X className="h-4 w-4" />
