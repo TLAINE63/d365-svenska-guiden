@@ -151,7 +151,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
             className="w-full sm:w-48 bg-background/80"
             disabled={isSubmitting}
           />
-          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap">
+          <Button type="submit" disabled={isSubmitting} className="whitespace-nowrap bg-emerald-600 hover:bg-emerald-700 text-white">
             {isSubmitting ? (
               "Skickar..."
             ) : (
