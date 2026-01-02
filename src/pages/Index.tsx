@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import PricingCard from "@/components/PricingCard";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
+import UrgencyBadge from "@/components/UrgencyBadge";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -461,6 +462,9 @@ const Index = () => {
       </section>
 
       {/* Lead Magnet Banner */}
+      <div className="flex justify-center mb-4">
+        <UrgencyBadge variant="consultation" />
+      </div>
       <LeadMagnetBanner sourcePage="index" />
 
       {/* CTA Section */}

@@ -558,23 +558,21 @@ const ValjPartner = () => {
             ))}
           </div>
 
-          {/* Lead CTA - shows when partners are filtered */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
-            <div className="max-w-xl mx-auto mt-12">
-              <div className="flex justify-center mb-4">
-                <UrgencyBadge variant="consultation" />
-              </div>
-              <LeadCTA
-                sourcePage="/valj-partner"
-                selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
-                selectedIndustry={selectedIndustry || undefined}
-                selectedCompanySize={selectedCompanySize || undefined}
-                selectedGeography={selectedGeography || undefined}
-                title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
-                description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
-              />
+          {/* Lead CTA with urgency badge */}
+          <div className="max-w-xl mx-auto mt-12">
+            <div className="flex justify-center mb-4">
+              <UrgencyBadge variant="consultation" />
             </div>
-          )}
+            <LeadCTA
+              sourcePage="/valj-partner"
+              selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
+              selectedIndustry={selectedIndustry || undefined}
+              selectedCompanySize={selectedCompanySize || undefined}
+              selectedGeography={selectedGeography || undefined}
+              title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
+              description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
+            />
+          </div>
         </div>
       </section>
 
