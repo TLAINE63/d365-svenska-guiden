@@ -120,8 +120,10 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
         </div>
         
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-lg mb-1">
-            <span className="text-primary">Gratis guide:</span>{" "}
+          <h3 className="font-semibold text-lg mb-1 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-primary-foreground text-sm font-bold uppercase tracking-wide">
+              Gratis guide
+            </span>
             <span className="text-foreground">Så väljer du rätt Dynamics 365-partner</span>
           </h3>
           <p className="text-sm text-muted-foreground">
