@@ -120,8 +120,9 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
         </div>
         
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-foreground text-lg mb-1">
-            Gratis guide: Så väljer du rätt Dynamics 365-partner
+          <h3 className="font-semibold text-lg mb-1">
+            <span className="text-primary">Gratis guide:</span>{" "}
+            <span className="text-foreground">Så väljer du rätt Dynamics 365-partner</span>
           </h3>
           <p className="text-sm text-muted-foreground">
             Lär dig vilka frågor du ska ställa och vad du ska tänka på. Ange din e-post så skickar vi guiden direkt.
