@@ -12,6 +12,7 @@ import partnersComparisonImg from "@/assets/partners-comparison-proposals.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
+import UrgencyBadge from "@/components/UrgencyBadge";
 import { partners, Partner, allIndustries, IndustryExpertise } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 
@@ -560,6 +561,9 @@ const ValjPartner = () => {
           {/* Lead CTA - shows when partners are filtered */}
           {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
             <div className="max-w-xl mx-auto mt-12">
+              <div className="flex justify-center mb-4">
+                <UrgencyBadge variant="consultation" />
+              </div>
               <LeadCTA
                 sourcePage="/valj-partner"
                 selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
