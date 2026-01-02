@@ -55,7 +55,7 @@ export const UrgencyBadge = ({
         className={`bg-emerald-500/10 border-emerald-500/40 text-emerald-600 dark:text-emerald-400 animate-pulse ${className}`}
       >
         <Clock className="h-3 w-3 mr-1" />
-        Begränsat antal kostnadsfria rådgivningstillfällen denna månad
+        Begränsat antal kostnadsfria rådgivningstillfällen varje månad
       </Badge>
     );
   }
