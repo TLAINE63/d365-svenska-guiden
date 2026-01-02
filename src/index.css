@@ -165,4 +165,18 @@ All colors MUST be HSL.
       min-height: 44px;
     }
   }
+  
+  /* Shadow pulse animation for CTA buttons */
+  @keyframes shadow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+  }
+  
+  .animate-shadow-pulse {
+    animation: shadow-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
 }
