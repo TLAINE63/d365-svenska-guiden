@@ -39,7 +39,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke("submit-lead", {
+      const response = await supabase.functions.invoke("submit-lead", {
         body: {
           email,
           company_name: "Lead Magnet Download",
@@ -51,22 +51,30 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
         },
       });
 
-      if (error) {
-        console.error("Lead magnet error:", error);
-        throw error;
+      // Handle function invocation error (network, CORS, etc.)
+      if (response.error) {
+        console.error("Lead magnet invocation error:", response.error);
+        throw new Error(response.error.message || "Kunde inte ansluta till servern");
       }
 
-      console.log("Lead magnet success:", data);
+      // Handle application-level error returned from the edge function
+      if (response.data?.error) {
+        console.error("Lead magnet data error:", response.data.error);
+        throw new Error(response.data.error);
+      }
+
+      console.log("Lead magnet success:", response.data);
       setIsSubmitted(true);
       toast({
         title: "Guiden skickas till din e-post!",
         description: "Kolla din inkorg inom några minuter.",
       });
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error submitting lead:", error);
+      const errorMessage = error instanceof Error ? error.message : "Ett oväntat fel uppstod";
       toast({
         title: "Något gick fel",
-        description: "Kontrollera att du har angett en giltig e-postadress.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
