@@ -195,9 +195,9 @@ const handler = async (req: Request): Promise<Response> => {
     const formattedDate = now.toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
 
     const emailResponse = await resend.emails.send({
-      from: "Dynamic Factory <onboarding@resend.dev>",
-      to: ["thomas.laine@dynamicfactory.se"],
-      reply_to: "thomas.laine@dynamicfactory.se",
+      from: "D365 Guiden <info@d365.se>",
+      to: ["info@d365.se"],
+      reply_to: "info@d365.se",
       subject: `Partnerklick: ${safePartnerName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -209,7 +209,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p style="margin: 0;"><strong>Tidpunkt:</strong> ${formattedDate}</p>
           </div>
           <p style="color: #666; font-size: 12px;">
-            Detta email skickades automatiskt från d365-svenska-guiden.lovable.app
+            Detta email skickades automatiskt från d365.se
           </p>
         </div>
       `,
