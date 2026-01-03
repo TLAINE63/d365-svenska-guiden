@@ -76,11 +76,20 @@ export const LeadCTA = ({
     setIsSubmitting(true);
 
     try {
+      // Determine product to send: use selectedProducts array joined, or single selectedProduct
+      const productToSend = selectedProducts && selectedProducts.length > 0 
+        ? selectedProducts.join(", ") 
+        : selectedProduct;
+      
+      // Use selectedCompanySize prop if form company_size is empty
+      const companySizeToSend = formData.company_size || selectedCompanySize;
+
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
           ...formData,
+          company_size: companySizeToSend,
           industry: selectedIndustry,
-          selected_product: selectedProduct,
+          selected_product: productToSend,
           source_page: sourcePage,
           source_type: "cta",
         },

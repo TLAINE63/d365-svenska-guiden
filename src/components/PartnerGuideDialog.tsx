@@ -375,6 +375,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               sourcePage="partner-guide-dialog"
               selectedProducts={selectedApps}
               selectedIndustry={selectedIndustries[0]}
+              selectedCompanySize={sizeOptions.find(o => o.value === selectedSize)?.label}
               title="Låt oss hjälpa dig vidare"
               description="Lämna dina uppgifter så hjälper vi dig att komma i kontakt med rätt partner och kontaktperson."
             />
