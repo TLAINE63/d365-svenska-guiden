@@ -214,10 +214,10 @@ serve(async (req: Request): Promise<Response> => {
 
     // Build email payload - send to customer with CC to admin
     const emailPayload: Record<string, unknown> = {
-      from: "D365 Guiden <noreply@cloudahead.se>",
+      from: "D365 Guiden <info@d365.se>",
       to: [email], // Send to customer
-      cc: ["thomas.laine@cloudahead.se"], // Copy to admin
-      reply_to: "thomas.laine@cloudahead.se",
+      cc: ["info@d365.se"], // Copy to admin
+      reply_to: "info@d365.se",
       subject: `Din ${safeAnalysisType}-behovsanalys från d365.se`,
       html: `
         <h1>Tack för din ${safeAnalysisType}-behovsanalys!</h1>
@@ -241,8 +241,8 @@ serve(async (req: Request): Promise<Response> => {
         <p>Vi kontaktar dig inom kort för att diskutera hur vi kan hjälpa er vidare. Du är också välkommen att kontakta oss direkt:</p>
         <p>
           <strong>Thomas Laine</strong><br>
-          Partner & Rådgivare, Cloudahead<br>
-          E-post: <a href="mailto:thomas.laine@cloudahead.se">thomas.laine@cloudahead.se</a><br>
+          Partner & Rådgivare<br>
+          E-post: <a href="mailto:info@d365.se">info@d365.se</a><br>
           Tel: 070-678 90 12
         </p>
         
@@ -286,8 +286,8 @@ serve(async (req: Request): Promise<Response> => {
 
     // Send separate admin notification email
     const adminNotificationPayload = {
-      from: "D365 Guiden <noreply@cloudahead.se>",
-      to: ["thomas.laine@cloudahead.se"],
+      from: "D365 Guiden <info@d365.se>",
+      to: ["info@d365.se"],
       reply_to: email, // Reply goes to customer
       subject: `🔔 Ny ${safeAnalysisType}-behovsanalys från ${safeCompanyName}`,
       html: `

@@ -184,8 +184,8 @@ const handler = async (req: Request): Promise<Response> => {
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
         
         await resend.emails.send({
-          from: "Dynamic Factory <onboarding@resend.dev>",
-          to: ["thomas.laine@dynamicfactory.se"],
+          from: "D365 Guiden <info@d365.se>",
+          to: ["info@d365.se"],
           reply_to: sanitizedData.email,
           subject: emailSubject,
           html: `
