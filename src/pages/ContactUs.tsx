@@ -99,10 +99,16 @@ const ContactUs = () => {
                       </Button>
                       <Button 
                         className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
-                        onClick={() => window.open('https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink', '_blank')}
+                        asChild
                       >
-                        <Calendar className="w-4 h-4 mr-2" />
-                        Boka möte med mig
+                        <a 
+                          href="https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                        >
+                          <Calendar className="w-4 h-4 mr-2" />
+                          Boka möte med mig
+                        </a>
                       </Button>
                     </div>
                   </div>
