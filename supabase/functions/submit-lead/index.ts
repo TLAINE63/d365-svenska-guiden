@@ -174,11 +174,83 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email notification
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (resendApiKey) {
+      const resend = new Resend(resendApiKey);
+      
+      // Determine if this is a lead magnet download
+      const isLeadMagnet = sanitizedData.source_type === "lead_magnet";
+      
+      // Send email to customer if lead magnet download
+      if (isLeadMagnet) {
+        try {
+          await resend.emails.send({
+            from: "D365 Guiden <info@d365.se>",
+            to: [sanitizedData.email],
+            subject: "Din guide: Så väljer du rätt Dynamics 365-partner",
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #10b981, #059669); padding: 30px; border-radius: 8px 8px 0 0; text-align: center;">
+                  <h1 style="color: white; margin: 0; font-size: 24px;">
+                    Tack för ditt intresse!
+                  </h1>
+                </div>
+                
+                <div style="background: #ffffff; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
+                  <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                    Hej!
+                  </p>
+                  <p style="color: #374151; font-size: 16px; line-height: 1.6;">
+                    Tack för att du laddade ner vår guide <strong>"Så väljer du rätt Dynamics 365-partner"</strong>.
+                  </p>
+                  
+                  <div style="background: #ecfdf5; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
+                    <p style="color: #065f46; font-size: 14px; margin: 0 0 16px 0;">
+                      Din guide har laddats ner automatiskt i din webbläsare.
+                    </p>
+                    <p style="color: #6b7280; font-size: 13px; margin: 0;">
+                      Om nedladdningen inte startade automatiskt, besök <a href="https://www.d365.se" style="color: #10b981;">www.d365.se</a> och ladda ner igen.
+                    </p>
+                  </div>
+                  
+                  <h3 style="color: #374151; font-size: 18px; margin-top: 30px;">
+                    I guiden hittar du:
+                  </h3>
+                  <ul style="color: #4b5563; font-size: 15px; line-height: 1.8;">
+                    <li>Checklista för att utvärdera Dynamics 365-partners</li>
+                    <li>Viktiga frågor att ställa till potentiella partners</li>
+                    <li>Varningssignaler att vara uppmärksam på</li>
+                    <li>Tips för att säkerställa en lyckad implementation</li>
+                  </ul>
+                  
+                  <div style="background: #f9fafb; border-radius: 8px; padding: 20px; margin-top: 30px;">
+                    <h4 style="color: #374151; margin: 0 0 12px 0;">Behöver du mer hjälp?</h4>
+                    <p style="color: #6b7280; font-size: 14px; margin: 0 0 16px 0;">
+                      Vi hjälper dig gärna att hitta rätt partner för dina behov.
+                    </p>
+                    <a href="https://www.d365.se/valj-partner" 
+                       style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                      Se våra partners →
+                    </a>
+                  </div>
+                </div>
+                
+                <div style="background: #374151; padding: 20px; border-radius: 0 0 8px 8px; text-align: center;">
+                  <p style="color: #9ca3af; font-size: 12px; margin: 0;">
+                    D365 Guiden | <a href="https://www.d365.se" style="color: #10b981;">www.d365.se</a>
+                  </p>
+                </div>
+              </div>
+            `,
+          });
+          
+          console.log("Customer email sent to:", sanitizedData.email);
+        } catch (customerEmailError) {
+          console.error("Customer email failed:", customerEmailError);
+          // Continue with admin notification even if customer email fails
+        }
+      }
+      
+      // Send notification to admin
       try {
-        const resend = new Resend(resendApiKey);
-        
-        // Determine if this is a lead magnet download
-        const isLeadMagnet = sanitizedData.source_type === "lead_magnet";
         const emailSubject = isLeadMagnet 
           ? `📥 Guide nedladdad: ${sanitizedData.email}`
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
@@ -281,9 +353,9 @@ const handler = async (req: Request): Promise<Response> => {
           `,
         });
         
-        console.log("Email notification sent");
+        console.log("Admin email notification sent");
       } catch (emailError) {
-        console.error("Email notification failed:", emailError);
+        console.error("Admin email notification failed:", emailError);
         // Don't fail the request if email fails
       }
     }
