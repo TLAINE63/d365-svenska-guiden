@@ -243,7 +243,7 @@ serve(async (req: Request): Promise<Response> => {
           <strong>Thomas Laine</strong><br>
           Partner & Rådgivare<br>
           E-post: <a href="mailto:info@d365.se">info@d365.se</a><br>
-          Tel: 070-678 90 12
+          Tel: 072-232 40 60
         </p>
         
         <hr>
