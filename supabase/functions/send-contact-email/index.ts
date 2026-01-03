@@ -175,15 +175,15 @@ serve(async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "Dynamic Factory Kontakt <onboarding@resend.dev>",
-        to: ["thomas.laine@dynamicfactory.se"],
+        from: "D365 Kontakt <info@d365.se>",
+        to: ["info@d365.se"],
         reply_to: email.trim(),
         subject: `[Kontaktformulär] ${safeName} - Ny förfrågan`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
             <div style="background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px;">
               <h1 style="margin: 0; font-size: 24px;">📬 Ny kontaktförfrågan</h1>
-              <p style="margin: 10px 0 0 0; opacity: 0.9;">från dynamicfactory.se</p>
+              <p style="margin: 10px 0 0 0; opacity: 0.9;">från d365.se</p>
             </div>
             
             <table style="width: 100%; border-collapse: collapse;">
@@ -209,7 +209,7 @@ serve(async (req: Request): Promise<Response> => {
             </div>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; color: #666; font-size: 12px;">
-              <p>Detta meddelande skickades via kontaktformuläret på dynamicfactory.se</p>
+              <p>Detta meddelande skickades via kontaktformuläret på d365.se</p>
               <p>Svara direkt på detta mail för att kontakta ${safeName}</p>
             </div>
           </div>
