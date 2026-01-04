@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { Resend } from "https://esm.sh/resend@2.0.0";
 
-// Get allowed origins for CORS - allow all Lovable preview domains
+// Get allowed origins for CORS
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
   
@@ -12,6 +12,9 @@ function isAllowedOrigin(origin: string): boolean {
   // Allow all Lovable domains (production and preview)
   if (origin.endsWith(".lovable.app")) return true;
   if (origin.endsWith(".lovableproject.com")) return true;
+  
+  // Allow custom domain d365.se
+  if (origin === "https://d365.se" || origin === "https://www.d365.se") return true;
   
   return false;
 }
