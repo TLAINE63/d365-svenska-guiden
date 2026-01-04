@@ -22,6 +22,27 @@ export interface Partner {
   industryExpertise?: IndustryExpertise[];
 }
 
+export const allIndustries = [
+  "Tillverkningsindustri",
+  "Livsmedel & Processindustri",
+  "Grossist & Distribution",
+  "Retail & E-handel",
+  "Konsulttjänster",
+  "Bygg & Entreprenad",
+  "Fastighet & Förvaltning",
+  "Energi & Utilities",
+  "Finans & Försäkring",
+  "Life Science / Medtech",
+  "Telekom & IT-tjänster",
+  "Logistik & Transport",
+  "Media & Publishing",
+  "Jordbruk & Skogsbruk",
+  "Hälsa- & sjukvård",
+  "Non-profit / Organisationer",
+  "Utbildning",
+  "Offentlig sektor",
+];
+
 export const partners: Partner[] = [
   // Business Central Partners (Paying)
   {
@@ -49,19 +70,19 @@ export const partners: Partner[] = [
     website: "https://www.bisqo.se/businesscentral/",
     description: "Bisqo är experter inom Dynamics 365 Business Central och CRM på Power Platform. Deras strategi bygger på en kraftfull kombination av ERP och CRM.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustri (Manufacturing)", "Grossist / Distribution", "Detaljhandel (Retail)", "E-handel", "Professionella tjänster (Consulting / PSA)"],
+    industries: ["Tillverkningsindustri", "Grossist & Distribution", "Retail & E-handel", "Konsulttjänster"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
     rankings: { bc: 3, crm: 1 },
     industryExpertise: [
       {
-        industry: "Tillverkningsindustri (Manufacturing)",
+        industry: "Tillverkningsindustri",
         application: "Business Central",
         description: "Bisqo har specialkompetens inom tillverkande företag med fokus på produktionsplanering, lagerhantering och kvalitetskontroll i Business Central."
       },
       {
-        industry: "Grossist / Distribution",
+        industry: "Grossist & Distribution",
         description: "Stark erfarenhet av distributions- och grossistföretag med optimerade flöden för inköp, lager och försäljning."
       }
     ]
@@ -72,14 +93,14 @@ export const partners: Partner[] = [
     website: "https://www.inbiz.se/microsoft-partner/",
     description: "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005.",
     applications: ["Business Central"],
-    industries: ["Tillverkningsindustri (Manufacturing)", "Grossist / Distribution", "Professionella tjänster (Consulting / PSA)"],
+    industries: ["Tillverkningsindustri", "Grossist & Distribution", "Konsulttjänster"],
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
     geography: "Sverige",
     rankings: { bc: 2 },
     industryExpertise: [
       {
-        industry: "Tillverkningsindustri (Manufacturing)",
+        industry: "Tillverkningsindustri",
         application: "Business Central",
         description: "Över 15 års erfarenhet av tillverkande företag med fokus på legotillverkning och diskret tillverkning."
       }
@@ -91,7 +112,7 @@ export const partners: Partner[] = [
     website: "https://jma.se/affarssystem/",
     description: "JMA Maskindata är specialister på affärssystem för tillverkande företag med lång erfarenhet av Microsoft Dynamics.",
     applications: ["Business Central"],
-    industries: ["Bygg & Entreprenad", "Grossist / Distribution", "Logistik & Transport"],
+    industries: ["Bygg & Entreprenad", "Grossist & Distribution", "Logistik & Transport"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
@@ -115,22 +136,22 @@ export const partners: Partner[] = [
     website: "https://www.knowit.se/vart-erbjudande/solutions/",
     description: "Knowit är en nordisk digitaliseringskonsult med bred Microsoft-kompetens och fokus på hållbar digitalisering.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor / Myndigheter", "Bank, Finans & Försäkring", "Hälso- & sjukvård", "Professionella tjänster (Consulting / PSA)"],
+    industries: ["Offentlig sektor", "Finans & Försäkring", "Hälsa- & sjukvård", "Konsulttjänster"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
     rankings: { bc: 6, fsc: 1, crm: 1 },
     industryExpertise: [
       {
-        industry: "Offentlig sektor / Myndigheter",
+        industry: "Offentlig sektor",
         description: "Djup förståelse för offentlig förvaltning med erfarenhet av kommuner, regioner och statliga myndigheter. Fokus på regelefterlevnad och transparens."
       },
       {
-        industry: "Hälso- & sjukvård",
+        industry: "Hälsa- & sjukvård",
         description: "Specialistkompetens inom vårdsektorn med lösningar för patienthantering, journalsystem och integrationer mot befintliga vårdplattformar."
       },
       {
-        industry: "Bank, Finans & Försäkring",
+        industry: "Finans & Försäkring",
         application: "Finance & SCM",
         description: "Expertis inom finanssektorn med fokus på compliance, riskhantering och automatiserade finansprocesser."
       }
@@ -142,14 +163,14 @@ export const partners: Partner[] = [
     website: "https://www.nabsolutions.se/dynamics-365-business-central/",
     description: "NAB Solutions är specialister på Dynamics 365 Business Central och CRM med lång erfarenhet av implementationer för svenska företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Non-profit / Ideella organisationer", "Tillverkningsindustri (Manufacturing)", "Utbildning"],
+    industries: ["Non-profit / Organisationer", "Tillverkningsindustri", "Utbildning"],
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
     geography: "Sverige",
     rankings: { bc: 1, crm: 1 },
     industryExpertise: [
       {
-        industry: "Non-profit / Ideella organisationer",
+        industry: "Non-profit / Organisationer",
         description: "Specialiserade lösningar för föreningar och ideella organisationer med medlemshantering, bidragshantering och projektredovisning."
       },
       {
@@ -165,19 +186,19 @@ export const partners: Partner[] = [
     website: "https://www.navcite.com/microsoft-business-central/",
     description: "Navcite kombinerar 'Small company feeling – Big company experience' och erbjuder affärssystem med Infor M3 och Microsoft Business Central.",
     applications: ["Business Central"],
-    industries: ["Professionella tjänster (Consulting / PSA)", "Tillverkningsindustri (Manufacturing)", "Grossist / Distribution"],
+    industries: ["Konsulttjänster", "Tillverkningsindustri", "Grossist & Distribution"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
     rankings: { bc: 4 },
     industryExpertise: [
       {
-        industry: "Tillverkningsindustri (Manufacturing)",
+        industry: "Tillverkningsindustri",
         application: "Business Central",
         description: "Stark kompetens inom tillverkande företag med fokus på produktionsplanering och MRP."
       },
       {
-        industry: "Grossist / Distribution",
+        industry: "Grossist & Distribution",
         application: "Business Central",
         description: "Optimerade lösningar för grossister med lagerhantering, inköpsoptimering och EDI-integrationer."
       }
@@ -189,18 +210,18 @@ export const partners: Partner[] = [
     website: "https://norteam.se/",
     description: "Norteam är en Microsoft Dynamics 365-partner med fokus på Business Central och CRM för svenska företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Professionella tjänster (Consulting / PSA)", "Grossist / Distribution", "Detaljhandel (Retail)", "E-handel"],
+    industries: ["Konsulttjänster", "Grossist & Distribution", "Retail & E-handel"],
     companySize: ["1-49", "50-99", "100-249"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
     geography: "Sverige",
     rankings: { bc: 3, crm: 5 },
     industryExpertise: [
       {
-        industry: "Professionella tjänster (Consulting / PSA)",
+        industry: "Konsulttjänster",
         description: "Expertis inom tjänsteföretag med fokus på projektredovisning, tidrapportering och resursplanering."
       },
       {
-        industry: "Detaljhandel (Retail)",
+        industry: "Retail & E-handel",
         description: "Lösningar för handelsföretag med e-handelsintegrationer, kassasystem och omnikanal-strategier."
       }
     ]
@@ -212,14 +233,14 @@ export const partners: Partner[] = [
     website: "https://www.be-terna.com/sv/losningar/microsoft",
     description: "BE-terna är en internationell partner som vägleder företag till en säker digital framtid.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustri (Manufacturing)", "Detaljhandel (Retail)", "E-handel", "Logistik & Transport", "Grossist / Distribution"],
+    industries: ["Tillverkningsindustri", "Retail & E-handel", "Logistik & Transport", "Grossist & Distribution"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Europa",
     rankings: { fsc: 1, crm: 2 },
     industryExpertise: [
       {
-        industry: "Tillverkningsindustri (Manufacturing)",
+        industry: "Tillverkningsindustri",
         application: "Finance & SCM",
         description: "Internationell erfarenhet av komplex tillverkning med fokus på supply chain optimization, produktionsplanering och global utrullning."
       },
@@ -229,7 +250,7 @@ export const partners: Partner[] = [
         description: "Specialiserade lösningar för transport och logistik med warehouse management, fleet management och ruttoptimering."
       },
       {
-        industry: "Detaljhandel (Retail)",
+        industry: "Retail & E-handel",
         description: "Omnikanalslösningar för retail med POS-integration, e-handel och kundlojalitetsprogram."
       }
     ]
@@ -240,19 +261,19 @@ export const partners: Partner[] = [
     website: "https://implema.se/microsoft-dynamics/",
     description: "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustri (Manufacturing)", "Grossist / Distribution", "Detaljhandel (Retail)", "E-handel"],
+    industries: ["Tillverkningsindustri", "Grossist & Distribution", "Retail & E-handel"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
     rankings: { fsc: 2, crm: 6 },
     industryExpertise: [
       {
-        industry: "Tillverkningsindustri (Manufacturing)",
+        industry: "Tillverkningsindustri",
         application: "Finance & SCM",
         description: "Djup erfarenhet av tillverkningsindustrin med fokus på processtillverkning, diskret tillverkning och lean manufacturing."
       },
       {
-        industry: "Grossist / Distribution",
+        industry: "Grossist & Distribution",
         application: "Finance & SCM",
         description: "Optimerade distributionslösningar med avancerad lagerhantering, inköpsoptimering och leverantörssamarbete."
       }
@@ -264,19 +285,19 @@ export const partners: Partner[] = [
     website: "https://www.innofactor.com/se/vad-vi-gor/losningar/dynamics-365/",
     description: "Innofactor är en Microsoft Cloud Solutions Partner med Microsofts högsta partnerbeteckning.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor / Myndigheter", "Hälso- & sjukvård", "Energi & Utilities", "Utbildning"],
+    industries: ["Offentlig sektor", "Hälsa- & sjukvård", "Energi & Utilities", "Utbildning"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
     rankings: { fsc: 1, crm: 8 },
     industryExpertise: [
       {
-        industry: "Offentlig sektor / Myndigheter",
+        industry: "Offentlig sektor",
         application: "Finance & SCM",
         description: "Ledande partner för offentlig sektor i Norden med lösningar för kommuner, regioner och statliga verk. Expertis inom upphandling och budgethantering."
       },
       {
-        industry: "Hälso- & sjukvård",
+        industry: "Hälsa- & sjukvård",
         description: "Omfattande erfarenhet av vårdsektorn med fokus på patientflöden, resursoptimering och integration mot journalsystem."
       },
       {
@@ -292,23 +313,23 @@ export const partners: Partner[] = [
     website: "https://nexergroup.com/sv/tjanster/dynamics-365/",
     description: "Nexer är en svensk IT-konsult med global räckvidd och stark kompetens inom Dynamics 365.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustri (Manufacturing)", "Offentlig sektor / Myndigheter", "Detaljhandel (Retail)", "E-handel"],
+    industries: ["Tillverkningsindustri", "Offentlig sektor", "Retail & E-handel"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
     rankings: { fsc: 2, crm: 3 },
     industryExpertise: [
       {
-        industry: "Tillverkningsindustri (Manufacturing)",
+        industry: "Tillverkningsindustri",
         application: "Finance & SCM",
         description: "Global erfarenhet av tillverkningsföretag med fokus på internationella utrullningar och multi-site hantering."
       },
       {
-        industry: "Offentlig sektor / Myndigheter",
+        industry: "Offentlig sektor",
         description: "Stark närvaro inom offentlig sektor med förståelse för offentlig upphandling och compliance-krav."
       },
       {
-        industry: "Detaljhandel (Retail)",
+        industry: "Retail & E-handel",
         application: "Sales",
         description: "Omnikanalslösningar med fokus på kundupplevelse, personalisering och e-handelsintegration."
       }
@@ -321,19 +342,19 @@ export const partners: Partner[] = [
     website: "https://www.crmkonsulterna.se/dynamics-365/",
     description: "CRM Konsulterna utsågs till Dynamics 365 Customer Engagement Partner of the Year 2023 av Microsoft Sverige.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Professionella tjänster (Consulting / PSA)", "Detaljhandel (Retail)", "E-handel", "Offentlig sektor / Myndigheter"],
+    industries: ["Konsulttjänster", "Retail & E-handel", "Offentlig sektor"],
     companySize: ["1-49", "50-99", "100-249"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "100-499 MSEK"],
     geography: "Sverige",
     rankings: { crm: 5 },
     industryExpertise: [
       {
-        industry: "Professionella tjänster (Consulting / PSA)",
+        industry: "Konsulttjänster",
         application: "Sales",
         description: "Expertis inom säljdrivna tjänsteföretag med fokus på pipeline-hantering, offertsystem och kundvård."
       },
       {
-        industry: "Offentlig sektor / Myndigheter",
+        industry: "Offentlig sektor",
         application: "Customer Service",
         description: "Lösningar för medborgarservice med ärendehantering, självbetjäningsportaler och integration mot befintliga system."
       }
@@ -345,19 +366,19 @@ export const partners: Partner[] = [
     website: "https://nemely.se/dynamics-365/",
     description: "Nemely är en Microsoft Dynamics 365 Partner specialiserad på CRM och kundengagemang.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Detaljhandel (Retail)", "E-handel", "Grossist / Distribution", "Professionella tjänster (Consulting / PSA)"],
+    industries: ["Retail & E-handel", "Grossist & Distribution", "Konsulttjänster"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
     rankings: { crm: 3 },
     industryExpertise: [
       {
-        industry: "Detaljhandel (Retail)",
+        industry: "Retail & E-handel",
         application: "Customer Insights (Marketing)",
         description: "Stark kompetens inom retail-marknadsföring med fokus på kundresor, segmentering och personaliserade kampanjer."
       },
       {
-        industry: "Grossist / Distribution",
+        industry: "Grossist & Distribution",
         application: "Sales",
         description: "Säljlösningar för grossister med B2B-kundportaler, prislistor och orderhantering."
       }
@@ -369,19 +390,19 @@ export const partners: Partner[] = [
     website: "https://releye.se/dynamics-365/",
     description: "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Detaljhandel (Retail)", "E-handel", "Professionella tjänster (Consulting / PSA)", "Grossist / Distribution"],
+    industries: ["Retail & E-handel", "Konsulttjänster", "Grossist & Distribution"],
     companySize: ["50-99", "100-249", "250-999"],
     revenue: ["25-99 MSEK", "100-499 MSEK", "500-999 MSEK"],
     geography: "Sverige",
     rankings: { crm: 5 },
     industryExpertise: [
       {
-        industry: "Detaljhandel (Retail)",
+        industry: "Retail & E-handel",
         application: "Sales",
         description: "Omnikanalslösningar för handelsföretag med integration mot e-handel, kassasystem och lagerhantering."
       },
       {
-        industry: "Professionella tjänster (Consulting / PSA)",
+        industry: "Konsulttjänster",
         application: "Project Operations",
         description: "Lösningar för tjänsteföretag med projekthantering, resursplanering och tidrapportering."
       }
@@ -393,14 +414,14 @@ export const partners: Partner[] = [
     website: "https://www.siroccogroup.com/microsoft-dynamics-365/",
     description: "Sirocco Group är en internationell boutique-konsult och utvecklingsbyrå specialiserad på CRM och digital transformation.",
     applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustri (Manufacturing)", "Energi & Utilities", "Offentlig sektor / Myndigheter"],
+    industries: ["Tillverkningsindustri", "Energi & Utilities", "Offentlig sektor"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Norden",
     rankings: { crm: 1 },
     industryExpertise: [
       {
-        industry: "Tillverkningsindustri (Manufacturing)",
+        industry: "Tillverkningsindustri",
         application: "Sales",
         description: "CRM-lösningar för tillverkande företag med fokus på distributörshantering, konfigurationsbaserad försäljning och aftermarket."
       },
@@ -410,7 +431,7 @@ export const partners: Partner[] = [
         description: "Kundservicelösningar för energibolag med ärendehantering, avbrottsrapportering och kundportaler."
       },
       {
-        industry: "Offentlig sektor / Myndigheter",
+        industry: "Offentlig sektor",
         description: "Digital transformation för offentlig sektor med medborgarengagemang och processautomatisering."
       }
     ]
@@ -421,19 +442,19 @@ export const partners: Partner[] = [
     website: "https://www.soprasteria.se/losningar/microsoft",
     description: "Sopra Steria är en europeisk teknologikonsult med stark närvaro i Norden och omfattande Dynamics 365-kompetens.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor / Myndigheter", "Bank, Finans & Försäkring", "Energi & Utilities"],
+    industries: ["Offentlig sektor", "Finans & Försäkring", "Energi & Utilities"],
     companySize: ["250-999", "1.000-4.999", ">5.000"],
     revenue: ["500-999 MSEK", "1.000-4.999 MSEK", ">5.000 MSEK"],
     geography: "Europa",
     rankings: { fsc: 2, crm: 1 },
     industryExpertise: [
       {
-        industry: "Offentlig sektor / Myndigheter",
+        industry: "Offentlig sektor",
         application: "Finance & SCM",
         description: "Ledande europeisk partner för offentlig sektor med erfarenhet av stora nationella implementationer och digitala transformationsprogram."
       },
       {
-        industry: "Bank, Finans & Försäkring",
+        industry: "Finans & Försäkring",
         application: "Finance & SCM",
         description: "Djup förståelse för finanssektorn med fokus på regulatorisk efterlevnad, riskhantering och digital kundupplevelse."
       },
@@ -448,29 +469,7 @@ export const partners: Partner[] = [
 // CRM applications for filtering
 export const crmApplications = ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"];
 
-// All unique industries from partners
-export const allIndustries = [
-  "Tillverkningsindustri (Manufacturing)",
-  "Bygg & Entreprenad",
-  "Grossist / Distribution",
-  "Detaljhandel (Retail)",
-  "E-handel",
-  "Professionella tjänster (Consulting / PSA)",
-  "Fastighet & Facility Management",
-  "Logistik & Transport",
-  "Life Science / Pharma / Medtech",
-  "Livsmedel & Dryck",
-  "Energi & Utilities",
-  "Offentlig sektor / Myndigheter",
-  "Hälso- & sjukvård",
-  "Utbildning",
-  "Bank, Finans & Försäkring",
-  "Telekom & IT-tjänster",
-  "Media & Publishing",
-  "Jordbruk & Skogsbruk",
-  "Gruv- & Råvaruindustri",
-  "Non-profit / Ideella organisationer"
-];
+// All unique industries exported at top of file
 
 // Company size options for filtering
 export const companySizes = [
