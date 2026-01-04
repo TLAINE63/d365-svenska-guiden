@@ -10,22 +10,25 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 
 
-// Industry images
+// Industry images - new taxonomy (18 industries)
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
+import livsmedelsImg from "@/assets/industries/livsmedel.jpg";
 import handelDistributionImg from "@/assets/industries/handel-distribution.jpg";
-import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.jpg";
-import transportLogistikImg from "@/assets/industries/transport-logistik.jpg";
-import fastigheterImg from "@/assets/industries/fastigheter.jpg";
-import livsmedel from "@/assets/industries/livsmedel.jpg";
-import lakemedelLifeScienceImg from "@/assets/industries/lakemedel-life-science.jpg";
-import energiImg from "@/assets/industries/energi.jpg";
-import serviceUnderhallImg from "@/assets/industries/service-underhall.jpg";
-import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
-import itTechImg from "@/assets/industries/it-tech.jpg";
 import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
+import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.jpg";
+import fastigheterImg from "@/assets/industries/fastigheter.jpg";
+import energiImg from "@/assets/industries/energi.jpg";
+import finansForsakringImg from "@/assets/industries/finans-forsakring.jpg";
+import lakemedelLifeScienceImg from "@/assets/industries/lakemedel-life-science.jpg";
+import itTechImg from "@/assets/industries/it-tech.jpg";
+import transportLogistikImg from "@/assets/industries/transport-logistik.jpg";
+import mediaPublishingImg from "@/assets/industries/media-publishing.jpg";
+import jordbrukSkogsbrukImg from "@/assets/industries/jordbruk-skogsbruk.jpg";
+import halsaSjukvardImg from "@/assets/industries/halsa-sjukvard.jpg";
 import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.jpg";
-import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
-import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
+import utbildningImg from "@/assets/industries/utbildning.jpg";
+import offentligSektorImg from "@/assets/industries/offentlig-sektor.jpg";
 
 // Product icons
 import businessCentralIcon from "@/assets/icons/BusinessCentral.svg";
@@ -44,22 +47,26 @@ interface Industry {
   partnerIndustries: string[]; // Maps to partner industry names
 }
 
+// New industry taxonomy with 18 industries in specified order
 const industries: Industry[] = [
-  { name: "Tillverkning", slug: "tillverkning", image: tillverkningImg, description: "Affärssystem för tillverkande företag", products: ["bc", "fsc"], partnerIndustries: ["Tillverkningsindustrin"] },
-  { name: "Handel & Distribution", slug: "handel-distribution", image: handelDistributionImg, description: "Lösningar för handels- och distributionsföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Grossist/Distribution", "Handel (Retail & eCommerce)"] },
-  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "System för bygg- och entreprenadföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Bygg & Entreprenad"] },
-  { name: "Transport & Logistik", slug: "transport-logistik", image: transportLogistikImg, description: "Affärssystem för transport och logistik", products: ["bc", "fsc"], partnerIndustries: ["Transport & Logistik", "Grossist/Distribution"] },
-  { name: "Fastigheter", slug: "fastigheter", image: fastigheterImg, description: "Lösningar för fastighetsbranschen", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Fastigheter", "Bygg & Entreprenad"] },
-  { name: "Livsmedel", slug: "livsmedel", image: livsmedel, description: "System för livsmedelsindustrin", products: ["bc", "fsc"], partnerIndustries: ["Tillverkningsindustrin", "Grossist/Distribution"] },
-  { name: "Läkemedel & Life Science", slug: "lakemedel-life-science", image: lakemedelLifeScienceImg, description: "Lösningar för läkemedel och life science", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Life Science", "Hälso- & sjukvård"] },
-  { name: "Energi", slug: "energi", image: energiImg, description: "Affärssystem för energisektorn", products: ["fsc", "crm-sales", "crm-service"], partnerIndustries: ["Energi & Utilities"] },
-  { name: "Service & Underhåll", slug: "service-underhall", image: serviceUnderhallImg, description: "System för serviceföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
-  { name: "Konsultföretag", slug: "konsultforetag", image: konsultforetagImg, description: "Lösningar för konsultbolag", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
-  { name: "IT & Tech", slug: "it-tech", image: itTechImg, description: "Affärssystem för IT-branschen", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
-  { name: "Detaljhandel", slug: "detaljhandel", image: detaljhandelImg, description: "System för detaljhandeln", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Handel (Retail & eCommerce)"] },
-  { name: "Medlemsorganisationer", slug: "medlemsorganisationer", image: medlemsorganisationerImg, description: "Lösningar för medlemsorganisationer", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Medlemsorganisationer", "Nonprofit", "Offentlig sektor"] },
-  { name: "Miljö & Återvinning", slug: "miljo-atervinning", image: miljoAtervinningImg, description: "System för miljö- och återvinningsbranschen", products: ["bc", "fsc"], partnerIndustries: ["Tillverkningsindustrin", "Konsulttjänster"] },
-  { name: "Parti- & Agenturhandel", slug: "parti-agenturhandel", image: partiAgenturhandelImg, description: "Lösningar för parti- och agenturhandel", products: ["bc", "fsc"], partnerIndustries: ["Grossist/Distribution"] },
+  { name: "Tillverkningsindustri", slug: "tillverkning", image: tillverkningImg, description: "Affärssystem för tillverkande företag", products: ["bc", "fsc"], partnerIndustries: ["Tillverkningsindustri"] },
+  { name: "Livsmedel & Processindustri", slug: "livsmedel-processindustri", image: livsmedelsImg, description: "Lösningar för livsmedels- och processindustrin", products: ["bc", "fsc"], partnerIndustries: ["Livsmedel & Processindustri"] },
+  { name: "Grossist & Distribution", slug: "grossist-distribution", image: handelDistributionImg, description: "System för grossist- och distributionsföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Grossist & Distribution"] },
+  { name: "Retail & E-handel", slug: "retail-ehandel", image: detaljhandelImg, description: "Lösningar för detaljhandel och e-handel", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Retail & E-handel"] },
+  { name: "Konsulttjänster", slug: "konsulttjanster", image: konsultforetagImg, description: "System för konsultbolag och tjänsteföretag", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
+  { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "Affärssystem för bygg- och entreprenadföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Bygg & Entreprenad"] },
+  { name: "Fastighet & Förvaltning", slug: "fastighet-forvaltning", image: fastigheterImg, description: "Lösningar för fastighets- och förvaltningsbranschen", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Fastighet & Förvaltning"] },
+  { name: "Energi & Utilities", slug: "energi-utilities", image: energiImg, description: "System för energisektorn och utilities", products: ["fsc", "crm-sales", "crm-service"], partnerIndustries: ["Energi & Utilities"] },
+  { name: "Finans & Försäkring", slug: "finans-forsakring", image: finansForsakringImg, description: "Lösningar för bank, finans och försäkring", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Finans & Försäkring"] },
+  { name: "Life Science / Medtech", slug: "life-science-medtech", image: lakemedelLifeScienceImg, description: "System för läkemedel och medicinsk teknik", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Life Science / Medtech"] },
+  { name: "Telekom & IT-tjänster", slug: "telekom-it-tjanster", image: itTechImg, description: "Affärssystem för IT- och telekombranschen", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Telekom & IT-tjänster"] },
+  { name: "Logistik & Transport", slug: "logistik-transport", image: transportLogistikImg, description: "Lösningar för transport och logistik", products: ["bc", "fsc"], partnerIndustries: ["Logistik & Transport"] },
+  { name: "Media & Publishing", slug: "media-publishing", image: mediaPublishingImg, description: "System för media- och förlagsbranschen", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Media & Publishing"] },
+  { name: "Jordbruk & Skogsbruk", slug: "jordbruk-skogsbruk", image: jordbrukSkogsbrukImg, description: "Affärssystem för jord- och skogsbruk", products: ["bc", "fsc"], partnerIndustries: ["Jordbruk & Skogsbruk"] },
+  { name: "Hälsa- & sjukvård", slug: "halsa-sjukvard", image: halsaSjukvardImg, description: "Lösningar för hälso- och sjukvårdssektorn", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Hälsa- & sjukvård"] },
+  { name: "Non-profit / Organisationer", slug: "nonprofit-organisationer", image: medlemsorganisationerImg, description: "System för ideella organisationer och föreningar", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Non-profit / Organisationer"] },
+  { name: "Utbildning", slug: "utbildning", image: utbildningImg, description: "Lösningar för utbildningssektorn", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Utbildning"] },
+  { name: "Offentlig sektor", slug: "offentlig-sektor", image: offentligSektorImg, description: "Affärssystem för myndigheter och offentlig verksamhet", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Offentlig sektor"] },
 ];
 
 const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm"; icon: string }[] = [
@@ -345,148 +352,115 @@ const Branschlosningar = () => {
                       
                       <div className="space-y-3 mb-4">
                         <div className="flex items-start gap-2">
-                          <Briefcase className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <Briefcase className="h-4 w-4 text-muted-foreground mt-0.5" />
                           <div className="flex flex-wrap gap-1">
-                            {partner.applications.slice(0, 4).map((app) => (
-                              <span key={app} className="text-xs bg-muted px-2 py-0.5 rounded">
+                            {partner.applications.slice(0, 3).map((app) => (
+                              <span key={app} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">
                                 {app}
                               </span>
                             ))}
-                            {partner.applications.length > 4 && (
-                              <span className="text-xs text-muted-foreground">+{partner.applications.length - 4}</span>
-                            )}
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start gap-2">
-                          <Building2 className="h-4 w-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                          <div className="flex flex-wrap gap-1">
-                            {partner.industries.slice(0, 3).map((ind) => (
-                              <span key={ind} className="text-xs bg-muted px-2 py-0.5 rounded">
-                                {ind}
+                            {partner.applications.length > 3 && (
+                              <span className="text-xs text-muted-foreground">
+                                +{partner.applications.length - 3}
                               </span>
-                            ))}
-                            {partner.industries.length > 3 && (
-                              <span className="text-xs text-muted-foreground">+{partner.industries.length - 3}</span>
                             )}
                           </div>
                         </div>
-                        
                       </div>
 
-                      <Link 
-                        to={buildPartnerProfileUrl(partner.name)}
-                        className="text-sm text-primary hover:text-primary/80 hover:underline inline-flex items-center gap-1"
-                      >
-                        Öppna partnerkortet
-                        <ExternalLink className="h-3 w-3" />
-                      </Link>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <Link 
+                          to={buildPartnerProfileUrl(partner.name)}
+                          className="flex-1"
+                        >
+                          <Button variant="outline" className="w-full gap-2">
+                            Öppna partnerkortet
+                          </Button>
+                        </Link>
+                        <a
+                          href={buildPartnerUrl(partner.website, partner.name, {
+                            application: selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service",
+                            industry: selectedIndustry?.name
+                          })}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => handlePartnerClick(partner)}
+                          className="flex-1"
+                        >
+                          <Button className="w-full gap-2 bg-amber-500 hover:bg-amber-600 text-white">
+                            Besök hemsida
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
+                        </a>
+                      </div>
                     </div>
                   );
                 })}
               </div>
             ) : (
-              <div className="text-center py-12 bg-muted/30 rounded-xl border border-border">
-                <p className="text-foreground text-xl font-medium mb-2">
-                  Är det ingen partner som är listad för just denna bransch?
+              <div className="text-center py-12">
+                <Building2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">Inga partners hittades</h3>
+                <p className="text-muted-foreground">
+                  Vi hittade inga partners som matchar dina filterval. Prova att ändra dina val.
                 </p>
-                <p className="text-muted-foreground text-lg mb-6">
-                  Ingen fara, kontakta oss så hjälper vi dig att hitta en lämplig partner!
-                </p>
-                <Button 
-                  onClick={() => navigate('/kontakta-oss')}
-                  className="bg-amber-500 hover:bg-amber-600 text-white"
-                >
-                  Kontakta oss
-                </Button>
               </div>
             )}
 
-            {/* Lead CTA - shows after partner list */}
-            <div className="max-w-xl mx-auto mt-12">
-              <LeadCTA
-                sourcePage="/branschlosningar"
-                selectedProduct={getProductLabel() || undefined}
+            {/* Lead CTA */}
+            <div className="mt-12">
+              <LeadCTA 
+                sourcePage="branschlosningar"
+                variant="card" 
+                title="Behöver du hjälp att välja rätt partner?"
+                description="Beskriv ditt projekt så hjälper vi dig att hitta rätt partner för dina behov."
                 selectedIndustry={selectedIndustry?.name}
-                title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
-                description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
+                selectedProduct={selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
               />
             </div>
           </div>
         </section>
       ) : (
-        <>
-          {/* Industries Grid */}
-          <section className="py-12 px-4">
-            <div className="container mx-auto max-w-6xl">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {displayedIndustries.map((industry) => (
-                  <button
-                    key={industry.slug}
-                    onClick={() => handleIndustryClick(industry)}
-                    disabled={!selectedFilter}
-                    className={`group flex flex-col bg-card border border-border rounded-lg overflow-hidden transition-all duration-200 text-left ${
-                      selectedFilter 
-                        ? "hover:border-primary hover:shadow-lg cursor-pointer" 
-                        : "opacity-60 cursor-not-allowed"
-                    }`}
-                  >
-                    <div className="aspect-square overflow-hidden">
-                      <img
-                        src={industry.image}
-                        alt={industry.name}
-                        className={`w-full h-full object-cover transition-transform duration-300 ${selectedFilter ? "group-hover:scale-105" : ""}`}
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-3 text-center">
-                      <span className={`text-sm font-medium transition-colors line-clamp-2 ${
-                        selectedFilter ? "text-foreground group-hover:text-primary" : "text-muted-foreground"
-                      }`}>
-                        {industry.name}
-                      </span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              {displayedIndustries.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground">Inga branscher hittades.</p>
-                </div>
-              )}
+        /* Industries Grid */
+        <section className="py-8 px-4">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+              {displayedIndustries.map((industry) => (
+                <button
+                  key={industry.slug}
+                  onClick={() => handleIndustryClick(industry)}
+                  disabled={!selectedFilter}
+                  className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
+                    selectedFilter 
+                      ? "cursor-pointer hover:scale-105 hover:shadow-xl" 
+                      : "cursor-not-allowed opacity-60"
+                  }`}
+                >
+                  <img
+                    src={industry.image}
+                    alt={industry.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3">
+                    <h3 className="text-white font-semibold text-xs sm:text-sm leading-tight">
+                      {industry.name}
+                    </h3>
+                  </div>
+                  {selectedFilter && (
+                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                  )}
+                </button>
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
+      )}
 
-          {/* Lead Magnet Banner - below industries */}
-          {showLeadMagnet && (
-            <section className="px-4 pb-8">
-              <div className="container mx-auto max-w-5xl">
-                <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 text-foreground">
-                  Få hjälp att välja rätt partner
-                </h2>
-                <LeadMagnetBanner
-                  sourcePage="/branschlosningar" 
-                  onClose={() => setShowLeadMagnet(false)}
-                />
-              </div>
-            </section>
-          )}
-
-          {/* Lead CTA Section - only show before solution is selected */}
-          {!selectedFilter && (
-            <section className="py-16 px-4 bg-muted/30">
-              <div className="container mx-auto max-w-xl">
-                <LeadCTA
-                  sourcePage="/branschlosningar"
-                  selectedProduct={selectedFilter || undefined}
-                  title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
-                  description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
-                />
-              </div>
-            </section>
-          )}
-        </>
+      {/* Lead Magnet Banner */}
+      {showLeadMagnet && !selectedIndustry && (
+        <LeadMagnetBanner sourcePage="branschlosningar" onClose={() => setShowLeadMagnet(false)} />
       )}
 
       <Footer />
