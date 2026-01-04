@@ -5,39 +5,46 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import partnersHeroImg from "@/assets/partners-comparison-hero.png";
 
-// Industry images for first slide
+// Industry images for first slide - new taxonomy (18 industries)
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
-import handelDistributionImg from "@/assets/industries/handel-distribution.jpg";
-import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.jpg";
-import transportLogistikImg from "@/assets/industries/transport-logistik.jpg";
-import fastigheterImg from "@/assets/industries/fastigheter.jpg";
-import serviceUnderhallImg from "@/assets/industries/service-underhall.jpg";
-import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
-import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
-import energiImg from "@/assets/industries/energi.jpg";
-import itTechImg from "@/assets/industries/it-tech.jpg";
-import lakemedelImg from "@/assets/industries/lakemedel-life-science.jpg";
 import livsmedelsImg from "@/assets/industries/livsmedel.jpg";
+import handelDistributionImg from "@/assets/industries/handel-distribution.jpg";
+import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
+import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.jpg";
+import fastigheterImg from "@/assets/industries/fastigheter.jpg";
+import energiImg from "@/assets/industries/energi.jpg";
+import finansForsakringImg from "@/assets/industries/finans-forsakring.jpg";
+import lakemedelImg from "@/assets/industries/lakemedel-life-science.jpg";
+import itTechImg from "@/assets/industries/it-tech.jpg";
+import transportLogistikImg from "@/assets/industries/transport-logistik.jpg";
+import mediaPublishingImg from "@/assets/industries/media-publishing.jpg";
+import jordbrukSkogsbrukImg from "@/assets/industries/jordbruk-skogsbruk.jpg";
+import halsaSjukvardImg from "@/assets/industries/halsa-sjukvard.jpg";
 import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.jpg";
-import miljoAtervinningImg from "@/assets/industries/miljo-atervinning.jpg";
-import partiAgenturhandelImg from "@/assets/industries/parti-agenturhandel.jpg";
+import utbildningImg from "@/assets/industries/utbildning.jpg";
+import offentligSektorImg from "@/assets/industries/offentlig-sektor.jpg";
 
+// Featured industries in carousel - showing first 15 for visual balance on mobile
 const featuredIndustries = [
   { name: "Tillverkning", image: tillverkningImg },
-  { name: "Handel", image: handelDistributionImg },
-  { name: "Bygg", image: byggEntreprenadImg },
-  { name: "Transport", image: transportLogistikImg },
-  { name: "Fastigheter", image: fastigheterImg },
-  { name: "Service", image: serviceUnderhallImg },
-  { name: "Konsult", image: konsultforetagImg },
-  { name: "Detaljhandel", image: detaljhandelImg },
-  { name: "Energi", image: energiImg },
-  { name: "IT & Tech", image: itTechImg },
-  { name: "Life Science", image: lakemedelImg },
   { name: "Livsmedel", image: livsmedelsImg },
-  { name: "Föreningar", image: medlemsorganisationerImg },
-  { name: "Miljö", image: miljoAtervinningImg },
-  { name: "Partihandel", image: partiAgenturhandelImg },
+  { name: "Grossist", image: handelDistributionImg },
+  { name: "Retail", image: detaljhandelImg },
+  { name: "Konsult", image: konsultforetagImg },
+  { name: "Bygg", image: byggEntreprenadImg },
+  { name: "Fastighet", image: fastigheterImg },
+  { name: "Energi", image: energiImg },
+  { name: "Finans", image: finansForsakringImg },
+  { name: "Life Science", image: lakemedelImg },
+  { name: "IT & Telekom", image: itTechImg },
+  { name: "Logistik", image: transportLogistikImg },
+  { name: "Media", image: mediaPublishingImg },
+  { name: "Jordbruk", image: jordbrukSkogsbrukImg },
+  { name: "Sjukvård", image: halsaSjukvardImg },
+  { name: "Non-profit", image: medlemsorganisationerImg },
+  { name: "Utbildning", image: utbildningImg },
+  { name: "Offentlig", image: offentligSektorImg },
 ];
 
 interface HeroSlide {
@@ -145,7 +152,7 @@ const HeroCarousel = () => {
   const slide = slides[currentSlide];
 
   return (
-    <header className="relative overflow-hidden h-[400px] sm:h-[500px] md:h-[600px]" style={{ contain: 'layout size', willChange: 'auto' }}>
+    <header className="relative overflow-hidden h-[450px] sm:h-[500px] md:h-[600px]" style={{ contain: 'layout size', willChange: 'auto' }}>
       {/* Background Images or Custom Content */}
       {slides.map((s, index) => (
         <div
@@ -193,15 +200,15 @@ const HeroCarousel = () => {
                 {slide.subtitle}
               </p>
               
-              {/* Industries Grid */}
-              <div className="grid grid-cols-5 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-15 gap-1.5 sm:gap-2 mb-4 sm:mb-5">
+              {/* Industries Grid - 18 industries */}
+              <div className="grid grid-cols-6 sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-18 gap-1 sm:gap-1.5 mb-4 sm:mb-5">
                 {featuredIndustries.map((industry) => (
                   <Link
                     key={industry.name}
                     to="/branschlosningar"
-                    className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
+                    className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-1 sm:p-1.5 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
                   >
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full overflow-hidden mb-1 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full overflow-hidden mb-0.5 sm:mb-1 ring-1 ring-white/30 group-hover:ring-white/60 transition-all">
                       <img
                         src={industry.image}
                         alt={industry.name}
@@ -209,7 +216,7 @@ const HeroCarousel = () => {
                         loading="eager"
                       />
                     </div>
-                    <span className="text-[10px] sm:text-xs text-white/90 font-medium text-center leading-tight">
+                    <span className="text-[8px] sm:text-[10px] text-white/90 font-medium text-center leading-tight">
                       {industry.name}
                     </span>
                   </Link>
