@@ -2,11 +2,25 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
-// CORS headers - allow all lovable domains
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+// CORS origin validation - only allow trusted domains
+function isAllowedOrigin(origin: string): boolean {
+  if (!origin) return false;
+  if (origin.startsWith("http://localhost:")) return true;
+  if (origin.endsWith(".lovable.app")) return true;
+  if (origin.endsWith(".lovableproject.com")) return true;
+  if (origin === "https://d365.se" || origin.endsWith(".d365.se")) return true;
+  return false;
+}
+
+function getCorsHeaders(req: Request): Record<string, string> {
+  const origin = req.headers.get("origin") || "";
+  const allowedOrigin = isAllowedOrigin(origin) ? origin : "https://d365-svenska-guiden.lovable.app";
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Credentials": "true",
+  };
+}
 
 // Simple in-memory rate limiting (resets on function cold start)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
@@ -92,7 +106,7 @@ serve(async (req: Request): Promise<Response> => {
   console.log("send-analysis-email function called");
 
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response(null, { headers: getCorsHeaders(req) });
   }
 
   try {
@@ -108,7 +122,7 @@ serve(async (req: Request): Promise<Response> => {
         JSON.stringify({ error: "Too many requests. Please try again later." }),
         {
           status: 429,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
+          headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
         }
       );
     }
@@ -122,7 +136,7 @@ serve(async (req: Request): Promise<Response> => {
         JSON.stringify({ error: "Invalid JSON payload" }),
         {
           status: 400,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
+          headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
         }
       );
     }
@@ -170,7 +184,7 @@ serve(async (req: Request): Promise<Response> => {
         JSON.stringify({ error: "Validation failed", details: errors }),
         {
           status: 400,
-          headers: { "Content-Type": "application/json", ...corsHeaders },
+          headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
         }
       );
     }
@@ -367,7 +381,7 @@ serve(async (req: Request): Promise<Response> => {
 
     return new Response(JSON.stringify({ success: true, data: responseData }), {
       status: 200,
-      headers: { "Content-Type": "application/json", ...corsHeaders },
+      headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
     });
   } catch (error: any) {
     console.error("Error in send-analysis-email function:", error);
@@ -376,7 +390,7 @@ serve(async (req: Request): Promise<Response> => {
       JSON.stringify({ error: "An error occurred while processing your request" }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
+        headers: { "Content-Type": "application/json", ...getCorsHeaders(req) },
       }
     );
   }
