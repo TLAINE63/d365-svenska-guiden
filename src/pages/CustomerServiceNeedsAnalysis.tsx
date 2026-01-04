@@ -112,7 +112,7 @@ const industryOptions = [
   "Offentlig sektor / Myndigheter",
   "Hälso- & sjukvård",
   "Utbildning",
-  "Bank & Försäkring",
+  "Bank, Finans & Försäkring",
   "Telekom & IT-tjänster",
   "Media & Publishing",
   "Jordbruk & Skogsbruk",

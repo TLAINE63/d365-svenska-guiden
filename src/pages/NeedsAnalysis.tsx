@@ -215,7 +215,7 @@ const industryOptions = [
   "Offentlig sektor / Myndigheter",
   "Hälso- & sjukvård",
   "Utbildning",
-  "Bank & Försäkring",
+  "Bank, Finans & Försäkring",
   "Telekom & IT-tjänster",
   "Media & Publishing",
   "Jordbruk & Skogsbruk",
@@ -404,7 +404,7 @@ const industryKpiMapping: Record<string, string[]> = {
     "Anställningsbarhet efter examen",
     "Forskningsoutput",
   ],
-  "Bank & Försäkring": [
+  "Bank, Finans & Försäkring": [
     "Skadefrekvens",
     "Combined ratio",
     "Kundanskaffningskostnad (CAC)",
