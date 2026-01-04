@@ -183,7 +183,7 @@ const handler = async (req: Request): Promise<Response> => {
       if (isLeadMagnet) {
         try {
           await resend.emails.send({
-            from: "D365 Guiden <resend@d365.se>",
+            from: "D365 Guiden <info@d365.se>",
             to: [sanitizedData.email],
             subject: "Din guide: Så väljer du rätt Dynamics 365-partner",
             html: `
@@ -256,7 +256,7 @@ const handler = async (req: Request): Promise<Response> => {
           : `🎯 Ny lead: ${sanitizedData.company_name}`;
         
         await resend.emails.send({
-          from: "D365 Guiden <resend@d365.se>",
+          from: "D365 Guiden <info@d365.se>",
           to: ["info@d365.se"],
           reply_to: sanitizedData.email,
           subject: emailSubject,
