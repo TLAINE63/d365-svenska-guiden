@@ -454,21 +454,26 @@ export const crmApplications = ["Sales", "Customer Service", "Customer Insights 
 
 // All unique industries from partners
 export const allIndustries = [
-  "Tillverkningsindustrin",
-  "Handel (Retail & eCommerce)",
-  "Grossist/Distribution",
-  "Bank & Försäkring",
+  "Tillverkningsindustri (Manufacturing)",
   "Bygg & Entreprenad",
-  "Hälso- & sjukvård",
-  "Life Science",
-  "Konsulttjänster",
-  "Offentlig sektor",
+  "Grossist / Distribution",
+  "Detaljhandel (Retail)",
+  "E-handel",
+  "Professionella tjänster (Consulting / PSA)",
+  "Fastighet & Facility Management",
+  "Logistik & Transport",
+  "Life Science / Pharma / Medtech",
+  "Livsmedel & Dryck",
   "Energi & Utilities",
-  "Transport & Logistik",
-  "Fastigheter",
-  "Medlemsorganisationer",
+  "Offentlig sektor / Myndigheter",
+  "Hälso- & sjukvård",
   "Utbildning",
-  "Nonprofit"
+  "Bank & Försäkring",
+  "Telekom & IT-tjänster",
+  "Media & Publishing",
+  "Jordbruk & Skogsbruk",
+  "Gruv- & Råvaruindustri",
+  "Non-profit / Ideella organisationer"
 ];
 
 // Company size options for filtering
