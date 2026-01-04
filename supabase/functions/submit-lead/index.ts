@@ -260,7 +260,7 @@ const handler = async (req: Request): Promise<Response> => {
         
         await resend.emails.send({
           from: "D365 Guiden <info@d365.se>",
-          to: ["info@d365.se"],
+          to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
           reply_to: sanitizedData.email,
           subject: emailSubject,
           html: `
