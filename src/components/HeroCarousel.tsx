@@ -25,7 +25,7 @@ import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.
 import utbildningImg from "@/assets/industries/utbildning.jpg";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.jpg";
 
-// Featured industries in carousel - showing first 15 for visual balance on mobile
+// Featured industries in carousel - 18 industries with new taxonomy
 const featuredIndustries = [
   { name: "Tillverkning", image: tillverkningImg },
   { name: "Livsmedel", image: livsmedelsImg },
@@ -37,7 +37,7 @@ const featuredIndustries = [
   { name: "Energi", image: energiImg },
   { name: "Finans", image: finansForsakringImg },
   { name: "Life Science", image: lakemedelImg },
-  { name: "IT & Telekom", image: itTechImg },
+  { name: "Telekom & IT", image: itTechImg },
   { name: "Logistik", image: transportLogistikImg },
   { name: "Media", image: mediaPublishingImg },
   { name: "Jordbruk", image: jordbrukSkogsbrukImg },
