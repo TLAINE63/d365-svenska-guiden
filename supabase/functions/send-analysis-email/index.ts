@@ -214,7 +214,7 @@ serve(async (req: Request): Promise<Response> => {
 
     // Build email payload - send to customer with CC to admin
     const emailPayload: Record<string, unknown> = {
-      from: "D365 Guiden <info@d365.se>",
+      from: "D365 Guiden <resend@d365.se>",
       to: [email], // Send to customer
       cc: ["info@d365.se"], // Copy to admin
       reply_to: "info@d365.se",
@@ -286,7 +286,7 @@ serve(async (req: Request): Promise<Response> => {
 
     // Send separate admin notification email
     const adminNotificationPayload = {
-      from: "D365 Guiden <info@d365.se>",
+      from: "D365 Guiden <resend@d365.se>",
       to: ["info@d365.se"],
       reply_to: email, // Reply goes to customer
       subject: `🔔 Ny ${safeAnalysisType}-behovsanalys från ${safeCompanyName}`,
