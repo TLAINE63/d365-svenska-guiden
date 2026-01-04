@@ -201,7 +201,7 @@ const handler = async (req: Request): Promise<Response> => {
     const formattedDate = now.toLocaleString("sv-SE", { timeZone: "Europe/Stockholm" });
 
     const emailResponse = await resend.emails.send({
-      from: "D365 Guiden <info@d365.se>",
+      from: "D365 Guiden <resend@d365.se>",
       to: ["info@d365.se"],
       reply_to: "info@d365.se",
       subject: `Partnerklick: ${safePartnerName}`,
