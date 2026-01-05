@@ -918,8 +918,9 @@ const CRMNeedsAnalysis = () => {
     pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     
     pdf.setFontSize(9);
-    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 10);
-    pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 18);
+    pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
+    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
+    pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 26);
 
     // Generate PDF as base64 for email attachment
     const pdfFilename = `CRM_Behovsanalys_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;

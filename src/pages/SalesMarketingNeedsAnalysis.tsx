@@ -590,6 +590,25 @@ const SalesMarketingNeedsAnalysis = () => {
     addSection("Integrationer", data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet");
     addSection("KPI:er", data.kpis.join(", ") || "Ej angivet");
 
+    // Footer with contact info
+    if (yPos > 230) {
+      pdf.addPage();
+      yPos = margin;
+    }
+    yPos += 15;
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 34, 3, 3, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Dynamic Factory", margin + 8, yPos + 10);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
+    pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
+    pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
+    pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 26);
+
     // Generate PDF as base64 for email attachment
     const pdfFilename = `Behovsanalys_Salj_Marknad_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
