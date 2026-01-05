@@ -203,6 +203,39 @@ const situationChallengeCategories = [
     quote: "Kunder börjar klaga eller byta leverantör.",
     quoteSource: "Extern signal:",
   },
+  {
+    id: "marknad_silos",
+    title: "Marknad jobbar i silos",
+    subtitle: "Marketing automation, CRM och Analytics är inte kopplade",
+    items: [
+      "Data flyttas manuellt mellan system",
+      "Ingen gemensam vy över kundresan",
+    ],
+    quote: "\"Vi vet inte hur våra leads beter sig efter överlämning till sälj.\"",
+    quoteSource: "Marknad säger:",
+  },
+  {
+    id: "content_relevans",
+    title: "Content når inte rätt målgrupp",
+    subtitle: "Samma budskap till alla – oavsett fas i köpresan",
+    items: [
+      "Ingen personalisering baserat på beteende",
+      "Låg öppningsgrad och klickfrekvens",
+    ],
+    quote: "\"Vi skickar nyhetsbrev – men ingen verkar bry sig.\"",
+    quoteSource: "Marknadsteamet konstaterar:",
+  },
+  {
+    id: "roi_rapportering",
+    title: "Svårt att bevisa marknadsförings-ROI",
+    subtitle: "Ingen tydlig koppling mellan aktiviteter och intäkter",
+    items: [
+      "Attribution är en gissningslek",
+      "Budget ifrågasätts varje kvartal",
+    ],
+    quote: "\"Vi kan inte visa vilka kampanjer som faktiskt driver pipeline.\"",
+    quoteSource: "CMO:s huvudvärk:",
+  },
 ];
 
 const situationChallengeOptions = ["Betydande utmaning", "Viss utmaning", "Inget problem idag"];
