@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
-import { partners, allIndustries } from "@/data/partners";
+import { partners, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 // Company size filter options - matching partner data values
@@ -37,67 +37,52 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
 
+  // Determine which product key to use based on application filter
+  const productKey: 'bc' | 'fsc' | 'crm' | null = useMemo(() => {
+    if (applicationFilter === "Business Central") return 'bc';
+    if (applicationFilter === "Finance & SCM") return 'fsc';
+    if (["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(applicationFilter)) {
+      return 'crm';
+    }
+    return null;
+  }, [applicationFilter]);
+
   const filteredPartners = useMemo(() => {
-    let result = partners.filter(partner => 
-      partner.applications.includes(applicationFilter)
+    if (!productKey) return [];
+    
+    // Only show partners with productFilters for this product (betalande partners)
+    let result = partners.filter(partner => partner.productFilters?.[productKey]);
+    
+    // Get selected size value for filtering
+    const selectedSizeValue = selectedCompanySize 
+      ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
+      : undefined;
+    
+    // Apply product-specific filters
+    result = result.filter(partner => 
+      matchesProductFilter(partner, productKey, selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)
     );
     
-    if (selectedIndustry) {
-      result = result.filter(partner => 
-        partner.industries.some(ind => 
-          ind.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
-          selectedIndustry.toLowerCase().includes(ind.toLowerCase()) ||
-          ind === "Alla branscher"
-        )
-      );
-    }
-
-    if (selectedCompanySize) {
-      const sizeFilter = companySizeFilters.find(f => f.label === selectedCompanySize);
-      if (sizeFilter) {
-        result = result.filter(partner => 
-          partner.companySize.some(size => sizeFilter.values.includes(size))
-        );
-      }
-    }
-
-    if (selectedGeography) {
-      // Geography hierarchy: Internationellt > Europa > Norden > Sverige
-      const geographyHierarchy: Record<string, string[]> = {
-        "Sverige": ["Sverige", "Norden", "Europa", "Internationellt"],
-        "Norden": ["Norden", "Europa", "Internationellt"],
-        "Europa": ["Europa", "Internationellt"],
-        "Internationellt": ["Internationellt"]
-      };
-      const validGeographies = geographyHierarchy[selectedGeography] || [selectedGeography];
-      result = result.filter(partner => validGeographies.includes(partner.geography));
-    }
-    
-    // Determine which product ranking to use based on application filter
-    const getProductRanking = (partner: typeof partners[0]): number => {
-      if (applicationFilter === "Business Central") {
-        return partner.rankings?.bc ?? 999;
-      }
-      if (applicationFilter === "Finance & SCM") {
-        return partner.rankings?.fsc ?? 999;
-      }
-      // CRM applications
-      if (["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(applicationFilter)) {
-        return partner.rankings?.crm ?? 999;
-      }
-      return 999;
-    };
-    
-    // Sort by product ranking first, then alphabetically
+    // Sort by product ranking, then alphabetically
     return result.sort((a, b) => {
-      const rankA = getProductRanking(a);
-      const rankB = getProductRanking(b);
+      const rankA = getProductRanking(a, productKey);
+      const rankB = getProductRanking(b, productKey);
       if (rankA !== rankB) {
         return rankA - rankB;
       }
       return a.name.localeCompare(b.name, 'sv');
     });
-  }, [applicationFilter, selectedIndustry, selectedCompanySize, selectedGeography]);
+  }, [productKey, selectedIndustry, selectedCompanySize, selectedGeography]);
+
+  // Get available industries for this product's betalande partners
+  const availableIndustries = useMemo(() => {
+    if (!productKey) return allIndustries;
+    const industries = new Set<string>();
+    partners.forEach(partner => {
+      partner.productFilters?.[productKey]?.industries.forEach(ind => industries.add(ind));
+    });
+    return allIndustries.filter(ind => industries.has(ind));
+  }, [productKey]);
 
   return (
     <section id="partners" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
@@ -116,7 +101,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         <FilterButtons
           title="Filtrera på bransch"
           icon="industry"
-          options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+          options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
           selectedValue={selectedIndustry}
           onSelect={setSelectedIndustry}
           colorScheme="crm"

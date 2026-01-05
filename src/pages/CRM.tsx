@@ -12,7 +12,7 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { partners, crmApplications, allIndustries } from "@/data/partners";
+import { partners, crmApplications, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import {
   Accordion,
@@ -47,66 +47,40 @@ const CRM = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Helper to get the lowest industry index for a partner (for sorting by industry priority)
-  const getIndustryPriority = (partner: typeof partners[0], industry: string | null): number => {
-    if (!industry) return 0;
-    for (let i = 0; i < partner.industries.length; i++) {
-      if (partner.industries[i].toLowerCase().includes(industry.toLowerCase()) ||
-          industry.toLowerCase().includes(partner.industries[i].toLowerCase())) {
-        return i;
-      }
-    }
-    return Infinity;
-  };
-
-  // Filter partners that work with CRM applications
+  // Filter partners that have CRM productFilters (betalande partners)
   const crmPartners = useMemo(() => {
-    let result = partners.filter(partner => 
-      partner.applications.some(app => crmApplications.includes(app))
+    // Only show partners with productFilters.crm defined (betalande CRM partners)
+    let result = partners.filter(partner => partner.productFilters?.crm);
+    
+    // Get selected size value for filtering
+    const selectedSizeValue = selectedCompanySize 
+      ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
+      : undefined;
+    
+    // Apply product-specific filters
+    result = result.filter(partner => 
+      matchesProductFilter(partner, 'crm', selectedIndustry || undefined, selectedSizeValue, undefined)
     );
-
-    if (selectedApplications.length > 0) {
-      result = result.filter(partner => 
-        selectedApplications.some(app => partner.applications.includes(app))
-      );
-    }
     
-    if (selectedIndustry) {
-      result = result.filter(partner => 
-        partner.industries.some(ind => 
-          ind.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
-          selectedIndustry.toLowerCase().includes(ind.toLowerCase()) ||
-          ind === "Alla branscher"
-        )
-      );
-    }
-
-    if (selectedCompanySize) {
-      const sizeFilter = companySizeFilters.find(f => f.label === selectedCompanySize);
-      if (sizeFilter) {
-        result = result.filter(partner => 
-          partner.companySize.some(size => sizeFilter.values.includes(size))
-        );
-      }
-    }
-    
-    // Sort by CRM ranking first, then industry priority, then alphabetically
+    // Sort by CRM ranking, then alphabetically
     return result.sort((a, b) => {
-      const rankA = a.rankings?.crm ?? 999;
-      const rankB = b.rankings?.crm ?? 999;
+      const rankA = getProductRanking(a, 'crm');
+      const rankB = getProductRanking(b, 'crm');
       if (rankA !== rankB) {
         return rankA - rankB;
-      }
-      if (selectedIndustry) {
-        const priorityA = getIndustryPriority(a, selectedIndustry);
-        const priorityB = getIndustryPriority(b, selectedIndustry);
-        if (priorityA !== priorityB) {
-          return priorityA - priorityB;
-        }
       }
       return a.name.localeCompare(b.name, 'sv');
     });
   }, [selectedApplications, selectedIndustry, selectedCompanySize]);
+
+  // Get available industries for CRM partners
+  const crmIndustries = useMemo(() => {
+    const industries = new Set<string>();
+    partners.forEach(partner => {
+      partner.productFilters?.crm?.industries.forEach(ind => industries.add(ind));
+    });
+    return allIndustries.filter(ind => industries.has(ind));
+  }, []);
   return (
     <div className="min-h-screen">
       <Navbar />
