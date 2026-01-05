@@ -70,6 +70,7 @@ const industryOptions = [
 const marketOptions = [
   { value: "sverige", label: "Sverige" },
   { value: "norden", label: "Norden" },
+  { value: "europa", label: "Europa" },
   { value: "internationellt", label: "Internationellt" }
 ];
 
