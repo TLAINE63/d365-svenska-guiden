@@ -42,8 +42,7 @@ const applicationOptions = [
   "Customer Insights (Marketing)",
   "Contact Center",
   "Project Operations",
-  "Commerce",
-  "Copilot"
+  "Commerce"
 ];
 
 const industryOptions = [
