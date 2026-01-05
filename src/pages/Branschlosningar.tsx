@@ -4,8 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { partners, Partner, crmApplications, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
-import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
-import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
+import { ArrowLeft, Building2, Briefcase, ArrowDown } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 
@@ -170,10 +169,6 @@ const Branschlosningar = () => {
 
   const handleBackToIndustries = () => {
     setSelectedIndustry(null);
-  };
-
-  const handlePartnerClick = (partner: Partner) => {
-    trackPartnerClick(partner.name, partner.website, "branschlosningar");
   };
 
   const getProductLabel = () => {
@@ -350,31 +345,14 @@ const Branschlosningar = () => {
                         </div>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row gap-2">
-                        <Link 
-                          to={buildPartnerProfileUrl(partner.name)}
-                          className="flex-1"
-                        >
-                          <Button variant="outline" className="w-full gap-2">
-                            Öppna partnerkortet
-                          </Button>
-                        </Link>
-                        <a
-                          href={buildPartnerUrl(partner.website, partner.name, {
-                            application: selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service",
-                            industry: selectedIndustry?.name
-                          })}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => handlePartnerClick(partner)}
-                          className="flex-1"
-                        >
-                          <Button className="w-full gap-2 bg-amber-500 hover:bg-amber-600 text-white">
-                            Besök hemsida
-                            <ExternalLink className="h-4 w-4" />
-                          </Button>
-                        </a>
-                      </div>
+                      <Link 
+                        to={buildPartnerProfileUrl(partner.name)}
+                        className="block"
+                      >
+                        <Button variant="outline" className="w-full gap-2">
+                          Öppna partnerkortet
+                        </Button>
+                      </Link>
                     </div>
                   );
                 })}
