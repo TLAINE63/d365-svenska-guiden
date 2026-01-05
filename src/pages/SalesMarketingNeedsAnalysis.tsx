@@ -619,9 +619,38 @@ const SalesMarketingNeedsAnalysis = () => {
       .join("; ") || "Ej angivet";
     addSection("Utmaningar", challengesText);
     addSection("Säljbehov", data.salesNeeds.join(", ") || "Ej angivet");
+    addSection("Säljprocessens komplexitet", data.salesProcessComplexity || "Ej angivet");
     addSection("Marknadsföringsbehov", data.marketingNeeds.join(", ") || "Ej angivet");
+    addSection("Marknadsföringskanaler", data.marketingChannels.join(", ") || "Ej angivet");
     addSection("Integrationer", data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet");
     addSection("KPI:er", data.kpis.join(", ") || "Ej angivet");
+    
+    // Önskelista
+    if (data.wishlist.trim()) {
+      addSection("Önskelista", data.wishlist);
+    }
+    
+    // Beslutstidslinje
+    if (data.decisionTimeline) {
+      addSection("Beslutstidslinje", data.decisionTimeline);
+    }
+
+    // AI & Framtid
+    addSection("AI-intresse", data.aiInterest || "Ej angivet");
+    if (data.aiUseCases.length > 0) {
+      addSection("AI-användningsområden", data.aiUseCases.join(", "));
+    }
+    if (data.aiDetails) {
+      addSection("AI-detaljer", data.aiDetails);
+    }
+
+    // Övrig information
+    if (data.additionalInfo) {
+      addSection("Övrig information", data.additionalInfo);
+    }
+    if (data.currentPartners) {
+      addSection("Nuvarande Microsoft-partners", data.currentPartners);
+    }
 
     // Footer with contact info
     if (yPos > 230) {
@@ -672,10 +701,18 @@ const SalesMarketingNeedsAnalysis = () => {
               })
               .join("; ") || "Ej angivet",
             "Säljbehov": data.salesNeeds.join(", ") || "Ej angivet",
+            "Säljprocessens komplexitet": data.salesProcessComplexity || "Ej angivet",
             "Marknadsföring": data.marketingNeeds.join(", ") || "Ej angivet",
+            "Marknadsföringskanaler": data.marketingChannels.join(", ") || "Ej angivet",
             "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
+            "Önskelista": data.wishlist || "Ej angivet",
+            "Beslutstidslinje": data.decisionTimeline || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
+            "AI-användningsområden": data.aiUseCases.join(", ") || "Ej angivet",
+            "AI-detaljer": data.aiDetails || "Ej angivet",
+            "Övrig information": data.additionalInfo || "Ej angivet",
+            "Nuvarande partners": data.currentPartners || "Ej angivet",
           },
           recommendation: recommendation.products.length > 0 ? {
             product: recommendation.products.map(p => p.name).join(", "),

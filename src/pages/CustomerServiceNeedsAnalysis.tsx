@@ -560,6 +560,37 @@ const CustomerServiceNeedsAnalysis = () => {
     addSection("Supportkanaler", data.serviceChannels.join(", ") || "Ej angivet");
     addSection("Fältservice", data.hasFieldService === "Ja" ? data.fieldServiceNeeds.join(", ") || "Ja" : data.hasFieldService || "Ej angivet");
     addSection("Integrationer", data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet");
+    
+    // Önskelista
+    if (data.wishlist.trim()) {
+      addSection("Önskelista", data.wishlist);
+    }
+    
+    // Beslutstidslinje
+    if (data.decisionTimeline) {
+      addSection("Beslutstidslinje", data.decisionTimeline);
+    }
+
+    // AI & Framtid
+    addSection("AI-intresse", data.aiInterest || "Ej angivet");
+    if (data.aiUseCases.length > 0) {
+      const aiUseCaseNames = data.aiUseCases.map(id => {
+        const useCase = aiUseCaseCategories.find(c => c.id === id);
+        return useCase ? useCase.title : id;
+      });
+      addSection("AI-användningsområden", aiUseCaseNames.join(", "));
+    }
+    if (data.aiDetails) {
+      addSection("AI-detaljer", data.aiDetails);
+    }
+
+    // Övrig information
+    if (data.additionalInfo) {
+      addSection("Övrig information", data.additionalInfo);
+    }
+    if (data.currentPartners) {
+      addSection("Nuvarande Microsoft-partners", data.currentPartners);
+    }
 
     // Footer with contact info
     if (yPos > 230) {
@@ -610,9 +641,18 @@ const CustomerServiceNeedsAnalysis = () => {
               })
               .join("; ") || "Ej angivet",
             "Supportkanaler": data.serviceChannels.join(", ") || "Ej angivet",
-            "Fältservice": data.hasFieldService || "Ej angivet",
+            "Fältservice": data.hasFieldService === "Ja" ? data.fieldServiceNeeds.join(", ") || "Ja" : data.hasFieldService || "Ej angivet",
             "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet",
+            "Önskelista": data.wishlist || "Ej angivet",
+            "Beslutstidslinje": data.decisionTimeline || "Ej angivet",
             "AI-intresse": data.aiInterest || "Ej angivet",
+            "AI-användningsområden": data.aiUseCases.map(id => {
+              const useCase = aiUseCaseCategories.find(c => c.id === id);
+              return useCase ? useCase.title : id;
+            }).join(", ") || "Ej angivet",
+            "AI-detaljer": data.aiDetails || "Ej angivet",
+            "Övrig information": data.additionalInfo || "Ej angivet",
+            "Nuvarande partners": data.currentPartners || "Ej angivet",
           },
           recommendation: recommendation.products.length > 0 ? {
             product: recommendation.products.map(p => p.name).join(", "),
