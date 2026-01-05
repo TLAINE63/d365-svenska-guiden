@@ -13,7 +13,7 @@ import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { partners, allIndustries } from "@/data/partners";
+import { partners, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import {
   Accordion,
@@ -40,58 +40,40 @@ const FinanceSupplyChain = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Helper to get the lowest industry index for a partner (for sorting by industry priority)
-  const getIndustryPriority = (partner: typeof partners[0], industry: string | null): number => {
-    if (!industry) return 0;
-    for (let i = 0; i < partner.industries.length; i++) {
-      if (partner.industries[i].toLowerCase().includes(industry.toLowerCase()) ||
-          industry.toLowerCase().includes(partner.industries[i].toLowerCase())) {
-        return i;
-      }
-    }
-    return Infinity;
-  };
-
-  // Filter partners that work with Finance & SCM
+  // Filter partners that have Finance & SCM productFilters (betalande partners)
   const fscPartners = useMemo(() => {
-    let result = partners.filter(partner => partner.applications.includes("Finance & SCM"));
+    // Only show partners with productFilters.fsc defined (betalande FSC partners)
+    let result = partners.filter(partner => partner.productFilters?.fsc);
     
-    if (selectedIndustry) {
-      result = result.filter(partner => 
-        partner.industries.some(ind => 
-          ind.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
-          selectedIndustry.toLowerCase().includes(ind.toLowerCase()) ||
-          ind === "Alla branscher"
-        )
-      );
-    }
-
-    if (selectedCompanySize) {
-      const sizeFilter = companySizeFilters.find(f => f.label === selectedCompanySize);
-      if (sizeFilter) {
-        result = result.filter(partner => 
-          partner.companySize.some(size => sizeFilter.values.includes(size))
-        );
-      }
-    }
+    // Get selected size value for filtering
+    const selectedSizeValue = selectedCompanySize 
+      ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
+      : undefined;
     
-    // Sort by FSC ranking first, then industry priority, then alphabetically
+    // Apply product-specific filters
+    result = result.filter(partner => 
+      matchesProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedSizeValue, undefined)
+    );
+    
+    // Sort by FSC ranking, then alphabetically
     return result.sort((a, b) => {
-      const rankA = a.rankings?.fsc ?? 999;
-      const rankB = b.rankings?.fsc ?? 999;
+      const rankA = getProductRanking(a, 'fsc');
+      const rankB = getProductRanking(b, 'fsc');
       if (rankA !== rankB) {
         return rankA - rankB;
-      }
-      if (selectedIndustry) {
-        const priorityA = getIndustryPriority(a, selectedIndustry);
-        const priorityB = getIndustryPriority(b, selectedIndustry);
-        if (priorityA !== priorityB) {
-          return priorityA - priorityB;
-        }
       }
       return a.name.localeCompare(b.name, 'sv');
     });
   }, [selectedIndustry, selectedCompanySize]);
+
+  // Get available industries for FSC partners
+  const fscIndustries = useMemo(() => {
+    const industries = new Set<string>();
+    partners.forEach(partner => {
+      partner.productFilters?.fsc?.industries.forEach(ind => industries.add(ind));
+    });
+    return allIndustries.filter(ind => industries.has(ind));
+  }, []);
 
   const fscVideos = [
     {

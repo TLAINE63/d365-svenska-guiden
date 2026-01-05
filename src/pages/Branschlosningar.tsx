@@ -3,7 +3,7 @@ import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { partners, Partner, crmApplications } from "@/data/partners";
+import { partners, Partner, crmApplications, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import { ArrowLeft, ExternalLink, Building2, Briefcase, Users, ArrowDown } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
@@ -122,63 +122,45 @@ const Branschlosningar = () => {
   // Show all industries regardless of selected filter
   const displayedIndustries = industries;
 
-  // Filter partners based on selected product and industry
+  // Filter partners based on selected product and industry - only show betalande partners
   const filteredPartners = useMemo(() => {
     if (!selectedIndustry) return [];
     
-    const requiredApps = getApplicationsForProduct(selectedFilter);
-    
-    // Helper to get the product ranking based on selected filter
-    const getProductRanking = (partner: Partner): number => {
+    // Determine which product key to use for filtering
+    const getProductKey = (): 'bc' | 'fsc' | 'crm' | null => {
       switch (selectedFilter) {
-        case "bc":
-          return partner.rankings?.bc ?? 999;
-        case "fsc":
-          return partner.rankings?.fsc ?? 999;
+        case "bc": return 'bc';
+        case "fsc": return 'fsc';
         case "crm-sales":
-        case "crm-service":
-          return partner.rankings?.crm ?? 999;
-        default:
-          return 999;
+        case "crm-service": return 'crm';
+        default: return null;
       }
     };
     
-    // Helper to get the lowest industry index for a partner (0, 1, 2, or Infinity if not found)
-    const getIndustryPriority = (partner: Partner): number => {
-      for (let i = 0; i < partner.industries.length; i++) {
-        if (selectedIndustry.partnerIndustries.includes(partner.industries[i])) {
-          return i;
+    const productKey = getProductKey();
+    if (!productKey) return [];
+    
+    // Get selected industry name
+    const industryName = selectedIndustry.partnerIndustries[0];
+    
+    // Filter to only show betalande partners with matching productFilters
+    return partners
+      .filter(partner => {
+        const productFilter = partner.productFilters?.[productKey];
+        if (!productFilter) return false;
+        
+        // Check if partner has this industry in their product-specific industries
+        return productFilter.industries.includes(industryName);
+      })
+      .sort((a, b) => {
+        // Sort by product-specific ranking
+        const rankA = getProductFilterRanking(a, productKey);
+        const rankB = getProductFilterRanking(b, productKey);
+        if (rankA !== rankB) {
+          return rankA - rankB;
         }
-      }
-      return Infinity;
-    };
-    
-    return partners.filter((partner) => {
-      // Check if partner has any of the required applications
-      const hasApp = partner.applications.some(app => requiredApps.includes(app));
-      // Check if partner serves any of the mapped industries
-      const hasIndustry = partner.industries.some(ind => 
-        selectedIndustry.partnerIndustries.includes(ind)
-      );
-      return hasApp && hasIndustry;
-    }).sort((a, b) => {
-      // First sort by product ranking
-      const rankA = getProductRanking(a);
-      const rankB = getProductRanking(b);
-      if (rankA !== rankB) {
-        return rankA - rankB;
-      }
-      
-      // Then by industry priority (index 0, 1, 2)
-      const priorityA = getIndustryPriority(a);
-      const priorityB = getIndustryPriority(b);
-      if (priorityA !== priorityB) {
-        return priorityA - priorityB;
-      }
-      
-      // If same priority, sort alphabetically
-      return a.name.localeCompare(b.name, 'sv');
-    });
+        return a.name.localeCompare(b.name, 'sv');
+      });
   }, [selectedFilter, selectedIndustry]);
 
   const handleIndustryClick = (industry: Industry) => {

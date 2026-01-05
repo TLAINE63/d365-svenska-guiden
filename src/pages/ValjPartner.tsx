@@ -13,7 +13,7 @@ import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
-import { partners, Partner, allIndustries, IndustryExpertise } from "@/data/partners";
+import { partners, Partner, allIndustries, IndustryExpertise, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
 import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 
 // All available Dynamics 365 applications for filtering
@@ -168,65 +168,83 @@ const ValjPartner = () => {
     return null;
   };
 
-  // Filter and sort partners
+  // Filter and sort partners - only show partners with productFilters defined
   const filteredPartners = useMemo(() => {
-    let result = [...partners];
+    // Determine which product type is selected
+    const hasBCApp = selectedApplications.includes("Business Central");
+    const hasFSCApp = selectedApplications.includes("Finance & SCM");
+    const hasCRMApp = selectedApplications.some(app => 
+      ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
+    );
     
-    if (selectedApplications.length > 0) {
-      result = result.filter(partner => 
-        selectedApplications.some(app => partner.applications.includes(app))
+    // Get selected size value for filtering
+    const selectedSizeValue = selectedCompanySize 
+      ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
+      : undefined;
+    
+    let result: Partner[] = [];
+    
+    if (selectedApplications.length === 0) {
+      // No application selected - show all partners that have any productFilter
+      result = partners.filter(partner => 
+        partner.productFilters?.bc || partner.productFilters?.fsc || partner.productFilters?.crm
       );
+    } else {
+      // Filter based on selected applications
+      const matchingPartners = new Set<Partner>();
+      
+      partners.forEach(partner => {
+        if (hasBCApp && partner.productFilters?.bc) {
+          if (matchesProductFilter(partner, 'bc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+            matchingPartners.add(partner);
+          }
+        }
+        if (hasFSCApp && partner.productFilters?.fsc) {
+          if (matchesProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+            matchingPartners.add(partner);
+          }
+        }
+        if (hasCRMApp && partner.productFilters?.crm) {
+          if (matchesProductFilter(partner, 'crm', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+            matchingPartners.add(partner);
+          }
+        }
+      });
+      
+      result = Array.from(matchingPartners);
     }
     
-    if (selectedIndustry) {
-      result = result.filter(partner => 
-        partner.industries.some(ind => 
-          ind.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
-          selectedIndustry.toLowerCase().includes(ind.toLowerCase()) ||
-          ind === "Alla branscher"
-        )
-      );
-    }
-
-    if (selectedCompanySize) {
-      const sizeFilter = companySizeFilters.find(f => f.label === selectedCompanySize);
-      if (sizeFilter) {
+    // Apply additional filters for when no apps are selected
+    if (selectedApplications.length === 0) {
+      if (selectedIndustry) {
         result = result.filter(partner => 
-          partner.companySize.some(size => sizeFilter.values.includes(size))
+          partner.industries.some(ind => ind === selectedIndustry)
         );
       }
-    }
-
-    if (selectedGeography) {
-      // Geography hierarchy: Internationellt > Europa > Norden > Sverige
-      const geographyHierarchy: Record<string, string[]> = {
-        "Sverige": ["Sverige", "Norden", "Europa", "Internationellt"],
-        "Norden": ["Norden", "Europa", "Internationellt"],
-        "Europa": ["Europa", "Internationellt"],
-        "Internationellt": ["Internationellt"]
-      };
-      const validGeographies = geographyHierarchy[selectedGeography] || [selectedGeography];
-      result = result.filter(partner => validGeographies.includes(partner.geography));
+      
+      if (selectedSizeValue) {
+        result = result.filter(partner => 
+          partner.companySize.includes(selectedSizeValue)
+        );
+      }
+      
+      if (selectedGeography) {
+        const geographyHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+        const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
+        result = result.filter(partner => {
+          const partnerGeoIndex = geographyHierarchy.indexOf(partner.geography);
+          return partnerGeoIndex >= selectedGeoIndex;
+        });
+      }
     }
     
-    // Sort by product ranking first, then industry priority, then alphabetically
+    // Sort by product ranking first, then alphabetically
     return result.sort((a, b) => {
-      // First sort by product ranking
       const rankA = getProductRanking(a);
       const rankB = getProductRanking(b);
       if (rankA !== rankB) {
         return rankA - rankB;
       }
-      
-      // Then by industry priority
-      if (selectedIndustry) {
-        const priorityA = getIndustryPriority(a, selectedIndustry);
-        const priorityB = getIndustryPriority(b, selectedIndustry);
-        if (priorityA !== priorityB) {
-          return priorityA - priorityB;
-        }
-      }
-      
       return a.name.localeCompare(b.name, 'sv');
     });
   }, [selectedApplications, selectedIndustry, selectedCompanySize, selectedGeography]);
