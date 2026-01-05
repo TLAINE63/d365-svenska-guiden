@@ -14,7 +14,7 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import { partners, Partner, allIndustries, IndustryExpertise, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
-import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
+
 
 // All available Dynamics 365 applications for filtering
 const allApplications = [
