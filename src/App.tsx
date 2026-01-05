@@ -20,7 +20,7 @@ const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NeedsAnalysis = lazy(() => import("./pages/NeedsAnalysis"));
-const CRMNeedsAnalysis = lazy(() => import("./pages/CRMNeedsAnalysis"));
+
 const SalesMarketingNeedsAnalysis = lazy(() => import("./pages/SalesMarketingNeedsAnalysis"));
 const CustomerServiceNeedsAnalysis = lazy(() => import("./pages/CustomerServiceNeedsAnalysis"));
 const Branschlosningar = lazy(() => import("./pages/Branschlosningar"));
@@ -64,7 +64,7 @@ const App = () => (
             <Route path="/valj-partner" element={<ValjPartner />} />
             <Route path="/dataskydd" element={<PrivacyPolicy />} />
             <Route path="/behovsanalys" element={<NeedsAnalysis />} />
-            <Route path="/crm-behovsanalys" element={<CRMNeedsAnalysis />} />
+            
             <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
             <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
             <Route path="/branschlosningar" element={<Branschlosningar />} />
