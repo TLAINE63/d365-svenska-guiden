@@ -272,13 +272,24 @@ serve(async (req: Request): Promise<Response> => {
     // Add PDF attachment if provided
     if (pdfBase64 && pdfFilename) {
       const safeFilename = pdfFilename.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100) + ".pdf";
+      console.log(`PDF base64 length: ${pdfBase64.length} characters`);
+      
+      // Convert base64 to Uint8Array for Resend API
+      const binaryString = atob(pdfBase64);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      
+      // Convert to base64 array for JSON serialization (Resend expects base64 content)
       emailPayload.attachments = [
         {
           filename: safeFilename,
           content: pdfBase64,
+          content_type: "application/pdf",
         },
       ];
-      console.log(`Adding PDF attachment: ${safeFilename}`);
+      console.log(`Adding PDF attachment: ${safeFilename}, size: ${bytes.length} bytes`);
     }
 
     // Send customer email
