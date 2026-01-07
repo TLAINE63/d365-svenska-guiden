@@ -41,6 +41,8 @@ const PartnerProfile = () => {
   // Get filter context from URL params
   const selectedProduct = searchParams.get("product") || undefined;
   const selectedIndustry = searchParams.get("industry") || undefined;
+  const selectedCompanySize = searchParams.get("companySize") || undefined;
+  const selectedGeography = searchParams.get("geography") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   
   // Find static partner for productFilters
@@ -377,7 +379,17 @@ const PartnerProfile = () => {
                         {selectedIndustry}
                       </Badge>
                     )}
-                    {!selectedProduct && !selectedIndustry && (
+                    {selectedCompanySize && (
+                      <Badge variant="outline" className="border-muted-foreground/50 text-foreground">
+                        {selectedCompanySize}
+                      </Badge>
+                    )}
+                    {selectedGeography && (
+                      <Badge variant="outline" className="border-muted-foreground/50 text-foreground">
+                        {selectedGeography}
+                      </Badge>
+                    )}
+                    {!selectedProduct && !selectedIndustry && !selectedCompanySize && !selectedGeography && (
                       <span className="text-xs text-muted-foreground italic">Direktlänk</span>
                     )}
                   </div>
