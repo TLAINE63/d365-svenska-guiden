@@ -377,6 +377,9 @@ const PartnerProfile = () => {
                         {selectedIndustry}
                       </Badge>
                     )}
+                    {!selectedProduct && !selectedIndustry && (
+                      <span className="text-xs text-muted-foreground italic">Direktlänk</span>
+                    )}
                   </div>
                 </div>
                 
