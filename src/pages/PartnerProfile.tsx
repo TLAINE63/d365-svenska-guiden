@@ -4,11 +4,33 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Building2, Sparkles, Target, Briefcase } from "lucide-react";
+import { ArrowLeft, Building2, Sparkles, Target, Briefcase, CheckCircle2, Circle } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
-import { partners as staticPartners } from "@/data/partners";
+import { partners as staticPartners, Partner } from "@/data/partners";
 import { Helmet } from "react-helmet";
+
+// Map application names to product categories
+const getProductCategory = (app: string): 'bc' | 'fsc' | 'crm' | null => {
+  if (app === "Business Central") return 'bc';
+  if (app === "Finance & SCM") return 'fsc';
+  if (["Sales", "Customer Service", "Field Service", "Customer Insights (Marketing)", "Contact Center", "Project Operations"].includes(app)) return 'crm';
+  return null;
+};
+
+// Get product display name
+const getProductDisplayName = (category: 'bc' | 'fsc' | 'crm'): string => {
+  switch (category) {
+    case 'bc': return 'Business Central';
+    case 'fsc': return 'Finance & Supply Chain';
+    case 'crm': return 'CRM & Customer Engagement';
+  }
+};
+
+// Get applications for a product category
+const getApplicationsForCategory = (apps: string[], category: 'bc' | 'fsc' | 'crm'): string[] => {
+  return apps.filter(app => getProductCategory(app) === category);
+};
 
 const PartnerProfile = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -19,8 +41,7 @@ const PartnerProfile = () => {
   const selectedIndustry = searchParams.get("industry") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   
-  // Fallback to static data if not in database
-  // Generate slug consistently: lowercase, keep only alphanumeric and hyphens
+  // Find static partner for productFilters
   const staticPartner = staticPartners.find((p) => {
     const generatedSlug = p.name
       .toLowerCase()
@@ -46,6 +67,35 @@ const PartnerProfile = () => {
     created_at: "",
     updated_at: "",
   } : null);
+
+  // Get product categories this partner supports
+  const getProductCategories = (): ('bc' | 'fsc' | 'crm')[] => {
+    if (!partner) return [];
+    const categories = new Set<'bc' | 'fsc' | 'crm'>();
+    partner.applications.forEach(app => {
+      const cat = getProductCategory(app);
+      if (cat) categories.add(cat);
+    });
+    return Array.from(categories);
+  };
+
+  // Get industries for a specific product
+  const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'crm'): { primary: string[]; secondary: string[] } => {
+    if (!staticPartner?.productFilters?.[category]) {
+      // Fallback to general industries
+      const allIndustries = partner?.industries || [];
+      return { 
+        primary: allIndustries.slice(0, 1), 
+        secondary: allIndustries.slice(1, 3) 
+      };
+    }
+    
+    const productIndustries = staticPartner.productFilters[category]?.industries || [];
+    return {
+      primary: productIndustries.slice(0, 1),
+      secondary: productIndustries.slice(1, 3)
+    };
+  };
 
 
   if (isLoading) {
@@ -82,6 +132,8 @@ const PartnerProfile = () => {
       </div>
     );
   }
+
+  const productCategories = getProductCategories();
 
   return (
     <div className="min-h-screen bg-background">
@@ -151,61 +203,99 @@ const PartnerProfile = () => {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-transparent to-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto space-y-8">
-            {/* Applications & Industries side by side */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Applications */}
-              {partner.applications.length > 0 && (
-                <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-primary/5 overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
-                  <CardHeader className="relative pb-3">
-                    <CardTitle className="flex items-center gap-3 text-foreground text-lg font-bold tracking-tight">
-                      <div className="p-2.5 rounded-xl bg-primary/15 shadow-sm">
-                        <Briefcase className="w-5 h-5 text-primary" />
-                      </div>
-                      Kompetenser inom Dynamics 365
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="relative">
-                    <div className="flex flex-wrap gap-2">
-                      {partner.applications.map((app) => (
-                        <Badge 
-                          key={app} 
-                          className="bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors text-sm py-1.5 px-3"
-                        >
-                          {app}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Industries */}
-              {partner.industries.length > 0 && (
-                <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-accent/5 overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
-                  <CardHeader className="relative pb-3">
-                    <CardTitle className="flex items-center gap-3 text-foreground text-lg font-bold tracking-tight">
-                      <div className="p-2.5 rounded-xl bg-accent/15 shadow-sm">
-                        <Target className="w-5 h-5 text-accent" />
-                      </div>
-                      Branscher i fokus
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="relative">
-                    <div className="flex flex-wrap gap-2">
-                      {partner.industries.map((ind) => (
-                        <Badge 
-                          key={ind} 
-                          className="bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-colors text-sm py-1.5 px-3"
-                        >
-                          {ind}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
+            
+            {/* Product-specific cards */}
+            <div className="space-y-6">
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-3">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <Briefcase className="w-5 h-5 text-primary" />
+                </div>
+                Kompetenser inom Dynamics 365
+              </h2>
+              
+              <div className="grid gap-4">
+                {productCategories.map((category) => {
+                  const { primary, secondary } = getIndustriesForProduct(category);
+                  const apps = getApplicationsForCategory(partner.applications, category);
+                  
+                  return (
+                    <Card 
+                      key={category} 
+                      className="border-0 shadow-lg bg-gradient-to-br from-card to-primary/5 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                    >
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-lg font-bold text-foreground">
+                          {getProductDisplayName(category)}
+                        </CardTitle>
+                        {apps.length > 1 && (
+                          <div className="flex flex-wrap gap-1.5 mt-2">
+                            {apps.map(app => (
+                              <Badge 
+                                key={app} 
+                                variant="secondary"
+                                className="text-xs bg-muted/50"
+                              >
+                                {app}
+                              </Badge>
+                            ))}
+                          </div>
+                        )}
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <div className="space-y-3">
+                          {/* Primary industry */}
+                          {primary.length > 0 && (
+                            <div>
+                              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
+                                Branschfokus
+                              </p>
+                              <div className="flex flex-wrap gap-2">
+                                {primary.map(ind => (
+                                  <Badge 
+                                    key={ind}
+                                    className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm font-medium"
+                                  >
+                                    <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
+                                    {ind}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* Secondary industries */}
+                          {secondary.length > 0 && (
+                            <div>
+                              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
+                                Täcker även
+                              </p>
+                              <div className="flex flex-wrap gap-2">
+                                {secondary.map(ind => (
+                                  <Badge 
+                                    key={ind}
+                                    variant="outline"
+                                    className="border-primary/30 text-foreground py-1.5 px-3 text-sm"
+                                  >
+                                    <Circle className="w-3 h-3 mr-1.5 text-primary/50" />
+                                    {ind}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          
+                          {/* If no industries at all */}
+                          {primary.length === 0 && secondary.length === 0 && (
+                            <p className="text-sm text-muted-foreground italic">
+                              Branschoberoende
+                            </p>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Lead CTA */}
