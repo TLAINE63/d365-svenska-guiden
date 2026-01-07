@@ -359,25 +359,26 @@ const PartnerProfile = () => {
                 </p>
                 
                 {/* Show filter context if available */}
-                {(selectedProduct || selectedIndustry) && (
-                  <div className="mb-4 p-3 bg-muted/50 rounded-lg border border-border/50">
-                    <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
-                      Din sökning
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProduct && (
-                        <Badge className="bg-primary/15 text-primary border-primary/30">
-                          {selectedProduct}
-                        </Badge>
-                      )}
-                      {selectedIndustry && (
-                        <Badge variant="outline" className="border-accent/50 text-foreground">
-                          {selectedIndustry}
-                        </Badge>
-                      )}
-                    </div>
+                <div className="mb-4 p-3 bg-muted/50 rounded-lg border border-border/50">
+                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
+                    Din sökning
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-foreground/10 text-foreground border-foreground/20 font-semibold">
+                      {partner.name}
+                    </Badge>
+                    {selectedProduct && (
+                      <Badge className="bg-primary/15 text-primary border-primary/30">
+                        {selectedProduct}
+                      </Badge>
+                    )}
+                    {selectedIndustry && (
+                      <Badge variant="outline" className="border-accent/50 text-foreground">
+                        {selectedIndustry}
+                      </Badge>
+                    )}
                   </div>
-                )}
+                </div>
                 
                 <LeadCTA
                   sourcePage={`partner-profile-${partner.slug}`}
