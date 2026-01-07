@@ -88,10 +88,6 @@ const PartnerCard = ({
             <div className="flex items-start gap-2">
               <Star className="h-4 w-4 text-amber-500 mt-0.5 shrink-0 fill-amber-500" />
               <div>
-                <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1 uppercase tracking-wide">
-                  Branschexpertis: {showExpertise.industry}
-                  {showExpertise.application && ` • ${showExpertise.application}`}
-                </p>
                 <p className="text-sm text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
                   {showExpertise.description}
                 </p>
