@@ -159,6 +159,8 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
               profileUrl={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
               colorScheme="crm"
               productKey={productKey}
+              highlightedProduct={applicationFilter}
+              highlightedIndustry={selectedIndustry || undefined}
             />
           ))}
         </div>
