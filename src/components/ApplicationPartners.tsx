@@ -160,6 +160,12 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
             if (selectedIndustry) {
               params.set("industry", selectedIndustry);
             }
+            if (selectedCompanySize) {
+              params.set("companySize", selectedCompanySize);
+            }
+            if (selectedGeography) {
+              params.set("geography", selectedGeography);
+            }
             const profileUrl = `${baseUrl}?${params.toString()}`;
             
             return (
