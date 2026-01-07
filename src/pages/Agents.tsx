@@ -14,19 +14,14 @@ const Agents = () => {
 
   const agentVideos = [
     {
-      title: "Microsoft Agents - The Future of AI",
-      description: "Upptäck nästa generation av AI-automation med autonoma agenter",
-      videoId: "",
+      title: "AI Agents i Dynamics 365 - Översikt",
+      description: "En genomgång av hur AI-agenter fungerar i Dynamics 365-ekosystemet",
+      videoId: "AhcO8ujdDXo",
     },
     {
-      title: "Agents i Dynamics 365",
-      description: "Se hur Agents revolutionerar affärsprocesser",
-      videoId: "",
-    },
-    {
-      title: "From Copilot to Agents",
-      description: "Från AI-assistent till autonom agent - evolutionen av AI",
-      videoId: "",
+      title: "Building Effective Agents med Microsoft 365 Copilot",
+      description: "Lär dig bygga effektiva agenter i Microsoft-ekosystemet",
+      videoId: "mLK-sDL_8zQ",
     },
   ];
 
