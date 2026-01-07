@@ -517,6 +517,8 @@ const ValjPartner = () => {
                     profileUrl={buildPartnerProfileUrl(partner.name)}
                     colorScheme="amber"
                     productKey={productKey}
+                    highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
+                    highlightedIndustry={selectedIndustry || undefined}
                   />
                 );
               })}
