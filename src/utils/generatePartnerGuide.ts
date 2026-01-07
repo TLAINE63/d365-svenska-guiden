@@ -13,7 +13,7 @@ const getBase64FromUrl = async (url: string): Promise<string> => {
   });
 };
 
-export const generatePartnerGuide = async (): Promise<void> => {
+export const generatePartnerGuide = async (returnBase64: boolean = false): Promise<string | void> => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
@@ -369,6 +369,10 @@ export const generatePartnerGuide = async (): Promise<void> => {
 
   addFooter(currentPage);
 
-  // Save the PDF
+  // Return base64 or save the PDF
+  if (returnBase64) {
+    return doc.output('datauristring').split(',')[1];
+  }
+  
   doc.save("valj-ratt-dynamics-365-partner.pdf");
 };
