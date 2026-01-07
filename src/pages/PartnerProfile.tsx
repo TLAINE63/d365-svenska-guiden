@@ -4,10 +4,10 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Circle, ExternalLink, Phone, Mail } from "lucide-react";
+import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Circle, ExternalLink, Phone, Globe } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
-import { partners as staticPartners, Partner } from "@/data/partners";
+import { partners as staticPartners, Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
 
 // Map application names to product categories
@@ -91,15 +91,21 @@ const PartnerProfile = () => {
       const allIndustries = partner?.industries || [];
       return { 
         primary: allIndustries.slice(0, 2), 
-        secondary: allIndustries.slice(2, 4) 
+        secondary: [] 
       };
     }
     
-    const productIndustries = staticPartner.productFilters[filterKey]?.industries || [];
+    const productFilter = staticPartner.productFilters[filterKey];
     return {
-      primary: productIndustries.slice(0, 2),
-      secondary: productIndustries.slice(2, 4)
+      primary: productFilter?.industries || [],
+      secondary: productFilter?.secondaryIndustries || []
     };
+  };
+
+  // Get geography for a specific product
+  const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    return staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography || null;
   };
 
 
@@ -222,6 +228,7 @@ const PartnerProfile = () => {
                 {productCategories.map((category) => {
                   const { primary, secondary } = getIndustriesForProduct(category);
                   const apps = getApplicationsForCategory(partner.applications, category);
+                  const geography = getGeographyForProduct(category);
                   
                   return (
                     <Card 
@@ -294,6 +301,21 @@ const PartnerProfile = () => {
                             <p className="text-sm text-muted-foreground italic">
                               Branschoberoende
                             </p>
+                          )}
+
+                          {/* Geography */}
+                          {geography && (
+                            <div>
+                              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
+                                Geografisk täckning
+                              </p>
+                              <div className="flex items-center gap-2">
+                                <Globe className="w-4 h-4 text-primary/70" />
+                                <span className="text-sm text-foreground">
+                                  {getCumulativeGeographyDisplay(geography)}
+                                </span>
+                              </div>
+                            </div>
                           )}
                         </div>
                       </CardContent>
