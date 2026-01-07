@@ -81,6 +81,8 @@ interface LeadRequest {
   source_type?: string;
   message?: string;
   _hp?: string; // Honeypot field
+  pdfBase64?: string; // PDF attachment for lead magnet
+  pdfFilename?: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -185,6 +187,17 @@ const handler = async (req: Request): Promise<Response> => {
       // Send email to customer if lead magnet download
       if (isLeadMagnet) {
         try {
+          const attachments = data.pdfBase64 && data.pdfFilename ? [
+            {
+              filename: data.pdfFilename.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100) + ".pdf",
+              content: data.pdfBase64,
+            },
+          ] : undefined;
+          
+          if (attachments) {
+            console.log(`Adding PDF attachment: ${attachments[0].filename}`);
+          }
+          
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
             to: [sanitizedData.email],
@@ -206,11 +219,8 @@ const handler = async (req: Request): Promise<Response> => {
                   </p>
                   
                   <div style="background: #ecfdf5; border-radius: 8px; padding: 20px; margin: 24px 0; text-align: center;">
-                    <p style="color: #065f46; font-size: 14px; margin: 0 0 16px 0;">
-                      Din guide har laddats ner automatiskt i din webbläsare.
-                    </p>
-                    <p style="color: #6b7280; font-size: 13px; margin: 0;">
-                      Om nedladdningen inte startade automatiskt, besök <a href="https://www.d365.se" style="color: #10b981;">www.d365.se</a> och ladda ner igen.
+                    <p style="color: #065f46; font-size: 14px; margin: 0;">
+                      📎 Guiden är bifogad i detta mail som PDF.
                     </p>
                   </div>
                   
@@ -220,7 +230,6 @@ const handler = async (req: Request): Promise<Response> => {
                   <ul style="color: #4b5563; font-size: 15px; line-height: 1.8;">
                     <li>Checklista för att utvärdera Dynamics 365-partners</li>
                     <li>Viktiga frågor att ställa till potentiella partners</li>
-                    <li>Varningssignaler att vara uppmärksam på</li>
                     <li>Tips för att säkerställa en lyckad implementation</li>
                   </ul>
                   
@@ -243,9 +252,10 @@ const handler = async (req: Request): Promise<Response> => {
                 </div>
               </div>
             `,
+            attachments,
           });
           
-          console.log("Customer email sent to:", sanitizedData.email);
+          console.log("Customer email with PDF sent to:", sanitizedData.email);
         } catch (customerEmailError) {
           console.error("Customer email failed:", customerEmailError);
           // Continue with admin notification even if customer email fails

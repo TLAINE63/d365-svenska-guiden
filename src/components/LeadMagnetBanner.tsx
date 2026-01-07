@@ -39,6 +39,9 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
     setIsSubmitting(true);
 
     try {
+      // Generate PDF as base64 for email attachment
+      const pdfBase64 = await generatePartnerGuide(true);
+      
       const response = await supabase.functions.invoke("submit-lead", {
         body: {
           email,
@@ -48,6 +51,8 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
           source_type: "lead_magnet",
           message: "Laddat ner guiden 'Så väljer du rätt Dynamics 365-partner'",
           _hp: honeypot, // Honeypot field for server-side validation
+          pdfBase64: pdfBase64,
+          pdfFilename: "valj-ratt-dynamics-365-partner",
         },
       });
 
@@ -64,10 +69,14 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
       }
 
       console.log("Lead magnet success:", response.data);
+      
+      // Also save PDF locally for the user
+      await generatePartnerGuide(false);
+      
       setIsSubmitted(true);
       toast({
         title: "Guiden skickas till din e-post!",
-        description: "Kolla din inkorg inom några minuter.",
+        description: "Guiden laddas också ner automatiskt.",
       });
     } catch (error: unknown) {
       console.error("Error submitting lead:", error);
