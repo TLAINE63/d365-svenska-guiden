@@ -169,9 +169,12 @@ const PartnerCard = ({
         )}
 
         {/* Geography */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground px-1">
-          <Globe className="w-4 h-4 text-primary/70" />
-          <span>{getCumulativeGeographyDisplay(geography)}</span>
+        <div className="bg-muted/20 rounded-lg p-3 border border-muted/30">
+          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Geografisk täckning</p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Globe className="w-4 h-4 text-primary/70" />
+            <span>{getCumulativeGeographyDisplay(geography)}</span>
+          </div>
         </div>
 
         <div className="mt-auto pt-4 border-t border-border/50">
