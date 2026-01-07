@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Download, Users, Megaphone, Target, Building2, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
-import jsPDF from "jspdf";
+// jsPDF is dynamically imported when needed to reduce initial bundle size
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -523,6 +523,8 @@ const SalesMarketingNeedsAnalysis = () => {
     if (!validateContactForm()) return;
     
     const recommendation = getRecommendation();
+    // Dynamic import to reduce initial bundle size
+    const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
     const margin = 20;

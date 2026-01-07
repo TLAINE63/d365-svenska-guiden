@@ -1,4 +1,3 @@
-import jsPDF from "jspdf";
 import logoImage from "@/assets/dynamic-factory-logo-new.jpg";
 
 // Convert image to base64
@@ -14,6 +13,8 @@ const getBase64FromUrl = async (url: string): Promise<string> => {
 };
 
 export const generatePartnerGuide = async (returnBase64: boolean = false): Promise<string | void> => {
+  // Dynamic import to reduce initial bundle size
+  const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
