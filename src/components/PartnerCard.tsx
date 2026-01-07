@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Globe, CheckCircle2, Circle } from "lucide-react";
+import { ArrowRight, Globe, CheckCircle2, Circle, Search } from "lucide-react";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 
 interface PartnerCardProps {
@@ -10,13 +10,17 @@ interface PartnerCardProps {
   profileUrl: string;
   colorScheme?: 'primary' | 'crm' | 'amber';
   productKey?: 'bc' | 'fsc' | 'crm' | null;
+  highlightedProduct?: string;
+  highlightedIndustry?: string;
 }
 
 const PartnerCard = ({ 
   partner, 
   profileUrl, 
   colorScheme = 'primary',
-  productKey
+  productKey,
+  highlightedProduct,
+  highlightedIndustry
 }: PartnerCardProps) => {
   // Get color classes based on scheme
   const getColorClasses = () => {
@@ -76,6 +80,28 @@ const PartnerCard = ({
         </Link>
       </CardHeader>
       <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
+
+        {/* Highlighted filters - Din sökning */}
+        {(highlightedProduct || highlightedIndustry) && (
+          <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 border border-amber-200 dark:border-amber-700/50">
+            <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-2 uppercase tracking-wide flex items-center gap-1">
+              <Search className="w-3 h-3" />
+              Din sökning
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {highlightedProduct && (
+                <Badge className="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600">
+                  {highlightedProduct}
+                </Badge>
+              )}
+              {highlightedIndustry && (
+                <Badge variant="outline" className="text-xs border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-300">
+                  {highlightedIndustry}
+                </Badge>
+              )}
+            </div>
+          </div>
+        )}
 
         <p className="text-sm text-muted-foreground leading-relaxed">
           {partner.description}
