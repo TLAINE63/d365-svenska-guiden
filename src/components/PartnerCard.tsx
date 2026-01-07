@@ -12,6 +12,8 @@ interface PartnerCardProps {
   productKey?: 'bc' | 'fsc' | 'crm' | null;
   highlightedProduct?: string;
   highlightedIndustry?: string;
+  highlightedCompanySize?: string;
+  highlightedGeography?: string;
 }
 
 const PartnerCard = ({ 
@@ -20,7 +22,9 @@ const PartnerCard = ({
   colorScheme = 'primary',
   productKey,
   highlightedProduct,
-  highlightedIndustry
+  highlightedIndustry,
+  highlightedCompanySize,
+  highlightedGeography
 }: PartnerCardProps) => {
   // Get color classes based on scheme
   const getColorClasses = () => {
@@ -82,7 +86,7 @@ const PartnerCard = ({
       <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
 
         {/* Highlighted filters - Din sökning */}
-        {(highlightedProduct || highlightedIndustry) && (
+        {(highlightedProduct || highlightedIndustry || highlightedCompanySize || highlightedGeography) && (
           <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 border border-amber-200 dark:border-amber-700/50">
             <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-2 uppercase tracking-wide flex items-center gap-1">
               <Search className="w-3 h-3" />
@@ -97,6 +101,16 @@ const PartnerCard = ({
               {highlightedIndustry && (
                 <Badge variant="outline" className="text-xs border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-300">
                   {highlightedIndustry}
+                </Badge>
+              )}
+              {highlightedCompanySize && (
+                <Badge variant="outline" className="text-xs border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-300">
+                  {highlightedCompanySize}
+                </Badge>
+              )}
+              {highlightedGeography && (
+                <Badge variant="outline" className="text-xs border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-300">
+                  {highlightedGeography}
                 </Badge>
               )}
             </div>

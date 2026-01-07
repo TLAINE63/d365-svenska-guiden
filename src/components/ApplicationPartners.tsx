@@ -177,6 +177,8 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
                 productKey={productKey}
                 highlightedProduct={applicationFilter}
                 highlightedIndustry={selectedIndustry || undefined}
+                highlightedCompanySize={selectedCompanySize || undefined}
+                highlightedGeography={selectedGeography || undefined}
               />
             );
           })}
