@@ -337,7 +337,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
           <div className="space-y-6">
             <div className="flex items-center gap-2 text-primary">
               <CheckCircle className="h-6 w-6" />
-              <h3 className="text-lg font-semibold">Baserat på dina val rekommenderar vi dessa partners:</h3>
+              <h3 className="text-lg font-semibold">Baserat på dina val skulle följande partners kunna passa er verksamhet:</h3>
             </div>
             
             <div className="space-y-4">
