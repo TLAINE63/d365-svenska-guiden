@@ -12,20 +12,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, CheckCircle, ExternalLink } from "lucide-react";
-import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
+import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
-
-interface Partner {
-  name: string;
-  logo: string;
-  website: string;
-  description: string;
-  applications: string[];
-  industries: string[];
-  companySize: string[];
-  markets?: string[];
-}
+import { Partner, matchesProductFilter, getProductRanking } from "@/data/partners";
 
 interface PartnerGuideDialogProps {
   open: boolean;
@@ -67,10 +56,10 @@ const industryOptions = [
 ];
 
 const marketOptions = [
-  { value: "sverige", label: "Sverige" },
-  { value: "norden", label: "Norden" },
-  { value: "europa", label: "Europa" },
-  { value: "internationellt", label: "Internationellt" }
+  { value: "Sverige", label: "Sverige" },
+  { value: "Norden", label: "Norden" },
+  { value: "Europa", label: "Europa" },
+  { value: "Internationellt", label: "Internationellt" }
 ];
 
 const sizeOptions = [
@@ -78,8 +67,8 @@ const sizeOptions = [
   { value: "50-99", label: "50-99 anställda" },
   { value: "100-249", label: "100-249 anställda" },
   { value: "250-999", label: "250-999 anställda" },
-  { value: "1000-4999", label: "1.000-4.999 anställda" },
-  { value: "5000+", label: "Mer än 5.000 anställda" }
+  { value: "1.000-4.999", label: "1.000-4.999 anställda" },
+  { value: ">5.000", label: "Mer än 5.000 anställda" }
 ];
 
 const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialogProps) => {
@@ -92,82 +81,48 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
 
   const totalSteps = 4;
 
-  const calculatePartnerScore = (partner: Partner): number => {
-    let score = 0;
-
-    // Application match
-    if (selectedApp) {
-      if (partner.applications.some(pApp => 
-        pApp.toLowerCase().includes(selectedApp.toLowerCase()) ||
-        selectedApp.toLowerCase().includes(pApp.toLowerCase())
-      )) {
-        score += 3;
-      }
+  // Determine product type from selected application
+  const getProductType = (app: string): 'bc' | 'fsc' | 'crm' | null => {
+    if (app === "Business Central") return 'bc';
+    if (app === "Finance & SCM") return 'fsc';
+    if (["Sales", "Customer Service", "Field Service", "Customer Insights (Marketing)", "Contact Center", "Project Operations", "Commerce"].includes(app)) {
+      return 'crm';
     }
-
-    // Industry match
-    if (selectedIndustry) {
-      if (partner.industries.some(pInd => 
-        pInd.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
-        selectedIndustry.toLowerCase().includes(pInd.toLowerCase()) ||
-        pInd === "Alla branscher"
-      )) {
-        score += 2;
-      }
-    }
-
-    // Size match
-    const sizeMap: Record<string, string[]> = {
-      "1-49": ["1-49"],
-      "50-99": ["50-99"],
-      "100-249": ["100-249"],
-      "250-999": ["250-999"],
-      "1000-4999": ["1.000-4.999"],
-      "5000+": [">5.000"]
-    };
-    if (selectedSize && sizeMap[selectedSize]) {
-      if (partner.companySize.some(size => sizeMap[selectedSize].includes(size))) {
-        score += 2;
-      }
-    }
-
-    // Market match - bonus for international partners if international selected
-    if (selectedMarket === "internationellt") {
-      if (partner.description.toLowerCase().includes("internationell") ||
-          partner.description.toLowerCase().includes("global") ||
-          partner.description.toLowerCase().includes("europa") ||
-          partner.description.toLowerCase().includes("norden")) {
-        score += 1;
-      }
-    }
-
-    return score;
+    return null;
   };
 
   const findBestPartners = () => {
-    const scoredPartners = partners.map(partner => ({
-      partner,
-      score: calculatePartnerScore(partner)
-    }));
-
-    scoredPartners.sort((a, b) => b.score - a.score);
-
-    // Get top 3 with score > 0
-    const topPartners = scoredPartners
-      .filter(sp => sp.score > 0)
-      .slice(0, 3)
-      .map(sp => sp.partner);
-
-    // If we don't have 3, fill with random partners
-    if (topPartners.length < 3) {
-      const remaining = partners.filter(p => !topPartners.includes(p));
-      while (topPartners.length < 3 && remaining.length > 0) {
-        const randomIndex = Math.floor(Math.random() * remaining.length);
-        topPartners.push(remaining.splice(randomIndex, 1)[0]);
-      }
+    const productType = getProductType(selectedApp);
+    
+    if (!productType) {
+      setSuggestedPartners([]);
+      setStep(5);
+      return;
     }
 
-    setSuggestedPartners(topPartners);
+    // Filter partners using the same logic as the rest of the site
+    const matchingPartners = partners.filter(partner => 
+      matchesProductFilter(
+        partner,
+        productType,
+        selectedIndustry || undefined,
+        selectedSize || undefined,
+        selectedMarket || undefined
+      )
+    );
+
+    // Sort by product ranking (same as ValjPartner.tsx)
+    const sortedPartners = matchingPartners.sort((a, b) => {
+      const rankA = getProductRanking(a, productType);
+      const rankB = getProductRanking(b, productType);
+      if (rankA !== rankB) {
+        return rankA - rankB;
+      }
+      return a.name.localeCompare(b.name, 'sv');
+    });
+
+    // Take top 3
+    setSuggestedPartners(sortedPartners.slice(0, 3));
     setStep(5);
   };
 
