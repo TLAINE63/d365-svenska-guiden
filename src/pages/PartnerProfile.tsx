@@ -9,6 +9,7 @@ import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners, Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 // Map application names to product categories
 const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
@@ -341,6 +342,19 @@ const PartnerProfile = () => {
                   href={partner.website}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    trackPartnerClick(
+                      partner.name,
+                      partner.website,
+                      `partner-profile-${partner.slug}`,
+                      {
+                        product: selectedProduct,
+                        industry: selectedIndustry,
+                        companySize: selectedCompanySize,
+                        geography: selectedGeography,
+                      }
+                    );
+                  }}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
                 >
                   Besök {partner.name}
