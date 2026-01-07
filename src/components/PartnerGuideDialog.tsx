@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
@@ -84,53 +84,37 @@ const sizeOptions = [
 
 const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialogProps) => {
   const [step, setStep] = useState(1);
-  const [selectedApps, setSelectedApps] = useState<string[]>([]);
-  const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
+  const [selectedApp, setSelectedApp] = useState<string>("");
+  const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<Partner[]>([]);
 
   const totalSteps = 4;
 
-  const handleAppToggle = (app: string) => {
-    setSelectedApps(prev =>
-      prev.includes(app)
-        ? prev.filter(a => a !== app)
-        : [...prev, app]
-    );
-  };
-
-  const handleIndustryToggle = (industry: string) => {
-    setSelectedIndustries(prev =>
-      prev.includes(industry)
-        ? prev.filter(i => i !== industry)
-        : [...prev, industry]
-    );
-  };
-
   const calculatePartnerScore = (partner: Partner): number => {
     let score = 0;
 
     // Application match
-    selectedApps.forEach(app => {
+    if (selectedApp) {
       if (partner.applications.some(pApp => 
-        pApp.toLowerCase().includes(app.toLowerCase()) ||
-        app.toLowerCase().includes(pApp.toLowerCase())
+        pApp.toLowerCase().includes(selectedApp.toLowerCase()) ||
+        selectedApp.toLowerCase().includes(pApp.toLowerCase())
       )) {
         score += 3;
       }
-    });
+    }
 
     // Industry match
-    selectedIndustries.forEach(industry => {
+    if (selectedIndustry) {
       if (partner.industries.some(pInd => 
-        pInd.toLowerCase().includes(industry.toLowerCase()) ||
-        industry.toLowerCase().includes(pInd.toLowerCase()) ||
+        pInd.toLowerCase().includes(selectedIndustry.toLowerCase()) ||
+        selectedIndustry.toLowerCase().includes(pInd.toLowerCase()) ||
         pInd === "Alla branscher"
       )) {
         score += 2;
       }
-    });
+    }
 
     // Size match
     const sizeMap: Record<string, string[]> = {
@@ -203,8 +187,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
 
   const handleReset = () => {
     setStep(1);
-    setSelectedApps([]);
-    setSelectedIndustries([]);
+    setSelectedApp("");
+    setSelectedIndustry("");
     setSelectedMarket("");
     setSelectedSize("");
     setSuggestedPartners([]);
@@ -212,8 +196,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
 
   const canProceed = () => {
     switch (step) {
-      case 1: return selectedApps.length > 0;
-      case 2: return selectedIndustries.length > 0;
+      case 1: return selectedApp !== "";
+      case 2: return selectedIndustry !== "";
       case 3: return selectedMarket !== "";
       case 4: return selectedSize !== "";
       default: return true;
@@ -231,53 +215,51 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
 
         {step === 1 && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Vilka applikationer är du intresserad av?</h3>
-            <p className="text-sm text-muted-foreground">Välj en eller flera</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {applicationOptions.map(app => (
-                <div
-                  key={app}
-                  className={`flex items-center space-x-2 p-3 rounded-lg border cursor-pointer transition-colors ${
-                    selectedApps.includes(app)
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                  onClick={() => handleAppToggle(app)}
-                >
-                  <Checkbox
-                    checked={selectedApps.includes(app)}
-                    onCheckedChange={() => handleAppToggle(app)}
-                  />
-                  <Label className="cursor-pointer text-sm">{app}</Label>
-                </div>
-              ))}
-            </div>
+            <h3 className="text-lg font-semibold">Vilken applikation är du intresserad av?</h3>
+            <p className="text-sm text-muted-foreground">Välj en</p>
+            <RadioGroup value={selectedApp} onValueChange={setSelectedApp}>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {applicationOptions.map(app => (
+                  <div
+                    key={app}
+                    className={`flex items-center space-x-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                      selectedApp === app
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                    onClick={() => setSelectedApp(app)}
+                  >
+                    <RadioGroupItem value={app} id={`app-${app}`} />
+                    <Label htmlFor={`app-${app}`} className="cursor-pointer text-sm">{app}</Label>
+                  </div>
+                ))}
+              </div>
+            </RadioGroup>
           </div>
         )}
 
         {step === 2 && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Vilken bransch tillhör du?</h3>
-            <p className="text-sm text-muted-foreground">Välj en eller flera</p>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {industryOptions.map(industry => (
-                <div
-                  key={industry}
-                  className={`flex items-center space-x-2 p-3 rounded-lg border cursor-pointer transition-colors ${
-                    selectedIndustries.includes(industry)
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                  onClick={() => handleIndustryToggle(industry)}
-                >
-                  <Checkbox
-                    checked={selectedIndustries.includes(industry)}
-                    onCheckedChange={() => handleIndustryToggle(industry)}
-                  />
-                  <Label className="cursor-pointer text-sm">{industry}</Label>
-                </div>
-              ))}
-            </div>
+            <p className="text-sm text-muted-foreground">Välj en</p>
+            <RadioGroup value={selectedIndustry} onValueChange={setSelectedIndustry}>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {industryOptions.map(industry => (
+                  <div
+                    key={industry}
+                    className={`flex items-center space-x-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                      selectedIndustry === industry
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                    onClick={() => setSelectedIndustry(industry)}
+                  >
+                    <RadioGroupItem value={industry} id={`industry-${industry}`} />
+                    <Label htmlFor={`industry-${industry}`} className="cursor-pointer text-sm">{industry}</Label>
+                  </div>
+                ))}
+              </div>
+            </RadioGroup>
           </div>
         )}
 
@@ -341,9 +323,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
             </div>
             
             <div className="space-y-4">
-              {suggestedPartners.map((partner, index) => {
+            {suggestedPartners.map((partner, index) => {
                 const partnerSlug = partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                const profileUrl = `/partner/${partnerSlug}${selectedApps.length > 0 ? `?product=${encodeURIComponent(selectedApps[0])}` : ""}${selectedIndustries.length > 0 ? `${selectedApps.length > 0 ? "&" : "?"}industry=${encodeURIComponent(selectedIndustries[0])}` : ""}`;
+                const profileUrl = `/partner/${partnerSlug}${selectedApp ? `?product=${encodeURIComponent(selectedApp)}` : ""}${selectedIndustry ? `${selectedApp ? "&" : "?"}industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
                 
                 return (
                   <Card key={index} className="border border-border">
@@ -377,8 +359,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
 
             <LeadCTA
               sourcePage="partner-guide-dialog"
-              selectedProducts={selectedApps}
-              selectedIndustry={selectedIndustries[0]}
+              selectedProducts={selectedApp ? [selectedApp] : []}
+              selectedIndustry={selectedIndustry}
               selectedCompanySize={sizeOptions.find(o => o.value === selectedSize)?.label}
               title="Låt oss hjälpa dig vidare"
               description="Lämna dina uppgifter så hjälper vi dig att komma i kontakt med rätt partner och kontaktperson."
