@@ -332,6 +332,8 @@ const Branschlosningar = () => {
                       profileUrl={buildPartnerProfileUrl(partner.name)}
                       colorScheme={selectedFilter === 'bc' ? 'primary' : selectedFilter === 'fsc' ? 'primary' : 'crm'}
                       productKey={productKey}
+                      highlightedProduct={getProductLabel()}
+                      highlightedIndustry={selectedIndustry?.name}
                     />
                   );
                 })}
