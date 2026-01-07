@@ -14,7 +14,7 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
-import { partners, Partner, allIndustries, IndustryExpertise, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
+import { partners, Partner, allIndustries, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
 
 
 // All available Dynamics 365 applications for filtering
@@ -136,37 +136,6 @@ const ValjPartner = () => {
     }
     
     return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
-  };
-  // Helper to find matching industry expertise for a partner
-  const getMatchingExpertise = (partner: Partner): IndustryExpertise | null => {
-    if (!partner.industryExpertise || partner.industryExpertise.length === 0) return null;
-    
-    // First try to find exact match for both industry and application
-    if (selectedIndustry && selectedApplications.length > 0) {
-      const exactMatch = partner.industryExpertise.find(exp => 
-        exp.industry.toLowerCase().includes(selectedIndustry.toLowerCase()) &&
-        exp.application && selectedApplications.includes(exp.application)
-      );
-      if (exactMatch) return exactMatch;
-    }
-    
-    // Then try to find match for just industry
-    if (selectedIndustry) {
-      const industryMatch = partner.industryExpertise.find(exp => 
-        exp.industry.toLowerCase().includes(selectedIndustry.toLowerCase())
-      );
-      if (industryMatch) return industryMatch;
-    }
-    
-    // Then try to find match for just application
-    if (selectedApplications.length > 0) {
-      const appMatch = partner.industryExpertise.find(exp => 
-        exp.application && selectedApplications.includes(exp.application)
-      );
-      if (appMatch) return appMatch;
-    }
-    
-    return null;
   };
 
   // Filter and sort partners - only show partners with productFilters defined
@@ -541,18 +510,12 @@ const ValjPartner = () => {
                 else if (partner.productFilters?.fsc) productKey = 'fsc';
                 else if (partner.productFilters?.crm) productKey = 'crm';
 
-                const expertise = getMatchingExpertise(partner);
-                const showExpertise = expertise && (selectedIndustry || selectedApplications.length > 0) 
-                  ? expertise 
-                  : null;
-
                 return (
                   <PartnerCard
                     key={index}
                     partner={partner}
                     profileUrl={buildPartnerProfileUrl(partner.name)}
                     colorScheme="amber"
-                    showExpertise={showExpertise}
                     productKey={productKey}
                   />
                 );

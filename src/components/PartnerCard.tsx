@@ -2,18 +2,13 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star, Globe, CheckCircle2, Circle } from "lucide-react";
+import { ArrowRight, Globe, CheckCircle2, Circle } from "lucide-react";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 
 interface PartnerCardProps {
   partner: Partner;
   profileUrl: string;
   colorScheme?: 'primary' | 'crm' | 'amber';
-  showExpertise?: {
-    industry?: string;
-    application?: string;
-    description: string;
-  } | null;
   productKey?: 'bc' | 'fsc' | 'crm' | null;
 }
 
@@ -21,7 +16,6 @@ const PartnerCard = ({
   partner, 
   profileUrl, 
   colorScheme = 'primary',
-  showExpertise,
   productKey
 }: PartnerCardProps) => {
   // Get color classes based on scheme
@@ -82,19 +76,6 @@ const PartnerCard = ({
         </Link>
       </CardHeader>
       <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
-        {/* Show industry expertise if matching filters */}
-        {showExpertise && (
-          <div className="bg-gradient-to-r from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/10 rounded-lg p-3 border border-amber-200 dark:border-amber-700/50">
-            <div className="flex items-start gap-2">
-              <Star className="h-4 w-4 text-amber-500 mt-0.5 shrink-0 fill-amber-500" />
-              <div>
-                <p className="text-sm text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
-                  {showExpertise.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
 
         <p className="text-sm text-muted-foreground leading-relaxed">
           {partner.description}
