@@ -208,15 +208,14 @@ const ValjPartner = () => {
       }
     }
     
-    // Sort by product ranking first, then alphabetically
-    return result.sort((a, b) => {
-      const rankA = getProductRanking(a);
-      const rankB = getProductRanking(b);
-      if (rankA !== rankB) {
-        return rankA - rankB;
-      }
-      return a.name.localeCompare(b.name, 'sv');
-    });
+    // Shuffle partners randomly when filters are applied for fair exposure
+    // Use Fisher-Yates shuffle algorithm
+    const shuffled = [...result];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
   }, [selectedApplications, selectedIndustry, selectedCompanySize, selectedGeography]);
 
   return (
