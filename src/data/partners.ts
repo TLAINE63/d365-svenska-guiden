@@ -4,6 +4,14 @@ export interface IndustryExpertise {
   description: string;
 }
 
+export interface ProductFilter {
+  industries: string[]; // Branschfokus 1 & 2 - används för filtrering
+  secondaryIndustries?: string[]; // "Erfarenhet även inom" - visas på profil, ej filtrering
+  companySize: string[];
+  geography: string;
+  ranking: number;
+}
+
 export interface Partner {
   name: string;
   logo: string;
@@ -22,24 +30,9 @@ export interface Partner {
   industryExpertise?: IndustryExpertise[];
   // Product-specific filtering data from Excel
   productFilters?: {
-    bc?: {
-      industries: string[];
-      companySize: string[];
-      geography: string;
-      ranking: number;
-    };
-    fsc?: {
-      industries: string[];
-      companySize: string[];
-      geography: string;
-      ranking: number;
-    };
-    crm?: {
-      industries: string[];
-      companySize: string[];
-      geography: string;
-      ranking: number;
-    };
+    bc?: ProductFilter;
+    fsc?: ProductFilter;
+    crm?: ProductFilter;
   };
 }
 
@@ -81,6 +74,7 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Bygg & Entreprenad"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 1
@@ -108,12 +102,14 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Grossist & Distribution", "Retail & E-handel"],
+        secondaryIndustries: ["Tillverkningsindustri", "Konsulttjänster"],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
         ranking: 3
       },
       crm: {
         industries: ["Grossist & Distribution", "Retail & E-handel"],
+        secondaryIndustries: [],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
         ranking: 1
@@ -136,7 +132,7 @@ export const partners: Partner[] = [
     website: "https://www.inbiz.se/microsoft-partner/",
     description: "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005.",
     applications: ["Business Central"],
-    industries: ["Tillverkningsindustri", "Grossist & Distribution"],
+    industries: ["Tillverkningsindustri", "Grossist & Distribution", "Livsmedel & Processindustri", "Konsulttjänster"],
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
     geography: "Sverige",
@@ -144,6 +140,7 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Tillverkningsindustri", "Grossist & Distribution"],
+        secondaryIndustries: ["Livsmedel & Processindustri", "Konsulttjänster"],
         companySize: ["1-49", "50-99", "250-999"],
         geography: "Sverige",
         ranking: 2
@@ -171,6 +168,7 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
         ranking: 2
@@ -198,18 +196,21 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Tillverkningsindustri", "Bygg & Entreprenad"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 6
       },
       fsc: {
         industries: ["Tillverkningsindustri", "Finans & Försäkring"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 1
       },
       crm: {
         industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 1
@@ -233,7 +234,7 @@ export const partners: Partner[] = [
     website: "https://www.nabsolutions.se/dynamics-365-business-central/",
     description: "NAB Solutions är specialister på Dynamics 365 Business Central och CRM med lång erfarenhet av implementationer för svenska företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+    industries: ["Grossist & Distribution", "Tillverkningsindustri", "Life Science / Medtech", "Konsulttjänster"],
     companySize: ["1-49", "50-99", "250-999"],
     revenue: ["1-24 MSEK", "25-99 MSEK", "500-999 MSEK"],
     geography: "Sverige",
@@ -241,12 +242,14 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+        secondaryIndustries: ["Life Science / Medtech", "Konsulttjänster"],
         companySize: ["1-49", "50-99", "250-999"],
         geography: "Sverige",
         ranking: 1
       },
       crm: {
         industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+        secondaryIndustries: [],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
         ranking: 1
@@ -278,6 +281,7 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+        secondaryIndustries: [],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
         ranking: 4
@@ -310,12 +314,14 @@ export const partners: Partner[] = [
     productFilters: {
       bc: {
         industries: ["Konsulttjänster", "Fastighet & Förvaltning"],
+        secondaryIndustries: [],
         companySize: ["1-49", "50-99", "100-249"],
         geography: "Sverige",
         ranking: 3
       },
       crm: {
         industries: ["Konsulttjänster", "Fastighet & Förvaltning"],
+        secondaryIndustries: [],
         companySize: ["1-49", "50-99", "100-249"],
         geography: "Sverige",
         ranking: 5
@@ -340,7 +346,7 @@ export const partners: Partner[] = [
     website: "https://www.be-terna.com/sv/losningar/microsoft",
     description: "BE-terna är en internationell partner som vägleder företag till en säker digital framtid.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Grossist & Distribution", "Finans & Försäkring", "Tillverkningsindustri"],
+    industries: ["Grossist & Distribution", "Finans & Försäkring", "Tillverkningsindustri", "Livsmedel & Processindustri"],
     companySize: ["100-249", "250-999", "1.000-4.999"],
     revenue: ["100-499 MSEK", "500-999 MSEK", "1.000-4.999 MSEK"],
     geography: "Europa",
@@ -348,6 +354,7 @@ export const partners: Partner[] = [
     productFilters: {
       fsc: {
         industries: ["Grossist & Distribution", "Finans & Försäkring"],
+        secondaryIndustries: ["Livsmedel & Processindustri", "Tillverkningsindustri"],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Europa",
         ranking: 1
@@ -380,12 +387,14 @@ export const partners: Partner[] = [
     productFilters: {
       fsc: {
         industries: ["Grossist & Distribution", "Retail & E-handel"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 2
       },
       crm: {
         industries: ["Tillverkningsindustri", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 6
@@ -418,6 +427,7 @@ export const partners: Partner[] = [
     productFilters: {
       fsc: {
         industries: ["Finans & Försäkring", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 1
@@ -450,12 +460,14 @@ export const partners: Partner[] = [
     productFilters: {
       fsc: {
         industries: ["Tillverkningsindustri", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 2
       },
       crm: {
         industries: ["Konsulttjänster", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 3
@@ -490,6 +502,7 @@ export const partners: Partner[] = [
     productFilters: {
       crm: {
         industries: ["Konsulttjänster", "Grossist & Distribution"],
+        secondaryIndustries: [],
         companySize: ["1-49", "50-99", "100-249"],
         geography: "Sverige",
         ranking: 5
@@ -517,6 +530,7 @@ export const partners: Partner[] = [
     productFilters: {
       crm: {
         industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+        secondaryIndustries: [],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
         ranking: 3
@@ -549,6 +563,7 @@ export const partners: Partner[] = [
     productFilters: {
       crm: {
         industries: ["Tillverkningsindustri", "Konsulttjänster"],
+        secondaryIndustries: [],
         companySize: ["50-99", "100-249", "250-999"],
         geography: "Sverige",
         ranking: 5
@@ -581,6 +596,7 @@ export const partners: Partner[] = [
     productFilters: {
       crm: {
         industries: ["Livsmedel & Processindustri", "Tillverkningsindustri"],
+        secondaryIndustries: [],
         companySize: ["100-249", "250-999", "1.000-4.999"],
         geography: "Norden",
         ranking: 1
@@ -613,6 +629,7 @@ export const partners: Partner[] = [
     productFilters: {
       crm: {
         industries: ["Retail & E-handel", "Offentlig sektor"],
+        secondaryIndustries: [],
         companySize: ["250-999", "1.000-4.999", ">5.000"],
         geography: "Europa",
         ranking: 1
@@ -666,12 +683,29 @@ export const geographyOptions = [
   "Internationellt"
 ];
 
+// Helper function to get cumulative geography display text
+export const getCumulativeGeographyDisplay = (geography: string): string => {
+  switch (geography) {
+    case "Sverige":
+      return "Sverige";
+    case "Norden":
+      return "Sverige och Norden";
+    case "Europa":
+      return "Sverige, Norden och Europa";
+    case "Internationellt":
+      return "Sverige, Norden, Europa och Internationell täckning";
+    default:
+      return geography;
+  }
+};
+
 // Helper function to get ranking for a product
 export const getPartnerRanking = (partner: Partner, product: 'bc' | 'fsc' | 'crm'): number => {
   return partner.rankings?.[product] ?? 999;
 };
 
 // Helper function to check if a partner matches product-specific filters
+// Note: Only uses primary industries (industries) for filtering, NOT secondaryIndustries
 export const matchesProductFilter = (
   partner: Partner,
   product: 'bc' | 'fsc' | 'crm',
@@ -684,7 +718,7 @@ export const matchesProductFilter = (
   // If no product filter exists, partner doesn't participate in this product
   if (!productFilter) return false;
   
-  // Check industry match
+  // Check industry match - ONLY uses primary industries, not secondaryIndustries
   if (selectedIndustry && !productFilter.industries.includes(selectedIndustry)) {
     return false;
   }
