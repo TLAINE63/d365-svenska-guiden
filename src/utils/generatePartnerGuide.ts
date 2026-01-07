@@ -245,7 +245,7 @@ export const generatePartnerGuide = async (): Promise<void> => {
   y += 3;
   addSubtitle("Kontrollera:");
   addBullet("Vilka Microsoft-certifieringar har partnern och deras konsulter?");
-  addBullet("Hur länge har de arbetat med Dynamics 365/Dynamics NAV/AX?");
+  addBullet("Hur länge har de arbetat med de Dynamics 365-applikationer som projektet avser?");
   addBullet("Har de erfarenhet av de integrationer ni behöver?");
   addBullet("Hur hanterar de uppdateringar och uppgraderingar?");
 
