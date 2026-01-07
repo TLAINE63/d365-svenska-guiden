@@ -5,6 +5,13 @@ interface UTMParams {
   industry?: string;
 }
 
+interface FilterContext {
+  product?: string;
+  industry?: string;
+  companySize?: string;
+  geography?: string;
+}
+
 export const buildPartnerUrl = (
   partnerWebsite: string,
   partnerName: string,
@@ -41,7 +48,8 @@ export const buildPartnerUrl = (
 export const trackPartnerClick = async (
   partnerName: string,
   partnerWebsite: string,
-  pageSource: string
+  pageSource: string,
+  filterContext?: FilterContext
 ) => {
   try {
     const response = await supabase.functions.invoke("track-partner-click", {
@@ -51,6 +59,7 @@ export const trackPartnerClick = async (
         pageSource,
         userAgent: navigator.userAgent,
         referrer: document.referrer,
+        filterContext,
       },
     });
 

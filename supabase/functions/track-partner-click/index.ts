@@ -84,12 +84,20 @@ function isValidOptionalString(value: string | undefined, maxLength: number = 50
   return typeof value === "string" && value.length <= maxLength;
 }
 
+interface FilterContext {
+  product?: string;
+  industry?: string;
+  companySize?: string;
+  geography?: string;
+}
+
 interface PartnerClickRequest {
   partnerName: string;
   partnerWebsite: string;
   pageSource?: string;
   userAgent?: string;
   referrer?: string;
+  filterContext?: FilterContext;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -132,7 +140,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    const { partnerName, partnerWebsite, pageSource, userAgent, referrer } = body;
+    const { partnerName, partnerWebsite, pageSource, userAgent, referrer, filterContext } = body;
 
     // Server-side validation
     const errors: string[] = [];
@@ -195,6 +203,24 @@ const handler = async (req: Request): Promise<Response> => {
     const safePartnerName = sanitizeHtml(partnerName.trim());
     const safePartnerWebsite = sanitizeHtml(partnerWebsite.trim());
     const safePageSource = sanitizeHtml(pageSource?.trim() || "Okänd");
+    
+    // Sanitize filter context
+    const safeProduct = filterContext?.product ? sanitizeHtml(filterContext.product) : null;
+    const safeIndustry = filterContext?.industry ? sanitizeHtml(filterContext.industry) : null;
+    const safeCompanySize = filterContext?.companySize ? sanitizeHtml(filterContext.companySize) : null;
+    const safeGeography = filterContext?.geography ? sanitizeHtml(filterContext.geography) : null;
+    
+    // Build filter info section for email
+    const hasFilters = safeProduct || safeIndustry || safeCompanySize || safeGeography;
+    const filterSection = hasFilters ? `
+      <div style="background-color: #fff3cd; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #ffc107;">
+        <p style="margin: 0 0 10px 0; font-weight: bold; color: #856404;">Användarens sökfilter:</p>
+        ${safeProduct ? `<p style="margin: 0 0 5px 0;"><strong>Produkt:</strong> ${safeProduct}</p>` : ''}
+        ${safeIndustry ? `<p style="margin: 0 0 5px 0;"><strong>Bransch:</strong> ${safeIndustry}</p>` : ''}
+        ${safeCompanySize ? `<p style="margin: 0 0 5px 0;"><strong>Företagsstorlek:</strong> ${safeCompanySize}</p>` : ''}
+        ${safeGeography ? `<p style="margin: 0;"><strong>Geografi:</strong> ${safeGeography}</p>` : ''}
+      </div>
+    ` : '';
 
     // Send email notification
     const now = new Date();
@@ -204,7 +230,7 @@ const handler = async (req: Request): Promise<Response> => {
       from: "D365 Guiden <info@d365.se>",
       to: ["info@d365.se"],
       reply_to: "info@d365.se",
-      subject: `Partnerklick: ${safePartnerName}`,
+      subject: `Partnerklick: ${safePartnerName}${safeProduct ? ` (${safeProduct})` : ''}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0078d4;">Ny partnerklick registrerad</h2>
@@ -214,6 +240,7 @@ const handler = async (req: Request): Promise<Response> => {
             <p style="margin: 0 0 10px 0;"><strong>Sida:</strong> ${safePageSource}</p>
             <p style="margin: 0;"><strong>Tidpunkt:</strong> ${formattedDate}</p>
           </div>
+          ${filterSection}
           <p style="color: #666; font-size: 12px;">
             Detta email skickades automatiskt från d365.se
           </p>
