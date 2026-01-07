@@ -357,6 +357,28 @@ const PartnerProfile = () => {
                 <p className="text-muted-foreground text-sm mb-4">
                   Låt oss hjälpa dig helt kostnadsfritt att hitta rätt partner och rätt kontaktperson.
                 </p>
+                
+                {/* Show filter context if available */}
+                {(selectedProduct || selectedIndustry) && (
+                  <div className="mb-4 p-3 bg-muted/50 rounded-lg border border-border/50">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
+                      Din sökning
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct && (
+                        <Badge className="bg-primary/15 text-primary border-primary/30">
+                          {selectedProduct}
+                        </Badge>
+                      )}
+                      {selectedIndustry && (
+                        <Badge variant="outline" className="border-accent/50 text-foreground">
+                          {selectedIndustry}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                )}
+                
                 <LeadCTA
                   sourcePage={`partner-profile-${partner.slug}`}
                   partnerName={partner.name}
