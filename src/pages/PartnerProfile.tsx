@@ -321,10 +321,10 @@ const PartnerProfile = () => {
             </Card>
 
             {/* Lead CTA - Contact us */}
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/10 to-accent/10 overflow-hidden">
+            <Card className="border-2 border-accent shadow-xl bg-gradient-to-br from-accent/20 via-accent/15 to-primary/10 overflow-hidden">
               <CardContent className="p-6">
                 <h3 className="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-primary" />
+                  <Phone className="w-5 h-5 text-accent" />
                   Vill du ha hjälp?
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4">
