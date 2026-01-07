@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Building2, Sparkles, Target, Briefcase, CheckCircle2, Circle } from "lucide-react";
+import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Circle, ExternalLink, Phone, Mail } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners, Partner } from "@/data/partners";
@@ -298,16 +298,48 @@ const PartnerProfile = () => {
               </div>
             </div>
 
-            {/* Lead CTA */}
-            <LeadCTA
-              sourcePage={`partner-profile-${partner.slug}`}
-              partnerName={partner.name}
-              selectedProduct={selectedProduct}
-              selectedProducts={selectedProduct ? undefined : partner.applications}
-              selectedIndustry={selectedIndustry || partner.industries[0]}
-              title="Låt oss hjälpa dig (helt kostnadsfritt) att komma i kontakt med rätt partner"
-              description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
-            />
+            {/* Direct link to partner website */}
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-accent/5 overflow-hidden">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+                  <ExternalLink className="w-5 h-5 text-primary" />
+                  Kontakta {partner.name} direkt
+                </h3>
+                <p className="text-muted-foreground text-sm mb-4">
+                  Besök partnerns hemsida för att ta direktkontakt.
+                </p>
+                <a
+                  href={partner.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                >
+                  Besök {partner.name}
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </CardContent>
+            </Card>
+
+            {/* Lead CTA - Contact us */}
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/10 to-accent/10 overflow-hidden">
+              <CardContent className="p-6">
+                <h3 className="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
+                  <Phone className="w-5 h-5 text-primary" />
+                  Vill du ha hjälp?
+                </h3>
+                <p className="text-muted-foreground text-sm mb-4">
+                  Låt oss hjälpa dig helt kostnadsfritt att hitta rätt partner och rätt kontaktperson.
+                </p>
+                <LeadCTA
+                  sourcePage={`partner-profile-${partner.slug}`}
+                  partnerName={partner.name}
+                  selectedProduct={selectedProduct}
+                  selectedProducts={selectedProduct ? undefined : partner.applications}
+                  selectedIndustry={selectedIndustry || partner.industries[0]}
+                  variant="inline"
+                />
+              </CardContent>
+            </Card>
 
           </div>
         </div>
