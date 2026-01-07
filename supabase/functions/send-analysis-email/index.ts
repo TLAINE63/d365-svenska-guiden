@@ -8,7 +8,8 @@ function isAllowedOrigin(origin: string): boolean {
   if (origin.startsWith("http://localhost:")) return true;
   if (origin.endsWith(".lovable.app")) return true;
   if (origin.endsWith(".lovableproject.com")) return true;
-  if (origin === "https://d365.se" || origin.endsWith(".d365.se")) return true;
+  // Allow custom domain d365.se (with and without www)
+  if (origin === "https://d365.se" || origin === "https://www.d365.se") return true;
   return false;
 }
 
