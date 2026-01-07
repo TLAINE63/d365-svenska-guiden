@@ -299,7 +299,7 @@ const PartnerProfile = () => {
             </div>
 
             {/* Direct link to partner website */}
-            <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-accent/5 overflow-hidden">
+            <Card className="border-2 border-primary shadow-xl bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 overflow-hidden">
               <CardContent className="p-6">
                 <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
                   <ExternalLink className="w-5 h-5 text-primary" />
@@ -312,7 +312,7 @@ const PartnerProfile = () => {
                   href={partner.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
                 >
                   Besök {partner.name}
                   <ExternalLink className="w-4 h-4" />
