@@ -355,18 +355,21 @@ const Copilot = () => {
               <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center">Mätbar Affärsnytta</h3>
               <div className="grid sm:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl sm:text-4xl font-bold mb-2">40%</div>
-                  <p className="text-sm text-primary-foreground/80">Snabbare dokumenthantering</p>
+                  <div className="text-3xl sm:text-4xl font-bold mb-2">353%</div>
+                  <p className="text-sm text-primary-foreground/80">Potentiell ROI över 3 år</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl sm:text-4xl font-bold mb-2">30%</div>
-                  <p className="text-sm text-primary-foreground/80">Högre säljproduktivitet</p>
+                  <div className="text-3xl sm:text-4xl font-bold mb-2">20%</div>
+                  <p className="text-sm text-primary-foreground/80">Reducerade driftskostnader</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl sm:text-4xl font-bold mb-2">25%</div>
-                  <p className="text-sm text-primary-foreground/80">Snabbare ärendehantering</p>
+                  <div className="text-3xl sm:text-4xl font-bold mb-2">18%</div>
+                  <p className="text-sm text-primary-foreground/80">Ökad medarbetarnöjdhet</p>
                 </div>
               </div>
+              <p className="text-xs text-primary-foreground/60 italic text-center mt-4">
+                Källa: Forrester Total Economic Impact™ studie beställd av Microsoft, oktober 2024
+              </p>
             </div>
           </div>
         </div>
