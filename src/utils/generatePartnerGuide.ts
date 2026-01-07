@@ -335,35 +335,6 @@ export const generatePartnerGuide = async (): Promise<void> => {
   addHeader();
   y = 30;
   
-  // Red flags section with warning styling
-  doc.setFillColor(254, 242, 242); // Light red
-  doc.setDrawColor(220, 38, 38); // Red
-  doc.roundedRect(margin, y - 5, contentWidth, 75, 3, 3, "FD");
-  
-  y += 5;
-  doc.setFontSize(14);
-  doc.setFont("helvetica", "bold");
-  doc.setTextColor(180, 50, 50);
-  doc.text("⚠ Varningssignaler att se upp för", margin + 5, y);
-  y += 12;
-  
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  const warnings = [
-    "Orealistiska löften om tid eller pris",
-    "Ovilja att visa referenskunder",
-    "Fokus på teknik snarare än era affärsbehov",
-    "Svårt att få kontakt under säljprocessen",
-    "Vaga svar om projektmetodik och resurser",
-    "Press att skriva på snabbt utan ordentlig analys"
-  ];
-  warnings.forEach(warning => {
-    doc.setTextColor(180, 50, 50);
-    doc.text("✗  " + warning, margin + 8, y);
-    y += 8;
-  });
-  
-  y += 20;
   
   // Checklist section
   addTitle("Checklista inför beslutet", 16);
