@@ -13,6 +13,7 @@ import PartnerGuideDialog from "@/components/PartnerGuideDialog";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
+import PartnerCard from "@/components/PartnerCard";
 import { partners, Partner, allIndustries, IndustryExpertise, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
 
 
@@ -524,86 +525,38 @@ const ValjPartner = () => {
             </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredPartners.map((partner, index) => (
-                <Card 
-                  key={index} 
-                  className="group relative border border-border/50 bg-card hover:bg-accent/5 transition-all duration-300 flex flex-col shadow-md hover:shadow-xl transform hover:-translate-y-1"
-                >
-                  {/* Top accent line */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-t-lg opacity-70 group-hover:opacity-100 transition-opacity" />
-                  
-                  <CardHeader className="pb-2 pt-6">
-                    <Link 
-                      to={buildPartnerProfileUrl(partner.name)}
-                      className="hover:text-primary transition-colors"
-                    >
-                      <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
-                        {partner.name}
-                      </CardTitle>
-                    </Link>
-                  </CardHeader>
-                  <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
-                    {/* Show industry expertise if matching filters */}
-                    {(() => {
-                      const expertise = getMatchingExpertise(partner);
-                      if (expertise && (selectedIndustry || selectedApplications.length > 0)) {
-                        return (
-                          <div className="bg-gradient-to-r from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/10 rounded-lg p-3 border border-amber-200 dark:border-amber-700/50">
-                            <div className="flex items-start gap-2">
-                              <Star className="h-4 w-4 text-amber-500 mt-0.5 shrink-0 fill-amber-500" />
-                              <div>
-                                <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1 uppercase tracking-wide">
-                                  Branschexpertis: {expertise.industry}
-                                  {expertise.application && ` • ${expertise.application}`}
-                                </p>
-                                <p className="text-sm text-amber-900/80 dark:text-amber-200/80 leading-relaxed">
-                                  {expertise.description}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })()}
+              {filteredPartners.map((partner, index) => {
+                // Determine which product key to use for this partner
+                const hasBCApp = selectedApplications.includes("Business Central");
+                const hasFSCApp = selectedApplications.includes("Finance & SCM");
+                const hasCRMApp = selectedApplications.some(app => 
+                  ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
+                );
+                
+                let productKey: 'bc' | 'fsc' | 'crm' | null = null;
+                if (hasBCApp && partner.productFilters?.bc) productKey = 'bc';
+                else if (hasFSCApp && partner.productFilters?.fsc) productKey = 'fsc';
+                else if (hasCRMApp && partner.productFilters?.crm) productKey = 'crm';
+                else if (partner.productFilters?.bc) productKey = 'bc';
+                else if (partner.productFilters?.fsc) productKey = 'fsc';
+                else if (partner.productFilters?.crm) productKey = 'crm';
 
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {partner.description}
-                    </p>
-                    
-                    <div className="bg-primary/5 rounded-lg p-3 border border-primary/10">
-                      <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Kompetenser inom:</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {partner.applications.map((app, i) => (
-                          <Badge key={i} variant="secondary" className="text-xs bg-primary/10 text-primary border-0 font-medium">
-                            {app}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
+                const expertise = getMatchingExpertise(partner);
+                const showExpertise = expertise && (selectedIndustry || selectedApplications.length > 0) 
+                  ? expertise 
+                  : null;
 
-                    <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
-                      <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branscher</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {partner.industries.map((industry, i) => (
-                          <Badge key={i} variant="outline" className="text-xs border-accent/40 text-muted-foreground bg-transparent">
-                            {industry}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-auto pt-4 border-t border-border/50">
-                      <Button asChild variant="outline" className="w-full">
-                        <Link to={buildPartnerProfileUrl(partner.name)}>
-                          Öppna partnerkortet
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                return (
+                  <PartnerCard
+                    key={index}
+                    partner={partner}
+                    profileUrl={buildPartnerProfileUrl(partner.name)}
+                    colorScheme="amber"
+                    showExpertise={showExpertise}
+                    productKey={productKey}
+                  />
+                );
+              })}
             </div>
           )}
 
