@@ -4,9 +4,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { partners, Partner, crmApplications, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
-import { ArrowLeft, Building2, Briefcase, ArrowDown } from "lucide-react";
+import { ArrowLeft, Building2, ArrowDown } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
+import PartnerCard from "@/components/PartnerCard";
 
 
 // Industry images - new taxonomy (18 industries)
@@ -316,44 +317,22 @@ const Branschlosningar = () => {
 
             {/* Partners grid */}
             {filteredPartners.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredPartners.map((partner) => {
-                  const partnerSlug = partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                  // Determine product key for PartnerCard
+                  const productKey: 'bc' | 'fsc' | 'crm' | null = 
+                    selectedFilter === 'bc' ? 'bc' : 
+                    selectedFilter === 'fsc' ? 'fsc' : 
+                    (selectedFilter === 'crm-sales' || selectedFilter === 'crm-service') ? 'crm' : null;
+                  
                   return (
-                    <div
+                    <PartnerCard
                       key={partner.name}
-                      className="bg-card border border-border rounded-lg p-6 hover:border-primary/50 hover:shadow-lg transition-all duration-200"
-                    >
-                      <h3 className="text-xl font-semibold text-foreground mb-3">{partner.name}</h3>
-                      <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{partner.description}</p>
-                      
-                      <div className="space-y-3 mb-4">
-                        <div className="flex items-start gap-2">
-                          <Briefcase className="h-4 w-4 text-muted-foreground mt-0.5" />
-                          <div className="flex flex-wrap gap-1">
-                            {partner.applications.slice(0, 3).map((app) => (
-                              <span key={app} className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">
-                                {app}
-                              </span>
-                            ))}
-                            {partner.applications.length > 3 && (
-                              <span className="text-xs text-muted-foreground">
-                                +{partner.applications.length - 3}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      <Link 
-                        to={buildPartnerProfileUrl(partner.name)}
-                        className="block"
-                      >
-                        <Button variant="outline" className="w-full gap-2">
-                          Öppna partnerkortet
-                        </Button>
-                      </Link>
-                    </div>
+                      partner={partner}
+                      profileUrl={buildPartnerProfileUrl(partner.name)}
+                      colorScheme={selectedFilter === 'bc' ? 'primary' : selectedFilter === 'fsc' ? 'primary' : 'crm'}
+                      productKey={productKey}
+                    />
                   );
                 })}
               </div>
