@@ -10,49 +10,24 @@ import CopilotLogo from "@/assets/icons/Copilot.png";
 const Copilot = () => {
   const copilotVideos = [
     {
-      title: "Copilot-driven Onboarding Process",
-      description: "Upptäck hur Copilot förbättrar introduktionsprocessen",
-      videoId: "vfyzbGHIa3E",
-    },
-    {
-      title: "Microsoft 365 Copilot for Service",
-      description: "Officiell Microsoft-video om hur Copilot transformerar kundservice",
-      videoId: "l7gS1y70ErE",
-    },
-    {
-      title: "Microsoft Copilot Demo",
-      description: "Upptäck hur Copilot kan förbättra ditt arbetsflöde",
-      videoId: "_Bs_6zkdmws",
-    },
-    {
-      title: "Copilot i Dynamics 365",
-      description: "Se hur Copilot fungerar i praktiken",
+      title: "Introduktion till Dynamics 365 Copilot",
+      description: "Officiell Microsoft-video om hur Copilot fungerar i Dynamics 365",
       videoId: "GMwtXDx-JUI",
     },
     {
-      title: "Microsoft Copilot i Dynamics 365",
-      description: "Utforska Copilot-funktioner i Dynamics 365",
-      videoId: "CYejFpBXWBM",
+      title: "Copilot i Customer Service",
+      description: "Se hur Copilot accelererar ärendehantering och förbättrar produktivitet",
+      videoId: "bZDvvLI4WRc",
     },
     {
-      title: "Copilot för Dynamics 365",
-      description: "Se hur Copilot kan transformera ditt arbete",
-      videoId: "43S3_bV8ht0",
+      title: "Copilot i Supply Chain Management",
+      description: "Nya Copilot-funktioner för att förbättra produktivitet och hantera störningar",
+      videoId: "XPZqmmzKgQU",
     },
     {
-      title: "Copilot i Dynamics 365",
-      description: "Upptäck möjligheterna med Copilot",
-      videoId: "nb61yBqEY5Y",
-    },
-    {
-      title: "Copilot för Dynamics 365",
-      description: "Lär dig mer om Copilot-funktioner",
-      videoId: "m8MCEZ8OBqk",
-    },
-    {
-      title: "Copilot i Dynamics 365",
-      description: "Utforska Copilot-funktioner",
-      videoId: "0Bqzjar82OQ",
+      title: "Microsoft 365 Copilot - Översikt",
+      description: "En rundtur i Microsoft 365 Copilot-appen",
+      videoId: "W-FBOUh-S0o",
     },
   ];
 
