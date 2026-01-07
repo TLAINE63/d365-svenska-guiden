@@ -11,24 +11,26 @@ import { partners as staticPartners, Partner } from "@/data/partners";
 import { Helmet } from "react-helmet";
 
 // Map application names to product categories
-const getProductCategory = (app: string): 'bc' | 'fsc' | 'crm' | null => {
+const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
   if (app === "Business Central") return 'bc';
   if (app === "Finance & SCM") return 'fsc';
-  if (["Sales", "Customer Service", "Field Service", "Customer Insights (Marketing)", "Contact Center", "Project Operations"].includes(app)) return 'crm';
+  if (["Sales", "Customer Insights (Marketing)"].includes(app)) return 'sales';
+  if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return 'service';
   return null;
 };
 
 // Get product display name
-const getProductDisplayName = (category: 'bc' | 'fsc' | 'crm'): string => {
+const getProductDisplayName = (category: 'bc' | 'fsc' | 'sales' | 'service'): string => {
   switch (category) {
     case 'bc': return 'Business Central';
     case 'fsc': return 'Finance & Supply Chain';
-    case 'crm': return 'CRM & Customer Engagement';
+    case 'sales': return 'Sälj & Marknad';
+    case 'service': return 'Kundservice';
   }
 };
 
 // Get applications for a product category
-const getApplicationsForCategory = (apps: string[], category: 'bc' | 'fsc' | 'crm'): string[] => {
+const getApplicationsForCategory = (apps: string[], category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
   return apps.filter(app => getProductCategory(app) === category);
 };
 
@@ -69,9 +71,9 @@ const PartnerProfile = () => {
   } : null);
 
   // Get product categories this partner supports
-  const getProductCategories = (): ('bc' | 'fsc' | 'crm')[] => {
+  const getProductCategories = (): ('bc' | 'fsc' | 'sales' | 'service')[] => {
     if (!partner) return [];
-    const categories = new Set<'bc' | 'fsc' | 'crm'>();
+    const categories = new Set<'bc' | 'fsc' | 'sales' | 'service'>();
     partner.applications.forEach(app => {
       const cat = getProductCategory(app);
       if (cat) categories.add(cat);
@@ -79,21 +81,24 @@ const PartnerProfile = () => {
     return Array.from(categories);
   };
 
-  // Get industries for a specific product
-  const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'crm'): { primary: string[]; secondary: string[] } => {
-    if (!staticPartner?.productFilters?.[category]) {
+  // Get industries for a specific product (map sales/service to crm for productFilters lookup)
+  const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { primary: string[]; secondary: string[] } => {
+    // Map sales and service to 'crm' for productFilters lookup
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    
+    if (!staticPartner?.productFilters?.[filterKey]) {
       // Fallback to general industries
       const allIndustries = partner?.industries || [];
       return { 
-        primary: allIndustries.slice(0, 1), 
-        secondary: allIndustries.slice(1, 3) 
+        primary: allIndustries.slice(0, 2), 
+        secondary: allIndustries.slice(2, 4) 
       };
     }
     
-    const productIndustries = staticPartner.productFilters[category]?.industries || [];
+    const productIndustries = staticPartner.productFilters[filterKey]?.industries || [];
     return {
-      primary: productIndustries.slice(0, 1),
-      secondary: productIndustries.slice(1, 3)
+      primary: productIndustries.slice(0, 2),
+      secondary: productIndustries.slice(2, 4)
     };
   };
 
@@ -267,7 +272,7 @@ const PartnerProfile = () => {
                           {secondary.length > 0 && (
                             <div>
                               <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
-                                Täcker även
+                                Erfarenhet även inom
                               </p>
                               <div className="flex flex-wrap gap-2">
                                 {secondary.map(ind => (
