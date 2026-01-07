@@ -58,6 +58,35 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = "Chart";
 
+/**
+ * Sanitizes an ID to allow only alphanumeric characters, hyphens, and underscores.
+ * Prevents XSS through malicious chart IDs.
+ */
+const sanitizeId = (id: string): string => {
+  return id.replace(/[^a-zA-Z0-9_-]/g, '');
+};
+
+/**
+ * Validates that a color value is a safe CSS color format.
+ * Allows: hex, rgb, hsl, oklch, and CSS custom properties (var()).
+ */
+const isValidCssColor = (color: string): boolean => {
+  const safeColorPattern = /^(#[0-9A-Fa-f]{3,8}|rgb\(|rgba\(|hsl\(|hsla\(|oklch\(|var\(--[a-zA-Z0-9_-]+\)).*$/;
+  return safeColorPattern.test(color.trim());
+};
+
+/**
+ * Sanitizes a CSS key to allow only safe characters.
+ */
+const sanitizeKey = (key: string): string => {
+  return key.replace(/[^a-zA-Z0-9_-]/g, '');
+};
+
+/**
+ * ChartStyle component that generates CSS variables for chart theming.
+ * SECURITY: Uses sanitization to prevent XSS through dangerouslySetInnerHTML.
+ * All id, key, and color values are validated before insertion into CSS.
+ */
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(([_, config]) => config.theme || config.color);
 
@@ -65,18 +94,27 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     return null;
   }
 
+  // Sanitize the chart ID to prevent CSS injection
+  const safeId = sanitizeId(id);
+
   return (
     <style
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart=${safeId}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
     const color = itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
+    // Validate color and sanitize key before insertion
+    if (color && isValidCssColor(color)) {
+      const safeKey = sanitizeKey(key);
+      return `  --color-${safeKey}: ${color};`;
+    }
+    return null;
   })
+  .filter(Boolean)
   .join("\n")}
 }
 `,
