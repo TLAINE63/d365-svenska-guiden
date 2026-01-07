@@ -7,6 +7,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
+import PartnerCard from "@/components/PartnerCard";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -14,7 +15,6 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { partners, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
-import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -591,57 +591,32 @@ const FinanceSupplyChain = () => {
           )}
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {fscPartners.map((partner, index) => (
-              <Card 
-                key={index} 
-                className="group relative border border-border/50 bg-card hover:bg-finance-supply/5 transition-all duration-300 flex flex-col shadow-md hover:shadow-xl transform hover:-translate-y-1"
-              >
-                {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-finance-supply via-accent to-finance-supply rounded-t-lg opacity-70 group-hover:opacity-100 transition-opacity" />
-                
-                <CardHeader className="pb-2 pt-6">
-                  <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-finance-supply transition-colors leading-tight">
-                    {partner.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {partner.description}
-                  </p>
-                  
-                  <div className="bg-finance-supply/5 rounded-lg p-3 border border-finance-supply/10">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Applikationer</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {partner.applications.map((app, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs bg-finance-supply/10 text-finance-supply border-0 font-medium">
-                          {app}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branscher</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {partner.industries.map((industry, i) => (
-                        <Badge key={i} variant="outline" className="text-xs border-accent/40 text-muted-foreground bg-transparent">
-                          {industry}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-auto pt-4 border-t border-border/50">
-                    <Button asChild variant="outline" className="w-full">
-                      <Link to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
-                        Öppna partnerkortet
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            {fscPartners.map((partner, index) => {
+              // Build profile URL with filter context
+              const baseUrl = `/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+              const params = new URLSearchParams();
+              params.set("product", "Finance & SCM");
+              if (selectedIndustry) {
+                params.set("industry", selectedIndustry);
+              }
+              if (selectedCompanySize) {
+                params.set("companySize", selectedCompanySize);
+              }
+              const profileUrl = `${baseUrl}?${params.toString()}`;
+              
+              return (
+                <PartnerCard
+                  key={index}
+                  partner={partner}
+                  profileUrl={profileUrl}
+                  colorScheme="primary"
+                  productKey="fsc"
+                  highlightedProduct="Finance & SCM"
+                  highlightedIndustry={selectedIndustry || undefined}
+                  highlightedCompanySize={selectedCompanySize || undefined}
+                />
+              );
+            })}
           </div>
 
           {/* Lead CTA - shows when partners are filtered */}
