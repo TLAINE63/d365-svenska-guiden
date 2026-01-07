@@ -97,19 +97,15 @@ const ContactUs = () => {
                         <Mail className="w-4 h-4 mr-2" />
                         Skicka e-post till mig
                       </Button>
-                      <Button 
-                        className="bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0"
-                        asChild
+                      <a 
+                        href="https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white"
                       >
-                        <a 
-                          href="https://outlook.office.com/bookwithme/user/027ef733216b4a968ff9253996264ec9@dynamicfactory.se/meetingtype/fvQuVhVNCUOsg-inCRUIIg2?anonymous&ismsaljsauthenabled&ep=mlink" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                        >
-                          <Calendar className="w-4 h-4 mr-2" />
-                          Boka möte med mig
-                        </a>
-                      </Button>
+                        <Calendar className="w-4 h-4" />
+                        Boka möte med mig
+                      </a>
                     </div>
                   </div>
                 </div>
