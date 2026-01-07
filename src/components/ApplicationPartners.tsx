@@ -152,17 +152,28 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         )}
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredPartners.map((partner, index) => (
-            <PartnerCard
-              key={index}
-              partner={partner}
-              profileUrl={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-              colorScheme="crm"
-              productKey={productKey}
-              highlightedProduct={applicationFilter}
-              highlightedIndustry={selectedIndustry || undefined}
-            />
-          ))}
+          {filteredPartners.map((partner, index) => {
+            // Build profile URL with filter context
+            const baseUrl = `/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+            const params = new URLSearchParams();
+            params.set("product", applicationFilter);
+            if (selectedIndustry) {
+              params.set("industry", selectedIndustry);
+            }
+            const profileUrl = `${baseUrl}?${params.toString()}`;
+            
+            return (
+              <PartnerCard
+                key={index}
+                partner={partner}
+                profileUrl={profileUrl}
+                colorScheme="crm"
+                productKey={productKey}
+                highlightedProduct={applicationFilter}
+                highlightedIndustry={selectedIndustry || undefined}
+              />
+            );
+          })}
         </div>
 
         {filteredPartners.length === 0 && (
