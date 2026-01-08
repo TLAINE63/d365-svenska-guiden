@@ -168,30 +168,6 @@ const PartnerCard = ({
           </div>
         )}
 
-        {/* Contact Info - Website & Email */}
-        <div className="bg-primary/5 rounded-lg p-3 border border-primary/10">
-          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Kontaktuppgifter</p>
-          <div className="space-y-2">
-            <a 
-              href={partner.website} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-primary hover:underline"
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span className="truncate">{partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
-            </a>
-            {partner.email && (
-              <a 
-                href={`mailto:${partner.email}`}
-                className="flex items-center gap-2 text-sm text-primary hover:underline"
-              >
-                <Mail className="w-4 h-4" />
-                <span>{partner.email}</span>
-              </a>
-            )}
-          </div>
-        </div>
 
         {/* Geography */}
         <div className="bg-muted/20 rounded-lg p-3 border border-muted/30">
