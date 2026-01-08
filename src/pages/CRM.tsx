@@ -195,7 +195,7 @@ const CRM = () => {
                   ❓ Hur snabbt kan vi komma igång med Dynamics 365 CE?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Implementeringstiden varierar beroende på omfattning och komplexitet. För en standardimplementering av en enskild applikation (t.ex. Sales) kan ni vara igång på 2-3 månader. Större implementeringar med flera applikationer och omfattande anpassningar tar normalt 4-6 månader. Vi börjar alltid med en noggrann kravanalys för att säkerställa att lösningen möter era verkliga behov.
+                  Implementeringstiden varierar beroende på omfattning och komplexitet. För en standardimplementering av en enskild applikation (t.ex. Sales) kan ni vara igång på 2-3 månader. Större implementeringar med flera applikationer och omfattande anpassningar tar normalt 4-6 månader. Det börjar ofta med en noggrann kravanalys för att säkerställa att lösningen möter era verkliga behov.
                 </AccordionContent>
               </AccordionItem>
 
