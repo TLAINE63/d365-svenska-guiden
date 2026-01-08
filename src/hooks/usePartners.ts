@@ -9,6 +9,7 @@ export interface DatabasePartner {
   logo_url: string | null;
   website: string;
   email: string | null;
+  contactPerson: string | null;
   phone: string | null;
   address: string | null;
   applications: string[];
@@ -47,6 +48,7 @@ export function usePartners() {
       return (data || []).map(p => ({
         ...p,
         email: null,
+        contactPerson: null,
         phone: null,
         address: null,
       }));
@@ -73,6 +75,7 @@ export function usePartner(slug: string | undefined) {
       return {
         ...data,
         email: null,
+        contactPerson: null,
         phone: null,
         address: null,
       };

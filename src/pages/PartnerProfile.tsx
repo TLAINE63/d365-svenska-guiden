@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Circle, ExternalLink, Phone, Globe } from "lucide-react";
+import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Circle, ExternalLink, Phone, Globe, Mail, User } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners, Partner, getCumulativeGeographyDisplay } from "@/data/partners";
@@ -63,8 +63,9 @@ const PartnerProfile = () => {
     description: staticPartner.description,
     logo_url: staticPartner.logo || null,
     website: staticPartner.website,
-    email: null,
-    phone: null,
+    email: staticPartner.email || null,
+    contactPerson: staticPartner.contactPerson || null,
+    phone: staticPartner.phone || null,
     address: null,
     applications: staticPartner.applications,
     industries: staticPartner.industries,
@@ -328,16 +329,86 @@ const PartnerProfile = () => {
               </div>
             </div>
 
-            {/* Direct link to partner website */}
+            {/* Contact Information Card */}
             <Card className="border-2 border-primary shadow-xl bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 overflow-hidden">
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
                   <ExternalLink className="w-5 h-5 text-primary" />
-                  Kontakta {partner.name} direkt
+                  Kontaktuppgifter
                 </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Besök partnerns hemsida för att ta direktkontakt.
-                </p>
+                
+                <div className="space-y-3 mb-6">
+                  {/* Website */}
+                  <div className="flex items-start gap-3">
+                    <Globe className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Hemsida</p>
+                      <a 
+                        href={partner.website} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          trackPartnerClick(
+                            partner.name,
+                            partner.website,
+                            `partner-profile-${partner.slug}`,
+                            {
+                              product: selectedProduct,
+                              industry: selectedIndustry,
+                              companySize: selectedCompanySize,
+                              geography: selectedGeography,
+                            }
+                          );
+                        }}
+                        className="text-primary hover:underline font-medium"
+                      >
+                        {partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Contact Person */}
+                  <div className="flex items-start gap-3">
+                    <User className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Kontaktperson</p>
+                      <p className="text-foreground">
+                        {partner.contactPerson || <span className="text-muted-foreground italic">—</span>}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Phone */}
+                  <div className="flex items-start gap-3">
+                    <Phone className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Mobilnummer</p>
+                      {partner.phone ? (
+                        <a href={`tel:${partner.phone}`} className="text-primary hover:underline font-medium">
+                          {partner.phone}
+                        </a>
+                      ) : (
+                        <span className="text-muted-foreground italic">—</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">E-post</p>
+                      {partner.email ? (
+                        <a href={`mailto:${partner.email}`} className="text-primary hover:underline font-medium">
+                          {partner.email}
+                        </a>
+                      ) : (
+                        <span className="text-muted-foreground italic">—</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
                 <a
                   href={partner.website}
                   target="_blank"
