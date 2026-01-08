@@ -5,15 +5,13 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
+import PartnerCard from "@/components/PartnerCard";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { partners, crmApplications, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
-import { trackPartnerClick, buildPartnerUrl } from "@/utils/trackPartnerClick";
 import {
   Accordion,
   AccordionContent,
@@ -291,55 +289,16 @@ const CRM = () => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {crmPartners.map((partner, index) => (
-              <Card 
-                key={index} 
-                className="group relative border border-border/50 bg-card hover:bg-crm/5 transition-all duration-300 flex flex-col shadow-md hover:shadow-xl transform hover:-translate-y-1"
-              >
-                {/* Top accent line */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-crm via-accent to-crm rounded-t-lg opacity-70 group-hover:opacity-100 transition-opacity" />
-                
-                <CardHeader className="pb-2 pt-6">
-                  <CardTitle className="text-xl sm:text-2xl text-center font-bold text-foreground group-hover:text-crm transition-colors leading-tight">
-                    {partner.name}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {partner.description}
-                  </p>
-                  
-                  <div className="bg-crm/5 rounded-lg p-3 border border-crm/10">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Applikationer</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {partner.applications.map((app, i) => (
-                        <Badge key={i} variant="secondary" className="text-xs bg-crm/10 text-crm border-0 font-medium">
-                          {app}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
-                    <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branscher</p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {partner.industries.map((industry, i) => (
-                        <Badge key={i} variant="outline" className="text-xs border-accent/40 text-muted-foreground bg-transparent">
-                          {industry}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-auto pt-4 border-t border-border/50">
-                    <Button asChild variant="outline" className="w-full">
-                      <Link to={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}>
-                        Öppna partnerkortet
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <PartnerCard
+                key={index}
+                partner={partner}
+                profileUrl={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                colorScheme="crm"
+                productKey="crm"
+                highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(', ') : undefined}
+                highlightedIndustry={selectedIndustry || undefined}
+                highlightedCompanySize={selectedCompanySize || undefined}
+              />
             ))}
           </div>
 
