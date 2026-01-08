@@ -17,6 +17,8 @@ export interface Partner {
   logo: string;
   website: string;
   email?: string;
+  contactPerson?: string;
+  phone?: string;
   description: string;
   applications: string[];
   industries: string[];
