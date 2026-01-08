@@ -186,7 +186,7 @@ const CRM = () => {
                   ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Kostnaden varierar beroende på vilka applikationer ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250 tkr för en applikation, upp till 800 tkr-2M kr för en komplett lösning) samt löpande support och anpassningar. Vi hjälper er att hitta rätt paket för era behov och budget.
+                  Kostnaden varierar beroende på vilka applikationer ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250 tkr för en applikation, upp till 800 tkr-2M kr för en komplett lösning) samt löpande support och anpassningar. En Dynamics 365 partner hjälper er att hitta rätt paket för era behov och budget.
                 </AccordionContent>
               </AccordionItem>
 
