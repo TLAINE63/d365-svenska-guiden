@@ -206,9 +206,70 @@ const PartnerProfile = () => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 tracking-tight">
                 {partner.name}
               </h1>
-              <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
+              <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed mb-6">
                 {partner.description}
               </p>
+              
+              {/* Contact Information */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl">
+                {/* Website */}
+                <div className="flex items-center gap-2">
+                  <Globe className="w-4 h-4 text-primary shrink-0" />
+                  <a 
+                    href={partner.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackPartnerClick(
+                        partner.name,
+                        partner.website,
+                        `partner-profile-${partner.slug}`,
+                        {
+                          product: selectedProduct,
+                          industry: selectedIndustry,
+                          companySize: selectedCompanySize,
+                          geography: selectedGeography,
+                        }
+                      );
+                    }}
+                    className="text-sm text-primary hover:underline font-medium truncate"
+                  >
+                    {partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                  </a>
+                </div>
+
+                {/* Contact Person */}
+                <div className="flex items-center gap-2">
+                  <User className="w-4 h-4 text-primary shrink-0" />
+                  <span className="text-sm text-foreground">
+                    {partner.contactPerson || <span className="text-muted-foreground italic">—</span>}
+                  </span>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-primary shrink-0" />
+                  {partner.phone ? (
+                    <a href={`tel:${partner.phone}`} className="text-sm text-primary hover:underline font-medium">
+                      {partner.phone}
+                    </a>
+                  ) : (
+                    <span className="text-sm text-muted-foreground italic">—</span>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-primary shrink-0" />
+                  {partner.email ? (
+                    <a href={`mailto:${partner.email}`} className="text-sm text-primary hover:underline font-medium truncate">
+                      {partner.email}
+                    </a>
+                  ) : (
+                    <span className="text-sm text-muted-foreground italic">—</span>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -329,86 +390,16 @@ const PartnerProfile = () => {
               </div>
             </div>
 
-            {/* Contact Information Card */}
+            {/* Direct link to partner website */}
             <Card className="border-2 border-primary shadow-xl bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 overflow-hidden">
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
                   <ExternalLink className="w-5 h-5 text-primary" />
-                  Kontaktuppgifter
+                  Kontakta {partner.name} direkt
                 </h3>
-                
-                <div className="space-y-3 mb-6">
-                  {/* Website */}
-                  <div className="flex items-start gap-3">
-                    <Globe className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Hemsida</p>
-                      <a 
-                        href={partner.website} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        onClick={() => {
-                          trackPartnerClick(
-                            partner.name,
-                            partner.website,
-                            `partner-profile-${partner.slug}`,
-                            {
-                              product: selectedProduct,
-                              industry: selectedIndustry,
-                              companySize: selectedCompanySize,
-                              geography: selectedGeography,
-                            }
-                          );
-                        }}
-                        className="text-primary hover:underline font-medium"
-                      >
-                        {partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Contact Person */}
-                  <div className="flex items-start gap-3">
-                    <User className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Kontaktperson</p>
-                      <p className="text-foreground">
-                        {partner.contactPerson || <span className="text-muted-foreground italic">—</span>}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Phone */}
-                  <div className="flex items-start gap-3">
-                    <Phone className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">Mobilnummer</p>
-                      {partner.phone ? (
-                        <a href={`tel:${partner.phone}`} className="text-primary hover:underline font-medium">
-                          {partner.phone}
-                        </a>
-                      ) : (
-                        <span className="text-muted-foreground italic">—</span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div className="flex items-start gap-3">
-                    <Mail className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wide font-medium">E-post</p>
-                      {partner.email ? (
-                        <a href={`mailto:${partner.email}`} className="text-primary hover:underline font-medium">
-                          {partner.email}
-                        </a>
-                      ) : (
-                        <span className="text-muted-foreground italic">—</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
+                <p className="text-muted-foreground text-sm mb-4">
+                  Besök partnerns hemsida för att ta direktkontakt.
+                </p>
                 <a
                   href={partner.website}
                   target="_blank"
