@@ -179,7 +179,7 @@ const PartnerCard = ({
         </div>
 
         <div className="mt-auto pt-4 border-t border-border/50">
-          <Button asChild variant="outline" className="w-full">
+          <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-md">
             <Link to={profileUrl}>
               Öppna partnerkortet
               <ArrowRight className="h-4 w-4" />
