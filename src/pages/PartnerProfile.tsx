@@ -389,43 +389,6 @@ const PartnerProfile = () => {
                 })}
               </div>
             </div>
-
-            {/* Direct link to partner website */}
-            <Card className="border-2 border-primary shadow-xl bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 overflow-hidden">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                  <ExternalLink className="w-5 h-5 text-primary" />
-                  Kontakta {partner.name} direkt
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  Besök partnerns hemsida för att ta direktkontakt.
-                </p>
-                <a
-                  href={partner.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => {
-                    trackPartnerClick(
-                      partner.name,
-                      partner.website,
-                      `partner-profile-${partner.slug}`,
-                      {
-                        product: selectedProduct,
-                        industry: selectedIndustry,
-                        companySize: selectedCompanySize,
-                        geography: selectedGeography,
-                      }
-                    );
-                  }}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
-                >
-                  Besök {partner.name}
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </CardContent>
-            </Card>
-
-            {/* Lead CTA - Contact us */}
             <Card className="border-2 border-accent shadow-xl bg-gradient-to-br from-accent/20 via-accent/15 to-primary/10 overflow-hidden">
               <CardContent className="p-6">
                 <h3 className="text-lg font-bold text-foreground mb-2 flex items-center gap-2">
