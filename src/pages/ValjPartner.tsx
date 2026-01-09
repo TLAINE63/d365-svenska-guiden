@@ -466,10 +466,10 @@ const ValjPartner = () => {
             <div className="text-center py-12 bg-muted/30 rounded-xl border border-border/50">
               <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-foreground mb-2">
-                Inga partners hittades med valda filter
+                Märkligt…inga partners blev listade här…
               </h3>
               <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                Prova att ändra dina filterval eller låt oss hjälpa dig att hitta rätt partner.
+                Men ingen fara. Om du kontaktar oss, så hjälper vi dig hitta några bra alternativ.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 

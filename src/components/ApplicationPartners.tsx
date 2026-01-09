@@ -186,8 +186,9 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
 
         {filteredPartners.length === 0 && (
           <div className="text-center py-12">
+            <h3 className="text-lg font-semibold text-foreground mb-2">Märkligt…inga partners blev listade här…</h3>
             <p className="text-muted-foreground">
-              Inga partners hittades med de valda filtren. Försök att ändra dina filterval.
+              Men ingen fara. Om du kontaktar oss, så hjälper vi dig hitta några bra alternativ.
             </p>
           </div>
         )}
