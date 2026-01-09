@@ -341,9 +341,9 @@ const Branschlosningar = () => {
             ) : (
               <div className="text-center py-12">
                 <Building2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">Inga partners hittades</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Märkligt…inga partners blev listade här…</h3>
                 <p className="text-muted-foreground">
-                  Vi hittade inga partners som matchar dina filterval. Prova att ändra dina val.
+                  Men ingen fara. Om du kontaktar oss, så hjälper vi dig hitta några bra alternativ.
                 </p>
               </div>
             )}
