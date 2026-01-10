@@ -1322,7 +1322,12 @@ const AdminDashboard = () => {
 
         {/* ==================== PARTNER CREATE/EDIT DIALOG ==================== */}
         <Dialog open={isPartnerDialogOpen} onOpenChange={() => {}}>
-          <DialogContent className="fixed inset-4 max-w-none w-auto h-auto max-h-none translate-x-0 translate-y-0 left-0 top-0 overflow-y-auto" onPointerDownOutside={(e) => e.preventDefault()} onInteractOutside={(e) => e.preventDefault()}>
+          <DialogContent 
+            className="fixed inset-4 max-w-none w-[calc(100%-2rem)] h-[calc(100%-2rem)] max-h-none overflow-y-auto"
+            style={{ transform: 'none', left: '1rem', top: '1rem' }}
+            onPointerDownOutside={(e) => e.preventDefault()} 
+            onInteractOutside={(e) => e.preventDefault()}
+          >
             <DialogHeader className="flex flex-row items-center justify-between">
               <DialogTitle>
                 {editingPartner ? "Redigera partner" : "Lägg till partner"}
