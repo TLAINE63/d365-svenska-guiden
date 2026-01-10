@@ -15,6 +15,8 @@ function sanitizeHtml(input: string | null | undefined): string {
 
 // Get allowed origins for CORS
 const ALLOWED_ORIGINS = [
+  "https://d365.se",
+  "https://www.d365.se",
   "https://d365-svenska-guiden.lovable.app",
   "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
   "http://localhost:5173",
