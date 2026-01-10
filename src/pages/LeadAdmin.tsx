@@ -29,6 +29,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -36,7 +37,13 @@ import { partners } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { Eye, Send, Trash2, RefreshCw, LogOut } from "lucide-react";
+import { Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick } from "lucide-react";
+
+interface PartnerClickStats {
+  partner_name: string;
+  month: string;
+  clicks: number;
+}
 
 interface Lead {
   id: string;
@@ -76,6 +83,8 @@ const LeadAdmin = () => {
   const [isForwardDialogOpen, setIsForwardDialogOpen] = useState(false);
   const [selectedPartners, setSelectedPartners] = useState<string[]>([]);
   const [adminNotes, setAdminNotes] = useState("");
+  const [clickStats, setClickStats] = useState<PartnerClickStats[]>([]);
+  const [isLoadingStats, setIsLoadingStats] = useState(false);
 
   const fetchLeads = async () => {
     if (!token) return;
@@ -105,12 +114,64 @@ const LeadAdmin = () => {
     }
   };
 
-  // Fetch leads when authenticated
+  const fetchClickStats = async () => {
+    if (!token) return;
+    setIsLoadingStats(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("manage-leads", {
+        body: { action: "click-stats", token },
+      });
+
+      if (error) throw error;
+      if (data.error) {
+        if (data.error.includes("gått ut") || data.error.includes("session")) {
+          logout();
+        }
+        throw new Error(data.error);
+      }
+      setClickStats(data.stats || []);
+    } catch (error: any) {
+      console.error("Error fetching click stats:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte hämta klickstatistik",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingStats(false);
+    }
+  };
+
+  // Fetch leads and stats when authenticated
   useEffect(() => {
     if (isAuthenticated && token) {
       fetchLeads();
+      fetchClickStats();
     }
   }, [isAuthenticated, token]);
+
+  // Group click stats by month
+  const getMonthsFromStats = (): string[] => {
+    const months = new Set(clickStats.map(s => s.month));
+    return Array.from(months).sort().reverse();
+  };
+
+  const getStatsForMonth = (month: string): PartnerClickStats[] => {
+    return clickStats
+      .filter(s => s.month === month)
+      .sort((a, b) => b.clicks - a.clicks);
+  };
+
+  const getTotalClicksForMonth = (month: string): number => {
+    return clickStats
+      .filter(s => s.month === month)
+      .reduce((sum, s) => sum + s.clicks, 0);
+  };
+
+  const formatMonth = (monthStr: string): string => {
+    const date = new Date(monthStr);
+    return format(date, "MMMM yyyy", { locale: sv });
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -319,106 +380,175 @@ const LeadAdmin = () => {
               <LogOut className="mr-2 h-4 w-4" />
               Logga ut
             </Button>
-            <Button onClick={fetchLeads} variant="outline" disabled={isLoading}>
-              <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
+            <Button onClick={() => { fetchLeads(); fetchClickStats(); }} variant="outline" disabled={isLoading || isLoadingStats}>
+              <RefreshCw className={`mr-2 h-4 w-4 ${isLoading || isLoadingStats ? "animate-spin" : ""}`} />
               Uppdatera
             </Button>
           </div>
         </div>
 
-        <Card>
-          <CardContent className="pt-6">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Datum</TableHead>
-                  <TableHead>Företag</TableHead>
-                  <TableHead>Kontakt</TableHead>
-                  <TableHead>Produkt</TableHead>
-                  <TableHead>Bransch</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Åtgärder</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {leads.length === 0 ? (
-                  <TableRow>
-                    <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                      Inga leads ännu
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  leads.map((lead) => (
-                    <TableRow key={lead.id}>
-                      <TableCell className="whitespace-nowrap">
-                        {format(new Date(lead.created_at), "d MMM yyyy", { locale: sv })}
-                      </TableCell>
-                      <TableCell className="font-medium">{lead.company_name}</TableCell>
-                      <TableCell>
-                        <div>{lead.contact_name}</div>
-                        <div className="text-sm text-muted-foreground">{lead.email}</div>
-                      </TableCell>
-                      <TableCell>{lead.selected_product || "-"}</TableCell>
-                      <TableCell>{lead.industry || "-"}</TableCell>
-                      <TableCell>
-                        <Select
-                          value={lead.status}
-                          onValueChange={(value) => handleStatusChange(lead.id, value)}
-                        >
-                          <SelectTrigger className="w-[140px]">
-                            <Badge variant={statusLabels[lead.status]?.variant || "default"}>
-                              {statusLabels[lead.status]?.label || lead.status}
-                            </Badge>
-                          </SelectTrigger>
-                          <SelectContent>
-                            {Object.entries(statusLabels).map(([value, { label }]) => (
-                              <SelectItem key={value} value={value}>
-                                {label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex gap-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => {
-                              setSelectedLead(lead);
-                              setAdminNotes(lead.admin_notes || "");
-                              setIsViewDialogOpen(true);
-                            }}
-                          >
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => {
-                              setSelectedLead(lead);
-                              setSelectedPartners(lead.assigned_partners || []);
-                              setIsForwardDialogOpen(true);
-                            }}
-                          >
-                            <Send className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleDelete(lead.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
+        <Tabs defaultValue="leads" className="space-y-4">
+          <TabsList>
+            <TabsTrigger value="leads" className="flex items-center gap-2">
+              <Eye className="h-4 w-4" />
+              Leads
+            </TabsTrigger>
+            <TabsTrigger value="clicks" className="flex items-center gap-2">
+              <MousePointerClick className="h-4 w-4" />
+              Partnerklick
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="leads">
+            <Card>
+              <CardContent className="pt-6">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Datum</TableHead>
+                      <TableHead>Företag</TableHead>
+                      <TableHead>Kontakt</TableHead>
+                      <TableHead>Produkt</TableHead>
+                      <TableHead>Bransch</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Åtgärder</TableHead>
                     </TableRow>
-                  ))
-                )}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+                  </TableHeader>
+                  <TableBody>
+                    {leads.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+                          Inga leads ännu
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      leads.map((lead) => (
+                        <TableRow key={lead.id}>
+                          <TableCell className="whitespace-nowrap">
+                            {format(new Date(lead.created_at), "d MMM yyyy", { locale: sv })}
+                          </TableCell>
+                          <TableCell className="font-medium">{lead.company_name}</TableCell>
+                          <TableCell>
+                            <div>{lead.contact_name}</div>
+                            <div className="text-sm text-muted-foreground">{lead.email}</div>
+                          </TableCell>
+                          <TableCell>{lead.selected_product || "-"}</TableCell>
+                          <TableCell>{lead.industry || "-"}</TableCell>
+                          <TableCell>
+                            <Select
+                              value={lead.status}
+                              onValueChange={(value) => handleStatusChange(lead.id, value)}
+                            >
+                              <SelectTrigger className="w-[140px]">
+                                <Badge variant={statusLabels[lead.status]?.variant || "default"}>
+                                  {statusLabels[lead.status]?.label || lead.status}
+                                </Badge>
+                              </SelectTrigger>
+                              <SelectContent>
+                                {Object.entries(statusLabels).map(([value, { label }]) => (
+                                  <SelectItem key={value} value={value}>
+                                    {label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => {
+                                  setSelectedLead(lead);
+                                  setAdminNotes(lead.admin_notes || "");
+                                  setIsViewDialogOpen(true);
+                                }}
+                              >
+                                <Eye className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => {
+                                  setSelectedLead(lead);
+                                  setSelectedPartners(lead.assigned_partners || []);
+                                  setIsForwardDialogOpen(true);
+                                }}
+                              >
+                                <Send className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleDelete(lead.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    )}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="clicks">
+            <div className="space-y-6">
+              {isLoadingStats ? (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    Laddar statistik...
+                  </CardContent>
+                </Card>
+              ) : getMonthsFromStats().length === 0 ? (
+                <Card>
+                  <CardContent className="py-8 text-center text-muted-foreground">
+                    Ingen klickstatistik ännu
+                  </CardContent>
+                </Card>
+              ) : (
+                getMonthsFromStats().map((month) => (
+                  <Card key={month}>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="flex items-center justify-between">
+                        <span className="capitalize flex items-center gap-2">
+                          <BarChart3 className="h-5 w-5 text-primary" />
+                          {formatMonth(month)}
+                        </span>
+                        <Badge variant="secondary" className="text-base">
+                          {getTotalClicksForMonth(month)} klick totalt
+                        </Badge>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Partner</TableHead>
+                            <TableHead className="text-right">Klick</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {getStatsForMonth(month).map((stat, idx) => (
+                            <TableRow key={`${stat.partner_name}-${idx}`}>
+                              <TableCell className="font-medium">{stat.partner_name}</TableCell>
+                              <TableCell className="text-right">
+                                <Badge variant="outline">{stat.clicks}</Badge>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </CardContent>
+                  </Card>
+                ))
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
 
         {/* View Lead Dialog */}
         <Dialog open={isViewDialogOpen} onOpenChange={setIsViewDialogOpen}>

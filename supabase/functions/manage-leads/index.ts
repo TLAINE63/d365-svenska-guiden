@@ -272,6 +272,43 @@ const handler = async (req: Request): Promise<Response> => {
         );
       }
 
+      case "click-stats": {
+        const { data: stats, error } = await supabase
+          .from("partner_clicks")
+          .select("partner_name, clicked_at")
+          .order("clicked_at", { ascending: false });
+
+        if (error) throw error;
+
+        // Aggregate by partner and month
+        const aggregated: Record<string, { partner_name: string; month: string; clicks: number }> = {};
+        
+        for (const row of stats || []) {
+          const date = new Date(row.clicked_at);
+          const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
+          const key = `${row.partner_name}_${monthKey}`;
+          
+          if (!aggregated[key]) {
+            aggregated[key] = {
+              partner_name: row.partner_name,
+              month: monthKey,
+              clicks: 0,
+            };
+          }
+          aggregated[key].clicks++;
+        }
+
+        const result = Object.values(aggregated).sort((a, b) => {
+          if (a.month !== b.month) return b.month.localeCompare(a.month);
+          return b.clicks - a.clicks;
+        });
+
+        return new Response(
+          JSON.stringify({ stats: result }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
       default:
         return new Response(
           JSON.stringify({ error: "Invalid action" }),
