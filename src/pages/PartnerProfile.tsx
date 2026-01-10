@@ -271,14 +271,6 @@ const PartnerProfile = () => {
                 </div>
               </div>
 
-              {/* Geographic Coverage - moved here from product cards */}
-              {staticPartner?.geography && (
-                <div className="mt-4 flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground font-medium">Geografisk täckning:</span>
-                  <Globe className="w-4 h-4 text-primary/70" />
-                  <span className="text-foreground">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -288,6 +280,21 @@ const PartnerProfile = () => {
       <section className="py-12 sm:py-16 bg-gradient-to-b from-transparent to-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto space-y-8">
+            
+            {/* Geographic Coverage */}
+            {staticPartner?.geography && (
+              <div className="bg-muted/30 rounded-xl p-4 border border-border/50">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Globe className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Geografisk täckning</p>
+                    <p className="text-lg font-semibold text-foreground">{getCumulativeGeographyDisplay(staticPartner.geography)}</p>
+                  </div>
+                </div>
+              </div>
+            )}
             
             {/* Product-specific cards */}
             <div className="space-y-6">
