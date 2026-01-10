@@ -1635,8 +1635,13 @@ const AdminDashboard = () => {
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div>
-                            <Label className="text-sm">Branschfokus (max 2)</Label>
-                            <div className="flex flex-wrap gap-1.5 mt-2">
+                            <div className="flex items-center justify-between mb-2">
+                              <Label className="text-sm">Branschfokus</Label>
+                              <span className={`text-xs font-medium px-2 py-0.5 rounded ${filter.industries.length > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                                {filter.industries.length}/2
+                              </span>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
                               {allIndustries.map((ind) => (
                                 <Badge
                                   key={ind}
@@ -1651,8 +1656,13 @@ const AdminDashboard = () => {
                           </div>
                           
                           <div>
-                            <Label className="text-sm">Täcker även (max 2)</Label>
-                            <div className="flex flex-wrap gap-1.5 mt-2">
+                            <div className="flex items-center justify-between mb-2">
+                              <Label className="text-sm">Erfarenhet även inom</Label>
+                              <span className={`text-xs font-medium px-2 py-0.5 rounded ${filter.secondaryIndustries.length > 0 ? 'bg-secondary text-secondary-foreground' : 'bg-muted text-muted-foreground'}`}>
+                                {filter.secondaryIndustries.length}/2
+                              </span>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5">
                               {allIndustries.map((ind) => (
                                 <Badge
                                   key={ind}
