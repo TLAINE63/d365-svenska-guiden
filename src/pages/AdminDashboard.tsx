@@ -52,7 +52,7 @@ import { sv } from "date-fns/locale";
 import { 
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
-  ImageIcon, User, Phone, Mail, Link, FileText, DollarSign, CalendarCheck, CalendarX
+  ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX
 } from "lucide-react";
 
 // ==================== TYPES ====================
@@ -87,6 +87,8 @@ interface FullPartner extends DatabasePartner {
   monthly_fee: number | null;
   cancellation_date: string | null;
   admin_notes: string | null;
+  admin_contact_name: string | null;
+  admin_contact_email: string | null;
 }
 
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
@@ -157,6 +159,8 @@ const AdminDashboard = () => {
     monthly_fee?: number;
     cancellation_date?: string;
     admin_notes?: string;
+    admin_contact_name?: string;
+    admin_contact_email?: string;
   }>({
     slug: "",
     name: "",
@@ -170,13 +174,15 @@ const AdminDashboard = () => {
     applications: [],
     industries: [],
     secondary_industries: [],
-    geography: "Sverige",
+    geography: ["Sverige"],
     product_filters: {},
     is_featured: false,
     activation_date: "",
     monthly_fee: undefined,
     cancellation_date: "",
     admin_notes: "",
+    admin_contact_name: "",
+    admin_contact_email: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
@@ -486,13 +492,15 @@ const AdminDashboard = () => {
       applications: [],
       industries: [],
       secondary_industries: [],
-      geography: "Sverige",
+      geography: ["Sverige"],
       product_filters: {},
       is_featured: false,
       activation_date: "",
       monthly_fee: undefined,
       cancellation_date: "",
       admin_notes: "",
+      admin_contact_name: "",
+      admin_contact_email: "",
     });
     setEditingPartner(null);
   };
@@ -517,13 +525,15 @@ const AdminDashboard = () => {
       applications: partner.applications || [],
       industries: partner.industries || [],
       secondary_industries: partner.secondary_industries || [],
-      geography: partner.geography || "Sverige",
+      geography: partner.geography || ["Sverige"],
       product_filters: partner.product_filters || {},
       is_featured: partner.is_featured || false,
       activation_date: partner.activation_date || "",
       monthly_fee: partner.monthly_fee || undefined,
       cancellation_date: partner.cancellation_date || "",
       admin_notes: partner.admin_notes || "",
+      admin_contact_name: (partner as any).admin_contact_name || "",
+      admin_contact_email: (partner as any).admin_contact_email || "",
     });
     setIsPartnerDialogOpen(true);
   };
@@ -1092,7 +1102,6 @@ const AdminDashboard = () => {
                                 )}
                                 {partner.monthly_fee && (
                                   <span className="flex items-center gap-1">
-                                    <DollarSign className="h-3 w-3" />
                                     {partner.monthly_fee} kr/mån
                                   </span>
                                 )}
@@ -1461,17 +1470,34 @@ const AdminDashboard = () => {
                   <Globe className="h-5 w-5" />
                   Geografisk täckning
                 </h3>
+                <p className="text-sm text-muted-foreground">Välj en eller flera regioner</p>
                 <div className="flex flex-wrap gap-2">
-                  {geographyOptions.map((geo) => (
-                    <Badge
-                      key={geo}
-                      variant={partnerFormData.geography === geo ? "default" : "outline"}
-                      className="cursor-pointer text-sm py-1.5 px-3"
-                      onClick={() => setPartnerFormData({ ...partnerFormData, geography: geo })}
-                    >
-                      {geo}
-                    </Badge>
-                  ))}
+                  {geographyOptions.map((geo) => {
+                    const isSelected = (partnerFormData.geography || []).includes(geo);
+                    return (
+                      <Badge
+                        key={geo}
+                        variant={isSelected ? "default" : "outline"}
+                        className="cursor-pointer text-sm py-1.5 px-3"
+                        onClick={() => {
+                          const current = partnerFormData.geography || [];
+                          if (isSelected) {
+                            setPartnerFormData({ 
+                              ...partnerFormData, 
+                              geography: current.filter(g => g !== geo) 
+                            });
+                          } else {
+                            setPartnerFormData({ 
+                              ...partnerFormData, 
+                              geography: [...current, geo] 
+                            });
+                          }
+                        }}
+                      >
+                        {geo}
+                      </Badge>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -1576,6 +1602,41 @@ const AdminDashboard = () => {
                   <FileText className="h-5 w-5" />
                   Administrativt
                 </h3>
+
+                {/* Admin Contact */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="admin_contact_name">Administrativ kontaktperson</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="admin_contact_name"
+                        value={partnerFormData.admin_contact_name || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, admin_contact_name: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="Namn på kontaktperson"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="admin_contact_email">Administrativ e-post</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="admin_contact_email"
+                        type="email"
+                        value={partnerFormData.admin_contact_email || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, admin_contact_email: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="admin@example.com"
+                      />
+                    </div>
+                  </div>
+                </div>
                 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
@@ -1595,20 +1656,16 @@ const AdminDashboard = () => {
                   </div>
                   <div>
                     <Label htmlFor="monthly_fee">Månadsavgift (SEK)</Label>
-                    <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="monthly_fee"
-                        type="number"
-                        min={0}
-                        value={partnerFormData.monthly_fee || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, monthly_fee: parseFloat(e.target.value) || undefined })
-                        }
-                        className="pl-10"
-                        placeholder="0"
-                      />
-                    </div>
+                    <Input
+                      id="monthly_fee"
+                      type="number"
+                      min={0}
+                      value={partnerFormData.monthly_fee || ""}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, monthly_fee: parseFloat(e.target.value) || undefined })
+                      }
+                      placeholder="0"
+                    />
                   </div>
                   <div>
                     <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>

@@ -31,16 +31,18 @@ export interface DatabasePartner {
   applications: string[];
   industries: string[];
   secondary_industries: string[];
-  geography: string;
+  geography: string[];  // Changed to array for multi-select
   product_filters: ProductFilters;
   is_featured: boolean;
   created_at: string;
   updated_at: string;
-  // New admin fields
+  // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
   cancellation_date: string | null;
   admin_notes: string | null;
+  admin_contact_name: string | null;
+  admin_contact_email: string | null;
 }
 
 export interface PartnerInput {
@@ -56,14 +58,16 @@ export interface PartnerInput {
   applications?: string[];
   industries?: string[];
   secondary_industries?: string[];
-  geography?: string;
+  geography?: string[];  // Changed to array for multi-select
   product_filters?: ProductFilters;
   is_featured?: boolean;
-  // New admin fields
+  // Admin fields
   activation_date?: string;
   monthly_fee?: number;
   cancellation_date?: string;
   admin_notes?: string;
+  admin_contact_name?: string;
+  admin_contact_email?: string;
 }
 
 // Fetch all partners from database (public view - excludes sensitive contact info)
@@ -85,12 +89,14 @@ export function usePartners() {
         phone: null,
         address: null,
         secondary_industries: p.secondary_industries || [],
-        geography: p.geography || 'Sverige',
+        geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
         admin_notes: null,
+        admin_contact_name: null,
+        admin_contact_email: null,
       }));
     },
   });
@@ -119,12 +125,14 @@ export function usePartner(slug: string | undefined) {
         phone: null,
         address: null,
         secondary_industries: data.secondary_industries || [],
-        geography: data.geography || 'Sverige',
+        geography: data.geography || ['Sverige'],
         product_filters: (data.product_filters as ProductFilters) || {},
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
         admin_notes: null,
+        admin_contact_name: null,
+        admin_contact_email: null,
       };
     },
     enabled: !!slug,
