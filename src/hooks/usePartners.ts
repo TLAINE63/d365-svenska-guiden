@@ -1,6 +1,20 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
+export interface ProductFilterInput {
+  industries: string[];
+  secondaryIndustries: string[];
+  companySize: string[];
+  geography: string;
+  ranking: number;
+}
+
+export interface ProductFilters {
+  bc?: ProductFilterInput;
+  fsc?: ProductFilterInput;
+  crm?: ProductFilterInput;
+}
+
 export interface DatabasePartner {
   id: string;
   slug: string;
@@ -14,6 +28,9 @@ export interface DatabasePartner {
   address: string | null;
   applications: string[];
   industries: string[];
+  secondary_industries: string[];
+  geography: string;
+  product_filters: ProductFilters;
   is_featured: boolean;
   created_at: string;
   updated_at: string;
@@ -30,6 +47,9 @@ export interface PartnerInput {
   address?: string;
   applications?: string[];
   industries?: string[];
+  secondary_industries?: string[];
+  geography?: string;
+  product_filters?: ProductFilters;
   is_featured?: boolean;
 }
 
@@ -51,6 +71,9 @@ export function usePartners() {
         contactPerson: null,
         phone: null,
         address: null,
+        secondary_industries: p.secondary_industries || [],
+        geography: p.geography || 'Sverige',
+        product_filters: (p.product_filters as ProductFilters) || {},
       }));
     },
   });
@@ -78,6 +101,9 @@ export function usePartner(slug: string | undefined) {
         contactPerson: null,
         phone: null,
         address: null,
+        secondary_industries: data.secondary_industries || [],
+        geography: data.geography || 'Sverige',
+        product_filters: (data.product_filters as ProductFilters) || {},
       };
     },
     enabled: !!slug,
