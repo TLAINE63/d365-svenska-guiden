@@ -102,6 +102,7 @@ interface PartnerData {
   logo_url?: string;
   website: string;
   email?: string;
+  contact_person?: string;
   phone?: string;
   address?: string;
   applications?: string[];
@@ -111,13 +112,18 @@ interface PartnerData {
   product_filters?: {
     bc?: ProductFilterData;
     fsc?: ProductFilterData;
-    crm?: ProductFilterData;
+    sales?: ProductFilterData;
+    service?: ProductFilterData;
   };
   is_featured?: boolean;
+  activation_date?: string;
+  monthly_fee?: number;
+  cancellation_date?: string;
+  admin_notes?: string;
 }
 
 interface RequestBody {
-  action: "create" | "update" | "delete";
+  action: "create" | "update" | "delete" | "get-full";
   partner?: PartnerData;
   id?: string;
   token: string;
@@ -160,6 +166,24 @@ serve(async (req: Request): Promise<Response> => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     switch (action) {
+      case "get-full": {
+        // Get full partner data including admin fields (not from public view)
+        const { data, error } = await supabase
+          .from("partners")
+          .select("*")
+          .order("name");
+
+        if (error) {
+          console.error("Get full error:", error);
+          throw error;
+        }
+
+        return new Response(
+          JSON.stringify({ success: true, partners: data }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
       case "create": {
         if (!partner || !partner.name || !partner.website || !partner.slug) {
           return new Response(
@@ -177,6 +201,7 @@ serve(async (req: Request): Promise<Response> => {
             logo_url: partner.logo_url?.trim() || null,
             website: partner.website.trim(),
             email: partner.email?.trim() || null,
+            contact_person: partner.contact_person?.trim() || null,
             phone: partner.phone?.trim() || null,
             address: partner.address?.trim() || null,
             applications: partner.applications || [],
@@ -185,6 +210,10 @@ serve(async (req: Request): Promise<Response> => {
             geography: partner.geography || 'Sverige',
             product_filters: partner.product_filters || {},
             is_featured: partner.is_featured || false,
+            activation_date: partner.activation_date || null,
+            monthly_fee: partner.monthly_fee || null,
+            cancellation_date: partner.cancellation_date || null,
+            admin_notes: partner.admin_notes?.trim() || null,
           })
           .select()
           .single();
@@ -222,6 +251,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.logo_url !== undefined) updateData.logo_url = partner.logo_url?.trim() || null;
         if (partner?.website) updateData.website = partner.website.trim();
         if (partner?.email !== undefined) updateData.email = partner.email?.trim() || null;
+        if (partner?.contact_person !== undefined) updateData.contact_person = partner.contact_person?.trim() || null;
         if (partner?.phone !== undefined) updateData.phone = partner.phone?.trim() || null;
         if (partner?.address !== undefined) updateData.address = partner.address?.trim() || null;
         if (partner?.applications !== undefined) updateData.applications = partner.applications;
@@ -230,6 +260,10 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.geography !== undefined) updateData.geography = partner.geography;
         if (partner?.product_filters !== undefined) updateData.product_filters = partner.product_filters;
         if (partner?.is_featured !== undefined) updateData.is_featured = partner.is_featured;
+        if (partner?.activation_date !== undefined) updateData.activation_date = partner.activation_date || null;
+        if (partner?.monthly_fee !== undefined) updateData.monthly_fee = partner.monthly_fee || null;
+        if (partner?.cancellation_date !== undefined) updateData.cancellation_date = partner.cancellation_date || null;
+        if (partner?.admin_notes !== undefined) updateData.admin_notes = partner.admin_notes?.trim() || null;
 
         const { data, error } = await supabase
           .from("partners")
