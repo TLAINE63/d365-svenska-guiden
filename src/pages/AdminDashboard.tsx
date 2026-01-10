@@ -1959,24 +1959,25 @@ const AdminDashboard = () => {
                       );
                     })()}
 
-                    {/* Primary Industries Preview - using first active product */}
+                    {/* Primary Industries Preview - all active products */}
                     {(() => {
-                      // Find the first active product section
-                      const activeSection = productSections.find(section => {
+                      // Collect all primary industries from all active product sections
+                      const allPrimaryIndustries: string[] = [];
+                      productSections.forEach(section => {
                         const filter = partnerFormData.product_filters?.[section.key];
-                        return (filter?.industries || []).length > 0;
+                        const industries = filter?.industries || [];
+                        industries.forEach(ind => {
+                          if (!allPrimaryIndustries.includes(ind)) {
+                            allPrimaryIndustries.push(ind);
+                          }
+                        });
                       });
                       
-                      if (!activeSection) return null;
-                      
-                      const filter = partnerFormData.product_filters?.[activeSection.key];
-                      const industries = filter?.industries || [];
-                      
-                      return industries.length > 0 ? (
+                      return allPrimaryIndustries.length > 0 ? (
                         <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
                           <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branschfokus</p>
                           <div className="flex flex-wrap gap-1.5">
-                            {industries.map((industry, i) => (
+                            {allPrimaryIndustries.map((industry, i) => (
                               <Badge 
                                 key={i} 
                                 className="text-xs bg-primary/15 text-primary border-0 font-medium"
@@ -1990,24 +1991,25 @@ const AdminDashboard = () => {
                       ) : null;
                     })()}
 
-                    {/* Secondary Industries Preview */}
+                    {/* Secondary Industries Preview - all active products */}
                     {(() => {
-                      // Find the first active product section with secondary industries
-                      const activeSection = productSections.find(section => {
+                      // Collect all secondary industries from all active product sections
+                      const allSecondaryIndustries: string[] = [];
+                      productSections.forEach(section => {
                         const filter = partnerFormData.product_filters?.[section.key];
-                        return (filter?.secondaryIndustries || []).length > 0;
+                        const secondaryIndustries = filter?.secondaryIndustries || [];
+                        secondaryIndustries.forEach(ind => {
+                          if (!allSecondaryIndustries.includes(ind)) {
+                            allSecondaryIndustries.push(ind);
+                          }
+                        });
                       });
                       
-                      if (!activeSection) return null;
-                      
-                      const filter = partnerFormData.product_filters?.[activeSection.key];
-                      const secondaryIndustries = filter?.secondaryIndustries || [];
-                      
-                      return secondaryIndustries.length > 0 ? (
+                      return allSecondaryIndustries.length > 0 ? (
                         <div className="bg-muted/30 rounded-lg p-3 border border-muted/50">
                           <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Erfarenhet även inom</p>
                           <div className="flex flex-wrap gap-1.5">
-                            {secondaryIndustries.map((industry, i) => (
+                            {allSecondaryIndustries.map((industry, i) => (
                               <Badge 
                                 key={i} 
                                 className="text-xs bg-amber-500 hover:bg-amber-600 text-white border-0"
