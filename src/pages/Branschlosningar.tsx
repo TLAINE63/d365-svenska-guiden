@@ -3,11 +3,11 @@ import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { partners, Partner, crmApplications, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
-import { ArrowLeft, Building2, ArrowDown } from "lucide-react";
+import { ArrowLeft, Building2, ArrowDown, Loader2 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import PartnerCard from "@/components/PartnerCard";
+import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
 
 // Industry images - new taxonomy (18 industries)
@@ -94,13 +94,19 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
 
 const Branschlosningar = () => {
   const navigate = useNavigate();
+  const { data: dbPartners, isLoading } = usePartners();
   const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
 
+  // Filter to only show featured partners
+  const partners = useMemo(() => {
+    return (dbPartners || []).filter(p => p.is_featured === true);
+  }, [dbPartners]);
+
   // Helper to build partner profile URL with filter context
-  const buildPartnerProfileUrl = (partnerName: string) => {
-    const baseUrl = `/partner/${partnerName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+  const buildPartnerProfileUrl = (partnerSlug: string) => {
+    const baseUrl = `/partner/${partnerSlug}`;
     const params = new URLSearchParams();
     
     // Pass the selected product
@@ -122,7 +128,7 @@ const Branschlosningar = () => {
   // Show all industries regardless of selected filter
   const displayedIndustries = industries;
 
-  // Filter partners based on selected product and industry - only show betalande partners
+  // Filter partners based on selected product and industry - only show featured partners
   const filteredPartners = useMemo(() => {
     if (!selectedIndustry) return [];
     
@@ -143,25 +149,20 @@ const Branschlosningar = () => {
     // Get selected industry name
     const industryName = selectedIndustry.partnerIndustries[0];
     
-    // Filter to only show betalande partners with matching productFilters
+    // Filter to only show featured partners with matching product_filters
     return partners
       .filter(partner => {
-        const productFilter = partner.productFilters?.[productKey];
+        const productFilter = partner.product_filters?.[productKey];
         if (!productFilter) return false;
-        
-        // Check if partner has this industry in their product-specific industries
-        return productFilter.industries.includes(industryName);
+        return productFilter.industries?.includes(industryName);
       })
       .sort((a, b) => {
-        // Sort by product-specific ranking
-        const rankA = getProductFilterRanking(a, productKey);
-        const rankB = getProductFilterRanking(b, productKey);
-        if (rankA !== rankB) {
-          return rankA - rankB;
-        }
-        return a.name.localeCompare(b.name, 'sv');
+        const rankA = a.product_filters?.[productKey]?.ranking ?? 999;
+        const rankB = b.product_filters?.[productKey]?.ranking ?? 999;
+        if (rankA !== rankB) return rankA - rankB;
+        return (a.name || '').localeCompare(b.name || '', 'sv');
       });
-  }, [selectedFilter, selectedIndustry]);
+  }, [selectedFilter, selectedIndustry, partners]);
 
   const handleIndustryClick = (industry: Industry) => {
     if (!selectedFilter) return; // Must select a solution first
@@ -176,6 +177,14 @@ const Branschlosningar = () => {
     const option = filterOptions.find(o => o.value === selectedFilter);
     return option?.label || "";
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -327,9 +336,9 @@ const Branschlosningar = () => {
                   
                   return (
                     <PartnerCard
-                      key={partner.name}
+                      key={partner.slug}
                       partner={partner}
-                      profileUrl={buildPartnerProfileUrl(partner.name)}
+                      profileUrl={buildPartnerProfileUrl(partner.slug)}
                       colorScheme={selectedFilter === 'bc' ? 'primary' : selectedFilter === 'fsc' ? 'primary' : 'crm'}
                       productKey={productKey}
                       highlightedProduct={getProductLabel()}
