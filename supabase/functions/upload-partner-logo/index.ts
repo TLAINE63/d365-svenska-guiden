@@ -2,6 +2,8 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const ALLOWED_ORIGINS = [
+  "https://d365.se",
+  "https://www.d365.se",
   "https://d365-svenska-guiden.lovable.app",
   "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
   "http://localhost:5173",
