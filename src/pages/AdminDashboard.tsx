@@ -48,7 +48,7 @@ import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { 
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
-  Users, Building2, Plus, Pencil, Upload, Lock
+  Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox
 } from "lucide-react";
 
 // ==================== TYPES ====================
@@ -585,6 +585,19 @@ const AdminDashboard = () => {
     refetchPartners();
   };
 
+  // Calculate summary stats
+  const currentMonth = new Date().toISOString().slice(0, 7) + "-01";
+  const clicksThisMonth = clickStats
+    .filter(s => s.month === currentMonth)
+    .reduce((sum, s) => sum + s.clicks, 0);
+  
+  const totalClicks = clickStats.reduce((sum, s) => sum + s.clicks, 0);
+  
+  const newLeadsCount = leads.filter(l => l.status === "new").length;
+  const forwardedLeadsCount = leads.filter(l => l.status === "forwarded").length;
+  
+  const currentMonthName = new Date().toLocaleDateString("sv-SE", { month: "long", year: "numeric" });
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -601,6 +614,77 @@ const AdminDashboard = () => {
               Uppdatera
             </Button>
           </div>
+        </div>
+
+        {/* Summary Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Totalt antal leads</p>
+                  <p className="text-3xl font-bold">{leads.length}</p>
+                </div>
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <Inbox className="h-6 w-6 text-primary" />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                {newLeadsCount} nya, {forwardedLeadsCount} vidarebefordrade
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Klick denna månad</p>
+                  <p className="text-3xl font-bold">{clicksThisMonth}</p>
+                </div>
+                <div className="p-3 bg-green-500/10 rounded-full">
+                  <MousePointerClick className="h-6 w-6 text-green-600" />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2 capitalize">
+                {currentMonthName}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Totalt antal klick</p>
+                  <p className="text-3xl font-bold">{totalClicks}</p>
+                </div>
+                <div className="p-3 bg-blue-500/10 rounded-full">
+                  <TrendingUp className="h-6 w-6 text-blue-600" />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                Sedan start
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-muted-foreground">Partners i databasen</p>
+                  <p className="text-3xl font-bold">{dbPartners.length}</p>
+                </div>
+                <div className="p-3 bg-amber-500/10 rounded-full">
+                  <Building2 className="h-6 w-6 text-amber-600" />
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                {dbPartners.filter(p => p.is_featured).length} utvalda
+              </p>
+            </CardContent>
+          </Card>
         </div>
 
         <Tabs defaultValue="leads" className="space-y-4">
