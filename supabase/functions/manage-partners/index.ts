@@ -87,6 +87,14 @@ function base64UrlDecode(str: string): Uint8Array {
   return bytes;
 }
 
+interface ProductFilterData {
+  industries: string[];
+  secondaryIndustries: string[];
+  companySize: string[];
+  geography: string;
+  ranking: number;
+}
+
 interface PartnerData {
   slug: string;
   name: string;
@@ -98,6 +106,13 @@ interface PartnerData {
   address?: string;
   applications?: string[];
   industries?: string[];
+  secondary_industries?: string[];
+  geography?: string;
+  product_filters?: {
+    bc?: ProductFilterData;
+    fsc?: ProductFilterData;
+    crm?: ProductFilterData;
+  };
   is_featured?: boolean;
 }
 
@@ -166,6 +181,9 @@ serve(async (req: Request): Promise<Response> => {
             address: partner.address?.trim() || null,
             applications: partner.applications || [],
             industries: partner.industries || [],
+            secondary_industries: partner.secondary_industries || [],
+            geography: partner.geography || 'Sverige',
+            product_filters: partner.product_filters || {},
             is_featured: partner.is_featured || false,
           })
           .select()
@@ -208,6 +226,9 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.address !== undefined) updateData.address = partner.address?.trim() || null;
         if (partner?.applications !== undefined) updateData.applications = partner.applications;
         if (partner?.industries !== undefined) updateData.industries = partner.industries;
+        if (partner?.secondary_industries !== undefined) updateData.secondary_industries = partner.secondary_industries;
+        if (partner?.geography !== undefined) updateData.geography = partner.geography;
+        if (partner?.product_filters !== undefined) updateData.product_filters = partner.product_filters;
         if (partner?.is_featured !== undefined) updateData.is_featured = partner.is_featured;
 
         const { data, error } = await supabase

@@ -3,6 +3,8 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 // Get allowed origins for CORS
 const ALLOWED_ORIGINS = [
+  "https://d365.se",
+  "https://www.d365.se",
   "https://d365-svenska-guiden.lovable.app",
   "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
   "http://localhost:5173",
@@ -31,7 +33,6 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
     const [encodedHeader, encodedPayload, encodedSignature] = parts;
     const dataToVerify = `${encodedHeader}.${encodedPayload}`;
 
-    // Verify signature
     const encoder = new TextEncoder();
     const key = await crypto.subtle.importKey(
       "raw",
@@ -48,16 +49,13 @@ async function verifyJWT(token: string, secret: string): Promise<{ valid: boolea
       return { valid: false, error: "Invalid signature" };
     }
 
-    // Decode and validate payload
     const payload = JSON.parse(atob(base64UrlToBase64(encodedPayload)));
 
-    // Check expiration
     const now = Math.floor(Date.now() / 1000);
     if (payload.exp && payload.exp < now) {
       return { valid: false, error: "Token expired" };
     }
 
-    // Check role
     if (payload.role !== "admin") {
       return { valid: false, error: "Insufficient permissions" };
     }
@@ -87,7 +85,7 @@ function base64UrlDecode(str: string): Uint8Array {
   return bytes;
 }
 
-// Static partner data to import
+// Static partner data matching partners.ts with new fields
 const staticPartners = [
   {
     slug: "4ps-sweden",
@@ -97,6 +95,17 @@ const staticPartners = [
     description: "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjuder end-to-end-funktionalitet med 100% realtidsvisibilitet på projekt.",
     applications: ["Business Central"],
     industries: ["Bygg & Entreprenad"],
+    secondary_industries: [],
+    geography: "Norden",
+    product_filters: {
+      bc: {
+        industries: ["Bygg & Entreprenad"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 1
+      }
+    }
   },
   {
     slug: "bisqo",
@@ -105,7 +114,25 @@ const staticPartners = [
     website: "https://www.bisqo.se/businesscentral/",
     description: "Bisqo är experter inom Dynamics 365 Business Central och CRM på Power Platform. Deras strategi bygger på en kraftfull kombination av ERP och CRM.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)", "Konsulttjänster"],
+    industries: ["Grossist & Distribution", "Retail & E-handel", "Konsulttjänster", "Tillverkningsindustri"],
+    secondary_industries: ["Tillverkningsindustri", "Konsulttjänster"],
+    geography: "Sverige",
+    product_filters: {
+      bc: {
+        industries: ["Grossist & Distribution", "Retail & E-handel"],
+        secondaryIndustries: ["Tillverkningsindustri", "Konsulttjänster"],
+        companySize: ["50-99", "100-249", "250-999"],
+        geography: "Sverige",
+        ranking: 3
+      },
+      crm: {
+        industries: ["Grossist & Distribution", "Retail & E-handel"],
+        secondaryIndustries: [],
+        companySize: ["50-99", "100-249", "250-999"],
+        geography: "Sverige",
+        ranking: 1
+      }
+    }
   },
   {
     slug: "inbiz",
@@ -114,7 +141,18 @@ const staticPartners = [
     website: "https://www.inbiz.se/microsoft-partner/",
     description: "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005.",
     applications: ["Business Central"],
-    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Konsulttjänster"],
+    industries: ["Tillverkningsindustri", "Grossist & Distribution", "Livsmedel & Processindustri", "Konsulttjänster"],
+    secondary_industries: ["Livsmedel & Processindustri", "Konsulttjänster"],
+    geography: "Sverige",
+    product_filters: {
+      bc: {
+        industries: ["Tillverkningsindustri", "Grossist & Distribution"],
+        secondaryIndustries: ["Livsmedel & Processindustri", "Konsulttjänster"],
+        companySize: ["1-49", "50-99", "250-999"],
+        geography: "Sverige",
+        ranking: 2
+      }
+    }
   },
   {
     slug: "jma-maskindata",
@@ -123,7 +161,18 @@ const staticPartners = [
     website: "https://jma.se/affarssystem/",
     description: "JMA Maskindata är specialister på affärssystem för tillverkande företag med lång erfarenhet av Microsoft Dynamics.",
     applications: ["Business Central"],
-    industries: ["Bygg & Entreprenad", "Grossist/Distribution", "Transport & Logistik"],
+    industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+    secondary_industries: [],
+    geography: "Sverige",
+    product_filters: {
+      bc: {
+        industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+        secondaryIndustries: [],
+        companySize: ["50-99", "100-249", "250-999"],
+        geography: "Sverige",
+        ranking: 2
+      }
+    }
   },
   {
     slug: "knowit",
@@ -132,7 +181,32 @@ const staticPartners = [
     website: "https://www.knowit.se/vart-erbjudande/solutions/",
     description: "Knowit är en nordisk digitaliseringskonsult med bred Microsoft-kompetens och fokus på hållbar digitalisering.",
     applications: ["Business Central", "Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor", "Bank & Försäkring", "Hälso- & sjukvård", "Konsulttjänster"],
+    industries: ["Tillverkningsindustri", "Bygg & Entreprenad", "Finans & Försäkring", "Grossist & Distribution"],
+    secondary_industries: [],
+    geography: "Norden",
+    product_filters: {
+      bc: {
+        industries: ["Tillverkningsindustri", "Bygg & Entreprenad"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 6
+      },
+      fsc: {
+        industries: ["Tillverkningsindustri", "Finans & Försäkring"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 1
+      },
+      crm: {
+        industries: ["Bygg & Entreprenad", "Grossist & Distribution"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 1
+      }
+    }
   },
   {
     slug: "nab-solutions",
@@ -141,7 +215,25 @@ const staticPartners = [
     website: "https://www.nabsolutions.se/dynamics-365-business-central/",
     description: "NAB Solutions är specialister på Dynamics 365 Business Central och CRM med lång erfarenhet av implementationer för svenska företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Medlemsorganisationer", "Nonprofit", "Tillverkningsindustrin", "Utbildning"],
+    industries: ["Grossist & Distribution", "Tillverkningsindustri", "Life Science / Medtech", "Konsulttjänster"],
+    secondary_industries: ["Life Science / Medtech", "Konsulttjänster"],
+    geography: "Sverige",
+    product_filters: {
+      bc: {
+        industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+        secondaryIndustries: ["Life Science / Medtech", "Konsulttjänster"],
+        companySize: ["1-49", "50-99", "250-999"],
+        geography: "Sverige",
+        ranking: 1
+      },
+      crm: {
+        industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+        secondaryIndustries: [],
+        companySize: ["50-99", "100-249", "250-999"],
+        geography: "Sverige",
+        ranking: 1
+      }
+    }
   },
   {
     slug: "navcite",
@@ -150,7 +242,18 @@ const staticPartners = [
     website: "https://www.navcite.com/microsoft-business-central/",
     description: "Navcite kombinerar 'Small company feeling – Big company experience' och erbjuder affärssystem med Infor M3 och Microsoft Business Central.",
     applications: ["Business Central"],
-    industries: ["Konsulttjänster", "Tillverkningsindustrin", "Grossist/Distribution"],
+    industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+    secondary_industries: [],
+    geography: "Sverige",
+    product_filters: {
+      bc: {
+        industries: ["Grossist & Distribution", "Tillverkningsindustri"],
+        secondaryIndustries: [],
+        companySize: ["50-99", "100-249", "250-999"],
+        geography: "Sverige",
+        ranking: 4
+      }
+    }
   },
   {
     slug: "norteam",
@@ -159,7 +262,25 @@ const staticPartners = [
     website: "https://norteam.se/",
     description: "Norteam är en Microsoft Dynamics 365-partner med fokus på Business Central och CRM för svenska företag.",
     applications: ["Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Konsulttjänster", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
+    industries: ["Konsulttjänster", "Fastighet & Förvaltning"],
+    secondary_industries: [],
+    geography: "Sverige",
+    product_filters: {
+      bc: {
+        industries: ["Konsulttjänster", "Fastighet & Förvaltning"],
+        secondaryIndustries: [],
+        companySize: ["1-49", "50-99", "100-249"],
+        geography: "Sverige",
+        ranking: 3
+      },
+      crm: {
+        industries: ["Konsulttjänster", "Fastighet & Förvaltning"],
+        secondaryIndustries: [],
+        companySize: ["1-49", "50-99", "100-249"],
+        geography: "Sverige",
+        ranking: 5
+      }
+    }
   },
   {
     slug: "be-terna",
@@ -168,7 +289,18 @@ const staticPartners = [
     website: "https://www.be-terna.com/sv/losningar/microsoft",
     description: "BE-terna är en internationell partner som vägleder företag till en säker digital framtid.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustrin", "Handel (Retail & eCommerce)", "Transport & Logistik", "Grossist/Distribution"],
+    industries: ["Grossist & Distribution", "Finans & Försäkring", "Tillverkningsindustri", "Livsmedel & Processindustri"],
+    secondary_industries: ["Livsmedel & Processindustri", "Tillverkningsindustri"],
+    geography: "Europa",
+    product_filters: {
+      fsc: {
+        industries: ["Grossist & Distribution", "Finans & Försäkring"],
+        secondaryIndustries: ["Livsmedel & Processindustri", "Tillverkningsindustri"],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Europa",
+        ranking: 1
+      }
+    }
   },
   {
     slug: "implema",
@@ -177,7 +309,25 @@ const staticPartners = [
     website: "https://implema.se/microsoft-dynamics/",
     description: "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustrin", "Grossist/Distribution", "Handel (Retail & eCommerce)"],
+    industries: ["Grossist & Distribution", "Retail & E-handel", "Tillverkningsindustri"],
+    secondary_industries: [],
+    geography: "Norden",
+    product_filters: {
+      fsc: {
+        industries: ["Grossist & Distribution", "Retail & E-handel"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 2
+      },
+      crm: {
+        industries: ["Tillverkningsindustri", "Grossist & Distribution"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 6
+      }
+    }
   },
   {
     slug: "innofactor",
@@ -186,62 +336,174 @@ const staticPartners = [
     website: "https://www.innofactor.com/se/vad-vi-gor/losningar/dynamics-365/",
     description: "Innofactor är en Microsoft Cloud Solutions Partner med Microsofts högsta partnerbeteckning.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor", "Hälso- & sjukvård", "Energi & Utilities", "Utbildning"],
+    industries: ["Finans & Försäkring", "Grossist & Distribution", "Offentlig sektor"],
+    secondary_industries: [],
+    geography: "Norden",
+    product_filters: {
+      fsc: {
+        industries: ["Finans & Försäkring", "Grossist & Distribution"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 1
+      }
+    }
   },
   {
-    slug: "nexer",
-    name: "Nexer",
-    logo_url: "https://nexergroup.com/wp-content/uploads/2022/01/nexer-logo.svg",
-    website: "https://nexergroup.com/sv/tjanster/dynamics-365/",
-    description: "Nexer är en svensk IT-konsult med global räckvidd och stark kompetens inom Dynamics 365.",
+    slug: "itm8",
+    name: "Itm8",
+    logo_url: "",
+    website: "https://itm8.com/",
+    description: "Itm8 är en nordisk IT-partner med fokus på Microsoft Dynamics 365 och digital transformation.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustrin", "Offentlig sektor", "Handel (Retail & eCommerce)"],
+    industries: ["Retail & E-handel", "Grossist & Distribution", "Tillverkningsindustri"],
+    secondary_industries: [],
+    geography: "Norden",
+    product_filters: {
+      fsc: {
+        industries: ["Retail & E-handel", "Grossist & Distribution"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 3
+      },
+      crm: {
+        industries: ["Retail & E-handel", "Tillverkningsindustri"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Norden",
+        ranking: 4
+      }
+    }
   },
   {
-    slug: "crm-konsulterna",
-    name: "CRM Konsulterna",
-    logo_url: "https://crmkonsulterna.se/wp-content/uploads/2023/01/crmk-logo.svg",
-    website: "https://www.crmkonsulterna.se/dynamics-365/",
-    description: "CRM Konsulterna utsågs till Dynamics 365 Customer Engagement Partner of the Year 2023 av Microsoft Sverige.",
-    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Konsulttjänster", "Handel (Retail & eCommerce)", "Offentlig sektor"],
-  },
-  {
-    slug: "nemely",
-    name: "Nemely",
-    logo_url: "https://nemely.se/wp-content/uploads/2022/01/nemely-logo.svg",
-    website: "https://nemely.se/dynamics-365/",
-    description: "Nemely är en Microsoft Dynamics 365 Partner specialiserad på CRM och kundengagemang.",
-    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Handel (Retail & eCommerce)", "Grossist/Distribution", "Konsulttjänster"],
-  },
-  {
-    slug: "releye",
-    name: "Releye",
-    logo_url: "https://releye.se/wp-content/uploads/2022/01/releye-logo.svg",
-    website: "https://releye.se/dynamics-365/",
-    description: "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform.",
-    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Handel (Retail & eCommerce)", "Konsulttjänster", "Grossist/Distribution"],
-  },
-  {
-    slug: "sirocco-group",
-    name: "Sirocco Group",
-    logo_url: "https://siroccogroup.com/wp-content/uploads/2022/01/sirocco-logo.svg",
-    website: "https://www.siroccogroup.com/microsoft-dynamics-365/",
-    description: "Sirocco Group är en internationell boutique-konsult och utvecklingsbyrå specialiserad på CRM och digital transformation.",
-    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Tillverkningsindustrin", "Energi & Utilities", "Offentlig sektor"],
-  },
-  {
-    slug: "sopra-steria",
-    name: "Sopra Steria",
-    logo_url: "https://www.soprasteria.com/~/media/soprasteria/soprasteria-logo.svg",
-    website: "https://www.soprasteria.se/losningar/microsoft",
-    description: "Sopra Steria är en europeisk teknologikonsult med stark närvaro i Norden och omfattande Dynamics 365-kompetens.",
+    slug: "columbus",
+    name: "Columbus",
+    logo_url: "https://www.columbusglobal.com/hubfs/Columbus%20Logo.svg",
+    website: "https://www.columbusglobal.com/sv/",
+    description: "Columbus är en global IT-partner som hjälper företag att digitalisera och optimera sin verksamhet med Microsoft Dynamics 365.",
     applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
-    industries: ["Offentlig sektor", "Bank & Försäkring", "Energi & Utilities"],
+    industries: ["Tillverkningsindustri", "Livsmedel & Processindustri", "Retail & E-handel"],
+    secondary_industries: [],
+    geography: "Internationellt",
+    product_filters: {
+      fsc: {
+        industries: ["Tillverkningsindustri", "Livsmedel & Processindustri"],
+        secondaryIndustries: [],
+        companySize: ["250-999", "1.000-4.999", ">5.000"],
+        geography: "Internationellt",
+        ranking: 2
+      },
+      crm: {
+        industries: ["Tillverkningsindustri", "Retail & E-handel"],
+        secondaryIndustries: [],
+        companySize: ["250-999", "1.000-4.999", ">5.000"],
+        geography: "Internationellt",
+        ranking: 3
+      }
+    }
   },
+  {
+    slug: "fellowmind",
+    name: "Fellowmind",
+    logo_url: "https://www.fellowmind.com/hubfs/Fellowmind%20Logo.svg",
+    website: "https://www.fellowmind.com/sv-se/",
+    description: "Fellowmind är en europeisk Microsoft-partner som hjälper organisationer att accelerera sin digitala transformation.",
+    applications: ["Finance & SCM", "Business Central", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
+    industries: ["Tillverkningsindustri", "Offentlig sektor", "Non-profit / Organisationer"],
+    secondary_industries: [],
+    geography: "Europa",
+    product_filters: {
+      fsc: {
+        industries: ["Tillverkningsindustri", "Offentlig sektor"],
+        secondaryIndustries: [],
+        companySize: ["100-249", "250-999", "1.000-4.999"],
+        geography: "Europa",
+        ranking: 4
+      },
+      bc: {
+        industries: ["Non-profit / Organisationer", "Offentlig sektor"],
+        secondaryIndustries: [],
+        companySize: ["50-99", "100-249", "250-999"],
+        geography: "Europa",
+        ranking: 5
+      }
+    }
+  },
+  {
+    slug: "avanade",
+    name: "Avanade",
+    logo_url: "https://www.avanade.com/-/media/logo/avanade-logo.svg",
+    website: "https://www.avanade.com/sv-se",
+    description: "Avanade är en global ledare inom digital innovation och molnlösningar baserat på Microsoft-plattformen.",
+    applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
+    industries: ["Finans & Försäkring", "Energi & Utilities", "Life Science / Medtech"],
+    secondary_industries: [],
+    geography: "Internationellt",
+    product_filters: {
+      fsc: {
+        industries: ["Finans & Försäkring", "Energi & Utilities"],
+        secondaryIndustries: [],
+        companySize: ["1.000-4.999", ">5.000"],
+        geography: "Internationellt",
+        ranking: 3
+      },
+      crm: {
+        industries: ["Life Science / Medtech", "Finans & Försäkring"],
+        secondaryIndustries: [],
+        companySize: ["1.000-4.999", ">5.000"],
+        geography: "Internationellt",
+        ranking: 2
+      }
+    }
+  },
+  {
+    slug: "yellow-solution",
+    name: "Yellow Solution",
+    logo_url: "",
+    website: "https://yellowsolution.se",
+    description: "Yellow Solution är en svensk Microsoft-partner specialiserad på Dynamics 365 CRM-lösningar.",
+    applications: ["Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service"],
+    industries: ["Konsulttjänster", "Tillverkningsindustri"],
+    secondary_industries: [],
+    geography: "Sverige",
+    product_filters: {
+      crm: {
+        industries: ["Konsulttjänster", "Tillverkningsindustri"],
+        secondaryIndustries: [],
+        companySize: ["50-99", "100-249", "250-999"],
+        geography: "Sverige",
+        ranking: 2
+      }
+    }
+  },
+  {
+    slug: "hitachi-solutions",
+    name: "Hitachi Solutions",
+    logo_url: "https://www.hitachisolutions.com/wp-content/uploads/2021/04/hitachi-solutions-logo.svg",
+    website: "https://www.hitachisolutions.com/",
+    description: "Hitachi Solutions är en global systemintegratör med djup Microsoft Dynamics 365-expertis.",
+    applications: ["Finance & SCM", "Sales", "Customer Insights (Marketing)", "Customer Service", "Contact Center", "Field Service", "Project Operations"],
+    industries: ["Tillverkningsindustri", "Retail & E-handel", "Finans & Försäkring"],
+    secondary_industries: [],
+    geography: "Internationellt",
+    product_filters: {
+      fsc: {
+        industries: ["Tillverkningsindustri", "Retail & E-handel"],
+        secondaryIndustries: [],
+        companySize: ["250-999", "1.000-4.999", ">5.000"],
+        geography: "Internationellt",
+        ranking: 5
+      },
+      crm: {
+        industries: ["Finans & Försäkring", "Retail & E-handel"],
+        secondaryIndustries: [],
+        companySize: ["250-999", "1.000-4.999", ">5.000"],
+        geography: "Internationellt",
+        ranking: 5
+      }
+    }
+  }
 ];
 
 serve(async (req: Request): Promise<Response> => {
@@ -252,12 +514,11 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { token } = await req.json();
+    const body = await req.json();
+    const { token } = body;
 
-    // Validate JWT token
     const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!JWT_SECRET) {
-      console.error("JWT secret not available");
       return new Response(
         JSON.stringify({ error: "Serverfel: Autentisering ej konfigurerad" }),
         { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -266,7 +527,6 @@ serve(async (req: Request): Promise<Response> => {
 
     const verification = await verifyJWT(token || "", JWT_SECRET);
     if (!verification.valid) {
-      console.log(`Invalid token: ${verification.error}`);
       return new Response(
         JSON.stringify({ error: verification.error === "Token expired" ? "Sessionen har gått ut. Logga in igen." : "Ogiltig session" }),
         { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -277,7 +537,6 @@ serve(async (req: Request): Promise<Response> => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Check existing partners to avoid duplicates
     const { data: existingPartners } = await supabase
       .from("partners")
       .select("slug");

@@ -33,7 +33,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { partners as staticPartners, allIndustries } from "@/data/partners";
+import { partners as staticPartners, allIndustries, geographyOptions, companySizes } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   usePartners,
@@ -43,12 +43,14 @@ import {
   generateSlug,
   DatabasePartner,
   PartnerInput,
+  ProductFilters,
+  ProductFilterInput,
 } from "@/hooks/usePartners";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { 
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
-  Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox
+  Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, Factory
 } from "lucide-react";
 
 // ==================== TYPES ====================
@@ -128,6 +130,14 @@ const AdminDashboard = () => {
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [isImporting, setIsImporting] = useState(false);
+  const emptyProductFilter: ProductFilterInput = {
+    industries: [],
+    secondaryIndustries: [],
+    companySize: [],
+    geography: "Sverige",
+    ranking: 999,
+  };
+
   const [partnerFormData, setPartnerFormData] = useState<PartnerInput>({
     slug: "",
     name: "",
@@ -139,8 +149,14 @@ const AdminDashboard = () => {
     address: "",
     applications: [],
     industries: [],
+    secondary_industries: [],
+    geography: "Sverige",
+    product_filters: {},
     is_featured: false,
   });
+
+  // Currently selected product tab for editing
+  const [selectedProductTab, setSelectedProductTab] = useState<'bc' | 'fsc' | 'crm'>('bc');
 
   // ==================== LEAD FUNCTIONS ====================
 
@@ -417,9 +433,13 @@ const AdminDashboard = () => {
       address: "",
       applications: [],
       industries: [],
+      secondary_industries: [],
+      geography: "Sverige",
+      product_filters: {},
       is_featured: false,
     });
     setEditingPartner(null);
+    setSelectedProductTab('bc');
   };
 
   const openCreatePartnerDialog = () => {
@@ -440,6 +460,9 @@ const AdminDashboard = () => {
       address: partner.address || "",
       applications: partner.applications || [],
       industries: partner.industries || [],
+      secondary_industries: partner.secondary_industries || [],
+      geography: partner.geography || "Sverige",
+      product_filters: partner.product_filters || {},
       is_featured: partner.is_featured || false,
     });
     setIsPartnerDialogOpen(true);
@@ -521,6 +544,66 @@ const AdminDashboard = () => {
         ? prev.industries.filter((i) => i !== ind)
         : [...(prev.industries || []), ind],
     }));
+  };
+
+  const toggleSecondaryIndustry = (ind: string) => {
+    setPartnerFormData((prev) => ({
+      ...prev,
+      secondary_industries: prev.secondary_industries?.includes(ind)
+        ? prev.secondary_industries.filter((i) => i !== ind)
+        : [...(prev.secondary_industries || []), ind],
+    }));
+  };
+
+  // Product filter helpers
+  const getProductFilter = (product: 'bc' | 'fsc' | 'crm'): ProductFilterInput => {
+    return partnerFormData.product_filters?.[product] || emptyProductFilter;
+  };
+
+  const updateProductFilter = (product: 'bc' | 'fsc' | 'crm', updates: Partial<ProductFilterInput>) => {
+    setPartnerFormData((prev) => ({
+      ...prev,
+      product_filters: {
+        ...prev.product_filters,
+        [product]: {
+          ...getProductFilter(product),
+          ...updates,
+        },
+      },
+    }));
+  };
+
+  const toggleProductIndustry = (product: 'bc' | 'fsc' | 'crm', ind: string) => {
+    const current = getProductFilter(product);
+    const newIndustries = current.industries.includes(ind)
+      ? current.industries.filter((i) => i !== ind)
+      : [...current.industries, ind];
+    updateProductFilter(product, { industries: newIndustries });
+  };
+
+  const toggleProductSecondaryIndustry = (product: 'bc' | 'fsc' | 'crm', ind: string) => {
+    const current = getProductFilter(product);
+    const newIndustries = current.secondaryIndustries.includes(ind)
+      ? current.secondaryIndustries.filter((i) => i !== ind)
+      : [...current.secondaryIndustries, ind];
+    updateProductFilter(product, { secondaryIndustries: newIndustries });
+  };
+
+  const toggleProductCompanySize = (product: 'bc' | 'fsc' | 'crm', size: string) => {
+    const current = getProductFilter(product);
+    const newSizes = current.companySize.includes(size)
+      ? current.companySize.filter((s) => s !== size)
+      : [...current.companySize, size];
+    updateProductFilter(product, { companySize: newSizes });
+  };
+
+  const isProductEnabled = (product: 'bc' | 'fsc' | 'crm'): boolean => {
+    const appMap: Record<string, string[]> = {
+      bc: ['Business Central'],
+      fsc: ['Finance & SCM'],
+      crm: ['Sales', 'Customer Service', 'Customer Insights (Marketing)', 'Field Service', 'Contact Center'],
+    };
+    return appMap[product].some(app => partnerFormData.applications?.includes(app));
   };
 
   // ==================== RENDER ====================
@@ -1202,20 +1285,176 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
+              {/* Geografisk täckning */}
               <div>
-                <Label>Branscher</Label>
+                <Label className="flex items-center gap-2">
+                  <Globe className="h-4 w-4" />
+                  Geografisk täckning
+                </Label>
                 <div className="flex flex-wrap gap-2 mt-2">
+                  {geographyOptions.map((geo) => (
+                    <Badge
+                      key={geo}
+                      variant={partnerFormData.geography === geo ? "default" : "outline"}
+                      className="cursor-pointer"
+                      onClick={() => setPartnerFormData({ ...partnerFormData, geography: geo })}
+                    >
+                      {geo}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* General Industries (legacy - for backwards compatibility) */}
+              <div>
+                <Label className="flex items-center gap-2">
+                  <Factory className="h-4 w-4" />
+                  Branschfokus (generellt)
+                </Label>
+                <div className="flex flex-wrap gap-2 mt-2 max-h-32 overflow-y-auto">
                   {allIndustries.map((ind) => (
                     <Badge
                       key={ind}
                       variant={partnerFormData.industries?.includes(ind) ? "default" : "outline"}
-                      className="cursor-pointer"
+                      className="cursor-pointer text-xs"
                       onClick={() => toggleIndustry(ind)}
                     >
                       {ind}
                     </Badge>
                   ))}
                 </div>
+              </div>
+
+              {/* Secondary industries */}
+              <div>
+                <Label>Erfarenhet även inom (generellt)</Label>
+                <div className="flex flex-wrap gap-2 mt-2 max-h-32 overflow-y-auto">
+                  {allIndustries.map((ind) => (
+                    <Badge
+                      key={ind}
+                      variant={partnerFormData.secondary_industries?.includes(ind) ? "secondary" : "outline"}
+                      className="cursor-pointer text-xs"
+                      onClick={() => toggleSecondaryIndustry(ind)}
+                    >
+                      {ind}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Product-specific filters */}
+              <div className="border rounded-lg p-4 space-y-4">
+                <Label className="text-base font-semibold">Produktspecifika inställningar</Label>
+                <p className="text-sm text-muted-foreground">
+                  Konfigurera branschfokus, erfarenhet och företagsstorlek per produkt
+                </p>
+                
+                <Tabs value={selectedProductTab} onValueChange={(v) => setSelectedProductTab(v as 'bc' | 'fsc' | 'crm')}>
+                  <TabsList className="w-full grid grid-cols-3">
+                    <TabsTrigger value="bc" disabled={!isProductEnabled('bc')}>
+                      Business Central
+                    </TabsTrigger>
+                    <TabsTrigger value="fsc" disabled={!isProductEnabled('fsc')}>
+                      Finance & SCM
+                    </TabsTrigger>
+                    <TabsTrigger value="crm" disabled={!isProductEnabled('crm')}>
+                      CRM
+                    </TabsTrigger>
+                  </TabsList>
+
+                  {(['bc', 'fsc', 'crm'] as const).map((product) => (
+                    <TabsContent key={product} value={product} className="space-y-4 mt-4">
+                      {!isProductEnabled(product) ? (
+                        <p className="text-sm text-muted-foreground italic">
+                          Välj relevanta applikationer ovan för att aktivera detta.
+                        </p>
+                      ) : (
+                        <>
+                          {/* Product ranking */}
+                          <div>
+                            <Label>Ranking (lägre = högre i listan)</Label>
+                            <Input
+                              type="number"
+                              min={1}
+                              max={999}
+                              value={getProductFilter(product).ranking}
+                              onChange={(e) => updateProductFilter(product, { ranking: parseInt(e.target.value) || 999 })}
+                              className="w-24 mt-1"
+                            />
+                          </div>
+
+                          {/* Product geography */}
+                          <div>
+                            <Label>Geografisk täckning</Label>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              {geographyOptions.map((geo) => (
+                                <Badge
+                                  key={geo}
+                                  variant={getProductFilter(product).geography === geo ? "default" : "outline"}
+                                  className="cursor-pointer"
+                                  onClick={() => updateProductFilter(product, { geography: geo })}
+                                >
+                                  {geo}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Product company sizes */}
+                          <div>
+                            <Label>Företagsstorlek (antal anställda)</Label>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              {companySizes.map((size) => (
+                                <Badge
+                                  key={size}
+                                  variant={getProductFilter(product).companySize.includes(size) ? "default" : "outline"}
+                                  className="cursor-pointer"
+                                  onClick={() => toggleProductCompanySize(product, size)}
+                                >
+                                  {size}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Product industries */}
+                          <div>
+                            <Label>Branschfokus</Label>
+                            <div className="flex flex-wrap gap-2 mt-1 max-h-32 overflow-y-auto">
+                              {allIndustries.map((ind) => (
+                                <Badge
+                                  key={ind}
+                                  variant={getProductFilter(product).industries.includes(ind) ? "default" : "outline"}
+                                  className="cursor-pointer text-xs"
+                                  onClick={() => toggleProductIndustry(product, ind)}
+                                >
+                                  {ind}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Product secondary industries */}
+                          <div>
+                            <Label>Erfarenhet även inom</Label>
+                            <div className="flex flex-wrap gap-2 mt-1 max-h-32 overflow-y-auto">
+                              {allIndustries.map((ind) => (
+                                <Badge
+                                  key={ind}
+                                  variant={getProductFilter(product).secondaryIndustries.includes(ind) ? "secondary" : "outline"}
+                                  className="cursor-pointer text-xs"
+                                  onClick={() => toggleProductSecondaryIndustry(product, ind)}
+                                >
+                                  {ind}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </TabsContent>
+                  ))}
+                </Tabs>
               </div>
 
               <div className="flex items-center gap-2">
