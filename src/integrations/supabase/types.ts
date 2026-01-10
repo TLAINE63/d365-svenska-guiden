@@ -165,12 +165,15 @@ export type Database = {
           created_at: string
           description: string | null
           email: string | null
+          geography: string | null
           id: string
           industries: string[] | null
           is_featured: boolean | null
           logo_url: string | null
           name: string
           phone: string | null
+          product_filters: Json | null
+          secondary_industries: string[] | null
           slug: string
           updated_at: string
           website: string
@@ -181,12 +184,15 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string | null
+          geography?: string | null
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
           logo_url?: string | null
           name: string
           phone?: string | null
+          product_filters?: Json | null
+          secondary_industries?: string[] | null
           slug: string
           updated_at?: string
           website: string
@@ -197,12 +203,15 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string | null
+          geography?: string | null
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
           logo_url?: string | null
           name?: string
           phone?: string | null
+          product_filters?: Json | null
+          secondary_industries?: string[] | null
           slug?: string
           updated_at?: string
           website?: string
@@ -216,11 +225,14 @@ export type Database = {
           applications: string[] | null
           created_at: string | null
           description: string | null
+          geography: string | null
           id: string | null
           industries: string[] | null
           is_featured: boolean | null
           logo_url: string | null
           name: string | null
+          product_filters: Json | null
+          secondary_industries: string[] | null
           slug: string | null
           updated_at: string | null
           website: string | null
@@ -229,11 +241,14 @@ export type Database = {
           applications?: string[] | null
           created_at?: string | null
           description?: string | null
+          geography?: string | null
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null
           logo_url?: string | null
           name?: string | null
+          product_filters?: Json | null
+          secondary_industries?: string[] | null
           slug?: string | null
           updated_at?: string | null
           website?: string | null
@@ -242,11 +257,14 @@ export type Database = {
           applications?: string[] | null
           created_at?: string | null
           description?: string | null
+          geography?: string | null
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null
           logo_url?: string | null
           name?: string | null
+          product_filters?: Json | null
+          secondary_industries?: string[] | null
           slug?: string | null
           updated_at?: string | null
           website?: string | null
