@@ -34,7 +34,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { partners as staticPartners, allIndustries, geographyOptions } from "@/data/partners";
+import { partners as staticPartners, allIndustries, geographyOptions, getCumulativeGeographyDisplay } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   usePartners,
@@ -1713,7 +1713,128 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 5: Admin Info */}
+              {/* Section 5: Preview */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Eye className="h-5 w-5" />
+                  Förhandsvisning
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Så här kommer partnerkortet att se ut på sajten (baserat på Business Central-inställningarna).
+                </p>
+
+                {/* Preview Card */}
+                <Card className="max-w-md mx-auto border border-border/50 bg-card shadow-md">
+                  {/* Top accent line */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-t-lg opacity-70" />
+                  
+                  <CardHeader className="pb-2 pt-6">
+                    <CardTitle className="text-xl text-center font-bold text-foreground leading-tight">
+                      {partnerFormData.name || "Partnernamn"}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {partnerFormData.description || "Beskrivning av partnern kommer att visas här..."}
+                    </p>
+                    
+                    {/* Applications Preview */}
+                    {(() => {
+                      const applications: string[] = [];
+                      productSections.forEach(section => {
+                        const filter = partnerFormData.product_filters?.[section.key];
+                        if (filter && (filter.industries.length > 0 || filter.secondaryIndustries.length > 0)) {
+                          applications.push(...section.apps);
+                        }
+                      });
+                      const uniqueApps = [...new Set(applications)];
+                      
+                      return uniqueApps.length > 0 ? (
+                        <div className="bg-primary/5 rounded-lg p-3 border border-primary/10">
+                          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Kompetenser inom:</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {uniqueApps.map((app, i) => (
+                              <Badge key={i} variant="secondary" className="text-xs bg-primary/10 text-primary border-0 font-medium">
+                                {app}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="bg-muted/30 rounded-lg p-3 border border-muted/50 text-center">
+                          <p className="text-xs text-muted-foreground">Välj branscher i produktsektioner ovan för att aktivera</p>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Primary Industries Preview - using BC as example */}
+                    {(() => {
+                      const bcFilter = getProductFilter('bc');
+                      return bcFilter.industries.length > 0 ? (
+                        <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
+                          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branschfokus</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {bcFilter.industries.map((industry, i) => (
+                              <Badge 
+                                key={i} 
+                                className="text-xs bg-primary/15 text-primary border-0 font-medium"
+                              >
+                                ✓ {industry}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null;
+                    })()}
+
+                    {/* Secondary Industries Preview */}
+                    {(() => {
+                      const bcFilter = getProductFilter('bc');
+                      return bcFilter.secondaryIndustries.length > 0 ? (
+                        <div className="bg-muted/30 rounded-lg p-3 border border-muted/50">
+                          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Erfarenhet även inom</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {bcFilter.secondaryIndustries.map((industry, i) => (
+                              <Badge 
+                                key={i} 
+                                variant="outline"
+                                className="text-xs border-muted-foreground/30 text-muted-foreground bg-transparent"
+                              >
+                                ○ {industry}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null;
+                    })()}
+
+                    {/* Geography Preview */}
+                    <div className="bg-muted/20 rounded-lg p-3 border border-muted/30">
+                      <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Geografisk täckning</p>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Globe className="w-4 h-4 text-primary/70" />
+                        <span>
+                          {(partnerFormData.geography || []).length > 0 
+                            ? (partnerFormData.geography || []).join(", ")
+                            : "Ingen geografi vald"}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Simulated Button */}
+                    <div className="pt-4 border-t border-border/50">
+                      <div className="w-full bg-primary text-primary-foreground py-2 px-4 rounded-md text-center text-sm font-medium flex items-center justify-center gap-2">
+                        Öppna partnerkortet
+                        <span>→</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Separator />
+
+              {/* Section 6: Admin Info */}
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
                   <FileText className="h-5 w-5" />
