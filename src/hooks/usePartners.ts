@@ -140,13 +140,23 @@ export function usePartner(slug: string | undefined) {
 }
 
 // Create a new partner (requires admin token via edge function)
+// Map frontend field names to database field names
+function mapPartnerToDbFormat(partner: PartnerInput | Partial<PartnerInput>) {
+  return {
+    ...partner,
+    contact_person: partner.contactPerson,
+    contactPerson: undefined, // Remove the frontend field name
+  };
+}
+
 export function useCreatePartner() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async ({ partner, token }: { partner: PartnerInput; token: string }) => {
+      const mappedPartner = mapPartnerToDbFormat(partner);
       const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "create", partner, token },
+        body: { action: "create", partner: mappedPartner, token },
       });
 
       if (error) throw error;
@@ -165,8 +175,9 @@ export function useUpdatePartner() {
 
   return useMutation({
     mutationFn: async ({ id, partner, token }: { id: string; partner: Partial<PartnerInput>; token: string }) => {
+      const mappedPartner = mapPartnerToDbFormat(partner);
       const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "update", id, partner, token },
+        body: { action: "update", id, partner: mappedPartner, token },
       });
 
       if (error) throw error;
