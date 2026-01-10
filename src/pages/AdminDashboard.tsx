@@ -1918,9 +1918,12 @@ const AdminDashboard = () => {
                       
                       productSections.forEach(section => {
                         const filter = partnerFormData.product_filters?.[section.key];
-                        if (filter && filter.industries.length > 0) {
+                        const industries = filter?.industries || [];
+                        const secondaryIndustries = filter?.secondaryIndustries || [];
+                        
+                        if (industries.length > 0) {
                           activeProducts++;
-                          if (filter.secondaryIndustries.length > 0) {
+                          if (secondaryIndustries.length > 0) {
                             productsWithSecondary++;
                           }
                         }
