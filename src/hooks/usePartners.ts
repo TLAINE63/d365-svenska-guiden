@@ -2,17 +2,19 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 export interface ProductFilterInput {
-  industries: string[];
-  secondaryIndustries: string[];
+  industries: string[];         // Max 2 focus industries
+  secondaryIndustries: string[]; // Max 2 "erfarenhet även inom"
   companySize: string[];
   geography: string;
   ranking: number;
 }
 
+// Updated product filters to include 4 product areas
 export interface ProductFilters {
-  bc?: ProductFilterInput;
-  fsc?: ProductFilterInput;
-  crm?: ProductFilterInput;
+  bc?: ProductFilterInput;      // Business Central
+  fsc?: ProductFilterInput;     // Finance & Supply Chain
+  sales?: ProductFilterInput;   // Sales & Customer Insights
+  service?: ProductFilterInput; // Customer Service / Field Service / Contact Center
 }
 
 export interface DatabasePartner {
@@ -34,6 +36,11 @@ export interface DatabasePartner {
   is_featured: boolean;
   created_at: string;
   updated_at: string;
+  // New admin fields
+  activation_date: string | null;
+  monthly_fee: number | null;
+  cancellation_date: string | null;
+  admin_notes: string | null;
 }
 
 export interface PartnerInput {
@@ -43,6 +50,7 @@ export interface PartnerInput {
   logo_url?: string;
   website: string;
   email?: string;
+  contactPerson?: string;
   phone?: string;
   address?: string;
   applications?: string[];
@@ -51,6 +59,11 @@ export interface PartnerInput {
   geography?: string;
   product_filters?: ProductFilters;
   is_featured?: boolean;
+  // New admin fields
+  activation_date?: string;
+  monthly_fee?: number;
+  cancellation_date?: string;
+  admin_notes?: string;
 }
 
 // Fetch all partners from database (public view - excludes sensitive contact info)
@@ -74,6 +87,10 @@ export function usePartners() {
         secondary_industries: p.secondary_industries || [],
         geography: p.geography || 'Sverige',
         product_filters: (p.product_filters as ProductFilters) || {},
+        activation_date: null,
+        monthly_fee: null,
+        cancellation_date: null,
+        admin_notes: null,
       }));
     },
   });
@@ -104,6 +121,10 @@ export function usePartner(slug: string | undefined) {
         secondary_industries: data.secondary_industries || [],
         geography: data.geography || 'Sverige',
         product_filters: (data.product_filters as ProductFilters) || {},
+        activation_date: null,
+        monthly_fee: null,
+        cancellation_date: null,
+        admin_notes: null,
       };
     },
     enabled: !!slug,

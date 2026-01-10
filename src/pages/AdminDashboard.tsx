@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -31,9 +31,10 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { partners as staticPartners, allIndustries, geographyOptions, companySizes } from "@/data/partners";
+import { partners as staticPartners, allIndustries, geographyOptions } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   usePartners,
@@ -50,7 +51,8 @@ import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { 
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
-  Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, Factory
+  Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
+  ImageIcon, User, Phone, Mail, Link, FileText, DollarSign, CalendarCheck, CalendarX
 } from "lucide-react";
 
 // ==================== TYPES ====================
@@ -80,6 +82,13 @@ interface Lead {
   forwarded_at: string | null;
 }
 
+interface FullPartner extends DatabasePartner {
+  activation_date: string | null;
+  monthly_fee: number | null;
+  cancellation_date: string | null;
+  admin_notes: string | null;
+}
+
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
   new: { label: "Ny", variant: "default" },
   contacted: { label: "Kontaktad", variant: "secondary" },
@@ -87,15 +96,14 @@ const statusLabels: Record<string, { label: string; variant: "default" | "second
   closed: { label: "Avslutad", variant: "destructive" },
 };
 
-const allApplications = [
-  "Business Central",
-  "Finance & SCM",
-  "Sales",
-  "Customer Service",
-  "Customer Insights (Marketing)",
-  "Field Service",
-  "Contact Center",
-  "Project Operations",
+// Product sections as per user request
+type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
+
+const productSections: { key: ProductKey; label: string; apps: string[] }[] = [
+  { key: 'bc', label: 'Business Central', apps: ['Business Central'] },
+  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance & SCM'] },
+  { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'] },
+  { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'] },
 ];
 
 // ==================== COMPONENT ====================
@@ -103,6 +111,7 @@ const allApplications = [
 const AdminDashboard = () => {
   const { toast } = useToast();
   const { isAuthenticated, isLoading: authLoading, token, login, logout } = useAdminAuth();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   // Login state
   const [loginPassword, setLoginPassword] = useState("");
@@ -123,13 +132,18 @@ const AdminDashboard = () => {
   
   // Partner management state
   const { data: dbPartners = [], isLoading: isLoadingPartners, refetch: refetchPartners } = usePartners();
+  const [fullPartners, setFullPartners] = useState<FullPartner[]>([]);
+  const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
-  const [editingPartner, setEditingPartner] = useState<DatabasePartner | null>(null);
+  const [editingPartner, setEditingPartner] = useState<FullPartner | null>(null);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [isImporting, setIsImporting] = useState(false);
+  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+
+  // Empty product filter template
   const emptyProductFilter: ProductFilterInput = {
     industries: [],
     secondaryIndustries: [],
@@ -138,13 +152,19 @@ const AdminDashboard = () => {
     ranking: 999,
   };
 
-  const [partnerFormData, setPartnerFormData] = useState<PartnerInput>({
+  const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
+    activation_date?: string;
+    monthly_fee?: number;
+    cancellation_date?: string;
+    admin_notes?: string;
+  }>({
     slug: "",
     name: "",
     description: "",
     logo_url: "",
     website: "",
     email: "",
+    contactPerson: "",
     phone: "",
     address: "",
     applications: [],
@@ -153,10 +173,11 @@ const AdminDashboard = () => {
     geography: "Sverige",
     product_filters: {},
     is_featured: false,
+    activation_date: "",
+    monthly_fee: undefined,
+    cancellation_date: "",
+    admin_notes: "",
   });
-
-  // Currently selected product tab for editing
-  const [selectedProductTab, setSelectedProductTab] = useState<'bc' | 'fsc' | 'crm'>('bc');
 
   // ==================== LEAD FUNCTIONS ====================
 
@@ -216,10 +237,39 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchFullPartners = async () => {
+    if (!token) return;
+    setIsLoadingFullPartners(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("manage-partners", {
+        body: { action: "get-full", token },
+      });
+
+      if (error) throw error;
+      if (data.error) {
+        if (data.error.includes("gått ut") || data.error.includes("session")) {
+          logout();
+        }
+        throw new Error(data.error);
+      }
+      setFullPartners(data.partners || []);
+    } catch (error: any) {
+      console.error("Error fetching full partners:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte hämta fullständig partnerdata",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingFullPartners(false);
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated && token) {
       fetchLeads();
       fetchClickStats();
+      fetchFullPartners();
     }
   }, [isAuthenticated, token]);
 
@@ -410,6 +460,7 @@ const AdminDashboard = () => {
         description: `${data.imported} partners importerade, ${data.skipped} överhoppade`,
       });
       refetchPartners();
+      fetchFullPartners();
     } catch (error: any) {
       toast({
         title: "Fel vid import",
@@ -429,6 +480,7 @@ const AdminDashboard = () => {
       logo_url: "",
       website: "",
       email: "",
+      contactPerson: "",
       phone: "",
       address: "",
       applications: [],
@@ -437,9 +489,12 @@ const AdminDashboard = () => {
       geography: "Sverige",
       product_filters: {},
       is_featured: false,
+      activation_date: "",
+      monthly_fee: undefined,
+      cancellation_date: "",
+      admin_notes: "",
     });
     setEditingPartner(null);
-    setSelectedProductTab('bc');
   };
 
   const openCreatePartnerDialog = () => {
@@ -447,7 +502,7 @@ const AdminDashboard = () => {
     setIsPartnerDialogOpen(true);
   };
 
-  const openEditPartnerDialog = (partner: DatabasePartner) => {
+  const openEditPartnerDialog = (partner: FullPartner) => {
     setEditingPartner(partner);
     setPartnerFormData({
       slug: partner.slug,
@@ -456,6 +511,7 @@ const AdminDashboard = () => {
       logo_url: partner.logo_url || "",
       website: partner.website,
       email: partner.email || "",
+      contactPerson: partner.contactPerson || "",
       phone: partner.phone || "",
       address: partner.address || "",
       applications: partner.applications || [],
@@ -464,8 +520,44 @@ const AdminDashboard = () => {
       geography: partner.geography || "Sverige",
       product_filters: partner.product_filters || {},
       is_featured: partner.is_featured || false,
+      activation_date: partner.activation_date || "",
+      monthly_fee: partner.monthly_fee || undefined,
+      cancellation_date: partner.cancellation_date || "",
+      admin_notes: partner.admin_notes || "",
     });
     setIsPartnerDialogOpen(true);
+  };
+
+  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !token) return;
+
+    setIsUploadingLogo(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("token", token);
+      formData.append("partnerSlug", partnerFormData.slug || generateSlug(partnerFormData.name));
+
+      const { data, error } = await supabase.functions.invoke("upload-partner-logo", {
+        body: formData,
+      });
+
+      if (error) throw error;
+      if (data.error) throw new Error(data.error);
+
+      setPartnerFormData({ ...partnerFormData, logo_url: data.url });
+      toast({ title: "Logo uppladdad" });
+    } catch (error: any) {
+      toast({
+        title: "Fel vid uppladdning",
+        description: error.message || "Kunde inte ladda upp logo",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingLogo(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
   const handlePartnerSubmit = async (e: React.FormEvent) => {
@@ -476,24 +568,36 @@ const AdminDashboard = () => {
       return;
     }
 
+    // Build applications array from selected product sections
+    const applications: string[] = [];
+    productSections.forEach(section => {
+      const filter = partnerFormData.product_filters?.[section.key];
+      if (filter && (filter.industries.length > 0 || filter.secondaryIndustries.length > 0)) {
+        applications.push(...section.apps);
+      }
+    });
+
     try {
+      const dataToSend = {
+        ...partnerFormData,
+        applications: [...new Set(applications)], // Deduplicate
+        slug: partnerFormData.slug || generateSlug(partnerFormData.name),
+      };
+
       if (editingPartner) {
         await updatePartner.mutateAsync({
           id: editingPartner.id,
-          partner: partnerFormData,
+          partner: dataToSend,
           token,
         });
         toast({ title: "Partner uppdaterad", description: `${partnerFormData.name} har uppdaterats.` });
       } else {
-        const dataWithSlug = {
-          ...partnerFormData,
-          slug: partnerFormData.slug || generateSlug(partnerFormData.name),
-        };
-        await createPartner.mutateAsync({ partner: dataWithSlug, token });
+        await createPartner.mutateAsync({ partner: dataToSend, token });
         toast({ title: "Partner skapad", description: `${partnerFormData.name} har lagts till.` });
       }
       setIsPartnerDialogOpen(false);
       resetPartnerForm();
+      fetchFullPartners();
     } catch (error: any) {
       if (error.message?.includes("gått ut") || error.message?.includes("session")) {
         logout();
@@ -516,6 +620,7 @@ const AdminDashboard = () => {
       await deletePartner.mutateAsync({ id, token });
       toast({ title: "Partner borttagen" });
       setDeleteConfirmId(null);
+      fetchFullPartners();
     } catch (error: any) {
       if (error.message?.includes("gått ut") || error.message?.includes("session")) {
         logout();
@@ -528,39 +633,12 @@ const AdminDashboard = () => {
     }
   };
 
-  const toggleApplication = (app: string) => {
-    setPartnerFormData((prev) => ({
-      ...prev,
-      applications: prev.applications?.includes(app)
-        ? prev.applications.filter((a) => a !== app)
-        : [...(prev.applications || []), app],
-    }));
-  };
-
-  const toggleIndustry = (ind: string) => {
-    setPartnerFormData((prev) => ({
-      ...prev,
-      industries: prev.industries?.includes(ind)
-        ? prev.industries.filter((i) => i !== ind)
-        : [...(prev.industries || []), ind],
-    }));
-  };
-
-  const toggleSecondaryIndustry = (ind: string) => {
-    setPartnerFormData((prev) => ({
-      ...prev,
-      secondary_industries: prev.secondary_industries?.includes(ind)
-        ? prev.secondary_industries.filter((i) => i !== ind)
-        : [...(prev.secondary_industries || []), ind],
-    }));
-  };
-
   // Product filter helpers
-  const getProductFilter = (product: 'bc' | 'fsc' | 'crm'): ProductFilterInput => {
-    return partnerFormData.product_filters?.[product] || emptyProductFilter;
+  const getProductFilter = (product: ProductKey): ProductFilterInput => {
+    return partnerFormData.product_filters?.[product] || { ...emptyProductFilter };
   };
 
-  const updateProductFilter = (product: 'bc' | 'fsc' | 'crm', updates: Partial<ProductFilterInput>) => {
+  const updateProductFilter = (product: ProductKey, updates: Partial<ProductFilterInput>) => {
     setPartnerFormData((prev) => ({
       ...prev,
       product_filters: {
@@ -573,37 +651,29 @@ const AdminDashboard = () => {
     }));
   };
 
-  const toggleProductIndustry = (product: 'bc' | 'fsc' | 'crm', ind: string) => {
+  const toggleProductIndustry = (product: ProductKey, ind: string) => {
     const current = getProductFilter(product);
     const newIndustries = current.industries.includes(ind)
       ? current.industries.filter((i) => i !== ind)
-      : [...current.industries, ind];
+      : current.industries.length < 2 
+        ? [...current.industries, ind]
+        : current.industries; // Max 2
     updateProductFilter(product, { industries: newIndustries });
   };
 
-  const toggleProductSecondaryIndustry = (product: 'bc' | 'fsc' | 'crm', ind: string) => {
+  const toggleProductSecondaryIndustry = (product: ProductKey, ind: string) => {
     const current = getProductFilter(product);
     const newIndustries = current.secondaryIndustries.includes(ind)
       ? current.secondaryIndustries.filter((i) => i !== ind)
-      : [...current.secondaryIndustries, ind];
+      : current.secondaryIndustries.length < 2
+        ? [...current.secondaryIndustries, ind]
+        : current.secondaryIndustries; // Max 2
     updateProductFilter(product, { secondaryIndustries: newIndustries });
   };
 
-  const toggleProductCompanySize = (product: 'bc' | 'fsc' | 'crm', size: string) => {
-    const current = getProductFilter(product);
-    const newSizes = current.companySize.includes(size)
-      ? current.companySize.filter((s) => s !== size)
-      : [...current.companySize, size];
-    updateProductFilter(product, { companySize: newSizes });
-  };
-
-  const isProductEnabled = (product: 'bc' | 'fsc' | 'crm'): boolean => {
-    const appMap: Record<string, string[]> = {
-      bc: ['Business Central'],
-      fsc: ['Finance & SCM'],
-      crm: ['Sales', 'Customer Service', 'Customer Insights (Marketing)', 'Field Service', 'Contact Center'],
-    };
-    return appMap[product].some(app => partnerFormData.applications?.includes(app));
+  const isProductActive = (product: ProductKey): boolean => {
+    const filter = getProductFilter(product);
+    return filter.industries.length > 0 || filter.secondaryIndustries.length > 0;
   };
 
   // ==================== RENDER ====================
@@ -666,6 +736,7 @@ const AdminDashboard = () => {
     fetchLeads();
     fetchClickStats();
     refetchPartners();
+    fetchFullPartners();
   };
 
   // Calculate summary stats
@@ -757,14 +828,14 @@ const AdminDashboard = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Partners i databasen</p>
-                  <p className="text-3xl font-bold">{dbPartners.length}</p>
+                  <p className="text-3xl font-bold">{fullPartners.length}</p>
                 </div>
                 <div className="p-3 bg-amber-500/10 rounded-full">
                   <Building2 className="h-6 w-6 text-amber-600" />
                 </div>
               </div>
               <p className="text-xs text-muted-foreground mt-2">
-                {dbPartners.filter(p => p.is_featured).length} utvalda
+                {fullPartners.filter(p => p.is_featured).length} utvalda
               </p>
             </CardContent>
           </Card>
@@ -940,68 +1011,99 @@ const AdminDashboard = () => {
 
           {/* ==================== PARTNERS TAB ==================== */}
           <TabsContent value="partners">
-            <div className="flex justify-end gap-2 mb-4">
-              <Button 
-                variant="outline" 
-                onClick={handleImportPartners}
-                disabled={isImporting}
-              >
-                <Upload className="mr-2 h-4 w-4" />
-                {isImporting ? "Importerar..." : "Importera partners"}
-              </Button>
-              <Button onClick={openCreatePartnerDialog}>
-                <Plus className="mr-2 h-4 w-4" />
-                Lägg till partner
-              </Button>
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex gap-2">
+                <Button onClick={openCreatePartnerDialog}>
+                  <Plus className="mr-2 h-4 w-4" />
+                  Lägg till partner
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={handleImportPartners}
+                  disabled={isImporting}
+                >
+                  <Upload className={`mr-2 h-4 w-4 ${isImporting ? "animate-spin" : ""}`} />
+                  Importera från partners.ts
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {fullPartners.length} partners i databasen
+              </p>
             </div>
 
-            {isLoadingPartners ? (
+            {isLoadingFullPartners ? (
               <Card>
                 <CardContent className="py-8 text-center text-muted-foreground">
                   Laddar partners...
                 </CardContent>
               </Card>
-            ) : dbPartners.length === 0 ? (
+            ) : fullPartners.length === 0 ? (
               <Card>
-                <CardContent className="py-12 text-center text-muted-foreground">
-                  Inga partners har lagts till ännu. Klicka på "Lägg till partner" för att komma igång.
+                <CardContent className="py-8 text-center text-muted-foreground">
+                  Inga partners i databasen ännu. Importera från partners.ts eller lägg till manuellt.
                 </CardContent>
               </Card>
             ) : (
               <div className="grid gap-4">
-                {dbPartners.map((partner) => (
+                {fullPartners.map((partner) => (
                   <Card key={partner.id}>
                     <CardContent className="py-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-4">
                           {partner.logo_url ? (
-                            <img
-                              src={partner.logo_url}
-                              alt={partner.name}
-                              className="w-12 h-12 object-contain rounded"
+                            <img 
+                              src={partner.logo_url} 
+                              alt={partner.name} 
+                              className="h-12 w-12 object-contain"
                             />
                           ) : (
-                            <div className="w-12 h-12 bg-muted rounded flex items-center justify-center text-muted-foreground text-xs">
-                              Logo
+                            <div className="h-12 w-12 bg-muted rounded flex items-center justify-center">
+                              <Building2 className="h-6 w-6 text-muted-foreground" />
                             </div>
                           )}
                           <div>
-                            <h3 className="font-semibold">{partner.name}</h3>
+                            <h3 className="font-semibold flex items-center gap-2">
+                              {partner.name}
+                              {partner.is_featured && (
+                                <Badge variant="secondary" className="text-xs">Utvald</Badge>
+                              )}
+                            </h3>
                             <p className="text-sm text-muted-foreground line-clamp-1">
                               {partner.description || "Ingen beskrivning"}
                             </p>
-                            <div className="flex gap-1 mt-1">
-                              {partner.applications.slice(0, 3).map((app) => (
-                                <Badge key={app} variant="secondary" className="text-xs">
-                                  {app}
-                                </Badge>
-                              ))}
-                              {partner.applications.length > 3 && (
-                                <Badge variant="outline" className="text-xs">
-                                  +{partner.applications.length - 3}
-                                </Badge>
-                              )}
+                            <div className="flex flex-wrap gap-1 mt-2">
+                              {productSections.map(section => {
+                                const filter = partner.product_filters?.[section.key];
+                                if (!filter || (filter.industries?.length === 0 && filter.secondaryIndustries?.length === 0)) return null;
+                                return (
+                                  <Badge key={section.key} variant="outline" className="text-xs">
+                                    {section.label}
+                                  </Badge>
+                                );
+                              })}
                             </div>
+                            {(partner.activation_date || partner.monthly_fee) && (
+                              <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
+                                {partner.activation_date && (
+                                  <span className="flex items-center gap-1">
+                                    <CalendarCheck className="h-3 w-3" />
+                                    {format(new Date(partner.activation_date), "d MMM yyyy", { locale: sv })}
+                                  </span>
+                                )}
+                                {partner.monthly_fee && (
+                                  <span className="flex items-center gap-1">
+                                    <DollarSign className="h-3 w-3" />
+                                    {partner.monthly_fee} kr/mån
+                                  </span>
+                                )}
+                                {partner.cancellation_date && (
+                                  <span className="flex items-center gap-1 text-destructive">
+                                    <CalendarX className="h-3 w-3" />
+                                    Uppsägning: {format(new Date(partner.cancellation_date), "d MMM yyyy", { locale: sv })}
+                                  </span>
+                                )}
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="flex gap-2">
@@ -1162,141 +1264,209 @@ const AdminDashboard = () => {
 
         {/* ==================== PARTNER CREATE/EDIT DIALOG ==================== */}
         <Dialog open={isPartnerDialogOpen} onOpenChange={setIsPartnerDialogOpen}>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
                 {editingPartner ? "Redigera partner" : "Lägg till partner"}
               </DialogTitle>
             </DialogHeader>
 
-            <form onSubmit={handlePartnerSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={handlePartnerSubmit} className="space-y-6">
+              {/* Section 1: Basic Info */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Building2 className="h-5 w-5" />
+                  Grunduppgifter
+                </h3>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="name">Namn *</Label>
+                    <Input
+                      id="name"
+                      value={partnerFormData.name}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, name: e.target.value })
+                      }
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="slug">Slug (URL)</Label>
+                    <Input
+                      id="slug"
+                      value={partnerFormData.slug}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, slug: e.target.value })
+                      }
+                      placeholder={generateSlug(partnerFormData.name) || "genereras-automatiskt"}
+                    />
+                  </div>
+                </div>
+
+                {/* Logo upload */}
                 <div>
-                  <Label htmlFor="name">Namn *</Label>
-                  <Input
-                    id="name"
-                    value={partnerFormData.name}
+                  <Label>Logotyp</Label>
+                  <div className="flex items-center gap-4 mt-2">
+                    {partnerFormData.logo_url ? (
+                      <img 
+                        src={partnerFormData.logo_url} 
+                        alt="Logo" 
+                        className="h-16 w-16 object-contain border rounded"
+                      />
+                    ) : (
+                      <div className="h-16 w-16 bg-muted rounded flex items-center justify-center">
+                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/svg+xml"
+                        onChange={handleLogoUpload}
+                        className="hidden"
+                      />
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isUploadingLogo}
+                      >
+                        <Upload className={`mr-2 h-4 w-4 ${isUploadingLogo ? "animate-spin" : ""}`} />
+                        {isUploadingLogo ? "Laddar upp..." : "Ladda upp logo"}
+                      </Button>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        JPEG, PNG, WebP eller SVG. Max 5MB.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="mt-2">
+                    <Label htmlFor="logo_url" className="text-xs text-muted-foreground">Eller ange URL direkt:</Label>
+                    <Input
+                      id="logo_url"
+                      type="url"
+                      value={partnerFormData.logo_url}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, logo_url: e.target.value })
+                      }
+                      placeholder="https://example.com/logo.png"
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="description">Beskrivning</Label>
+                  <Textarea
+                    id="description"
+                    value={partnerFormData.description}
                     onChange={(e) =>
-                      setPartnerFormData({ ...partnerFormData, name: e.target.value })
+                      setPartnerFormData({ ...partnerFormData, description: e.target.value })
                     }
-                    required
+                    rows={3}
                   />
                 </div>
+
                 <div>
-                  <Label htmlFor="slug">Slug (URL)</Label>
-                  <Input
-                    id="slug"
-                    value={partnerFormData.slug}
-                    onChange={(e) =>
-                      setPartnerFormData({ ...partnerFormData, slug: e.target.value })
-                    }
-                    placeholder={generateSlug(partnerFormData.name) || "genereras-automatiskt"}
-                  />
+                  <Label htmlFor="website">Hemsida *</Label>
+                  <div className="relative">
+                    <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="website"
+                      type="url"
+                      value={partnerFormData.website}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, website: e.target.value })
+                      }
+                      placeholder="https://example.com"
+                      className="pl-10"
+                      required
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div>
-                <Label htmlFor="website">Hemsida *</Label>
-                <Input
-                  id="website"
-                  type="url"
-                  value={partnerFormData.website}
-                  onChange={(e) =>
-                    setPartnerFormData({ ...partnerFormData, website: e.target.value })
-                  }
-                  placeholder="https://example.com"
-                  required
-                />
-              </div>
+              <Separator />
 
-              <div>
-                <Label htmlFor="description">Beskrivning</Label>
-                <Textarea
-                  id="description"
-                  value={partnerFormData.description}
-                  onChange={(e) =>
-                    setPartnerFormData({ ...partnerFormData, description: e.target.value })
-                  }
-                  rows={4}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="logo_url">Logotyp-URL</Label>
-                <Input
-                  id="logo_url"
-                  type="url"
-                  value={partnerFormData.logo_url}
-                  onChange={(e) =>
-                    setPartnerFormData({ ...partnerFormData, logo_url: e.target.value })
-                  }
-                  placeholder="https://example.com/logo.png"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="email">E-post</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={partnerFormData.email}
-                    onChange={(e) =>
-                      setPartnerFormData({ ...partnerFormData, email: e.target.value })
-                    }
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="phone">Telefon</Label>
-                  <Input
-                    id="phone"
-                    value={partnerFormData.phone}
-                    onChange={(e) =>
-                      setPartnerFormData({ ...partnerFormData, phone: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="address">Adress</Label>
-                <Input
-                  id="address"
-                  value={partnerFormData.address}
-                  onChange={(e) =>
-                    setPartnerFormData({ ...partnerFormData, address: e.target.value })
-                  }
-                />
-              </div>
-
-              <div>
-                <Label>Applikationer</Label>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {allApplications.map((app) => (
-                    <Badge
-                      key={app}
-                      variant={partnerFormData.applications?.includes(app) ? "default" : "outline"}
-                      className="cursor-pointer"
-                      onClick={() => toggleApplication(app)}
-                    >
-                      {app}
-                    </Badge>
-                  ))}
+              {/* Section 2: Contact Info */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <User className="h-5 w-5" />
+                  Kontaktuppgifter
+                </h3>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="contactPerson">Kontaktperson</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="contactPerson"
+                        value={partnerFormData.contactPerson}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, contactPerson: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Telefon</Label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="phone"
+                        value={partnerFormData.phone}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, phone: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="email">E-post</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="email"
+                        type="email"
+                        value={partnerFormData.email}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, email: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="address">Adress</Label>
+                    <Input
+                      id="address"
+                      value={partnerFormData.address}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, address: e.target.value })
+                      }
+                    />
+                  </div>
                 </div>
               </div>
 
-              {/* Geografisk täckning */}
-              <div>
-                <Label className="flex items-center gap-2">
-                  <Globe className="h-4 w-4" />
+              <Separator />
+
+              {/* Section 3: Geographic Coverage */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <Globe className="h-5 w-5" />
                   Geografisk täckning
-                </Label>
-                <div className="flex flex-wrap gap-2 mt-2">
+                </h3>
+                <div className="flex flex-wrap gap-2">
                   {geographyOptions.map((geo) => (
                     <Badge
                       key={geo}
                       variant={partnerFormData.geography === geo ? "default" : "outline"}
-                      className="cursor-pointer"
+                      className="cursor-pointer text-sm py-1.5 px-3"
                       onClick={() => setPartnerFormData({ ...partnerFormData, geography: geo })}
                     >
                       {geo}
@@ -1305,128 +1475,57 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* General Industries (legacy - for backwards compatibility) */}
-              <div>
-                <Label className="flex items-center gap-2">
-                  <Factory className="h-4 w-4" />
-                  Branschfokus (generellt)
-                </Label>
-                <div className="flex flex-wrap gap-2 mt-2 max-h-32 overflow-y-auto">
-                  {allIndustries.map((ind) => (
-                    <Badge
-                      key={ind}
-                      variant={partnerFormData.industries?.includes(ind) ? "default" : "outline"}
-                      className="cursor-pointer text-xs"
-                      onClick={() => toggleIndustry(ind)}
-                    >
-                      {ind}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
+              <Separator />
 
-              {/* Secondary industries */}
-              <div>
-                <Label>Erfarenhet även inom (generellt)</Label>
-                <div className="flex flex-wrap gap-2 mt-2 max-h-32 overflow-y-auto">
-                  {allIndustries.map((ind) => (
-                    <Badge
-                      key={ind}
-                      variant={partnerFormData.secondary_industries?.includes(ind) ? "secondary" : "outline"}
-                      className="cursor-pointer text-xs"
-                      onClick={() => toggleSecondaryIndustry(ind)}
-                    >
-                      {ind}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-
-              {/* Product-specific filters */}
-              <div className="border rounded-lg p-4 space-y-4">
-                <Label className="text-base font-semibold">Produktspecifika inställningar</Label>
+              {/* Section 4: Product Sections */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold">Produktsektioner</h3>
                 <p className="text-sm text-muted-foreground">
-                  Konfigurera branschfokus, erfarenhet och företagsstorlek per produkt
+                  Välj max 2 fokusbranscher och max 2 "täcker även" för varje produkt partnern erbjuder.
                 </p>
-                
-                <Tabs value={selectedProductTab} onValueChange={(v) => setSelectedProductTab(v as 'bc' | 'fsc' | 'crm')}>
-                  <TabsList className="w-full grid grid-cols-3">
-                    <TabsTrigger value="bc" disabled={!isProductEnabled('bc')}>
-                      Business Central
-                    </TabsTrigger>
-                    <TabsTrigger value="fsc" disabled={!isProductEnabled('fsc')}>
-                      Finance & SCM
-                    </TabsTrigger>
-                    <TabsTrigger value="crm" disabled={!isProductEnabled('crm')}>
-                      CRM
-                    </TabsTrigger>
-                  </TabsList>
 
-                  {(['bc', 'fsc', 'crm'] as const).map((product) => (
-                    <TabsContent key={product} value={product} className="space-y-4 mt-4">
-                      {!isProductEnabled(product) ? (
-                        <p className="text-sm text-muted-foreground italic">
-                          Välj relevanta applikationer ovan för att aktivera detta.
-                        </p>
-                      ) : (
-                        <>
-                          {/* Product ranking */}
+                <div className="space-y-6">
+                  {productSections.map((section) => {
+                    const filter = getProductFilter(section.key);
+                    const isActive = isProductActive(section.key);
+                    
+                    return (
+                      <Card key={section.key} className={isActive ? "border-primary" : ""}>
+                        <CardHeader className="pb-3">
+                          <CardTitle className="text-base flex items-center justify-between">
+                            <span>{section.label}</span>
+                            {isActive && <Badge variant="default" className="text-xs">Aktiv</Badge>}
+                          </CardTitle>
+                          <CardDescription className="text-xs">
+                            Applikationer: {section.apps.join(", ")}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
                           <div>
-                            <Label>Ranking (lägre = högre i listan)</Label>
-                            <Input
-                              type="number"
-                              min={1}
-                              max={999}
-                              value={getProductFilter(product).ranking}
-                              onChange={(e) => updateProductFilter(product, { ranking: parseInt(e.target.value) || 999 })}
-                              className="w-24 mt-1"
-                            />
-                          </div>
-
-                          {/* Product geography */}
-                          <div>
-                            <Label>Geografisk täckning</Label>
-                            <div className="flex flex-wrap gap-2 mt-1">
-                              {geographyOptions.map((geo) => (
-                                <Badge
-                                  key={geo}
-                                  variant={getProductFilter(product).geography === geo ? "default" : "outline"}
-                                  className="cursor-pointer"
-                                  onClick={() => updateProductFilter(product, { geography: geo })}
-                                >
-                                  {geo}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Product company sizes */}
-                          <div>
-                            <Label>Företagsstorlek (antal anställda)</Label>
-                            <div className="flex flex-wrap gap-2 mt-1">
-                              {companySizes.map((size) => (
-                                <Badge
-                                  key={size}
-                                  variant={getProductFilter(product).companySize.includes(size) ? "default" : "outline"}
-                                  className="cursor-pointer"
-                                  onClick={() => toggleProductCompanySize(product, size)}
-                                >
-                                  {size}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Product industries */}
-                          <div>
-                            <Label>Branschfokus</Label>
-                            <div className="flex flex-wrap gap-2 mt-1 max-h-32 overflow-y-auto">
+                            <Label className="text-sm">Branschfokus (max 2)</Label>
+                            <div className="flex flex-wrap gap-1.5 mt-2">
                               {allIndustries.map((ind) => (
                                 <Badge
                                   key={ind}
-                                  variant={getProductFilter(product).industries.includes(ind) ? "default" : "outline"}
+                                  variant={filter.industries.includes(ind) ? "default" : "outline"}
                                   className="cursor-pointer text-xs"
-                                  onClick={() => toggleProductIndustry(product, ind)}
+                                  onClick={() => toggleProductIndustry(section.key, ind)}
+                                >
+                                  {ind}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <Label className="text-sm">Täcker även (max 2)</Label>
+                            <div className="flex flex-wrap gap-1.5 mt-2">
+                              {allIndustries.map((ind) => (
+                                <Badge
+                                  key={ind}
+                                  variant={filter.secondaryIndustries.includes(ind) ? "secondary" : "outline"}
+                                  className="cursor-pointer text-xs"
+                                  onClick={() => toggleProductSecondaryIndustry(section.key, ind)}
                                 >
                                   {ind}
                                 </Badge>
@@ -1434,39 +1533,123 @@ const AdminDashboard = () => {
                             </div>
                           </div>
 
-                          {/* Product secondary industries */}
-                          <div>
-                            <Label>Erfarenhet även inom</Label>
-                            <div className="flex flex-wrap gap-2 mt-1 max-h-32 overflow-y-auto">
-                              {allIndustries.map((ind) => (
-                                <Badge
-                                  key={ind}
-                                  variant={getProductFilter(product).secondaryIndustries.includes(ind) ? "secondary" : "outline"}
-                                  className="cursor-pointer text-xs"
-                                  onClick={() => toggleProductSecondaryIndustry(product, ind)}
-                                >
-                                  {ind}
-                                </Badge>
-                              ))}
+                          <div className="flex gap-4">
+                            <div className="flex-1">
+                              <Label className="text-sm">Geografisk täckning</Label>
+                              <div className="flex flex-wrap gap-1.5 mt-2">
+                                {geographyOptions.map((geo) => (
+                                  <Badge
+                                    key={geo}
+                                    variant={filter.geography === geo ? "default" : "outline"}
+                                    className="cursor-pointer text-xs"
+                                    onClick={() => updateProductFilter(section.key, { geography: geo })}
+                                  >
+                                    {geo}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                            <div>
+                              <Label className="text-sm">Ranking</Label>
+                              <Input
+                                type="number"
+                                min={1}
+                                max={999}
+                                value={filter.ranking}
+                                onChange={(e) => updateProductFilter(section.key, { ranking: parseInt(e.target.value) || 999 })}
+                                className="w-20 mt-2"
+                              />
                             </div>
                           </div>
-                        </>
-                      )}
-                    </TabsContent>
-                  ))}
-                </Tabs>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="is_featured"
-                  checked={partnerFormData.is_featured}
-                  onChange={(e) =>
-                    setPartnerFormData({ ...partnerFormData, is_featured: e.target.checked })
-                  }
-                />
-                <Label htmlFor="is_featured">Utvald partner</Label>
+              <Separator />
+
+              {/* Section 5: Admin Info */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Administrativt
+                </h3>
+                
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <Label htmlFor="activation_date">Aktiveringsdatum</Label>
+                    <div className="relative">
+                      <CalendarCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="activation_date"
+                        type="date"
+                        value={partnerFormData.activation_date || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, activation_date: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="monthly_fee">Månadsavgift (SEK)</Label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="monthly_fee"
+                        type="number"
+                        min={0}
+                        value={partnerFormData.monthly_fee || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, monthly_fee: parseFloat(e.target.value) || undefined })
+                        }
+                        className="pl-10"
+                        placeholder="0"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>
+                    <div className="relative">
+                      <CalendarX className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="cancellation_date"
+                        type="date"
+                        value={partnerFormData.cancellation_date || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, cancellation_date: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="admin_notes">Interna noteringar</Label>
+                  <Textarea
+                    id="admin_notes"
+                    value={partnerFormData.admin_notes || ""}
+                    onChange={(e) =>
+                      setPartnerFormData({ ...partnerFormData, admin_notes: e.target.value })
+                    }
+                    rows={3}
+                    placeholder="Interna anteckningar som inte visas publikt..."
+                  />
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="is_featured"
+                    checked={partnerFormData.is_featured}
+                    onCheckedChange={(checked) =>
+                      setPartnerFormData({ ...partnerFormData, is_featured: !!checked })
+                    }
+                  />
+                  <Label htmlFor="is_featured">Utvald partner</Label>
+                </div>
               </div>
 
               <DialogFooter>

@@ -160,8 +160,12 @@ export type Database = {
       }
       partners: {
         Row: {
+          activation_date: string | null
           address: string | null
+          admin_notes: string | null
           applications: string[] | null
+          cancellation_date: string | null
+          contact_person: string | null
           created_at: string
           description: string | null
           email: string | null
@@ -170,6 +174,7 @@ export type Database = {
           industries: string[] | null
           is_featured: boolean | null
           logo_url: string | null
+          monthly_fee: number | null
           name: string
           phone: string | null
           product_filters: Json | null
@@ -179,8 +184,12 @@ export type Database = {
           website: string
         }
         Insert: {
+          activation_date?: string | null
           address?: string | null
+          admin_notes?: string | null
           applications?: string[] | null
+          cancellation_date?: string | null
+          contact_person?: string | null
           created_at?: string
           description?: string | null
           email?: string | null
@@ -189,6 +198,7 @@ export type Database = {
           industries?: string[] | null
           is_featured?: boolean | null
           logo_url?: string | null
+          monthly_fee?: number | null
           name: string
           phone?: string | null
           product_filters?: Json | null
@@ -198,8 +208,12 @@ export type Database = {
           website: string
         }
         Update: {
+          activation_date?: string | null
           address?: string | null
+          admin_notes?: string | null
           applications?: string[] | null
+          cancellation_date?: string | null
+          contact_person?: string | null
           created_at?: string
           description?: string | null
           email?: string | null
@@ -208,6 +222,7 @@ export type Database = {
           industries?: string[] | null
           is_featured?: boolean | null
           logo_url?: string | null
+          monthly_fee?: number | null
           name?: string
           phone?: string | null
           product_filters?: Json | null
