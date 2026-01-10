@@ -366,10 +366,9 @@ const PartnerProfile = () => {
                                 {secondary.map(ind => (
                                   <Badge 
                                     key={ind}
-                                    variant="outline"
-                                    className="border-primary/30 text-foreground py-1.5 px-3 text-sm"
+                                    className="bg-amber-500 hover:bg-amber-600 text-white border-0 py-1.5 px-3 text-sm"
                                   >
-                                    <Circle className="w-3 h-3 mr-1.5 text-primary/50" />
+                                    <Circle className="w-3 h-3 mr-1.5" />
                                     {ind}
                                   </Badge>
                                 ))}
