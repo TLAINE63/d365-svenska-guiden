@@ -270,6 +270,15 @@ const PartnerProfile = () => {
                   )}
                 </div>
               </div>
+
+              {/* Geographic Coverage - moved here from product cards */}
+              {staticPartner?.geography && (
+                <div className="mt-4 flex items-center gap-2 text-sm">
+                  <span className="text-muted-foreground font-medium">Geografisk täckning:</span>
+                  <Globe className="w-4 h-4 text-primary/70" />
+                  <span className="text-foreground">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -368,20 +377,6 @@ const PartnerProfile = () => {
                             </p>
                           )}
 
-                          {/* Geography */}
-                          {geography && (
-                            <div>
-                              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-2 font-medium">
-                                Geografisk täckning
-                              </p>
-                              <div className="flex items-center gap-2">
-                                <Globe className="w-4 h-4 text-primary/70" />
-                                <span className="text-sm text-foreground">
-                                  {getCumulativeGeographyDisplay(geography)}
-                                </span>
-                              </div>
-                            </div>
-                          )}
                         </div>
                       </CardContent>
                     </Card>
