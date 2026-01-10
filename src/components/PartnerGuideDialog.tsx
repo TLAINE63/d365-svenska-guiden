@@ -14,12 +14,21 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
-import { Partner, matchesProductFilter, getProductRanking } from "@/data/partners";
+import { Partner } from "@/data/partners";
+import { DatabasePartner } from "@/hooks/usePartners";
+
+// Union type to support both static and database partners
+type PartnerData = Partner | DatabasePartner;
+
+// Type guard to check if it's a DatabasePartner
+function isDatabasePartner(partner: PartnerData): partner is DatabasePartner {
+  return 'product_filters' in partner && 'slug' in partner;
+}
 
 interface PartnerGuideDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  partners: Partner[];
+  partners: PartnerData[];
 }
 
 const applicationOptions = [
@@ -71,13 +80,48 @@ const sizeOptions = [
   { value: ">5.000", label: "Mer än 5.000 anställda" }
 ];
 
+// Helper to match product filter for database partners
+const matchesDbProductFilter = (
+  partner: DatabasePartner, 
+  productKey: 'bc' | 'fsc' | 'crm',
+  industry?: string,
+  companySize?: string,
+  geography?: string
+): boolean => {
+  const productFilter = partner.product_filters?.[productKey];
+  if (!productFilter) return false;
+  
+  if (industry && !productFilter.industries?.includes(industry)) {
+    return false;
+  }
+  
+  if (companySize && productFilter.companySize && !productFilter.companySize.includes(companySize)) {
+    return false;
+  }
+  
+  if (geography) {
+    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+    const selectedGeoIndex = geographyHierarchy.indexOf(geography);
+    const partnerGeoIndex = geographyHierarchy.indexOf(productFilter.geography || "Sverige");
+    if (partnerGeoIndex < selectedGeoIndex) {
+      return false;
+    }
+  }
+  
+  return true;
+};
+
+const getDbProductRanking = (partner: DatabasePartner, productKey: 'bc' | 'fsc' | 'crm'): number => {
+  return partner.product_filters?.[productKey]?.ranking ?? 999;
+};
+
 const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialogProps) => {
   const [step, setStep] = useState(1);
   const [selectedApp, setSelectedApp] = useState<string>("");
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
-  const [suggestedPartners, setSuggestedPartners] = useState<Partner[]>([]);
+  const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
 
   const totalSteps = 4;
 
@@ -101,24 +145,31 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     }
 
     // Filter partners using the same logic as the rest of the site
-    const matchingPartners = partners.filter(partner => 
-      matchesProductFilter(
-        partner,
-        productType,
-        selectedIndustry || undefined,
-        selectedSize || undefined,
-        selectedMarket || undefined
-      )
-    );
+    const matchingPartners = partners.filter(partner => {
+      if (isDatabasePartner(partner)) {
+        return matchesDbProductFilter(
+          partner,
+          productType,
+          selectedIndustry || undefined,
+          selectedSize || undefined,
+          selectedMarket || undefined
+        );
+      }
+      // For static partners, use simple check
+      return partner.productFilters?.[productType];
+    });
 
     // Sort by product ranking (same as ValjPartner.tsx)
     const sortedPartners = matchingPartners.sort((a, b) => {
-      const rankA = getProductRanking(a, productType);
-      const rankB = getProductRanking(b, productType);
-      if (rankA !== rankB) {
-        return rankA - rankB;
+      if (isDatabasePartner(a) && isDatabasePartner(b)) {
+        const rankA = getDbProductRanking(a, productType);
+        const rankB = getDbProductRanking(b, productType);
+        if (rankA !== rankB) {
+          return rankA - rankB;
+        }
+        return (a.name || '').localeCompare(b.name || '', 'sv');
       }
-      return a.name.localeCompare(b.name, 'sv');
+      return 0;
     });
 
     // Take top 3
@@ -279,7 +330,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
             
             <div className="space-y-4">
             {suggestedPartners.map((partner, index) => {
-                const partnerSlug = partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                const partnerSlug = isDatabasePartner(partner) 
+                  ? partner.slug 
+                  : (partner.name || '').toLowerCase().replace(/[^a-z0-9]+/g, "-");
                 const profileUrl = `/partner/${partnerSlug}${selectedApp ? `?product=${encodeURIComponent(selectedApp)}` : ""}${selectedIndustry ? `${selectedApp ? "&" : "?"}industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
                 
                 return (
@@ -287,14 +340,14 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                     <CardHeader className="pb-2">
                       <Link to={profileUrl} onClick={() => onOpenChange(false)}>
                         <CardTitle className="text-lg hover:text-primary transition-colors">
-                          {partner.name}
+                          {partner.name || 'Partner'}
                         </CardTitle>
                       </Link>
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <p className="text-sm text-muted-foreground">{partner.description}</p>
                       <div className="flex flex-wrap gap-1">
-                        {partner.applications.map((app, i) => (
+                        {(partner.applications || []).map((app, i) => (
                           <Badge key={i} variant="secondary" className="text-xs">
                             {app}
                           </Badge>

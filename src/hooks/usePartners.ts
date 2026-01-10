@@ -9,12 +9,13 @@ export interface ProductFilterInput {
   ranking: number;
 }
 
-// Updated product filters to include 4 product areas
+// Updated product filters to include 4 product areas plus combined crm
 export interface ProductFilters {
   bc?: ProductFilterInput;      // Business Central
   fsc?: ProductFilterInput;     // Finance & Supply Chain
   sales?: ProductFilterInput;   // Sales & Customer Insights
   service?: ProductFilterInput; // Customer Service / Field Service / Contact Center
+  crm?: ProductFilterInput;     // Combined CRM (for backwards compatibility)
 }
 
 export interface DatabasePartner {

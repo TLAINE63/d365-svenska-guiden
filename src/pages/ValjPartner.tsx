@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star } from "lucide-react";
+import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star, Loader2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import partnersComparisonImg from "@/assets/partners-comparison-proposals.jpg";
@@ -14,7 +14,8 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
-import { partners, Partner, allIndustries, matchesProductFilter, getProductRanking as getProductFilterRanking } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
 
 // All available Dynamics 365 applications for filtering
@@ -68,13 +69,58 @@ const getCompanySizeCategories = (sizes: string[]): string[] => {
   return Array.from(categories);
 };
 
+// Helper to check if a database partner matches product filter criteria
+const matchesDbProductFilter = (
+  partner: DatabasePartner, 
+  productKey: 'bc' | 'fsc' | 'crm',
+  industry?: string,
+  companySize?: string,
+  geography?: string
+): boolean => {
+  const productFilter = partner.product_filters?.[productKey];
+  if (!productFilter) return false;
+  
+  // Check industry filter
+  if (industry && !productFilter.industries?.includes(industry)) {
+    return false;
+  }
+  
+  // Check company size filter
+  if (companySize && productFilter.companySize && !productFilter.companySize.includes(companySize)) {
+    return false;
+  }
+  
+  // Check geography filter with hierarchy
+  if (geography) {
+    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+    const selectedGeoIndex = geographyHierarchy.indexOf(geography);
+    const partnerGeoIndex = geographyHierarchy.indexOf(productFilter.geography || "Sverige");
+    if (partnerGeoIndex < selectedGeoIndex) {
+      return false;
+    }
+  }
+  
+  return true;
+};
+
+// Helper to get product ranking from database partner
+const getDbProductRanking = (partner: DatabasePartner, productKey: 'bc' | 'fsc' | 'crm'): number => {
+  return partner.product_filters?.[productKey]?.ranking ?? 999;
+};
+
 const ValjPartner = () => {
+  const { data: dbPartners, isLoading } = usePartners();
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [guideOpen, setGuideOpen] = useState(false);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+
+  // Filter to only show featured partners from database
+  const partners = useMemo(() => {
+    return (dbPartners || []).filter(p => p.is_featured === true);
+  }, [dbPartners]);
 
   const toggleApplication = (app: string) => {
     setSelectedApplications(prev => 
@@ -85,11 +131,11 @@ const ValjPartner = () => {
   };
 
   // Helper to get the lowest industry index for a partner (for sorting by industry priority)
-  const getIndustryPriority = (partner: Partner, industry: string | null): number => {
+  const getIndustryPriority = (partner: DatabasePartner, industry: string | null): number => {
     if (!industry) return 0;
-    for (let i = 0; i < partner.industries.length; i++) {
-      if (partner.industries[i].toLowerCase().includes(industry.toLowerCase()) ||
-          industry.toLowerCase().includes(partner.industries[i].toLowerCase())) {
+    for (let i = 0; i < (partner.industries || []).length; i++) {
+      if ((partner.industries || [])[i].toLowerCase().includes(industry.toLowerCase()) ||
+          industry.toLowerCase().includes((partner.industries || [])[i].toLowerCase())) {
         return i;
       }
     }
@@ -97,7 +143,7 @@ const ValjPartner = () => {
   };
 
   // Helper to determine which product ranking to use based on selected applications
-  const getProductRanking = (partner: Partner): number => {
+  const getProductRanking = (partner: DatabasePartner): number => {
     // Determine which product type is primarily selected
     const hasBCApp = selectedApplications.includes("Business Central");
     const hasFSCApp = selectedApplications.includes("Finance & SCM");
@@ -106,25 +152,25 @@ const ValjPartner = () => {
     );
     
     if (hasBCApp && !hasFSCApp && !hasCRMApp) {
-      return partner.rankings?.bc ?? 999;
+      return getDbProductRanking(partner, 'bc');
     }
     if (hasFSCApp && !hasBCApp && !hasCRMApp) {
-      return partner.rankings?.fsc ?? 999;
+      return getDbProductRanking(partner, 'fsc');
     }
     if (hasCRMApp && !hasBCApp && !hasFSCApp) {
-      return partner.rankings?.crm ?? 999;
+      return getDbProductRanking(partner, 'crm');
     }
     
     // If mixed or no specific apps selected, return lowest ranking across all
-    const bcRank = partner.rankings?.bc ?? 999;
-    const fscRank = partner.rankings?.fsc ?? 999;
-    const crmRank = partner.rankings?.crm ?? 999;
+    const bcRank = getDbProductRanking(partner, 'bc');
+    const fscRank = getDbProductRanking(partner, 'fsc');
+    const crmRank = getDbProductRanking(partner, 'crm');
     return Math.min(bcRank, fscRank, crmRank);
   };
 
   // Helper to build partner profile URL with filter context
-  const buildPartnerProfileUrl = (partnerName: string) => {
-    const baseUrl = `/partner/${partnerName.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+  const buildPartnerProfileUrl = (partnerSlug: string) => {
+    const baseUrl = `/partner/${partnerSlug}`;
     const params = new URLSearchParams();
     
     // Only pass the first selected application if any
@@ -138,7 +184,7 @@ const ValjPartner = () => {
     return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
   };
 
-  // Filter and sort partners - only show partners with productFilters defined
+  // Filter and sort partners - only show featured partners from database
   const filteredPartners = useMemo(() => {
     // Determine which product type is selected
     const hasBCApp = selectedApplications.includes("Business Central");
@@ -152,30 +198,30 @@ const ValjPartner = () => {
       ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
       : undefined;
     
-    let result: Partner[] = [];
+    let result: DatabasePartner[] = [];
     
     if (selectedApplications.length === 0) {
-      // No application selected - show all partners that have any productFilter
+      // No application selected - show all featured partners that have any productFilter
       result = partners.filter(partner => 
-        partner.productFilters?.bc || partner.productFilters?.fsc || partner.productFilters?.crm
+        partner.product_filters?.bc || partner.product_filters?.fsc || partner.product_filters?.crm
       );
     } else {
       // Filter based on selected applications
-      const matchingPartners = new Set<Partner>();
+      const matchingPartners = new Set<DatabasePartner>();
       
       partners.forEach(partner => {
-        if (hasBCApp && partner.productFilters?.bc) {
-          if (matchesProductFilter(partner, 'bc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+        if (hasBCApp && partner.product_filters?.bc) {
+          if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
             matchingPartners.add(partner);
           }
         }
-        if (hasFSCApp && partner.productFilters?.fsc) {
-          if (matchesProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+        if (hasFSCApp && partner.product_filters?.fsc) {
+          if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
             matchingPartners.add(partner);
           }
         }
-        if (hasCRMApp && partner.productFilters?.crm) {
-          if (matchesProductFilter(partner, 'crm', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+        if (hasCRMApp && partner.product_filters?.crm) {
+          if (matchesDbProductFilter(partner, 'crm', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
             matchingPartners.add(partner);
           }
         }
@@ -188,22 +234,34 @@ const ValjPartner = () => {
     if (selectedApplications.length === 0) {
       if (selectedIndustry) {
         result = result.filter(partner => 
-          partner.industries.some(ind => ind === selectedIndustry)
+          (partner.industries || []).some(ind => ind === selectedIndustry)
         );
       }
       
       if (selectedSizeValue) {
-        result = result.filter(partner => 
-          partner.companySize.includes(selectedSizeValue)
-        );
+        // Check company size in any product filter
+        result = result.filter(partner => {
+          const bcSize = partner.product_filters?.bc?.companySize || [];
+          const fscSize = partner.product_filters?.fsc?.companySize || [];
+          const crmSize = partner.product_filters?.crm?.companySize || [];
+          return bcSize.includes(selectedSizeValue) || fscSize.includes(selectedSizeValue) || crmSize.includes(selectedSizeValue);
+        });
       }
       
       if (selectedGeography) {
         const geographyHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
         const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
         result = result.filter(partner => {
-          const partnerGeoIndex = geographyHierarchy.indexOf(partner.geography);
-          return partnerGeoIndex >= selectedGeoIndex;
+          // Check geography in any product filter
+          const bcGeo = partner.product_filters?.bc?.geography || "Sverige";
+          const fscGeo = partner.product_filters?.fsc?.geography || "Sverige";
+          const crmGeo = partner.product_filters?.crm?.geography || "Sverige";
+          const maxGeoIndex = Math.max(
+            geographyHierarchy.indexOf(bcGeo),
+            geographyHierarchy.indexOf(fscGeo),
+            geographyHierarchy.indexOf(crmGeo)
+          );
+          return maxGeoIndex >= selectedGeoIndex;
         });
       }
     }
@@ -216,12 +274,19 @@ const ValjPartner = () => {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
-  }, [selectedApplications, selectedIndustry, selectedCompanySize, selectedGeography]);
+  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedGeography]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
       {/* Partner Guide Dialog */}
       <PartnerGuideDialog 
         open={guideOpen} 
@@ -502,18 +567,18 @@ const ValjPartner = () => {
                 );
                 
                 let productKey: 'bc' | 'fsc' | 'crm' | null = null;
-                if (hasBCApp && partner.productFilters?.bc) productKey = 'bc';
-                else if (hasFSCApp && partner.productFilters?.fsc) productKey = 'fsc';
-                else if (hasCRMApp && partner.productFilters?.crm) productKey = 'crm';
-                else if (partner.productFilters?.bc) productKey = 'bc';
-                else if (partner.productFilters?.fsc) productKey = 'fsc';
-                else if (partner.productFilters?.crm) productKey = 'crm';
+                if (hasBCApp && partner.product_filters?.bc) productKey = 'bc';
+                else if (hasFSCApp && partner.product_filters?.fsc) productKey = 'fsc';
+                else if (hasCRMApp && (partner.product_filters?.crm || partner.product_filters?.sales || partner.product_filters?.service)) productKey = 'crm';
+                else if (partner.product_filters?.bc) productKey = 'bc';
+                else if (partner.product_filters?.fsc) productKey = 'fsc';
+                else if (partner.product_filters?.crm || partner.product_filters?.sales || partner.product_filters?.service) productKey = 'crm';
 
                 return (
                   <PartnerCard
                     key={index}
                     partner={partner}
-                    profileUrl={buildPartnerProfileUrl(partner.name)}
+                    profileUrl={buildPartnerProfileUrl(partner.slug)}
                     colorScheme="amber"
                     productKey={productKey}
                     highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}

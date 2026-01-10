@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
-import { partners, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
 // Company size filter options - matching partner data values
 const companySizeFilters = [
@@ -31,9 +32,15 @@ interface ApplicationPartnersProps {
 }
 
 const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartnersProps) => {
+  const { data: dbPartners, isLoading } = usePartners();
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+
+  // Filter to only show featured partners
+  const partners = useMemo(() => {
+    return (dbPartners || []).filter(p => p.is_featured === true);
+  }, [dbPartners]);
 
   // Determine which product key to use based on application filter
   const productKey: 'bc' | 'fsc' | 'crm' | null = useMemo(() => {
@@ -48,8 +55,8 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
   const filteredPartners = useMemo(() => {
     if (!productKey) return [];
     
-    // Only show partners with productFilters for this product (betalande partners)
-    let result = partners.filter(partner => partner.productFilters?.[productKey]);
+    // Only show partners with product_filters for this product
+    let result = partners.filter(partner => partner.product_filters?.[productKey]);
     
     // Get selected size value for filtering
     const selectedSizeValue = selectedCompanySize 
@@ -57,30 +64,48 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       : undefined;
     
     // Apply product-specific filters
-    result = result.filter(partner => 
-      matchesProductFilter(partner, productKey, selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)
-    );
+    result = result.filter(partner => {
+      const pf = partner.product_filters?.[productKey];
+      if (!pf) return false;
+      if (selectedIndustry && !pf.industries?.includes(selectedIndustry)) return false;
+      if (selectedSizeValue && pf.companySize && !pf.companySize.includes(selectedSizeValue)) return false;
+      if (selectedGeography) {
+        const geoHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+        const selIdx = geoHierarchy.indexOf(selectedGeography);
+        const partnerIdx = geoHierarchy.indexOf(pf.geography || "Sverige");
+        if (partnerIdx < selIdx) return false;
+      }
+      return true;
+    });
     
     // Sort by product ranking, then alphabetically
     return result.sort((a, b) => {
-      const rankA = getProductRanking(a, productKey);
-      const rankB = getProductRanking(b, productKey);
-      if (rankA !== rankB) {
-        return rankA - rankB;
-      }
-      return a.name.localeCompare(b.name, 'sv');
+      const rankA = a.product_filters?.[productKey]?.ranking ?? 999;
+      const rankB = b.product_filters?.[productKey]?.ranking ?? 999;
+      if (rankA !== rankB) return rankA - rankB;
+      return (a.name || '').localeCompare(b.name || '', 'sv');
     });
-  }, [productKey, selectedIndustry, selectedCompanySize, selectedGeography]);
+  }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedGeography]);
 
-  // Get available industries for this product's betalande partners
+  // Get available industries for this product's partners
   const availableIndustries = useMemo(() => {
     if (!productKey) return allIndustries;
     const industries = new Set<string>();
     partners.forEach(partner => {
-      partner.productFilters?.[productKey]?.industries.forEach(ind => industries.add(ind));
+      partner.product_filters?.[productKey]?.industries?.forEach(ind => industries.add(ind));
     });
     return allIndustries.filter(ind => industries.has(ind));
-  }, [productKey]);
+  }, [productKey, partners]);
+
+  if (isLoading) {
+    return (
+      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6 flex justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="partners" className="py-12 sm:py-16 md:py-20 bg-secondary/50">
@@ -154,7 +179,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredPartners.map((partner, index) => {
             // Build profile URL with filter context
-            const baseUrl = `/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+            const baseUrl = `/partner/${partner.slug}`;
             const params = new URLSearchParams();
             params.set("product", applicationFilter);
             if (selectedIndustry) {
@@ -182,7 +207,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
               />
             );
           })}
-        </div>
 
         {filteredPartners.length === 0 && (
           <div className="text-center py-12">

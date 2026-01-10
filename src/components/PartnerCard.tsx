@@ -4,9 +4,18 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe, CheckCircle2, Circle, Search, Mail, ExternalLink } from "lucide-react";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
+import { DatabasePartner } from "@/hooks/usePartners";
+
+// Union type to support both static and database partners
+type PartnerData = Partner | DatabasePartner;
+
+// Type guard to check if it's a DatabasePartner
+function isDatabasePartner(partner: PartnerData): partner is DatabasePartner {
+  return 'product_filters' in partner && 'slug' in partner;
+}
 
 interface PartnerCardProps {
-  partner: Partner;
+  partner: PartnerData;
   profileUrl: string;
   colorScheme?: 'primary' | 'crm' | 'amber';
   productKey?: 'bc' | 'fsc' | 'crm' | null;
@@ -58,13 +67,21 @@ const PartnerCard = ({
 
   const colors = getColorClasses();
 
-  // Get product-specific data
-  const productFilter = productKey ? partner.productFilters?.[productKey] : null;
+  // Get product-specific data - handle both data types
+  const getProductFilter = () => {
+    if (!productKey) return null;
+    if (isDatabasePartner(partner)) {
+      return partner.product_filters?.[productKey];
+    }
+    return partner.productFilters?.[productKey];
+  };
+
+  const productFilter = getProductFilter();
   
   // Get primary and secondary industries from productFilters if available
-  const primaryIndustries = productFilter?.industries || partner.industries.slice(0, 2);
+  const primaryIndustries = productFilter?.industries || (partner.industries || []).slice(0, 2);
   const secondaryIndustries = productFilter?.secondaryIndustries || [];
-  const geography = productFilter?.geography || partner.geography;
+  const geography = productFilter?.geography || (isDatabasePartner(partner) ? (partner.geography?.[0] || 'Sverige') : partner.geography);
 
   return (
     <Card 
@@ -79,7 +96,7 @@ const PartnerCard = ({
           className="hover:text-primary transition-colors"
         >
           <CardTitle className={`text-xl sm:text-2xl text-center font-bold text-foreground ${colors.title} transition-colors leading-tight`}>
-            {partner.name}
+            {partner.name || 'Partner'}
           </CardTitle>
         </Link>
       </CardHeader>
@@ -125,7 +142,7 @@ const PartnerCard = ({
         <div className={`bg-primary/5 rounded-lg p-3 border border-primary/10`}>
           <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Kompetenser inom:</p>
           <div className="flex flex-wrap gap-1.5">
-            {partner.applications.map((app, i) => (
+            {(partner.applications || []).map((app, i) => (
               <Badge key={i} variant="secondary" className={`text-xs ${colors.badge} border-0 font-medium`}>
                 {app}
               </Badge>
