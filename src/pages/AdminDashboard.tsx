@@ -1913,8 +1913,15 @@ const AdminDashboard = () => {
                     <Label>Månadsavgift (beräknad)</Label>
                     {(() => {
                       // Count active products and check for secondary industries
-                      let activeProducts = 0;
-                      let productsWithSecondary = 0;
+                      // Sales & Customer Insights and Customer Service count as ONE product together (CRM bundle)
+                      let bcActive = false;
+                      let bcHasSecondary = false;
+                      let fscActive = false;
+                      let fscHasSecondary = false;
+                      let salesActive = false;
+                      let salesHasSecondary = false;
+                      let serviceActive = false;
+                      let serviceHasSecondary = false;
                       
                       productSections.forEach(section => {
                         const filter = partnerFormData.product_filters?.[section.key];
@@ -1922,16 +1929,47 @@ const AdminDashboard = () => {
                         const secondaryIndustries = filter?.secondaryIndustries || [];
                         
                         if (industries.length > 0) {
-                          activeProducts++;
-                          if (secondaryIndustries.length > 0) {
-                            productsWithSecondary++;
+                          if (section.key === 'bc') {
+                            bcActive = true;
+                            if (secondaryIndustries.length > 0) bcHasSecondary = true;
+                          } else if (section.key === 'fsc') {
+                            fscActive = true;
+                            if (secondaryIndustries.length > 0) fscHasSecondary = true;
+                          } else if (section.key === 'sales') {
+                            salesActive = true;
+                            if (secondaryIndustries.length > 0) salesHasSecondary = true;
+                          } else if (section.key === 'service') {
+                            serviceActive = true;
+                            if (secondaryIndustries.length > 0) serviceHasSecondary = true;
                           }
                         }
                       });
                       
+                      // Count products: BC=1, FSC=1, CRM (Sales OR Service)=1
+                      let activeProducts = 0;
+                      let productsWithSecondary = 0;
+                      
+                      if (bcActive) {
+                        activeProducts++;
+                        if (bcHasSecondary) productsWithSecondary++;
+                      }
+                      if (fscActive) {
+                        activeProducts++;
+                        if (fscHasSecondary) productsWithSecondary++;
+                      }
+                      // CRM bundle: Sales and Service together count as ONE product
+                      if (salesActive || serviceActive) {
+                        activeProducts++;
+                        // Secondary if either has secondary
+                        if (salesHasSecondary || serviceHasSecondary) productsWithSecondary++;
+                      }
+                      
                       const baseFee = activeProducts * 2990;
                       const secondaryFee = productsWithSecondary * 990;
                       const totalFee = baseFee + secondaryFee;
+                      
+                      const crmBundleActive = salesActive || serviceActive;
+                      const crmBundleBoth = salesActive && serviceActive;
                       
                       return (
                         <div className="mt-1 p-3 bg-muted/50 rounded-md border">
@@ -1942,6 +1980,9 @@ const AdminDashboard = () => {
                             <p>{activeProducts} produkt(er) × 2 990 kr = {baseFee.toLocaleString('sv-SE')} kr</p>
                             {productsWithSecondary > 0 && (
                               <p>{productsWithSecondary} med sek.branscher × 990 kr = {secondaryFee.toLocaleString('sv-SE')} kr</p>
+                            )}
+                            {crmBundleBoth && (
+                              <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
                             )}
                           </div>
                         </div>
