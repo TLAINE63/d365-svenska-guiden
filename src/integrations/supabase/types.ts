@@ -162,6 +162,8 @@ export type Database = {
         Row: {
           activation_date: string | null
           address: string | null
+          admin_contact_email: string | null
+          admin_contact_name: string | null
           admin_notes: string | null
           applications: string[] | null
           cancellation_date: string | null
@@ -169,7 +171,7 @@ export type Database = {
           created_at: string
           description: string | null
           email: string | null
-          geography: string | null
+          geography: string[] | null
           id: string
           industries: string[] | null
           is_featured: boolean | null
@@ -186,6 +188,8 @@ export type Database = {
         Insert: {
           activation_date?: string | null
           address?: string | null
+          admin_contact_email?: string | null
+          admin_contact_name?: string | null
           admin_notes?: string | null
           applications?: string[] | null
           cancellation_date?: string | null
@@ -193,7 +197,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string | null
-          geography?: string | null
+          geography?: string[] | null
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
@@ -210,6 +214,8 @@ export type Database = {
         Update: {
           activation_date?: string | null
           address?: string | null
+          admin_contact_email?: string | null
+          admin_contact_name?: string | null
           admin_notes?: string | null
           applications?: string[] | null
           cancellation_date?: string | null
@@ -217,7 +223,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           email?: string | null
-          geography?: string | null
+          geography?: string[] | null
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
@@ -240,7 +246,7 @@ export type Database = {
           applications: string[] | null
           created_at: string | null
           description: string | null
-          geography: string | null
+          geography: string[] | null
           id: string | null
           industries: string[] | null
           is_featured: boolean | null
@@ -256,7 +262,7 @@ export type Database = {
           applications?: string[] | null
           created_at?: string | null
           description?: string | null
-          geography?: string | null
+          geography?: string[] | null
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null
@@ -272,7 +278,7 @@ export type Database = {
           applications?: string[] | null
           created_at?: string | null
           description?: string | null
-          geography?: string | null
+          geography?: string[] | null
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null

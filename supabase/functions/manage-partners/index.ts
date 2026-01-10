@@ -108,7 +108,7 @@ interface PartnerData {
   applications?: string[];
   industries?: string[];
   secondary_industries?: string[];
-  geography?: string;
+  geography?: string[];  // Changed to array for multi-select
   product_filters?: {
     bc?: ProductFilterData;
     fsc?: ProductFilterData;
@@ -120,6 +120,8 @@ interface PartnerData {
   monthly_fee?: number;
   cancellation_date?: string;
   admin_notes?: string;
+  admin_contact_name?: string;
+  admin_contact_email?: string;
 }
 
 interface RequestBody {
@@ -207,13 +209,15 @@ serve(async (req: Request): Promise<Response> => {
             applications: partner.applications || [],
             industries: partner.industries || [],
             secondary_industries: partner.secondary_industries || [],
-            geography: partner.geography || 'Sverige',
+            geography: partner.geography || ['Sverige'],
             product_filters: partner.product_filters || {},
             is_featured: partner.is_featured || false,
             activation_date: partner.activation_date || null,
             monthly_fee: partner.monthly_fee || null,
             cancellation_date: partner.cancellation_date || null,
             admin_notes: partner.admin_notes?.trim() || null,
+            admin_contact_name: partner.admin_contact_name?.trim() || null,
+            admin_contact_email: partner.admin_contact_email?.trim() || null,
           })
           .select()
           .single();
@@ -264,6 +268,8 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.monthly_fee !== undefined) updateData.monthly_fee = partner.monthly_fee || null;
         if (partner?.cancellation_date !== undefined) updateData.cancellation_date = partner.cancellation_date || null;
         if (partner?.admin_notes !== undefined) updateData.admin_notes = partner.admin_notes?.trim() || null;
+        if (partner?.admin_contact_name !== undefined) updateData.admin_contact_name = partner.admin_contact_name?.trim() || null;
+        if (partner?.admin_contact_email !== undefined) updateData.admin_contact_email = partner.admin_contact_email?.trim() || null;
 
         const { data, error } = await supabase
           .from("partners")
