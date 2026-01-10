@@ -52,8 +52,27 @@ import { sv } from "date-fns/locale";
 import { 
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
-  ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX
+  ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle
 } from "lucide-react";
+import { z } from "zod";
+
+// ==================== VALIDATION SCHEMA ====================
+
+const partnerValidationSchema = z.object({
+  name: z.string().trim().min(1, "Namn är obligatoriskt").max(100, "Namn får max vara 100 tecken"),
+  website: z.string().trim().min(1, "Hemsida är obligatoriskt").url("Ange en giltig URL (t.ex. https://example.com)"),
+  slug: z.string().optional(),
+  description: z.string().max(2000, "Beskrivning får max vara 2000 tecken").optional(),
+  logo_url: z.string().url("Ange en giltig URL för logotypen").optional().or(z.literal("")),
+  email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
+  contactPerson: z.string().max(100, "Kontaktperson får max vara 100 tecken").optional(),
+  phone: z.string().max(30, "Telefonnummer får max vara 30 tecken").optional(),
+  address: z.string().max(200, "Adress får max vara 200 tecken").optional(),
+  admin_contact_name: z.string().max(100, "Administrativ kontakt får max vara 100 tecken").optional(),
+  admin_contact_email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
+});
+
+type PartnerFormErrors = Partial<Record<keyof z.infer<typeof partnerValidationSchema>, string>>;
 
 // ==================== TYPES ====================
 
@@ -144,6 +163,7 @@ const AdminDashboard = () => {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [isImporting, setIsImporting] = useState(false);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+  const [formErrors, setFormErrors] = useState<PartnerFormErrors>({});
 
   // Empty product filter template
   const emptyProductFilter: ProductFilterInput = {
@@ -503,6 +523,7 @@ const AdminDashboard = () => {
       admin_contact_email: "",
     });
     setEditingPartner(null);
+    setFormErrors({});
   };
 
   const openCreatePartnerDialog = () => {
@@ -583,6 +604,28 @@ const AdminDashboard = () => {
       logout();
       return;
     }
+
+    // Validate form data
+    const validationResult = partnerValidationSchema.safeParse(partnerFormData);
+    if (!validationResult.success) {
+      const errors: PartnerFormErrors = {};
+      validationResult.error.errors.forEach((err) => {
+        const field = err.path[0] as keyof PartnerFormErrors;
+        if (field && !errors[field]) {
+          errors[field] = err.message;
+        }
+      });
+      setFormErrors(errors);
+      toast({ 
+        title: "Formulärfel", 
+        description: "Vänligen korrigera de markerade fälten", 
+        variant: "destructive" 
+      });
+      return;
+    }
+
+    // Clear any previous errors
+    setFormErrors({});
 
     // Build applications array from selected product sections
     const applications: string[] = [];
@@ -1310,11 +1353,18 @@ const AdminDashboard = () => {
                     <Input
                       id="name"
                       value={partnerFormData.name}
-                      onChange={(e) =>
-                        setPartnerFormData({ ...partnerFormData, name: e.target.value })
-                      }
-                      required
+                      onChange={(e) => {
+                        setPartnerFormData({ ...partnerFormData, name: e.target.value });
+                        if (formErrors.name) setFormErrors({ ...formErrors, name: undefined });
+                      }}
+                      className={formErrors.name ? "border-destructive" : ""}
                     />
+                    {formErrors.name && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.name}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="slug">Slug (URL)</Label>
@@ -1372,12 +1422,19 @@ const AdminDashboard = () => {
                       id="logo_url"
                       type="url"
                       value={partnerFormData.logo_url}
-                      onChange={(e) =>
-                        setPartnerFormData({ ...partnerFormData, logo_url: e.target.value })
-                      }
+                      onChange={(e) => {
+                        setPartnerFormData({ ...partnerFormData, logo_url: e.target.value });
+                        if (formErrors.logo_url) setFormErrors({ ...formErrors, logo_url: undefined });
+                      }}
                       placeholder="https://example.com/logo.png"
-                      className="mt-1"
+                      className={`mt-1 ${formErrors.logo_url ? "border-destructive" : ""}`}
                     />
+                    {formErrors.logo_url && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.logo_url}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -1386,11 +1443,19 @@ const AdminDashboard = () => {
                   <Textarea
                     id="description"
                     value={partnerFormData.description}
-                    onChange={(e) =>
-                      setPartnerFormData({ ...partnerFormData, description: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setPartnerFormData({ ...partnerFormData, description: e.target.value });
+                      if (formErrors.description) setFormErrors({ ...formErrors, description: undefined });
+                    }}
                     rows={3}
+                    className={formErrors.description ? "border-destructive" : ""}
                   />
+                  {formErrors.description && (
+                    <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                      <AlertCircle className="h-3 w-3" />
+                      {formErrors.description}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -1401,14 +1466,20 @@ const AdminDashboard = () => {
                       id="website"
                       type="url"
                       value={partnerFormData.website}
-                      onChange={(e) =>
-                        setPartnerFormData({ ...partnerFormData, website: e.target.value })
-                      }
+                      onChange={(e) => {
+                        setPartnerFormData({ ...partnerFormData, website: e.target.value });
+                        if (formErrors.website) setFormErrors({ ...formErrors, website: undefined });
+                      }}
                       placeholder="https://example.com"
-                      className="pl-10"
-                      required
+                      className={`pl-10 ${formErrors.website ? "border-destructive" : ""}`}
                     />
                   </div>
+                  {formErrors.website && (
+                    <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                      <AlertCircle className="h-3 w-3" />
+                      {formErrors.website}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -1458,22 +1529,37 @@ const AdminDashboard = () => {
                         id="email"
                         type="email"
                         value={partnerFormData.email}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, email: e.target.value })
-                        }
-                        className="pl-10"
+                        onChange={(e) => {
+                          setPartnerFormData({ ...partnerFormData, email: e.target.value });
+                          if (formErrors.email) setFormErrors({ ...formErrors, email: undefined });
+                        }}
+                        className={`pl-10 ${formErrors.email ? "border-destructive" : ""}`}
                       />
                     </div>
+                    {formErrors.email && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.email}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label htmlFor="address">Adress</Label>
                     <Input
                       id="address"
                       value={partnerFormData.address}
-                      onChange={(e) =>
-                        setPartnerFormData({ ...partnerFormData, address: e.target.value })
-                      }
+                      onChange={(e) => {
+                        setPartnerFormData({ ...partnerFormData, address: e.target.value });
+                        if (formErrors.address) setFormErrors({ ...formErrors, address: undefined });
+                      }}
+                      className={formErrors.address ? "border-destructive" : ""}
                     />
+                    {formErrors.address && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.address}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -1644,13 +1730,20 @@ const AdminDashboard = () => {
                         id="admin_contact_email"
                         type="email"
                         value={partnerFormData.admin_contact_email || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, admin_contact_email: e.target.value })
-                        }
-                        className="pl-10"
+                        onChange={(e) => {
+                          setPartnerFormData({ ...partnerFormData, admin_contact_email: e.target.value });
+                          if (formErrors.admin_contact_email) setFormErrors({ ...formErrors, admin_contact_email: undefined });
+                        }}
+                        className={`pl-10 ${formErrors.admin_contact_email ? "border-destructive" : ""}`}
                         placeholder="admin@example.com"
                       />
                     </div>
+                    {formErrors.admin_contact_email && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.admin_contact_email}
+                      </p>
+                    )}
                   </div>
                 </div>
                 
