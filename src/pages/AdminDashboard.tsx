@@ -549,12 +549,18 @@ const AdminDashboard = () => {
       formData.append("token", token);
       formData.append("partnerSlug", partnerFormData.slug || generateSlug(partnerFormData.name));
 
-      const { data, error } = await supabase.functions.invoke("upload-partner-logo", {
+      // Use fetch directly since supabase.functions.invoke doesn't handle FormData properly
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const response = await fetch(`${supabaseUrl}/functions/v1/upload-partner-logo`, {
+        method: "POST",
         body: formData,
       });
 
-      if (error) throw error;
-      if (data.error) throw new Error(data.error);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Uppladdning misslyckades");
+      }
 
       setPartnerFormData({ ...partnerFormData, logo_url: data.url });
       toast({ title: "Logo uppladdad" });
@@ -1272,12 +1278,22 @@ const AdminDashboard = () => {
         </Dialog>
 
         {/* ==================== PARTNER CREATE/EDIT DIALOG ==================== */}
-        <Dialog open={isPartnerDialogOpen} onOpenChange={setIsPartnerDialogOpen}>
-          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
+        <Dialog open={isPartnerDialogOpen} onOpenChange={() => {}}>
+          <DialogContent className="fixed inset-4 max-w-none w-auto h-auto max-h-none translate-x-0 translate-y-0 left-0 top-0 overflow-y-auto" onPointerDownOutside={(e) => e.preventDefault()} onInteractOutside={(e) => e.preventDefault()}>
+            <DialogHeader className="flex flex-row items-center justify-between">
               <DialogTitle>
                 {editingPartner ? "Redigera partner" : "Lägg till partner"}
               </DialogTitle>
+              <Button 
+                type="button" 
+                variant="ghost" 
+                size="icon" 
+                onClick={() => setIsPartnerDialogOpen(false)}
+                className="h-8 w-8 rounded-full"
+              >
+                <span className="sr-only">Stäng</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </Button>
             </DialogHeader>
 
             <form onSubmit={handlePartnerSubmit} className="space-y-6">
