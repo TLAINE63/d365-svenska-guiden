@@ -283,15 +283,15 @@ const PartnerProfile = () => {
             
             {/* Geographic Coverage */}
             {staticPartner?.geography && (
-              <div className="bg-muted/30 rounded-xl p-4 border border-border/50">
-                <div className="flex items-center gap-3">
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold text-foreground flex items-center gap-3">
                   <div className="p-2 rounded-lg bg-primary/10">
                     <Globe className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Geografisk täckning</p>
-                    <p className="text-lg font-semibold text-foreground">{getCumulativeGeographyDisplay(staticPartner.geography)}</p>
-                  </div>
+                  Geografisk täckning
+                </h2>
+                <div className="bg-muted/30 rounded-xl p-4 border border-border/50">
+                  <p className="text-lg font-semibold text-foreground">{getCumulativeGeographyDisplay(staticPartner.geography)}</p>
                 </div>
               </div>
             )}
