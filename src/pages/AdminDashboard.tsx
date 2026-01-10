@@ -1666,8 +1666,8 @@ const AdminDashboard = () => {
                               {allIndustries.map((ind) => (
                                 <Badge
                                   key={ind}
-                                  variant={filter.secondaryIndustries.includes(ind) ? "secondary" : "outline"}
-                                  className="cursor-pointer text-xs"
+                                  variant={filter.secondaryIndustries.includes(ind) ? "default" : "outline"}
+                                  className={`cursor-pointer text-xs ${filter.secondaryIndustries.includes(ind) ? "bg-amber-500 hover:bg-amber-600 text-white border-amber-500" : ""}`}
                                   onClick={() => toggleProductSecondaryIndustry(section.key, ind)}
                                 >
                                   {ind}
@@ -1729,6 +1729,16 @@ const AdminDashboard = () => {
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-t-lg opacity-70" />
                   
                   <CardHeader className="pb-2 pt-6">
+                    {/* Logo Preview */}
+                    {partnerFormData.logo_url && (
+                      <div className="flex justify-center mb-3">
+                        <img 
+                          src={partnerFormData.logo_url} 
+                          alt={`${partnerFormData.name} logo`}
+                          className="h-16 w-auto max-w-[120px] object-contain"
+                        />
+                      </div>
+                    )}
                     <CardTitle className="text-xl text-center font-bold text-foreground leading-tight">
                       {partnerFormData.name || "Partnernamn"}
                     </CardTitle>
@@ -1900,17 +1910,40 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="monthly_fee">Månadsavgift (SEK)</Label>
-                    <Input
-                      id="monthly_fee"
-                      type="number"
-                      min={0}
-                      value={partnerFormData.monthly_fee || ""}
-                      onChange={(e) =>
-                        setPartnerFormData({ ...partnerFormData, monthly_fee: parseFloat(e.target.value) || undefined })
-                      }
-                      placeholder="0"
-                    />
+                    <Label>Månadsavgift (beräknad)</Label>
+                    {(() => {
+                      // Count active products and check for secondary industries
+                      let activeProducts = 0;
+                      let productsWithSecondary = 0;
+                      
+                      productSections.forEach(section => {
+                        const filter = partnerFormData.product_filters?.[section.key];
+                        if (filter && filter.industries.length > 0) {
+                          activeProducts++;
+                          if (filter.secondaryIndustries.length > 0) {
+                            productsWithSecondary++;
+                          }
+                        }
+                      });
+                      
+                      const baseFee = activeProducts * 2990;
+                      const secondaryFee = productsWithSecondary * 990;
+                      const totalFee = baseFee + secondaryFee;
+                      
+                      return (
+                        <div className="mt-1 p-3 bg-muted/50 rounded-md border">
+                          <p className="text-2xl font-bold text-foreground">
+                            {totalFee.toLocaleString('sv-SE')} kr/mån
+                          </p>
+                          <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
+                            <p>{activeProducts} produkt(er) × 2 990 kr = {baseFee.toLocaleString('sv-SE')} kr</p>
+                            {productsWithSecondary > 0 && (
+                              <p>{productsWithSecondary} med sek.branscher × 990 kr = {secondaryFee.toLocaleString('sv-SE')} kr</p>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
                   <div>
                     <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>
