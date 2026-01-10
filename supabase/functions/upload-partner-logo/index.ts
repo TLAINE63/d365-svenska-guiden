@@ -5,14 +5,21 @@ const ALLOWED_ORIGINS = [
   "https://d365.se",
   "https://www.d365.se",
   "https://d365-svenska-guiden.lovable.app",
-  "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
   "http://localhost:5173",
   "http://localhost:8080",
 ];
 
+function isAllowedOrigin(origin: string): boolean {
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
+  // Allow all Lovable preview domains
+  if (origin.endsWith(".lovableproject.com")) return true;
+  if (origin.endsWith(".lovable.app")) return true;
+  return false;
+}
+
 function getCorsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get("origin") || "";
-  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allowedOrigin = isAllowedOrigin(origin) ? origin : ALLOWED_ORIGINS[0];
   
   return {
     "Access-Control-Allow-Origin": allowedOrigin,
