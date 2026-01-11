@@ -207,6 +207,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
               />
             );
           })}
+        </div>
 
         {filteredPartners.length === 0 && (
           <div className="text-center py-12">
