@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Globe, CheckCircle2, Circle, Search, Mail, ExternalLink } from "lucide-react";
+import { ArrowRight, Globe, CheckCircle2, Sparkles, Building2, MapPin } from "lucide-react";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
 
@@ -40,27 +39,27 @@ const PartnerCard = ({
     switch (colorScheme) {
       case 'crm':
         return {
-          hover: 'hover:bg-crm/5',
-          accent: 'from-crm via-accent to-crm',
-          title: 'group-hover:text-crm',
-          badge: 'bg-crm/10 text-crm',
-          text: 'text-crm'
+          gradient: 'from-crm/20 via-transparent to-crm/10',
+          accent: 'bg-crm',
+          accentHover: 'group-hover:bg-crm',
+          badge: 'bg-crm/10 text-crm border-crm/20',
+          glow: 'group-hover:shadow-[0_20px_50px_-12px_hsl(var(--crm)/0.25)]'
         };
       case 'amber':
         return {
-          hover: 'hover:bg-amber-500/5',
-          accent: 'from-amber-500 via-accent to-amber-500',
-          title: 'group-hover:text-amber-600',
-          badge: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
-          text: 'text-amber-600'
+          gradient: 'from-amber-500/20 via-transparent to-amber-500/10',
+          accent: 'bg-amber-500',
+          accentHover: 'group-hover:bg-amber-500',
+          badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20',
+          glow: 'group-hover:shadow-[0_20px_50px_-12px_rgba(245,158,11,0.25)]'
         };
       default:
         return {
-          hover: 'hover:bg-accent/5',
-          accent: 'from-primary via-accent to-primary',
-          title: 'group-hover:text-primary',
-          badge: 'bg-primary/10 text-primary',
-          text: 'text-primary'
+          gradient: 'from-primary/20 via-transparent to-primary/10',
+          accent: 'bg-primary',
+          accentHover: 'group-hover:bg-primary',
+          badge: 'bg-primary/10 text-primary border-primary/20',
+          glow: 'group-hover:shadow-[0_20px_50px_-12px_hsl(var(--primary)/0.25)]'
         };
     }
   };
@@ -83,50 +82,70 @@ const PartnerCard = ({
   const secondaryIndustries = productFilter?.secondaryIndustries || [];
   const geography = productFilter?.geography || (isDatabasePartner(partner) ? (partner.geography?.[0] || 'Sverige') : partner.geography);
 
-  return (
-    <Card 
-      className={`group relative border border-border/50 bg-card ${colors.hover} transition-all duration-300 flex flex-col shadow-md hover:shadow-xl transform hover:-translate-y-1`}
-    >
-      {/* Top accent line */}
-      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${colors.accent} rounded-t-lg opacity-70 group-hover:opacity-100 transition-opacity`} />
-      
-      <CardHeader className="pb-2 pt-6">
-        <Link 
-          to={profileUrl}
-          className="hover:text-primary transition-colors"
-        >
-          <CardTitle className={`text-xl sm:text-2xl text-center font-bold text-foreground ${colors.title} transition-colors leading-tight`}>
-            {partner.name || 'Partner'}
-          </CardTitle>
-        </Link>
-      </CardHeader>
-      <CardContent className="space-y-4 flex-1 flex flex-col pt-3">
+  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedCompanySize || highlightedGeography;
 
-        {/* Highlighted filters - Din sökning */}
-        {(highlightedProduct || highlightedIndustry || highlightedCompanySize || highlightedGeography) && (
-          <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 border border-amber-200 dark:border-amber-700/50">
-            <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-2 uppercase tracking-wide flex items-center gap-1">
-              <Search className="w-3 h-3" />
-              Din sökning
-            </p>
+  return (
+    <article 
+      className={`group relative flex flex-col h-full rounded-2xl overflow-hidden
+        bg-gradient-to-br from-card via-card to-card/95
+        border border-border/40 backdrop-blur-sm
+        shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)]
+        hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.18)]
+        ${colors.glow}
+        transform transition-all duration-500 ease-out
+        hover:-translate-y-2 hover:border-border/60`}
+    >
+      {/* Premium gradient overlay */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
+      
+      {/* Top accent bar with shimmer effect */}
+      <div className="relative h-1.5 overflow-hidden">
+        <div className={`absolute inset-0 ${colors.accent} opacity-80 group-hover:opacity-100 transition-opacity`} />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+      </div>
+      
+      {/* Card Content */}
+      <div className="relative flex flex-col flex-1 p-6">
+        {/* Header with logo placeholder and name */}
+        <div className="text-center mb-5">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-muted/80 to-muted mb-4 shadow-inner">
+            <Building2 className="w-7 h-7 text-muted-foreground/60" />
+          </div>
+          <Link 
+            to={profileUrl}
+            className="block group/link"
+          >
+            <h3 className="text-xl font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight">
+              {partner.name || 'Partner'}
+            </h3>
+          </Link>
+        </div>
+
+        {/* Highlighted search criteria */}
+        {hasHighlights && (
+          <div className="relative mb-5 p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/10 border border-amber-200/50 dark:border-amber-700/30">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider">Matchar din sökning</span>
+            </div>
             <div className="flex flex-wrap gap-1.5">
               {highlightedProduct && (
-                <Badge className="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-600">
+                <Badge className="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-300/50 dark:border-amber-600/50 font-medium">
                   {highlightedProduct}
                 </Badge>
               )}
               {highlightedIndustry && (
-                <Badge variant="outline" className="text-xs border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-300">
+                <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
                   {highlightedIndustry}
                 </Badge>
               )}
               {highlightedCompanySize && (
-                <Badge variant="outline" className="text-xs border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-300">
+                <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
                   {highlightedCompanySize}
                 </Badge>
               )}
               {highlightedGeography && (
-                <Badge variant="outline" className="text-xs border-amber-400 dark:border-amber-600 text-amber-700 dark:text-amber-300">
+                <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
                   {highlightedGeography}
                 </Badge>
               )}
@@ -134,30 +153,46 @@ const PartnerCard = ({
           </div>
         )}
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        {/* Description */}
+        <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">
           {partner.description}
         </p>
         
-        {/* Applications */}
-        <div className={`bg-primary/5 rounded-lg p-3 border border-primary/10`}>
-          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Kompetenser inom:</p>
+        {/* Applications / Competencies */}
+        <div className="mb-4">
+          <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-primary" />
+            Kompetenser
+          </p>
           <div className="flex flex-wrap gap-1.5">
-            {(partner.applications || []).map((app, i) => (
-              <Badge key={i} variant="secondary" className={`text-xs ${colors.badge} border-0 font-medium`}>
+            {(partner.applications || []).slice(0, 4).map((app, i) => (
+              <Badge 
+                key={i} 
+                variant="outline"
+                className={`text-xs ${colors.badge} font-medium`}
+              >
                 {app}
               </Badge>
             ))}
+            {(partner.applications || []).length > 4 && (
+              <Badge variant="outline" className="text-xs bg-muted/50 text-muted-foreground border-border">
+                +{(partner.applications || []).length - 4}
+              </Badge>
+            )}
           </div>
         </div>
 
         {/* Primary Industries - Branschfokus */}
-        <div className="bg-accent/5 rounded-lg p-3 border border-accent/10">
-          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Branschfokus</p>
+        <div className="mb-4">
+          <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-primary" />
+            Branschfokus
+          </p>
           <div className="flex flex-wrap gap-1.5">
             {primaryIndustries.map((industry, i) => (
               <Badge 
                 key={i} 
-                className="text-xs bg-primary/15 text-primary border-0 font-medium"
+                className="text-xs bg-primary/10 text-primary border border-primary/20 font-medium"
               >
                 <CheckCircle2 className="w-3 h-3 mr-1" />
                 {industry}
@@ -166,17 +201,19 @@ const PartnerCard = ({
           </div>
         </div>
 
-        {/* Secondary Industries - Erfarenhet även inom */}
+        {/* Secondary Industries */}
         {secondaryIndustries.length > 0 && (
-          <div className="bg-muted/30 rounded-lg p-3 border border-muted/50">
-            <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Erfarenhet även inom</p>
+          <div className="mb-4">
+            <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-amber-500" />
+              Erfarenhet även inom
+            </p>
             <div className="flex flex-wrap gap-1.5">
               {secondaryIndustries.map((industry, i) => (
                 <Badge 
                   key={i} 
-                  className="text-xs bg-amber-500 hover:bg-amber-600 text-white border-0"
+                  className="text-xs bg-amber-500 hover:bg-amber-600 text-white border-0 font-medium"
                 >
-                  <Circle className="w-2.5 h-2.5 mr-1" />
                   {industry}
                 </Badge>
               ))}
@@ -184,26 +221,28 @@ const PartnerCard = ({
           </div>
         )}
 
-
         {/* Geography */}
-        <div className="bg-muted/20 rounded-lg p-3 border border-muted/30">
-          <p className="text-xs font-semibold text-foreground mb-2 uppercase tracking-wide">Geografisk täckning</p>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Globe className="w-4 h-4 text-primary/70" />
-            <span>{getCumulativeGeographyDisplay(geography)}</span>
+        <div className="mb-5 flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-muted/50">
+            <MapPin className="w-3.5 h-3.5 text-primary/70" />
           </div>
+          <span>{getCumulativeGeographyDisplay(geography)}</span>
         </div>
 
-        <div className="mt-auto pt-4 border-t border-border/50">
-          <Button asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-md">
-            <Link to={profileUrl}>
-              Öppna partnerkortet
-              <ArrowRight className="h-4 w-4" />
+        {/* CTA Button */}
+        <div className="mt-auto pt-4">
+          <Button 
+            asChild 
+            className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
+          >
+            <Link to={profileUrl} className="flex items-center justify-center gap-2">
+              <span>Visa partnerprofil</span>
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
             </Link>
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 };
 
