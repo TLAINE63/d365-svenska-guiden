@@ -87,14 +87,18 @@ const PartnerCard = ({
   return (
     <article 
       className={`group relative flex flex-col h-full rounded-2xl overflow-hidden
-        bg-gradient-to-br from-card via-card to-card/95
-        border border-border/40 backdrop-blur-sm
-        shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)]
-        hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.18)]
+        bg-gradient-to-br from-card/80 via-card/90 to-card/70
+        border border-white/20 dark:border-white/10
+        backdrop-blur-xl backdrop-saturate-150
+        shadow-[0_8px_32px_-4px_rgba(0,0,0,0.1),inset_0_1px_0_0_rgba(255,255,255,0.1)]
+        hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.2),inset_0_1px_0_0_rgba(255,255,255,0.15)]
         ${colors.glow}
         transform transition-all duration-500 ease-out
-        hover:-translate-y-2 hover:border-border/60`}
+        hover:-translate-y-2 hover:border-white/30 dark:hover:border-white/20`}
     >
+      {/* Glassmorphism inner glow */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 via-transparent to-white/5 pointer-events-none" />
+      
       {/* Premium gradient overlay */}
       <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
       
