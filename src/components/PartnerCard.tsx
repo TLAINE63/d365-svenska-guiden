@@ -185,8 +185,7 @@ const PartnerCard = ({
             {(partner.applications || []).map((app, i) => (
               <Badge 
                 key={i} 
-                variant="outline"
-                className={`text-xs ${colors.badge} font-medium`}
+                className="text-xs bg-primary text-primary-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-primary/90 transition-all"
               >
                 {app}
               </Badge>
