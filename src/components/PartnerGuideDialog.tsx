@@ -172,8 +172,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
       return 0;
     });
 
-    // Take top 3
-    setSuggestedPartners(sortedPartners.slice(0, 3));
+    // Show all matching partners
+    setSuggestedPartners(sortedPartners);
     setStep(5);
   };
 
