@@ -17,7 +17,7 @@ interface PartnerCardProps {
   partner: PartnerData;
   profileUrl: string;
   colorScheme?: 'primary' | 'crm' | 'amber';
-  productKey?: 'bc' | 'fsc' | 'crm' | null;
+  productKey?: 'bc' | 'fsc' | 'crm' | 'sales' | 'service' | null;
   highlightedProduct?: string;
   highlightedIndustry?: string;
   highlightedCompanySize?: string;
