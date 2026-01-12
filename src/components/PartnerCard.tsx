@@ -165,7 +165,7 @@ const PartnerCard = ({
             Kompetenser
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {(partner.applications || []).slice(0, 4).map((app, i) => (
+            {(partner.applications || []).map((app, i) => (
               <Badge 
                 key={i} 
                 variant="outline"
@@ -174,11 +174,6 @@ const PartnerCard = ({
                 {app}
               </Badge>
             ))}
-            {(partner.applications || []).length > 4 && (
-              <Badge variant="outline" className="text-xs bg-muted/50 text-muted-foreground border-border">
-                +{(partner.applications || []).length - 4}
-              </Badge>
-            )}
           </div>
         </div>
 
