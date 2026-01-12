@@ -401,16 +401,16 @@ const PartnerProfile = () => {
                             {getProductDisplayName(category)}
                           </h3>
                           {apps.length > 1 && (
-                            <div className="flex flex-wrap gap-2 justify-end sm:ml-4 sm:items-end flex-col sm:flex-col items-end">
+                            <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-start sm:justify-end sm:ml-4 sm:flex-col sm:items-end">
                               {apps.map(app => {
                                 const appIcon = getApplicationIcon(app);
                                 return (
                                   <Badge 
                                     key={app} 
-                                    className="text-xs bg-accent text-accent-foreground border-0 py-1 px-2.5 font-medium shadow-sm"
+                                    className="text-[10px] sm:text-xs bg-accent text-accent-foreground border-0 py-0.5 sm:py-1 px-1.5 sm:px-2.5 font-medium shadow-sm"
                                   >
                                     {appIcon && (
-                                      <img src={appIcon} alt="" className="w-4 h-4 mr-1.5" />
+                                      <img src={appIcon} alt="" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                                     )}
                                     {app}
                                   </Badge>
