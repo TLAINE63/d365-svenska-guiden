@@ -106,16 +106,24 @@ const PartnerCard = ({
       
       {/* Card Content */}
       <div className="relative flex flex-col flex-1 p-6">
-        {/* Header with logo placeholder and name */}
-        <div className="text-center mb-5">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-muted/80 to-muted mb-4 shadow-inner">
-            <Building2 className="w-7 h-7 text-muted-foreground/60" />
-          </div>
+        {/* Header with logo and name on same row */}
+        <div className="flex items-center gap-3 mb-5">
+          {isDatabasePartner(partner) && partner.logo_url ? (
+            <img 
+              src={partner.logo_url} 
+              alt={`${partner.name} logotyp`}
+              className="w-10 h-10 object-contain rounded-lg bg-white p-1 border border-border/40 flex-shrink-0"
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center flex-shrink-0 shadow-inner">
+              <Building2 className="w-5 h-5 text-muted-foreground/60" />
+            </div>
+          )}
           <Link 
             to={profileUrl}
-            className="block group/link"
+            className="group/link flex-1 min-w-0"
           >
-            <h3 className="text-xl font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight">
+            <h3 className="text-lg font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight truncate">
               {partner.name || 'Partner'}
             </h3>
           </Link>
