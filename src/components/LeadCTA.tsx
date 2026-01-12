@@ -134,7 +134,7 @@ export const LeadCTA = ({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="company_name">Företagsnamn *</Label>
+          <Label htmlFor="company_name" className="text-white font-medium">Företagsnamn *</Label>
           <Input
             id="company_name"
             value={formData.company_name}
@@ -145,7 +145,7 @@ export const LeadCTA = ({
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="contact_name">Kontaktperson *</Label>
+          <Label htmlFor="contact_name" className="text-white font-medium">Kontaktperson *</Label>
           <Input
             id="contact_name"
             value={formData.contact_name}
@@ -159,7 +159,7 @@ export const LeadCTA = ({
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="email">E-post *</Label>
+          <Label htmlFor="email" className="text-white font-medium">E-post *</Label>
           <Input
             id="email"
             type="email"
@@ -171,7 +171,7 @@ export const LeadCTA = ({
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone">Telefon</Label>
+          <Label htmlFor="phone" className="text-white font-medium">Telefon</Label>
           <Input
             id="phone"
             type="tel"
@@ -185,7 +185,7 @@ export const LeadCTA = ({
 
 
       <div className="space-y-2">
-        <Label htmlFor="message">Meddelande (valfritt)</Label>
+        <Label htmlFor="message" className="text-white font-medium">Meddelande (valfritt)</Label>
         <Textarea
           id="message"
           value={formData.message}
