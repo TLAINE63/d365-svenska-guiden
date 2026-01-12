@@ -57,10 +57,10 @@ const Navbar = () => {
           >
             <img 
               src={companyLogo} 
-              alt="Dynamic Factory - Microsoft Business Applications Evangelister" 
-              className="h-12 w-auto object-contain"
-              width="113"
-              height="48"
+              alt="d365.se - Hitta rätt Dynamics 365 Partner" 
+              className="h-[72px] w-auto object-contain"
+              width="170"
+              height="72"
               loading="eager"
             />
           </Link>
