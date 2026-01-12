@@ -1734,9 +1734,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     </a>
                   </Button>
                   <Button asChild className="flex-1" variant="outline">
-                    <a href="tel:+46706789012">
+                    <a href="tel:+46722324060">
                       <span className="mr-2">📞</span>
-                      070-678 90 12
+                      +46 72 232 40 60
                     </a>
                   </Button>
                 </div>
