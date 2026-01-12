@@ -226,7 +226,7 @@ const PartnerProfile = () => {
                 )}
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card/80 border border-border/50 text-xs">
                   <Layers className="w-3 h-3 text-primary" />
-                  <span className="font-medium text-foreground">{partner.applications.length} applikationer</span>
+                  <span className="font-medium text-foreground">Kompetens inom {partner.applications.length} Dynamics 365-applikationer</span>
                 </div>
                 <a 
                   href={partner.website} 
