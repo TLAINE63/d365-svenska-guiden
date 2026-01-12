@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Building2, ArrowDown, Loader2 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
@@ -359,14 +360,57 @@ const Branschlosningar = () => {
 
             {/* Lead CTA */}
             <div className="mt-12">
-              <LeadCTA 
-                sourcePage="branschlosningar"
-                variant="card" 
-                title="Behöver du hjälp att välja rätt partner?"
-                description="Beskriv ditt projekt så hjälper vi dig att hitta rätt partner för dina behov."
-                selectedIndustry={selectedIndustry?.name}
-                selectedProduct={selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
-              />
+              {/* Premium Contact CTA Card - same design as PartnerProfile */}
+              <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+                {/* Gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
+                
+                {/* Animated orb */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+                
+                <div className="relative p-6 sm:p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                      <span className="text-xl">✨</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                        Behöver du hjälp att välja rätt partner?
+                      </h3>
+                      <p className="text-white/70 text-sm sm:text-base">
+                        Beskriv ditt projekt så hjälper vi dig att hitta rätt partner för dina behov.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Filter context with glass effect */}
+                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                    <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      Din sökning
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
+                        {selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
+                      </Badge>
+                      {selectedIndustry && (
+                        <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
+                          {selectedIndustry.name}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <LeadCTA 
+                    sourcePage="branschlosningar"
+                    variant="inline" 
+                    selectedIndustry={selectedIndustry?.name}
+                    selectedProduct={selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
+                  />
+                </div>
+              </article>
             </div>
           </div>
         </section>
