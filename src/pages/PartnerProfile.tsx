@@ -360,7 +360,7 @@ const PartnerProfile = () => {
                                 {primary.map(ind => (
                                   <Badge 
                                     key={ind}
-                                    className="bg-gradient-to-r from-primary/15 to-primary/10 text-primary border border-primary/25 py-1.5 px-3 text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
+                                    className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm font-medium shadow-md hover:shadow-lg hover:bg-primary/90 transition-all"
                                   >
                                     <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
                                     {ind}
