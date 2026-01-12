@@ -3,41 +3,42 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
   ArrowRight, 
-  Globe, 
   CheckCircle2, 
   Sparkles, 
-  Building2, 
-  MapPin,
-  Calculator,
-  Users,
-  Headphones,
-  Wrench,
-  TrendingUp,
-  Megaphone,
-  Bot,
-  Phone,
-  Package,
-  Wallet,
-  type LucideIcon
+  Building2
 } from "lucide-react";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
 
-// Map application names to icons
-const applicationIcons: Record<string, LucideIcon> = {
-  "Business Central": Calculator,
-  "Sales": TrendingUp,
-  "Customer Service": Headphones,
-  "Field Service": Wrench,
-  "Marketing": Megaphone,
-  "Finance": Wallet,
-  "Supply Chain": Package,
-  "Copilot": Bot,
-  "Contact Center": Phone,
-  "CRM": Users,
+// Dynamics 365 icons
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import CopilotIcon from "@/assets/icons/Copilot.png";
+
+// Map application names to Dynamics 365 icons
+const applicationIcons: Record<string, string> = {
+  "Business Central": BusinessCentralIcon,
+  "Sales": SalesIcon,
+  "Customer Service": CustomerServiceIcon,
+  "Field Service": FieldServiceIcon,
+  "Marketing": MarketingIcon,
+  "Customer Insights": MarketingIcon,
+  "Customer Insights (Marketing)": MarketingIcon,
+  "Finance": FinanceIcon,
+  "Finance & Supply Chain": FinanceIcon,
+  "Supply Chain": SupplyChainIcon,
+  "Supply Chain Management": SupplyChainIcon,
+  "Copilot": CopilotIcon,
+  "Contact Center": ContactCenterIcon,
 };
 
-const getApplicationIcon = (appName: string): LucideIcon => {
+const getApplicationIcon = (appName: string): string | null => {
   // Try exact match first
   if (applicationIcons[appName]) return applicationIcons[appName];
   
@@ -49,8 +50,8 @@ const getApplicationIcon = (appName: string): LucideIcon => {
     }
   }
   
-  // Default icon
-  return CheckCircle2;
+  // No matching icon
+  return null;
 };
 // Union type to support both static and database partners
 type PartnerData = Partner | DatabasePartner;
@@ -230,13 +231,15 @@ const PartnerCard = ({
           </p>
           <div className="flex flex-wrap gap-1.5">
             {(partner.applications || []).map((app, i) => {
-              const AppIcon = getApplicationIcon(app);
+              const appIcon = getApplicationIcon(app);
               return (
                 <Badge 
                   key={i} 
                   className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
                 >
-                  <AppIcon className="w-3 h-3 mr-1" />
+                  {appIcon && (
+                    <img src={appIcon} alt="" className="w-4 h-4 mr-1.5" />
+                  )}
                   {app}
                 </Badge>
               );
