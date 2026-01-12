@@ -1,10 +1,57 @@
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Globe, CheckCircle2, Sparkles, Building2, MapPin } from "lucide-react";
+import { 
+  ArrowRight, 
+  Globe, 
+  CheckCircle2, 
+  Sparkles, 
+  Building2, 
+  MapPin,
+  Calculator,
+  Users,
+  Headphones,
+  Wrench,
+  TrendingUp,
+  Megaphone,
+  Bot,
+  Phone,
+  Package,
+  Wallet,
+  type LucideIcon
+} from "lucide-react";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
 
+// Map application names to icons
+const applicationIcons: Record<string, LucideIcon> = {
+  "Business Central": Calculator,
+  "Sales": TrendingUp,
+  "Customer Service": Headphones,
+  "Field Service": Wrench,
+  "Marketing": Megaphone,
+  "Finance": Wallet,
+  "Supply Chain": Package,
+  "Copilot": Bot,
+  "Contact Center": Phone,
+  "CRM": Users,
+};
+
+const getApplicationIcon = (appName: string): LucideIcon => {
+  // Try exact match first
+  if (applicationIcons[appName]) return applicationIcons[appName];
+  
+  // Try partial match
+  const lowerName = appName.toLowerCase();
+  for (const [key, icon] of Object.entries(applicationIcons)) {
+    if (lowerName.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerName)) {
+      return icon;
+    }
+  }
+  
+  // Default icon
+  return CheckCircle2;
+};
 // Union type to support both static and database partners
 type PartnerData = Partner | DatabasePartner;
 
@@ -182,14 +229,18 @@ const PartnerCard = ({
             Kompetenser
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {(partner.applications || []).map((app, i) => (
-              <Badge 
-                key={i} 
-                className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
-              >
-                {app}
-              </Badge>
-            ))}
+            {(partner.applications || []).map((app, i) => {
+              const AppIcon = getApplicationIcon(app);
+              return (
+                <Badge 
+                  key={i} 
+                  className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
+                >
+                  <AppIcon className="w-3 h-3 mr-1" />
+                  {app}
+                </Badge>
+              );
+            })}
           </div>
         </div>
 
