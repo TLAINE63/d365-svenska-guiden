@@ -22,8 +22,17 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+// Geography filter options
+const geographyFilters = [
+  { label: "Sverige", value: "Sverige" },
+  { label: "Norden", value: "Norden" },
+  { label: "Europa", value: "Europa" },
+  { label: "Internationellt", value: "Internationellt" }
+];
+
 const FinanceSupplyChain = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,7 +45,7 @@ const FinanceSupplyChain = () => {
     
     // Apply product-specific filters
     result = result.filter(partner => 
-      matchesProductFilter(partner, 'fsc', selectedIndustry || undefined, undefined, undefined)
+      matchesProductFilter(partner, 'fsc', selectedIndustry || undefined, undefined, selectedGeography || undefined)
     );
     
     // Sort by FSC ranking, then alphabetically
@@ -48,7 +57,7 @@ const FinanceSupplyChain = () => {
       }
       return a.name.localeCompare(b.name, 'sv');
     });
-  }, [selectedIndustry]);
+  }, [selectedIndustry, selectedGeography]);
 
   // Get available industries for FSC partners
   const fscIndustries = useMemo(() => {
@@ -541,19 +550,31 @@ const FinanceSupplyChain = () => {
             colorScheme="finance-supply"
           />
 
+          {/* Geography Filter */}
+          <FilterButtons
+            title="Ange vart geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
+            icon="geography"
+            options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
+            selectedValue={selectedGeography}
+            onSelect={setSelectedGeography}
+            colorScheme="finance-supply"
+          />
 
           {/* Filter Results Summary */}
-          {selectedIndustry && (
+          {(selectedIndustry || selectedGeography) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{fscPartners.length}</span> partners
                 {selectedIndustry && <> inom <span className="font-semibold text-finance-supply">{selectedIndustry}</span></>}
+                {(selectedIndustry && selectedGeography) && <> och</>}
+                {selectedGeography && <> med täckning i <span className="font-semibold text-finance-supply">{selectedGeography}</span></>}
               </p>
               <Button 
                 variant="ghost" 
                 size="sm" 
                 onClick={() => {
                   setSelectedIndustry(null);
+                  setSelectedGeography(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -571,6 +592,9 @@ const FinanceSupplyChain = () => {
               if (selectedIndustry) {
                 params.set("industry", selectedIndustry);
               }
+              if (selectedGeography) {
+                params.set("geography", selectedGeography);
+              }
               const profileUrl = `${baseUrl}?${params.toString()}`;
               
               return (
@@ -582,6 +606,7 @@ const FinanceSupplyChain = () => {
                   productKey="fsc"
                   highlightedProduct="Finance & SCM"
                   highlightedIndustry={selectedIndustry || undefined}
+                  highlightedGeography={selectedGeography || undefined}
                 />
               );
             })}
