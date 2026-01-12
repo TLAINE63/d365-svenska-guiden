@@ -260,19 +260,19 @@ const PartnerProfile = () => {
               {/* Outer glow ring */}
               <div className="absolute -inset-2 bg-gradient-to-br from-primary/40 via-accent/30 to-primary/40 rounded-3xl blur-xl opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
               
-              {/* Logo card */}
-              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-slate-100 shadow-2xl shadow-black/20 flex items-center justify-center p-4 overflow-hidden border-2 border-slate-200">
-                {/* Subtle pattern for contrast */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,0,0,0.02)_1px,_transparent_1px)] bg-[size:8px_8px]" />
+              {/* Logo card - dark background for better contrast with light logos */}
+              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-slate-800 shadow-2xl shadow-black/30 flex items-center justify-center p-4 overflow-hidden border-2 border-slate-700">
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-transparent to-slate-900/50" />
                 
                 {partner.logo_url ? (
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className="max-w-full max-h-full object-contain relative z-10 drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]"
+                    className="max-w-full max-h-full object-contain relative z-10 brightness-110 contrast-110"
                   />
                 ) : (
-                  <Building2 className="w-12 h-12 text-gray-400" />
+                  <Building2 className="w-12 h-12 text-slate-400" />
                 )}
               </div>
             </div>
