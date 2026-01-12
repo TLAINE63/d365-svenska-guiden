@@ -140,7 +140,7 @@ const ContactUs = () => {
                         
                         <div className="flex items-center justify-center gap-2">
                           <img src={linkedinLogo} alt="LinkedIn" className="w-4 h-4" />
-                          <a href="https://linkedin.com/in/michaeluhman" target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                          <a href="https://www.linkedin.com/in/michael-uhman-60a69b17/" target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
                             Michael Uhman | LinkedIn
                           </a>
                         </div>
