@@ -8,23 +8,12 @@ import {
   Building2, 
   Sparkles, 
   Briefcase, 
-  CheckCircle2, 
+  CheckCircle2,
   Globe, 
   MapPin, 
   Award, 
   Layers, 
-  ExternalLink,
-  Calculator,
-  Users,
-  Headphones,
-  Wrench,
-  TrendingUp,
-  Megaphone,
-  Bot,
-  Phone,
-  Package,
-  Wallet,
-  type LucideIcon
+  ExternalLink
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
@@ -32,23 +21,36 @@ import { partners as staticPartners, getCumulativeGeographyDisplay } from "@/dat
 import { Helmet } from "react-helmet";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
-// Map application names to icons
-const applicationIcons: Record<string, LucideIcon> = {
-  "Business Central": Calculator,
-  "Sales": TrendingUp,
-  "Customer Service": Headphones,
-  "Field Service": Wrench,
-  "Marketing": Megaphone,
-  "Customer Insights (Marketing)": Megaphone,
-  "Finance": Wallet,
-  "Finance & SCM": Wallet,
-  "Supply Chain": Package,
-  "Copilot": Bot,
-  "Contact Center": Phone,
-  "CRM": Users,
+// Dynamics 365 icons
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import CopilotIcon from "@/assets/icons/Copilot.png";
+
+// Map application names to Dynamics 365 icons
+const applicationIcons: Record<string, string> = {
+  "Business Central": BusinessCentralIcon,
+  "Sales": SalesIcon,
+  "Customer Service": CustomerServiceIcon,
+  "Field Service": FieldServiceIcon,
+  "Marketing": MarketingIcon,
+  "Customer Insights": MarketingIcon,
+  "Customer Insights (Marketing)": MarketingIcon,
+  "Finance": FinanceIcon,
+  "Finance & SCM": FinanceIcon,
+  "Finance & Supply Chain": FinanceIcon,
+  "Supply Chain": SupplyChainIcon,
+  "Supply Chain Management": SupplyChainIcon,
+  "Copilot": CopilotIcon,
+  "Contact Center": ContactCenterIcon,
 };
 
-const getApplicationIcon = (appName: string): LucideIcon => {
+const getApplicationIcon = (appName: string): string | null => {
   // Try exact match first
   if (applicationIcons[appName]) return applicationIcons[appName];
   
@@ -60,8 +62,8 @@ const getApplicationIcon = (appName: string): LucideIcon => {
     }
   }
   
-  // Default icon
-  return CheckCircle2;
+  // No matching icon
+  return null;
 };
 
 // Map application names to product categories
@@ -390,13 +392,15 @@ const PartnerProfile = () => {
                           {apps.length > 1 && (
                             <div className="flex flex-wrap gap-2">
                               {apps.map(app => {
-                                const AppIcon = getApplicationIcon(app);
+                                const appIcon = getApplicationIcon(app);
                                 return (
                                   <Badge 
                                     key={app} 
                                     className="text-xs bg-accent text-accent-foreground border-0 py-1 px-2.5 font-medium shadow-sm"
                                   >
-                                    <AppIcon className="w-3 h-3 mr-1" />
+                                    {appIcon && (
+                                      <img src={appIcon} alt="" className="w-4 h-4 mr-1.5" />
+                                    )}
                                     {app}
                                   </Badge>
                                 );
