@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import companyLogo from "@/assets/d365-logo-new.png";
+import companyLogo from "@/assets/d365-logo-v2.png";
 import { Menu, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
