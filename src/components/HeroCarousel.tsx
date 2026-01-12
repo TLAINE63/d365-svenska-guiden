@@ -5,6 +5,14 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import partnersHeroImg from "@/assets/partners-comparison-hero.png";
 
+// Dynamics 365 icons
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+
 // Industry images for first slide - new taxonomy (18 industries)
 import tillverkningImg from "@/assets/industries/tillverkning.jpg";
 import livsmedelsImg from "@/assets/industries/livsmedel.jpg";
@@ -60,6 +68,7 @@ interface HeroSlide {
   secondaryCtaText?: string;
   secondaryCtaLink?: string;
   secondaryButtonColor?: string;
+  icons?: string[];
 }
 
 const slides: HeroSlide[] = [
@@ -90,7 +99,25 @@ const slides: HeroSlide[] = [
     ctaText: "Starta behovsanalysen",
     ctaLink: "/behovsanalys",
     buttonColor: "bg-[hsl(var(--business-central))] hover:bg-[hsl(var(--business-central))]/90",
-    
+    icons: [BusinessCentralIcon, FinanceIcon, SupplyChainIcon],
+  },
+  {
+    id: 3,
+    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=50&w=1280",
+    title: (
+      <>
+        Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
+      </>
+    ),
+    subtitle: "Välj behovsanalys utifrån ditt fokusområde",
+    ctaType: "dual-link",
+    ctaText: "Starta Behovsanalysen för Sälj & Marknad",
+    ctaLink: "/salj-marknad-behovsanalys",
+    buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
+    secondaryCtaText: "Starta Behovsanalysen för Kundservice",
+    secondaryCtaLink: "/kundservice-behovsanalys",
+    secondaryButtonColor: "bg-[hsl(var(--customer-service))] hover:bg-[hsl(var(--customer-service))]/90",
+    icons: [SalesIcon, MarketingIcon, CustomerServiceIcon],
   },
   {
     id: 3,
@@ -264,6 +291,20 @@ const HeroCarousel = () => {
                       <span className="text-xs text-gray-600 text-left">Partner Z</span>
                     </div>
                   </div>
+                </div>
+              )}
+              
+              {/* Dynamics 365 Icons */}
+              {slide.icons && slide.icons.length > 0 && (
+                <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4 animate-fade-in">
+                  {slide.icons.map((icon, index) => (
+                    <img 
+                      key={index}
+                      src={icon} 
+                      alt="" 
+                      className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 drop-shadow-lg"
+                    />
+                  ))}
                 </div>
               )}
               
