@@ -73,15 +73,8 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
     });
   }, [productKey, partners, selectedIndustry, selectedGeography]);
 
-  // Get available industries for this product's partners
-  const availableIndustries = useMemo(() => {
-    if (!productKey) return allIndustries;
-    const industries = new Set<string>();
-    partners.forEach(partner => {
-      partner.product_filters?.[productKey]?.industries?.forEach(ind => industries.add(ind));
-    });
-    return allIndustries.filter(ind => industries.has(ind));
-  }, [productKey, partners]);
+  // Show all 18 industries in the filter
+  const availableIndustries = allIndustries;
 
   if (isLoading) {
     return (
