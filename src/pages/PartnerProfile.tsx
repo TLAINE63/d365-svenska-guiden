@@ -400,7 +400,7 @@ const PartnerProfile = () => {
                             })()}
                             {getProductDisplayName(category)}
                           </h3>
-                          {apps.length > 1 && (
+                          {apps.length >= 1 && (
                             <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-start sm:justify-end sm:ml-4 sm:flex-col sm:items-end">
                               {apps.map(app => {
                                 const appIcon = getApplicationIcon(app);
