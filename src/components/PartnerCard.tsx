@@ -221,14 +221,6 @@ const PartnerCard = ({
           </div>
         )}
 
-        {/* Geography */}
-        <div className="mb-5 flex items-center gap-2 text-sm text-muted-foreground">
-          <div className="flex items-center justify-center w-6 h-6 rounded-full bg-muted/50">
-            <MapPin className="w-3.5 h-3.5 text-primary/70" />
-          </div>
-          <span>{getCumulativeGeographyDisplay(geography)}</span>
-        </div>
-
         {/* CTA Button */}
         <div className="mt-auto pt-4">
           <Button 
