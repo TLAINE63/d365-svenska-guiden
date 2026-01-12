@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList } from "lucide-react";
 import { useEffect } from "react";
+import LeadCTA from "@/components/LeadCTA";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
@@ -207,7 +209,7 @@ const ERPOverview = () => {
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
               Första hjälpen
             </h2>
@@ -224,6 +226,54 @@ const ERPOverview = () => {
                 Starta ERP Behovsanalysen
               </Button>
             </Link>
+          </div>
+          
+          {/* Premium Contact CTA Card */}
+          <div className="max-w-xl mx-auto">
+            <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+              {/* Gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
+              
+              {/* Animated orb */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+              
+              <div className="relative p-6 sm:p-8">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                    <span className="text-xl">✨</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                      Vill du prata med oss direkt?
+                    </h3>
+                    <p className="text-white/70 text-sm sm:text-base">
+                      Låt oss hjälpa dig hitta rätt ERP-lösning och partner – helt kostnadsfritt.
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Filter context with glass effect */}
+                <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                  <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                    Produktområde
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
+                      ERP / Affärssystem
+                    </Badge>
+                  </div>
+                </div>
+                
+                <LeadCTA 
+                  sourcePage="/erp"
+                  variant="inline" 
+                  selectedProduct="ERP"
+                />
+              </div>
+            </article>
           </div>
         </div>
       </section>
