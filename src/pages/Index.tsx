@@ -27,12 +27,6 @@ const Index = () => {
       <Navbar />
       
       <main>
-        {/* Construction Banner */}
-        <div className="bg-[hsl(var(--warning))] text-[hsl(var(--warning-foreground))] py-3 mt-16">
-        <div className="container mx-auto px-4 text-center">
-          <p className="font-semibold">Denna sida är under konstruktion</p>
-        </div>
-      </div>
       
       {/* Hero Carousel */}
       <HeroCarousel />
