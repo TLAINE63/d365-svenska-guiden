@@ -221,7 +221,7 @@ const PartnerProfile = () => {
                 )}
               </div>
               
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl leading-relaxed line-clamp-2">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl leading-relaxed">
                 {partner.description}
               </p>
               
