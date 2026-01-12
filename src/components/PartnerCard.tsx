@@ -195,7 +195,7 @@ const PartnerCard = ({
             {primaryIndustries.map((industry, i) => (
               <Badge 
                 key={i} 
-                className="text-xs bg-primary/10 text-primary border border-primary/20 font-medium"
+                className="text-xs bg-primary text-primary-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-primary/90 transition-all"
               >
                 <CheckCircle2 className="w-3 h-3 mr-1" />
                 {industry}
