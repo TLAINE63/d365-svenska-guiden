@@ -615,13 +615,62 @@ const FinanceSupplyChain = () => {
           {/* Lead CTA - shows when partners are filtered */}
           {selectedIndustry && (
             <div className="max-w-xl mx-auto mt-12">
-              <LeadCTA
-                sourcePage="/finance-supply-chain"
-                selectedProduct="Finance & Supply Chain"
-                selectedIndustry={selectedIndustry || undefined}
-                title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
-                description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
-              />
+              {/* Premium Contact CTA Card - same design as PartnerProfile */}
+              <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+                {/* Gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
+                
+                {/* Animated orb */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+                
+                <div className="relative p-6 sm:p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                      <span className="text-xl">✨</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                        Låt oss hjälpa dig hitta rätt partner
+                      </h3>
+                      <p className="text-white/70 text-sm sm:text-base">
+                        Det här var ett första steg i rätt riktning. Låt oss hjälpa dig vidare – helt kostnadsfritt.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Filter context with glass effect */}
+                  <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                    <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      Din sökning
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
+                        Finance & Supply Chain
+                      </Badge>
+                      {selectedIndustry && (
+                        <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
+                          {selectedIndustry}
+                        </Badge>
+                      )}
+                      {selectedGeography && (
+                        <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
+                          {selectedGeography}
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <LeadCTA
+                    sourcePage="/finance-supply-chain"
+                    selectedProduct="Finance & Supply Chain"
+                    selectedIndustry={selectedIndustry || undefined}
+                    variant="inline"
+                  />
+                </div>
+              </article>
             </div>
           )}
 
