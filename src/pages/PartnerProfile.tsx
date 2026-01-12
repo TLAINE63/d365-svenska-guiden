@@ -407,7 +407,7 @@ const PartnerProfile = () => {
                                 return (
                                   <Badge 
                                     key={app} 
-                                    className="text-[10px] sm:text-xs bg-accent text-accent-foreground border-0 py-0.5 sm:py-1 px-1.5 sm:px-2.5 font-medium shadow-sm"
+                                    className="text-[10px] sm:text-xs bg-accent text-accent-foreground border-0 py-0.5 sm:py-1 px-1.5 sm:px-2.5 font-medium shadow-sm justify-end text-right"
                                   >
                                     {appIcon && (
                                       <img src={appIcon} alt="" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
