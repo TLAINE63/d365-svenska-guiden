@@ -105,9 +105,18 @@ const PartnerProfile = () => {
     };
   };
 
-  // Get geography for a specific product
+  // Get geography for a specific product - prioritize database data
   const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    // Check database partner's product_filters first, then geography array
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { geography?: string }> | undefined;
+    const dbProductGeo = dbProductFilters?.[filterKey]?.geography;
+    if (dbProductGeo) return dbProductGeo;
+    // Fall back to partner's geography array (use first/highest level)
+    if (dbPartner?.geography && dbPartner.geography.length > 0) {
+      return dbPartner.geography[dbPartner.geography.length - 1]; // Use highest level (last in array)
+    }
+    // Final fallback to static data
     return staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography || null;
   };
 
@@ -218,7 +227,12 @@ const PartnerProfile = () => {
               
               {/* Quick stats row - more compact */}
               <div className="flex flex-wrap items-center gap-2 pt-1">
-                {staticPartner?.geography && (
+                {(dbPartner?.geography && dbPartner.geography.length > 0) ? (
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card/80 border border-border/50 text-xs">
+                    <MapPin className="w-3 h-3 text-primary" />
+                    <span className="font-medium text-foreground">{getCumulativeGeographyDisplay(dbPartner.geography[dbPartner.geography.length - 1])}</span>
+                  </div>
+                ) : staticPartner?.geography && (
                   <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card/80 border border-border/50 text-xs">
                     <MapPin className="w-3 h-3 text-primary" />
                     <span className="font-medium text-foreground">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
