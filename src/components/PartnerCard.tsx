@@ -98,10 +98,15 @@ const PartnerCard = ({
       {/* Premium gradient overlay */}
       <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
       
+      {/* Animated shimmer overlay on hover */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      </div>
+      
       {/* Top accent bar with shimmer effect */}
       <div className="relative h-1.5 overflow-hidden">
         <div className={`absolute inset-0 ${colors.accent} opacity-80 group-hover:opacity-100 transition-opacity`} />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+        <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent" style={{ backgroundSize: '200% 100%' }} />
       </div>
       
       {/* Card Content */}
@@ -224,15 +229,17 @@ const PartnerCard = ({
           </div>
         )}
 
-        {/* CTA Button */}
+        {/* CTA Button with shimmer */}
         <div className="mt-auto pt-4">
           <Button 
             asChild 
             className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
           >
             <Link to={profileUrl} className="flex items-center justify-center gap-2">
-              <span>Visa partnerprofil</span>
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
+              <span className="relative z-10">Visa partnerprofil</span>
+              <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1" />
+              {/* Button shimmer effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             </Link>
           </Button>
         </div>
