@@ -272,7 +272,7 @@ const PartnerProfile = () => {
                 </h2>
               </div>
               
-              <div className="grid gap-3">
+              <div className={`grid gap-3 ${productCategories.length >= 2 ? 'sm:grid-cols-2' : ''}`}>
                 {productCategories.map((category) => {
                   const { primary, secondary } = getIndustriesForProduct(category);
                   const apps = getApplicationsForCategory(partner.applications, category);
