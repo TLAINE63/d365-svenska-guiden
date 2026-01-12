@@ -13,19 +13,30 @@ function sanitizeHtml(input: string | null | undefined): string {
     .replace(/'/g, "&#039;");
 }
 
-// Get allowed origins for CORS
-const ALLOWED_ORIGINS = [
-  "https://d365.se",
-  "https://www.d365.se",
-  "https://d365-svenska-guiden.lovable.app",
-  "https://vnvphfrrmoaskiwlspeo.lovableproject.com",
-  "http://localhost:5173",
-  "http://localhost:8080",
-];
+// Check if origin is allowed
+function isAllowedOrigin(origin: string): boolean {
+  if (!origin) return false;
+  
+  const allowedDomains = [
+    "https://d365.se",
+    "https://www.d365.se",
+    "https://d365-svenska-guiden.lovable.app",
+    "http://localhost:5173",
+    "http://localhost:8080",
+  ];
+  
+  if (allowedDomains.includes(origin)) return true;
+  
+  // Allow all Lovable preview domains
+  if (origin.match(/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/)) return true;
+  if (origin.match(/^https:\/\/[a-z0-9-]+\.lovable\.app$/)) return true;
+  
+  return false;
+}
 
 function getCorsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get("origin") || "";
-  const allowedOrigin = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allowedOrigin = isAllowedOrigin(origin) ? origin : "https://d365.se";
   
   return {
     "Access-Control-Allow-Origin": allowedOrigin,
