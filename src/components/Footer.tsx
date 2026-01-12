@@ -21,12 +21,12 @@ const Footer = () => {
           <div className="flex justify-center items-center gap-2">
             <img src={linkedinLogo} alt="LinkedIn" className="w-5 h-5" />
             <a 
-              href="https://linkedin.com/in/thomaslaine" 
+              href="https://www.linkedin.com/showcase/d365se/" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-primary hover:text-foreground transition-colors text-sm"
             >
-              linkedin.com/in/thomaslaine
+              D365.se på LinkedIn
             </a>
           </div>
         </div>
