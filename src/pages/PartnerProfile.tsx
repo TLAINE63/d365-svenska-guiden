@@ -386,7 +386,18 @@ const PartnerProfile = () => {
                         {/* Header */}
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                           <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-gradient-to-br from-primary to-accent" />
+                            {(() => {
+                              const categoryIcon = category === 'bc' 
+                                ? getApplicationIcon("Business Central")
+                                : category === 'fsc'
+                                ? getApplicationIcon("Finance")
+                                : category === 'sales'
+                                ? getApplicationIcon("Sales")
+                                : getApplicationIcon("Customer Service");
+                              return categoryIcon && (
+                                <img src={categoryIcon} alt="" className="w-6 h-6" />
+                              );
+                            })()}
                             {getProductDisplayName(category)}
                           </h3>
                           {apps.length > 1 && (
