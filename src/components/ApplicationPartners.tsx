@@ -32,11 +32,14 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
   }, [dbPartners]);
 
   // Determine which product key to use based on application filter
-  const productKey: 'bc' | 'fsc' | 'crm' | null = useMemo(() => {
+  const productKey: 'bc' | 'fsc' | 'sales' | 'service' | null = useMemo(() => {
     if (applicationFilter === "Business Central") return 'bc';
     if (applicationFilter === "Finance & SCM") return 'fsc';
-    if (["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(applicationFilter)) {
-      return 'crm';
+    if (["Sales", "Customer Insights (Marketing)"].includes(applicationFilter)) {
+      return 'sales';
+    }
+    if (["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(applicationFilter)) {
+      return 'service';
     }
     return null;
   }, [applicationFilter]);
