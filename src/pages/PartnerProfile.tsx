@@ -192,9 +192,7 @@ const PartnerProfile = () => {
           <div className="flex flex-col sm:flex-row gap-5 items-start">
             {/* Logo Container */}
             <div className="relative group/logo shrink-0">
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-card via-card to-muted/30 shadow-xl border border-border/50 flex items-center justify-center p-3 backdrop-blur-sm overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent" />
-                
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white shadow-xl border border-border/50 flex items-center justify-center p-3 overflow-hidden">
                 {partner.logo_url ? (
                   <img
                     src={partner.logo_url}
