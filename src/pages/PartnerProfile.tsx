@@ -384,8 +384,8 @@ const PartnerProfile = () => {
                       
                       <div className="relative p-5 sm:p-6">
                         {/* Header */}
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                          <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
+                          <h3 className="text-xl font-bold text-foreground flex items-center gap-2 shrink-0">
                             {(() => {
                               const categoryIcon = category === 'bc' 
                                 ? getApplicationIcon("Business Central")
@@ -401,7 +401,7 @@ const PartnerProfile = () => {
                             {getProductDisplayName(category)}
                           </h3>
                           {apps.length > 1 && (
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap gap-2 justify-end sm:ml-4">
                               {apps.map(app => {
                                 const appIcon = getApplicationIcon(app);
                                 return (
