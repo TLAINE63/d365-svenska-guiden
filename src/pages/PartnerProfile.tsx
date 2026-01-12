@@ -488,7 +488,7 @@ const PartnerProfile = () => {
                 
                 {/* Filter context with glass effect */}
                 <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-                  <p className="text-xs font-bold text-white/60 uppercase tracking-widest mb-3 flex items-center gap-2">
+                  <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                     {hasFilters ? 'Din sökning' : 'Partner'}
                   </p>
