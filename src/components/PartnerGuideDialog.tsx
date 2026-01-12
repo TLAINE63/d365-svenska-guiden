@@ -145,13 +145,14 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     }
 
     // Filter partners using the same logic as the rest of the site
+    // Note: Company size is collected for information but not used for filtering
     const matchingPartners = partners.filter(partner => {
       if (isDatabasePartner(partner)) {
         return matchesDbProductFilter(
           partner,
           productType,
           selectedIndustry || undefined,
-          selectedSize || undefined,
+          undefined, // Company size not used for filtering
           selectedMarket || undefined
         );
       }
