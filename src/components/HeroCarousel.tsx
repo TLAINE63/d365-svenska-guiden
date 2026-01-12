@@ -120,23 +120,6 @@ const slides: HeroSlide[] = [
     icons: [SalesIcon, MarketingIcon, CustomerServiceIcon],
   },
   {
-    id: 3,
-    backgroundImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=50&w=1280",
-    title: (
-      <>
-        Optimera din <span className="text-[hsl(var(--crm))]">kundhantering</span>
-      </>
-    ),
-    subtitle: "Välj behovsanalys utifrån ditt fokusområde",
-    ctaType: "dual-link",
-    ctaText: "Starta Behovsanalysen för Sälj & Marknad",
-    ctaLink: "/salj-marknad-behovsanalys",
-    buttonColor: "bg-[hsl(var(--crm))] hover:bg-[hsl(var(--crm))]/90",
-    secondaryCtaText: "Starta Behovsanalysen för Kundservice",
-    secondaryCtaLink: "/kundservice-behovsanalys",
-    secondaryButtonColor: "bg-[hsl(var(--customer-service))] hover:bg-[hsl(var(--customer-service))]/90",
-  },
-  {
     id: 4,
     backgroundImage: partnersHeroImg,
     title: (
