@@ -32,16 +32,6 @@ const allApplications = [
   "Human Resources"
 ];
 
-// Company size filter options with mapping to partner data values
-const companySizeFilters = [
-  { label: "1-49 anställda", values: ["1-49"] },
-  { label: "50-99 anställda", values: ["50-99"] },
-  { label: "100-249 anställda", values: ["100-249"] },
-  { label: "250-999 anställda", values: ["250-999"] },
-  { label: "1.000-4.999 anställda", values: ["1.000-4.999"] },
-  { label: "Mer än 5.000 anställda", values: [">5.000"] }
-];
-
 // Geography filter options
 const geographyFilters = [
   { label: "Sverige", value: "Sverige" },
@@ -193,11 +183,6 @@ const ValjPartner = () => {
       ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
     );
     
-    // Get selected size value for filtering
-    const selectedSizeValue = selectedCompanySize 
-      ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
-      : undefined;
-    
     let result: DatabasePartner[] = [];
     
     if (selectedApplications.length === 0) {
@@ -211,17 +196,17 @@ const ValjPartner = () => {
       
       partners.forEach(partner => {
         if (hasBCApp && partner.product_filters?.bc) {
-          if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+          if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
             matchingPartners.add(partner);
           }
         }
         if (hasFSCApp && partner.product_filters?.fsc) {
-          if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+          if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
             matchingPartners.add(partner);
           }
         }
         if (hasCRMApp && partner.product_filters?.crm) {
-          if (matchesDbProductFilter(partner, 'crm', selectedIndustry || undefined, selectedSizeValue, selectedGeography || undefined)) {
+          if (matchesDbProductFilter(partner, 'crm', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
             matchingPartners.add(partner);
           }
         }
@@ -236,16 +221,6 @@ const ValjPartner = () => {
         result = result.filter(partner => 
           (partner.industries || []).some(ind => ind === selectedIndustry)
         );
-      }
-      
-      if (selectedSizeValue) {
-        // Check company size in any product filter
-        result = result.filter(partner => {
-          const bcSize = partner.product_filters?.bc?.companySize || [];
-          const fscSize = partner.product_filters?.fsc?.companySize || [];
-          const crmSize = partner.product_filters?.crm?.companySize || [];
-          return bcSize.includes(selectedSizeValue) || fscSize.includes(selectedSizeValue) || crmSize.includes(selectedSizeValue);
-        });
       }
       
       if (selectedGeography) {
@@ -481,16 +456,6 @@ const ValjPartner = () => {
             colorScheme="amber"
           />
 
-          {/* Company Size Filter */}
-          <FilterButtons
-            title="Hur många anställda finns på ert företag?"
-            icon="employees"
-            options={companySizeFilters.map(f => ({ label: f.label, value: f.label }))}
-            selectedValue={selectedCompanySize}
-            onSelect={setSelectedCompanySize}
-            colorScheme="amber"
-          />
-
           {/* Geography Filter */}
           <FilterButtons
             title="Ange geografi som måste täckas in"
@@ -502,13 +467,12 @@ const ValjPartner = () => {
           />
 
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
                 {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
                 {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
-                {selectedCompanySize && <> för <span className="font-semibold text-primary">{selectedCompanySize}</span></>}
                 {selectedGeography && <> i <span className="font-semibold text-accent">{selectedGeography}</span></>}
               </p>
               <Button 
@@ -517,7 +481,6 @@ const ValjPartner = () => {
                 onClick={() => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
-                  setSelectedCompanySize(null);
                   setSelectedGeography(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
@@ -542,7 +505,6 @@ const ValjPartner = () => {
                   onClick={() => {
                     setSelectedApplications([]);
                     setSelectedIndustry(null);
-                    setSelectedCompanySize(null);
                     setSelectedGeography(null);
                   }}
                 >

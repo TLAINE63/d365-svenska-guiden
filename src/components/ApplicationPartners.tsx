@@ -8,16 +8,6 @@ import PartnerCard from "@/components/PartnerCard";
 import { allIndustries } from "@/data/partners";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
-// Company size filter options - matching partner data values
-const companySizeFilters = [
-  { label: "1-49 anställda", values: ["1-49"] },
-  { label: "50-99 anställda", values: ["50-99"] },
-  { label: "100-249 anställda", values: ["100-249"] },
-  { label: "250-999 anställda", values: ["250-999"] },
-  { label: "1.000-4.999 anställda", values: ["1.000-4.999"] },
-  { label: "Mer än 5.000 anställda", values: [">5.000"] }
-];
-
 // Geography filter options
 const geographyFilters = [
   { label: "Sverige", value: "Sverige" },
@@ -34,7 +24,6 @@ interface ApplicationPartnersProps {
 const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartnersProps) => {
   const { data: dbPartners, isLoading } = usePartners();
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
-  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
 
   // Filter to only show featured partners
@@ -58,17 +47,11 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
     // Only show partners with product_filters for this product
     let result = partners.filter(partner => partner.product_filters?.[productKey]);
     
-    // Get selected size value for filtering
-    const selectedSizeValue = selectedCompanySize 
-      ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
-      : undefined;
-    
     // Apply product-specific filters
     result = result.filter(partner => {
       const pf = partner.product_filters?.[productKey];
       if (!pf) return false;
       if (selectedIndustry && !pf.industries?.includes(selectedIndustry)) return false;
-      if (selectedSizeValue && pf.companySize && !pf.companySize.includes(selectedSizeValue)) return false;
       if (selectedGeography) {
         const geoHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
         const selIdx = geoHierarchy.indexOf(selectedGeography);
@@ -85,7 +68,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       if (rankA !== rankB) return rankA - rankB;
       return (a.name || '').localeCompare(b.name || '', 'sv');
     });
-  }, [productKey, partners, selectedIndustry, selectedCompanySize, selectedGeography]);
+  }, [productKey, partners, selectedIndustry, selectedGeography]);
 
   // Get available industries for this product's partners
   const availableIndustries = useMemo(() => {
@@ -130,16 +113,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
           colorScheme="crm"
         />
 
-        {/* Company Size Filter */}
-        <FilterButtons
-          title="Hur många anställda finns på ert företag?"
-          icon="employees"
-          options={companySizeFilters.map(f => ({ label: f.label, value: f.label }))}
-          selectedValue={selectedCompanySize}
-          onSelect={setSelectedCompanySize}
-          colorScheme="crm"
-        />
-
         {/* Geography Filter */}
         <FilterButtons
           title="Ange geografi som måste täckas in"
@@ -151,14 +124,12 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         />
 
         {/* Filter Results Summary */}
-        {(selectedIndustry || selectedCompanySize || selectedGeography) && (
+        {(selectedIndustry || selectedGeography) && (
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground">
               Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
               {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
-              {(selectedIndustry && (selectedCompanySize || selectedGeography)) && <>,</>}
-              {selectedCompanySize && <> för <span className="font-semibold text-crm">{selectedCompanySize}</span></>}
-              {(selectedCompanySize && selectedGeography) && <> och</>}
+              {(selectedIndustry && selectedGeography) && <> och</>}
               {selectedGeography && <> med täckning i <span className="font-semibold text-crm">{selectedGeography}</span></>}
             </p>
             <Button 
@@ -166,7 +137,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
               size="sm" 
               onClick={() => {
                 setSelectedIndustry(null);
-                setSelectedCompanySize(null);
                 setSelectedGeography(null);
               }}
               className="mt-2 text-muted-foreground hover:text-foreground"
@@ -185,9 +155,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
             if (selectedIndustry) {
               params.set("industry", selectedIndustry);
             }
-            if (selectedCompanySize) {
-              params.set("companySize", selectedCompanySize);
-            }
             if (selectedGeography) {
               params.set("geography", selectedGeography);
             }
@@ -202,7 +169,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
                 productKey={productKey}
                 highlightedProduct={applicationFilter}
                 highlightedIndustry={selectedIndustry || undefined}
-                highlightedCompanySize={selectedCompanySize || undefined}
                 highlightedGeography={selectedGeography || undefined}
               />
             );
@@ -228,13 +194,12 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         </div>
 
         {/* Lead CTA - shows when partners are filtered */}
-        {(selectedIndustry || selectedCompanySize || selectedGeography) && (
+        {(selectedIndustry || selectedGeography) && (
           <div className="max-w-xl mx-auto mt-12">
             <LeadCTA
               sourcePage={pageSource}
               selectedProduct={applicationFilter}
               selectedIndustry={selectedIndustry || undefined}
-              selectedCompanySize={selectedCompanySize || undefined}
               title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
               description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
             />

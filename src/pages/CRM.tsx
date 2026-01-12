@@ -19,19 +19,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-// Company size filter options
-const companySizeFilters = [
-  { label: "Små- och mindre företag (1-49 anställda)", values: ["Små"] },
-  { label: "Mindre/Medelstora företag (50-199)", values: ["Små", "Medelstora"] },
-  { label: "Medelstora/Större företag (200-999)", values: ["Medelstora", "Stora"] },
-  { label: "Större företag (1.000-5.000)", values: ["Stora"] },
-  { label: "Enterprisebolag (+5.000 anställda)", values: ["Stora", "Enterprise"] }
-];
-
 const CRM = () => {
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
-  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
 
   const toggleApplication = (app: string) => {
     setSelectedApplications(prev => 
@@ -50,14 +40,9 @@ const CRM = () => {
     // Only show partners with productFilters.crm defined (betalande CRM partners)
     let result = partners.filter(partner => partner.productFilters?.crm);
     
-    // Get selected size value for filtering
-    const selectedSizeValue = selectedCompanySize 
-      ? companySizeFilters.find(f => f.label === selectedCompanySize)?.values[0]
-      : undefined;
-    
     // Apply product-specific filters
     result = result.filter(partner => 
-      matchesProductFilter(partner, 'crm', selectedIndustry || undefined, selectedSizeValue, undefined)
+      matchesProductFilter(partner, 'crm', selectedIndustry || undefined, undefined, undefined)
     );
     
     // Sort by CRM ranking, then alphabetically
@@ -69,7 +54,7 @@ const CRM = () => {
       }
       return a.name.localeCompare(b.name, 'sv');
     });
-  }, [selectedApplications, selectedIndustry, selectedCompanySize]);
+  }, [selectedApplications, selectedIndustry]);
 
   // Get available industries for CRM partners
   const crmIndustries = useMemo(() => {
@@ -251,26 +236,15 @@ const CRM = () => {
             colorScheme="crm"
           />
 
-          {/* Company Size Filter */}
-          <FilterButtons
-            title="Hur många anställda finns på ert företag?"
-            icon="employees"
-            options={companySizeFilters.map(f => ({ label: f.label, value: f.label }))}
-            selectedValue={selectedCompanySize}
-            onSelect={setSelectedCompanySize}
-            colorScheme="crm"
-          />
 
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
+          {(selectedApplications.length > 0 || selectedIndustry) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{crmPartners.length}</span> partners
                 {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-crm">{selectedApplications.join(', ')}</span></>}
-                {selectedApplications.length > 0 && (selectedIndustry || selectedCompanySize) && <>,</>}
+                {selectedApplications.length > 0 && selectedIndustry && <>,</>}
                 {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
-                {selectedIndustry && selectedCompanySize && <> och</>}
-                {selectedCompanySize && <> för <span className="font-semibold text-crm">{selectedCompanySize}</span></>}
               </p>
               <Button 
                 variant="ghost" 
@@ -278,7 +252,6 @@ const CRM = () => {
                 onClick={() => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
-                  setSelectedCompanySize(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -297,19 +270,17 @@ const CRM = () => {
                 productKey="crm"
                 highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(', ') : undefined}
                 highlightedIndustry={selectedIndustry || undefined}
-                highlightedCompanySize={selectedCompanySize || undefined}
               />
             ))}
           </div>
 
           {/* Lead CTA - shows when partners are filtered */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize) && (
+          {(selectedApplications.length > 0 || selectedIndustry) && (
             <div className="max-w-xl mx-auto mt-12">
               <LeadCTA
                 sourcePage="/crm"
                 selectedProduct="CRM"
                 selectedIndustry={selectedIndustry || undefined}
-                selectedCompanySize={selectedCompanySize || undefined}
                 title="Låt oss hjälpa dig (helt kostnadsfritt) att hitta rätt partner"
                 description="Det här var ett första steg i rätt riktning, men ännu bättre om du låter oss hjälpa dig att hitta rätt partner och rätt kontaktperson. Kostnadsfritt förstås."
               />
