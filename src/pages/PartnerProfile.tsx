@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Globe, MapPin, Award, Layers } from "lucide-react";
+import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Globe, MapPin, Award, Layers, ExternalLink } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners, getCumulativeGeographyDisplay } from "@/data/partners";
@@ -160,7 +160,7 @@ const PartnerProfile = () => {
   const hasFilters = selectedProduct || selectedIndustry || selectedCompanySize || selectedGeography;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30">
       <Helmet>
         <title>{partner.name} - Dynamics 365 Partner | Svenska D365-guiden</title>
         <meta
@@ -171,74 +171,92 @@ const PartnerProfile = () => {
 
       <Navbar />
 
-      {/* Hero Header */}
+      {/* Premium Hero Header */}
       <header className="relative overflow-hidden mt-16">
-        {/* Multi-layer gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/15 via-transparent to-transparent" />
+        {/* Sophisticated multi-layer background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/25 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-accent/20 via-transparent to-transparent" />
         
-        {/* Decorative floating elements */}
-        <div className="absolute top-10 right-10 w-48 h-48 bg-gradient-to-br from-primary/20 to-accent/10 rounded-full blur-3xl animate-pulse" />
+        {/* Animated floating orbs */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-primary/30 to-accent/20 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-gradient-to-tr from-accent/25 to-primary/15 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s' }} />
         
-        <div className="relative container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        {/* Subtle grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{ 
+          backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
+        }} />
+        
+        {/* Shimmer effect overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[shimmer_3s_ease-in-out_infinite]" />
+        
+        <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">
           <Link
             to="/valj-partner"
-            className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-4 group text-sm font-medium"
+            className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-6 group text-sm font-medium backdrop-blur-sm bg-white/5 px-3 py-1.5 rounded-full border border-white/10"
           >
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Tillbaka till partnerlistan
           </Link>
 
-          <div className="flex flex-col sm:flex-row gap-5 items-start">
-            {/* Logo Container */}
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
+            {/* Premium Logo Container with glow effect */}
             <div className="relative group/logo shrink-0">
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white shadow-xl border border-border/50 flex items-center justify-center p-3 overflow-hidden">
+              {/* Outer glow ring */}
+              <div className="absolute -inset-2 bg-gradient-to-br from-primary/40 via-accent/30 to-primary/40 rounded-3xl blur-xl opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
+              
+              {/* Logo card */}
+              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-white shadow-2xl shadow-black/20 flex items-center justify-center p-4 overflow-hidden border border-white/20">
+                {/* Inner shimmer */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-white" />
+                
                 {partner.logo_url ? (
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className="max-w-full max-h-full object-contain relative z-10"
+                    className="max-w-full max-h-full object-contain relative z-10 drop-shadow-sm"
                   />
                 ) : (
-                  <Building2 className="w-10 h-10 text-muted-foreground/40" />
+                  <Building2 className="w-12 h-12 text-gray-300" />
                 )}
               </div>
             </div>
 
             {/* Partner Info */}
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-4">
               <div className="flex flex-wrap items-center gap-3">
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight drop-shadow-lg">
                   {partner.name}
                 </h1>
                 {partner.is_featured && (
-                  <Badge className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-white border-0 shadow-md shadow-amber-500/25 px-2.5 py-0.5 text-xs font-semibold">
-                    <Sparkles className="w-3 h-3 mr-1" />
+                  <Badge className="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-400 text-amber-900 border-0 shadow-lg shadow-amber-500/30 px-3 py-1 text-sm font-bold animate-pulse">
+                    <Sparkles className="w-4 h-4 mr-1.5" />
                     Utvald partner
                   </Badge>
                 )}
               </div>
               
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl leading-relaxed">
+              <p className="text-base sm:text-lg text-white/80 max-w-3xl leading-relaxed font-light">
                 {partner.description}
               </p>
               
-              {/* Quick stats row - more compact */}
-              <div className="flex flex-wrap items-center gap-2 pt-1">
+              {/* Premium stats row */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
                 {(dbPartner?.geography && dbPartner.geography.length > 0) ? (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card/80 border border-border/50 text-xs">
-                    <MapPin className="w-3 h-3 text-primary" />
-                    <span className="font-medium text-foreground">{getCumulativeGeographyDisplay(dbPartner.geography[dbPartner.geography.length - 1])}</span>
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span className="font-medium">{getCumulativeGeographyDisplay(dbPartner.geography[dbPartner.geography.length - 1])}</span>
                   </div>
                 ) : staticPartner?.geography && (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card/80 border border-border/50 text-xs">
-                    <MapPin className="w-3 h-3 text-primary" />
-                    <span className="font-medium text-foreground">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span className="font-medium">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
                   </div>
                 )}
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-card/80 border border-border/50 text-xs">
-                  <Layers className="w-3 h-3 text-primary" />
-                  <span className="font-medium text-foreground">Kompetens inom {partner.applications.length} Dynamics 365-applikationer</span>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
+                  <Layers className="w-4 h-4 text-accent" />
+                  <span className="font-medium">{partner.applications.length} Dynamics 365-applikationer</span>
                 </div>
                 <a 
                   href={partner.website} 
@@ -257,59 +275,71 @@ const PartnerProfile = () => {
                       }
                     );
                   }}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/10 border border-primary/20 text-xs text-primary hover:bg-primary/20 transition-colors"
+                  className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-white shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
                 >
-                  <Globe className="w-3 h-3" />
+                  <Globe className="w-4 h-4" />
                   <span className="font-medium">{partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
+                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
               </div>
             </div>
           </div>
         </div>
+        
+        {/* Bottom fade to content */}
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent" />
       </header>
 
       {/* Content Section */}
-      <section className="py-6 sm:py-8 bg-gradient-to-b from-background via-muted/20 to-muted/40">
+      <section className="py-8 sm:py-12 relative">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto space-y-8">
             
             {/* Product Competencies */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10">
-                  <Briefcase className="w-5 h-5 text-primary" />
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="p-3 rounded-2xl bg-gradient-to-br from-primary via-primary/90 to-accent shadow-lg shadow-primary/25">
+                  <Briefcase className="w-6 h-6 text-white" />
                 </div>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                  Kompetenser inom Dynamics 365
-                </h2>
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+                    Kompetenser inom Dynamics 365
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-0.5">Expertområden och branscherfarenhet</p>
+                </div>
               </div>
               
-              <div className={`grid gap-3 ${productCategories.length >= 2 ? 'sm:grid-cols-2' : ''}`}>
-                {productCategories.map((category) => {
+              <div className={`grid gap-4 ${productCategories.length >= 2 ? 'sm:grid-cols-2' : ''}`}>
+                {productCategories.map((category, index) => {
                   const { primary, secondary } = getIndustriesForProduct(category);
                   const apps = getApplicationsForCategory(partner.applications, category);
                   
                   return (
                     <article 
                       key={category} 
-                      className="group relative rounded-xl overflow-hidden bg-gradient-to-br from-card via-card to-card/95 border border-border/40 shadow-md hover:shadow-lg transition-all duration-300"
+                      className="group relative rounded-2xl overflow-hidden bg-card border border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+                      style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      {/* Top accent */}
-                      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary via-accent to-primary opacity-80" />
+                      {/* Animated gradient border effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       
-                      <div className="p-4 sm:p-5">
+                      {/* Top accent with animation */}
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] group-hover:animate-[shimmer_2s_ease-in-out_infinite]" />
+                      
+                      <div className="relative p-5 sm:p-6">
                         {/* Header */}
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                          <h3 className="text-lg font-bold text-foreground">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                          <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-gradient-to-br from-primary to-accent" />
                             {getProductDisplayName(category)}
                           </h3>
                           {apps.length > 1 && (
-                            <div className="flex flex-wrap gap-1.5">
+                            <div className="flex flex-wrap gap-2">
                               {apps.map(app => (
                                 <Badge 
                                   key={app} 
                                   variant="outline"
-                                  className="text-xs bg-muted/50 border-border/50 py-0.5"
+                                  className="text-xs bg-muted/50 border-border/50 py-1 px-2.5 font-medium"
                                 >
                                   {app}
                                 </Badge>
@@ -318,21 +348,21 @@ const PartnerProfile = () => {
                           )}
                         </div>
                         
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                           {/* Primary industries */}
                           {primary.length > 0 && (
-                            <div>
-                              <p className="text-xs font-semibold text-foreground/70 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                                <span className="w-1 h-1 rounded-full bg-primary" />
+                            <div className="space-y-2.5">
+                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                                 Branschfokus
                               </p>
-                              <div className="flex flex-wrap gap-1.5">
+                              <div className="flex flex-wrap gap-2">
                                 {primary.map(ind => (
                                   <Badge 
                                     key={ind}
-                                    className="bg-primary/10 text-primary border border-primary/20 py-1 px-2.5 text-xs font-medium"
+                                    className="bg-gradient-to-r from-primary/15 to-primary/10 text-primary border border-primary/25 py-1.5 px-3 text-sm font-medium shadow-sm hover:shadow-md transition-shadow"
                                   >
-                                    <CheckCircle2 className="w-3 h-3 mr-1" />
+                                    <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
                                     {ind}
                                   </Badge>
                                 ))}
@@ -342,16 +372,16 @@ const PartnerProfile = () => {
                           
                           {/* Secondary industries */}
                           {secondary.length > 0 && (
-                            <div>
-                              <p className="text-xs font-semibold text-foreground/70 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                                <span className="w-1 h-1 rounded-full bg-amber-500" />
+                            <div className="space-y-2.5">
+                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
                                 Erfarenhet även inom
                               </p>
-                              <div className="flex flex-wrap gap-1.5">
+                              <div className="flex flex-wrap gap-2">
                                 {secondary.map(ind => (
                                   <Badge 
                                     key={ind}
-                                    className="bg-amber-500 hover:bg-amber-600 text-white border-0 py-1 px-2.5 text-xs font-medium transition-colors"
+                                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 py-1.5 px-3 text-sm font-medium shadow-sm hover:shadow-md transition-all"
                                   >
                                     {ind}
                                   </Badge>
@@ -374,53 +404,58 @@ const PartnerProfile = () => {
               </div>
             </div>
 
-            {/* Contact CTA Card */}
-            <article className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-accent/25 via-primary/15 to-accent/20 border border-primary/20 shadow-xl">
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/20 to-transparent rounded-full blur-2xl" />
+            {/* Premium Contact CTA Card */}
+            <article className="relative rounded-3xl overflow-hidden shadow-2xl">
+              {/* Gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
               
-              <div className="relative p-5 sm:p-6">
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="p-2 rounded-xl bg-gradient-to-br from-primary/30 to-accent/20 shadow-md">
-                    <Sparkles className="w-5 h-5 text-primary" />
+              {/* Animated orb */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
+              
+              <div className="relative p-6 sm:p-8">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
+                    <Sparkles className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-foreground mb-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
                       Intresserad av {partner.name}?
                     </h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-white/70 text-sm sm:text-base">
                       Låt oss hjälpa dig helt kostnadsfritt att komma i kontakt med rätt person.
                     </p>
                   </div>
                 </div>
                 
-                {/* Filter context */}
-                <div className="mb-4 p-3 bg-card/60 backdrop-blur-sm rounded-xl border border-border/50">
-                  <p className="text-xs font-semibold text-foreground/70 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-amber-500" />
+                {/* Filter context with glass effect */}
+                <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                  <p className="text-xs font-bold text-white/60 uppercase tracking-widest mb-3 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                     {hasFilters ? 'Din sökning' : 'Partner'}
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    <Badge className="bg-foreground/10 text-foreground border-foreground/20 font-semibold py-1 px-2">
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-white/20 text-white border-white/30 font-semibold py-1.5 px-3 backdrop-blur-sm">
                       {partner.name}
                     </Badge>
                     {selectedProduct && (
-                      <Badge className="bg-primary/15 text-primary border-primary/30 py-1 px-2">
+                      <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
                         {selectedProduct}
                       </Badge>
                     )}
                     {selectedIndustry && (
-                      <Badge variant="outline" className="border-accent/50 text-foreground py-1 px-2">
+                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
                         {selectedIndustry}
                       </Badge>
                     )}
                     {selectedCompanySize && (
-                      <Badge variant="outline" className="border-muted-foreground/50 text-foreground py-1 px-2">
+                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
                         {selectedCompanySize}
                       </Badge>
                     )}
                     {selectedGeography && (
-                      <Badge variant="outline" className="border-muted-foreground/50 text-foreground py-1 px-2">
+                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
                         {selectedGeography}
                       </Badge>
                     )}
