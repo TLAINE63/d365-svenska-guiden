@@ -458,7 +458,7 @@ const ValjPartner = () => {
 
           {/* Geography Filter */}
           <FilterButtons
-            title="Ange geografi som måste täckas in"
+            title="Ange vart geografiskt ni har er verksamhet och som är relevant för denna lösning (organisation, kontor/personal)"
             icon="geography"
             options={geographyFilters.map(f => ({ label: f.label, value: f.value }))}
             selectedValue={selectedGeography}
