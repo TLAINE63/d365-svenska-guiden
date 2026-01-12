@@ -177,8 +177,8 @@ const Navbar = () => {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent>
-              <div className="flex flex-col gap-4 mt-8">
+            <SheetContent className="overflow-y-auto">
+              <div className="flex flex-col gap-4 mt-8 pb-8">
                 <Link
                   to="/branschlosningar"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
