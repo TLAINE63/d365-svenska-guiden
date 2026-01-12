@@ -3,12 +3,66 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Building2, Sparkles, Briefcase, CheckCircle2, Globe, MapPin, Award, Layers, ExternalLink } from "lucide-react";
+import { 
+  ArrowLeft, 
+  Building2, 
+  Sparkles, 
+  Briefcase, 
+  CheckCircle2, 
+  Globe, 
+  MapPin, 
+  Award, 
+  Layers, 
+  ExternalLink,
+  Calculator,
+  Users,
+  Headphones,
+  Wrench,
+  TrendingUp,
+  Megaphone,
+  Bot,
+  Phone,
+  Package,
+  Wallet,
+  type LucideIcon
+} from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners, getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
+
+// Map application names to icons
+const applicationIcons: Record<string, LucideIcon> = {
+  "Business Central": Calculator,
+  "Sales": TrendingUp,
+  "Customer Service": Headphones,
+  "Field Service": Wrench,
+  "Marketing": Megaphone,
+  "Customer Insights (Marketing)": Megaphone,
+  "Finance": Wallet,
+  "Finance & SCM": Wallet,
+  "Supply Chain": Package,
+  "Copilot": Bot,
+  "Contact Center": Phone,
+  "CRM": Users,
+};
+
+const getApplicationIcon = (appName: string): LucideIcon => {
+  // Try exact match first
+  if (applicationIcons[appName]) return applicationIcons[appName];
+  
+  // Try partial match
+  const lowerName = appName.toLowerCase();
+  for (const [key, icon] of Object.entries(applicationIcons)) {
+    if (lowerName.includes(key.toLowerCase()) || key.toLowerCase().includes(lowerName)) {
+      return icon;
+    }
+  }
+  
+  // Default icon
+  return CheckCircle2;
+};
 
 // Map application names to product categories
 const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
@@ -335,15 +389,18 @@ const PartnerProfile = () => {
                           </h3>
                           {apps.length > 1 && (
                             <div className="flex flex-wrap gap-2">
-                              {apps.map(app => (
-                                <Badge 
-                                  key={app} 
-                                  variant="outline"
-                                  className="text-xs bg-muted/50 border-border/50 py-1 px-2.5 font-medium"
-                                >
-                                  {app}
-                                </Badge>
-                              ))}
+                              {apps.map(app => {
+                                const AppIcon = getApplicationIcon(app);
+                                return (
+                                  <Badge 
+                                    key={app} 
+                                    className="text-xs bg-accent text-accent-foreground border-0 py-1 px-2.5 font-medium shadow-sm"
+                                  >
+                                    <AppIcon className="w-3 h-3 mr-1" />
+                                    {app}
+                                  </Badge>
+                                );
+                              })}
                             </div>
                           )}
                         </div>
