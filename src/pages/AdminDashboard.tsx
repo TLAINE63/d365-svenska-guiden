@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -165,6 +166,10 @@ const AdminDashboard = () => {
   const [isImporting, setIsImporting] = useState(false);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
   const [formErrors, setFormErrors] = useState<PartnerFormErrors>({});
+  const [activeFormSection, setActiveFormSection] = useState(0);
+  
+  // Section refs for navigation
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // Empty product filter template
   const emptyProductFilter: ProductFilterInput = {
@@ -734,6 +739,77 @@ const AdminDashboard = () => {
   const isProductActive = (product: ProductKey): boolean => {
     const filter = getProductFilter(product);
     return filter.industries.length > 0 || filter.secondaryIndustries.length > 0;
+  };
+
+  // Form sections for navigation
+  const formSections = [
+    { id: 'basic', label: 'Grunduppgifter', icon: Building2 },
+    { id: 'contact', label: 'Kontaktuppgifter', icon: User },
+    { id: 'geography', label: 'Geografi', icon: Globe },
+    { id: 'products', label: 'Produkter', icon: FileText },
+    { id: 'admin', label: 'Administrativt', icon: Lock },
+  ];
+
+  // Calculate form completion percentage
+  const formCompletion = useMemo(() => {
+    let completed = 0;
+    const total = 5;
+    
+    // Section 1: Basic info - name and website required
+    if (partnerFormData.name && partnerFormData.website) completed++;
+    
+    // Section 2: Contact info - any contact info filled
+    if (partnerFormData.contactPerson || partnerFormData.email || partnerFormData.phone) completed++;
+    
+    // Section 3: Geography - at least one selected
+    if ((partnerFormData.geography || []).length > 0) completed++;
+    
+    // Section 4: Products - at least one product with industries
+    const hasActiveProduct = productSections.some(section => {
+      const filter = partnerFormData.product_filters?.[section.key];
+      return filter && filter.industries.length > 0;
+    });
+    if (hasActiveProduct) completed++;
+    
+    // Section 5: Admin info - activation date or featured status
+    if (partnerFormData.activation_date || partnerFormData.is_featured) completed++;
+    
+    return { completed, total, percentage: Math.round((completed / total) * 100) };
+  }, [partnerFormData]);
+
+  // Scroll to section
+  const scrollToSection = (index: number) => {
+    setActiveFormSection(index);
+    sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // Get section status
+  const getSectionStatus = (sectionId: string): 'complete' | 'partial' | 'empty' => {
+    switch (sectionId) {
+      case 'basic':
+        if (partnerFormData.name && partnerFormData.website) return 'complete';
+        if (partnerFormData.name || partnerFormData.website) return 'partial';
+        return 'empty';
+      case 'contact':
+        if (partnerFormData.contactPerson && partnerFormData.email) return 'complete';
+        if (partnerFormData.contactPerson || partnerFormData.email || partnerFormData.phone) return 'partial';
+        return 'empty';
+      case 'geography':
+        return (partnerFormData.geography || []).length > 0 ? 'complete' : 'empty';
+      case 'products':
+        const activeCount = productSections.filter(section => {
+          const filter = partnerFormData.product_filters?.[section.key];
+          return filter && filter.industries.length > 0;
+        }).length;
+        if (activeCount >= 1) return 'complete';
+        return 'empty';
+      case 'admin':
+        if (partnerFormData.activation_date) return 'complete';
+        if (partnerFormData.admin_notes || partnerFormData.admin_contact_name) return 'partial';
+        return 'empty';
+      default:
+        return 'empty';
+    }
   };
 
   // ==================== RENDER ====================
@@ -1324,12 +1400,12 @@ const AdminDashboard = () => {
         {/* ==================== PARTNER CREATE/EDIT DIALOG ==================== */}
         <Dialog open={isPartnerDialogOpen} onOpenChange={() => {}}>
           <DialogContent 
-            className="fixed inset-4 max-w-none w-[calc(100%-2rem)] h-[calc(100%-2rem)] max-h-none overflow-y-auto"
+            className="fixed inset-4 max-w-none w-[calc(100%-2rem)] h-[calc(100%-2rem)] max-h-none overflow-hidden flex flex-col"
             style={{ transform: 'none', left: '1rem', top: '1rem' }}
             onPointerDownOutside={(e) => e.preventDefault()} 
             onInteractOutside={(e) => e.preventDefault()}
           >
-            <DialogHeader className="flex flex-row items-center justify-between">
+            <DialogHeader className="flex flex-row items-center justify-between flex-shrink-0">
               <DialogTitle>
                 {editingPartner ? "Redigera partner" : "Lägg till partner"}
               </DialogTitle>
@@ -1345,12 +1421,58 @@ const AdminDashboard = () => {
               </Button>
             </DialogHeader>
 
-            <form onSubmit={handlePartnerSubmit} className="space-y-6">
+            {/* Progress and Section Navigation */}
+            <div className="flex-shrink-0 border-b pb-4 mb-4 space-y-4">
+              {/* Progress Bar */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Formulärstatus</span>
+                  <span className="font-medium">{formCompletion.completed}/{formCompletion.total} sektioner</span>
+                </div>
+                <Progress value={formCompletion.percentage} className="h-2" />
+              </div>
+              
+              {/* Section Navigation */}
+              <div className="flex flex-wrap gap-2">
+                {formSections.map((section, index) => {
+                  const status = getSectionStatus(section.id);
+                  const Icon = section.icon;
+                  return (
+                    <button
+                      key={section.id}
+                      type="button"
+                      onClick={() => scrollToSection(index)}
+                      className={`
+                        flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all
+                        ${activeFormSection === index 
+                          ? 'bg-primary text-primary-foreground shadow-sm' 
+                          : 'bg-muted hover:bg-muted/80'
+                        }
+                      `}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span className="hidden sm:inline">{section.label}</span>
+                      {status === 'complete' && (
+                        <CheckCircle2 className="h-4 w-4 text-green-500" />
+                      )}
+                      {status === 'partial' && (
+                        <Circle className="h-4 w-4 text-amber-500 fill-amber-500" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <form onSubmit={handlePartnerSubmit} className="space-y-6 overflow-y-auto flex-1 pr-2">
               {/* Section 1: Basic Info */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Building2 className="h-5 w-5" />
+              <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
+                  <Building2 className="h-5 w-5 text-primary" />
                   Grunduppgifter
+                  {getSectionStatus('basic') === 'complete' && (
+                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
+                  )}
                 </h3>
                 
                 <div className="grid grid-cols-2 gap-4">
@@ -1492,10 +1614,13 @@ const AdminDashboard = () => {
               <Separator />
 
               {/* Section 2: Contact Info */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <User className="h-5 w-5" />
+              <div ref={el => sectionRefs.current[1] = el} className="space-y-4 scroll-mt-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
+                  <User className="h-5 w-5 text-primary" />
                   Kontaktuppgifter
+                  {getSectionStatus('contact') === 'complete' && (
+                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
+                  )}
                 </h3>
                 
                 <div className="grid grid-cols-2 gap-4">
@@ -1573,10 +1698,13 @@ const AdminDashboard = () => {
               <Separator />
 
               {/* Section 3: Geographic Coverage */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Globe className="h-5 w-5" />
+              <div ref={el => sectionRefs.current[2] = el} className="space-y-4 scroll-mt-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
+                  <Globe className="h-5 w-5 text-primary" />
                   Geografisk täckning
+                  {getSectionStatus('geography') === 'complete' && (
+                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
+                  )}
                 </h3>
                 <p className="text-sm text-muted-foreground">Välj en eller flera regioner</p>
                 <div className="flex flex-wrap gap-2">
@@ -1612,8 +1740,14 @@ const AdminDashboard = () => {
               <Separator />
 
               {/* Section 4: Product Sections */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Produktsektioner</h3>
+              <div ref={el => sectionRefs.current[3] = el} className="space-y-4 scroll-mt-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
+                  <FileText className="h-5 w-5 text-primary" />
+                  Produktsektioner
+                  {getSectionStatus('products') === 'complete' && (
+                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
+                  )}
+                </h3>
                 <p className="text-sm text-muted-foreground">
                   Välj max 2 fokusbranscher och max 2 "täcker även" för varje produkt partnern erbjuder.
                 </p>
@@ -1714,11 +1848,14 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 6: Admin Info */}
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <FileText className="h-5 w-5" />
+              {/* Section 5: Admin Info */}
+              <div ref={el => sectionRefs.current[4] = el} className="space-y-4 scroll-mt-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
+                  <Lock className="h-5 w-5 text-primary" />
                   Administrativt
+                  {getSectionStatus('admin') === 'complete' && (
+                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
+                  )}
                 </h3>
 
                 {/* Admin Contact */}
