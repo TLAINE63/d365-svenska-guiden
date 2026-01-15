@@ -16,8 +16,8 @@ import {
   ExternalLink
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
-import { usePartner } from "@/hooks/usePartners";
-import { partners as staticPartners, getCumulativeGeographyDisplay } from "@/data/partners";
+import { usePartner, DatabasePartner, ProductFilters } from "@/hooks/usePartners";
+import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
@@ -99,35 +99,7 @@ const PartnerProfile = () => {
   const selectedIndustry = searchParams.get("industry") || undefined;
   const selectedCompanySize = searchParams.get("companySize") || undefined;
   const selectedGeography = searchParams.get("geography") || undefined;
-  const { data: dbPartner, isLoading } = usePartner(slug);
-  
-  // Find static partner for productFilters
-  const staticPartner = staticPartners.find((p) => {
-    const generatedSlug = p.name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
-    return generatedSlug === slug;
-  });
-
-  // Use dbPartner if available, otherwise fall back to static partner data
-  const partner = dbPartner ?? (staticPartner ? {
-    id: slug || "",
-    slug: slug || "",
-    name: staticPartner.name,
-    description: staticPartner.description,
-    logo_url: staticPartner.logo || null,
-    website: staticPartner.website,
-    email: staticPartner.email || null,
-    contactPerson: staticPartner.contactPerson || null,
-    phone: staticPartner.phone || null,
-    address: null,
-    applications: staticPartner.applications,
-    industries: staticPartner.industries,
-    is_featured: false,
-    created_at: "",
-    updated_at: "",
-  } : null);
+  const { data: partner, isLoading } = usePartner(slug);
 
   // Get product categories this partner supports
   const getProductCategories = (): ('bc' | 'fsc' | 'sales' | 'service')[] => {
@@ -140,12 +112,15 @@ const PartnerProfile = () => {
     return Array.from(categories);
   };
 
-  // Get industries for a specific product (map sales/service to crm for productFilters lookup)
+  // Get industries for a specific product from database product_filters
   const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { primary: string[]; secondary: string[] } => {
-    // Map sales and service to 'crm' for productFilters lookup
-    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    // Map sales and service to appropriate keys for productFilters lookup
+    const filterKey = (category === 'sales' || category === 'service') ? 'sales' : category;
     
-    if (!staticPartner?.productFilters?.[filterKey]) {
+    const productFilters = partner?.product_filters as ProductFilters | undefined;
+    const productFilter = productFilters?.[filterKey];
+    
+    if (!productFilter) {
       // Fallback to general industries
       const allIndustries = partner?.industries || [];
       return { 
@@ -154,26 +129,27 @@ const PartnerProfile = () => {
       };
     }
     
-    const productFilter = staticPartner.productFilters[filterKey];
     return {
-      primary: productFilter?.industries || [],
-      secondary: productFilter?.secondaryIndustries || []
+      primary: productFilter.industries || [],
+      secondary: productFilter.secondaryIndustries || []
     };
   };
 
-  // Get geography for a specific product - prioritize database data
+  // Get geography for a specific product - from database
   const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
-    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    // Check database partner's product_filters first, then geography array
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { geography?: string }> | undefined;
-    const dbProductGeo = dbProductFilters?.[filterKey]?.geography;
-    if (dbProductGeo) return dbProductGeo;
-    // Fall back to partner's geography array (use first/highest level)
-    if (dbPartner?.geography && dbPartner.geography.length > 0) {
-      return dbPartner.geography[dbPartner.geography.length - 1]; // Use highest level (last in array)
+    const filterKey = (category === 'sales' || category === 'service') ? 'sales' : category;
+    
+    // Check database partner's product_filters first
+    const productFilters = partner?.product_filters as ProductFilters | undefined;
+    const productGeo = productFilters?.[filterKey]?.geography;
+    if (productGeo) return productGeo;
+    
+    // Fall back to partner's geography array (use highest level)
+    if (partner?.geography && partner.geography.length > 0) {
+      return partner.geography[partner.geography.length - 1];
     }
-    // Final fallback to static data
-    return staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography || null;
+    
+    return null;
   };
 
 
@@ -299,15 +275,10 @@ const PartnerProfile = () => {
               
               {/* Premium stats row */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
-                {(dbPartner?.geography && dbPartner.geography.length > 0) ? (
+                {partner.geography && partner.geography.length > 0 && (
                   <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
                     <MapPin className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{getCumulativeGeographyDisplay(dbPartner.geography[dbPartner.geography.length - 1])}</span>
-                  </div>
-                ) : staticPartner?.geography && (
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
+                    <span className="font-medium">{getCumulativeGeographyDisplay(partner.geography[partner.geography.length - 1])}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
@@ -385,90 +356,98 @@ const PartnerProfile = () => {
                       <div className="relative p-5 sm:p-6">
                         {/* Header */}
                         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
-                          <h3 className="text-xl font-bold text-foreground flex items-center gap-2 shrink-0">
-                            {(() => {
-                              const categoryIcon = category === 'bc' 
-                                ? getApplicationIcon("Business Central")
-                                : category === 'fsc'
-                                ? getApplicationIcon("Finance")
-                                : category === 'sales'
-                                ? getApplicationIcon("Sales")
-                                : getApplicationIcon("Customer Service");
-                              return categoryIcon && (
-                                <img src={categoryIcon} alt="" className="w-6 h-6" />
-                              );
-                            })()}
-                            {getProductDisplayName(category)}
-                          </h3>
-                          {apps.length >= 1 && (
-                            <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-start sm:justify-end sm:ml-4 sm:flex-col sm:items-end">
-                              {apps.map(app => {
-                                const appIcon = getApplicationIcon(app);
-                                return (
-                                  <Badge 
-                                    key={app} 
-                                    className="text-[10px] sm:text-xs bg-accent text-accent-foreground border-0 py-0.5 sm:py-1 px-1.5 sm:px-2.5 font-medium shadow-sm justify-end text-right"
-                                  >
-                                    {appIcon && (
-                                      <img src={appIcon} alt="" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                                    )}
-                                    {app}
-                                  </Badge>
-                                );
-                              })}
+                          <div className="flex items-center gap-3">
+                            <div className="p-2.5 rounded-xl bg-gradient-to-br from-primary/15 to-accent/10 border border-primary/20 shadow-sm group-hover:shadow-md transition-shadow">
+                              {apps[0] && getApplicationIcon(apps[0]) ? (
+                                <img 
+                                  src={getApplicationIcon(apps[0])!} 
+                                  alt={apps[0]} 
+                                  className="w-6 h-6 sm:w-7 sm:h-7"
+                                />
+                              ) : (
+                                <Briefcase className="w-6 h-6 text-primary" />
+                              )}
                             </div>
+                            <div>
+                              <h3 className="font-bold text-base sm:text-lg text-foreground tracking-tight group-hover:text-primary transition-colors">
+                                {getProductDisplayName(category)}
+                              </h3>
+                              <p className="text-xs text-muted-foreground">
+                                {apps.length} {apps.length === 1 ? 'applikation' : 'applikationer'}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          {/* Geography badge */}
+                          {getGeographyForProduct(category) && (
+                            <Badge variant="outline" className="text-xs px-2.5 py-1 bg-muted/50 border-muted-foreground/20 shrink-0">
+                              <MapPin className="w-3 h-3 mr-1.5" />
+                              {getGeographyForProduct(category)}
+                            </Badge>
                           )}
                         </div>
-                        
-                        <div className="space-y-4">
-                          {/* Primary industries */}
-                          {primary.length > 0 && (
-                            <div className="space-y-2.5">
-                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                                Branschfokus
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {primary.map(ind => (
-                                  <Badge 
-                                    key={ind}
-                                    className="bg-primary text-primary-foreground border-0 py-1.5 px-3 text-sm font-medium shadow-md hover:shadow-lg hover:bg-primary/90 transition-all"
-                                  >
-                                    <CheckCircle2 className="w-3.5 h-3.5 mr-1.5" />
-                                    {ind}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                          
-                          {/* Secondary industries */}
-                          {secondary.length > 0 && (
-                            <div className="space-y-2.5">
-                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                                Erfarenhet även inom
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {secondary.map(ind => (
-                                  <Badge 
-                                    key={ind}
-                                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 py-1.5 px-3 text-sm font-medium shadow-sm hover:shadow-md transition-all"
-                                  >
-                                    {ind}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                          )}
-                          
-                          {/* If no industries at all */}
-                          {primary.length === 0 && secondary.length === 0 && (
-                            <p className="text-sm text-muted-foreground italic">
-                              Branschoberoende
-                            </p>
-                          )}
+
+                        {/* Applications list */}
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                          {apps.map((app) => {
+                            const icon = getApplicationIcon(app);
+                            return (
+                              <Badge 
+                                key={app} 
+                                variant="secondary" 
+                                className="text-xs px-2 py-0.5 bg-secondary/60 hover:bg-secondary transition-colors flex items-center gap-1"
+                              >
+                                {icon && <img src={icon} alt="" className="w-3.5 h-3.5" />}
+                                {app}
+                              </Badge>
+                            );
+                          })}
                         </div>
+
+                        {/* Industries */}
+                        {(primary.length > 0 || secondary.length > 0) && (
+                          <div className="space-y-3 pt-3 border-t border-border/50">
+                            {primary.length > 0 && (
+                              <div>
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Award className="w-4 h-4 text-primary" />
+                                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Branschfokus</span>
+                                </div>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {primary.map((ind) => (
+                                    <Badge 
+                                      key={ind} 
+                                      className="text-xs px-2.5 py-0.5 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors"
+                                    >
+                                      <CheckCircle2 className="w-3 h-3 mr-1" />
+                                      {ind}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            
+                            {secondary.length > 0 && (
+                              <div>
+                                <div className="flex items-center gap-2 mb-2">
+                                  <Layers className="w-4 h-4 text-muted-foreground" />
+                                  <span className="text-xs font-medium text-muted-foreground">Erfarenhet även inom</span>
+                                </div>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {secondary.map((ind) => (
+                                    <Badge 
+                                      key={ind} 
+                                      variant="outline"
+                                      className="text-xs px-2 py-0.5 border-muted-foreground/30 text-muted-foreground"
+                                    >
+                                      {ind}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </article>
                   );
@@ -476,75 +455,56 @@ const PartnerProfile = () => {
               </div>
             </div>
 
-            {/* Premium Contact CTA Card */}
-            <article className="relative rounded-3xl overflow-hidden shadow-2xl">
-              {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
-              
-              {/* Animated orb */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-primary/40 to-transparent rounded-full blur-3xl animate-pulse" />
-              
-              <div className="relative p-6 sm:p-8">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30">
-                    <Sparkles className="w-6 h-6 text-white" />
+            {/* Matched Filters Section */}
+            {hasFilters && (
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 via-card to-accent/5 border border-primary/20 shadow-lg">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2.5 rounded-xl bg-primary/15 border border-primary/20">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
-                      Intresserad av {partner.name}?
-                    </h3>
-                    <p className="text-white/70 text-sm sm:text-base">
-                      Låt oss hjälpa dig helt kostnadsfritt att komma i kontakt med rätt person.
-                    </p>
-                  </div>
+                  <h3 className="font-bold text-lg">Matchade sökkriterier</h3>
                 </div>
-                
-                {/* Filter context with glass effect */}
-                <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
-                  <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                    {hasFilters ? 'Din sökning' : 'Partner'}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-white/20 text-white border-white/30 font-semibold py-1.5 px-3 backdrop-blur-sm">
-                      {partner.name}
+                <div className="flex flex-wrap gap-2">
+                  {selectedProduct && (
+                    <Badge className="bg-primary/20 text-primary border-primary/30 px-3 py-1.5">
+                      <Briefcase className="w-3.5 h-3.5 mr-1.5" />
+                      {selectedProduct}
                     </Badge>
-                    {selectedProduct && (
-                      <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
-                        {selectedProduct}
-                      </Badge>
-                    )}
-                    {selectedIndustry && (
-                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                        {selectedIndustry}
-                      </Badge>
-                    )}
-                    {selectedCompanySize && (
-                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                        {selectedCompanySize}
-                      </Badge>
-                    )}
-                    {selectedGeography && (
-                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                        {selectedGeography}
-                      </Badge>
-                    )}
-                  </div>
+                  )}
+                  {selectedIndustry && (
+                    <Badge className="bg-accent/20 text-accent-foreground border-accent/30 px-3 py-1.5">
+                      <Building2 className="w-3.5 h-3.5 mr-1.5" />
+                      {selectedIndustry}
+                    </Badge>
+                  )}
+                  {selectedCompanySize && (
+                    <Badge variant="secondary" className="px-3 py-1.5">
+                      {selectedCompanySize} anställda
+                    </Badge>
+                  )}
+                  {selectedGeography && (
+                    <Badge variant="outline" className="px-3 py-1.5">
+                      <MapPin className="w-3.5 h-3.5 mr-1.5" />
+                      {selectedGeography}
+                    </Badge>
+                  )}
                 </div>
-                
-                <LeadCTA
-                  sourcePage={`partner-profile-${partner.slug}`}
-                  partnerName={partner.name}
-                  selectedProduct={selectedProduct}
-                  selectedProducts={selectedProduct ? undefined : partner.applications}
-                  selectedIndustry={selectedIndustry || partner.industries[0]}
-                  variant="inline"
-                />
               </div>
-            </article>
+            )}
+          </div>
+        </div>
+      </section>
 
+      {/* CTA Section */}
+      <section className="py-12 sm:py-16 bg-gradient-to-b from-muted/30 to-muted/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <LeadCTA 
+              variant="inline"
+              sourcePage={`partner-profile-${partner.slug}`}
+              selectedProduct={selectedProduct}
+              selectedIndustry={selectedIndustry}
+            />
           </div>
         </div>
       </section>
