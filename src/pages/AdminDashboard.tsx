@@ -1858,6 +1858,21 @@ const AdminDashboard = () => {
                               />
                             </div>
                           </div>
+                          
+                          <div>
+                            <Label className="text-sm">Kundexempel / Referenskunder</Label>
+                            <Textarea
+                              value={(filter.customerExamples || []).join("\n")}
+                              onChange={(e) => {
+                                const examples = e.target.value.split("\n").map(ex => ex.trim()).filter(Boolean);
+                                updateProductFilter(section.key, { customerExamples: examples });
+                              }}
+                              rows={3}
+                              placeholder={"IKEA\nVolvo\nEricsson"}
+                              className="mt-2 text-sm"
+                            />
+                            <p className="text-xs text-muted-foreground mt-1">Ett kundnamn per rad. Visas på partnerprofilen.</p>
+                          </div>
                         </CardContent>
                       </Card>
                     );
