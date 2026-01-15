@@ -233,18 +233,18 @@ const PartnerProfile = () => {
           </Link>
 
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
-            {/* Premium Logo Container with light background for better contrast */}
+            {/* Premium Logo Container with neutral background for universal compatibility */}
             <div className="relative group/logo shrink-0">
               {/* Subtle outer glow */}
               <div className="absolute -inset-1 bg-white/20 rounded-2xl blur-md opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
               
-              {/* Logo card - light background for universal logo compatibility */}
-              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-white shadow-2xl shadow-black/20 flex items-center justify-center p-4 overflow-hidden border border-gray-100">
+              {/* Logo card - neutral gray background works for both light and dark logos */}
+              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl shadow-black/20 flex items-center justify-center p-4 overflow-hidden border border-gray-300">
                 {partner.logo_url ? (
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className="max-w-full max-h-full object-contain"
+                    className="max-w-full max-h-full object-contain drop-shadow-sm"
                   />
                 ) : (
                   <Building2 className="w-12 h-12 text-gray-400" />
