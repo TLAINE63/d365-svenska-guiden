@@ -233,24 +233,21 @@ const PartnerProfile = () => {
           </Link>
 
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
-            {/* Premium Logo Container with glow effect */}
+            {/* Premium Logo Container with light background for better contrast */}
             <div className="relative group/logo shrink-0">
-              {/* Outer glow ring */}
-              <div className="absolute -inset-2 bg-gradient-to-br from-primary/40 via-accent/30 to-primary/40 rounded-3xl blur-xl opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
+              {/* Subtle outer glow */}
+              <div className="absolute -inset-1 bg-white/20 rounded-2xl blur-md opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
               
-              {/* Logo card - dark background for better contrast with light logos */}
-              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-slate-800 shadow-2xl shadow-black/30 flex items-center justify-center p-4 overflow-hidden border-2 border-slate-700">
-                {/* Subtle gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-transparent to-slate-900/50" />
-                
+              {/* Logo card - light background for universal logo compatibility */}
+              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-white shadow-2xl shadow-black/20 flex items-center justify-center p-4 overflow-hidden border border-gray-100">
                 {partner.logo_url ? (
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className="max-w-full max-h-full object-contain relative z-10 brightness-110 contrast-110"
+                    className="max-w-full max-h-full object-contain"
                   />
                 ) : (
-                  <Building2 className="w-12 h-12 text-slate-400" />
+                  <Building2 className="w-12 h-12 text-gray-400" />
                 )}
               </div>
             </div>
