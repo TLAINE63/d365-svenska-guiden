@@ -210,8 +210,8 @@ const HeroCarousel = () => {
                 {slide.subtitle}
               </p>
               
-              {/* Industries Grid - 18 industries */}
-              <div className="grid grid-cols-6 sm:grid-cols-6 md:grid-cols-9 lg:grid-cols-18 gap-1 sm:gap-1.5 mb-4 sm:mb-5">
+              {/* Industries Grid - 18 industries in 3 rows (6 per row) */}
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5 mb-4 sm:mb-5">
                 {featuredIndustries.map((industry) => (
                   <Link
                     key={industry.name}
