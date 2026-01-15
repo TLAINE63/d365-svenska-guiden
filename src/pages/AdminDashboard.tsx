@@ -1823,23 +1823,19 @@ const AdminDashboard = () => {
                           </div>
 
                           <div>
-                            <Label className="text-sm">Referenskunder</Label>
-                            <Textarea
-                              placeholder="Ange referenskunder, en per rad..."
-                              value={(filter.customerExamples || []).join('\n')}
+                            <Label className="text-sm">Kundexempel</Label>
+                            <Input
+                              placeholder="Kundnamn, Kundnamn, ..."
+                              value={(filter.customerExamples || []).join(', ')}
                               onChange={(e) => {
                                 const examples = e.target.value
-                                  .split('\n')
+                                  .split(',')
                                   .map(s => s.trim())
                                   .filter(s => s.length > 0);
                                 updateProductFilter(section.key, { customerExamples: examples });
                               }}
                               className="mt-2"
-                              rows={3}
                             />
-                            <p className="text-xs text-muted-foreground mt-1">
-                              En kund per rad
-                            </p>
                           </div>
 
                           <div className="flex gap-4">
