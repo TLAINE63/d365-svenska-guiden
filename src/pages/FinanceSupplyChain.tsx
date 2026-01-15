@@ -14,7 +14,9 @@ import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { partners, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+import { usePartners } from "@/hooks/usePartners";
+import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import {
   Accordion,
   AccordionContent,
@@ -33,40 +35,23 @@ const geographyFilters = [
 const FinanceSupplyChain = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  
+  // Fetch partners from database (only featured partners)
+  const { data: partners = [], isLoading } = usePartners();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Filter partners that have Finance & SCM productFilters (betalande partners)
+  // Filter partners for Finance & Supply Chain
   const fscPartners = useMemo(() => {
-    // Only show partners with productFilters.fsc defined (betalande FSC partners)
-    let result = partners.filter(partner => partner.productFilters?.fsc);
-    
-    // Apply product-specific filters
-    result = result.filter(partner => 
-      matchesProductFilter(partner, 'fsc', selectedIndustry || undefined, undefined, selectedGeography || undefined)
-    );
-    
-    // Sort by FSC ranking, then alphabetically
-    return result.sort((a, b) => {
-      const rankA = getProductRanking(a, 'fsc');
-      const rankB = getProductRanking(b, 'fsc');
-      if (rankA !== rankB) {
-        return rankA - rankB;
-      }
-      return a.name.localeCompare(b.name, 'sv');
-    });
-  }, [selectedIndustry, selectedGeography]);
+    return filterAndSortPartners(partners, 'fsc', selectedIndustry, selectedGeography);
+  }, [partners, selectedIndustry, selectedGeography]);
 
   // Get available industries for FSC partners
   const fscIndustries = useMemo(() => {
-    const industries = new Set<string>();
-    partners.forEach(partner => {
-      partner.productFilters?.fsc?.industries.forEach(ind => industries.add(ind));
-    });
-    return allIndustries.filter(ind => industries.has(ind));
-  }, []);
+    return getProductIndustries(partners, 'fsc', allIndustries);
+  }, [partners]);
 
   const fscVideos = [
     {
