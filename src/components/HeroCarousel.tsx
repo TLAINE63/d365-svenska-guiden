@@ -196,16 +196,16 @@ const HeroCarousel = () => {
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           {slide.ctaType === "industries" ? (
             // First slide with industries grid
-            <div className="animate-fade-in">
+            <div className="animate-fade-in pt-8 sm:pt-12 md:pt-16">
               <h1
                 key={currentSlide}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2 sm:mb-3 md:mb-4"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-1 sm:mb-2"
               >
                 {slide.title}
               </h1>
               <p
                 key={`subtitle-${currentSlide}`}
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-4 sm:mb-5 md:mb-6"
+                className="text-xs sm:text-sm md:text-base lg:text-lg text-white/90 mb-3 sm:mb-4"
               >
                 {slide.subtitle}
               </p>
