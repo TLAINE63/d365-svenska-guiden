@@ -1,4 +1,4 @@
-import { useParams, Link, useSearchParams } from "react-router-dom";
+import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -93,6 +93,7 @@ const getApplicationsForCategory = (apps: string[], category: 'bc' | 'fsc' | 'sa
 const PartnerProfile = () => {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   
   // Get filter context from URL params
   const selectedProduct = searchParams.get("product") || undefined;
@@ -100,6 +101,17 @@ const PartnerProfile = () => {
   const selectedCompanySize = searchParams.get("companySize") || undefined;
   const selectedGeography = searchParams.get("geography") || undefined;
   const { data: partner, isLoading } = usePartner(slug);
+
+  // Handle back navigation - use browser history
+  const handleGoBack = () => {
+    // Check if there's history to go back to
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      // Fallback to partner list if no history
+      navigate('/valj-partner');
+    }
+  };
 
   // Get product categories this partner supports
   const getProductCategories = (): ('bc' | 'fsc' | 'sales' | 'service')[] => {
@@ -224,13 +236,13 @@ const PartnerProfile = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[shimmer_3s_ease-in-out_infinite]" />
         
         <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <Link
-            to="/valj-partner"
+          <button
+            onClick={handleGoBack}
             className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-6 group text-sm font-medium backdrop-blur-sm bg-white/5 px-3 py-1.5 rounded-full border border-white/10"
           >
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-            Tillbaka till partnerlistan
-          </Link>
+            Tillbaka
+          </button>
 
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
             {/* Premium Logo Container - adapts background based on logo_dark_bg setting */}
