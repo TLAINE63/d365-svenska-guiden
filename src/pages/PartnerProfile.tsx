@@ -233,21 +233,33 @@ const PartnerProfile = () => {
           </Link>
 
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
-            {/* Premium Logo Container with neutral background for universal compatibility */}
+            {/* Premium Logo Container - adapts background based on logo_dark_bg setting */}
             <div className="relative group/logo shrink-0">
               {/* Subtle outer glow */}
-              <div className="absolute -inset-1 bg-white/20 rounded-2xl blur-md opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
+              <div className={`absolute -inset-1 rounded-2xl blur-md opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500 ${
+                partner.logo_dark_bg ? 'bg-primary/30' : 'bg-white/20'
+              }`} />
               
-              {/* Logo card - neutral gray background works for both light and dark logos */}
-              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 shadow-2xl shadow-black/20 flex items-center justify-center p-4 overflow-hidden border border-gray-300">
+              {/* Logo card - background adapts to logo type */}
+              <div className={`relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl shadow-2xl flex items-center justify-center p-4 overflow-hidden ${
+                partner.logo_dark_bg 
+                  ? 'bg-slate-800 border-2 border-slate-700 shadow-black/30' 
+                  : 'bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-200 shadow-black/20'
+              }`}>
+                {partner.logo_dark_bg && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-transparent to-slate-900/50" />
+                )}
+                
                 {partner.logo_url ? (
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className="max-w-full max-h-full object-contain drop-shadow-sm"
+                    className={`max-w-full max-h-full object-contain relative z-10 ${
+                      partner.logo_dark_bg ? 'brightness-110 contrast-110' : 'drop-shadow-sm'
+                    }`}
                   />
                 ) : (
-                  <Building2 className="w-12 h-12 text-gray-400" />
+                  <Building2 className={`w-12 h-12 ${partner.logo_dark_bg ? 'text-slate-400' : 'text-gray-400'}`} />
                 )}
               </div>
             </div>

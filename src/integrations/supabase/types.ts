@@ -175,6 +175,7 @@ export type Database = {
           id: string
           industries: string[] | null
           is_featured: boolean | null
+          logo_dark_bg: boolean
           logo_url: string | null
           monthly_fee: number | null
           name: string
@@ -201,6 +202,7 @@ export type Database = {
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
+          logo_dark_bg?: boolean
           logo_url?: string | null
           monthly_fee?: number | null
           name: string
@@ -227,6 +229,7 @@ export type Database = {
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
+          logo_dark_bg?: boolean
           logo_url?: string | null
           monthly_fee?: number | null
           name?: string
@@ -250,6 +253,7 @@ export type Database = {
           id: string | null
           industries: string[] | null
           is_featured: boolean | null
+          logo_dark_bg: boolean | null
           logo_url: string | null
           name: string | null
           product_filters: Json | null
@@ -266,6 +270,7 @@ export type Database = {
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null
+          logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
           product_filters?: Json | null
@@ -282,6 +287,7 @@ export type Database = {
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null
+          logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
           product_filters?: Json | null

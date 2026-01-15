@@ -24,6 +24,7 @@ export interface DatabasePartner {
   name: string;
   description: string | null;
   logo_url: string | null;
+  logo_dark_bg: boolean;  // If true, display logo on dark background
   website: string;
   email: string | null;
   contactPerson: string | null;
@@ -87,6 +88,7 @@ export function usePartners() {
       // Add null values for fields not in the public view
       return (data || []).map(p => ({
         ...p,
+        logo_dark_bg: p.logo_dark_bg ?? false,
         email: null,
         contactPerson: null,
         phone: null,
@@ -123,6 +125,7 @@ export function usePartner(slug: string | undefined) {
       // Add null values for fields not in the public view
       return {
         ...data,
+        logo_dark_bg: data.logo_dark_bg ?? false,
         email: null,
         contactPerson: null,
         phone: null,
