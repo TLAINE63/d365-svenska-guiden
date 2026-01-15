@@ -13,7 +13,8 @@ import {
   MapPin, 
   Award, 
   Layers, 
-  ExternalLink
+  ExternalLink,
+  Users
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
@@ -175,6 +176,17 @@ const PartnerProfile = () => {
     // Final fallback to static data
     return staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography || null;
   };
+
+  // Get customer examples for a specific product - only from database
+  const getCustomerExamplesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    // Check database partner's product_filters
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { customerExamples?: string[] }> | undefined;
+    const dbCustomerExamples = dbProductFilters?.[filterKey]?.customerExamples;
+    if (dbCustomerExamples && dbCustomerExamples.length > 0) return dbCustomerExamples;
+    return [];
+  };
+
 
 
   if (isLoading) {
@@ -369,6 +381,7 @@ const PartnerProfile = () => {
                 {productCategories.map((category, index) => {
                   const { primary, secondary } = getIndustriesForProduct(category);
                   const apps = getApplicationsForCategory(partner.applications, category);
+                  const customerExamples = getCustomerExamplesForProduct(category);
                   
                   return (
                     <article 
@@ -468,6 +481,31 @@ const PartnerProfile = () => {
                               Branschoberoende
                             </p>
                           )}
+
+                          {/* Customer Examples */}
+                          <div className="space-y-2.5 pt-2 border-t border-border/50">
+                            <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
+                              <Users className="w-3.5 h-3.5 text-muted-foreground" />
+                              Kundexempel
+                            </p>
+                            {customerExamples.length > 0 ? (
+                              <div className="flex flex-wrap gap-2">
+                                {customerExamples.map((customer, idx) => (
+                                  <Badge 
+                                    key={idx}
+                                    variant="outline"
+                                    className="bg-background/50 text-foreground/80 border-border py-1.5 px-3 text-sm font-medium"
+                                  >
+                                    {customer}
+                                  </Badge>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-muted-foreground italic">
+                                Kundexempel kan tillhandahållas på förfrågan
+                              </p>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </article>
