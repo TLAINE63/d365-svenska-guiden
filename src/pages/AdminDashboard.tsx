@@ -701,7 +701,17 @@ const AdminDashboard = () => {
 
   // Product filter helpers
   const getProductFilter = (product: ProductKey): ProductFilterInput => {
-    return partnerFormData.product_filters?.[product] || { ...emptyProductFilter };
+    const existing = partnerFormData.product_filters?.[product];
+    // Merge with emptyProductFilter to ensure all fields exist (including customerExamples)
+    return {
+      ...emptyProductFilter,
+      ...existing,
+      // Ensure arrays are always initialized
+      industries: existing?.industries || [],
+      secondaryIndustries: existing?.secondaryIndustries || [],
+      companySize: existing?.companySize || [],
+      customerExamples: existing?.customerExamples || [],
+    };
   };
 
   const updateProductFilter = (product: ProductKey, updates: Partial<ProductFilterInput>) => {
