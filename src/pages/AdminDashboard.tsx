@@ -1825,9 +1825,10 @@ const AdminDashboard = () => {
                           <div>
                             <Label className="text-sm">Kundexempel</Label>
                             <Input
-                              placeholder="Kundnamn, Kundnamn, ..."
-                              value={(filter.customerExamples || []).join(', ')}
-                              onChange={(e) => {
+                              placeholder="Volvo, IKEA, Scania..."
+                              defaultValue={(filter.customerExamples || []).join(', ')}
+                              key={`${section.key}-customerExamples-${editingPartner?.id || 'new'}`}
+                              onBlur={(e) => {
                                 const examples = e.target.value
                                   .split(',')
                                   .map(s => s.trim())
@@ -1836,6 +1837,7 @@ const AdminDashboard = () => {
                               }}
                               className="mt-2"
                             />
+                            <p className="text-xs text-muted-foreground mt-1">Separera med komma</p>
                           </div>
 
                           <div className="flex gap-4">
