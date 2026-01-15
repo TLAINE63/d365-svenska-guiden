@@ -165,6 +165,16 @@ const PartnerProfile = () => {
     return null;
   };
 
+  // Get customer examples for a specific product - from database product_filters
+  const getCustomerExamplesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'sales' : category;
+    
+    const productFilters = partner?.product_filters as ProductFilters | undefined;
+    const productExamples = productFilters?.[filterKey]?.customerExamples;
+    
+    return productExamples || [];
+  };
+
 
   if (isLoading) {
     return (
@@ -362,6 +372,7 @@ const PartnerProfile = () => {
                 {productCategories.map((category, index) => {
                   const { primary, secondary } = getIndustriesForProduct(category);
                   const apps = getApplicationsForCategory(partner.applications, category);
+                  const customerExamples = getCustomerExamplesForProduct(category);
                   
                   return (
                     <article 
@@ -477,9 +488,9 @@ const PartnerProfile = () => {
                             <Users className="w-4 h-4 text-primary" />
                             <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Kundreferenser</span>
                           </div>
-                          {partner.customer_examples && partner.customer_examples.length > 0 ? (
+                          {customerExamples.length > 0 ? (
                             <div className="flex flex-wrap gap-1.5">
-                              {partner.customer_examples.map((example, idx) => (
+                              {customerExamples.map((example, idx) => (
                                 <Badge 
                                   key={idx} 
                                   variant="secondary"

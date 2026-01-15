@@ -7,6 +7,7 @@ export interface ProductFilterInput {
   companySize: string[];
   geography: string;
   ranking: number;
+  customerExamples?: string[];  // Customer reference examples for this product
 }
 
 // Updated product filters to include 4 product areas plus combined crm

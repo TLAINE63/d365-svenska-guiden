@@ -178,6 +178,7 @@ const AdminDashboard = () => {
     companySize: [],
     geography: "Sverige",
     ranking: 999,
+    customerExamples: [],
   };
 
   const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
@@ -1590,23 +1591,6 @@ const AdminDashboard = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="customer_examples">Kundexempel / Kundreferenser (ett per rad)</Label>
-                  <Textarea
-                    id="customer_examples"
-                    value={(partnerFormData.customer_examples || []).join("\n")}
-                    onChange={(e) => {
-                      const examples = e.target.value.split("\n").map(ex => ex.trim()).filter(Boolean);
-                      setPartnerFormData({ ...partnerFormData, customer_examples: examples });
-                    }}
-                    rows={4}
-                    placeholder={"IKEA\nVolvo\nEricsson"}
-                  />
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Ange kundnamn som referens, ett per rad. Visas på partnerprofilen under "Kundreferenser".
-                  </p>
-                </div>
-
-                <div>
                   <Label htmlFor="website">Hemsida *</Label>
                   <div className="relative">
                     <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -1829,6 +1813,21 @@ const AdminDashboard = () => {
                                 </Badge>
                               ))}
                             </div>
+                          </div>
+
+                          <div>
+                            <Label className="text-sm">Kundexempel / Referenskunder</Label>
+                            <Textarea
+                              value={(filter.customerExamples || []).join("\n")}
+                              onChange={(e) => {
+                                const examples = e.target.value.split("\n").map(ex => ex.trim()).filter(Boolean);
+                                updateProductFilter(section.key, { customerExamples: examples });
+                              }}
+                              rows={2}
+                              placeholder={"IKEA\nVolvo\nEricsson"}
+                              className="mt-2 text-sm"
+                            />
+                            <p className="text-xs text-muted-foreground mt-1">Ett kundnamn per rad</p>
                           </div>
 
                           <div className="flex gap-4">
