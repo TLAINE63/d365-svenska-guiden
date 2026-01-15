@@ -178,6 +178,7 @@ const AdminDashboard = () => {
     companySize: [],
     geography: "Sverige",
     ranking: 999,
+    customerExamples: [],
   };
 
   const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
@@ -1809,6 +1810,26 @@ const AdminDashboard = () => {
                                 </Badge>
                               ))}
                             </div>
+                          </div>
+
+                          <div>
+                            <Label className="text-sm">Referenskunder</Label>
+                            <Textarea
+                              placeholder="Ange referenskunder, en per rad..."
+                              value={(filter.customerExamples || []).join('\n')}
+                              onChange={(e) => {
+                                const examples = e.target.value
+                                  .split('\n')
+                                  .map(s => s.trim())
+                                  .filter(s => s.length > 0);
+                                updateProductFilter(section.key, { customerExamples: examples });
+                              }}
+                              className="mt-2"
+                              rows={3}
+                            />
+                            <p className="text-xs text-muted-foreground mt-1">
+                              En kund per rad
+                            </p>
                           </div>
 
                           <div className="flex gap-4">
