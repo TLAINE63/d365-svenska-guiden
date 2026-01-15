@@ -495,15 +495,72 @@ const PartnerProfile = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 bg-gradient-to-b from-muted/30 to-muted/50">
-        <div className="container mx-auto px-4 sm:px-6">
+      {/* CTA Section - Premium Contact Card */}
+      <section className="py-12 sm:py-16 relative overflow-hidden">
+        {/* Premium dark gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-accent/15 via-transparent to-transparent" />
+        
+        {/* Animated orbs */}
+        <div className="absolute top-0 right-1/4 w-64 h-64 bg-gradient-to-br from-primary/25 to-accent/15 rounded-full blur-[80px] animate-pulse" />
+        <div className="absolute bottom-0 left-1/4 w-48 h-48 bg-gradient-to-tr from-accent/20 to-primary/10 rounded-full blur-[60px] animate-pulse" style={{ animationDelay: '1s' }} />
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
+                Intresserad av {partner.name}?
+              </h2>
+              <p className="text-white/80 text-base sm:text-lg max-w-2xl mx-auto">
+                Låt oss hjälpa dig helt kostnadsfritt att komma i kontakt med rätt person.
+              </p>
+            </div>
+            
+            {/* Search context badges */}
+            {(selectedProduct || selectedIndustry || selectedCompanySize || selectedGeography) && (
+              <div className="mb-8">
+                <p className="text-white/60 text-sm text-center mb-3 font-medium uppercase tracking-wide">
+                  Din sökning
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-4 py-2 text-sm">
+                    {partner.name}
+                  </Badge>
+                  {selectedProduct && (
+                    <Badge className="bg-primary/20 text-white border-primary/30 backdrop-blur-sm px-4 py-2 text-sm">
+                      <Briefcase className="w-3.5 h-3.5 mr-1.5" />
+                      {selectedProduct}
+                    </Badge>
+                  )}
+                  {selectedIndustry && (
+                    <Badge className="bg-accent/20 text-white border-accent/30 backdrop-blur-sm px-4 py-2 text-sm">
+                      <Building2 className="w-3.5 h-3.5 mr-1.5" />
+                      {selectedIndustry}
+                    </Badge>
+                  )}
+                  {selectedCompanySize && (
+                    <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-4 py-2 text-sm">
+                      {selectedCompanySize} anställda
+                    </Badge>
+                  )}
+                  {selectedGeography && (
+                    <Badge className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-4 py-2 text-sm">
+                      <MapPin className="w-3.5 h-3.5 mr-1.5" />
+                      {selectedGeography}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {/* Lead CTA Form */}
             <LeadCTA 
               variant="inline"
               sourcePage={`partner-profile-${partner.slug}`}
               selectedProduct={selectedProduct}
               selectedIndustry={selectedIndustry}
+              partnerName={partner.name}
             />
           </div>
         </div>
