@@ -169,6 +169,7 @@ export type Database = {
           cancellation_date: string | null
           contact_person: string | null
           created_at: string
+          customer_examples: string[] | null
           description: string | null
           email: string | null
           geography: string[] | null
@@ -196,6 +197,7 @@ export type Database = {
           cancellation_date?: string | null
           contact_person?: string | null
           created_at?: string
+          customer_examples?: string[] | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
@@ -223,6 +225,7 @@ export type Database = {
           cancellation_date?: string | null
           contact_person?: string | null
           created_at?: string
+          customer_examples?: string[] | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
@@ -248,6 +251,7 @@ export type Database = {
         Row: {
           applications: string[] | null
           created_at: string | null
+          customer_examples: string[] | null
           description: string | null
           geography: string[] | null
           id: string | null
@@ -265,6 +269,7 @@ export type Database = {
         Insert: {
           applications?: string[] | null
           created_at?: string | null
+          customer_examples?: string[] | null
           description?: string | null
           geography?: string[] | null
           id?: string | null
@@ -282,6 +287,7 @@ export type Database = {
         Update: {
           applications?: string[] | null
           created_at?: string | null
+          customer_examples?: string[] | null
           description?: string | null
           geography?: string[] | null
           id?: string | null

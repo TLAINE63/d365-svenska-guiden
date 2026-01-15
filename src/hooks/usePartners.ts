@@ -36,6 +36,7 @@ export interface DatabasePartner {
   geography: string[];  // Changed to array for multi-select
   product_filters: ProductFilters;
   is_featured: boolean;
+  customer_examples: string[];  // Customer reference examples
   created_at: string;
   updated_at: string;
   // Admin fields
@@ -63,6 +64,7 @@ export interface PartnerInput {
   geography?: string[];  // Changed to array for multi-select
   product_filters?: ProductFilters;
   is_featured?: boolean;
+  customer_examples?: string[];  // Customer reference examples
   // Admin fields
   activation_date?: string;
   monthly_fee?: number;
@@ -96,6 +98,7 @@ export function usePartners() {
         secondary_industries: p.secondary_industries || [],
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
+        customer_examples: (p as any).customer_examples || [],
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
@@ -133,6 +136,7 @@ export function usePartner(slug: string | undefined) {
         secondary_industries: data.secondary_industries || [],
         geography: data.geography || ['Sverige'],
         product_filters: (data.product_filters as ProductFilters) || {},
+        customer_examples: (data as any).customer_examples || [],
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,

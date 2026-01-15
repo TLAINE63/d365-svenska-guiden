@@ -13,7 +13,8 @@ import {
   MapPin, 
   Award, 
   Layers, 
-  ExternalLink
+  ExternalLink,
+  Users
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner, DatabasePartner, ProductFilters } from "@/hooks/usePartners";
@@ -469,6 +470,31 @@ const PartnerProfile = () => {
                             )}
                           </div>
                         )}
+                        
+                        {/* Customer Examples Section */}
+                        <div className="pt-3 border-t border-border/50">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Users className="w-4 h-4 text-primary" />
+                            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Kundreferenser</span>
+                          </div>
+                          {partner.customer_examples && partner.customer_examples.length > 0 ? (
+                            <div className="flex flex-wrap gap-1.5">
+                              {partner.customer_examples.map((example, idx) => (
+                                <Badge 
+                                  key={idx} 
+                                  variant="secondary"
+                                  className="text-xs px-2.5 py-0.5 bg-muted/60"
+                                >
+                                  {example}
+                                </Badge>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-xs text-muted-foreground italic">
+                              Kundreferenser tillhandhålls på förfrågan
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </article>
                   );
