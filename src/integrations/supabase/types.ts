@@ -169,14 +169,12 @@ export type Database = {
           cancellation_date: string | null
           contact_person: string | null
           created_at: string
-          customer_examples: string[] | null
           description: string | null
           email: string | null
           geography: string[] | null
           id: string
           industries: string[] | null
           is_featured: boolean | null
-          logo_dark_bg: boolean
           logo_url: string | null
           monthly_fee: number | null
           name: string
@@ -197,14 +195,12 @@ export type Database = {
           cancellation_date?: string | null
           contact_person?: string | null
           created_at?: string
-          customer_examples?: string[] | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
-          logo_dark_bg?: boolean
           logo_url?: string | null
           monthly_fee?: number | null
           name: string
@@ -225,14 +221,12 @@ export type Database = {
           cancellation_date?: string | null
           contact_person?: string | null
           created_at?: string
-          customer_examples?: string[] | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
           id?: string
           industries?: string[] | null
           is_featured?: boolean | null
-          logo_dark_bg?: boolean
           logo_url?: string | null
           monthly_fee?: number | null
           name?: string
@@ -251,13 +245,11 @@ export type Database = {
         Row: {
           applications: string[] | null
           created_at: string | null
-          customer_examples: string[] | null
           description: string | null
           geography: string[] | null
           id: string | null
           industries: string[] | null
           is_featured: boolean | null
-          logo_dark_bg: boolean | null
           logo_url: string | null
           name: string | null
           product_filters: Json | null
@@ -269,13 +261,11 @@ export type Database = {
         Insert: {
           applications?: string[] | null
           created_at?: string | null
-          customer_examples?: string[] | null
           description?: string | null
           geography?: string[] | null
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null
-          logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
           product_filters?: Json | null
@@ -287,13 +277,11 @@ export type Database = {
         Update: {
           applications?: string[] | null
           created_at?: string | null
-          customer_examples?: string[] | null
           description?: string | null
           geography?: string[] | null
           id?: string | null
           industries?: string[] | null
           is_featured?: boolean | null
-          logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
           product_filters?: Json | null

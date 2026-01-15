@@ -182,7 +182,7 @@ serve(async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "D365 Kontakt <info@d365.se>",
-        to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+        to: ["info@d365.se"],
         reply_to: email.trim(),
         subject: `[Kontaktformulär] ${safeName} - Ny förfrågan`,
         html: `

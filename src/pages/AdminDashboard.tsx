@@ -35,7 +35,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { allIndustries, geographyOptions, getCumulativeGeographyDisplay } from "@/data/partners";
+import { partners as staticPartners, allIndustries, geographyOptions, getCumulativeGeographyDisplay } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   usePartners,
@@ -178,7 +178,6 @@ const AdminDashboard = () => {
     companySize: [],
     geography: "Sverige",
     ranking: 999,
-    customerExamples: [],
   };
 
   const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
@@ -204,7 +203,6 @@ const AdminDashboard = () => {
     geography: ["Sverige"],
     product_filters: {},
     is_featured: false,
-    customer_examples: [],
     activation_date: "",
     monthly_fee: undefined,
     cancellation_date: "",
@@ -523,7 +521,6 @@ const AdminDashboard = () => {
       geography: ["Sverige"],
       product_filters: {},
       is_featured: false,
-      customer_examples: [],
       activation_date: "",
       monthly_fee: undefined,
       cancellation_date: "",
@@ -558,7 +555,6 @@ const AdminDashboard = () => {
       geography: partner.geography || ["Sverige"],
       product_filters: partner.product_filters || {},
       is_featured: partner.is_featured || false,
-      customer_examples: (partner as any).customer_examples || [],
       activation_date: partner.activation_date || "",
       monthly_fee: partner.monthly_fee || undefined,
       cancellation_date: partner.cancellation_date || "",
@@ -1369,7 +1365,7 @@ const AdminDashboard = () => {
                 Välj vilka partners som ska ta emot denna lead. Varje partner kommer få ett mail med kundens kontaktuppgifter.
               </p>
               <div className="max-h-64 overflow-y-auto space-y-2">
-                {fullPartners.map((partner) => (
+                {staticPartners.map((partner) => (
                   <div key={partner.name} className="flex items-center space-x-2">
                     <Checkbox
                       id={partner.name}
@@ -1813,21 +1809,6 @@ const AdminDashboard = () => {
                                 </Badge>
                               ))}
                             </div>
-                          </div>
-
-                          <div>
-                            <Label className="text-sm">Kundexempel / Referenskunder</Label>
-                            <Textarea
-                              value={(filter.customerExamples || []).join("\n")}
-                              onChange={(e) => {
-                                const examples = e.target.value.split("\n").map(ex => ex.trim()).filter(Boolean);
-                                updateProductFilter(section.key, { customerExamples: examples });
-                              }}
-                              rows={2}
-                              placeholder={"IKEA\nVolvo\nEricsson"}
-                              className="mt-2 text-sm"
-                            />
-                            <p className="text-xs text-muted-foreground mt-1">Ett kundnamn per rad</p>
                           </div>
 
                           <div className="flex gap-4">
