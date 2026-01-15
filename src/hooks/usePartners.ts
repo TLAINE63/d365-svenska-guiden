@@ -71,7 +71,8 @@ export interface PartnerInput {
   admin_contact_email?: string;
 }
 
-// Fetch all partners from database (public view - excludes sensitive contact info)
+// Fetch all featured partners from database (public view - excludes sensitive contact info)
+// IMPORTANT: Only returns partners marked as is_featured = true
 export function usePartners() {
   return useQuery({
     queryKey: ["partners"],
@@ -79,6 +80,7 @@ export function usePartners() {
       const { data, error } = await supabase
         .from("partners_public")
         .select("*")
+        .eq("is_featured", true)
         .order("name");
 
       if (error) throw error;
