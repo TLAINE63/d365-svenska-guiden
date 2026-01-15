@@ -454,43 +454,6 @@ const PartnerProfile = () => {
                 })}
               </div>
             </div>
-
-            {/* Matched Filters Section */}
-            {hasFilters && (
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-primary/5 via-card to-accent/5 border border-primary/20 shadow-lg">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2.5 rounded-xl bg-primary/15 border border-primary/20">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="font-bold text-lg">Matchade sökkriterier</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProduct && (
-                    <Badge className="bg-primary/20 text-primary border-primary/30 px-3 py-1.5">
-                      <Briefcase className="w-3.5 h-3.5 mr-1.5" />
-                      {selectedProduct}
-                    </Badge>
-                  )}
-                  {selectedIndustry && (
-                    <Badge className="bg-accent/20 text-accent-foreground border-accent/30 px-3 py-1.5">
-                      <Building2 className="w-3.5 h-3.5 mr-1.5" />
-                      {selectedIndustry}
-                    </Badge>
-                  )}
-                  {selectedCompanySize && (
-                    <Badge variant="secondary" className="px-3 py-1.5">
-                      {selectedCompanySize} anställda
-                    </Badge>
-                  )}
-                  {selectedGeography && (
-                    <Badge variant="outline" className="px-3 py-1.5">
-                      <MapPin className="w-3.5 h-3.5 mr-1.5" />
-                      {selectedGeography}
-                    </Badge>
-                  )}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </section>
