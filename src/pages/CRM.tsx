@@ -12,7 +12,9 @@ import { useEffect, useMemo, useState } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
-import { partners, crmApplications, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
+import { crmApplications, allIndustries } from "@/data/partners";
+import { usePartners } from "@/hooks/usePartners";
+import { filterAndSortPartners, getProductIndustries, hasProduct } from "@/hooks/usePartnerFilters";
 import {
   Accordion,
   AccordionContent,
@@ -23,6 +25,9 @@ import {
 const CRM = () => {
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  
+  // Fetch partners from database (only featured partners)
+  const { data: partners = [], isLoading } = usePartners();
 
   const toggleApplication = (app: string) => {
     setSelectedApplications(prev => 
@@ -36,35 +41,32 @@ const CRM = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Filter partners that have CRM productFilters (betalande partners)
+  // Filter partners for CRM (using sales and service product keys)
   const crmPartners = useMemo(() => {
-    // Only show partners with productFilters.crm defined (betalande CRM partners)
-    let result = partners.filter(partner => partner.productFilters?.crm);
+    // CRM partners have either sales or service product filters
+    const filtered = partners.filter(p => hasProduct(p, 'sales') || hasProduct(p, 'service'));
     
-    // Apply product-specific filters
-    result = result.filter(partner => 
-      matchesProductFilter(partner, 'crm', selectedIndustry || undefined, undefined, undefined)
-    );
+    // Apply industry filter if selected
+    if (selectedIndustry) {
+      return filtered.filter(p => {
+        const salesIndustries = p.product_filters?.sales?.industries || [];
+        const serviceIndustries = p.product_filters?.service?.industries || [];
+        return salesIndustries.includes(selectedIndustry) || serviceIndustries.includes(selectedIndustry);
+      });
+    }
     
-    // Sort by CRM ranking, then alphabetically
-    return result.sort((a, b) => {
-      const rankA = getProductRanking(a, 'crm');
-      const rankB = getProductRanking(b, 'crm');
-      if (rankA !== rankB) {
-        return rankA - rankB;
-      }
-      return a.name.localeCompare(b.name, 'sv');
-    });
-  }, [selectedApplications, selectedIndustry]);
+    return filtered.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
+  }, [partners, selectedIndustry]);
 
   // Get available industries for CRM partners
   const crmIndustries = useMemo(() => {
     const industries = new Set<string>();
     partners.forEach(partner => {
-      partner.productFilters?.crm?.industries.forEach(ind => industries.add(ind));
+      partner.product_filters?.sales?.industries?.forEach(ind => industries.add(ind));
+      partner.product_filters?.service?.industries?.forEach(ind => industries.add(ind));
     });
     return allIndustries.filter(ind => industries.has(ind));
-  }, []);
+  }, [partners]);
   return (
     <div className="min-h-screen">
       <Navbar />

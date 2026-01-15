@@ -14,7 +14,9 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { partners, allIndustries, matchesProductFilter, getProductRanking } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+import { usePartners } from "@/hooks/usePartners";
+import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import {
   Accordion,
   AccordionContent,
@@ -33,40 +35,23 @@ const geographyFilters = [
 const BusinessCentral = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  
+  // Fetch partners from database (only featured partners)
+  const { data: partners = [], isLoading } = usePartners();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Filter partners that have Business Central productFilters (betalande partners)
+  // Filter partners for Business Central
   const bcPartners = useMemo(() => {
-    // Only show partners with productFilters.bc defined (betalande BC partners)
-    let result = partners.filter(partner => partner.productFilters?.bc);
-    
-    // Apply product-specific filters
-    result = result.filter(partner => 
-      matchesProductFilter(partner, 'bc', selectedIndustry || undefined, undefined, selectedGeography || undefined)
-    );
-    
-    // Sort by BC ranking, then alphabetically
-    return result.sort((a, b) => {
-      const rankA = getProductRanking(a, 'bc');
-      const rankB = getProductRanking(b, 'bc');
-      if (rankA !== rankB) {
-        return rankA - rankB;
-      }
-      return a.name.localeCompare(b.name, 'sv');
-    });
-  }, [selectedIndustry, selectedGeography]);
+    return filterAndSortPartners(partners, 'bc', selectedIndustry, selectedGeography);
+  }, [partners, selectedIndustry, selectedGeography]);
 
   // Get available industries for BC partners
   const bcIndustries = useMemo(() => {
-    const industries = new Set<string>();
-    partners.forEach(partner => {
-      partner.productFilters?.bc?.industries.forEach(ind => industries.add(ind));
-    });
-    return allIndustries.filter(ind => industries.has(ind));
-  }, []);
+    return getProductIndustries(partners, 'bc', allIndustries);
+  }, [partners]);
 
   const bcVideos = [
     {
