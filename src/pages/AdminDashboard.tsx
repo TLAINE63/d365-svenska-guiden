@@ -203,6 +203,7 @@ const AdminDashboard = () => {
     geography: ["Sverige"],
     product_filters: {},
     is_featured: false,
+    customer_examples: [],
     activation_date: "",
     monthly_fee: undefined,
     cancellation_date: "",
@@ -521,6 +522,7 @@ const AdminDashboard = () => {
       geography: ["Sverige"],
       product_filters: {},
       is_featured: false,
+      customer_examples: [],
       activation_date: "",
       monthly_fee: undefined,
       cancellation_date: "",
@@ -555,6 +557,7 @@ const AdminDashboard = () => {
       geography: partner.geography || ["Sverige"],
       product_filters: partner.product_filters || {},
       is_featured: partner.is_featured || false,
+      customer_examples: (partner as any).customer_examples || [],
       activation_date: partner.activation_date || "",
       monthly_fee: partner.monthly_fee || undefined,
       cancellation_date: partner.cancellation_date || "",
@@ -1584,6 +1587,23 @@ const AdminDashboard = () => {
                       {formErrors.description}
                     </p>
                   )}
+                </div>
+
+                <div>
+                  <Label htmlFor="customer_examples">Kundexempel (ett per rad)</Label>
+                  <Textarea
+                    id="customer_examples"
+                    value={(partnerFormData.customer_examples || []).join("\n")}
+                    onChange={(e) => {
+                      const examples = e.target.value.split("\n").filter(line => line.trim() !== "" || e.target.value.endsWith("\n"));
+                      setPartnerFormData({ ...partnerFormData, customer_examples: examples.map(ex => ex.trim()).filter(Boolean) });
+                    }}
+                    rows={3}
+                    placeholder="Exempel: IKEA&#10;Volvo&#10;Ericsson"
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Ange kundnamn, ett per rad. Visas på partnerprofilen.
+                  </p>
                 </div>
 
                 <div>
