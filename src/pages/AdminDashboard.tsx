@@ -1590,19 +1590,19 @@ const AdminDashboard = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="customer_examples">Kundexempel (ett per rad)</Label>
+                  <Label htmlFor="customer_examples">Kundexempel / Kundreferenser (ett per rad)</Label>
                   <Textarea
                     id="customer_examples"
                     value={(partnerFormData.customer_examples || []).join("\n")}
                     onChange={(e) => {
-                      const examples = e.target.value.split("\n").filter(line => line.trim() !== "" || e.target.value.endsWith("\n"));
-                      setPartnerFormData({ ...partnerFormData, customer_examples: examples.map(ex => ex.trim()).filter(Boolean) });
+                      const examples = e.target.value.split("\n").map(ex => ex.trim()).filter(Boolean);
+                      setPartnerFormData({ ...partnerFormData, customer_examples: examples });
                     }}
-                    rows={3}
-                    placeholder="Exempel: IKEA&#10;Volvo&#10;Ericsson"
+                    rows={4}
+                    placeholder={"IKEA\nVolvo\nEricsson"}
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    Ange kundnamn, ett per rad. Visas på partnerprofilen.
+                    Ange kundnamn som referens, ett per rad. Visas på partnerprofilen under "Kundreferenser".
                   </p>
                 </div>
 
