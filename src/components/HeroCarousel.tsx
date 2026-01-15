@@ -216,9 +216,9 @@ const HeroCarousel = () => {
                   <Link
                     key={industry.name}
                     to="/branschlosningar"
-                    className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-1 sm:p-1.5 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
+                    className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
                   >
-                    <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-full overflow-hidden mb-0.5 sm:mb-1 ring-1 ring-white/30 group-hover:ring-white/60 transition-all">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden mb-1 sm:mb-1.5 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">
                       <img
                         src={industry.image}
                         alt={industry.name}
@@ -226,7 +226,7 @@ const HeroCarousel = () => {
                         loading="eager"
                       />
                     </div>
-                    <span className="text-[8px] sm:text-[10px] text-white/90 font-medium text-center leading-tight">
+                    <span className="text-[9px] sm:text-xs text-white/90 font-medium text-center leading-tight">
                       {industry.name}
                     </span>
                   </Link>
