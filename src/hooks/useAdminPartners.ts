@@ -23,6 +23,7 @@ export function useAdminPartners(token: string | null) {
         secondary_industries: p.secondary_industries || [],
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
+        logo_dark_bg: p.logo_dark_bg ?? false,
         contactPerson: p.contact_person || null,
       }));
     },
