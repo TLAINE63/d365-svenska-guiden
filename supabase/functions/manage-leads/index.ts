@@ -285,16 +285,18 @@ const handler = async (req: Request): Promise<Response> => {
         );
       }
 
-      case "click-stats": {
+case "click-stats": {
         const { data: stats, error } = await supabase
           .from("partner_clicks")
-          .select("partner_name, clicked_at")
+          .select("partner_name, clicked_at, ip_address_anonymized")
           .order("clicked_at", { ascending: false });
 
         if (error) throw error;
 
         // Aggregate by partner and month
         const aggregated: Record<string, { partner_name: string; month: string; clicks: number }> = {};
+        // Aggregate by IP prefix for geographic overview
+        const ipStats: Record<string, number> = {};
         
         for (const row of stats || []) {
           const date = new Date(row.clicked_at);
@@ -309,6 +311,12 @@ const handler = async (req: Request): Promise<Response> => {
             };
           }
           aggregated[key].clicks++;
+          
+          // Count IP prefixes (first two octets for broader geographic grouping)
+          if (row.ip_address_anonymized && row.ip_address_anonymized !== "unknown") {
+            const ipPrefix = row.ip_address_anonymized.split(".").slice(0, 2).join(".");
+            ipStats[ipPrefix] = (ipStats[ipPrefix] || 0) + 1;
+          }
         }
 
         const result = Object.values(aggregated).sort((a, b) => {
@@ -316,8 +324,14 @@ const handler = async (req: Request): Promise<Response> => {
           return b.clicks - a.clicks;
         });
 
+        // Convert IP stats to sorted array
+        const ipStatsArray = Object.entries(ipStats)
+          .map(([prefix, count]) => ({ ip_prefix: prefix, clicks: count }))
+          .sort((a, b) => b.clicks - a.clicks)
+          .slice(0, 20); // Top 20 IP prefixes
+
         return new Response(
-          JSON.stringify({ stats: result }),
+          JSON.stringify({ stats: result, ipStats: ipStatsArray }),
           { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
