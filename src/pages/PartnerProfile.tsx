@@ -142,7 +142,7 @@ const PartnerProfile = () => {
   };
 
   // Get industries for a specific product (map sales/service to crm for productFilters lookup)
-  const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { primary: string[]; secondary: string[] } => {
+  const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { primary: string[] } => {
     // Map sales and service to 'crm' for productFilters lookup
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
     
@@ -150,15 +150,13 @@ const PartnerProfile = () => {
       // Fallback to general industries
       const allIndustries = partner?.industries || [];
       return { 
-        primary: allIndustries.slice(0, 2), 
-        secondary: [] 
+        primary: allIndustries.slice(0, 3)
       };
     }
     
     const productFilter = staticPartner.productFilters[filterKey];
     return {
-      primary: productFilter?.industries || [],
-      secondary: productFilter?.secondaryIndustries || []
+      primary: productFilter?.industries || []
     };
   };
 
@@ -377,7 +375,7 @@ const PartnerProfile = () => {
               
               <div className={`grid gap-4 ${productCategories.length >= 2 ? 'sm:grid-cols-2' : ''}`}>
                 {productCategories.map((category, index) => {
-                  const { primary, secondary } = getIndustriesForProduct(category);
+                  const { primary } = getIndustriesForProduct(category);
                   const apps = getApplicationsForCategory(partner.applications, category);
                   const customerExamples = getCustomerExamplesForProduct(category);
                   
@@ -453,28 +451,9 @@ const PartnerProfile = () => {
                             </div>
                           )}
                           
-                          {/* Secondary industries */}
-                          {secondary.length > 0 && (
-                            <div className="space-y-2.5">
-                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                                Erfarenhet även inom
-                              </p>
-                              <div className="flex flex-wrap gap-2">
-                                {secondary.map(ind => (
-                                  <Badge 
-                                    key={ind}
-                                    className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white border-0 py-1.5 px-3 text-sm font-medium shadow-sm hover:shadow-md transition-all"
-                                  >
-                                    {ind}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </div>
-                          )}
                           
                           {/* If no industries at all */}
-                          {primary.length === 0 && secondary.length === 0 && (
+                          {primary.length === 0 && (
                             <p className="text-sm text-muted-foreground italic">
                               Branschoberoende
                             </p>
