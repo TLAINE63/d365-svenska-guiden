@@ -26,11 +26,15 @@ const CookieBanner = () => {
   const handleAccept = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, "true");
     setIsVisible(false);
+    // Dispatch event to notify other components (like SnitcherTracking)
+    window.dispatchEvent(new Event('cookie-consent-changed'));
   };
 
   const handleDecline = () => {
     localStorage.setItem(COOKIE_CONSENT_KEY, "false");
     setIsVisible(false);
+    // Dispatch event to notify other components
+    window.dispatchEvent(new Event('cookie-consent-changed'));
   };
 
   if (!isVisible) return null;
