@@ -554,7 +554,7 @@ const AdminDashboard = () => {
       logo_url: partner.logo_url || "",
       website: partner.website,
       email: partner.email || "",
-      contactPerson: partner.contactPerson || "",
+      contactPerson: (partner as any).contact_person || partner.contactPerson || "",
       phone: partner.phone || "",
       address: partner.address || "",
       applications: partner.applications || [],
