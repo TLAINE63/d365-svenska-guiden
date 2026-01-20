@@ -146,17 +146,25 @@ const PartnerProfile = () => {
     // Map sales and service to 'crm' for productFilters lookup
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
     
-    if (!staticPartner?.productFilters?.[filterKey]) {
-      // Fallback to general industries
-      const allIndustries = partner?.industries || [];
-      return { 
-        primary: allIndustries.slice(0, 3)
+    // Prioritize database product_filters over static data
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { industries?: string[] }> | undefined;
+    if (dbProductFilters?.[filterKey]?.industries && dbProductFilters[filterKey].industries.length > 0) {
+      return {
+        primary: dbProductFilters[filterKey].industries
       };
     }
     
-    const productFilter = staticPartner.productFilters[filterKey];
-    return {
-      primary: productFilter?.industries || []
+    // Fallback to static partner data
+    if (staticPartner?.productFilters?.[filterKey]?.industries) {
+      return {
+        primary: staticPartner.productFilters[filterKey].industries || []
+      };
+    }
+    
+    // Final fallback to general industries
+    const allIndustries = partner?.industries || [];
+    return { 
+      primary: allIndustries.slice(0, 3)
     };
   };
 
