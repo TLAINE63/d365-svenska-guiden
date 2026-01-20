@@ -438,13 +438,6 @@ const PartnerProfile = () => {
                         </div>
                         
                         <div className="space-y-4">
-                          {/* Product Description */}
-                          {productDescription && (
-                            <p className="text-sm text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-3 italic">
-                              {productDescription}
-                            </p>
-                          )}
-
                           {/* Primary industries */}
                           {primary.length > 0 && (
                             <div className="space-y-2.5">
@@ -471,6 +464,13 @@ const PartnerProfile = () => {
                           {primary.length === 0 && (
                             <p className="text-sm text-muted-foreground italic">
                               Branschoberoende
+                            </p>
+                          )}
+
+                          {/* Product Description - above Customer Examples */}
+                          {productDescription && (
+                            <p className="text-sm text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-3 italic">
+                              {productDescription}
                             </p>
                           )}
 
