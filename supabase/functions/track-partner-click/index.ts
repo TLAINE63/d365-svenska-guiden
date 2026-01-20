@@ -112,10 +112,34 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    // Get client IP for rate limiting
+// Get client IP for rate limiting and anonymized tracking
     const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
                      req.headers.get("cf-connecting-ip") || 
                      "unknown";
+    
+    // Anonymize IP by removing last octet (GDPR-compliant)
+    const anonymizeIp = (ip: string): string => {
+      if (ip === "unknown") return "unknown";
+      
+      // Handle IPv4: 192.168.1.100 -> 192.168.1.x
+      const ipv4Match = ip.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3})\.\d{1,3}$/);
+      if (ipv4Match) {
+        return `${ipv4Match[1]}.x`;
+      }
+      
+      // Handle IPv6: remove last segment
+      if (ip.includes(":")) {
+        const parts = ip.split(":");
+        if (parts.length > 1) {
+          parts[parts.length - 1] = "x";
+          return parts.join(":");
+        }
+      }
+      
+      return "unknown";
+    };
+    
+    const anonymizedIp = anonymizeIp(clientIp);
     
     // Check rate limit
     if (isRateLimited(clientIp)) {
@@ -182,7 +206,7 @@ const handler = async (req: Request): Promise<Response> => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Insert click record into database (sanitized values)
+// Insert click record into database (sanitized values)
     const { data: clickData, error: insertError } = await supabase
       .from("partner_clicks")
       .insert({
@@ -191,6 +215,7 @@ const handler = async (req: Request): Promise<Response> => {
         page_source: pageSource?.trim().slice(0, 200) || null,
         user_agent: userAgent?.trim().slice(0, 500) || null,
         referrer: referrer?.trim().slice(0, 500) || null,
+        ip_address_anonymized: anonymizedIp,
       })
       .select()
       .single();

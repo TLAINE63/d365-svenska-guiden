@@ -132,6 +132,7 @@ export type Database = {
         Row: {
           clicked_at: string
           id: string
+          ip_address_anonymized: string | null
           page_source: string | null
           partner_name: string
           partner_website: string
@@ -141,6 +142,7 @@ export type Database = {
         Insert: {
           clicked_at?: string
           id?: string
+          ip_address_anonymized?: string | null
           page_source?: string | null
           partner_name: string
           partner_website: string
@@ -150,6 +152,7 @@ export type Database = {
         Update: {
           clicked_at?: string
           id?: string
+          ip_address_anonymized?: string | null
           page_source?: string | null
           partner_name?: string
           partner_website?: string
