@@ -2009,7 +2009,7 @@ const AdminDashboard = () => {
                       // CRM bundle: Sales and Service together count as ONE product
                       if (salesActive || serviceActive) activeProducts++;
                       
-                      const totalFee = activeProducts * 2990;
+                      const totalFee = activeProducts * 2500;
                       const crmBundleBoth = salesActive && serviceActive;
                       
                       return (
@@ -2018,7 +2018,7 @@ const AdminDashboard = () => {
                             {totalFee.toLocaleString('sv-SE')} kr/mån
                           </p>
                           <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
-                            <p>{activeProducts} produkt(er) × 2 990 kr = {totalFee.toLocaleString('sv-SE')} kr</p>
+                            <p>{activeProducts} produkt(er) × 2 500 kr = {totalFee.toLocaleString('sv-SE')} kr</p>
                             {crmBundleBoth && (
                               <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
                             )}
