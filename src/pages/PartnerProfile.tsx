@@ -185,6 +185,13 @@ const PartnerProfile = () => {
     return [];
   };
 
+  // Get product description for a specific product
+  const getProductDescriptionForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { productDescription?: string }> | undefined;
+    return dbProductFilters?.[filterKey]?.productDescription || null;
+  };
+
 
 
   if (isLoading) {
@@ -378,6 +385,7 @@ const PartnerProfile = () => {
                   const { primary } = getIndustriesForProduct(category);
                   const apps = getApplicationsForCategory(partner.applications, category);
                   const customerExamples = getCustomerExamplesForProduct(category);
+                  const productDescription = getProductDescriptionForProduct(category);
                   
                   return (
                     <article 
@@ -430,6 +438,13 @@ const PartnerProfile = () => {
                         </div>
                         
                         <div className="space-y-4">
+                          {/* Product Description */}
+                          {productDescription && (
+                            <p className="text-sm text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-3 italic">
+                              {productDescription}
+                            </p>
+                          )}
+
                           {/* Primary industries */}
                           {primary.length > 0 && (
                             <div className="space-y-2.5">

@@ -2,12 +2,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 export interface ProductFilterInput {
-  industries: string[];         // Max 2 focus industries
-  secondaryIndustries: string[]; // Max 2 "erfarenhet även inom"
+  industries: string[];         // Max 3 focus industries
+  secondaryIndustries: string[]; // Legacy - hidden in UI
   companySize: string[];
   geography: string;
   ranking: number;
   customerExamples?: string[];  // Reference customers for this product
+  productDescription?: string;  // Short description of partner's offering for this product
 }
 
 // Updated product filters to include 4 product areas plus combined crm
