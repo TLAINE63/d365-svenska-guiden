@@ -130,7 +130,37 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">8. Cookies</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">8. B2B-besökaridentifiering</h2>
+              <p className="leading-relaxed mb-4">
+                För att förstå vilka företag som besöker vår webbplats använder vi en tjänst för 
+                B2B-besökaridentifiering (Snitcher). Denna tjänst hjälper oss att identifiera 
+                företag baserat på IP-adresser och offentligt tillgänglig företagsinformation.
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>
+                  <strong>Företagsidentifiering</strong> - När du besöker vår webbplats kan vi 
+                  identifiera vilket företag du arbetar för baserat på din IP-adress. Detta 
+                  kopplas till offentligt tillgänglig företagsinformation, inte till dig som individ.
+                </li>
+                <li>
+                  <strong>Ingen personidentifiering</strong> - Tjänsten identifierar endast 
+                  företag, inte enskilda individer. Vi kan inte se ditt namn, din e-post eller 
+                  annan personlig information genom denna tjänst.
+                </li>
+                <li>
+                  <strong>Användning av data</strong> - Informationen används för att förstå 
+                  vilka typer av företag som är intresserade av våra tjänster och för att 
+                  förbättra vår marknadsföring och kommunikation.
+                </li>
+              </ul>
+              <p className="leading-relaxed mt-4">
+                Den lagliga grunden för denna behandling är vårt berättigade intresse av att 
+                förstå vår målgrupp och anpassa våra tjänster efter marknadens behov.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-foreground mb-4">9. Cookies</h2>
               <p className="leading-relaxed">
                 Vår webbplats använder cookies för att förbättra användarupplevelsen och analysera 
                 trafik. Du kan när som helst ändra dina cookie-inställningar i din webbläsare.
@@ -138,7 +168,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">9. Säkerhet</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">10. Säkerhet</h2>
               <p className="leading-relaxed">
                 Vi vidtar lämpliga tekniska och organisatoriska säkerhetsåtgärder för att skydda 
                 dina personuppgifter mot obehörig åtkomst, förlust eller förstöring. Detta inkluderar 
@@ -147,7 +177,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">10. Ändringar i dataskyddspolicyn</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">11. Ändringar i dataskyddspolicyn</h2>
               <p className="leading-relaxed">
                 Vi kan komma att uppdatera denna dataskyddspolicy från tid till annan. Den senaste 
                 versionen finns alltid tillgänglig på vår webbplats. Väsentliga ändringar kommer 
@@ -156,7 +186,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">11. Kontakta oss</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">12. Kontakta oss</h2>
               <p className="leading-relaxed mb-4">
                 Om du har frågor om denna dataskyddspolicy eller hur vi behandlar dina personuppgifter, 
                 är du välkommen att kontakta oss:
