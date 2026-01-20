@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import CookieBanner from "@/components/CookieBanner";
+import SnitcherTracking from "@/components/SnitcherTracking";
 
 // Lazy load pages for code splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -84,6 +85,7 @@ const App = () => (
           </Routes>
         </Suspense>
         <CookieBanner />
+        <SnitcherTracking />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
