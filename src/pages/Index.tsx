@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import HeroCarousel from "@/components/HeroCarousel";
+import CommonMistakesTeaser from "@/components/CommonMistakesTeaser";
+import ScrollCTA from "@/components/ScrollCTA";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -301,6 +303,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Common Mistakes Teaser */}
+      <CommonMistakesTeaser />
+
       {/* Microsoft Agents Section - NEW! */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -476,6 +481,9 @@ const Index = () => {
         </div>
       </section>
       </main>
+
+      {/* Scroll-triggered CTA */}
+      <ScrollCTA />
 
       <Footer />
     </div>;
