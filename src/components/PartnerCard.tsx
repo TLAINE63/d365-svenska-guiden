@@ -126,7 +126,7 @@ const PartnerCard = ({
   const productFilter = getProductFilter();
   
   // Get primary and secondary industries from productFilters if available
-  const primaryIndustries = productFilter?.industries || (partner.industries || []).slice(0, 2);
+  const primaryIndustries = productFilter?.industries || (partner.industries || []).slice(0, 3);
   const secondaryIndustries = productFilter?.secondaryIndustries || [];
   const geography = productFilter?.geography || (isDatabasePartner(partner) ? (partner.geography?.[0] || 'Sverige') : partner.geography);
 
