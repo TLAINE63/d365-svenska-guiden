@@ -1,4 +1,4 @@
-import { useParams, Link, useSearchParams } from "react-router-dom";
+import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -212,12 +212,10 @@ const PartnerProfile = () => {
           <p className="text-muted-foreground mb-8">
             Vi kunde inte hitta den partner du söker.
           </p>
-          <Link to="/valj-partner">
-            <Button>
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Tillbaka till partnerlistan
-            </Button>
-          </Link>
+          <Button onClick={() => window.history.back()}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Tillbaka till partnerlistan
+          </Button>
         </div>
         <Footer />
       </div>
@@ -260,13 +258,13 @@ const PartnerProfile = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[shimmer_3s_ease-in-out_infinite]" />
         
         <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <Link
-            to="/valj-partner"
+          <button
+            onClick={() => window.history.back()}
             className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-6 group text-sm font-medium backdrop-blur-sm bg-white/5 px-3 py-1.5 rounded-full border border-white/10"
           >
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Tillbaka till partnerlistan
-          </Link>
+          </button>
 
           <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
             {/* Premium Logo Container with glow effect */}
