@@ -84,6 +84,11 @@ interface PartnerClickStats {
   clicks: number;
 }
 
+interface IpStats {
+  ip_prefix: string;
+  clicks: number;
+}
+
 interface Lead {
   id: string;
   created_at: string;
@@ -149,8 +154,9 @@ const AdminDashboard = () => {
   const [selectedPartnersForLead, setSelectedPartnersForLead] = useState<string[]>([]);
   const [adminNotes, setAdminNotes] = useState("");
   
-  // Click stats state
+// Click stats state
   const [clickStats, setClickStats] = useState<PartnerClickStats[]>([]);
+  const [ipStats, setIpStats] = useState<IpStats[]>([]);
   const [isLoadingStats, setIsLoadingStats] = useState(false);
   
   // Partner management state
@@ -258,6 +264,7 @@ const AdminDashboard = () => {
         throw new Error(data.error);
       }
       setClickStats(data.stats || []);
+      setIpStats(data.ipStats || []);
     } catch (error: any) {
       console.error("Error fetching click stats:", error);
       toast({
@@ -1101,7 +1108,7 @@ const AdminDashboard = () => {
             </Card>
           </TabsContent>
 
-          {/* ==================== CLICKS TAB ==================== */}
+{/* ==================== CLICKS TAB ==================== */}
           <TabsContent value="clicks">
             <div className="space-y-6">
               {isLoadingStats ? (
@@ -1110,48 +1117,95 @@ const AdminDashboard = () => {
                     Laddar statistik...
                   </CardContent>
                 </Card>
-              ) : getMonthsFromStats().length === 0 ? (
-                <Card>
-                  <CardContent className="py-8 text-center text-muted-foreground">
-                    Ingen klickstatistik ännu
-                  </CardContent>
-                </Card>
               ) : (
-                getMonthsFromStats().map((month) => (
-                  <Card key={month}>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="flex items-center justify-between">
-                        <span className="capitalize flex items-center gap-2">
-                          <BarChart3 className="h-5 w-5 text-primary" />
-                          {formatMonth(month)}
-                        </span>
-                        <Badge variant="secondary" className="text-base">
-                          {getTotalClicksForMonth(month)} klick totalt
-                        </Badge>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>Partner</TableHead>
-                            <TableHead className="text-right">Klick</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {getStatsForMonth(month).map((stat, idx) => (
-                            <TableRow key={`${stat.partner_name}-${idx}`}>
-                              <TableCell className="font-medium">{stat.partner_name}</TableCell>
-                              <TableCell className="text-right">
-                                <Badge variant="outline">{stat.clicks}</Badge>
-                              </TableCell>
-                            </TableRow>
+                <>
+                  {/* Geographic Overview */}
+                  {ipStats.length > 0 && (
+                    <Card>
+                      <CardHeader className="pb-3">
+                        <CardTitle className="flex items-center gap-2">
+                          <Globe className="h-5 w-5 text-primary" />
+                          Geografisk översikt (anonymiserade IP-prefix)
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground">
+                          Visar fördelning av klick baserat på anonymiserade IP-adresser (endast första två oktetter sparas för GDPR-efterlevnad)
+                        </p>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid gap-2">
+                          {ipStats.slice(0, 10).map((stat, idx) => (
+                            <div 
+                              key={stat.ip_prefix} 
+                              className="flex items-center justify-between p-2 rounded-lg bg-muted/50"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="text-sm font-mono text-muted-foreground">
+                                  #{idx + 1}
+                                </span>
+                                <span className="font-medium font-mono">
+                                  {stat.ip_prefix}.*.*
+                                </span>
+                              </div>
+                              <Badge variant="secondary">
+                                {stat.clicks} klick
+                              </Badge>
+                            </div>
                           ))}
-                        </TableBody>
-                      </Table>
-                    </CardContent>
-                  </Card>
-                ))
+                        </div>
+                        {ipStats.length > 10 && (
+                          <p className="text-sm text-muted-foreground mt-3 text-center">
+                            + {ipStats.length - 10} fler IP-regioner
+                          </p>
+                        )}
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  {/* Monthly Partner Stats */}
+                  {getMonthsFromStats().length === 0 ? (
+                    <Card>
+                      <CardContent className="py-8 text-center text-muted-foreground">
+                        Ingen klickstatistik ännu
+                      </CardContent>
+                    </Card>
+                  ) : (
+                    getMonthsFromStats().map((month) => (
+                      <Card key={month}>
+                        <CardHeader className="pb-3">
+                          <CardTitle className="flex items-center justify-between">
+                            <span className="capitalize flex items-center gap-2">
+                              <BarChart3 className="h-5 w-5 text-primary" />
+                              {formatMonth(month)}
+                            </span>
+                            <Badge variant="secondary" className="text-base">
+                              {getTotalClicksForMonth(month)} klick totalt
+                            </Badge>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                <TableHead>Partner</TableHead>
+                                <TableHead className="text-right">Klick</TableHead>
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {getStatsForMonth(month).map((stat, idx) => (
+                                <TableRow key={`${stat.partner_name}-${idx}`}>
+                                  <TableCell className="font-medium">{stat.partner_name}</TableCell>
+                                  <TableCell className="text-right">
+                                    <Badge variant="outline">{stat.clicks}</Badge>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </CardContent>
+                      </Card>
+                    ))
+                  )}
+                </>
               )}
             </div>
           </TabsContent>
