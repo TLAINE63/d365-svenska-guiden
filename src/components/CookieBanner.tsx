@@ -16,6 +16,11 @@ const CookieBanner = () => {
       const timer = setTimeout(() => setIsVisible(true), 1000);
       return () => clearTimeout(timer);
     }
+
+    // Listen for event to reopen cookie settings
+    const handleOpenSettings = () => setIsVisible(true);
+    window.addEventListener('open-cookie-settings', handleOpenSettings);
+    return () => window.removeEventListener('open-cookie-settings', handleOpenSettings);
   }, []);
 
   const handleAccept = () => {
