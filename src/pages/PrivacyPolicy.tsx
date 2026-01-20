@@ -100,7 +100,37 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">7. Cookies</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">7. Anonymiserad klickanalys</h2>
+              <p className="leading-relaxed mb-4">
+                För att förbättra vår tjänst och förstå hur besökare använder webbplatsen samlar vi in 
+                anonymiserad statistik när du klickar på partnerlänkar. Denna analys är utformad för att 
+                respektera din integritet:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>
+                  <strong>Anonymiserad IP-adress</strong> - Vi lagrar endast en del av din IP-adress 
+                  (de två första segmenten) för att ge en övergripande geografisk bild. Till exempel 
+                  sparas "192.168.x.x" istället för den fullständiga adressen. Detta gör att enskilda 
+                  användare inte kan identifieras.
+                </li>
+                <li>
+                  <strong>Klickstatistik</strong> - Vi registrerar vilka partners som besökare klickar 
+                  på, tillsammans med tidpunkt och vilken sida klicket skedde från. Detta hjälper oss 
+                  att förbättra partnermatchningen och vår tjänst.
+                </li>
+                <li>
+                  <strong>Ingen personidentifiering</strong> - Den insamlade datan kan inte kopplas 
+                  tillbaka till dig som individ och används endast för aggregerad statistik.
+                </li>
+              </ul>
+              <p className="leading-relaxed mt-4">
+                Den lagliga grunden för denna behandling är vårt berättigade intresse av att förbättra 
+                vår tjänst och förstå hur besökare interagerar med våra partnerlänkar.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-foreground mb-4">8. Cookies</h2>
               <p className="leading-relaxed">
                 Vår webbplats använder cookies för att förbättra användarupplevelsen och analysera 
                 trafik. Du kan när som helst ändra dina cookie-inställningar i din webbläsare.
@@ -108,7 +138,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">8. Säkerhet</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">9. Säkerhet</h2>
               <p className="leading-relaxed">
                 Vi vidtar lämpliga tekniska och organisatoriska säkerhetsåtgärder för att skydda 
                 dina personuppgifter mot obehörig åtkomst, förlust eller förstöring. Detta inkluderar 
@@ -117,7 +147,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">9. Ändringar i dataskyddspolicyn</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">10. Ändringar i dataskyddspolicyn</h2>
               <p className="leading-relaxed">
                 Vi kan komma att uppdatera denna dataskyddspolicy från tid till annan. Den senaste 
                 versionen finns alltid tillgänglig på vår webbplats. Väsentliga ändringar kommer 
@@ -126,7 +156,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold text-foreground mb-4">10. Kontakta oss</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">11. Kontakta oss</h2>
               <p className="leading-relaxed mb-4">
                 Om du har frågor om denna dataskyddspolicy eller hur vi behandlar dina personuppgifter, 
                 är du välkommen att kontakta oss:
