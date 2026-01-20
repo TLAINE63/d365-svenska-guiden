@@ -266,25 +266,6 @@ const PartnerCard = ({
           </div>
         </div>
 
-        {/* Secondary Industries */}
-        {secondaryIndustries.length > 0 && (
-          <div className="mb-4">
-            <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-              <span className="w-1 h-1 rounded-full bg-amber-500" />
-              Erfarenhet även inom
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {secondaryIndustries.map((industry, i) => (
-                <Badge 
-                  key={i} 
-                  className="text-xs bg-amber-500 hover:bg-amber-600 text-white border-0 font-medium"
-                >
-                  {industry}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* CTA Button with shimmer */}
         <div className="mt-auto pt-4">

@@ -645,7 +645,7 @@ const AdminDashboard = () => {
     const applications: string[] = [];
     productSections.forEach(section => {
       const filter = partnerFormData.product_filters?.[section.key];
-      if (filter && (filter.industries.length > 0 || filter.secondaryIndustries.length > 0)) {
+      if (filter && filter.industries.length > 0) {
         applications.push(...section.apps);
       }
     });
@@ -738,9 +738,9 @@ const AdminDashboard = () => {
     const current = getProductFilter(product);
     const newIndustries = current.industries.includes(ind)
       ? current.industries.filter((i) => i !== ind)
-      : current.industries.length < 2 
+      : current.industries.length < 3 
         ? [...current.industries, ind]
-        : current.industries; // Max 2
+        : current.industries; // Max 3
     updateProductFilter(product, { industries: newIndustries });
   };
 
@@ -756,7 +756,7 @@ const AdminDashboard = () => {
 
   const isProductActive = (product: ProductKey): boolean => {
     const filter = getProductFilter(product);
-    return filter.industries.length > 0 || filter.secondaryIndustries.length > 0;
+    return filter.industries.length > 0;
   };
 
   // Form sections for navigation
@@ -1838,7 +1838,7 @@ const AdminDashboard = () => {
                             <div className="flex items-center justify-between mb-2">
                               <Label className="text-sm">Branschfokus</Label>
                               <span className={`text-xs font-medium px-2 py-0.5 rounded ${filter.industries.length > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
-                                {filter.industries.length}/2
+                                {filter.industries.length}/3
                               </span>
                             </div>
                             <div className="flex flex-wrap gap-1.5">
@@ -1855,26 +1855,6 @@ const AdminDashboard = () => {
                             </div>
                           </div>
                           
-                          <div>
-                            <div className="flex items-center justify-between mb-2">
-                              <Label className="text-sm">Erfarenhet även inom</Label>
-                              <span className={`text-xs font-medium px-2 py-0.5 rounded ${filter.secondaryIndustries.length > 0 ? 'bg-secondary text-secondary-foreground' : 'bg-muted text-muted-foreground'}`}>
-                                {filter.secondaryIndustries.length}/2
-                              </span>
-                            </div>
-                            <div className="flex flex-wrap gap-1.5">
-                              {allIndustries.map((ind) => (
-                                <Badge
-                                  key={ind}
-                                  variant={filter.secondaryIndustries.includes(ind) ? "default" : "outline"}
-                                  className={`cursor-pointer text-xs ${filter.secondaryIndustries.includes(ind) ? "bg-amber-500 hover:bg-amber-600 text-white border-amber-500" : ""}`}
-                                  onClick={() => toggleProductSecondaryIndustry(section.key, ind)}
-                                >
-                                  {ind}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
 
                           <div>
                             <Label className="text-sm">Kundexempel</Label>
@@ -2002,63 +1982,34 @@ const AdminDashboard = () => {
                   <div>
                     <Label>Månadsavgift (beräknad)</Label>
                     {(() => {
-                      // Count active products and check for secondary industries
+                      // Count active products
                       // Sales & Customer Insights and Customer Service count as ONE product together (CRM bundle)
                       let bcActive = false;
-                      let bcHasSecondary = false;
                       let fscActive = false;
-                      let fscHasSecondary = false;
                       let salesActive = false;
-                      let salesHasSecondary = false;
                       let serviceActive = false;
-                      let serviceHasSecondary = false;
                       
                       productSections.forEach(section => {
                         const filter = partnerFormData.product_filters?.[section.key];
                         const industries = filter?.industries || [];
-                        const secondaryIndustries = filter?.secondaryIndustries || [];
                         
                         if (industries.length > 0) {
-                          if (section.key === 'bc') {
-                            bcActive = true;
-                            if (secondaryIndustries.length > 0) bcHasSecondary = true;
-                          } else if (section.key === 'fsc') {
-                            fscActive = true;
-                            if (secondaryIndustries.length > 0) fscHasSecondary = true;
-                          } else if (section.key === 'sales') {
-                            salesActive = true;
-                            if (secondaryIndustries.length > 0) salesHasSecondary = true;
-                          } else if (section.key === 'service') {
-                            serviceActive = true;
-                            if (secondaryIndustries.length > 0) serviceHasSecondary = true;
-                          }
+                          if (section.key === 'bc') bcActive = true;
+                          else if (section.key === 'fsc') fscActive = true;
+                          else if (section.key === 'sales') salesActive = true;
+                          else if (section.key === 'service') serviceActive = true;
                         }
                       });
                       
                       // Count products: BC=1, FSC=1, CRM (Sales OR Service)=1
                       let activeProducts = 0;
-                      let productsWithSecondary = 0;
                       
-                      if (bcActive) {
-                        activeProducts++;
-                        if (bcHasSecondary) productsWithSecondary++;
-                      }
-                      if (fscActive) {
-                        activeProducts++;
-                        if (fscHasSecondary) productsWithSecondary++;
-                      }
+                      if (bcActive) activeProducts++;
+                      if (fscActive) activeProducts++;
                       // CRM bundle: Sales and Service together count as ONE product
-                      if (salesActive || serviceActive) {
-                        activeProducts++;
-                        // Secondary if either has secondary
-                        if (salesHasSecondary || serviceHasSecondary) productsWithSecondary++;
-                      }
+                      if (salesActive || serviceActive) activeProducts++;
                       
-                      const baseFee = activeProducts * 2990;
-                      const secondaryFee = productsWithSecondary * 990;
-                      const totalFee = baseFee + secondaryFee;
-                      
-                      const crmBundleActive = salesActive || serviceActive;
+                      const totalFee = activeProducts * 2990;
                       const crmBundleBoth = salesActive && serviceActive;
                       
                       return (
@@ -2067,10 +2018,7 @@ const AdminDashboard = () => {
                             {totalFee.toLocaleString('sv-SE')} kr/mån
                           </p>
                           <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
-                            <p>{activeProducts} produkt(er) × 2 990 kr = {baseFee.toLocaleString('sv-SE')} kr</p>
-                            {productsWithSecondary > 0 && (
-                              <p>{productsWithSecondary} med sek.branscher × 990 kr = {secondaryFee.toLocaleString('sv-SE')} kr</p>
-                            )}
+                            <p>{activeProducts} produkt(er) × 2 990 kr = {totalFee.toLocaleString('sv-SE')} kr</p>
                             {crmBundleBoth && (
                               <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
                             )}
