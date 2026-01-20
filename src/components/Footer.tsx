@@ -17,6 +17,13 @@ const Footer = () => {
             <Link to="/dataskydd" className="hover:text-foreground transition-colors">
               Dataskyddspolicy
             </Link>
+            <span className="text-border">|</span>
+            <button 
+              onClick={() => window.dispatchEvent(new Event('open-cookie-settings'))}
+              className="hover:text-foreground transition-colors"
+            >
+              Cookie-inställningar
+            </button>
           </div>
           <div className="flex justify-center items-center gap-2">
             <img src={linkedinLogo} alt="LinkedIn" className="w-5 h-5" />
