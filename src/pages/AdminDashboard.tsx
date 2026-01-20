@@ -718,6 +718,7 @@ const AdminDashboard = () => {
       secondaryIndustries: existing?.secondaryIndustries || [],
       companySize: existing?.companySize || [],
       customerExamples: existing?.customerExamples || [],
+      productDescription: existing?.productDescription || '',
     };
   };
 
@@ -1834,6 +1835,20 @@ const AdminDashboard = () => {
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
+                          <div>
+                            <Label className="text-sm">Kort beskrivning av erbjudande</Label>
+                            <Input
+                              placeholder="T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
+                              defaultValue={filter.productDescription || ''}
+                              key={`${section.key}-productDescription-${editingPartner?.id || 'new'}`}
+                              onBlur={(e) => {
+                                updateProductFilter(section.key, { productDescription: e.target.value.trim() });
+                              }}
+                              className="mt-2"
+                            />
+                            <p className="text-xs text-muted-foreground mt-1">Max ~100 tecken rekommenderas</p>
+                          </div>
+
                           <div>
                             <div className="flex items-center justify-between mb-2">
                               <Label className="text-sm">Branschfokus</Label>
