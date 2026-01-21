@@ -162,124 +162,128 @@ const PartnerCard = ({
       </div>
       
       {/* Card Content */}
-      <div className="relative flex flex-col flex-1 p-6">
-        {/* Header with logo and name on same row */}
-        <div className="flex items-center gap-3 mb-5">
+      <div className="relative flex flex-1 p-6 gap-4">
+        {/* Logo column - separate on the left */}
+        <div className="flex-shrink-0">
           {isDatabasePartner(partner) && partner.logo_url ? (
             <img 
               src={partner.logo_url} 
               alt={`${partner.name} logotyp`}
-              className="w-10 h-10 object-contain rounded-lg bg-white p-1 border border-border/40 flex-shrink-0"
+              className="w-12 h-12 object-contain rounded-lg bg-white p-1.5 border border-border/40"
             />
           ) : (
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center flex-shrink-0 shadow-inner">
-              <Building2 className="w-5 h-5 text-muted-foreground/60" />
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center shadow-inner">
+              <Building2 className="w-6 h-6 text-muted-foreground/60" />
             </div>
           )}
+        </div>
+
+        {/* Content column - aligned with name */}
+        <div className="flex flex-col flex-1 min-w-0">
+          {/* Partner name */}
           <Link 
             to={profileUrl}
-            className="group/link flex-1 min-w-0"
+            className="group/link mb-3"
           >
             <h3 className="text-lg font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight truncate">
               {partner.name || 'Partner'}
             </h3>
           </Link>
-        </div>
 
-        {/* Highlighted search criteria */}
-        {hasHighlights && (
-          <div className="relative mb-5 p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/10 border border-amber-200/50 dark:border-amber-700/30">
-            <div className="flex items-center gap-1.5 mb-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider">Matchar din sökning</span>
+          {/* Highlighted search criteria */}
+          {hasHighlights && (
+            <div className="relative mb-4 p-3 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/10 border border-amber-200/50 dark:border-amber-700/30">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider">Matchar din sökning</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {highlightedProduct && (
+                  <Badge className="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-300/50 dark:border-amber-600/50 font-medium">
+                    {highlightedProduct}
+                  </Badge>
+                )}
+                {highlightedIndustry && (
+                  <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
+                    {highlightedIndustry}
+                  </Badge>
+                )}
+                {highlightedCompanySize && (
+                  <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
+                    {highlightedCompanySize}
+                  </Badge>
+                )}
+                {highlightedGeography && (
+                  <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
+                    {highlightedGeography}
+                  </Badge>
+                )}
+              </div>
             </div>
+          )}
+
+          {/* Description */}
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+            {partner.description}
+          </p>
+          
+          {/* Applications / Competencies */}
+          <div className="mb-3">
+            <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-primary" />
+              Kompetenser
+            </p>
             <div className="flex flex-wrap gap-1.5">
-              {highlightedProduct && (
-                <Badge className="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-300/50 dark:border-amber-600/50 font-medium">
-                  {highlightedProduct}
-                </Badge>
-              )}
-              {highlightedIndustry && (
-                <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
-                  {highlightedIndustry}
-                </Badge>
-              )}
-              {highlightedCompanySize && (
-                <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
-                  {highlightedCompanySize}
-                </Badge>
-              )}
-              {highlightedGeography && (
-                <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
-                  {highlightedGeography}
-                </Badge>
-              )}
+              {(partner.applications || []).map((app, i) => {
+                const appIcon = getApplicationIcon(app);
+                return (
+                  <Badge 
+                    key={i} 
+                    className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
+                  >
+                    {appIcon && (
+                      <img src={appIcon} alt="" className="w-4 h-4 mr-1.5" />
+                    )}
+                    {app}
+                  </Badge>
+                );
+              })}
             </div>
           </div>
-        )}
 
-        {/* Description */}
-        <p className="text-sm text-muted-foreground leading-relaxed mb-5 line-clamp-3">
-          {partner.description}
-        </p>
-        
-        {/* Applications / Competencies */}
-        <div className="mb-4">
-          <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-            <span className="w-1 h-1 rounded-full bg-primary" />
-            Kompetenser
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {(partner.applications || []).map((app, i) => {
-              const appIcon = getApplicationIcon(app);
-              return (
+          {/* Primary Industries - Branschfokus */}
+          <div className="mb-3">
+            <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-primary" />
+              Branschfokus
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {primaryIndustries.map((industry, i) => (
                 <Badge 
                   key={i} 
-                  className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
+                  className="text-xs bg-primary text-primary-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-primary/90 transition-all"
                 >
-                  {appIcon && (
-                    <img src={appIcon} alt="" className="w-4 h-4 mr-1.5" />
-                  )}
-                  {app}
+                  <CheckCircle2 className="w-3 h-3 mr-1" />
+                  {industry}
                 </Badge>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Primary Industries - Branschfokus */}
-        <div className="mb-4">
-          <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-            <span className="w-1 h-1 rounded-full bg-primary" />
-            Branschfokus
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {primaryIndustries.map((industry, i) => (
-              <Badge 
-                key={i} 
-                className="text-xs bg-primary text-primary-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-primary/90 transition-all"
-              >
-                <CheckCircle2 className="w-3 h-3 mr-1" />
-                {industry}
-              </Badge>
-            ))}
+          {/* CTA Button with shimmer */}
+          <div className="mt-auto pt-3">
+            <Button 
+              asChild 
+              className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
+            >
+              <Link to={profileUrl} className="flex items-center justify-center gap-2">
+                <span className="relative z-10">Visa partnerprofil</span>
+                <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1" />
+                {/* Button shimmer effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+              </Link>
+            </Button>
           </div>
-        </div>
-
-
-        {/* CTA Button with shimmer */}
-        <div className="mt-auto pt-4">
-          <Button 
-            asChild 
-            className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
-          >
-            <Link to={profileUrl} className="flex items-center justify-center gap-2">
-              <span className="relative z-10">Visa partnerprofil</span>
-              <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1" />
-              {/* Button shimmer effect */}
-              <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-            </Link>
-          </Button>
         </div>
       </div>
     </article>
