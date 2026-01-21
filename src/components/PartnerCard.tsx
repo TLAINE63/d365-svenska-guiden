@@ -188,14 +188,18 @@ const PartnerCard = ({
           
           {/* Random order indicator */}
           {showRandomIndicator && (
-            <TooltipProvider>
+            <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-muted border border-border flex items-center justify-center cursor-help">
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-background border border-border shadow-sm flex items-center justify-center cursor-help hover:bg-muted transition-colors">
                     <Shuffle className="w-3 h-3 text-muted-foreground" />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent side="bottom" className="text-xs max-w-[200px]">
+                <TooltipContent 
+                  side="right" 
+                  sideOffset={8}
+                  className="z-[100] text-xs max-w-[200px] bg-popover text-popover-foreground shadow-lg border"
+                >
                   <p>Ordningen slumpas för rättvis exponering</p>
                 </TooltipContent>
               </Tooltip>
