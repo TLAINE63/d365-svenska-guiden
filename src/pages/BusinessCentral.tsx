@@ -497,7 +497,7 @@ const BusinessCentral = () => {
               const profileUrl = `${baseUrl}?${params.toString()}`;
               
               return (
-                <PartnerCard
+              <PartnerCard
                   key={index}
                   partner={partner}
                   profileUrl={profileUrl}
@@ -505,6 +505,7 @@ const BusinessCentral = () => {
                   productKey="bc"
                   highlightedProduct="Business Central"
                   highlightedIndustry={selectedIndustry || undefined}
+                  showRandomIndicator={true}
                 />
               );
             })}

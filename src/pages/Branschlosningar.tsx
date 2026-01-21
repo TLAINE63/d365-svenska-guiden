@@ -344,6 +344,7 @@ const Branschlosningar = () => {
                       productKey={productKey}
                       highlightedProduct={getProductLabel()}
                       highlightedIndustry={selectedIndustry?.name}
+                      showRandomIndicator={true}
                     />
                   );
                 })}

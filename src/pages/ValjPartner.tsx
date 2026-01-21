@@ -545,6 +545,7 @@ const ValjPartner = () => {
                     productKey={productKey}
                     highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
                     highlightedIndustry={selectedIndustry || undefined}
+                    showRandomIndicator={true}
                   />
                 );
               })}

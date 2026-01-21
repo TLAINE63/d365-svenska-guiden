@@ -273,6 +273,7 @@ const CRM = () => {
                 productKey="crm"
                 highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(', ') : undefined}
                 highlightedIndustry={selectedIndustry || undefined}
+                showRandomIndicator={true}
               />
             ))}
           </div>
