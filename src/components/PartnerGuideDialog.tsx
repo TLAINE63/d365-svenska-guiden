@@ -135,6 +135,23 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     return null;
   };
 
+  // Session-stable seeded shuffle for fair partner exposure
+  const seededShuffle = <T,>(array: T[], seed: number): T[] => {
+    const shuffled = [...array];
+    let currentSeed = seed;
+    
+    const seededRandom = () => {
+      currentSeed = (currentSeed * 9301 + 49297) % 233280;
+      return currentSeed / 233280;
+    };
+    
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(seededRandom() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
   const findBestPartners = () => {
     const productType = getProductType(selectedApp);
     
@@ -160,21 +177,12 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
       return partner.productFilters?.[productType];
     });
 
-    // Sort by product ranking (same as ValjPartner.tsx)
-    const sortedPartners = matchingPartners.sort((a, b) => {
-      if (isDatabasePartner(a) && isDatabasePartner(b)) {
-        const rankA = getDbProductRanking(a, productType);
-        const rankB = getDbProductRanking(b, productType);
-        if (rankA !== rankB) {
-          return rankA - rankB;
-        }
-        return (a.name || '').localeCompare(b.name || '', 'sv');
-      }
-      return 0;
-    });
+    // Shuffle randomly with session-stable seed for fair exposure
+    const sessionSeed = Math.floor(Date.now() / (1000 * 60 * 60)); // Changes every hour
+    const shuffledPartners = seededShuffle(matchingPartners, sessionSeed);
 
     // Show all matching partners
-    setSuggestedPartners(sortedPartners);
+    setSuggestedPartners(shuffledPartners);
     setStep(5);
   };
 
