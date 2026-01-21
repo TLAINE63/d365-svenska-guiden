@@ -74,60 +74,6 @@ export type Database = {
         }
         Relationships: []
       }
-      partner_change_requests: {
-        Row: {
-          admin_notes: string | null
-          changes: Json
-          created_at: string
-          id: string
-          partner_id: string
-          requester_email: string
-          requester_name: string
-          reviewed_at: string | null
-          reviewed_by: string | null
-          status: string
-        }
-        Insert: {
-          admin_notes?: string | null
-          changes: Json
-          created_at?: string
-          id?: string
-          partner_id: string
-          requester_email: string
-          requester_name: string
-          reviewed_at?: string | null
-          reviewed_by?: string | null
-          status?: string
-        }
-        Update: {
-          admin_notes?: string | null
-          changes?: Json
-          created_at?: string
-          id?: string
-          partner_id?: string
-          requester_email?: string
-          requester_name?: string
-          reviewed_at?: string | null
-          reviewed_by?: string | null
-          status?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "partner_change_requests_partner_id_fkey"
-            columns: ["partner_id"]
-            isOneToOne: false
-            referencedRelation: "partners"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "partner_change_requests_partner_id_fkey"
-            columns: ["partner_id"]
-            isOneToOne: false
-            referencedRelation: "partners_public"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       partner_clicks: {
         Row: {
           clicked_at: string
