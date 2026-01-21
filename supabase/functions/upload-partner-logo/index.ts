@@ -165,11 +165,11 @@ serve(async (req: Request): Promise<Response> => {
       { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   } catch (error: unknown) {
+    // Log full error server-side for debugging, return generic message to client
     console.error("Error in upload-partner-logo:", error);
     const corsHeaders = getCorsHeaders(req);
-    const message = error instanceof Error ? error.message : "Ett fel uppstod";
     return new Response(
-      JSON.stringify({ error: message }),
+      JSON.stringify({ error: "Ett fel uppstod vid uppladdning" }),
       { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
     );
   }
