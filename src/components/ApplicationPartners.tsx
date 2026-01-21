@@ -184,6 +184,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
                 highlightedProduct={applicationFilter}
                 highlightedIndustry={selectedIndustry || undefined}
                 highlightedGeography={selectedGeography || undefined}
+                showRandomIndicator={true}
               />
             );
           })}

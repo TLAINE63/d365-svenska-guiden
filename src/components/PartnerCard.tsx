@@ -5,8 +5,15 @@ import {
   ArrowRight, 
   CheckCircle2, 
   Sparkles, 
-  Building2
+  Building2,
+  Shuffle
 } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
 
@@ -70,6 +77,7 @@ interface PartnerCardProps {
   highlightedIndustry?: string;
   highlightedCompanySize?: string;
   highlightedGeography?: string;
+  showRandomIndicator?: boolean;
 }
 
 const PartnerCard = ({ 
@@ -80,7 +88,8 @@ const PartnerCard = ({
   highlightedProduct,
   highlightedIndustry,
   highlightedCompanySize,
-  highlightedGeography
+  highlightedGeography,
+  showRandomIndicator = false
 }: PartnerCardProps) => {
   // Get color classes based on scheme
   const getColorClasses = () => {
@@ -164,7 +173,7 @@ const PartnerCard = ({
       {/* Card Content */}
       <div className="relative flex flex-1 p-6 gap-4">
         {/* Logo column - separate on the left */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 relative">
           {isDatabasePartner(partner) && partner.logo_url ? (
             <img 
               src={partner.logo_url} 
@@ -175,6 +184,22 @@ const PartnerCard = ({
             <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center shadow-inner">
               <Building2 className="w-6 h-6 text-muted-foreground/60" />
             </div>
+          )}
+          
+          {/* Random order indicator */}
+          {showRandomIndicator && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-muted border border-border flex items-center justify-center cursor-help">
+                    <Shuffle className="w-3 h-3 text-muted-foreground" />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="text-xs max-w-[200px]">
+                  <p>Ordningen slumpas för rättvis exponering</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           )}
         </div>
 
