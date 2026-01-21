@@ -343,11 +343,11 @@ case "click-stats": {
         );
     }
   } catch (error: unknown) {
+    // Log full error server-side for debugging, return generic message to client
     console.error("Error in manage-leads:", error);
     const corsHeaders = getCorsHeaders(req);
-    const errorMessage = error instanceof Error ? error.message : "Ett fel uppstod";
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ error: "Ett fel uppstod vid bearbetning av förfrågan" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
