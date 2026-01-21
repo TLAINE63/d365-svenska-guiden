@@ -14,7 +14,7 @@ const geographyFilters = [
   { label: "Sverige", value: "Sverige" },
   { label: "Norden", value: "Norden" },
   { label: "Europa", value: "Europa" },
-  { label: "Internationellt", value: "Internationellt" }
+  { label: "Övriga världen", value: "Övriga världen" }
 ];
 
 interface ApplicationPartnersProps {
@@ -60,7 +60,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       if (!pf) return false;
       if (selectedIndustry && !pf.industries?.includes(selectedIndustry)) return false;
       if (selectedGeography) {
-        const geoHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+        const geoHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
         const selIdx = geoHierarchy.indexOf(selectedGeography);
         const partnerIdx = geoHierarchy.indexOf(pf.geography || "Sverige");
         if (partnerIdx < selIdx) return false;

@@ -37,7 +37,7 @@ const geographyFilters = [
   { label: "Sverige", value: "Sverige" },
   { label: "Norden", value: "Norden" },
   { label: "Europa", value: "Europa" },
-  { label: "Internationellt", value: "Internationellt" }
+  { label: "Övriga världen", value: "Övriga världen" }
 ];
 
 // Helper function to convert company sizes to readable categories
@@ -82,7 +82,7 @@ const matchesDbProductFilter = (
   
   // Check geography filter with hierarchy
   if (geography) {
-    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
     const partnerGeoIndex = geographyHierarchy.indexOf(productFilter.geography || "Sverige");
     if (partnerGeoIndex < selectedGeoIndex) {
@@ -224,7 +224,7 @@ const ValjPartner = () => {
       }
       
       if (selectedGeography) {
-        const geographyHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+        const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
         const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
         result = result.filter(partner => {
           // Check geography in any product filter
