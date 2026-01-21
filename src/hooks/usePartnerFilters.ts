@@ -74,13 +74,43 @@ export const getProductIndustries = (
   return allIndustries.filter(ind => industries.has(ind));
 };
 
+// Seeded random shuffle for consistent ordering per session
+const seededShuffle = <T,>(array: T[], seed: number): T[] => {
+  const shuffled = [...array];
+  let currentIndex = shuffled.length;
+  
+  // Simple seeded random number generator
+  const seededRandom = () => {
+    seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+    return seed / 0x7fffffff;
+  };
+  
+  while (currentIndex > 0) {
+    const randomIndex = Math.floor(seededRandom() * currentIndex);
+    currentIndex--;
+    [shuffled[currentIndex], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[currentIndex]];
+  }
+  
+  return shuffled;
+};
+
+// Get a session-stable seed (same for entire browser session)
+let sessionSeed: number | null = null;
+const getSessionSeed = (): number => {
+  if (sessionSeed === null) {
+    sessionSeed = Math.floor(Math.random() * 1000000);
+  }
+  return sessionSeed;
+};
+
 // Filter and sort partners for a specific product
 export const filterAndSortPartners = (
   partners: DatabasePartner[],
   product: ProductKey,
   selectedIndustry?: string | null,
   selectedGeography?: string | null,
-  selectedCompanySize?: string | null
+  selectedCompanySize?: string | null,
+  randomize: boolean = true
 ): DatabasePartner[] => {
   // Only show partners with the product filter defined
   let result = partners.filter(partner => hasProduct(partner, product));
@@ -96,7 +126,12 @@ export const filterAndSortPartners = (
     )
   );
   
-  // Sort by product ranking, then alphabetically
+  if (randomize) {
+    // Shuffle with session-stable seed for fair exposure
+    return seededShuffle(result, getSessionSeed());
+  }
+  
+  // Fallback: Sort by product ranking, then alphabetically
   return result.sort((a, b) => {
     const rankA = getDatabaseProductRanking(a, product);
     const rankB = getDatabaseProductRanking(b, product);

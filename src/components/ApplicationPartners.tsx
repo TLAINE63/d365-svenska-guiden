@@ -45,6 +45,9 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
     return null;
   }, [applicationFilter]);
 
+  // Session-stable seed for consistent random ordering
+  const sessionSeed = useMemo(() => Math.floor(Math.random() * 1000000), []);
+  
   const filteredPartners = useMemo(() => {
     if (!productKey) return [];
     
@@ -65,14 +68,28 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       return true;
     });
     
-    // Sort by product ranking, then alphabetically
-    return result.sort((a, b) => {
-      const rankA = a.product_filters?.[productKey]?.ranking ?? 999;
-      const rankB = b.product_filters?.[productKey]?.ranking ?? 999;
-      if (rankA !== rankB) return rankA - rankB;
-      return (a.name || '').localeCompare(b.name || '', 'sv');
-    });
-  }, [productKey, partners, selectedIndustry, selectedGeography]);
+    // Seeded shuffle for fair exposure
+    const seededShuffle = <T,>(array: T[], seed: number): T[] => {
+      const shuffled = [...array];
+      let currentIndex = shuffled.length;
+      let currentSeed = seed;
+      
+      const seededRandom = () => {
+        currentSeed = (currentSeed * 1103515245 + 12345) & 0x7fffffff;
+        return currentSeed / 0x7fffffff;
+      };
+      
+      while (currentIndex > 0) {
+        const randomIndex = Math.floor(seededRandom() * currentIndex);
+        currentIndex--;
+        [shuffled[currentIndex], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[currentIndex]];
+      }
+      
+      return shuffled;
+    };
+    
+    return seededShuffle(result, sessionSeed);
+  }, [productKey, partners, selectedIndustry, selectedGeography, sessionSeed]);
 
   // Show all 18 industries in the filter
   const availableIndustries = allIndustries;
