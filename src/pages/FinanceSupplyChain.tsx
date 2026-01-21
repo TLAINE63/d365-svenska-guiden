@@ -592,6 +592,7 @@ const FinanceSupplyChain = () => {
                   highlightedProduct="Finance & SCM"
                   highlightedIndustry={selectedIndustry || undefined}
                   highlightedGeography={selectedGeography || undefined}
+                  showRandomIndicator={true}
                 />
               );
             })}
