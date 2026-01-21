@@ -29,7 +29,7 @@ const geographyFilters = [
   { label: "Sverige", value: "Sverige" },
   { label: "Norden", value: "Norden" },
   { label: "Europa", value: "Europa" },
-  { label: "Internationellt", value: "Internationellt" }
+  { label: "Övriga världen", value: "Övriga världen" }
 ];
 
 const FinanceSupplyChain = () => {

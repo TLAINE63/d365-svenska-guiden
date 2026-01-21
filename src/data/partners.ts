@@ -683,7 +683,7 @@ export const geographyOptions = [
   "Sverige",
   "Norden",
   "Europa",
-  "Internationellt"
+  "Övriga världen"
 ];
 
 // Helper function to get cumulative geography display text
@@ -695,8 +695,11 @@ export const getCumulativeGeographyDisplay = (geography: string): string => {
       return "Sverige och Norden";
     case "Europa":
       return "Sverige, Norden och Europa";
+    case "Övriga världen":
+      return "Sverige, Norden, Europa och övriga världen";
+    // Legacy support
     case "Internationellt":
-      return "Sverige, Norden, Europa och Internationell täckning";
+      return "Sverige, Norden, Europa och övriga världen";
     default:
       return geography;
   }

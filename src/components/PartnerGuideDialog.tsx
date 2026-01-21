@@ -68,7 +68,7 @@ const marketOptions = [
   { value: "Sverige", label: "Sverige" },
   { value: "Norden", label: "Norden" },
   { value: "Europa", label: "Europa" },
-  { value: "Internationellt", label: "Internationellt" }
+  { value: "Övriga världen", label: "Övriga världen" }
 ];
 
 const sizeOptions = [
@@ -100,7 +100,7 @@ const matchesDbProductFilter = (
   }
   
   if (geography) {
-    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Internationellt"];
+    const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
     const partnerGeoIndex = geographyHierarchy.indexOf(productFilter.geography || "Sverige");
     if (partnerGeoIndex < selectedGeoIndex) {
