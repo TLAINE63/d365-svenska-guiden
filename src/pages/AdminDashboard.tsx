@@ -1827,17 +1827,18 @@ const AdminDashboard = () => {
                     
                     return (
                       <Card key={section.key} className={`${isActive ? "border-primary ring-1 ring-primary/20" : ""}`}>
-                        <CardHeader className="pb-3 bg-muted/30">
-                          <CardTitle className="text-lg font-semibold flex items-center justify-between">
-                            <span className="flex items-center gap-2">
-                              <span className="w-2 h-2 rounded-full bg-primary" />
-                              {section.label}
-                            </span>
-                            {isActive && <Badge variant="default" className="text-xs">Aktiv</Badge>}
+                        <CardHeader className="pb-4 bg-primary text-primary-foreground rounded-t-lg">
+                          <CardTitle className="text-xl font-bold flex items-center justify-between">
+                            <span>{section.label}</span>
+                            {isActive && <Badge variant="secondary" className="text-xs">Aktiv</Badge>}
                           </CardTitle>
-                          <CardDescription className="text-sm">
-                            Applikationer: {section.apps.join(", ")}
-                          </CardDescription>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {section.apps.map((app) => (
+                              <Badge key={app} variant="secondary" className="text-xs font-normal">
+                                Dynamics 365 {app}
+                              </Badge>
+                            ))}
+                          </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
                           <div>
