@@ -15,7 +15,9 @@ import {
   Layers, 
   ExternalLink,
   Users,
-  User
+  User,
+  Mail,
+  Phone
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import { usePartner } from "@/hooks/usePartners";
@@ -379,11 +381,29 @@ const PartnerProfile = () => {
 
             {/* Sales contact - separate row */}
             {dbPartner?.contactPerson && (
-              <div className="flex justify-center mt-4">
+              <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
                 <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-md border border-emerald-400/30 text-sm text-white shadow-lg">
                   <User className="w-4 h-4 text-emerald-400" />
                   <span className="font-medium">Säljkontakt: {dbPartner.contactPerson}</span>
                 </div>
+                {dbPartner?.email && (
+                  <a 
+                    href={`mailto:${dbPartner.email}`}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg hover:bg-white/20 transition-colors"
+                  >
+                    <Mail className="w-4 h-4 text-emerald-400" />
+                    <span className="font-medium">{dbPartner.email}</span>
+                  </a>
+                )}
+                {dbPartner?.phone && (
+                  <a 
+                    href={`tel:${dbPartner.phone}`}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg hover:bg-white/20 transition-colors"
+                  >
+                    <Phone className="w-4 h-4 text-emerald-400" />
+                    <span className="font-medium">{dbPartner.phone}</span>
+                  </a>
+                )}
               </div>
             )}
           </div>
