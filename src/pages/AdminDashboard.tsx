@@ -1767,7 +1767,7 @@ const AdminDashboard = () => {
                     <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
                   )}
                 </h3>
-                <p className="text-sm text-muted-foreground">Välj en eller flera regioner</p>
+                <p className="text-sm text-muted-foreground">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
                 <div className="flex flex-wrap gap-2">
                   {geographyOptions.map((geo) => {
                     const isSelected = (partnerFormData.geography || []).includes(geo);
