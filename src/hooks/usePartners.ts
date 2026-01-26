@@ -5,7 +5,7 @@ export interface ProductFilterInput {
   industries: string[];         // Max 3 focus industries
   secondaryIndustries: string[]; // Legacy - hidden in UI
   companySize: string[];
-  geography: string;
+  geography: string[];          // Multi-select geography
   ranking: number;
   customerExamples?: string[];  // Reference customers for this product
   productDescription?: string;  // Short description of partner's offering for this product

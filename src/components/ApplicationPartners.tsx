@@ -60,10 +60,13 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       if (!pf) return false;
       if (selectedIndustry && !pf.industries?.includes(selectedIndustry)) return false;
       if (selectedGeography) {
+        // Geography is now an array - check if partner covers the selected geography
+        const partnerGeo = Array.isArray(pf.geography) ? pf.geography : (pf.geography ? [pf.geography] : ["Sverige"]);
         const geoHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
         const selIdx = geoHierarchy.indexOf(selectedGeography);
-        const partnerIdx = geoHierarchy.indexOf(pf.geography || "Sverige");
-        if (partnerIdx < selIdx) return false;
+        // Partner matches if they have the selected geography or a broader one
+        const maxPartnerIdx = Math.max(...partnerGeo.map(g => geoHierarchy.indexOf(g)));
+        if (maxPartnerIdx < selIdx) return false;
       }
       return true;
     });

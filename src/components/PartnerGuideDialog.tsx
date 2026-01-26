@@ -100,10 +100,12 @@ const matchesDbProductFilter = (
   }
   
   if (geography) {
+    // Geography is now an array - check if partner covers the selected geography
+    const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
     const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
-    const partnerGeoIndex = geographyHierarchy.indexOf(productFilter.geography || "Sverige");
-    if (partnerGeoIndex < selectedGeoIndex) {
+    const maxPartnerGeoIndex = Math.max(...partnerGeo.map(g => geographyHierarchy.indexOf(g)));
+    if (maxPartnerGeoIndex < selectedGeoIndex) {
       return false;
     }
   }

@@ -82,10 +82,12 @@ const matchesDbProductFilter = (
   
   // Check geography filter with hierarchy
   if (geography) {
+    // Geography is now an array - check if partner covers the selected geography
+    const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
     const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
-    const partnerGeoIndex = geographyHierarchy.indexOf(productFilter.geography || "Sverige");
-    if (partnerGeoIndex < selectedGeoIndex) {
+    const maxPartnerGeoIndex = Math.max(...partnerGeo.map(g => geographyHierarchy.indexOf(g)));
+    if (maxPartnerGeoIndex < selectedGeoIndex) {
       return false;
     }
   }
@@ -227,15 +229,15 @@ const ValjPartner = () => {
         const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
         const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
         result = result.filter(partner => {
-          // Check geography in any product filter
-          const bcGeo = partner.product_filters?.bc?.geography || "Sverige";
-          const fscGeo = partner.product_filters?.fsc?.geography || "Sverige";
-          const crmGeo = partner.product_filters?.crm?.geography || "Sverige";
-          const maxGeoIndex = Math.max(
-            geographyHierarchy.indexOf(bcGeo),
-            geographyHierarchy.indexOf(fscGeo),
-            geographyHierarchy.indexOf(crmGeo)
-          );
+          // Check geography in any product filter - geography is now an array
+          const getMaxGeoIndex = (geo: string | string[] | undefined) => {
+            const geoArray = Array.isArray(geo) ? geo : (geo ? [geo] : ["Sverige"]);
+            return Math.max(...geoArray.map(g => geographyHierarchy.indexOf(g)));
+          };
+          const bcGeoIdx = getMaxGeoIndex(partner.product_filters?.bc?.geography);
+          const fscGeoIdx = getMaxGeoIndex(partner.product_filters?.fsc?.geography);
+          const crmGeoIdx = getMaxGeoIndex(partner.product_filters?.crm?.geography);
+          const maxGeoIndex = Math.max(bcGeoIdx, fscGeoIdx, crmGeoIdx);
           return maxGeoIndex >= selectedGeoIndex;
         });
       }
