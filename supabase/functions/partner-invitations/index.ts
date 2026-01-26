@@ -327,6 +327,17 @@ serve(async (req: Request): Promise<Response> => {
                   
                   <p>Genom att fylla i formuläret kan du se till att era uppgifter är aktuella och att potentiella kunder får rätt information om ert företag.</p>
                   
+                  <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h3 style="color: #1f2937; margin: 0 0 12px 0; font-size: 16px;">I formuläret anger ni för varje produkt:</h3>
+                    <ul style="margin: 0; padding-left: 20px; color: #4b5563;">
+                      <li>Beskrivning av ert erbjudande</li>
+                      <li>Branschfokus (max 3 branscher)</li>
+                      <li>Geografisk täckning</li>
+                      <li>Antal genomförda projekt</li>
+                      <li>Eventuella kundexempel</li>
+                    </ul>
+                  </div>
+                  
                   <div style="text-align: center; margin: 30px 0;">
                     <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera partnerprofil</a>
                   </div>
