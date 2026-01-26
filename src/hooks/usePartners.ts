@@ -28,6 +28,7 @@ export interface DatabasePartner {
   name: string;
   description: string | null;
   logo_url: string | null;
+  logo_dark_bg?: boolean;
   website: string;
   email: string | null;
   contactPerson: string | null;
@@ -41,6 +42,7 @@ export interface DatabasePartner {
   is_featured: boolean;
   created_at: string;
   updated_at: string;
+  customer_examples?: string[];
   // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
