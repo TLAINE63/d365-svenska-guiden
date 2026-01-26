@@ -200,6 +200,7 @@ const AdminDashboard = () => {
     secondaryIndustries: [],
     companySize: [],
     geography: [],
+    swedenRegions: [],
     swedenCities: [],
     ranking: 999,
     customerExamples: [],
@@ -743,6 +744,7 @@ const AdminDashboard = () => {
       secondaryIndustries: existing?.secondaryIndustries || [],
       companySize: existing?.companySize || [],
       geography: normalizedGeography,
+      swedenRegions: existing?.swedenRegions || [],
       swedenCities: existing?.swedenCities || [],
       customerExamples: existing?.customerExamples || [],
       customerCaseLinks: existing?.customerCaseLinks || [],
@@ -1971,22 +1973,56 @@ const AdminDashboard = () => {
                             </div>
                             
                             {(filter.geography || []).includes("Sverige") && (
-                              <div>
-                                <Label className="text-sm">Städer i Sverige där ni har lokal leveransförmåga</Label>
-                                <Input
-                                  placeholder="Stockholm, Göteborg, Malmö, Uppsala"
-                                  defaultValue={(filter.swedenCities || []).join(', ')}
-                                  key={`${section.key}-swedenCities-${editingPartner?.id || 'new'}`}
-                                  onBlur={(e) => {
-                                    const cities = e.target.value
-                                      .split(',')
-                                      .map(s => s.trim())
-                                      .filter(s => s.length > 0);
-                                    updateProductFilter(section.key, { swedenCities: cities });
-                                  }}
-                                  className="mt-2"
-                                />
-                                <p className="text-xs text-muted-foreground mt-1">Ange städer där ni har konsulter (separera med komma)</p>
+                              <div className="space-y-4">
+                                {/* Sweden Regions (Landsdelar) */}
+                                <div>
+                                  <Label className="text-sm">Regioner i Sverige (Landsdelar)</Label>
+                                  <p className="text-xs text-muted-foreground mb-2">Välj vilka regioner ni täcker i Sverige. Lämna tomt om ni täcker hela Sverige.</p>
+                                  <div className="flex flex-wrap gap-2 mt-2">
+                                    {(["Norrland", "Svealand", "Götaland"] as const).map((region) => {
+                                      const isSelected = (filter.swedenRegions || []).includes(region);
+                                      return (
+                                        <button
+                                          key={region}
+                                          type="button"
+                                          onClick={() => {
+                                            const current = filter.swedenRegions || [];
+                                            const updated = isSelected
+                                              ? current.filter(r => r !== region)
+                                              : [...current, region];
+                                            updateProductFilter(section.key, { swedenRegions: updated });
+                                          }}
+                                          className={`px-3 py-2 text-sm rounded-lg border-2 transition-all ${
+                                            isSelected
+                                              ? 'bg-primary text-primary-foreground border-primary'
+                                              : 'bg-card border-border hover:border-primary/50'
+                                          }`}
+                                        >
+                                          {region}
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                                
+                                {/* Sweden Cities */}
+                                <div>
+                                  <Label className="text-sm">Städer i Sverige där ni har lokal leveransförmåga</Label>
+                                  <Input
+                                    placeholder="Stockholm, Göteborg, Malmö, Uppsala"
+                                    defaultValue={(filter.swedenCities || []).join(', ')}
+                                    key={`${section.key}-swedenCities-${editingPartner?.id || 'new'}`}
+                                    onBlur={(e) => {
+                                      const cities = e.target.value
+                                        .split(',')
+                                        .map(s => s.trim())
+                                        .filter(s => s.length > 0);
+                                      updateProductFilter(section.key, { swedenCities: cities });
+                                    }}
+                                    className="mt-2"
+                                  />
+                                  <p className="text-xs text-muted-foreground mt-1">Ange städer där ni har konsulter (separera med komma)</p>
+                                </div>
                               </div>
                             )}
                           </div>

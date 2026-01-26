@@ -1,4 +1,4 @@
-import { DatabasePartner, ProductFilters } from "./usePartners";
+import { DatabasePartner, ProductFilters, SwedishRegion } from "./usePartners";
 
 // Product key types
 export type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
@@ -9,7 +9,8 @@ export const matchesDatabaseProductFilter = (
   product: ProductKey,
   selectedIndustry?: string,
   selectedCompanySize?: string,
-  selectedGeography?: string
+  selectedGeography?: string,
+  selectedRegions?: SwedishRegion[]
 ): boolean => {
   const productFilter = partner.product_filters?.[product];
   
@@ -44,6 +45,25 @@ export const matchesDatabaseProductFilter = (
     });
     
     if (!partnerCoversGeography) {
+      return false;
+    }
+  }
+  
+  // Check Sweden region match (only if Sverige is selected and regions are specified)
+  if (selectedGeography === "Sverige" && selectedRegions && selectedRegions.length > 0) {
+    const partnerRegions = productFilter.swedenRegions || [];
+    
+    // If partner has no regions specified, they cover all of Sweden (pass the filter)
+    if (partnerRegions.length === 0) {
+      return true;
+    }
+    
+    // Partner must cover at least one of the selected regions
+    const hasMatchingRegion = selectedRegions.some(region => 
+      partnerRegions.includes(region)
+    );
+    
+    if (!hasMatchingRegion) {
       return false;
     }
   }
@@ -110,6 +130,7 @@ export const filterAndSortPartners = (
   selectedIndustry?: string | null,
   selectedGeography?: string | null,
   selectedCompanySize?: string | null,
+  selectedRegions?: SwedishRegion[] | null,
   randomize: boolean = true
 ): DatabasePartner[] => {
   // Only show partners with the product filter defined
@@ -122,7 +143,8 @@ export const filterAndSortPartners = (
       product,
       selectedIndustry || undefined,
       selectedCompanySize || undefined,
-      selectedGeography || undefined
+      selectedGeography || undefined,
+      selectedRegions && selectedRegions.length > 0 ? selectedRegions : undefined
     )
   );
   

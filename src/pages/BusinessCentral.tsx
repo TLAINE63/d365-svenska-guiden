@@ -11,7 +11,8 @@ import PartnerCard from "@/components/PartnerCard";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import { SwedenRegionMap, SwedishRegion } from "@/components/SwedenRegionMap";
+import SwedenRegionMap from "@/components/SwedenRegionMap";
+import { SwedishRegion } from "@/hooks/usePartners";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -60,10 +61,17 @@ const BusinessCentral = () => {
     );
   };
 
-  // Filter partners for Business Central
+  // Filter partners for Business Central (including Sweden regions)
   const bcPartners = useMemo(() => {
-    return filterAndSortPartners(partners, 'bc', selectedIndustry, selectedGeography);
-  }, [partners, selectedIndustry, selectedGeography]);
+    return filterAndSortPartners(
+      partners, 
+      'bc', 
+      selectedIndustry, 
+      selectedGeography, 
+      null, // companySize
+      selectedRegions.length > 0 ? selectedRegions : null
+    );
+  }, [partners, selectedIndustry, selectedGeography, selectedRegions]);
 
   // Get available industries for BC partners
   const bcIndustries = useMemo(() => {

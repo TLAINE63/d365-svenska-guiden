@@ -1,7 +1,9 @@
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
+import { SwedishRegion } from "@/hooks/usePartners";
 
-export type SwedishRegion = "Norrland" | "Svealand" | "Götaland";
+// Re-export for convenience
+export type { SwedishRegion } from "@/hooks/usePartners";
 
 interface SwedenRegionMapProps {
   selectedRegions: SwedishRegion[];
