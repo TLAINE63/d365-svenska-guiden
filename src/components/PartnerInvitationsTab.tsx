@@ -25,8 +25,9 @@ import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { 
   Plus, Copy, Trash2, RefreshCw, CheckCircle2, Clock, Send, 
-  AlertCircle, ExternalLink, Eye
+  AlertCircle, ExternalLink, Eye, Mail
 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Invitation {
   id: string;
@@ -75,6 +76,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
     email: "",
     partner_name: "",
     partner_id: "",
+    send_email: true,
   });
 
   const fetchData = async () => {
@@ -138,9 +140,18 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
         throw new Error("Kunde inte skapa inbjudan");
       }
 
-      toast.success("Inbjudan skapad!");
+      const result = await response.json();
+      
+      if (result.emailSent) {
+        toast.success("Inbjudan skapad och e-post skickad!");
+      } else if (result.emailError) {
+        toast.success("Inbjudan skapad, men e-post kunde inte skickas: " + result.emailError);
+      } else {
+        toast.success("Inbjudan skapad!");
+      }
+      
       setShowCreateDialog(false);
-      setNewInvitation({ email: "", partner_name: "", partner_id: "" });
+      setNewInvitation({ email: "", partner_name: "", partner_id: "", send_email: true });
       fetchData();
     } catch (err) {
       console.error("Create error:", err);
@@ -452,6 +463,19 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
               <p className="text-xs text-muted-foreground">
                 Om du väljer en befintlig partner kommer deras nuvarande uppgifter att förifyllas i formuläret.
               </p>
+            </div>
+            <div className="flex items-center space-x-2 pt-2">
+              <Checkbox
+                id="send_email"
+                checked={newInvitation.send_email}
+                onCheckedChange={(checked) => 
+                  setNewInvitation(prev => ({ ...prev, send_email: checked === true }))
+                }
+              />
+              <Label htmlFor="send_email" className="flex items-center gap-2 cursor-pointer">
+                <Mail className="w-4 h-4" />
+                Skicka inbjudan via e-post
+              </Label>
             </div>
           </div>
           <DialogFooter>

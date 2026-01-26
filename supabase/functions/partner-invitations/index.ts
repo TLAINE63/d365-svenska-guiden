@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { Resend } from "https://esm.sh/resend@2.0.0";
 
 const ALLOWED_ORIGINS = [
   "https://d365.se",
@@ -260,7 +261,7 @@ serve(async (req: Request): Promise<Response> => {
     // Admin: Create invitation
     if (action === "create" && req.method === "POST") {
       const body = await req.json();
-      const { email, partner_name, partner_id } = body;
+      const { email, partner_name, partner_id, send_email } = body;
 
       if (!email || !partner_name) {
         return new Response(
@@ -289,8 +290,81 @@ serve(async (req: Request): Promise<Response> => {
 
       console.log("Invitation created for:", partner_name);
 
+      // Send email if requested
+      let emailSent = false;
+      let emailError = null;
+      
+      if (send_email) {
+        const resendApiKey = Deno.env.get("RESEND_API_KEY");
+        if (resendApiKey) {
+          try {
+            const resend = new Resend(resendApiKey);
+            const baseUrl = "https://d365.se";
+            const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
+            const expiresDate = new Date(invitation.expires_at).toLocaleDateString("sv-SE");
+            
+            const emailResponse = await resend.emails.send({
+              from: "D365.se <info@d365.se>",
+              to: [email],
+              subject: `Uppdatera din partnerprofil på D365.se - ${partner_name}`,
+              html: `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                </head>
+                <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                  <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                    <p style="color: #6b7280; margin: 5px 0 0 0;">Sveriges guide till Microsoft Dynamics 365</p>
+                  </div>
+                  
+                  <h2 style="color: #1f2937;">Hej!</h2>
+                  
+                  <p>Vi bjuder in dig att uppdatera din partnerprofil för <strong>${partner_name}</strong> på D365.se.</p>
+                  
+                  <p>Genom att fylla i formuläret kan du se till att era uppgifter är aktuella och att potentiella kunder får rätt information om ert företag.</p>
+                  
+                  <div style="text-align: center; margin: 30px 0;">
+                    <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera partnerprofil</a>
+                  </div>
+                  
+                  <p style="color: #6b7280; font-size: 14px;">Länken är giltig till: <strong>${expiresDate}</strong></p>
+                  
+                  <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
+                  <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>
+                  
+                  <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+                  
+                  <p style="color: #6b7280; font-size: 12px; text-align: center;">
+                    Detta e-postmeddelande skickades från D365.se<br>
+                    Om du inte känner igen denna förfrågan kan du ignorera detta meddelande.
+                  </p>
+                </body>
+                </html>
+              `,
+            });
+            
+            console.log("Invitation email sent to:", email, emailResponse);
+            emailSent = true;
+          } catch (sendError: any) {
+            console.error("Email send error:", sendError);
+            emailError = sendError.message;
+          }
+        } else {
+          emailError = "RESEND_API_KEY ej konfigurerad";
+          console.error("RESEND_API_KEY not configured");
+        }
+      }
+
       return new Response(
-        JSON.stringify({ success: true, invitation }),
+        JSON.stringify({ 
+          success: true, 
+          invitation,
+          emailSent,
+          emailError
+        }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
