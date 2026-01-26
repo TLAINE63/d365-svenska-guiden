@@ -107,6 +107,148 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_invitations: {
+        Row: {
+          created_at: string
+          email: string
+          expires_at: string
+          id: string
+          partner_id: string | null
+          partner_name: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          submitted_at: string | null
+          token: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          expires_at?: string
+          id?: string
+          partner_id?: string | null
+          partner_name: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          submitted_at?: string | null
+          token?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          expires_at?: string
+          id?: string
+          partner_id?: string | null
+          partner_name?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          submitted_at?: string | null
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_invitations_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_invitations_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_submissions: {
+        Row: {
+          address: string | null
+          applications: string[] | null
+          contact_person: string | null
+          description: string | null
+          email: string | null
+          geography: string[] | null
+          id: string
+          industries: string[] | null
+          invitation_id: string
+          logo_url: string | null
+          name: string
+          notes: string | null
+          partner_id: string | null
+          phone: string | null
+          product_filters: Json | null
+          secondary_industries: string[] | null
+          submitted_at: string
+          website: string
+        }
+        Insert: {
+          address?: string | null
+          applications?: string[] | null
+          contact_person?: string | null
+          description?: string | null
+          email?: string | null
+          geography?: string[] | null
+          id?: string
+          industries?: string[] | null
+          invitation_id: string
+          logo_url?: string | null
+          name: string
+          notes?: string | null
+          partner_id?: string | null
+          phone?: string | null
+          product_filters?: Json | null
+          secondary_industries?: string[] | null
+          submitted_at?: string
+          website: string
+        }
+        Update: {
+          address?: string | null
+          applications?: string[] | null
+          contact_person?: string | null
+          description?: string | null
+          email?: string | null
+          geography?: string[] | null
+          id?: string
+          industries?: string[] | null
+          invitation_id?: string
+          logo_url?: string | null
+          name?: string
+          notes?: string | null
+          partner_id?: string | null
+          phone?: string | null
+          product_filters?: Json | null
+          secondary_industries?: string[] | null
+          submitted_at?: string
+          website?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_submissions_invitation_id_fkey"
+            columns: ["invitation_id"]
+            isOneToOne: false
+            referencedRelation: "partner_invitations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_submissions_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_submissions_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partners: {
         Row: {
           activation_date: string | null
