@@ -1964,7 +1964,7 @@ const AdminDashboard = () => {
                             
                             {(filter.geography || []).includes("Sverige") && (
                               <div>
-                                <Label className="text-sm">Städer i Sverige</Label>
+                                <Label className="text-sm">Städer i Sverige där ni har lokal leveransförmåga</Label>
                                 <Input
                                   placeholder="Stockholm, Göteborg, Malmö, Uppsala"
                                   defaultValue={(filter.swedenCities || []).join(', ')}
