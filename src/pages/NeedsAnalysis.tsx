@@ -219,6 +219,7 @@ const industryOptions = [
   "Non-profit / Organisationer",
   "Utbildning",
   "Offentlig sektor",
+  "Uthyrningsverksamhet",
 ];
 
 const geographyOptions = [
