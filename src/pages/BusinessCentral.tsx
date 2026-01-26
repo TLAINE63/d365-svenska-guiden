@@ -488,7 +488,7 @@ const BusinessCentral = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {bcPartners.map((partner, index) => {
               // Build profile URL with filter context
-              const baseUrl = `/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+              const baseUrl = `/partner/${partner.slug}`;
               const params = new URLSearchParams();
               params.set("product", "Business Central");
               if (selectedIndustry) {

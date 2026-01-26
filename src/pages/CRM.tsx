@@ -268,7 +268,7 @@ const CRM = () => {
               <PartnerCard
                 key={index}
                 partner={partner}
-                profileUrl={`/partner/${partner.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                profileUrl={`/partner/${partner.slug}`}
                 colorScheme="crm"
                 productKey="crm"
                 highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(', ') : undefined}
