@@ -389,32 +389,28 @@ const PartnerProfile = () => {
               </a>
             </div>
 
-            {/* Sales contact - separate row with pulsing amber glow */}
+            {/* Sales contact - separate row */}
             {dbPartner?.contactPerson && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
-                <div className="relative">
-                  {/* Pulsing amber glow */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-amber-400/50 to-orange-500/50 rounded-full blur-md animate-pulse" />
-                  <div className="relative flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-sm text-white shadow-lg shadow-amber-500/30">
-                    <User className="w-4 h-4" />
-                    <span className="font-semibold">Säljkontakt: {dbPartner.contactPerson}</span>
-                  </div>
+                <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-emerald-500/20 to-emerald-600/20 backdrop-blur-md border border-emerald-400/30 text-sm text-white shadow-lg">
+                  <User className="w-4 h-4 text-emerald-400" />
+                  <span className="font-medium">Säljkontakt: {dbPartner.contactPerson}</span>
                 </div>
                 {dbPartner?.email && (
                   <a 
                     href={`mailto:${dbPartner.email}`}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg hover:bg-amber-500/20 hover:border-amber-400/30 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg hover:bg-white/20 transition-colors"
                   >
-                    <Mail className="w-4 h-4 text-amber-400" />
+                    <Mail className="w-4 h-4 text-emerald-400" />
                     <span className="font-medium">{dbPartner.email}</span>
                   </a>
                 )}
                 {dbPartner?.phone && (
                   <a 
                     href={`tel:${dbPartner.phone}`}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg hover:bg-amber-500/20 hover:border-amber-400/30 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg hover:bg-white/20 transition-colors"
                   >
-                    <Phone className="w-4 h-4 text-amber-400" />
+                    <Phone className="w-4 h-4 text-emerald-400" />
                     <span className="font-medium">{dbPartner.phone}</span>
                   </a>
                 )}
