@@ -1918,7 +1918,7 @@ const AdminDashboard = () => {
                           </div>
 
                           <div>
-                            <Label className="text-sm">Länk till kundcase</Label>
+                            <Label className="text-sm">Länk till kundcase (vill ni stoltsera med kundcase, får ni gärna lägga in länken till dessa nedan)</Label>
                             <Input
                               placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
                               defaultValue={(filter.customerCaseLinks || []).join(', ')}
