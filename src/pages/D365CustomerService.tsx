@@ -149,8 +149,23 @@ const D365CustomerService = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad är skillnaden mellan Professional och Enterprise?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Professional-licensen inkluderar grundläggande ärendehantering, kunskapsdatabas och SLA-hantering. Enterprise-licensen lägger till avancerade funktioner som Microsoft Copilot för AI-stöd, multisessions-stöd för att hantera flera ärenden samtidigt, enhetlig dirigering för smart ärendetilldelning, avancerad analys och kundportaler.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p><strong className="text-foreground">Professional</strong> inkluderar grundläggande funktioner:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>Ärendehantering</li>
+                    <li>Kunskapsdatabas</li>
+                    <li>SLA-hantering</li>
+                  </ul>
+                  <div className="bg-crm/10 rounded-lg p-4 mt-4">
+                    <p className="font-semibold text-foreground mb-2">🚀 Enterprise lägger till:</p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li><strong className="text-foreground">Microsoft Copilot</strong> – AI-stöd för agenter</li>
+                      <li><strong className="text-foreground">Multisessions-stöd</strong> – Hantera flera ärenden samtidigt</li>
+                      <li><strong className="text-foreground">Enhetlig dirigering</strong> – Smart ärendetilldelning</li>
+                      <li><strong className="text-foreground">Avancerad analys</strong> – Djupgående rapportering</li>
+                      <li><strong className="text-foreground">Kundportaler</strong> – Självbetjäning för kunder</li>
+                    </ul>
+                  </div>
                 </AccordionContent>
               </AccordionItem>
 
@@ -158,8 +173,17 @@ const D365CustomerService = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur fungerar Copilot i Customer Service?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Microsoft Copilot i Customer Service hjälper agenter genom att analysera kundärenden och föreslå relevanta lösningar från kunskapsdatabasen. Det kan automatiskt sammanfatta långa konversationer, föreslå svar på kundförfrågningar och ge realtidscoaching för att förbättra interaktioner. Copilot lär sig kontinuerligt från framgångsrika lösningar för att bli ännu bättre.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>Microsoft Copilot hjälper agenter genom att:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li><strong className="text-foreground">Analysera kundärenden</strong> och föreslå relevanta lösningar från kunskapsdatabasen</li>
+                    <li><strong className="text-foreground">Sammanfatta konversationer</strong> automatiskt för snabbare överblick</li>
+                    <li><strong className="text-foreground">Föreslå svar</strong> på kundförfrågningar baserat på tidigare lösningar</li>
+                    <li><strong className="text-foreground">Ge realtidscoaching</strong> för att förbättra kundinteraktioner</li>
+                  </ul>
+                  <div className="bg-secondary/50 rounded-lg p-4 mt-4">
+                    <p className="text-sm italic">💡 Copilot lär sig kontinuerligt från framgångsrika lösningar för att bli ännu bättre över tid.</p>
+                  </div>
                 </AccordionContent>
               </AccordionItem>
 
@@ -167,8 +191,19 @@ const D365CustomerService = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vilka kanaler stöds för kundkommunikation?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Dynamics 365 Customer Service stöder kommunikation via e-post, chatt, telefon, SMS och sociala medier. Med Enterprise-licensen får du tillgång till omnichannel-funktioner som samlar alla kanaler i ett enhetligt gränssnitt så att agenter kan hantera alla kundinteraktioner från samma ställe.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>Dynamics 365 Customer Service stöder kommunikation via:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>📧 E-post</li>
+                    <li>💬 Chatt</li>
+                    <li>📞 Telefon</li>
+                    <li>📱 SMS</li>
+                    <li>🌐 Sociala medier</li>
+                  </ul>
+                  <div className="bg-crm/10 rounded-lg p-4 mt-4">
+                    <p className="font-semibold text-foreground mb-2">🔄 Enterprise Omnichannel:</p>
+                    <p>Samlar alla kanaler i ett enhetligt gränssnitt så att agenter kan hantera alla kundinteraktioner från samma ställe.</p>
+                  </div>
                 </AccordionContent>
               </AccordionItem>
 
@@ -176,8 +211,16 @@ const D365CustomerService = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Kan vi skapa självbetjäningsportaler för kunder?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Ja, med Enterprise-licensen kan du skapa kundportaler där kunder kan logga in för att se sina ärenden, söka i kunskapsdatabasen och skapa nya ärenden. Detta minskar belastningen på supportteamet och ger kunderna möjlighet att lösa enklare problem själva.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>Ja, med <strong className="text-foreground">Enterprise-licensen</strong> kan du skapa kundportaler där kunder kan:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>Logga in och se sina pågående ärenden</li>
+                    <li>Söka i kunskapsdatabasen för snabba svar</li>
+                    <li>Skapa nya supportärenden</li>
+                  </ul>
+                  <div className="bg-secondary/50 rounded-lg p-4 mt-4">
+                    <p className="text-sm italic">✅ Detta minskar belastningen på supportteamet och ger kunderna möjlighet att lösa enklare problem själva.</p>
+                  </div>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
