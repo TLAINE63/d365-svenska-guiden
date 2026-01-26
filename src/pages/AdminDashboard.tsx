@@ -1982,18 +1982,6 @@ const AdminDashboard = () => {
                               </div>
                             )}
                           </div>
-
-                          <div>
-                            <Label className="text-sm">Ranking</Label>
-                            <Input
-                              type="number"
-                              min={1}
-                              max={999}
-                              value={filter.ranking}
-                              onChange={(e) => updateProductFilter(section.key, { ranking: parseInt(e.target.value) || 999 })}
-                              className="w-20 mt-2"
-                            />
-                          </div>
                         </CardContent>
                       </Card>
                     );
