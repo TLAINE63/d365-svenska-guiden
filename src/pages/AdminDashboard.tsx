@@ -202,6 +202,7 @@ const AdminDashboard = () => {
     geography: [],
     ranking: 999,
     customerExamples: [],
+    customerCaseLinks: [],
   };
 
   const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
@@ -742,6 +743,7 @@ const AdminDashboard = () => {
       companySize: existing?.companySize || [],
       geography: normalizedGeography,
       customerExamples: existing?.customerExamples || [],
+      customerCaseLinks: existing?.customerCaseLinks || [],
       productDescription: existing?.productDescription || '',
     };
   };
@@ -1912,6 +1914,24 @@ const AdminDashboard = () => {
                               className="mt-2"
                             />
                             <p className="text-xs text-muted-foreground mt-1">Separera med komma</p>
+                          </div>
+
+                          <div>
+                            <Label className="text-sm">Länk till kundcase</Label>
+                            <Input
+                              placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
+                              defaultValue={(filter.customerCaseLinks || []).join(', ')}
+                              key={`${section.key}-customerCaseLinks-${editingPartner?.id || 'new'}`}
+                              onBlur={(e) => {
+                                const links = e.target.value
+                                  .split(',')
+                                  .map(s => s.trim())
+                                  .filter(s => s.length > 0);
+                                updateProductFilter(section.key, { customerCaseLinks: links });
+                              }}
+                              className="mt-2"
+                            />
+                            <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
                           </div>
 
                           <div className="flex gap-4">

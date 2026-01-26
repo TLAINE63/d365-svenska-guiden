@@ -8,6 +8,7 @@ export interface ProductFilterInput {
   geography: string[];          // Multi-select geography
   ranking: number;
   customerExamples?: string[];  // Reference customers for this product
+  customerCaseLinks?: string[]; // Links to customer case studies
   productDescription?: string;  // Short description of partner's offering for this product
 }
 
