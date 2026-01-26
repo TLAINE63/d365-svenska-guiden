@@ -1867,7 +1867,15 @@ const AdminDashboard = () => {
                           <div>
                             <Label className="text-sm">Kort beskrivning av erbjudande</Label>
                             <Input
-                              placeholder="T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
+                              placeholder={
+                                section.key === 'bc' 
+                                  ? "T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
+                                  : section.key === 'fsc'
+                                  ? "T.ex. 'Experter på koncernkonsolidering och supply chain för stora organisationer'"
+                                  : section.key === 'sales'
+                                  ? "T.ex. 'Fokus på säljautomation och pipeline-hantering för B2B-företag'"
+                                  : "T.ex. 'Specialister på omnikanal-support och Field Service för serviceorganisationer'"
+                              }
                               defaultValue={filter.productDescription || ''}
                               key={`${section.key}-productDescription-${editingPartner?.id || 'new'}`}
                               onBlur={(e) => {
