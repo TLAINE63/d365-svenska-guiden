@@ -50,12 +50,13 @@ import {
 } from "@/hooks/usePartners";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { 
+import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
-  CheckCircle2, Circle, ArrowRight
+  CheckCircle2, Circle, ArrowRight, MailPlus
 } from "lucide-react";
+import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
@@ -1010,6 +1011,10 @@ const AdminDashboard = () => {
               <Building2 className="h-4 w-4" />
               Partners
             </TabsTrigger>
+            <TabsTrigger value="invitations" className="flex items-center gap-2">
+              <MailPlus className="h-4 w-4" />
+              Inbjudningar
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -1330,6 +1335,14 @@ const AdminDashboard = () => {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* ==================== INVITATIONS TAB ==================== */}
+          <TabsContent value="invitations">
+            <PartnerInvitationsTab 
+              token={token || ""} 
+              partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug }))}
+            />
           </TabsContent>
         </Tabs>
 
