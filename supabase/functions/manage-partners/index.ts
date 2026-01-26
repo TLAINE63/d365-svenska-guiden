@@ -104,7 +104,7 @@ interface ProductFilterData {
   industries: string[];
   secondaryIndustries: string[];
   companySize: string[];
-  geography: string;
+  geography: string[];  // Changed to array for multi-select
   ranking: number;
 }
 

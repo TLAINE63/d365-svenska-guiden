@@ -48,7 +48,7 @@ const GEOGRAPHY_OPTIONS = [
 
 interface ProductFilter {
   industries: string[];
-  geography: string;
+  geography: string[];
   ranking: number;
   customerExamples: string[];
   productDescription: string;
@@ -88,7 +88,7 @@ interface ExistingData {
 
 const emptyProductFilter: ProductFilter = {
   industries: [],
-  geography: "Sverige",
+  geography: [],
   ranking: 0,
   customerExamples: [],
   productDescription: "",
@@ -229,7 +229,20 @@ const PartnerUpdate = () => {
   };
 
   const getProductFilter = (key: ProductKey): ProductFilter => {
-    return productFilters[key] || { ...emptyProductFilter };
+    const existing = productFilters[key];
+    if (!existing) return { ...emptyProductFilter };
+    
+    // Handle legacy single-string geography by converting to array
+    const existingGeo = existing.geography;
+    const normalizedGeography = Array.isArray(existingGeo) 
+      ? existingGeo 
+      : (existingGeo ? [existingGeo] : []);
+    
+    return {
+      ...emptyProductFilter,
+      ...existing,
+      geography: normalizedGeography,
+    };
   };
 
   const updateProductFilter = (key: ProductKey, updates: Partial<ProductFilter>) => {
@@ -592,19 +605,28 @@ const PartnerUpdate = () => {
                         {/* Geography */}
                         <div>
                           <Label className="text-sm">Geografisk täckning</Label>
-                          <div className="flex flex-wrap gap-1.5 mt-2">
-                            {GEOGRAPHY_OPTIONS.map((geo) => (
-                              <Badge
-                                key={geo}
-                                variant={filter.geography === geo ? "default" : "outline"}
-                                className="cursor-pointer text-xs"
-                                onClick={() => updateProductFilter(productKey, { geography: geo })}
-                              >
-                                {geo}
-                              </Badge>
-                            ))}
+                          <p className="text-xs text-muted-foreground mb-2">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {GEOGRAPHY_OPTIONS.map((geo) => {
+                              const isSelected = (filter.geography || []).includes(geo);
+                              return (
+                                <Badge
+                                  key={geo}
+                                  variant={isSelected ? "default" : "outline"}
+                                  className="cursor-pointer text-xs"
+                                  onClick={() => {
+                                    const current = filter.geography || [];
+                                    const newGeo = isSelected
+                                      ? current.filter(g => g !== geo)
+                                      : [...current, geo];
+                                    updateProductFilter(productKey, { geography: newGeo });
+                                  }}
+                                >
+                                  {geo}
+                                </Badge>
+                              );
+                            })}
                           </div>
-                          <p className="text-xs text-muted-foreground mt-2">Var erbjuder ni implementation för denna produkt?</p>
                         </div>
 
                         {/* Ranking (number of projects) */}
