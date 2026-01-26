@@ -200,6 +200,19 @@ const PartnerProfile = () => {
     return dbProductFilters?.[filterKey]?.productDescription || null;
   };
 
+  // Get Sweden cities for a specific product
+  const getSwedenCitiesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { swedenCities?: string[] }> | undefined;
+    return dbProductFilters?.[filterKey]?.swedenCities || [];
+  };
+
+  // Get customer case links for a specific product
+  const getCustomerCaseLinksForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { customerCaseLinks?: string[] }> | undefined;
+    return dbProductFilters?.[filterKey]?.customerCaseLinks || [];
+  };
 
 
   if (isLoading) {
@@ -394,6 +407,9 @@ const PartnerProfile = () => {
                   const apps = getApplicationsForCategory(partner.applications, category);
                   const customerExamples = getCustomerExamplesForProduct(category);
                   const productDescription = getProductDescriptionForProduct(category);
+                  const swedenCities = getSwedenCitiesForProduct(category);
+                  const customerCaseLinks = getCustomerCaseLinksForProduct(category);
+                  const geography = getGeographyForProduct(category);
                   
                   return (
                     <article 
@@ -475,6 +491,31 @@ const PartnerProfile = () => {
                             </p>
                           )}
 
+                          {/* Geographic coverage with Sweden cities */}
+                          {(geography || swedenCities.length > 0) && (
+                            <div className="space-y-2.5">
+                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
+                                <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
+                                Geografisk täckning
+                              </p>
+                              <div className="flex flex-wrap items-center gap-2">
+                                {geography && (
+                                  <Badge 
+                                    variant="outline"
+                                    className="bg-background/50 text-foreground/80 border-border py-1.5 px-3 text-sm font-medium"
+                                  >
+                                    {geography}
+                                  </Badge>
+                                )}
+                                {swedenCities.length > 0 && (
+                                  <span className="text-sm text-muted-foreground">
+                                    Städer: {swedenCities.join(', ')}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          )}
+
                           {/* Product Description - above Customer Examples */}
                           {productDescription && (
                             <p className="text-sm text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-3 italic">
@@ -504,6 +545,24 @@ const PartnerProfile = () => {
                               <p className="text-sm text-muted-foreground italic">
                                 Kundexempel kan tillhandahållas på förfrågan
                               </p>
+                            )}
+                            
+                            {/* Customer Case Links */}
+                            {customerCaseLinks.length > 0 && (
+                              <div className="flex flex-wrap gap-2 mt-2">
+                                {customerCaseLinks.map((link, idx) => (
+                                  <a
+                                    key={idx}
+                                    href={link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 hover:underline transition-colors"
+                                  >
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                    Kundcase {customerCaseLinks.length > 1 ? idx + 1 : ''}
+                                  </a>
+                                ))}
+                              </div>
                             )}
                           </div>
                         </div>
