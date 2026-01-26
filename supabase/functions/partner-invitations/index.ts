@@ -299,7 +299,8 @@ serve(async (req: Request): Promise<Response> => {
         if (resendApiKey) {
           try {
             const resend = new Resend(resendApiKey);
-            const baseUrl = "https://d365.se";
+            // Use d365.se if published, otherwise use the Lovable app URL
+            const baseUrl = "https://d365-svenska-guiden.lovable.app";
             const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
             const expiresDate = new Date(invitation.expires_at).toLocaleDateString("sv-SE");
             
