@@ -50,6 +50,13 @@ import {
 } from "@/hooks/usePartners";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
+
+// Product icons
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+
 import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
@@ -128,11 +135,20 @@ const statusLabels: Record<string, { label: string; variant: "default" | "second
 // Product sections as per user request
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
-const productSections: { key: ProductKey; label: string; apps: string[] }[] = [
-  { key: 'bc', label: 'Business Central', apps: ['Business Central'] },
-  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance', 'Supply Chain Management'] },
-  { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'] },
-  { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'] },
+interface ProductSection {
+  key: ProductKey;
+  label: string;
+  apps: string[];
+  colorClass: string;
+  icon: string;
+}
+
+
+const productSections: ProductSection[] = [
+  { key: 'bc', label: 'Business Central', apps: ['Business Central'], colorClass: 'bg-business-central', icon: BusinessCentralIcon },
+  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance', 'Supply Chain Management'], colorClass: 'bg-finance-supply', icon: FinanceIcon },
+  { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
+  { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
 ];
 
 // ==================== COMPONENT ====================
@@ -1826,15 +1842,18 @@ const AdminDashboard = () => {
                     const isActive = isProductActive(section.key);
                     
                     return (
-                      <Card key={section.key} className={`${isActive ? "border-primary ring-1 ring-primary/20" : ""}`}>
-                        <CardHeader className="pb-4 bg-primary text-primary-foreground rounded-t-lg">
+                      <Card key={section.key} className={`${isActive ? "ring-2 ring-offset-2" : ""}`} style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}>
+                        <CardHeader className={`pb-4 ${section.colorClass} text-white rounded-t-lg`}>
                           <CardTitle className="text-xl font-bold flex items-center justify-between">
-                            <span>{section.label}</span>
+                            <span className="flex items-center gap-3">
+                              <img src={section.icon} alt={section.label} className="h-8 w-8 object-contain" />
+                              {section.label}
+                            </span>
                             {isActive && <Badge variant="secondary" className="text-xs">Aktiv</Badge>}
                           </CardTitle>
                           <div className="flex flex-wrap gap-2 mt-2">
                             {section.apps.map((app) => (
-                              <Badge key={app} variant="secondary" className="text-xs font-normal">
+                              <Badge key={app} variant="secondary" className="text-xs font-normal bg-white/20 text-white border-white/30">
                                 Dynamics 365 {app}
                               </Badge>
                             ))}
