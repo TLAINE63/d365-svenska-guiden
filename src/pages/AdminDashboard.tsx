@@ -1702,9 +1702,9 @@ const AdminDashboard = () => {
                   )}
                 </h3>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <Label htmlFor="contactPerson">Kontaktperson</Label>
+                    <Label htmlFor="contactPerson">Säljare/Säljansvarig</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
@@ -1750,24 +1750,6 @@ const AdminDashboard = () => {
                       <p className="text-sm text-destructive flex items-center gap-1 mt-1">
                         <AlertCircle className="h-3 w-3" />
                         {formErrors.email}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <Label htmlFor="address">Adress</Label>
-                    <Input
-                      id="address"
-                      value={partnerFormData.address}
-                      onChange={(e) => {
-                        setPartnerFormData({ ...partnerFormData, address: e.target.value });
-                        if (formErrors.address) setFormErrors({ ...formErrors, address: undefined });
-                      }}
-                      className={formErrors.address ? "border-destructive" : ""}
-                    />
-                    {formErrors.address && (
-                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
-                        <AlertCircle className="h-3 w-3" />
-                        {formErrors.address}
                       </p>
                     )}
                   </div>
