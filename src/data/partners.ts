@@ -58,6 +58,7 @@ export const allIndustries = [
   "Non-profit / Organisationer",
   "Utbildning",
   "Offentlig sektor",
+  "Uthyrningsverksamhet",
 ];
 
 // Betalande partners baserat på Excel december 2025

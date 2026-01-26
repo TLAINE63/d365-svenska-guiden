@@ -37,6 +37,7 @@ const INDUSTRY_OPTIONS = [
   "Finans & Försäkring",
   "Offentlig sektor",
   "Utbildning",
+  "Uthyrningsverksamhet",
 ];
 
 const GEOGRAPHY_OPTIONS = [
