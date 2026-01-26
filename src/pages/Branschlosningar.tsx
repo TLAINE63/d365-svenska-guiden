@@ -30,6 +30,7 @@ import halsaSjukvardImg from "@/assets/industries/halsa-sjukvard.jpg";
 import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.jpg";
 import utbildningImg from "@/assets/industries/utbildning.jpg";
 import offentligSektorImg from "@/assets/industries/offentlig-sektor.jpg";
+import uthyrningImg from "@/assets/industries/uthyrning.jpg";
 
 // Product icons
 import businessCentralIcon from "@/assets/icons/BusinessCentral.svg";
@@ -68,6 +69,7 @@ const industries: Industry[] = [
   { name: "Non-profit / Organisationer", slug: "nonprofit-organisationer", image: medlemsorganisationerImg, description: "System för ideella organisationer och föreningar", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Non-profit / Organisationer"] },
   { name: "Utbildning", slug: "utbildning", image: utbildningImg, description: "Lösningar för utbildningssektorn", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Utbildning"] },
   { name: "Offentlig sektor", slug: "offentlig-sektor", image: offentligSektorImg, description: "Affärssystem för myndigheter och offentlig verksamhet", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Offentlig sektor"] },
+  { name: "Uthyrningsverksamhet", slug: "uthyrning", image: uthyrningImg, description: "Affärssystem för maskin- och utrustningsuthyrning", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Uthyrningsverksamhet"] },
 ];
 
 const filterOptions: { value: ProductFilter; label: string; variant: "business-central" | "finance-supply" | "crm"; icon: string }[] = [
