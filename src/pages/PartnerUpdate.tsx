@@ -19,7 +19,7 @@ type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
 const productSections: { key: ProductKey; label: string; apps: string[] }[] = [
   { key: 'bc', label: 'Business Central', apps: ['Business Central'] },
-  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance & SCM'] },
+  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance', 'Supply Chain Management'] },
   { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'] },
   { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'] },
 ];
