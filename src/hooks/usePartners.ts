@@ -109,27 +109,28 @@ export function usePartners() {
   });
 }
 
-// Fetch a single partner by slug (public view - excludes sensitive contact info)
+// Fetch a single partner by slug with public contact info for profile display
 export function usePartner(slug: string | undefined) {
   return useQuery({
     queryKey: ["partner", slug],
     queryFn: async (): Promise<DatabasePartner | null> => {
       if (!slug) return null;
       
+      // Fetch from main partners table to get contact info for profile display
       const { data, error } = await supabase
-        .from("partners_public")
-        .select("*")
+        .from("partners")
+        .select("id, slug, name, description, logo_url, website, contact_person, email, phone, applications, industries, secondary_industries, geography, product_filters, is_featured, created_at, updated_at, logo_dark_bg, customer_examples")
         .eq("slug", slug)
+        .eq("is_featured", true)
         .maybeSingle();
 
       if (error) throw error;
       if (!data) return null;
-      // Add null values for fields not in the public view
+      
+      // Map database field names to frontend field names
       return {
         ...data,
-        email: null,
-        contactPerson: null,
-        phone: null,
+        contactPerson: data.contact_person,
         address: null,
         secondary_industries: data.secondary_industries || [],
         geography: data.geography || ['Sverige'],
