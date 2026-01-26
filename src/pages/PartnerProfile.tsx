@@ -279,14 +279,15 @@ const PartnerProfile = () => {
             Tillbaka till partnerlistan
           </button>
 
-          <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start">
-            {/* Premium Logo Container with glow effect */}
-            <div className="relative group/logo shrink-0">
+          {/* Main content - centered layout */}
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+            {/* Premium Logo Container with glow effect - centered */}
+            <div className="relative group/logo mb-6">
               {/* Outer glow ring */}
-              <div className="absolute -inset-2 bg-gradient-to-br from-primary/40 via-accent/30 to-primary/40 rounded-3xl blur-xl opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -inset-3 bg-gradient-to-br from-primary/40 via-accent/30 to-primary/40 rounded-3xl blur-xl opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
               
               {/* Logo card - dark background for better contrast with light logos */}
-              <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-slate-800 shadow-2xl shadow-black/30 flex items-center justify-center p-4 overflow-hidden border-2 border-slate-700">
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-slate-800 shadow-2xl shadow-black/30 flex items-center justify-center p-5 overflow-hidden border-2 border-slate-700/80">
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-700/50 via-transparent to-slate-900/50" />
                 
@@ -297,70 +298,69 @@ const PartnerProfile = () => {
                     className="max-w-full max-h-full object-contain relative z-10 brightness-110 contrast-110"
                   />
                 ) : (
-                  <Building2 className="w-12 h-12 text-slate-400" />
+                  <Building2 className="w-14 h-14 text-slate-400" />
                 )}
               </div>
             </div>
 
-            {/* Partner Info */}
-            <div className="flex-1 space-y-4">
-              <div className="flex flex-wrap items-center gap-3">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight drop-shadow-lg">
-                  {partner.name}
-                </h1>
-                {partner.is_featured && (
-                  <Badge className="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-400 text-amber-900 border-0 shadow-lg shadow-amber-500/30 px-3 py-1 text-sm font-bold animate-pulse">
-                    <Sparkles className="w-4 h-4 mr-1.5" />
-                    Utvald partner
-                  </Badge>
-                )}
-              </div>
-              
-              <p className="text-base sm:text-lg text-white/80 max-w-3xl leading-relaxed font-light">
-                {partner.description}
-              </p>
-              
-              {/* Premium stats row */}
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                {(dbPartner?.geography && dbPartner.geography.length > 0) ? (
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{getCumulativeGeographyDisplay(dbPartner.geography[dbPartner.geography.length - 1])}</span>
-                  </div>
-                ) : staticPartner?.geography && (
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
-                  </div>
-                )}
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                  <Layers className="w-4 h-4 text-accent" />
-                  <span className="font-medium">{partner.applications.length} Dynamics 365-applikationer</span>
+            {/* Partner name and badge */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight drop-shadow-lg">
+                {partner.name}
+              </h1>
+              {partner.is_featured && (
+                <Badge className="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-400 text-amber-900 border-0 shadow-lg shadow-amber-500/30 px-3 py-1.5 text-sm font-bold">
+                  <Sparkles className="w-4 h-4 mr-1.5" />
+                  Utvald partner
+                </Badge>
+              )}
+            </div>
+            
+            {/* Description */}
+            <p className="text-base sm:text-lg text-white/80 max-w-3xl leading-relaxed font-light mb-6">
+              {partner.description}
+            </p>
+            
+            {/* Premium stats row - centered */}
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {(dbPartner?.geography && dbPartner.geography.length > 0) ? (
+                <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span className="font-medium">{getCumulativeGeographyDisplay(dbPartner.geography[dbPartner.geography.length - 1])}</span>
                 </div>
-                <a 
-                  href={partner.website} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  onClick={() => {
-                    trackPartnerClick(
-                      partner.name,
-                      partner.website,
-                      `partner-profile-${partner.slug}`,
-                      {
-                        product: selectedProduct,
-                        industry: selectedIndustry,
-                        companySize: selectedCompanySize,
-                        geography: selectedGeography,
-                      }
-                    );
-                  }}
-                  className="group flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-white shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
-                >
-                  <Globe className="w-4 h-4" />
-                  <span className="font-medium">{partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
-                  <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
+              ) : staticPartner?.geography && (
+                <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
+                  <MapPin className="w-4 h-4 text-primary" />
+                  <span className="font-medium">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
+                </div>
+              )}
+              <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
+                <Layers className="w-4 h-4 text-accent" />
+                <span className="font-medium">{partner.applications.length} Dynamics 365-applikationer</span>
               </div>
+              <a 
+                href={partner.website} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => {
+                  trackPartnerClick(
+                    partner.name,
+                    partner.website,
+                    `partner-profile-${partner.slug}`,
+                    {
+                      product: selectedProduct,
+                      industry: selectedIndustry,
+                      companySize: selectedCompanySize,
+                      geography: selectedGeography,
+                    }
+                  );
+                }}
+                className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-white shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
+              >
+                <Globe className="w-4 h-4" />
+                <span className="font-medium">{partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
+                <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
             </div>
           </div>
         </div>
