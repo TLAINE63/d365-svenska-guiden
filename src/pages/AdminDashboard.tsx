@@ -1833,7 +1833,7 @@ const AdminDashboard = () => {
                   )}
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Välj max 2 fokusbranscher och max 2 "täcker även" för varje produkt partnern erbjuder.
+                  Välj max 3 fokusbranscher för varje produkt partnern erbjuder.
                 </p>
 
                 <div className="space-y-6">
