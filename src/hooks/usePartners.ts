@@ -2,7 +2,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 // Swedish regions for granular geography filtering
-export type SwedishRegion = "Norrland" | "Svealand" | "Götaland";
+export type SwedishRegion = 
+  | "Storstockholm / Mälardalen" 
+  | "Syd / Sydväst" 
+  | "Väst" 
+  | "Sydost" 
+  | "Mellansverige" 
+  | "Norr";
 
 export interface ProductFilterInput {
   industries: string[];         // Max 3 focus industries
