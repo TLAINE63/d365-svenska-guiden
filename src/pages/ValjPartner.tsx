@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -14,8 +14,9 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
+import SwedenRegionMap from "@/components/SwedenRegionMap";
 import { allIndustries } from "@/data/partners";
-import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { usePartners, DatabasePartner, SwedishRegion } from "@/hooks/usePartners";
 
 
 // All available Dynamics 365 applications for filtering
@@ -108,6 +109,22 @@ const ValjPartner = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedRegions, setSelectedRegions] = useState<SwedishRegion[]>([]);
+
+  // Clear regions when geography changes away from Sverige
+  useEffect(() => {
+    if (selectedGeography !== "Sverige") {
+      setSelectedRegions([]);
+    }
+  }, [selectedGeography]);
+
+  const handleToggleRegion = (region: SwedishRegion) => {
+    setSelectedRegions(prev => 
+      prev.includes(region) 
+        ? prev.filter(r => r !== region)
+        : [...prev, region]
+    );
+  };
 
   // Filter to only show featured partners from database
   const partners = useMemo(() => {
@@ -468,14 +485,24 @@ const ValjPartner = () => {
             colorScheme="amber"
           />
 
+          {/* Sweden Region Map - shown when Sverige is selected */}
+          {selectedGeography === "Sverige" && (
+            <SwedenRegionMap
+              selectedRegions={selectedRegions}
+              onToggleRegion={handleToggleRegion}
+              colorScheme="amber"
+            />
+          )}
+
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
                 {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
                 {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
                 {selectedGeography && <> i <span className="font-semibold text-accent">{selectedGeography}</span></>}
+                {selectedRegions.length > 0 && <> (<span className="font-semibold text-accent">{selectedRegions.join(", ")}</span>)</>}
               </p>
               <Button 
                 variant="ghost" 
@@ -484,6 +511,7 @@ const ValjPartner = () => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
+                  setSelectedRegions([]);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -508,6 +536,7 @@ const ValjPartner = () => {
                     setSelectedApplications([]);
                     setSelectedIndustry(null);
                     setSelectedGeography(null);
+                    setSelectedRegions([]);
                   }}
                 >
                   Rensa alla filter

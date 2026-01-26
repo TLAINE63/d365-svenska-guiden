@@ -13,8 +13,9 @@ import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import { crmApplications, allIndustries } from "@/data/partners";
-import { usePartners } from "@/hooks/usePartners";
+import { usePartners, SwedishRegion } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries, hasProduct } from "@/hooks/usePartnerFilters";
+import SwedenRegionMap from "@/components/SwedenRegionMap";
 import {
   Accordion,
   AccordionContent,
@@ -22,9 +23,19 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+// Geography filter options
+const geographyFilters = [
+  { label: "Sverige", value: "Sverige" },
+  { label: "Norden", value: "Norden" },
+  { label: "Europa", value: "Europa" },
+  { label: "Övriga världen", value: "Övriga världen" }
+];
+
 const CRM = () => {
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
+  const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedRegions, setSelectedRegions] = useState<SwedishRegion[]>([]);
   
   // Fetch partners from database (only featured partners)
   const { data: partners = [], isLoading } = usePartners();
@@ -41,22 +52,61 @@ const CRM = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Clear regions when geography changes away from Sverige
+  useEffect(() => {
+    if (selectedGeography !== "Sverige") {
+      setSelectedRegions([]);
+    }
+  }, [selectedGeography]);
+
+  const handleToggleRegion = (region: SwedishRegion) => {
+    setSelectedRegions(prev => 
+      prev.includes(region) 
+        ? prev.filter(r => r !== region)
+        : [...prev, region]
+    );
+  };
+
   // Filter partners for CRM (using sales and service product keys)
   const crmPartners = useMemo(() => {
     // CRM partners have either sales or service product filters
-    const filtered = partners.filter(p => hasProduct(p, 'sales') || hasProduct(p, 'service'));
+    let filtered = partners.filter(p => hasProduct(p, 'sales') || hasProduct(p, 'service'));
     
     // Apply industry filter if selected
     if (selectedIndustry) {
-      return filtered.filter(p => {
+      filtered = filtered.filter(p => {
         const salesIndustries = p.product_filters?.sales?.industries || [];
         const serviceIndustries = p.product_filters?.service?.industries || [];
         return salesIndustries.includes(selectedIndustry) || serviceIndustries.includes(selectedIndustry);
       });
     }
+
+    // Apply geography filter if selected
+    if (selectedGeography) {
+      const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
+      const selectedGeoIndex = geographyHierarchy.indexOf(selectedGeography);
+      filtered = filtered.filter(p => {
+        const salesGeo = p.product_filters?.sales?.geography || ['Sverige'];
+        const serviceGeo = p.product_filters?.service?.geography || ['Sverige'];
+        const allGeo = [...salesGeo, ...serviceGeo];
+        return allGeo.some(geo => geographyHierarchy.indexOf(geo) >= selectedGeoIndex);
+      });
+    }
+
+    // Apply Sweden region filter if selected
+    if (selectedGeography === "Sverige" && selectedRegions.length > 0) {
+      filtered = filtered.filter(p => {
+        const salesRegions = p.product_filters?.sales?.swedenRegions || [];
+        const serviceRegions = p.product_filters?.service?.swedenRegions || [];
+        // If no regions specified, they cover all of Sweden
+        if (salesRegions.length === 0 && serviceRegions.length === 0) return true;
+        const allRegions = [...salesRegions, ...serviceRegions];
+        return selectedRegions.some(region => allRegions.includes(region));
+      });
+    }
     
     return filtered.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
-  }, [partners, selectedIndustry]);
+  }, [partners, selectedIndustry, selectedGeography, selectedRegions]);
 
   // Get available industries for CRM partners
   const crmIndustries = useMemo(() => {
@@ -239,15 +289,35 @@ const CRM = () => {
             colorScheme="crm"
           />
 
+          {/* Geography Filter */}
+          <FilterButtons
+            title="Ange vart geografiskt ni har er verksamhet"
+            icon="geography"
+            options={geographyFilters.map(g => ({ label: g.label, value: g.value }))}
+            selectedValue={selectedGeography}
+            onSelect={setSelectedGeography}
+            colorScheme="crm"
+          />
+
+          {/* Sweden Region Map - shown when Sverige is selected */}
+          {selectedGeography === "Sverige" && (
+            <SwedenRegionMap
+              selectedRegions={selectedRegions}
+              onToggleRegion={handleToggleRegion}
+              colorScheme="crm"
+            />
+          )}
 
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{crmPartners.length}</span> partners
                 {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-crm">{selectedApplications.join(', ')}</span></>}
                 {selectedApplications.length > 0 && selectedIndustry && <>,</>}
                 {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
+                {selectedGeography && <> i <span className="font-semibold text-crm">{selectedGeography}</span></>}
+                {selectedRegions.length > 0 && <> (<span className="font-semibold text-crm">{selectedRegions.join(", ")}</span>)</>}
               </p>
               <Button 
                 variant="ghost" 
@@ -255,6 +325,8 @@ const CRM = () => {
                 onClick={() => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
+                  setSelectedGeography(null);
+                  setSelectedRegions([]);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -279,7 +351,7 @@ const CRM = () => {
           </div>
 
           {/* Lead CTA - shows when partners are filtered */}
-          {(selectedApplications.length > 0 || selectedIndustry) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
             <div className="max-w-xl mx-auto mt-12">
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
               <article className="relative rounded-3xl overflow-hidden shadow-2xl">
