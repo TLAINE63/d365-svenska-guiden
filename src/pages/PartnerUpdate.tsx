@@ -50,8 +50,10 @@ const GEOGRAPHY_OPTIONS = [
 interface ProductFilter {
   industries: string[];
   geography: string[];
+  swedenCities: string[];
   ranking: number;
   customerExamples: string[];
+  customerCaseLinks: string[];
   productDescription: string;
 }
 
@@ -90,8 +92,10 @@ interface ExistingData {
 const emptyProductFilter: ProductFilter = {
   industries: [],
   geography: [],
-  ranking: 0,
+  swedenCities: [],
+  ranking: 999,
   customerExamples: [],
+  customerCaseLinks: [],
   productDescription: "",
 };
 
@@ -243,6 +247,9 @@ const PartnerUpdate = () => {
       ...emptyProductFilter,
       ...existing,
       geography: normalizedGeography,
+      swedenCities: existing.swedenCities || [],
+      customerExamples: existing.customerExamples || [],
+      customerCaseLinks: existing.customerCaseLinks || [],
     };
   };
 
@@ -556,6 +563,16 @@ const PartnerUpdate = () => {
                   const section = productSections.find(s => s.key === productKey)!;
                   const filter = getProductFilter(productKey);
                   
+                  // Product-specific placeholder for description
+                  const descriptionPlaceholder = 
+                    productKey === 'bc' 
+                      ? "T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
+                      : productKey === 'fsc'
+                      ? "T.ex. 'Experter på koncernkonsolidering och supply chain för stora organisationer'"
+                      : productKey === 'sales'
+                      ? "T.ex. 'Fokus på säljautomation och pipeline-hantering för B2B-företag'"
+                      : "T.ex. 'Specialister på omnikanal-support och Field Service för serviceorganisationer'";
+                  
                   return (
                     <Card key={productKey} className="border-primary/50">
                       <CardHeader className="pb-3">
@@ -572,12 +589,12 @@ const PartnerUpdate = () => {
                         <div>
                           <Label className="text-sm">Kort beskrivning av erbjudande</Label>
                           <Input
-                            placeholder="T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
+                            placeholder={descriptionPlaceholder}
                             value={filter.productDescription || ''}
                             onChange={(e) => updateProductFilter(productKey, { productDescription: e.target.value })}
                             className="mt-2"
                           />
-                          <p className="text-xs text-muted-foreground mt-1">Beskriv ert fokus och expertis för denna produkt</p>
+                          <p className="text-xs text-muted-foreground mt-1">Beskriv ert fokus och expertis för denna produkt (max ~100 tecken)</p>
                         </div>
 
                         {/* Industries */}
@@ -603,51 +620,9 @@ const PartnerUpdate = () => {
                           <p className="text-xs text-muted-foreground mt-2">Välj max 3 branscher ni fokuserar på för denna produkt</p>
                         </div>
 
-                        {/* Geography */}
-                        <div>
-                          <Label className="text-sm">Geografisk täckning</Label>
-                          <p className="text-xs text-muted-foreground mb-2">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {GEOGRAPHY_OPTIONS.map((geo) => {
-                              const isSelected = (filter.geography || []).includes(geo);
-                              return (
-                                <Badge
-                                  key={geo}
-                                  variant={isSelected ? "default" : "outline"}
-                                  className="cursor-pointer text-xs"
-                                  onClick={() => {
-                                    const current = filter.geography || [];
-                                    const newGeo = isSelected
-                                      ? current.filter(g => g !== geo)
-                                      : [...current, geo];
-                                    updateProductFilter(productKey, { geography: newGeo });
-                                  }}
-                                >
-                                  {geo}
-                                </Badge>
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        {/* Ranking (number of projects) */}
-                        <div>
-                          <Label className="text-sm">Ungefärligt antal genomförda projekt</Label>
-                          <Input
-                            type="number"
-                            min={0}
-                            max={999}
-                            placeholder="0"
-                            value={filter.ranking || ''}
-                            onChange={(e) => updateProductFilter(productKey, { ranking: parseInt(e.target.value) || 0 })}
-                            className="w-32 mt-2"
-                          />
-                          <p className="text-xs text-muted-foreground mt-1">Hur många implementationsprojekt har ni genomfört för denna produkt?</p>
-                        </div>
-
                         {/* Customer Examples */}
                         <div>
-                          <Label className="text-sm">Kundexempel</Label>
+                          <Label className="text-sm">Kundexempel (Ange kundnamn med kommatecken mellan alternativt endast "Kundexempel kan ges på förfrågan")</Label>
                           <Input
                             placeholder="Volvo, IKEA, Scania..."
                             value={(filter.customerExamples || []).join(', ')}
@@ -660,7 +635,73 @@ const PartnerUpdate = () => {
                             }}
                             className="mt-2"
                           />
-                          <p className="text-xs text-muted-foreground mt-1">Separera med komma. Lämna tomt om ni inte vill ange några.</p>
+                        </div>
+
+                        {/* Customer Case Links */}
+                        <div>
+                          <Label className="text-sm">Länk till kundcase (vill ni stoltsera med kundcase, får ni gärna lägga in länken till dessa nedan)</Label>
+                          <Input
+                            placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
+                            value={(filter.customerCaseLinks || []).join(', ')}
+                            onChange={(e) => {
+                              const links = e.target.value
+                                .split(',')
+                                .map(s => s.trim())
+                                .filter(s => s.length > 0);
+                              updateProductFilter(productKey, { customerCaseLinks: links });
+                            }}
+                            className="mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
+                        </div>
+
+                        {/* Geography */}
+                        <div className="space-y-3">
+                          <div>
+                            <Label className="text-sm">Geografisk täckning</Label>
+                            <p className="text-xs text-muted-foreground mb-2">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {GEOGRAPHY_OPTIONS.map((geo) => {
+                                const isSelected = (filter.geography || []).includes(geo);
+                                return (
+                                  <Badge
+                                    key={geo}
+                                    variant={isSelected ? "default" : "outline"}
+                                    className="cursor-pointer text-xs"
+                                    onClick={() => {
+                                      const current = filter.geography || [];
+                                      const newGeo = isSelected
+                                        ? current.filter(g => g !== geo)
+                                        : [...current, geo];
+                                      updateProductFilter(productKey, { geography: newGeo });
+                                    }}
+                                  >
+                                    {geo}
+                                  </Badge>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          
+                          {/* Sweden Cities - shown only if Sweden is selected */}
+                          {(filter.geography || []).includes("Sverige") && (
+                            <div>
+                              <Label className="text-sm">Städer i Sverige där ni har lokal leveransförmåga</Label>
+                              <Input
+                                placeholder="Stockholm, Göteborg, Malmö, Uppsala"
+                                value={(filter.swedenCities || []).join(', ')}
+                                onChange={(e) => {
+                                  const cities = e.target.value
+                                    .split(',')
+                                    .map(s => s.trim())
+                                    .filter(s => s.length > 0);
+                                  updateProductFilter(productKey, { swedenCities: cities });
+                                }}
+                                className="mt-2"
+                              />
+                              <p className="text-xs text-muted-foreground mt-1">Ange städer där ni har konsulter (separera med komma)</p>
+                            </div>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
