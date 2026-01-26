@@ -196,16 +196,24 @@ export const LeadCTA = ({
         />
       </div>
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? (
-          "Skickar..."
-        ) : (
-          <>
-            <Send className="mr-2 h-4 w-4" />
-            Skicka förfrågan
-          </>
-        )}
-      </Button>
+      <div className="relative">
+        {/* Pulsing amber glow behind button */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-amber-400/60 to-orange-500/60 rounded-lg blur-md animate-pulse" />
+        <Button 
+          type="submit" 
+          className="relative w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold shadow-lg shadow-amber-500/30 border-0" 
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? (
+            "Skickar..."
+          ) : (
+            <>
+              <Send className="mr-2 h-4 w-4" />
+              Skicka förfrågan
+            </>
+          )}
+        </Button>
+      </div>
       
       <p className="text-xs text-muted-foreground text-center">
         Genom att skicka godkänner du vår{" "}
