@@ -8,20 +8,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Loader2, CheckCircle2, AlertCircle, Building2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// Available options
-const APPLICATION_OPTIONS = [
-  "Business Central",
-  "Finance & SCM",
-  "Sales",
-  "Customer Service",
-  "Field Service",
-  "Customer Insights (Marketing)",
-  "Contact Center",
+// Product sections matching admin structure
+type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
+
+const productSections: { key: ProductKey; label: string; apps: string[] }[] = [
+  { key: 'bc', label: 'Business Central', apps: ['Business Central'] },
+  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance & SCM'] },
+  { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'] },
+  { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'] },
 ];
 
 const INDUSTRY_OPTIONS = [
@@ -46,6 +46,21 @@ const GEOGRAPHY_OPTIONS = [
   "Övriga världen",
 ];
 
+interface ProductFilter {
+  industries: string[];
+  geography: string;
+  ranking: number;
+  customerExamples: string[];
+  productDescription: string;
+}
+
+interface ProductFilters {
+  bc?: ProductFilter;
+  fsc?: ProductFilter;
+  sales?: ProductFilter;
+  service?: ProductFilter;
+}
+
 interface Invitation {
   id: string;
   partner_name: string;
@@ -68,7 +83,16 @@ interface ExistingData {
   industries: string[];
   secondary_industries: string[];
   geography: string[];
+  product_filters: ProductFilters;
 }
+
+const emptyProductFilter: ProductFilter = {
+  industries: [],
+  geography: "Sverige",
+  ranking: 0,
+  customerExamples: [],
+  productDescription: "",
+};
 
 const PartnerUpdate = () => {
   const { token } = useParams<{ token: string }>();
@@ -90,12 +114,12 @@ const PartnerUpdate = () => {
     email: "",
     phone: "",
     address: "",
-    applications: [] as string[],
-    industries: [] as string[],
-    secondary_industries: [] as string[],
-    geography: [] as string[],
     notes: "",
   });
+
+  // Product filters state - separated for easier management
+  const [productFilters, setProductFilters] = useState<ProductFilters>({});
+  const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
 
   useEffect(() => {
     const fetchInvitation = async () => {
@@ -106,16 +130,6 @@ const PartnerUpdate = () => {
       }
 
       try {
-        const { data, error: fetchError } = await supabase.functions.invoke(
-          "partner-invitations",
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            body: null,
-          }
-        );
-
-        // Use fetch directly for GET with query params
         const response = await fetch(
           `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-invitation&token=${token}`,
           {
@@ -154,12 +168,22 @@ const PartnerUpdate = () => {
             email: result.existingData.email || result.invitation.email,
             phone: result.existingData.phone || "",
             address: result.existingData.address || "",
-            applications: result.existingData.applications || [],
-            industries: result.existingData.industries || [],
-            secondary_industries: result.existingData.secondary_industries || [],
-            geography: result.existingData.geography || [],
             notes: "",
           });
+          
+          // Pre-fill product filters if available
+          if (result.existingData.product_filters) {
+            setProductFilters(result.existingData.product_filters);
+            // Determine which products are active based on existing data
+            const active: ProductKey[] = [];
+            productSections.forEach(section => {
+              const filter = result.existingData.product_filters[section.key];
+              if (filter && (filter.industries?.length > 0 || filter.productDescription)) {
+                active.push(section.key);
+              }
+            });
+            setActiveProducts(active);
+          }
         } else {
           setFormData(prev => ({
             ...prev,
@@ -183,13 +207,53 @@ const PartnerUpdate = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckboxChange = (field: 'applications' | 'industries' | 'secondary_industries' | 'geography', value: string, checked: boolean) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: checked 
-        ? [...prev[field], value]
-        : prev[field].filter(item => item !== value)
+  const toggleProduct = (key: ProductKey) => {
+    setActiveProducts(prev => {
+      if (prev.includes(key)) {
+        // Remove from active products and clear its filter
+        setProductFilters(current => {
+          const updated = { ...current };
+          delete updated[key];
+          return updated;
+        });
+        return prev.filter(k => k !== key);
+      } else {
+        // Add to active products with default filter
+        setProductFilters(current => ({
+          ...current,
+          [key]: { ...emptyProductFilter }
+        }));
+        return [...prev, key];
+      }
+    });
+  };
+
+  const getProductFilter = (key: ProductKey): ProductFilter => {
+    return productFilters[key] || { ...emptyProductFilter };
+  };
+
+  const updateProductFilter = (key: ProductKey, updates: Partial<ProductFilter>) => {
+    setProductFilters(current => ({
+      ...current,
+      [key]: { ...getProductFilter(key), ...updates }
     }));
+  };
+
+  const toggleProductIndustry = (productKey: ProductKey, industry: string) => {
+    const filter = getProductFilter(productKey);
+    const maxIndustries = 3;
+    
+    if (filter.industries.includes(industry)) {
+      updateProductFilter(productKey, {
+        industries: filter.industries.filter(i => i !== industry)
+      });
+    } else if (filter.industries.length < maxIndustries) {
+      updateProductFilter(productKey, {
+        industries: [...filter.industries, industry]
+      });
+    } else {
+      toast.error(`Max ${maxIndustries} branscher per produkt`);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -206,10 +270,33 @@ const PartnerUpdate = () => {
       toast.error("Webbplats krävs");
       return;
     }
+    if (activeProducts.length === 0) {
+      toast.error("Välj minst en produkt ni arbetar med");
+      return;
+    }
 
     setSubmitting(true);
 
     try {
+      // Build applications array from active products
+      const applications: string[] = [];
+      activeProducts.forEach(key => {
+        const section = productSections.find(s => s.key === key);
+        if (section) {
+          applications.push(...section.apps);
+        }
+      });
+
+      // Build submission data
+      const submissionData = {
+        ...formData,
+        applications,
+        industries: [], // Industries are now per-product
+        secondary_industries: [],
+        geography: [], // Geography is now per-product
+        product_filters: productFilters,
+      };
+
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=submit`,
         {
@@ -220,7 +307,7 @@ const PartnerUpdate = () => {
           },
           body: JSON.stringify({
             token,
-            submissionData: formData,
+            submissionData,
           }),
         }
       );
@@ -308,7 +395,7 @@ const PartnerUpdate = () => {
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <Building2 className="w-12 h-12 text-primary mx-auto mb-4" />
             <h1 className="text-2xl font-bold mb-2">Uppdatera partnerprofil</h1>
@@ -422,80 +509,140 @@ const PartnerUpdate = () => {
               </CardContent>
             </Card>
 
-            {/* Applications */}
+            {/* Products Section */}
             <Card>
               <CardHeader>
                 <CardTitle>Dynamics 365-produkter</CardTitle>
-                <CardDescription>Vilka produkter arbetar ni med?</CardDescription>
+                <CardDescription>
+                  Välj de produkter ni arbetar med och fyll i detaljer för varje produkt
+                </CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {APPLICATION_OPTIONS.map((app) => (
-                    <div key={app} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`app-${app}`}
-                        checked={formData.applications.includes(app)}
-                        onCheckedChange={(checked) => 
-                          handleCheckboxChange('applications', app, checked as boolean)
-                        }
-                      />
-                      <Label htmlFor={`app-${app}`} className="cursor-pointer">{app}</Label>
-                    </div>
+              <CardContent className="space-y-6">
+                <div className="flex flex-wrap gap-2">
+                  {productSections.map((section) => (
+                    <Badge
+                      key={section.key}
+                      variant={activeProducts.includes(section.key) ? "default" : "outline"}
+                      className="cursor-pointer text-sm py-1.5 px-3"
+                      onClick={() => toggleProduct(section.key)}
+                    >
+                      {section.label}
+                    </Badge>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
 
-            {/* Industries */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Branschfokus</CardTitle>
-                <CardDescription>Välj de branscher ni främst arbetar med</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <Label className="text-sm font-medium mb-2 block">Primära branscher</Label>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      {INDUSTRY_OPTIONS.map((industry) => (
-                        <div key={industry} className="flex items-center space-x-2">
-                          <Checkbox
-                            id={`ind-${industry}`}
-                            checked={formData.industries.includes(industry)}
-                            onCheckedChange={(checked) => 
-                              handleCheckboxChange('industries', industry, checked as boolean)
-                            }
+                {activeProducts.length === 0 && (
+                  <p className="text-sm text-muted-foreground text-center py-4">
+                    Välj minst en produkt ovan för att fortsätta
+                  </p>
+                )}
+
+                {/* Product-specific sections */}
+                {activeProducts.map((productKey) => {
+                  const section = productSections.find(s => s.key === productKey)!;
+                  const filter = getProductFilter(productKey);
+                  
+                  return (
+                    <Card key={productKey} className="border-primary/50">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-base flex items-center justify-between">
+                          <span>{section.label}</span>
+                          <Badge variant="default" className="text-xs">Aktiv</Badge>
+                        </CardTitle>
+                        <CardDescription className="text-xs">
+                          Applikationer: {section.apps.join(", ")}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        {/* Product Description */}
+                        <div>
+                          <Label className="text-sm">Kort beskrivning av erbjudande</Label>
+                          <Input
+                            placeholder="T.ex. 'Specialiserade på tillverkande företag med fokus på lageroptimering'"
+                            value={filter.productDescription || ''}
+                            onChange={(e) => updateProductFilter(productKey, { productDescription: e.target.value })}
+                            className="mt-2"
                           />
-                          <Label htmlFor={`ind-${industry}`} className="cursor-pointer text-sm">{industry}</Label>
+                          <p className="text-xs text-muted-foreground mt-1">Beskriv ert fokus och expertis för denna produkt</p>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
-            {/* Geography */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Geografisk täckning</CardTitle>
-                <CardDescription>Var erbjuder ni era tjänster?</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-4">
-                  {GEOGRAPHY_OPTIONS.map((geo) => (
-                    <div key={geo} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`geo-${geo}`}
-                        checked={formData.geography.includes(geo)}
-                        onCheckedChange={(checked) => 
-                          handleCheckboxChange('geography', geo, checked as boolean)
-                        }
-                      />
-                      <Label htmlFor={`geo-${geo}`} className="cursor-pointer">{geo}</Label>
-                    </div>
-                  ))}
-                </div>
+                        {/* Industries */}
+                        <div>
+                          <div className="flex items-center justify-between mb-2">
+                            <Label className="text-sm">Branschfokus</Label>
+                            <span className={`text-xs font-medium px-2 py-0.5 rounded ${filter.industries.length > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                              {filter.industries.length}/3
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {INDUSTRY_OPTIONS.map((ind) => (
+                              <Badge
+                                key={ind}
+                                variant={filter.industries.includes(ind) ? "default" : "outline"}
+                                className="cursor-pointer text-xs"
+                                onClick={() => toggleProductIndustry(productKey, ind)}
+                              >
+                                {ind}
+                              </Badge>
+                            ))}
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-2">Välj max 3 branscher ni fokuserar på för denna produkt</p>
+                        </div>
+
+                        {/* Geography */}
+                        <div>
+                          <Label className="text-sm">Geografisk täckning</Label>
+                          <div className="flex flex-wrap gap-1.5 mt-2">
+                            {GEOGRAPHY_OPTIONS.map((geo) => (
+                              <Badge
+                                key={geo}
+                                variant={filter.geography === geo ? "default" : "outline"}
+                                className="cursor-pointer text-xs"
+                                onClick={() => updateProductFilter(productKey, { geography: geo })}
+                              >
+                                {geo}
+                              </Badge>
+                            ))}
+                          </div>
+                          <p className="text-xs text-muted-foreground mt-2">Var erbjuder ni implementation för denna produkt?</p>
+                        </div>
+
+                        {/* Ranking (number of projects) */}
+                        <div>
+                          <Label className="text-sm">Ungefärligt antal genomförda projekt</Label>
+                          <Input
+                            type="number"
+                            min={0}
+                            max={999}
+                            placeholder="0"
+                            value={filter.ranking || ''}
+                            onChange={(e) => updateProductFilter(productKey, { ranking: parseInt(e.target.value) || 0 })}
+                            className="w-32 mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">Hur många implementationsprojekt har ni genomfört för denna produkt?</p>
+                        </div>
+
+                        {/* Customer Examples */}
+                        <div>
+                          <Label className="text-sm">Kundexempel</Label>
+                          <Input
+                            placeholder="Volvo, IKEA, Scania..."
+                            value={(filter.customerExamples || []).join(', ')}
+                            onChange={(e) => {
+                              const examples = e.target.value
+                                .split(',')
+                                .map(s => s.trim())
+                                .filter(s => s.length > 0);
+                              updateProductFilter(productKey, { customerExamples: examples });
+                            }}
+                            className="mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">Separera med komma. Lämna tomt om ni inte vill ange några.</p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </CardContent>
             </Card>
 
@@ -519,7 +666,7 @@ const PartnerUpdate = () => {
 
             {/* Submit */}
             <div className="flex justify-end gap-4">
-              <Button type="submit" disabled={submitting} size="lg">
+              <Button type="submit" disabled={submitting || activeProducts.length === 0} size="lg">
                 {submitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
