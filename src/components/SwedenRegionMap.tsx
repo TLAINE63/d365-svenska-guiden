@@ -11,10 +11,13 @@ interface SwedenRegionMapProps {
   colorScheme?: "primary" | "business-central" | "crm" | "finance-supply" | "amber";
 }
 
-const regionData: { id: SwedishRegion; label: string; description: string }[] = [
-  { id: "Norrland", label: "Norrland", description: "Norra Sverige" },
-  { id: "Svealand", label: "Svealand", description: "Mellersta Sverige" },
-  { id: "Götaland", label: "Götaland", description: "Södra Sverige" },
+const regionData: { id: SwedishRegion; label: string; shortLabel: string }[] = [
+  { id: "Norr", label: "Norr", shortLabel: "Norr" },
+  { id: "Mellansverige", label: "Mellansverige", shortLabel: "Mellan" },
+  { id: "Storstockholm / Mälardalen", label: "Storstockholm / Mälardalen", shortLabel: "Stockholm" },
+  { id: "Väst", label: "Väst", shortLabel: "Väst" },
+  { id: "Sydost", label: "Sydost", shortLabel: "Sydost" },
+  { id: "Syd / Sydväst", label: "Syd / Sydväst", shortLabel: "Syd" },
 ];
 
 const colorSchemes = {
@@ -50,11 +53,10 @@ const colorSchemes = {
   },
 };
 
-// More realistic SVG paths for Sweden's three regions
-// Based on simplified actual geographic boundaries
-const regionPaths = {
-  // Norrland - Northern Sweden (Norrbotten, Västerbotten, Jämtland, Västernorrland, Gävleborg, parts of Dalarna)
-  Norrland: `
+// SVG paths for Sweden's six regions
+const regionPaths: Record<SwedishRegion, string> = {
+  // Norr - Norrland (Norrbotten, Västerbotten, Jämtland, Västernorrland)
+  "Norr": `
     M 95 8
     C 88 10, 82 14, 78 20
     C 72 28, 68 38, 65 50
@@ -81,83 +83,153 @@ const regionPaths = {
     C 110 10, 102 8, 95 8
     Z
   `,
-  // Svealand - Central Sweden (Stockholm, Uppsala, Södermanland, Västmanland, Örebro, Värmland)
-  Svealand: `
-    M 55 182
-    L 48 188
-    C 42 194, 38 202, 36 212
-    L 34 225
-    C 32 238, 32 250, 35 262
-    L 40 275
-    C 44 284, 50 292, 58 298
-    L 68 304
-    L 78 308
-    C 88 312, 100 314, 115 314
-    L 132 312
-    C 145 310, 156 305, 165 298
-    L 175 288
-    C 182 280, 186 270, 188 258
-    L 190 245
-    C 191 232, 190 218, 186 205
-    L 180 192
-    C 175 185, 168 180, 160 176
-    L 150 173
-    C 140 170, 128 168, 115 168
-    L 100 170
-    C 88 172, 76 175, 66 180
-    L 55 182
+  // Mellansverige - Gävleborg, Dalarna, Värmland
+  "Mellansverige": `
+    M 55 185
+    L 48 192
+    C 42 198, 38 206, 36 216
+    L 34 228
+    C 32 238, 33 248, 36 258
+    L 42 270
+    C 48 280, 56 288, 66 294
+    L 80 298
+    C 92 300, 104 298, 115 294
+    L 128 288
+    C 138 282, 146 274, 152 264
+    L 158 252
+    C 162 240, 164 226, 162 212
+    L 158 198
+    C 154 190, 148 184, 140 180
+    L 128 176
+    C 116 174, 104 174, 92 176
+    L 76 180
+    L 55 185
     Z
   `,
-  // Götaland - Southern Sweden (Skåne, Blekinge, Småland, Halland, Västra Götaland, Östergötland, Gotland)
-  Götaland: `
-    M 58 302
-    L 48 310
-    C 40 318, 34 328, 30 340
-    L 26 355
-    C 22 372, 22 390, 28 406
-    L 35 420
-    C 42 432, 52 442, 65 450
-    L 80 458
-    C 95 465, 112 470, 130 472
-    L 148 472
-    C 165 470, 180 465, 192 456
-    L 205 445
-    C 215 434, 222 420, 226 405
-    L 228 388
-    C 230 370, 228 352, 222 336
-    L 215 322
-    C 208 312, 198 304, 186 298
-    L 172 292
-    C 158 288, 142 286, 125 286
-    L 105 288
-    C 88 290, 72 295, 58 302
+  // Storstockholm / Mälardalen - Stockholm, Uppsala, Södermanland, Västmanland, Örebro
+  "Storstockholm / Mälardalen": `
+    M 118 294
+    L 130 290
+    C 142 286, 152 280, 160 272
+    L 170 260
+    C 178 248, 184 234, 186 218
+    L 188 202
+    C 190 188, 192 176, 198 166
+    L 206 158
+    C 212 152, 220 148, 228 148
+    L 238 150
+    C 246 154, 252 160, 256 168
+    L 260 180
+    C 264 194, 264 210, 260 226
+    L 254 242
+    C 248 256, 240 268, 228 278
+    L 214 288
+    C 200 296, 184 302, 166 304
+    L 148 306
+    C 136 306, 126 302, 118 294
+    Z
+  `,
+  // Väst - Västra Götaland, Halland
+  "Väst": `
+    M 42 272
+    L 36 284
+    C 30 296, 26 310, 24 326
+    L 22 344
+    C 20 362, 22 380, 28 396
+    L 36 410
+    C 44 422, 54 432, 66 438
+    L 82 444
+    C 96 448, 110 448, 124 444
+    L 138 438
+    C 150 432, 160 424, 168 414
+    L 174 400
+    C 178 386, 178 370, 174 354
+    L 168 340
+    C 162 328, 154 318, 144 310
+    L 130 304
+    C 118 300, 104 298, 90 298
+    L 74 300
+    C 62 302, 52 298, 46 290
+    L 42 272
+    Z
+  `,
+  // Sydost - Östergötland, Jönköping, Kalmar, Gotland
+  "Sydost": `
+    M 144 310
+    L 158 316
+    C 172 322, 184 330, 194 340
+    L 206 354
+    C 216 368, 224 384, 228 402
+    L 230 420
+    C 232 438, 230 456, 224 472
+    L 216 486
+    C 206 498, 194 506, 180 510
+    L 164 514
+    C 148 516, 132 514, 118 508
+    L 104 500
+    C 92 492, 82 482, 76 470
+    L 70 456
+    C 66 442, 66 428, 70 414
+    L 76 400
+    C 82 388, 90 378, 100 370
+    L 114 362
+    C 126 356, 138 348, 146 338
+    L 152 324
+    L 144 310
     Z
     
-    M 195 340
-    C 200 345, 204 352, 206 360
-    L 208 372
-    C 209 382, 208 392, 204 400
-    L 198 408
-    C 192 415, 184 420, 175 422
-    L 165 424
-    C 155 425, 146 424, 138 420
-    L 130 415
-    C 124 410, 120 403, 118 395
-    L 116 385
-    C 115 375, 116 365, 120 357
-    L 126 350
-    C 132 344, 140 340, 150 338
-    L 162 337
-    C 173 337, 184 338, 195 340
+    M 215 360
+    C 220 365, 224 372, 226 380
+    L 228 392
+    C 229 402, 228 412, 224 420
+    L 218 428
+    C 212 435, 204 440, 195 442
+    L 185 444
+    C 175 445, 166 444, 158 440
+    L 150 435
+    C 144 430, 140 423, 138 415
+    L 136 405
+    C 135 395, 136 385, 140 377
+    L 146 370
+    C 152 364, 160 360, 170 358
+    L 182 357
+    C 193 357, 204 358, 215 360
+    Z
+  `,
+  // Syd / Sydväst - Skåne, Blekinge, Kronoberg
+  "Syd / Sydväst": `
+    M 66 442
+    L 56 456
+    C 46 470, 38 486, 34 504
+    L 30 524
+    C 26 544, 28 564, 36 582
+    L 48 598
+    C 60 612, 76 622, 94 628
+    L 114 632
+    C 134 634, 154 632, 172 624
+    L 188 614
+    C 202 604, 214 590, 222 574
+    L 228 556
+    C 234 538, 236 518, 232 498
+    L 226 480
+    C 220 464, 210 450, 198 440
+    L 182 432
+    C 168 426, 152 424, 136 426
+    L 118 430
+    C 102 434, 88 438, 76 444
+    L 66 442
     Z
   `,
 };
 
 // Label positions for each region
-const labelPositions = {
-  Norrland: { x: 105, y: 105 },
-  Svealand: { x: 115, y: 245 },
-  Götaland: { x: 125, y: 380 },
+const labelPositions: Record<SwedishRegion, { x: number; y: number }> = {
+  "Norr": { x: 105, y: 105 },
+  "Mellansverige": { x: 100, y: 235 },
+  "Storstockholm / Mälardalen": { x: 200, y: 220 },
+  "Väst": { x: 85, y: 365 },
+  "Sydost": { x: 165, y: 420 },
+  "Syd / Sydväst": { x: 130, y: 545 },
 };
 
 export function SwedenRegionMap({
@@ -181,13 +253,13 @@ export function SwedenRegionMap({
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10">
         {/* SVG Map of Sweden */}
-        <div className="relative w-56 h-[420px] sm:w-64 sm:h-[480px]">
+        <div className="relative w-52 h-[520px] sm:w-60 sm:h-[580px]">
           <svg
-            viewBox="0 0 260 500"
+            viewBox="0 0 280 660"
             className="w-full h-full drop-shadow-lg"
-            aria-label="Karta över Sverige indelad i landsdelar"
+            aria-label="Karta över Sverige indelad i regioner"
           >
             {/* Background shadow/glow effect */}
             <defs>
@@ -204,33 +276,33 @@ export function SwedenRegionMap({
             </defs>
 
             {/* Render regions */}
-            {(["Norrland", "Svealand", "Götaland"] as const).map((region) => {
-              const selected = isSelected(region);
+            {regionData.map(({ id }) => {
+              const selected = isSelected(id);
               return (
-                <g key={region} filter={selected ? "url(#glow)" : "url(#shadow)"}>
+                <g key={id} filter={selected ? "url(#glow)" : "url(#shadow)"}>
                   <path
-                    d={regionPaths[region]}
+                    d={regionPaths[id]}
                     className={cn(
                       "cursor-pointer transition-all duration-300 stroke-[1.5]",
                       selected ? colors.selected : colors.unselected
                     )}
-                    onClick={() => onToggleRegion(region)}
+                    onClick={() => onToggleRegion(id)}
                   />
                   {/* Region label */}
                   <text
-                    x={labelPositions[region].x}
-                    y={labelPositions[region].y}
+                    x={labelPositions[id].x}
+                    y={labelPositions[id].y}
                     textAnchor="middle"
                     className={cn(
-                      "text-[11px] font-semibold pointer-events-none select-none transition-colors duration-300",
+                      "text-[9px] font-semibold pointer-events-none select-none transition-colors duration-300",
                       selected ? "fill-white" : "fill-foreground"
                     )}
                   >
-                    {region}
+                    {regionData.find(r => r.id === id)?.shortLabel}
                   </text>
                   {/* Checkmark when selected */}
                   {selected && (
-                    <g transform={`translate(${labelPositions[region].x - 8}, ${labelPositions[region].y + 8})`}>
+                    <g transform={`translate(${labelPositions[id].x - 8}, ${labelPositions[id].y + 8})`}>
                       <circle cx="8" cy="8" r="10" className="fill-white/90" />
                       <path
                         d="M5 8 L7 10 L11 6"
@@ -246,7 +318,7 @@ export function SwedenRegionMap({
         </div>
 
         {/* Region buttons/legend */}
-        <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2 sm:gap-3">
           {regionData.map((region) => {
             const selected = isSelected(region.id);
             return (
@@ -254,7 +326,7 @@ export function SwedenRegionMap({
                 key={region.id}
                 onClick={() => onToggleRegion(region.id)}
                 className={cn(
-                  "flex items-center gap-3 px-5 py-4 rounded-xl border-2 transition-all duration-200 text-left min-w-[200px] group",
+                  "flex items-center gap-2 px-3 py-3 sm:px-4 sm:py-3 rounded-xl border-2 transition-all duration-200 text-left min-w-[140px] sm:min-w-[180px] group",
                   selected
                     ? `${colors.badge} border-transparent shadow-lg scale-[1.02]`
                     : "bg-card border-border hover:border-primary/50 hover:bg-primary/5 text-foreground hover:scale-[1.02]"
@@ -262,27 +334,22 @@ export function SwedenRegionMap({
               >
                 <div
                   className={cn(
-                    "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200",
+                    "w-4 h-4 sm:w-5 sm:h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 flex-shrink-0",
                     selected 
                       ? "bg-white/20 border-white/50" 
                       : "border-muted-foreground/40 group-hover:border-primary/60"
                   )}
                 >
-                  {selected && <Check className="w-3.5 h-3.5" />}
+                  {selected && <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
                 </div>
-                <div>
-                  <div className="font-semibold">{region.label}</div>
-                  <div className={cn("text-xs", selected ? "text-white/80" : "text-muted-foreground")}>
-                    {region.description}
-                  </div>
-                </div>
+                <span className="font-medium text-sm sm:text-base leading-tight">{region.label}</span>
               </button>
             );
           })}
           
           {/* Clear selection hint */}
           {selectedRegions.length > 0 && (
-            <p className="text-xs text-muted-foreground text-center mt-2">
+            <p className="text-xs text-muted-foreground text-center col-span-2 sm:col-span-3 lg:col-span-2 mt-2">
               Klicka igen för att avmarkera
             </p>
           )}

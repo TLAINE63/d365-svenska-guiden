@@ -1974,12 +1974,12 @@ const AdminDashboard = () => {
                             
                             {(filter.geography || []).includes("Sverige") && (
                               <div className="space-y-4">
-                                {/* Sweden Regions (Landsdelar) */}
+                                {/* Sweden Regions */}
                                 <div>
-                                  <Label className="text-sm">Regioner i Sverige (Landsdelar)</Label>
+                                  <Label className="text-sm">Regioner i Sverige</Label>
                                   <p className="text-xs text-muted-foreground mb-2">Välj vilka regioner ni täcker i Sverige. Lämna tomt om ni täcker hela Sverige.</p>
                                   <div className="flex flex-wrap gap-2 mt-2">
-                                    {(["Norrland", "Svealand", "Götaland"] as const).map((region) => {
+                                    {(["Storstockholm / Mälardalen", "Syd / Sydväst", "Väst", "Sydost", "Mellansverige", "Norr"] as const).map((region) => {
                                       const isSelected = (filter.swedenRegions || []).includes(region);
                                       return (
                                         <button
