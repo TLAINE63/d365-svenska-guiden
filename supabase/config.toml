@@ -23,3 +23,9 @@ verify_jwt = false
 
 [functions.import-partners]
 verify_jwt = false
+
+[functions.upload-partner-logo]
+verify_jwt = false
+
+[functions.partner-invitations]
+verify_jwt = false
