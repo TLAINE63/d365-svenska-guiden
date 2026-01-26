@@ -2060,6 +2060,21 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                   <div>
+                    <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>
+                    <div className="relative">
+                      <CalendarX className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="cancellation_date"
+                        type="date"
+                        value={partnerFormData.cancellation_date || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, cancellation_date: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <div>
                     <Label>Månadsavgift (beräknad)</Label>
                     {(() => {
                       // Count active products
@@ -2106,21 +2121,6 @@ const AdminDashboard = () => {
                         </div>
                       );
                     })()}
-                  </div>
-                  <div>
-                    <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>
-                    <div className="relative">
-                      <CalendarX className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="cancellation_date"
-                        type="date"
-                        value={partnerFormData.cancellation_date || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, cancellation_date: e.target.value })
-                        }
-                        className="pl-10"
-                      />
-                    </div>
                   </div>
                 </div>
 
