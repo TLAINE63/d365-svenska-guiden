@@ -200,6 +200,7 @@ const AdminDashboard = () => {
     secondaryIndustries: [],
     companySize: [],
     geography: [],
+    swedenCities: [],
     ranking: 999,
     customerExamples: [],
     customerCaseLinks: [],
@@ -742,6 +743,7 @@ const AdminDashboard = () => {
       secondaryIndustries: existing?.secondaryIndustries || [],
       companySize: existing?.companySize || [],
       geography: normalizedGeography,
+      swedenCities: existing?.swedenCities || [],
       customerExamples: existing?.customerExamples || [],
       customerCaseLinks: existing?.customerCaseLinks || [],
       productDescription: existing?.productDescription || '',
@@ -1934,8 +1936,8 @@ const AdminDashboard = () => {
                             <p className="text-xs text-muted-foreground mt-1">Separera flera länkar med komma</p>
                           </div>
 
-                          <div className="flex gap-4">
-                            <div className="flex-1">
+                          <div className="space-y-3">
+                            <div>
                               <Label className="text-sm">Geografisk täckning</Label>
                               <p className="text-xs text-muted-foreground mb-2">Välj en eller flera regioner</p>
                               <div className="flex flex-wrap gap-1.5">
@@ -1960,17 +1962,38 @@ const AdminDashboard = () => {
                                 })}
                               </div>
                             </div>
-                            <div>
-                              <Label className="text-sm">Ranking</Label>
-                              <Input
-                                type="number"
-                                min={1}
-                                max={999}
-                                value={filter.ranking}
-                                onChange={(e) => updateProductFilter(section.key, { ranking: parseInt(e.target.value) || 999 })}
-                                className="w-20 mt-2"
-                              />
-                            </div>
+                            
+                            {(filter.geography || []).includes("Sverige") && (
+                              <div>
+                                <Label className="text-sm">Städer i Sverige</Label>
+                                <Input
+                                  placeholder="Stockholm, Göteborg, Malmö, Uppsala"
+                                  defaultValue={(filter.swedenCities || []).join(', ')}
+                                  key={`${section.key}-swedenCities-${editingPartner?.id || 'new'}`}
+                                  onBlur={(e) => {
+                                    const cities = e.target.value
+                                      .split(',')
+                                      .map(s => s.trim())
+                                      .filter(s => s.length > 0);
+                                    updateProductFilter(section.key, { swedenCities: cities });
+                                  }}
+                                  className="mt-2"
+                                />
+                                <p className="text-xs text-muted-foreground mt-1">Ange städer där ni har konsulter (separera med komma)</p>
+                              </div>
+                            )}
+                          </div>
+
+                          <div>
+                            <Label className="text-sm">Ranking</Label>
+                            <Input
+                              type="number"
+                              min={1}
+                              max={999}
+                              value={filter.ranking}
+                              onChange={(e) => updateProductFilter(section.key, { ranking: parseInt(e.target.value) || 999 })}
+                              className="w-20 mt-2"
+                            />
                           </div>
                         </CardContent>
                       </Card>

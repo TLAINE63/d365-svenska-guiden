@@ -6,6 +6,7 @@ export interface ProductFilterInput {
   secondaryIndustries: string[]; // Legacy - hidden in UI
   companySize: string[];
   geography: string[];          // Multi-select geography
+  swedenCities?: string[];      // Specific cities in Sweden where they have consultants
   ranking: number;
   customerExamples?: string[];  // Reference customers for this product
   customerCaseLinks?: string[]; // Links to customer case studies
