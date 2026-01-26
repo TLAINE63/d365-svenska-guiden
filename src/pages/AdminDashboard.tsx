@@ -1826,13 +1826,16 @@ const AdminDashboard = () => {
                     const isActive = isProductActive(section.key);
                     
                     return (
-                      <Card key={section.key} className={isActive ? "border-primary" : ""}>
-                        <CardHeader className="pb-3">
-                          <CardTitle className="text-base flex items-center justify-between">
-                            <span>{section.label}</span>
+                      <Card key={section.key} className={`${isActive ? "border-primary ring-1 ring-primary/20" : ""}`}>
+                        <CardHeader className="pb-3 bg-muted/30">
+                          <CardTitle className="text-lg font-semibold flex items-center justify-between">
+                            <span className="flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-full bg-primary" />
+                              {section.label}
+                            </span>
                             {isActive && <Badge variant="default" className="text-xs">Aktiv</Badge>}
                           </CardTitle>
-                          <CardDescription className="text-xs">
+                          <CardDescription className="text-sm">
                             Applikationer: {section.apps.join(", ")}
                           </CardDescription>
                         </CardHeader>
