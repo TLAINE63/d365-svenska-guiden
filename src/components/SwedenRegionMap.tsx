@@ -253,108 +253,42 @@ export function SwedenRegionMap({
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-10">
-        {/* SVG Map of Sweden */}
-        <div className="relative w-52 h-[520px] sm:w-60 sm:h-[580px]">
-          <svg
-            viewBox="0 0 280 660"
-            className="w-full h-full drop-shadow-lg"
-            aria-label="Karta över Sverige indelad i regioner"
-          >
-            {/* Background shadow/glow effect */}
-            <defs>
-              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="2" dy="3" stdDeviation="3" floodOpacity="0.2"/>
-              </filter>
-              <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="4" result="blur"/>
-                <feMerge>
-                  <feMergeNode in="blur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-
-            {/* Render regions */}
-            {regionData.map(({ id }) => {
-              const selected = isSelected(id);
-              return (
-                <g key={id} filter={selected ? "url(#glow)" : "url(#shadow)"}>
-                  <path
-                    d={regionPaths[id]}
-                    className={cn(
-                      "cursor-pointer transition-all duration-300 stroke-[1.5]",
-                      selected ? colors.selected : colors.unselected
-                    )}
-                    onClick={() => onToggleRegion(id)}
-                  />
-                  {/* Region label */}
-                  <text
-                    x={labelPositions[id].x}
-                    y={labelPositions[id].y}
-                    textAnchor="middle"
-                    className={cn(
-                      "text-[9px] font-semibold pointer-events-none select-none transition-colors duration-300",
-                      selected ? "fill-white" : "fill-foreground"
-                    )}
-                  >
-                    {regionData.find(r => r.id === id)?.shortLabel}
-                  </text>
-                  {/* Checkmark when selected */}
-                  {selected && (
-                    <g transform={`translate(${labelPositions[id].x - 8}, ${labelPositions[id].y + 8})`}>
-                      <circle cx="8" cy="8" r="10" className="fill-white/90" />
-                      <path
-                        d="M5 8 L7 10 L11 6"
-                        className="stroke-current stroke-2 fill-none"
-                        style={{ color: 'var(--primary)' }}
-                      />
-                    </g>
-                  )}
-                </g>
-              );
-            })}
-          </svg>
-        </div>
-
-        {/* Region buttons/legend */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-2 sm:gap-3">
-          {regionData.map((region) => {
-            const selected = isSelected(region.id);
-            return (
-              <button
-                key={region.id}
-                onClick={() => onToggleRegion(region.id)}
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+        {regionData.map((region) => {
+          const selected = isSelected(region.id);
+          return (
+            <button
+              key={region.id}
+              onClick={() => onToggleRegion(region.id)}
+              className={cn(
+                "flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-xl border-2 transition-all duration-200 text-left group",
+                selected
+                  ? `${colors.badge} border-transparent shadow-lg scale-[1.02]`
+                  : "bg-card border-border hover:border-primary/50 hover:bg-primary/5 text-foreground hover:scale-[1.02]"
+              )}
+            >
+              <div
                 className={cn(
-                  "flex items-center gap-2 px-3 py-3 sm:px-4 sm:py-3 rounded-xl border-2 transition-all duration-200 text-left min-w-[140px] sm:min-w-[180px] group",
-                  selected
-                    ? `${colors.badge} border-transparent shadow-lg scale-[1.02]`
-                    : "bg-card border-border hover:border-primary/50 hover:bg-primary/5 text-foreground hover:scale-[1.02]"
+                  "w-4 h-4 sm:w-5 sm:h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 flex-shrink-0",
+                  selected 
+                    ? "bg-white/20 border-white/50" 
+                    : "border-muted-foreground/40 group-hover:border-primary/60"
                 )}
               >
-                <div
-                  className={cn(
-                    "w-4 h-4 sm:w-5 sm:h-5 rounded-md border-2 flex items-center justify-center transition-all duration-200 flex-shrink-0",
-                    selected 
-                      ? "bg-white/20 border-white/50" 
-                      : "border-muted-foreground/40 group-hover:border-primary/60"
-                  )}
-                >
-                  {selected && <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
-                </div>
-                <span className="font-medium text-sm sm:text-base leading-tight">{region.label}</span>
-              </button>
-            );
-          })}
-          
-          {/* Clear selection hint */}
-          {selectedRegions.length > 0 && (
-            <p className="text-xs text-muted-foreground text-center col-span-2 sm:col-span-3 lg:col-span-2 mt-2">
-              Klicka igen för att avmarkera
-            </p>
-          )}
-        </div>
+                {selected && <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
+              </div>
+              <span className="font-medium text-sm sm:text-base leading-tight">{region.label}</span>
+            </button>
+          );
+        })}
       </div>
+      
+      {/* Clear selection hint */}
+      {selectedRegions.length > 0 && (
+        <p className="text-xs text-muted-foreground text-center mt-3">
+          Klicka igen för att avmarkera
+        </p>
+      )}
 
       {/* Selected regions summary */}
       {selectedRegions.length > 0 && (
