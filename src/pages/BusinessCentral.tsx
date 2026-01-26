@@ -11,6 +11,7 @@ import PartnerCard from "@/components/PartnerCard";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import { SwedenRegionMap, SwedishRegion } from "@/components/SwedenRegionMap";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -35,6 +36,7 @@ const geographyFilters = [
 const BusinessCentral = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedRegions, setSelectedRegions] = useState<SwedishRegion[]>([]);
   
   // Fetch partners from database (only featured partners)
   const { data: partners = [], isLoading } = usePartners();
@@ -42,6 +44,21 @@ const BusinessCentral = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Clear regions when geography changes away from Sverige
+  useEffect(() => {
+    if (selectedGeography !== "Sverige") {
+      setSelectedRegions([]);
+    }
+  }, [selectedGeography]);
+
+  const handleToggleRegion = (region: SwedishRegion) => {
+    setSelectedRegions(prev => 
+      prev.includes(region) 
+        ? prev.filter(r => r !== region)
+        : [...prev, region]
+    );
+  };
 
   // Filter partners for Business Central
   const bcPartners = useMemo(() => {
@@ -462,14 +479,24 @@ const BusinessCentral = () => {
             colorScheme="business-central"
           />
 
+          {/* Sweden Region Map - shown when Sverige is selected */}
+          {selectedGeography === "Sverige" && (
+            <SwedenRegionMap
+              selectedRegions={selectedRegions}
+              onToggleRegion={handleToggleRegion}
+              colorScheme="business-central"
+            />
+          )}
+
           {/* Filter Results Summary */}
-          {(selectedIndustry || selectedGeography) && (
+          {(selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{bcPartners.length}</span> partners
                 {selectedIndustry && <> inom <span className="font-semibold text-business-central">{selectedIndustry}</span></>}
                 {(selectedIndustry && selectedGeography) && <> och</>}
                 {selectedGeography && <> med täckning i <span className="font-semibold text-business-central">{selectedGeography}</span></>}
+                {selectedRegions.length > 0 && <> (<span className="font-semibold text-business-central">{selectedRegions.join(", ")}</span>)</>}
               </p>
               <Button 
                 variant="ghost"
@@ -477,6 +504,7 @@ const BusinessCentral = () => {
                 onClick={() => {
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
+                  setSelectedRegions([]);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
