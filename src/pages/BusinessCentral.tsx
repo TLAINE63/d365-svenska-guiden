@@ -310,7 +310,7 @@ const BusinessCentral = () => {
                     <li>Anpassa processer efter era behov</li>
                   </ul>
                   <div className="bg-secondary/50 rounded-lg p-4 mt-4">
-                    <p className="font-semibold text-foreground mb-2">🔌 AppSource – hundratals tillägg:</p>
+                    <p className="font-semibold text-foreground mb-2">🔌 Marketplace – hundratals tillägg:</p>
                     <p>Branschspecifika lösningar för bygg, tillverkning, detaljhandel och professionella tjänster.</p>
                   </div>
                   <p className="text-sm italic">
