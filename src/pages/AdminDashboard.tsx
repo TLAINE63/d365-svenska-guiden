@@ -1285,8 +1285,8 @@ const AdminDashboard = () => {
                   <Card 
                     key={partner.id}
                     className={partner.is_featured 
-                      ? "border-emerald-500/50 bg-emerald-50/30 dark:bg-emerald-950/20" 
-                      : ""
+                      ? "border-2 border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 shadow-md shadow-emerald-500/20" 
+                      : "border border-border"
                     }
                   >
                     <CardContent className="py-4">
@@ -1307,7 +1307,7 @@ const AdminDashboard = () => {
                             <h3 className="font-semibold flex items-center gap-2">
                               {partner.name}
                               {partner.is_featured && (
-                                <Badge variant="secondary" className="text-xs">Utvald</Badge>
+                                <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Utvald</Badge>
                               )}
                             </h3>
                             <p className="text-sm text-muted-foreground line-clamp-1">
