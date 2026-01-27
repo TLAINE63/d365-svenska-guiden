@@ -221,29 +221,29 @@ const PartnerCard = ({
 
           {/* Highlighted search criteria */}
           {hasHighlights && (
-            <div className="relative mb-4 p-3 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/50 dark:from-amber-900/20 dark:to-amber-800/10 border border-amber-200/50 dark:border-amber-700/30">
+            <div className="relative mb-4 p-3 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800/40 dark:to-slate-700/20 border border-slate-200 dark:border-slate-600/40">
               <div className="flex items-center gap-1.5 mb-2">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                <span className="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider">Matchar din sökning</span>
+                <Sparkles className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">Matchar din sökning</span>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {highlightedProduct && (
-                  <Badge className="text-xs bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-300/50 dark:border-amber-600/50 font-medium">
+                  <Badge className="text-xs bg-slate-600 text-white border-slate-500 font-medium">
                     {highlightedProduct}
                   </Badge>
                 )}
                 {highlightedIndustry && (
-                  <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
+                  <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-500 text-slate-600 dark:text-slate-300 bg-white/70 dark:bg-slate-700/50">
                     {highlightedIndustry}
                   </Badge>
                 )}
                 {highlightedCompanySize && (
-                  <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
+                  <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-500 text-slate-600 dark:text-slate-300 bg-white/70 dark:bg-slate-700/50">
                     {highlightedCompanySize}
                   </Badge>
                 )}
                 {highlightedGeography && (
-                  <Badge variant="outline" className="text-xs border-amber-300 dark:border-amber-600 text-amber-700 dark:text-amber-300 bg-white/50 dark:bg-transparent">
+                  <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-500 text-slate-600 dark:text-slate-300 bg-white/70 dark:bg-slate-700/50">
                     {highlightedGeography}
                   </Badge>
                 )}
