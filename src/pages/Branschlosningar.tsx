@@ -136,12 +136,12 @@ const Branschlosningar = () => {
     if (!selectedIndustry) return [];
     
     // Determine which product key to use for filtering
-    const getProductKey = (): 'bc' | 'fsc' | 'crm' | null => {
+    const getProductKey = (): 'bc' | 'fsc' | 'sales' | 'service' | null => {
       switch (selectedFilter) {
         case "bc": return 'bc';
         case "fsc": return 'fsc';
-        case "crm-sales":
-        case "crm-service": return 'crm';
+        case "crm-sales": return 'sales';
+        case "crm-service": return 'service';
         default: return null;
       }
     };
