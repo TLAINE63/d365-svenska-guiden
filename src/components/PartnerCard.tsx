@@ -180,7 +180,7 @@ const PartnerCard = ({
               alt={`${partner.name} logotyp`}
               className={`w-12 h-12 object-contain rounded-lg p-1.5 border ${
                 partner.logo_dark_bg 
-                  ? 'bg-slate-600 border-slate-500' 
+                  ? 'bg-slate-700 border-slate-600 brightness-125 drop-shadow-[0_0_4px_rgba(255,255,255,0.2)]' 
                   : 'bg-white border-border/40'
               }`}
             />
