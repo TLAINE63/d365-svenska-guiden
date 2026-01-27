@@ -178,7 +178,11 @@ const PartnerCard = ({
             <img 
               src={partner.logo_url} 
               alt={`${partner.name} logotyp`}
-              className="w-12 h-12 object-contain rounded-lg bg-white p-1.5 border border-border/40"
+              className={`w-12 h-12 object-contain rounded-lg p-1.5 border ${
+                partner.logo_dark_bg 
+                  ? 'bg-slate-700 border-slate-600 brightness-125 drop-shadow-[0_0_4px_rgba(255,255,255,0.2)]' 
+                  : 'bg-white border-border/40'
+              }`}
             />
           ) : (
             <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center shadow-inner">
