@@ -1027,7 +1027,7 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs defaultValue="leads" className="space-y-4">
-          <TabsList>
+          <TabsList className="flex-wrap h-auto gap-1">
             <TabsTrigger value="leads" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Leads
@@ -1043,6 +1043,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="invitations" className="flex items-center gap-2">
               <MailPlus className="h-4 w-4" />
               Inbjudningar
+            </TabsTrigger>
+            <TabsTrigger value="stats" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Partnerstatistik
             </TabsTrigger>
           </TabsList>
 
@@ -1378,6 +1382,156 @@ const AdminDashboard = () => {
               token={token || ""} 
               partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug }))}
             />
+          </TabsContent>
+
+          {/* ==================== PARTNER STATISTICS TAB ==================== */}
+          <TabsContent value="stats">
+            <div className="space-y-6">
+              {/* Featured Partners Overview */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                    Utvalda Partners
+                  </CardTitle>
+                  <CardDescription>
+                    Partners som visas publikt på sajten
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="text-4xl font-bold text-emerald-600">
+                      {fullPartners.filter(p => p.is_featured).length}
+                    </div>
+                    <div className="text-muted-foreground">
+                      av {fullPartners.length} totalt
+                    </div>
+                  </div>
+                  <Progress 
+                    value={(fullPartners.filter(p => p.is_featured).length / Math.max(fullPartners.length, 1)) * 100} 
+                    className="h-2"
+                  />
+                </CardContent>
+              </Card>
+
+              {/* Industry Distribution per Product */}
+              {productSections.map((product) => {
+                // Get industry counts for this product among featured partners
+                const featuredPartners = fullPartners.filter(p => p.is_featured);
+                const industryCounts: Record<string, number> = {};
+                
+                featuredPartners.forEach(partner => {
+                  const productFilter = partner.product_filters?.[product.key];
+                  if (productFilter?.industries) {
+                    productFilter.industries.forEach((industry: string) => {
+                      industryCounts[industry] = (industryCounts[industry] || 0) + 1;
+                    });
+                  }
+                });
+                
+                const sortedIndustries = Object.entries(industryCounts)
+                  .sort((a, b) => b[1] - a[1]);
+                
+                const partnersWithProduct = featuredPartners.filter(
+                  p => p.product_filters?.[product.key]
+                ).length;
+                
+                return (
+                  <Card key={product.key}>
+                    <CardHeader className={`${product.colorClass} text-white rounded-t-lg`}>
+                      <CardTitle className="flex items-center gap-3">
+                        <img src={product.icon} alt="" className="h-6 w-6 brightness-0 invert" />
+                        {product.label}
+                      </CardTitle>
+                      <CardDescription className="text-white/80">
+                        {partnersWithProduct} utvalda partners har denna produkt
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-4">
+                      {sortedIndustries.length === 0 ? (
+                        <p className="text-muted-foreground text-sm">
+                          Inga branscher angivna för denna produkt
+                        </p>
+                      ) : (
+                        <div className="space-y-2">
+                          {sortedIndustries.map(([industry, count]) => (
+                            <div key={industry} className="flex items-center justify-between">
+                              <span className="text-sm">{industry}</span>
+                              <div className="flex items-center gap-2">
+                                <div className="w-32 bg-muted rounded-full h-2 overflow-hidden">
+                                  <div 
+                                    className={`h-full ${product.colorClass}`}
+                                    style={{ width: `${(count / partnersWithProduct) * 100}%` }}
+                                  />
+                                </div>
+                                <Badge variant="secondary" className="min-w-[2.5rem] justify-center">
+                                  {count}
+                                </Badge>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+
+              {/* All Industries Summary */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Building2 className="h-5 w-5" />
+                    Branschtäckning totalt
+                  </CardTitle>
+                  <CardDescription>
+                    Antal utvalda partners per bransch (över alla produkter)
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {(() => {
+                    const featuredPartners = fullPartners.filter(p => p.is_featured);
+                    const allIndustryCounts: Record<string, number> = {};
+                    
+                    featuredPartners.forEach(partner => {
+                      // Count industries from all product filters
+                      Object.values(partner.product_filters || {}).forEach((filter: any) => {
+                        if (filter?.industries) {
+                          filter.industries.forEach((industry: string) => {
+                            allIndustryCounts[industry] = (allIndustryCounts[industry] || 0) + 1;
+                          });
+                        }
+                      });
+                    });
+                    
+                    const sortedAll = Object.entries(allIndustryCounts)
+                      .sort((a, b) => b[1] - a[1]);
+                    
+                    if (sortedAll.length === 0) {
+                      return (
+                        <p className="text-muted-foreground text-sm">
+                          Inga branscher angivna
+                        </p>
+                      );
+                    }
+                    
+                    return (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {sortedAll.map(([industry, count]) => (
+                          <div 
+                            key={industry} 
+                            className="flex items-center justify-between p-2 rounded-lg bg-muted/50"
+                          >
+                            <span className="text-sm">{industry}</span>
+                            <Badge variant="outline">{count} partner{count !== 1 ? 's' : ''}</Badge>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
 
