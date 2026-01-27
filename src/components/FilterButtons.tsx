@@ -50,8 +50,8 @@ const colorSchemes = {
     unselected: "bg-card border-border hover:border-finance-supply/50 hover:bg-finance-supply/5 text-foreground",
   },
   amber: {
-    selected: "bg-slate-600 text-white border-slate-600 shadow-lg shadow-slate-600/30",
-    unselected: "bg-card border-border hover:border-slate-400/50 hover:bg-slate-50 dark:hover:bg-slate-600/10 text-foreground",
+    selected: "bg-amber-500 text-white border-amber-500 shadow-lg shadow-amber-500/30",
+    unselected: "bg-card border-border hover:border-amber-400/50 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-foreground",
   },
 };
 
