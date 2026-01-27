@@ -1282,7 +1282,13 @@ const AdminDashboard = () => {
             ) : (
               <div className="grid gap-4">
                 {fullPartners.map((partner) => (
-                  <Card key={partner.id}>
+                  <Card 
+                    key={partner.id}
+                    className={partner.is_featured 
+                      ? "border-emerald-500/50 bg-emerald-50/30 dark:bg-emerald-950/20" 
+                      : ""
+                    }
+                  >
                     <CardContent className="py-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start gap-4">
