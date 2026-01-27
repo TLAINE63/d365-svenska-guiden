@@ -186,7 +186,6 @@ const AdminDashboard = () => {
   const [editingPartner, setEditingPartner] = useState<FullPartner | null>(null);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
-  const [isImporting, setIsImporting] = useState(false);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
   const [formErrors, setFormErrors] = useState<PartnerFormErrors>({});
   const [activeFormSection, setActiveFormSection] = useState(0);
@@ -504,33 +503,6 @@ const AdminDashboard = () => {
 
   // ==================== PARTNER FUNCTIONS ====================
 
-  const handleImportPartners = async () => {
-    if (!token) return;
-    setIsImporting(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("import-partners", {
-        body: { token },
-      });
-
-      if (error) throw error;
-      if (data.error) throw new Error(data.error);
-
-      toast({
-        title: "Import klar",
-        description: `${data.imported} partners importerade, ${data.skipped} överhoppade`,
-      });
-      refetchPartners();
-      fetchFullPartners();
-    } catch (error: any) {
-      toast({
-        title: "Fel vid import",
-        description: error.message || "Kunde inte importera partners",
-        variant: "destructive",
-      });
-    } finally {
-      setIsImporting(false);
-    }
-  };
 
   const resetPartnerForm = () => {
     setPartnerFormData({
@@ -1257,14 +1229,6 @@ const AdminDashboard = () => {
                   <Plus className="mr-2 h-4 w-4" />
                   Lägg till partner
                 </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={handleImportPartners}
-                  disabled={isImporting}
-                >
-                  <Upload className={`mr-2 h-4 w-4 ${isImporting ? "animate-spin" : ""}`} />
-                  Importera från partners.ts
-                </Button>
               </div>
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
@@ -1280,7 +1244,7 @@ const AdminDashboard = () => {
             ) : fullPartners.length === 0 ? (
               <Card>
                 <CardContent className="py-8 text-center text-muted-foreground">
-                  Inga partners i databasen ännu. Importera från partners.ts eller lägg till manuellt.
+                  Inga partners i databasen ännu. Lägg till en partner manuellt.
                 </CardContent>
               </Card>
             ) : (
