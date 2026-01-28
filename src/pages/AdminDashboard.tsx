@@ -2128,25 +2128,6 @@ const AdminDashboard = () => {
                                     })}
                                   </div>
                                 </div>
-                                
-                                {/* Sweden Cities */}
-                                <div>
-                                  <Label className="text-sm">Städer i Sverige där ni har lokal leveransförmåga</Label>
-                                  <Input
-                                    placeholder="Stockholm, Göteborg, Malmö, Uppsala"
-                                    defaultValue={(filter.swedenCities || []).join(', ')}
-                                    key={`${section.key}-swedenCities-${editingPartner?.id || 'new'}`}
-                                    onBlur={(e) => {
-                                      const cities = e.target.value
-                                        .split(',')
-                                        .map(s => s.trim())
-                                        .filter(s => s.length > 0);
-                                      updateProductFilter(section.key, { swedenCities: cities });
-                                    }}
-                                    className="mt-2"
-                                  />
-                                  <p className="text-xs text-muted-foreground mt-1">Ange städer där ni har konsulter (separera med komma)</p>
-                                </div>
                               </div>
                             )}
                           </div>
