@@ -34,7 +34,8 @@ const ERPOverview = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Microsoft Dynamics 365 ERP
+                <span className="block">Dynamics 365</span>
+                <span className="block">ERP – Affärssystem</span>
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
                 Välj rätt affärssystem för din organisation – Business Central eller Finance & Supply Chain Management
