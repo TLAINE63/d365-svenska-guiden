@@ -2101,7 +2101,7 @@ const AdminDashboard = () => {
                                 {/* Sweden Regions */}
                                 <div>
                                   <Label className="text-sm">Regioner i Sverige</Label>
-                                  <p className="text-xs text-muted-foreground mb-2">Välj vilka regioner ni täcker i Sverige. Lämna tomt om ni täcker hela Sverige.</p>
+                                  <p className="text-xs text-muted-foreground mb-2">Välj vilka regioner ni täcker i Sverige, dvs där ni har lokal leveransförmåga.</p>
                                   <div className="flex flex-wrap gap-2 mt-2">
                                     {(["Storstockholm / Mälardalen", "Syd / Sydväst", "Väst", "Sydost", "Mellansverige", "Norr"] as const).map((region) => {
                                       const isSelected = (filter.swedenRegions || []).includes(region);
