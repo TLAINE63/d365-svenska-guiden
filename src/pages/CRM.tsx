@@ -141,7 +141,7 @@ const CRM = () => {
                 <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8 sm:h-10 sm:w-10" />
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                <span className="block">Dynamics 365</span>
+                <span className="block">Microsoft Dynamics 365</span>
                 <span className="block">CRM (Customer Engagement)</span>
               </h1>
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6">
