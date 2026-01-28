@@ -682,26 +682,6 @@ const PartnerUpdate = () => {
                               })}
                             </div>
                           </div>
-                          
-                          {/* Sweden Cities - shown only if Sweden is selected */}
-                          {(filter.geography || []).includes("Sverige") && (
-                            <div>
-                              <Label className="text-sm">Städer i Sverige där ni har lokal leveransförmåga</Label>
-                              <Input
-                                placeholder="Stockholm, Göteborg, Malmö, Uppsala"
-                                value={(filter.swedenCities || []).join(', ')}
-                                onChange={(e) => {
-                                  const cities = e.target.value
-                                    .split(',')
-                                    .map(s => s.trim())
-                                    .filter(s => s.length > 0);
-                                  updateProductFilter(productKey, { swedenCities: cities });
-                                }}
-                                className="mt-2"
-                              />
-                              <p className="text-xs text-muted-foreground mt-1">Ange städer där ni har konsulter (separera med komma)</p>
-                            </div>
-                          )}
                         </div>
                       </CardContent>
                     </Card>
