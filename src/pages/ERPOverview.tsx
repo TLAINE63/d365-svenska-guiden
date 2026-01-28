@@ -38,7 +38,8 @@ const ERPOverview = () => {
                 <span className="block">ERP – Affärssystem</span>
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
-                Välj rätt affärssystem för din organisation – Business Central eller Finance & Supply Chain Management
+                <span className="block">Välj rätt affärssystem för din organisation.</span>
+                <span className="block">Är det Business Central eller Finance & Supply Chain Management?</span>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
