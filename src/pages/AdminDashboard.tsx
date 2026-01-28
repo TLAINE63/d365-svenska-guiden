@@ -2072,7 +2072,7 @@ const AdminDashboard = () => {
                           <div className="space-y-3">
                             <div>
                               <Label className="text-sm">Geografisk täckning</Label>
-                              <p className="text-xs text-muted-foreground mb-2">Välj en eller flera regioner</p>
+                              <p className="text-xs text-muted-foreground mb-2">Markera de geografier där ni har möjlighet att hantera kundprojekt och support/förvaltning</p>
                               <div className="flex flex-wrap gap-1.5">
                                 {geographyOptions.map((geo) => {
                                   const isSelected = (filter.geography || []).includes(geo);
