@@ -226,6 +226,63 @@ serve(async (req: Request): Promise<Response> => {
 
       console.log("Partner submission received for:", submissionData.name);
 
+      // Send notification email to admin
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (resendApiKey) {
+        try {
+          const resend = new Resend(resendApiKey);
+          const adminUrl = "https://d365-svenska-guiden.lovable.app/admin";
+          
+          await resend.emails.send({
+            from: "D365.se <info@d365.se>",
+            to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+            subject: `Ny partnerinlämning: ${submissionData.name}`,
+            html: `
+              <!DOCTYPE html>
+              <html>
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              </head>
+              <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                  <p style="color: #6b7280; margin: 5px 0 0 0;">Admin-notifikation</p>
+                </div>
+                
+                <h2 style="color: #059669;">Ny partnerinlämning mottagen!</h2>
+                
+                <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                  <p style="margin: 0 0 10px 0;"><strong>Partner:</strong> ${submissionData.name}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Kontaktperson:</strong> ${submissionData.contact_person || 'Ej angivet'}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>E-post:</strong> ${submissionData.email || invitation.email}</p>
+                  <p style="margin: 0 0 10px 0;"><strong>Webbplats:</strong> ${submissionData.website}</p>
+                  <p style="margin: 0;"><strong>Produkter:</strong> ${(submissionData.applications || []).join(', ') || 'Ej angivet'}</p>
+                </div>
+                
+                <p>Partnern har fyllt i sitt profilkort och väntar på granskning.</p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="${adminUrl}" style="display: inline-block; background-color: #059669; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Granska i Admin</a>
+                </div>
+                
+                <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+                
+                <p style="color: #6b7280; font-size: 12px; text-align: center;">
+                  Detta är en automatisk notifikation från D365.se
+                </p>
+              </body>
+              </html>
+            `,
+          });
+          
+          console.log("Admin notification email sent for submission:", submissionData.name);
+        } catch (emailError) {
+          // Log error but don't fail the submission
+          console.error("Failed to send admin notification email:", emailError);
+        }
+      }
+
       return new Response(
         JSON.stringify({ success: true, message: "Tack! Dina uppgifter har skickats in för granskning." }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
