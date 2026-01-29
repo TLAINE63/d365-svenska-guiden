@@ -77,9 +77,10 @@ const getApplicationIcon = (appName: string): string | null => {
 };
 
 // Map application names to product categories
+// NOTE: Project Operations, Commerce, Human Resources are specialty products shown separately
 const getProductCategory = (app: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
   if (app === "Business Central") return 'bc';
-  if (["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain", "Project Operations", "Commerce", "Human Resources"].includes(app)) return 'fsc';
+  if (["Finance", "Supply Chain Management", "Finance & SCM", "Finance & Supply Chain"].includes(app)) return 'fsc';
   if (["Sales", "Customer Insights", "Customer Insights (Marketing)", "Marketing"].includes(app)) return 'sales';
   if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return 'service';
   return null;
