@@ -69,6 +69,12 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-6">
             <Link
               to="/branschlosningar"
+              onClick={(e) => {
+                if (window.location.pathname === '/branschlosningar') {
+                  e.preventDefault();
+                  window.location.reload();
+                }
+              }}
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               Branschlösningar
@@ -181,6 +187,12 @@ const Navbar = () => {
               <div className="flex flex-col gap-4 mt-8 pb-8">
                 <Link
                   to="/branschlosningar"
+                  onClick={(e) => {
+                    if (window.location.pathname === '/branschlosningar') {
+                      e.preventDefault();
+                      window.location.reload();
+                    }
+                  }}
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
                   Branschlösningar
