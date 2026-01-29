@@ -192,7 +192,9 @@ const ValjPartner = () => {
   const getProductRanking = (partner: DatabasePartner): number => {
     // Determine which product type is primarily selected
     const hasBCApp = selectedApplications.includes("Business Central");
-    const hasFSCApp = selectedApplications.includes("Finance & SCM");
+    const hasFSCApp = selectedApplications.some(app => 
+      ["Finance & SCM", "Commerce", "Project Operations", "Human Resources"].includes(app)
+    );
     const hasSalesApp = selectedApplications.some(app => 
       ["Sales", "Customer Insights (Marketing)"].includes(app)
     );
@@ -241,7 +243,9 @@ const ValjPartner = () => {
   const filteredPartners = useMemo(() => {
     // Determine which product type is selected
     const hasBCApp = selectedApplications.includes("Business Central");
-    const hasFSCApp = selectedApplications.includes("Finance & SCM");
+    const hasFSCApp = selectedApplications.some(app => 
+      ["Finance & SCM", "Commerce", "Project Operations", "Human Resources"].includes(app)
+    );
     const hasSalesApp = selectedApplications.some(app => 
       ["Sales", "Customer Insights (Marketing)"].includes(app)
     );
