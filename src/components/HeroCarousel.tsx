@@ -178,9 +178,8 @@ const HeroCarousel = () => {
                 src={s.backgroundImage}
                 alt={s.id === 1 ? "Skyskrapor som symboliserar affärsvärlden och Microsoft Dynamics 365" : s.id === 2 ? "Affärsanalys och ERP-systemplanering" : s.id === 3 ? "Teamsamarbete och CRM-strategi" : "Partnerval och jämförelse av offerter"}
                 className="w-full h-full object-cover"
-                width="1600"
-                height="1067"
-                fetchPriority={index === 0 ? "high" : "low"}
+                width={1600}
+                height={1067}
                 loading={index === 0 ? "eager" : "lazy"}
                 decoding="async"
               />
