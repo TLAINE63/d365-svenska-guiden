@@ -16,12 +16,22 @@ import { crmApplications, allIndustries } from "@/data/partners";
 import { usePartners, SwedishRegion } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries, hasProduct } from "@/hooks/usePartnerFilters";
 import SwedenRegionMap from "@/components/SwedenRegionMap";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// CRM FAQs for schema
+const crmFaqs = [
+  { question: "Vad är Dynamics 365 Customer Engagement?", answer: "Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer för försäljning, kundservice, marknadsföring, kontaktcenter och fältservice som hjälper företag hantera sina kundrelationer." },
+  { question: "Hur skiljer sig Dynamics 365 CE från andra CRM-system?", answer: "Dynamics 365 CE sticker ut genom djup Microsoft 365-integration, kraftfulla AI-funktioner via Copilot, flexibel anpassning och möjligheten att kombinera CRM med ERP." },
+  { question: "Vad kostar Dynamics 365 Customer Engagement?", answer: "Licenspriser börjar från ca 500 kr/användare/månad för Professional och upp till 1 500 kr/månad för Premium. Implementeringskostnader varierar från 100-250 tkr för en applikation." },
+  { question: "Hur snabbt kan vi komma igång med Dynamics 365 CE?", answer: "En standardimplementering av en enskild applikation kan vara klar på 2-3 månader. Större implementeringar med flera applikationer tar normalt 4-6 månader." },
+];
 
 // Geography filter options
 const geographyFilters = [
@@ -119,6 +129,17 @@ const CRM = () => {
   }, [partners]);
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 CRM | Sales, Marketing & Service"
+        description="Guide till Microsoft Dynamics 365 Customer Engagement - Sales, Customer Insights, Customer Service och Field Service. Priser och implementering."
+        canonicalPath="/crm"
+        keywords="CRM, Dynamics 365, Sales, Customer Service, Marketing, Customer Insights, kundhantering"
+      />
+      <FAQSchema faqs={crmFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Customer Engagement"
+        description="Intelligenta affärsapplikationer för försäljning, kundservice, marknadsföring och fältservice."
+      />
       <Navbar />
       
       {/* Header */}

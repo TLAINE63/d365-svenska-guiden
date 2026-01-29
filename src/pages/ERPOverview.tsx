@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList } from "lucide-react";
 import { useEffect } from "react";
 import LeadCTA from "@/components/LeadCTA";
+import SEOHead from "@/components/SEOHead";
+import { ServiceSchema } from "@/components/StructuredData";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
@@ -17,6 +19,16 @@ const ERPOverview = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="ERP Affärssystem | Business Central vs Finance & SCM"
+        description="Jämför Microsoft Dynamics 365 Business Central och Finance & Supply Chain Management. Hitta rätt ERP-lösning för din organisation."
+        canonicalPath="/erp"
+        keywords="ERP, affärssystem, Business Central, Finance Supply Chain, Dynamics 365, jämförelse"
+      />
+      <ServiceSchema 
+        name="Microsoft Dynamics 365 ERP Rådgivning"
+        description="Oberoende rådgivning för val av rätt Microsoft Dynamics 365 affärssystem - Business Central eller Finance & Supply Chain Management."
+      />
       <Navbar />
       
       {/* Header */}

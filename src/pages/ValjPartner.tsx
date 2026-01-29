@@ -15,8 +15,18 @@ import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
 import SwedenRegionMap from "@/components/SwedenRegionMap";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import { allIndustries } from "@/data/partners";
 import { usePartners, DatabasePartner, SwedishRegion } from "@/hooks/usePartners";
+
+// Partner FAQs for schema
+const partnerFaqs = [
+  { question: "Har partnern erfarenhet av vår bransch?", answer: "Välj en partner med erfarenhet från liknande projekt och som förstår era specifika krav inom er bransch. Många har branschspecifika lösningar." },
+  { question: "Hur ser deras implementationsmetodik ut?", answer: "Bra partners arbetar enligt beprövade metoder som Microsoft's Success by Design och erbjuder tydlig projektledning, förändringsledning och utbildning." },
+  { question: "Vilken support erbjuder de efter implementationen?", answer: "Kontrollera att det finns tydlig plan för support, uppgraderingar och vidareutveckling med dedikerad supportorganisation och SLA:er." },
+  { question: "Hur transparenta är de med kostnader?", answer: "Be om tydlig offert med alla kostnader specificerade och fråga hur de hanterar förändringar i omfattning." },
+];
 
 
 // All available Dynamics 365 applications for filtering
@@ -280,6 +290,17 @@ const ValjPartner = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Välj Dynamics 365 Partner | Hitta rätt implementeringspartner"
+        description="Jämför och välj rätt Microsoft Dynamics 365 partner för ditt projekt. Filtrera på bransch, applikation och geografi för att hitta bästa match."
+        canonicalPath="/valj-partner"
+        keywords="Dynamics 365 partner, Microsoft partner, implementering, ERP partner, CRM partner, Sverige"
+      />
+      <FAQSchema faqs={partnerFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Partnerval"
+        description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov."
+      />
       <Navbar />
       {/* Partner Guide Dialog */}
       <PartnerGuideDialog 
