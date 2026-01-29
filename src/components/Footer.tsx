@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <div className="grid md:grid-cols-5 gap-8 mb-8">
           {/* Column 1: About */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Om d365.se</h3>
@@ -28,18 +28,28 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: CRM */}
+          {/* Column 3: Marknad & Sälj */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">CRM & Kundservice</h3>
+            <h3 className="font-semibold text-foreground mb-4">Marknad & Sälj</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/crm" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365-sales" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
-              <li><Link to="/d365-customer-service" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Service</Link></li>
+              <li><Link to="/d365-marketing" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
               <li><Link to="/salj-marknad-behovsanalys" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
             </ul>
           </div>
 
-          {/* Column 4: Resources */}
+          {/* Column 4: Kundservice */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">Kundservice</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/d365-customer-service" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Service</Link></li>
+              <li><Link to="/d365-field-service" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Field Service</Link></li>
+              <li><Link to="/d365-contact-center" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Contact Center</Link></li>
+              <li><Link to="/kundservice-behovsanalys" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Kundservice</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 5: Resources */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Resurser</h3>
             <ul className="space-y-2 text-sm">
