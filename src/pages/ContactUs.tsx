@@ -60,7 +60,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Thomas Laine</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft Business Applications</p>
+                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
@@ -121,7 +121,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Michael Uhman</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft Business Applications</p>
+                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
