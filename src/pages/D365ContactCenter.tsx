@@ -9,7 +9,14 @@ import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const contactCenterBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
+  { name: "Dynamics 365 Contact Center", url: "https://d365.se/d365-contact-center" },
+];
 import {
   Accordion,
   AccordionContent,
@@ -59,6 +66,7 @@ const D365ContactCenter = () => {
         name="Dynamics 365 Contact Center"
         description="Modern och innovativ kontaktcenterlösning med omnichannel-stöd, AI-driven samtalsassistent och real-time analytics."
       />
+      <BreadcrumbSchema items={contactCenterBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

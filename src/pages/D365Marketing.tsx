@@ -9,7 +9,14 @@ import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const marketingBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Marknad & Sälj", url: "https://d365.se/d365-sales" },
+  { name: "Customer Insights (Marketing)", url: "https://d365.se/d365-marketing" },
+];
 import {
   Accordion,
   AccordionContent,
@@ -69,6 +76,7 @@ const D365Marketing = () => {
         name="Dynamics 365 Customer Insights"
         description="Kraftfull marknadsföringsautomation för personliga kundresor, leadgenerering och AI-drivna kampanjer."
       />
+      <BreadcrumbSchema items={marketingBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

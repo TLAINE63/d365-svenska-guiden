@@ -12,7 +12,14 @@ import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const bcBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
+  { name: "Business Central", url: "https://d365.se/business-central" },
+];
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -144,6 +151,7 @@ const BusinessCentral = () => {
         name="Dynamics 365 Business Central"
         description="Komplett affärssystem för mindre och medelstora företag med ekonomi, lager, försäljning och produktion."
       />
+      <BreadcrumbSchema items={bcBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

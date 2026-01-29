@@ -14,6 +14,15 @@ import { ArrowLeft, ArrowRight, Download, Users, Megaphone, Target, Building2, B
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import SEOHead from "@/components/SEOHead";
+import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const salesMarketingBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Marknad & Sälj", url: "https://d365.se/d365-sales" },
+  { name: "Behovsanalys", url: "https://d365.se/salj-marknad-behovsanalys" },
+];
 
 const contactFormSchema = z.object({
   companyName: z.string().trim().min(1, "Företagsnamn krävs").max(100, "Företagsnamn får max vara 100 tecken"),
@@ -1216,6 +1225,17 @@ const SalesMarketingNeedsAnalysis = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Sälj & Marknad Behovsanalys | Dynamics 365 CRM"
+        description="Gör vår kostnadsfria behovsanalys och få en personlig rekommendation för Dynamics 365 Sales och Customer Insights (Marketing)."
+        canonicalPath="/salj-marknad-behovsanalys"
+        keywords="CRM behovsanalys, Dynamics 365 Sales, Marketing, Customer Insights, försäljning"
+      />
+      <ServiceSchema 
+        name="Sälj & Marknad Behovsanalys"
+        description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring."
+      />
+      <BreadcrumbSchema items={salesMarketingBreadcrumbs} />
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">

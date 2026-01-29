@@ -16,7 +16,13 @@ import { crmApplications, allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries, hasProduct } from "@/hooks/usePartnerFilters";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const crmBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Customer Engagement (CRM)", url: "https://d365.se/crm" },
+];
 import {
   Accordion,
   AccordionContent,
@@ -113,6 +119,7 @@ const CRM = () => {
         name="Dynamics 365 Customer Engagement"
         description="Intelligenta affärsapplikationer för försäljning, kundservice, marknadsföring och fältservice."
       />
+      <BreadcrumbSchema items={crmBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

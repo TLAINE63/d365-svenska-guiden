@@ -14,6 +14,15 @@ import { ArrowLeft, ArrowRight, Download, Headphones, Wrench, Target, Building2,
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import SEOHead from "@/components/SEOHead";
+import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const customerServiceBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
+  { name: "Behovsanalys", url: "https://d365.se/kundservice-behovsanalys" },
+];
 
 const contactFormSchema = z.object({
   companyName: z.string().trim().min(1, "Företagsnamn krävs").max(100, "Företagsnamn får max vara 100 tecken"),
@@ -1168,6 +1177,17 @@ const CustomerServiceNeedsAnalysis = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Kundservice Behovsanalys | Dynamics 365"
+        description="Gör vår kostnadsfria behovsanalys och få en personlig rekommendation för Dynamics 365 Customer Service, Field Service och Contact Center."
+        canonicalPath="/kundservice-behovsanalys"
+        keywords="kundservice behovsanalys, Dynamics 365 Customer Service, Field Service, Contact Center"
+      />
+      <ServiceSchema 
+        name="Kundservice Behovsanalys"
+        description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice."
+      />
+      <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">

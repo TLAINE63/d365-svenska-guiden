@@ -7,7 +7,14 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema, FAQSchema } from "@/components/StructuredData";
+import { ServiceSchema, FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const copilotBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Microsoft AI", url: "https://d365.se/copilot" },
+  { name: "Copilot", url: "https://d365.se/copilot" },
+];
 
 // FAQ items for schema
 const copilotFaqs = [
@@ -64,6 +71,7 @@ const Copilot = () => {
         description="AI-driven assistent som förbättrar produktivitet och beslutsfattande i Microsoft Dynamics 365 affärssystem."
       />
       <FAQSchema faqs={copilotFaqs} />
+      <BreadcrumbSchema items={copilotBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

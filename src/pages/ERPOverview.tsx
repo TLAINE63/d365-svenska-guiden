@@ -7,7 +7,13 @@ import { ArrowRight, ClipboardList } from "lucide-react";
 import { useEffect } from "react";
 import LeadCTA from "@/components/LeadCTA";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema } from "@/components/StructuredData";
+import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const erpBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
+];
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
@@ -30,6 +36,7 @@ const ERPOverview = () => {
         name="Microsoft Dynamics 365 ERP Rådgivning"
         description="Oberoende rådgivning för val av rätt Microsoft Dynamics 365 affärssystem - Business Central eller Finance & Supply Chain Management."
       />
+      <BreadcrumbSchema items={erpBreadcrumbs} />
       <Navbar />
       
       {/* Header */}
