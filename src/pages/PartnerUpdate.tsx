@@ -74,14 +74,6 @@ const GEOGRAPHY_OPTIONS = [
   "Övriga världen",
 ];
 
-const SWEDEN_REGIONS = [
-  "Storstockholm / Mälardalen",
-  "Syd / Sydväst",
-  "Väst",
-  "Sydost",
-  "Mellansverige",
-  "Norr",
-];
 
 interface ProductFilter {
   industries: string[];
@@ -940,65 +932,30 @@ const PartnerUpdate = () => {
                         </div>
 
                         {/* Geography */}
-                        <div className="space-y-3">
-                          <div>
-                            <Label className="text-sm">Geografisk täckning</Label>
-                            <p className="text-xs text-muted-foreground mb-2">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {GEOGRAPHY_OPTIONS.map((geo) => {
-                                const isSelected = (filter.geography || []).includes(geo);
-                                return (
-                                  <Badge
-                                    key={geo}
-                                    variant={isSelected ? "default" : "outline"}
-                                    className="cursor-pointer text-xs"
-                                    onClick={() => {
-                                      const current = filter.geography || [];
-                                      const newGeo = isSelected
-                                        ? getFilteredGeography(geo, current)
-                                        : getCascadingGeography(geo, current);
-                                      updateProductFilter(productKey, { geography: newGeo });
-                                    }}
-                                  >
-                                    {geo}
-                                  </Badge>
-                                );
-                              })}
-                            </div>
+                        <div>
+                          <Label className="text-sm">Geografisk täckning</Label>
+                          <p className="text-xs text-muted-foreground mb-2">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {GEOGRAPHY_OPTIONS.map((geo) => {
+                              const isSelected = (filter.geography || []).includes(geo);
+                              return (
+                                <Badge
+                                  key={geo}
+                                  variant={isSelected ? "default" : "outline"}
+                                  className="cursor-pointer text-xs"
+                                  onClick={() => {
+                                    const current = filter.geography || [];
+                                    const newGeo = isSelected
+                                      ? getFilteredGeography(geo, current)
+                                      : getCascadingGeography(geo, current);
+                                    updateProductFilter(productKey, { geography: newGeo });
+                                  }}
+                                >
+                                  {geo}
+                                </Badge>
+                              );
+                            })}
                           </div>
-
-                          {/* Sweden Regions */}
-                          {(filter.geography || []).includes("Sverige") && (
-                            <div>
-                              <Label className="text-sm">Regioner i Sverige</Label>
-                              <p className="text-xs text-muted-foreground mb-2">Välj vilka regioner ni täcker i Sverige, dvs där ni har lokal leveransförmåga.</p>
-                              <div className="flex flex-wrap gap-2 mt-2">
-                                {SWEDEN_REGIONS.map((region) => {
-                                  const isSelected = (filter.swedenRegions || []).includes(region);
-                                  return (
-                                    <button
-                                      key={region}
-                                      type="button"
-                                      onClick={() => {
-                                        const current = filter.swedenRegions || [];
-                                        const updated = isSelected
-                                          ? current.filter(r => r !== region)
-                                          : [...current, region];
-                                        updateProductFilter(productKey, { swedenRegions: updated });
-                                      }}
-                                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all ${
-                                        isSelected
-                                          ? 'bg-primary text-primary-foreground border-primary'
-                                          : 'bg-card border-border hover:border-primary/50'
-                                      }`}
-                                    >
-                                      {region}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
                         </div>
                       </CardContent>
                     </Card>
