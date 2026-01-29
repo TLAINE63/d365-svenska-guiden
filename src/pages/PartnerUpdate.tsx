@@ -14,15 +14,42 @@ import { Loader2, CheckCircle2, AlertCircle, Building2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+// Import product icons
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+
 // Product sections matching admin structure
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
-const productSections: { key: ProductKey; label: string; apps: string[] }[] = [
-  { key: 'bc', label: 'Business Central', apps: ['Business Central'] },
-  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance', 'Supply Chain Management'] },
-  { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'] },
-  { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'] },
+interface ProductSection {
+  key: ProductKey;
+  label: string;
+  apps: string[];
+  colorClass: string;
+  icon: string;
+}
+
+const productSections: ProductSection[] = [
+  { key: 'bc', label: 'Business Central', apps: ['Business Central'], colorClass: 'bg-business-central', icon: BusinessCentralIcon },
+  { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance', 'Supply Chain Management'], colorClass: 'bg-finance-supply', icon: FinanceIcon },
+  { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
+  { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
 ];
+
+// Specialty products (no industry selection needed)
+const specialtyProducts = ['Project Operations', 'Commerce', 'Human Resources'] as const;
+type SpecialtyProduct = typeof specialtyProducts[number];
+
+const specialtyProductIcons: Record<string, string> = {
+  "Project Operations": ProjectOperationsIcon,
+  "Commerce": CommerceIcon,
+  "Human Resources": HumanResourcesIcon,
+};
 
 const INDUSTRY_OPTIONS = [
   "Tillverkningsindustri",
@@ -47,9 +74,19 @@ const GEOGRAPHY_OPTIONS = [
   "Övriga världen",
 ];
 
+const SWEDEN_REGIONS = [
+  "Storstockholm / Mälardalen",
+  "Syd / Sydväst",
+  "Väst",
+  "Sydost",
+  "Mellansverige",
+  "Norr",
+];
+
 interface ProductFilter {
   industries: string[];
   geography: string[];
+  swedenRegions: string[];
   swedenCities: string[];
   ranking: number;
   customerExamples: string[];
@@ -92,6 +129,7 @@ interface ExistingData {
 const emptyProductFilter: ProductFilter = {
   industries: [],
   geography: [],
+  swedenRegions: [],
   swedenCities: [],
   ranking: 999,
   customerExamples: [],
@@ -125,6 +163,7 @@ const PartnerUpdate = () => {
   // Product filters state - separated for easier management
   const [productFilters, setProductFilters] = useState<ProductFilters>({});
   const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
+  const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
 
   useEffect(() => {
     const fetchInvitation = async () => {
@@ -189,6 +228,14 @@ const PartnerUpdate = () => {
             });
             setActiveProducts(active);
           }
+          
+          // Pre-fill specialty products from applications
+          if (result.existingData.applications) {
+            const existingSpecialty = result.existingData.applications.filter(
+              (app: string) => specialtyProducts.includes(app as SpecialtyProduct)
+            ) as SpecialtyProduct[];
+            setSelectedSpecialtyProducts(existingSpecialty);
+          }
         } else {
           setFormData(prev => ({
             ...prev,
@@ -247,6 +294,7 @@ const PartnerUpdate = () => {
       ...emptyProductFilter,
       ...existing,
       geography: normalizedGeography,
+      swedenRegions: existing.swedenRegions || [],
       swedenCities: existing.swedenCities || [],
       customerExamples: existing.customerExamples || [],
       customerCaseLinks: existing.customerCaseLinks || [],
@@ -291,7 +339,7 @@ const PartnerUpdate = () => {
       toast.error("Webbplats krävs");
       return;
     }
-    if (activeProducts.length === 0) {
+    if (activeProducts.length === 0 && selectedSpecialtyProducts.length === 0) {
       toast.error("Välj minst en produkt ni arbetar med");
       return;
     }
@@ -299,7 +347,7 @@ const PartnerUpdate = () => {
     setSubmitting(true);
 
     try {
-      // Build applications array from active products
+      // Build applications array from active products + specialty products
       const applications: string[] = [];
       activeProducts.forEach(key => {
         const section = productSections.find(s => s.key === key);
@@ -307,6 +355,8 @@ const PartnerUpdate = () => {
           applications.push(...section.apps);
         }
       });
+      // Add specialty products
+      applications.push(...selectedSpecialtyProducts);
 
       // Build submission data
       const submissionData = {
@@ -445,7 +495,7 @@ const PartnerUpdate = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="website">Webbplats *</Label>
+                    <Label htmlFor="website">Hemsida/Landsida (visas på Partnerprofilkortet) *</Label>
                     <Input
                       id="website"
                       name="website"
@@ -472,7 +522,7 @@ const PartnerUpdate = () => {
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="contact_person">Kontaktperson</Label>
+                    <Label htmlFor="contact_person">Säljare/Säljansvarig</Label>
                     <Input
                       id="contact_person"
                       name="contact_person"
@@ -541,14 +591,23 @@ const PartnerUpdate = () => {
               <CardContent className="space-y-6">
                 <div className="flex flex-wrap gap-2">
                   {productSections.map((section) => (
-                    <Badge
+                    <button
                       key={section.key}
-                      variant={activeProducts.includes(section.key) ? "default" : "outline"}
-                      className="cursor-pointer text-sm py-1.5 px-3"
+                      type="button"
                       onClick={() => toggleProduct(section.key)}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-all font-medium ${
+                        activeProducts.includes(section.key)
+                          ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                          : 'bg-card border-border hover:border-primary/50'
+                      }`}
                     >
+                      <img 
+                        src={section.icon} 
+                        alt={section.label} 
+                        className={`h-5 w-5 object-contain ${activeProducts.includes(section.key) ? 'brightness-0 invert' : ''}`} 
+                      />
                       {section.label}
-                    </Badge>
+                    </button>
                   ))}
                 </div>
 
@@ -574,17 +633,24 @@ const PartnerUpdate = () => {
                       : "T.ex. 'Specialister på omnikanal-support och Field Service för serviceorganisationer'";
                   
                   return (
-                    <Card key={productKey} className="border-primary/50">
-                      <CardHeader className="pb-3">
-                        <CardTitle className="text-base flex items-center justify-between">
-                          <span>{section.label}</span>
-                          <Badge variant="default" className="text-xs">Aktiv</Badge>
+                    <Card key={productKey} className="ring-2 ring-offset-2" style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}>
+                      <CardHeader className={`pb-4 ${section.colorClass} text-white rounded-t-lg`}>
+                        <CardTitle className="text-xl font-bold flex items-center justify-between">
+                          <span className="flex items-center gap-3">
+                            <img src={section.icon} alt={section.label} className="h-8 w-8 object-contain" />
+                            {section.label}
+                          </span>
+                          <Badge variant="secondary" className="text-xs">Aktiv</Badge>
                         </CardTitle>
-                        <CardDescription className="text-xs">
-                          Applikationer: {section.apps.join(", ")}
-                        </CardDescription>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {section.apps.map((app) => (
+                            <Badge key={app} variant="secondary" className="text-xs font-normal bg-white/20 text-white border-white/30">
+                              Dynamics 365 {app}
+                            </Badge>
+                          ))}
+                        </div>
                       </CardHeader>
-                      <CardContent className="space-y-4">
+                      <CardContent className="space-y-4 pt-4">
                         {/* Product Description */}
                         <div>
                           <Label className="text-sm">Kort beskrivning av erbjudande</Label>
@@ -682,11 +748,89 @@ const PartnerUpdate = () => {
                               })}
                             </div>
                           </div>
+
+                          {/* Sweden Regions */}
+                          {(filter.geography || []).includes("Sverige") && (
+                            <div>
+                              <Label className="text-sm">Regioner i Sverige</Label>
+                              <p className="text-xs text-muted-foreground mb-2">Välj vilka regioner ni täcker i Sverige, dvs där ni har lokal leveransförmåga.</p>
+                              <div className="flex flex-wrap gap-2 mt-2">
+                                {SWEDEN_REGIONS.map((region) => {
+                                  const isSelected = (filter.swedenRegions || []).includes(region);
+                                  return (
+                                    <button
+                                      key={region}
+                                      type="button"
+                                      onClick={() => {
+                                        const current = filter.swedenRegions || [];
+                                        const updated = isSelected
+                                          ? current.filter(r => r !== region)
+                                          : [...current, region];
+                                        updateProductFilter(productKey, { swedenRegions: updated });
+                                      }}
+                                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all ${
+                                        isSelected
+                                          ? 'bg-primary text-primary-foreground border-primary'
+                                          : 'bg-card border-border hover:border-primary/50'
+                                      }`}
+                                    >
+                                      {region}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
                   );
                 })}
+              </CardContent>
+            </Card>
+
+            {/* Specialty Products */}
+            <Card>
+              <CardHeader className="pb-4 bg-slate-600 text-white rounded-t-lg">
+                <CardTitle className="text-xl font-bold">Övriga produkter</CardTitle>
+                <CardDescription className="text-white/80 text-sm">
+                  Markera de produkter som ni kan erbjuda (alla branscher är tillämpliga här)
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <div className="flex flex-wrap gap-3">
+                  {specialtyProducts.map((product) => {
+                    const isSelected = selectedSpecialtyProducts.includes(product);
+                    const icon = specialtyProductIcons[product];
+                    return (
+                      <button
+                        key={product}
+                        type="button"
+                        onClick={() => {
+                          setSelectedSpecialtyProducts(prev =>
+                            isSelected
+                              ? prev.filter(p => p !== product)
+                              : [...prev, product]
+                          );
+                        }}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 transition-all font-medium ${
+                          isSelected
+                            ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                            : 'bg-card border-border hover:border-primary/50'
+                        }`}
+                      >
+                        {icon && (
+                          <img 
+                            src={icon} 
+                            alt={product} 
+                            className={`h-6 w-6 object-contain ${isSelected ? 'brightness-0 invert' : ''}`} 
+                          />
+                        )}
+                        Dynamics 365 {product}
+                      </button>
+                    );
+                  })}
+                </div>
               </CardContent>
             </Card>
 
@@ -710,7 +854,7 @@ const PartnerUpdate = () => {
 
             {/* Submit */}
             <div className="flex justify-end gap-4">
-              <Button type="submit" disabled={submitting || activeProducts.length === 0} size="lg">
+              <Button type="submit" disabled={submitting || (activeProducts.length === 0 && selectedSpecialtyProducts.length === 0)} size="lg">
                 {submitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
