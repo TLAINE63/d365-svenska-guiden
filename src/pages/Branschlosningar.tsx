@@ -4,12 +4,20 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Building2, ArrowDown, Loader2, Info } from "lucide-react";
+import { ArrowLeft, Building2, ArrowDown, Loader2, Info, MessageCircle } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import PartnerCard from "@/components/PartnerCard";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import ContactFormDialog from "@/components/ContactFormDialog";
 
 
 // Industry images - new taxonomy (18 industries)
@@ -103,6 +111,8 @@ const Branschlosningar = () => {
   const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
+  const [noPartnerDialogOpen, setNoPartnerDialogOpen] = useState(false);
+  const [clickedIndustryName, setClickedIndustryName] = useState<string>("");
 
   // Filter to only show featured partners
   const partners = useMemo(() => {
@@ -202,7 +212,10 @@ const Branschlosningar = () => {
     // Check if this industry has partners for the selected product
     const industryName = industry.partnerIndustries[0];
     if (!industriesWithPartners.has(industryName)) {
-      return; // Do nothing if no partners
+      // Show dialog when no partners for this industry/product combination
+      setClickedIndustryName(industry.name);
+      setNoPartnerDialogOpen(true);
+      return;
     }
     
     setSelectedIndustry(industry);
@@ -463,19 +476,18 @@ const Branschlosningar = () => {
                 const hasPartners = !selectedFilter || industriesWithPartners.has(industryName);
                 const isClickable = !selectedFilter || hasPartners;
                 
-                return (
-                  <button
-                    key={industry.slug}
-                    onClick={() => handleIndustryClick(industry)}
-                    disabled={selectedFilter && !hasPartners}
-                    className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
-                      !selectedFilter 
-                        ? "cursor-pointer opacity-70 hover:opacity-90"
-                        : hasPartners
-                          ? "cursor-pointer hover:scale-105 hover:shadow-xl ring-2 ring-primary/50"
-                          : "cursor-not-allowed opacity-40 grayscale"
-                    }`}
-                  >
+                  return (
+                    <button
+                      key={industry.slug}
+                      onClick={() => handleIndustryClick(industry)}
+                      className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
+                        !selectedFilter 
+                          ? "cursor-pointer opacity-70 hover:opacity-90"
+                          : hasPartners
+                            ? "cursor-pointer hover:scale-105 hover:shadow-xl ring-2 ring-primary/50"
+                            : "cursor-pointer opacity-40 grayscale hover:opacity-50"
+                      }`}
+                    >
                     <img
                       src={industry.image}
                       alt={industry.name}
@@ -505,6 +517,32 @@ const Branschlosningar = () => {
       )}
 
       <Footer />
+
+      {/* No Partner Dialog */}
+      <Dialog open={noPartnerDialogOpen} onOpenChange={setNoPartnerDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-lg">
+              <Info className="h-5 w-5 text-amber-500" />
+              Ingen partner listad
+            </DialogTitle>
+            <DialogDescription className="text-base pt-2 leading-relaxed">
+              Ingen partner verkar ha registrerat sig för just <span className="font-medium text-foreground">{clickedIndustryName}</span> för vald produkt. Ofta finns kompetensen, men partnern har inte valt att profilera sig med detta här.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-4 p-4 bg-muted/50 rounded-lg border">
+            <p className="text-sm text-muted-foreground mb-4">
+              Kontakta oss så hjälper vi dig att hitta rätt partner för din bransch och dina behov.
+            </p>
+            <ContactFormDialog>
+              <Button className="w-full gap-2">
+                <MessageCircle className="h-4 w-4" />
+                Kontakta oss
+              </Button>
+            </ContactFormDialog>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
