@@ -438,6 +438,25 @@ const PartnerUpdate = () => {
     }
   };
 
+  // Helper function for cascading geography selection
+  // When selecting a higher level, automatically include all lower levels
+  const getCascadingGeography = (selectedGeo: string, currentSelection: string[]): string[] => {
+    const hierarchy = ['Sverige', 'Norden', 'Europa', 'Övriga världen'];
+    const selectedIndex = hierarchy.indexOf(selectedGeo);
+    
+    if (selectedIndex === -1) return [...currentSelection, selectedGeo];
+    
+    // Include all geographies at and below the selected level
+    const toInclude = hierarchy.slice(0, selectedIndex + 1);
+    const newSelection = new Set([...currentSelection, ...toInclude]);
+    return Array.from(newSelection);
+  };
+
+  // Helper to remove geography
+  const getFilteredGeography = (geoToRemove: string, currentSelection: string[]): string[] => {
+    return currentSelection.filter(g => g !== geoToRemove);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -936,8 +955,8 @@ const PartnerUpdate = () => {
                                     onClick={() => {
                                       const current = filter.geography || [];
                                       const newGeo = isSelected
-                                        ? current.filter(g => g !== geo)
-                                        : [...current, geo];
+                                        ? getFilteredGeography(geo, current)
+                                        : getCascadingGeography(geo, current);
                                       updateProductFilter(productKey, { geography: newGeo });
                                     }}
                                   >
