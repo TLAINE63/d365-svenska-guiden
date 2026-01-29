@@ -13,6 +13,8 @@ import { ArrowLeft, ArrowRight, Download, Building2, Globe, Boxes, Link2, Server
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import SEOHead from "@/components/SEOHead";
+import { ServiceSchema } from "@/components/StructuredData";
 
 // Contact form validation schema
 const contactFormSchema = z.object({
@@ -1768,6 +1770,16 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
+      <SEOHead 
+        title="ERP Behovsanalys | Hitta rätt Dynamics 365-lösning"
+        description="Gör vår kostnadsfria ERP-behovsanalys och få en personlig rekommendation för Business Central eller Finance & Supply Chain Management."
+        canonicalPath="/behovsanalys"
+        keywords="ERP behovsanalys, Dynamics 365, Business Central, Finance Supply Chain, affärssystem, kravspecifikation"
+      />
+      <ServiceSchema 
+        name="ERP Behovsanalys"
+        description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet."
+      />
       <Navbar />
       
       <main className="flex-grow pt-24 pb-12">
