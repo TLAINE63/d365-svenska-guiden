@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Building2 } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -147,6 +147,12 @@ const PartnerUpdate = () => {
   const [error, setError] = useState<string | null>(null);
   const [invitation, setInvitation] = useState<Invitation | null>(null);
   
+  // Logo upload state
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
   // Form state
   const [formData, setFormData] = useState({
     name: "",
@@ -215,6 +221,11 @@ const PartnerUpdate = () => {
             notes: "",
           });
           
+          // Set logo preview if exists
+          if (result.existingData.logo_url) {
+            setLogoPreview(result.existingData.logo_url);
+          }
+          
           // Pre-fill product filters if available
           if (result.existingData.product_filters) {
             setProductFilters(result.existingData.product_filters);
@@ -257,6 +268,108 @@ const PartnerUpdate = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Logo upload handlers
+  const generateSlug = (name: string) => {
+    return name
+      .toLowerCase()
+      .replace(/[åä]/g, 'a')
+      .replace(/ö/g, 'o')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  };
+
+  const handleLogoUpload = async (file: File) => {
+    if (!invitation) return;
+    
+    // Validate file type
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/svg+xml"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Endast JPEG, PNG, WebP och SVG är tillåtna");
+      return;
+    }
+    
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Filen får max vara 5MB");
+      return;
+    }
+    
+    setUploadingLogo(true);
+    
+    try {
+      // Generate partner slug from name
+      const partnerSlug = generateSlug(formData.name || invitation.partner_name);
+      
+      // Create form data for upload
+      const uploadFormData = new FormData();
+      uploadFormData.append("file", file);
+      uploadFormData.append("token", token || "");
+      uploadFormData.append("partnerSlug", partnerSlug);
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-partner-logo`,
+        {
+          method: "POST",
+          headers: {
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: uploadFormData,
+        }
+      );
+      
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || "Kunde inte ladda upp logotypen");
+      }
+      
+      // Update form data with new logo URL
+      setFormData(prev => ({ ...prev, logo_url: result.url }));
+      setLogoPreview(result.url);
+      toast.success("Logotypen har laddats upp!");
+    } catch (err: any) {
+      console.error("Logo upload error:", err);
+      toast.error(err.message || "Ett fel uppstod vid uppladdning");
+    } finally {
+      setUploadingLogo(false);
+    }
+  };
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleLogoUpload(file);
+    }
+    // Reset input so same file can be selected again
+    e.target.value = "";
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      handleLogoUpload(file);
+    }
+  };
+
+  const removeLogo = () => {
+    setFormData(prev => ({ ...prev, logo_url: "" }));
+    setLogoPreview(null);
   };
 
   const toggleProduct = (key: ProductKey) => {
@@ -563,18 +676,104 @@ const PartnerUpdate = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="logo_url">Logotyp URL</Label>
-                  <Input
-                    id="logo_url"
-                    name="logo_url"
-                    type="url"
-                    placeholder="https://..."
-                    value={formData.logo_url}
-                    onChange={handleInputChange}
+                {/* Logo Upload Section */}
+                <div className="space-y-3">
+                  <Label>Logotyp</Label>
+                  
+                  {logoPreview ? (
+                    <div className="flex items-start gap-4">
+                      <div className="relative w-32 h-32 rounded-lg border-2 border-border bg-muted overflow-hidden flex items-center justify-center">
+                        <img 
+                          src={logoPreview} 
+                          alt="Partner logotyp" 
+                          className="max-w-full max-h-full object-contain p-2"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-sm text-muted-foreground">
+                          Logotypen har laddats upp
+                        </p>
+                        <div className="flex gap-2">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={uploadingLogo}
+                          >
+                            {uploadingLogo ? (
+                              <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                            ) : (
+                              <Upload className="h-4 w-4 mr-2" />
+                            )}
+                            Byt logotyp
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={removeLogo}
+                            className="text-destructive hover:text-destructive"
+                          >
+                            <X className="h-4 w-4 mr-1" />
+                            Ta bort
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      onDragEnter={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDragOver={handleDrag}
+                      onDrop={handleDrop}
+                      onClick={() => fileInputRef.current?.click()}
+                      className={`
+                        relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer
+                        transition-colors duration-200
+                        ${dragActive 
+                          ? 'border-primary bg-primary/5' 
+                          : 'border-border hover:border-primary/50 hover:bg-muted/50'
+                        }
+                        ${uploadingLogo ? 'pointer-events-none opacity-60' : ''}
+                      `}
+                    >
+                      {uploadingLogo ? (
+                        <div className="flex flex-col items-center gap-2">
+                          <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                          <p className="text-sm text-muted-foreground">Laddar upp...</p>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center gap-3">
+                          <div className="rounded-full bg-muted p-3">
+                            <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                          </div>
+                          <div>
+                            <p className="font-medium text-foreground">
+                              Dra och släpp er logotyp här
+                            </p>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              eller klicka för att välja fil
+                            </p>
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            JPEG, PNG, WebP eller SVG (max 5MB)
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/svg+xml"
+                    onChange={handleFileSelect}
+                    className="hidden"
                   />
+                  
                   <p className="text-xs text-muted-foreground">
-                    Länk till er logotyp. Rekommenderat format: SVG eller PNG med transparent bakgrund.
+                    Rekommenderat: SVG eller PNG med transparent bakgrund för bästa resultat
                   </p>
                 </div>
               </CardContent>
