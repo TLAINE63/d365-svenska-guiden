@@ -626,35 +626,44 @@ const FinanceSupplyChain = () => {
             </div>
           )}
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {fscPartners.map((partner, index) => {
-              // Build profile URL with filter context
-              const baseUrl = `/partner/${partner.slug}`;
-              const params = new URLSearchParams();
-              params.set("product", "Finance & SCM");
-              if (selectedIndustry) {
-                params.set("industry", selectedIndustry);
-              }
-              if (selectedGeography) {
-                params.set("geography", selectedGeography);
-              }
-              const profileUrl = `${baseUrl}?${params.toString()}`;
-              
-              return (
-                <PartnerCard
-                  key={index}
-                  partner={partner}
-                  profileUrl={profileUrl}
-                  colorScheme="primary"
-                  productKey="fsc"
-                  highlightedProduct="Finance & SCM"
-                  highlightedIndustry={selectedIndustry || undefined}
-                  highlightedGeography={selectedGeography || undefined}
-                  showRandomIndicator={true}
-                />
-              );
-            })}
-          </div>
+          {fscPartners.length === 0 ? (
+            <div className="text-center py-6">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>
+              <p className="text-muted-foreground">
+                Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
+              </p>
+            </div>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {fscPartners.map((partner, index) => {
+                // Build profile URL with filter context
+                const baseUrl = `/partner/${partner.slug}`;
+                const params = new URLSearchParams();
+                params.set("product", "Finance & SCM");
+                if (selectedIndustry) {
+                  params.set("industry", selectedIndustry);
+                }
+                if (selectedGeography) {
+                  params.set("geography", selectedGeography);
+                }
+                const profileUrl = `${baseUrl}?${params.toString()}`;
+                
+                return (
+                  <PartnerCard
+                    key={index}
+                    partner={partner}
+                    profileUrl={profileUrl}
+                    colorScheme="primary"
+                    productKey="fsc"
+                    highlightedProduct="Finance & SCM"
+                    highlightedIndustry={selectedIndustry || undefined}
+                    highlightedGeography={selectedGeography || undefined}
+                    showRandomIndicator={true}
+                  />
+                );
+              })}
+            </div>
+          )}
 
           {/* Lead CTA - shows when partners are filtered */}
           {selectedIndustry && (
