@@ -141,6 +141,9 @@ const PartnerCard = ({
 
   const productFilter = getProductFilter();
   
+  // Get product-specific description
+  const productDescription = productFilter?.productDescription || null;
+  
   // Get primary and secondary industries from productFilters if available
   const primaryIndustries = productFilter?.industries || (partner.industries || []).slice(0, 3);
   const secondaryIndustries = productFilter?.secondaryIndustries || [];
@@ -296,9 +299,18 @@ const PartnerCard = ({
           )}
 
           {/* Description */}
-          <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-3">
             {partner.description}
           </p>
+          
+          {/* Product-specific description */}
+          {productDescription && (
+            <div className="mb-4 p-2.5 rounded-lg bg-muted/50 border-l-2 border-primary/40">
+              <p className="text-sm text-muted-foreground italic leading-relaxed line-clamp-2">
+                {productDescription}
+              </p>
+            </div>
+          )}
           
           {/* Applications / Competencies */}
           <div className="mb-3">
