@@ -19,7 +19,15 @@ import {
 } from "@/components/ui/dialog";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema } from "@/components/StructuredData";
+import { ServiceSchema, FAQSchema } from "@/components/StructuredData";
+
+// FAQ items for schema
+const branschFaqs = [
+  { question: "Hur hittar jag rätt Dynamics 365-partner för min bransch?", answer: "Välj först den Dynamics 365-lösning du är intresserad av (Business Central, Finance & SCM, eller CRM), och sedan din bransch. Vi visar då partners som har dokumenterad erfarenhet inom just din kombination av produkt och bransch." },
+  { question: "Varför är branschkunskap viktigt vid val av partner?", answer: "En partner med branschkunskap förstår dina affärsprocesser, regelverk och utmaningar. Det leder till snabbare implementation, färre anpassningar och bättre resultat eftersom partnern redan känner till branschspecifika best practices." },
+  { question: "Vad gör jag om det inte finns någon partner listad för min bransch?", answer: "Även om en partner inte har profilerat sig mot din specifika bransch kan de ofta ha relevant kompetens. Kontakta oss så hjälper vi dig hitta en partner som matchar dina behov baserat på deras faktiska erfarenhet." },
+  { question: "Kan en partner arbeta med flera Dynamics 365-produkter?", answer: "Ja, många partners har kompetens inom flera Dynamics 365-produkter. Vår filtrering hjälper dig hitta partners som är starka inom just den produkt och bransch du behöver." },
+];
 
 
 // Industry images - new taxonomy (18 industries)
@@ -253,6 +261,7 @@ const Branschlosningar = () => {
         name="Dynamics 365 Branschlösningar"
         description="Hitta Microsoft Dynamics 365 partners med specialisering inom din bransch för ERP och CRM."
       />
+      <FAQSchema faqs={branschFaqs} />
       <Navbar />
       
       {/* Hero Section */}

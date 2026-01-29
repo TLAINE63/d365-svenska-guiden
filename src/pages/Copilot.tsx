@@ -7,7 +7,16 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema } from "@/components/StructuredData";
+import { ServiceSchema, FAQSchema } from "@/components/StructuredData";
+
+// FAQ items for schema
+const copilotFaqs = [
+  { question: "Vad är Microsoft Copilot i Dynamics 365?", answer: "Microsoft Copilot är en AI-driven assistent integrerad i Dynamics 365 som hjälper användare automatisera rutinuppgifter, få intelligenta insikter och fatta snabbare beslut baserade på affärsdata." },
+  { question: "Vad är skillnaden mellan Copilot och Agents?", answer: "Copilot fungerar som en AI-assistent som hjälper användaren med uppgifter och kräver interaktion. Agents är autonoma AI-system som arbetar självständigt 24/7 och kan utföra hela arbetsflöden automatiskt utan mänsklig inblandning." },
+  { question: "Vilken ROI kan man förvänta sig av Copilot?", answer: "Enligt Forresters TEI-studie från oktober 2024 kan företag uppnå 353% potentiell ROI över 3 år, 20% reducerade driftskostnader och 18% ökad medarbetarnöjdhet." },
+  { question: "I vilka Dynamics 365-applikationer finns Copilot?", answer: "Copilot finns i Business Central, Dynamics 365 Sales, Customer Service, Finance och Supply Chain Management. Varje applikation har Copilot-funktioner anpassade för sina specifika användningsområden." },
+  { question: "Hur kommer jag igång med Copilot?", answer: "Vi rekommenderar att börja med en behovsanalys för att identifiera vilka arbetsflöden som ger störst nytta. Kontakta oss för en kostnadsfri AI-rådgivning där vi kan guida dig genom processen." },
+];
 
 const Copilot = () => {
   const copilotVideos = [
@@ -54,6 +63,7 @@ const Copilot = () => {
         name="Microsoft Copilot i Dynamics 365"
         description="AI-driven assistent som förbättrar produktivitet och beslutsfattande i Microsoft Dynamics 365 affärssystem."
       />
+      <FAQSchema faqs={copilotFaqs} />
       <Navbar />
       
       {/* Header */}
