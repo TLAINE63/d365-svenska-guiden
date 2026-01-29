@@ -1775,6 +1775,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         description="Gör vår kostnadsfria ERP-behovsanalys och få en personlig rekommendation för Business Central eller Finance & Supply Chain Management."
         canonicalPath="/behovsanalys"
         keywords="ERP behovsanalys, Dynamics 365, Business Central, Finance Supply Chain, affärssystem, kravspecifikation"
+        ogImage="https://d365.se/og-behovsanalys.png"
       />
       <ServiceSchema 
         name="ERP Behovsanalys"

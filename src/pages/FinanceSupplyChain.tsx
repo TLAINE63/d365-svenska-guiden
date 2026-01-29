@@ -146,6 +146,7 @@ const FinanceSupplyChain = () => {
         description="Komplett guide till Microsoft Dynamics 365 Finance och Supply Chain Management. Företagslösning för större och internationella organisationer."
         canonicalPath="/finance-supply-chain"
         keywords="Dynamics 365 Finance, Supply Chain Management, ERP, enterprise, global ekonomihantering, tillverkning"
+        ogImage="https://d365.se/og-finance-scm.png"
       />
       <FAQSchema faqs={fscFaqs} />
       <ServiceSchema 

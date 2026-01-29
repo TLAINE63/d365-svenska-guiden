@@ -247,6 +247,7 @@ const Branschlosningar = () => {
         description="Hitta rätt Dynamics 365-partner för din bransch. Filtrera på produkt och bransch för att se Microsoft-partners med relevant verksamhetskunskap."
         canonicalPath="/branschlosningar"
         keywords="Dynamics 365, branschlösningar, ERP, CRM, tillverkning, handel, konsult, partner"
+        ogImage="https://d365.se/og-bransch.png"
       />
       <ServiceSchema 
         name="Dynamics 365 Branschlösningar"

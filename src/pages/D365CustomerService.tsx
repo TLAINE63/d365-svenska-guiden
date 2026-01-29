@@ -66,6 +66,7 @@ const D365CustomerService = () => {
         description="Komplett guide till Microsoft Dynamics 365 Customer Service. Licenspriser, Copilot-funktioner och tips för att välja rätt partner."
         canonicalPath="/d365-customer-service"
         keywords="Dynamics 365 Customer Service, kundservice, ärendehantering, Copilot, AI, priser"
+        ogImage="https://d365.se/og-customer-service.png"
       />
       <FAQSchema faqs={customerServiceFaqs} />
       <ServiceSchema 

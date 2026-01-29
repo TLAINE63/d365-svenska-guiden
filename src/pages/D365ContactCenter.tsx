@@ -52,6 +52,7 @@ const D365ContactCenter = () => {
         description="Komplett guide till Microsoft Dynamics 365 Contact Center. Modern kontaktcenterlösning med omnichannel, AI och automation."
         canonicalPath="/d365-contact-center"
         keywords="Dynamics 365 Contact Center, kontaktcenter, omnichannel, virtuella agenter, AI, Teams"
+        ogImage="https://d365.se/og-contact-center.png"
       />
       <FAQSchema faqs={contactCenterFaqs} />
       <ServiceSchema 

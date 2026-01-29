@@ -20,6 +20,7 @@ const ContactUs = () => {
         description="Kontakta våra senior rådgivare för kostnadsfri rådgivning om Microsoft Dynamics 365. Boka möte med Thomas Laine eller Michael Uhman."
         canonicalPath="/kontakt"
         keywords="kontakt, Dynamics 365, rådgivning, konsult, Microsoft"
+        ogImage="https://d365.se/og-kontakt.png"
       />
       <LocalBusinessSchema />
       <Navbar />
