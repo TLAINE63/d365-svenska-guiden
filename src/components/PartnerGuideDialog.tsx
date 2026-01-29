@@ -12,7 +12,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Building2, Search, Shuffle } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import LeadCTA from "@/components/LeadCTA";
 import { Partner } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
@@ -344,54 +350,128 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
           <div className="space-y-6">
             <div className="flex items-center gap-2 text-primary">
               <CheckCircle className="h-6 w-6" />
-              <h3 className="text-lg font-semibold">Baserat på dina val skulle följande partners kunna passa er verksamhet:</h3>
+              <h3 className="text-lg font-semibold">
+                {suggestedPartners.length > 0 
+                  ? "Baserat på dina val skulle följande partners kunna passa er verksamhet:"
+                  : "Inga partners hittades för dina sökkriterier"}
+              </h3>
             </div>
             
-            <div className="space-y-4">
-            {suggestedPartners.map((partner, index) => {
-                const partnerSlug = isDatabasePartner(partner) 
-                  ? partner.slug 
-                  : (partner.name || '').toLowerCase().replace(/[^a-z0-9]+/g, "-");
-                const profileUrl = `/partner/${partnerSlug}${selectedApp ? `?product=${encodeURIComponent(selectedApp)}` : ""}${selectedIndustry ? `${selectedApp ? "&" : "?"}industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
-                
-                return (
-                  <Card key={index} className="border border-border">
-                    <CardHeader className="pb-2">
-                      <Link to={profileUrl} onClick={() => onOpenChange(false)}>
-                        <CardTitle className="text-lg hover:text-primary transition-colors">
-                          {partner.name || 'Partner'}
-                        </CardTitle>
-                      </Link>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      <p className="text-sm text-muted-foreground">{partner.description}</p>
-                      <div className="flex flex-wrap gap-1">
-                        {(partner.applications || []).map((app, i) => (
-                          <Badge key={i} variant="secondary" className="text-xs">
-                            {app}
-                          </Badge>
-                        ))}
-                      </div>
-                      <Button asChild variant="outline" size="sm" className="w-full mt-2">
-                        <Link to={profileUrl} onClick={() => onOpenChange(false)}>
-                          Öppna partnerkortet
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+            {suggestedPartners.length === 0 ? (
+              <div className="text-center py-8 px-4">
+                <div className="mx-auto w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mb-4">
+                  <Search className="w-8 h-8 text-muted-foreground" />
+                </div>
+                <p className="text-muted-foreground mb-4">
+                  Just nu finns inga partners som matchar alla dina valda kriterier. 
+                  Prova att börja om och justera dina val, eller kontakta oss direkt så hjälper vi dig.
+                </p>
+                <Button variant="outline" onClick={handleReset} className="mt-2">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Börja om med nya val
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {suggestedPartners.map((partner, index) => {
+                  const partnerSlug = isDatabasePartner(partner) 
+                    ? partner.slug 
+                    : (partner.name || '').toLowerCase().replace(/[^a-z0-9]+/g, "-");
+                  const profileUrl = `/partner/${partnerSlug}${selectedApp ? `?product=${encodeURIComponent(selectedApp)}` : ""}${selectedIndustry ? `${selectedApp ? "&" : "?"}industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
+                  
+                  return (
+                    <Card 
+                      key={index} 
+                      className="group relative overflow-hidden border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-card via-card to-muted/20"
+                    >
+                      {/* Subtle gradient overlay on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                      
+                      <CardContent className="p-4">
+                        <div className="flex items-start gap-4">
+                          {/* Logo */}
+                          <div className="flex-shrink-0">
+                            {isDatabasePartner(partner) && partner.logo_url ? (
+                              <img 
+                                src={partner.logo_url} 
+                                alt={`${partner.name} logotyp`}
+                                className={`w-12 h-12 object-contain rounded-lg p-1.5 border ${
+                                  partner.logo_dark_bg 
+                                    ? 'bg-slate-700 border-slate-600 brightness-125' 
+                                    : 'bg-white border-border/40'
+                                }`}
+                              />
+                            ) : (
+                              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-muted/80 to-muted flex items-center justify-center">
+                                <Building2 className="w-6 h-6 text-muted-foreground/60" />
+                              </div>
+                            )}
+                          </div>
+                          
+                          {/* Content */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Link 
+                                to={profileUrl} 
+                                onClick={() => onOpenChange(false)}
+                                className="font-semibold text-foreground hover:text-primary transition-colors truncate"
+                              >
+                                {partner.name || 'Partner'}
+                              </Link>
+                              <TooltipProvider delayDuration={100}>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center cursor-help">
+                                      <Shuffle className="w-2.5 h-2.5 text-muted-foreground" />
+                                    </div>
+                                  </TooltipTrigger>
+                                  <TooltipContent side="top" className="text-xs">
+                                    <p>Ordningen slumpas för rättvis exponering</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </TooltipProvider>
+                            </div>
+                            
+                            <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{partner.description}</p>
+                            
+                            <div className="flex flex-wrap gap-1.5 mb-3">
+                              {(partner.applications || []).slice(0, 4).map((app, i) => (
+                                <Badge key={i} variant="secondary" className="text-xs px-2 py-0.5">
+                                  {app}
+                                </Badge>
+                              ))}
+                              {(partner.applications || []).length > 4 && (
+                                <Badge variant="outline" className="text-xs px-2 py-0.5 text-muted-foreground">
+                                  +{(partner.applications || []).length - 4}
+                                </Badge>
+                              )}
+                            </div>
+                            
+                            <Button asChild size="sm" className="w-full sm:w-auto">
+                              <Link to={profileUrl} onClick={() => onOpenChange(false)}>
+                                Visa partnerprofil
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            )}
 
-            <LeadCTA
-              sourcePage="partner-guide-dialog"
-              selectedProducts={selectedApp ? [selectedApp] : []}
-              selectedIndustry={selectedIndustry}
-              selectedCompanySize={sizeOptions.find(o => o.value === selectedSize)?.label}
-              title="Låt oss hjälpa dig vidare"
-              description="Lämna dina uppgifter så hjälper vi dig att komma i kontakt med rätt partner och kontaktperson."
-            />
+            {suggestedPartners.length > 0 && (
+              <LeadCTA
+                sourcePage="partner-guide-dialog"
+                selectedProducts={selectedApp ? [selectedApp] : []}
+                selectedIndustry={selectedIndustry}
+                selectedCompanySize={sizeOptions.find(o => o.value === selectedSize)?.label}
+                title="Låt oss hjälpa dig vidare"
+                description="Lämna dina uppgifter så hjälper vi dig att komma i kontakt med rätt partner och kontaktperson."
+              />
+            )}
           </div>
         )}
 
