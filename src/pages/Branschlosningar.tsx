@@ -366,9 +366,9 @@ const Branschlosningar = () => {
             ) : (
               <div className="text-center py-12">
                 <Building2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">Märkligt…inga partners blev listade här…</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>
                 <p className="text-muted-foreground">
-                  Men ingen fara. Om du kontaktar oss, så hjälper vi dig hitta några bra alternativ.
+                  Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
                 </p>
               </div>
             )}

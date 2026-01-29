@@ -351,9 +351,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
             <div className="flex items-center gap-2 text-primary">
               <CheckCircle className="h-6 w-6" />
               <h3 className="text-lg font-semibold">
-                {suggestedPartners.length > 0 
+            {suggestedPartners.length > 0 
                   ? "Baserat på dina val skulle följande partners kunna passa er verksamhet:"
-                  : "Inga partners hittades för dina sökkriterier"}
+                  : "Inga partner listas med denna filtrering?"}
               </h3>
             </div>
             
@@ -363,8 +363,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                   <Search className="w-8 h-8 text-muted-foreground" />
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  Just nu finns inga partners som matchar alla dina valda kriterier. 
-                  Prova att börja om och justera dina val, eller kontakta oss direkt så hjälper vi dig.
+                  Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
                 </p>
                 <Button variant="outline" onClick={handleReset} className="mt-2">
                   <ArrowLeft className="mr-2 h-4 w-4" />
