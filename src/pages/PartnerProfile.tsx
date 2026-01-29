@@ -203,19 +203,26 @@ const PartnerProfile = () => {
     };
   };
 
-  // Get geography for a specific product - prioritize database data
-  const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
+  // Get geography for a specific product - prioritize database data, return as array
+  const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    // Check database partner's product_filters first, then geography array
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { geography?: string }> | undefined;
+    // Check database partner's product_filters first
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { geography?: string | string[] }> | undefined;
     const dbProductGeo = dbProductFilters?.[filterKey]?.geography;
-    if (dbProductGeo) return dbProductGeo;
-    // Fall back to partner's geography array (use first/highest level)
+    if (dbProductGeo) {
+      // Handle both string and array formats
+      return Array.isArray(dbProductGeo) ? dbProductGeo : [dbProductGeo];
+    }
+    // Fall back to partner's geography array
     if (dbPartner?.geography && dbPartner.geography.length > 0) {
-      return dbPartner.geography[dbPartner.geography.length - 1]; // Use highest level (last in array)
+      return dbPartner.geography;
     }
     // Final fallback to static data
-    return staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography || null;
+    const staticGeo = staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography;
+    if (staticGeo) {
+      return Array.isArray(staticGeo) ? staticGeo : [staticGeo];
+    }
+    return [];
   };
 
   // Get customer examples for a specific product - only from database
@@ -563,22 +570,23 @@ const PartnerProfile = () => {
                             </p>
                           )}
 
-                          {/* Geographic coverage with Sweden cities */}
-                          {(geography || swedenCities.length > 0) && (
+                          {/* Geographic coverage */}
+                          {(geography.length > 0 || swedenCities.length > 0) && (
                             <div className="space-y-2.5">
                               <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
                                 <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
                                 Geografisk täckning
                               </p>
                               <div className="flex flex-wrap items-center gap-2">
-                                {geography && (
+                                {geography.map((geo, idx) => (
                                   <Badge 
+                                    key={idx}
                                     variant="outline"
                                     className="bg-background/50 text-foreground/80 border-border py-1.5 px-3 text-sm font-medium"
                                   >
-                                    {geography}
+                                    {geo}
                                   </Badge>
-                                )}
+                                ))}
                                 {swedenCities.length > 0 && (
                                   <span className="text-sm text-muted-foreground">
                                     Städer: {swedenCities.join(', ')}
