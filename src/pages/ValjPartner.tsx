@@ -546,7 +546,7 @@ const ValjPartner = () => {
 
           {/* Application Filter */}
           <MultiFilterButtons
-            title="Filtrera på applikation"
+            title="Filtrera på Dynamics 365 Applikation"
             icon="application"
             options={allApplications.map(app => ({ label: app, value: app }))}
             selectedValues={selectedApplications}
