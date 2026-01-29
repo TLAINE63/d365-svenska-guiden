@@ -56,13 +56,15 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 
 // Icons for specialty products
 const specialtyProductIcons: Record<string, string> = {
-  "Project Operations": FinanceIcon,
-  "Commerce": SupplyChainIcon,
-  "Human Resources": CustomerServiceIcon,
+  "Project Operations": ProjectOperationsIcon,
+  "Commerce": CommerceIcon,
+  "Human Resources": HumanResourcesIcon,
 };
 
 import {

@@ -27,6 +27,9 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import CopilotIcon from "@/assets/icons/Copilot.png";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 
 // Map application names to Dynamics 365 icons
 const applicationIcons: Record<string, string> = {
@@ -43,10 +46,10 @@ const applicationIcons: Record<string, string> = {
   "Supply Chain Management": SupplyChainIcon,
   "Copilot": CopilotIcon,
   "Contact Center": ContactCenterIcon,
-  // Specialty products - using related icons
-  "Project Operations": FinanceIcon,
-  "Commerce": SupplyChainIcon,
-  "Human Resources": CustomerServiceIcon,
+  // Specialty products with official icons
+  "Project Operations": ProjectOperationsIcon,
+  "Commerce": CommerceIcon,
+  "Human Resources": HumanResourcesIcon,
 };
 
 const getApplicationIcon = (appName: string): string | null => {
