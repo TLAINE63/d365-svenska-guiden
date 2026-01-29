@@ -35,12 +35,13 @@ const applicationOptions = [
   "Business Central",
   "Finance & SCM",
   "Sales",
+  "Customer Insights (Marketing)",
   "Customer Service",
   "Field Service",
-  "Customer Insights (Marketing)",
   "Contact Center",
   "Project Operations",
-  "Commerce"
+  "Commerce",
+  "Human Resources"
 ];
 
 const industryOptions = [
@@ -81,10 +82,13 @@ const sizeOptions = [
   { value: ">5.000", label: "Mer än 5.000 anställda" }
 ];
 
+// Product key type matching database structure
+type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
+
 // Helper to match product filter for database partners
 const matchesDbProductFilter = (
   partner: DatabasePartner, 
-  productKey: 'bc' | 'fsc' | 'crm',
+  productKey: ProductKey,
   industry?: string,
   companySize?: string,
   geography?: string
@@ -114,7 +118,7 @@ const matchesDbProductFilter = (
   return true;
 };
 
-const getDbProductRanking = (partner: DatabasePartner, productKey: 'bc' | 'fsc' | 'crm'): number => {
+const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): number => {
   return partner.product_filters?.[productKey]?.ranking ?? 999;
 };
 
@@ -128,13 +132,16 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
 
   const totalSteps = 4;
 
-  // Determine product type from selected application
-  const getProductType = (app: string): 'bc' | 'fsc' | 'crm' | null => {
+  // Determine product key from selected application - matches database structure
+  const getProductKey = (app: string): ProductKey | null => {
     if (app === "Business Central") return 'bc';
     if (app === "Finance & SCM") return 'fsc';
-    if (["Sales", "Customer Service", "Field Service", "Customer Insights (Marketing)", "Contact Center", "Project Operations", "Commerce"].includes(app)) {
-      return 'crm';
-    }
+    // Sales-related products
+    if (["Sales", "Customer Insights (Marketing)"].includes(app)) return 'sales';
+    // Service-related products  
+    if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return 'service';
+    // Standalone products - check both bc and fsc as they're typically bundled
+    if (["Project Operations", "Commerce", "Human Resources"].includes(app)) return 'fsc';
     return null;
   };
 
@@ -156,9 +163,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
   };
 
   const findBestPartners = () => {
-    const productType = getProductType(selectedApp);
+    const productKey = getProductKey(selectedApp);
     
-    if (!productType) {
+    if (!productKey) {
       setSuggestedPartners([]);
       setStep(5);
       return;
@@ -170,14 +177,14 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
       if (isDatabasePartner(partner)) {
         return matchesDbProductFilter(
           partner,
-          productType,
+          productKey,
           selectedIndustry || undefined,
           undefined, // Company size not used for filtering
           selectedMarket || undefined
         );
       }
       // For static partners, use simple check
-      return partner.productFilters?.[productType];
+      return partner.productFilters?.[productKey];
     });
 
     // Shuffle randomly with session-stable seed for fair exposure
