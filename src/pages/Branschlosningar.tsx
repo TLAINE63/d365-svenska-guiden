@@ -130,6 +130,34 @@ const Branschlosningar = () => {
     return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
   };
 
+  // Helper to get product key from filter
+  const getProductKey = (filter: ProductFilter): 'bc' | 'fsc' | 'sales' | 'service' | null => {
+    switch (filter) {
+      case "bc": return 'bc';
+      case "fsc": return 'fsc';
+      case "crm-sales": return 'sales';
+      case "crm-service": return 'service';
+      default: return null;
+    }
+  };
+
+  // Calculate which industries have partners for the selected product
+  const industriesWithPartners = useMemo(() => {
+    if (!selectedFilter) return new Set<string>();
+    
+    const productKey = getProductKey(selectedFilter);
+    if (!productKey) return new Set<string>();
+    
+    const industriesSet = new Set<string>();
+    partners.forEach(partner => {
+      const productFilter = partner.product_filters?.[productKey];
+      if (productFilter?.industries) {
+        productFilter.industries.forEach((ind: string) => industriesSet.add(ind));
+      }
+    });
+    return industriesSet;
+  }, [selectedFilter, partners]);
+
   // Show all industries regardless of selected filter
   const displayedIndustries = industries;
 
@@ -137,18 +165,7 @@ const Branschlosningar = () => {
   const filteredPartners = useMemo(() => {
     if (!selectedIndustry) return [];
     
-    // Determine which product key to use for filtering
-    const getProductKey = (): 'bc' | 'fsc' | 'sales' | 'service' | null => {
-      switch (selectedFilter) {
-        case "bc": return 'bc';
-        case "fsc": return 'fsc';
-        case "crm-sales": return 'sales';
-        case "crm-service": return 'service';
-        default: return null;
-      }
-    };
-    
-    const productKey = getProductKey();
+    const productKey = getProductKey(selectedFilter);
     if (!productKey) return [];
     
     // Get selected industry name
@@ -181,6 +198,13 @@ const Branschlosningar = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
+    
+    // Check if this industry has partners for the selected product
+    const industryName = industry.partnerIndustries[0];
+    if (!industriesWithPartners.has(industryName)) {
+      return; // Do nothing if no partners
+    }
+    
     setSelectedIndustry(industry);
   };
 
@@ -434,33 +458,42 @@ const Branschlosningar = () => {
         <section className="py-8 px-4">
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-              {displayedIndustries.map((industry) => (
-                <button
-                  key={industry.slug}
-                  onClick={() => handleIndustryClick(industry)}
-                  className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
-                    selectedFilter 
-                      ? "cursor-pointer hover:scale-105 hover:shadow-xl" 
-                      : "cursor-pointer opacity-70 hover:opacity-90"
-                  }`}
-                >
-                  <img
-                    src={industry.image}
-                    alt={industry.name}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3">
-                    <h3 className="text-white font-semibold text-xs sm:text-sm leading-tight">
-                      {industry.name}
-                    </h3>
-                  </div>
-                  {selectedFilter && (
-                    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
-                  )}
-                </button>
-              ))}
+              {displayedIndustries.map((industry) => {
+                const industryName = industry.partnerIndustries[0];
+                const hasPartners = !selectedFilter || industriesWithPartners.has(industryName);
+                const isClickable = !selectedFilter || hasPartners;
+                
+                return (
+                  <button
+                    key={industry.slug}
+                    onClick={() => handleIndustryClick(industry)}
+                    disabled={selectedFilter && !hasPartners}
+                    className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
+                      !selectedFilter 
+                        ? "cursor-pointer opacity-70 hover:opacity-90"
+                        : hasPartners
+                          ? "cursor-pointer hover:scale-105 hover:shadow-xl ring-2 ring-primary/50"
+                          : "cursor-not-allowed opacity-40 grayscale"
+                    }`}
+                  >
+                    <img
+                      src={industry.image}
+                      alt={industry.name}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3">
+                      <h3 className="text-white font-semibold text-xs sm:text-sm leading-tight">
+                        {industry.name}
+                      </h3>
+                    </div>
+                    {selectedFilter && hasPartners && (
+                      <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </section>
