@@ -9,6 +9,8 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import HeroCarousel from "@/components/HeroCarousel";
 import CommonMistakesTeaser from "@/components/CommonMistakesTeaser";
 import ScrollCTA from "@/components/ScrollCTA";
+import SEOHead from "@/components/SEOHead";
+import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -24,15 +26,32 @@ import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import BizAppsNetwork from "@/assets/biz-apps-network.png";
+
+const homeFaqs = [
+  { question: "Vad är Microsoft Dynamics 365?", answer: "Microsoft Dynamics 365 är en svit av affärssystem (ERP)- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice. Alla appar delar samma dataplattform och kan integreras sömlöst." },
+  { question: "Vilken Dynamics 365-lösning passar vårt företag bäst?", answer: "Mindre företag börjar ofta med Business Central, medan större koncerner väljer Finance & Supply Chain Management. CRM-appar som Sales och Customer Service kan kombineras med båda ERP-lösningarna." },
+  { question: "Vad kostar Dynamics 365?", answer: "Licenspriser varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare. Projektkostnader startar från 50 000 kr för startpaket till flera miljoner för Enterprise-implementeringar." },
+  { question: "Hur lång tid tar det att implementera Dynamics 365?", answer: "Typisk implementationsresa är 3-6 månader för Business Central, 9-18 månader för Finance & SCM. För CRM beror det på omfattning men räkna med från 2 månader." },
+  { question: "Hur fungerar Dynamics 365 med Microsoft 365?", answer: "Dynamics 365 integreras sömlöst med Outlook, Teams och Excel. Power Platform möjliggör egna appar och automatiseringar. AI/Copilot är inbyggd i alla affärsapplikationer." },
+];
 const Index = () => {
   return <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Microsoft Dynamics 365 Guide | Priser & Implementering"
+        description="Oberoende guide till Microsoft Dynamics 365 ERP och CRM. Transparenta priser, videoguider, behovsanalyser och hjälp att välja rätt partner."
+        canonicalPath="/"
+        keywords="Microsoft Dynamics 365, ERP, CRM, Business Central, Finance Supply Chain, priser, implementering, Sverige"
+      />
+      <OrganizationSchema />
+      <WebSiteSchema />
+      <LocalBusinessSchema />
+      <FAQSchema faqs={homeFaqs} />
       <Navbar />
       
       <main>
       
       {/* Hero Carousel */}
       <HeroCarousel />
-
 
       {/* Quick Links Section */}
       <section id="questions" className="py-12 sm:py-16 md:py-20 bg-muted/30">

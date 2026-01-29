@@ -176,7 +176,7 @@ const HeroCarousel = () => {
             <>
               <img
                 src={s.backgroundImage}
-                alt=""
+                alt={s.id === 1 ? "Skyskrapor som symboliserar affärsvärlden och Microsoft Dynamics 365" : s.id === 2 ? "Affärsanalys och ERP-systemplanering" : s.id === 3 ? "Teamsamarbete och CRM-strategi" : "Partnerval och jämförelse av offerter"}
                 className="w-full h-full object-cover"
                 width="1600"
                 height="1067"

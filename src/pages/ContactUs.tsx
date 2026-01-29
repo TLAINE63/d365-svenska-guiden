@@ -3,6 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
+import SEOHead from "@/components/SEOHead";
+import { LocalBusinessSchema } from "@/components/StructuredData";
 
 import { Mail, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -13,6 +15,13 @@ import linkedinLogo from "@/assets/linkedin-logo.jfif";
 const ContactUs = () => {
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Kontakta oss | Dynamics 365 Rådgivning"
+        description="Kontakta våra senior rådgivare för kostnadsfri rådgivning om Microsoft Dynamics 365. Boka möte med Thomas Laine eller Michael Uhman."
+        canonicalPath="/kontakt"
+        keywords="kontakt, Dynamics 365, rådgivning, konsult, Microsoft"
+      />
+      <LocalBusinessSchema />
       <Navbar />
       
       {/* Header */}

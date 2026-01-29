@@ -12,3 +12,12 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://d365.se/sitemap.xml
+
+# Disallow admin pages
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/

@@ -13,6 +13,8 @@ import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import SwedenRegionMap from "@/components/SwedenRegionMap";
 import { SwedishRegion } from "@/hooks/usePartners";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -25,6 +27,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Business Central FAQs for schema
+const bcFaqs = [
+  { question: "Vad kostar Business Central?", answer: "Team Member kostar 88,40 kr/mån, Essentials 884,10 kr/mån och Premium 1 215,60 kr/mån. Till detta kommer implementeringskostnader som varierar beroende på omfattning." },
+  { question: "Är Business Central rätt för mitt företag?", answer: "Business Central passar mindre och medelstora företag (10-300 användare) som behöver ett komplett affärssystem för ekonomi, lager, försäljning, inköp och produktion." },
+  { question: "Hur lång tid tar det att implementera Business Central?", answer: "En typisk implementation tar 3-6 månader. Mindre företag med standardprocesser kan vara igång på 2-3 månader, större projekt tar 6-12 månader." },
+  { question: "Hur fungerar Business Central med Microsoft 365?", answer: "Business Central integreras sömlöst med Outlook, Excel och Teams. Det är enkelt att koppla ihop med e-handel, CRM och branschspecifika tillägg." },
+];
 
 // Geography filter options
 const geographyFilters = [
@@ -140,6 +150,17 @@ const BusinessCentral = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 Business Central | Priser & Implementering"
+        description="Komplett guide till Microsoft Dynamics 365 Business Central. Licenspriser, implementeringstid och tips för att välja rätt partner."
+        canonicalPath="/business-central"
+        keywords="Business Central, Dynamics 365, ERP, affärssystem, priser, implementering, SMB"
+      />
+      <FAQSchema faqs={bcFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Business Central"
+        description="Komplett affärssystem för mindre och medelstora företag med ekonomi, lager, försäljning och produktion."
+      />
       <Navbar />
       
       {/* Header */}
