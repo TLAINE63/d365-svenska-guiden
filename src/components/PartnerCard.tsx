@@ -154,22 +154,24 @@ const PartnerCard = ({
       if (partner.product_filters.fsc) {
         apps.push("Finance");
         apps.push("Supply Chain Management");
-        apps.push("Project Operations");
-        apps.push("Commerce");
-        apps.push("Human Resources");
       }
       if (partner.product_filters.sales) {
         apps.push("Sales");
         apps.push("Customer Insights (Marketing)");
-        apps.push("Project Operations");
       }
       if (partner.product_filters.service) {
         apps.push("Customer Service");
         apps.push("Field Service");
         apps.push("Contact Center");
-        apps.push("Project Operations");
       }
-      // Remove duplicates (e.g., Project Operations can come from multiple product areas)
+      // Add specialty products from applications array (explicitly selected)
+      const specialtyProducts = ["Project Operations", "Commerce", "Human Resources"];
+      specialtyProducts.forEach(product => {
+        if (partner.applications?.includes(product)) {
+          apps.push(product);
+        }
+      });
+      // Remove duplicates
       return apps.length > 0 ? [...new Set(apps)] : (partner.applications || []);
     }
     return partner.applications || [];

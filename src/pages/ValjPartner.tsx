@@ -88,14 +88,18 @@ const getProductKeysForApp = (app: string): ProductKey[] => {
       return ['service'];
     case "Customer Insights (Marketing)":
       return ['sales']; // Marketing is grouped with sales
+    // Specialty products - no product key mapping, filtered via applications array
     case "Project Operations":
     case "Commerce":
     case "Human Resources":
-      return ['fsc']; // These are typically FSC-related
+      return []; // These are standalone products
     default:
       return [];
   }
 };
+
+// Specialty products that are filtered via applications array, not product_filters
+const specialtyProducts = ["Project Operations", "Commerce", "Human Resources"];
 
 // Helper to check if a database partner matches product filter criteria
 const matchesDbProductFilter = (
@@ -190,16 +194,14 @@ const ValjPartner = () => {
 
   // Helper to determine which product ranking to use based on selected applications
   const getProductRanking = (partner: DatabasePartner): number => {
-    // Determine which product type is primarily selected
+    // Determine which product type is primarily selected (excluding specialty products)
     const hasBCApp = selectedApplications.includes("Business Central");
-    const hasFSCApp = selectedApplications.some(app => 
-      ["Finance & SCM", "Commerce", "Project Operations", "Human Resources"].includes(app)
-    );
+    const hasFSCApp = selectedApplications.includes("Finance & SCM");
     const hasSalesApp = selectedApplications.some(app => 
-      ["Sales", "Customer Insights (Marketing)", "Project Operations"].includes(app)
+      ["Sales", "Customer Insights (Marketing)"].includes(app)
     );
     const hasServiceApp = selectedApplications.some(app => 
-      ["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(app)
+      ["Customer Service", "Field Service", "Contact Center"].includes(app)
     );
     
     if (hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
@@ -241,16 +243,19 @@ const ValjPartner = () => {
 
   // Filter and sort partners - only show featured partners from database
   const filteredPartners = useMemo(() => {
-    // Determine which product type is selected
+    // Determine which product type is selected (excluding specialty products)
     const hasBCApp = selectedApplications.includes("Business Central");
-    const hasFSCApp = selectedApplications.some(app => 
-      ["Finance & SCM", "Commerce", "Project Operations", "Human Resources"].includes(app)
-    );
+    const hasFSCApp = selectedApplications.includes("Finance & SCM");
     const hasSalesApp = selectedApplications.some(app => 
-      ["Sales", "Customer Insights (Marketing)", "Project Operations"].includes(app)
+      ["Sales", "Customer Insights (Marketing)"].includes(app)
     );
     const hasServiceApp = selectedApplications.some(app => 
-      ["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(app)
+      ["Customer Service", "Field Service", "Contact Center"].includes(app)
+    );
+    
+    // Check for specialty products (filtered via applications array)
+    const selectedSpecialtyProducts = selectedApplications.filter(app => 
+      specialtyProducts.includes(app)
     );
     
     let result: DatabasePartner[] = [];
@@ -261,30 +266,45 @@ const ValjPartner = () => {
         partner.product_filters?.bc || partner.product_filters?.fsc || 
         partner.product_filters?.sales || partner.product_filters?.service
       );
+    } else if (selectedSpecialtyProducts.length > 0 && !hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
+      // Only specialty products selected - filter by applications array
+      result = partners.filter(partner => 
+        selectedSpecialtyProducts.every(app => partner.applications?.includes(app))
+      );
     } else {
-      // Filter based on selected applications
+      // Filter based on selected applications (product_filters)
       const matchingPartners = new Set<DatabasePartner>();
       
       partners.forEach(partner => {
+        let matchesProductFilter = false;
+        
         if (hasBCApp && partner.product_filters?.bc) {
           if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
-            matchingPartners.add(partner);
+            matchesProductFilter = true;
           }
         }
         if (hasFSCApp && partner.product_filters?.fsc) {
           if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
-            matchingPartners.add(partner);
+            matchesProductFilter = true;
           }
         }
         if (hasSalesApp && partner.product_filters?.sales) {
           if (matchesDbProductFilter(partner, 'sales', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
-            matchingPartners.add(partner);
+            matchesProductFilter = true;
           }
         }
         if (hasServiceApp && partner.product_filters?.service) {
           if (matchesDbProductFilter(partner, 'service', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
-            matchingPartners.add(partner);
+            matchesProductFilter = true;
           }
+        }
+        
+        // If specialty products are also selected, partner must have them in applications
+        const matchesSpecialtyProducts = selectedSpecialtyProducts.length === 0 || 
+          selectedSpecialtyProducts.every(app => partner.applications?.includes(app));
+        
+        if (matchesProductFilter && matchesSpecialtyProducts) {
+          matchingPartners.add(partner);
         }
       });
       
