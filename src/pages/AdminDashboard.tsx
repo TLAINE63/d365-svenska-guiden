@@ -143,6 +143,9 @@ interface ProductSection {
   icon: string;
 }
 
+// Additional specialty products (no industry selection needed)
+const specialtyProducts = ['Project Operations', 'Commerce', 'Human Resources'] as const;
+type SpecialtyProduct = typeof specialtyProducts[number];
 
 const productSections: ProductSection[] = [
   { key: 'bc', label: 'Business Central', apps: ['Business Central'], colorClass: 'bg-business-central', icon: BusinessCentralIcon },
@@ -639,6 +642,13 @@ const AdminDashboard = () => {
       const filter = partnerFormData.product_filters?.[section.key];
       if (filter && filter.industries.length > 0) {
         applications.push(...section.apps);
+      }
+    });
+    
+    // Add specialty products from applications array
+    specialtyProducts.forEach(product => {
+      if (partnerFormData.applications?.includes(product)) {
+        applications.push(product);
       }
     });
 
@@ -2136,6 +2146,46 @@ const AdminDashboard = () => {
                     );
                   })}
                 </div>
+
+                {/* Specialty Products Section */}
+                <Card className="mt-6">
+                  <CardHeader className="pb-4 bg-slate-600 text-white rounded-t-lg">
+                    <CardTitle className="text-xl font-bold flex items-center gap-3">
+                      <FileText className="h-8 w-8" />
+                      Övriga produkter
+                    </CardTitle>
+                    <p className="text-sm text-white/80 mt-1">
+                      Markera de produkter partnern erbjuder (alla branscher är tillämpliga)
+                    </p>
+                  </CardHeader>
+                  <CardContent className="pt-4">
+                    <div className="flex flex-wrap gap-3">
+                      {specialtyProducts.map((product) => {
+                        const isSelected = (partnerFormData.applications || []).includes(product);
+                        return (
+                          <button
+                            key={product}
+                            type="button"
+                            onClick={() => {
+                              const current = partnerFormData.applications || [];
+                              const newApps = isSelected
+                                ? current.filter(a => a !== product)
+                                : [...current, product];
+                              setPartnerFormData({ ...partnerFormData, applications: newApps });
+                            }}
+                            className={`px-4 py-3 rounded-lg border-2 transition-all font-medium ${
+                              isSelected
+                                ? 'bg-primary text-primary-foreground border-primary shadow-md'
+                                : 'bg-card border-border hover:border-primary/50'
+                            }`}
+                          >
+                            Dynamics 365 {product}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
 
               <Separator />
