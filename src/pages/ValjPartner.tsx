@@ -610,7 +610,7 @@ const ValjPartner = () => {
           )}
 
           {filteredPartners.length === 0 ? (
-            <div className="text-center py-12 bg-muted/30 rounded-xl border border-border/50">
+            <div className="text-center py-6 bg-muted/30 rounded-xl border border-border/50">
               <Users className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-foreground mb-2">
                 Inga partner listas med denna filtrering?
