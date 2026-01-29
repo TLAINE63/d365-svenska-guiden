@@ -8,12 +8,22 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Sales FAQs for schema
+const salesFaqs = [
+  { question: "Vad är skillnaden mellan Sales Professional och Sales Enterprise?", answer: "Sales Professional är grundlicensen med lead- och affärshantering. Sales Enterprise lägger till AI-drivna insikter via Copilot, förutsägande analys och anpassningsbara automatiseringsflöden." },
+  { question: "Hur fungerar AI och Copilot i Dynamics 365 Sales?", answer: "Microsoft Copilot analyserar kunddata för realtidsrekommendationer, sammanfattar möten, föreslår nästa steg och prioriterar leads baserat på konverteringssannolikhet." },
+  { question: "Kan Dynamics 365 Sales integreras med vårt befintliga ERP-system?", answer: "Ja, Dynamics 365 Sales kan integreras med de flesta ERP-system, både Microsofts egna och tredjepartssystem via Power Platform eller standardkopplingar." },
+  { question: "Hur lång tid tar det att implementera Dynamics 365 Sales?", answer: "En standardimplementering för 10-30 användare tar normalt 2-3 månader. Större implementeringar med anpassningar kan ta 4-6 månader." },
+];
 
 const D365Sales = () => {
   useEffect(() => {
@@ -61,6 +71,17 @@ const D365Sales = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 Sales | Priser & Implementering"
+        description="Komplett guide till Microsoft Dynamics 365 Sales. Licenspriser, AI-funktioner med Copilot och tips för att välja rätt CRM-partner."
+        canonicalPath="/d365-sales"
+        keywords="Dynamics 365 Sales, CRM, försäljning, Copilot, AI, priser, implementering"
+      />
+      <FAQSchema faqs={salesFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Sales"
+        description="Intelligent CRM-lösning för moderna säljteam med AI-drivna insikter och sömlös Microsoft-integration."
+      />
       <Navbar />
       
       {/* Header */}

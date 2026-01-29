@@ -18,12 +18,23 @@ import { allIndustries } from "@/data/partners";
 import { usePartners, SwedishRegion } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import SwedenRegionMap from "@/components/SwedenRegionMap";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Finance & Supply Chain FAQs for schema
+const fscFaqs = [
+  { question: "Vad är skillnaden mellan Dynamics 365 F&SCM och andra ERP-system?", answer: "F&SCM erbjuder skalbarhet för globala organisationer, djup Microsoft-integration, kraftfulla AI-funktioner för prediktiv analys och omfattande compliance-stöd för olika regioner och branscher." },
+  { question: "Hur mycket kostar Dynamics 365 F&SCM?", answer: "Licenspriser börjar från 2 320,70 kr/månad. Implementeringskostnader för stora organisationer varierar från 2-10 miljoner kronor beroende på komplexitet." },
+  { question: "Hur lång tid tar det att implementera F&SCM?", answer: "En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning. Vi rekommenderar fasad implementering för att minimera risker." },
+  { question: "Hur flexibelt är F&SCM för vår verksamhet?", answer: "F&SCM kan anpassas via Power Platform och specialutveckling. Det finns ett rikt ekosystem av ISV-lösningar för specifika branscher som tillverkning, detaljhandel och livsmedel." },
+  { question: "Hur fungerar F&SCM med andra Microsoft-lösningar?", answer: "F&SCM integreras sömlöst med Microsoft 365, Teams, Power BI och Azure. Robusta API:er stödjer integration med tredjepartssystem via Azure Logic Apps eller Power Automate." },
+];
 
 // Geography filter options
 const geographyFilters = [
@@ -147,6 +158,17 @@ const FinanceSupplyChain = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 Finance & Supply Chain | Priser & Implementering"
+        description="Komplett guide till Microsoft Dynamics 365 Finance och Supply Chain Management. Företagslösning för större och internationella organisationer."
+        canonicalPath="/finance-supply-chain"
+        keywords="Dynamics 365 Finance, Supply Chain Management, ERP, enterprise, global ekonomihantering, tillverkning"
+      />
+      <FAQSchema faqs={fscFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Finance & Supply Chain Management"
+        description="Avancerad företagslösning för global ekonomihantering, supply chain och tillverkning med AI och Power Platform."
+      />
       <Navbar />
       
       {/* Header */}

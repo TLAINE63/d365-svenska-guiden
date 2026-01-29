@@ -8,12 +8,22 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Field Service FAQs for schema
+const fieldServiceFaqs = [
+  { question: "Hur fungerar intelligent schemaläggning?", answer: "Resource Scheduling Optimization analyserar teknikernas kompetens, geografisk position, restid, prioritet och SLA-krav för att skapa optimala scheman och omplanera i realtid." },
+  { question: "Vad innebär IoT-integration?", answer: "Med IoT Connected Field Service kan sensorer automatiskt rapportera status och skapa arbetsorder för prediktivt underhåll – åtgärda problem innan de orsakar driftstopp." },
+  { question: "Hur fungerar mobilappen för fälttekniker?", answer: "Field Service Mobile-appen ger tillgång till arbetsorder, kundinformation och kunskapsartiklar även offline. Tekniker kan uppdatera status, ta bilder och inhämta kundsignaturer." },
+  { question: "Kan Field Service integreras med Customer Service?", answer: "Ja, ärenden som kräver platsbesök kan enkelt eskaleras till arbetsorder, och kundserviceagenter har full insyn i schemalagda och utförda fältbesök." },
+];
 
 const D365FieldService = () => {
   useEffect(() => {
@@ -37,6 +47,17 @@ const D365FieldService = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 Field Service | Priser & Implementering"
+        description="Komplett guide till Microsoft Dynamics 365 Field Service. Intelligent schemaläggning, IoT-integration och mobilapp för fälttekniker."
+        canonicalPath="/d365-field-service"
+        keywords="Dynamics 365 Field Service, fältservice, schemaläggning, IoT, mobilapp, priser"
+      />
+      <FAQSchema faqs={fieldServiceFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Field Service"
+        description="Optimera fältservice med intelligent schemaläggning, resursoptimering och mobila verktyg för fälttekniker."
+      />
       <Navbar />
       
       {/* Header */}

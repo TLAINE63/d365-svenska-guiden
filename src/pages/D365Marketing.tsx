@@ -8,12 +8,22 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Customer Insights FAQs for schema
+const customerInsightsFaqs = [
+  { question: "Vad är skillnaden mellan Customer Insights och Dynamics 365 Marketing?", answer: "Customer Insights är den nya generationens marknadsföringsplattform som ersätter Marketing. Den kombinerar marknadsföringsautomation med avancerad kunddata-analys och AI-drivna insikter." },
+  { question: "Hur fungerar kundresor i Customer Insights?", answer: "Kundresor är visuella flöden som definierar kommunikation baserat på kundbeteende. Du kan skapa triggers, definiera villkor och automatiskt skicka e-post, SMS eller push-notiser." },
+  { question: "Kan Customer Insights integreras med Dynamics 365 Sales?", answer: "Ja, leads som genereras genom kampanjer överförs automatiskt till säljteamet med full historik och scoring. Säljare ser hela kundresan i Sales-appen." },
+  { question: "Vad är skillnaden på licenserna?", answer: "Customer Insights-licensen är baserad på kontaktvolym. Attach-licensen ger rabatterat pris för kunder med minst 10 Dynamics 365-användarlicenser." },
+];
 
 const D365Marketing = () => {
   useEffect(() => {
@@ -47,6 +57,17 @@ const D365Marketing = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 Customer Insights | Priser & Implementering"
+        description="Komplett guide till Microsoft Dynamics 365 Customer Insights (Marketing). Marknadsföringsautomation, kundresor och AI-drivna insikter."
+        canonicalPath="/d365-marketing"
+        keywords="Dynamics 365 Customer Insights, Marketing, marknadsföringsautomation, kundresor, leads, AI"
+      />
+      <FAQSchema faqs={customerInsightsFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Customer Insights"
+        description="Kraftfull marknadsföringsautomation för personliga kundresor, leadgenerering och AI-drivna kampanjer."
+      />
       <Navbar />
       
       {/* Header */}
