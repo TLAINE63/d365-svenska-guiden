@@ -196,7 +196,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Kostnadsfri rådgivning</h4>
-                      <p className="text-sm text-muted-foreground">Första konsultationen är alltid gratis</p>
+                      <p className="text-sm text-muted-foreground">Boka ett kostnadsfritt samtal med en senior rådgivare som hjälper dig förstå vilken lösning och Microsoftpartner som borde passa er verksamhet</p>
                     </div>
                   </div>
 
