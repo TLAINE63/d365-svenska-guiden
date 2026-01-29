@@ -100,6 +100,16 @@ const getApplicationsForCategory = (apps: string[], category: 'bc' | 'fsc' | 'sa
   return apps.filter(app => getProductCategory(app) === category);
 };
 
+// Get default applications for a category when none are in the applications array
+const getDefaultApplicationsForCategory = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
+  switch (category) {
+    case 'bc': return ['Business Central'];
+    case 'fsc': return ['Finance', 'Supply Chain Management'];
+    case 'sales': return ['Sales', 'Customer Insights (Marketing)'];
+    case 'service': return ['Customer Service', 'Field Service', 'Contact Center'];
+  }
+};
+
 const PartnerProfile = () => {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
@@ -463,7 +473,9 @@ const PartnerProfile = () => {
               <div className={`grid gap-4 ${productCategories.length >= 2 ? 'sm:grid-cols-2' : ''}`}>
                 {productCategories.map((category, index) => {
                   const { primary } = getIndustriesForProduct(category);
-                  const apps = getApplicationsForCategory(partner.applications, category);
+                  const appsFromArray = getApplicationsForCategory(partner.applications, category);
+                  // If no apps found in applications array, use defaults based on category
+                  const apps = appsFromArray.length > 0 ? appsFromArray : getDefaultApplicationsForCategory(category);
                   const customerExamples = getCustomerExamplesForProduct(category);
                   const productDescription = getProductDescriptionForProduct(category);
                   const swedenCities = getSwedenCitiesForProduct(category);
