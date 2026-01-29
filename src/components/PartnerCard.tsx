@@ -148,8 +148,15 @@ const PartnerCard = ({
         apps.push("Finance");
         apps.push("Supply Chain Management");
       }
-      if (partner.product_filters.sales) apps.push("Sales");
-      if (partner.product_filters.service) apps.push("Customer Service");
+      if (partner.product_filters.sales) {
+        apps.push("Sales");
+        apps.push("Customer Insights (Marketing)");
+      }
+      if (partner.product_filters.service) {
+        apps.push("Customer Service");
+        apps.push("Field Service");
+        apps.push("Contact Center");
+      }
       return apps.length > 0 ? apps : (partner.applications || []);
     }
     return partner.applications || [];
