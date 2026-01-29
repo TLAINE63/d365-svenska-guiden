@@ -4,11 +4,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Building2, ArrowDown, Loader2 } from "lucide-react";
+import { ArrowLeft, Building2, ArrowDown, Loader2, Info } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import PartnerCard from "@/components/PartnerCard";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { useToast } from "@/hooks/use-toast";
 
 
 // Industry images - new taxonomy (18 industries)
@@ -97,6 +98,7 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
 
 const Branschlosningar = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { data: dbPartners, isLoading } = usePartners();
   const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
@@ -168,7 +170,17 @@ const Branschlosningar = () => {
   }, [selectedFilter, selectedIndustry, partners]);
 
   const handleIndustryClick = (industry: Industry) => {
-    if (!selectedFilter) return; // Must select a solution first
+    if (!selectedFilter) {
+      // Show helpful message when user clicks industry without selecting product first
+      toast({
+        title: "Välj lösning först",
+        description: "Klicka på en av Dynamics 365-lösningarna ovan för att se partners med rätt kompetens inom din bransch.",
+        duration: 5000,
+      });
+      // Scroll to top to make product buttons visible
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     setSelectedIndustry(industry);
   };
 
