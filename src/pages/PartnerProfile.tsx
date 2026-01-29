@@ -134,13 +134,28 @@ const PartnerProfile = () => {
   } : null);
 
   // Get product categories this partner supports
+  // Get product categories this partner supports - check both applications array AND product_filters
   const getProductCategories = (): ('bc' | 'fsc' | 'sales' | 'service')[] => {
     if (!partner) return [];
     const categories = new Set<'bc' | 'fsc' | 'sales' | 'service'>();
+    
+    // Check applications array
     partner.applications.forEach(app => {
       const cat = getProductCategory(app);
       if (cat) categories.add(cat);
     });
+    
+    // Also check product_filters for categories with valid data
+    const productFilters = dbPartner?.product_filters as Record<string, unknown> | undefined;
+    if (productFilters) {
+      const filterCategories: ('bc' | 'fsc' | 'sales' | 'service')[] = ['bc', 'fsc', 'sales', 'service'];
+      filterCategories.forEach(cat => {
+        if (productFilters[cat]) {
+          categories.add(cat);
+        }
+      });
+    }
+    
     return Array.from(categories);
   };
 
