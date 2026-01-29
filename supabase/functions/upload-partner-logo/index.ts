@@ -28,8 +28,8 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
-// JWT verification
-async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
+// JWT verification for admin tokens
+async function verifyAdminJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
   try {
     const parts = token.split('.');
     if (parts.length !== 3) return { valid: false, error: "Invalid token format" };
@@ -77,6 +77,51 @@ function base64UrlDecode(str: string): Uint8Array {
   return bytes;
 }
 
+// Verify invitation token from database
+async function verifyInvitationToken(
+  supabase: any,
+  token: string
+): Promise<{ valid: boolean; partnerId?: string; partnerName?: string; error?: string }> {
+  try {
+    const { data: invitation, error } = await supabase
+      .from("partner_invitations")
+      .select("id, partner_id, partner_name, status, expires_at")
+      .eq("token", token)
+      .single();
+
+    if (error || !invitation) {
+      return { valid: false, error: "Ogiltig inbjudan" };
+    }
+
+    const inv = invitation as { 
+      id: string; 
+      partner_id: string | null; 
+      partner_name: string; 
+      status: string; 
+      expires_at: string 
+    };
+
+    // Check if expired
+    if (new Date(inv.expires_at) < new Date()) {
+      return { valid: false, error: "Inbjudan har gått ut" };
+    }
+
+    // Check status - allow 'pending' or 'submitted' (for updates)
+    if (inv.status !== 'pending' && inv.status !== 'submitted') {
+      return { valid: false, error: "Inbjudan är inte längre giltig" };
+    }
+
+    return { 
+      valid: true, 
+      partnerId: inv.partner_id || undefined,
+      partnerName: inv.partner_name 
+    };
+  } catch (error) {
+    console.error("Invitation verification error:", error);
+    return { valid: false, error: "Kunde inte verifiera inbjudan" };
+  }
+}
+
 serve(async (req: Request): Promise<Response> => {
   const corsHeaders = getCorsHeaders(req);
   
@@ -97,21 +142,35 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // Verify JWT
-    const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (!JWT_SECRET) {
-      return new Response(
-        JSON.stringify({ error: "Serverfel: Autentisering ej konfigurerad" }),
-        { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
-      );
-    }
+    // Create Supabase client first (needed for invitation verification)
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const verification = await verifyJWT(token, JWT_SECRET);
-    if (!verification.valid) {
-      return new Response(
-        JSON.stringify({ error: verification.error === "Token expired" ? "Sessionen har gått ut" : "Ogiltig session" }),
-        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
-      );
+    // Try to verify as admin JWT first, then as invitation token
+    let isAuthorized = false;
+    
+    // Check if token looks like a JWT (has 3 parts separated by dots)
+    if (token.split('.').length === 3) {
+      const jwtVerification = await verifyAdminJWT(token, supabaseKey);
+      if (jwtVerification.valid) {
+        isAuthorized = true;
+        console.log("Admin JWT verified for logo upload");
+      }
+    }
+    
+    // If not a valid admin JWT, try as invitation token
+    if (!isAuthorized) {
+      const invitationVerification = await verifyInvitationToken(supabase, token);
+      if (invitationVerification.valid) {
+        isAuthorized = true;
+        console.log("Invitation token verified for partner:", invitationVerification.partnerName);
+      } else {
+        return new Response(
+          JSON.stringify({ error: invitationVerification.error || "Ogiltig autentisering" }),
+          { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
     }
 
     // Validate file type
@@ -130,11 +189,6 @@ serve(async (req: Request): Promise<Response> => {
         { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
-
-    // Create Supabase client
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Generate filename
     const ext = file.name.split('.').pop() || 'png';
