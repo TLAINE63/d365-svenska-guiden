@@ -1947,7 +1947,7 @@ const AdminDashboard = () => {
               <div ref={el => sectionRefs.current[1] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <User className="h-5 w-5 text-primary" />
-                  Kontaktuppgifter
+                  Kontaktuppgifter (visas på Partnerprofilkortet)
                   {getSectionStatus('contact') === 'complete' && (
                     <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
                   )}
