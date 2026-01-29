@@ -196,10 +196,10 @@ const ValjPartner = () => {
       ["Finance & SCM", "Commerce", "Project Operations", "Human Resources"].includes(app)
     );
     const hasSalesApp = selectedApplications.some(app => 
-      ["Sales", "Customer Insights (Marketing)"].includes(app)
+      ["Sales", "Customer Insights (Marketing)", "Project Operations"].includes(app)
     );
     const hasServiceApp = selectedApplications.some(app => 
-      ["Customer Service", "Field Service", "Contact Center"].includes(app)
+      ["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(app)
     );
     
     if (hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
@@ -247,10 +247,10 @@ const ValjPartner = () => {
       ["Finance & SCM", "Commerce", "Project Operations", "Human Resources"].includes(app)
     );
     const hasSalesApp = selectedApplications.some(app => 
-      ["Sales", "Customer Insights (Marketing)"].includes(app)
+      ["Sales", "Customer Insights (Marketing)", "Project Operations"].includes(app)
     );
     const hasServiceApp = selectedApplications.some(app => 
-      ["Customer Service", "Field Service", "Contact Center"].includes(app)
+      ["Customer Service", "Field Service", "Contact Center", "Project Operations"].includes(app)
     );
     
     let result: DatabasePartner[] = [];
