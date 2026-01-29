@@ -41,6 +41,24 @@ interface Invitation {
   submitted_at: string | null;
 }
 
+interface ProductFilter {
+  industries: string[];
+  geography: string[];
+  swedenRegions: string[];
+  swedenCities: string[];
+  ranking: number;
+  customerExamples: string[];
+  customerCaseLinks: string[];
+  productDescription: string;
+}
+
+interface ProductFilters {
+  bc?: ProductFilter;
+  fsc?: ProductFilter;
+  sales?: ProductFilter;
+  service?: ProductFilter;
+}
+
 interface Submission {
   id: string;
   invitation_id: string;
@@ -48,8 +66,17 @@ interface Submission {
   name: string;
   description: string;
   website: string;
+  logo_url: string | null;
+  contact_person: string | null;
   email: string;
   phone: string;
+  address: string | null;
+  applications: string[] | null;
+  industries: string[] | null;
+  secondary_industries: string[] | null;
+  geography: string[] | null;
+  product_filters: ProductFilters | null;
+  notes: string | null;
   submitted_at: string;
   partner_invitations: {
     partner_name: string;
@@ -491,34 +518,170 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
 
       {/* View submission dialog */}
       <Dialog open={showSubmissionDialog} onOpenChange={setShowSubmissionDialog}>
-        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Granska inskickade uppgifter</DialogTitle>
           </DialogHeader>
           {selectedSubmission && (
-            <div className="space-y-4 py-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label className="text-muted-foreground text-xs">Företagsnamn</Label>
-                  <p className="font-medium">{selectedSubmission.name}</p>
+            <div className="space-y-6 py-4">
+              {/* Basic Info Section */}
+              <div className="space-y-3">
+                <h3 className="font-semibold text-sm border-b pb-2">Grundläggande information</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Företagsnamn</Label>
+                    <p className="font-medium">{selectedSubmission.name}</p>
+                  </div>
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Webbplats</Label>
+                    <p className="font-medium">{selectedSubmission.website}</p>
+                  </div>
                 </div>
                 <div>
-                  <Label className="text-muted-foreground text-xs">Webbplats</Label>
-                  <p className="font-medium">{selectedSubmission.website}</p>
+                  <Label className="text-muted-foreground text-xs">Beskrivning</Label>
+                  <p className="text-sm bg-muted p-2 rounded">{selectedSubmission.description || "-"}</p>
                 </div>
-                <div>
-                  <Label className="text-muted-foreground text-xs">E-post</Label>
-                  <p className="font-medium">{selectedSubmission.email || "-"}</p>
-                </div>
-                <div>
-                  <Label className="text-muted-foreground text-xs">Telefon</Label>
-                  <p className="font-medium">{selectedSubmission.phone || "-"}</p>
+                {selectedSubmission.logo_url && (
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Logotyp</Label>
+                    <div className="mt-1 w-24 h-24 border rounded-lg overflow-hidden bg-muted flex items-center justify-center">
+                      <img 
+                        src={selectedSubmission.logo_url} 
+                        alt="Partner logotyp" 
+                        className="max-w-full max-h-full object-contain p-1"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Contact Info Section */}
+              <div className="space-y-3">
+                <h3 className="font-semibold text-sm border-b pb-2">Kontaktuppgifter</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Säljare/Säljansvarig</Label>
+                    <p className="font-medium">{selectedSubmission.contact_person || "-"}</p>
+                  </div>
+                  <div>
+                    <Label className="text-muted-foreground text-xs">E-post</Label>
+                    <p className="font-medium">{selectedSubmission.email || "-"}</p>
+                  </div>
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Telefon</Label>
+                    <p className="font-medium">{selectedSubmission.phone || "-"}</p>
+                  </div>
+                  <div>
+                    <Label className="text-muted-foreground text-xs">Adress</Label>
+                    <p className="font-medium">{selectedSubmission.address || "-"}</p>
+                  </div>
                 </div>
               </div>
-              <div>
-                <Label className="text-muted-foreground text-xs">Beskrivning</Label>
-                <p className="text-sm">{selectedSubmission.description || "-"}</p>
-              </div>
+
+              {/* Applications Section */}
+              {selectedSubmission.applications && selectedSubmission.applications.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-sm border-b pb-2">Valda produkter</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedSubmission.applications.map((app) => (
+                      <Badge key={app} variant="secondary">{app}</Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Product Filters Section */}
+              {selectedSubmission.product_filters && Object.keys(selectedSubmission.product_filters).length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-sm border-b pb-2">Produktspecifik information</h3>
+                  {Object.entries(selectedSubmission.product_filters).map(([key, filter]) => {
+                    if (!filter) return null;
+                    const productName = 
+                      key === 'bc' ? 'Business Central' :
+                      key === 'fsc' ? 'Finance & Supply Chain' :
+                      key === 'sales' ? 'Sales & Customer Insights' :
+                      key === 'service' ? 'Customer Service / Field Service' : key;
+                    
+                    return (
+                      <Card key={key} className="border">
+                        <CardHeader className="py-3 px-4 bg-muted/50">
+                          <CardTitle className="text-sm font-medium">{productName}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="py-3 px-4 space-y-3 text-sm">
+                          {filter.productDescription && (
+                            <div>
+                              <Label className="text-muted-foreground text-xs">Beskrivning</Label>
+                              <p>{filter.productDescription}</p>
+                            </div>
+                          )}
+                          {filter.industries && filter.industries.length > 0 && (
+                            <div>
+                              <Label className="text-muted-foreground text-xs">Branschfokus</Label>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {filter.industries.map((ind) => (
+                                  <Badge key={ind} variant="outline" className="text-xs">{ind}</Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {filter.geography && filter.geography.length > 0 && (
+                            <div>
+                              <Label className="text-muted-foreground text-xs">Geografisk täckning</Label>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {filter.geography.map((geo) => (
+                                  <Badge key={geo} variant="outline" className="text-xs">{geo}</Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {filter.swedenRegions && filter.swedenRegions.length > 0 && (
+                            <div>
+                              <Label className="text-muted-foreground text-xs">Regioner i Sverige</Label>
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {filter.swedenRegions.map((region) => (
+                                  <Badge key={region} variant="outline" className="text-xs">{region}</Badge>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {filter.customerExamples && filter.customerExamples.length > 0 && (
+                            <div>
+                              <Label className="text-muted-foreground text-xs">Kundexempel</Label>
+                              <p>{filter.customerExamples.join(", ")}</p>
+                            </div>
+                          )}
+                          {filter.customerCaseLinks && filter.customerCaseLinks.length > 0 && (
+                            <div>
+                              <Label className="text-muted-foreground text-xs">Kundcase-länkar</Label>
+                              <div className="space-y-1 mt-1">
+                                {filter.customerCaseLinks.map((link, i) => (
+                                  <a 
+                                    key={i} 
+                                    href={link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-primary hover:underline block text-xs"
+                                  >
+                                    {link}
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Notes Section */}
+              {selectedSubmission.notes && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-sm border-b pb-2">Övriga anteckningar från partner</h3>
+                  <p className="text-sm bg-muted p-2 rounded">{selectedSubmission.notes}</p>
+                </div>
+              )}
             </div>
           )}
           <DialogFooter>
