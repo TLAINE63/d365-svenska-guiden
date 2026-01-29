@@ -438,11 +438,10 @@ const Branschlosningar = () => {
                 <button
                   key={industry.slug}
                   onClick={() => handleIndustryClick(industry)}
-                  disabled={!selectedFilter}
                   className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
                     selectedFilter 
                       ? "cursor-pointer hover:scale-105 hover:shadow-xl" 
-                      : "cursor-not-allowed opacity-60"
+                      : "cursor-pointer opacity-70 hover:opacity-90"
                   }`}
                 >
                   <img
