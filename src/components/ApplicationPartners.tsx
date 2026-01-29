@@ -256,7 +256,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         </div>
 
         {filteredPartners.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-6">
             <h3 className="text-lg font-semibold text-foreground mb-2">Inga partner listas med denna filtrering?</h3>
             <p className="text-muted-foreground">
               Ingen fara, kontakta oss så hjälper vi dig att hitta en eller ett par partners som passar för din verksamhet.
