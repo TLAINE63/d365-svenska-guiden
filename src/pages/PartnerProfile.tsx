@@ -377,24 +377,7 @@ const PartnerProfile = () => {
             
             {/* Premium stats row - centered */}
             <div className="flex flex-wrap items-center justify-center gap-3">
-              {/* Geography badges - show each as separate badge */}
-              {(dbPartner?.geography && dbPartner.geography.length > 0) ? (
-                dbPartner.geography.map((geo, index) => (
-                  <div key={index} className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{geo}</span>
-                  </div>
-                ))
-              ) : staticPartner?.geography && (
-                <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                  <MapPin className="w-4 h-4 text-primary" />
-                  <span className="font-medium">{staticPartner.geography}</span>
-                </div>
-              )}
-              <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                <Layers className="w-4 h-4 text-accent" />
-                <span className="font-medium">{partner.applications.length} Dynamics 365-applikationer</span>
-              </div>
+              {/* Website link only - geography and competency count removed */}
               <a 
                 href={partner.website} 
                 target="_blank" 
