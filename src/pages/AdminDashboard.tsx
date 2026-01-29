@@ -1917,7 +1917,7 @@ const AdminDashboard = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="website">Hemsida *</Label>
+                  <Label htmlFor="website">Hemsida/Landsida (visas på Partnerprofilkortet) *</Label>
                   <div className="relative">
                     <Link className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input
