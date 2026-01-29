@@ -644,7 +644,57 @@ const PartnerProfile = () => {
               </div>
             </div>
 
-            {/* Premium Contact CTA Card */}
+            {/* Specialty Products Section - Project Operations, Commerce, Human Resources */}
+            {(() => {
+              const specialtyProducts = ['Project Operations', 'Commerce', 'Human Resources'];
+              const partnerSpecialties = partner.applications.filter(app => specialtyProducts.includes(app));
+              
+              if (partnerSpecialties.length === 0) return null;
+              
+              return (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg">
+                      <Award className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
+                        Tilläggsområden
+                      </h2>
+                      <p className="text-muted-foreground text-sm mt-0.5">Ytterligare Dynamics 365-kompetenser</p>
+                    </div>
+                  </div>
+                  
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {partnerSpecialties.map((product) => {
+                      const icon = getApplicationIcon(product);
+                      return (
+                        <div 
+                          key={product}
+                          className="group relative rounded-xl overflow-hidden bg-card border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-purple-400" />
+                          
+                          <div className="relative p-4 flex items-center gap-3">
+                            {icon && (
+                              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center">
+                                <img src={icon} alt="" className="w-7 h-7" />
+                              </div>
+                            )}
+                            <div>
+                              <p className="font-semibold text-foreground text-sm sm:text-base">
+                                Dynamics 365 {product}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
             <article className="relative rounded-3xl overflow-hidden shadow-2xl">
               {/* Gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
