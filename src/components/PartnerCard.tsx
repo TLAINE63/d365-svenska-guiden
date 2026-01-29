@@ -139,6 +139,24 @@ const PartnerCard = ({
   const secondaryIndustries = productFilter?.secondaryIndustries || [];
   const geography = productFilter?.geography || (isDatabasePartner(partner) ? (partner.geography?.[0] || 'Sverige') : partner.geography);
 
+  // Derive applications from product_filters for database partners
+  const getDisplayApplications = (): string[] => {
+    if (isDatabasePartner(partner) && partner.product_filters) {
+      const apps: string[] = [];
+      if (partner.product_filters.bc) apps.push("Business Central");
+      if (partner.product_filters.fsc) {
+        apps.push("Finance");
+        apps.push("Supply Chain Management");
+      }
+      if (partner.product_filters.sales) apps.push("Sales");
+      if (partner.product_filters.service) apps.push("Customer Service");
+      return apps.length > 0 ? apps : (partner.applications || []);
+    }
+    return partner.applications || [];
+  };
+
+  const displayApplications = getDisplayApplications();
+
   const hasHighlights = highlightedProduct || highlightedIndustry || highlightedCompanySize || highlightedGeography;
 
   return (
@@ -267,7 +285,7 @@ const PartnerCard = ({
               Kompetenser
             </p>
             <div className="flex flex-wrap gap-1.5">
-              {(partner.applications || []).map((app, i) => {
+              {displayApplications.map((app, i) => {
                 const appIcon = getApplicationIcon(app);
                 return (
                   <Badge 
