@@ -122,16 +122,17 @@ export function usePartners() {
 }
 
 // Fetch a single partner by slug with public contact info for profile display
+// Now uses partners_public view which includes contact_person, email, phone
 export function usePartner(slug: string | undefined) {
   return useQuery({
     queryKey: ["partner", slug],
     queryFn: async (): Promise<DatabasePartner | null> => {
       if (!slug) return null;
       
-      // Fetch from main partners table to get contact info for profile display
+      // Fetch from partners_public view - includes public contact info, excludes admin fields
       const { data, error } = await supabase
-        .from("partners")
-        .select("id, slug, name, description, logo_url, website, contact_person, email, phone, applications, industries, secondary_industries, geography, product_filters, is_featured, created_at, updated_at, logo_dark_bg, customer_examples")
+        .from("partners_public")
+        .select("*")
         .eq("slug", slug)
         .eq("is_featured", true)
         .maybeSingle();

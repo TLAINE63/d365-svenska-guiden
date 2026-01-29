@@ -341,9 +341,11 @@ export type Database = {
       partners_public: {
         Row: {
           applications: string[] | null
+          contact_person: string | null
           created_at: string | null
           customer_examples: string[] | null
           description: string | null
+          email: string | null
           geography: string[] | null
           id: string | null
           industries: string[] | null
@@ -351,6 +353,7 @@ export type Database = {
           logo_dark_bg: boolean | null
           logo_url: string | null
           name: string | null
+          phone: string | null
           product_filters: Json | null
           secondary_industries: string[] | null
           slug: string | null
@@ -359,9 +362,11 @@ export type Database = {
         }
         Insert: {
           applications?: string[] | null
+          contact_person?: string | null
           created_at?: string | null
           customer_examples?: string[] | null
           description?: string | null
+          email?: string | null
           geography?: string[] | null
           id?: string | null
           industries?: string[] | null
@@ -369,6 +374,7 @@ export type Database = {
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
+          phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
           slug?: string | null
@@ -377,9 +383,11 @@ export type Database = {
         }
         Update: {
           applications?: string[] | null
+          contact_person?: string | null
           created_at?: string | null
           customer_examples?: string[] | null
           description?: string | null
+          email?: string | null
           geography?: string[] | null
           id?: string | null
           industries?: string[] | null
@@ -387,6 +395,7 @@ export type Database = {
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
+          phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
           slug?: string | null
