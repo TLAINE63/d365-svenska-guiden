@@ -208,7 +208,7 @@ const ContactUs = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Upphandlingsstöd</h4>
-                      <p className="text-sm text-muted-foreground">Guidning genom hela upphandlingsprocessen</p>
+                      <p className="text-sm text-muted-foreground">Expertvägledning för att navigera komplexa processer och säkerställa att ni gör rätt val för er verksamhet</p>
                     </div>
                   </div>
 
