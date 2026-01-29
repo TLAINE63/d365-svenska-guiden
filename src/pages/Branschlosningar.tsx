@@ -18,6 +18,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ContactFormDialog from "@/components/ContactFormDialog";
+import SEOHead from "@/components/SEOHead";
+import { ServiceSchema } from "@/components/StructuredData";
 
 
 // Industry images - new taxonomy (18 industries)
@@ -240,6 +242,16 @@ const Branschlosningar = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead 
+        title="Branschlösningar | Dynamics 365 Partners per bransch"
+        description="Hitta rätt Dynamics 365-partner för din bransch. Filtrera på produkt och bransch för att se Microsoft-partners med relevant verksamhetskunskap."
+        canonicalPath="/branschlosningar"
+        keywords="Dynamics 365, branschlösningar, ERP, CRM, tillverkning, handel, konsult, partner"
+      />
+      <ServiceSchema 
+        name="Dynamics 365 Branschlösningar"
+        description="Hitta Microsoft Dynamics 365 partners med specialisering inom din bransch för ERP och CRM."
+      />
       <Navbar />
       
       {/* Hero Section */}

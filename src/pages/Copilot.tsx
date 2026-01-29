@@ -6,6 +6,8 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import CopilotLogo from "@/assets/icons/Copilot.png";
+import SEOHead from "@/components/SEOHead";
+import { ServiceSchema } from "@/components/StructuredData";
 
 const Copilot = () => {
   const copilotVideos = [
@@ -41,6 +43,16 @@ const Copilot = () => {
       '--gradient-hero': 'linear-gradient(135deg, hsl(189 85% 42%) 0%, hsl(185 90% 50%) 50%, hsl(180 90% 55%) 100%)',
       '--shadow-accent': '0 8px 30px hsl(185 90% 50% / 0.3)',
     } as React.CSSProperties}>
+      <SEOHead 
+        title="Microsoft Copilot i Dynamics 365 | AI för affärssystem"
+        description="Upptäck hur Microsoft Copilot revolutionerar Dynamics 365 med AI-drivna insikter, automatisering och produktivitetsvinster. 353% potentiell ROI."
+        canonicalPath="/copilot"
+        keywords="Microsoft Copilot, Dynamics 365, AI, artificiell intelligens, affärssystem, automation, ROI"
+      />
+      <ServiceSchema 
+        name="Microsoft Copilot i Dynamics 365"
+        description="AI-driven assistent som förbättrar produktivitet och beslutsfattande i Microsoft Dynamics 365 affärssystem."
+      />
       <Navbar />
       
       {/* Header */}
