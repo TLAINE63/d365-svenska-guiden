@@ -35,6 +35,9 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import CopilotIcon from "@/assets/icons/Copilot.png";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 
 // Map application names to Dynamics 365 icons
 const applicationIcons: Record<string, string> = {
@@ -52,6 +55,9 @@ const applicationIcons: Record<string, string> = {
   "Supply Chain Management": SupplyChainIcon,
   "Copilot": CopilotIcon,
   "Contact Center": ContactCenterIcon,
+  "Project Operations": ProjectOperationsIcon,
+  "Commerce": CommerceIcon,
+  "Human Resources": HumanResourcesIcon,
 };
 
 const getApplicationIcon = (appName: string): string | null => {
@@ -358,15 +364,18 @@ const PartnerProfile = () => {
             
             {/* Premium stats row - centered */}
             <div className="flex flex-wrap items-center justify-center gap-3">
+              {/* Geography badges - show each as separate badge */}
               {(dbPartner?.geography && dbPartner.geography.length > 0) ? (
-                <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
-                  <MapPin className="w-4 h-4 text-primary" />
-                  <span className="font-medium">{getCumulativeGeographyDisplay(dbPartner.geography[dbPartner.geography.length - 1])}</span>
-                </div>
+                dbPartner.geography.map((geo, index) => (
+                  <div key={index} className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span className="font-medium">{geo}</span>
+                  </div>
+                ))
               ) : staticPartner?.geography && (
                 <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
                   <MapPin className="w-4 h-4 text-primary" />
-                  <span className="font-medium">{getCumulativeGeographyDisplay(staticPartner.geography)}</span>
+                  <span className="font-medium">{staticPartner.geography}</span>
                 </div>
               )}
               <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white shadow-lg">
