@@ -43,6 +43,10 @@ const applicationIcons: Record<string, string> = {
   "Supply Chain Management": SupplyChainIcon,
   "Copilot": CopilotIcon,
   "Contact Center": ContactCenterIcon,
+  // Specialty products - using related icons
+  "Project Operations": FinanceIcon,
+  "Commerce": SupplyChainIcon,
+  "Human Resources": CustomerServiceIcon,
 };
 
 const getApplicationIcon = (appName: string): string | null => {

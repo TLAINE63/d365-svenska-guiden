@@ -56,6 +56,14 @@ import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+
+// Icons for specialty products
+const specialtyProductIcons: Record<string, string> = {
+  "Project Operations": FinanceIcon,
+  "Commerce": SupplyChainIcon,
+  "Human Resources": CustomerServiceIcon,
+};
 
 import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
@@ -2162,6 +2170,7 @@ const AdminDashboard = () => {
                     <div className="flex flex-wrap gap-3">
                       {specialtyProducts.map((product) => {
                         const isSelected = (partnerFormData.applications || []).includes(product);
+                        const icon = specialtyProductIcons[product];
                         return (
                           <button
                             key={product}
@@ -2173,12 +2182,19 @@ const AdminDashboard = () => {
                                 : [...current, product];
                               setPartnerFormData({ ...partnerFormData, applications: newApps });
                             }}
-                            className={`px-4 py-3 rounded-lg border-2 transition-all font-medium ${
+                            className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 transition-all font-medium ${
                               isSelected
                                 ? 'bg-primary text-primary-foreground border-primary shadow-md'
                                 : 'bg-card border-border hover:border-primary/50'
                             }`}
                           >
+                            {icon && (
+                              <img 
+                                src={icon} 
+                                alt={product} 
+                                className={`h-6 w-6 object-contain ${isSelected ? 'brightness-0 invert' : ''}`} 
+                              />
+                            )}
                             Dynamics 365 {product}
                           </button>
                         );
