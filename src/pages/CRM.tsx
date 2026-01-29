@@ -13,9 +13,8 @@ import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 import { crmApplications, allIndustries } from "@/data/partners";
-import { usePartners, SwedishRegion } from "@/hooks/usePartners";
+import { usePartners } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries, hasProduct } from "@/hooks/usePartnerFilters";
-import SwedenRegionMap from "@/components/SwedenRegionMap";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
@@ -45,7 +44,6 @@ const CRM = () => {
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
-  const [selectedRegions, setSelectedRegions] = useState<SwedishRegion[]>([]);
   
   // Fetch partners from database (only featured partners)
   const { data: partners = [], isLoading } = usePartners();
@@ -61,21 +59,6 @@ const CRM = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // Clear regions when geography changes away from Sverige
-  useEffect(() => {
-    if (selectedGeography !== "Sverige") {
-      setSelectedRegions([]);
-    }
-  }, [selectedGeography]);
-
-  const handleToggleRegion = (region: SwedishRegion) => {
-    setSelectedRegions(prev => 
-      prev.includes(region) 
-        ? prev.filter(r => r !== region)
-        : [...prev, region]
-    );
-  };
 
   // Filter partners for CRM (using sales and service product keys)
   const crmPartners = useMemo(() => {
@@ -103,20 +86,9 @@ const CRM = () => {
       });
     }
 
-    // Apply Sweden region filter if selected
-    if (selectedGeography === "Sverige" && selectedRegions.length > 0) {
-      filtered = filtered.filter(p => {
-        const salesRegions = p.product_filters?.sales?.swedenRegions || [];
-        const serviceRegions = p.product_filters?.service?.swedenRegions || [];
-        // If no regions specified, they cover all of Sweden
-        if (salesRegions.length === 0 && serviceRegions.length === 0) return true;
-        const allRegions = [...salesRegions, ...serviceRegions];
-        return selectedRegions.some(region => allRegions.includes(region));
-      });
-    }
     
     return filtered.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
-  }, [partners, selectedIndustry, selectedGeography, selectedRegions]);
+  }, [partners, selectedIndustry, selectedGeography]);
 
   // Get available industries for CRM partners
   const crmIndustries = useMemo(() => {
@@ -321,17 +293,8 @@ const CRM = () => {
             colorScheme="crm"
           />
 
-          {/* Sweden Region Map - shown when Sverige is selected */}
-          {selectedGeography === "Sverige" && (
-            <SwedenRegionMap
-              selectedRegions={selectedRegions}
-              onToggleRegion={handleToggleRegion}
-              colorScheme="crm"
-            />
-          )}
-
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{crmPartners.length}</span> partners
@@ -339,7 +302,6 @@ const CRM = () => {
                 {selectedApplications.length > 0 && selectedIndustry && <>,</>}
                 {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
                 {selectedGeography && <> i <span className="font-semibold text-crm">{selectedGeography}</span></>}
-                {selectedRegions.length > 0 && <> (<span className="font-semibold text-crm">{selectedRegions.join(", ")}</span>)</>}
               </p>
               <Button 
                 variant="ghost" 
@@ -348,7 +310,6 @@ const CRM = () => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
-                  setSelectedRegions([]);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -373,7 +334,7 @@ const CRM = () => {
           </div>
 
           {/* Lead CTA - shows when partners are filtered */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
             <div className="max-w-xl mx-auto mt-12">
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
               <article className="relative rounded-3xl overflow-hidden shadow-2xl">

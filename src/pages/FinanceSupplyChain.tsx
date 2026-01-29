@@ -15,9 +15,8 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { allIndustries } from "@/data/partners";
-import { usePartners, SwedishRegion } from "@/hooks/usePartners";
+import { usePartners } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
-import SwedenRegionMap from "@/components/SwedenRegionMap";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
@@ -47,7 +46,6 @@ const geographyFilters = [
 const FinanceSupplyChain = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
-  const [selectedRegions, setSelectedRegions] = useState<SwedishRegion[]>([]);
   
   // Fetch partners from database (only featured partners)
   const { data: partners = [], isLoading } = usePartners();
@@ -55,21 +53,6 @@ const FinanceSupplyChain = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // Clear regions when geography changes away from Sverige
-  useEffect(() => {
-    if (selectedGeography !== "Sverige") {
-      setSelectedRegions([]);
-    }
-  }, [selectedGeography]);
-
-  const handleToggleRegion = (region: SwedishRegion) => {
-    setSelectedRegions(prev => 
-      prev.includes(region) 
-        ? prev.filter(r => r !== region)
-        : [...prev, region]
-    );
-  };
 
   // Filter partners for Finance & Supply Chain
   const fscPartners = useMemo(() => {
@@ -79,9 +62,9 @@ const FinanceSupplyChain = () => {
       selectedIndustry, 
       selectedGeography, 
       null, // companySize
-      selectedRegions.length > 0 ? selectedRegions : null
+      null // regions
     );
-  }, [partners, selectedIndustry, selectedGeography, selectedRegions]);
+  }, [partners, selectedIndustry, selectedGeography]);
 
   // Get available industries for FSC partners
   const fscIndustries = useMemo(() => {
@@ -592,24 +575,14 @@ const FinanceSupplyChain = () => {
             colorScheme="finance-supply"
           />
 
-          {/* Sweden Region Map - shown when Sverige is selected */}
-          {selectedGeography === "Sverige" && (
-            <SwedenRegionMap
-              selectedRegions={selectedRegions}
-              onToggleRegion={handleToggleRegion}
-              colorScheme="finance-supply"
-            />
-          )}
-
           {/* Filter Results Summary */}
-          {(selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
+          {(selectedIndustry || selectedGeography) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{fscPartners.length}</span> partners
                 {selectedIndustry && <> inom <span className="font-semibold text-finance-supply">{selectedIndustry}</span></>}
                 {(selectedIndustry && selectedGeography) && <> och</>}
                 {selectedGeography && <> med täckning i <span className="font-semibold text-finance-supply">{selectedGeography}</span></>}
-                {selectedRegions.length > 0 && <> (<span className="font-semibold text-finance-supply">{selectedRegions.join(", ")}</span>)</>}
               </p>
               <Button 
                 variant="ghost" 
@@ -617,7 +590,6 @@ const FinanceSupplyChain = () => {
                 onClick={() => {
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
-                  setSelectedRegions([]);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >

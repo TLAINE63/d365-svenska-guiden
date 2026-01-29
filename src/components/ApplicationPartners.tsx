@@ -6,9 +6,8 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
-import SwedenRegionMap from "@/components/SwedenRegionMap";
 import { allIndustries } from "@/data/partners";
-import { usePartners, SwedishRegion } from "@/hooks/usePartners";
+import { usePartners } from "@/hooks/usePartners";
 
 // Geography filter options
 const geographyFilters = [
@@ -27,22 +26,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
   const { data: dbPartners, isLoading } = usePartners();
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
-  const [selectedRegions, setSelectedRegions] = useState<SwedishRegion[]>([]);
-
-  // Clear regions when geography changes away from Sverige
-  useEffect(() => {
-    if (selectedGeography !== "Sverige") {
-      setSelectedRegions([]);
-    }
-  }, [selectedGeography]);
-
-  const handleToggleRegion = (region: SwedishRegion) => {
-    setSelectedRegions(prev => 
-      prev.includes(region) 
-        ? prev.filter(r => r !== region)
-        : [...prev, region]
-    );
-  };
 
   // Filter to only show featured partners
   const partners = useMemo(() => {
@@ -84,16 +67,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         // Partner matches if they have the selected geography or a broader one
         const maxPartnerIdx = Math.max(...partnerGeo.map(g => geoHierarchy.indexOf(g)));
         if (maxPartnerIdx < selIdx) return false;
-        
-        // If Sverige is selected and regions are selected, filter by regions
-        if (selectedGeography === "Sverige" && selectedRegions.length > 0) {
-          const partnerRegions = pf.swedenRegions || [];
-          // Partner matches if they have no regions (covers all Sweden) or if any selected region matches
-          if (partnerRegions.length > 0) {
-            const hasMatchingRegion = selectedRegions.some(r => partnerRegions.includes(r));
-            if (!hasMatchingRegion) return false;
-          }
-        }
       }
       return true;
     });
@@ -119,7 +92,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
     };
     
     return seededShuffle(result, sessionSeed);
-  }, [productKey, partners, selectedIndustry, selectedGeography, selectedRegions, sessionSeed]);
+  }, [productKey, partners, selectedIndustry, selectedGeography, sessionSeed]);
 
   // Show all 18 industries in the filter
   const availableIndustries = allIndustries;
@@ -167,48 +140,15 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
           colorScheme="crm"
         />
 
-        {/* Swedish Region Map - shows when Sverige is selected */}
-        {selectedGeography === "Sverige" && (
-          <div className="mb-8 sm:mb-10 md:mb-12">
-            <div className="text-center mb-4 sm:mb-6">
-              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">
-                Välj region i Sverige (valfritt)
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Klicka på en eller flera regioner för att filtrera partners som har lokal närvaro där
-              </p>
-            </div>
-            <div className="flex justify-center">
-              <SwedenRegionMap
-                selectedRegions={selectedRegions}
-                onToggleRegion={handleToggleRegion}
-                colorScheme="crm"
-              />
-            </div>
-            {selectedRegions.length > 0 && (
-              <div className="text-center mt-4">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={() => setSelectedRegions([])}
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Rensa regionval
-                </Button>
-              </div>
-            )}
-          </div>
-        )}
 
         {/* Filter Results Summary */}
-        {(selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
+        {(selectedIndustry || selectedGeography) && (
           <div className="text-center mb-8">
             <p className="text-sm text-muted-foreground">
               Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
               {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
-              {(selectedIndustry && (selectedGeography || selectedRegions.length > 0)) && <> och</>}
+              {(selectedIndustry && selectedGeography) && <> och</>}
               {selectedGeography && <> med täckning i <span className="font-semibold text-crm">{selectedGeography}</span></>}
-              {selectedRegions.length > 0 && <> ({selectedRegions.join(", ")})</>}
             </p>
             <Button 
               variant="ghost" 
@@ -216,7 +156,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
               onClick={() => {
                 setSelectedIndustry(null);
                 setSelectedGeography(null);
-                setSelectedRegions([]);
               }}
               className="mt-2 text-muted-foreground hover:text-foreground"
             >
@@ -274,7 +213,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
         </div>
 
         {/* Lead CTA - shows when partners are filtered */}
-        {(selectedIndustry || selectedGeography || selectedRegions.length > 0) && (
+        {(selectedIndustry || selectedGeography) && (
           <div className="max-w-xl mx-auto mt-12">
             {/* Premium Contact CTA Card - same design as PartnerProfile */}
             <article className="relative rounded-3xl overflow-hidden shadow-2xl">
@@ -321,11 +260,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
                         {selectedGeography}
                       </Badge>
                     )}
-                    {selectedRegions.map(region => (
-                      <Badge key={region} className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                        {region}
-                      </Badge>
-                    ))}
                   </div>
                 </div>
                 
