@@ -782,7 +782,32 @@ const AdminDashboard = () => {
     return filter.industries.length > 0;
   };
 
-  // Form sections for navigation
+  // Helper function for cascading geography selection
+  // When selecting a higher level, automatically include all lower levels
+  const getCascadingGeography = (selectedGeo: string, currentSelection: string[]): string[] => {
+    const hierarchy = ['Sverige', 'Norden', 'Europa', 'Övriga världen'];
+    const selectedIndex = hierarchy.indexOf(selectedGeo);
+    
+    if (selectedIndex === -1) return [...currentSelection, selectedGeo];
+    
+    // Include all geographies at and below the selected level
+    const toInclude = hierarchy.slice(0, selectedIndex + 1);
+    const newSelection = new Set([...currentSelection, ...toInclude]);
+    return Array.from(newSelection);
+  };
+
+  // Helper to remove geography and optionally its dependents
+  const getFilteredGeography = (geoToRemove: string, currentSelection: string[]): string[] => {
+    const hierarchy = ['Sverige', 'Norden', 'Europa', 'Övriga världen'];
+    const removedIndex = hierarchy.indexOf(geoToRemove);
+    
+    if (removedIndex === -1) return currentSelection.filter(g => g !== geoToRemove);
+    
+    // When removing a lower level (e.g., Sverige), also remove higher levels that depend on it
+    // Actually, for simplicity: just remove the clicked one
+    return currentSelection.filter(g => g !== geoToRemove);
+  };
+
   const formSections = [
     { id: 'basic', label: 'Grunduppgifter', icon: Building2 },
     { id: 'contact', label: 'Kontaktuppgifter', icon: User },
@@ -2007,12 +2032,12 @@ const AdminDashboard = () => {
                           if (isSelected) {
                             setPartnerFormData({ 
                               ...partnerFormData, 
-                              geography: current.filter(g => g !== geo) 
+                              geography: getFilteredGeography(geo, current) 
                             });
                           } else {
                             setPartnerFormData({ 
                               ...partnerFormData, 
-                              geography: [...current, geo] 
+                              geography: getCascadingGeography(geo, current) 
                             });
                           }
                         }}
@@ -2157,8 +2182,8 @@ const AdminDashboard = () => {
                                       onClick={() => {
                                         const current = filter.geography || [];
                                         const newGeo = isSelected
-                                          ? current.filter(g => g !== geo)
-                                          : [...current, geo];
+                                          ? getFilteredGeography(geo, current)
+                                          : getCascadingGeography(geo, current);
                                         updateProductFilter(section.key, { geography: newGeo });
                                       }}
                                     >
