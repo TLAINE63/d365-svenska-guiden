@@ -8,12 +8,22 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Contact Center FAQs for schema
+const contactCenterFaqs = [
+  { question: "Vad är skillnaden mellan Contact Center och Customer Service?", answer: "Contact Center är för högvolym-kontaktcenter med avancerade telefoni-funktioner, intelligent routing och virtuella agenter. Customer Service fokuserar mer på ärendehantering." },
+  { question: "Hur fungerar virtuella agenter?", answer: "Virtuella agenter använder AI för att automatiskt hantera vanliga kundförfrågningar via chatt eller telefon, och kan eskalera till mänskliga agenter med full konversationshistorik." },
+  { question: "Vilka kanaler stöds?", answer: "Contact Center stöder telefon, chatt, e-post, SMS, sociala medier och Microsoft Teams i ett enhetligt gränssnitt." },
+  { question: "Hur fungerar integration med Microsoft Teams?", answer: "Agenter kan hantera kundsamtal direkt i Teams-gränssnittet och enkelt konsultera kollegor eller experter under pågående kundsamtal." },
+];
 
 const D365ContactCenter = () => {
   useEffect(() => {
@@ -37,6 +47,17 @@ const D365ContactCenter = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 Contact Center | Priser & Implementering"
+        description="Komplett guide till Microsoft Dynamics 365 Contact Center. Modern kontaktcenterlösning med omnichannel, AI och automation."
+        canonicalPath="/d365-contact-center"
+        keywords="Dynamics 365 Contact Center, kontaktcenter, omnichannel, virtuella agenter, AI, Teams"
+      />
+      <FAQSchema faqs={contactCenterFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Contact Center"
+        description="Modern och innovativ kontaktcenterlösning med omnichannel-stöd, AI-driven samtalsassistent och real-time analytics."
+      />
       <Navbar />
       
       {/* Header */}

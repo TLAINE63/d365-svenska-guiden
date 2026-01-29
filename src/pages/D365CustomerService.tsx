@@ -8,12 +8,22 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+// Customer Service FAQs for schema
+const customerServiceFaqs = [
+  { question: "Vad är skillnaden mellan Customer Service Professional och Enterprise?", answer: "Professional inkluderar ärendehantering, kunskapsdatabas och SLA-hantering. Enterprise lägger till Copilot, multisessions-stöd, enhetlig dirigering, avancerad analys och kundportaler." },
+  { question: "Hur fungerar Copilot i Customer Service?", answer: "Copilot analyserar kundärenden, föreslår lösningar från kunskapsdatabasen, sammanfattar konversationer automatiskt och ger realtidscoaching." },
+  { question: "Vilka kanaler stöds för kundkommunikation?", answer: "Dynamics 365 Customer Service stöder e-post, chatt, telefon, SMS och sociala medier. Enterprise Omnichannel samlar alla kanaler i ett enhetligt gränssnitt." },
+  { question: "Kan vi skapa självbetjäningsportaler för kunder?", answer: "Ja, med Enterprise-licensen kan du skapa kundportaler där kunder kan se ärenden, söka i kunskapsdatabasen och skapa nya supportärenden." },
+];
 
 const D365CustomerService = () => {
   useEffect(() => {
@@ -51,6 +61,17 @@ const D365CustomerService = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Dynamics 365 Customer Service | Priser & Implementering"
+        description="Komplett guide till Microsoft Dynamics 365 Customer Service. Licenspriser, Copilot-funktioner och tips för att välja rätt partner."
+        canonicalPath="/d365-customer-service"
+        keywords="Dynamics 365 Customer Service, kundservice, ärendehantering, Copilot, AI, priser"
+      />
+      <FAQSchema faqs={customerServiceFaqs} />
+      <ServiceSchema 
+        name="Dynamics 365 Customer Service"
+        description="Intelligent ärendehantering för exceptionell kundservice med AI-drivna insikter och omnikanal-stöd."
+      />
       <Navbar />
       
       {/* Header */}
