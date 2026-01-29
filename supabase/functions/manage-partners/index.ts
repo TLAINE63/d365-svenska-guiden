@@ -138,7 +138,7 @@ interface PartnerData {
 }
 
 interface RequestBody {
-  action: "create" | "update" | "delete" | "get-full";
+  action: "create" | "update" | "delete" | "get-full" | "get-one";
   partner?: PartnerData;
   id?: string;
   token: string;
@@ -181,6 +181,32 @@ serve(async (req: Request): Promise<Response> => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     switch (action) {
+      case "get-one": {
+        // Get a single partner by ID
+        if (!id) {
+          return new Response(
+            JSON.stringify({ error: "Partner-ID krävs" }),
+            { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+
+        const { data, error } = await supabase
+          .from("partners")
+          .select("*")
+          .eq("id", id)
+          .maybeSingle();
+
+        if (error) {
+          console.error("Get one error:", error);
+          throw error;
+        }
+
+        return new Response(
+          JSON.stringify({ success: true, partner: data }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
       case "get-full": {
         // Get full partner data including admin fields (not from public view)
         const { data, error } = await supabase
