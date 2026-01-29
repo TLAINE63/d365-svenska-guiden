@@ -2165,7 +2165,7 @@ const AdminDashboard = () => {
                       Övriga produkter
                     </CardTitle>
                     <p className="text-sm text-white/80 mt-1">
-                      Markera de produkter partnern erbjuder (alla branscher är tillämpliga)
+                      Markera de produkter som ni kan erbjuda (alla branscher är tillämpliga här)
                     </p>
                   </CardHeader>
                   <CardContent className="pt-4">
