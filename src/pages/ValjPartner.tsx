@@ -552,6 +552,7 @@ const ValjPartner = () => {
             selectedValues={selectedApplications}
             onToggle={toggleApplication}
             colorScheme="amber"
+            showApplicationIcons={true}
           />
 
           {/* Industry Filter */}

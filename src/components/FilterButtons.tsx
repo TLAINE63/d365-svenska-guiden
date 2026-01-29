@@ -1,9 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { X, Building2, Users, AppWindow, DollarSign, Globe } from "lucide-react";
 
+// Dynamics 365 icons
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
+import CommerceIcon from "@/assets/icons/Commerce.svg";
+import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+
+// Map application names to Dynamics 365 icons
+const applicationIcons: Record<string, string> = {
+  "Business Central": BusinessCentralIcon,
+  "Finance & SCM": FinanceIcon,
+  "Sales": SalesIcon,
+  "Customer Service": CustomerServiceIcon,
+  "Customer Insights (Marketing)": MarketingIcon,
+  "Field Service": FieldServiceIcon,
+  "Contact Center": ContactCenterIcon,
+  "Project Operations": ProjectOperationsIcon,
+  "Commerce": CommerceIcon,
+  "Human Resources": HumanResourcesIcon,
+};
+
 interface FilterOption {
   label: string;
   value: string;
+  icon?: string;
 }
 
 interface FilterButtonsProps {
@@ -13,6 +40,7 @@ interface FilterButtonsProps {
   selectedValue: string | null;
   onSelect: (value: string | null) => void;
   colorScheme?: "primary" | "business-central" | "crm" | "finance-supply" | "amber";
+  showApplicationIcons?: boolean;
 }
 
 interface MultiFilterButtonsProps {
@@ -22,6 +50,7 @@ interface MultiFilterButtonsProps {
   selectedValues: string[];
   onToggle: (value: string) => void;
   colorScheme?: "primary" | "business-central" | "crm" | "finance-supply" | "amber";
+  showApplicationIcons?: boolean;
 }
 
 const iconMap = {
@@ -62,6 +91,7 @@ export function FilterButtons({
   selectedValue,
   onSelect,
   colorScheme = "primary",
+  showApplicationIcons = false,
 }: FilterButtonsProps) {
   const Icon = iconMap[icon];
   const colors = colorSchemes[colorScheme];
@@ -77,6 +107,7 @@ export function FilterButtons({
       <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
         {options.map((option) => {
           const isSelected = selectedValue === option.value;
+          const appIcon = showApplicationIcons ? applicationIcons[option.value] : null;
           return (
             <Button
               key={option.value}
@@ -91,6 +122,9 @@ export function FilterButtons({
               `}
             >
               <span className="flex items-center gap-2">
+                {appIcon && (
+                  <img src={appIcon} alt="" className="w-5 h-5" />
+                )}
                 {option.label}
                 {isSelected && (
                   <X className="h-3.5 w-3.5 opacity-70" />
@@ -111,6 +145,7 @@ export function MultiFilterButtons({
   selectedValues,
   onToggle,
   colorScheme = "primary",
+  showApplicationIcons = false,
 }: MultiFilterButtonsProps) {
   const Icon = iconMap[icon];
   const colors = colorSchemes[colorScheme];
@@ -126,6 +161,7 @@ export function MultiFilterButtons({
       <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
         {options.map((option) => {
           const isSelected = selectedValues.includes(option.value);
+          const appIcon = showApplicationIcons ? applicationIcons[option.value] : null;
           return (
             <Button
               key={option.value}
@@ -140,6 +176,9 @@ export function MultiFilterButtons({
               `}
             >
               <span className="flex items-center gap-2">
+                {appIcon && (
+                  <img src={appIcon} alt="" className="w-5 h-5" />
+                )}
                 {option.label}
                 {isSelected && (
                   <X className="h-3.5 w-3.5 opacity-70" />
