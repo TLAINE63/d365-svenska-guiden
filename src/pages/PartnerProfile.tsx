@@ -242,19 +242,7 @@ const PartnerProfile = () => {
     return dbProductFilters?.[filterKey]?.productDescription || null;
   };
 
-  // Get Sweden regions for a specific product
-  const getSwedenRegionsForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
-    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { swedenRegions?: string[] }> | undefined;
-    return dbProductFilters?.[filterKey]?.swedenRegions || [];
-  };
-
-  // Get Sweden cities for a specific product
-  const getSwedenCitiesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
-    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { swedenCities?: string[] }> | undefined;
-    return dbProductFilters?.[filterKey]?.swedenCities || [];
-  };
+  // Sweden regions and cities functions removed - no longer displaying regions on profiles
 
   // Get customer case links for a specific product
   const getCustomerCaseLinksForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
@@ -493,8 +481,6 @@ const PartnerProfile = () => {
                   const apps = appsFromArray.length > 0 ? appsFromArray : getDefaultApplicationsForCategory(category);
                   const customerExamples = getCustomerExamplesForProduct(category);
                   const productDescription = getProductDescriptionForProduct(category);
-                  const swedenRegions = getSwedenRegionsForProduct(category);
-                  const swedenCities = getSwedenCitiesForProduct(category);
                   const customerCaseLinks = getCustomerCaseLinksForProduct(category);
                   const geography = getGeographyForProduct(category);
                   
@@ -578,8 +564,8 @@ const PartnerProfile = () => {
                             </p>
                           )}
 
-                          {/* Geographic coverage */}
-                          {(geography.length > 0 || swedenRegions.length > 0 || swedenCities.length > 0) && (
+                          {/* Geographic coverage - countries/continents only, no regions */}
+                          {geography.length > 0 && (
                             <div className="space-y-2.5">
                               <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
                                 <MapPin className="w-3.5 h-3.5 text-muted-foreground" />
@@ -596,28 +582,6 @@ const PartnerProfile = () => {
                                   </Badge>
                                 ))}
                               </div>
-                              {/* Swedish regions */}
-                              {swedenRegions.length > 0 && (
-                                <div className="space-y-1.5">
-                                  <p className="text-xs text-muted-foreground">Regioner i Sverige:</p>
-                                  <div className="flex flex-wrap gap-1.5">
-                                    {swedenRegions.map((region, idx) => (
-                                      <Badge 
-                                        key={`region-${idx}`}
-                                        variant="secondary"
-                                        className="py-1 px-2 text-xs font-normal"
-                                      >
-                                        {region}
-                                      </Badge>
-                                    ))}
-                                  </div>
-                                </div>
-                              )}
-                              {swedenCities.length > 0 && (
-                                <span className="text-sm text-muted-foreground">
-                                  Städer: {swedenCities.join(', ')}
-                                </span>
-                              )}
                             </div>
                           )}
 
