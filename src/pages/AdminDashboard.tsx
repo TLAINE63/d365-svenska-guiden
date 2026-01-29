@@ -1461,6 +1461,59 @@ const AdminDashboard = () => {
                 );
               })}
 
+              {/* Specialty Products Overview */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="h-5 w-5 text-purple-600" />
+                    Övriga produkter
+                  </CardTitle>
+                  <CardDescription>
+                    Antal utvalda partners per specialprodukt
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {(() => {
+                    const featuredPartners = fullPartners.filter(p => p.is_featured);
+                    
+                    const productCounts = specialtyProducts.map(product => {
+                      const count = featuredPartners.filter(p => 
+                        p.applications?.includes(product)
+                      ).length;
+                      return { product, count };
+                    });
+                    
+                    return (
+                      <div className="space-y-3">
+                        {productCounts.map(({ product, count }) => (
+                          <div key={product} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+                            <div className="flex items-center gap-3">
+                              <img 
+                                src={specialtyProductIcons[product]} 
+                                alt={product} 
+                                className="h-6 w-6"
+                              />
+                              <span className="font-medium">{product}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <div className="w-24 bg-muted rounded-full h-2 overflow-hidden">
+                                <div 
+                                  className="h-full bg-purple-500"
+                                  style={{ width: `${(count / Math.max(featuredPartners.length, 1)) * 100}%` }}
+                                />
+                              </div>
+                              <Badge variant="secondary" className="min-w-[2.5rem] justify-center">
+                                {count}
+                              </Badge>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
+                </CardContent>
+              </Card>
+
               {/* All Industries Summary */}
               <Card>
                 <CardHeader>
