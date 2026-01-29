@@ -70,10 +70,37 @@ const getCompanySizeCategories = (sizes: string[]): string[] => {
   return Array.from(categories);
 };
 
+// Product key type matching the database structure
+type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
+
+// Map application names to product keys
+const getProductKeysForApp = (app: string): ProductKey[] => {
+  switch (app) {
+    case "Business Central":
+      return ['bc'];
+    case "Finance & SCM":
+      return ['fsc'];
+    case "Sales":
+      return ['sales'];
+    case "Customer Service":
+    case "Field Service":
+    case "Contact Center":
+      return ['service'];
+    case "Customer Insights (Marketing)":
+      return ['sales']; // Marketing is grouped with sales
+    case "Project Operations":
+    case "Commerce":
+    case "Human Resources":
+      return ['fsc']; // These are typically FSC-related
+    default:
+      return [];
+  }
+};
+
 // Helper to check if a database partner matches product filter criteria
 const matchesDbProductFilter = (
   partner: DatabasePartner, 
-  productKey: 'bc' | 'fsc' | 'crm',
+  productKey: ProductKey,
   industry?: string,
   companySize?: string,
   geography?: string
@@ -107,7 +134,7 @@ const matchesDbProductFilter = (
 };
 
 // Helper to get product ranking from database partner
-const getDbProductRanking = (partner: DatabasePartner, productKey: 'bc' | 'fsc' | 'crm'): number => {
+const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): number => {
   return partner.product_filters?.[productKey]?.ranking ?? 999;
 };
 
@@ -166,25 +193,32 @@ const ValjPartner = () => {
     // Determine which product type is primarily selected
     const hasBCApp = selectedApplications.includes("Business Central");
     const hasFSCApp = selectedApplications.includes("Finance & SCM");
-    const hasCRMApp = selectedApplications.some(app => 
-      ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
+    const hasSalesApp = selectedApplications.some(app => 
+      ["Sales", "Customer Insights (Marketing)"].includes(app)
+    );
+    const hasServiceApp = selectedApplications.some(app => 
+      ["Customer Service", "Field Service", "Contact Center"].includes(app)
     );
     
-    if (hasBCApp && !hasFSCApp && !hasCRMApp) {
+    if (hasBCApp && !hasFSCApp && !hasSalesApp && !hasServiceApp) {
       return getDbProductRanking(partner, 'bc');
     }
-    if (hasFSCApp && !hasBCApp && !hasCRMApp) {
+    if (hasFSCApp && !hasBCApp && !hasSalesApp && !hasServiceApp) {
       return getDbProductRanking(partner, 'fsc');
     }
-    if (hasCRMApp && !hasBCApp && !hasFSCApp) {
-      return getDbProductRanking(partner, 'crm');
+    if (hasSalesApp && !hasBCApp && !hasFSCApp && !hasServiceApp) {
+      return getDbProductRanking(partner, 'sales');
+    }
+    if (hasServiceApp && !hasBCApp && !hasFSCApp && !hasSalesApp) {
+      return getDbProductRanking(partner, 'service');
     }
     
     // If mixed or no specific apps selected, return lowest ranking across all
     const bcRank = getDbProductRanking(partner, 'bc');
     const fscRank = getDbProductRanking(partner, 'fsc');
-    const crmRank = getDbProductRanking(partner, 'crm');
-    return Math.min(bcRank, fscRank, crmRank);
+    const salesRank = getDbProductRanking(partner, 'sales');
+    const serviceRank = getDbProductRanking(partner, 'service');
+    return Math.min(bcRank, fscRank, salesRank, serviceRank);
   };
 
   // Helper to build partner profile URL with filter context
@@ -208,8 +242,11 @@ const ValjPartner = () => {
     // Determine which product type is selected
     const hasBCApp = selectedApplications.includes("Business Central");
     const hasFSCApp = selectedApplications.includes("Finance & SCM");
-    const hasCRMApp = selectedApplications.some(app => 
-      ["Sales", "Customer Service", "Customer Insights (Marketing)", "Field Service", "Contact Center", "Project Operations"].includes(app)
+    const hasSalesApp = selectedApplications.some(app => 
+      ["Sales", "Customer Insights (Marketing)"].includes(app)
+    );
+    const hasServiceApp = selectedApplications.some(app => 
+      ["Customer Service", "Field Service", "Contact Center"].includes(app)
     );
     
     let result: DatabasePartner[] = [];
@@ -217,7 +254,8 @@ const ValjPartner = () => {
     if (selectedApplications.length === 0) {
       // No application selected - show all featured partners that have any productFilter
       result = partners.filter(partner => 
-        partner.product_filters?.bc || partner.product_filters?.fsc || partner.product_filters?.crm
+        partner.product_filters?.bc || partner.product_filters?.fsc || 
+        partner.product_filters?.sales || partner.product_filters?.service
       );
     } else {
       // Filter based on selected applications
@@ -234,8 +272,13 @@ const ValjPartner = () => {
             matchingPartners.add(partner);
           }
         }
-        if (hasCRMApp && partner.product_filters?.crm) {
-          if (matchesDbProductFilter(partner, 'crm', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
+        if (hasSalesApp && partner.product_filters?.sales) {
+          if (matchesDbProductFilter(partner, 'sales', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
+            matchingPartners.add(partner);
+          }
+        }
+        if (hasServiceApp && partner.product_filters?.service) {
+          if (matchesDbProductFilter(partner, 'service', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
             matchingPartners.add(partner);
           }
         }
@@ -263,8 +306,9 @@ const ValjPartner = () => {
           };
           const bcGeoIdx = getMaxGeoIndex(partner.product_filters?.bc?.geography);
           const fscGeoIdx = getMaxGeoIndex(partner.product_filters?.fsc?.geography);
-          const crmGeoIdx = getMaxGeoIndex(partner.product_filters?.crm?.geography);
-          const maxGeoIndex = Math.max(bcGeoIdx, fscGeoIdx, crmGeoIdx);
+          const salesGeoIdx = getMaxGeoIndex(partner.product_filters?.sales?.geography);
+          const serviceGeoIdx = getMaxGeoIndex(partner.product_filters?.service?.geography);
+          const maxGeoIndex = Math.max(bcGeoIdx, fscGeoIdx, salesGeoIdx, serviceGeoIdx);
           return maxGeoIndex >= selectedGeoIndex;
         });
       }
