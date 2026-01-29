@@ -106,6 +106,7 @@ const CRM = () => {
         description="Guide till Microsoft Dynamics 365 Customer Engagement - Sales, Customer Insights, Customer Service och Field Service. Priser och implementering."
         canonicalPath="/crm"
         keywords="CRM, Dynamics 365, Sales, Customer Service, Marketing, Customer Insights, kundhantering"
+        ogImage="https://d365.se/og-crm.png"
       />
       <FAQSchema faqs={crmFaqs} />
       <ServiceSchema 

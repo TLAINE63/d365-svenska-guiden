@@ -346,6 +346,7 @@ const ValjPartner = () => {
         description="Jämför och välj rätt Microsoft Dynamics 365 partner för ditt projekt. Filtrera på bransch, applikation och geografi för att hitta bästa match."
         canonicalPath="/valj-partner"
         keywords="Dynamics 365 partner, Microsoft partner, implementering, ERP partner, CRM partner, Sverige"
+        ogImage="https://d365.se/og-partner.png"
       />
       <FAQSchema faqs={partnerFaqs} />
       <ServiceSchema 

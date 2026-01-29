@@ -76,6 +76,7 @@ const D365Sales = () => {
         description="Komplett guide till Microsoft Dynamics 365 Sales. Licenspriser, AI-funktioner med Copilot och tips för att välja rätt CRM-partner."
         canonicalPath="/d365-sales"
         keywords="Dynamics 365 Sales, CRM, försäljning, Copilot, AI, priser, implementering"
+        ogImage="https://d365.se/og-sales.png"
       />
       <FAQSchema faqs={salesFaqs} />
       <ServiceSchema 

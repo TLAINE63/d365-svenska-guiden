@@ -137,6 +137,7 @@ const BusinessCentral = () => {
         description="Komplett guide till Microsoft Dynamics 365 Business Central. Licenspriser, implementeringstid och tips för att välja rätt partner."
         canonicalPath="/business-central"
         keywords="Business Central, Dynamics 365, ERP, affärssystem, priser, implementering, SMB"
+        ogImage="https://d365.se/og-business-central.png"
       />
       <FAQSchema faqs={bcFaqs} />
       <ServiceSchema 

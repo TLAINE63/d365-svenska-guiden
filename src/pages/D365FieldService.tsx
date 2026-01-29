@@ -52,6 +52,7 @@ const D365FieldService = () => {
         description="Komplett guide till Microsoft Dynamics 365 Field Service. Intelligent schemaläggning, IoT-integration och mobilapp för fälttekniker."
         canonicalPath="/d365-field-service"
         keywords="Dynamics 365 Field Service, fältservice, schemaläggning, IoT, mobilapp, priser"
+        ogImage="https://d365.se/og-field-service.png"
       />
       <FAQSchema faqs={fieldServiceFaqs} />
       <ServiceSchema 

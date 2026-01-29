@@ -48,6 +48,7 @@ const Copilot = () => {
         description="Upptäck hur Microsoft Copilot revolutionerar Dynamics 365 med AI-drivna insikter, automatisering och produktivitetsvinster. 353% potentiell ROI."
         canonicalPath="/copilot"
         keywords="Microsoft Copilot, Dynamics 365, AI, artificiell intelligens, affärssystem, automation, ROI"
+        ogImage="https://d365.se/og-copilot.png"
       />
       <ServiceSchema 
         name="Microsoft Copilot i Dynamics 365"

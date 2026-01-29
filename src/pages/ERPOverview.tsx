@@ -24,6 +24,7 @@ const ERPOverview = () => {
         description="Jämför Microsoft Dynamics 365 Business Central och Finance & Supply Chain Management. Hitta rätt ERP-lösning för din organisation."
         canonicalPath="/erp"
         keywords="ERP, affärssystem, Business Central, Finance Supply Chain, Dynamics 365, jämförelse"
+        ogImage="https://d365.se/og-erp.png"
       />
       <ServiceSchema 
         name="Microsoft Dynamics 365 ERP Rådgivning"

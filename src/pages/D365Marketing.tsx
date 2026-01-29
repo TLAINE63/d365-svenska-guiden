@@ -62,6 +62,7 @@ const D365Marketing = () => {
         description="Komplett guide till Microsoft Dynamics 365 Customer Insights (Marketing). Marknadsföringsautomation, kundresor och AI-drivna insikter."
         canonicalPath="/d365-marketing"
         keywords="Dynamics 365 Customer Insights, Marketing, marknadsföringsautomation, kundresor, leads, AI"
+        ogImage="https://d365.se/og-marketing.png"
       />
       <FAQSchema faqs={customerInsightsFaqs} />
       <ServiceSchema 
