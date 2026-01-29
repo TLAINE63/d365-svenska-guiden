@@ -147,6 +147,9 @@ const PartnerCard = ({
       if (partner.product_filters.fsc) {
         apps.push("Finance");
         apps.push("Supply Chain Management");
+        apps.push("Project Operations");
+        apps.push("Commerce");
+        apps.push("Human Resources");
       }
       if (partner.product_filters.sales) {
         apps.push("Sales");
