@@ -154,13 +154,16 @@ const PartnerCard = ({
       if (partner.product_filters.sales) {
         apps.push("Sales");
         apps.push("Customer Insights (Marketing)");
+        apps.push("Project Operations");
       }
       if (partner.product_filters.service) {
         apps.push("Customer Service");
         apps.push("Field Service");
         apps.push("Contact Center");
+        apps.push("Project Operations");
       }
-      return apps.length > 0 ? apps : (partner.applications || []);
+      // Remove duplicates (e.g., Project Operations can come from multiple product areas)
+      return apps.length > 0 ? [...new Set(apps)] : (partner.applications || []);
     }
     return partner.applications || [];
   };
