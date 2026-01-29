@@ -15,7 +15,13 @@ import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const partnerBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Välj Partner", url: "https://d365.se/valj-partner" },
+];
 import { allIndustries } from "@/data/partners";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
@@ -353,6 +359,7 @@ const ValjPartner = () => {
         name="Dynamics 365 Partnerval"
         description="Hjälp att välja rätt Microsoft Dynamics 365 implementeringspartner baserat på bransch, storlek och behov."
       />
+      <BreadcrumbSchema items={partnerBreadcrumbs} />
       <Navbar />
       {/* Partner Guide Dialog */}
       <PartnerGuideDialog 

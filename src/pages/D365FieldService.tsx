@@ -9,7 +9,14 @@ import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const fieldServiceBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
+  { name: "Dynamics 365 Field Service", url: "https://d365.se/d365-field-service" },
+];
 import {
   Accordion,
   AccordionContent,
@@ -59,6 +66,7 @@ const D365FieldService = () => {
         name="Dynamics 365 Field Service"
         description="Optimera fältservice med intelligent schemaläggning, resursoptimering och mobila verktyg för fälttekniker."
       />
+      <BreadcrumbSchema items={fieldServiceBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

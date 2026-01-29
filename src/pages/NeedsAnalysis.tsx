@@ -14,7 +14,13 @@ import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema } from "@/components/StructuredData";
+import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const needsAnalysisBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "ERP Behovsanalys", url: "https://d365.se/behovsanalys" },
+];
 
 // Contact form validation schema
 const contactFormSchema = z.object({
@@ -1781,6 +1787,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         name="ERP Behovsanalys"
         description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet."
       />
+      <BreadcrumbSchema items={needsAnalysisBreadcrumbs} />
       <Navbar />
       
       <main className="flex-grow pt-24 pb-12">

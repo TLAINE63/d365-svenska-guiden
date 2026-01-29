@@ -18,7 +18,14 @@ import { allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
 import { filterAndSortPartners, getProductIndustries } from "@/hooks/usePartnerFilters";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const fscBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
+  { name: "Finance & Supply Chain", url: "https://d365.se/finance-supply-chain" },
+];
 import {
   Accordion,
   AccordionContent,
@@ -153,6 +160,7 @@ const FinanceSupplyChain = () => {
         name="Dynamics 365 Finance & Supply Chain Management"
         description="Avancerad företagslösning för global ekonomihantering, supply chain och tillverkning med AI och Power Platform."
       />
+      <BreadcrumbSchema items={fscBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

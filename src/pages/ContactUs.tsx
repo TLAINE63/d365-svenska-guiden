@@ -4,7 +4,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import SEOHead from "@/components/SEOHead";
-import { LocalBusinessSchema } from "@/components/StructuredData";
+import { LocalBusinessSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const contactBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Kontakt", url: "https://d365.se/kontakt" },
+];
 
 import { Mail, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -23,6 +29,7 @@ const ContactUs = () => {
         ogImage="https://d365.se/og-kontakt.png"
       />
       <LocalBusinessSchema />
+      <BreadcrumbSchema items={contactBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

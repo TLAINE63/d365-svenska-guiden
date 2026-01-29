@@ -19,7 +19,13 @@ import {
 } from "@/components/ui/dialog";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema, FAQSchema } from "@/components/StructuredData";
+import { ServiceSchema, FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const branschBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Branschlösningar", url: "https://d365.se/branschlosningar" },
+];
 
 // FAQ items for schema
 const branschFaqs = [
@@ -262,6 +268,7 @@ const Branschlosningar = () => {
         description="Hitta Microsoft Dynamics 365 partners med specialisering inom din bransch för ERP och CRM."
       />
       <FAQSchema faqs={branschFaqs} />
+      <BreadcrumbSchema items={branschBreadcrumbs} />
       <Navbar />
       
       {/* Hero Section */}

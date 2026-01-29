@@ -9,7 +9,14 @@ import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const customerServiceBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
+  { name: "Dynamics 365 Customer Service", url: "https://d365.se/d365-customer-service" },
+];
 import {
   Accordion,
   AccordionContent,
@@ -73,6 +80,7 @@ const D365CustomerService = () => {
         name="Dynamics 365 Customer Service"
         description="Intelligent ärendehantering för exceptionell kundservice med AI-drivna insikter och omnikanal-stöd."
       />
+      <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

@@ -9,7 +9,14 @@ import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import SEOHead from "@/components/SEOHead";
-import { FAQSchema, ServiceSchema } from "@/components/StructuredData";
+import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const salesBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Marknad & Sälj", url: "https://d365.se/d365-sales" },
+  { name: "Dynamics 365 Sales", url: "https://d365.se/d365-sales" },
+];
 import {
   Accordion,
   AccordionContent,
@@ -83,6 +90,7 @@ const D365Sales = () => {
         name="Dynamics 365 Sales"
         description="Intelligent CRM-lösning för moderna säljteam med AI-drivna insikter och sömlös Microsoft-integration."
       />
+      <BreadcrumbSchema items={salesBreadcrumbs} />
       <Navbar />
       
       {/* Header */}

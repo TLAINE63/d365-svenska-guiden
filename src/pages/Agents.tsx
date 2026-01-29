@@ -6,6 +6,15 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { Sparkles, Zap, Brain, Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import SEOHead from "@/components/SEOHead";
+import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+
+// Breadcrumb items
+const agentsBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Microsoft AI", url: "https://d365.se/copilot" },
+  { name: "Agenter", url: "https://d365.se/agents" },
+];
 
 const Agents = () => {
   useEffect(() => {
@@ -27,6 +36,17 @@ const Agents = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead 
+        title="Microsoft Agenter | AI-automation för Dynamics 365"
+        description="Nästa generation av AI-automation med Microsoft Agenter. Autonoma AI-system som arbetar självständigt för att lösa komplexa affärsuppgifter."
+        canonicalPath="/agents"
+        keywords="Microsoft Agenter, AI agents, automation, Dynamics 365, Copilot, autonoma agenter"
+      />
+      <ServiceSchema 
+        name="Microsoft Agenter"
+        description="Autonoma AI-agenter som arbetar självständigt för att lösa komplexa affärsuppgifter i Dynamics 365."
+      />
+      <BreadcrumbSchema items={agentsBreadcrumbs} />
       <Navbar />
       
       {/* Hero Section */}
