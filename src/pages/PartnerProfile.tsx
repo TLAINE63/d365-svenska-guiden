@@ -204,19 +204,20 @@ const PartnerProfile = () => {
   };
 
   // Get geography for a specific product - prioritize database data, return as array
-  // Normalize to only valid values: Sverige, Norden, Europa, Övriga världen
+  // Normalize to only valid values: Sverige, Norden, Europa, Övriga världen (in this exact order)
   const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
     
-    // Valid geography values - "Internationellt" should be mapped to "Övriga världen"
-    const validGeographies = ["Sverige", "Norden", "Europa", "Övriga världen"];
+    // Valid geography values in display order - "Internationellt" should be mapped to "Övriga världen"
+    const geographyOrder = ["Sverige", "Norden", "Europa", "Övriga världen"];
     
-    const normalizeGeography = (geoArray: string[]): string[] => {
+    const normalizeAndSortGeography = (geoArray: string[]): string[] => {
       const normalized = geoArray.map(geo => 
         geo === "Internationellt" ? "Övriga världen" : geo
       );
-      // Filter to only valid values and remove duplicates
-      return [...new Set(normalized.filter(geo => validGeographies.includes(geo)))];
+      // Filter to only valid values, remove duplicates, and sort by defined order
+      const uniqueValid = [...new Set(normalized.filter(geo => geographyOrder.includes(geo)))];
+      return uniqueValid.sort((a, b) => geographyOrder.indexOf(a) - geographyOrder.indexOf(b));
     };
     
     // Check database partner's product_filters first
@@ -224,17 +225,17 @@ const PartnerProfile = () => {
     const dbProductGeo = dbProductFilters?.[filterKey]?.geography;
     if (dbProductGeo) {
       const geoArray = Array.isArray(dbProductGeo) ? dbProductGeo : [dbProductGeo];
-      return normalizeGeography(geoArray);
+      return normalizeAndSortGeography(geoArray);
     }
     // Fall back to partner's geography array
     if (dbPartner?.geography && dbPartner.geography.length > 0) {
-      return normalizeGeography(dbPartner.geography);
+      return normalizeAndSortGeography(dbPartner.geography);
     }
     // Final fallback to static data
     const staticGeo = staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography;
     if (staticGeo) {
       const geoArray = Array.isArray(staticGeo) ? staticGeo : [staticGeo];
-      return normalizeGeography(geoArray);
+      return normalizeAndSortGeography(geoArray);
     }
     return [];
   };
