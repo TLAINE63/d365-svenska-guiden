@@ -204,23 +204,37 @@ const PartnerProfile = () => {
   };
 
   // Get geography for a specific product - prioritize database data, return as array
+  // Normalize to only valid values: Sverige, Norden, Europa, Övriga världen
   const getGeographyForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    
+    // Valid geography values - "Internationellt" should be mapped to "Övriga världen"
+    const validGeographies = ["Sverige", "Norden", "Europa", "Övriga världen"];
+    
+    const normalizeGeography = (geoArray: string[]): string[] => {
+      const normalized = geoArray.map(geo => 
+        geo === "Internationellt" ? "Övriga världen" : geo
+      );
+      // Filter to only valid values and remove duplicates
+      return [...new Set(normalized.filter(geo => validGeographies.includes(geo)))];
+    };
+    
     // Check database partner's product_filters first
     const dbProductFilters = dbPartner?.product_filters as Record<string, { geography?: string | string[] }> | undefined;
     const dbProductGeo = dbProductFilters?.[filterKey]?.geography;
     if (dbProductGeo) {
-      // Handle both string and array formats
-      return Array.isArray(dbProductGeo) ? dbProductGeo : [dbProductGeo];
+      const geoArray = Array.isArray(dbProductGeo) ? dbProductGeo : [dbProductGeo];
+      return normalizeGeography(geoArray);
     }
     // Fall back to partner's geography array
     if (dbPartner?.geography && dbPartner.geography.length > 0) {
-      return dbPartner.geography;
+      return normalizeGeography(dbPartner.geography);
     }
     // Final fallback to static data
     const staticGeo = staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography;
     if (staticGeo) {
-      return Array.isArray(staticGeo) ? staticGeo : [staticGeo];
+      const geoArray = Array.isArray(staticGeo) ? staticGeo : [staticGeo];
+      return normalizeGeography(geoArray);
     }
     return [];
   };
