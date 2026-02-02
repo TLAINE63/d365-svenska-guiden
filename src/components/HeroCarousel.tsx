@@ -194,39 +194,17 @@ const HeroCarousel = () => {
       <div className="relative h-full flex items-center">
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
           {slide.ctaType === "industries" ? (
-            // First slide with industries grid
-            <div className="animate-fade-in pt-4 sm:pt-8 md:pt-12 flex flex-col items-center text-center">
-              <h1
-                key={currentSlide}
-                className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight mb-1"
-              >
-                {slide.title}
-              </h1>
-              <p
-                key={`subtitle-${currentSlide}`}
-                className="text-[11px] sm:text-sm md:text-base lg:text-lg text-white/90 mb-2 sm:mb-3"
-              >
-                {slide.subtitle}
-              </p>
-              
-              <Link to={slide.ctaLink || "/"} className="mb-3 sm:mb-4">
-                <Button
-                  size="lg"
-                  className={`${slide.buttonColor} text-white text-xs sm:text-sm md:text-base h-9 sm:h-12 md:h-14 rounded-xl`}
-                >
-                  {slide.ctaText}
-                </Button>
-              </Link>
-              
-              {/* Industries Grid - 18 industries in 3 rows (6 per row) */}
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5 w-full max-w-4xl">
+            // First slide with industries grid as background
+            <div className="animate-fade-in relative">
+              {/* Industries Grid - as background layer */}
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5 w-full opacity-40">
                 {featuredIndustries.map((industry) => (
                   <Link
                     key={industry.name}
                     to="/branschlosningar"
                     className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-1 sm:p-2 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
                   >
-                    <div className="w-8 h-8 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden mb-0.5 sm:mb-1.5 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">
+                    <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden mb-0.5 sm:mb-1.5 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">
                       <img
                         src={industry.image}
                         alt={industry.name}
@@ -239,6 +217,31 @@ const HeroCarousel = () => {
                     </span>
                   </Link>
                 ))}
+              </div>
+              
+              {/* Centered text overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+                <h1
+                  key={currentSlide}
+                  className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2 drop-shadow-lg"
+                >
+                  {slide.title}
+                </h1>
+                <p
+                  key={`subtitle-${currentSlide}`}
+                  className="text-sm sm:text-base md:text-lg lg:text-xl text-white mb-4 drop-shadow-md"
+                >
+                  {slide.subtitle}
+                </p>
+                
+                <Link to={slide.ctaLink || "/"}>
+                  <Button
+                    size="lg"
+                    className={`${slide.buttonColor} text-white text-sm sm:text-base md:text-lg h-10 sm:h-12 md:h-14 rounded-xl shadow-lg`}
+                  >
+                    {slide.ctaText}
+                  </Button>
+                </Link>
               </div>
             </div>
           ) : (
