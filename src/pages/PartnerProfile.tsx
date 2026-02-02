@@ -575,7 +575,7 @@ const PartnerProfile = () => {
                             </p>
                           )}
 
-                          {/* Customer Examples */}
+                          {/* Customer Examples with linked case studies */}
                           <div className="space-y-2.5 pt-2 border-t border-border/50">
                             <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
                               <Users className="w-3.5 h-3.5 text-muted-foreground" />
@@ -583,25 +583,50 @@ const PartnerProfile = () => {
                             </p>
                             {customerExamples.length > 0 ? (
                               <div className="flex flex-wrap gap-2">
-                                {customerExamples.map((customer, idx) => (
-                                  <Badge 
-                                    key={idx}
-                                    variant="outline"
-                                    className="bg-background/50 text-foreground/80 border-border py-1.5 px-3 text-sm font-medium"
+                                {customerExamples.map((customer, idx) => {
+                                  const caseLink = customerCaseLinks[idx];
+                                  return caseLink ? (
+                                    <a
+                                      key={idx}
+                                      href={caseLink}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="group"
+                                    >
+                                      <Badge 
+                                        variant="outline"
+                                        className="bg-background/50 text-foreground/80 border-border py-1.5 px-3 text-sm font-medium hover:bg-primary/10 hover:border-primary/50 hover:text-primary transition-all cursor-pointer"
+                                      >
+                                        {customer}
+                                        <ExternalLink className="w-3 h-3 ml-1.5 opacity-60 group-hover:opacity-100" />
+                                      </Badge>
+                                    </a>
+                                  ) : (
+                                    <Badge 
+                                      key={idx}
+                                      variant="outline"
+                                      className="bg-background/50 text-foreground/80 border-border py-1.5 px-3 text-sm font-medium"
+                                    >
+                                      {customer}
+                                    </Badge>
+                                  );
+                                })}
+                                {/* Show remaining case links that don't have a matching customer */}
+                                {customerCaseLinks.slice(customerExamples.length).map((link, idx) => (
+                                  <a
+                                    key={`extra-case-${idx}`}
+                                    href={link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 hover:underline transition-colors"
                                   >
-                                    {customer}
-                                  </Badge>
+                                    <ExternalLink className="w-3.5 h-3.5" />
+                                    Läs kundcase
+                                  </a>
                                 ))}
                               </div>
-                            ) : (
-                              <p className="text-sm text-muted-foreground italic">
-                                Kundexempel kan tillhandahållas på förfrågan
-                              </p>
-                            )}
-                            
-                            {/* Customer Case Links */}
-                            {customerCaseLinks.length > 0 && (
-                              <div className="flex flex-wrap gap-2 mt-2">
+                            ) : customerCaseLinks.length > 0 ? (
+                              <div className="flex flex-wrap gap-2">
                                 {customerCaseLinks.map((link, idx) => (
                                   <a
                                     key={idx}
@@ -611,10 +636,14 @@ const PartnerProfile = () => {
                                     className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 hover:underline transition-colors"
                                   >
                                     <ExternalLink className="w-3.5 h-3.5" />
-                                    Kundcase {customerCaseLinks.length > 1 ? idx + 1 : ''}
+                                    Läs kundcase {customerCaseLinks.length > 1 ? idx + 1 : ''}
                                   </a>
                                 ))}
                               </div>
+                            ) : (
+                              <p className="text-sm text-muted-foreground italic">
+                                Kundexempel kan tillhandahållas på förfrågan
+                              </p>
                             )}
                           </div>
                         </div>
