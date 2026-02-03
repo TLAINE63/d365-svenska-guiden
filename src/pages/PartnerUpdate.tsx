@@ -13,7 +13,6 @@ import { toast } from "sonner";
 import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PartnerEventEditor, { type PartnerEvent } from "@/components/PartnerEventEditor";
 
 // Import product icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -163,9 +162,6 @@ const PartnerUpdate = () => {
   const [productFilters, setProductFilters] = useState<ProductFilters>({});
   const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
   const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
-  
-  // Events state
-  const [events, setEvents] = useState<PartnerEvent[]>([]);
 
   useEffect(() => {
     const fetchInvitation = async () => {
@@ -494,7 +490,6 @@ const PartnerUpdate = () => {
         secondary_industries: [],
         geography: [], // Geography is now per-product
         product_filters: productFilters,
-        events: events, // Include events in submission
       };
 
       const response = await fetch(
@@ -1013,14 +1008,6 @@ const PartnerUpdate = () => {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Events Section */}
-            <PartnerEventEditor
-              events={events}
-              onChange={setEvents}
-              token={token || ""}
-              partnerId={invitation?.partner_id}
-            />
 
             {/* Notes */}
             <Card>
