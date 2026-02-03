@@ -94,7 +94,7 @@ const slides: HeroSlide[] = [
         Hitta rätt <span className="text-emerald-400">affärssystem</span>
       </>
     ),
-    subtitle: "Starta här med en digital ERP-behovsanalys",
+    subtitle: "Starta här med en digital Affärssystem (ERP) - Behovsanalys",
     ctaType: "link",
     ctaText: "Starta behovsanalysen",
     ctaLink: "/behovsanalys",
