@@ -107,8 +107,48 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_event_tokens: {
+        Row: {
+          created_at: string
+          id: string
+          last_accessed_at: string | null
+          partner_id: string
+          token: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_accessed_at?: string | null
+          partner_id: string
+          token?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_accessed_at?: string | null
+          partner_id?: string
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_event_tokens_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_event_tokens_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: true
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_events: {
         Row: {
+          admin_notes: string | null
           created_at: string
           description: string | null
           end_time: string | null
@@ -117,19 +157,21 @@ export type Database = {
           event_time: string | null
           id: string
           image_url: string | null
-          invitation_token: string | null
           is_online: boolean
-          is_published: boolean
           location: string | null
           partner_id: string
           recording_available: boolean
           recording_url: string | null
           registration_deadline: string | null
           registration_link: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
           title: string
           updated_at: string
         }
         Insert: {
+          admin_notes?: string | null
           created_at?: string
           description?: string | null
           end_time?: string | null
@@ -138,19 +180,21 @@ export type Database = {
           event_time?: string | null
           id?: string
           image_url?: string | null
-          invitation_token?: string | null
           is_online?: boolean
-          is_published?: boolean
           location?: string | null
           partner_id: string
           recording_available?: boolean
           recording_url?: string | null
           registration_deadline?: string | null
           registration_link?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
           title: string
           updated_at?: string
         }
         Update: {
+          admin_notes?: string | null
           created_at?: string
           description?: string | null
           end_time?: string | null
@@ -159,15 +203,16 @@ export type Database = {
           event_time?: string | null
           id?: string
           image_url?: string | null
-          invitation_token?: string | null
           is_online?: boolean
-          is_published?: boolean
           location?: string | null
           partner_id?: string
           recording_available?: boolean
           recording_url?: string | null
           registration_deadline?: string | null
           registration_link?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
           title?: string
           updated_at?: string
         }

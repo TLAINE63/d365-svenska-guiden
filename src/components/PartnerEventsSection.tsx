@@ -42,19 +42,28 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const { data, error } = await supabase
-          .from("partner_events")
-          .select("*")
-          .eq("partner_id", partnerId)
-          .eq("is_published", true)
-          .order("event_date", { ascending: true });
-
-        if (error) {
-          console.error("Failed to fetch events:", error);
+        // Query partner_events table for this partner's approved events
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=public-events`,
+          {
+            headers: {
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        
+        if (!response.ok) {
+          console.error("Failed to fetch events");
           return;
         }
-
-        setEvents(data || []);
+        
+        const result = await response.json();
+        // Filter events for this specific partner
+        const partnerEvents = (result.events || []).filter(
+          (e: PartnerEvent & { partner_id: string }) => e.partner_id === partnerId
+        );
+        setEvents(partnerEvents);
       } catch (err) {
         console.error("Error fetching events:", err);
       } finally {
