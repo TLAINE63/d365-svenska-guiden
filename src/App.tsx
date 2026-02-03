@@ -36,6 +36,8 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const PartnerAdmin = lazy(() => import("./pages/PartnerAdmin"));
 const LeadAdmin = lazy(() => import("./pages/LeadAdmin"));
 const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
+const Events = lazy(() => import("./pages/Events"));
+const PartnerEvents = lazy(() => import("./pages/PartnerEvents"));
 
 const queryClient = new QueryClient();
 
@@ -82,6 +84,8 @@ const App = () => (
             <Route path="/partner-admin" element={<PartnerAdmin />} />
             <Route path="/lead-admin" element={<LeadAdmin />} />
             <Route path="/partner-update/:token" element={<PartnerUpdate />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/partner-events/:token" element={<PartnerEvents />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

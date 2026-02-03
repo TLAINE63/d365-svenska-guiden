@@ -94,58 +94,6 @@ serve(async (req: Request): Promise<Response> => {
     const action = url.searchParams.get("action");
 
     // Public actions (no auth required)
-    
-    // Get events for a partner (via token)
-    if (action === "get-events") {
-      const token = url.searchParams.get("token");
-      if (!token) {
-        return new Response(
-          JSON.stringify({ error: "Token krävs" }),
-          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
-      }
-
-      // Verify invitation token
-      const { data: invitation, error: invError } = await supabase
-        .from("partner_invitations")
-        .select("*")
-        .eq("token", token)
-        .single();
-
-      if (invError || !invitation) {
-        return new Response(
-          JSON.stringify({ error: "Ogiltig token" }),
-          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
-      }
-
-      if (!invitation.partner_id) {
-        return new Response(
-          JSON.stringify({ events: [] }),
-          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
-      }
-
-      const { data: events, error: eventsError } = await supabase
-        .from("partner_events")
-        .select("*")
-        .eq("partner_id", invitation.partner_id)
-        .order("event_date", { ascending: true });
-
-      if (eventsError) {
-        console.error("Error fetching events:", eventsError);
-        return new Response(
-          JSON.stringify({ error: "Kunde inte hämta events" }),
-          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
-      }
-
-      return new Response(
-        JSON.stringify({ events: events || [] }),
-        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
-      );
-    }
-
     if (action === "get-invitation") {
       const token = url.searchParams.get("token");
       if (!token) {

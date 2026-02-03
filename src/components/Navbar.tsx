@@ -42,6 +42,7 @@ const Navbar = () => {
   ];
 
   const menuItems = [
+    { label: "Events", path: "/events", external: false },
     { label: "Kontakt", path: "/kontakt", external: false },
   ];
 

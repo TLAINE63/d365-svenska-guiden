@@ -29,3 +29,6 @@ verify_jwt = false
 
 [functions.partner-invitations]
 verify_jwt = false
+
+[functions.manage-events]
+verify_jwt = false
