@@ -107,6 +107,87 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_events: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_time: string | null
+          event_date: string
+          event_link: string | null
+          event_time: string | null
+          id: string
+          image_url: string | null
+          invitation_token: string | null
+          is_online: boolean
+          is_published: boolean
+          location: string | null
+          partner_id: string
+          recording_available: boolean
+          recording_url: string | null
+          registration_deadline: string | null
+          registration_link: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_time?: string | null
+          event_date: string
+          event_link?: string | null
+          event_time?: string | null
+          id?: string
+          image_url?: string | null
+          invitation_token?: string | null
+          is_online?: boolean
+          is_published?: boolean
+          location?: string | null
+          partner_id: string
+          recording_available?: boolean
+          recording_url?: string | null
+          registration_deadline?: string | null
+          registration_link?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_time?: string | null
+          event_date?: string
+          event_link?: string | null
+          event_time?: string | null
+          id?: string
+          image_url?: string | null
+          invitation_token?: string | null
+          is_online?: boolean
+          is_published?: boolean
+          location?: string | null
+          partner_id?: string
+          recording_available?: boolean
+          recording_url?: string | null
+          registration_deadline?: string | null
+          registration_link?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_events_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_invitations: {
         Row: {
           created_at: string
