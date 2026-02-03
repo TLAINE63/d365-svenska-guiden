@@ -94,6 +94,58 @@ serve(async (req: Request): Promise<Response> => {
     const action = url.searchParams.get("action");
 
     // Public actions (no auth required)
+    
+    // Get events for a partner (via token)
+    if (action === "get-events") {
+      const token = url.searchParams.get("token");
+      if (!token) {
+        return new Response(
+          JSON.stringify({ error: "Token krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Verify invitation token
+      const { data: invitation, error: invError } = await supabase
+        .from("partner_invitations")
+        .select("*")
+        .eq("token", token)
+        .single();
+
+      if (invError || !invitation) {
+        return new Response(
+          JSON.stringify({ error: "Ogiltig token" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      if (!invitation.partner_id) {
+        return new Response(
+          JSON.stringify({ events: [] }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const { data: events, error: eventsError } = await supabase
+        .from("partner_events")
+        .select("*")
+        .eq("partner_id", invitation.partner_id)
+        .order("event_date", { ascending: true });
+
+      if (eventsError) {
+        console.error("Error fetching events:", eventsError);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte hämta events" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ events: events || [] }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     if (action === "get-invitation") {
       const token = url.searchParams.get("token");
       if (!token) {
@@ -209,6 +261,41 @@ serve(async (req: Request): Promise<Response> => {
           product_filters: submissionData.product_filters || {},
           notes: submissionData.notes,
         });
+
+      // Handle events if provided
+      if (submissionData.events && Array.isArray(submissionData.events)) {
+        const partnerId = invitation.partner_id;
+        
+        for (const event of submissionData.events) {
+          if (event._deleted && event.id) {
+            // Delete existing event
+            await supabase
+              .from("partner_events")
+              .delete()
+              .eq("id", event.id);
+          } else if (event.id) {
+            // Update existing event
+            const { id, _deleted, ...eventData } = event;
+            await supabase
+              .from("partner_events")
+              .update({
+                ...eventData,
+                updated_at: new Date().toISOString(),
+              })
+              .eq("id", id);
+          } else if (event.title && event.event_date) {
+            // Create new event
+            const { _deleted, ...eventData } = event;
+            await supabase
+              .from("partner_events")
+              .insert({
+                ...eventData,
+                partner_id: partnerId,
+                invitation_token: token,
+              });
+          }
+        }
+      }
 
       if (subError) {
         console.error("Submission error:", subError);

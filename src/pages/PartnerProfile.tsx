@@ -20,6 +20,7 @@ import {
   Phone
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
+import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner } from "@/hooks/usePartners";
 import { partners as staticPartners, getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
@@ -720,6 +721,15 @@ const PartnerProfile = () => {
                 </div>
               );
             })()}
+
+            {/* Events Section */}
+            {dbPartner?.id && (
+              <PartnerEventsSection 
+                partnerId={dbPartner.id} 
+                partnerName={partner.name} 
+              />
+            )}
+
             <article className="relative rounded-3xl overflow-hidden shadow-2xl">
               {/* Gradient background */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
