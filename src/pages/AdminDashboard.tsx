@@ -71,9 +71,10 @@ import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
-  CheckCircle2, Circle, ArrowRight, MailPlus
+  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
+import AdminEventsTab from "@/components/AdminEventsTab";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
@@ -1061,6 +1062,10 @@ const AdminDashboard = () => {
               <MailPlus className="h-4 w-4" />
               Inbjudningar
             </TabsTrigger>
+            <TabsTrigger value="events" className="flex items-center gap-2">
+              <CalendarDays className="h-4 w-4" />
+              Events
+            </TabsTrigger>
             <TabsTrigger value="stats" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               Partnerstatistik
@@ -1390,6 +1395,15 @@ const AdminDashboard = () => {
             <PartnerInvitationsTab 
               token={token || ""} 
               partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug }))}
+            />
+          </TabsContent>
+
+          {/* ==================== EVENTS TAB ==================== */}
+          <TabsContent value="events">
+            <AdminEventsTab
+              token={token || ""}
+              partners={fullPartners.map(p => ({ id: p.id, name: p.name, is_featured: p.is_featured || false, slug: p.slug }))}
+              onSessionExpired={logout}
             />
           </TabsContent>
 
