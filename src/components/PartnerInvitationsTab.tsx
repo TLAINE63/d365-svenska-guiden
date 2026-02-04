@@ -256,9 +256,9 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
   };
 
   const getStatusBadge = (status: string, expiresAt: string) => {
-    const isExpired = new Date(expiresAt) < new Date();
+    const isExpired = new Date(expiresAt) < new Date() && status === "pending";
     
-    if (isExpired && status === "pending") {
+    if (isExpired) {
       return <Badge variant="destructive">Utgången</Badge>;
     }
     
@@ -266,9 +266,9 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
       case "pending":
         return <Badge variant="outline" className="border-amber-500 text-amber-600"><Clock className="w-3 h-3 mr-1" />Väntar</Badge>;
       case "submitted":
-        return <Badge variant="outline" className="border-blue-500 text-blue-600"><Send className="w-3 h-3 mr-1" />Inskickad</Badge>;
+        return <Badge variant="outline" className="border-blue-500 text-blue-600"><Send className="w-3 h-3 mr-1" />Inskickad (öppen)</Badge>;
       case "approved":
-        return <Badge className="bg-green-500"><CheckCircle2 className="w-3 h-3 mr-1" />Godkänd</Badge>;
+        return <Badge className="bg-green-500"><CheckCircle2 className="w-3 h-3 mr-1" />Godkänd (öppen)</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -286,7 +286,8 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
         <div>
           <h2 className="text-xl font-semibold">Partnerinbjudningar</h2>
           <p className="text-sm text-muted-foreground">
-            Skicka inbjudningar till partners för att uppdatera sina profiluppgifter
+            Skicka inbjudningar till partners för att uppdatera sina profiluppgifter. 
+            Inbjudningar är öppna – partners kan använda samma länk för att uppdatera sin profil flera gånger.
           </p>
         </div>
         <div className="flex gap-2">

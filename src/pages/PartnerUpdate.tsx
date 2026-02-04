@@ -186,9 +186,7 @@ const PartnerUpdate = () => {
         const result = await response.json();
 
         if (!response.ok) {
-          if (response.status === 409) {
-            setError("Detta formulär har redan skickats in.");
-          } else if (response.status === 410) {
+          if (response.status === 410) {
             setError("Denna inbjudan har gått ut. Kontakta administratören för en ny länk.");
           } else {
             setError(result.error || "Kunde inte hämta inbjudan");
