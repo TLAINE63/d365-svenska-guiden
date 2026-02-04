@@ -56,6 +56,7 @@ const Footer = () => {
               <li><Link to="/valj-partner" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branschlosningar" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>
               <li><Link to="/copilot" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Copilot</Link></li>
+              <li><Link to="/events" className="text-muted-foreground hover:text-foreground transition-colors">Events</Link></li>
               <li><Link to="/kontakt" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>
             </ul>
           </div>
