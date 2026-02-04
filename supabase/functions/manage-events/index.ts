@@ -125,6 +125,46 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Public: Get single event by ID
+    if (action === "get-event") {
+      const eventId = url.searchParams.get("eventId");
+      if (!eventId) {
+        return new Response(
+          JSON.stringify({ error: "eventId krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const { data: event, error } = await supabase
+        .from("partner_events")
+        .select(`
+          *,
+          partners:partner_id (
+            id,
+            name,
+            slug,
+            logo_url,
+            logo_dark_bg,
+            description
+          )
+        `)
+        .eq("id", eventId)
+        .eq("status", "approved")
+        .single();
+
+      if (error || !event) {
+        return new Response(
+          JSON.stringify({ error: "Event hittades inte" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ event }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     // Public: Get events with recordings
     if (action === "recordings") {
       const { data: events, error } = await supabase

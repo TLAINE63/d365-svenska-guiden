@@ -179,13 +179,13 @@ const Events = () => {
                 </Card>
               ) : (
                 upcomingEvents.map((event) => (
-                  <Card key={event.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 to-purple-500" />
-                    <CardContent className="p-6">
-                      <div className="flex flex-col md:flex-row gap-6">
-                        {/* Partner Logo */}
-                        <div className="shrink-0">
-                          <Link to={`/partner/${event.partners.slug}`}>
+                  <Link key={event.id} to={`/events/${event.id}`} className="block">
+                    <Card className="overflow-hidden hover:shadow-xl transition-shadow relative">
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 to-purple-500" />
+                      <CardContent className="p-6">
+                        <div className="flex flex-col md:flex-row gap-6">
+                          {/* Partner Logo */}
+                          <div className="shrink-0">
                             <div className={`w-20 h-20 rounded-xl flex items-center justify-center border ${
                               event.partners.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
                             }`}>
@@ -199,94 +199,77 @@ const Events = () => {
                                 <Building2 className="w-8 h-8 text-muted-foreground" />
                               )}
                             </div>
-                          </Link>
-                        </div>
+                          </div>
 
-                        {/* Event Details */}
-                        <div className="flex-1 space-y-3">
-                          <div className="flex flex-wrap items-start justify-between gap-2">
-                            <div>
-                              <h3 className="text-xl font-bold">{event.title}</h3>
-                              <Link 
-                                to={`/partner/${event.partners.slug}`}
-                                className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                              >
-                                Arrangör: {event.partners.name}
-                              </Link>
+                          {/* Event Details */}
+                          <div className="flex-1 space-y-3">
+                            <div className="flex flex-wrap items-start justify-between gap-2">
+                              <div>
+                                <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{event.title}</h3>
+                                <p className="text-sm text-muted-foreground">
+                                  Arrangör: {event.partners.name}
+                                </p>
+                              </div>
+                              <Badge className="bg-violet-100 text-violet-800 border-violet-200">
+                                {event.is_online ? (
+                                  <><Video className="w-3 h-3 mr-1" /> Online</>
+                                ) : (
+                                  <><MapPin className="w-3 h-3 mr-1" /> På plats</>
+                                )}
+                              </Badge>
                             </div>
-                            <Badge className="bg-violet-100 text-violet-800 border-violet-200">
-                              {event.is_online ? (
-                                <><Video className="w-3 h-3 mr-1" /> Online</>
-                              ) : (
-                                <><MapPin className="w-3 h-3 mr-1" /> På plats</>
+
+                            {event.description && (
+                              <p className="text-muted-foreground line-clamp-2">{event.description}</p>
+                            )}
+
+                            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                              <span className="flex items-center gap-1.5 font-medium">
+                                <Calendar className="w-4 h-4 text-violet-600" />
+                                {formatDate(event.event_date)}
+                              </span>
+                              {event.event_time && (
+                                <span className="flex items-center gap-1.5 text-muted-foreground">
+                                  <Clock className="w-4 h-4" />
+                                  {formatTime(event.event_time)}
+                                  {event.end_time && ` - ${formatTime(event.end_time)}`}
+                                </span>
                               )}
-                            </Badge>
-                          </div>
+                              {!event.is_online && event.location && (
+                                <span className="flex items-center gap-1.5 text-muted-foreground">
+                                  <MapPin className="w-4 h-4" />
+                                  {event.location}
+                                </span>
+                              )}
+                            </div>
 
-                          {event.description && (
-                            <p className="text-muted-foreground">{event.description}</p>
-                          )}
-
-                          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                            <span className="flex items-center gap-1.5 font-medium">
-                              <Calendar className="w-4 h-4 text-violet-600" />
-                              {formatDate(event.event_date)}
-                            </span>
-                            {event.event_time && (
-                              <span className="flex items-center gap-1.5 text-muted-foreground">
-                                <Clock className="w-4 h-4" />
-                                {formatTime(event.event_time)}
-                                {event.end_time && ` - ${formatTime(event.end_time)}`}
-                              </span>
-                            )}
-                            {!event.is_online && event.location && (
-                              <span className="flex items-center gap-1.5 text-muted-foreground">
-                                <MapPin className="w-4 h-4" />
-                                {event.location}
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="flex flex-wrap gap-2 pt-2">
-                            {event.registration_link && (
-                              <Button asChild className="gap-2 bg-violet-600 hover:bg-violet-700">
-                                <a href={event.registration_link} target="_blank" rel="noopener noreferrer">
-                                  <Users className="w-4 h-4" />
-                                  Anmäl dig
-                                  <ExternalLink className="w-3 h-3" />
-                                </a>
+                            <div className="flex flex-wrap items-center gap-2 pt-2">
+                              <Button className="gap-2 bg-violet-600 hover:bg-violet-700" size="sm">
+                                Läs mer & anmäl dig
+                                <ExternalLink className="w-3 h-3" />
                               </Button>
-                            )}
-                            {event.is_online && event.event_link && (
-                              <Button asChild variant="outline" className="gap-2">
-                                <a href={event.event_link} target="_blank" rel="noopener noreferrer">
-                                  <Video className="w-4 h-4" />
-                                  Möteslänk
-                                </a>
-                              </Button>
-                            )}
+                              {event.registration_deadline && (
+                                <p className="text-xs text-muted-foreground">
+                                  Sista anmälningsdag: {formatDate(event.registration_deadline)}
+                                </p>
+                              )}
+                            </div>
                           </div>
 
-                          {event.registration_deadline && (
-                            <p className="text-xs text-muted-foreground pt-1">
-                              Sista anmälningsdag: {formatDate(event.registration_deadline)}
-                            </p>
+                          {/* Event Image */}
+                          {event.image_url && (
+                            <div className="shrink-0 hidden lg:block">
+                              <img 
+                                src={event.image_url} 
+                                alt={event.title}
+                                className="w-48 h-32 object-cover rounded-lg"
+                              />
+                            </div>
                           )}
                         </div>
-
-                        {/* Event Image */}
-                        {event.image_url && (
-                          <div className="shrink-0 hidden lg:block">
-                            <img 
-                              src={event.image_url} 
-                              alt={event.title}
-                              className="w-48 h-32 object-cover rounded-lg"
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))
               )}
             </TabsContent>
