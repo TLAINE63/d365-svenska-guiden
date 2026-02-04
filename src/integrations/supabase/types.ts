@@ -462,6 +462,54 @@ export type Database = {
         }
         Relationships: []
       }
+      visitor_analytics: {
+        Row: {
+          geo_city: string | null
+          geo_country: string | null
+          geo_country_code: string | null
+          geo_region: string | null
+          id: string
+          ip_anonymized: string | null
+          is_bounce: boolean | null
+          page_path: string
+          referrer: string | null
+          session_id: string | null
+          time_on_page_seconds: number | null
+          user_agent: string | null
+          visited_at: string
+        }
+        Insert: {
+          geo_city?: string | null
+          geo_country?: string | null
+          geo_country_code?: string | null
+          geo_region?: string | null
+          id?: string
+          ip_anonymized?: string | null
+          is_bounce?: boolean | null
+          page_path: string
+          referrer?: string | null
+          session_id?: string | null
+          time_on_page_seconds?: number | null
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Update: {
+          geo_city?: string | null
+          geo_country?: string | null
+          geo_country_code?: string | null
+          geo_region?: string | null
+          id?: string
+          ip_anonymized?: string | null
+          is_bounce?: boolean | null
+          page_path?: string
+          referrer?: string | null
+          session_id?: string | null
+          time_on_page_seconds?: number | null
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       partners_public: {

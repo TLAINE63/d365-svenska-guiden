@@ -336,6 +336,93 @@ case "click-stats": {
         );
       }
 
+      case "visitor-stats": {
+        const { startDate } = data;
+        
+        // Fetch all visitor analytics from the specified date
+        const { data: visitors, error } = await supabase
+          .from("visitor_analytics")
+          .select("*")
+          .gte("visited_at", startDate)
+          .order("visited_at", { ascending: false });
+
+        if (error) throw error;
+
+        const NORDIC_COUNTRIES = ["SE", "NO", "DK", "FI", "IS"];
+        const EUROPEAN_COUNTRIES = [
+          "AT", "BE", "BG", "HR", "CY", "CZ", "EE", "FR", "DE", "GR", "HU", 
+          "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", 
+          "SI", "ES", "GB", "CH", "UA", "BY", "RS", "BA", "ME", "MK", "AL"
+        ];
+
+        // Calculate stats
+        const swedishVisitors = visitors?.filter(v => v.geo_country_code === "SE") || [];
+        const nordicVisitors = visitors?.filter(v => 
+          NORDIC_COUNTRIES.includes(v.geo_country_code) && v.geo_country_code !== "SE"
+        ) || [];
+        const europeanVisitors = visitors?.filter(v => 
+          EUROPEAN_COUNTRIES.includes(v.geo_country_code)
+        ) || [];
+        const otherVisitors = visitors?.filter(v => 
+          v.geo_country_code && 
+          !NORDIC_COUNTRIES.includes(v.geo_country_code) && 
+          !EUROPEAN_COUNTRIES.includes(v.geo_country_code)
+        ) || [];
+
+        // Swedish bounce rate
+        const swedishBounces = swedishVisitors.filter(v => v.is_bounce === true).length;
+        const swedishBounceRate = swedishVisitors.length > 0 
+          ? Math.round((swedishBounces / swedishVisitors.length) * 100) 
+          : 0;
+
+        // Average time on page (Swedish visitors)
+        const validTimes = swedishVisitors.filter(v => v.time_on_page_seconds && v.time_on_page_seconds > 0);
+        const avgTimeOnPage = validTimes.length > 0
+          ? Math.round(validTimes.reduce((sum, v) => sum + v.time_on_page_seconds, 0) / validTimes.length)
+          : 0;
+
+        // Top pages (Swedish visitors)
+        const pageCount: Record<string, number> = {};
+        swedishVisitors.forEach(v => {
+          pageCount[v.page_path] = (pageCount[v.page_path] || 0) + 1;
+        });
+        const topPages = Object.entries(pageCount)
+          .map(([path, visits]) => ({ path, visits }))
+          .sort((a, b) => b.visits - a.visits)
+          .slice(0, 10);
+
+        // Top cities (Swedish visitors)
+        const cityCount: Record<string, { city: string; region: string; visits: number }> = {};
+        swedishVisitors.forEach(v => {
+          if (v.geo_city && v.geo_city !== "Unknown") {
+            const key = `${v.geo_city}_${v.geo_region}`;
+            if (!cityCount[key]) {
+              cityCount[key] = { city: v.geo_city, region: v.geo_region || "", visits: 0 };
+            }
+            cityCount[key].visits++;
+          }
+        });
+        const topCities = Object.values(cityCount)
+          .sort((a, b) => b.visits - a.visits);
+
+        const stats = {
+          totalVisitors: visitors?.length || 0,
+          swedishVisitors: swedishVisitors.length,
+          nordicVisitors: nordicVisitors.length,
+          europeanVisitors: europeanVisitors.length,
+          otherVisitors: otherVisitors.length,
+          swedishBounceRate,
+          avgTimeOnPage,
+          topPages,
+          topCities,
+        };
+
+        return new Response(
+          JSON.stringify({ stats }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
       default:
         return new Response(
           JSON.stringify({ error: "Invalid action" }),

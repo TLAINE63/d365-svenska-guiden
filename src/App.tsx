@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import CookieBanner from "@/components/CookieBanner";
 import SnitcherTracking from "@/components/SnitcherTracking";
+import VisitorTracking from "@/components/VisitorTracking";
 
 // Lazy load pages for code splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -93,6 +94,7 @@ const App = () => (
         </Suspense>
         <CookieBanner />
         <SnitcherTracking />
+        <VisitorTracking />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
