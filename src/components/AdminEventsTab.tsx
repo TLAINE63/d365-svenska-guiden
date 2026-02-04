@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import {
   Table,
   TableBody,
@@ -28,12 +30,11 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import {
   Calendar, Check, X, Clock, Link as LinkIcon, Copy, ExternalLink,
-  Building2, Video, MapPin, Eye, RefreshCw
+  Building2, Video, MapPin, Eye, RefreshCw, Plus, Trash2, Pencil
 } from "lucide-react";
 
 interface Partner {
@@ -88,6 +89,43 @@ interface AdminEventsTabProps {
   onSessionExpired: () => void;
 }
 
+interface EventFormData {
+  id?: string;
+  title: string;
+  description: string;
+  event_date: string;
+  event_time: string;
+  end_time: string;
+  is_online: boolean;
+  location: string;
+  event_link: string;
+  registration_link: string;
+  registration_deadline: string;
+  image_url: string;
+  recording_url: string;
+  recording_available: boolean;
+  status: string;
+  admin_notes: string;
+}
+
+const emptyEventForm: EventFormData = {
+  title: "",
+  description: "",
+  event_date: "",
+  event_time: "",
+  end_time: "",
+  is_online: true,
+  location: "",
+  event_link: "",
+  registration_link: "",
+  registration_deadline: "",
+  image_url: "",
+  recording_url: "",
+  recording_available: false,
+  status: "approved",
+  admin_notes: "",
+};
+
 export default function AdminEventsTab({ token, partners, onSessionExpired }: AdminEventsTabProps) {
   const { toast } = useToast();
   const [events, setEvents] = useState<PartnerEvent[]>([]);
@@ -99,6 +137,12 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   const [adminNotes, setAdminNotes] = useState("");
   const [selectedPartnerForToken, setSelectedPartnerForToken] = useState<string>("");
   const [isCreatingToken, setIsCreatingToken] = useState(false);
+
+  // Event creation/editing state
+  const [isEventFormOpen, setIsEventFormOpen] = useState(false);
+  const [selectedPartnerForEvent, setSelectedPartnerForEvent] = useState<string>("");
+  const [eventFormData, setEventFormData] = useState<EventFormData>(emptyEventForm);
+  const [isSavingEvent, setIsSavingEvent] = useState(false);
 
   const fetchEvents = async () => {
     setIsLoadingEvents(true);
@@ -289,6 +333,130 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     });
   };
 
+  const handleSaveEvent = async () => {
+    if (!selectedPartnerForEvent || !eventFormData.title || !eventFormData.event_date) {
+      toast({
+        title: "Fel",
+        description: "Partner, titel och datum krävs.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSavingEvent(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=admin-save-event`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            partner_id: selectedPartnerForEvent,
+            event: eventFormData,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
+          onSessionExpired();
+        }
+        throw new Error(data.error || "Kunde inte spara event");
+      }
+
+      toast({
+        title: eventFormData.id ? "Event uppdaterat" : "Event skapat",
+        description: `${eventFormData.title} har sparats.`,
+      });
+
+      setIsEventFormOpen(false);
+      setEventFormData(emptyEventForm);
+      setSelectedPartnerForEvent("");
+      fetchEvents();
+    } catch (error: any) {
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte spara event",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSavingEvent(false);
+    }
+  };
+
+  const handleDeleteEvent = async (eventId: string) => {
+    if (!confirm("Är du säker på att du vill ta bort detta event?")) return;
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=admin-delete-event&eventId=${eventId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
+          onSessionExpired();
+        }
+        throw new Error(data.error || "Kunde inte ta bort event");
+      }
+
+      toast({
+        title: "Event borttaget",
+        description: "Eventet har tagits bort.",
+      });
+
+      fetchEvents();
+    } catch (error: any) {
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte ta bort event",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const openEditEventForm = (event: PartnerEvent) => {
+    setSelectedPartnerForEvent(event.partner_id);
+    setEventFormData({
+      id: event.id,
+      title: event.title,
+      description: event.description || "",
+      event_date: event.event_date,
+      event_time: event.event_time || "",
+      end_time: event.end_time || "",
+      is_online: event.is_online,
+      location: event.location || "",
+      event_link: event.event_link || "",
+      registration_link: event.registration_link || "",
+      registration_deadline: "",
+      image_url: "",
+      recording_url: event.recording_url || "",
+      recording_available: event.recording_available,
+      status: event.status,
+      admin_notes: event.admin_notes || "",
+    });
+    setIsEventFormOpen(true);
+  };
+
+  const openNewEventForm = () => {
+    setSelectedPartnerForEvent("");
+    setEventFormData(emptyEventForm);
+    setIsEventFormOpen(true);
+  };
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "pending":
@@ -331,10 +499,16 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
               <p className="text-sm text-muted-foreground">
                 Hantera events från partners. Godkänd events visas på den publika event-sidan.
               </p>
-              <Button variant="outline" size="sm" onClick={fetchEvents} disabled={isLoadingEvents}>
-                <RefreshCw className={`h-4 w-4 mr-2 ${isLoadingEvents ? "animate-spin" : ""}`} />
-                Uppdatera
-              </Button>
+              <div className="flex gap-2">
+                <Button onClick={openNewEventForm}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Skapa event
+                </Button>
+                <Button variant="outline" size="sm" onClick={fetchEvents} disabled={isLoadingEvents}>
+                  <RefreshCw className={`h-4 w-4 mr-2 ${isLoadingEvents ? "animate-spin" : ""}`} />
+                  Uppdatera
+                </Button>
+              </div>
             </div>
 
             <Table>
@@ -394,18 +568,39 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                         {format(new Date(event.created_at), "d MMM", { locale: sv })}
                       </TableCell>
                       <TableCell>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => {
-                            setSelectedEvent(event);
-                            setAdminNotes(event.admin_notes || "");
-                            setIsReviewDialogOpen(true);
-                          }}
-                        >
-                          <Eye className="h-4 w-4 mr-1" />
-                          Granska
-                        </Button>
+                        <div className="flex gap-1">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => openEditEventForm(event)}
+                            title="Redigera"
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                          {event.status === "pending" && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => {
+                                setSelectedEvent(event);
+                                setAdminNotes(event.admin_notes || "");
+                                setIsReviewDialogOpen(true);
+                              }}
+                              title="Granska"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                          )}
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleDeleteEvent(event.id)}
+                            className="text-destructive hover:text-destructive"
+                            title="Ta bort"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))
@@ -658,6 +853,191 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
               >
                 <Check className="h-4 w-4 mr-2" />
                 Godkänn
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Event Form Dialog */}
+        <Dialog open={isEventFormOpen} onOpenChange={setIsEventFormOpen}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{eventFormData.id ? "Redigera event" : "Skapa nytt event"}</DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-4">
+              {/* Partner Selection */}
+              <div className="space-y-2">
+                <Label>Partner *</Label>
+                <Select
+                  value={selectedPartnerForEvent}
+                  onValueChange={setSelectedPartnerForEvent}
+                  disabled={!!eventFormData.id}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Välj partner..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {partners.map((partner) => (
+                      <SelectItem key={partner.id} value={partner.id}>
+                        <div className="flex items-center gap-2">
+                          {partner.name}
+                          {partner.is_featured && (
+                            <Badge variant="secondary" className="text-xs">Utvald</Badge>
+                          )}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Event Details */}
+              <div className="space-y-2">
+                <Label>Eventtitel *</Label>
+                <Input
+                  value={eventFormData.title}
+                  onChange={(e) => setEventFormData(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder="T.ex. 'Webinar: Nyheter i Business Central'"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Beskrivning</Label>
+                <Textarea
+                  value={eventFormData.description}
+                  onChange={(e) => setEventFormData(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder="Beskriv vad eventet handlar om..."
+                  rows={3}
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Datum *</Label>
+                  <Input
+                    type="date"
+                    value={eventFormData.event_date}
+                    onChange={(e) => setEventFormData(prev => ({ ...prev, event_date: e.target.value }))}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-2">
+                    <Label>Starttid</Label>
+                    <Input
+                      type="time"
+                      value={eventFormData.event_time}
+                      onChange={(e) => setEventFormData(prev => ({ ...prev, event_time: e.target.value }))}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Sluttid</Label>
+                    <Input
+                      type="time"
+                      value={eventFormData.end_time}
+                      onChange={(e) => setEventFormData(prev => ({ ...prev, end_time: e.target.value }))}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Switch
+                  checked={eventFormData.is_online}
+                  onCheckedChange={(checked) => setEventFormData(prev => ({ ...prev, is_online: checked }))}
+                />
+                <Label>Online-event</Label>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>{eventFormData.is_online ? "Möteslänk" : "Plats"}</Label>
+                  <Input
+                    value={eventFormData.is_online ? eventFormData.event_link : eventFormData.location}
+                    onChange={(e) => setEventFormData(prev => ({
+                      ...prev,
+                      [eventFormData.is_online ? "event_link" : "location"]: e.target.value
+                    }))}
+                    placeholder={eventFormData.is_online ? "https://teams.microsoft.com/..." : "Adress"}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>Anmälningslänk</Label>
+                  <Input
+                    value={eventFormData.registration_link}
+                    onChange={(e) => setEventFormData(prev => ({ ...prev, registration_link: e.target.value }))}
+                    placeholder="https://..."
+                  />
+                </div>
+              </div>
+
+              {/* Recording section */}
+              <div className="p-4 bg-muted/50 rounded-lg space-y-3">
+                <div className="flex items-center justify-between">
+                  <Label className="flex items-center gap-2">
+                    <Video className="w-4 h-4" />
+                    Inspelning tillgänglig
+                  </Label>
+                  <Switch
+                    checked={eventFormData.recording_available}
+                    onCheckedChange={(checked) => setEventFormData(prev => ({ ...prev, recording_available: checked }))}
+                  />
+                </div>
+                
+                {eventFormData.recording_available && (
+                  <div className="space-y-2">
+                    <Label>Länk till inspelning</Label>
+                    <Input
+                      value={eventFormData.recording_url}
+                      onChange={(e) => setEventFormData(prev => ({ ...prev, recording_url: e.target.value }))}
+                      placeholder="https://youtube.com/..."
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Status */}
+              <div className="space-y-2">
+                <Label>Status</Label>
+                <Select
+                  value={eventFormData.status}
+                  onValueChange={(value) => setEventFormData(prev => ({ ...prev, status: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="approved">Godkänt</SelectItem>
+                    <SelectItem value="pending">Väntar på godkännande</SelectItem>
+                    <SelectItem value="rejected">Avvisat</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Admin Notes */}
+              <div className="space-y-2">
+                <Label>Admin-anteckningar</Label>
+                <Textarea
+                  value={eventFormData.admin_notes}
+                  onChange={(e) => setEventFormData(prev => ({ ...prev, admin_notes: e.target.value }))}
+                  placeholder="Interna anteckningar..."
+                  rows={2}
+                />
+              </div>
+            </div>
+
+            <DialogFooter className="gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setIsEventFormOpen(false)}
+              >
+                Avbryt
+              </Button>
+              <Button
+                onClick={handleSaveEvent}
+                disabled={isSavingEvent}
+              >
+                {isSavingEvent ? "Sparar..." : (eventFormData.id ? "Spara ändringar" : "Skapa event")}
               </Button>
             </DialogFooter>
           </DialogContent>
