@@ -763,29 +763,28 @@ serve(async (req: Request): Promise<Response> => {
       const body = await req.json();
       const { partner_id, event } = body;
 
-      if (!partner_id) {
-        return new Response(
-          JSON.stringify({ error: "partner_id krävs" }),
-          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
-      }
+      // partner_id is optional - null means d365.se event
+      let partnerName = "d365.se";
+      
+      if (partner_id) {
+        // Verify partner exists if provided
+        const { data: partner, error: partnerError } = await supabase
+          .from("partners")
+          .select("id, name, is_featured")
+          .eq("id", partner_id)
+          .single();
 
-      // Verify partner exists
-      const { data: partner, error: partnerError } = await supabase
-        .from("partners")
-        .select("id, name, is_featured")
-        .eq("id", partner_id)
-        .single();
-
-      if (partnerError || !partner) {
-        return new Response(
-          JSON.stringify({ error: "Partner hittades inte" }),
-          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
+        if (partnerError || !partner) {
+          return new Response(
+            JSON.stringify({ error: "Partner hittades inte" }),
+            { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+        partnerName = partner.name;
       }
 
       const eventData = {
-        partner_id,
+        partner_id: partner_id || null, // null for d365.se events
         title: event.title,
         description: event.description || null,
         event_date: event.event_date,

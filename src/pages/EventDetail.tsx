@@ -45,7 +45,7 @@ interface PartnerEvent {
   image_url: string | null;
   recording_url: string | null;
   recording_available: boolean;
-  partners: Partner;
+  partners: Partner | null; // Can be null for d365.se events
 }
 
 const EventDetail = () => {
@@ -173,10 +173,10 @@ const EventDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>{event.title} | {event.partners.name} | d365.se</title>
+        <title>{event.title} | {event.partners?.name || "d365.se"} | d365.se</title>
         <meta
           name="description"
-          content={event.description || `${event.title} - ett event från ${event.partners.name}`}
+          content={event.description || `${event.title} - ett event från ${event.partners?.name || "d365.se"}`}
         />
       </Helmet>
 
@@ -273,31 +273,41 @@ const EventDetail = () => {
               {/* Registration Card */}
               <Card className="sticky top-24">
                 <CardContent className="p-6 space-y-6">
-                  {/* Partner Info */}
+                  {/* Partner/d365.se Info */}
                   <div className="flex items-center gap-4">
-                    <Link to={`/partner/${event.partners.slug}`}>
-                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center border ${
-                        event.partners.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
-                      }`}>
-                        {event.partners.logo_url ? (
-                          <img 
-                            src={event.partners.logo_url} 
-                            alt={event.partners.name}
-                            className="max-w-12 max-h-12 object-contain"
-                          />
-                        ) : (
-                          <Building2 className="w-6 h-6 text-muted-foreground" />
-                        )}
+                    {event.partners ? (
+                      <Link to={`/partner/${event.partners.slug}`}>
+                        <div className={`w-16 h-16 rounded-xl flex items-center justify-center border ${
+                          event.partners.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
+                        }`}>
+                          {event.partners.logo_url ? (
+                            <img 
+                              src={event.partners.logo_url} 
+                              alt={event.partners.name}
+                              className="max-w-12 max-h-12 object-contain"
+                            />
+                          ) : (
+                            <Building2 className="w-6 h-6 text-muted-foreground" />
+                          )}
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="w-16 h-16 rounded-xl flex items-center justify-center border bg-primary/10">
+                        <span className="text-lg font-bold text-primary">d365</span>
                       </div>
-                    </Link>
+                    )}
                     <div>
                       <p className="text-sm text-muted-foreground">Arrangör</p>
-                      <Link 
-                        to={`/partner/${event.partners.slug}`}
-                        className="font-semibold hover:text-violet-600 transition-colors"
-                      >
-                        {event.partners.name}
-                      </Link>
+                      {event.partners ? (
+                        <Link 
+                          to={`/partner/${event.partners.slug}`}
+                          className="font-semibold hover:text-violet-600 transition-colors"
+                        >
+                          {event.partners.name}
+                        </Link>
+                      ) : (
+                        <span className="font-semibold">d365.se</span>
+                      )}
                     </div>
                   </div>
 
