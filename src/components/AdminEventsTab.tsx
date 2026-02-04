@@ -49,7 +49,7 @@ interface Partner {
 
 interface PartnerEvent {
   id: string;
-  partner_id: string;
+  partner_id: string | null;
   title: string;
   event_date: string;
   event_link: string | null;
@@ -58,8 +58,16 @@ interface PartnerEvent {
     id: string;
     name: string;
     slug: string;
-  };
+  } | null;
 }
+
+// Special "partner" entry for d365.se events
+const D365_SE_OPTION: Partner = {
+  id: "d365se",
+  name: "d365.se (Eget event)",
+  is_featured: true,
+  slug: "d365se",
+};
 
 interface AdminEventsTabProps {
   token: string;
@@ -136,6 +144,9 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
       return;
     }
 
+    // Use null for d365.se events, otherwise use partner_id
+    const partnerId = selectedPartner.id === "d365se" ? null : selectedPartner.id;
+
     setIsSaving(true);
     try {
       const response = await fetch(
@@ -147,7 +158,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            partner_id: selectedPartner.id,
+            partner_id: partnerId,
             event: {
               id: editingEvent?.id,
               title: formData.title,
@@ -233,9 +244,14 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   };
 
   const openEditForm = (event: PartnerEvent) => {
-    const partner = partners.find(p => p.id === event.partner_id);
-    if (partner) {
-      setSelectedPartner(partner);
+    if (event.partner_id === null) {
+      // d365.se event
+      setSelectedPartner(D365_SE_OPTION);
+    } else {
+      const partner = partners.find(p => p.id === event.partner_id);
+      if (partner) {
+        setSelectedPartner(partner);
+      }
     }
     setEditingEvent(event);
     setFormData({
@@ -253,14 +269,19 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     setFormData({ title: "", event_link: "", event_date: "" });
   };
 
-  // Filter partners based on search
-  const filteredPartners = partners.filter(p => 
-    p.is_featured && p.name.toLowerCase().includes(partnerFilter.toLowerCase())
-  );
+  // Filter partners based on search - include d365.se option at the top
+  const filteredPartners = [
+    ...(D365_SE_OPTION.name.toLowerCase().includes(partnerFilter.toLowerCase()) ? [D365_SE_OPTION] : []),
+    ...partners.filter(p => 
+      p.is_featured && p.name.toLowerCase().includes(partnerFilter.toLowerCase())
+    )
+  ];
 
-  // Get events for selected partner
+  // Get events for selected partner (or d365.se events when d365se is selected)
   const partnerEvents = selectedPartner 
-    ? events.filter(e => e.partner_id === selectedPartner.id)
+    ? selectedPartner.id === "d365se"
+      ? events.filter(e => e.partner_id === null)
+      : events.filter(e => e.partner_id === selectedPartner.id)
     : [];
 
   // Check if event is upcoming

@@ -159,7 +159,7 @@ export type Database = {
           image_url: string | null
           is_online: boolean
           location: string | null
-          partner_id: string
+          partner_id: string | null
           recording_available: boolean
           recording_url: string | null
           registration_deadline: string | null
@@ -182,7 +182,7 @@ export type Database = {
           image_url?: string | null
           is_online?: boolean
           location?: string | null
-          partner_id: string
+          partner_id?: string | null
           recording_available?: boolean
           recording_url?: string | null
           registration_deadline?: string | null
@@ -205,7 +205,7 @@ export type Database = {
           image_url?: string | null
           is_online?: boolean
           location?: string | null
-          partner_id?: string
+          partner_id?: string | null
           recording_available?: boolean
           recording_url?: string | null
           registration_deadline?: string | null

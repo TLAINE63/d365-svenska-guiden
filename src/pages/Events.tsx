@@ -44,7 +44,7 @@ interface PartnerEvent {
   image_url: string | null;
   recording_url: string | null;
   recording_available: boolean;
-  partners: Partner;
+  partners: Partner | null; // Can be null for d365.se events
 }
 
 const Events = () => {
@@ -199,19 +199,21 @@ const Events = () => {
                       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 to-purple-500" />
                       <CardContent className="p-6">
                         <div className="flex flex-col md:flex-row gap-6">
-                          {/* Partner Logo */}
+                          {/* Partner/d365.se Logo */}
                           <div className="shrink-0">
                             <div className={`w-20 h-20 rounded-xl flex items-center justify-center border ${
-                              event.partners.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
+                              event.partners?.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
                             }`}>
-                              {event.partners.logo_url ? (
+                              {event.partners?.logo_url ? (
                                 <img 
                                   src={event.partners.logo_url} 
                                   alt={event.partners.name}
                                   className="max-w-16 max-h-16 object-contain"
                                 />
-                              ) : (
+                              ) : event.partners ? (
                                 <Building2 className="w-8 h-8 text-muted-foreground" />
+                              ) : (
+                                <span className="text-xl font-bold text-primary">d365</span>
                               )}
                             </div>
                           </div>
@@ -222,7 +224,7 @@ const Events = () => {
                               <div>
                                 <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{event.title}</h3>
                                 <p className="text-sm text-muted-foreground">
-                                  Arrangör: {event.partners.name}
+                                  Arrangör: {event.partners?.name || "d365.se"}
                                 </p>
                               </div>
                               <Badge className="bg-violet-100 text-violet-800 border-violet-200">
@@ -307,18 +309,20 @@ const Events = () => {
                       <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                         <CardContent className="p-5">
                           <div className="flex items-start gap-4">
-                            {/* Partner Logo */}
+                            {/* Partner/d365.se Logo */}
                             <div className={`w-14 h-14 rounded-xl flex items-center justify-center border shrink-0 ${
-                              event.partners.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
+                              event.partners?.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
                             }`}>
-                              {event.partners.logo_url ? (
+                              {event.partners?.logo_url ? (
                                 <img 
                                   src={event.partners.logo_url} 
                                   alt={event.partners.name}
                                   className="max-w-10 max-h-10 object-contain"
                                 />
-                              ) : (
+                              ) : event.partners ? (
                                 <Building2 className="w-6 h-6 text-muted-foreground" />
+                              ) : (
+                                <span className="text-sm font-bold text-primary">d365</span>
                               )}
                             </div>
                             
@@ -327,7 +331,7 @@ const Events = () => {
                                 {event.title}
                               </h4>
                               <p className="text-sm text-muted-foreground mt-1">
-                                {event.partners.name}
+                                {event.partners?.name || "d365.se"}
                               </p>
                               <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                                 <Calendar className="w-3 h-3" />
