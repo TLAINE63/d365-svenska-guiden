@@ -162,7 +162,7 @@ const Events = () => {
               </TabsTrigger>
               <TabsTrigger value="recordings" className="gap-2">
                 <Play className="w-4 h-4" />
-                Inspelningar ({recordings.length})
+                Genomförda events ({recordings.length})
               </TabsTrigger>
             </TabsList>
 
