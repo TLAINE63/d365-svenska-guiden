@@ -61,16 +61,19 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
     try {
       const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
       
-      // Fetch visitor data using supabase client with service role via edge function
+      // Fetch visitor data using edge function with admin token
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads?action=visitor-stats`,
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`,
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ startDate: startDate.toISOString() }),
+          body: JSON.stringify({ 
+            action: "visitor-stats",
+            token: token,
+            startDate: startDate.toISOString() 
+          }),
         }
       );
 
