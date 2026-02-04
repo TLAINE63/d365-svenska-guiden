@@ -727,6 +727,123 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Admin: Create or update event directly
+    if (action === "admin-save-event" && req.method === "POST") {
+      const body = await req.json();
+      const { partner_id, event } = body;
+
+      if (!partner_id) {
+        return new Response(
+          JSON.stringify({ error: "partner_id krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Verify partner exists
+      const { data: partner, error: partnerError } = await supabase
+        .from("partners")
+        .select("id, name, is_featured")
+        .eq("id", partner_id)
+        .single();
+
+      if (partnerError || !partner) {
+        return new Response(
+          JSON.stringify({ error: "Partner hittades inte" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const eventData = {
+        partner_id,
+        title: event.title,
+        description: event.description || null,
+        event_date: event.event_date,
+        event_time: event.event_time || null,
+        end_time: event.end_time || null,
+        is_online: event.is_online ?? true,
+        location: event.location || null,
+        event_link: event.event_link || null,
+        registration_link: event.registration_link || null,
+        registration_deadline: event.registration_deadline || null,
+        image_url: event.image_url || null,
+        recording_url: event.recording_url || null,
+        recording_available: event.recording_available ?? false,
+        status: event.status || "approved", // Admin can set status directly
+        admin_notes: event.admin_notes || null,
+      };
+
+      let result;
+      if (event.id) {
+        // Update existing event
+        const { data, error } = await supabase
+          .from("partner_events")
+          .update({ ...eventData, updated_at: new Date().toISOString() })
+          .eq("id", event.id)
+          .select()
+          .single();
+
+        if (error) {
+          console.error("Error updating event:", error);
+          return new Response(
+            JSON.stringify({ error: "Kunde inte uppdatera event" }),
+            { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+        result = data;
+      } else {
+        // Create new event
+        const { data, error } = await supabase
+          .from("partner_events")
+          .insert(eventData)
+          .select()
+          .single();
+
+        if (error) {
+          console.error("Error creating event:", error);
+          return new Response(
+            JSON.stringify({ error: "Kunde inte skapa event" }),
+            { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+        result = data;
+      }
+
+      return new Response(
+        JSON.stringify({ success: true, event: result }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Admin: Delete event
+    if (action === "admin-delete-event" && req.method === "DELETE") {
+      const eventId = url.searchParams.get("eventId");
+
+      if (!eventId) {
+        return new Response(
+          JSON.stringify({ error: "eventId krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const { error } = await supabase
+        .from("partner_events")
+        .delete()
+        .eq("id", eventId);
+
+      if (error) {
+        console.error("Error deleting event:", error);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte ta bort event" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ success: true }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     return new Response(
       JSON.stringify({ error: "Ogiltig åtgärd" }),
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
