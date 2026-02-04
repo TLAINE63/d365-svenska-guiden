@@ -36,7 +36,7 @@ import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import {
-  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2
+  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -261,10 +261,14 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     p.name.toLowerCase().includes(partnerFilter.toLowerCase())
   );
 
-  // Get events for selected partner
-  const partnerEvents = selectedPartner 
+  // Get events - show all upcoming if no partner selected, otherwise filter by partner
+  const upcomingEvents = events
+    .filter(e => new Date(e.event_date) >= new Date())
+    .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
+
+  const displayedEvents = selectedPartner 
     ? events.filter(e => e.partner_id === selectedPartner.id)
-    : [];
+    : upcomingEvents;
 
   // Check if event is upcoming
   const isUpcoming = (dateStr: string) => new Date(dateStr) >= new Date();
@@ -280,85 +284,101 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
-        {/* Partner Search */}
-        <div className="space-y-2">
-          <Label className="text-base font-semibold">Välj partner</Label>
-          <Popover open={partnerSearchOpen} onOpenChange={setPartnerSearchOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={partnerSearchOpen}
-                className="w-full md:w-96 justify-between"
-              >
-                {selectedPartner ? (
-                  <span className="flex items-center gap-2">
-                    <Building2 className="h-4 w-4 text-muted-foreground" />
-                    {selectedPartner.name}
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2 text-muted-foreground">
-                    <Search className="h-4 w-4" />
-                    Sök efter partner...
-                  </span>
-                )}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-full md:w-96 p-0" align="start">
-              <Command>
-                <CommandInput 
-                  placeholder="Sök partner..." 
-                  value={partnerFilter}
-                  onValueChange={setPartnerFilter}
-                />
-                <CommandList>
-                  <CommandEmpty>Ingen partner hittades.</CommandEmpty>
-                  <CommandGroup>
-                    {filteredPartners.map((partner) => (
-                      <CommandItem
-                        key={partner.id}
-                        value={partner.name}
-                        onSelect={() => {
-                          setSelectedPartner(partner);
-                          setPartnerSearchOpen(false);
-                          setPartnerFilter("");
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            selectedPartner?.id === partner.id ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        {partner.name}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+        {/* Partner Filter */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex-1">
+            <Label className="text-base font-semibold mb-2 block">Filtrera på partner</Label>
+            <div className="flex items-center gap-2">
+              <Popover open={partnerSearchOpen} onOpenChange={setPartnerSearchOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={partnerSearchOpen}
+                    className="w-full md:w-96 justify-between"
+                  >
+                    {selectedPartner ? (
+                      <span className="flex items-center gap-2">
+                        <Building2 className="h-4 w-4 text-muted-foreground" />
+                        {selectedPartner.name}
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2 text-muted-foreground">
+                        <Calendar className="h-4 w-4" />
+                        Alla kommande events
+                      </span>
+                    )}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-full md:w-96 p-0" align="start">
+                  <Command>
+                    <CommandInput 
+                      placeholder="Sök partner..." 
+                      value={partnerFilter}
+                      onValueChange={setPartnerFilter}
+                    />
+                    <CommandList>
+                      <CommandEmpty>Ingen partner hittades.</CommandEmpty>
+                      <CommandGroup>
+                        {filteredPartners.map((partner) => (
+                          <CommandItem
+                            key={partner.id}
+                            value={partner.name}
+                            onSelect={() => {
+                              setSelectedPartner(partner);
+                              setPartnerSearchOpen(false);
+                              setPartnerFilter("");
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                selectedPartner?.id === partner.id ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {partner.name}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              {selectedPartner && (
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => setSelectedPartner(null)}
+                  title="Visa alla kommande events"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          </div>
+          {selectedPartner && (
+            <Button onClick={() => openNewForm(selectedPartner)} size="sm" className="gap-2 self-end">
+              <Plus className="h-4 w-4" />
+              Lägg till event
+            </Button>
+          )}
         </div>
 
-        {/* Selected Partner Events */}
-        {selectedPartner && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-primary" />
-                Events för {selectedPartner.name}
-              </h3>
-              <Button onClick={() => openNewForm(selectedPartner)} size="sm" className="gap-2">
-                <Plus className="h-4 w-4" />
-                Lägg till event
-              </Button>
-            </div>
+        {/* Events List */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-primary" />
+              {selectedPartner ? `Events för ${selectedPartner.name}` : `Kommande events (${upcomingEvents.length})`}
+            </h3>
+          </div>
 
-            {partnerEvents.length === 0 ? (
-              <div className="text-center py-8 text-muted-foreground border rounded-lg bg-muted/20">
-                <Calendar className="h-12 w-12 mx-auto mb-3 opacity-50" />
-                <p>Inga events för denna partner.</p>
+          {displayedEvents.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground border rounded-lg bg-muted/20">
+              <Calendar className="h-12 w-12 mx-auto mb-3 opacity-50" />
+              <p>{selectedPartner ? "Inga events för denna partner." : "Inga kommande events."}</p>
+              {selectedPartner && (
                 <Button 
                   variant="outline" 
                   className="mt-4"
@@ -367,89 +387,88 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                   <Plus className="h-4 w-4 mr-2" />
                   Lägg till första event
                 </Button>
-              </div>
-            ) : (
-              <div className="border rounded-lg overflow-hidden">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Titel</TableHead>
-                      <TableHead>Datum</TableHead>
-                      <TableHead>Eventlänk</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="text-right">Åtgärder</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {partnerEvents.map((event) => (
-                      <TableRow key={event.id} className={!isUpcoming(event.event_date) ? "opacity-50" : ""}>
-                        <TableCell className="font-medium">{event.title}</TableCell>
+              )}
+            </div>
+          ) : (
+            <div className="border rounded-lg overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    {!selectedPartner && <TableHead>Arrangör</TableHead>}
+                    <TableHead>Titel</TableHead>
+                    <TableHead>Datum</TableHead>
+                    <TableHead>Eventlänk</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-right">Åtgärder</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {displayedEvents.map((event) => (
+                    <TableRow key={event.id} className={!isUpcoming(event.event_date) ? "opacity-50" : ""}>
+                      {!selectedPartner && (
                         <TableCell>
-                          <span className="flex items-center gap-1.5">
-                            <Calendar className="h-4 w-4 text-muted-foreground" />
-                            {formatDate(event.event_date)}
+                          <span className="font-medium text-sm">
+                            {event.partners?.name || "—"}
                           </span>
                         </TableCell>
-                        <TableCell>
-                          {event.event_link ? (
-                            <a
-                              href={event.event_link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-primary hover:underline flex items-center gap-1 max-w-xs truncate"
-                            >
-                              <ExternalLink className="h-3 w-3 shrink-0" />
-                              <span className="truncate">{event.event_link}</span>
-                            </a>
-                          ) : (
-                            <span className="text-muted-foreground">—</span>
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          {isUpcoming(event.event_date) ? (
-                            <Badge variant="default" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">Kommande</Badge>
-                          ) : (
-                            <Badge variant="secondary">Passerat</Badge>
-                          )}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex items-center justify-end gap-1">
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => openEditForm(event)}
-                              title="Redigera"
-                            >
-                              <Pencil className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleDeleteEvent(event.id, event.title)}
-                              className="text-destructive hover:text-destructive"
-                              title="Ta bort"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Empty state when no partner selected */}
-        {!selectedPartner && (
-          <div className="text-center py-12 text-muted-foreground border rounded-lg bg-muted/20">
-            <Search className="h-12 w-12 mx-auto mb-3 opacity-50" />
-            <p className="text-lg">Välj en partner ovan för att hantera deras events</p>
-            <p className="text-sm mt-1">Du kan söka bland alla utvalda partners</p>
-          </div>
-        )}
+                      )}
+                      <TableCell className="font-medium">{event.title}</TableCell>
+                      <TableCell>
+                        <span className="flex items-center gap-1.5">
+                          <Calendar className="h-4 w-4 text-muted-foreground" />
+                          {formatDate(event.event_date)}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        {event.event_link ? (
+                          <a
+                            href={event.event_link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline flex items-center gap-1 max-w-xs truncate"
+                          >
+                            <ExternalLink className="h-3 w-3 shrink-0" />
+                            <span className="truncate">{event.event_link}</span>
+                          </a>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {isUpcoming(event.event_date) ? (
+                          <Badge variant="default" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">Kommande</Badge>
+                        ) : (
+                          <Badge variant="secondary">Passerat</Badge>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => openEditForm(event)}
+                            title="Redigera"
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => handleDeleteEvent(event.id, event.title)}
+                            className="text-destructive hover:text-destructive"
+                            title="Ta bort"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+        </div>
 
         {/* Event Form Dialog */}
         <Dialog open={isFormOpen} onOpenChange={(open) => !open && closeForm()}>
