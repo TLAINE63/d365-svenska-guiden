@@ -116,23 +116,19 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
-      // Check if expired
-      if (new Date(invitation.expires_at) < new Date()) {
+      // Check if expired (only for pending invitations - approved ones stay open forever)
+      if (new Date(invitation.expires_at) < new Date() && invitation.status === "pending") {
         return new Response(
           JSON.stringify({ error: "Inbjudan har gått ut" }),
           { status: 410, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
 
-      // Check if already submitted
-      if (invitation.status === "submitted" || invitation.status === "approved") {
-        return new Response(
-          JSON.stringify({ error: "Formuläret har redan skickats in", status: invitation.status }),
-          { status: 409, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
-      }
+      // Invitations are always open for re-editing - no status check blocking access
+      // Partners can update their profile at any time using the same link
 
       // If this is for an existing partner, fetch their current data
+      // For re-edits (submitted/approved), always fetch current partner data
       let existingData = null;
       if (invitation.partner_id) {
         const { data: partner } = await supabase
@@ -141,6 +137,18 @@ serve(async (req: Request): Promise<Response> => {
           .eq("id", invitation.partner_id)
           .single();
         existingData = partner;
+      } else if (invitation.status === "submitted" || invitation.status === "approved") {
+        // For new partners that were already submitted, fetch from the latest submission
+        const { data: latestSubmission } = await supabase
+          .from("partner_submissions")
+          .select("*")
+          .eq("invitation_id", invitation.id)
+          .order("submitted_at", { ascending: false })
+          .limit(1)
+          .single();
+        if (latestSubmission) {
+          existingData = latestSubmission;
+        }
       }
 
       return new Response(
@@ -174,19 +182,15 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
-      if (new Date(invitation.expires_at) < new Date()) {
+      // Only check expiry for pending invitations - approved ones stay open forever
+      if (new Date(invitation.expires_at) < new Date() && invitation.status === "pending") {
         return new Response(
           JSON.stringify({ error: "Inbjudan har gått ut" }),
           { status: 410, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
 
-      if (invitation.status !== "pending") {
-        return new Response(
-          JSON.stringify({ error: "Formuläret har redan skickats in" }),
-          { status: 409, headers: { "Content-Type": "application/json", ...corsHeaders } }
-        );
-      }
+      // Allow re-submissions for open invitations (no status blocking)
 
       // Create submission
       const { error: subError } = await supabase
@@ -253,13 +257,21 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
-      // Update invitation status
-      await supabase
-        .from("partner_invitations")
-        .update({ status: "submitted", submitted_at: new Date().toISOString() })
-        .eq("id", invitation.id);
+      // Update invitation status (only if first submission, otherwise keep current status)
+      if (invitation.status === "pending") {
+        await supabase
+          .from("partner_invitations")
+          .update({ status: "submitted", submitted_at: new Date().toISOString() })
+          .eq("id", invitation.id);
+      } else {
+        // Update submitted_at to track latest submission
+        await supabase
+          .from("partner_invitations")
+          .update({ submitted_at: new Date().toISOString() })
+          .eq("id", invitation.id);
+      }
 
-      console.log("Partner submission received for:", submissionData.name);
+      console.log("Partner submission received for:", submissionData.name, "(re-edit:", invitation.status !== "pending", ")");
 
       // Send notification email to admin
       const resendApiKey = Deno.env.get("RESEND_API_KEY");
