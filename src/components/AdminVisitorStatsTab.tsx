@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import {
   Table,
   TableBody,
@@ -17,10 +20,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { 
+  isExcludedFromTracking, 
+  setExcludeFromTracking 
+} from "@/hooks/useVisitorTracking";
 import { 
   Users, MapPin, Globe, TrendingUp, Clock, MousePointerClick,
-  ChevronDown, ChevronUp
+  ChevronDown, ChevronUp, EyeOff
 } from "lucide-react";
 import { format, subDays, startOfDay } from "date-fns";
 import { sv } from "date-fns/locale";
@@ -55,6 +61,18 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
   const [stats, setStats] = useState<VisitorStats | null>(null);
   const [dateRange, setDateRange] = useState("7");
   const [showAllCities, setShowAllCities] = useState(false);
+  const [excludeSelf, setExcludeSelf] = useState(isExcludedFromTracking());
+
+  const handleExcludeToggle = (checked: boolean) => {
+    setExcludeFromTracking(checked);
+    setExcludeSelf(checked);
+    toast({
+      title: checked ? "Spårning avstängd" : "Spårning aktiverad",
+      description: checked 
+        ? "Dina besök kommer inte längre att räknas i statistiken." 
+        : "Dina besök kommer nu att räknas i statistiken.",
+    });
+  };
 
   const fetchStats = async () => {
     setIsLoading(true);
@@ -140,6 +158,30 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
 
   return (
     <div className="space-y-6">
+      {/* Self-exclusion toggle */}
+      <Card className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/20">
+        <CardContent className="py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <EyeOff className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+              <div>
+                <Label htmlFor="exclude-self" className="font-medium">
+                  Exkludera mina egna besök
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Dina besök på d365.se kommer inte att räknas i statistiken
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="exclude-self"
+              checked={excludeSelf}
+              onCheckedChange={handleExcludeToggle}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Date Range Selector */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold flex items-center gap-2">
