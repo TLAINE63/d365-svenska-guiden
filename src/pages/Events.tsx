@@ -161,7 +161,7 @@ const Events = () => {
           </h1>
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             Upptäck kommande events från Microsoft Dynamics 365-partners. 
-            Delta i webinars, seminarier och workshops – eller se inspelningar i efterhand.
+            Delta i webinars, seminarier och workshops.
           </p>
         </div>
       </section>
