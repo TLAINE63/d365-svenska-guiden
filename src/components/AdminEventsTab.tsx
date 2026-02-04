@@ -61,14 +61,6 @@ interface PartnerEvent {
   } | null;
 }
 
-// Special "partner" entry for d365.se events
-const D365_SE_OPTION: Partner = {
-  id: "d365se",
-  name: "d365.se (Eget event)",
-  is_featured: true,
-  slug: "d365se",
-};
-
 interface AdminEventsTabProps {
   token: string;
   partners: Partner[];
@@ -144,8 +136,8 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
       return;
     }
 
-    // Use null for d365.se events, otherwise use partner_id
-    const partnerId = selectedPartner.id === "d365se" ? null : selectedPartner.id;
+    // Use the selected partner's ID
+    const partnerId = selectedPartner.id;
 
     setIsSaving(true);
     try {
@@ -244,14 +236,9 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   };
 
   const openEditForm = (event: PartnerEvent) => {
-    if (event.partner_id === null) {
-      // d365.se event
-      setSelectedPartner(D365_SE_OPTION);
-    } else {
-      const partner = partners.find(p => p.id === event.partner_id);
-      if (partner) {
-        setSelectedPartner(partner);
-      }
+    const partner = partners.find(p => p.id === event.partner_id);
+    if (partner) {
+      setSelectedPartner(partner);
     }
     setEditingEvent(event);
     setFormData({
@@ -269,19 +256,14 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     setFormData({ title: "", event_link: "", event_date: "" });
   };
 
-  // Filter partners based on search - include d365.se option at the top
-  const filteredPartners = [
-    ...(D365_SE_OPTION.name.toLowerCase().includes(partnerFilter.toLowerCase()) ? [D365_SE_OPTION] : []),
-    ...partners.filter(p => 
-      p.is_featured && p.name.toLowerCase().includes(partnerFilter.toLowerCase())
-    )
-  ];
+  // Filter partners based on search - show ALL partners, not just featured
+  const filteredPartners = partners.filter(p => 
+    p.name.toLowerCase().includes(partnerFilter.toLowerCase())
+  );
 
-  // Get events for selected partner (or d365.se events when d365se is selected)
+  // Get events for selected partner
   const partnerEvents = selectedPartner 
-    ? selectedPartner.id === "d365se"
-      ? events.filter(e => e.partner_id === null)
-      : events.filter(e => e.partner_id === selectedPartner.id)
+    ? events.filter(e => e.partner_id === selectedPartner.id)
     : [];
 
   // Check if event is upcoming
@@ -425,7 +407,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                         </TableCell>
                         <TableCell>
                           {isUpcoming(event.event_date) ? (
-                            <Badge variant="default" className="bg-green-100 text-green-800">Kommande</Badge>
+                            <Badge variant="default" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">Kommande</Badge>
                           ) : (
                             <Badge variant="secondary">Passerat</Badge>
                           )}
