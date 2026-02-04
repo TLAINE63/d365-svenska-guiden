@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import CookieBanner from "@/components/CookieBanner";
 import SnitcherTracking from "@/components/SnitcherTracking";
@@ -33,8 +33,6 @@ const D365FieldService = lazy(() => import("./pages/D365FieldService"));
 const D365ContactCenter = lazy(() => import("./pages/D365ContactCenter"));
 const PartnerProfile = lazy(() => import("./pages/PartnerProfile"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const PartnerAdmin = lazy(() => import("./pages/PartnerAdmin"));
-const LeadAdmin = lazy(() => import("./pages/LeadAdmin"));
 const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
@@ -82,8 +80,9 @@ const App = () => (
             <Route path="/d365-contact-center" element={<D365ContactCenter />} />
             <Route path="/partner/:slug" element={<PartnerProfile />} />
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/partner-admin" element={<PartnerAdmin />} />
-            <Route path="/lead-admin" element={<LeadAdmin />} />
+            <Route path="/partner-admin" element={<Navigate to="/admin" replace />} />
+            <Route path="/lead-admin" element={<Navigate to="/admin" replace />} />
+            <Route path="/partner-update/:token" element={<PartnerUpdate />} />
             <Route path="/partner-update/:token" element={<PartnerUpdate />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
