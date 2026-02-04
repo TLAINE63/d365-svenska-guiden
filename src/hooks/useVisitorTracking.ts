@@ -1,6 +1,22 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
+const EXCLUDE_TRACKING_KEY = "d365_exclude_from_tracking";
+
+// Check if current visitor should be excluded from tracking
+export function isExcludedFromTracking(): boolean {
+  return localStorage.getItem(EXCLUDE_TRACKING_KEY) === "true";
+}
+
+// Set exclusion status
+export function setExcludeFromTracking(exclude: boolean): void {
+  if (exclude) {
+    localStorage.setItem(EXCLUDE_TRACKING_KEY, "true");
+  } else {
+    localStorage.removeItem(EXCLUDE_TRACKING_KEY);
+  }
+}
+
 // Generate or retrieve session ID
 function getSessionId(): string {
   const key = "visitor_session_id";
@@ -21,8 +37,12 @@ export function useVisitorTracking() {
   useEffect(() => {
     const currentPath = location.pathname;
 
-    // Don't track admin pages or if already tracked this path
-    if (currentPath.startsWith("/admin") || hasTrackedPage.current === currentPath) {
+    // Don't track admin pages, excluded visitors, or if already tracked this path
+    if (
+      currentPath.startsWith("/admin") || 
+      hasTrackedPage.current === currentPath ||
+      isExcludedFromTracking()
+    ) {
       return;
     }
 
