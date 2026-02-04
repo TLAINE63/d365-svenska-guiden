@@ -513,6 +513,28 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
+      // Fetch event with partner info before updating
+      const { data: eventData, error: eventFetchError } = await supabase
+        .from("partner_events")
+        .select(`
+          *,
+          partners:partner_id (
+            id,
+            name,
+            email,
+            contact_person
+          )
+        `)
+        .eq("id", event_id)
+        .single();
+
+      if (eventFetchError || !eventData) {
+        return new Response(
+          JSON.stringify({ error: "Event hittades inte" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
       const { error } = await supabase
         .from("partner_events")
         .update({
@@ -529,6 +551,88 @@ serve(async (req: Request): Promise<Response> => {
           JSON.stringify({ error: "Kunde inte uppdatera event" }),
           { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
+      }
+
+      // Send notification email to partner
+      const partnerEmail = eventData.partners?.email;
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      
+      if (partnerEmail && resendApiKey) {
+        try {
+          const resend = new Resend(resendApiKey);
+          const isApproved = status === "approved";
+          const eventUrl = isApproved 
+            ? `https://d365-svenska-guiden.lovable.app/events/${event_id}`
+            : null;
+          
+          await resend.emails.send({
+            from: "D365.se <info@d365.se>",
+            to: [partnerEmail],
+            subject: isApproved 
+              ? `Ditt event "${eventData.title}" har godkänts! 🎉`
+              : `Ditt event "${eventData.title}" kunde inte godkännas`,
+            html: `
+              <!DOCTYPE html>
+              <html>
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              </head>
+              <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                  <p style="color: #6b7280; margin: 5px 0 0 0;">Event-notifikation</p>
+                </div>
+                
+                <p>Hej${eventData.partners?.contact_person ? ` ${eventData.partners.contact_person}` : ''},</p>
+                
+                ${isApproved ? `
+                  <p>Goda nyheter! Ditt event har godkänts och är nu publicerat på D365.se.</p>
+                  
+                  <div style="background-color: #f0fdf4; border: 1px solid #86efac; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h3 style="color: #166534; margin: 0 0 10px 0;">✅ Godkänt</h3>
+                    <p style="margin: 0 0 10px 0;"><strong>Event:</strong> ${eventData.title}</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Datum:</strong> ${eventData.event_date}</p>
+                    <p style="margin: 0;"><strong>Typ:</strong> ${eventData.is_online ? 'Online' : 'På plats'}</p>
+                  </div>
+                  
+                  <div style="text-align: center; margin: 30px 0;">
+                    <a href="${eventUrl}" style="display: inline-block; background-color: #7c3aed; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Se ditt event på D365.se</a>
+                  </div>
+                  
+                  <p>Dela gärna länken med ditt nätverk för att maximera antalet anmälningar!</p>
+                ` : `
+                  <p>Tyvärr kunde vi inte godkänna ditt event i dess nuvarande form.</p>
+                  
+                  <div style="background-color: #fef2f2; border: 1px solid #fecaca; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h3 style="color: #991b1b; margin: 0 0 10px 0;">❌ Ej godkänt</h3>
+                    <p style="margin: 0 0 10px 0;"><strong>Event:</strong> ${eventData.title}</p>
+                    ${admin_notes ? `<p style="margin: 0;"><strong>Anledning:</strong> ${admin_notes}</p>` : ''}
+                  </div>
+                  
+                  <p>Du är välkommen att uppdatera ditt event och skicka in det igen via din event-portal.</p>
+                `}
+                
+                <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+                
+                <p style="color: #6b7280; font-size: 14px;">
+                  Med vänliga hälsningar,<br>
+                  D365.se-teamet
+                </p>
+                
+                <p style="color: #9ca3af; font-size: 12px; text-align: center; margin-top: 30px;">
+                  Detta är en automatisk notifikation från D365.se
+                </p>
+              </body>
+              </html>
+            `,
+          });
+          
+          console.log("Partner notification sent for event:", eventData.title, "to:", partnerEmail);
+        } catch (emailError) {
+          console.error("Failed to send partner notification:", emailError);
+          // Don't fail the request if email fails - the review was still successful
+        }
       }
 
       return new Response(
