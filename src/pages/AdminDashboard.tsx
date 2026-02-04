@@ -35,7 +35,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { partners as staticPartners, allIndustries, geographyOptions, getCumulativeGeographyDisplay } from "@/data/partners";
+import { allIndustries, geographyOptions, getCumulativeGeographyDisplay } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   usePartners,
@@ -1709,7 +1709,7 @@ const AdminDashboard = () => {
                 Välj vilka partners som ska ta emot denna lead. Varje partner kommer få ett mail med kundens kontaktuppgifter.
               </p>
               <div className="max-h-64 overflow-y-auto space-y-2">
-                {staticPartners.map((partner) => (
+                {fullPartners.map((partner) => (
                   <div key={partner.name} className="flex items-center space-x-2">
                     <Checkbox
                       id={partner.name}

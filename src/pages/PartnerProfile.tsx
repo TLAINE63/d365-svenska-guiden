@@ -22,7 +22,7 @@ import {
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner } from "@/hooks/usePartners";
-import { partners as staticPartners, getCumulativeGeographyDisplay } from "@/data/partners";
+import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
@@ -123,33 +123,8 @@ const PartnerProfile = () => {
   const selectedGeography = searchParams.get("geography") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   
-  // Find static partner for productFilters
-  const staticPartner = staticPartners.find((p) => {
-    const generatedSlug = p.name
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
-    return generatedSlug === slug;
-  });
-
-  // Use dbPartner if available, otherwise fall back to static partner data
-  const partner = dbPartner ?? (staticPartner ? {
-    id: slug || "",
-    slug: slug || "",
-    name: staticPartner.name,
-    description: staticPartner.description,
-    logo_url: staticPartner.logo || null,
-    website: staticPartner.website,
-    email: staticPartner.email || null,
-    contactPerson: staticPartner.contactPerson || null,
-    phone: staticPartner.phone || null,
-    address: null,
-    applications: staticPartner.applications,
-    industries: staticPartner.industries,
-    is_featured: false,
-    created_at: "",
-    updated_at: "",
-  } : null);
+  // Use database partner directly (no static fallback needed - all partners are in DB)
+  const partner = dbPartner ?? null;
 
   // Get product categories this partner supports
   // Get product categories this partner supports - check both applications array AND product_filters
@@ -190,13 +165,6 @@ const PartnerProfile = () => {
       };
     }
     
-    // Fallback to static partner data
-    if (staticPartner?.productFilters?.[filterKey]?.industries) {
-      return {
-        primary: staticPartner.productFilters[filterKey].industries || []
-      };
-    }
-    
     // Final fallback to general industries
     const allIndustries = partner?.industries || [];
     return { 
@@ -231,12 +199,6 @@ const PartnerProfile = () => {
     // Fall back to partner's geography array
     if (dbPartner?.geography && dbPartner.geography.length > 0) {
       return normalizeAndSortGeography(dbPartner.geography);
-    }
-    // Final fallback to static data
-    const staticGeo = staticPartner?.productFilters?.[filterKey]?.geography || staticPartner?.geography;
-    if (staticGeo) {
-      const geoArray = Array.isArray(staticGeo) ? staticGeo : [staticGeo];
-      return normalizeAndSortGeography(geoArray);
     }
     return [];
   };
