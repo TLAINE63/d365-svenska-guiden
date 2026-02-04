@@ -48,39 +48,49 @@ interface PartnerEvent {
 
 const Events = () => {
   const [upcomingEvents, setUpcomingEvents] = useState<PartnerEvent[]>([]);
-  const [recordings, setRecordings] = useState<PartnerEvent[]>([]);
+  const [pastEvents, setPastEvents] = useState<PartnerEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const [upcomingRes, recordingsRes] = await Promise.all([
-          fetch(
-            `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=public-events`,
-            {
-              headers: {
-                "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-              },
-            }
-          ),
-          fetch(
-            `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=recordings`,
-            {
-              headers: {
-                "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-              },
-            }
-          ),
-        ]);
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=all-public-events`,
+          {
+            headers: {
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        );
 
-        if (upcomingRes.ok) {
-          const data = await upcomingRes.json();
-          setUpcomingEvents(data.events || []);
-        }
-
-        if (recordingsRes.ok) {
-          const data = await recordingsRes.json();
-          setRecordings(data.events || []);
+        if (response.ok) {
+          const data = await response.json();
+          const allEvents = data.events || [];
+          
+          // Split events into upcoming and past based on date
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          const upcoming: PartnerEvent[] = [];
+          const past: PartnerEvent[] = [];
+          
+          allEvents.forEach((event: PartnerEvent) => {
+            const eventDate = new Date(event.event_date);
+            if (eventDate >= today) {
+              upcoming.push(event);
+            } else {
+              past.push(event);
+            }
+          });
+          
+          // Sort upcoming by date ascending (nearest first)
+          upcoming.sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
+          
+          // Sort past by date descending (most recent first)
+          past.sort((a, b) => new Date(b.event_date).getTime() - new Date(a.event_date).getTime());
+          
+          setUpcomingEvents(upcoming);
+          setPastEvents(past);
         }
       } catch (err) {
         console.error("Error fetching events:", err);
@@ -160,9 +170,9 @@ const Events = () => {
                 <Calendar className="w-4 h-4" />
                 Kommande events ({upcomingEvents.length})
               </TabsTrigger>
-              <TabsTrigger value="recordings" className="gap-2">
+              <TabsTrigger value="past" className="gap-2">
                 <Play className="w-4 h-4" />
-                Genomförda events ({recordings.length})
+                Genomförda events ({pastEvents.length})
               </TabsTrigger>
             </TabsList>
 
@@ -274,49 +284,59 @@ const Events = () => {
               )}
             </TabsContent>
 
-            <TabsContent value="recordings" className="space-y-4">
-              {recordings.length === 0 ? (
+            <TabsContent value="past" className="space-y-4">
+              {pastEvents.length === 0 ? (
                 <Card>
                   <CardContent className="py-12 text-center">
-                    <Video className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">Inga inspelningar ännu</h3>
+                    <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold mb-2">Inga genomförda events ännu</h3>
                     <p className="text-muted-foreground">
-                      Inspelningar från tidigare events kommer att visas här.
+                      Genomförda events kommer att visas här.
                     </p>
                   </CardContent>
                 </Card>
               ) : (
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {recordings.map((event) => (
-                    <a
-                      key={event.id}
-                      href={event.recording_url!}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group"
-                    >
-                      <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1">
+                <div className="space-y-4">
+                  {pastEvents.map((event) => (
+                    <Link key={event.id} to={`/events/${event.id}`} className="block">
+                      <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                         <CardContent className="p-5">
                           <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-                              <Play className="w-6 h-6 text-white" />
+                            {/* Partner Logo */}
+                            <div className={`w-14 h-14 rounded-xl flex items-center justify-center border shrink-0 ${
+                              event.partners.logo_dark_bg ? 'bg-slate-700' : 'bg-white'
+                            }`}>
+                              {event.partners.logo_url ? (
+                                <img 
+                                  src={event.partners.logo_url} 
+                                  alt={event.partners.name}
+                                  className="max-w-10 max-h-10 object-contain"
+                                />
+                              ) : (
+                                <Building2 className="w-6 h-6 text-muted-foreground" />
+                              )}
                             </div>
+                            
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-foreground group-hover:text-violet-600 transition-colors line-clamp-2">
+                              <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                                 {event.title}
                               </h4>
                               <p className="text-sm text-muted-foreground mt-1">
                                 {event.partners.name}
                               </p>
-                              <p className="text-xs text-muted-foreground mt-1">
+                              <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
                                 {formatDate(event.event_date)}
                               </p>
                             </div>
-                            <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-violet-600 transition-colors shrink-0" />
+                            
+                            <Badge variant="secondary" className="shrink-0">
+                              Genomfört
+                            </Badge>
                           </div>
                         </CardContent>
                       </Card>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}

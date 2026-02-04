@@ -93,7 +93,7 @@ serve(async (req: Request): Promise<Response> => {
     const url = new URL(req.url);
     const action = url.searchParams.get("action");
 
-    // Public: Get approved events for public page
+    // Public: Get approved upcoming events only
     if (action === "public-events") {
       const { data: events, error } = await supabase
         .from("partner_events")
@@ -113,6 +113,37 @@ serve(async (req: Request): Promise<Response> => {
 
       if (error) {
         console.error("Error fetching public events:", error);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte hämta events" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ events: events || [] }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Public: Get ALL approved events (both upcoming and past)
+    if (action === "all-public-events") {
+      const { data: events, error } = await supabase
+        .from("partner_events")
+        .select(`
+          *,
+          partners:partner_id (
+            id,
+            name,
+            slug,
+            logo_url,
+            logo_dark_bg
+          )
+        `)
+        .eq("status", "approved")
+        .order("event_date", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching all public events:", error);
         return new Response(
           JSON.stringify({ error: "Kunde inte hämta events" }),
           { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
