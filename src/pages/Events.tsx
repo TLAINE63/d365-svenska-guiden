@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import eventsHeroImage from "@/assets/events-hero.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -142,9 +143,13 @@ const Events = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden mt-16 py-16 bg-gradient-to-br from-violet-600 via-purple-600 to-violet-700">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+      <section className="relative overflow-hidden mt-16 py-16 md:py-24">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${eventsHeroImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-900/90 via-purple-800/80 to-violet-900/70" />
         
         <div className="relative container mx-auto px-4 text-center">
           <Badge className="mb-4 bg-white/20 text-white border-white/30">
