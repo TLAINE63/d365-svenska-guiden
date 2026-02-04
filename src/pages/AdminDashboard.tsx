@@ -75,6 +75,7 @@ import {
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
+import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
@@ -1070,6 +1071,10 @@ const AdminDashboard = () => {
               <BarChart3 className="h-4 w-4" />
               Partnerstatistik
             </TabsTrigger>
+            <TabsTrigger value="visitors" className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4" />
+              Besökare
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -1608,6 +1613,18 @@ const AdminDashboard = () => {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          {/* ==================== VISITOR STATS TAB ==================== */}
+          <TabsContent value="visitors">
+            <Card>
+              <CardContent className="pt-6">
+                <AdminVisitorStatsTab 
+                  token={token || ""}
+                  onSessionExpired={logout}
+                />
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
 
