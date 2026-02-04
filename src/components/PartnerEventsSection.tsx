@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { 
@@ -9,9 +10,9 @@ import {
   ExternalLink, 
   Play,
   Users,
-  CalendarDays
+  CalendarDays,
+  ArrowRight
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 
 interface PartnerEvent {
   id: string;
@@ -131,94 +132,84 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
           </h3>
           <div className="grid gap-4">
             {upcomingEvents.map((event) => (
-              <article 
+              <Link 
                 key={event.id}
-                className="group relative rounded-2xl overflow-hidden bg-card border border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500"
+                to={`/events/${event.id}`}
+                className="block group"
               >
-                {/* Gradient accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary" />
-                
-                <div className="relative p-5 sm:p-6">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    {/* Event image if available */}
-                    {event.image_url && (
-                      <div className="sm:w-32 sm:h-32 rounded-xl overflow-hidden shrink-0 bg-muted">
-                        <img 
-                          src={event.image_url} 
-                          alt={event.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                    
-                    <div className="flex-1 space-y-3">
-                      <div className="flex flex-wrap items-start justify-between gap-2">
-                        <h4 className="text-xl font-bold text-foreground">{event.title}</h4>
-                        <Badge className="bg-primary text-primary-foreground">
-                          {event.is_online ? (
-                            <><Video className="w-3 h-3 mr-1" /> Online</>
-                          ) : (
-                            <><MapPin className="w-3 h-3 mr-1" /> På plats</>
+                <article 
+                  className="relative rounded-2xl overflow-hidden bg-card border border-border/50 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1"
+                >
+                  {/* Gradient accent */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary" />
+                  
+                  <div className="relative p-5 sm:p-6">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      {/* Event image if available */}
+                      {event.image_url && (
+                        <div className="sm:w-32 sm:h-32 rounded-xl overflow-hidden shrink-0 bg-muted">
+                          <img 
+                            src={event.image_url} 
+                            alt={event.title}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      
+                      <div className="flex-1 space-y-3">
+                        <div className="flex flex-wrap items-start justify-between gap-2">
+                          <h4 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{event.title}</h4>
+                          <Badge className="bg-primary text-primary-foreground">
+                            {event.is_online ? (
+                              <><Video className="w-3 h-3 mr-1" /> Online</>
+                            ) : (
+                              <><MapPin className="w-3 h-3 mr-1" /> På plats</>
+                            )}
+                          </Badge>
+                        </div>
+
+                        {event.description && (
+                          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+                            {event.description}
+                          </p>
+                        )}
+
+                        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                          <span className="flex items-center gap-1.5 text-foreground font-medium">
+                            <Calendar className="w-4 h-4 text-primary" />
+                            {formatDate(event.event_date)}
+                          </span>
+                          {event.event_time && (
+                            <span className="flex items-center gap-1.5 text-muted-foreground">
+                              <Clock className="w-4 h-4" />
+                              {formatTime(event.event_time)}
+                              {event.end_time && ` - ${formatTime(event.end_time)}`}
+                            </span>
                           )}
-                        </Badge>
-                      </div>
+                          {!event.is_online && event.location && (
+                            <span className="flex items-center gap-1.5 text-muted-foreground">
+                              <MapPin className="w-4 h-4" />
+                              {event.location}
+                            </span>
+                          )}
+                        </div>
 
-                      {event.description && (
-                        <p className="text-muted-foreground text-sm leading-relaxed">
-                          {event.description}
-                        </p>
-                      )}
-
-                      <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                        <span className="flex items-center gap-1.5 text-foreground font-medium">
-                          <Calendar className="w-4 h-4 text-primary" />
-                          {formatDate(event.event_date)}
-                        </span>
-                        {event.event_time && (
-                          <span className="flex items-center gap-1.5 text-muted-foreground">
-                            <Clock className="w-4 h-4" />
-                            {formatTime(event.event_time)}
-                            {event.end_time && ` - ${formatTime(event.end_time)}`}
-                          </span>
-                        )}
-                        {!event.is_online && event.location && (
-                          <span className="flex items-center gap-1.5 text-muted-foreground">
-                            <MapPin className="w-4 h-4" />
-                            {event.location}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {event.registration_link && (
-                          <Button asChild size="sm" className="gap-2">
-                            <a href={event.registration_link} target="_blank" rel="noopener noreferrer">
-                              <Users className="w-4 h-4" />
-                              Anmäl dig
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
+                        <div className="flex flex-wrap items-center gap-2 pt-2">
+                          <Button size="sm" className="gap-2">
+                            Läs mer & anmäl dig
+                            <ArrowRight className="w-3 h-3" />
                           </Button>
-                        )}
-                        {event.is_online && event.event_link && (
-                          <Button asChild variant="outline" size="sm" className="gap-2">
-                            <a href={event.event_link} target="_blank" rel="noopener noreferrer">
-                              <Video className="w-4 h-4" />
-                              Möteslänk
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          </Button>
-                        )}
+                          {event.registration_deadline && (
+                            <p className="text-xs text-muted-foreground">
+                              Sista anmälningsdag: {formatDate(event.registration_deadline)}
+                            </p>
+                          )}
+                        </div>
                       </div>
-
-                      {event.registration_deadline && (
-                        <p className="text-xs text-muted-foreground">
-                          Sista anmälningsdag: {formatDate(event.registration_deadline)}
-                        </p>
-                      )}
                     </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
         </div>
