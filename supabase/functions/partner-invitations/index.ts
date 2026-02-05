@@ -257,14 +257,17 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
-      // Update invitation status (only if first submission, otherwise keep current status)
-      if (invitation.status === "pending") {
+      // Update invitation status
+      // - pending → submitted (first submission)
+      // - approved → submitted (re-edit triggers review)
+      // - submitted stays submitted
+      if (invitation.status === "pending" || invitation.status === "approved") {
         await supabase
           .from("partner_invitations")
           .update({ status: "submitted", submitted_at: new Date().toISOString() })
           .eq("id", invitation.id);
       } else {
-        // Update submitted_at to track latest submission
+        // For 'submitted' status, just update submitted_at to track latest submission
         await supabase
           .from("partner_invitations")
           .update({ submitted_at: new Date().toISOString() })
