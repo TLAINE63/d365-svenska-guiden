@@ -194,7 +194,13 @@ const Events = () => {
                 </Card>
               ) : (
                 upcomingEvents.map((event) => (
-                  <Link key={event.id} to={`/events/${event.id}`} className="block">
+                  <a 
+                    key={event.id} 
+                    href={event.event_link || event.registration_link || "#"} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="block"
+                  >
                     <Card className="overflow-hidden hover:shadow-xl transition-shadow relative">
                       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-violet-500 to-purple-500" />
                       <CardContent className="p-6">
@@ -286,7 +292,7 @@ const Events = () => {
                         </div>
                       </CardContent>
                     </Card>
-                  </Link>
+                  </a>
                 ))
               )}
             </TabsContent>
@@ -305,7 +311,13 @@ const Events = () => {
               ) : (
                 <div className="space-y-4">
                   {pastEvents.map((event) => (
-                    <Link key={event.id} to={`/events/${event.id}`} className="block">
+                    <a 
+                      key={event.id} 
+                      href={event.event_link || event.recording_url || "#"} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="block"
+                    >
                       <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                         <CardContent className="p-5">
                           <div className="flex items-start gap-4">
@@ -340,12 +352,12 @@ const Events = () => {
                             </div>
                             
                             <Badge variant="secondary" className="shrink-0">
-                              Genomfört
+                              {event.recording_available ? "Se inspelning" : "Genomfört"}
                             </Badge>
                           </div>
                         </CardContent>
                       </Card>
-                    </Link>
+                    </a>
                   ))}
                 </div>
               )}
