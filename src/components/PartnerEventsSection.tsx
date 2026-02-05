@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   Calendar, 
-  ExternalLink,
+  ArrowRight,
   CalendarDays,
 } from "lucide-react";
 
@@ -86,11 +87,9 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
 
       <div className="space-y-3">
         {events.map((event) => (
-          <a
+          <Link
             key={event.id}
-            href={event.event_link || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
+            to={`/events/${event.id}`}
             className="group block"
           >
             <article className="relative rounded-xl overflow-hidden bg-card border border-border/50 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
@@ -109,11 +108,11 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
                 
                 <Button size="sm" variant="outline" className="gap-2 shrink-0">
                   Läs mer
-                  <ExternalLink className="w-3 h-3" />
+                  <ArrowRight className="w-3 h-3" />
                 </Button>
               </div>
             </article>
-          </a>
+          </Link>
         ))}
       </div>
     </div>
