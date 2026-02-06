@@ -901,11 +901,13 @@ const PartnerUpdate = () => {
                             placeholder="Volvo, IKEA, Scania..."
                             value={(filter.customerExamples || []).join(', ')}
                             onChange={(e) => {
-                              const examples = e.target.value
-                                .split(',')
-                                .map(s => s.trim())
-                                .filter(s => s.length > 0);
+                              const raw = e.target.value;
+                              const examples = raw.split(',').map(s => s.trim());
                               updateProductFilter(productKey, { customerExamples: examples });
+                            }}
+                            onBlur={() => {
+                              const cleaned = (filter.customerExamples || []).filter(s => s.length > 0);
+                              updateProductFilter(productKey, { customerExamples: cleaned });
                             }}
                             className="mt-2"
                           />
@@ -918,11 +920,13 @@ const PartnerUpdate = () => {
                             placeholder="https://partner.se/kundcase1, https://partner.se/kundcase2"
                             value={(filter.customerCaseLinks || []).join(', ')}
                             onChange={(e) => {
-                              const links = e.target.value
-                                .split(',')
-                                .map(s => s.trim())
-                                .filter(s => s.length > 0);
+                              const raw = e.target.value;
+                              const links = raw.split(',').map(s => s.trim());
                               updateProductFilter(productKey, { customerCaseLinks: links });
+                            }}
+                            onBlur={() => {
+                              const cleaned = (filter.customerCaseLinks || []).filter(s => s.length > 0);
+                              updateProductFilter(productKey, { customerCaseLinks: cleaned });
                             }}
                             className="mt-2"
                           />
