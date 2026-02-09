@@ -43,18 +43,190 @@ function stripSeoTags(html: string): string {
 }
 
 /**
+ * Read .env file and parse VITE_ variables for SSR build `define`.
+ */
+function loadEnvVars(rootDir: string): Record<string, string> {
+  const envPath = path.resolve(rootDir, '.env');
+  const define: Record<string, string> = {};
+
+  if (!fs.existsSync(envPath)) return define;
+
+  const content = fs.readFileSync(envPath, 'utf-8');
+  for (const line of content.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIndex = trimmed.indexOf('=');
+    if (eqIndex === -1) continue;
+    const key = trimmed.slice(0, eqIndex).trim();
+    let value = trimmed.slice(eqIndex + 1).trim();
+    // Strip surrounding quotes
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    if (key.startsWith('VITE_')) {
+      define[`import.meta.env.${key}`] = JSON.stringify(value);
+    }
+  }
+
+  // Also add common import.meta.env properties
+  define['import.meta.env.SSR'] = 'true';
+  define['import.meta.env.DEV'] = 'false';
+  define['import.meta.env.PROD'] = 'true';
+  define['import.meta.env.MODE'] = '"production"';
+
+  return define;
+}
+
+/**
  * Set up minimal browser-API polyfills so React components that
  * reference window/document at import time won't crash in Node.
  */
 function setupBrowserPolyfills() {
   if (typeof (globalThis as any).window !== 'undefined') return;
 
-  const noop = () => {};
+  const noop = (..._args: any[]) => {};
+  const noopReturnsEmpty = () => '';
 
+  const storage = {
+    _data: {} as Record<string, string>,
+    getItem(key: string) { return this._data[key] ?? null; },
+    setItem(key: string, value: string) { this._data[key] = String(value); },
+    removeItem(key: string) { delete this._data[key]; },
+    clear() { this._data = {}; },
+    get length() { return Object.keys(this._data).length; },
+    key(index: number) { return Object.keys(this._data)[index] ?? null; },
+  };
+
+  const locationObj = {
+    href: 'https://d365.se',
+    pathname: '/',
+    search: '',
+    hash: '',
+    origin: 'https://d365.se',
+    hostname: 'd365.se',
+    host: 'd365.se',
+    protocol: 'https:',
+    port: '',
+    assign: noop,
+    replace: noop,
+    reload: noop,
+    toString() { return this.href; },
+  };
+
+  const styleObj = new Proxy({} as any, {
+    get: (_t, _p) => '',
+    set: () => true,
+  });
+
+  const createMockElement = (tag: string = 'div'): any => ({
+    tagName: tag.toUpperCase(),
+    nodeName: tag.toUpperCase(),
+    nodeType: 1,
+    style: styleObj,
+    ownerDocument: null,
+    parentNode: null,
+    parentElement: null,
+    childNodes: [],
+    children: [],
+    firstChild: null,
+    lastChild: null,
+    innerHTML: '',
+    textContent: '',
+    className: '',
+    id: '',
+    setAttribute: noop,
+    getAttribute: () => null,
+    removeAttribute: noop,
+    hasAttribute: () => false,
+    addEventListener: noop,
+    removeEventListener: noop,
+    dispatchEvent: () => true,
+    appendChild: function(child: any) { return child; },
+    removeChild: function(child: any) { return child; },
+    insertBefore: function(child: any) { return child; },
+    replaceChild: function(newChild: any) { return newChild; },
+    cloneNode: function() { return createMockElement(tag); },
+    contains: () => false,
+    querySelector: () => null,
+    querySelectorAll: () => [],
+    getElementsByTagName: () => [],
+    getElementsByClassName: () => [],
+    matches: () => false,
+    closest: () => null,
+    getBoundingClientRect: () => ({ top: 0, left: 0, bottom: 0, right: 0, width: 0, height: 0, x: 0, y: 0, toJSON: noop }),
+    getClientRects: () => [],
+    scrollIntoView: noop,
+    focus: noop,
+    blur: noop,
+    click: noop,
+    classList: {
+      add: noop, remove: noop, toggle: noop,
+      contains: () => false, replace: noop,
+      entries: () => [][Symbol.iterator](),
+      forEach: noop, keys: () => [][Symbol.iterator](),
+      values: () => [][Symbol.iterator](),
+      item: () => null, length: 0,
+      supports: () => false,
+      [Symbol.iterator]: () => [][Symbol.iterator](),
+    },
+    dataset: new Proxy({}, { get: () => undefined, set: () => true }),
+    offsetWidth: 0, offsetHeight: 0, offsetTop: 0, offsetLeft: 0,
+    clientWidth: 0, clientHeight: 0,
+    scrollWidth: 0, scrollHeight: 0, scrollTop: 0, scrollLeft: 0,
+  });
+
+  const docElement = createMockElement('html');
+  const headElement = createMockElement('head');
+  const bodyElement = createMockElement('body');
+
+  (globalThis as any).document = {
+    createElement: (tag: string) => createMockElement(tag),
+    createElementNS: (_ns: string, tag: string) => createMockElement(tag),
+    createTextNode: (text: string) => ({ nodeType: 3, textContent: text }),
+    createComment: (text: string) => ({ nodeType: 8, textContent: text }),
+    createDocumentFragment: () => createMockElement('fragment'),
+    querySelector: () => null,
+    querySelectorAll: () => [],
+    getElementById: () => null,
+    getElementsByClassName: () => [],
+    getElementsByTagName: () => [],
+    head: headElement,
+    body: bodyElement,
+    documentElement: docElement,
+    cookie: '',
+    title: '',
+    readyState: 'complete',
+    addEventListener: noop,
+    removeEventListener: noop,
+    dispatchEvent: () => true,
+    createEvent: () => ({ initEvent: noop, preventDefault: noop, stopPropagation: noop }),
+    createRange: () => ({
+      setStart: noop, setEnd: noop,
+      commonAncestorContainer: docElement,
+      createContextualFragment: () => createMockElement('fragment'),
+      getBoundingClientRect: () => ({ top: 0, left: 0, bottom: 0, right: 0, width: 0, height: 0 }),
+      getClientRects: () => [],
+      selectNodeContents: noop,
+      collapse: noop,
+    }),
+    implementation: {
+      createHTMLDocument: () => (globalThis as any).document,
+    },
+    defaultView: null as any, // set after window is created
+    activeElement: null,
+    hasFocus: () => true,
+    nodeType: 9,
+    childNodes: [],
+    adoptNode: (node: any) => node,
+    importNode: (node: any) => node,
+  };
 
   (globalThis as any).window = {
-    matchMedia: () => ({
+    document: (globalThis as any).document,
+    matchMedia: (query: string) => ({
       matches: false,
+      media: query,
+      onchange: null,
       addListener: noop,
       removeListener: noop,
       addEventListener: noop,
@@ -66,85 +238,119 @@ function setupBrowserPolyfills() {
     dispatchEvent: () => false,
     innerWidth: 1920,
     innerHeight: 1080,
+    outerWidth: 1920,
+    outerHeight: 1080,
+    devicePixelRatio: 1,
     scrollTo: noop,
+    scrollBy: noop,
+    scroll: noop,
+    scrollX: 0,
     scrollY: 0,
+    pageXOffset: 0,
     pageYOffset: 0,
-    location: {
-      href: 'https://d365.se',
-      pathname: '/',
-      search: '',
-      hash: '',
-      origin: 'https://d365.se',
-      hostname: 'd365.se',
-      protocol: 'https:',
-      assign: noop,
-      replace: noop,
-      reload: noop,
+    location: locationObj,
+    navigator: {
+      userAgent: 'Mozilla/5.0 (prerender)',
+      language: 'sv-SE',
+      languages: ['sv-SE', 'sv', 'en'],
+      platform: 'Linux',
+      cookieEnabled: true,
+      onLine: true,
+      clipboard: { writeText: () => Promise.resolve() },
     },
-    navigator: { userAgent: 'prerender' },
-    history: { pushState: noop, replaceState: noop, back: noop, forward: noop },
-    getComputedStyle: () => ({ getPropertyValue: () => '' }),
-    requestAnimationFrame: (cb: (...args: any[]) => void) => setTimeout(cb, 0),
-    cancelAnimationFrame: noop,
-    localStorage: { getItem: () => null, setItem: noop, removeItem: noop, clear: noop },
-    sessionStorage: { getItem: () => null, setItem: noop, removeItem: noop, clear: noop },
-  };
-
-  (globalThis as any).document = {
-    createElement: (tag: string) => ({
-      tagName: tag.toUpperCase(),
-      style: {},
-      setAttribute: noop,
-      getAttribute: () => null,
-      addEventListener: noop,
-      removeEventListener: noop,
-      appendChild: noop,
-      removeChild: noop,
-      classList: { add: noop, remove: noop, toggle: noop, contains: () => false },
+    history: {
+      length: 1, state: null,
+      pushState: noop, replaceState: noop, back: noop, forward: noop, go: noop,
+    },
+    localStorage: storage,
+    sessionStorage: { ...storage, _data: {} },
+    getComputedStyle: () => new Proxy({} as any, {
+      get: (_t, prop) => {
+        if (prop === 'getPropertyValue') return () => '';
+        if (prop === 'length') return 0;
+        return '';
+      },
     }),
-    createTextNode: () => ({}),
-    querySelector: () => null,
-    querySelectorAll: () => [],
-    getElementById: () => null,
-    getElementsByClassName: () => [],
-    getElementsByTagName: () => [],
-    head: { appendChild: noop, removeChild: noop, querySelectorAll: () => [] },
-    body: { appendChild: noop, removeChild: noop },
-    cookie: '',
-    documentElement: { style: {}, classList: { add: noop, remove: noop, toggle: noop, contains: () => false } },
-    createEvent: () => ({ initEvent: noop }),
-    addEventListener: noop,
-    removeEventListener: noop,
+    requestAnimationFrame: (cb: (...args: any[]) => void) => setTimeout(cb, 0),
+    cancelAnimationFrame: (id: any) => clearTimeout(id),
+    requestIdleCallback: (cb: (...args: any[]) => void) => setTimeout(cb, 0),
+    cancelIdleCallback: (id: any) => clearTimeout(id),
+    setTimeout: globalThis.setTimeout,
+    clearTimeout: globalThis.clearTimeout,
+    setInterval: globalThis.setInterval,
+    clearInterval: globalThis.clearInterval,
+    fetch: globalThis.fetch,
+    AbortController: globalThis.AbortController,
+    URL: globalThis.URL,
+    URLSearchParams: globalThis.URLSearchParams,
+    Headers: globalThis.Headers,
+    Request: globalThis.Request,
+    Response: globalThis.Response,
+    Event: class MockEvent {
+      type: string;
+      constructor(type: string) { this.type = type; }
+      preventDefault() {}
+      stopPropagation() {}
+    },
+    CustomEvent: class MockCustomEvent {
+      type: string;
+      detail: any;
+      constructor(type: string, init?: any) { this.type = type; this.detail = init?.detail; }
+      preventDefault() {}
+      stopPropagation() {}
+    },
+    getSelection: () => null,
+    visualViewport: { width: 1920, height: 1080, addEventListener: noop, removeEventListener: noop },
+    performance: globalThis.performance || { now: () => Date.now(), mark: noop, measure: noop },
+    screen: { width: 1920, height: 1080, availWidth: 1920, availHeight: 1080, colorDepth: 24, pixelDepth: 24, orientation: { type: 'landscape-primary', angle: 0 } },
+    CSS: { supports: () => false, escape: (s: string) => s },
+    MutationObserver: class { observe() {} disconnect() {} takeRecords() { return []; } },
+    ResizeObserver: class { observe() {} unobserve() {} disconnect() {} },
+    IntersectionObserver: class { observe() {} unobserve() {} disconnect() {} },
+    queueMicrotask: globalThis.queueMicrotask,
   };
 
-  (globalThis as any).navigator = { userAgent: 'prerender', language: 'sv-SE' };
-  (globalThis as any).localStorage = (globalThis as any).window.localStorage;
-  (globalThis as any).sessionStorage = (globalThis as any).window.sessionStorage;
-  (globalThis as any).location = (globalThis as any).window.location;
+  // Set document.defaultView to window
+  (globalThis as any).document.defaultView = (globalThis as any).window;
 
-  (globalThis as any).IntersectionObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
-  (globalThis as any).ResizeObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-  };
-  (globalThis as any).MutationObserver = class {
-    observe() {}
-    disconnect() {}
-    takeRecords() { return []; }
-  };
+  // Copy key properties to globalThis for direct access
+  const globalsToProxy = [
+    'navigator', 'location', 'localStorage', 'sessionStorage',
+    'getComputedStyle', 'requestAnimationFrame', 'cancelAnimationFrame',
+    'MutationObserver', 'ResizeObserver', 'IntersectionObserver',
+    'requestIdleCallback', 'cancelIdleCallback', 'matchMedia',
+    'scroll', 'scrollTo', 'scrollBy',
+  ];
 
-  // Needed by some UI libraries
-  (globalThis as any).HTMLElement = class {};
-  (globalThis as any).Element = class {};
-  (globalThis as any).customElements = { define: noop, get: () => undefined };
-  (globalThis as any).getComputedStyle = (globalThis as any).window.getComputedStyle;
-  (globalThis as any).requestAnimationFrame = (globalThis as any).window.requestAnimationFrame;
-  (globalThis as any).cancelAnimationFrame = (globalThis as any).window.cancelAnimationFrame;
+  for (const key of globalsToProxy) {
+    if ((globalThis as any)[key] === undefined) {
+      (globalThis as any)[key] = (globalThis as any).window[key];
+    }
+  }
+
+  // Additional globals some libs expect
+  (globalThis as any).HTMLElement = class MockHTMLElement {};
+  (globalThis as any).HTMLDivElement = class extends (globalThis as any).HTMLElement {};
+  (globalThis as any).HTMLSpanElement = class extends (globalThis as any).HTMLElement {};
+  (globalThis as any).HTMLAnchorElement = class extends (globalThis as any).HTMLElement {};
+  (globalThis as any).HTMLButtonElement = class extends (globalThis as any).HTMLElement {};
+  (globalThis as any).HTMLInputElement = class extends (globalThis as any).HTMLElement {};
+  (globalThis as any).HTMLImageElement = class extends (globalThis as any).HTMLElement {};
+  (globalThis as any).Element = class MockElement {};
+  (globalThis as any).Node = class MockNode {};
+  (globalThis as any).DocumentFragment = class MockDocumentFragment {};
+  (globalThis as any).SVGElement = class MockSVGElement {};
+  (globalThis as any).Text = class MockText {};
+  (globalThis as any).Comment = class MockComment {};
+  (globalThis as any).Event = (globalThis as any).window.Event;
+  (globalThis as any).CustomEvent = (globalThis as any).window.CustomEvent;
+  (globalThis as any).customElements = { define: noop, get: () => undefined, whenDefined: () => Promise.resolve() };
+  (globalThis as any).DOMParser = class {
+    parseFromString() { return (globalThis as any).document; }
+  };
+  (globalThis as any).XMLSerializer = class {
+    serializeToString() { return ''; }
+  };
 }
 
 /**
@@ -197,11 +403,17 @@ export function prerenderPlugin(): Plugin {
       const ssrOutDir = path.resolve(root, '.prerender-ssr');
 
       try {
-        // ---- 1. Build SSR bundle ------------------------------------------------
+        // ---- 1. Load env variables for SSR build --------------------------------
+        const envDefine = loadEnvVars(root);
+        console.log(`  📋 Loaded ${Object.keys(envDefine).length} env variables for SSR build`);
+
+        // ---- 2. Build SSR bundle ------------------------------------------------
         process.env.__PRERENDER_SSR = '1';
 
         const { build: viteBuild } = await import('vite');
         const reactPlugin = (await import('@vitejs/plugin-react-swc')).default;
+
+        console.log('  🔨 Building SSR bundle…');
 
         await viteBuild({
           configFile: false,
@@ -212,6 +424,8 @@ export function prerenderPlugin(): Plugin {
               '@': path.resolve(root, 'src'),
             },
           },
+          define: envDefine,
+          assetsInclude: ['**/*.jfif', '**/*.webp'],
           build: {
             ssr: 'src/entry-server.tsx',
             outDir: ssrOutDir,
@@ -225,20 +439,39 @@ export function prerenderPlugin(): Plugin {
         });
 
         delete process.env.__PRERENDER_SSR;
+        console.log('  ✅ SSR bundle built successfully');
 
-        // ---- 2. Set up polyfills before loading SSR module ----------------------
+        // ---- 3. Set up polyfills before loading SSR module ----------------------
         setupBrowserPolyfills();
+        console.log('  ✅ Browser polyfills installed');
 
-        // ---- 3. Load SSR module -------------------------------------------------
+        // ---- 4. Load SSR module -------------------------------------------------
         const { pathToFileURL } = await import('url');
         const ssrEntryPath = path.resolve(ssrOutDir, 'entry-server.js');
-        const { render } = await import(pathToFileURL(ssrEntryPath).href);
 
-        // ---- 4. Read the built index.html template ------------------------------
+        if (!fs.existsSync(ssrEntryPath)) {
+          console.error(`  ❌ SSR entry not found at ${ssrEntryPath}`);
+          console.log('  Available files:', fs.readdirSync(ssrOutDir).join(', '));
+          return;
+        }
+
+        console.log('  📦 Loading SSR module…');
+        const ssrModule = await import(pathToFileURL(ssrEntryPath).href);
+        const { render } = ssrModule;
+
+        if (typeof render !== 'function') {
+          console.error('  ❌ SSR module does not export a render function');
+          console.log('  Exports:', Object.keys(ssrModule).join(', '));
+          return;
+        }
+
+        console.log('  ✅ SSR module loaded');
+
+        // ---- 5. Read the built index.html template ------------------------------
         const templatePath = path.resolve(outDir, 'index.html');
         const rawTemplate = fs.readFileSync(templatePath, 'utf-8');
 
-        // ---- 5. Render each route -----------------------------------------------
+        // ---- 6. Render each route -----------------------------------------------
         let ok = 0;
         let fail = 0;
 
@@ -250,6 +483,9 @@ export function prerenderPlugin(): Plugin {
             (globalThis as any).location = (globalThis as any).window.location;
 
             const { html: appHtml, head } = render(route);
+
+            // Check if we got meaningful content
+            const contentLength = appHtml?.length || 0;
 
             // Strip existing SEO tags from the template
             let pageHtml = stripSeoTags(rawTemplate);
@@ -279,32 +515,38 @@ export function prerenderPlugin(): Plugin {
             }
 
             ok++;
-            console.log(`  ✅ ${route}`);
+            console.log(`  ✅ ${route} (${contentLength} chars)`);
           } catch (err) {
             fail++;
-            console.warn(`  ⚠️  Skipped ${route}: ${(err as Error).message}`);
+            const error = err as Error;
+            console.warn(`  ⚠️  Skipped ${route}:`);
+            console.warn(`      Error: ${error.message}`);
+            if (error.stack) {
+              // Show first 3 lines of stack trace
+              const stackLines = error.stack.split('\n').slice(1, 4).map(l => `      ${l.trim()}`);
+              console.warn(stackLines.join('\n'));
+            }
           }
         }
 
-        // ---- 6. Generate sitemap.xml -------------------------------------------
+        // ---- 7. Generate sitemap.xml -------------------------------------------
         const sitemap = generateSitemap(STATIC_ROUTES);
         fs.writeFileSync(path.join(outDir, 'sitemap.xml'), sitemap);
         console.log('  ✅ sitemap.xml');
 
-        // ---- 7. Cleanup --------------------------------------------------------
+        // ---- 8. Cleanup --------------------------------------------------------
         fs.rmSync(ssrOutDir, { recursive: true, force: true });
 
         console.log(
           `\n✨ Prerender complete – ${ok} routes OK, ${fail} skipped\n`,
         );
       } catch (err) {
-        console.error(
-          '❌ Prerender failed:',
-          (err as Error).message,
-        );
-        console.error(
-          '   The SPA will still work normally without prerendered HTML.\n',
-        );
+        const error = err as Error;
+        console.error('❌ Prerender failed:', error.message);
+        if (error.stack) {
+          console.error(error.stack.split('\n').slice(0, 6).join('\n'));
+        }
+        console.error('   The SPA will still work normally without prerendered HTML.\n');
 
         // Cleanup on failure
         try {
