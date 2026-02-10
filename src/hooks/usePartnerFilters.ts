@@ -31,8 +31,11 @@ export const matchesDatabaseProductFilter = (
   if (selectedGeography) {
     const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
     
-    // Handle both string and array geography formats
-    const partnerGeographies = partner.geography || ['Sverige'];
+    // Read geography from product filter, not top-level partner.geography
+    const pfGeo = productFilter.geography;
+    const partnerGeographies = Array.isArray(pfGeo) && pfGeo.length > 0 
+      ? pfGeo 
+      : (typeof pfGeo === 'string' && pfGeo ? [pfGeo] : ['Sverige']);
     
     // Check if partner covers the selected geography
     // A partner with broader coverage (e.g., "Norden") can serve narrower areas (e.g., "Sverige")
