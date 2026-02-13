@@ -209,7 +209,7 @@ const HeroCarousel = () => {
                         src={industry.image}
                         alt={industry.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        loading="eager"
+                        loading="lazy"
                       />
                     </div>
                     <span className="text-[8px] sm:text-xs text-white/90 font-medium text-center leading-tight">
