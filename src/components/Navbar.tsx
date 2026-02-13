@@ -84,7 +84,7 @@ const Navbar = () => {
               to="/valj-partner"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
-              Välj Partner
+              Det kritiska partnervalet
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -202,7 +202,7 @@ const Navbar = () => {
                   to="/valj-partner"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
-                  Välj Partner
+                  Det kritiska partnervalet
                 </Link>
                 <div className="flex flex-col gap-2">
                   <span className="text-lg font-semibold text-foreground">Affärssystem (ERP)</span>
