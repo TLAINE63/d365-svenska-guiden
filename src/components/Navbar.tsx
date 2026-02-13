@@ -63,6 +63,8 @@ const Navbar = () => {
               width="294"
               height="126"
               loading="eager"
+              fetchPriority="high"
+              decoding="async"
             />
           </Link>
 
