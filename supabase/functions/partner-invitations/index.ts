@@ -414,7 +414,7 @@ serve(async (req: Request): Promise<Response> => {
             const emailResponse = await resend.emails.send({
               from: "D365.se <info@d365.se>",
               to: [email],
-              subject: `Uppdatera din partnerprofil på D365.se - ${partner_name}`,
+              subject: `Vem är kundens mest lämpade Dynamics 365-partner?`,
               html: `
                 <!DOCTYPE html>
                 <html>
@@ -423,43 +423,46 @@ serve(async (req: Request): Promise<Response> => {
                   <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 </head>
                 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-                  <div style="text-align: center; margin-bottom: 30px;">
-                    <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
-                    <p style="color: #6b7280; margin: 5px 0 0 0;">Sveriges guide till Microsoft Dynamics 365</p>
-                  </div>
                   
-                  <h2 style="color: #1f2937;">Hej!</h2>
+                  <p>Hello,<br>Hoppas allt är bra!</p>
                   
-                  <p>Vi bjuder in dig att uppdatera din partnerprofil för <strong>${partner_name}</strong> på D365.se.</p>
+                  <p>Dynamic Factory har tagit fram ett initiativ för att hjälpa potentiella och befintliga kunder att välja rätt partner för sitt Dynamics 365 projekt och/eller support/förvaltning.</p>
                   
-                  <p>Genom att fylla i formuläret kan du se till att era uppgifter är aktuella och att potentiella kunder får rätt information om ert företag.</p>
+                  <p>Vi kör en kostnadsfri testperiod med några utvalda partners under februari och en bit in i mars, så passa på att ladda på med alla lösningsområden som ni kan erbjuda.</p>
                   
-                  <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                    <h3 style="color: #1f2937; margin: 0 0 12px 0; font-size: 16px;">I formuläret anger ni för varje produkt:</h3>
-                    <ul style="margin: 0; padding-left: 20px; color: #4b5563;">
-                      <li>Beskrivning av ert erbjudande</li>
-                      <li>Branschfokus (max 3 branscher)</li>
-                      <li>Geografisk täckning</li>
-                      <li>Antal genomförda projekt</li>
-                      <li>Eventuella kundexempel</li>
-                    </ul>
-                  </div>
+                  <p>Siten är nu "live" <a href="https://www.d365.se" style="color: #2563eb;">https://www.d365.se</a>, så kom gärna med feedback och kontrollera speciellt att era uppgifter är korrekta.</p>
+                  
+                  <p>Siten riktar sig i första hand till kunder som visat intresse för ERP/CRM och specifikt vad Microsoft har att erbjuda. Den innehåller guider och enklare behovsanalyser, jämförelser och prisindikationer och framförallt möjligheten att söka fram mest lämpade partner för ett projekt/förvaltningsuppdrag. På siten kan man välja att kontakta en partner direkt alternativt först ta kontakt med oss med lite kostnadsfri rådgivning.</p>
+                  
+                  <p>Varje partner får en partnerprofilsida. Val av produkt och branschinriktning kommer vara huvudfokus samt eventuellt företagsstorlek på kunden.</p>
+                  
+                  <p>Vi kommer att göra en seriös marknadsinvestering för att driva trafik till siten. Siten har en kopplad programvara som loggar besökare, så att vi kan bevaka vilka företag/domäner som snurrat runt på vilka sidor. Utöver det så får vi bra generell site-statistik som vi kan dela med oss av.</p>
+                  
+                  <p>I diskussion med Microsoft och Microsofts CSPs/Distis så menar man att den även bör kunna användas av Microsoftsäljare internt samt att den även bör promotas mot upphandlingskonsulter.</p>
+                  
+                  <p>Länken här går att använda flera gånger, om ni vill gå in och ändra er profilering.</p>
                   
                   <div style="text-align: center; margin: 30px 0;">
                     <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera partnerprofil</a>
                   </div>
                   
-                  <p style="color: #6b7280; font-size: 14px;">Länken är giltig till: <strong>${expiresDate}</strong></p>
-                  
                   <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
                   <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>
                   
-                  <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+                  <p>Har ni frågor kring detta är det bara att ni hör av er.</p>
                   
-                  <p style="color: #6b7280; font-size: 12px; text-align: center;">
-                    Detta e-postmeddelande skickades från D365.se<br>
-                    Om du inte känner igen denna förfrågan kan du ignorera detta meddelande.
+                  <br>
+                  <p style="margin: 0;">Allt Gott!</p>
+                  <br>
+                  <p style="margin: 0;"><strong>Thomas Laine</strong></p>
+                  <p style="margin: 0;">Telefon: +46 72 232 4060</p>
+                  <p style="margin: 0;"><a href="mailto:Thomas.laine@dynamicfactory.se" style="color: #2563eb;">Thomas.laine@dynamicfactory.se</a></p>
+                  <p style="margin: 0;">
+                    <a href="https://www.dynamicfactory.se" style="color: #2563eb;">www.dynamicfactory.se</a>, 
+                    <a href="https://www.businesscentral.se" style="color: #2563eb;">www.businesscentral.se</a>, 
+                    <a href="https://www.d365.se" style="color: #2563eb;">www.d365.se</a>
                   </p>
+                  
                 </body>
                 </html>
               `,
