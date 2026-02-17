@@ -99,6 +99,14 @@ const App = () => (
             <Route path="/konfigurator" element={<Navigate to="/" replace />} />
             <Route path="/sekretesspolicy" element={<Navigate to="/dataskydd" replace />} />
             <Route path="/start" element={<Navigate to="/" replace />} />
+            <Route path="/evenemang" element={<Navigate to="/events" replace />} />
+            <Route path="/dynamics-365-customer-engagement-crm" element={<Navigate to="/crm" replace />} />
+            <Route path="/dynamics-365-erp-business-central" element={<Navigate to="/business-central" replace />} />
+            <Route path="/aktuellt" element={<Navigate to="/events" replace />} />
+            <Route path="/aktuellt/*" element={<Navigate to="/events" replace />} />
+            <Route path="/projektpaket" element={<Navigate to="/" replace />} />
+            <Route path="/search" element={<Navigate to="/" replace />} />
+            <Route path="/våratjänster" element={<Navigate to="/" replace />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/partner-events/:token" element={<PartnerEvents />} />
