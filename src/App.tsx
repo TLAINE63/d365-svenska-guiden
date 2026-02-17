@@ -84,7 +84,14 @@ const App = () => (
             <Route path="/partner-admin" element={<Navigate to="/admin" replace />} />
             <Route path="/lead-admin" element={<Navigate to="/admin" replace />} />
             <Route path="/partner-update/:token" element={<PartnerUpdate />} />
-            <Route path="/partner-update/:token" element={<PartnerUpdate />} />
+            {/* Redirects for old/legacy URLs (44 st 404 i GSC) */}
+            <Route path="/kontakta-oss" element={<Navigate to="/kontakt" replace />} />
+            <Route path="/om-oss" element={<Navigate to="/" replace />} />
+            <Route path="/våra-tjänster" element={<Navigate to="/" replace />} />
+            <Route path="/vara-tjanster" element={<Navigate to="/" replace />} />
+            <Route path="/nyheter" element={<Navigate to="/events" replace />} />
+            <Route path="/start/f/*" element={<Navigate to="/events" replace />} />
+            <Route path="/f/*" element={<Navigate to="/events" replace />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/partner-events/:token" element={<PartnerEvents />} />
