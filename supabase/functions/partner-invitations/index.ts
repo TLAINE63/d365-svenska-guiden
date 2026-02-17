@@ -432,7 +432,7 @@ serve(async (req: Request): Promise<Response> => {
                   
                   <p>Siten är nu "live" <a href="https://www.d365.se" style="color: #2563eb;">https://www.d365.se</a>, så kom gärna med feedback och kontrollera speciellt att era uppgifter är korrekta.</p>
                   
-                  <p>Siten riktar sig i första hand till kunder som visat intresse för ERP/CRM och specifikt vad Microsoft har att erbjuda. Den innehåller guider och enklare behovsanalyser, jämförelser och prisindikationer och framförallt möjligheten att söka fram mest lämpade partner för ett projekt/förvaltningsuppdrag. På siten kan man välja att kontakta en partner direkt alternativt först ta kontakt med oss med lite kostnadsfri rådgivning.</p>
+                  <p>Siten riktar sig i första hand till kunder som visat intresse för ERP/CRM och specifikt vad Microsoft har att erbjuda. Den innehåller guider och enklare behovsanalyser, jämförelser och prisindikationer och framförallt möjligheten att söka fram mest lämpade partner för ett projekt/förvaltningsuppdrag. <p>Siten riktar sig i första hand till kunder som visat intresse för ERP/CRM och specifikt vad Microsoft har att erbjuda. Den innehåller guider och enklare behovsanalyser, jämförelser och prisindikationer och framförallt möjligheten att söka fram mest lämpade partner för ett projekt/förvaltningsuppdrag. På siten kan man välja att kontakta en partner direkt, alternativt att först ta kontakt med oss för lite kostnadsfri rådgivning.</p></p>
                   
                   <p>Varje partner får en partnerprofilsida. Val av produkt och branschinriktning kommer vara huvudfokus samt eventuellt företagsstorlek på kunden.</p>
                   
