@@ -25,8 +25,9 @@ import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import { 
   Plus, Copy, Trash2, RefreshCw, CheckCircle2, Clock, Send, 
-  AlertCircle, ExternalLink, Eye, Mail
+  AlertCircle, ExternalLink, Eye, Mail, FileEdit, Save
 } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SubmissionCompareDialog } from "./SubmissionCompareDialog";
 
@@ -100,6 +101,13 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(null);
   
+  // Email template state
+  const [emailTemplate, setEmailTemplate] = useState("");
+  const [emailTemplateOriginal, setEmailTemplateOriginal] = useState("");
+  const [loadingTemplate, setLoadingTemplate] = useState(false);
+  const [savingTemplate, setSavingTemplate] = useState(false);
+  const [showTemplateEditor, setShowTemplateEditor] = useState(false);
+  
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
     email: "",
@@ -143,6 +151,58 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
       fetchData();
     }
   }, [token]);
+
+  const fetchEmailTemplate = async () => {
+    setLoadingTemplate(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+      if (!response.ok) throw new Error("Kunde inte hämta mall");
+      const data = await response.json();
+      setEmailTemplate(data.template || "");
+      setEmailTemplateOriginal(data.template || "");
+    } catch (err) {
+      console.error("Fetch template error:", err);
+      toast.error("Kunde inte hämta e-postmall");
+    } finally {
+      setLoadingTemplate(false);
+    }
+  };
+
+  const saveEmailTemplate = async () => {
+    setSavingTemplate(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ template: emailTemplate }),
+        }
+      );
+      if (!response.ok) throw new Error("Kunde inte spara mall");
+      setEmailTemplateOriginal(emailTemplate);
+      toast.success("E-postmall sparad!");
+    } catch (err) {
+      console.error("Save template error:", err);
+      toast.error("Kunde inte spara e-postmall");
+    } finally {
+      setSavingTemplate(false);
+    }
+  };
 
   const createInvitation = async () => {
     if (!newInvitation.email || !newInvitation.partner_name) {
@@ -291,6 +351,16 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
           </p>
         </div>
         <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            onClick={() => {
+              if (!showTemplateEditor) fetchEmailTemplate();
+              setShowTemplateEditor(!showTemplateEditor);
+            }}
+          >
+            <FileEdit className="w-4 h-4 mr-2" />
+            {showTemplateEditor ? "Dölj mailmall" : "Redigera mailmall"}
+          </Button>
           <Button variant="outline" onClick={fetchData} disabled={loading}>
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Uppdatera
@@ -301,6 +371,59 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
           </Button>
         </div>
       </div>
+
+      {/* Email template editor */}
+      {showTemplateEditor && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <FileEdit className="w-5 h-5" />
+              Inbjudningsmailets brödtext
+            </CardTitle>
+            <CardDescription>
+              Redigera texten som skickas till partners vid inbjudan. Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> där knappen för att uppdatera profil ska placeras. 
+              Tomma rader skapar nya stycken. Webbadresser och e-postadresser görs automatiskt klickbara.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {loadingTemplate ? (
+              <div className="text-center py-8 text-muted-foreground">Laddar mall...</div>
+            ) : (
+              <>
+                <Textarea
+                  value={emailTemplate}
+                  onChange={(e) => setEmailTemplate(e.target.value)}
+                  rows={20}
+                  className="font-mono text-sm"
+                  placeholder="Skriv din mailtext här..."
+                />
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-muted-foreground">
+                    Ämnesrad är fast: "Vem är kundens mest lämpade Dynamics 365-partner?"
+                  </p>
+                  <div className="flex gap-2">
+                    {emailTemplate !== emailTemplateOriginal && (
+                      <Button 
+                        variant="outline" 
+                        onClick={() => setEmailTemplate(emailTemplateOriginal)}
+                      >
+                        Ångra ändringar
+                      </Button>
+                    )}
+                    <Button 
+                      onClick={saveEmailTemplate} 
+                      disabled={savingTemplate || emailTemplate === emailTemplateOriginal}
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      {savingTemplate ? "Sparar..." : "Spara mall"}
+                    </Button>
+                  </div>
+                </div>
+              </>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Pending submissions alert */}
       {pendingSubmissions.length > 0 && (

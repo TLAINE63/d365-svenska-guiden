@@ -406,66 +406,74 @@ serve(async (req: Request): Promise<Response> => {
         if (resendApiKey) {
           try {
             const resend = new Resend(resendApiKey);
-            // Use d365.se if published, otherwise use the Lovable app URL
             const baseUrl = "https://d365-svenska-guiden.lovable.app";
             const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
-            const expiresDate = new Date(invitation.expires_at).toLocaleDateString("sv-SE");
             
-            const emailResponse = await resend.emails.send({
-              from: "D365.se <info@d365.se>",
-              to: [email],
-              subject: `Vem är kundens mest lämpade Dynamics 365-partner?`,
-              html: `
-                <!DOCTYPE html>
+            // Fetch email template from database
+            let emailBody = "";
+            const { data: setting } = await supabase
+              .from("site_settings")
+              .select("value")
+              .eq("key", "invitation_email_body")
+              .single();
+            
+            if (setting?.value) {
+              emailBody = setting.value;
+            } else {
+              emailBody = "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
+            }
+            
+            // Replace placeholder with actual link
+            const invitationButton = `<div style="text-align: center; margin: 30px 0;">
+                    <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera partnerprofil</a>
+                  </div>
+                  <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
+                  <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
+            
+            // Convert plain text to HTML paragraphs, handling the invitation link placeholder
+            const htmlBody = emailBody
+              .split("{{INVITATION_LINK}}")
+              .map(part => {
+                return part
+                  .split("\n\n")
+                  .map(paragraph => {
+                    const trimmed = paragraph.trim();
+                    if (!trimmed) return "";
+                    // Convert single line breaks to <br> within paragraphs
+                    const withBr = trimmed.replace(/\n/g, "<br>");
+                    // Auto-link URLs
+                    const withLinks = withBr.replace(
+                      /(https?:\/\/[^\s<,]+)/g,
+                      '<a href="$1" style="color: #2563eb;">$1</a>'
+                    );
+                    // Auto-link email addresses
+                    const withEmails = withLinks.replace(
+                      /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+                      '<a href="mailto:$1" style="color: #2563eb;">$1</a>'
+                    );
+                    return `<p>${withEmails}</p>`;
+                  })
+                  .filter(Boolean)
+                  .join("\n");
+              })
+              .join(invitationButton);
+            
+            const fullHtml = `<!DOCTYPE html>
                 <html>
                 <head>
                   <meta charset="utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 </head>
                 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-                  
-                  <p>Hello,<br>Hoppas allt är bra!</p>
-                  
-                  <p>Dynamic Factory har tagit fram ett initiativ för att hjälpa potentiella och befintliga kunder att välja rätt partner för sitt Dynamics 365 projekt och/eller support/förvaltning.</p>
-                  
-                  <p>Vi kör en kostnadsfri testperiod med några utvalda partners under februari och en bit in i mars, så passa på att ladda på med alla lösningsområden som ni kan erbjuda.</p>
-                  
-                  <p>Siten är nu "live" <a href="https://www.d365.se" style="color: #2563eb;">https://www.d365.se</a>, så kom gärna med feedback och kontrollera speciellt att era uppgifter är korrekta.</p>
-                  
-                  <p>Siten riktar sig i första hand till kunder som visat intresse för ERP/CRM och specifikt vad Microsoft har att erbjuda. Den innehåller guider och enklare behovsanalyser, jämförelser och prisindikationer och framförallt möjligheten att söka fram mest lämpade partner för ett projekt/förvaltningsuppdrag. <p>Siten riktar sig i första hand till kunder som visat intresse för ERP/CRM och specifikt vad Microsoft har att erbjuda. Den innehåller guider och enklare behovsanalyser, jämförelser och prisindikationer och framförallt möjligheten att söka fram mest lämpade partner för ett projekt/förvaltningsuppdrag. På siten kan man välja att kontakta en partner direkt, alternativt att först ta kontakt med oss för lite kostnadsfri rådgivning.</p></p>
-                  
-                  <p>Varje partner får en partnerprofilsida. Val av produkt och branschinriktning kommer vara huvudfokus samt eventuellt företagsstorlek på kunden.</p>
-                  
-                  <p>Vi kommer att göra en seriös marknadsinvestering för att driva trafik till siten. Siten har en kopplad programvara som loggar besökare, så att vi kan bevaka vilka företag/domäner som snurrat runt på vilka sidor. Utöver det så får vi bra generell site-statistik som vi kan dela med oss av.</p>
-                  
-                  <p>I diskussion med Microsoft och Microsofts CSPs/Distis så menar man att den även bör kunna användas av Microsoftsäljare internt samt att den även bör promotas mot upphandlingskonsulter.</p>
-                  
-                  <p>Länken här går att använda flera gånger, om ni vill gå in och ändra er profilering.</p>
-                  
-                  <div style="text-align: center; margin: 30px 0;">
-                    <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera partnerprofil</a>
-                  </div>
-                  
-                  <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
-                  <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>
-                  
-                  <p>Har ni frågor kring detta är det bara att ni hör av er.</p>
-                  
-                  <br>
-                  <p style="margin: 0;">Allt Gott!</p>
-                  <br>
-                  <p style="margin: 0;"><strong>Thomas Laine</strong></p>
-                  <p style="margin: 0;">Telefon: +46 72 232 4060</p>
-                  <p style="margin: 0;"><a href="mailto:Thomas.laine@dynamicfactory.se" style="color: #2563eb;">Thomas.laine@dynamicfactory.se</a></p>
-                  <p style="margin: 0;">
-                    <a href="https://www.dynamicfactory.se" style="color: #2563eb;">www.dynamicfactory.se</a>, 
-                    <a href="https://www.businesscentral.se" style="color: #2563eb;">www.businesscentral.se</a>, 
-                    <a href="https://www.d365.se" style="color: #2563eb;">www.d365.se</a>
-                  </p>
-                  
+                  ${htmlBody}
                 </body>
-                </html>
-              `,
+                </html>`;
+            
+            const emailResponse = await resend.emails.send({
+              from: "D365.se <info@d365.se>",
+              to: [email],
+              subject: `Vem är kundens mest lämpade Dynamics 365-partner?`,
+              html: fullHtml,
             });
             
             console.log("Invitation email sent to:", email, emailResponse);
@@ -487,6 +495,49 @@ serve(async (req: Request): Promise<Response> => {
           emailSent,
           emailError
         }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Admin: Get email template
+    if (action === "get-email-template" && req.method === "GET") {
+      const { data: setting } = await supabase
+        .from("site_settings")
+        .select("value, updated_at")
+        .eq("key", "invitation_email_body")
+        .single();
+
+      return new Response(
+        JSON.stringify({ template: setting?.value || "", updated_at: setting?.updated_at }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Admin: Update email template
+    if (action === "update-email-template" && req.method === "POST") {
+      const body = await req.json();
+      const { template } = body;
+
+      if (typeof template !== "string") {
+        return new Response(
+          JSON.stringify({ error: "Malltext krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const { error } = await supabase
+        .from("site_settings")
+        .upsert({ key: "invitation_email_body", value: template, updated_at: new Date().toISOString() });
+
+      if (error) {
+        return new Response(
+          JSON.stringify({ error: "Kunde inte spara mall" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ success: true }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
