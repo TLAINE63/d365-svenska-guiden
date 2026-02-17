@@ -95,6 +95,10 @@ const App = () => (
             <Route path="/f/*" element={<Navigate to="/events" replace />} />
             <Route path="/dynamics-365-introduktion" element={<Navigate to="/" replace />} />
             <Route path="/dynamics-365-demos" element={<Navigate to="/" replace />} />
+            <Route path="/partner" element={<Navigate to="/valj-partner" replace />} />
+            <Route path="/konfigurator" element={<Navigate to="/" replace />} />
+            <Route path="/sekretesspolicy" element={<Navigate to="/dataskydd" replace />} />
+            <Route path="/start" element={<Navigate to="/" replace />} />
             <Route path="/events" element={<Events />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/partner-events/:token" element={<PartnerEvents />} />
