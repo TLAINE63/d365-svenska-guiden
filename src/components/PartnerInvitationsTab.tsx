@@ -96,6 +96,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
+  const [sendingReminders, setSendingReminders] = useState(false);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showCompareDialog, setShowCompareDialog] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
@@ -339,6 +340,46 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
     return inv?.status === "submitted";
   });
 
+  // Count pending (not expired) invitations for reminder button
+  const pendingInvitations = invitations.filter(
+    inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
+  );
+
+  const sendReminders = async () => {
+    if (!confirm(`Skicka påminnelse till ${pendingInvitations.length} partners som inte skickat in sin profil?`)) return;
+    
+    setSendingReminders(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-reminders`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Kunde inte skicka påminnelser");
+      }
+
+      toast.success(data.message || `Påminnelse skickad till ${data.sent} partners`);
+      if (data.errors?.length) {
+        console.warn("Reminder errors:", data.errors);
+      }
+    } catch (err: any) {
+      console.error("Send reminders error:", err);
+      toast.error(err.message || "Kunde inte skicka påminnelser");
+    } finally {
+      setSendingReminders(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -361,6 +402,17 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
             <FileEdit className="w-4 h-4 mr-2" />
             {showTemplateEditor ? "Dölj mailmall" : "Redigera mailmall"}
           </Button>
+          {pendingInvitations.length > 0 && (
+            <Button 
+              variant="outline" 
+              onClick={sendReminders} 
+              disabled={sendingReminders}
+              className="border-amber-500 text-amber-700 hover:bg-amber-50 dark:text-amber-400 dark:hover:bg-amber-950"
+            >
+              <Mail className={`w-4 h-4 mr-2 ${sendingReminders ? "animate-pulse" : ""}`} />
+              {sendingReminders ? "Skickar..." : `Påminn alla (${pendingInvitations.length})`}
+            </Button>
+          )}
           <Button variant="outline" onClick={fetchData} disabled={loading}>
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Uppdatera
