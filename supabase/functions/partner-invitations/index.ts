@@ -693,14 +693,23 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // Admin: Send reminders to all pending invitations
+    // Admin: Send reminders to selected pending invitations
     if (action === "send-reminders" && req.method === "POST") {
-      // Get all pending invitations (not expired)
-      const { data: pendingInvitations, error: pendErr } = await supabase
+      const body = await req.json().catch(() => ({}));
+      const invitationIds: string[] | undefined = body.invitation_ids;
+
+      // Get pending invitations (not expired), optionally filtered by IDs
+      let query = supabase
         .from("partner_invitations")
         .select("*")
         .eq("status", "pending")
         .gte("expires_at", new Date().toISOString());
+
+      if (invitationIds && invitationIds.length > 0) {
+        query = query.in("id", invitationIds);
+      }
+
+      const { data: pendingInvitations, error: pendErr } = await query;
 
       if (pendErr) {
         return new Response(

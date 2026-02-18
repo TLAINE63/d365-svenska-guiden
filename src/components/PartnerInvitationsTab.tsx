@@ -97,6 +97,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [sendingReminders, setSendingReminders] = useState(false);
+  const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showCompareDialog, setShowCompareDialog] = useState(false);
   const [selectedSubmission, setSelectedSubmission] = useState<Submission | null>(null);
@@ -345,8 +346,29 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
+  const toggleReminderSelection = (id: string) => {
+    setSelectedForReminder(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleAllReminders = () => {
+    if (selectedForReminder.size === pendingInvitations.length) {
+      setSelectedForReminder(new Set());
+    } else {
+      setSelectedForReminder(new Set(pendingInvitations.map(i => i.id)));
+    }
+  };
+
   const sendReminders = async () => {
-    if (!confirm(`Skicka påminnelse till ${pendingInvitations.length} partners som inte skickat in sin profil?`)) return;
+    const ids = Array.from(selectedForReminder);
+    if (ids.length === 0) {
+      toast.error("Välj minst en partner att skicka påminnelse till");
+      return;
+    }
+    if (!confirm(`Skicka påminnelse till ${ids.length} partner(s)?`)) return;
     
     setSendingReminders(true);
     try {
@@ -359,6 +381,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
             "Authorization": `Bearer ${token}`,
             "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
+          body: JSON.stringify({ invitation_ids: ids }),
         }
       );
 
@@ -372,6 +395,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
       if (data.errors?.length) {
         console.warn("Reminder errors:", data.errors);
       }
+      setSelectedForReminder(new Set());
     } catch (err: any) {
       console.error("Send reminders error:", err);
       toast.error(err.message || "Kunde inte skicka påminnelser");
@@ -406,11 +430,11 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
             <Button 
               variant="outline" 
               onClick={sendReminders} 
-              disabled={sendingReminders}
+              disabled={sendingReminders || selectedForReminder.size === 0}
               className="border-amber-500 text-amber-700 hover:bg-amber-50 dark:text-amber-400 dark:hover:bg-amber-950"
             >
               <Mail className={`w-4 h-4 mr-2 ${sendingReminders ? "animate-pulse" : ""}`} />
-              {sendingReminders ? "Skickar..." : `Påminn alla (${pendingInvitations.length})`}
+              {sendingReminders ? "Skickar..." : `Påminn valda (${selectedForReminder.size})`}
             </Button>
           )}
           <Button variant="outline" onClick={fetchData} disabled={loading}>
@@ -572,6 +596,15 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
             <Table>
               <TableHeader>
                 <TableRow>
+                  <TableHead className="w-10">
+                    {pendingInvitations.length > 0 && (
+                      <Checkbox
+                        checked={selectedForReminder.size === pendingInvitations.length && pendingInvitations.length > 0}
+                        onCheckedChange={toggleAllReminders}
+                        title="Markera alla väntande"
+                      />
+                    )}
+                  </TableHead>
                   <TableHead>Partner</TableHead>
                   <TableHead>E-post</TableHead>
                   <TableHead>Status</TableHead>
@@ -581,8 +614,18 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {invitations.map((invitation) => (
+                {invitations.map((invitation) => {
+                  const isPending = invitation.status === "pending" && new Date(invitation.expires_at) >= new Date();
+                  return (
                   <TableRow key={invitation.id}>
+                    <TableCell>
+                      {isPending ? (
+                        <Checkbox
+                          checked={selectedForReminder.has(invitation.id)}
+                          onCheckedChange={() => toggleReminderSelection(invitation.id)}
+                        />
+                      ) : null}
+                    </TableCell>
                     <TableCell className="font-medium">{invitation.partner_name}</TableCell>
                     <TableCell>{invitation.email}</TableCell>
                     <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
@@ -622,7 +665,8 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
                       </div>
                     </TableCell>
                   </TableRow>
-                ))}
+                  );
+                })}
               </TableBody>
             </Table>
           )}
