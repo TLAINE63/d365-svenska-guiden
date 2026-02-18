@@ -205,6 +205,9 @@ const AdminDashboard = () => {
   const [formErrors, setFormErrors] = useState<PartnerFormErrors>({});
   const [activeFormSection, setActiveFormSection] = useState(0);
   
+  // Open invitations tracking (partner_id -> status)
+  const [openInvitations, setOpenInvitations] = useState<Record<string, string>>({});
+  
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -339,11 +342,32 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchOpenInvitations = async () => {
+    if (!token) return;
+    try {
+      const { data, error } = await supabase.functions.invoke("partner-invitations", {
+        body: { action: "list", token },
+      });
+      if (error || data?.error) return;
+      const invitations = data?.invitations || [];
+      const map: Record<string, string> = {};
+      for (const inv of invitations) {
+        if (inv.partner_id && (inv.status === 'pending' || inv.status === 'submitted')) {
+          map[inv.partner_id] = inv.status;
+        }
+      }
+      setOpenInvitations(map);
+    } catch {
+      // silently ignore
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated && token) {
       fetchLeads();
       fetchClickStats();
       fetchFullPartners();
+      fetchOpenInvitations();
     }
   }, [isAuthenticated, token]);
 
@@ -1331,6 +1355,12 @@ const AdminDashboard = () => {
                               {partner.name}
                               {partner.is_featured && (
                                 <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Utvald</Badge>
+                              )}
+                              {openInvitations[partner.id] && (
+                                <Badge variant="outline" className="text-xs border-amber-500 text-amber-700 dark:text-amber-400">
+                                  <MailPlus className="h-3 w-3 mr-1" />
+                                  {openInvitations[partner.id] === 'submitted' ? 'Inskickad' : 'Inbjuden'}
+                                </Badge>
                               )}
                             </h3>
                             <p className="text-sm text-muted-foreground line-clamp-1">
