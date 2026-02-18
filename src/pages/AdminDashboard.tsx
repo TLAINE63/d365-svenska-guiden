@@ -345,10 +345,18 @@ const AdminDashboard = () => {
   const fetchOpenInvitations = async () => {
     if (!token) return;
     try {
-      const { data, error } = await supabase.functions.invoke("partner-invitations", {
-        body: { action: "list", token },
-      });
-      if (error || data?.error) return;
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=list`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) return;
+      const data = await response.json();
       const invitations = data?.invitations || [];
       const map: Record<string, string> = {};
       for (const inv of invitations) {
