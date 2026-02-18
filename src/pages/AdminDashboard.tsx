@@ -205,8 +205,8 @@ const AdminDashboard = () => {
   const [formErrors, setFormErrors] = useState<PartnerFormErrors>({});
   const [activeFormSection, setActiveFormSection] = useState(0);
   
-  // Open invitations tracking (partner_id -> status)
-  const [openInvitations, setOpenInvitations] = useState<Record<string, string>>({});
+  // Open invitations tracking (partner_id -> {status, email})
+  const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -358,10 +358,10 @@ const AdminDashboard = () => {
       if (!response.ok) return;
       const data = await response.json();
       const invitations = data?.invitations || [];
-      const map: Record<string, string> = {};
+      const map: Record<string, { status: string; email: string }> = {};
       for (const inv of invitations) {
         if (inv.partner_id && (inv.status === 'pending' || inv.status === 'submitted')) {
-          map[inv.partner_id] = inv.status;
+          map[inv.partner_id] = { status: inv.status, email: inv.email || '' };
         }
       }
       setOpenInvitations(map);
@@ -1365,9 +1365,10 @@ const AdminDashboard = () => {
                                 <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Utvald</Badge>
                               )}
                               {openInvitations[partner.id] && (
-                                <Badge variant="outline" className="text-xs border-amber-500 text-amber-700 dark:text-amber-400">
+                                <Badge variant="outline" className="text-xs border-amber-500 text-amber-700 dark:text-amber-400" title={openInvitations[partner.id].email}>
                                   <MailPlus className="h-3 w-3 mr-1" />
-                                  {openInvitations[partner.id] === 'submitted' ? 'Inskickad' : 'Inbjuden'}
+                                  {openInvitations[partner.id].status === 'submitted' ? 'Inskickad' : 'Inbjuden'}
+                                  <span className="ml-1 font-normal text-muted-foreground">({openInvitations[partner.id].email})</span>
                                 </Badge>
                               )}
                             </h3>
