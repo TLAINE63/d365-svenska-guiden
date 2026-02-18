@@ -693,6 +693,132 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Admin: Send reminders to all pending invitations
+    if (action === "send-reminders" && req.method === "POST") {
+      // Get all pending invitations (not expired)
+      const { data: pendingInvitations, error: pendErr } = await supabase
+        .from("partner_invitations")
+        .select("*")
+        .eq("status", "pending")
+        .gte("expires_at", new Date().toISOString());
+
+      if (pendErr) {
+        return new Response(
+          JSON.stringify({ error: "Kunde inte hämta inbjudningar" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      if (!pendingInvitations || pendingInvitations.length === 0) {
+        return new Response(
+          JSON.stringify({ success: true, sent: 0, message: "Inga väntande inbjudningar att påminna." }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "RESEND_API_KEY ej konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resend = new Resend(resendApiKey);
+
+      // Fetch email template
+      let emailBody = "";
+      const { data: setting } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "invitation_email_body")
+        .single();
+      
+      if (setting?.value) {
+        emailBody = setting.value;
+      } else {
+        emailBody = "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
+      }
+
+      const baseUrl = "https://d365-svenska-guiden.lovable.app";
+      let sent = 0;
+      let failed = 0;
+      const errors: string[] = [];
+
+      for (const inv of pendingInvitations) {
+        try {
+          const invitationLink = `${baseUrl}/partner-update/${inv.token}`;
+
+          const invitationButton = `<div style="text-align: center; margin: 30px 0;">
+                    <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera partnerprofil</a>
+                  </div>
+                  <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
+                  <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
+
+          const htmlBody = emailBody
+            .split("{{INVITATION_LINK}}")
+            .map(part => {
+              return part
+                .split("\n\n")
+                .map(paragraph => {
+                  const trimmed = paragraph.trim();
+                  if (!trimmed) return "";
+                  const withBr = trimmed.replace(/\n/g, "<br>");
+                  const withLinks = withBr.replace(
+                    /(https?:\/\/[^\s<,]+)/g,
+                    '<a href="$1" style="color: #2563eb;">$1</a>'
+                  );
+                  const withEmails = withLinks.replace(
+                    /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+                    '<a href="mailto:$1" style="color: #2563eb;">$1</a>'
+                  );
+                  return `<p>${withEmails}</p>`;
+                })
+                .filter(Boolean)
+                .join("\n");
+            })
+            .join(invitationButton);
+
+          const fullHtml = `<!DOCTYPE html>
+              <html>
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              </head>
+              <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                ${htmlBody}
+              </body>
+              </html>`;
+
+          await resend.emails.send({
+            from: "D365.se <info@d365.se>",
+            to: [inv.email],
+            subject: `Påminnelse: Vem är kundens mest lämpade Dynamics 365-partner?`,
+            html: fullHtml,
+          });
+
+          sent++;
+          console.log("Reminder sent to:", inv.email, inv.partner_name);
+        } catch (sendErr: any) {
+          failed++;
+          errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
+          console.error("Reminder send error:", inv.email, sendErr);
+        }
+      }
+
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          sent, 
+          failed, 
+          total: pendingInvitations.length,
+          errors: errors.length > 0 ? errors : undefined,
+          message: `Påminnelse skickad till ${sent} av ${pendingInvitations.length} partners.${failed > 0 ? ` ${failed} misslyckades.` : ''}`
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     return new Response(
       JSON.stringify({ error: "Ogiltig åtgärd" }),
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
