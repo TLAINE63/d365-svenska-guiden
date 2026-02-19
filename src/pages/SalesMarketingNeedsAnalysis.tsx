@@ -1253,9 +1253,17 @@ const SalesMarketingNeedsAnalysis = () => {
               <span className="text-sm text-muted-foreground">
                 {showContactForm ? "Kontaktuppgifter" : `Steg ${currentStep} av ${totalSteps}`}
               </span>
-              <span className="text-sm font-medium text-crm">
-                {showContactForm ? "100%" : `${Math.round(progress)}%`}
-              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-crm">
+                  {showContactForm ? "100%" : `${Math.round(progress)}%`}
+                </span>
+                {!showContactForm && (
+                  <Button onClick={handleNext} size="sm" className="bg-crm hover:bg-crm/90">
+                    Nästa
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                )}
+              </div>
             </div>
             <Progress value={showContactForm ? 100 : progress} className="h-2" />
           </div>
