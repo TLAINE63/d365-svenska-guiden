@@ -1717,27 +1717,69 @@ const SalesMarketingNeedsAnalysis = () => {
           return "Låg";
         })();
 
-        // ── Bedömningstext beroende på rekommendation ───────────────────
-        const assessmentPoints: string[] = [];
-        if (direction === "Fokus på strukturerad säljplattform") {
-          assessmentPoints.push("Tydlig och strukturerad säljprocess");
-          assessmentPoints.push("Pipeline-hantering och prognoser");
-          if (data.aiInterest && data.aiInterest !== "Inte just nu") assessmentPoints.push("Gradvis ökad AI-assistans i sälj");
-        } else if (direction === "Fokus på datadriven kundplattform") {
-          assessmentPoints.push("Samlad och enhetlig kundinformation");
-          assessmentPoints.push("Segmentering och personalisering i stor skala");
-          if (data.aiInterest && data.aiInterest !== "Inte just nu") assessmentPoints.push("AI-driven kundinsikt");
-        } else {
-          assessmentPoints.push("Strukturerad säljstyrning");
-          assessmentPoints.push("Samlad kundinformation");
-          assessmentPoints.push("Gradvis ökad automation");
-        }
+        // ── Dynamisk bedömningstextmotor ─────────────────────────────────
+        const modelLabel: Record<string, string> = {
+          b2b_relational: "relationsbaserad B2B-försäljning",
+          b2b_complex: "komplex B2B med långa affärscykler",
+          b2c_volume: "volymbaserad B2C-försäljning",
+          digital_market: "marknadsdriven digital affär",
+          partner_channel: "partner- och kanaldriven försäljning",
+        };
+        const modelText = modelLabel[data.commercialModel] ?? "er kommersiella modell";
 
-        const assessmentIntro = direction === "Fokus på strukturerad säljplattform"
-          ? "Er verksamhet har en tydlig säljprocess och ett strukturerat behov av pipeline-hantering. För att öka träffsäkerhet och skalbarhet rekommenderas en säljplattform med fokus på:"
-          : direction === "Fokus på datadriven kundplattform"
-          ? "Er verksamhet har ett tydligt behov av samlad kundinformation och datadriven marknadsföring. För att öka personalisering och kundlojalitet rekommenderas en kundplattform med fokus på:"
-          : "Er verksamhet har en strukturerad säljprocess men begränsad samlad kundinformation. För att öka träffsäkerhet och skalbarhet rekommenderas en integrerad kommersiell plattform med fokus på:";
+        const hasPipeline = data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning";
+        const hasBasicPipeline = data.b2bStructuredPipeline === "Vi har definierade säljsteg";
+        const hasNoProcess = data.b2bStructuredPipeline?.includes("ad hoc") || data.b2bStructuredPipeline?.includes("Nej");
+        const hasSpreadData = data.unifiedCustomerView === "Nej, informationen är spridd" || data.customerDataSpread === "Spridd i flera system";
+        const hasPartialData = data.unifiedCustomerView === "Delvis, men inte komplett" || data.customerDataSpread === "Delvis samlad";
+        const hasUnifiedData = data.unifiedCustomerView === "Ja, vi har en samlad bild";
+        const hasHeavyIntegrations = data.integrationScope === "Omfattande och affärskritiskt";
+        const hasModerateIntegrations = data.integrationScope === "Måttligt";
+        const aiHighAmbition = data.aiInterest === "Mycket intresserade – Vi vill vara i framkant";
+        const aiMediumAmbition = data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna";
+        const aiUseCaseCount = data.aiUseCases?.length ?? 0;
+        const aiRiskFlag = (aiHighAmbition || aiMediumAmbition) && hasSpreadData;
+        const usesExcel = data.followUpMethod === "Excel" || data.currentCrmUsage === "Nej";
+        const usesBasicCrm = data.currentCrmUsage === "Enkelt";
+        const isLarge = ["250-999 anställda", "1.000-4.999 anställda", "Mer än 5.000 anställda"].includes(data.employees);
+        const isMid = ["100-249 anställda"].includes(data.employees);
+        const isSmall = ["1-49 anställda", "50-99 anställda"].includes(data.employees);
+
+        let assessmentIntro = `Er verksamhet arbetar med ${modelText}`;
+        if (isLarge) assessmentIntro += ` och har en organisation av en storlek där skalbarhet och standardisering är avgörande`;
+        else if (isMid) assessmentIntro += ` i en organisation där strukturerade arbetsflöden börjar bli affärskritiska`;
+        else if (isSmall) assessmentIntro += ` i ett tillväxtskede där rätt plattform lägger grunden för skalbarhet`;
+        assessmentIntro += ".";
+        if (hasPipeline) assessmentIntro += " Ni har en väldefinierad och gemensam säljprocess – en stark utgångspunkt för att maximera effekten av en CRM-plattform.";
+        else if (hasBasicPipeline) assessmentIntro += " Ni har definierade säljsteg men det finns potential att göra processen mer enhetlig och datadriven.";
+        else if (hasNoProcess) assessmentIntro += " Säljprocessen saknar i dagsläget en gemensam struktur, vilket är en av de viktigaste sakerna att adressera.";
+        if (hasSpreadData) assessmentIntro += " Kundinformationen är spridd i flera system, vilket begränsar möjligheten att agera på rätt underlag vid rätt tillfälle.";
+        else if (hasPartialData) assessmentIntro += " Ni har en delvis samlad kundbild men det finns luckor som påverkar möjligheten till personalisering och proaktivt agerande.";
+        else if (hasUnifiedData) assessmentIntro += " Ni har redan en samlad kundbild – nu handlar det om att omsätta den i automatisering och AI-driven insikt.";
+
+        const assessmentPoints: string[] = [];
+        if (hasNoProcess || hasBasicPipeline) assessmentPoints.push("Strukturera och standardisera er säljprocess");
+        if (data.b2bForecastNeeds === "Ja, kritiskt") assessmentPoints.push("Implementera pålitlig pipeline-prognos och säljstyrning");
+        if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) assessmentPoints.push("Hantera komplexa affärer med flera beslutsfattare");
+        if (data.b2bComplexRoleBased?.startsWith("Ja")) assessmentPoints.push("Rollbaserad säljstyrning och behörighetsstyrning");
+        if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) assessmentPoints.push("Partnerportal och kanalhantering");
+        if (hasSpreadData) assessmentPoints.push("Konsolidera kundinformation till en enhetlig bild");
+        if (data.personalizationCritical === "I hög grad") assessmentPoints.push("Möjliggöra personalisering i stor skala");
+        if (data.multipleDataSources === "Ja") assessmentPoints.push("Integrera datakällor för en komplett kundprofil");
+        if ((data.integrationTypes || []).includes("Marketing automation")) assessmentPoints.push("Integrera marketing automation med säljdata");
+        if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) assessmentPoints.push("Automatisera kampanjflöden baserat på beteende");
+        if (data.digitalBehaviorSegmentation?.startsWith("Ja")) assessmentPoints.push("Beteendebaserad segmentering och triggerkommunikation");
+        if (hasHeavyIntegrations) assessmentPoints.push("Säkerställa robusta integrationer mot affärskritiska system");
+        else if (hasModerateIntegrations) assessmentPoints.push("Bygga ut integrationer mot befintliga system");
+        if (aiHighAmbition && !aiRiskFlag) {
+          if (aiUseCaseCount >= 4) assessmentPoints.push(`Realisera AI-initiativ inom ${(data.aiUseCases || []).slice(0, 2).join(" och ")}`);
+          else assessmentPoints.push("Påbörja AI-driven säljcoachning och prediktion");
+        } else if (aiMediumAmbition) assessmentPoints.push("Börja utforska AI-funktioner i kontrollerad skala");
+        if (usesExcel) assessmentPoints.push("Ersätta Excel-baserad säljuppföljning med strukturerat CRM");
+        else if (usesBasicCrm) assessmentPoints.push("Uppgradera från befintligt CRM till en mer komplett plattform");
+        if (assessmentPoints.length === 0) assessmentPoints.push("Stärka den kommersiella plattformen för framtida tillväxt");
+
+        const showAiRiskWarning = aiRiskFlag;
 
         const profileDimensions = [
           { label: "Säljkomplexitet", value: complexityLabel },
@@ -1785,14 +1827,24 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
               <div className="px-5 py-4 space-y-4">
                 <p className="text-sm text-muted-foreground leading-relaxed">{assessmentIntro}</p>
-                <ul className="space-y-2">
-                  {assessmentPoints.map((point) => (
-                    <li key={point} className="flex items-center gap-2 text-sm text-foreground">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+                {assessmentPoints.length > 0 && (
+                  <ul className="space-y-2">
+                    {assessmentPoints.map((point) => (
+                      <li key={point} className="flex items-center gap-2 text-sm text-foreground">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {showAiRiskWarning && (
+                  <div className="flex items-start gap-2 bg-muted border border-border rounded-lg px-4 py-3">
+                    <span className="text-base mt-0.5">⚠️</span>
+                    <p className="text-xs text-foreground leading-snug">
+                      <strong>AI-ambition vs datamognad:</strong> Ni har hög AI-ambition men kundinformationen är fortfarande spridd. En lyckad AI-satsning kräver att datagrunden konsolideras först.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
