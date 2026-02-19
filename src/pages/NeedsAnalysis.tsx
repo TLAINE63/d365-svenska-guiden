@@ -2257,10 +2257,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 </div>
               ) : (
                 <div className="space-y-4">
+                  {data.businessModel === "Produktion" && (
                   <div>
                     <Label className="text-sm font-medium mb-2 block">Produktionstyp</Label>
                     {renderComplexityRadio("productionType", complexityOperativeOptions.productionType)}
                   </div>
+                  )}
                   <div>
                     <Label className="text-sm font-medium mb-2 block">Avancerad lagerstyrning (WMS)</Label>
                     {renderComplexityRadio("warehouseManagement", complexityOperativeOptions.warehouseManagement)}
