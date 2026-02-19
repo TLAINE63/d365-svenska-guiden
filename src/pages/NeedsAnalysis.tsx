@@ -157,7 +157,6 @@ const businessModelOptions = [
     subcategories: [
       "Tjänsteproduktion",
       "Projektleveranser",
-      "Time & Material / Fixed Price",
     ],
   },
   {
