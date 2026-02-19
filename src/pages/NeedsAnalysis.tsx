@@ -685,9 +685,9 @@ const complexityMaturityOptions = {
     { value: "stor", label: "Stor/dedikerad IT-organisation" },
   ],
   integrationPlatform: [
-    { value: "fa", label: "Inga eller få integrationer" },
-    { value: "nagra", label: "Några integrationer" },
-    { value: "manga", label: "Många affärskritiska integrationer" },
+    { value: "fa", label: "Vi har få externa system som behöver kopplas samman" },
+    { value: "nagra", label: "Vi har flera system som behöver integreras" },
+    { value: "manga", label: "Vi är starkt beroende av flera affärskritiska integrationer" },
   ],
   governance: [
     { value: "informell", label: "Vi arbetar flexibelt och beslutar löpande vid behov" },
@@ -2299,7 +2299,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   {renderComplexityRadio("itOrganization", complexityMaturityOptions.itOrganization)}
                 </div>
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Integrationsplattform / antal integrationer</Label>
+                  <Label className="text-sm font-medium mb-2 block">Hur omfattande är ert behov av att koppla ERP/Affärssystem till andra system?</Label>
                   {renderComplexityRadio("integrationPlatform", complexityMaturityOptions.integrationPlatform)}
                 </div>
                 <div>
