@@ -448,7 +448,7 @@ const SalesMarketingNeedsAnalysis = () => {
   const stepIcons = [Target, Building2, Target, Target, Target, Sparkles, FileText];
   const stepTitles = [
     "Kommersiell modell",
-    "Nuvarande arbetssätt & system",
+    "Organisation & struktur",
     "Datamognad & kundbild",
     "Utmaningar",
     "Integrationer",
