@@ -1280,9 +1280,13 @@ const SalesMarketingNeedsAnalysis = () => {
 
             {/* Gemensam kommersiell modell */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Gemensam kommersiell modell globalt?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Ja, enhetlig global modell", "Delvis, lokala anpassningar", "Nej, lokala modeller per marknad"].map((opt) => (
+              <Label className="text-base font-semibold mb-3 block">Hur enhetligt ska sälj- och marknadsarbetet vara mellan era länder/bolag?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "Varje enhet arbetar relativt självständigt",
+                  "Vi strävar efter gemensamma arbetssätt",
+                  "Vi kräver enhetliga processer och rapportering",
+                ].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
