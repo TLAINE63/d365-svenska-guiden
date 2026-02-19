@@ -2550,7 +2550,7 @@ const AdminDashboard = () => {
                 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <Label htmlFor="activation_date">Aktiveringsdatum</Label>
+                    <Label htmlFor="activation_date">Första faktureringsdatum</Label>
                     <div className="relative">
                       <CalendarCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
