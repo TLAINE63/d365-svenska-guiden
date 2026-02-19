@@ -53,6 +53,24 @@ const Index = () => {
       {/* Hero Carousel */}
       <HeroCarousel />
 
+      {/* Partner Value Proposition */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
+              Hitta rätt Dynamics 365‑partner – snabbare, enklare och tryggare
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-4">
+              Att välja ERP- eller CRM‑system är stort. Men att välja rätt partner är ännu viktigare.
+              På d365.se hjälper vi dig att förstå dina behov, jämföra alternativ och hitta en partner som passar exakt för din verksamhet – baserat på bransch, storlek, systemkrav och budget.
+            </p>
+            <p className="text-base sm:text-lg font-semibold text-primary">
+              Oberoende. Kostnadsfritt. Kompetensdrivet.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Links Section */}
       <section id="questions" className="py-12 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
