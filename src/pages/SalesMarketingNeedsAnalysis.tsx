@@ -34,6 +34,7 @@ const contactFormSchema = z.object({
 type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
 interface SalesMarketingAnalysisData {
+  commercialModel: string;
   employees: string;
   industry: string;
   industryOther: string;
@@ -65,6 +66,7 @@ interface SalesMarketingAnalysisData {
 }
 
 const initialData: SalesMarketingAnalysisData = {
+  commercialModel: "",
   employees: "",
   industry: "",
   industryOther: "",
@@ -104,6 +106,14 @@ const initialData: SalesMarketingAnalysisData = {
   phone: "",
   email: "",
 };
+
+const commercialModelOptions = [
+  { value: "b2b_relational", label: "Relationsbaserad B2B-försäljning", emoji: "1️⃣", description: "Personlig bearbetning, långa kundrelationer, hög andel återkommande affärer" },
+  { value: "b2b_complex", label: "Komplex B2B med flera beslutsfattare", emoji: "2️⃣", description: "Långa affärscykler, RFP/upphandling, stakeholder management" },
+  { value: "b2c_volume", label: "Volymbaserad B2C-försäljning", emoji: "3️⃣", description: "Många transaktioner, priskänslighet, lojalitetsprogram" },
+  { value: "digital_market", label: "Marknadsdriven digital affär", emoji: "4️⃣", description: "E-handel, abonnemang, inbound-driven growth med marketing automation" },
+  { value: "partner_channel", label: "Partner- eller kanaldriven försäljning", emoji: "5️⃣", description: "Återförsäljare, agenter, franchisemodeller eller allianser" },
+];
 
 const employeeOptions = [
   "1-49 anställda",
@@ -394,11 +404,12 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 7;
+  const totalSteps = 8;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Target, Target, Sparkles, BarChart3, FileText];
+  const stepIcons = [Target, Building2, Target, Target, Target, Sparkles, BarChart3, FileText];
   const stepTitles = [
+    "Kommersiell modell",
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
@@ -644,6 +655,8 @@ const SalesMarketingNeedsAnalysis = () => {
       yPos += 4;
     };
 
+    const commercialModelLabel = commercialModelOptions.find(o => o.value === data.commercialModel)?.label || data.commercialModel || "Ej angivet";
+    addSection("Kommersiell modell", commercialModelLabel);
     addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Säljteam: ${data.salesTeamSize}`);
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     const systemsText = filledSystems.length > 0 
@@ -728,6 +741,7 @@ const SalesMarketingNeedsAnalysis = () => {
           phone: data.phone || "",
           email: data.email,
           analysisData: {
+            "Kommersiell modell": commercialModelOptions.find(o => o.value === data.commercialModel)?.label || data.commercialModel || "Ej angivet",
             "Anställda": data.employees,
             "Bransch": data.industry || data.industryOther || "Ej angivet",
             "Säljteam": data.salesTeamSize,
@@ -773,6 +787,29 @@ const SalesMarketingNeedsAnalysis = () => {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
+        return (
+          <div className="space-y-6">
+            <div>
+              <p className="text-muted-foreground mb-6">
+                Välj det alternativ som bäst beskriver hur er verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till er situation.
+              </p>
+              <div className="grid grid-cols-1 gap-3">
+                {commercialModelOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={`${option.emoji} ${option.label}`}
+                    description={option.description}
+                    selected={data.commercialModel === option.value}
+                    onClick={() => setData({ ...data, commercialModel: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 2:
         return (
           <div className="space-y-6">
             <div>
@@ -830,7 +867,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 2:
+      case 3:
         return (
           <div className="space-y-6">
             <div>
@@ -884,7 +921,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert CRM System (Sälj- och/eller Marketing Automation)?</h3>
@@ -940,7 +977,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -981,7 +1018,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         const decisionTimelineOptions = [
           { value: "Under kommande halvår", label: "Under kommande halvår" },
           { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
@@ -1019,7 +1056,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1090,7 +1127,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <div>
