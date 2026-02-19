@@ -658,7 +658,7 @@ const PartnerProfile = () => {
                             <div className="space-y-2.5 pt-2 border-t border-border/50">
                               <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
                                 <Package className="w-3.5 h-3.5 text-muted-foreground" />
-                                Branschapplikationer (AppSource)
+                                Branschapplikationer (Microsoft Marketplace)
                               </p>
                               <div className="space-y-2">
                                 {industryAppsForProduct.map((app, idx) => (
