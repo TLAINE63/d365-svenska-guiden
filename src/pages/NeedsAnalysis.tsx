@@ -62,6 +62,7 @@ interface AnalysisData {
   // Step 1 - Business model
   businessModel: string;
   businessModelSub: string;
+  businessModelSubs: string[];
   // Step 2
   employees: string;
   revenue: string;
@@ -134,11 +135,12 @@ const businessModelOptions = [
     value: "Produktion",
     label: "Produktion / Tillverkningsindustrin",
     subcategories: [
-      "Make-to-Order (MTO)",
-      "Make-to-Stock (MTS)",
-      "Engineer-to-Order (ETO)",
-      "Processindustri",
+      "Lagerstyrd produktion",
+      "Orderstyrd leverans",
+      "Projekt- eller konstruktionsdriven leverans",
+      "Reglerad eller receptbaserad produktion",
     ],
+    multiSelect: true,
   },
   {
     value: "Distribution",
@@ -177,6 +179,7 @@ const businessModelOptions = [
 const initialData: AnalysisData = {
   businessModel: "",
   businessModelSub: "",
+  businessModelSubs: [],
   employees: "",
   revenue: "",
   industry: "",
@@ -1090,11 +1093,12 @@ const NeedsAnalysis = () => {
         bcScore += 5;
       }
     } else if (bm === "Produktion") {
-      if (bmSub === "Engineer-to-Order (ETO)" || bmSub === "Processindustri") {
+      const prodSubs = data.businessModelSubs;
+      if (prodSubs.includes("Projekt- eller konstruktionsdriven leverans") || prodSubs.includes("Reglerad eller receptbaserad produktion")) {
         fscScore += 10;
-        fscReasons.push(`${bmSub} kräver ofta F&SC:s avancerade produktionsstyrning`);
+        fscReasons.push("Projekt-/konstruktionsdriven eller reglerad produktion kräver ofta F&SC:s avancerade produktionsstyrning");
       }
-      if (bmSub === "Make-to-Stock (MTS)" && prod !== "avancerad") {
+      if (prodSubs.includes("Lagerstyrd produktion") && prod !== "avancerad") {
         bcScore += 5;
       }
     } else if (bm === "Distribution") {
@@ -1518,8 +1522,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addSectionHeader("AFFÄRSMODELL", "1");
     const bmLabel = businessModelOptions.find(o => o.value === data.businessModel)?.label || "Ej angivet";
     addContentRow("Affärsmodell:", bmLabel);
-    if (data.businessModelSub) {
-      addContentRow("Typ:", data.businessModelSub);
+    const subLabel = data.businessModelSubs.length > 0
+      ? data.businessModelSubs.join(", ")
+      : data.businessModelSub || "";
+    if (subLabel) {
+      addContentRow("Typ:", subLabel);
     }
     yPos += 5;
 
@@ -1811,7 +1818,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           phone: data.phone,
           email: data.email,
           analysisData: {
-            "Affärsmodell": `${data.businessModel}${data.businessModelSub ? ` – ${data.businessModelSub}` : ''}` || "Ej angivet",
+            "Affärsmodell": `${data.businessModel}${data.businessModelSubs.length > 0 ? ` – ${data.businessModelSubs.join(", ")}` : data.businessModelSub ? ` – ${data.businessModelSub}` : ''}` || "Ej angivet",
             "Anställda": data.employees,
             "Omsättning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
@@ -1912,28 +1919,46 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   key={option.value}
                   label={option.label}
                   selected={data.businessModel === option.value}
-                  onClick={() => setData({ ...data, businessModel: option.value, businessModelSub: "" })}
+                  onClick={() => setData({ ...data, businessModel: option.value, businessModelSub: "", businessModelSubs: [] })}
                   type="radio"
                 />
               ))}
             </div>
             {selectedModel && selectedModel.subcategories.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold mb-3">Specificera typ</h3>
+                <h3 className="text-lg font-semibold mb-3">Specificera typ {selectedModel.multiSelect && <span className="text-sm font-normal text-muted-foreground">(flerval möjligt)</span>}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedModel.subcategories.map((sub) => {
                     const subDescriptions: Record<string, string> = {
                       "Tjänsteproduktion": "T.ex.: IT-konsultbolag, Juristbyråer, Redovisningsbyråer, Managementkonsulter",
                       "Projektleveranser": "T.ex.: Byggprojekt, Produktutvecklingsprojekt",
+                      "Lagerstyrd produktion": "Är kapitalbindning i lager en strategisk fråga? Har ni stora volymer och prispress?",
+                      "Orderstyrd leverans": "Startar produktion eller leverans först när kundorder är bekräftad?",
+                      "Projekt- eller konstruktionsdriven leverans": "Kräver varje affär konstruktion, projektering eller större anpassning innan leverans?",
+                      "Reglerad eller receptbaserad produktion": "Har ni regulatoriska krav på spårbarhet, batchhantering eller kvalitetsuppföljning?",
+                    };
+                    const isMulti = selectedModel.multiSelect;
+                    const isSelected = isMulti
+                      ? data.businessModelSubs.includes(sub)
+                      : data.businessModelSub === sub;
+                    const handleClick = () => {
+                      if (isMulti) {
+                        const subs = data.businessModelSubs.includes(sub)
+                          ? data.businessModelSubs.filter(s => s !== sub)
+                          : [...data.businessModelSubs, sub];
+                        setData({ ...data, businessModelSubs: subs });
+                      } else {
+                        setData({ ...data, businessModelSub: sub });
+                      }
                     };
                     return (
                       <SelectionCard
                         key={sub}
                         label={sub}
                         description={subDescriptions[sub]}
-                        selected={data.businessModelSub === sub}
-                        onClick={() => setData({ ...data, businessModelSub: sub })}
-                        type="radio"
+                        selected={isSelected}
+                        onClick={handleClick}
+                        type={isMulti ? "checkbox" : "radio"}
                       />
                     );
                   })}
