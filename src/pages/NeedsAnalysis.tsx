@@ -1925,6 +1925,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <SelectionCard
                       key={sub}
                       label={sub}
+                      description={sub === "Tjänsteproduktion" ? "T.ex.: IT-konsultbolag, Juristbyråer, Redovisningsbyråer, Managementkonsulter" : undefined}
                       selected={data.businessModelSub === sub}
                       onClick={() => setData({ ...data, businessModelSub: sub })}
                       type="radio"
