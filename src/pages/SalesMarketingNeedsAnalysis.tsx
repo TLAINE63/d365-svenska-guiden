@@ -1695,87 +1695,118 @@ const SalesMarketingNeedsAnalysis = () => {
           return "Hög";
         })();
 
+        // ── Dimensionsetiketter för profilen ────────────────────────────────
+        const complexityLabel = (() => {
+          const score = salesScore;
+          if (score <= 4) return "Låg";
+          if (score <= 9) return "Medel";
+          return "Hög";
+        })();
+
+        const aiReadinessLabel = (() => {
+          const uses = data.aiUseCases?.length ?? 0;
+          if (data.aiInterest === "Inte just nu" || uses === 0) return "Ej påbörjad";
+          if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna" || uses <= 3) return "Påbörjad";
+          if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant" || uses > 3) return "Redo";
+          return "Påbörjad";
+        })();
+
+        const scalabilityLabel = (() => {
+          if (data.employees === "500+" || data.b2bComplexGlobalReporting?.startsWith("Ja")) return "Hög";
+          if (data.employees === "101–500" || data.b2bComplexRoleBased?.startsWith("Ja")) return "Medel";
+          return "Låg";
+        })();
+
+        // ── Bedömningstext beroende på rekommendation ───────────────────
+        const assessmentPoints: string[] = [];
+        if (direction === "Fokus på strukturerad säljplattform") {
+          assessmentPoints.push("Tydlig och strukturerad säljprocess");
+          assessmentPoints.push("Pipeline-hantering och prognoser");
+          if (data.aiInterest && data.aiInterest !== "Inte just nu") assessmentPoints.push("Gradvis ökad AI-assistans i sälj");
+        } else if (direction === "Fokus på datadriven kundplattform") {
+          assessmentPoints.push("Samlad och enhetlig kundinformation");
+          assessmentPoints.push("Segmentering och personalisering i stor skala");
+          if (data.aiInterest && data.aiInterest !== "Inte just nu") assessmentPoints.push("AI-driven kundinsikt");
+        } else {
+          assessmentPoints.push("Strukturerad säljstyrning");
+          assessmentPoints.push("Samlad kundinformation");
+          assessmentPoints.push("Gradvis ökad automation");
+        }
+
+        const assessmentIntro = direction === "Fokus på strukturerad säljplattform"
+          ? "Er verksamhet har en tydlig säljprocess och ett strukturerat behov av pipeline-hantering. För att öka träffsäkerhet och skalbarhet rekommenderas en säljplattform med fokus på:"
+          : direction === "Fokus på datadriven kundplattform"
+          ? "Er verksamhet har ett tydligt behov av samlad kundinformation och datadriven marknadsföring. För att öka personalisering och kundlojalitet rekommenderas en kundplattform med fokus på:"
+          : "Er verksamhet har en strukturerad säljprocess men begränsad samlad kundinformation. För att öka träffsäkerhet och skalbarhet rekommenderas en integrerad kommersiell plattform med fokus på:";
+
+        const profileDimensions = [
+          { label: "Säljkomplexitet", value: complexityLabel },
+          { label: "Datamognad", value: dataComplexity },
+          { label: "Skalbarhetskrav", value: scalabilityLabel },
+          { label: "AI-beredskap", value: aiReadinessLabel },
+        ];
+
+        const valueColors: Record<string, string> = {
+          "Låg": "text-muted-foreground",
+          "Medel": "text-yellow-700 dark:text-yellow-400",
+          "Hög": "text-primary",
+          "Ej påbörjad": "text-muted-foreground",
+          "Påbörjad": "text-yellow-700 dark:text-yellow-400",
+          "Redo": "text-green-700 dark:text-green-400",
+          "Grundläggande": "text-muted-foreground",
+          "Utvecklande": "text-blue-700 dark:text-blue-400",
+          "Avancerad": "text-primary",
+          "Ledande": "text-green-700 dark:text-green-400",
+        };
+
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Baserat på era svar har vi sammanställt er kommersiella profil nedan.</p>
 
-            {/* 1 – Kommersiell mognadsnivå */}
-            <div className="border rounded-xl p-5 space-y-3">
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-primary">1️⃣</span>
-                <h3 className="font-semibold text-foreground">Kommersiell mognadsnivå</h3>
+            {/* Kommersiell profil */}
+            <div className="border rounded-xl overflow-hidden">
+              <div className="bg-primary/8 px-5 py-3 border-b">
+                <h3 className="font-semibold text-foreground text-sm uppercase tracking-wide">Er kommersiella profil</h3>
               </div>
-              <div className="flex items-center gap-2">
-                {[1, 2, 3, 4].map((d) => (
-                  <div key={d} className={`h-3 flex-1 rounded-full transition-all ${d <= maturityScore ? "bg-primary" : "bg-muted"}`} />
-                ))}
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Nivå {maturityScore} av 4</span>
-                <span className={`text-sm font-semibold px-3 py-1 rounded-full ${maturityColors[maturityScore]}`}>
-                  {maturityLabels[maturityScore]}
-                </span>
-              </div>
-            </div>
-
-            {/* 2 – Datakomplexitet */}
-            <div className="border rounded-xl p-5 space-y-3">
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-primary">2️⃣</span>
-                <h3 className="font-semibold text-foreground">Datakomplexitet</h3>
-              </div>
-              <div className="flex gap-2">
-                {(["Låg", "Medel", "Hög"] as const).map((level) => (
-                  <div key={level} className={`flex-1 text-center py-2 rounded-lg text-sm font-medium border-2 transition-all ${
-                    dataComplexity === level
-                      ? level === "Låg" ? "border-green-500 bg-green-50 text-green-700"
-                        : level === "Medel" ? "border-yellow-500 bg-yellow-50 text-yellow-700"
-                        : "border-red-500 bg-red-50 text-red-700"
-                      : "border-border text-muted-foreground"
-                  }`}>
-                    {level}
+              <div className="divide-y">
+                {profileDimensions.map(({ label, value }) => (
+                  <div key={label} className="flex items-center justify-between px-5 py-3">
+                    <span className="text-sm text-muted-foreground">{label}</span>
+                    <span className={`text-sm font-semibold ${valueColors[value] ?? "text-foreground"}`}>{value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* 3 – Rekommenderad lösningsinriktning */}
-            <div className="border rounded-xl p-5 space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="text-lg font-bold text-primary">3️⃣</span>
-                <h3 className="font-semibold text-foreground">Rekommenderad lösningsinriktning</h3>
+            {/* Bedömning */}
+            <div className="border rounded-xl overflow-hidden">
+              <div className="bg-primary/8 px-5 py-3 border-b">
+                <h3 className="font-semibold text-foreground text-sm uppercase tracking-wide">Bedömning</h3>
               </div>
-              <div className="space-y-2">
-                {[
-                  "Fokus på strukturerad säljplattform",
-                  "Fokus på datadriven kundplattform",
-                  "Integrerad kommersiell plattform",
-                ].map((opt) => (
-                  <div key={opt} className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all ${
-                    direction === opt ? "border-primary bg-primary/5" : "border-border opacity-40"
-                  }`}>
-                    <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${direction === opt ? "border-primary bg-primary" : "border-muted-foreground"}`} />
-                    <span className={`text-sm font-medium ${direction === opt ? "text-foreground" : "text-muted-foreground"}`}>{opt}</span>
-                  </div>
-                ))}
+              <div className="px-5 py-4 space-y-4">
+                <p className="text-sm text-muted-foreground leading-relaxed">{assessmentIntro}</p>
+                <ul className="space-y-2">
+                  {assessmentPoints.map((point) => (
+                    <li key={point} className="flex items-center gap-2 text-sm text-foreground">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
               </div>
+            </div>
 
-              {/* Bakom kulisserna */}
-              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 space-y-3">
-                <div className="flex items-start gap-3">
-                  <span className="text-xl mt-0.5">🔍</span>
-                  <div>
-                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">Bakom kulisserna lutar det mot:</p>
-                    <p className="text-base font-bold text-primary">{product}</p>
-                    {isGransland && (
-                      <p className="text-xs text-muted-foreground mt-1">Era svar pekar åt båda håll – en kombination ger störst flexibilitet.</p>
-                    )}
-                  </div>
-                </div>
+            {/* Rekommendation */}
+            <div className="border-2 border-primary/30 rounded-xl overflow-hidden">
+              <div className="bg-primary/10 px-5 py-3 border-b border-primary/20">
+                <h3 className="font-semibold text-primary text-sm uppercase tracking-wide">Rekommenderad lösning</h3>
+              </div>
+              <div className="px-5 py-4 space-y-3">
+                <p className="text-base font-bold text-foreground">{product}</p>
                 {keyFactors.length > 0 && (
-                  <div className="border-t border-primary/10 pt-3">
-                    <p className="text-xs text-muted-foreground font-medium mb-2">Avgörande faktorer:</p>
-                    <ul className="space-y-1">
+                  <div className="space-y-1.5">
+                    <p className="text-xs text-muted-foreground font-medium">Avgörande faktorer:</p>
+                    <ul className="space-y-1.5">
                       {keyFactors.slice(0, 5).map((f) => (
                         <li key={f} className="flex items-center gap-2 text-xs text-foreground">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
