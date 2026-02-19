@@ -74,6 +74,9 @@ interface SalesMarketingAnalysisData {
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
+  currentCrmUsage: string;
+  customerDataSpread: string;
+  followUpMethod: string;
   wishlist: string;
   decisionTimeline: string;
   additionalInfo: string;
@@ -142,6 +145,9 @@ const initialData: SalesMarketingAnalysisData = {
   decisionTimeline: "",
   additionalInfo: "",
   currentPartners: "",
+  currentCrmUsage: "",
+  customerDataSpread: "",
+  followUpMethod: "",
   multiCountry: "",
   globalCommercialModel: "",
   marketingOrgStructure: "",
@@ -1291,53 +1297,52 @@ const SalesMarketingNeedsAnalysis = () => {
       case 3:
         return (
           <div className="space-y-6">
+            {/* CRM-användning */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Nuvarande CRM-system</h3>
-              <div className="border-2 border-border rounded-lg overflow-hidden">
-                <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                  <div className="p-3 font-medium text-sm">CRM-system (för Sälj- och/eller Marknadsavdelningen)</div>
-                  <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
-                </div>
-                {data.currentSystems.map((system, index) => (
-                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
-                    <div className="p-2">
-                      <Input
-                        placeholder=""
-                        value={system.product}
-                        onChange={(e) => {
-                          const newSystems = [...data.currentSystems];
-                          newSystems[index] = { ...newSystems[index], product: e.target.value };
-                          setData({ ...data, currentSystems: newSystems });
-                        }}
-                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                      />
-                    </div>
-                    <div className="p-2 border-l-2 border-border">
-                      <Input
-                        type="number"
-                        placeholder="T.ex. 2020"
-                        value={system.year}
-                        onChange={(e) => {
-                          const newSystems = [...data.currentSystems];
-                          newSystems[index] = { ...newSystems[index], year: e.target.value };
-                          setData({ ...data, currentSystems: newSystems });
-                        }}
-                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 max-w-[120px]"
-                      />
-                    </div>
-                  </div>
+              <Label className="text-base font-semibold mb-3 block">Använder ni CRM idag?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Nej", "Enkelt", "Avancerat"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.currentCrmUsage === opt}
+                    onClick={() => setData({ ...data, currentCrmUsage: opt })}
+                    type="radio"
+                  />
                 ))}
               </div>
             </div>
+
+            {/* Kunddata */}
             <div>
-              <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
-              <Textarea
-                id="otherSystemsDetails"
-                placeholder="Beskriv vilka övriga system som används, t.ex. e-handelsplattform, marketing automation, ekonomisystem..."
-                value={data.otherSystemsDetails}
-                onChange={(e) => setData({ ...data, otherSystemsDetails: e.target.value })}
-                className="mt-2"
-              />
+              <Label className="text-base font-semibold mb-3 block">Är kunddata samlad eller spridd?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Samlad i ett system", "Delvis samlad", "Spridd i flera system"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.customerDataSpread === opt}
+                    onClick={() => setData({ ...data, customerDataSpread: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Uppföljning */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur sker uppföljning idag?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Excel", "Lokala system", "Central rapportering"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.followUpMethod === opt}
+                    onClick={() => setData({ ...data, followUpMethod: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         );
@@ -1345,7 +1350,7 @@ const SalesMarketingNeedsAnalysis = () => {
       case 4:
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert CRM System (Sälj- och/eller Marketing Automation)?</h3>
+            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert CRM-system?</h3>
             <Textarea
               id="currentSituationReason"
               placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt CRM-system..."
@@ -1353,11 +1358,9 @@ const SalesMarketingNeedsAnalysis = () => {
               onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
               className="min-h-[150px]"
             />
-
             <div className="space-y-4">
               <p className="text-muted-foreground">
-                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som CRM-projekt (Sälj- och/eller Marketing Automation) brukar adressera. 
-                Klicka gärna i de områden som stämmer för din verksamhet.
+                Nedan listas några vanliga utmaningar som CRM-projekt brukar adressera. Klicka gärna i de områden som stämmer för din verksamhet.
               </p>
               <div className="space-y-6">
                 {situationChallengeCategories.map((category) => (
@@ -1383,8 +1386,8 @@ const SalesMarketingNeedsAnalysis = () => {
                           onClick={() => handleSituationChallengeChange(category.id, option)}
                           className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                             data.situationChallenges[category.id] === option
-                              ? "bg-primary text-primary-foreground shadow-md"
-                              : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                              ? "bg-primary text-primary-foreground"
+                              : "bg-muted text-muted-foreground hover:bg-muted/80"
                           }`}
                         >
                           {option}
