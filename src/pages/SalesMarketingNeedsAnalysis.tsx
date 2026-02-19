@@ -616,20 +616,47 @@ const SalesMarketingNeedsAnalysis = () => {
       yPos += lines.length * 5 + 8;
     };
 
+    const addBulletSection = (title: string, items: string[]) => {
+      if (items.length === 0) return;
+      const neededHeight = 14 + items.length * 6 + 8;
+      if (yPos + neededHeight > 270) {
+        pdf.addPage();
+        yPos = margin;
+      }
+      pdf.setFillColor(30, 58, 138);
+      pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(title, margin + 5, yPos + 7);
+      yPos += 14;
+      pdf.setTextColor(51, 51, 51);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      items.forEach((item) => {
+        if (yPos > 270) {
+          pdf.addPage();
+          yPos = margin;
+        }
+        pdf.text(`•  ${item}`, margin + 3, yPos);
+        yPos += 6;
+      });
+      yPos += 4;
+    };
+
     addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Säljteam: ${data.salesTeamSize}`);
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     const systemsText = filledSystems.length > 0 
       ? filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")
       : "Ej angivet";
     addSection("Nuvarande CRM", systemsText);
-    const challengesText = Object.entries(data.situationChallenges)
+    const challengeItems = Object.entries(data.situationChallenges)
       .filter(([_, value]) => value && value !== "Inget problem idag")
       .map(([key, value]) => {
         const category = situationChallengeCategories.find(c => c.id === key);
         return category ? `${category.title}: ${value}` : `${key}: ${value}`;
-      })
-      .join("; ") || "Ej angivet";
-    addSection("Utmaningar", challengesText);
+      });
+    addBulletSection("Utmaningar", challengeItems);
     addSection("Säljbehov", data.salesNeeds.join(", ") || "Ej angivet");
     addSection("Säljprocessens komplexitet", data.salesProcessComplexity || "Ej angivet");
     addSection("Marknadsföringsbehov", data.marketingNeeds.join(", ") || "Ej angivet");
@@ -650,7 +677,7 @@ const SalesMarketingNeedsAnalysis = () => {
     // AI & Framtid
     addSection("AI-intresse", data.aiInterest || "Ej angivet");
     if (data.aiUseCases.length > 0) {
-      addSection("AI-användningsområden", data.aiUseCases.join(", "));
+      addBulletSection("AI-användningsområden", data.aiUseCases);
     }
     if (data.aiDetails) {
       addSection("AI-detaljer", data.aiDetails);
