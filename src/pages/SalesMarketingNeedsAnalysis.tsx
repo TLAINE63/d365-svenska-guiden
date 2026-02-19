@@ -39,6 +39,10 @@ interface SalesMarketingAnalysisData {
   b2bStructuredPipeline: string;
   b2bMultipleDecisionMakers: string;
   b2bForecastNeeds: string;
+  b2bComplexParallelDeals: string;
+  b2bComplexRoleBased: string;
+  b2bComplexGlobalReporting: string;
+  b2bComplexPartnerChannel: string;
   b2cSegmentation: string;
   b2cCampaignAutomation: string;
   b2cPersonalization: string;
@@ -79,6 +83,10 @@ const initialData: SalesMarketingAnalysisData = {
   b2bStructuredPipeline: "",
   b2bMultipleDecisionMakers: "",
   b2bForecastNeeds: "",
+  b2bComplexParallelDeals: "",
+  b2bComplexRoleBased: "",
+  b2bComplexGlobalReporting: "",
+  b2bComplexPartnerChannel: "",
   b2cSegmentation: "",
   b2cCampaignAutomation: "",
   b2cPersonalization: "",
@@ -929,6 +937,64 @@ const SalesMarketingNeedsAnalysis = () => {
                     <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       Baserat på er profil passar Dynamics 365 Sales bra – med stöd för pipeline-hantering, aktivitetsuppföljning, AI-driven säljcoachning och integrerade prognoser.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Conditional follow-up questions for Komplex B2B */}
+            {data.commercialModel === "b2b_complex" && (
+              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
+                <p className="text-sm font-medium text-primary">Berätta lite mer om er komplexa B2B-försäljning:</p>
+
+                {/* Parallella affärer */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Hur många parallella affärer hanterar säljarna typiskt?</Label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {["Färre än 10", "10–30", "30–100", "100+"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexParallelDeals === opt} onClick={() => setData({ ...data, b2bComplexParallelDeals: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Rollbaserad säljstyrning */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Behöver ni rollbaserad säljstyrning?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, vi har tydliga roller (AE, SDR, CSM...)", "Delvis, vi växer mot det", "Nej, alla gör allt idag"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexRoleBased === opt} onClick={() => setData({ ...data, b2bComplexRoleBased: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Global rapportering */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Behov av global eller multi-entity-rapportering?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, flera länder/bolag", "Ja, men bara ett land", "Nej, vi är ett team"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexGlobalReporting === opt} onClick={() => setData({ ...data, b2bComplexGlobalReporting: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Partner/kanalförsäljning */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Säljer ni via partners eller kanaler?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, partners är en stor del", "Delvis, hybrid direkt/partner", "Nej, enbart direktförsäljning"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexPartnerChannel === opt} onClick={() => setData({ ...data, b2bComplexPartnerChannel: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recommendation hint */}
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <span className="text-xl mt-0.5">👉</span>
+                  <div>
+                    <p className="text-sm font-semibold text-primary">Stark lutning mot Dynamics 365 Sales</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Med komplex affärsstruktur, parallella affärer och rollbaserat säljarbete passar Dynamics 365 Sales utmärkt – med avancerad pipeline-hantering, AI-prognos och inbyggt stöd för partner/kanalförsäljning. Har ni även behov av marketing automation pekar det dessutom mot Customer Insights.
                     </p>
                   </div>
                 </div>
