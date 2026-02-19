@@ -53,6 +53,13 @@ export interface DatabasePartner {
   created_at: string;
   updated_at: string;
   customer_examples?: string[];
+  industry_apps?: Array<{
+    name: string;
+    url: string;
+    application: string;
+    industry: string;
+    description: string;
+  }>;
   // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
@@ -110,6 +117,7 @@ export function usePartners() {
         secondary_industries: p.secondary_industries || [],
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
+        industry_apps: (p.industry_apps as DatabasePartner['industry_apps']) || [],
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
@@ -148,6 +156,7 @@ export function usePartner(slug: string | undefined) {
         secondary_industries: data.secondary_industries || [],
         geography: data.geography || ['Sverige'],
         product_filters: (data.product_filters as ProductFilters) || {},
+        industry_apps: (data.industry_apps as DatabasePartner['industry_apps']) || [],
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,

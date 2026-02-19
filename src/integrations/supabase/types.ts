@@ -300,6 +300,7 @@ export type Database = {
           geography: string[] | null
           id: string
           industries: string[] | null
+          industry_apps: Json | null
           invitation_id: string
           logo_url: string | null
           name: string
@@ -320,6 +321,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           industries?: string[] | null
+          industry_apps?: Json | null
           invitation_id: string
           logo_url?: string | null
           name: string
@@ -340,6 +342,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           industries?: string[] | null
+          industry_apps?: Json | null
           invitation_id?: string
           logo_url?: string | null
           name?: string
@@ -392,6 +395,7 @@ export type Database = {
           geography: string[] | null
           id: string
           industries: string[] | null
+          industry_apps: Json | null
           is_featured: boolean | null
           logo_dark_bg: boolean
           logo_url: string | null
@@ -420,6 +424,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           industries?: string[] | null
+          industry_apps?: Json | null
           is_featured?: boolean | null
           logo_dark_bg?: boolean
           logo_url?: string | null
@@ -448,6 +453,7 @@ export type Database = {
           geography?: string[] | null
           id?: string
           industries?: string[] | null
+          industry_apps?: Json | null
           is_featured?: boolean | null
           logo_dark_bg?: boolean
           logo_url?: string | null
@@ -541,6 +547,7 @@ export type Database = {
           geography: string[] | null
           id: string | null
           industries: string[] | null
+          industry_apps: Json | null
           is_featured: boolean | null
           logo_dark_bg: boolean | null
           logo_url: string | null
@@ -562,6 +569,7 @@ export type Database = {
           geography?: string[] | null
           id?: string | null
           industries?: string[] | null
+          industry_apps?: Json | null
           is_featured?: boolean | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
@@ -583,6 +591,7 @@ export type Database = {
           geography?: string[] | null
           id?: string | null
           industries?: string[] | null
+          industry_apps?: Json | null
           is_featured?: boolean | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
