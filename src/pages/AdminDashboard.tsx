@@ -1087,7 +1087,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <p className="text-xs text-muted-foreground mt-2">
-                {fullPartners.filter(p => p.is_featured).length} utvalda
+                {fullPartners.filter(p => p.is_featured).length} publicerade
               </p>
             </CardContent>
           </Card>
@@ -1378,7 +1378,7 @@ const AdminDashboard = () => {
                             <h3 className="font-semibold flex items-center gap-2">
                               {partner.name}
                               {partner.is_featured && (
-                                <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Utvald</Badge>
+                                <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Publicerad</Badge>
                               )}
                               {openInvitations[partner.id] && (
                                 <Badge variant="outline" className="text-xs border-amber-500 text-amber-700 dark:text-amber-400" title={openInvitations[partner.id].email}>
@@ -1475,7 +1475,7 @@ const AdminDashboard = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                    Utvalda Partners
+                    Publicerade Partners
                   </CardTitle>
                   <CardDescription>
                     Partners som visas publikt på sajten
@@ -1527,7 +1527,7 @@ const AdminDashboard = () => {
                         {product.label}
                       </CardTitle>
                       <CardDescription className="text-white/80">
-                        {partnersWithProduct} utvalda partners har denna produkt
+                        {partnersWithProduct} publicerade partners har denna produkt
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="pt-4">
@@ -1568,7 +1568,7 @@ const AdminDashboard = () => {
                     Övriga produkter
                   </CardTitle>
                   <CardDescription>
-                    Antal utvalda partners per specialprodukt
+                    Antal publicerade partners per specialprodukt
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -1621,7 +1621,7 @@ const AdminDashboard = () => {
                     Branschtäckning totalt
                   </CardTitle>
                   <CardDescription>
-                    Antal utvalda partners per bransch (över alla produkter)
+                    Antal publicerade partners per bransch (över alla produkter)
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -2650,7 +2650,7 @@ const AdminDashboard = () => {
                       setPartnerFormData({ ...partnerFormData, is_featured: !!checked })
                     }
                   />
-                  <Label htmlFor="is_featured">Utvald partner</Label>
+                  <Label htmlFor="is_featured">Publicerad partner</Label>
                 </div>
 
                 <div className="mt-6 p-4 bg-muted/30 rounded-lg border">
