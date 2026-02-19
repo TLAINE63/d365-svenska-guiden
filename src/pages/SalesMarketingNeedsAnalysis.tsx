@@ -79,6 +79,8 @@ interface SalesMarketingAnalysisData {
   personalizationCritical: string;
   integrationScope: string;
   integrationTypes: string[];
+  aiAmbition: string;
+  aiDataMaturity: string;
   currentCrmUsage: string;
   customerDataSpread: string;
   followUpMethod: string;
@@ -156,6 +158,8 @@ const initialData: SalesMarketingAnalysisData = {
   personalizationCritical: "",
   integrationScope: "",
   integrationTypes: [],
+  aiAmbition: "",
+  aiDataMaturity: "",
   customerDataSpread: "",
   followUpMethod: "",
   multiCountry: "",
@@ -1453,76 +1457,69 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
-        const aiInterestOptions = [
-          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
-          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
-          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
-          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" }
-        ];
+      case 6: {
+        const showDataMaturityWarning =
+          (data.aiAmbition === "AI-driven segmentering & personalisering" || data.aiAmbition === "Strategisk AI-satsning") &&
+          (data.aiDataMaturity === "Låg – data är spridd och ostrukturerad");
+
         return (
           <div className="space-y-6">
+            {/* AI-ambition */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Hur intresserade är ni av AI i CRM-systemet?</h3>
+              <Label className="text-base font-semibold mb-3 block">Hur vill ni använda AI i er kommersiella verksamhet?</Label>
               <div className="grid grid-cols-1 gap-3">
-                {aiInterestOptions.map((option) => (
+                {[
+                  "Inget konkret behov",
+                  "AI-stöd i sälj (prognos, rekommendationer)",
+                  "AI-driven segmentering & personalisering",
+                  "Strategisk AI-satsning",
+                ].map((opt) => (
                   <SelectionCard
-                    key={option.value}
-                    label={option.label}
-                    selected={data.aiInterest === option.value}
-                    onClick={() => setData({ ...data, aiInterest: option.value })}
+                    key={opt}
+                    label={opt}
+                    selected={data.aiAmbition === opt}
+                    onClick={() => setData({ ...data, aiAmbition: opt })}
                     type="radio"
                   />
                 ))}
               </div>
             </div>
+
+            {/* Datamognad – kontrollfråga */}
             <div>
-              <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
-              <div className="grid grid-cols-1 gap-4">
-                {aiUseCaseCategories.map((category) => (
-                  <div
-                    key={category.id}
-                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      data.aiUseCases.includes(category.title)
-                        ? 'border-primary bg-primary/5'
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        data.aiUseCases.includes(category.title)
-                          ? 'border-primary bg-primary'
-                          : 'border-muted-foreground'
-                      }`}>
-                        {data.aiUseCases.includes(category.title) && (
-                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
-                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
-                      </div>
-                    </div>
-                  </div>
+              <Label className="text-base font-semibold mb-3 block">Hur strukturerad är er kunddata idag?</Label>
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  "Låg – data är spridd och ostrukturerad",
+                  "Medel – viss struktur men brister finns",
+                  "Hög – samlad och välstrukturerad data",
+                ].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.aiDataMaturity === opt}
+                    onClick={() => setData({ ...data, aiDataMaturity: opt })}
+                    type="radio"
+                  />
                 ))}
               </div>
             </div>
-            <div>
-              <Label htmlFor="aiDetails">Beskriv hur AI skulle kunna hjälpa er verksamhet</Label>
-              <Textarea
-                id="aiDetails"
-                placeholder="Beskriv era tankar om AI..."
-                value={data.aiDetails}
-                onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
-                className="mt-2"
-              />
-            </div>
+
+            {/* Riskflagga */}
+            {showDataMaturityWarning && (
+              <div className="flex items-start gap-3 bg-destructive/5 border border-destructive/30 rounded-xl p-4 animate-in slide-in-from-top-2 duration-300">
+                <span className="text-xl mt-0.5">⚠️</span>
+                <div>
+                  <p className="text-sm font-semibold text-destructive">AI-ambition + låg datamognad = riskflagga</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Hög AI-ambition kräver välstrukturerad och samlad kunddata. Vi rekommenderar att ni börjar med att konsolidera er kunddata innan ni investerar i avancerade AI-funktioner.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         );
+      }
 
       case 7: {
         const decisionTimelineOptions = [
