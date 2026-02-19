@@ -1033,10 +1033,10 @@ const PartnerUpdate = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <ExternalLink className="w-5 h-5 text-primary" />
-                    Branschapplikationer (Microsoft AppSource)
+                    Branschapplikationer (Microsoft Marketplace)
                   </CardTitle>
                   <CardDescription>
-                    Lägg till era certifierade branschspecifika tillägg från Microsoft AppSource/Marketplace. 
+                    Lägg till era certifierade branschspecifika tillägg från Microsoft Marketplace. 
                     Dessa ska vara appar som tillför branschspecifik funktionalitet till en Dynamics 365-applikation.
                   </CardDescription>
                 </CardHeader>
@@ -1065,7 +1065,7 @@ const PartnerUpdate = () => {
                           />
                         </div>
                         <div className="space-y-1">
-                          <Label className="text-xs">AppSource-länk *</Label>
+                          <Label className="text-xs">Marketplace-länk *</Label>
                           <Input
                             type="url"
                             placeholder="https://appsource.microsoft.com/..."
@@ -1147,7 +1147,7 @@ const PartnerUpdate = () => {
                   
                   {industryApps.length === 0 && (
                     <p className="text-sm text-muted-foreground text-center py-2">
-                      Inga branschappar tillagda ännu. Klicka ovan för att lägga till era certifierade AppSource-tillägg.
+                      Inga branschappar tillagda ännu. Klicka ovan för att lägga till era certifierade Marketplace-tillägg.
                     </p>
                   )}
                 </CardContent>
