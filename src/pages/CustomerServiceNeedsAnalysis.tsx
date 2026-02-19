@@ -1127,7 +1127,7 @@ const CustomerServiceNeedsAnalysis = () => {
               <CardContent className="pt-8">
                 {recommendation.products.length > 0 && (
                   <div className="mb-8">
-                    <h3 className="text-xl font-bold text-center mb-6">Rekommenderade Dynamics 365-applikationer</h3>
+                    <h3 className="text-xl font-bold text-center mb-6">Baserat på era svar lutar det mot</h3>
                     <div className="space-y-4">
                       {recommendation.products.map((product, index) => (
                         <Card key={product.name} className={`border-2 ${index === 0 ? 'border-crm bg-crm/5' : 'border-border'}`}>
