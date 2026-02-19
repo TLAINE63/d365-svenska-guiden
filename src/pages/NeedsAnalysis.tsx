@@ -132,7 +132,7 @@ const initialComplexity: ComplexityData = {
 const businessModelOptions = [
   {
     value: "Produktion",
-    label: "Produktion / Manufacturing",
+    label: "Produktion / Tillverkningsindustrin",
     subcategories: [
       "Make-to-Order (MTO)",
       "Make-to-Stock (MTS)",
