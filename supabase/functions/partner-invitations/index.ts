@@ -211,6 +211,7 @@ serve(async (req: Request): Promise<Response> => {
           secondary_industries: submissionData.secondary_industries || [],
           geography: submissionData.geography || [],
           product_filters: submissionData.product_filters || {},
+          industry_apps: submissionData.industry_apps || [],
           notes: submissionData.notes,
         });
 
@@ -608,6 +609,7 @@ serve(async (req: Request): Promise<Response> => {
         secondary_industries: submission.secondary_industries,
         geography: submission.geography,
         product_filters: submission.product_filters,
+        industry_apps: submission.industry_apps || [],
         updated_at: new Date().toISOString(),
       };
 

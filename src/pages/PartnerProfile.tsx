@@ -17,7 +17,8 @@ import {
   Users,
   User,
   Mail,
-  Phone
+  Phone,
+  Package
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
@@ -229,6 +230,32 @@ const PartnerProfile = () => {
     return dbProductFilters?.[filterKey]?.customerCaseLinks || [];
   };
 
+  // Get industry apps for a specific product category
+  interface IndustryApp {
+    name: string;
+    url: string;
+    application: string;
+    industry: string;
+    description: string;
+  }
+
+  const getIndustryAppsForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): IndustryApp[] => {
+    const rawApps = dbPartner?.industry_apps;
+    if (!rawApps || !Array.isArray(rawApps)) return [];
+    
+    // Map category to matching application names
+    const categoryApps: Record<string, string[]> = {
+      bc: ['Business Central'],
+      fsc: ['Finance', 'Supply Chain Management'],
+      sales: ['Sales', 'Customer Insights (Marketing)'],
+      service: ['Customer Service', 'Field Service', 'Contact Center'],
+    };
+    
+    const matchingApps = categoryApps[category] || [];
+    return rawApps.filter((app: IndustryApp) => 
+      matchingApps.includes(app.application)
+    );
+  };
 
   if (isLoading) {
     return (
@@ -444,6 +471,7 @@ const PartnerProfile = () => {
                   const productDescription = getProductDescriptionForProduct(category);
                   const customerCaseLinks = getCustomerCaseLinksForProduct(category);
                   const geography = getGeographyForProduct(category);
+                  const industryAppsForProduct = getIndustryAppsForProduct(category);
                   
                   return (
                     <article 
@@ -624,6 +652,44 @@ const PartnerProfile = () => {
                               </p>
                             )}
                           </div>
+
+                          {/* Industry Apps / AppSource Extensions */}
+                          {industryAppsForProduct.length > 0 && (
+                            <div className="space-y-2.5 pt-2 border-t border-border/50">
+                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
+                                <Package className="w-3.5 h-3.5 text-muted-foreground" />
+                                Branschapplikationer (AppSource)
+                              </p>
+                              <div className="space-y-2">
+                                {industryAppsForProduct.map((app, idx) => (
+                                  <a
+                                    key={idx}
+                                    href={app.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group/app flex items-start gap-3 p-2.5 rounded-lg bg-muted/40 hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all"
+                                  >
+                                    <div className="flex-1 min-w-0">
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-sm font-medium text-foreground group-hover/app:text-primary transition-colors truncate">
+                                          {app.name}
+                                        </span>
+                                        <ExternalLink className="w-3 h-3 text-muted-foreground opacity-0 group-hover/app:opacity-100 transition-opacity flex-shrink-0" />
+                                      </div>
+                                      {app.description && (
+                                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{app.description}</p>
+                                      )}
+                                      {app.industry && (
+                                        <Badge variant="outline" className="text-[10px] mt-1 px-1.5 py-0 border-border/60">
+                                          {app.industry}
+                                        </Badge>
+                                      )}
+                                    </div>
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </article>
