@@ -79,6 +79,7 @@ interface SalesMarketingAnalysisData {
   personalizationCritical: string;
   integrationScope: string;
   integrationTypes: string[];
+  integrationTypesCustom: string;
   aiAmbition: string;
   aiDataMaturity: string;
   currentCrmUsage: string;
@@ -158,6 +159,7 @@ const initialData: SalesMarketingAnalysisData = {
   personalizationCritical: "",
   integrationScope: "",
   integrationTypes: [],
+  integrationTypesCustom: "",
   aiAmbition: "",
   aiDataMaturity: "",
   customerDataSpread: "",
@@ -1468,6 +1470,16 @@ const SalesMarketingNeedsAnalysis = () => {
                     type="checkbox"
                   />
                 ))}
+              </div>
+              <div className="mt-3">
+                <Label className="text-sm text-muted-foreground mb-1.5 block">Övriga system (fritext)</Label>
+                <input
+                  type="text"
+                  placeholder="T.ex. Fortnox, Salesforce, HubSpot..."
+                  value={data.integrationTypesCustom || ""}
+                  onChange={(e) => setData({ ...data, integrationTypesCustom: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                />
               </div>
             </div>
           </div>
