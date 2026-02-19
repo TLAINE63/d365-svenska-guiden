@@ -74,6 +74,9 @@ interface SalesMarketingAnalysisData {
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
+  unifiedCustomerView: string;
+  multipleDataSources: string;
+  personalizationCritical: string;
   currentCrmUsage: string;
   customerDataSpread: string;
   followUpMethod: string;
@@ -146,6 +149,9 @@ const initialData: SalesMarketingAnalysisData = {
   additionalInfo: "",
   currentPartners: "",
   currentCrmUsage: "",
+  unifiedCustomerView: "",
+  multipleDataSources: "",
+  personalizationCritical: "",
   customerDataSpread: "",
   followUpMethod: "",
   multiCountry: "",
@@ -1350,51 +1356,50 @@ const SalesMarketingNeedsAnalysis = () => {
       case 4:
         return (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert CRM-system?</h3>
-            <Textarea
-              id="currentSituationReason"
-              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt CRM-system..."
-              value={data.currentSituationReason}
-              onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
-              className="min-h-[150px]"
-            />
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                Nedan listas några vanliga utmaningar som CRM-projekt brukar adressera. Klicka gärna i de områden som stämmer för din verksamhet.
-              </p>
-              <div className="space-y-6">
-                {situationChallengeCategories.map((category) => (
-                  <div key={category.id} className="border rounded-lg p-4 space-y-3">
-                    <div>
-                      <h4 className="font-bold text-foreground">{category.title}</h4>
-                      <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
-                    </div>
-                    <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                      {category.items.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
-                    <div className="bg-muted/50 p-3 rounded-md">
-                      <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
-                      <p className="text-sm italic text-foreground">{category.quote}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {situationChallengeOptions.map((option) => (
-                        <button
-                          key={option}
-                          type="button"
-                          onClick={() => handleSituationChallengeChange(category.id, option)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                            data.situationChallenges[category.id] === option
-                              ? "bg-primary text-primary-foreground"
-                              : "bg-muted text-muted-foreground hover:bg-muted/80"
-                          }`}
-                        >
-                          {option}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+            {/* Enhetlig kundvy */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Har ni en enhetlig kundvy?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Nej", "Delvis", "Ja"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.unifiedCustomerView === opt}
+                    onClick={() => setData({ ...data, unifiedCustomerView: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Kunddata från flera källor */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Samlas kunddata från flera källor?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {["Nej", "Ja"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.multipleDataSources === opt}
+                    onClick={() => setData({ ...data, multipleDataSources: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Personalisering */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Är personalisering affärskritiskt?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Nej", "Önskvärt", "Ja"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.personalizationCritical === opt}
+                    onClick={() => setData({ ...data, personalizationCritical: opt })}
+                    type="radio"
+                  />
                 ))}
               </div>
             </div>
