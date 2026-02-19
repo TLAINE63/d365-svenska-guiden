@@ -2271,10 +2271,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <Label className="text-sm font-medium mb-2 block">Antal lager</Label>
                     {renderComplexityRadio("warehouseCount", complexityOperativeOptions.warehouseCount)}
                   </div>
+                  {data.businessModel === "Produktion" && (
                   <div>
                     <Label className="text-sm font-medium mb-2 block">MRP / APS-behov</Label>
                     {renderComplexityRadio("mrpAps", complexityOperativeOptions.mrpAps)}
                   </div>
+                  )}
                   <div>
                     <Label className="text-sm font-medium mb-2 block">Transaktionsvolym</Label>
                     {renderComplexityRadio("transactionVolume", complexityOperativeOptions.transactionVolume)}
