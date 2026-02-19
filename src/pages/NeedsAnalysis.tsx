@@ -48,36 +48,39 @@ interface ComplexityData {
 }
 
 interface AnalysisData {
-  // Step 1
+  // Step 1 - Business model
+  businessModel: string;
+  businessModelSub: string;
+  // Step 2
   employees: string;
   revenue: string;
-  // Step 2
+  // Step 3
   industry: string;
   industryOther: string;
-  // Step 3 - Complexity assessment
+  // Step 4 - Complexity assessment
   complexity: ComplexityData;
-  // Step 4
+  // Step 5
   geography: string;
   geographyOther: string;
-  // Step 5 (Önskelista moved)
+  // Step 6 (Önskelista moved)
   wishlist: string;
-  // Step 6
+  // Step 7
   currentSituationReason: string;
   situationChallenges: Record<string, string>;
   decisionTimeline: string;
-  // Step 7
+  // Step 8
   integrationSystems: { system: string; importance: string }[];
-  // Step 7
+  // Step 8
   currentSystems: { product: string; year: string }[];
   otherSystems: string[];
   otherSystemsDetails: string;
-  // Step 8
+  // Step 9
   challenges: string[];
   challengesOther: string;
-  // Step 9
+  // Step 10
   kpis: string[];
   kpisOther: string;
-  // Step 10
+  // Step 11
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
@@ -106,7 +109,54 @@ const initialComplexity: ComplexityData = {
   globalStandardization: "",
 };
 
+const businessModelOptions = [
+  {
+    value: "Produktion",
+    label: "Produktion / Manufacturing",
+    subcategories: [
+      "Make-to-Order (MTO)",
+      "Make-to-Stock (MTS)",
+      "Engineer-to-Order (ETO)",
+      "Processindustri",
+    ],
+  },
+  {
+    value: "Distribution",
+    label: "Distribution / Wholesale",
+    subcategories: [
+      "Grossisthandel",
+      "Lagerförsäljning",
+      "Import/export",
+    ],
+  },
+  {
+    value: "Konsult",
+    label: "Konsult / Projektbaserad verksamhet",
+    subcategories: [
+      "Tjänsteproduktion",
+      "Projektleveranser",
+      "Time & Material / Fixed Price",
+    ],
+  },
+  {
+    value: "Retail",
+    label: "Retail / e‑tail",
+    subcategories: [
+      "Fysisk butik",
+      "E-handel",
+      "Omnichannel",
+    ],
+  },
+  {
+    value: "Annat",
+    label: "Annat",
+    subcategories: [],
+  },
+];
+
 const initialData: AnalysisData = {
+  businessModel: "",
+  businessModelSub: "",
   employees: "",
   revenue: "",
   industry: "",
@@ -630,14 +680,15 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 10;
+  const totalSteps = 11;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
+    BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
   ];
 
   const stepTitles = [
+    "Affärsmodell",
     "Företagsstorlek",
     "Bransch",
     "Komplexitet",
@@ -816,6 +867,9 @@ const NeedsAnalysis = () => {
       fscReasons.push("Stor organisation (600+ anställda) gynnas av F&SC:s skalbarhet");
     }
 
+
+
+
     // ---- Legal entities (more important than revenue) ----
     const le = data.complexity.legalEntities;
     if (le === "1-2") {
@@ -866,7 +920,56 @@ const NeedsAnalysis = () => {
       fscReasons.push("Avancerad WMS kräver F&SC:s lagerhanteringsmodul");
     }
 
-    // ---- Integrations ----
+    // ---- Business model specific scoring ----
+    const bm = data.businessModel;
+    const bmSub = data.businessModelSub;
+
+    if (bm === "Konsult") {
+      if (["1-49 anställda", "50-99 anställda", "100-249 anställda"].includes(emp)) {
+        bcScore += 10;
+        bcReasons.push("Konsultverksamhet med < 250 anställda passar Business Central väl");
+      }
+      if (["1.000-4.999 anställda", "Mer än 5.000 anställda"].includes(emp)) {
+        fscScore += 10;
+        fscReasons.push("Stor konsultverksamhet med global projektleverans gynnas av F&SC");
+      }
+      if (le === "6+") {
+        fscScore += 5;
+      }
+    } else if (bm === "Retail") {
+      if (bmSub === "Omnichannel" || bmSub === "E-handel") {
+        fscScore += 10;
+        bcScore += 10;
+      }
+      if (bmSub === "Fysisk butik") {
+        bcScore += 10;
+      }
+      if (wms === "avancerad") {
+        fscScore += 5;
+        fscReasons.push("Retail med avancerad WMS kräver F&SC:s lagerhantering");
+      }
+    } else if (bm === "Produktion") {
+      if (bmSub === "Engineer-to-Order (ETO)" || bmSub === "Processindustri") {
+        fscScore += 10;
+        fscReasons.push(`${bmSub} kräver ofta F&SC:s avancerade produktionsstyrning`);
+      }
+      if (bmSub === "Make-to-Stock (MTS)" && prod !== "avancerad") {
+        bcScore += 5;
+      }
+    } else if (bm === "Distribution") {
+      if (wc === "flera-lander") {
+        fscScore += 5;
+      }
+      if (bmSub === "Import/export") {
+        fscScore += 10;
+        fscReasons.push("Import/export-verksamhet gynnas av F&SC:s globala handelsmodul");
+      }
+      if (wc === "1-2" && wms !== "avancerad") {
+        bcScore += 5;
+      }
+    }
+
+
     const intPlatform = data.complexity.integrationPlatform;
     if (intPlatform === "fa") {
       bcScore += 10;
@@ -1270,18 +1373,27 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     drawLine(yPos, recommendationColor);
     yPos += 15;
 
-    // Section 1: Company Size
-    addSectionHeader("FÖRETAGSSTORLEK", "1");
+    // Section 1: Business Model
+    addSectionHeader("AFFÄRSMODELL", "1");
+    const bmLabel = businessModelOptions.find(o => o.value === data.businessModel)?.label || "Ej angivet";
+    addContentRow("Affärsmodell:", bmLabel);
+    if (data.businessModelSub) {
+      addContentRow("Typ:", data.businessModelSub);
+    }
+    yPos += 5;
+
+    // Section 2: Company Size
+    addSectionHeader("FÖRETAGSSTORLEK", "2");
     addContentRow("Anställda:", data.employees);
     addContentRow("Omsättning:", data.revenue);
     yPos += 5;
 
     // Section 2: Industry
-    addSectionHeader("BRANSCH", "2");
+    addSectionHeader("BRANSCH", "3");
     addBulletList(data.industry ? [data.industry] : [], data.industryOther);
 
     // Section 3: Complexity Assessment
-    addSectionHeader("KOMPLEXITETSBEDÖMNING", "3");
+    addSectionHeader("KOMPLEXITETSBEDÖMNING", "4");
     const c = data.complexity;
     const complexityLabels: { label: string; value: string }[] = [
       { label: "Juridiska enheter", value: complexityStructureOptions.legalEntities.find(o => o.value === c.legalEntities)?.label || "Ej angivet" },
@@ -1301,11 +1413,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     complexityLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
 
     // Section 4: Geography
-    addSectionHeader("GEOGRAFI", "4");
+    addSectionHeader("GEOGRAFI", "5");
     addBulletList(data.geography ? [data.geography] : [], data.geographyOther);
 
     // Section 5: Current Systems
-    addSectionHeader("NUVARANDE SITUATION", "5");
+    addSectionHeader("NUVARANDE SITUATION", "6");
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     if (filledSystems.length > 0) {
       filledSystems.forEach((system) => {
@@ -1363,7 +1475,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     }
 
     // Section 7: Integrations
-    addSectionHeader("INTEGRATIONER", "7");
+    addSectionHeader("INTEGRATIONER", "8");
     const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
     if (filledIntegrations.length > 0) {
       filledIntegrations.forEach((integration) => {
@@ -1378,7 +1490,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     }
 
     // Section 8: Wishlist
-    addSectionHeader("ÖNSKELISTA", "8");
+    addSectionHeader("ÖNSKELISTA", "9");
     if (data.wishlist.trim()) {
       const wishlistLines = pdf.splitTextToSize(data.wishlist, contentWidth - 10);
       wishlistLines.forEach((line: string) => {
@@ -1397,7 +1509,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     }
 
     // Section 9: AI & Future
-    addSectionHeader("AI & FRAMTID", "9");
+    addSectionHeader("AI & FRAMTID", "10");
     addContentRow("Intresse:", data.aiInterest);
     if (data.aiUseCases.length > 0) {
       pdf.setFontSize(10);
@@ -1418,7 +1530,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     }
 
     // Section 10: Additional Info
-    addSectionHeader("ÖVRIG INFORMATION", "10");
+    addSectionHeader("ÖVRIG INFORMATION", "11");
     if (data.additionalInfo) {
       pdf.setFontSize(10);
       pdf.setTextColor(51, 51, 51);
@@ -1528,6 +1640,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           phone: data.phone,
           email: data.email,
           analysisData: {
+            "Affärsmodell": `${data.businessModel}${data.businessModelSub ? ` – ${data.businessModelSub}` : ''}` || "Ej angivet",
             "Anställda": data.employees,
             "Omsättning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
@@ -1617,7 +1730,43 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
   const renderStep = () => {
     switch (currentStep) {
-      case 1:
+      case 1: {
+        const selectedModel = businessModelOptions.find(m => m.value === data.businessModel);
+        return (
+          <div className="space-y-6">
+            <p className="text-muted-foreground">Välj den affärsmodell som bäst beskriver er verksamhet. Detta hjälper oss anpassa analysen efter era förutsättningar.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {businessModelOptions.map((option) => (
+                <SelectionCard
+                  key={option.value}
+                  label={option.label}
+                  selected={data.businessModel === option.value}
+                  onClick={() => setData({ ...data, businessModel: option.value, businessModelSub: "" })}
+                  type="radio"
+                />
+              ))}
+            </div>
+            {selectedModel && selectedModel.subcategories.length > 0 && (
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Specificera typ</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {selectedModel.subcategories.map((sub) => (
+                    <SelectionCard
+                      key={sub}
+                      label={sub}
+                      selected={data.businessModelSub === sub}
+                      onClick={() => setData({ ...data, businessModelSub: sub })}
+                      type="radio"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      case 2:
         return (
           <div className="space-y-8">
             <div>
@@ -1651,7 +1800,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 2:
+      case 3:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Välj den bransch som bäst beskriver er verksamhet.</p>
@@ -1679,7 +1828,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-8">
             <p className="text-muted-foreground">
@@ -1777,7 +1926,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Var bedriver ni er verksamhet?</p>
@@ -1805,7 +1954,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <div>
@@ -1859,7 +2008,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 6: {
+      case 7: {
         const handleSituationChallengeChange = (categoryId: string, value: string) => {
           setData({
             ...data,
@@ -1919,7 +2068,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
       }
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -1960,7 +2109,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 8: {
+      case 9: {
         const decisionTimelineOptions = [
           { value: "Under kommande halvår", label: "Under kommande halvår" },
           { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
@@ -1999,7 +2148,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
       }
 
-      case 9: {
+      case 10: {
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -2071,7 +2220,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
       }
 
-      case 10:
+      case 11:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Finns det något övrigt ni vill berätta om ert projekt eller era behov?</p>
