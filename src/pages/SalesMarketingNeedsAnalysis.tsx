@@ -78,6 +78,9 @@ interface SalesMarketingAnalysisData {
   decisionTimeline: string;
   additionalInfo: string;
   currentPartners: string;
+  multiCountry: string;
+  globalCommercialModel: string;
+  marketingOrgStructure: string;
   companyName: string;
   contactName: string;
   phone: string;
@@ -139,6 +142,9 @@ const initialData: SalesMarketingAnalysisData = {
   decisionTimeline: "",
   additionalInfo: "",
   currentPartners: "",
+  multiCountry: "",
+  globalCommercialModel: "",
+  marketingOrgStructure: "",
   companyName: "",
   contactName: "",
   phone: "",
@@ -1226,6 +1232,54 @@ const SalesMarketingNeedsAnalysis = () => {
                     label={option}
                     selected={data.salesTeamSize === option}
                     onClick={() => setData({ ...data, salesTeamSize: option })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Internationell närvaro */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Är ni verksamma i flera länder?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Ja, flera länder", "Ja, planerar expansion", "Nej, enbart Sverige"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.multiCountry === opt}
+                    onClick={() => setData({ ...data, multiCountry: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Gemensam kommersiell modell */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Gemensam kommersiell modell globalt?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Ja, enhetlig global modell", "Delvis, lokala anpassningar", "Nej, lokala modeller per marknad"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.globalCommercialModel === opt}
+                    onClick={() => setData({ ...data, globalCommercialModel: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Central eller lokal marknadsorganisation */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Central eller lokal marknadsorganisation?</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {["Centralt styrd", "Hybridmodell", "Lokalt styrd per marknad"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.marketingOrgStructure === opt}
+                    onClick={() => setData({ ...data, marketingOrgStructure: opt })}
                     type="radio"
                   />
                 ))}
