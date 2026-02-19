@@ -121,13 +121,20 @@ interface PartnerData {
   applications?: string[];
   industries?: string[];
   secondary_industries?: string[];
-  geography?: string[];  // Changed to array for multi-select
+  geography?: string[];
   product_filters?: {
     bc?: ProductFilterData;
     fsc?: ProductFilterData;
     sales?: ProductFilterData;
     service?: ProductFilterData;
   };
+  industry_apps?: Array<{
+    name: string;
+    url: string;
+    application: string;
+    industry: string;
+    description: string;
+  }>;
   is_featured?: boolean;
   activation_date?: string;
   monthly_fee?: number;
@@ -250,6 +257,7 @@ serve(async (req: Request): Promise<Response> => {
             secondary_industries: partner.secondary_industries || [],
             geography: partner.geography || ['Sverige'],
             product_filters: partner.product_filters || {},
+            industry_apps: partner.industry_apps || [],
             is_featured: partner.is_featured || false,
             activation_date: partner.activation_date || null,
             monthly_fee: partner.monthly_fee || null,
@@ -302,6 +310,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.secondary_industries !== undefined) updateData.secondary_industries = partner.secondary_industries;
         if (partner?.geography !== undefined) updateData.geography = partner.geography;
         if (partner?.product_filters !== undefined) updateData.product_filters = partner.product_filters;
+        if (partner?.industry_apps !== undefined) updateData.industry_apps = partner.industry_apps;
         if (partner?.is_featured !== undefined) updateData.is_featured = partner.is_featured;
         if (partner?.activation_date !== undefined) updateData.activation_date = partner.activation_date || null;
         if (partner?.monthly_fee !== undefined) updateData.monthly_fee = partner.monthly_fee || null;
