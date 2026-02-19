@@ -921,11 +921,15 @@ const SalesMarketingNeedsAnalysis = () => {
                   </div>
                 </div>
 
-                {/* Strukturerad pipeline */}
+                {/* Strukturerad säljprocess */}
                 <div>
-                  <Label className="text-sm font-semibold mb-3 block">Har ni en strukturerad pipeline idag?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, väl definierad", "Delvis / informell", "Nej, saknas"].map((opt) => (
+                  <Label className="text-sm font-semibold mb-3 block">Hur strukturerad är er säljprocess?</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {[
+                      "Vi arbetar främst relationsbaserat utan fast struktur",
+                      "Vi har definierade säljsteg",
+                      "Vi arbetar enligt en gemensam metodik med tydlig uppföljning",
+                    ].map((opt) => (
                       <SelectionCard
                         key={opt}
                         label={opt}
@@ -1530,8 +1534,8 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.commercialModel === "b2b_complex") salesScore += 3;
         if (data.commercialModel === "partner_channel") salesScore += 3;
         // B2B-relational följdfrågor
-        if (data.b2bStructuredPipeline === "Ja, väl definierad") salesScore += 2;
-        if (data.b2bStructuredPipeline === "Delvis / informell") salesScore += 1;
+        if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") salesScore += 2;
+        if (data.b2bStructuredPipeline === "Vi har definierade säljsteg") salesScore += 1;
         if (data.b2bForecastNeeds === "Ja, kritiskt") salesScore += 2;
         if (data.b2bForecastNeeds === "Vore bra att ha") salesScore += 1;
         if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) salesScore += 1;
@@ -1620,7 +1624,7 @@ const SalesMarketingNeedsAnalysis = () => {
           let score = 0;
           if (["b2b_complex", "digital_market", "partner_channel"].includes(data.commercialModel)) score += 2;
           else if (data.commercialModel) score += 1;
-          if (data.b2bStructuredPipeline === "Ja, väl definierad") score += 1;
+          if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") score += 1;
           if (data.currentCrmUsage === "Avancerat") score += 1;
           if (data.b2bComplexRoleBased?.startsWith("Ja")) score += 1;
           if (data.b2bForecastNeeds === "Ja, kritiskt") score += 1;
