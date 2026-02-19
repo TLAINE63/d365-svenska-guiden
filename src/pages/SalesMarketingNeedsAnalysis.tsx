@@ -77,6 +77,8 @@ interface SalesMarketingAnalysisData {
   unifiedCustomerView: string;
   multipleDataSources: string;
   personalizationCritical: string;
+  integrationScope: string;
+  integrationTypes: string[];
   currentCrmUsage: string;
   customerDataSpread: string;
   followUpMethod: string;
@@ -152,6 +154,8 @@ const initialData: SalesMarketingAnalysisData = {
   unifiedCustomerView: "",
   multipleDataSources: "",
   personalizationCritical: "",
+  integrationScope: "",
+  integrationTypes: [],
   customerDataSpread: "",
   followUpMethod: "",
   multiCountry: "",
@@ -1409,40 +1413,42 @@ const SalesMarketingNeedsAnalysis = () => {
       case 5:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
-            <div className="border-2 border-border rounded-lg overflow-hidden">
-              <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                <div className="p-3 font-medium text-sm">Övriga relevanta produkter/system</div>
-                <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integration med detta system</div>
+            {/* Integrationsbehov */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur omfattande är ert behov av att CRM samverkar med andra system?</Label>
+              <div className="grid grid-cols-1 gap-3">
+                {["Begränsat", "Måttligt", "Omfattande och affärskritiskt"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.integrationScope === opt}
+                    onClick={() => setData({ ...data, integrationScope: opt })}
+                    type="radio"
+                  />
+                ))}
               </div>
-              {data.integrationSystems.map((integration, index) => (
-                <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
-                  <div className="p-2">
-                    <Input
-                      placeholder=""
-                      value={integration.system}
-                      onChange={(e) => {
-                        const newSystems = [...data.integrationSystems];
-                        newSystems[index] = { ...newSystems[index], system: e.target.value };
-                        setData({ ...data, integrationSystems: newSystems });
-                      }}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-                  <div className="p-2 border-l-2 border-border">
-                    <Input
-                      placeholder=""
-                      value={integration.importance}
-                      onChange={(e) => {
-                        const newSystems = [...data.integrationSystems];
-                        newSystems[index] = { ...newSystems[index], importance: e.target.value };
-                        setData({ ...data, integrationSystems: newSystems });
-                      }}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-                </div>
-              ))}
+            </div>
+
+            {/* Systeminriktningar – checklista */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Vilka system behöver CRM samverka med? (välj alla som stämmer)</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {["ERP", "E-handel", "Marketing automation", "BI", "Supportsystem", "Partnerportal"].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={(data.integrationTypes || []).includes(opt)}
+                    onClick={() => {
+                      const current = data.integrationTypes || [];
+                      const updated = current.includes(opt)
+                        ? current.filter((v) => v !== opt)
+                        : [...current, opt];
+                      setData({ ...data, integrationTypes: updated });
+                    }}
+                    type="checkbox"
+                  />
+                ))}
+              </div>
             </div>
           </div>
         );
