@@ -959,16 +959,6 @@ const SalesMarketingNeedsAnalysis = () => {
                   </div>
                 </div>
 
-                {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
-                  <span className="text-xl mt-0.5">👉</span>
-                  <div>
-                    <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Baserat på er profil passar Dynamics 365 Sales bra – med stöd för pipeline-hantering, aktivitetsuppföljning, AI-driven säljcoachning och integrerade prognoser.
-                    </p>
-                  </div>
-                </div>
               </div>
             )}
 
