@@ -1420,7 +1420,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     if (recommendation.isCloseCall) {
       pdf.text("PRELIMINÄR BEDÖMNING", margin + 5, yPos + 12);
     } else {
-      pdf.text("VÅR REKOMMENDATION", margin + 5, yPos + 12);
+      pdf.text("BASERAT PÅ ERA SVAR LUTAR DET MOT", margin + 5, yPos + 12);
     }
     yPos += 25;
 
@@ -1431,7 +1431,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setTextColor(180, 130, 0);
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "bold");
-      pdf.text("Båda lösningarna kan vara aktuella. Rekommenderar fördjupad analys.", margin + 5, yPos + 8);
+      pdf.text("Ni befinner er i gränslandet mellan plattformarna. Partnerns arkitekturkompetens blir avgörande.", margin + 5, yPos + 8);
       pdf.setFont("helvetica", "normal");
       pdf.text(`Poängfördelning: BC ${recommendation.bcScore} – F&SC ${recommendation.fscScore}`, margin + 5, yPos + 15);
       yPos += 25;
@@ -2551,11 +2551,23 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   <div className="flex items-start gap-3">
                     <AlertTriangle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-bold text-amber-800 dark:text-amber-300 mb-1">Båda lösningarna kan vara aktuella</h3>
-                      <p className="text-sm text-amber-700 dark:text-amber-400 mb-2">
-                        Poängskillnaden mellan Business Central ({recommendation.bcScore}p) och Finance & Supply Chain ({recommendation.fscScore}p) är liten. 
-                        Vi rekommenderar en fördjupad analys tillsammans med en partner för att säkerställa rätt val.
+                      <h3 className="font-bold text-amber-800 dark:text-amber-300 mb-2">Ni befinner er i gränslandet mellan plattformarna</h3>
+                      <p className="text-sm text-amber-700 dark:text-amber-400 mb-3">
+                        Poängskillnaden mellan Business Central ({recommendation.bcScore}p) och Finance & Supply Chain ({recommendation.fscScore}p) är liten.
+                        Partnerns arkitekturkompetens blir avgörande för att säkerställa rätt val.
                       </p>
+                      <div className="flex flex-col sm:flex-row gap-3 mt-3">
+                        <Button asChild variant="outline" size="sm" className="border-blue-400 text-blue-700 hover:bg-blue-50 dark:border-blue-600 dark:text-blue-300 dark:hover:bg-blue-950/30">
+                          <a href="/partners?app=business-central">
+                            👉 Visa Business Central-partners
+                          </a>
+                        </Button>
+                        <Button asChild variant="outline" size="sm" className="border-purple-400 text-purple-700 hover:bg-purple-50 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-950/30">
+                          <a href="/partners?app=finance-supply-chain">
+                            👉 Visa Finance & Supply Chain-partners
+                          </a>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -2567,19 +2579,42 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <CardHeader className={`${isBC ? 'bg-blue-500' : 'bg-purple-500'} text-white rounded-t-lg`}>
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <Sparkles className="w-6 h-6" />
-                  {recommendation.isCloseCall ? "Preliminär bedömning" : "Vår Rekommendation"}
+                  {recommendation.isCloseCall ? "Preliminär bedömning" : "Baserat på era svar lutar det mot"}
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
-                <h3 className={`text-2xl sm:text-3xl font-bold mb-4 ${isBC ? 'text-blue-600' : 'text-purple-600'}`}>
-                  Microsoft Dynamics 365 {recommendation.product}
+                <h3 className={`text-2xl sm:text-3xl font-bold mb-2 ${isBC ? 'text-blue-600' : 'text-purple-600'}`}>
+                  🔹 Microsoft Dynamics 365 {recommendation.product}
                 </h3>
+                <p className="text-sm text-muted-foreground mb-6">
+                  {recommendation.isCloseCall 
+                    ? "Observera att skillnaden är liten – båda plattformarna kan vara aktuella."
+                    : "Denna bedömning är baserad på de svar ni angett och ska ses som vägledande, inte absolut."
+                  }
+                </p>
                 
+                {/* Driving Factors */}
+                {recommendation.criticalFactors && recommendation.criticalFactors.length > 0 && (
+                  <div className={`rounded-lg p-4 mb-6 border ${isBC ? 'bg-blue-50/50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-800' : 'bg-purple-50/50 border-purple-200 dark:bg-purple-950/20 dark:border-purple-800'}`}>
+                    <h4 className="font-semibold text-sm text-foreground mb-3">
+                      Rekommendationen baseras främst på:
+                    </h4>
+                    <ul className="space-y-2">
+                      {recommendation.criticalFactors.map((factor, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <TrendingUp className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isBC ? 'text-blue-500' : 'text-purple-500'}`} />
+                          <span className="text-sm font-medium">{factor}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 {/* Reasons */}
                 {recommendation.reasons.length > 0 && (
                   <div className="bg-muted/50 rounded-lg p-4 mb-6">
                     <h4 className="font-semibold text-sm text-muted-foreground mb-3">
-                      Baserat på er behovsanalys:
+                      Övriga faktorer som stödjer bedömningen:
                     </h4>
                     <ul className="space-y-2">
                       {recommendation.reasons.map((reason, index) => (
