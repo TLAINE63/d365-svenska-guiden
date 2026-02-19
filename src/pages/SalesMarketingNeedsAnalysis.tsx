@@ -450,7 +450,7 @@ const SalesMarketingNeedsAnalysis = () => {
     "Kommersiell modell",
     "Organisation & struktur",
     "Nuvarande arbetssätt & system",
-    "Utmaningar",
+    "Datamognad & kundbild",
     "Integrationer",
     "AI & framtid",
     "Resultat",
