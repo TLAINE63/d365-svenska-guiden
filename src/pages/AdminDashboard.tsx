@@ -2375,10 +2375,10 @@ const AdminDashboard = () => {
                 <CardHeader className="pb-4 bg-primary/10 rounded-t-lg">
                   <CardTitle className="text-xl font-bold flex items-center gap-3">
                     <Link className="h-6 w-6 text-primary" />
-                    Branschapplikationer (Microsoft AppSource)
+                    Branschapplikationer (Microsoft Marketplace)
                   </CardTitle>
                   <CardDescription>
-                    Certifierade branschspecifika tillägg från Microsoft AppSource/Marketplace.
+                    Certifierade branschspecifika tillägg från Microsoft Marketplace.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4 pt-4">
@@ -2406,7 +2406,7 @@ const AdminDashboard = () => {
                           />
                         </div>
                         <div className="space-y-1">
-                          <Label className="text-xs">AppSource-länk *</Label>
+                          <Label className="text-xs">Marketplace-länk *</Label>
                           <Input
                             type="url"
                             placeholder="https://appsource.microsoft.com/..."
