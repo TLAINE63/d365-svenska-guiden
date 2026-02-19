@@ -1522,55 +1522,148 @@ const SalesMarketingNeedsAnalysis = () => {
       }
 
       case 7: {
-        const decisionTimelineOptions = [
-          { value: "Under kommande halvår", label: "Under kommande halvår" },
-          { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
-          { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
-          { value: "Inga planer just nu", label: "Inga planer just nu" },
-        ];
+        // ── Kommersiell mognadsnivå (1–4) ──────────────────────────────
+        const maturityScore = (() => {
+          let score = 0;
+          // Kommersiell modell
+          if (["b2b_complex", "digital_market", "partner_channel"].includes(data.commercialModel)) score += 2;
+          else if (data.commercialModel) score += 1;
+          // Pipeline & CRM
+          if (data.b2bStructuredPipeline === "Ja, väl definierad") score += 1;
+          if (data.currentCrmUsage === "Avancerat") score += 1;
+          else if (data.currentCrmUsage === "Enkelt") score += 0;
+          // Rollbaserad & forecast
+          if (data.b2bComplexRoleBased?.startsWith("Ja")) score += 1;
+          if (data.b2bForecastNeeds === "Ja, kritiskt") score += 1;
+          // AI
+          if (data.aiAmbition === "Strategisk AI-satsning") score += 1;
+          else if (data.aiAmbition === "AI-driven segmentering & personalisering") score += 1;
+          return Math.min(4, Math.max(1, Math.round(1 + (score / 7) * 3)));
+        })();
+
+        const maturityLabels = ["", "Grundläggande", "Utvecklande", "Avancerad", "Ledande"];
+        const maturityColors = ["", "bg-muted text-muted-foreground", "bg-blue-100 text-blue-700", "bg-primary/10 text-primary", "bg-green-100 text-green-700"];
+
+        // ── Datakomplexitet ──────────────────────────────────────────────
+        const dataComplexity = (() => {
+          let score = 0;
+          if (data.multipleDataSources === "Ja") score += 2;
+          if (data.customerDataSpread === "Spridd i flera system") score += 2;
+          else if (data.customerDataSpread === "Delvis samlad") score += 1;
+          if (data.integrationScope === "Omfattande och affärskritiskt") score += 2;
+          else if (data.integrationScope === "Måttligt") score += 1;
+          if (data.unifiedCustomerView === "Nej") score += 1;
+          if (data.aiDataMaturity === "Låg – data är spridd och ostrukturerad") score += 1;
+          if (score <= 2) return "Låg";
+          if (score <= 5) return "Medel";
+          return "Hög";
+        })();
+
+        // ── Produktrekommendation ────────────────────────────────────────
+        const { direction, product } = (() => {
+          const isSalesFocused = ["b2b_relational", "b2b_complex", "partner_channel"].includes(data.commercialModel);
+          const isMarketingFocused = ["digital_market", "b2c_volume"].includes(data.commercialModel);
+          const needsAI = ["AI-driven segmentering & personalisering", "Strategisk AI-satsning"].includes(data.aiAmbition);
+          const highData = dataComplexity === "Hög" || data.multipleDataSources === "Ja";
+
+          if (isSalesFocused && !highData && !needsAI) return {
+            direction: "Fokus på strukturerad säljplattform",
+            product: "Dynamics 365 Sales",
+          };
+          if (isMarketingFocused || (needsAI && highData)) return {
+            direction: "Fokus på datadriven kundplattform",
+            product: "Dynamics 365 Customer Insights",
+          };
+          return {
+            direction: "Integrerad kommersiell plattform",
+            product: "Dynamics 365 Sales + Customer Insights",
+          };
+        })();
+
+        const maturityDots = [1, 2, 3, 4];
+
         return (
           <div className="space-y-6">
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Om du fick önska fritt – vilka funktioner vill du se i ett nytt CRM-system?</Label>
-              <Textarea
-                id="wishlist"
-                placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
-                value={data.wishlist}
-                onChange={(e) => setData({ ...data, wishlist: e.target.value })}
-                className="min-h-[150px]"
-              />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Vart befinner ni er i beslutsprocessen?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {decisionTimelineOptions.map((option) => (
-                  <SelectionCard
-                    key={option.value}
-                    label={option.label}
-                    selected={data.decisionTimeline === option.value}
-                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
-                    type="radio"
+            <p className="text-muted-foreground">Baserat på era svar har vi sammanställt er kommersiella profil nedan.</p>
+
+            {/* 1 – Kommersiell mognadsnivå */}
+            <div className="border rounded-xl p-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-primary">1️⃣</span>
+                <h3 className="font-semibold text-foreground">Kommersiell mognadsnivå</h3>
+              </div>
+              <div className="flex items-center gap-2">
+                {maturityDots.map((d) => (
+                  <div
+                    key={d}
+                    className={`h-3 flex-1 rounded-full transition-all ${d <= maturityScore ? "bg-primary" : "bg-muted"}`}
                   />
                 ))}
               </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Nivå {maturityScore} av 4</span>
+                <span className={`text-sm font-semibold px-3 py-1 rounded-full ${maturityColors[maturityScore]}`}>
+                  {maturityLabels[maturityScore]}
+                </span>
+              </div>
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Har ni kontakt med några Microsoftpartners idag?</Label>
-              <Textarea
-                placeholder="Ange vilka Microsoft-partners ni eventuellt har kontakt med..."
-                value={data.currentPartners}
-                onChange={(e) => setData({ ...data, currentPartners: e.target.value })}
-                className="min-h-[80px]"
-              />
+
+            {/* 2 – Datakomplexitet */}
+            <div className="border rounded-xl p-5 space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-primary">2️⃣</span>
+                <h3 className="font-semibold text-foreground">Datakomplexitet</h3>
+              </div>
+              <div className="flex gap-2">
+                {(["Låg", "Medel", "Hög"] as const).map((level) => (
+                  <div
+                    key={level}
+                    className={`flex-1 text-center py-2 rounded-lg text-sm font-medium border-2 transition-all ${
+                      dataComplexity === level
+                        ? level === "Låg" ? "border-green-500 bg-green-50 text-green-700"
+                          : level === "Medel" ? "border-yellow-500 bg-yellow-50 text-yellow-700"
+                          : "border-red-500 bg-red-50 text-red-700"
+                        : "border-border text-muted-foreground"
+                    }`}
+                  >
+                    {level}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Övrig information</Label>
-              <Textarea
-                placeholder="Berätta mer om era behov, utmaningar eller andra relevanta faktorer..."
-                value={data.additionalInfo}
-                onChange={(e) => setData({ ...data, additionalInfo: e.target.value })}
-                className="min-h-[120px]"
-              />
+
+            {/* 3 – Rekommenderad lösningsinriktning */}
+            <div className="border rounded-xl p-5 space-y-4">
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-bold text-primary">3️⃣</span>
+                <h3 className="font-semibold text-foreground">Rekommenderad lösningsinriktning</h3>
+              </div>
+              <div className="space-y-2">
+                {[
+                  "Fokus på strukturerad säljplattform",
+                  "Fokus på datadriven kundplattform",
+                  "Integrerad kommersiell plattform",
+                ].map((opt) => (
+                  <div
+                    key={opt}
+                    className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all ${
+                      direction === opt ? "border-primary bg-primary/5" : "border-border opacity-40"
+                    }`}
+                  >
+                    <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${direction === opt ? "border-primary bg-primary" : "border-muted-foreground"}`} />
+                    <span className={`text-sm font-medium ${direction === opt ? "text-foreground" : "text-muted-foreground"}`}>{opt}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bakom kulisserna */}
+              <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                <span className="text-xl mt-0.5">🔍</span>
+                <div>
+                  <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">Bakom kulisserna lutar det mot:</p>
+                  <p className="text-sm font-bold text-primary">{product}</p>
+                </div>
+              </div>
             </div>
           </div>
         );
