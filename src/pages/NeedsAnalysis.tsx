@@ -1932,10 +1932,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     const subDescriptions: Record<string, string> = {
                       "Tjänsteproduktion": "T.ex.: IT-konsultbolag, Juristbyråer, Redovisningsbyråer, Managementkonsulter",
                       "Projektleveranser": "T.ex.: Byggprojekt, Produktutvecklingsprojekt",
-                      "Lagerstyrd produktion": "Är kapitalbindning i lager en strategisk fråga? Har ni stora volymer och prispress?",
-                      "Orderstyrd leverans": "Startar produktion eller leverans först när kundorder är bekräftad?",
-                      "Projekt- eller konstruktionsdriven leverans": "Kräver varje affär konstruktion, projektering eller större anpassning innan leverans?",
-                      "Reglerad eller receptbaserad produktion": "Har ni regulatoriska krav på spårbarhet, batchhantering eller kvalitetsuppföljning?",
                     };
                     const isMulti = selectedModel.multiSelect;
                     const isSelected = isMulti
