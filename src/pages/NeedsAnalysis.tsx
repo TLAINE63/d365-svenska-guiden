@@ -1125,14 +1125,23 @@ const NeedsAnalysis = () => {
         bcScore += 5;
       }
     } else if (bm === "Distribution") {
+      const distSubs = data.businessModelSubs;
       if (wc === "flera-lander") {
         fscScore += 5;
       }
-      if (bmSub === "Flera lager internationellt" || bmSub === "Avancerad logistik med integrationer/3PL") {
+      if (distSubs.includes("Flera lager internationellt")) {
         fscScore += 10;
-        fscReasons.push("Komplex lager- och leveransstruktur gynnas av F&SC:s avancerade logistikmoduler");
+        fscReasons.push("Internationell lagerstruktur gynnas av F&SC:s avancerade logistikmoduler");
       }
-      if ((bmSub === "Enkel (1–2 lager, lokal verksamhet)" || bmSub === "Flera lager inom Norden") && wms !== "avancerad") {
+      if (distSubs.includes("Avancerad logistik med integrationer/3PL")) {
+        fscScore += 10;
+        fscReasons.push("Avancerad logistik/3PL kräver F&SC:s integrationskapacitet");
+      }
+      if (distSubs.includes("Enkel (1–2 lager, lokal verksamhet)") && wms !== "avancerad") {
+        bcScore += 10;
+        bcReasons.push("Enkel lokal lagerstruktur passar Business Central väl");
+      }
+      if (distSubs.includes("Flera lager inom Norden") && wms !== "avancerad") {
         bcScore += 5;
       }
     }
