@@ -1008,7 +1008,7 @@ const NeedsAnalysis = () => {
       bcScore += 10;
       bcReasons.push("Enkel produktion/montering hanteras väl i Business Central");
     } else if (prod === "avancerad") {
-      fscScore += 20;
+      fscScore += 15;
       fscReasons.push("Avancerad tillverkning/MRP kräver F&SC:s produktionsmodul");
     }
 
@@ -1020,13 +1020,13 @@ const NeedsAnalysis = () => {
       bcReasons.push("Enkel lagerstruktur passar Business Central");
     }
     if (wc === "flera-lander") {
-      fscScore += 20;
+      fscScore += 12;
       fscReasons.push("Flera lager i flera länder kräver F&SC:s globala lagerhantering");
     } else if (wc === "3-5") {
-      fscScore += 10;
+      fscScore += 8;
     }
     if (wms === "avancerad") {
-      fscScore += 20;
+      fscScore += 12;
       fscReasons.push("Avancerad WMS kräver F&SC:s lagerhanteringsmodul");
     }
 
@@ -1152,20 +1152,20 @@ const NeedsAnalysis = () => {
       bcScore += 10;
       bcReasons.push("Få integrationer – Business Central har enkel integrationsmodell");
     } else if (intPlatform === "manga") {
-      fscScore += 15;
+      fscScore += 10;
       fscReasons.push("Många affärskritiska integrationer gynnas av F&SC:s integrationsramverk");
     }
 
     // ---- Industry analysis ----
     const complexIndustries = ["Tillverkningsindustri", "Livsmedel & Processindustri", "Life Science / Medtech", "Finans & Försäkring", "Energi & Utilities"];
     if (data.industry && complexIndustries.includes(data.industry)) {
-      fscScore += 10;
+      fscScore += 5;
       fscReasons.push(`${data.industry} har ofta komplexa krav som gynnas av F&SC`);
     }
 
     // ---- Geography ----
     if (data.geography === "Globalt" || data.geography === "Europa") {
-      fscScore += 15;
+      fscScore += 10;
       fscReasons.push("Global/europeisk verksamhet kräver F&SC:s multi-site hantering");
     }
     if (data.geography === "Endast Sverige" || data.geography === "Norden") {
@@ -1180,7 +1180,7 @@ const NeedsAnalysis = () => {
     
     fscKeywords.forEach(kw => {
       if (allText.includes(kw)) {
-        fscScore += 5;
+        fscScore += 3;
         fscReasons.push(`Nyckelord "${kw}" indikerar behov av F&SC`);
       }
     });
@@ -1193,7 +1193,7 @@ const NeedsAnalysis = () => {
     // ---- Countries ----
     const countries = data.complexity.countries;
     if (countries === "6+") {
-      fscScore += 15;
+      fscScore += 10;
       fscReasons.push("Verksamhet i 6+ länder kräver F&SC:s globala kapacitet");
     } else if (countries === "2-5") {
       fscScore += 5;
@@ -1204,7 +1204,7 @@ const NeedsAnalysis = () => {
     // ---- Intercompany ----
     const intercompany = data.complexity.intercompany;
     if (intercompany === "omfattande") {
-      fscScore += 15;
+      fscScore += 10;
       fscReasons.push("Omfattande internhandel kräver F&SC:s intercompany-modul");
     } else if (intercompany === "viss") {
       fscScore += 5;
@@ -1215,7 +1215,7 @@ const NeedsAnalysis = () => {
     // ---- Transaction volume ----
     const txVol = data.complexity.transactionVolume;
     if (txVol === "hog") {
-      fscScore += 15;
+      fscScore += 10;
       fscReasons.push("Hög transaktionsvolym (>10 000 order/mån) kräver F&SC:s skalbarhet");
     } else if (txVol === "medel") {
       fscScore += 5;
@@ -1261,7 +1261,7 @@ const NeedsAnalysis = () => {
     const bcKpis = ["Kassaflöde", "Bruttomarginal"];
     fscKpis.forEach(kpi => {
       if (kpis.includes(kpi)) {
-        fscScore += 3;
+        fscScore += 2;
       }
     });
     bcKpis.forEach(kpi => {
@@ -1295,19 +1295,19 @@ const NeedsAnalysis = () => {
 
     // ---- MRP/APS ----
     if (data.complexity.mrpAps === "avancerat") {
-      fscScore += 15;
+      fscScore += 10;
       fscReasons.push("Avancerat MRP/APS-behov kräver F&SC");
     }
 
     // ---- Consolidation ----
     if (data.complexity.consolidation === "komplex") {
-      fscScore += 15;
+      fscScore += 10;
       fscReasons.push("Komplex konsolidering (multi-GAAP) kräver F&SC");
     }
 
     // ---- Global standardization ----
     if (data.complexity.globalStandardization === "hog") {
-      fscScore += 10;
+      fscScore += 5;
       fscReasons.push("Höga krav på global standardisering gynnas av F&SC");
     }
 
