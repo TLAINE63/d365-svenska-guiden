@@ -142,7 +142,7 @@ const businessModelOptions = [
   },
   {
     value: "Distribution",
-    label: "Distribution / Wholesale",
+    label: "Grossist / Distribution",
     subcategories: [
       "Grossisthandel",
       "Lagerförsäljning",
@@ -160,7 +160,7 @@ const businessModelOptions = [
   },
   {
     value: "Retail",
-    label: "Retail / e‑tail",
+    label: "Retail",
     subcategories: [
       "Fysisk butik",
       "E-handel",
