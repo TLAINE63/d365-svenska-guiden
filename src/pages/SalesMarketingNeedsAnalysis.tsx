@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Download, Users, Megaphone, Target, Building2, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, Users, Megaphone, Target, Building2, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 // jsPDF is dynamically imported when needed to reduce initial bundle size
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
@@ -442,19 +442,18 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 8;
+  const totalSteps = 7;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Target, Building2, Target, Target, Target, Sparkles, BarChart3, FileText];
+  const stepIcons = [Target, Building2, Target, Target, Target, Sparkles, FileText];
   const stepTitles = [
-    "Kommersiell modell",
-    "Företagsinformation",
-    "Nuvarande Situation",
+    "Organisation & struktur",
+    "Nuvarande arbetssätt & system",
+    "Datamognad & kundbild",
     "Utmaningar",
     "Integrationer",
-    "Önskelista",
-    "AI & Framtid",
-    "Övrig Information",
+    "AI & framtid",
+    "Resultat",
   ];
 
   const handleNext = () => {
@@ -1387,44 +1386,6 @@ const SalesMarketingNeedsAnalysis = () => {
         );
 
       case 6:
-        const decisionTimelineOptions = [
-          { value: "Under kommande halvår", label: "Under kommande halvår" },
-          { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
-          { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
-          { value: "Inga planer just nu", label: "Inga planer just nu" },
-        ];
-
-        return (
-          <div className="space-y-6">
-            <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt CRM-system för sälj och/eller marknadsföring?</p>
-            <div>
-              <Textarea
-                id="wishlist"
-                placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
-                value={data.wishlist}
-                onChange={(e) => setData({ ...data, wishlist: e.target.value })}
-                className="min-h-[200px]"
-              />
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {decisionTimelineOptions.map((option) => (
-                  <SelectionCard
-                    key={option.value}
-                    label={option.label}
-                    selected={data.decisionTimeline === option.value}
-                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 7:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1495,29 +1456,60 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 7: {
+        const decisionTimelineOptions = [
+          { value: "Under kommande halvår", label: "Under kommande halvår" },
+          { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
+          { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
+          { value: "Inga planer just nu", label: "Inga planer just nu" },
+        ];
         return (
           <div className="space-y-6">
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Om du fick önska fritt – vilka funktioner vill du se i ett nytt CRM-system?</Label>
+              <Textarea
+                id="wishlist"
+                placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
+                value={data.wishlist}
+                onChange={(e) => setData({ ...data, wishlist: e.target.value })}
+                className="min-h-[150px]"
+              />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Vart befinner ni er i beslutsprocessen?</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {decisionTimelineOptions.map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    selected={data.decisionTimeline === option.value}
+                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Har ni kontakt med några Microsoftpartners idag?</Label>
               <Textarea
                 placeholder="Ange vilka Microsoft-partners ni eventuellt har kontakt med..."
                 value={data.currentPartners}
                 onChange={(e) => setData({ ...data, currentPartners: e.target.value })}
-                className="min-h-[100px]"
+                className="min-h-[80px]"
               />
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Övrig information</Label>
               <Textarea
-                placeholder="Berätta mer om era behov, utmaningar, tidplan eller andra relevanta faktorer..."
+                placeholder="Berätta mer om era behov, utmaningar eller andra relevanta faktorer..."
                 value={data.additionalInfo}
                 onChange={(e) => setData({ ...data, additionalInfo: e.target.value })}
-                className="min-h-[150px]"
+                className="min-h-[120px]"
               />
             </div>
           </div>
         );
+      }
 
       default:
         return null;
