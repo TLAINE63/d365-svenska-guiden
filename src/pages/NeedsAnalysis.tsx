@@ -1921,16 +1921,22 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <div>
                 <h3 className="text-lg font-semibold mb-3">Specificera typ</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {selectedModel.subcategories.map((sub) => (
-                    <SelectionCard
-                      key={sub}
-                      label={sub}
-                      description={sub === "Tjänsteproduktion" ? "T.ex.: IT-konsultbolag, Juristbyråer, Redovisningsbyråer, Managementkonsulter" : undefined}
-                      selected={data.businessModelSub === sub}
-                      onClick={() => setData({ ...data, businessModelSub: sub })}
-                      type="radio"
-                    />
-                  ))}
+                  {selectedModel.subcategories.map((sub) => {
+                    const subDescriptions: Record<string, string> = {
+                      "Tjänsteproduktion": "T.ex.: IT-konsultbolag, Juristbyråer, Redovisningsbyråer, Managementkonsulter",
+                      "Projektleveranser": "T.ex.: Byggprojekt, Produktutvecklingsprojekt",
+                    };
+                    return (
+                      <SelectionCard
+                        key={sub}
+                        label={sub}
+                        description={subDescriptions[sub]}
+                        selected={data.businessModelSub === sub}
+                        onClick={() => setData({ ...data, businessModelSub: sub })}
+                        type="radio"
+                      />
+                    );
+                  })}
                 </div>
               </div>
             )}
