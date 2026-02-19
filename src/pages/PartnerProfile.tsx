@@ -370,7 +370,7 @@ const PartnerProfile = () => {
               {partner.is_featured && (
                 <Badge className="bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-400 text-amber-900 border-0 shadow-lg shadow-amber-500/30 px-3 py-1.5 text-sm font-bold">
                   <Sparkles className="w-4 h-4 mr-1.5" />
-                  Utvald partner
+                  Publicerad partner
                 </Badge>
               )}
             </div>
