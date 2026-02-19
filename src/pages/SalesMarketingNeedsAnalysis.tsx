@@ -47,6 +47,9 @@ interface SalesMarketingAnalysisData {
   digitalBehaviorSegmentation: string;
   digitalAutoCommunication: string;
   digitalCDPNeed: string;
+  partnerPortalNeed: string;
+  partnerDealRegistration: string;
+  partnerChannelReporting: string;
   b2cSegmentation: string;
   b2cCampaignAutomation: string;
   b2cPersonalization: string;
@@ -95,6 +98,9 @@ const initialData: SalesMarketingAnalysisData = {
   digitalBehaviorSegmentation: "",
   digitalAutoCommunication: "",
   digitalCDPNeed: "",
+  partnerPortalNeed: "",
+  partnerDealRegistration: "",
+  partnerChannelReporting: "",
   b2cSegmentation: "",
   b2cCampaignAutomation: "",
   b2cPersonalization: "",
@@ -1061,6 +1067,54 @@ const SalesMarketingNeedsAnalysis = () => {
                     <p className="text-sm font-semibold text-primary">Tydlig lutning mot Dynamics 365 Customer Insights</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       Med flera datakällor, beteendebaserade segment och automatiserad kommunikation passar Customer Insights (CDP + Marketing) utmärkt. Finns det även direktförsäljning i hybridmodellen pekar det dessutom mot en kombination med Dynamics 365 Sales.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Conditional follow-up questions for Partner/kanalförsäljning */}
+            {data.commercialModel === "partner_channel" && (
+              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
+                <p className="text-sm font-medium text-primary">Berätta lite mer om er partner- och kanalförsäljning:</p>
+
+                {/* Partnerportal */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Behöver ni en partnerportal för era återförsäljare/agenter?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, kritiskt – partners måste kunna självbetjäna", "Ja, det vore värdefullt", "Nej, vi hanterar allt direkt med partnerna"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.partnerPortalNeed === opt} onClick={() => setData({ ...data, partnerPortalNeed: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Deal registration */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Behöver ni deal registration (partners registrerar affärer)?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, vi behöver kontrollera överlapp", "Delvis, på vissa affärer", "Nej, inget sådant behov idag"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.partnerDealRegistration === opt} onClick={() => setData({ ...data, partnerDealRegistration: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Kanalrapportering */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Behöver ni kanalrapportering per partner/region?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, per partner och region", "Ja, övergripande kanalöversikt", "Nej, vi har tillräcklig insyn idag"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.partnerChannelReporting === opt} onClick={() => setData({ ...data, partnerChannelReporting: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recommendation hint */}
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <span className="text-xl mt-0.5">👉</span>
+                  <div>
+                    <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales (partnerhantering)</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Dynamics 365 Sales har inbyggt stöd för partnerhantering, deal registration och kanalöversikt. Är er kanalstrategi komplex med marketing mot partners pekar det dessutom mot en kombination med Customer Insights för marketing automation.
                     </p>
                   </div>
                 </div>
