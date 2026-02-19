@@ -16,17 +16,23 @@ const SelectionCard = ({ label, description, selected, onClick, type = "checkbox
       type="button"
       onClick={onClick}
       className={cn(
-        "relative flex items-center justify-between w-full p-4 rounded-xl border-2 transition-all duration-200 text-left group",
+        "relative flex items-center justify-between w-full px-4 py-3 rounded-lg border-2 transition-all duration-200 text-left group overflow-hidden",
         selected
-          ? "border-primary bg-primary/10 shadow-md shadow-primary/10"
-          : "border-border bg-card hover:border-primary/50 hover:bg-accent/50 hover:shadow-sm",
+          ? "border-primary bg-primary/[0.07] shadow-sm"
+          : "border-border/70 bg-background hover:border-primary/40 hover:bg-muted/40 hover:shadow-sm",
         className
       )}
     >
-      <div className="flex flex-col">
+      {/* Left accent bar */}
+      <span className={cn(
+        "absolute left-0 top-0 bottom-0 w-[3px] transition-all duration-200",
+        selected ? "bg-primary" : "bg-transparent group-hover:bg-primary/25"
+      )} />
+
+      <div className="flex flex-col ml-2">
         <span className={cn(
-          "font-medium transition-colors",
-          selected ? "text-primary" : "text-foreground group-hover:text-primary"
+          "font-medium text-sm leading-snug transition-colors",
+          selected ? "text-primary" : "text-foreground group-hover:text-primary/80"
         )}>
           {label}
         </span>
@@ -35,13 +41,13 @@ const SelectionCard = ({ label, description, selected, onClick, type = "checkbox
         )}
       </div>
       <div className={cn(
-        "flex items-center justify-center w-6 h-6 rounded-full border-2 transition-all duration-200",
-        type === "radio" ? "rounded-full" : "rounded-md",
-        selected 
-          ? "border-primary bg-primary text-primary-foreground scale-110" 
+        "flex-shrink-0 flex items-center justify-center w-5 h-5 ml-3 transition-all duration-200",
+        type === "radio" ? "rounded-full border-2" : "rounded border-2",
+        selected
+          ? "border-primary bg-primary text-primary-foreground"
           : "border-muted-foreground/30 bg-background group-hover:border-primary/50"
       )}>
-        {selected && <Check className="w-4 h-4" />}
+        {selected && <Check className="w-3 h-3" />}
       </div>
     </button>
   );

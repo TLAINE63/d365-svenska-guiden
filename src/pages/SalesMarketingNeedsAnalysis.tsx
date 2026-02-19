@@ -1972,7 +1972,9 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
             </CardHeader>
             <CardContent className="pt-6">
-              {showContactForm ? renderContactForm() : renderStep()}
+              <div className="analysis-form">
+                {showContactForm ? renderContactForm() : renderStep()}
+              </div>
             </CardContent>
           </Card>
 
