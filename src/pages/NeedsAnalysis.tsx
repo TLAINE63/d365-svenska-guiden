@@ -695,9 +695,9 @@ const complexityMaturityOptions = {
     { value: "formell", label: "Formell styrmodell med tydliga roller" },
   ],
   globalStandardization: [
-    { value: "nej", label: "Inga krav på standardisering" },
-    { value: "viss", label: "Viss standardisering önskvärd" },
-    { value: "hog", label: "Höga krav på global standardisering" },
+    { value: "nej", label: "Varje enhet arbetar relativt självständigt" },
+    { value: "viss", label: "Vi strävar efter gemensamma arbetssätt där det är möjligt" },
+    { value: "hog", label: "Vi kräver enhetliga processer och system över hela organisationen" },
   ],
 };
 
@@ -2303,7 +2303,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   {renderComplexityRadio("governance", complexityMaturityOptions.governance)}
                 </div>
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Krav på global standardisering</Label>
+                  <Label className="text-sm font-medium mb-2 block">Hur viktigt är det att arbeta enligt gemensamma processer i hela organisationen?</Label>
                   {renderComplexityRadio("globalStandardization", complexityMaturityOptions.globalStandardization)}
                 </div>
               </div>
