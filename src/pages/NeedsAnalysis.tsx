@@ -145,10 +145,12 @@ const businessModelOptions = [
   {
     value: "Distribution",
     label: "Grossist / Distribution",
+    subQuestion: "Hur komplex är er lager- och leveransstruktur?",
     subcategories: [
-      "Grossisthandel",
-      "Lagerförsäljning",
-      "Import/export",
+      "Enkel (1–2 lager, lokal verksamhet)",
+      "Flera lager inom Norden",
+      "Flera lager internationellt",
+      "Avancerad logistik med integrationer",
     ],
   },
   {
@@ -1104,11 +1106,11 @@ const NeedsAnalysis = () => {
       if (wc === "flera-lander") {
         fscScore += 5;
       }
-      if (bmSub === "Import/export") {
+      if (bmSub === "Flera lager internationellt" || bmSub === "Avancerad logistik med integrationer") {
         fscScore += 10;
-        fscReasons.push("Import/export-verksamhet gynnas av F&SC:s globala handelsmodul");
+        fscReasons.push("Komplex lager- och leveransstruktur gynnas av F&SC:s avancerade logistikmoduler");
       }
-      if (wc === "1-2" && wms !== "avancerad") {
+      if ((bmSub === "Enkel (1–2 lager, lokal verksamhet)" || bmSub === "Flera lager inom Norden") && wms !== "avancerad") {
         bcScore += 5;
       }
     }
@@ -1925,7 +1927,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
             {selectedModel && selectedModel.subcategories.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold mb-3">Specificera typ {selectedModel.multiSelect && <span className="text-sm font-normal text-muted-foreground">(flerval möjligt)</span>}</h3>
+                <h3 className="text-lg font-semibold mb-3">{selectedModel.subQuestion || "Specificera typ"} {selectedModel.multiSelect && <span className="text-sm font-normal text-muted-foreground">(flerval möjligt)</span>}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {selectedModel.subcategories.map((sub) => {
                     const subDescriptions: Record<string, string> = {
