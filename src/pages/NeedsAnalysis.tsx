@@ -45,6 +45,17 @@ interface ComplexityData {
   integrationPlatform: string;
   governance: string;
   globalStandardization: string;
+  // Consulting-specific
+  simultaneousProjects: string;
+  projectAccounting: string;
+  globalDelivery: string;
+  billingModels: string;
+  // Retail-specific
+  storeCount: string;
+  ecommercePlatform: string;
+  posIntegration: string;
+  realtimeInventory: string;
+  campaignPricing: string;
 }
 
 interface AnalysisData {
@@ -107,6 +118,15 @@ const initialComplexity: ComplexityData = {
   integrationPlatform: "",
   governance: "",
   globalStandardization: "",
+  simultaneousProjects: "",
+  projectAccounting: "",
+  globalDelivery: "",
+  billingModels: "",
+  storeCount: "",
+  ecommercePlatform: "",
+  posIntegration: "",
+  realtimeInventory: "",
+  campaignPricing: "",
 };
 
 const businessModelOptions = [
@@ -671,6 +691,53 @@ const complexityMaturityOptions = {
   ],
 };
 
+// ============ Consulting-specific Complexity Options ============
+const complexityConsultingOptions = {
+  simultaneousProjects: [
+    { value: "fa", label: "1–20 samtidiga projekt" },
+    { value: "medel", label: "20–100 samtidiga projekt" },
+    { value: "manga", label: "100+ samtidiga projekt" },
+  ],
+  projectAccounting: [
+    { value: "enkel", label: "Enkel projektredovisning" },
+    { value: "avancerad", label: "Avancerad projektredovisning (intäktsperiodisering, WIP)" },
+  ],
+  globalDelivery: [
+    { value: "nej", label: "Lokal/nationell leverans" },
+    { value: "ja", label: "Global leverans med internationella team" },
+  ],
+  billingModels: [
+    { value: "enkel", label: "Enkel faktureringsmodell (T&M eller fast pris)" },
+    { value: "komplex", label: "Komplex (blandade modeller, success fee, milestones)" },
+  ],
+};
+
+// ============ Retail-specific Complexity Options ============
+const complexityRetailOptions = {
+  storeCount: [
+    { value: "1-10", label: "1–10 butiker" },
+    { value: "10-50", label: "10–50 butiker" },
+    { value: "50+", label: "50+ butiker" },
+  ],
+  ecommercePlatform: [
+    { value: "nej", label: "Ingen e-handel" },
+    { value: "enkel", label: "Enkel e-handel (få integrationer)" },
+    { value: "avancerad", label: "Avancerad e-handel (omnichannel)" },
+  ],
+  posIntegration: [
+    { value: "nej", label: "Ingen POS-integration" },
+    { value: "ja", label: "POS-integration krävs" },
+  ],
+  realtimeInventory: [
+    { value: "nej", label: "Lagersaldo uppdateras periodiskt" },
+    { value: "ja", label: "Realtids-lagersaldo krävs" },
+  ],
+  campaignPricing: [
+    { value: "enkel", label: "Enkel prishantering" },
+    { value: "avancerad", label: "Avancerad kampanj- och prishantering" },
+  ],
+};
+
 const NeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [data, setData] = useState<AnalysisData>(initialData);
@@ -758,23 +825,56 @@ const NeedsAnalysis = () => {
     else if (c.consolidation === "enkel") { structureScore += 10; }
 
     // Operative complexity score (0-100, weight 40%)
+    // Adapts based on business model
     let operativeScore = 0;
     const operativeFactors: string[] = [];
-    
-    if (c.productionType === "avancerad") { operativeScore += 25; operativeFactors.push("Avancerad produktion/MRP"); }
-    else if (c.productionType === "enkel") { operativeScore += 10; }
-    
-    if (c.warehouseManagement === "avancerad") { operativeScore += 20; operativeFactors.push("Avancerad WMS"); }
-    else if (c.warehouseManagement === "grundlaggande") { operativeScore += 10; }
-    
-    if (c.warehouseCount === "flera-lander") { operativeScore += 20; operativeFactors.push("Flera lager i flera länder"); }
-    else if (c.warehouseCount === "3-5") { operativeScore += 10; }
-    
-    if (c.mrpAps === "avancerat") { operativeScore += 20; operativeFactors.push("Avancerad produktionsplanering (APS)"); }
-    else if (c.mrpAps === "grundlaggande") { operativeScore += 10; }
-    
-    if (c.transactionVolume === "hog") { operativeScore += 15; operativeFactors.push("Hög transaktionsvolym"); }
-    else if (c.transactionVolume === "medel") { operativeScore += 8; }
+    const bm = data.businessModel;
+
+    if (bm === "Konsult") {
+      // Consulting: project & finance architecture drives complexity
+      if (c.simultaneousProjects === "manga") { operativeScore += 25; operativeFactors.push("100+ samtidiga projekt"); }
+      else if (c.simultaneousProjects === "medel") { operativeScore += 12; }
+      else if (c.simultaneousProjects === "fa") { operativeScore += 5; }
+
+      if (c.projectAccounting === "avancerad") { operativeScore += 25; operativeFactors.push("Avancerad projektredovisning"); }
+      else if (c.projectAccounting === "enkel") { operativeScore += 8; }
+
+      if (c.globalDelivery === "ja") { operativeScore += 25; operativeFactors.push("Global projektleverans"); }
+
+      if (c.billingModels === "komplex") { operativeScore += 25; operativeFactors.push("Komplexa faktureringsmodeller"); }
+      else if (c.billingModels === "enkel") { operativeScore += 8; }
+    } else if (bm === "Retail") {
+      // Retail: volume and real-time logic drives complexity
+      if (c.storeCount === "50+") { operativeScore += 25; operativeFactors.push("50+ butiker"); }
+      else if (c.storeCount === "10-50") { operativeScore += 15; }
+      else if (c.storeCount === "1-10") { operativeScore += 5; }
+
+      if (c.ecommercePlatform === "avancerad") { operativeScore += 20; operativeFactors.push("Avancerad e-handel (omnichannel)"); }
+      else if (c.ecommercePlatform === "enkel") { operativeScore += 10; }
+
+      if (c.posIntegration === "ja") { operativeScore += 15; operativeFactors.push("POS-integration"); }
+
+      if (c.realtimeInventory === "ja") { operativeScore += 20; operativeFactors.push("Realtids-lagersaldo"); }
+
+      if (c.campaignPricing === "avancerad") { operativeScore += 20; operativeFactors.push("Avancerad kampanj-/prishantering"); }
+      else if (c.campaignPricing === "enkel") { operativeScore += 5; }
+    } else {
+      // Default: production/logistics (Produktion, Distribution, Annat)
+      if (c.productionType === "avancerad") { operativeScore += 25; operativeFactors.push("Avancerad produktion/MRP"); }
+      else if (c.productionType === "enkel") { operativeScore += 10; }
+      
+      if (c.warehouseManagement === "avancerad") { operativeScore += 20; operativeFactors.push("Avancerad WMS"); }
+      else if (c.warehouseManagement === "grundlaggande") { operativeScore += 10; }
+      
+      if (c.warehouseCount === "flera-lander") { operativeScore += 20; operativeFactors.push("Flera lager i flera länder"); }
+      else if (c.warehouseCount === "3-5") { operativeScore += 10; }
+      
+      if (c.mrpAps === "avancerat") { operativeScore += 20; operativeFactors.push("Avancerad produktionsplanering (APS)"); }
+      else if (c.mrpAps === "grundlaggande") { operativeScore += 10; }
+      
+      if (c.transactionVolume === "hog") { operativeScore += 15; operativeFactors.push("Hög transaktionsvolym"); }
+      else if (c.transactionVolume === "medel") { operativeScore += 8; }
+    }
 
     // Maturity score (0-100, weight 30%)
     let maturityScore = 0;
@@ -925,28 +1025,69 @@ const NeedsAnalysis = () => {
     const bmSub = data.businessModelSub;
 
     if (bm === "Konsult") {
+      // Consulting: project & finance architecture drives the choice
       if (["1-49 anställda", "50-99 anställda", "100-249 anställda"].includes(emp)) {
-        bcScore += 10;
-        bcReasons.push("Konsultverksamhet med < 250 anställda passar Business Central väl");
+        bcScore += 15;
+        bcReasons.push("Konsultbolag med < 250 anställda passar Business Central väl");
       }
       if (["1.000-4.999 anställda", "Mer än 5.000 anställda"].includes(emp)) {
+        fscScore += 15;
+        fscReasons.push("Stor konsultverksamhet gynnas av F&SC:s projektstyrning");
+      }
+      // Consulting-specific complexity factors
+      const cc = data.complexity;
+      if (cc.projectAccounting === "enkel") {
+        bcScore += 20;
+        bcReasons.push("Enkel projektredovisning hanteras väl i Business Central");
+      } else if (cc.projectAccounting === "avancerad") {
+        fscScore += 15;
+        fscReasons.push("Avancerad projektredovisning gynnas av F&SC");
+      }
+      if (cc.globalDelivery === "ja") {
+        fscScore += 15;
+        fscReasons.push("Global projektleverans med internationella team gynnas av F&SC");
+      }
+      if (cc.billingModels === "komplex") {
         fscScore += 10;
-        fscReasons.push("Stor konsultverksamhet med global projektleverans gynnas av F&SC");
+        fscReasons.push("Komplexa faktureringsmodeller gynnas av F&SC");
+      }
+      if (cc.simultaneousProjects === "fa") {
+        bcScore += 10;
+      } else if (cc.simultaneousProjects === "manga") {
+        fscScore += 10;
       }
       if (le === "6+") {
         fscScore += 5;
       }
     } else if (bm === "Retail") {
-      if (bmSub === "Omnichannel" || bmSub === "E-handel") {
+      // Retail: volume and real-time logic drives the choice
+      const rc = data.complexity;
+      if (rc.storeCount === "1-10") {
+        bcScore += 15;
+        bcReasons.push("Retail med 1–10 butiker passar Business Central");
+      } else if (rc.storeCount === "50+") {
+        fscScore += 15;
+        fscReasons.push("Retail med 50+ butiker kräver F&SC:s skalbarhet");
+      } else if (rc.storeCount === "10-50") {
         fscScore += 10;
-        bcScore += 10;
       }
-      if (bmSub === "Fysisk butik") {
-        bcScore += 10;
+      if (rc.realtimeInventory === "ja") {
+        fscScore += 15;
+        fscReasons.push("Realtids-lagersaldo kräver F&SC:s avancerade lagerhantering");
       }
-      if (wms === "avancerad") {
-        fscScore += 5;
-        fscReasons.push("Retail med avancerad WMS kräver F&SC:s lagerhantering");
+      if (rc.ecommercePlatform === "avancerad") {
+        fscScore += 15;
+        fscReasons.push("Avancerad omnichannel-e-handel gynnas av F&SC");
+      } else if (rc.ecommercePlatform === "enkel") {
+        bcScore += 10;
+        fscScore += 10;
+      }
+      if (rc.campaignPricing === "avancerad") {
+        fscScore += 10;
+        fscReasons.push("Avancerad kampanj- och prishantering gynnas av F&SC");
+      }
+      if (bmSub === "Fysisk butik" && rc.storeCount === "1-10") {
+        bcScore += 5;
       }
     } else if (bm === "Produktion") {
       if (bmSub === "Engineer-to-Order (ETO)" || bmSub === "Processindustri") {
@@ -1395,22 +1536,52 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // Section 3: Complexity Assessment
     addSectionHeader("KOMPLEXITETSBEDÖMNING", "4");
     const c = data.complexity;
-    const complexityLabels: { label: string; value: string }[] = [
+    
+    // Structure labels (always shown)
+    const structureLabels: { label: string; value: string }[] = [
       { label: "Juridiska enheter", value: complexityStructureOptions.legalEntities.find(o => o.value === c.legalEntities)?.label || "Ej angivet" },
       { label: "Antal länder", value: complexityStructureOptions.countries.find(o => o.value === c.countries)?.label || "Ej angivet" },
       { label: "Internhandel", value: complexityStructureOptions.intercompany.find(o => o.value === c.intercompany)?.label || "Ej angivet" },
       { label: "Konsolidering", value: complexityStructureOptions.consolidation.find(o => o.value === c.consolidation)?.label || "Ej angivet" },
-      { label: "Produktionstyp", value: complexityOperativeOptions.productionType.find(o => o.value === c.productionType)?.label || "Ej angivet" },
-      { label: "Lagerstyrning", value: complexityOperativeOptions.warehouseManagement.find(o => o.value === c.warehouseManagement)?.label || "Ej angivet" },
-      { label: "Antal lager", value: complexityOperativeOptions.warehouseCount.find(o => o.value === c.warehouseCount)?.label || "Ej angivet" },
-      { label: "MRP/APS", value: complexityOperativeOptions.mrpAps.find(o => o.value === c.mrpAps)?.label || "Ej angivet" },
-      { label: "Transaktionsvolym", value: complexityOperativeOptions.transactionVolume.find(o => o.value === c.transactionVolume)?.label || "Ej angivet" },
+    ];
+    structureLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
+
+    // Operative labels (business model specific)
+    let operativeLabels: { label: string; value: string }[] = [];
+    if (data.businessModel === "Konsult") {
+      operativeLabels = [
+        { label: "Samtidiga projekt", value: complexityConsultingOptions.simultaneousProjects.find(o => o.value === c.simultaneousProjects)?.label || "Ej angivet" },
+        { label: "Projektredovisning", value: complexityConsultingOptions.projectAccounting.find(o => o.value === c.projectAccounting)?.label || "Ej angivet" },
+        { label: "Global leverans", value: complexityConsultingOptions.globalDelivery.find(o => o.value === c.globalDelivery)?.label || "Ej angivet" },
+        { label: "Faktureringsmodell", value: complexityConsultingOptions.billingModels.find(o => o.value === c.billingModels)?.label || "Ej angivet" },
+      ];
+    } else if (data.businessModel === "Retail") {
+      operativeLabels = [
+        { label: "Antal butiker", value: complexityRetailOptions.storeCount.find(o => o.value === c.storeCount)?.label || "Ej angivet" },
+        { label: "E-handel", value: complexityRetailOptions.ecommercePlatform.find(o => o.value === c.ecommercePlatform)?.label || "Ej angivet" },
+        { label: "POS-integration", value: complexityRetailOptions.posIntegration.find(o => o.value === c.posIntegration)?.label || "Ej angivet" },
+        { label: "Realtidslager", value: complexityRetailOptions.realtimeInventory.find(o => o.value === c.realtimeInventory)?.label || "Ej angivet" },
+        { label: "Kampanj/pris", value: complexityRetailOptions.campaignPricing.find(o => o.value === c.campaignPricing)?.label || "Ej angivet" },
+      ];
+    } else {
+      operativeLabels = [
+        { label: "Produktionstyp", value: complexityOperativeOptions.productionType.find(o => o.value === c.productionType)?.label || "Ej angivet" },
+        { label: "Lagerstyrning", value: complexityOperativeOptions.warehouseManagement.find(o => o.value === c.warehouseManagement)?.label || "Ej angivet" },
+        { label: "Antal lager", value: complexityOperativeOptions.warehouseCount.find(o => o.value === c.warehouseCount)?.label || "Ej angivet" },
+        { label: "MRP/APS", value: complexityOperativeOptions.mrpAps.find(o => o.value === c.mrpAps)?.label || "Ej angivet" },
+        { label: "Transaktionsvolym", value: complexityOperativeOptions.transactionVolume.find(o => o.value === c.transactionVolume)?.label || "Ej angivet" },
+      ];
+    }
+    operativeLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
+
+    // Maturity labels (always shown)
+    const maturityLabels: { label: string; value: string }[] = [
       { label: "IT-organisation", value: complexityMaturityOptions.itOrganization.find(o => o.value === c.itOrganization)?.label || "Ej angivet" },
       { label: "Integrationer", value: complexityMaturityOptions.integrationPlatform.find(o => o.value === c.integrationPlatform)?.label || "Ej angivet" },
       { label: "Governance", value: complexityMaturityOptions.governance.find(o => o.value === c.governance)?.label || "Ej angivet" },
       { label: "Global standard.", value: complexityMaturityOptions.globalStandardization.find(o => o.value === c.globalStandardization)?.label || "Ej angivet" },
     ];
-    complexityLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
+    maturityLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
 
     // Section 4: Geography
     addSectionHeader("GEOGRAFI", "5");
@@ -1864,7 +2035,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </div>
             </div>
 
-            {/* Block 2: Operativ komplexitet (40%) */}
+            {/* Block 2: Operativ komplexitet (40%) - adapts to business model */}
             <div className="border-2 border-primary/30 rounded-lg p-5 space-y-5 bg-primary/5">
               <div className="flex items-center gap-2">
                 <Boxes className="w-5 h-5 text-primary" />
@@ -1872,28 +2043,78 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-medium">40 % vikt – väger tyngst</span>
               </div>
               
-              <div className="space-y-4">
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">Produktionstyp</Label>
-                  {renderComplexityRadio("productionType", complexityOperativeOptions.productionType)}
+              {data.businessModel === "Konsult" ? (
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground italic">
+                    För konsult- och projektverksamhet är det projekt- och finansarkitektur som driver komplexiteten, inte produktion.
+                  </p>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Antal samtidiga projekt</Label>
+                    {renderComplexityRadio("simultaneousProjects", complexityConsultingOptions.simultaneousProjects)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Projektredovisningens komplexitet</Label>
+                    {renderComplexityRadio("projectAccounting", complexityConsultingOptions.projectAccounting)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Global leverans?</Label>
+                    {renderComplexityRadio("globalDelivery", complexityConsultingOptions.globalDelivery)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Faktureringsmodeller</Label>
+                    {renderComplexityRadio("billingModels", complexityConsultingOptions.billingModels)}
+                  </div>
                 </div>
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">Avancerad lagerstyrning (WMS)</Label>
-                  {renderComplexityRadio("warehouseManagement", complexityOperativeOptions.warehouseManagement)}
+              ) : data.businessModel === "Retail" ? (
+                <div className="space-y-4">
+                  <p className="text-sm text-muted-foreground italic">
+                    För retail handlar komplexiteten om volym, realtidslogik och kanalintegration.
+                  </p>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Antal butiker</Label>
+                    {renderComplexityRadio("storeCount", complexityRetailOptions.storeCount)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">E-handelsplattform</Label>
+                    {renderComplexityRadio("ecommercePlatform", complexityRetailOptions.ecommercePlatform)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">POS-integration</Label>
+                    {renderComplexityRadio("posIntegration", complexityRetailOptions.posIntegration)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Realtids-lagersaldo</Label>
+                    {renderComplexityRadio("realtimeInventory", complexityRetailOptions.realtimeInventory)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Kampanj- och prishantering</Label>
+                    {renderComplexityRadio("campaignPricing", complexityRetailOptions.campaignPricing)}
+                  </div>
                 </div>
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">Antal lager</Label>
-                  {renderComplexityRadio("warehouseCount", complexityOperativeOptions.warehouseCount)}
+              ) : (
+                <div className="space-y-4">
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Produktionstyp</Label>
+                    {renderComplexityRadio("productionType", complexityOperativeOptions.productionType)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Avancerad lagerstyrning (WMS)</Label>
+                    {renderComplexityRadio("warehouseManagement", complexityOperativeOptions.warehouseManagement)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Antal lager</Label>
+                    {renderComplexityRadio("warehouseCount", complexityOperativeOptions.warehouseCount)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">MRP / APS-behov</Label>
+                    {renderComplexityRadio("mrpAps", complexityOperativeOptions.mrpAps)}
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block">Transaktionsvolym</Label>
+                    {renderComplexityRadio("transactionVolume", complexityOperativeOptions.transactionVolume)}
+                  </div>
                 </div>
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">MRP / APS-behov</Label>
-                  {renderComplexityRadio("mrpAps", complexityOperativeOptions.mrpAps)}
-                </div>
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">Transaktionsvolym</Label>
-                  {renderComplexityRadio("transactionVolume", complexityOperativeOptions.transactionVolume)}
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Block 3: Organisationsmognad (30%) */}
