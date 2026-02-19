@@ -1522,25 +1522,111 @@ const SalesMarketingNeedsAnalysis = () => {
       }
 
       case 7: {
+        // ── POÄNGMOTOR ───────────────────────────────────────────────────
+        // Signaler för D365 Sales
+        let salesScore = 0;
+        // Kommersiell modell
+        if (data.commercialModel === "b2b_relational") salesScore += 4;
+        if (data.commercialModel === "b2b_complex") salesScore += 3;
+        if (data.commercialModel === "partner_channel") salesScore += 3;
+        // B2B-relational följdfrågor
+        if (data.b2bStructuredPipeline === "Ja, väl definierad") salesScore += 2;
+        if (data.b2bStructuredPipeline === "Delvis / informell") salesScore += 1;
+        if (data.b2bForecastNeeds === "Ja, kritiskt") salesScore += 2;
+        if (data.b2bForecastNeeds === "Vore bra att ha") salesScore += 1;
+        if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) salesScore += 1;
+        // B2B-komplex följdfrågor
+        if (data.b2bComplexRoleBased?.startsWith("Ja")) salesScore += 2;
+        if (data.b2bComplexParallelDeals && data.b2bComplexParallelDeals !== "Färre än 10") salesScore += 1;
+        if (data.b2bComplexPartnerChannel?.startsWith("Ja")) salesScore += 1;
+        // Partner-kanal följdfrågor
+        if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) salesScore += 2;
+        if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) salesScore += 1;
+        if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) salesScore += 1;
+        // Steg 3 – nuläge
+        if (data.followUpMethod === "Excel" || data.followUpMethod === "Lokala system") salesScore += 1;
+        if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") salesScore += 1;
+        // AI-ambition sälj
+        if (data.aiAmbition === "AI-stöd i sälj (prognos, rekommendationer)") salesScore += 2;
+        // Multi-country → ger sales-komplexitet
+        if (data.multiCountry === "Ja, flera länder") salesScore += 1;
+
+        // Signaler för D365 Customer Insights
+        let insightsScore = 0;
+        // Kommersiell modell
+        if (data.commercialModel === "digital_market") insightsScore += 4;
+        if (data.commercialModel === "b2c_volume") insightsScore += 4;
+        // Digital affär följdfrågor
+        if (data.digitalDataSources && !data.digitalDataSources.startsWith("Nej")) insightsScore += 2;
+        if (data.digitalBehaviorSegmentation?.startsWith("Ja")) insightsScore += 2;
+        if (data.digitalAutoCommunication?.startsWith("Ja")) insightsScore += 2;
+        if (data.digitalCDPNeed?.startsWith("Ja, kritiskt")) insightsScore += 2;
+        else if (data.digitalCDPNeed?.startsWith("Ja")) insightsScore += 1;
+        // B2C följdfrågor
+        if (data.b2cSegmentation?.startsWith("Ja")) insightsScore += 2;
+        if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) insightsScore += 2;
+        if (data.b2cPersonalization?.startsWith("Ja")) insightsScore += 2;
+        if (data.b2cUnifiedView === "Nej, fragmenterad kunddata") insightsScore += 2;
+        // Steg 4 – datamognad
+        if (data.multipleDataSources === "Ja") insightsScore += 2;
+        if (data.unifiedCustomerView === "Nej") insightsScore += 2;
+        if (data.unifiedCustomerView === "Delvis") insightsScore += 1;
+        if (data.personalizationCritical === "Ja") insightsScore += 3;
+        if (data.personalizationCritical === "Önskvärt") insightsScore += 1;
+        // Steg 5 – integrationer
+        if ((data.integrationTypes || []).includes("Marketing automation")) insightsScore += 2;
+        if ((data.integrationTypes || []).includes("E-handel")) insightsScore += 1;
+        if ((data.integrationTypes || []).includes("BI")) insightsScore += 1;
+        // Steg 6 – AI
+        if (data.aiAmbition === "AI-driven segmentering & personalisering") insightsScore += 3;
+        if (data.aiAmbition === "Strategisk AI-satsning") insightsScore += 2;
+        if (data.customerDataSpread === "Spridd i flera system") insightsScore += 1;
+
+        // ── Avgörande: produkt & inriktning ────────────────────────────
+        const gap = salesScore - insightsScore;
+        const THRESHOLD = 5;
+        let product: string;
+        let direction: string;
+        let isGransland = false;
+
+        if (gap > THRESHOLD) {
+          product = "Dynamics 365 Sales";
+          direction = "Fokus på strukturerad säljplattform";
+        } else if (-gap > THRESHOLD) {
+          product = "Dynamics 365 Customer Insights";
+          direction = "Fokus på datadriven kundplattform";
+        } else {
+          product = "Dynamics 365 Sales + Customer Insights";
+          direction = "Integrerad kommersiell plattform";
+          isGransland = Math.abs(gap) < 3;
+        }
+
+        // ── Drivande faktorer ───────────────────────────────────────────
+        const keyFactors: string[] = [];
+        if (data.commercialModel === "b2b_relational" || data.commercialModel === "b2b_complex") keyFactors.push("Relationsbaserad / komplex B2B-försäljning");
+        if (data.commercialModel === "partner_channel") keyFactors.push("Partner- och kanaldriven försäljning");
+        if (data.commercialModel === "digital_market" || data.commercialModel === "b2c_volume") keyFactors.push("Digital / volymbaserad kundaffär");
+        if (data.personalizationCritical === "Ja") keyFactors.push("Personalisering är affärskritiskt");
+        if (data.multipleDataSources === "Ja") keyFactors.push("Data från flera källor");
+        if (data.b2bForecastNeeds === "Ja, kritiskt") keyFactors.push("Kritiskt behov av säljprognos");
+        if (data.aiAmbition === "AI-driven segmentering & personalisering") keyFactors.push("AI-driven segmentering");
+        if (data.aiAmbition === "AI-stöd i sälj (prognos, rekommendationer)") keyFactors.push("AI-stöd i säljprocessen");
+        if (data.b2bComplexRoleBased?.startsWith("Ja")) keyFactors.push("Rollbaserad säljstyrning");
+        if ((data.integrationTypes || []).includes("Marketing automation")) keyFactors.push("Integrerat marketing automation");
+        if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) keyFactors.push("Behov av partnerportal");
+
         // ── Kommersiell mognadsnivå (1–4) ──────────────────────────────
         const maturityScore = (() => {
           let score = 0;
-          // Kommersiell modell
           if (["b2b_complex", "digital_market", "partner_channel"].includes(data.commercialModel)) score += 2;
           else if (data.commercialModel) score += 1;
-          // Pipeline & CRM
           if (data.b2bStructuredPipeline === "Ja, väl definierad") score += 1;
           if (data.currentCrmUsage === "Avancerat") score += 1;
-          else if (data.currentCrmUsage === "Enkelt") score += 0;
-          // Rollbaserad & forecast
           if (data.b2bComplexRoleBased?.startsWith("Ja")) score += 1;
           if (data.b2bForecastNeeds === "Ja, kritiskt") score += 1;
-          // AI
-          if (data.aiAmbition === "Strategisk AI-satsning") score += 1;
-          else if (data.aiAmbition === "AI-driven segmentering & personalisering") score += 1;
+          if (["AI-driven segmentering & personalisering", "Strategisk AI-satsning"].includes(data.aiAmbition)) score += 1;
           return Math.min(4, Math.max(1, Math.round(1 + (score / 7) * 3)));
         })();
-
         const maturityLabels = ["", "Grundläggande", "Utvecklande", "Avancerad", "Ledande"];
         const maturityColors = ["", "bg-muted text-muted-foreground", "bg-blue-100 text-blue-700", "bg-primary/10 text-primary", "bg-green-100 text-green-700"];
 
@@ -1559,29 +1645,6 @@ const SalesMarketingNeedsAnalysis = () => {
           return "Hög";
         })();
 
-        // ── Produktrekommendation ────────────────────────────────────────
-        const { direction, product } = (() => {
-          const isSalesFocused = ["b2b_relational", "b2b_complex", "partner_channel"].includes(data.commercialModel);
-          const isMarketingFocused = ["digital_market", "b2c_volume"].includes(data.commercialModel);
-          const needsAI = ["AI-driven segmentering & personalisering", "Strategisk AI-satsning"].includes(data.aiAmbition);
-          const highData = dataComplexity === "Hög" || data.multipleDataSources === "Ja";
-
-          if (isSalesFocused && !highData && !needsAI) return {
-            direction: "Fokus på strukturerad säljplattform",
-            product: "Dynamics 365 Sales",
-          };
-          if (isMarketingFocused || (needsAI && highData)) return {
-            direction: "Fokus på datadriven kundplattform",
-            product: "Dynamics 365 Customer Insights",
-          };
-          return {
-            direction: "Integrerad kommersiell plattform",
-            product: "Dynamics 365 Sales + Customer Insights",
-          };
-        })();
-
-        const maturityDots = [1, 2, 3, 4];
-
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Baserat på era svar har vi sammanställt er kommersiella profil nedan.</p>
@@ -1593,11 +1656,8 @@ const SalesMarketingNeedsAnalysis = () => {
                 <h3 className="font-semibold text-foreground">Kommersiell mognadsnivå</h3>
               </div>
               <div className="flex items-center gap-2">
-                {maturityDots.map((d) => (
-                  <div
-                    key={d}
-                    className={`h-3 flex-1 rounded-full transition-all ${d <= maturityScore ? "bg-primary" : "bg-muted"}`}
-                  />
+                {[1, 2, 3, 4].map((d) => (
+                  <div key={d} className={`h-3 flex-1 rounded-full transition-all ${d <= maturityScore ? "bg-primary" : "bg-muted"}`} />
                 ))}
               </div>
               <div className="flex items-center justify-between">
@@ -1616,16 +1676,13 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
               <div className="flex gap-2">
                 {(["Låg", "Medel", "Hög"] as const).map((level) => (
-                  <div
-                    key={level}
-                    className={`flex-1 text-center py-2 rounded-lg text-sm font-medium border-2 transition-all ${
-                      dataComplexity === level
-                        ? level === "Låg" ? "border-green-500 bg-green-50 text-green-700"
-                          : level === "Medel" ? "border-yellow-500 bg-yellow-50 text-yellow-700"
-                          : "border-red-500 bg-red-50 text-red-700"
-                        : "border-border text-muted-foreground"
-                    }`}
-                  >
+                  <div key={level} className={`flex-1 text-center py-2 rounded-lg text-sm font-medium border-2 transition-all ${
+                    dataComplexity === level
+                      ? level === "Låg" ? "border-green-500 bg-green-50 text-green-700"
+                        : level === "Medel" ? "border-yellow-500 bg-yellow-50 text-yellow-700"
+                        : "border-red-500 bg-red-50 text-red-700"
+                      : "border-border text-muted-foreground"
+                  }`}>
                     {level}
                   </div>
                 ))}
@@ -1644,12 +1701,9 @@ const SalesMarketingNeedsAnalysis = () => {
                   "Fokus på datadriven kundplattform",
                   "Integrerad kommersiell plattform",
                 ].map((opt) => (
-                  <div
-                    key={opt}
-                    className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all ${
-                      direction === opt ? "border-primary bg-primary/5" : "border-border opacity-40"
-                    }`}
-                  >
+                  <div key={opt} className={`flex items-center gap-3 p-3 rounded-lg border-2 transition-all ${
+                    direction === opt ? "border-primary bg-primary/5" : "border-border opacity-40"
+                  }`}>
                     <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${direction === opt ? "border-primary bg-primary" : "border-muted-foreground"}`} />
                     <span className={`text-sm font-medium ${direction === opt ? "text-foreground" : "text-muted-foreground"}`}>{opt}</span>
                   </div>
@@ -1657,12 +1711,30 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
 
               {/* Bakom kulisserna */}
-              <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
-                <span className="text-xl mt-0.5">🔍</span>
-                <div>
-                  <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">Bakom kulisserna lutar det mot:</p>
-                  <p className="text-sm font-bold text-primary">{product}</p>
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 space-y-3">
+                <div className="flex items-start gap-3">
+                  <span className="text-xl mt-0.5">🔍</span>
+                  <div>
+                    <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide mb-1">Bakom kulisserna lutar det mot:</p>
+                    <p className="text-base font-bold text-primary">{product}</p>
+                    {isGransland && (
+                      <p className="text-xs text-muted-foreground mt-1">Era svar pekar åt båda håll – en kombination ger störst flexibilitet.</p>
+                    )}
+                  </div>
                 </div>
+                {keyFactors.length > 0 && (
+                  <div className="border-t border-primary/10 pt-3">
+                    <p className="text-xs text-muted-foreground font-medium mb-2">Avgörande faktorer:</p>
+                    <ul className="space-y-1">
+                      {keyFactors.slice(0, 5).map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-xs text-foreground">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
           </div>
