@@ -8,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Download, Building2, Globe, Boxes, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
-// jsPDF is dynamically imported when needed to reduce initial bundle size
+import { ArrowLeft, ArrowRight, Download, Building2, Globe, Boxes, Link2, Server, AlertTriangle, BarChart3, Sparkles, FileText, CheckCircle2, Layers, Shield, TrendingUp } from "lucide-react";
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -32,6 +31,22 @@ const contactFormSchema = z.object({
 
 type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
+interface ComplexityData {
+  legalEntities: string;
+  countries: string;
+  intercompany: string;
+  consolidation: string;
+  productionType: string;
+  warehouseManagement: string;
+  warehouseCount: string;
+  mrpAps: string;
+  transactionVolume: string;
+  itOrganization: string;
+  integrationPlatform: string;
+  governance: string;
+  globalStandardization: string;
+}
+
 interface AnalysisData {
   // Step 1
   employees: string;
@@ -39,32 +54,34 @@ interface AnalysisData {
   // Step 2
   industry: string;
   industryOther: string;
-  // Step 3
+  // Step 3 - Complexity assessment
+  complexity: ComplexityData;
+  // Step 4
   geography: string;
   geographyOther: string;
-  // Step 4 (Önskelista)
+  // Step 5 (Önskelista moved)
   wishlist: string;
-  // Step 5
+  // Step 6
   currentSituationReason: string;
   situationChallenges: Record<string, string>;
   decisionTimeline: string;
-  // Step 6
+  // Step 7
   integrationSystems: { system: string; importance: string }[];
-  // Step 6
+  // Step 7
   currentSystems: { product: string; year: string }[];
   otherSystems: string[];
   otherSystemsDetails: string;
-  // Step 7
+  // Step 8
   challenges: string[];
   challengesOther: string;
-  // Step 8
+  // Step 9
   kpis: string[];
   kpisOther: string;
-  // Step 9
+  // Step 10
   aiInterest: string;
   aiUseCases: string[];
   aiDetails: string;
-  // Step 10
+  // Step 11
   additionalInfo: string;
   // Contact info
   companyName: string;
@@ -73,11 +90,28 @@ interface AnalysisData {
   email: string;
 }
 
+const initialComplexity: ComplexityData = {
+  legalEntities: "",
+  countries: "",
+  intercompany: "",
+  consolidation: "",
+  productionType: "",
+  warehouseManagement: "",
+  warehouseCount: "",
+  mrpAps: "",
+  transactionVolume: "",
+  itOrganization: "",
+  integrationPlatform: "",
+  governance: "",
+  globalStandardization: "",
+};
+
 const initialData: AnalysisData = {
   employees: "",
   revenue: "",
   industry: "",
   industryOther: "",
+  complexity: { ...initialComplexity },
   geography: "",
   geographyOther: "",
   wishlist: "",
@@ -112,7 +146,7 @@ const initialData: AnalysisData = {
   email: "",
 };
 
-// Situation challenge categories for Step 5
+// Situation challenge categories for Step 6
 const situationChallengeCategories = [
   {
     id: "tillvaxt",
@@ -452,7 +486,6 @@ const industryKpiMapping: Record<string, string[]> = {
 // Function to get KPIs based on selected industry
 const getKpisForIndustry = (selectedIndustry: string): string[] => {
   if (!selectedIndustry) {
-    // If no industry selected, show all common KPIs plus a generic set
     return [
       ...commonKpis,
       "Lagervärde och omsättningshastighet",
@@ -462,10 +495,7 @@ const getKpisForIndustry = (selectedIndustry: string): string[] => {
       "Kostnad per order",
     ];
   }
-
   const industrySpecificKpis = industryKpiMapping[selectedIndustry] || [];
-
-  // Combine common KPIs with industry-specific ones
   return [...commonKpis, ...industrySpecificKpis];
 };
 
@@ -515,6 +545,82 @@ const aiUseCaseCategories = [
   }
 ];
 
+// ============ Complexity Assessment Options ============
+
+const complexityStructureOptions = {
+  legalEntities: [
+    { value: "1-2", label: "1–2 bolag" },
+    { value: "3-5", label: "3–5 bolag" },
+    { value: "6+", label: "6+ bolag" },
+  ],
+  countries: [
+    { value: "1", label: "1 land" },
+    { value: "2-5", label: "2–5 länder" },
+    { value: "6+", label: "6+ länder" },
+  ],
+  intercompany: [
+    { value: "ingen", label: "Ingen internhandel" },
+    { value: "viss", label: "Viss internhandel" },
+    { value: "omfattande", label: "Omfattande internhandel" },
+  ],
+  consolidation: [
+    { value: "nej", label: "Inget konsolideringskrav" },
+    { value: "enkel", label: "Enkel konsolidering" },
+    { value: "komplex", label: "Komplex konsolidering (multi-GAAP, valutor)" },
+  ],
+};
+
+const complexityOperativeOptions = {
+  productionType: [
+    { value: "ingen", label: "Ingen produktion" },
+    { value: "enkel", label: "Enkel diskret produktion / montering" },
+    { value: "avancerad", label: "Avancerad MRP / komplex planering / processproduktion" },
+  ],
+  warehouseManagement: [
+    { value: "nej", label: "Ingen avancerad lagerstyrning" },
+    { value: "grundlaggande", label: "Grundläggande WMS" },
+    { value: "avancerad", label: "Avancerad WMS med zoner, plockrundor, automation" },
+  ],
+  warehouseCount: [
+    { value: "1-2", label: "1–2 lager" },
+    { value: "3-5", label: "3–5 lager" },
+    { value: "flera-lander", label: "Flera lager i flera länder" },
+  ],
+  mrpAps: [
+    { value: "nej", label: "Inget MRP/APS-behov" },
+    { value: "grundlaggande", label: "Grundläggande materialplanering" },
+    { value: "avancerat", label: "Avancerad produktionsplanering (APS/kapacitetsplanering)" },
+  ],
+  transactionVolume: [
+    { value: "lag", label: "Låg (< 1 000 order/mån)" },
+    { value: "medel", label: "Medel (1 000–10 000 order/mån)" },
+    { value: "hog", label: "Hög (> 10 000 order/mån)" },
+  ],
+};
+
+const complexityMaturityOptions = {
+  itOrganization: [
+    { value: "ingen", label: "Ingen/minimal intern IT" },
+    { value: "liten", label: "Liten IT-avdelning (1–3 pers)" },
+    { value: "stor", label: "Stor/dedikerad IT-organisation" },
+  ],
+  integrationPlatform: [
+    { value: "fa", label: "Inga eller få integrationer" },
+    { value: "nagra", label: "Några integrationer" },
+    { value: "manga", label: "Många affärskritiska integrationer" },
+  ],
+  governance: [
+    { value: "informell", label: "Informell / ad hoc" },
+    { value: "viss", label: "Viss struktur och processer" },
+    { value: "formell", label: "Formell styrmodell med tydliga roller" },
+  ],
+  globalStandardization: [
+    { value: "nej", label: "Inga krav på standardisering" },
+    { value: "viss", label: "Viss standardisering önskvärd" },
+    { value: "hog", label: "Höga krav på global standardisering" },
+  ],
+};
+
 const NeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [data, setData] = useState<AnalysisData>(initialData);
@@ -524,16 +630,17 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 9;
+  const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    Building2, Globe, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
+    Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
   ];
 
   const stepTitles = [
     "Företagsstorlek",
     "Bransch",
+    "Komplexitet",
     "Geografi",
     "Nuvarande Situation",
     "Utmaningar",
@@ -570,132 +677,311 @@ const NeedsAnalysis = () => {
     }
   };
 
-  // ERP Recommendation Logic
-  const getERPRecommendation = (): { product: string; score: number; reasons: string[]; description: string } => {
+  const updateComplexity = (field: keyof ComplexityData, value: string) => {
+    setData({
+      ...data,
+      complexity: { ...data.complexity, [field]: value },
+    });
+  };
+
+  // ============ Complexity Scoring ============
+  const getComplexityScores = () => {
+    const c = data.complexity;
+    
+    // Structure score (0-100, weight 30%)
+    let structureScore = 0;
+    const structureFactors: string[] = [];
+    
+    if (c.legalEntities === "6+") { structureScore += 30; structureFactors.push("6+ juridiska enheter"); }
+    else if (c.legalEntities === "3-5") { structureScore += 15; }
+    else if (c.legalEntities === "1-2") { structureScore += 5; }
+    
+    if (c.countries === "6+") { structureScore += 30; structureFactors.push("Verksamhet i 6+ länder"); }
+    else if (c.countries === "2-5") { structureScore += 15; }
+    else if (c.countries === "1") { structureScore += 5; }
+    
+    if (c.intercompany === "omfattande") { structureScore += 20; structureFactors.push("Omfattande internhandel"); }
+    else if (c.intercompany === "viss") { structureScore += 10; }
+    
+    if (c.consolidation === "komplex") { structureScore += 20; structureFactors.push("Komplex konsolidering"); }
+    else if (c.consolidation === "enkel") { structureScore += 10; }
+
+    // Operative complexity score (0-100, weight 40%)
+    let operativeScore = 0;
+    const operativeFactors: string[] = [];
+    
+    if (c.productionType === "avancerad") { operativeScore += 25; operativeFactors.push("Avancerad produktion/MRP"); }
+    else if (c.productionType === "enkel") { operativeScore += 10; }
+    
+    if (c.warehouseManagement === "avancerad") { operativeScore += 20; operativeFactors.push("Avancerad WMS"); }
+    else if (c.warehouseManagement === "grundlaggande") { operativeScore += 10; }
+    
+    if (c.warehouseCount === "flera-lander") { operativeScore += 20; operativeFactors.push("Flera lager i flera länder"); }
+    else if (c.warehouseCount === "3-5") { operativeScore += 10; }
+    
+    if (c.mrpAps === "avancerat") { operativeScore += 20; operativeFactors.push("Avancerad produktionsplanering (APS)"); }
+    else if (c.mrpAps === "grundlaggande") { operativeScore += 10; }
+    
+    if (c.transactionVolume === "hog") { operativeScore += 15; operativeFactors.push("Hög transaktionsvolym"); }
+    else if (c.transactionVolume === "medel") { operativeScore += 8; }
+
+    // Maturity score (0-100, weight 30%)
+    let maturityScore = 0;
+    const maturityFactors: string[] = [];
+    
+    if (c.itOrganization === "stor") { maturityScore += 25; maturityFactors.push("Stor/dedikerad IT-organisation"); }
+    else if (c.itOrganization === "liten") { maturityScore += 15; }
+    else if (c.itOrganization === "ingen") { maturityScore += 5; }
+    
+    if (c.integrationPlatform === "manga") { maturityScore += 25; maturityFactors.push("Många affärskritiska integrationer"); }
+    else if (c.integrationPlatform === "nagra") { maturityScore += 15; }
+    else if (c.integrationPlatform === "fa") { maturityScore += 5; }
+    
+    if (c.governance === "formell") { maturityScore += 25; maturityFactors.push("Formell styrmodell"); }
+    else if (c.governance === "viss") { maturityScore += 15; }
+    
+    if (c.globalStandardization === "hog") { maturityScore += 25; maturityFactors.push("Höga krav på global standardisering"); }
+    else if (c.globalStandardization === "viss") { maturityScore += 12; }
+
+    // Weighted total (0-100)
+    const weightedTotal = (structureScore * 0.3) + (operativeScore * 0.4) + (maturityScore * 0.3);
+    
+    // Complexity level 1-4
+    let complexityLevel: number;
+    if (weightedTotal < 20) complexityLevel = 1;
+    else if (weightedTotal < 40) complexityLevel = 2;
+    else if (weightedTotal < 65) complexityLevel = 3;
+    else complexityLevel = 4;
+
+    // Risk assessment: high complexity + low IT maturity = high risk
+    const isHighComplexity = (structureScore + operativeScore) > 50;
+    const isLowMaturity = c.itOrganization === "ingen" || (!c.itOrganization && !c.governance);
+    const isHighRisk = isHighComplexity && isLowMaturity;
+    
+    let riskLevel: string;
+    if (isHighRisk) riskLevel = "Hög";
+    else if (weightedTotal > 50) riskLevel = "Medel-hög";
+    else if (weightedTotal > 25) riskLevel = "Medel";
+    else riskLevel = "Låg";
+
+    const allCriticalFactors = [...structureFactors, ...operativeFactors, ...maturityFactors];
+
+    return {
+      structureScore,
+      operativeScore,
+      maturityScore,
+      weightedTotal,
+      complexityLevel,
+      riskLevel,
+      isHighRisk,
+      criticalFactors: allCriticalFactors.slice(0, 6),
+      structureFactors,
+      operativeFactors,
+      maturityFactors,
+    };
+  };
+
+  // ============ ERP Recommendation Logic (rewritten) ============
+  const getERPRecommendation = (): { 
+    product: string; 
+    score: number; 
+    reasons: string[]; 
+    description: string;
+    isCloseCall: boolean;
+    complexityLevel: number;
+    riskLevel: string;
+    isHighRisk: boolean;
+    criticalFactors: string[];
+    bcScore: number;
+    fscScore: number;
+  } => {
     let bcScore = 0;
     let fscScore = 0;
     const bcReasons: string[] = [];
     const fscReasons: string[] = [];
 
-    // Company size analysis
-    const smallCompany = ["< 10", "10-49", "50-199"].includes(data.employees);
-    const mediumCompany = ["200-499", "500-999"].includes(data.employees);
-    const largeCompany = ["1.000-4.999", "> 5.000"].includes(data.employees);
-
-    if (smallCompany) {
-      bcScore += 30;
-      bcReasons.push("Företagsstorlek passar utmärkt för Business Central");
-    } else if (mediumCompany) {
+    // ---- Company size (softer gradient) ----
+    const emp = data.employees;
+    if (["1-49 anställda", "50-99 anställda"].includes(emp)) {
       bcScore += 15;
+      bcReasons.push("Företagsstorlek (< 150 anställda) passar typiskt Business Central");
+    } else if (["100-249 anställda"].includes(emp)) {
+      bcScore += 10;
+      fscScore += 10;
+    } else if (["250-999 anställda"].includes(emp)) {
+      bcScore += 5;
+      fscScore += 10;
+    } else if (["1.000-4.999 anställda", "Mer än 5.000 anställda"].includes(emp)) {
       fscScore += 15;
-      bcReasons.push("Medelstort företag - båda alternativen kan passa");
-      fscReasons.push("Medelstort företag - kan dra nytta av avancerade funktioner");
-    } else if (largeCompany) {
-      fscScore += 30;
-      fscReasons.push("Stor organisation passar utmärkt för Finance & Supply Chain");
+      fscReasons.push("Stor organisation (600+ anställda) gynnas av F&SC:s skalbarhet");
     }
 
-    // Revenue analysis
-    const lowRevenue = ["< 49 MSEK", "50-499 MSEK"].includes(data.revenue);
-    const highRevenue = ["1.000-4.999 MSEK", "> 5.000 MSEK"].includes(data.revenue);
-
-    if (lowRevenue) {
+    // ---- Legal entities (more important than revenue) ----
+    const le = data.complexity.legalEntities;
+    if (le === "1-2") {
       bcScore += 20;
-      bcReasons.push("Omsättningsnivå är typisk för Business Central-kunder");
-    } else if (highRevenue) {
+      bcReasons.push("Få juridiska enheter passar Business Central väl");
+    } else if (le === "3-5") {
+      bcScore += 10;
+      fscScore += 10;
+    } else if (le === "6+") {
       fscScore += 20;
-      fscReasons.push("Hög omsättning motiverar investeringen i F&SC");
+      fscReasons.push("Många juridiska enheter (6+) kräver F&SC:s koncernfunktionalitet");
     }
 
-    // Industry analysis
-    const manufacturingIndustries = ["Tillverkning", "Livsmedel & Dryck", "Läkemedel & Life Science", "Tillverkningsindustrin", "Life Science"];
-    const distributionIndustries = ["Distribution & Grossist", "Transport & Logistik", "Grossist/Distribution"];
-    const enterpriseIndustries = ["Energi & Utilities", "Finans & Försäkring", "Bank & Försäkring"];
-
-    if (data.industry) {
-      if (manufacturingIndustries.includes(data.industry)) {
-        fscScore += 10;
-        fscReasons.push(`${data.industry} gynnas av avancerad tillverkningshantering i F&SC`);
-      }
-      if (distributionIndustries.includes(data.industry)) {
-        bcScore += 5;
-        fscScore += 5;
-      }
-      if (enterpriseIndustries.includes(data.industry)) {
-        fscScore += 15;
-        fscReasons.push(`${data.industry} kräver ofta enterprise-funktionalitet`);
-      }
+    // ---- Revenue (less weight than before) ----
+    const rev = data.revenue;
+    if (["1-9 MSEK", "10-49 MSEK", "50-499 MSEK"].includes(rev)) {
+      bcScore += 10;
+    } else if (["1.000-4.999 MSEK", "> 5.000 MSEK"].includes(rev)) {
+      fscScore += 10;
+      fscReasons.push("Hög omsättning motiverar F&SC:s avancerade ekonomistyrning");
     }
 
-    // Geography analysis
-    if (data.geography.includes("Globalt") || data.geography.includes("Europa")) {
+    // ---- Production depth (key factor) ----
+    const prod = data.complexity.productionType;
+    if (prod === "enkel") {
+      bcScore += 10;
+      bcReasons.push("Enkel produktion/montering hanteras väl i Business Central");
+    } else if (prod === "avancerad") {
+      fscScore += 20;
+      fscReasons.push("Avancerad tillverkning/MRP kräver F&SC:s produktionsmodul");
+    }
+
+    // ---- Warehouse & logistics ----
+    const wc = data.complexity.warehouseCount;
+    const wms = data.complexity.warehouseManagement;
+    if (wc === "1-2" && wms !== "avancerad") {
+      bcScore += 10;
+      bcReasons.push("Enkel lagerstruktur passar Business Central");
+    }
+    if (wc === "flera-lander") {
+      fscScore += 20;
+      fscReasons.push("Flera lager i flera länder kräver F&SC:s globala lagerhantering");
+    } else if (wc === "3-5") {
+      fscScore += 10;
+    }
+    if (wms === "avancerad") {
+      fscScore += 20;
+      fscReasons.push("Avancerad WMS kräver F&SC:s lagerhanteringsmodul");
+    }
+
+    // ---- Integrations ----
+    const intPlatform = data.complexity.integrationPlatform;
+    if (intPlatform === "fa") {
+      bcScore += 10;
+      bcReasons.push("Få integrationer – Business Central har enkel integrationsmodell");
+    } else if (intPlatform === "manga") {
       fscScore += 15;
-      fscReasons.push("Global verksamhet kräver avancerad multi-site hantering");
+      fscReasons.push("Många affärskritiska integrationer gynnas av F&SC:s integrationsramverk");
     }
-    if (data.geography.includes("Endast Sverige") || data.geography.includes("Norden")) {
+
+    // ---- Industry analysis ----
+    const complexIndustries = ["Tillverkningsindustri", "Livsmedel & Processindustri", "Life Science / Medtech", "Finans & Försäkring", "Energi & Utilities"];
+    if (data.industry && complexIndustries.includes(data.industry)) {
+      fscScore += 10;
+      fscReasons.push(`${data.industry} har ofta komplexa krav som gynnas av F&SC`);
+    }
+
+    // ---- Geography ----
+    if (data.geography === "Globalt" || data.geography === "Europa") {
+      fscScore += 15;
+      fscReasons.push("Global/europeisk verksamhet kräver F&SC:s multi-site hantering");
+    }
+    if (data.geography === "Endast Sverige" || data.geography === "Norden") {
       bcScore += 10;
       bcReasons.push("Regional verksamhet hanteras väl av Business Central");
     }
 
-    // Wishlist complexity analysis (based on keywords in free text)
-    const complexKeywords = ["tillverkning", "produktion", "service", "fältservice", "projekt"];
-    const wishlistLower = data.wishlist.toLowerCase();
+    // ---- Keyword analysis (specific terms, not text length) ----
+    const allText = `${data.wishlist} ${data.additionalInfo} ${data.currentSituationReason}`.toLowerCase();
+    const fscKeywords = ["multi-entity", "intercompany", "konsolidering", "avancerad planering", "regulatoriska krav", "multi-site", "koncernredovisning", "processproduktion", "lean manufacturing"];
+    const bcKeywords = ["enkel", "snabb implementation", "liten organisation", "microsoft 365"];
     
-    complexKeywords.forEach(keyword => {
-      if (wishlistLower.includes(keyword)) {
+    fscKeywords.forEach(kw => {
+      if (allText.includes(kw)) {
         fscScore += 5;
-        if (keyword === "tillverkning" || keyword === "produktion") {
-          fscReasons.push("Behov av tillverkningsfunktionalitet");
-        }
+        fscReasons.push(`Nyckelord "${kw}" indikerar behov av F&SC`);
+      }
+    });
+    bcKeywords.forEach(kw => {
+      if (allText.includes(kw)) {
+        bcScore += 5;
       }
     });
 
-    // Wishlist length - longer wishlist often means more complexity
-    if (data.wishlist.length > 500) {
-      fscScore += 10;
-      fscReasons.push("Omfattande önskelista indikerar komplex verksamhet");
-    }
-
-    // Challenge analysis
-    if (data.challenges.includes("Svårt att skala verksamheten")) {
-      fscScore += 10;
-      fscReasons.push("Skalbarhetsbehov gynnas av F&SC");
-    }
+    // ---- Challenge analysis ----
     if (data.challenges.includes("Höga underhållskostnader")) {
       bcScore += 10;
       bcReasons.push("Business Central har generellt lägre TCO");
     }
 
+    // ---- MRP/APS ----
+    if (data.complexity.mrpAps === "avancerat") {
+      fscScore += 15;
+      fscReasons.push("Avancerat MRP/APS-behov kräver F&SC");
+    }
+
+    // ---- Consolidation ----
+    if (data.complexity.consolidation === "komplex") {
+      fscScore += 15;
+      fscReasons.push("Komplex konsolidering (multi-GAAP) kräver F&SC");
+    }
+
+    // ---- Global standardization ----
+    if (data.complexity.globalStandardization === "hog") {
+      fscScore += 10;
+      fscReasons.push("Höga krav på global standardisering gynnas av F&SC");
+    }
+
+    // ---- Complexity assessment ----
+    const complexity = getComplexityScores();
+
+    // ---- Close call detection ----
+    const diff = Math.abs(bcScore - fscScore);
+    const isCloseCall = diff < 15;
+
     // Determine recommendation
-    const isBC = bcScore >= fscScore;
+    const isBC = bcScore > fscScore;
     
     const bcDescription = `**Dynamics 365 Business Central** är Microsofts molnbaserade affärssystem för små och medelstora företag. Det erbjuder:
 
-• **Komplett Affärssystem (ERP)-lösning** - Ekonomi, försäljning, inköp, lager och projekt i ett system
-• **Smidig implementation** - Snabbare uppstart och lägre implementationskostnad
-• **Microsoft-integration** - Sömlös koppling till Microsoft 365, Power BI och Teams
-• **Flexibel prissättning** - Licensmodell anpassad för mindre organisationer
-• **Stort partnernätverk** - Många svenska partners med branschexpertis
-• **Copilot AI** - Inbyggd AI-assistent för ökad produktivitet
+• **Komplett ERP-lösning** – Ekonomi, försäljning, inköp, lager och projekt i ett system
+• **Smidig implementation** – Snabbare uppstart och lägre implementationskostnad
+• **Microsoft-integration** – Sömlös koppling till Microsoft 365, Power BI och Teams
+• **Flexibel prissättning** – Licensmodell anpassad för mindre organisationer
+• **Stort partnernätverk** – Många svenska partners med branschexpertis
+• **Copilot AI** – Inbyggd AI-assistent för ökad produktivitet
 
 Business Central passar företag som vill ha ett kraftfullt men lättanvänt affärssystem med snabb avkastning på investeringen.`;
 
     const fscDescription = `**Dynamics 365 Finance & Supply Chain Management** är Microsofts enterprise-plattform för komplexa organisationer. Det erbjuder:
 
-• **Avancerad ekonomistyrning** - Koncernredovisning, budgetering och finansiell analys
-• **Komplex tillverkning** - Stöd för make-to-order, processproduktion och lean manufacturing
-• **Global Supply Chain** - Multi-site, multi-warehouse och avancerad logistik
-• **Prediktiv analys** - AI-driven efterfrågeprognos och lageroptimering
-• **Regulatorisk efterlevnad** - Stöd för internationella redovisningsstandarder
-• **Enterprise-skalbarhet** - Hanterar stora transaktionsvolymer och komplex organisationsstruktur
+• **Avancerad ekonomistyrning** – Koncernredovisning, budgetering och finansiell analys
+• **Komplex tillverkning** – Stöd för make-to-order, processproduktion och lean manufacturing
+• **Global Supply Chain** – Multi-site, multi-warehouse och avancerad logistik
+• **Prediktiv analys** – AI-driven efterfrågeprognos och lageroptimering
+• **Regulatorisk efterlevnad** – Stöd för internationella redovisningsstandarder
+• **Enterprise-skalbarhet** – Hanterar stora transaktionsvolymer och komplex organisationsstruktur
 
 Finance & Supply Chain passar organisationer med höga krav på funktionalitet, global närvaro och komplexa affärsprocesser.`;
+
+    // Deduplicate and limit reasons
+    const uniqueBcReasons = [...new Set(bcReasons)].slice(0, 5);
+    const uniqueFscReasons = [...new Set(fscReasons)].slice(0, 5);
 
     return {
       product: isBC ? "Business Central" : "Finance & Supply Chain Management",
       score: isBC ? bcScore : fscScore,
-      reasons: isBC ? bcReasons.slice(0, 5) : fscReasons.slice(0, 5),
-      description: isBC ? bcDescription : fscDescription
+      reasons: isBC ? uniqueBcReasons : uniqueFscReasons,
+      description: isBC ? bcDescription : fscDescription,
+      isCloseCall,
+      complexityLevel: complexity.complexityLevel,
+      riskLevel: complexity.riskLevel,
+      isHighRisk: complexity.isHighRisk,
+      criticalFactors: complexity.criticalFactors,
+      bcScore,
+      fscScore,
     };
   };
 
@@ -705,6 +991,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     }
     
     const recommendation = getERPRecommendation();
+    const complexity = getComplexityScores();
     // Dynamic import to reduce initial bundle size
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
@@ -793,7 +1080,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFillColor(0, 120, 110);
     pdf.rect(0, 45, pageWidth, 5, 'F');
     
-    // Title
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(24);
     pdf.setFont("helvetica", "bold");
@@ -802,7 +1088,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.setFont("helvetica", "normal");
     pdf.text("Dynamics 365 Affärssystem (ERP)", margin, 35);
     
-    // Date badge
     pdf.setFillColor(255, 255, 255);
     pdf.roundedRect(pageWidth - 60, 15, 45, 20, 3, 3, 'F');
     pdf.setTextColor(0, 150, 136);
@@ -852,23 +1137,73 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     
     yPos += 60;
 
-    // RECOMMENDATION SECTION - Prominent placement
+    // COMPLEXITY ASSESSMENT in PDF
+    addNewPageIfNeeded(60);
+    pdf.setFillColor(240, 240, 255);
+    pdf.roundedRect(margin, yPos, contentWidth, 45, 3, 3, 'F');
+    pdf.setDrawColor(100, 100, 200);
+    pdf.setLineWidth(1);
+    pdf.line(margin, yPos, margin, yPos + 45);
+    
+    pdf.setTextColor(60, 60, 150);
+    pdf.setFontSize(12);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("KOMPLEXITETSBEDÖMNING", margin + 8, yPos + 12);
+    
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "normal");
+    pdf.text(`Komplexitetsnivå: ${complexity.complexityLevel} av 4`, margin + 8, yPos + 22);
+    pdf.text(`Risknivå: ${complexity.riskLevel}`, margin + 8, yPos + 30);
+    if (complexity.criticalFactors.length > 0) {
+      pdf.text(`Kritiska faktorer: ${complexity.criticalFactors.slice(0, 3).join(", ")}`, margin + 8, yPos + 38);
+    }
+    yPos += 55;
+
+    // RECOMMENDATION SECTION
     addNewPageIfNeeded(100);
     
-    // Recommendation box with golden/highlight color
     const recommendationColor: [number, number, number] = recommendation.product === "Business Central" 
-      ? [25, 118, 210] // Blue for BC
-      : [156, 39, 176]; // Purple for F&SC
+      ? [25, 118, 210]
+      : [156, 39, 176];
     
     pdf.setFillColor(...recommendationColor);
     pdf.roundedRect(margin, yPos, contentWidth, 18, 3, 3, 'F');
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(14);
     pdf.setFont("helvetica", "bold");
-    pdf.text("VÅR REKOMMENDATION", margin + 5, yPos + 12);
-    yPos += 25;
     
-    // Product name
+    if (recommendation.isCloseCall) {
+      pdf.text("PRELIMINÄR BEDÖMNING", margin + 5, yPos + 12);
+    } else {
+      pdf.text("VÅR REKOMMENDATION", margin + 5, yPos + 12);
+    }
+    yPos += 25;
+
+    // Close call warning
+    if (recommendation.isCloseCall) {
+      pdf.setFillColor(255, 248, 225);
+      pdf.roundedRect(margin, yPos, contentWidth, 20, 2, 2, 'F');
+      pdf.setTextColor(180, 130, 0);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("Båda lösningarna kan vara aktuella. Rekommenderar fördjupad analys.", margin + 5, yPos + 8);
+      pdf.setFont("helvetica", "normal");
+      pdf.text(`Poängfördelning: BC ${recommendation.bcScore} – F&SC ${recommendation.fscScore}`, margin + 5, yPos + 15);
+      yPos += 25;
+    }
+
+    // Risk flag
+    if (recommendation.isHighRisk) {
+      pdf.setFillColor(255, 235, 235);
+      pdf.roundedRect(margin, yPos, contentWidth, 15, 2, 2, 'F');
+      pdf.setTextColor(180, 30, 30);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("⚠ Högriskprojekt: Hög komplexitet + låg IT-mognad. Partnerurval och projektstruktur blir avgörande.", margin + 5, yPos + 10);
+      yPos += 20;
+    }
+    
     pdf.setTextColor(...recommendationColor);
     pdf.setFontSize(18);
     pdf.setFont("helvetica", "bold");
@@ -909,17 +1244,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text(`Om ${recommendation.product}:`, margin, yPos);
     yPos += 8;
     
-    // Parse and render the description (handle markdown-like formatting)
     pdf.setFontSize(10);
     pdf.setFont("helvetica", "normal");
     
     const descriptionLines = recommendation.description.split('\n');
     descriptionLines.forEach((line) => {
       addNewPageIfNeeded(8);
-      
-      // Handle bold text markers
       let cleanLine = line.replace(/\*\*/g, '');
-      
       if (line.startsWith('•')) {
         pdf.setFillColor(...recommendationColor);
         pdf.circle(margin + 3, yPos - 1.5, 1.5, 'F');
@@ -949,54 +1280,63 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addSectionHeader("BRANSCH", "2");
     addBulletList(data.industry ? [data.industry] : [], data.industryOther);
 
-    // Section 3: Geography
-    addSectionHeader("GEOGRAFI", "3");
+    // Section 3: Complexity Assessment
+    addSectionHeader("KOMPLEXITETSBEDÖMNING", "3");
+    const c = data.complexity;
+    const complexityLabels: { label: string; value: string }[] = [
+      { label: "Juridiska enheter", value: complexityStructureOptions.legalEntities.find(o => o.value === c.legalEntities)?.label || "Ej angivet" },
+      { label: "Antal länder", value: complexityStructureOptions.countries.find(o => o.value === c.countries)?.label || "Ej angivet" },
+      { label: "Internhandel", value: complexityStructureOptions.intercompany.find(o => o.value === c.intercompany)?.label || "Ej angivet" },
+      { label: "Konsolidering", value: complexityStructureOptions.consolidation.find(o => o.value === c.consolidation)?.label || "Ej angivet" },
+      { label: "Produktionstyp", value: complexityOperativeOptions.productionType.find(o => o.value === c.productionType)?.label || "Ej angivet" },
+      { label: "Lagerstyrning", value: complexityOperativeOptions.warehouseManagement.find(o => o.value === c.warehouseManagement)?.label || "Ej angivet" },
+      { label: "Antal lager", value: complexityOperativeOptions.warehouseCount.find(o => o.value === c.warehouseCount)?.label || "Ej angivet" },
+      { label: "MRP/APS", value: complexityOperativeOptions.mrpAps.find(o => o.value === c.mrpAps)?.label || "Ej angivet" },
+      { label: "Transaktionsvolym", value: complexityOperativeOptions.transactionVolume.find(o => o.value === c.transactionVolume)?.label || "Ej angivet" },
+      { label: "IT-organisation", value: complexityMaturityOptions.itOrganization.find(o => o.value === c.itOrganization)?.label || "Ej angivet" },
+      { label: "Integrationer", value: complexityMaturityOptions.integrationPlatform.find(o => o.value === c.integrationPlatform)?.label || "Ej angivet" },
+      { label: "Governance", value: complexityMaturityOptions.governance.find(o => o.value === c.governance)?.label || "Ej angivet" },
+      { label: "Global standard.", value: complexityMaturityOptions.globalStandardization.find(o => o.value === c.globalStandardization)?.label || "Ej angivet" },
+    ];
+    complexityLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
+
+    // Section 4: Geography
+    addSectionHeader("GEOGRAFI", "4");
     addBulletList(data.geography ? [data.geography] : [], data.geographyOther);
 
-    // Section 4: Current Systems
-    addSectionHeader("NUVARANDE SITUATION", "4");
+    // Section 5: Current Systems
+    addSectionHeader("NUVARANDE SITUATION", "5");
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     if (filledSystems.length > 0) {
-      filledSystems.forEach((system, index) => {
-        const yearText = system.year ? ` (driftsattes ${system.year})` : "";
-        addContentRow(`System ${index + 1}:`, `${system.product}${yearText}`);
+      filledSystems.forEach((system) => {
+        addContentRow("System:", `${system.product}${system.year ? ` (driftsatt ${system.year})` : ''}`);
       });
-    } else {
-      addContentRow("System:", "Ej angivet");
     }
     if (data.otherSystemsDetails) {
+      addContentRow("Övriga system:", data.otherSystemsDetails);
+    }
+    if (data.currentSituationReason) {
+      addNewPageIfNeeded(30);
       pdf.setFontSize(10);
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(100, 100, 100);
-      pdf.text("Övriga system:", margin, yPos);
-      yPos += 7;
+      pdf.text("Nuvarande situation:", margin + 5, yPos);
+      yPos += 8;
       pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(0, 0, 0);
-      const otherLines = pdf.splitTextToSize(data.otherSystemsDetails, contentWidth - 10);
-      pdf.text(otherLines, margin + 5, yPos);
-      yPos += otherLines.length * 5 + 3;
-    }
-
-    // Section 5: Current Situation Reason
-    addSectionHeader("NUVARANDE SITUATION", "5");
-    if (data.currentSituationReason) {
-      pdf.setFontSize(10);
       pdf.setTextColor(51, 51, 51);
       const reasonLines = pdf.splitTextToSize(data.currentSituationReason, contentWidth - 10);
-      addNewPageIfNeeded(reasonLines.length * 5 + 10);
-      pdf.text(reasonLines, margin + 5, yPos);
-      yPos += reasonLines.length * 5 + 5;
-    } else {
-      pdf.setFontSize(10);
-      pdf.setTextColor(150, 150, 150);
-      pdf.text("Ingen information angiven.", margin + 5, yPos);
-      yPos += 8;
+      reasonLines.forEach((line: string) => {
+        addNewPageIfNeeded(6);
+        pdf.text(line, margin + 5, yPos);
+        yPos += 6;
+      });
+      yPos += 4;
     }
-
+    
     // Situation challenges
-    const situationChallengeEntries = Object.entries(data.situationChallenges).filter(([_, value]) => value);
+    const situationChallengeEntries = Object.entries(data.situationChallenges).filter(([, value]) => value);
     if (situationChallengeEntries.length > 0) {
-      yPos += 5;
+      addNewPageIfNeeded(20);
       pdf.setFontSize(10);
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(100, 100, 100);
@@ -1022,8 +1362,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       addContentRow("Beslutstidslinje:", data.decisionTimeline);
     }
 
-    // Section 6: Integrations
-    addSectionHeader("INTEGRATIONER", "6");
+    // Section 7: Integrations
+    addSectionHeader("INTEGRATIONER", "7");
     const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
     if (filledIntegrations.length > 0) {
       filledIntegrations.forEach((integration) => {
@@ -1037,15 +1377,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 8;
     }
 
-    // Section 7: Wishlist
-    addSectionHeader("ÖNSKELISTA", "7");
+    // Section 8: Wishlist
+    addSectionHeader("ÖNSKELISTA", "8");
     if (data.wishlist.trim()) {
       const wishlistLines = pdf.splitTextToSize(data.wishlist, contentWidth - 10);
       wishlistLines.forEach((line: string) => {
-        if (yPos > 270) {
-          pdf.addPage();
-          yPos = 20;
-        }
+        if (yPos > 270) { pdf.addPage(); yPos = 20; }
         pdf.setFontSize(10);
         pdf.setTextColor(80, 80, 80);
         pdf.text(line, margin + 5, yPos);
@@ -1059,8 +1396,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 8;
     }
 
-    // Section 8: AI & Future
-    addSectionHeader("AI & FRAMTID", "8");
+    // Section 9: AI & Future
+    addSectionHeader("AI & FRAMTID", "9");
     addContentRow("Intresse:", data.aiInterest);
     if (data.aiUseCases.length > 0) {
       pdf.setFontSize(10);
@@ -1080,8 +1417,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += detailLines.length * 5 + 5;
     }
 
-    // Section 9: Additional Info
-    addSectionHeader("ÖVRIG INFORMATION", "9");
+    // Section 10: Additional Info
+    addSectionHeader("ÖVRIG INFORMATION", "10");
     if (data.additionalInfo) {
       pdf.setFontSize(10);
       pdf.setTextColor(51, 51, 51);
@@ -1121,7 +1458,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     
     yPos += 55;
 
-    // Recommendation to contact and visit partner section
+    // Recommendation to contact
     addNewPageIfNeeded(45);
     pdf.setFillColor(232, 245, 233);
     pdf.roundedRect(margin, yPos, contentWidth, 38, 3, 3, 'F');
@@ -1175,14 +1512,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 26);
 
-    // Generate PDF as base64 for email attachment
+    // Generate PDF
     const pdfFilename = `Behovsanalys_${data.companyName.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}`;
-    const pdfBase64 = pdf.output('datauristring').split(',')[1]; // Get base64 part only
-    
-    // Save PDF locally
+    const pdfBase64 = pdf.output('datauristring').split(',')[1];
     pdf.save(`${pdfFilename}.pdf`);
     
-    // Send email notification with PDF attachment
+    // Send email notification
     setIsSendingEmail(true);
     try {
       const { error } = await supabase.functions.invoke("send-analysis-email", {
@@ -1197,6 +1532,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             "Omsättning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
             "Geografi": data.geography || "Ej angivet",
+            "Juridiska enheter": data.complexity.legalEntities || "Ej angivet",
+            "Produktionstyp": data.complexity.productionType || "Ej angivet",
+            "Komplexitetsnivå": `${complexity.complexityLevel} av 4`,
+            "Risknivå": complexity.riskLevel,
             "Önskelista": data.wishlist || "Ej angivet",
             "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => s.system).join(", ") || "Ej angivet",
             "Nuvarande situation": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
@@ -1207,6 +1546,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           recommendation: {
             product: recommendation.product,
             reasons: recommendation.reasons,
+            isCloseCall: recommendation.isCloseCall,
+            complexityLevel: complexity.complexityLevel,
+            riskLevel: complexity.riskLevel,
           },
           pdfBase64: pdfBase64,
           pdfFilename: pdfFilename,
@@ -1254,6 +1596,24 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
   const isContactFormValid = () => {
     return data.companyName && data.contactName && data.phone && data.email;
   };
+
+  // Complexity step radio group helper
+  const renderComplexityRadio = (
+    field: keyof ComplexityData,
+    options: { value: string; label: string }[]
+  ) => (
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      {options.map((option) => (
+        <SelectionCard
+          key={option.value}
+          label={option.label}
+          selected={data.complexity[field] === option.value}
+          onClick={() => updateComplexity(field, option.value)}
+          type="radio"
+        />
+      ))}
+    </div>
+  );
 
   const renderStep = () => {
     switch (currentStep) {
@@ -1321,6 +1681,104 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
       case 3:
         return (
+          <div className="space-y-8">
+            <p className="text-muted-foreground">
+              Denna bedömning hjälper oss att förstå er verksamhets komplexitet och ge en mer träffsäker rekommendation. 
+              Operativ komplexitet väger tyngst i analysen.
+            </p>
+
+            {/* Block 1: Struktur (30%) */}
+            <div className="border rounded-lg p-5 space-y-5 bg-muted/20">
+              <div className="flex items-center gap-2">
+                <Building2 className="w-5 h-5 text-primary" />
+                <h3 className="text-lg font-semibold">Struktur</h3>
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">30 % vikt</span>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Antal juridiska enheter (bolag)</Label>
+                  {renderComplexityRadio("legalEntities", complexityStructureOptions.legalEntities)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Antal länder med verksamhet</Label>
+                  {renderComplexityRadio("countries", complexityStructureOptions.countries)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Internhandel mellan bolag</Label>
+                  {renderComplexityRadio("intercompany", complexityStructureOptions.intercompany)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Konsolideringskrav</Label>
+                  {renderComplexityRadio("consolidation", complexityStructureOptions.consolidation)}
+                </div>
+              </div>
+            </div>
+
+            {/* Block 2: Operativ komplexitet (40%) */}
+            <div className="border-2 border-primary/30 rounded-lg p-5 space-y-5 bg-primary/5">
+              <div className="flex items-center gap-2">
+                <Boxes className="w-5 h-5 text-primary" />
+                <h3 className="text-lg font-semibold">Operativ komplexitet</h3>
+                <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full font-medium">40 % vikt – väger tyngst</span>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Produktionstyp</Label>
+                  {renderComplexityRadio("productionType", complexityOperativeOptions.productionType)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Avancerad lagerstyrning (WMS)</Label>
+                  {renderComplexityRadio("warehouseManagement", complexityOperativeOptions.warehouseManagement)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Antal lager</Label>
+                  {renderComplexityRadio("warehouseCount", complexityOperativeOptions.warehouseCount)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">MRP / APS-behov</Label>
+                  {renderComplexityRadio("mrpAps", complexityOperativeOptions.mrpAps)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Transaktionsvolym</Label>
+                  {renderComplexityRadio("transactionVolume", complexityOperativeOptions.transactionVolume)}
+                </div>
+              </div>
+            </div>
+
+            {/* Block 3: Organisationsmognad (30%) */}
+            <div className="border rounded-lg p-5 space-y-5 bg-muted/20">
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-primary" />
+                <h3 className="text-lg font-semibold">Organisationsmognad</h3>
+                <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">30 % vikt</span>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Intern IT-organisation</Label>
+                  {renderComplexityRadio("itOrganization", complexityMaturityOptions.itOrganization)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Integrationsplattform / antal integrationer</Label>
+                  {renderComplexityRadio("integrationPlatform", complexityMaturityOptions.integrationPlatform)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Governance & styrmodell</Label>
+                  {renderComplexityRadio("governance", complexityMaturityOptions.governance)}
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Krav på global standardisering</Label>
+                  {renderComplexityRadio("globalStandardization", complexityMaturityOptions.globalStandardization)}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 4:
+        return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Var bedriver ni er verksamhet?</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1347,7 +1805,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             <div>
@@ -1401,7 +1859,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 5:
+      case 6: {
         const handleSituationChallengeChange = (categoryId: string, value: string) => {
           setData({
             ...data,
@@ -1459,8 +1917,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
           </div>
         );
+      }
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -1501,7 +1960,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
 
-      case 7:
+      case 8: {
         const decisionTimelineOptions = [
           { value: "Under kommande halvår", label: "Under kommande halvår" },
           { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
@@ -1538,8 +1997,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
           </div>
         );
+      }
 
-      case 8:
+      case 9: {
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1609,8 +2069,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </div>
           </div>
         );
+      }
 
-      case 9:
+      case 10:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Finns det något övrigt ni vill berätta om ert projekt eller era behov?</p>
@@ -1630,6 +2091,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
   if (isComplete) {
     const recommendation = getERPRecommendation();
+    const complexity = getComplexityScores();
     const isBC = recommendation.product === "Business Central";
     
     return (
@@ -1648,12 +2110,94 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </CardContent>
             </Card>
 
+            {/* Complexity & Risk Summary */}
+            <Card className="mb-8 border-2 border-indigo-300 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-lg">
+                  <Layers className="w-6 h-6 text-indigo-600" />
+                  Komplexitetsbedömning
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                  <div className="text-center p-4 bg-background rounded-lg border">
+                    <div className="text-3xl font-bold text-indigo-600">{complexity.complexityLevel}</div>
+                    <div className="text-xs text-muted-foreground">av 4</div>
+                    <div className="text-sm font-medium mt-1">Komplexitetsnivå</div>
+                  </div>
+                  <div className="text-center p-4 bg-background rounded-lg border">
+                    <div className={`text-xl font-bold ${
+                      complexity.riskLevel === "Hög" ? "text-red-600" :
+                      complexity.riskLevel === "Medel-hög" ? "text-orange-500" :
+                      complexity.riskLevel === "Medel" ? "text-yellow-600" : "text-green-600"
+                    }`}>
+                      {complexity.riskLevel}
+                    </div>
+                    <div className="text-sm font-medium mt-1">Risknivå</div>
+                  </div>
+                  <div className="text-center p-4 bg-background rounded-lg border">
+                    <div className="text-xl font-bold text-primary">
+                      {complexity.criticalFactors.length}
+                    </div>
+                    <div className="text-sm font-medium mt-1">Kritiska faktorer</div>
+                  </div>
+                </div>
+
+                {complexity.criticalFactors.length > 0 && (
+                  <div className="bg-background rounded-lg p-4 border">
+                    <h4 className="font-semibold text-sm text-muted-foreground mb-2">Kritiska faktorer som driver analysen:</h4>
+                    <ul className="space-y-1">
+                      {complexity.criticalFactors.map((factor, i) => (
+                        <li key={i} className="flex items-center gap-2 text-sm">
+                          <TrendingUp className="w-4 h-4 text-indigo-500 flex-shrink-0" />
+                          {factor}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {recommendation.isHighRisk && (
+                  <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="font-semibold text-red-800 dark:text-red-300 text-sm">Högriskprojekt</h4>
+                        <p className="text-sm text-red-700 dark:text-red-400">
+                          Projektet bedöms som högrisk oavsett plattform. Hög operativ komplexitet kombinerat med låg IT-mognad 
+                          innebär att partnerurval och projektstruktur blir avgörande för framgång.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Close Call Warning */}
+            {recommendation.isCloseCall && (
+              <Card className="mb-8 border-2 border-amber-300 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30">
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-3">
+                    <AlertTriangle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <h3 className="font-bold text-amber-800 dark:text-amber-300 mb-1">Båda lösningarna kan vara aktuella</h3>
+                      <p className="text-sm text-amber-700 dark:text-amber-400 mb-2">
+                        Poängskillnaden mellan Business Central ({recommendation.bcScore}p) och Finance & Supply Chain ({recommendation.fscScore}p) är liten. 
+                        Vi rekommenderar en fördjupad analys tillsammans med en partner för att säkerställa rätt val.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             {/* Recommendation Card */}
             <Card className={`mb-8 border-2 ${isBC ? 'border-blue-500' : 'border-purple-500'}`}>
               <CardHeader className={`${isBC ? 'bg-blue-500' : 'bg-purple-500'} text-white rounded-t-lg`}>
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <Sparkles className="w-6 h-6" />
-                  Vår Rekommendation
+                  {recommendation.isCloseCall ? "Preliminär bedömning" : "Vår Rekommendation"}
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
