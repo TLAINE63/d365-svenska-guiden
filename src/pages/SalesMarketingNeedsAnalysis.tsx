@@ -907,22 +907,6 @@ const SalesMarketingNeedsAnalysis = () => {
               <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
                 <p className="text-sm font-medium text-primary">Berätta lite mer om er B2B-försäljning:</p>
 
-                {/* Antal säljare */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Antal säljare?</Label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {["1–3", "4–10", "11–30", "30+"].map((opt) => (
-                      <SelectionCard
-                        key={opt}
-                        label={opt}
-                        selected={data.b2bSalesCount === opt}
-                        onClick={() => setData({ ...data, b2bSalesCount: opt })}
-                        type="radio"
-                      />
-                    ))}
-                  </div>
-                </div>
-
                 {/* Strukturerad säljprocess */}
                 <div>
                   <Label className="text-sm font-semibold mb-3 block">Hur strukturerad är er säljprocess?</Label>
