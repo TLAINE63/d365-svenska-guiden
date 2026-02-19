@@ -35,6 +35,10 @@ type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>,
 
 interface SalesMarketingAnalysisData {
   commercialModel: string;
+  b2bSalesCount: string;
+  b2bStructuredPipeline: string;
+  b2bMultipleDecisionMakers: string;
+  b2bForecastNeeds: string;
   employees: string;
   industry: string;
   industryOther: string;
@@ -67,6 +71,10 @@ interface SalesMarketingAnalysisData {
 
 const initialData: SalesMarketingAnalysisData = {
   commercialModel: "",
+  b2bSalesCount: "",
+  b2bStructuredPipeline: "",
+  b2bMultipleDecisionMakers: "",
+  b2bForecastNeeds: "",
   employees: "",
   industry: "",
   industryOther: "",
@@ -657,6 +665,15 @@ const SalesMarketingNeedsAnalysis = () => {
 
     const commercialModelLabel = commercialModelOptions.find(o => o.value === data.commercialModel)?.label || data.commercialModel || "Ej angivet";
     addSection("Kommersiell modell", commercialModelLabel);
+    if (data.commercialModel === "b2b_relational" && (data.b2bSalesCount || data.b2bStructuredPipeline || data.b2bMultipleDecisionMakers || data.b2bForecastNeeds)) {
+      const b2bDetails = [
+        data.b2bSalesCount && `Antal säljare: ${data.b2bSalesCount}`,
+        data.b2bStructuredPipeline && `Pipeline: ${data.b2bStructuredPipeline}`,
+        data.b2bMultipleDecisionMakers && `Beslutsprocess: ${data.b2bMultipleDecisionMakers}`,
+        data.b2bForecastNeeds && `Forecast-behov: ${data.b2bForecastNeeds}`,
+      ].filter(Boolean) as string[];
+      addBulletSection("B2B-detaljer", b2bDetails);
+    }
     addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Säljteam: ${data.salesTeamSize}`);
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     const systemsText = filledSystems.length > 0 
@@ -742,6 +759,12 @@ const SalesMarketingNeedsAnalysis = () => {
           email: data.email,
           analysisData: {
             "Kommersiell modell": commercialModelOptions.find(o => o.value === data.commercialModel)?.label || data.commercialModel || "Ej angivet",
+            ...(data.commercialModel === "b2b_relational" ? {
+              "B2B – Antal säljare": data.b2bSalesCount || "Ej angivet",
+              "B2B – Strukturerad pipeline": data.b2bStructuredPipeline || "Ej angivet",
+              "B2B – Beslutsprocessens komplexitet": data.b2bMultipleDecisionMakers || "Ej angivet",
+              "B2B – Forecast-behov": data.b2bForecastNeeds || "Ej angivet",
+            } : {}),
             "Anställda": data.employees,
             "Bransch": data.industry || data.industryOther || "Ej angivet",
             "Säljteam": data.salesTeamSize,
@@ -806,6 +829,88 @@ const SalesMarketingNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
+
+            {/* Conditional follow-up questions for Relationsbaserad B2B */}
+            {data.commercialModel === "b2b_relational" && (
+              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
+                <p className="text-sm font-medium text-primary">Berätta lite mer om er B2B-försäljning:</p>
+
+                {/* Antal säljare */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Antal säljare?</Label>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {["1–3", "4–10", "11–30", "30+"].map((opt) => (
+                      <SelectionCard
+                        key={opt}
+                        label={opt}
+                        selected={data.b2bSalesCount === opt}
+                        onClick={() => setData({ ...data, b2bSalesCount: opt })}
+                        type="radio"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Strukturerad pipeline */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Har ni en strukturerad pipeline idag?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, väl definierad", "Delvis / informell", "Nej, saknas"].map((opt) => (
+                      <SelectionCard
+                        key={opt}
+                        label={opt}
+                        selected={data.b2bStructuredPipeline === opt}
+                        onClick={() => setData({ ...data, b2bStructuredPipeline: opt })}
+                        type="radio"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Beslutsprocessen */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Flera steg i beslutsprocessen hos kunden?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, ofta 3+ beslutsfattare", "Ibland, beror på affär", "Nej, enkel beslutsprocess"].map((opt) => (
+                      <SelectionCard
+                        key={opt}
+                        label={opt}
+                        selected={data.b2bMultipleDecisionMakers === opt}
+                        onClick={() => setData({ ...data, b2bMultipleDecisionMakers: opt })}
+                        type="radio"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Forecast & uppföljning */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Behov av forecast & säljuppföljning?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, kritiskt", "Vore bra att ha", "Inget krav just nu"].map((opt) => (
+                      <SelectionCard
+                        key={opt}
+                        label={opt}
+                        selected={data.b2bForecastNeeds === opt}
+                        onClick={() => setData({ ...data, b2bForecastNeeds: opt })}
+                        type="radio"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recommendation hint */}
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <span className="text-xl mt-0.5">👉</span>
+                  <div>
+                    <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Baserat på er profil passar Dynamics 365 Sales bra – med stöd för pipeline-hantering, aktivitetsuppföljning, AI-driven säljcoachning och integrerade prognoser.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         );
 
