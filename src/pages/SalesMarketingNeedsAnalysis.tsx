@@ -861,319 +861,267 @@ const SalesMarketingNeedsAnalysis = () => {
               <p className="text-muted-foreground mb-6">
                 Välj det alternativ som bäst beskriver hur er verksamhet primärt genererar affärer. Det hjälper oss att anpassa analysen till er situation.
               </p>
-              <div className="grid grid-cols-1 gap-3">
+              <div className="space-y-3">
                 {commercialModelOptions.map((option) => (
-                  <SelectionCard
-                    key={option.value}
-                    label={`${option.emoji} ${option.label}`}
-                    description={option.description}
-                    selected={data.commercialModel === option.value}
-                    onClick={() => setData({ ...data, commercialModel: option.value })}
-                    type="radio"
-                  />
+                  <div key={option.value}>
+                    <SelectionCard
+                      label={`${option.emoji} ${option.label}`}
+                      description={option.description}
+                      selected={data.commercialModel === option.value}
+                      onClick={() => setData({ ...data, commercialModel: option.value })}
+                      type="radio"
+                    />
+
+                    {/* 1️⃣ Relationsbaserad B2B */}
+                    {option.value === "b2b_relational" && data.commercialModel === "b2b_relational" && (
+                      <div className="mt-3 space-y-5 border-l-4 border-primary/40 pl-5 pb-2 animate-in slide-in-from-top-2 duration-300">
+                        <p className="text-sm font-medium text-primary pt-1">Berätta lite mer om er B2B-försäljning:</p>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Antal säljare?</Label>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            {["1–3", "4–10", "11–30", "30+"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bSalesCount === opt} onClick={() => setData({ ...data, b2bSalesCount: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Har ni en strukturerad pipeline idag?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, väl definierad", "Delvis / informell", "Nej, saknas"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bStructuredPipeline === opt} onClick={() => setData({ ...data, b2bStructuredPipeline: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Flera steg i beslutsprocessen hos kunden?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, ofta 3+ beslutsfattare", "Ibland, beror på affär", "Nej, enkel beslutsprocess"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bMultipleDecisionMakers === opt} onClick={() => setData({ ...data, b2bMultipleDecisionMakers: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Behov av forecast & säljuppföljning?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, kritiskt", "Vore bra att ha", "Inget krav just nu"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bForecastNeeds === opt} onClick={() => setData({ ...data, b2bForecastNeeds: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                          <span className="text-xl mt-0.5">👉</span>
+                          <div>
+                            <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales</p>
+                            <p className="text-xs text-muted-foreground mt-1">Baserat på er profil passar Dynamics 365 Sales bra – med stöd för pipeline-hantering, aktivitetsuppföljning, AI-driven säljcoachning och integrerade prognoser.</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 2️⃣ Komplex B2B */}
+                    {option.value === "b2b_complex" && data.commercialModel === "b2b_complex" && (
+                      <div className="mt-3 space-y-5 border-l-4 border-primary/40 pl-5 pb-2 animate-in slide-in-from-top-2 duration-300">
+                        <p className="text-sm font-medium text-primary pt-1">Berätta lite mer om er komplexa B2B-försäljning:</p>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Hur många parallella affärer hanterar säljarna typiskt?</Label>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            {["Färre än 10", "10–30", "30–100", "100+"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bComplexParallelDeals === opt} onClick={() => setData({ ...data, b2bComplexParallelDeals: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Behöver ni rollbaserad säljstyrning?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, vi har tydliga roller (AE, SDR, CSM...)", "Delvis, vi växer mot det", "Nej, alla gör allt idag"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bComplexRoleBased === opt} onClick={() => setData({ ...data, b2bComplexRoleBased: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Behov av global eller multi-entity-rapportering?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, flera länder/bolag", "Ja, men bara ett land", "Nej, vi är ett team"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bComplexGlobalReporting === opt} onClick={() => setData({ ...data, b2bComplexGlobalReporting: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Säljer ni via partners eller kanaler?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, partners är en stor del", "Delvis, hybrid direkt/partner", "Nej, enbart direktförsäljning"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2bComplexPartnerChannel === opt} onClick={() => setData({ ...data, b2bComplexPartnerChannel: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                          <span className="text-xl mt-0.5">👉</span>
+                          <div>
+                            <p className="text-sm font-semibold text-primary">Stark lutning mot Dynamics 365 Sales</p>
+                            <p className="text-xs text-muted-foreground mt-1">Med komplex affärsstruktur, parallella affärer och rollbaserat säljarbete passar Dynamics 365 Sales utmärkt. Har ni även behov av marketing automation pekar det dessutom mot Customer Insights.</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 3️⃣ Volymbaserad B2C */}
+                    {option.value === "b2c_volume" && data.commercialModel === "b2c_volume" && (
+                      <div className="mt-3 space-y-5 border-l-4 border-primary/40 pl-5 pb-2 animate-in slide-in-from-top-2 duration-300">
+                        <p className="text-sm font-medium text-primary pt-1">Berätta lite mer om er B2C-affär:</p>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kundsegmentering idag?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, avancerad segmentering", "Ja, basic segmentering", "Nej, saknas idag"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2cSegmentation === opt} onClick={() => setData({ ...data, b2cSegmentation: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kampanjautomation?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, i flera kanaler", "Delvis / enklare flöden", "Nej, manuella kampanjer"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2cCampaignAutomation === opt} onClick={() => setData({ ...data, b2cCampaignAutomation: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Skickar ni personaliserade utskick idag?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, dynamiskt innehåll", "Ibland, enkel personalisering", "Nej, samma budskap till alla"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2cPersonalization === opt} onClick={() => setData({ ...data, b2cPersonalization: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Har ni en enhetlig kundvy idag?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, samlad i ett system", "Delvis, data är utspridd", "Nej, fragmenterad kunddata"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.b2cUnifiedView === opt} onClick={() => setData({ ...data, b2cUnifiedView: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                          <span className="text-xl mt-0.5">👉</span>
+                          <div>
+                            <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Customer Insights</p>
+                            <p className="text-xs text-muted-foreground mt-1">Baserat på er profil passar Dynamics 365 Customer Insights bra – med enhetlig kunddata, AI-driven segmentering, personaliserade kundresor och realtidsaktivering i alla kanaler.</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 4️⃣ Digital affär */}
+                    {option.value === "digital_market" && data.commercialModel === "digital_market" && (
+                      <div className="mt-3 space-y-5 border-l-4 border-primary/40 pl-5 pb-2 animate-in slide-in-from-top-2 duration-300">
+                        <p className="text-sm font-medium text-primary pt-1">Berätta lite mer om er digitala affär:</p>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Hanterar ni data från flera källor idag?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, webb, app, CRM, e-handel m.fl.", "Ja, men bara 1–2 källor", "Nej, all data i ett system"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.digitalDataSources === opt} onClick={() => setData({ ...data, digitalDataSources: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Arbetar ni med beteendebaserad segmentering?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, realtidssegment", "Delvis, regelbaserade segment", "Nej, manuell eller ingen segmentering"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.digitalBehaviorSegmentation === opt} onClick={() => setData({ ...data, digitalBehaviorSegmentation: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Har ni automatisk kommunikation baserat på beteende?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, triggers och kundresor", "Delvis, enkla flöden", "Nej, manuella utskick"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.digitalAutoCommunication === opt} onClick={() => setData({ ...data, digitalAutoCommunication: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Behöver ni en enhetlig kundprofil (CDP)?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, kritiskt – data är fragmenterad", "Ja, det skulle förbättra vår insikt", "Nej, vi har redan samlad kunddata"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.digitalCDPNeed === opt} onClick={() => setData({ ...data, digitalCDPNeed: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                          <span className="text-xl mt-0.5">👉</span>
+                          <div>
+                            <p className="text-sm font-semibold text-primary">Tydlig lutning mot Dynamics 365 Customer Insights</p>
+                            <p className="text-xs text-muted-foreground mt-1">Med flera datakällor, beteendebaserade segment och automatiserad kommunikation passar Customer Insights (CDP + Marketing) utmärkt. Finns det även direktförsäljning i hybridmodellen pekar det mot en kombination med Dynamics 365 Sales.</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 5️⃣ Partner/kanalförsäljning */}
+                    {option.value === "partner_channel" && data.commercialModel === "partner_channel" && (
+                      <div className="mt-3 space-y-5 border-l-4 border-primary/40 pl-5 pb-2 animate-in slide-in-from-top-2 duration-300">
+                        <p className="text-sm font-medium text-primary pt-1">Berätta lite mer om er partner- och kanalförsäljning:</p>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Behöver ni en partnerportal för era återförsäljare/agenter?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, kritiskt – partners måste kunna självbetjäna", "Ja, det vore värdefullt", "Nej, vi hanterar allt direkt med partnerna"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.partnerPortalNeed === opt} onClick={() => setData({ ...data, partnerPortalNeed: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Behöver ni deal registration (partners registrerar affärer)?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, vi behöver kontrollera överlapp", "Delvis, på vissa affärer", "Nej, inget sådant behov idag"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.partnerDealRegistration === opt} onClick={() => setData({ ...data, partnerDealRegistration: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label className="text-sm font-semibold mb-3 block">Behöver ni kanalrapportering per partner/region?</Label>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {["Ja, per partner och region", "Ja, övergripande kanalöversikt", "Nej, vi har tillräcklig insyn idag"].map((opt) => (
+                              <SelectionCard key={opt} label={opt} selected={data.partnerChannelReporting === opt} onClick={() => setData({ ...data, partnerChannelReporting: opt })} type="radio" />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                          <span className="text-xl mt-0.5">👉</span>
+                          <div>
+                            <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales (partnerhantering)</p>
+                            <p className="text-xs text-muted-foreground mt-1">Dynamics 365 Sales har inbyggt stöd för partnerhantering, deal registration och kanalöversikt. Är er kanalstrategi komplex med marketing mot partners pekar det mot Customer Insights för marketing automation.</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
                 ))}
               </div>
             </div>
-
-            {/* Conditional follow-up questions for Relationsbaserad B2B */}
-            {data.commercialModel === "b2b_relational" && (
-              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
-                <p className="text-sm font-medium text-primary">Berätta lite mer om er B2B-försäljning:</p>
-
-                {/* Antal säljare */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Antal säljare?</Label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {["1–3", "4–10", "11–30", "30+"].map((opt) => (
-                      <SelectionCard
-                        key={opt}
-                        label={opt}
-                        selected={data.b2bSalesCount === opt}
-                        onClick={() => setData({ ...data, b2bSalesCount: opt })}
-                        type="radio"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Strukturerad pipeline */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Har ni en strukturerad pipeline idag?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, väl definierad", "Delvis / informell", "Nej, saknas"].map((opt) => (
-                      <SelectionCard
-                        key={opt}
-                        label={opt}
-                        selected={data.b2bStructuredPipeline === opt}
-                        onClick={() => setData({ ...data, b2bStructuredPipeline: opt })}
-                        type="radio"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Beslutsprocessen */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Flera steg i beslutsprocessen hos kunden?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, ofta 3+ beslutsfattare", "Ibland, beror på affär", "Nej, enkel beslutsprocess"].map((opt) => (
-                      <SelectionCard
-                        key={opt}
-                        label={opt}
-                        selected={data.b2bMultipleDecisionMakers === opt}
-                        onClick={() => setData({ ...data, b2bMultipleDecisionMakers: opt })}
-                        type="radio"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Forecast & uppföljning */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Behov av forecast & säljuppföljning?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, kritiskt", "Vore bra att ha", "Inget krav just nu"].map((opt) => (
-                      <SelectionCard
-                        key={opt}
-                        label={opt}
-                        selected={data.b2bForecastNeeds === opt}
-                        onClick={() => setData({ ...data, b2bForecastNeeds: opt })}
-                        type="radio"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
-                  <span className="text-xl mt-0.5">👉</span>
-                  <div>
-                    <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Baserat på er profil passar Dynamics 365 Sales bra – med stöd för pipeline-hantering, aktivitetsuppföljning, AI-driven säljcoachning och integrerade prognoser.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Conditional follow-up questions for Komplex B2B */}
-            {data.commercialModel === "b2b_complex" && (
-              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
-                <p className="text-sm font-medium text-primary">Berätta lite mer om er komplexa B2B-försäljning:</p>
-
-                {/* Parallella affärer */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Hur många parallella affärer hanterar säljarna typiskt?</Label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {["Färre än 10", "10–30", "30–100", "100+"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexParallelDeals === opt} onClick={() => setData({ ...data, b2bComplexParallelDeals: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Rollbaserad säljstyrning */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Behöver ni rollbaserad säljstyrning?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, vi har tydliga roller (AE, SDR, CSM...)", "Delvis, vi växer mot det", "Nej, alla gör allt idag"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexRoleBased === opt} onClick={() => setData({ ...data, b2bComplexRoleBased: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Global rapportering */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Behov av global eller multi-entity-rapportering?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, flera länder/bolag", "Ja, men bara ett land", "Nej, vi är ett team"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexGlobalReporting === opt} onClick={() => setData({ ...data, b2bComplexGlobalReporting: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Partner/kanalförsäljning */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Säljer ni via partners eller kanaler?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, partners är en stor del", "Delvis, hybrid direkt/partner", "Nej, enbart direktförsäljning"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2bComplexPartnerChannel === opt} onClick={() => setData({ ...data, b2bComplexPartnerChannel: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
-                  <span className="text-xl mt-0.5">👉</span>
-                  <div>
-                    <p className="text-sm font-semibold text-primary">Stark lutning mot Dynamics 365 Sales</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Med komplex affärsstruktur, parallella affärer och rollbaserat säljarbete passar Dynamics 365 Sales utmärkt – med avancerad pipeline-hantering, AI-prognos och inbyggt stöd för partner/kanalförsäljning. Har ni även behov av marketing automation pekar det dessutom mot Customer Insights.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Conditional follow-up questions for Digital affär */}
-            {data.commercialModel === "digital_market" && (
-              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
-                <p className="text-sm font-medium text-primary">Berätta lite mer om er digitala affär:</p>
-
-                {/* Flera datakällor */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Hanterar ni data från flera källor idag?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, webb, app, CRM, e-handel m.fl.", "Ja, men bara 1–2 källor", "Nej, all data i ett system"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.digitalDataSources === opt} onClick={() => setData({ ...data, digitalDataSources: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Beteendebaserad segmentering */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Arbetar ni med beteendebaserad segmentering?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, realtidssegment", "Delvis, regelbaserade segment", "Nej, manuell eller ingen segmentering"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.digitalBehaviorSegmentation === opt} onClick={() => setData({ ...data, digitalBehaviorSegmentation: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Automatisk kommunikation */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Har ni automatisk kommunikation baserat på beteende?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, triggers och kundresor", "Delvis, enkla flöden", "Nej, manuella utskick"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.digitalAutoCommunication === opt} onClick={() => setData({ ...data, digitalAutoCommunication: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* CDP-behov */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Behöver ni en enhetlig kundprofil (CDP)?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, kritiskt – data är fragmenterad", "Ja, det skulle förbättra vår insikt", "Nej, vi har redan samlad kunddata"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.digitalCDPNeed === opt} onClick={() => setData({ ...data, digitalCDPNeed: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
-                  <span className="text-xl mt-0.5">👉</span>
-                  <div>
-                    <p className="text-sm font-semibold text-primary">Tydlig lutning mot Dynamics 365 Customer Insights</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Med flera datakällor, beteendebaserade segment och automatiserad kommunikation passar Customer Insights (CDP + Marketing) utmärkt. Finns det även direktförsäljning i hybridmodellen pekar det dessutom mot en kombination med Dynamics 365 Sales.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Conditional follow-up questions for Partner/kanalförsäljning */}
-            {data.commercialModel === "partner_channel" && (
-              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
-                <p className="text-sm font-medium text-primary">Berätta lite mer om er partner- och kanalförsäljning:</p>
-
-                {/* Partnerportal */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Behöver ni en partnerportal för era återförsäljare/agenter?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, kritiskt – partners måste kunna självbetjäna", "Ja, det vore värdefullt", "Nej, vi hanterar allt direkt med partnerna"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.partnerPortalNeed === opt} onClick={() => setData({ ...data, partnerPortalNeed: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Deal registration */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Behöver ni deal registration (partners registrerar affärer)?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, vi behöver kontrollera överlapp", "Delvis, på vissa affärer", "Nej, inget sådant behov idag"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.partnerDealRegistration === opt} onClick={() => setData({ ...data, partnerDealRegistration: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Kanalrapportering */}
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Behöver ni kanalrapportering per partner/region?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, per partner och region", "Ja, övergripande kanalöversikt", "Nej, vi har tillräcklig insyn idag"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.partnerChannelReporting === opt} onClick={() => setData({ ...data, partnerChannelReporting: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Recommendation hint */}
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
-                  <span className="text-xl mt-0.5">👉</span>
-                  <div>
-                    <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Sales (partnerhantering)</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Dynamics 365 Sales har inbyggt stöd för partnerhantering, deal registration och kanalöversikt. Är er kanalstrategi komplex med marketing mot partners pekar det dessutom mot en kombination med Customer Insights för marketing automation.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Conditional follow-up questions for Volymbaserad B2C */}
-            {data.commercialModel === "b2c_volume" && (
-              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
-                <p className="text-sm font-medium text-primary">Berätta lite mer om er B2C-affär:</p>
-
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kundsegmentering idag?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, avancerad segmentering", "Ja, basic segmentering", "Nej, saknas idag"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2cSegmentation === opt} onClick={() => setData({ ...data, b2cSegmentation: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kampanjautomation?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, i flera kanaler", "Delvis / enklare flöden", "Nej, manuella kampanjer"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2cCampaignAutomation === opt} onClick={() => setData({ ...data, b2cCampaignAutomation: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Skickar ni personaliserade utskick idag?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, dynamiskt innehåll", "Ibland, enkel personalisering", "Nej, samma budskap till alla"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2cPersonalization === opt} onClick={() => setData({ ...data, b2cPersonalization: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <Label className="text-sm font-semibold mb-3 block">Har ni en enhetlig kundvy idag?</Label>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {["Ja, samlad i ett system", "Delvis, data är utspridd", "Nej, fragmenterad kunddata"].map((opt) => (
-                      <SelectionCard key={opt} label={opt} selected={data.b2cUnifiedView === opt} onClick={() => setData({ ...data, b2cUnifiedView: opt })} type="radio" />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
-                  <span className="text-xl mt-0.5">👉</span>
-                  <div>
-                    <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Customer Insights</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Baserat på er profil passar Dynamics 365 Customer Insights bra – med enhetlig kunddata, AI-driven segmentering, personaliserade kundresor och realtidsaktivering i alla kanaler.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
           </div>
         );
 
