@@ -1486,65 +1486,110 @@ const SalesMarketingNeedsAnalysis = () => {
         );
 
       case 6: {
-        const showDataMaturityWarning =
-          (data.aiAmbition === "AI-driven segmentering & personalisering" || data.aiAmbition === "Strategisk AI-satsning") &&
-          (data.aiDataMaturity === "Låg – data är spridd och ostrukturerad");
+        const aiUseCaseOptions = [
+          {
+            label: "Predictive Lead & Opportunity Scoring",
+            description: "AI rangordnar leads och affärer baserat på köpsannolikhet, affärsstorlek och tid till avslut. Tar hänsyn till historik, beteendedata, bransch, engagemang och liknande kunder.\n\nAffärsnytta: Sälj fokuserar på rätt affärer → högre win-rate, kortare säljcykler."
+          },
+          {
+            label: "Next Best Action / Next Best Offer",
+            description: "AI föreslår nästa steg i affären: ring, maila, boka möte. Vilket budskap eller erbjudande som fungerar bäst. Anpassas efter affärsfas, kundbeteende och tidigare utfall.\n\nAffärsnytta: Mindre gissningar, mer konsekvent och skalbar försäljning."
+          },
+          {
+            label: "AI-baserad säljprognos (Forecasting)",
+            description: "Prognoser som justeras löpande baserat på pipeline-kvalitet, säljarbeteende och historiska mönster. Identifierar affärer som ser bra ut men sannolikt inte stänger.\n\nAffärsnytta: Ledningen får prognoser man kan lita på."
+          },
+          {
+            label: "Conversation Intelligence",
+            description: "Analys av möten, samtal och mejl: tonläge, köpsignaler, objektioner. AI sammanfattar möten och uppdaterar CRM automatiskt.\n\nAffärsnytta: Mindre admin, bättre coachning, snabbare onboarding av nya säljare."
+          },
+          {
+            label: "Churn & Expansion Prediction (Account Intelligence)",
+            description: "Identifierar kunder som riskerar churn. Upptäcker signaler för merförsäljning och uppgradering.\n\nAffärsnytta: Proaktiv kundbearbetning istället för reaktiv brandkårsutryckning."
+          },
+          {
+            label: "AI-driven segmentering",
+            description: "Dynamiska målgrupper baserat på beteende, intent-data och liknande kunder (lookalikes). Segment uppdateras automatiskt i realtid.\n\nAffärsnytta: Rätt budskap till rätt person – automatiskt."
+          },
+          {
+            label: "Predictive Nurturing & Timing",
+            description: "AI avgör när en kontakt är redo för sälj och vilket innehåll som ska skickas. Anpassar flöden per individ, inte per kampanj.\n\nAffärsnytta: Högre MQL→SQL-konvertering, mindre spam."
+          },
+          {
+            label: "Personalisering i stor skala",
+            description: "Dynamiskt innehåll i email, landningssidor och ads. Baserat på kundens bransch, roll, beteende och fas i köpresan.\n\nAffärsnytta: Personlig upplevelse utan manuell handpåläggning."
+          },
+          {
+            label: "Kampanjoptimering i realtid",
+            description: "AI testar automatiskt ämnesrader, CTA och kanalval. Budget flyttas till de kampanjer som faktiskt konverterar.\n\nAffärsnytta: Mer effekt per marknadsföringskrona."
+          },
+          {
+            label: "Attribution & Revenue Intelligence",
+            description: "AI analyserar vilka aktiviteter som verkligen driver affär. Multi-touch attribution utan Excel-gymnastik.\n\nAffärsnytta: Marknad kan bevisa sitt bidrag till intäkter."
+          },
+          {
+            label: "AI-assistent (Copilot-liknande funktioner)",
+            description: "Fråga CRM på naturligt språk: \"Vilka leads bör sälj ringa idag?\" \"Vilka kampanjer driver pipeline just nu?\" Sammanfattar, föreslår och automatiserar.\n\nAffärsnytta: CRM blir ett arbetsverktyg – inte ett rapportsystem."
+          },
+        ];
 
         return (
           <div className="space-y-6">
-            {/* AI-ambition */}
+            {/* AI-intresse */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Hur vill ni använda AI i er kommersiella verksamhet?</Label>
-              <div className="grid grid-cols-1 gap-3">
+              <Label className="text-base font-semibold mb-3 block">Hur intresserade är ni av AI i CRM-systemet?</Label>
+              <div className="grid grid-cols-1 gap-2">
                 {[
-                  "Inget konkret behov",
-                  "AI-stöd i sälj (prognos, rekommendationer)",
-                  "AI-driven segmentering & personalisering",
-                  "Strategisk AI-satsning",
+                  "Mycket intresserade – Vi vill vara i framkant",
+                  "Ganska intresserade – Vi vill utforska möjligheterna",
+                  "Avvaktande – Vi vill se konkreta användningsfall först",
+                  "Inte intresserade just nu",
                 ].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
-                    selected={data.aiAmbition === opt}
-                    onClick={() => setData({ ...data, aiAmbition: opt })}
+                    selected={data.aiInterest === opt}
+                    onClick={() => setData({ ...data, aiInterest: opt })}
                     type="radio"
                   />
                 ))}
               </div>
             </div>
 
-            {/* Datamognad – kontrollfråga */}
+            {/* AI-användningsområden */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Hur strukturerad är er kunddata idag?</Label>
-              <div className="grid grid-cols-1 gap-3">
-                {[
-                  "Låg – data är spridd och ostrukturerad",
-                  "Medel – viss struktur men brister finns",
-                  "Hög – samlad och välstrukturerad data",
-                ].map((opt) => (
+              <Label className="text-base font-semibold mb-3 block">Vilka AI-användningsområden ser ni som mest intressanta?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {aiUseCaseOptions.map((opt) => (
                   <SelectionCard
-                    key={opt}
-                    label={opt}
-                    selected={data.aiDataMaturity === opt}
-                    onClick={() => setData({ ...data, aiDataMaturity: opt })}
-                    type="radio"
+                    key={opt.label}
+                    label={opt.label}
+                    description={opt.description}
+                    selected={(data.aiUseCases || []).includes(opt.label)}
+                    onClick={() => {
+                      const current = data.aiUseCases || [];
+                      const updated = current.includes(opt.label)
+                        ? current.filter((v) => v !== opt.label)
+                        : [...current, opt.label];
+                      setData({ ...data, aiUseCases: updated });
+                    }}
+                    type="checkbox"
                   />
                 ))}
               </div>
             </div>
 
-            {/* Riskflagga */}
-            {showDataMaturityWarning && (
-              <div className="flex items-start gap-3 bg-destructive/5 border border-destructive/30 rounded-xl p-4 animate-in slide-in-from-top-2 duration-300">
-                <span className="text-xl mt-0.5">⚠️</span>
-                <div>
-                  <p className="text-sm font-semibold text-destructive">AI-ambition + låg datamognad = riskflagga</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Hög AI-ambition kräver välstrukturerad och samlad kunddata. Vi rekommenderar att ni börjar med att konsolidera er kunddata innan ni investerar i avancerade AI-funktioner.
-                  </p>
-                </div>
-              </div>
-            )}
+            {/* Fritext AI */}
+            <div>
+              <Label className="text-base font-semibold mb-2 block">Beskriv hur AI skulle kunna hjälpa er verksamhet</Label>
+              <textarea
+                rows={4}
+                placeholder="Berätta med egna ord..."
+                value={data.aiDetails || ""}
+                onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
+                className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
+              />
+            </div>
           </div>
         );
       }
@@ -1606,8 +1651,11 @@ const SalesMarketingNeedsAnalysis = () => {
         if ((data.integrationTypes || []).includes("E-handel")) insightsScore += 1;
         if ((data.integrationTypes || []).includes("BI")) insightsScore += 1;
         // Steg 6 – AI
-        if (data.aiAmbition === "AI-driven segmentering & personalisering") insightsScore += 3;
-        if (data.aiAmbition === "Strategisk AI-satsning") insightsScore += 2;
+        if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") insightsScore += 3;
+        if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") insightsScore += 2;
+        if ((data.aiUseCases || []).includes("AI-driven segmentering")) insightsScore += 2;
+        if ((data.aiUseCases || []).includes("Predictive Nurturing & Timing")) insightsScore += 1;
+        if ((data.aiUseCases || []).includes("Personalisering i stor skala")) insightsScore += 1;
         if (data.customerDataSpread === "Spridd i flera system") insightsScore += 1;
 
         // ── Avgörande: produkt & inriktning ────────────────────────────
