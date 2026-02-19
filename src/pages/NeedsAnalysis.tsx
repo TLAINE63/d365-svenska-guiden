@@ -1781,6 +1781,65 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       addContentRow("Beslutstidslinje:", data.decisionTimeline);
     }
 
+    // Challenges as bullet list
+    if (data.challenges && data.challenges.length > 0) {
+      addNewPageIfNeeded(20);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(100, 100, 100);
+      pdf.text("Utmaningar:", margin + 5, yPos);
+      yPos += 7;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      data.challenges.forEach((challenge: string) => {
+        addNewPageIfNeeded(8);
+        pdf.setFillColor(0, 150, 136);
+        pdf.circle(margin + 3 + 5, yPos - 1.5, 1.5, 'F');
+        const challengeLines = pdf.splitTextToSize(challenge, contentWidth - 18);
+        pdf.text(challengeLines, margin + 8 + 5, yPos);
+        yPos += challengeLines.length * 6;
+      });
+      if (data.challengesOther) {
+        addNewPageIfNeeded(8);
+        pdf.setFont("helvetica", "italic");
+        pdf.setTextColor(100, 100, 100);
+        const otherLines = pdf.splitTextToSize(`Övrigt: ${data.challengesOther}`, contentWidth - 10);
+        pdf.text(otherLines, margin + 5, yPos);
+        yPos += otherLines.length * 5 + 3;
+        pdf.setFont("helvetica", "normal");
+      }
+      yPos += 5;
+    }
+
+    // KPIs as bullet list
+    if (data.kpis && data.kpis.length > 0) {
+      addNewPageIfNeeded(20);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(100, 100, 100);
+      pdf.text("KPI:er:", margin + 5, yPos);
+      yPos += 7;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      data.kpis.forEach((kpi: string) => {
+        addNewPageIfNeeded(8);
+        pdf.setFillColor(0, 150, 136);
+        pdf.circle(margin + 3 + 5, yPos - 1.5, 1.5, 'F');
+        pdf.text(kpi, margin + 8 + 5, yPos);
+        yPos += 7;
+      });
+      if (data.kpisOther) {
+        addNewPageIfNeeded(8);
+        pdf.setFont("helvetica", "italic");
+        pdf.setTextColor(100, 100, 100);
+        const otherKpiLines = pdf.splitTextToSize(`Övrigt: ${data.kpisOther}`, contentWidth - 10);
+        pdf.text(otherKpiLines, margin + 5, yPos);
+        yPos += otherKpiLines.length * 5 + 3;
+        pdf.setFont("helvetica", "normal");
+      }
+      yPos += 5;
+    }
+
     // Section 7: Integrations
     addSectionHeader("INTEGRATIONER", "8");
     const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
