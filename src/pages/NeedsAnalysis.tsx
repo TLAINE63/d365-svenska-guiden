@@ -1096,8 +1096,24 @@ const NeedsAnalysis = () => {
         fscScore += 10;
         fscReasons.push("Avancerad kampanj- och prishantering gynnas av F&SC");
       }
-      if (bmSub === "Fysisk butik" && rc.storeCount === "1-10") {
+      // Retail subcategory scoring
+      const retailSubs = data.businessModelSubs;
+      if (retailSubs.includes("Enbart fysisk butik")) {
+        bcScore += 15;
+        bcReasons.push("Enbart fysisk butik passar Business Central väl");
+      }
+      if (retailSubs.includes("Enbart e-handel")) {
+        bcScore += 10;
+        bcReasons.push("Enbart e-handel hanteras väl av Business Central");
+      }
+      if (retailSubs.includes("Kombination butik + e-handel")) {
         bcScore += 5;
+        fscScore += 5;
+        bcReasons.push("Kombination butik + e-handel kan hanteras av båda plattformarna");
+      }
+      if (retailSubs.includes("Omnikanal med realtidsintegration")) {
+        fscScore += 15;
+        fscReasons.push("Omnikanal med realtidsintegration kräver F&SC:s avancerade kapacitet");
       }
     } else if (bm === "Produktion") {
       const prodSubs = data.businessModelSubs;
