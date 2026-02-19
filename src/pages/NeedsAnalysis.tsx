@@ -167,10 +167,14 @@ const businessModelOptions = [
     value: "Retail",
     label: "Retail",
     subcategories: [
-      "Fysisk butik",
-      "E-handel",
-      "Omnichannel",
+      "Enbart fysisk butik",
+      "Enbart e-handel",
+      "Kombination butik + e-handel",
+      "Omnikanal med realtidsintegration",
     ],
+    multiSelect: true,
+    exclusiveGroup: ["Enbart fysisk butik", "Enbart e-handel", "Kombination butik + e-handel"],
+    subQuestion: "Hur ser er försäljningsmodell ut?",
   },
   {
     value: "Annat",
