@@ -43,6 +43,10 @@ interface SalesMarketingAnalysisData {
   b2bComplexRoleBased: string;
   b2bComplexGlobalReporting: string;
   b2bComplexPartnerChannel: string;
+  digitalDataSources: string;
+  digitalBehaviorSegmentation: string;
+  digitalAutoCommunication: string;
+  digitalCDPNeed: string;
   b2cSegmentation: string;
   b2cCampaignAutomation: string;
   b2cPersonalization: string;
@@ -87,6 +91,10 @@ const initialData: SalesMarketingAnalysisData = {
   b2bComplexRoleBased: "",
   b2bComplexGlobalReporting: "",
   b2bComplexPartnerChannel: "",
+  digitalDataSources: "",
+  digitalBehaviorSegmentation: "",
+  digitalAutoCommunication: "",
+  digitalCDPNeed: "",
   b2cSegmentation: "",
   b2cCampaignAutomation: "",
   b2cPersonalization: "",
@@ -995,6 +1003,64 @@ const SalesMarketingNeedsAnalysis = () => {
                     <p className="text-sm font-semibold text-primary">Stark lutning mot Dynamics 365 Sales</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       Med komplex affärsstruktur, parallella affärer och rollbaserat säljarbete passar Dynamics 365 Sales utmärkt – med avancerad pipeline-hantering, AI-prognos och inbyggt stöd för partner/kanalförsäljning. Har ni även behov av marketing automation pekar det dessutom mot Customer Insights.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Conditional follow-up questions for Digital affär */}
+            {data.commercialModel === "digital_market" && (
+              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
+                <p className="text-sm font-medium text-primary">Berätta lite mer om er digitala affär:</p>
+
+                {/* Flera datakällor */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Hanterar ni data från flera källor idag?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, webb, app, CRM, e-handel m.fl.", "Ja, men bara 1–2 källor", "Nej, all data i ett system"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.digitalDataSources === opt} onClick={() => setData({ ...data, digitalDataSources: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Beteendebaserad segmentering */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Arbetar ni med beteendebaserad segmentering?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, realtidssegment", "Delvis, regelbaserade segment", "Nej, manuell eller ingen segmentering"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.digitalBehaviorSegmentation === opt} onClick={() => setData({ ...data, digitalBehaviorSegmentation: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Automatisk kommunikation */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Har ni automatisk kommunikation baserat på beteende?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, triggers och kundresor", "Delvis, enkla flöden", "Nej, manuella utskick"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.digitalAutoCommunication === opt} onClick={() => setData({ ...data, digitalAutoCommunication: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* CDP-behov */}
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Behöver ni en enhetlig kundprofil (CDP)?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, kritiskt – data är fragmenterad", "Ja, det skulle förbättra vår insikt", "Nej, vi har redan samlad kunddata"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.digitalCDPNeed === opt} onClick={() => setData({ ...data, digitalCDPNeed: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Recommendation hint */}
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <span className="text-xl mt-0.5">👉</span>
+                  <div>
+                    <p className="text-sm font-semibold text-primary">Tydlig lutning mot Dynamics 365 Customer Insights</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Med flera datakällor, beteendebaserade segment och automatiserad kommunikation passar Customer Insights (CDP + Marketing) utmärkt. Finns det även direktförsäljning i hybridmodellen pekar det dessutom mot en kombination med Dynamics 365 Sales.
                     </p>
                   </div>
                 </div>
