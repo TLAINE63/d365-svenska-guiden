@@ -1374,9 +1374,13 @@ const SalesMarketingNeedsAnalysis = () => {
           <div className="space-y-6">
             {/* Enhetlig kundvy */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Har ni en enhetlig kundvy?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Nej", "Delvis", "Ja"].map((opt) => (
+              <Label className="text-base font-semibold mb-3 block">Har ni samlad och tillförlitlig information om era kunder på ett ställe?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "Nej, informationen är spridd",
+                  "Delvis, men inte komplett",
+                  "Ja, vi har en samlad och uppdaterad kundbild"
+                ].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
@@ -1577,8 +1581,8 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.b2cUnifiedView === "Nej, fragmenterad kunddata") insightsScore += 2;
         // Steg 4 – datamognad
         if (data.multipleDataSources === "Ja") insightsScore += 2;
-        if (data.unifiedCustomerView === "Nej") insightsScore += 2;
-        if (data.unifiedCustomerView === "Delvis") insightsScore += 1;
+        if (data.unifiedCustomerView === "Nej, informationen är spridd") insightsScore += 2;
+        if (data.unifiedCustomerView === "Delvis, men inte komplett") insightsScore += 1;
         if (data.personalizationCritical === "Ja") insightsScore += 3;
         if (data.personalizationCritical === "Önskvärt") insightsScore += 1;
         // Steg 5 – integrationer
@@ -1646,7 +1650,7 @@ const SalesMarketingNeedsAnalysis = () => {
           else if (data.customerDataSpread === "Delvis samlad") score += 1;
           if (data.integrationScope === "Omfattande och affärskritiskt") score += 2;
           else if (data.integrationScope === "Måttligt") score += 1;
-          if (data.unifiedCustomerView === "Nej") score += 1;
+          if (data.unifiedCustomerView === "Nej, informationen är spridd") score += 1;
           if (data.aiDataMaturity === "Låg – data är spridd och ostrukturerad") score += 1;
           if (score <= 2) return "Låg";
           if (score <= 5) return "Medel";
