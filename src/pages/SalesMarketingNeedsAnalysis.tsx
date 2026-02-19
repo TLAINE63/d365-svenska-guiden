@@ -449,7 +449,7 @@ const SalesMarketingNeedsAnalysis = () => {
   const stepTitles = [
     "Kommersiell modell",
     "Organisation & struktur",
-    "Datamognad & kundbild",
+    "Nuvarande arbetssätt & system",
     "Utmaningar",
     "Integrationer",
     "AI & framtid",
