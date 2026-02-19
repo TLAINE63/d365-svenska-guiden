@@ -1410,9 +1410,13 @@ const SalesMarketingNeedsAnalysis = () => {
 
             {/* Personalisering */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Är personalisering affärskritiskt?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Nej", "Önskvärt", "Ja"].map((opt) => (
+              <Label className="text-base font-semibold mb-3 block">Påverkar träffsäker kommunikation er försäljning och konvertering i hög grad?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "I begränsad utsträckning",
+                  "I viss utsträckning",
+                  "I hög grad"
+                ].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
@@ -1583,8 +1587,8 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.multipleDataSources === "Ja") insightsScore += 2;
         if (data.unifiedCustomerView === "Nej, informationen är spridd") insightsScore += 2;
         if (data.unifiedCustomerView === "Delvis, men inte komplett") insightsScore += 1;
-        if (data.personalizationCritical === "Ja") insightsScore += 3;
-        if (data.personalizationCritical === "Önskvärt") insightsScore += 1;
+        if (data.personalizationCritical === "I hög grad") insightsScore += 3;
+        if (data.personalizationCritical === "I viss utsträckning") insightsScore += 1;
         // Steg 5 – integrationer
         if ((data.integrationTypes || []).includes("Marketing automation")) insightsScore += 2;
         if ((data.integrationTypes || []).includes("E-handel")) insightsScore += 1;
@@ -1618,7 +1622,7 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.commercialModel === "b2b_relational" || data.commercialModel === "b2b_complex") keyFactors.push("Relationsbaserad / komplex B2B-försäljning");
         if (data.commercialModel === "partner_channel") keyFactors.push("Partner- och kanaldriven försäljning");
         if (data.commercialModel === "digital_market" || data.commercialModel === "b2c_volume") keyFactors.push("Digital / volymbaserad kundaffär");
-        if (data.personalizationCritical === "Ja") keyFactors.push("Personalisering är affärskritiskt");
+        if (data.personalizationCritical === "I hög grad") keyFactors.push("Personalisering är affärskritiskt");
         if (data.multipleDataSources === "Ja") keyFactors.push("Data från flera källor");
         if (data.b2bForecastNeeds === "Ja, kritiskt") keyFactors.push("Kritiskt behov av säljprognos");
         if (data.aiAmbition === "AI-driven segmentering & personalisering") keyFactors.push("AI-driven segmentering");
