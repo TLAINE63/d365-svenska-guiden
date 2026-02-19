@@ -39,6 +39,10 @@ interface SalesMarketingAnalysisData {
   b2bStructuredPipeline: string;
   b2bMultipleDecisionMakers: string;
   b2bForecastNeeds: string;
+  b2cSegmentation: string;
+  b2cCampaignAutomation: string;
+  b2cPersonalization: string;
+  b2cUnifiedView: string;
   employees: string;
   industry: string;
   industryOther: string;
@@ -75,6 +79,10 @@ const initialData: SalesMarketingAnalysisData = {
   b2bStructuredPipeline: "",
   b2bMultipleDecisionMakers: "",
   b2bForecastNeeds: "",
+  b2cSegmentation: "",
+  b2cCampaignAutomation: "",
+  b2cPersonalization: "",
+  b2cUnifiedView: "",
   employees: "",
   industry: "",
   industryOther: "",
@@ -674,6 +682,15 @@ const SalesMarketingNeedsAnalysis = () => {
       ].filter(Boolean) as string[];
       addBulletSection("B2B-detaljer", b2bDetails);
     }
+    if (data.commercialModel === "b2c_volume" && (data.b2cSegmentation || data.b2cCampaignAutomation || data.b2cPersonalization || data.b2cUnifiedView)) {
+      const b2cDetails = [
+        data.b2cSegmentation && `Segmentering: ${data.b2cSegmentation}`,
+        data.b2cCampaignAutomation && `Kampanjautomation: ${data.b2cCampaignAutomation}`,
+        data.b2cPersonalization && `Personalisering: ${data.b2cPersonalization}`,
+        data.b2cUnifiedView && `Enhetlig kundvy: ${data.b2cUnifiedView}`,
+      ].filter(Boolean) as string[];
+      addBulletSection("B2C-detaljer", b2cDetails);
+    }
     addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Säljteam: ${data.salesTeamSize}`);
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     const systemsText = filledSystems.length > 0 
@@ -764,6 +781,12 @@ const SalesMarketingNeedsAnalysis = () => {
               "B2B – Strukturerad pipeline": data.b2bStructuredPipeline || "Ej angivet",
               "B2B – Beslutsprocessens komplexitet": data.b2bMultipleDecisionMakers || "Ej angivet",
               "B2B – Forecast-behov": data.b2bForecastNeeds || "Ej angivet",
+            } : {}),
+            ...(data.commercialModel === "b2c_volume" ? {
+              "B2C – Segmentering": data.b2cSegmentation || "Ej angivet",
+              "B2C – Kampanjautomation": data.b2cCampaignAutomation || "Ej angivet",
+              "B2C – Personalisering": data.b2cPersonalization || "Ej angivet",
+              "B2C – Enhetlig kundvy": data.b2cUnifiedView || "Ej angivet",
             } : {}),
             "Anställda": data.employees,
             "Bransch": data.industry || data.industryOther || "Ej angivet",
@@ -911,6 +934,60 @@ const SalesMarketingNeedsAnalysis = () => {
                 </div>
               </div>
             )}
+
+            {/* Conditional follow-up questions for Volymbaserad B2C */}
+            {data.commercialModel === "b2c_volume" && (
+              <div className="mt-6 space-y-6 border-l-4 border-primary/40 pl-5 animate-in slide-in-from-top-2 duration-300">
+                <p className="text-sm font-medium text-primary">Berätta lite mer om er B2C-affär:</p>
+
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kundsegmentering idag?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, avancerad segmentering", "Ja, basic segmentering", "Nej, saknas idag"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2cSegmentation === opt} onClick={() => setData({ ...data, b2cSegmentation: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Arbetar ni med kampanjautomation?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, i flera kanaler", "Delvis / enklare flöden", "Nej, manuella kampanjer"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2cCampaignAutomation === opt} onClick={() => setData({ ...data, b2cCampaignAutomation: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Skickar ni personaliserade utskick idag?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, dynamiskt innehåll", "Ibland, enkel personalisering", "Nej, samma budskap till alla"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2cPersonalization === opt} onClick={() => setData({ ...data, b2cPersonalization: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-semibold mb-3 block">Har ni en enhetlig kundvy idag?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                    {["Ja, samlad i ett system", "Delvis, data är utspridd", "Nej, fragmenterad kunddata"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.b2cUnifiedView === opt} onClick={() => setData({ ...data, b2cUnifiedView: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 bg-primary/5 border border-primary/20 rounded-xl p-4">
+                  <span className="text-xl mt-0.5">👉</span>
+                  <div>
+                    <p className="text-sm font-semibold text-primary">Lutning mot Dynamics 365 Customer Insights</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Baserat på er profil passar Dynamics 365 Customer Insights bra – med enhetlig kunddata, AI-driven segmentering, personaliserade kundresor och realtidsaktivering i alla kanaler.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
           </div>
         );
 
