@@ -96,6 +96,14 @@ const partnerValidationSchema = z.object({
 
 type PartnerFormErrors = Partial<Record<keyof z.infer<typeof partnerValidationSchema>, string>>;
 
+interface IndustryApp {
+  name: string;
+  url: string;
+  application: string;
+  industry: string;
+  description: string;
+}
+
 // ==================== TYPES ====================
 
 interface PartnerClickStats {
@@ -210,6 +218,9 @@ const AdminDashboard = () => {
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Industry apps state
+  const [industryApps, setIndustryApps] = useState<IndustryApp[]>([]);
 
   // Empty product filter template
   const emptyProductFilter: ProductFilterInput = {
@@ -577,6 +588,7 @@ const AdminDashboard = () => {
     });
     setEditingPartner(null);
     setFormErrors({});
+    setIndustryApps([]);
   };
 
   const openCreatePartnerDialog = () => {
@@ -609,6 +621,9 @@ const AdminDashboard = () => {
       admin_contact_name: (partner as any).admin_contact_name || "",
       admin_contact_email: (partner as any).admin_contact_email || "",
     });
+    setIndustryApps(
+      Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
+    );
     setIsPartnerDialogOpen(true);
   };
 
@@ -699,9 +714,10 @@ const AdminDashboard = () => {
     try {
       const dataToSend = {
         ...partnerFormData,
-        applications: [...new Set(applications)], // Deduplicate
+        applications: [...new Set(applications)],
         slug: partnerFormData.slug || generateSlug(partnerFormData.name),
-      };
+        industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
+      } as any;
 
       if (editingPartner) {
         await updatePartner.mutateAsync({
@@ -2353,6 +2369,130 @@ const AdminDashboard = () => {
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Industry Apps Section */}
+              <Card className="mt-6">
+                <CardHeader className="pb-4 bg-primary/10 rounded-t-lg">
+                  <CardTitle className="text-xl font-bold flex items-center gap-3">
+                    <Link className="h-6 w-6 text-primary" />
+                    Branschapplikationer (Microsoft AppSource)
+                  </CardTitle>
+                  <CardDescription>
+                    Certifierade branschspecifika tillägg från Microsoft AppSource/Marketplace.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 pt-4">
+                  {industryApps.map((app, index) => (
+                    <div key={index} className="relative p-4 rounded-lg border border-border bg-muted/30 space-y-3">
+                      <button
+                        type="button"
+                        onClick={() => setIndustryApps(prev => prev.filter((_, i) => i !== index))}
+                        className="absolute top-2 right-2 p-1 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1">
+                          <Label className="text-xs">Appnamn *</Label>
+                          <Input
+                            placeholder="T.ex. Continia Document Capture"
+                            value={app.name}
+                            onChange={(e) => {
+                              const updated = [...industryApps];
+                              updated[index] = { ...updated[index], name: e.target.value };
+                              setIndustryApps(updated);
+                            }}
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <Label className="text-xs">AppSource-länk *</Label>
+                          <Input
+                            type="url"
+                            placeholder="https://appsource.microsoft.com/..."
+                            value={app.url}
+                            onChange={(e) => {
+                              const updated = [...industryApps];
+                              updated[index] = { ...updated[index], url: e.target.value };
+                              setIndustryApps(updated);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1">
+                          <Label className="text-xs">Dynamics 365-applikation</Label>
+                          <select
+                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                            value={app.application}
+                            onChange={(e) => {
+                              const updated = [...industryApps];
+                              updated[index] = { ...updated[index], application: e.target.value };
+                              setIndustryApps(updated);
+                            }}
+                          >
+                            <option value="">Välj applikation...</option>
+                            <option value="Business Central">Business Central</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Supply Chain Management">Supply Chain Management</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Customer Insights (Marketing)">Customer Insights (Marketing)</option>
+                            <option value="Customer Service">Customer Service</option>
+                            <option value="Field Service">Field Service</option>
+                          </select>
+                        </div>
+                        <div className="space-y-1">
+                          <Label className="text-xs">Branschinriktning</Label>
+                          <select
+                            className="w-full h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                            value={app.industry}
+                            onChange={(e) => {
+                              const updated = [...industryApps];
+                              updated[index] = { ...updated[index], industry: e.target.value };
+                              setIndustryApps(updated);
+                            }}
+                          >
+                            <option value="">Välj bransch...</option>
+                            {allIndustries.map(ind => (
+                              <option key={ind} value={ind}>{ind}</option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-1">
+                        <Label className="text-xs">Kort beskrivning</Label>
+                        <Input
+                          placeholder="Vad tillför appen? T.ex. 'Automatiserar fakturamottagning och matchning'"
+                          value={app.description}
+                          onChange={(e) => {
+                            const updated = [...industryApps];
+                            updated[index] = { ...updated[index], description: e.target.value };
+                            setIndustryApps(updated);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setIndustryApps(prev => [...prev, { name: '', url: '', application: '', industry: '', description: '' }])}
+                    className="w-full"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Lägg till branschapplikation
+                  </Button>
+                  
+                  {industryApps.length === 0 && (
+                    <p className="text-sm text-muted-foreground text-center py-2">
+                      Inga branschappar tillagda ännu.
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
 
               <Separator />
 
