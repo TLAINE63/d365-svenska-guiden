@@ -152,6 +152,8 @@ const businessModelOptions = [
       "Flera lager internationellt",
       "Avancerad logistik med integrationer",
     ],
+    multiSelect: true,
+    exclusiveGroup: ["Enkel (1–2 lager, lokal verksamhet)", "Flera lager inom Norden", "Flera lager internationellt"],
   },
   {
     value: "Konsult",
@@ -1938,11 +1940,18 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     const isSelected = isMulti
                       ? data.businessModelSubs.includes(sub)
                       : data.businessModelSub === sub;
+                    const exclusiveGroup = selectedModel.exclusiveGroup;
                     const handleClick = () => {
                       if (isMulti) {
-                        const subs = data.businessModelSubs.includes(sub)
-                          ? data.businessModelSubs.filter(s => s !== sub)
-                          : [...data.businessModelSubs, sub];
+                        let subs: string[];
+                        if (data.businessModelSubs.includes(sub)) {
+                          subs = data.businessModelSubs.filter(s => s !== sub);
+                        } else if (exclusiveGroup && exclusiveGroup.includes(sub)) {
+                          // Clicking an exclusive item: remove other exclusive items, keep non-exclusive
+                          subs = [...data.businessModelSubs.filter(s => !exclusiveGroup.includes(s)), sub];
+                        } else {
+                          subs = [...data.businessModelSubs, sub];
+                        }
                         setData({ ...data, businessModelSubs: subs });
                       } else {
                         setData({ ...data, businessModelSub: sub });
@@ -1955,7 +1964,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         description={subDescriptions[sub]}
                         selected={isSelected}
                         onClick={handleClick}
-                        type={isMulti ? "checkbox" : "radio"}
+                        type={isMulti ? (exclusiveGroup && exclusiveGroup.includes(sub) ? "radio" : "checkbox") : "radio"}
                       />
                     );
                   })}
