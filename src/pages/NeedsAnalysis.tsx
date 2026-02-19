@@ -1190,10 +1190,107 @@ const NeedsAnalysis = () => {
       }
     });
 
+    // ---- Countries ----
+    const countries = data.complexity.countries;
+    if (countries === "6+") {
+      fscScore += 15;
+      fscReasons.push("Verksamhet i 6+ länder kräver F&SC:s globala kapacitet");
+    } else if (countries === "2-5") {
+      fscScore += 5;
+    } else if (countries === "1") {
+      bcScore += 5;
+    }
+
+    // ---- Intercompany ----
+    const intercompany = data.complexity.intercompany;
+    if (intercompany === "omfattande") {
+      fscScore += 15;
+      fscReasons.push("Omfattande internhandel kräver F&SC:s intercompany-modul");
+    } else if (intercompany === "viss") {
+      fscScore += 5;
+    } else if (intercompany === "ingen") {
+      bcScore += 5;
+    }
+
+    // ---- Transaction volume ----
+    const txVol = data.complexity.transactionVolume;
+    if (txVol === "hog") {
+      fscScore += 15;
+      fscReasons.push("Hög transaktionsvolym (>10 000 order/mån) kräver F&SC:s skalbarhet");
+    } else if (txVol === "medel") {
+      fscScore += 5;
+    } else if (txVol === "lag") {
+      bcScore += 10;
+      bcReasons.push("Låg transaktionsvolym hanteras effektivt i Business Central");
+    }
+
+    // ---- IT organization / maturity ----
+    const itOrg = data.complexity.itOrganization;
+    if (itOrg === "stor") {
+      fscScore += 10;
+      fscReasons.push("Stor IT-organisation kan dra nytta av F&SC:s konfigurerbarhets­djup");
+    } else if (itOrg === "ingen") {
+      bcScore += 10;
+      bcReasons.push("Minimal IT-resurs gynnas av Business Centrals lägre komplexitet");
+    }
+
+    // ---- Governance ----
+    const gov = data.complexity.governance;
+    if (gov === "formell") {
+      fscScore += 10;
+      fscReasons.push("Formell styrmodell matchar F&SC:s strukturerade processhantering");
+    } else if (gov === "informell") {
+      bcScore += 5;
+    }
+
+    // ---- POS integration (Retail) ----
+    if (bm === "Retail" && data.complexity.posIntegration === "ja") {
+      fscScore += 10;
+      fscReasons.push("POS-integration kräver ofta F&SC:s Commerce-modul");
+    }
+
+    // ---- Decision timeline ----
+    if (data.decisionTimeline === "Under kommande halvår") {
+      bcScore += 5;
+      bcReasons.push("Kort beslutshorisont gynnar Business Centrals snabbare implementation");
+    }
+
+    // ---- KPI analysis ----
+    const kpis = data.kpis || [];
+    const fscKpis = ["OEE (Overall Equipment Effectiveness)", "Genomloppstid i produktion", "Leveransprecision", "Perfect order rate", "Supply chain-kostnad per enhet", "Forecast accuracy"];
+    const bcKpis = ["Kassaflöde", "Bruttomarginal"];
+    fscKpis.forEach(kpi => {
+      if (kpis.includes(kpi)) {
+        fscScore += 3;
+      }
+    });
+    bcKpis.forEach(kpi => {
+      if (kpis.includes(kpi)) {
+        bcScore += 3;
+      }
+    });
+
     // ---- Challenge analysis ----
     if (data.challenges.includes("Höga underhållskostnader")) {
       bcScore += 10;
       bcReasons.push("Business Central har generellt lägre TCO");
+    }
+    if (data.challenges.includes("Bristande översikt och rapportering") || data.challenges.includes("Bristande rapportering och beslutstöd (svårt att få prognoser, scenarioanalys, KPI:er man kan lita på)")) {
+      fscScore += 5;
+      fscReasons.push("F&SC erbjuder avancerad realtidsrapportering och beslutstöd");
+    }
+    if (data.challenges.includes("Stark tillväxt eller internationalisering") || data.challenges.includes("Affären har ändrats – ERP:et hänger inte med (nya affärsmodeller, ökad internationell komplexitet)")) {
+      fscScore += 5;
+    }
+    if (data.challenges.includes("Manuella och tidskrävande processer") || data.challenges.includes("Ekonomi och styrning funkar – men kräver för mycket manuellt jobb (bokslut tar för lång tid, många excel-kranar, bristande spårbarhet/audit trail, otydlig kostnadsfördelning)")) {
+      bcScore += 5;
+      bcReasons.push("Business Central automatiserar vanliga manuella processer effektivt");
+    }
+    if (data.challenges.includes("Fragmenterade system och dubbelregistrering (data i silos, sköra/dyra integrationer)")) {
+      fscScore += 5;
+    }
+    if (data.challenges.includes("Förvärv/sammanslagning") || data.challenges.includes("Större omorganisation/koncernstruktur")) {
+      fscScore += 5;
     }
 
     // ---- MRP/APS ----
