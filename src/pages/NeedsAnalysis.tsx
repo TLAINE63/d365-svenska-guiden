@@ -690,9 +690,9 @@ const complexityMaturityOptions = {
     { value: "manga", label: "Många affärskritiska integrationer" },
   ],
   governance: [
-    { value: "informell", label: "Informell / ad hoc" },
-    { value: "viss", label: "Viss struktur och processer" },
-    { value: "formell", label: "Formell styrmodell med tydliga roller" },
+    { value: "informell", label: "Vi arbetar flexibelt och beslutar löpande vid behov" },
+    { value: "viss", label: "Vi har definierade processer men anpassar oss vid behov" },
+    { value: "formell", label: "Vi har tydliga roller, beslutsforum och fastställda arbetssätt" },
   ],
   globalStandardization: [
     { value: "nej", label: "Varje enhet arbetar relativt självständigt" },
@@ -2299,7 +2299,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   {renderComplexityRadio("integrationPlatform", complexityMaturityOptions.integrationPlatform)}
                 </div>
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Governance & styrmodell</Label>
+                  <Label className="text-sm font-medium mb-2 block">Hur strukturerat arbetar ni med system- och processbeslut?</Label>
                   {renderComplexityRadio("governance", complexityMaturityOptions.governance)}
                 </div>
                 <div>
