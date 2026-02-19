@@ -150,7 +150,7 @@ const businessModelOptions = [
       "Enkel (1–2 lager, lokal verksamhet)",
       "Flera lager inom Norden",
       "Flera lager internationellt",
-      "Avancerad logistik med integrationer",
+      "Avancerad logistik med integrationer/3PL",
     ],
     multiSelect: true,
     exclusiveGroup: ["Enkel (1–2 lager, lokal verksamhet)", "Flera lager inom Norden", "Flera lager internationellt"],
@@ -1108,7 +1108,7 @@ const NeedsAnalysis = () => {
       if (wc === "flera-lander") {
         fscScore += 5;
       }
-      if (bmSub === "Flera lager internationellt" || bmSub === "Avancerad logistik med integrationer") {
+      if (bmSub === "Flera lager internationellt" || bmSub === "Avancerad logistik med integrationer/3PL") {
         fscScore += 10;
         fscReasons.push("Komplex lager- och leveransstruktur gynnas av F&SC:s avancerade logistikmoduler");
       }
