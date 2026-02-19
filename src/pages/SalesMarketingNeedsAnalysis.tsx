@@ -1974,7 +1974,7 @@ const SalesMarketingNeedsAnalysis = () => {
               Behovsanalys Sälj & Marknad
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Svara på frågorna för att få en personlig rekommendation om Dynamics 365 Sales och Marketing.
+              Svara på frågorna för att få en personlig rekommendation om Dynamics 365 Sales, Marketing och Customer Insights.
             </p>
           </div>
 
