@@ -63,6 +63,8 @@ interface CustomerServiceAnalysisData {
   integratedWithSalesErp: string;
   // Step 5: Systemintegrationsberoenden
   systemDependencies: string[];
+  // Step 6: AI & Automation
+  aiAutomation: string[];
   employees: string;
   industry: string;
   industryOther: string;
@@ -113,6 +115,7 @@ const initialData: CustomerServiceAnalysisData = {
   realtimeReporting: "",
   integratedWithSalesErp: "",
   systemDependencies: [],
+  aiAutomation: [],
   ticketsPerMonthComplex: "",
   multiCountry: "",
   multiLanguage: "",
@@ -369,16 +372,17 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 12;
+  const totalSteps = 13;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Building2, Target, Target, Target, Target, Sparkles, FileText];
+  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Building2, Target, Target, Target, Target, Sparkles, FileText];
   const stepTitles = [
     "Service-modell",
     "Er situation",
     "Servicekomplexitet",
     "Organisation & styrning",
     "Systemintegration",
+    "AI & Automation",
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
@@ -591,6 +595,26 @@ const CustomerServiceNeedsAnalysis = () => {
     if (data.systemDependencies.length >= 4) {
       recommendations.customerService.score += 8;
       recommendations.customerService.reasons.push("Många systemintegrationsberoenden – krävs en partner med bred erfarenhet");
+    }
+
+    // Step 6: AI & Automation
+    if (data.aiAutomation.includes("auto_routing")) {
+      recommendations.customerService.score += 8;
+      recommendations.contactCenter.score += 10;
+      recommendations.customerService.reasons.push("Automatisk ärenderouting – inbyggd i Customer Service och Contact Center");
+    }
+    if (data.aiAutomation.includes("ai_responses")) {
+      recommendations.customerService.score += 10;
+      recommendations.customerService.reasons.push("AI-assisterade svar – Copilot i Customer Service föreslår svar i realtid");
+    }
+    if (data.aiAutomation.includes("predictive_maintenance")) {
+      recommendations.fieldService.score += 12;
+      recommendations.fieldService.reasons.push("Prediktivt underhåll – Field Service med IoT och Copilot stödjer detta nativt");
+    }
+    if (data.aiAutomation.includes("chatbot_selfservice")) {
+      recommendations.customerService.score += 8;
+      recommendations.contactCenter.score += 8;
+      recommendations.customerService.reasons.push("Chattbot/self-service – Copilot Studio möjliggör avancerade AI-botar");
     }
 
     if (data.serviceChannels.length >= 3) {
@@ -1340,7 +1364,88 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 6:
+      case 6: {
+        const aiAutomationOptions = [
+          {
+            id: "auto_routing",
+            label: "Automatisk ärenderouting",
+            description: "Ärenden dirigeras automatiskt till rätt agent/kö baserat på typ, kanal eller kundprofil",
+            icon: "🔀",
+          },
+          {
+            id: "ai_responses",
+            label: "AI-assisterade svar",
+            description: "Agenter får förslag på svar baserade på ärendehistorik och kunskapsdatabas",
+            icon: "🤖",
+          },
+          {
+            id: "predictive_maintenance",
+            label: "Prediktivt underhåll",
+            description: "Systemet förutser servicebehov baserat på sensordata eller användningsmönster",
+            icon: "🔮",
+          },
+          {
+            id: "chatbot_selfservice",
+            label: "Chattbot / Self-service",
+            description: "Kunder löser ärenden själva via bot eller portal innan de når en agent",
+            icon: "💬",
+          },
+        ];
+        return (
+          <div className="space-y-6">
+            <div className="bg-muted/50 border border-border rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Varför frågar vi detta?</span> AI- och automationskrav påverkar vilken lösning och vilken partner som passar er – exempelvis kräver prediktivt underhåll IoT-kompetens och Contact Center-bots kräver specifik plattformserfarenhet.
+              </p>
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-1 block">Vilka AI- och automationfunktioner är intressanta för er?</Label>
+              <p className="text-sm text-muted-foreground mb-4">Markera alla som är relevanta. Det är okej att inte veta ännu – välj det som låter intressant.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {aiAutomationOptions.map((opt) => {
+                  const isSelected = data.aiAutomation.includes(opt.id);
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => handleCheckboxChange("aiAutomation", opt.id)}
+                      className={`relative flex items-start gap-3 p-4 rounded-lg border-2 text-left transition-all duration-200 group ${
+                        isSelected
+                          ? "border-primary bg-primary/[0.07] shadow-sm"
+                          : "border-border/70 bg-background hover:border-primary/40 hover:bg-muted/40"
+                      }`}
+                    >
+                      <span className="text-2xl flex-shrink-0 mt-0.5">{opt.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-semibold text-sm ${isSelected ? "text-primary" : "text-foreground"}`}>{opt.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{opt.description}</p>
+                      </div>
+                      <div className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-all mt-0.5 ${
+                        isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                      }`}>
+                        {isSelected && (
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+              {data.aiAutomation.length > 0 && (
+                <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                  <p className="text-sm text-primary font-medium">
+                    ✓ {data.aiAutomation.length} område{data.aiAutomation.length > 1 ? "n" : ""} valda – vi matchar er med partners som har AI-kompetens inom dessa områden
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      case 7:
         return (
           <div className="space-y-6">
             <div>
@@ -1453,7 +1558,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 9:
         return (
           <div className="space-y-6">
             <div>
@@ -1521,7 +1626,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 9:
+      case 10:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka ytterligare system behöver ni integrera med?</p>
@@ -1562,7 +1667,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 10:
+      case 11:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
@@ -1597,7 +1702,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 11: {
+      case 12: {
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1669,7 +1774,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 12:
+      case 13:
         return (
           <div className="space-y-6">
             <div>
