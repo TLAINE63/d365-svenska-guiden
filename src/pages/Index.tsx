@@ -89,9 +89,12 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>• <strong>Vad Dynamics 365 är:</strong> En svit av affärssystem (ERP)- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice</p>
-                    <p>• <strong>Hur applikationerna hänger ihop:</strong> Alla appar delar samma dataplattform och kan integreras sömlöst</p>
-                    <p>• <strong>Flexibilitet:</strong> Du kan börja med en enda applikation och växa över tid, eller implementera en komplett helhetslösning från start</p>
+                    <p>Microsoft Dynamics 365 är Microsofts plattform för affärssystem (ERP) och kundrelationshantering (CRM). Det är inte ett enda system, utan en familj av specialiserade affärsapplikationer som alla delar samma dataplattform och kan integreras sömlöst med varandra.</p>
+                    <p>• <strong>ERP-sidan</strong> täcker ekonomi, inköp, lager, produktion, projekt och supply chain – med apparna <em>Business Central</em> (för SMB) och <em>Finance & Supply Chain Management</em> (för större koncerner).</p>
+                    <p>• <strong>CRM-sidan</strong> täcker försäljning, marknadsföring, kundservice och fältservice – med apparna <em>Sales</em>, <em>Customer Insights</em>, <em>Customer Service</em>, <em>Field Service</em> och <em>Contact Center</em>.</p>
+                    <p>• <strong>AI är inbyggt</strong> i samtliga appar via Microsoft Copilot och autonoma Agenter – inte ett tillägg utan en naturlig del av arbetsflödena.</p>
+                    <p>• <strong>Flexibilitet:</strong> Du kan börja med en enda app och bygga ut steg för steg. ERP och CRM kan också köras separat om du redan har ett befintligt system på ena sidan.</p>
+                    <p className="pt-1 text-sm italic">Dynamics 365 körs alltid i molnet (Microsoft Azure) och faktureras per användare och månad – inga servrar eller egna installationer krävs.</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -106,10 +109,15 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Eftersom Dynamics 365 innehåller flera appar (t.ex. Business Central, F&SCM, Sales, Customer Service, Project Operations), undrar många:</p>
-                    <p>• <strong>Vilken modul passar vår bransch och storlek?</strong> Mindre företag börjar ofta med Business Central, medan större koncerner väljer F&SCM</p>
-                    <p>• <strong>Vad är skillnaden mellan Business Central och F&SCM?</strong> Business Central är ett allt-i-ett system för SMB, medan F&SCM är för komplexa globala verksamheter</p>
-                    <p>• <strong>Kan vi kombinera flera appar?</strong> Ja, du kan kombinera exempelvis Business Central med Sales och Customer Service för en komplett lösning</p>
+                    <p>Det beror på om du primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda. Här är de vanligaste scenarierna:</p>
+                    <p>• <strong>Business Central</strong> passar dig om du är ett litet eller medelstort företag (10–500 anställda) och behöver ett modernt allt-i-ett affärssystem för ekonomi, lager, inköp och projekt. Vanligt i branscher som tillverkning, distribution, bygg och konsulttjänster.</p>
+                    <p>• <strong>Finance & Supply Chain Management</strong> passar dig om du är en större koncern med komplexa globala flöden, flera juridiska enheter eller avancerade produktionskrav. Kräver mer av implementering och intern resurser.</p>
+                    <p>• <strong>Dynamics 365 Sales</strong> passar dig om du vill digitalisera och effektivisera din säljprocess – pipeline-hantering, offerthantering och kundrelationer.</p>
+                    <p>• <strong>Customer Service & Field Service</strong> passar dig om du hanterar ärenden, garantier, serviceavtal eller fälttekniker som behöver digital planering och support.</p>
+                    <p>• <strong>Customer Insights</strong> passar dig om du vill arbeta datadrivet med marknadsföring, kampanjer och personalisering mot kunder.</p>
+                    <p className="pt-1">
+                      <Link to="/behovsanalys" className="text-primary hover:underline font-semibold">→ Gör vår kostnadsfria ERP-behovsanalys</Link> eller <Link to="/salj-marknad-behovsanalys" className="text-primary hover:underline font-semibold">CRM-behovsanalys</Link> för en personlig rekommendation.
+                    </p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -124,13 +132,16 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p className="italic mb-3">En av de mest sökta frågorna:</p>
-                    <p>• <strong>Licenspriser per användare:</strong> Varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare (det finns även en så kallad "Tenant-prissättning", dvs per installation, som in första hand gäller Dynamics 365 Customer Insights/Marketing Automation). Titta gärna under respektive huvudrubrik för en mer detaljerad genomgång av licensavgifter.</p>
-                    <p>• <strong>Vad tillkommer:</strong> Implementation, anpassningar, integration, utbildning och löpande support</p>
-                    <p>• <strong>Projektbudget:</strong> Här beror det väldigt mycket på vilken applikation, hur stor verksamheten är och ambitionsnivå. Räkna med en total projektkostnad som startar från 50 000 kr (BC startpaket) till ett 10-tal miljoner (Finance & Supply Chain för internationella Enterprisebolag)</p>
+                    <p>Kostnaden för Dynamics 365 består av två delar: <strong>löpande licensavgifter</strong> och en engångs <strong>implementeringskostnad</strong>.</p>
+                    <p>• <strong>Business Central:</strong> Från ca 550 kr/mån (Essentials) till ca 780 kr/mån (Premium) per fullständig användare. Teammedlemmar med begränsad åtkomst kostar från ca 70 kr/mån.</p>
+                    <p>• <strong>Finance & Supply Chain:</strong> Från ca 3 500 kr/mån per aktiv användare, med aktivitetsbaserade licenser från ca 90 kr/mån för mer begränsad åtkomst.</p>
+                    <p>• <strong>Sales & Customer Service:</strong> Från ca 800–1 100 kr/mån per användare beroende på applikation och licensnivå.</p>
+                    <p>• <strong>Customer Insights (Marketing):</strong> Prissätts per antal kontakter/sessions (tenant-prissättning), inte per användare – startar från ca 15 000 kr/mån.</p>
+                    <p>• <strong>Projektkostnad:</strong> Implementeringen är ofta den stora posten. Räkna med allt från 50 000–150 000 kr för ett BC-startpaket till flera miljoner för ett enterprise Finance & SCM-projekt.</p>
+                    <p>• <strong>Vad påverkar priset:</strong> Antal användare, grad av anpassning, integrationer mot befintliga system, utbildningsbehov och löpande support.</p>
                     <ContactFormDialog>
-                      <Button variant="link" className="mt-4 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
-                        Kontakta oss så får du snabbt en tydligare uppfattning av såväl licensavgifter som projektkostnader
+                      <Button variant="link" className="mt-2 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
+                        Kontakta oss så får du snabbt en tydligare uppfattning av såväl licensavgifter som projektkostnader →
                       </Button>
                     </ContactFormDialog>
                   </div>
@@ -147,10 +158,14 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p className="italic mb-3">Under respektive huvudrubrik hittar du en mer detaljerad genomgång av projektkostnader för respektive affärsapplikation</p>
-                    <p>• <strong>Typisk implementationsresa:</strong> 3-6 månader för Business Central, 9-18 månader för F&SCM och för CRM är det väldigt beroende av omfattning i antal användare och vilken av CRM-applikationerna, men räkna med från 2 månader och mer</p>
-                    <p>• <strong>Vad krävs internt:</strong> Engagerad projektledare, dedikerade nyckelanvändare och tid för workshop och testning</p>
-                    <p>• <strong>Affärsnytta:</strong> Första fördelarna syns ofta redan efter 2-3 månader, full ROI uppnås vanligtvis inom 1-2 år</p>
+                    <p>Implementationstiden varierar kraftigt beroende på applikation, verksamhetens komplexitet och ambitionsnivå. Här är typiska tidshorisonter:</p>
+                    <p>• <strong>Business Central (startpaket):</strong> 2–4 månader. Passar dig som vill upp och rulla snabbt med standardkonfiguration och minimal anpassning.</p>
+                    <p>• <strong>Business Central (fullständig implementation):</strong> 4–9 månader, ibland längre vid komplexa produktions- eller projektmiljöer.</p>
+                    <p>• <strong>Finance & Supply Chain Management:</strong> 9–18 månader är vanligt, och för internationella utrullningar med flera länder räkna med 18–36 månader.</p>
+                    <p>• <strong>Dynamics 365 Sales / Customer Service:</strong> 2–6 månader beroende på antal användare, integrationer och grad av processanpassning.</p>
+                    <p>• <strong>Customer Insights (Marketing Automation):</strong> 2–4 månader för grundupplägg, men datakvalitetsarbete och segmenteringslogik tar ofta extra tid.</p>
+                    <p>• <strong>Vad krävs internt:</strong> En engagerad projektledare, dedikerade nyckelanvändare och tid för workshops, test och utbildning. Interna resurser är ofta den mest kritiska framgångsfaktorn.</p>
+                    <p>• <strong>Första affärsnyttan</strong> syns ofta redan efter 2–3 månader. Full ROI uppnås vanligtvis inom 1–2 år.</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -165,11 +180,13 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p className="italic mb-3">Integration är avgörande:</p>
-                    <p>• <strong>Microsoft 365-integration:</strong> Sömlös integration med Outlook, Teams och Excel – arbeta direkt i de verktyg du redan använder</p>
-                    <p>• <strong>Befintliga system:</strong> Enkelt att koppla samman med e-handel, lönesystem, BI-verktyg och andra affärssystem via API:er</p>
-                    <p>• <strong>Power Platform:</strong> Skapa egna appar, automatisera arbetsflöden och bygga dashboards utan att behöva programmera</p>
-                    <p>• <strong>AI & Agents:</strong> Inbyggd AI/Copilot i alla affärsapplikationer och där autonoma Agenter revolutionerar affärsprocesser</p>
+                    <p>Integration är en av de starkaste egenskaperna i Dynamics 365, och ett av de viktigaste argumenten för att välja Microsoft-stacken:</p>
+                    <p>• <strong>Microsoft 365 (Outlook, Teams, Excel):</strong> Sömlös tvåvägsynkronisering – du kan hantera kunderbjudanden, ärenden och order direkt från Outlook eller Teams utan att byta system. Exportera och analysera data i Excel med ett klick.</p>
+                    <p>• <strong>Power Platform (Power Apps, Power Automate, Power BI):</strong> Bygg egna arbetsflöden, mobilappar och rapporter utan att koda. Power BI kopplar direkt mot Dynamics 365-data för realtidsdashboards.</p>
+                    <p>• <strong>Befintliga affärssystem:</strong> Via standard-API:er (REST/OData) och Microsoft Dataverse kan du integrera mot e-handel, lönesystem, tullsystem, WMS, BI-verktyg och andra affärssystem. Färdiga kopplingarna finns via Marketplace för hundratals populära system.</p>
+                    <p>• <strong>Azure och säkerhet:</strong> All data lagras i Microsoft Azure med enterprise-grade säkerhet, GDPR-efterlevnad och möjlighet att välja dataregion (t.ex. EU).</p>
+                    <p>• <strong>AI & Copilot:</strong> Microsoft Copilot är inbyggt i alla Dynamics 365-appar och kan hjälpa med att sammanfatta ärenden, föreslå svar, skapa offerter eller förutsäga lagerbehov – beroende på vilken app du använder.</p>
+                    <p>• <strong>Autonoma Agenter:</strong> Den senaste AI-innovationen låter dig sätta upp agenter som självständigt hanterar processer som leadkvalificering, ärenderouting eller leveransavvikelser utan manuell handpåläggning.</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -184,14 +201,15 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p className="italic mb-3">Att välja rätt implementationspartner är avgörande för ett lyckat projekt. Här är några viktiga faktorer:</p>
-                    <p>• <strong>Branschkunskap:</strong> Välj en partner med erfarenhet från din bransch och som förstår dina specifika utmaningar</p>
-                    <p>• <strong>Kompetens:</strong> Se till att partnern har certifierade konsulter inom de Dynamics 365-applikationer du behöver</p>
-                    <p>• <strong>Storlek och kapacitet:</strong> En partner som matchar din företagsstorlek och kan växa med dina behov</p>
-                    <p>• <strong>Geografisk närvaro:</strong> Lokal närvaro kan vara viktig för löpande support och samarbete</p>
+                    <p>Att välja rätt implementationspartner är minst lika viktigt som att välja rätt system. En felaktig partner är den vanligaste orsaken till att ERP- och CRM-projekt misslyckas eller överstiger budget.</p>
+                    <p>• <strong>Branschkunskap:</strong> Välj en partner som har referenskunder i din specifika bransch – inte bara generell Dynamics 365-erfarenhet. En partner som förstår tillverkningens processer är fundamentalt annorlunda mot en partner med fokus på konsultbranschen.</p>
+                    <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern verkligen är specialiserad på den app du implementerar. Många partners är starka på ERP men svaga på CRM – och tvärtom. En partner som "kan allt" har ofta djupkompetens på bara en del.</p>
+                    <p>• <strong>Storlek och kapacitet:</strong> En partner vars konsultkapacitet matchar ditt projekts storlek och tidplan. Risken med en för liten partner är resursbrist; med en för stor partner att du hamnar hos juniora konsulter.</p>
+                    <p>• <strong>Geografisk närvaro:</strong> Lokal närvaro underlättar workshops, utbildning och löpande support – men de flesta partners levererar idag hybridprojekt med en mix av digitalt och på plats.</p>
+                    <p>• <strong>Kundexempel och referenser:</strong> Be alltid om 2–3 referenskunder i liknande bransch och storlek. Hur lång tid tog projektet? Vad gick bra? Vad var utmanande?</p>
                     <p className="pt-2">
                       <Link to="/valj-partner" className="text-primary hover:underline font-semibold">
-                        → Utforska vårt partnerkatalog för att hitta rätt match för ditt företag
+                        → Utforska partnerkatalogen och använd AI-guiden för att hitta rätt match
                       </Link>
                     </p>
                   </div>
