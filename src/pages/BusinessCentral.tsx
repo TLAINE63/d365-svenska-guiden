@@ -35,10 +35,12 @@ import {
 
 // Business Central FAQs for schema
 const bcFaqs = [
-  { question: "Vad kostar Business Central?", answer: "Team Member kostar 88,40 kr/mån, Essentials 884,10 kr/mån och Premium 1 215,60 kr/mån. Till detta kommer implementeringskostnader som varierar beroende på omfattning." },
-  { question: "Är Business Central rätt för mitt företag?", answer: "Business Central passar mindre och medelstora företag (10-300 användare) som behöver ett komplett affärssystem för ekonomi, lager, försäljning, inköp och produktion." },
-  { question: "Hur lång tid tar det att implementera Business Central?", answer: "En typisk implementation tar 3-6 månader. Mindre företag med standardprocesser kan vara igång på 2-3 månader, större projekt tar 6-12 månader." },
-  { question: "Hur fungerar Business Central med Microsoft 365?", answer: "Business Central integreras sömlöst med Outlook, Excel och Teams. Det är enkelt att koppla ihop med e-handel, CRM och branschspecifika tillägg." },
+  { question: "Vad kostar Microsoft Dynamics 365 Business Central?", answer: "Business Central har tre licensnivåer: Team Member kostar 88,40 kr/mån, Essentials kostar 884,10 kr/mån och Premium kostar 1 215,60 kr/mån per användare. Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning." },
+  { question: "Vilket företag passar Business Central bäst för?", answer: "Microsoft Dynamics 365 Business Central är designat för mindre och medelstora företag med 5–300 användare som behöver ett komplett molnbaserat affärssystem för ekonomi, lager, försäljning, inköp och produktion. Det är Microsofts mest populära ERP-system i Sverige." },
+  { question: "Hur lång tid tar det att implementera Dynamics 365 Business Central?", answer: "En typisk Business Central-implementation tar 3–6 månader. Mindre företag med standardprocesser kan vara igång på 2–3 månader med ett startpaket, medan mer komplexa projekt med anpassningar tar 6–12 månader." },
+  { question: "Hur fungerar Business Central med Microsoft 365 och Copilot?", answer: "Business Central integreras nativt med Outlook, Excel och Teams. Microsoft Copilot är inbyggd i Business Central och kan automatisera uppgifter, skriva e-post och analysera data. Det är också enkelt att koppla ihop med e-handel, Dynamics 365 Sales (CRM) och branschspecifika tillägg från Marketplace." },
+  { question: "Behöver man en partner för att implementera Business Central?", answer: "Ja, Microsoft Dynamics 365 Business Central implementeras alltid via certifierade Microsoft-partners. Valet av partner är avgörande för projektets framgång. På d365.se kan du filtrera och jämföra Business Central-partners baserat på bransch och geografi." },
+  { question: "Vad är skillnaden mellan Business Central Essentials och Premium?", answer: "Business Central Essentials inkluderar ekonomi, lager, försäljning och inköp. Premium-licensen lägger till tillverkning och servicehantering. De flesta företag börjar med Essentials och uppgraderar vid behov." },
 ];
 
 // Geography filter options
@@ -140,16 +142,16 @@ const BusinessCentral = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Business Central | Priser & Implementering"
-        description="Komplett guide till Microsoft Dynamics 365 Business Central. Licenspriser, implementeringstid och tips för att välja rätt partner."
+        title="Dynamics 365 Business Central – Priser, Licenser & Implementering | d365.se"
+        description="Komplett guide till Microsoft Dynamics 365 Business Central. Licenspriser från 884 kr/mån, implementeringstid 3–6 månader. Hitta certifierade Business Central-partners i Sverige."
         canonicalPath="/business-central"
-        keywords="Business Central, Dynamics 365, ERP, affärssystem, priser, implementering, SMB"
+        keywords="Dynamics 365 Business Central, Business Central pris, Business Central licens, Business Central implementering, Microsoft ERP system Sverige, affärssystem medelstora företag, Business Central partner Sverige, Business Central Essentials, Business Central Premium"
         ogImage="https://d365.se/og-business-central.png"
       />
       <FAQSchema faqs={bcFaqs} />
       <ServiceSchema 
-        name="Dynamics 365 Business Central"
-        description="Komplett affärssystem för mindre och medelstora företag med ekonomi, lager, försäljning och produktion."
+        name="Microsoft Dynamics 365 Business Central"
+        description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI."
       />
       <BreadcrumbSchema items={bcBreadcrumbs} />
       <Navbar />

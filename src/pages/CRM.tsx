@@ -32,10 +32,12 @@ import {
 
 // CRM FAQs for schema
 const crmFaqs = [
-  { question: "Vad är Dynamics 365 Customer Engagement?", answer: "Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer för försäljning, kundservice, marknadsföring, kontaktcenter och fältservice som hjälper företag hantera sina kundrelationer." },
-  { question: "Hur skiljer sig Dynamics 365 CE från andra CRM-system?", answer: "Dynamics 365 CE sticker ut genom djup Microsoft 365-integration, kraftfulla AI-funktioner via Copilot, flexibel anpassning och möjligheten att kombinera CRM med ERP." },
-  { question: "Vad kostar Dynamics 365 Customer Engagement?", answer: "Licenspriser börjar från ca 500 kr/användare/månad för Professional och upp till 1 500 kr/månad för Premium. Implementeringskostnader varierar från 100-250 tkr för en applikation." },
-  { question: "Hur snabbt kan vi komma igång med Dynamics 365 CE?", answer: "En standardimplementering av en enskild applikation kan vara klar på 2-3 månader. Större implementeringar med flera applikationer tar normalt 4-6 månader." },
+  { question: "Vad är Microsoft Dynamics 365 CRM?", answer: "Microsoft Dynamics 365 CRM (Customer Engagement) är en svit av molnbaserade affärsapplikationer för försäljning, kundservice, marknadsföring, kontaktcenter och fältservice. Det hjälper företag att hantera kundrelationer, automatisera säljprocesser och leverera bättre kundservice med inbyggd AI via Microsoft Copilot." },
+  { question: "Vad kostar Dynamics 365 Sales?", answer: "Dynamics 365 Sales Professional kostar ca 550 kr/användare/mån och Sales Enterprise ca 1 100 kr/användare/mån. Implementeringskostnader för en standardimplementering börjar från ca 100 000–250 000 kr beroende på anpassningsbehov." },
+  { question: "Hur skiljer sig Dynamics 365 från Salesforce och andra CRM-system?", answer: "Dynamics 365 sticker ut genom djup integration med Microsoft 365 (Outlook, Teams, Excel), kraftfull AI via Copilot, möjligheten att kombinera CRM med Microsoft ERP-system som Business Central och Finance, samt flexibel anpassning via Power Platform." },
+  { question: "Hur snabbt kan vi komma igång med Dynamics 365 CRM?", answer: "En standardimplementering av Dynamics 365 Sales eller Customer Service kan vara klar på 2–3 månader. Större implementeringar med flera applikationer och anpassningar tar normalt 4–6 månader." },
+  { question: "Vilka Dynamics 365 CRM-applikationer finns tillgängliga?", answer: "Microsoft erbjuder följande CRM-applikationer: Dynamics 365 Sales (sälj), Customer Insights/Marketing (marknadsföring och kunddata), Customer Service (kundtjänst), Field Service (fältservice), och Contact Center (kontaktcenter). Alla kan kombineras och delar samma dataplattform." },
+  { question: "Behöver man en Microsoft-partner för att implementera Dynamics 365 CRM?", answer: "Ja, Dynamics 365 implementeras via certifierade Microsoft-partners som har specialistkompetens inom CRM. En erfaren partner hjälper till med konfiguration, anpassning och utbildning. På d365.se kan du jämföra och filtrera certifierade Dynamics 365 CRM-partners i Sverige." },
 ];
 
 // Geography filter options
@@ -108,16 +110,16 @@ const CRM = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 CRM | Sales, Marketing & Service"
-        description="Guide till Microsoft Dynamics 365 Customer Engagement - Sales, Customer Insights, Customer Service och Field Service. Priser och implementering."
+        title="Dynamics 365 CRM – Sales, Marketing & Customer Service | d365.se"
+        description="Guide till Microsoft Dynamics 365 CRM i Sverige. Jämför Sales, Customer Insights, Customer Service, Field Service och Contact Center. Priser, licensguide och hjälp att välja certifierad Microsoft-partner."
         canonicalPath="/crm"
-        keywords="CRM, Dynamics 365, Sales, Customer Service, Marketing, Customer Insights, kundhantering"
+        keywords="Dynamics 365 CRM, Microsoft CRM system, Dynamics 365 Sales pris, Dynamics 365 Customer Service, CRM system Sverige, Microsoft CRM partner, Dynamics 365 vs Salesforce, Customer Insights Marketing, CRM implementering Sverige"
         ogImage="https://d365.se/og-crm.png"
       />
       <FAQSchema faqs={crmFaqs} />
       <ServiceSchema 
-        name="Dynamics 365 Customer Engagement"
-        description="Intelligenta affärsapplikationer för försäljning, kundservice, marknadsföring och fältservice."
+        name="Microsoft Dynamics 365 CRM – Sales, Marketing & Customer Service"
+        description="Molnbaserade CRM-applikationer för försäljning, marknadsföring, kundservice och fältservice med inbyggd AI via Microsoft Copilot."
       />
       <BreadcrumbSchema items={crmBreadcrumbs} />
       <Navbar />
