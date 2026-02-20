@@ -372,10 +372,10 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 9;
+  const totalSteps = 8;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Sparkles, CheckCircle2];
+  const stepIcons = [Building2, Headphones, Target, BarChart3, Building2, Wrench, Sparkles, CheckCircle2];
   const stepTitles = [
     "Företagsinformation",
     "Service-modell",
@@ -384,7 +384,6 @@ const CustomerServiceNeedsAnalysis = () => {
     "Organisation & styrning",
     "Systemintegration",
     "AI & Automation",
-    "AI & Framtid",
     "Er serviceprofil",
   ];
 
@@ -1535,44 +1534,8 @@ const CustomerServiceNeedsAnalysis = () => {
         );
 
 
-      case 8: {
-        const aiInterestOptions = [
-          { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
-          { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
-          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
-          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" },
-        ];
-        return (
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Hur intresserade är ni av AI i kundservice-systemet?</h3>
-              <div className="grid grid-cols-1 gap-3">
-                {aiInterestOptions.map((option) => (
-                  <SelectionCard
-                    key={option.value}
-                    label={option.label}
-                    selected={data.aiInterest === option.value}
-                    onClick={() => setData({ ...data, aiInterest: option.value })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="aiDetails">Beskriv hur AI skulle kunna hjälpa er verksamhet</Label>
-              <Textarea
-                id="aiDetails"
-                placeholder="Beskriv era tankar om AI..."
-                value={data.aiDetails}
-                onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
-                className="mt-2"
-              />
-            </div>
-          </div>
-        );
-      }
 
-      case 9: {
+      case 8: {
         const rec = getRecommendation();
 
         // 1️⃣ Er serviceprofil
