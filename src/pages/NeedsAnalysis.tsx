@@ -758,11 +758,11 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 11;
+  const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
+    BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles
   ];
 
   const stepTitles = [
@@ -776,7 +776,6 @@ const NeedsAnalysis = () => {
     "Integrationer",
     "Önskelista",
     "AI & Framtid",
-    "Övrig Information",
   ];
 
   const handleNext = () => {
@@ -2733,19 +2732,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
         );
       }
-
-      case 11:
-        return (
-          <div className="space-y-6">
-            <p className="text-muted-foreground">Finns det något övrigt ni vill berätta om ert projekt eller era behov?</p>
-            <Textarea
-              placeholder="Skriv fritt om era tankar, frågor eller specifika krav..."
-              value={data.additionalInfo}
-              onChange={(e) => setData({ ...data, additionalInfo: e.target.value })}
-              className="min-h-[200px]"
-            />
-          </div>
-        );
 
       default:
         return null;
