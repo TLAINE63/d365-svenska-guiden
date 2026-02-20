@@ -1437,6 +1437,41 @@ const CustomerServiceNeedsAnalysis = () => {
                 </div>
               )}
             </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
+              <div className="grid grid-cols-1 gap-4">
+                {aiUseCaseCategories.map((category) => (
+                  <div
+                    key={category.id}
+                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
+                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                      data.aiUseCases.includes(category.title)
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        data.aiUseCases.includes(category.title)
+                          ? 'border-primary bg-primary'
+                          : 'border-muted-foreground'
+                      }`}>
+                        {data.aiUseCases.includes(category.title) && (
+                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
+                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
+                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         );
       }
@@ -1520,41 +1555,6 @@ const CustomerServiceNeedsAnalysis = () => {
                     onClick={() => setData({ ...data, aiInterest: option.value })}
                     type="radio"
                   />
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Vilka AI-användningsområden ser ni som mest intressanta?</h3>
-              <div className="grid grid-cols-1 gap-4">
-                {aiUseCaseCategories.map((category) => (
-                  <div
-                    key={category.id}
-                    onClick={() => handleCheckboxChange('aiUseCases', category.title)}
-                    className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                      data.aiUseCases.includes(category.title)
-                        ? 'border-primary bg-primary/5'
-                        : 'border-border hover:border-primary/50'
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        data.aiUseCases.includes(category.title)
-                          ? 'border-primary bg-primary'
-                          : 'border-muted-foreground'
-                      }`}>
-                        {data.aiUseCases.includes(category.title) && (
-                          <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-foreground mb-2">{category.title}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{category.description}</p>
-                        <p className="text-sm font-medium text-primary">{category.benefit}</p>
-                      </div>
-                    </div>
-                  </div>
                 ))}
               </div>
             </div>
