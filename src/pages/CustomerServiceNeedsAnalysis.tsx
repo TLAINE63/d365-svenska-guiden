@@ -1834,29 +1834,71 @@ const CustomerServiceNeedsAnalysis = () => {
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="bg-muted/50 border-b border-border">
-                      <th className="text-left px-4 py-2 font-semibold text-muted-foreground w-1/2">Sektion</th>
+                      <th className="text-left px-4 py-2 font-semibold text-muted-foreground w-1/2">Fråga</th>
                       <th className="text-left px-4 py-2 font-semibold text-muted-foreground w-1/2">Svar</th>
                     </tr>
                   </thead>
                   <tbody>
                     {[
+                      // Steg 1 – Företagsinformation
+                      { section: true, label: "Steg 1 – Företagsinformation" },
+                      { label: "Antal anställda", value: data.employees },
+                      { label: "Bransch", value: data.industry === "Annat" ? data.industryOther : data.industry },
+                      { label: "Serviceteam-storlek", value: data.serviceTeamSize },
+                      { label: "Nuvarande system", value: data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ") },
+                      // Steg 2 – Service-modell
+                      { section: true, label: "Steg 2 – Service-modell" },
                       { label: "Serviceupplägg", value: data.serviceModel },
-                      { label: "Antal kundservicemedarbetare", value: data.numberOfAgents },
-                      { label: "Antal tekniker", value: data.numberOfTechnicians },
+                      // Steg 3 – Er situation & komplexitet
+                      { section: true, label: "Steg 3 – Er situation & komplexitet" },
                       { label: "Ärendevolym/mån", value: data.ticketsPerMonth },
-                      { label: "SLA-krav", value: data.slaRequirements || data.serviceAgreements },
+                      { label: "SLA-krav (digital)", value: data.slaRequirements },
                       { label: "Self-service portal", value: data.selfServicePortal },
-                      { label: "AI-stöd", value: data.aiAutomation?.length > 0 ? data.aiAutomation.join(", ") : "Ej valt" },
-                      { label: "Integrationer", value: integrationsList.length > 0 ? integrationsList.join(", ") : "Ej angivet" },
-                      { label: "Länder", value: data.multiCountry },
-                      { label: "Språk", value: data.multiLanguage },
+                      { label: "Kunskapsdatabas", value: data.knowledgeBase },
+                      { label: "Antal kundservicemedarbetare", value: data.numberOfAgents },
+                      { label: "Inkommande volym/dag", value: data.inboundVolume },
+                      { label: "Contact center-kanaler", value: data.contactCenterChannels?.join(", ") },
+                      { label: "Realtidsstyrning (CC)", value: data.realtimeManagement },
+                      { label: "Antal tekniker", value: data.numberOfTechnicians },
+                      { label: "Schemaläggning", value: data.schedulingNeeds },
+                      { label: "Reservdelshantering", value: data.sparepartsManagement },
+                      { label: "Serviceavtal (SLA)", value: data.serviceAgreements },
+                      { label: "Geografisk spridning", value: data.geographicSpread },
+                      { label: "Verkar i flera länder", value: data.multiCountry },
+                      { label: "Flerspråkig kundservice", value: data.multiLanguage },
+                      { label: "Kundprioritering", value: data.customerPrioritization },
+                      { label: "Produktlinjer", value: data.multipleProductLines },
+                      // Steg 4 – Organisation & styrning
+                      { section: true, label: "Steg 4 – Organisation & styrning" },
                       { label: "Org-struktur", value: data.orgStructure },
-                    ].filter(row => row.value).map((row, i) => (
-                      <tr key={row.label} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
-                        <td className="px-4 py-2 text-muted-foreground font-medium">{row.label}</td>
-                        <td className="px-4 py-2 text-foreground">{row.value}</td>
-                      </tr>
-                    ))}
+                      { label: "Gemensam rapportering", value: data.sharedReporting },
+                      { label: "Realtidsrapportering", value: data.realtimeReporting },
+                      { label: "Integration med sälj/ERP", value: data.integratedWithSalesErp },
+                      // Steg 5 – Systemintegration
+                      { section: true, label: "Steg 5 – Systemintegration" },
+                      { label: "Systemkopplingar", value: integrationsList.length > 0 ? integrationsList.join(", ") : undefined },
+                      // Steg 6 – AI & Automation
+                      { section: true, label: "Steg 6 – AI & Automation" },
+                      { label: "AI-användningsområden", value: data.aiUseCases?.length > 0 ? data.aiUseCases.join(", ") : undefined },
+                      { label: "AI-automationsfunktioner", value: data.aiAutomation?.length > 0 ? data.aiAutomation.join(", ") : undefined },
+                    ].map((row, i) => {
+                      if ((row as any).section) {
+                        return (
+                          <tr key={row.label} className="bg-muted/60 border-t border-border">
+                            <td colSpan={2} className="px-4 py-2 font-bold text-foreground text-xs uppercase tracking-wide">{row.label}</td>
+                          </tr>
+                        );
+                      }
+                      const value = (row as any).value;
+                      if (!value) return null;
+                      const rowIndex = i;
+                      return (
+                        <tr key={row.label} className={rowIndex % 2 === 0 ? "bg-background" : "bg-muted/10"}>
+                          <td className="px-4 py-2 text-muted-foreground font-medium">{row.label}</td>
+                          <td className="px-4 py-2 text-foreground">{value}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
