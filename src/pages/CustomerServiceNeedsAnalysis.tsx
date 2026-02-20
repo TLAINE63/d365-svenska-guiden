@@ -56,6 +56,11 @@ interface CustomerServiceAnalysisData {
   slaContracts: string;
   customerPrioritization: string;
   multipleProductLines: string;
+  // Step 4: Organisation & styrning
+  orgStructure: string;
+  sharedReporting: string;
+  realtimeReporting: string;
+  integratedWithSalesErp: string;
   employees: string;
   industry: string;
   industryOther: string;
@@ -101,6 +106,10 @@ const initialData: CustomerServiceAnalysisData = {
   sparepartsManagement: "",
   serviceAgreements: "",
   geographicSpread: "",
+  orgStructure: "",
+  sharedReporting: "",
+  realtimeReporting: "",
+  integratedWithSalesErp: "",
   ticketsPerMonthComplex: "",
   multiCountry: "",
   multiLanguage: "",
@@ -357,14 +366,15 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 10;
+  const totalSteps = 11;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Target, BarChart3, Building2, Target, Target, Target, Target, Sparkles, FileText];
+  const stepIcons = [Headphones, Target, BarChart3, Building2, Building2, Target, Target, Target, Target, Sparkles, FileText];
   const stepTitles = [
     "Service-modell",
     "Er situation",
     "Servicekomplexitet",
+    "Organisation & styrning",
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
@@ -528,6 +538,29 @@ const CustomerServiceNeedsAnalysis = () => {
       recommendations.customerService.reasons.push("Flera produktlinjer kräver specialiströuting och kunskapsdatabas");
     }
 
+
+    // Step 4: Organisation & styrning
+    if (data.orgStructure === "Lokal – varje land/region har sitt eget team" || data.orgStructure === "Hybrid – central styrning, lokalt utförande") {
+      recommendations.customerService.score += 8;
+      recommendations.contactCenter.score += 8;
+      recommendations.customerService.reasons.push("Distribuerad organisation kräver multi-site-arkitektur");
+    }
+    if (data.sharedReporting === "Ja, ledningen behöver samlad bild") {
+      recommendations.customerService.score += 8;
+      recommendations.contactCenter.score += 8;
+      recommendations.customerService.reasons.push("Gemensam uppföljning kräver centraliserad plattform");
+    }
+    if (data.realtimeReporting === "Ja, kritiskt – vi behöver live-dashboards") {
+      recommendations.contactCenter.score += 12;
+      recommendations.contactCenter.reasons.push("Realtids-KPI och live-dashboards är kritiska krav");
+    }
+    if (data.integratedWithSalesErp === "Ja, tätt integrerat – en plattform") {
+      recommendations.customerService.score += 12;
+      recommendations.customerService.reasons.push("Tight integration med sälj/ERP – Dynamics 365 är en naturlig plattform");
+    } else if (data.integratedWithSalesErp === "Ja, integration via API eller middleware") {
+      recommendations.customerService.score += 6;
+      recommendations.customerService.reasons.push("API-integration med sälj och ERP krävs");
+    }
 
     if (data.serviceChannels.length >= 3) {
       recommendations.customerService.score += 10;
@@ -1146,7 +1179,70 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 4:
+      case 4: {
+        const orgRadio = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {options.map((opt) => (
+              <SelectionCard
+                key={opt}
+                label={opt}
+                selected={data[field] === opt}
+                onClick={() => setData({ ...data, [field]: opt })}
+                type="radio"
+              />
+            ))}
+          </div>
+        );
+        return (
+          <div className="space-y-8">
+            <div className="bg-muted/50 border border-border rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Varför frågar vi detta?</span> Svaren avgör om ni behöver en central plattform, multi-site-arkitektur eller djup integration med affärssystem.
+              </p>
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur är er serviceorganisation organiserad?</Label>
+              {orgRadio("orgStructure", [
+                "Central – ett team hanterar all kundservice",
+                "Lokal – varje land/region har sitt eget team",
+                "Hybrid – central styrning, lokalt utförande",
+                "Decentraliserad – affärsenheter hanterar sin egen service",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Behöver ni gemensam uppföljning och rapportering över team/regioner?</Label>
+              {orgRadio("sharedReporting", [
+                "Ja, ledningen behöver samlad bild",
+                "Delvis – på regional nivå",
+                "Nej, varje enhet rapporterar lokalt",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Är realtidsrapportering affärskritiskt för er?</Label>
+              {orgRadio("realtimeReporting", [
+                "Ja, kritiskt – vi behöver live-dashboards",
+                "Ja, viktigt men inte kritiskt",
+                "Nej, historisk rapportering räcker",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Behöver kundservicesystemet vara integrerat med sälj och ERP?</Label>
+              {orgRadio("integratedWithSalesErp", [
+                "Ja, tätt integrerat – en plattform",
+                "Ja, integration via API eller middleware",
+                "Delvis – vi behöver viss datadelning",
+                "Nej, systemen körs separat",
+              ])}
+            </div>
+          </div>
+        );
+      }
+
+      case 5:
         return (
           <div className="space-y-6">
             <div>
@@ -1203,6 +1299,64 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
           </div>
         );
+
+      case 6:
+        return (
+          <div className="space-y-6">
+            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
+            <Textarea
+              id="currentSituationReason"
+              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt kundservice-system..."
+              value={data.currentSituationReason}
+              onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
+              className="min-h-[150px]"
+            />
+
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
+                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som kundservice-projekt brukar adressera. 
+                Klicka gärna i de områden som stämmer för din verksamhet.
+              </p>
+              <div className="space-y-6">
+                {situationChallengeCategories.map((category) => (
+                  <div key={category.id} className="border rounded-lg p-4 space-y-3">
+                    <div>
+                      <h4 className="font-bold text-foreground">{category.title}</h4>
+                      <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
+                    </div>
+                    <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                      {category.items.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
+                    <div className="bg-muted/50 p-3 rounded-md">
+                      <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
+                      <p className="text-sm italic text-foreground">{category.quote}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {situationChallengeOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => handleSituationChallengeChange(category.id, option)}
+                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                            data.situationChallenges[category.id] === option
+                              ? "bg-primary text-primary-foreground shadow-md"
+                              : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 7:
         return (
           <div className="space-y-6">
             <div>
@@ -1270,63 +1424,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
-        return (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
-            <Textarea
-              id="currentSituationReason"
-              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt kundservice-system..."
-              value={data.currentSituationReason}
-              onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
-              className="min-h-[150px]"
-            />
-
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som kundservice-projekt brukar adressera. 
-                Klicka gärna i de områden som stämmer för din verksamhet.
-              </p>
-              <div className="space-y-6">
-                {situationChallengeCategories.map((category) => (
-                  <div key={category.id} className="border rounded-lg p-4 space-y-3">
-                    <div>
-                      <h4 className="font-bold text-foreground">{category.title}</h4>
-                      <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
-                    </div>
-                    <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                      {category.items.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
-                    <div className="bg-muted/50 p-3 rounded-md">
-                      <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
-                      <p className="text-sm italic text-foreground">{category.quote}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {situationChallengeOptions.map((option) => (
-                        <button
-                          key={option}
-                          type="button"
-                          onClick={() => handleSituationChallengeChange(category.id, option)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                            data.situationChallenges[category.id] === option
-                              ? "bg-primary text-primary-foreground shadow-md"
-                              : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                          }`}
-                        >
-                          {option}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -1367,7 +1465,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 9:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
@@ -1403,7 +1501,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 9:
+      case 10:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1474,7 +1572,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 10:
+      case 11:
         return (
           <div className="space-y-6">
             <div>
