@@ -776,7 +776,7 @@ const NeedsAnalysis = () => {
     "Integrationer",
     "Önskelista",
     "AI & Framtid",
-    "Er ERP-profil",
+    "ERP-profil",
   ];
 
   const handleNext = () => {
@@ -2964,7 +2964,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   partners.push({ icon: "⚡", label: "Business Central-specialist", description: "Partner specialiserad på snabba och kostnadseffektiva BC-implementationer för tillväxtbolag" });
                 }
                 if (!isBC) {
-                  partners.push({ icon: "🔬", label: "F&SC-certifierad partner", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
+                  partners.push({ icon: "🔬", label: "Auktoriserad partner inom Finance & Supply Chain", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
                 }
                 if (data.businessModel === "Produktion") {
                   partners.push({ icon: "🏭", label: "Tillverkningsspecialist", description: "Partner med djup kunskap om MRP, APS och produktionsprocesser i Dynamics 365" });
