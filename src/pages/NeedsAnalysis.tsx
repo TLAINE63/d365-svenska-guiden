@@ -2765,7 +2765,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             {/* Success Message */}
             <Card className="text-center mb-8">
               <CardContent className="pt-8 pb-6">
-                <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                <CheckCircle2 className="w-16 h-16 text-finance-supply mx-auto mb-4" />
                 <h2 className="text-2xl font-bold mb-2">Tack för din behovsanalys!</h2>
                 <p className="text-muted-foreground">
                   Ditt dokument har laddats ned. Vi kommer att kontakta dig inom kort.
@@ -2776,17 +2776,17 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             <AnalysisDisclaimer />
 
             {/* Complexity & Risk Summary */}
-            <Card className="mb-8 border-2 border-indigo-300 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30">
+            <Card className="mb-8 border-2 border-finance-supply/40 bg-gradient-to-r from-finance-supply/5 to-finance-supply/10">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-lg">
-                  <Layers className="w-6 h-6 text-indigo-600" />
+                  <Layers className="w-6 h-6 text-finance-supply" />
                   Komplexitetsbedömning
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                   <div className="text-center p-4 bg-background rounded-lg border">
-                    <div className="text-3xl font-bold text-indigo-600">{complexity.complexityLevel}</div>
+                    <div className="text-3xl font-bold text-finance-supply">{complexity.complexityLevel}</div>
                     <div className="text-xs text-muted-foreground">av 4</div>
                     <div className="text-sm font-medium mt-1">Komplexitetsnivå</div>
                   </div>
@@ -2801,7 +2801,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <div className="text-sm font-medium mt-1">Risknivå</div>
                   </div>
                   <div className="text-center p-4 bg-background rounded-lg border">
-                    <div className="text-xl font-bold text-primary">
+                    <div className="text-xl font-bold text-finance-supply">
                       {complexity.criticalFactors.length}
                     </div>
                     <div className="text-sm font-medium mt-1">Kritiska faktorer</div>
@@ -2814,7 +2814,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <ul className="space-y-1">
                       {complexity.criticalFactors.map((factor, i) => (
                         <li key={i} className="flex items-center gap-2 text-sm">
-                          <TrendingUp className="w-4 h-4 text-indigo-500 flex-shrink-0" />
+                          <TrendingUp className="w-4 h-4 text-finance-supply flex-shrink-0" />
                           {factor}
                         </li>
                       ))}
@@ -2852,12 +2852,12 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                         Partnerns arkitekturkompetens blir avgörande för att säkerställa rätt val.
                       </p>
                       <div className="flex flex-col sm:flex-row gap-3 mt-3">
-                        <Button asChild variant="outline" size="sm" className="border-blue-400 text-blue-700 hover:bg-blue-50 dark:border-blue-600 dark:text-blue-300 dark:hover:bg-blue-950/30">
+                        <Button asChild variant="outline" size="sm" className="border-business-central text-business-central hover:bg-business-central/10">
                           <a href="/partners?app=business-central">
                             👉 Visa Business Central-partners
                           </a>
                         </Button>
-                        <Button asChild variant="outline" size="sm" className="border-purple-400 text-purple-700 hover:bg-purple-50 dark:border-purple-600 dark:text-purple-300 dark:hover:bg-purple-950/30">
+                        <Button asChild variant="outline" size="sm" className="border-finance-supply text-finance-supply hover:bg-finance-supply/10">
                           <a href="/partners?app=finance-supply-chain">
                             👉 Visa Finance & Supply Chain-partners
                           </a>
@@ -2870,15 +2870,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             )}
 
             {/* Recommendation Card */}
-            <Card className={`mb-8 border-2 ${isBC ? 'border-blue-500' : 'border-purple-500'}`}>
-              <CardHeader className={`${isBC ? 'bg-blue-500' : 'bg-purple-500'} text-white rounded-t-lg`}>
+            <Card className={`mb-8 border-2 ${isBC ? 'border-business-central' : 'border-finance-supply'}`}>
+              <CardHeader className={`${isBC ? 'bg-business-central' : 'bg-finance-supply'} text-white rounded-t-lg`}>
                 <CardTitle className="flex items-center gap-3 text-xl">
                   <Sparkles className="w-6 h-6" />
                   {recommendation.isCloseCall ? "Preliminär bedömning" : "Baserat på era svar lutar det mot"}
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-6">
-                <h3 className={`text-2xl sm:text-3xl font-bold mb-2 ${isBC ? 'text-blue-600' : 'text-purple-600'}`}>
+                <h3 className={`text-2xl sm:text-3xl font-bold mb-2 ${isBC ? 'text-business-central' : 'text-finance-supply'}`}>
                   🔹 Microsoft Dynamics 365 {recommendation.product}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-6">
@@ -2890,14 +2890,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 
                 {/* Driving Factors */}
                 {recommendation.criticalFactors && recommendation.criticalFactors.length > 0 && (
-                  <div className={`rounded-lg p-4 mb-6 border ${isBC ? 'bg-blue-50/50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-800' : 'bg-purple-50/50 border-purple-200 dark:bg-purple-950/20 dark:border-purple-800'}`}>
+                  <div className={`rounded-lg p-4 mb-6 border ${isBC ? 'bg-business-central/5 border-business-central/30' : 'bg-finance-supply/5 border-finance-supply/30'}`}>
                     <h4 className="font-semibold text-sm text-foreground mb-3">
                       Rekommendationen baseras främst på:
                     </h4>
                     <ul className="space-y-2">
                       {recommendation.criticalFactors.map((factor, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <TrendingUp className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isBC ? 'text-blue-500' : 'text-purple-500'}`} />
+                          <TrendingUp className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isBC ? 'text-business-central' : 'text-finance-supply'}`} />
                           <span className="text-sm font-medium">{factor}</span>
                         </li>
                       ))}
@@ -2914,7 +2914,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <ul className="space-y-2">
                       {recommendation.reasons.map((reason, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isBC ? 'text-blue-500' : 'text-purple-500'}`} />
+                          <CheckCircle2 className={`w-5 h-5 mt-0.5 flex-shrink-0 ${isBC ? 'text-business-central' : 'text-finance-supply'}`} />
                           <span className="text-sm">{reason}</span>
                         </li>
                       ))}
@@ -2931,7 +2931,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                       if (line.startsWith('•')) {
                         return (
                           <div key={index} className="flex items-start gap-2">
-                            <span className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${isBC ? 'bg-blue-500' : 'bg-purple-500'}`} />
+                            <span className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${isBC ? 'bg-business-central' : 'bg-finance-supply'}`} />
                             <span>{cleanLine.substring(2)}</span>
                           </div>
                         );
@@ -2947,7 +2947,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <Button 
                     asChild 
-                    className={`flex-1 ${isBC ? 'bg-blue-500 hover:bg-blue-600' : 'bg-purple-500 hover:bg-purple-600'}`}
+                    className={`flex-1 ${isBC ? 'bg-business-central hover:bg-business-central/90 text-business-central-foreground' : 'bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground'}`}
                   >
                     <a href={isBC ? "/business-central" : "/finance-supply-chain"}>
                       Läs mer om {recommendation.product}
@@ -2963,10 +2963,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
             </Card>
 
             {/* Contact Card */}
-            <Card className="mb-8 border-2 border-primary/30 bg-gradient-to-r from-primary/5 to-primary/10">
+            <Card className="mb-8 border-2 border-finance-supply/30 bg-gradient-to-r from-finance-supply/5 to-finance-supply/10">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-lg">
-                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-finance-supply rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-primary-foreground font-bold text-sm">TL</span>
                   </div>
                   <div>
@@ -3053,11 +3053,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 {showContactForm ? "Kontaktuppgifter" : `Steg ${currentStep} av ${totalSteps}`}
               </span>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-primary">
+              <span className="text-sm font-medium text-finance-supply">
                   {showContactForm ? "100%" : `${Math.round(progress)}%`}
                 </span>
                 {!showContactForm && (
-                  <Button onClick={handleNext} size="sm" className="bg-primary hover:bg-primary/90">
+                  <Button onClick={handleNext} size="sm" className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
                     Nästa
                     <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
@@ -3081,9 +3081,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     onClick={() => setCurrentStep(stepNum)}
                     className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                       isActive
-                        ? "bg-primary text-primary-foreground"
+                        ? "bg-finance-supply text-finance-supply-foreground"
                         : isCompleted
-                        ? "bg-primary/20 text-primary"
+                        ? "bg-finance-supply/20 text-finance-supply"
                         : "bg-muted text-muted-foreground"
                     }`}
                   >
@@ -3102,14 +3102,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <CardTitle className="flex items-center gap-3">
                 {showContactForm ? (
                   <>
-                    <Download className="w-6 h-6 text-primary" />
+                    <Download className="w-6 h-6 text-finance-supply" />
                     Ladda ned din behovsanalys
                   </>
                 ) : (
                   <>
                     {(() => {
                       const Icon = stepIcons[currentStep - 1];
-                      return <Icon className="w-6 h-6 text-primary" />;
+                      return <Icon className="w-6 h-6 text-finance-supply" />;
                     })()}
                     {stepTitles[currentStep - 1]}
                   </>
@@ -3217,13 +3217,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   <Button
                     onClick={generateDocument}
                     disabled={!isContactFormValid()}
-                    className="bg-primary"
+                    className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground"
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Ladda ned dokument
                   </Button>
                 ) : (
-                  <Button onClick={handleNext} className="bg-primary">
+                  <Button onClick={handleNext} className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
                     {currentStep === totalSteps ? "Slutför" : "Nästa"}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
