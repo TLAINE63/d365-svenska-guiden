@@ -1692,29 +1692,80 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             {/* 3️⃣ Rekommenderad lösningsinriktning */}
-            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                 <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">3</span>
                 Rekommenderad lösningsinriktning
               </h3>
+
               {rec.products.length > 0 ? (
-                <div className="space-y-3">
-                  {rec.products.slice(0, 2).map((product, i) => (
-                    <div key={product.name} className={`flex items-start gap-3 p-3 rounded-lg border-2 ${i === 0 ? "border-primary bg-primary/5" : "border-border bg-muted/30"}`}>
-                      <span className="text-2xl flex-shrink-0">{product.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className={`font-bold text-sm ${i === 0 ? "text-primary" : "text-foreground"}`}>{product.name}</p>
-                          {i === 0 && <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">Primär rekommendation</span>}
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-0.5">{product.description}</p>
-                        {product.reasons.length > 0 && (
-                          <p className="text-xs text-muted-foreground mt-1 italic">"{product.reasons[0]}"</p>
-                        )}
-                      </div>
+                <>
+                  {/* Fokusområden */}
+                  <div>
+                    <p className="text-sm font-medium text-foreground mb-3">
+                      Baserat på er serviceprofil rekommenderas en lösning med fokus på:
+                    </p>
+                    <div className="space-y-2">
+                      {(() => {
+                        const focusMap: Record<string, { icon: string; label: string }[]> = {
+                          "Dynamics 365 Customer Service": [
+                            { icon: "📋", label: "Central ärendehantering" },
+                            { icon: "🔀", label: "Omnichannel och kanalsamordning" },
+                            { icon: "🤖", label: "AI-assisterade agenter och kunskapsbas" },
+                          ],
+                          "Dynamics 365 Field Service": [
+                            { icon: "🗓️", label: "Schemaläggning och mobilt teknikerstöd" },
+                            { icon: "📡", label: "IoT och prediktivt underhåll" },
+                            { icon: "🔧", label: "Arbetsorder och reservdelshantering" },
+                          ],
+                          "Dynamics 365 Contact Center": [
+                            { icon: "☎️", label: "Multikanalhantering och röstintegration" },
+                            { icon: "📊", label: "Realtidsdashboard och supervisor-styrning" },
+                            { icon: "🤖", label: "AI-driven ärenderouting och chattbot" },
+                          ],
+                        };
+                        const seen = new Set<string>();
+                        return rec.products.slice(0, 3).flatMap(p => focusMap[p.name] || []).filter(f => {
+                          if (seen.has(f.label)) return false;
+                          seen.add(f.label);
+                          return true;
+                        }).slice(0, 5).map(focus => (
+                          <div key={focus.label} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/5 border border-primary/10">
+                            <span className="text-lg flex-shrink-0">{focus.icon}</span>
+                            <p className="text-sm font-medium text-foreground">{focus.label}</p>
+                          </div>
+                        ));
+                      })()}
                     </div>
-                  ))}
-                </div>
+                  </div>
+
+                  {/* Plattformar bakom */}
+                  <div className="pt-2 border-t border-border">
+                    <p className="text-xs text-muted-foreground font-medium mb-3 uppercase tracking-wide">
+                      Bakom kulisserna lutar det mot
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {rec.products.slice(0, 3).map((product, i) => (
+                        <div
+                          key={product.name}
+                          className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border ${
+                            i === 0
+                              ? "bg-primary/10 border-primary/30 text-primary"
+                              : "bg-muted border-border text-muted-foreground"
+                          }`}
+                        >
+                          <span>{product.icon}</span>
+                          <span>{product.name}</span>
+                        </div>
+                      ))}
+                    </div>
+                    {rec.products[0]?.reasons?.[0] && (
+                      <p className="text-xs text-muted-foreground mt-3 italic border-l-2 border-primary/30 pl-3">
+                        "{rec.products[0].reasons[0]}"
+                      </p>
+                    )}
+                  </div>
+                </>
               ) : (
                 <p className="text-sm text-muted-foreground">Fyll i fler steg för en fullständig rekommendation.</p>
               )}
