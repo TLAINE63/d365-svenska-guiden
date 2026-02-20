@@ -1547,6 +1547,41 @@ const CustomerServiceNeedsAnalysis = () => {
           partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva Customer Service-driftsättningar" });
         }
 
+        // 5️⃣ Service Transformation Level (1–4)
+        const transformationLevel = complexityScore >= 9 ? 4 : complexityScore >= 6 ? 3 : complexityScore >= 3 ? 2 : 1;
+        const transformationLabels = ["", "Initial service", "Strukturerad service", "Digitaliserad service", "Intelligent service"];
+        const transformationComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
+          1: {
+            text: "Er serviceorganisation är i ett tidigt skede med begränsat systemstöd och manuella processer. Det finns stor potential att skapa struktur och effektivitet med rätt plattform.",
+            strengths: ["Flexibelt och anpassningsbart arbetssätt", "Kort beslutsväg i organisationen"],
+            gaps: ["Ingen strukturerad ärendehantering", "Begränsad uppföljning av servicekvalitet", "Manuella processer och spridd information", "Saknar self-service för kunder"],
+          },
+          2: {
+            text: "Er serviceorganisation har grundläggande processer på plats men saknar ännu fullt systemstöd och automatisering. Nästa steg är att samla ärendehantering och data på en plattform.",
+            strengths: ["Etablerade serviceprocesser", "Viss uppföljning av ärenden", "Tydlig ansvarsfördelning"],
+            gaps: ["Begränsad integration mellan system", "Ingen automatisering av ärenderouting", "Begränsad self-service för kunder", "Manuell rapportering"],
+          },
+          3: {
+            text: "Er serviceorganisation är strukturerad och digitaliserad med tydlig ärendehantering och systemstöd. Ni har etablerade processer och uppföljning, men automatisering och AI-stöd är ännu inte fullt utnyttjat.",
+            strengths: ["Tydliga SLA och serviceavtal", "Systemstöd för ärendehantering", "Mobil åtkomst för tekniker", "Central uppföljning av servicekvalitet"],
+            gaps: ["Begränsad automatisering av ärenderouting", "Ingen prediktiv planering", "Begränsad self-service för kunder", "Manuell samordning mellan service och lager"],
+          },
+          4: {
+            text: "Er serviceorganisation är mogen och datadrivet med hög grad av automatisering och AI-stöd. Fokus handlar nu om att förfina och optimera snarare än att bygga grundstruktur.",
+            strengths: ["Hög automationsgrad", "AI-drivet beslutsstöd", "Proaktiv och prediktiv service", "Sömlösa integrationer mellan system"],
+            gaps: ["Kontinuerlig optimering av AI-modeller", "Skalning till nya marknader och kanaler"],
+          },
+        };
+        const transformationData = transformationComments[transformationLevel];
+
+        // 6️⃣ Sammanfattning – geografisk struktur
+        const geoLabel = data.multiCountry === "Ja, globalt" ? "Global närvaro" : data.multiCountry === "Ja, Europa" ? "Europeisk närvaro" : data.multiCountry === "Ja, Norden" ? "Nordisk närvaro" : "Sverige";
+        const volumeLabel = (data.ticketsPerMonth === "2 000–10 000" || data.ticketsPerMonth === "Mer än 10 000") ? "Hög" : (data.ticketsPerMonth === "500–2 000") ? "Medel" : "Låg";
+        const integrationsList = data.systemDependencies.map((id) => {
+          const map: Record<string, string> = { erp: "ERP", iot: "IoT", product_register: "Produktregister", lager: "Lager", fakturering: "Fakturering", crm_sales: "CRM/Sälj", field_service_ext: "Fältservice-system", telefoni: "Telefoni", e_handel: "E-handel", hr: "HR" };
+          return map[id] || id;
+        });
+
         return (
           <div className="space-y-6">
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
@@ -1554,6 +1589,85 @@ const CustomerServiceNeedsAnalysis = () => {
                 🎯 Baserat på era svar har vi sammanställt er serviceprofil. Fyll i kontaktuppgifter i nästa steg för att ladda ner den fullständiga analysen.
               </p>
             </div>
+
+            {/* 📄 SAMMANFATTNING */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-blue-600 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">📄 Sammanfattning</h3>
+              </div>
+              <div className="p-5 bg-background grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { label: "Serviceprofil", value: profile.label },
+                  { label: "Geografisk struktur", value: geoLabel },
+                  { label: "Servicevolym", value: volumeLabel },
+                  { label: "Integrationer", value: integrationsList.length > 0 ? integrationsList.join(" + ") : "Ej angivet" },
+                ].map(item => (
+                  <div key={item.label} className="bg-muted/40 rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{item.label}</p>
+                    <p className="text-sm font-semibold text-foreground">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 🟩 SERVICE TRANSFORMATION LEVEL */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-emerald-600 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">🟩 Servicemognad</h3>
+              </div>
+              <div className="p-5 bg-background space-y-3">
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Service Transformation Level</p>
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4].map(i => (
+                    <span key={i} className={`text-2xl leading-none ${i <= transformationLevel ? "text-emerald-500" : "text-muted-foreground/30"}`}>⬤</span>
+                  ))}
+                </div>
+                <p className="text-lg font-bold text-foreground">Nivå {transformationLevel} – {transformationLabels[transformationLevel]}</p>
+              </div>
+            </div>
+
+            {/* 🧠 KOMMENTAR */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-slate-700 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">🧠 Kommentar</h3>
+              </div>
+              <div className="p-5 bg-background">
+                <p className="text-sm text-foreground leading-relaxed">{transformationData.text}</p>
+              </div>
+            </div>
+
+            {/* 🟢 STYRKOR + 🟡 UTVECKLINGSOMRÅDEN */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="border rounded-xl overflow-hidden shadow-sm">
+                <div className="bg-green-600 px-5 py-3">
+                  <h3 className="font-bold text-white text-sm tracking-wide">🟢 Styrkor</h3>
+                </div>
+                <ul className="p-5 space-y-2 bg-background">
+                  {transformationData.strengths.map(s => (
+                    <li key={s} className="flex items-start gap-2 text-sm text-foreground">
+                      <span className="text-green-500 font-bold flex-shrink-0 mt-0.5">✔</span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="border rounded-xl overflow-hidden shadow-sm">
+                <div className="bg-amber-500 px-5 py-3">
+                  <h3 className="font-bold text-white text-sm tracking-wide">🟡 Utvecklingsområden</h3>
+                </div>
+                <ul className="p-5 space-y-2 bg-background">
+                  {transformationData.gaps.map(g => (
+                    <li key={g} className="flex items-start gap-2 text-sm text-foreground">
+                      <span className="text-amber-500 font-bold flex-shrink-0 mt-0.5">–</span>
+                      {g}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* SEPARATOR */}
+            <div className="border-t border-border pt-2" />
 
             {/* 1️⃣ Er serviceprofil */}
             <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
@@ -1708,6 +1822,43 @@ const CustomerServiceNeedsAnalysis = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* 📎 APPENDIX */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-muted px-5 py-3 border-b border-border">
+                <h3 className="font-bold text-foreground text-sm tracking-wide">📎 Appendix – Era svar</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="bg-muted/50 border-b border-border">
+                      <th className="text-left px-4 py-2 font-semibold text-muted-foreground w-1/2">Sektion</th>
+                      <th className="text-left px-4 py-2 font-semibold text-muted-foreground w-1/2">Svar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { label: "Serviceupplägg", value: data.serviceModel },
+                      { label: "Antal kundservicemedarbetare", value: data.numberOfAgents },
+                      { label: "Antal tekniker", value: data.numberOfTechnicians },
+                      { label: "Ärendevolym/mån", value: data.ticketsPerMonth },
+                      { label: "SLA-krav", value: data.slaRequirements || data.serviceAgreements },
+                      { label: "Self-service portal", value: data.selfServicePortal },
+                      { label: "AI-stöd", value: data.aiAutomation?.length > 0 ? data.aiAutomation.join(", ") : "Ej valt" },
+                      { label: "Integrationer", value: integrationsList.length > 0 ? integrationsList.join(", ") : "Ej angivet" },
+                      { label: "Länder", value: data.multiCountry },
+                      { label: "Språk", value: data.multiLanguage },
+                      { label: "Org-struktur", value: data.orgStructure },
+                    ].filter(row => row.value).map((row, i) => (
+                      <tr key={row.label} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
+                        <td className="px-4 py-2 text-muted-foreground font-medium">{row.label}</td>
+                        <td className="px-4 py-2 text-foreground">{row.value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
 
