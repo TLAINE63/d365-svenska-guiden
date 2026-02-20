@@ -758,11 +758,11 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 10;
+  const totalSteps = 11;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles
+    BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
   ];
 
   const stepTitles = [
@@ -776,6 +776,7 @@ const NeedsAnalysis = () => {
     "Integrationer",
     "Önskelista",
     "AI & Framtid",
+    "Er ERP-profil",
   ];
 
   const handleNext = () => {
@@ -2728,6 +2729,259 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 onChange={(e) => setData({ ...data, aiDetails: e.target.value })}
                 className="mt-2"
               />
+            </div>
+          </div>
+        );
+      }
+
+      case 11: {
+        const rec = getERPRecommendation();
+        const complexity = getComplexityScores();
+        const isBC = rec.product === "Business Central";
+        const productColor = isBC ? "text-business-central" : "text-finance-supply";
+        const headerBg = isBC ? "bg-business-central" : "bg-finance-supply";
+
+        // Mognadsnivå (1–4)
+        const maturityLevel = complexity.complexityLevel;
+        const maturityLabels = ["", "Grundläggande ERP", "Strukturerat ERP", "Avancerat ERP", "Enterprise ERP"];
+        const maturityComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
+          1: {
+            text: "Er organisation har relativt enkla ERP-behov med begränsad komplexitet i struktur och processer. Det finns stor möjlighet att snabbt få värde av ett modernt affärssystem.",
+            strengths: ["Enkel och snabb implementation", "Låg TCO och tydlig ROI", "Lätthanterade processer", "Flexibilitet att växa"],
+            gaps: ["Begränsat systemstöd idag", "Manuella processer kan skalas bort", "Potential att standardisera mer"],
+          },
+          2: {
+            text: "Er organisation har en måttlig komplexitet med etablerade affärsprocesser. Rätt ERP-plattform ger er möjlighet att effektivisera och automatisera utan onödig komplexitet.",
+            strengths: ["Etablerade affärsprocesser", "Viss systemerfarenhet", "Tydlig ansvarsfördelning"],
+            gaps: ["Begränsad integrationskapacitet", "Manuell rapportering", "Processer ej fullt standardiserade"],
+          },
+          3: {
+            text: "Er organisation har en påtaglig komplexitet i struktur eller operativa processer. Implementationsprojektet kräver noggrann förberedelse och en partner med dokumenterad erfarenhet.",
+            strengths: ["Tydliga processkrav", "IT-mognad på plats", "Strukturerad styrmodell"],
+            gaps: ["Integrationsbehov kräver plan", "Förändringsledning viktigt", "Kräver branschanpassad partner"],
+          },
+          4: {
+            text: "Er organisation har hög komplexitet – multi-entity, globala flöden eller avancerade operativa krav. Partnerurval och projektarkitektur är avgörande för framgång.",
+            strengths: ["Stor intern IT-kapacitet", "Tydlig global styrmodell", "Avancerade systemkrav väldefinierade"],
+            gaps: ["Lång implementationstid att planera för", "Kräver enterprise-certifierad partner", "Change management kritiskt"],
+          },
+        };
+        const maturityData = maturityComments[maturityLevel];
+
+        // Profildimensioner
+        const geoLabel = data.geography || "Ej angivet";
+        const sizeLabel = data.employees || "Ej angivet";
+        const bmLabel = data.businessModel || "Ej angivet";
+
+        // Fokusområden per produkt
+        const focusMap: Record<string, { icon: string; label: string }[]> = {
+          "Business Central": [
+            { icon: "💰", label: "Ekonomi & redovisning i molnet" },
+            { icon: "📦", label: "Lagerstyrning och orderhantering" },
+            { icon: "📊", label: "Inbyggd BI och rapportering med Power BI" },
+            { icon: "🤖", label: "Copilot AI för ökad produktivitet" },
+            { icon: "🔗", label: "Sömlös integration med Microsoft 365" },
+          ],
+          "Finance & Supply Chain Management": [
+            { icon: "🏢", label: "Avancerad koncernredovisning och multi-entity" },
+            { icon: "🌍", label: "Global supply chain och multi-site lager" },
+            { icon: "🏭", label: "Avancerad tillverkning och MRP/APS" },
+            { icon: "📈", label: "Prediktiv analys och efterfrågeprognoser" },
+            { icon: "⚖️", label: "Regulatorisk efterlevnad och compliance" },
+          ],
+        };
+        const focusItems = focusMap[rec.product] || [];
+
+        return (
+          <div className="space-y-6">
+            <div className="bg-finance-supply/5 border border-finance-supply/20 rounded-lg p-4">
+              <p className="text-sm text-finance-supply font-medium">
+                🎯 Baserat på era svar har vi sammanställt er ERP-profil. Fyll i kontaktuppgifter i nästa steg för att ladda ner den fullständiga analysen.
+              </p>
+            </div>
+
+            <AnalysisDisclaimer />
+
+            {/* Sammanfattning */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-blue-600 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">📄 Sammanfattning</h3>
+              </div>
+              <div className="p-5 bg-background grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { label: "Affärsmodell", value: bmLabel },
+                  { label: "Organisation", value: sizeLabel },
+                  { label: "Geografisk räckvidd", value: geoLabel },
+                  { label: "Kritiska faktorer", value: complexity.criticalFactors.length > 0 ? `${complexity.criticalFactors.length} identifierade` : "Inga kritiska" },
+                ].map(item => (
+                  <div key={item.label} className="bg-muted/40 rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{item.label}</p>
+                    <p className="text-sm font-semibold text-foreground">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ERP-mognad */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-emerald-600 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">🟩 ERP-komplexitetsnivå</h3>
+              </div>
+              <div className="p-5 bg-background space-y-3">
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">ERP Complexity Level</p>
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4].map(i => (
+                    <span key={i} className={`text-2xl leading-none ${i <= maturityLevel ? "text-emerald-500" : "text-muted-foreground/30"}`}>⬤</span>
+                  ))}
+                </div>
+                <p className="text-lg font-bold text-foreground">Nivå {maturityLevel} – {maturityLabels[maturityLevel]}</p>
+                <p className="text-xs text-muted-foreground">Risknivå: <span className={`font-semibold ${complexity.riskLevel === "Hög" ? "text-red-600" : complexity.riskLevel === "Medel-hög" ? "text-orange-500" : complexity.riskLevel === "Medel" ? "text-yellow-600" : "text-green-600"}`}>{complexity.riskLevel}</span></p>
+              </div>
+            </div>
+
+            {/* Kommentar */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-slate-700 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">🧠 Kommentar</h3>
+              </div>
+              <div className="p-5 bg-background">
+                <p className="text-sm text-foreground leading-relaxed">{maturityData.text}</p>
+                {complexity.criticalFactors.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-xs text-muted-foreground font-medium mb-2">Faktorer som driver bedömningen:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {complexity.criticalFactors.map(f => (
+                        <span key={f} className="text-xs bg-finance-supply/10 border border-finance-supply/20 text-finance-supply rounded-full px-3 py-1">{f}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Styrkor + Utvecklingsområden */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="border rounded-xl overflow-hidden shadow-sm">
+                <div className="bg-green-600 px-5 py-3">
+                  <h3 className="font-bold text-white text-sm tracking-wide">🟢 Möjligheter</h3>
+                </div>
+                <ul className="p-5 space-y-2 bg-background">
+                  {maturityData.strengths.map(s => (
+                    <li key={s} className="flex items-start gap-2 text-sm text-foreground">
+                      <span className="text-green-500 font-bold flex-shrink-0 mt-0.5">✔</span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="border rounded-xl overflow-hidden shadow-sm">
+                <div className="bg-amber-500 px-5 py-3">
+                  <h3 className="font-bold text-white text-sm tracking-wide">🟡 Att tänka på</h3>
+                </div>
+                <ul className="p-5 space-y-2 bg-background">
+                  {maturityData.gaps.map(g => (
+                    <li key={g} className="flex items-start gap-2 text-sm text-foreground">
+                      <span className="text-amber-500 font-bold flex-shrink-0 mt-0.5">–</span>
+                      {g}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-border pt-2" />
+
+            {/* Rekommenderad plattform */}
+            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">1</span>
+                Rekommenderad ERP-plattform
+              </h3>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <span className="text-3xl">{isBC ? "📗" : "📘"}</span>
+                <div>
+                  <p className={`text-lg font-bold ${productColor}`}>Microsoft Dynamics 365 {rec.product}</p>
+                  <p className="text-xs text-muted-foreground">{rec.isCloseCall ? "Preliminär rekommendation – ni befinner er i gränslandet" : "Primär plattformsrekommendation baserat på era svar"}</p>
+                </div>
+              </div>
+              {rec.isCloseCall && (
+                <div className="flex items-start gap-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-4 py-3">
+                  <span className="text-base mt-0.5">⚠️</span>
+                  <p className="text-xs text-foreground leading-snug">
+                    <strong>Gränsland:</strong> Poängskillnaden är liten (BC: {rec.bcScore}p / F&SC: {rec.fscScore}p). Båda plattformarna kan vara aktuella – rådgör med en partner.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Fokusområden */}
+            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">2</span>
+                Rekommenderad lösningsinriktning
+              </h3>
+              <p className="text-sm font-medium text-foreground mb-3">
+                Baserat på er ERP-profil rekommenderas en plattform med fokus på:
+              </p>
+              <div className="space-y-2">
+                {focusItems.map(focus => (
+                  <div key={focus.label} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-finance-supply/5 border border-finance-supply/10">
+                    <span className="text-lg flex-shrink-0">{focus.icon}</span>
+                    <p className="text-sm font-medium text-foreground">{focus.label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="pt-2 border-t border-border">
+                <p className="text-xs text-muted-foreground font-medium mb-3 uppercase tracking-wide">
+                  Bakom kulisserna lutar det mot
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border bg-finance-supply/10 border-finance-supply/30 text-finance-supply`}>
+                    <span>{isBC ? "📗" : "📘"}</span>
+                    <span>Dynamics 365 {rec.product}</span>
+                  </div>
+                  {rec.reasons[0] && (
+                    <p className="w-full text-xs text-muted-foreground mt-2 italic border-l-2 border-finance-supply/30 pl-3">
+                      "{rec.reasons[0]}"
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Rekommenderad partnertyp */}
+            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-finance-supply text-finance-supply-foreground text-xs flex items-center justify-center font-bold">3</span>
+                Rekommenderad partnertyp
+              </h3>
+              {(() => {
+                const partners: { icon: string; label: string; description: string }[] = [];
+                if (maturityLevel >= 3 || complexity.riskLevel === "Hög" || complexity.riskLevel === "Medel-hög") {
+                  partners.push({ icon: "🏢", label: "Enterprise ERP-arkitekt", description: "Partner med dokumenterad erfarenhet av komplexa multi-entity eller globala implementationer" });
+                }
+                if (isBC && maturityLevel <= 2) {
+                  partners.push({ icon: "⚡", label: "Business Central-specialist", description: "Partner specialiserad på snabba och kostnadseffektiva BC-implementationer för tillväxtbolag" });
+                }
+                if (!isBC) {
+                  partners.push({ icon: "🔬", label: "F&SC-certifierad partner", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
+                }
+                if (data.businessModel === "Produktion") {
+                  partners.push({ icon: "🏭", label: "Tillverkningsspecialist", description: "Partner med djup kunskap om MRP, APS och produktionsprocesser i Dynamics 365" });
+                }
+                if (partners.length === 0) {
+                  partners.push({ icon: "⚡", label: "Business Central-specialist", description: "Partner specialiserad på effektiva ERP-implementationer för medelstora organisationer" });
+                }
+                return partners.map(p => (
+                  <div key={p.label} className="flex items-start gap-3 p-3 rounded-lg bg-muted/40">
+                    <span className="text-xl flex-shrink-0">{p.icon}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{p.label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{p.description}</p>
+                    </div>
+                  </div>
+                ));
+              })()}
             </div>
           </div>
         );
