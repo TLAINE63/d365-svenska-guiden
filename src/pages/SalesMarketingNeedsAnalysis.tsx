@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 
 // Breadcrumb items
 const salesMarketingBreadcrumbs = [
@@ -1929,6 +1930,8 @@ const SalesMarketingNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Baserat på era svar har vi sammanställt er kommersiella profil nedan.</p>
+
+            <AnalysisDisclaimer />
 
             {/* Kommersiell profil */}
             <div className="border rounded-xl overflow-hidden">

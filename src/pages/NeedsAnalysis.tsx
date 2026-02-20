@@ -14,6 +14,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 
 // Breadcrumb items
 const needsAnalysisBreadcrumbs = [
@@ -2706,6 +2707,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 </p>
               </CardContent>
             </Card>
+
+            <AnalysisDisclaimer />
 
             {/* Complexity & Risk Summary */}
             <Card className="mb-8 border-2 border-indigo-300 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30">
