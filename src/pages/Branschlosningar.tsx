@@ -29,10 +29,14 @@ const branschBreadcrumbs = [
 
 // FAQ items for schema
 const branschFaqs = [
-  { question: "Hur hittar jag rätt Dynamics 365-partner för min bransch?", answer: "Välj först den Dynamics 365-lösning du är intresserad av (Business Central, Finance & SCM, eller CRM), och sedan din bransch. Vi visar då partners som har dokumenterad erfarenhet inom just din kombination av produkt och bransch." },
-  { question: "Varför är branschkunskap viktigt vid val av partner?", answer: "En partner med branschkunskap förstår dina affärsprocesser, regelverk och utmaningar. Det leder till snabbare implementation, färre anpassningar och bättre resultat eftersom partnern redan känner till branschspecifika best practices." },
-  { question: "Vad gör jag om det inte finns någon partner listad för min bransch?", answer: "Även om en partner inte har profilerat sig mot din specifika bransch kan de ofta ha relevant kompetens. Kontakta oss så hjälper vi dig hitta en partner som matchar dina behov baserat på deras faktiska erfarenhet." },
-  { question: "Kan en partner arbeta med flera Dynamics 365-produkter?", answer: "Ja, många partners har kompetens inom flera Dynamics 365-produkter. Vår filtrering hjälper dig hitta partners som är starka inom just den produkt och bransch du behöver." },
+  { question: "Vilket ERP-system passar för tillverkningsindustrin i Sverige?", answer: "Microsoft Dynamics 365 Business Central är vanligast för svenska tillverkningsföretag upp till ca 300 användare – det täcker produktion, lager och ekonomi i ett system. Dynamics 365 Finance & Supply Chain Management (F&SCM) passar stora globala tillverkare med komplexa produktionsplaner (MRP/MPS), avancerad lagerstyrning (WMS) och flera juridiska entiteter. Båda systemen har inbyggd Copilot AI och ett rikt ekosystem av branschspecifika tillägg." },
+  { question: "Vilket affärssystem passar för grossist och distribution?", answer: "Dynamics 365 Business Central är det populäraste valet för svenska grossist- och distributionsföretag tack vare stark lager- och orderhantering, EDI-integration och rimliga implementeringskostnader. F&SCM används av större distributörer med komplexa transportbehov och globala flöden. Många grossister kombinerar Business Central med Dynamics 365 Sales för att även hantera sälj och kundrelationer." },
+  { question: "Vilket CRM-system passar för fastighetsförvaltning?", answer: "Dynamics 365 Customer Service och Sales är populära val inom fastighetsförvaltning för hantering av hyresgäst-kommunikation, serviceärenden och försäljning av kommersiella lokaler. Business Central används ofta som ekonomisystem parallellt. Partners med specialisering inom fastighet har ofta branschspecifika tillägg för hyresadministration, underhållsplanering och ritningshantering." },
+  { question: "ERP för handel och e-handel – vilka Microsoft-lösningar finns?", answer: "Business Central är standardvalet för detaljhandel och e-handel med inbyggd koppling till Shopify, stöd för flera lager och kassasystem. Dynamics 365 Commerce är Microsofts enterprise-lösning för omnichannel-handel med avancerad POS, lojalitetsprogram och global skalning. Customer Insights (Marketing) används för personaliserade kampanjer och lojalitetsautomation." },
+  { question: "Hur hittar jag rätt Dynamics 365-partner för min bransch?", answer: "Välj först den Dynamics 365-lösning du är intresserad av (Business Central, Finance & SCM, eller CRM), och sedan din bransch. Vi visar då partners med dokumenterad erfarenhet inom just din kombination av produkt och bransch. Du kan också använda vår behovsanalys för att få personliga rekommendationer baserade på dina specifika krav." },
+  { question: "Varför är branschkunskap viktigt vid val av Dynamics 365-partner?", answer: "En partner med branschkunskap förstår dina affärsprocesser, branschspecifika regelverk (t.ex. GMP för life science, GDPR för HR) och vanliga utmaningar. Det leder till snabbare implementation, färre kostsamma anpassningar och bättre resultat – partnern behöver inte lära sig din bransch från grunden utan kan fokusera direkt på att lösa dina specifika problem." },
+  { question: "Dynamics 365 för bygg och entreprenad – vad ska jag välja?", answer: "Business Central med branschspecifika tillägg är vanligast för svenska bygg- och entreprenadföretag. Det finns etablerade ISV-lösningar för projektekonomi, ÄTA-hantering, resursplanering och maskintid. Finance & SCM används av större byggkoncerner med komplexa projektstrukturer. Dynamics 365 Field Service passar för serviceorganisationer inom bygg med fälttekniker och servicebesök." },
+  { question: "Vad gör jag om det inte finns någon partner listad för min bransch?", answer: "Även om en partner inte har profilerat sig mot din specifika bransch kan de ha relevant kompetens – många partners arbetar i angränsande branscher med liknande processer. Kontakta oss för kostnadsfri rådgivning, så hjälper vi dig hitta en partner som matchar dina behov baserat på faktisk erfarenhet snarare än enbart profilering." },
 ];
 
 
@@ -257,15 +261,15 @@ const Branschlosningar = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Branschlösningar | Dynamics 365 Partners per bransch"
-        description="Hitta rätt Dynamics 365-partner för din bransch. Filtrera på produkt och bransch för att se Microsoft-partners med relevant verksamhetskunskap."
+        title="Dynamics 365 Branschlösningar – ERP & CRM för din bransch | d365.se"
+        description="Hitta rätt Dynamics 365-partner för din bransch. ERP för tillverkning, grossist och bygg. CRM för fastighet, handel och konsult. Filtrera bland Microsoft-certifierade partners i Sverige."
         canonicalPath="/branschlosningar"
-        keywords="Dynamics 365, branschlösningar, ERP, CRM, tillverkning, handel, konsult, partner"
+        keywords="Dynamics 365 tillverkning, ERP för handel, CRM fastighet, Dynamics 365 grossist, affärssystem bygg entreprenad, ERP life science, Business Central bransch, CRM konsultbolag, Dynamics 365 Sverige bransch, Microsoft partner branschkunskap"
         ogImage="https://d365.se/og-bransch.png"
       />
       <ServiceSchema 
-        name="Dynamics 365 Branschlösningar"
-        description="Hitta Microsoft Dynamics 365 partners med specialisering inom din bransch för ERP och CRM."
+        name="Dynamics 365 Branschlösningar – ERP och CRM per bransch i Sverige"
+        description="Katalog över Microsoft-certifierade Dynamics 365-partners med branschspecialisering inom tillverkning, handel, fastighet, bygg, life science och 14 andra branscher. Filtrera på produkt (Business Central, Finance & SCM, CRM) och bransch för att hitta rätt partner."
       />
       <FAQSchema faqs={branschFaqs} />
       <BreadcrumbSchema items={branschBreadcrumbs} />
