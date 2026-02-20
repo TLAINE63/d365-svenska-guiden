@@ -808,7 +808,7 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.addPage();
 
     // ─── Page 2: Header ─────────────────────────────────────────────────────────
-    pdf.setFillColor(30, 58, 138);
+    pdf.setFillColor(114, 73, 198);
     pdf.rect(0, 0, pageWidth, 50, 'F');
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(20);

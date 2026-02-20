@@ -111,7 +111,7 @@ const D365CustomerService = () => {
                 <ContactFormDialog>
                   <Button 
                     size="lg"
-                    className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                    className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
                     Boka en kostnadsfri rådgivning
                   </Button>
@@ -186,7 +186,7 @@ const D365CustomerService = () => {
                     <li>Kunskapsdatabas</li>
                     <li>SLA-hantering</li>
                   </ul>
-                  <div className="bg-crm/10 rounded-lg p-4 mt-4">
+                  <div className="bg-customer-service/10 rounded-lg p-4 mt-4">
                     <p className="font-semibold text-foreground mb-2">🚀 Enterprise lägger till:</p>
                     <ul className="list-disc pl-5 space-y-1">
                       <li><strong className="text-foreground">Microsoft Copilot</strong> – AI-stöd för agenter</li>
@@ -230,7 +230,7 @@ const D365CustomerService = () => {
                     <li>📱 SMS</li>
                     <li>🌐 Sociala medier</li>
                   </ul>
-                  <div className="bg-crm/10 rounded-lg p-4 mt-4">
+                  <div className="bg-customer-service/10 rounded-lg p-4 mt-4">
                     <p className="font-semibold text-foreground mb-2">🔄 Enterprise Omnichannel:</p>
                     <p>Samlar alla kanaler i ett enhetligt gränssnitt så att agenter kan hantera alla kundinteraktioner från samma ställe.</p>
                   </div>
@@ -327,7 +327,7 @@ const D365CustomerService = () => {
       <ApplicationPartners applicationFilter="Customer Service" pageSource="D365 Customer Service" />
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-crm">
+      <section className="py-12 sm:py-16 md:py-20 bg-customer-service">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att förbättra din kundservice?
@@ -338,7 +338,7 @@ const D365CustomerService = () => {
           <ContactFormDialog>
             <Button 
               size="lg"
-              className="bg-white text-crm hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+              className="bg-white text-customer-service hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
               Boka en kostnadsfri rådgivning
             </Button>

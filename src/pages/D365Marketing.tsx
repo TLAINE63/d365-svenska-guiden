@@ -107,7 +107,7 @@ const D365Marketing = () => {
                 <ContactFormDialog>
                   <Button 
                     size="lg"
-                    className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                    className="bg-marketing hover:bg-marketing/90 text-marketing-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
                     Boka en kostnadsfri rådgivning
                   </Button>
@@ -280,7 +280,7 @@ const D365Marketing = () => {
       <ApplicationPartners applicationFilter="Customer Insights (Marketing)" pageSource="D365 Marketing" />
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-crm">
+      <section className="py-12 sm:py-16 md:py-20 bg-marketing">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att revolutionera din marknadsföring?
@@ -291,7 +291,7 @@ const D365Marketing = () => {
           <ContactFormDialog>
             <Button 
               size="lg"
-              className="bg-white text-crm hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+              className="bg-white text-marketing hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
               Boka en kostnadsfri rådgivning
             </Button>

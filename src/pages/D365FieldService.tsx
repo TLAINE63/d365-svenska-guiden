@@ -97,7 +97,7 @@ const D365FieldService = () => {
                 <ContactFormDialog>
                   <Button 
                     size="lg"
-                    className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                    className="bg-field-service hover:bg-field-service/90 text-field-service-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
                     Boka en kostnadsfri rådgivning
                   </Button>
@@ -270,7 +270,7 @@ const D365FieldService = () => {
       <ApplicationPartners applicationFilter="Field Service" pageSource="D365 Field Service" />
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-crm">
+      <section className="py-12 sm:py-16 md:py-20 bg-field-service">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att optimera din fältservice?
@@ -281,7 +281,7 @@ const D365FieldService = () => {
           <ContactFormDialog>
             <Button 
               size="lg"
-              className="bg-white text-crm hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+              className="bg-white text-field-service hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
               Boka en kostnadsfri rådgivning
             </Button>

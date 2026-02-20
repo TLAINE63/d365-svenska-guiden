@@ -1517,10 +1517,10 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     // Start report on page 2
     pdf.addPage();
 
-    // Header with gradient-like effect
-    pdf.setFillColor(0, 150, 136);
+    // Header with gradient-like effect – Business Central cyan (MS officiell)
+    pdf.setFillColor(0, 143, 179);
     pdf.rect(0, 0, pageWidth, 50, 'F');
-    pdf.setFillColor(0, 120, 110);
+    pdf.setFillColor(0, 112, 140);
     pdf.rect(0, 45, pageWidth, 5, 'F');
     
     pdf.setTextColor(255, 255, 255);
@@ -1533,7 +1533,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     
     pdf.setFillColor(255, 255, 255);
     pdf.roundedRect(pageWidth - 60, 15, 45, 20, 3, 3, 'F');
-    pdf.setTextColor(0, 150, 136);
+    pdf.setTextColor(0, 143, 179);
     pdf.setFontSize(8);
     pdf.text("Genererad", pageWidth - 55, 23);
     pdf.setFontSize(10);
