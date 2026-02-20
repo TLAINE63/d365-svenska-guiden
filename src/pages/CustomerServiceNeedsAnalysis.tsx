@@ -435,15 +435,15 @@ const CustomerServiceNeedsAnalysis = () => {
     };
 
     // Step 1: Service model steers the entire analysis
-    if (data.serviceModel === "Digital ärendehantering") {
+    if (data.serviceModel === "Ärendebaserad kundservice") {
       recommendations.customerService.score += 40;
-      recommendations.customerService.reasons.push("Primärt digital ärendehantering – Customer Service passar bäst");
-    } else if (data.serviceModel === "Telefonbaserad kundservice") {
+      recommendations.customerService.reasons.push("Ärendebaserad kundservice – Customer Service passar bäst");
+    } else if (data.serviceModel === "Volymbaserad kundservice / Contact Center") {
       recommendations.contactCenter.score += 40;
-      recommendations.contactCenter.reasons.push("Telefonbaserad kundservice – Contact Center är rätt lösning");
+      recommendations.contactCenter.reasons.push("Volymbaserad kundservice med contact center-fokus – Contact Center är rätt lösning");
     } else if (data.serviceModel === "Fältservice med tekniker") {
       recommendations.fieldService.score += 40;
-      recommendations.fieldService.reasons.push("Fältservice med tekniker – Field Service är rätt lösning");
+      recommendations.fieldService.reasons.push("Fältservice med tekniker på plats – Field Service är rätt lösning");
     } else if (data.serviceModel === "Kombination av flera") {
       recommendations.customerService.score += 20;
       recommendations.contactCenter.score += 20;
@@ -937,24 +937,24 @@ const CustomerServiceNeedsAnalysis = () => {
               <div className="grid grid-cols-1 gap-3">
                 {[
                   {
-                    value: "Digital ärendehantering",
-                    label: "Digital ärendehantering",
-                    description: "Mail, portal, chatt – ärenden hanteras primärt digitalt av agenter"
+                    value: "Ärendebaserad kundservice",
+                    label: "1️⃣ Ärendebaserad kundservice",
+                    description: "Kunder kontaktar er och ni hanterar ärenden"
                   },
                   {
-                    value: "Telefonbaserad kundservice",
-                    label: "Telefonbaserad kundservice",
-                    description: "Contact center – telefon är huvudkanalen för er support"
+                    value: "Volymbaserad kundservice / Contact Center",
+                    label: "2️⃣ Volymbaserad kundservice / Contact Center",
+                    description: "Hög volym av inkommande kontakter via flera kanaler"
                   },
                   {
                     value: "Fältservice med tekniker",
-                    label: "Fältservice med tekniker på plats",
-                    description: "Tekniker åker ut till kunder för service, installation eller underhåll"
+                    label: "3️⃣ Fältservice med tekniker på plats",
+                    description: "Service utförs hos kund"
                   },
                   {
                     value: "Kombination av flera",
-                    label: "Kombination av flera",
-                    description: "Ni arbetar med en mix av digitalt, telefoni och/eller fältservice"
+                    label: "4️⃣ Kombination av flera upplägg",
+                    description: "Ni arbetar med en mix av ärendehantering, contact center och/eller fältservice"
                   },
                 ].map((option) => (
                   <SelectionCard
@@ -972,8 +972,8 @@ const CustomerServiceNeedsAnalysis = () => {
         );
 
       case 3: {
-        const isDigital = data.serviceModel === "Digital ärendehantering";
-        const isContactCenter = data.serviceModel === "Telefonbaserad kundservice";
+        const isDigital = data.serviceModel === "Ärendebaserad kundservice";
+        const isContactCenter = data.serviceModel === "Volymbaserad kundservice / Contact Center";
         const isFieldService = data.serviceModel === "Fältservice med tekniker";
         const isCombination = data.serviceModel === "Kombination av flera";
 
@@ -1498,8 +1498,8 @@ const CustomerServiceNeedsAnalysis = () => {
 
         // 1️⃣ Er serviceprofil
         const serviceProfileMap: Record<string, { label: string; icon: string; color: string }> = {
-          "Digital ärendehantering": { label: "Digital service", icon: "💻", color: "text-blue-600" },
-          "Telefonbaserad kundservice": { label: "Contact Center", icon: "📞", color: "text-purple-600" },
+          "Ärendebaserad kundservice": { label: "Ärendebaserad service", icon: "💻", color: "text-blue-600" },
+          "Volymbaserad kundservice / Contact Center": { label: "Contact Center", icon: "📞", color: "text-purple-600" },
           "Fältservice med tekniker": { label: "Fältservice", icon: "🔧", color: "text-amber-600" },
           "Kombination av flera": { label: "Hybrid service", icon: "🔀", color: "text-green-600" },
         };
