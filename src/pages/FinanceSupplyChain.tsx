@@ -555,6 +555,81 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
+      {/* Internal Link: Business Central for SMB */}
+      <section className="py-12 sm:py-16 bg-secondary/50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-card rounded-2xl border border-border shadow-[var(--shadow-card)] overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-0">
+                {/* Left: Context */}
+                <div className="p-6 sm:p-8">
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">Är Finance & SCM rätt för er?</p>
+                  <h2 className="text-xl sm:text-2xl font-bold text-card-foreground mb-3">
+                    Kanske passar Business Central bättre?
+                  </h2>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4">
+                    Finance & Supply Chain är optimalt för globala enterprise-organisationer med 200+ användare. 
+                    Är ni ett medelstort svenskt bolag med upp till 300 användare och en enda juridisk enhet? 
+                    Då är <strong>Dynamics 365 Business Central</strong> nästan alltid ett bättre val – lägre kostnad, 
+                    snabbare implementation och lättare att hitta kompetenta partners.
+                  </p>
+                  <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      Pris från 884 kr/mån (vs 2 320 kr för Finance)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      Implementation 3–9 månader (vs 9–24 månader)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      Samma inbyggda Copilot AI
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-500 font-bold">✓</span>
+                      Fler specialiserade SMB-partners i Sverige
+                    </li>
+                  </ul>
+                  <Button asChild className="bg-business-central hover:bg-business-central/90 text-white">
+                    <Link to="/business-central">
+                      Läs mer om Business Central
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+                {/* Right: When to choose F&SCM */}
+                <div className="bg-finance-supply/10 p-6 sm:p-8 border-t md:border-t-0 md:border-l border-border">
+                  <p className="text-xs font-bold text-finance-supply uppercase tracking-widest mb-3">Finance & SCM passar när ni har...</p>
+                  <ul className="space-y-3 text-sm text-foreground">
+                    {[
+                      "Flera juridiska entiteter eller bolag",
+                      "Avancerad tillverkning (MRP/MPS)",
+                      "Globala supply chain-flöden",
+                      "200+ systemanvändare",
+                      "Komplexa valutor- och compliancekrav",
+                      "SAP och letar ett modernt alternativ"
+                    ].map((point) => (
+                      <li key={point} className="flex items-start gap-2">
+                        <span className="text-finance-supply font-bold mt-0.5">→</span>
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-6">
+                    <Button asChild variant="outline" size="sm">
+                      <Link to="/erp">
+                        Jämför Business Central vs Finance &amp; SCM
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Partners Section */}
       <section id="partners" className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">

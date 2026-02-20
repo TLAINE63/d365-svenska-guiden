@@ -544,6 +544,69 @@ const Branschlosningar = () => {
         </section>
       )}
 
+      {/* Internal Links to Product Pages */}
+      {!selectedIndustry && (
+        <section className="py-10 sm:py-14 px-4 bg-secondary/40">
+          <div className="container mx-auto max-w-5xl">
+            <div className="text-center mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Utforska Dynamics 365 per applikation</h2>
+              <p className="text-sm sm:text-base text-muted-foreground">Lär dig mer om de produkter som matchar din bransch</p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                {
+                  label: "Business Central",
+                  desc: "ERP för medelstora bolag – ekonomi, lager och produktion",
+                  path: "/business-central",
+                  industries: "Tillverkning, Grossist, Konsult, Bygg",
+                  badge: "bg-business-central/10 text-business-central border-business-central/30",
+                  cta: "hover:border-business-central/70 hover:bg-business-central/5",
+                },
+                {
+                  label: "Finance & Supply Chain",
+                  desc: "Enterprise ERP för globala organisationer",
+                  path: "/finance-supply-chain",
+                  industries: "Tillverkning, Logistik, Life Science, Energi",
+                  badge: "bg-finance-supply/10 text-finance-supply border-finance-supply/30",
+                  cta: "hover:border-finance-supply/70 hover:bg-finance-supply/5",
+                },
+                {
+                  label: "Sales & Marketing",
+                  desc: "CRM för försäljning och marknadsautomation",
+                  path: "/crm",
+                  industries: "Fastighet, Finans, Konsult, IT-tjänster",
+                  badge: "bg-crm/10 text-crm border-crm/30",
+                  cta: "hover:border-crm/70 hover:bg-crm/5",
+                },
+                {
+                  label: "Customer Service",
+                  desc: "Kundservice, Field Service och Contact Center",
+                  path: "/d365-customer-service",
+                  industries: "Retail, Energi, Hälsa, Non-profit",
+                  badge: "bg-crm/10 text-crm border-crm/30",
+                  cta: "hover:border-crm/70 hover:bg-crm/5",
+                },
+              ].map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`group flex flex-col gap-2 p-5 rounded-xl border-2 bg-card transition-all duration-200 ${item.cta} border-border/50`}
+                >
+                  <span className={`inline-block self-start text-xs font-bold px-2 py-0.5 rounded-full border ${item.badge}`}>
+                    {item.label}
+                  </span>
+                  <p className="text-sm font-medium text-foreground leading-snug">{item.desc}</p>
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-semibold">Passar för:</span> {item.industries}
+                  </p>
+                  <span className="text-xs font-semibold text-primary group-hover:underline mt-auto">Läs mer →</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Lead Magnet Banner */}
       {showLeadMagnet && !selectedIndustry && (
         <LeadMagnetBanner sourcePage="branschlosningar" onClose={() => setShowLeadMagnet(false)} />
