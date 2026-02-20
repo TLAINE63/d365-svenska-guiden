@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 
 // Breadcrumb items
 const customerServiceBreadcrumbs = [
@@ -1702,6 +1703,8 @@ const CustomerServiceNeedsAnalysis = () => {
                 🎯 Baserat på era svar har vi sammanställt er serviceprofil. Fyll i kontaktuppgifter i nästa steg för att ladda ner den fullständiga analysen.
               </p>
             </div>
+
+            <AnalysisDisclaimer />
 
             {/* 📄 SAMMANFATTNING */}
             <div className="border rounded-xl overflow-hidden shadow-sm">
