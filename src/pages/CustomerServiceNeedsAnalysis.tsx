@@ -687,7 +687,6 @@ const CustomerServiceNeedsAnalysis = () => {
     if (!validateContactForm()) return;
     
     const recommendation = getRecommendation();
-    // Dynamic import to reduce initial bundle size
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -695,185 +694,292 @@ const CustomerServiceNeedsAnalysis = () => {
     const contentWidth = pageWidth - margin * 2;
     let yPos = margin;
 
-    // Header
-    pdf.setFillColor(30, 58, 138);
-    pdf.rect(0, 0, pageWidth, 50, 'F');
-    pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(24);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("BEHOVSANALYS KUNDSERVICE", margin, 25);
-    pdf.setFontSize(14);
-    pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Customer Service & Field Service", margin, 35);
-
-    yPos = 60;
-
-    // Contact info
-    pdf.setFillColor(240, 245, 255);
-    pdf.roundedRect(margin, yPos, contentWidth, 40, 3, 3, 'F');
-    pdf.setTextColor(30, 58, 138);
-    pdf.setFontSize(12);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("KONTAKTINFORMATION", margin + 8, yPos + 12);
-    pdf.setTextColor(51, 51, 51);
-    pdf.setFontSize(10);
-    pdf.setFont("helvetica", "normal");
-    pdf.text(data.companyName, margin + 8, yPos + 22);
-    pdf.text(data.contactName, margin + 8, yPos + 30);
-    pdf.text(`E-post: ${data.email}`, pageWidth / 2, yPos + 22);
-    
-    yPos += 50;
-
-    // Recommendations
-    if (recommendation.products.length > 0) {
-      pdf.setFillColor(30, 58, 138);
-      pdf.roundedRect(margin, yPos, contentWidth, 12, 2, 2, 'F');
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(11);
-      pdf.setFont("helvetica", "bold");
-      pdf.text("REKOMMENDERADE APPLIKATIONER", margin + 5, yPos + 8);
-      yPos += 18;
-
-      recommendation.products.forEach((product, index) => {
-        pdf.setFillColor(240, 245, 255);
-        pdf.roundedRect(margin, yPos, contentWidth, 25, 2, 2, 'F');
-        pdf.setTextColor(30, 58, 138);
-        pdf.setFontSize(11);
-        pdf.setFont("helvetica", "bold");
-        pdf.text(`${index + 1}. ${product.name}`, margin + 5, yPos + 10);
-        pdf.setTextColor(51, 51, 51);
-        pdf.setFontSize(9);
-        pdf.setFont("helvetica", "normal");
-        pdf.text(product.description, margin + 5, yPos + 18);
-        yPos += 30;
-      });
-    }
-
-    // Summary sections
-    const addSection = (title: string, content: string) => {
-      if (yPos > 250) {
-        pdf.addPage();
-        yPos = margin;
-      }
-      pdf.setFillColor(30, 58, 138);
-      pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.text(title, margin + 5, yPos + 7);
-      yPos += 14;
-      pdf.setTextColor(51, 51, 51);
-      pdf.setFontSize(9);
-      pdf.setFont("helvetica", "normal");
-      const lines = pdf.splitTextToSize(content || "Ej angivet", contentWidth);
-      pdf.text(lines, margin, yPos);
-      yPos += lines.length * 5 + 8;
+    // ─── Helpers ────────────────────────────────────────────────────────────────
+    const checkPage = (needed = 20) => {
+      if (yPos + needed > 270) { pdf.addPage(); yPos = margin; }
     };
 
-    const addBulletSection = (title: string, items: string[]) => {
-      if (items.length === 0) return;
-      const neededHeight = 14 + items.length * 6 + 8;
-      if (yPos + neededHeight > 270) {
-        pdf.addPage();
-        yPos = margin;
-      }
-      pdf.setFillColor(30, 58, 138);
-      pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    const addSectionHeader = (title: string, r: number, g: number, b: number) => {
+      checkPage(18);
+      pdf.setFillColor(r, g, b);
+      pdf.roundedRect(margin, yPos, contentWidth, 11, 2, 2, 'F');
       pdf.setTextColor(255, 255, 255);
       pdf.setFontSize(10);
       pdf.setFont("helvetica", "bold");
-      pdf.text(title, margin + 5, yPos + 7);
-      yPos += 14;
+      pdf.text(title, margin + 5, yPos + 7.5);
+      yPos += 15;
       pdf.setTextColor(51, 51, 51);
-      pdf.setFontSize(9);
       pdf.setFont("helvetica", "normal");
-      items.forEach((item) => {
-        if (yPos > 270) {
-          pdf.addPage();
-          yPos = margin;
-        }
+    };
+
+    const addTextBlock = (text: string, fontSize = 9) => {
+      pdf.setFontSize(fontSize);
+      const lines = pdf.splitTextToSize(text || "Ej angivet", contentWidth);
+      checkPage(lines.length * 5 + 4);
+      pdf.text(lines, margin, yPos);
+      yPos += lines.length * 5 + 6;
+    };
+
+    const addBulletList = (items: string[]) => {
+      if (!items.length) return;
+      pdf.setFontSize(9);
+      items.forEach(item => {
+        checkPage(7);
         pdf.text(`•  ${item}`, margin + 3, yPos);
         yPos += 6;
       });
-      yPos += 4;
+      yPos += 3;
     };
 
-    addSection("Service-modell", data.serviceModel || "Ej angivet");
-    addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Serviceteam: ${data.serviceTeamSize}`);
-    const filledSystems = data.currentSystems.filter(s => s.product.trim());
-    const systemsText = filledSystems.length > 0 
-      ? filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")
-      : "Ej angivet";
-    addSection("Nuvarande system", systemsText);
-    const challengeItems = Object.entries(data.situationChallenges)
-      .filter(([_, value]) => value && value !== "Inget problem idag")
-      .map(([key, value]) => {
-        const category = situationChallengeCategories.find(c => c.id === key);
-        return category ? `${category.title}: ${value}` : `${key}: ${value}`;
-      });
-    addBulletSection("Utmaningar", challengeItems);
-    addSection("Supportkanaler", data.serviceChannels.join(", ") || "Ej angivet");
-    addSection("Fältservice", data.hasFieldService === "Ja" ? data.fieldServiceNeeds.join(", ") || "Ja" : data.hasFieldService || "Ej angivet");
-    addSection("Integrationer", data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet");
-    
-    // Önskelista
-    if (data.wishlist.trim()) {
-      addSection("Önskelista", data.wishlist);
-    }
-    
-    // Beslutstidslinje
-    if (data.decisionTimeline) {
-      addSection("Beslutstidslinje", data.decisionTimeline);
-    }
+    const addKVRow = (label: string, value: string, shade: boolean) => {
+      if (!value || value === "Ej angivet") return;
+      checkPage(8);
+      if (shade) {
+        pdf.setFillColor(245, 247, 252);
+        pdf.rect(margin, yPos - 4, contentWidth, 7, 'F');
+      }
+      pdf.setFontSize(8.5);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(80, 80, 80);
+      pdf.text(label, margin + 2, yPos);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(30, 30, 30);
+      const valLines = pdf.splitTextToSize(value, contentWidth - 55);
+      pdf.text(valLines, margin + 55, yPos);
+      yPos += Math.max(6, valLines.length * 5);
+    };
 
-    // AI & Framtid
-    addSection("AI-intresse", data.aiInterest || "Ej angivet");
-    if (data.aiUseCases.length > 0) {
-      const aiUseCaseNames = data.aiUseCases.map(id => {
-        const useCase = aiUseCaseCategories.find(c => c.id === id);
-        return useCase ? useCase.title : id;
-      });
-      addBulletSection("AI-användningsområden", aiUseCaseNames);
-    }
-    if (data.aiDetails) {
-      addSection("AI-detaljer", data.aiDetails);
-    }
-
-    // Övrig information
-    if (data.additionalInfo) {
-      addSection("Övrig information", data.additionalInfo);
-    }
-    if (data.currentPartners) {
-      addSection("Nuvarande Microsoft-partners", data.currentPartners);
-    }
-
-    // Footer with contact info
-    if (yPos > 230) {
-      pdf.addPage();
-      yPos = margin;
-    }
-    yPos += 15;
+    // ─── Page 1: Header ─────────────────────────────────────────────────────────
     pdf.setFillColor(30, 58, 138);
-    pdf.roundedRect(margin, yPos, contentWidth, 34, 3, 3, 'F');
+    pdf.rect(0, 0, pageWidth, 50, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(20);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("BEHOVSANALYS KUNDSERVICE", margin, 22);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Dynamics 365 Customer Service, Field Service & Contact Center", margin, 32);
+    pdf.setFontSize(9);
+    pdf.text(`Genererad: ${new Date().toLocaleDateString("sv-SE")}`, margin, 42);
+    yPos = 58;
+
+    // Contact info box
+    pdf.setFillColor(240, 245, 255);
+    pdf.roundedRect(margin, yPos, contentWidth, 36, 3, 3, 'F');
+    pdf.setTextColor(30, 58, 138);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("KONTAKTINFORMATION", margin + 8, yPos + 10);
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.text(`Företag: ${data.companyName}`, margin + 8, yPos + 19);
+    pdf.text(`Kontakt: ${data.contactName}`, margin + 8, yPos + 27);
+    if (data.phone) pdf.text(`Tel: ${data.phone}`, pageWidth / 2, yPos + 19);
+    pdf.text(`E-post: ${data.email}`, pageWidth / 2, yPos + 27);
+    yPos += 44;
+
+    // ─── Sammanfattning ─────────────────────────────────────────────────────────
+    addSectionHeader("SAMMANFATTNING", 37, 99, 235);
+    const profileMap: Record<string, string> = {
+      "Ärendebaserad kundservice": "Ärendebaserad service",
+      "Volymbaserad kundservice / Contact Center": "Contact Center",
+      "Fältservice med tekniker": "Fältservice",
+      "Kombination av flera": "Hybrid service",
+    };
+    const geoLabel = data.multiCountry === "Ja, globalt" ? "Global" : data.multiCountry === "Ja, Europa" ? "Europa" : data.multiCountry === "Ja, Norden" ? "Norden" : "Sverige";
+    const volLabel = (data.ticketsPerMonth === "2 000–10 000" || data.ticketsPerMonth === "Mer än 10 000") ? "Hög" : data.ticketsPerMonth === "500–2 000" ? "Medel" : data.ticketsPerMonth ? "Låg" : "Ej angivet";
+    const sysIds: Record<string, string> = { erp: "ERP", iot: "IoT", product_register: "Produktregister", lager: "Lager", fakturering: "Fakturering", crm_sales: "CRM/Sälj", field_service_ext: "Fältservice-system", telefoni: "Telefoni", e_handel: "E-handel", hr: "HR" };
+    const integList = data.systemDependencies.map(id => sysIds[id] || id);
+
+    let rowShade = false;
+    [
+      ["Serviceprofil", profileMap[data.serviceModel] || data.serviceModel],
+      ["Geografisk struktur", geoLabel],
+      ["Servicevolym", volLabel],
+      ["Integrationer", integList.join(", ") || "Ej angivet"],
+    ].forEach(([l, v]) => { addKVRow(l, v, rowShade); rowShade = !rowShade; });
+    yPos += 4;
+
+    // ─── Service Transformation Level ───────────────────────────────────────────
+    let complexityScore = 0;
+    if (data.multiCountry === "Ja, globalt" || data.multiCountry === "Ja, Europa") complexityScore += 2;
+    else if (data.multiCountry === "Ja, Norden") complexityScore += 1;
+    if (data.multiLanguage === "Ja, mer än 5 språk" || data.multiLanguage === "Ja, 3–5 språk") complexityScore += 2;
+    else if (data.multiLanguage === "Ja, svenska + engelska") complexityScore += 1;
+    if (data.customerPrioritization === "Ja, vi har komplexa prioriteringsregler") complexityScore += 2;
+    else if (data.customerPrioritization === "Ja, vi delar in kunder i 2–3 nivåer") complexityScore += 1;
+    if (data.multipleProductLines === "Ja, och de kräver specialistkompetens" || data.multipleProductLines === "Ja, mer än 5 produktlinjer") complexityScore += 2;
+    else if (data.multipleProductLines === "Ja, 2–5 produktlinjer") complexityScore += 1;
+    const complexityLevel = complexityScore >= 8 ? "Hög" : complexityScore >= 4 ? "Medel" : "Låg";
+
+    const transformationLevel = complexityScore >= 9 ? 4 : complexityScore >= 6 ? 3 : complexityScore >= 3 ? 2 : 1;
+    const transformationLabels = ["", "Initial service", "Strukturerad service", "Digitaliserad service", "Intelligent service"];
+    const transformationCommentsPdf: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
+      1: { text: "Er serviceorganisation är i ett tidigt skede med begränsat systemstöd och manuella processer. Stor potential att skapa struktur och effektivitet med rätt plattform.", strengths: ["Flexibelt arbetssätt", "Kort beslutsväg"], gaps: ["Ingen strukturerad ärendehantering", "Begränsad uppföljning", "Manuella processer", "Saknar self-service"] },
+      2: { text: "Er serviceorganisation har grundläggande processer men saknar fullt systemstöd och automatisering. Nästa steg är att samla ärendehantering och data på en plattform.", strengths: ["Etablerade processer", "Viss uppföljning", "Tydlig ansvarsfördelning"], gaps: ["Begränsad integration", "Ingen automatisering", "Begränsad self-service", "Manuell rapportering"] },
+      3: { text: "Er serviceorganisation är strukturerad och digitaliserad med tydlig ärendehantering och systemstöd. Automatisering och AI-stöd är ännu inte fullt utnyttjat.", strengths: ["Tydliga SLA och serviceavtal", "Systemstöd för ärendehantering", "Mobil åtkomst för tekniker", "Central uppföljning"], gaps: ["Begränsad automatisering", "Ingen prediktiv planering", "Begränsad self-service", "Manuell samordning med lager"] },
+      4: { text: "Er serviceorganisation är mogen och datadrivet med hög automationsgrad och AI-stöd. Fokus handlar om att förfina och optimera snarare än att bygga grundstruktur.", strengths: ["Hög automationsgrad", "AI-drivet beslutsstöd", "Proaktiv och prediktiv service", "Sömlösa integrationer"], gaps: ["Kontinuerlig optimering av AI", "Skalning till nya marknader"] },
+    };
+    const tData = transformationCommentsPdf[transformationLevel];
+
+    addSectionHeader("SERVICEMOGNAD – SERVICE TRANSFORMATION LEVEL", 5, 150, 105);
+    pdf.setFontSize(12);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(5, 150, 105);
+    const dots = "● ".repeat(transformationLevel) + "○ ".repeat(4 - transformationLevel);
+    pdf.text(dots.trim(), margin, yPos);
+    pdf.setFontSize(11);
+    pdf.text(`Niva ${transformationLevel} – ${transformationLabels[transformationLevel]}`, margin + 40, yPos);
+    yPos += 8;
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.setTextColor(51, 51, 51);
+    addTextBlock(tData.text);
+
+    // Styrkor & Utvecklingsområden sida vid sida (som listor)
+    checkPage(10);
+    addSectionHeader("STYRKOR", 22, 163, 74);
+    addBulletList(tData.strengths);
+    addSectionHeader("UTVECKLINGSOMRADEN", 202, 138, 4);
+    addBulletList(tData.gaps);
+
+    // ─── Rekommenderad lösningsinriktning ───────────────────────────────────────
+    if (recommendation.products.length > 0) {
+      addSectionHeader("REKOMMENDERAD LOSNINGSINRIKTNING", 30, 58, 138);
+      const focusMap: Record<string, string[]> = {
+        "Dynamics 365 Customer Service": ["Central ärendehantering", "Omnichannel och kanalsamordning", "AI-assisterade kundservicemedarbetare och kunskapsbas"],
+        "Dynamics 365 Field Service": ["Schemaläggning och mobilt teknikerstöd", "IoT och prediktivt underhåll", "Arbetsorder och reservdelshantering"],
+        "Dynamics 365 Contact Center": ["Multikanalhantering och röstintegration", "Realtidsdashboard och supervisor-styrning", "AI-driven ärenderouting och chattbot"],
+      };
+      const seen = new Set<string>();
+      const focuses = recommendation.products.slice(0, 3).flatMap(p => focusMap[p.name] || []).filter(f => { if (seen.has(f)) return false; seen.add(f); return true; }).slice(0, 5);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "italic");
+      pdf.setTextColor(80, 80, 80);
+      pdf.text("Baserat pa er serviceprofil rekommenderas en losning med fokus pa:", margin, yPos);
+      yPos += 6;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      addBulletList(focuses);
+
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(80, 80, 80);
+      pdf.text("Bakom kulisserna lutar det mot:", margin, yPos);
+      yPos += 6;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      recommendation.products.slice(0, 3).forEach((p, i) => {
+        checkPage(7);
+        pdf.text(`${i + 1}. ${p.name}`, margin + 3, yPos);
+        yPos += 6;
+      });
+      yPos += 4;
+    }
+
+    // ─── Appendix – fullständiga svar ───────────────────────────────────────────
+    checkPage(20);
+    addSectionHeader("APPENDIX – ERA SVAR", 71, 85, 105);
+
+    const appendixSections = [
+      {
+        title: "Steg 1 – Foretagsinformation",
+        rows: [
+          ["Antal anstallda", data.employees],
+          ["Bransch", data.industry === "Annat" ? data.industryOther : data.industry],
+          ["Serviceteam-storlek", data.serviceTeamSize],
+          ["Nuvarande system", data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")],
+        ],
+      },
+      {
+        title: "Steg 2 – Service-modell",
+        rows: [
+          ["Serviceupplägg", data.serviceModel],
+        ],
+      },
+      {
+        title: "Steg 3 – Er situation & komplexitet",
+        rows: [
+          ["Arendevolym/man", data.ticketsPerMonth],
+          ["SLA-krav", data.slaRequirements || data.serviceAgreements],
+          ["Self-service portal", data.selfServicePortal],
+          ["Kunskapsdatabas", data.knowledgeBase],
+          ["Antal kundservicemedarbetare", data.numberOfAgents],
+          ["Inkommande volym/dag", data.inboundVolume],
+          ["Contact center-kanaler", data.contactCenterChannels?.join(", ")],
+          ["Realtidsstyrning (CC)", data.realtimeManagement],
+          ["Antal tekniker", data.numberOfTechnicians],
+          ["Schemaläggning", data.schedulingNeeds],
+          ["Reservdelshantering", data.sparepartsManagement],
+          ["Geografisk spridning", data.geographicSpread],
+          ["Verkar i flera lander", data.multiCountry],
+          ["Flersprakig kundservice", data.multiLanguage],
+          ["Kundprioritering", data.customerPrioritization],
+          ["Produktlinjer", data.multipleProductLines],
+        ],
+      },
+      {
+        title: "Steg 4 – Organisation & styrning",
+        rows: [
+          ["Org-struktur", data.orgStructure],
+          ["Gemensam rapportering", data.sharedReporting],
+          ["Realtidsrapportering", data.realtimeReporting],
+          ["Integration med salj/ERP", data.integratedWithSalesErp],
+        ],
+      },
+      {
+        title: "Steg 5 – Systemintegration",
+        rows: [
+          ["Systemkopplingar", integList.join(", ")],
+        ],
+      },
+      {
+        title: "Steg 6 – AI & Automation",
+        rows: [
+          ["AI-användningsomraden", data.aiUseCases?.join(", ")],
+          ["AI-automationsfunktioner", data.aiAutomation?.join(", ")],
+        ],
+      },
+    ];
+
+    appendixSections.forEach(section => {
+      checkPage(14);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFillColor(230, 235, 245);
+      pdf.rect(margin, yPos - 4, contentWidth, 8, 'F');
+      pdf.setTextColor(30, 58, 138);
+      pdf.text(section.title, margin + 2, yPos);
+      yPos += 8;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      let shade = false;
+      section.rows.forEach(([l, v]) => { addKVRow(l, v || "", shade); shade = !shade; });
+      yPos += 3;
+    });
+
+    // ─── Footer ─────────────────────────────────────────────────────────────────
+    checkPage(40);
+    yPos += 10;
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 32, 3, 3, 'F');
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(11);
     pdf.setFont("helvetica", "bold");
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
+    pdf.text("Din oberoende guide till ratt Dynamics 365-losning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 26);
 
-    // Generate PDF as base64 for email attachment
+    // ─── Export ─────────────────────────────────────────────────────────────────
     const pdfFilename = `Behovsanalys_Kundservice_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
-    
-    // Save PDF locally
     pdf.save(`${pdfFilename}.pdf`);
 
-    // Send email with PDF attachment
     setIsSendingEmail(true);
     try {
       await supabase.functions.invoke("send-analysis-email", {
@@ -884,30 +990,37 @@ const CustomerServiceNeedsAnalysis = () => {
           phone: data.phone || "",
           email: data.email,
           analysisData: {
-            "Anställda": data.employees,
-            "Bransch": data.industry || data.industryOther || "Ej angivet",
+            "Servicemodell": data.serviceModel,
+            "Serviceprofil": profileMap[data.serviceModel] || data.serviceModel,
+            "Servicemognad": `Niva ${transformationLevel} – ${transformationLabels[transformationLevel]}`,
+            "Komplexitetsniva": complexityLevel,
+            "Anstallda": data.employees,
+            "Bransch": data.industry === "Annat" ? data.industryOther : data.industry,
             "Serviceteam": data.serviceTeamSize,
             "Nuvarande system": data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ") || "Ej angivet",
-            "Utmaningar": Object.entries(data.situationChallenges)
-              .filter(([_, value]) => value && value !== "Inget problem idag")
-              .map(([key, value]) => {
-                const category = situationChallengeCategories.find(c => c.id === key);
-                return category ? `${category.title}: ${value}` : `${key}: ${value}`;
-              })
-              .join("; ") || "Ej angivet",
-            "Supportkanaler": data.serviceChannels.join(", ") || "Ej angivet",
-            "Fältservice": data.hasFieldService === "Ja" ? data.fieldServiceNeeds.join(", ") || "Ja" : data.hasFieldService || "Ej angivet",
-            "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet",
-            "Önskelista": data.wishlist || "Ej angivet",
-            "Beslutstidslinje": data.decisionTimeline || "Ej angivet",
-            "AI-intresse": data.aiInterest || "Ej angivet",
-            "AI-användningsområden": data.aiUseCases.map(id => {
-              const useCase = aiUseCaseCategories.find(c => c.id === id);
-              return useCase ? useCase.title : id;
-            }).join(", ") || "Ej angivet",
-            "AI-detaljer": data.aiDetails || "Ej angivet",
-            "Övrig information": data.additionalInfo || "Ej angivet",
-            "Nuvarande partners": data.currentPartners || "Ej angivet",
+            "Arendevolym/man": data.ticketsPerMonth,
+            "SLA-krav": data.slaRequirements || data.serviceAgreements,
+            "Self-service portal": data.selfServicePortal,
+            "Kunskapsdatabas": data.knowledgeBase,
+            "Antal kundservicemedarbetare": data.numberOfAgents,
+            "Inkommande volym/dag": data.inboundVolume,
+            "Contact center-kanaler": data.contactCenterChannels?.join(", "),
+            "Antal tekniker": data.numberOfTechnicians,
+            "Schemaläggning": data.schedulingNeeds,
+            "Reservdelshantering": data.sparepartsManagement,
+            "Geografisk spridning": data.geographicSpread,
+            "Lander": data.multiCountry,
+            "Sprak": data.multiLanguage,
+            "Kundprioritering": data.customerPrioritization,
+            "Produktlinjer": data.multipleProductLines,
+            "Org-struktur": data.orgStructure,
+            "Gemensam rapportering": data.sharedReporting,
+            "Realtidsrapportering": data.realtimeReporting,
+            "Integration salj/ERP": data.integratedWithSalesErp,
+            "Systemkopplingar": integList.join(", ") || "Ej angivet",
+            "AI-anvandningsomraden": data.aiUseCases?.join(", ") || "Ej angivet",
+            "AI-automationsfunktioner": data.aiAutomation?.join(", ") || "Ej angivet",
+            "Rekommenderade produkter": recommendation.products.map(p => p.name).join(", "),
           },
           recommendation: recommendation.products.length > 0 ? {
             product: recommendation.products.map(p => p.name).join(", "),
