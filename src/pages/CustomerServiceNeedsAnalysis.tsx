@@ -1167,17 +1167,6 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
 
             <div>
-              <Label className="text-base font-semibold mb-3 block">Hur många ärenden hanterar ni totalt per månad?</Label>
-              {complexityRadio("ticketsPerMonthComplex", [
-                "Färre än 500",
-                "500–2 000",
-                "2 000–10 000",
-                "Mer än 10 000",
-                "Vet ej",
-              ])}
-            </div>
-
-            <div>
               <Label className="text-base font-semibold mb-3 block">Verkar ni i flera länder?</Label>
               {complexityRadio("multiCountry", [
                 "Nej, endast Sverige",
@@ -1194,16 +1183,6 @@ const CustomerServiceNeedsAnalysis = () => {
                 "Ja, svenska + engelska",
                 "Ja, 3–5 språk",
                 "Ja, mer än 5 språk",
-              ])}
-            </div>
-
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Har ni formella serviceavtal (SLA) med kunder?</Label>
-              {complexityRadio("slaContracts", [
-                "Nej",
-                "Ja, informella mål",
-                "Ja, kontraktuella SLA med viten",
-                "Ja, komplexa SLA per kundsegment",
               ])}
             </div>
 
