@@ -1452,6 +1452,71 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       yPos += 5;
     };
 
+    // ─── COVER PAGE ─────────────────────────────────────────────────────────────
+    const analysisDate = new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
+    
+    // Cover background – deep teal
+    pdf.setFillColor(0, 120, 108);
+    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+    
+    // Accent stripe
+    pdf.setFillColor(0, 180, 160);
+    pdf.rect(0, pageHeight * 0.55, pageWidth, 3, 'F');
+    
+    // Try to add logo
+    try {
+      const logoImg = new Image();
+      logoImg.crossOrigin = "anonymous";
+      await new Promise<void>((resolve) => {
+        logoImg.onload = () => {
+          try {
+            const logoW = 70;
+            const logoH = (logoImg.height / logoImg.width) * logoW;
+            pdf.addImage(logoImg, "JPEG", pageWidth / 2 - logoW / 2, 30, logoW, logoH);
+          } catch {}
+          resolve();
+        };
+        logoImg.onerror = () => resolve();
+        logoImg.src = "/src/assets/dynamic-factory-logo-new.jpg";
+      });
+    } catch {}
+    
+    // Title block
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(28);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
+    
+    pdf.setFontSize(16);
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Dynamics 365 Affärssystem (ERP)", pageWidth / 2, 133, { align: "center" });
+    
+    // Divider
+    pdf.setDrawColor(255, 255, 255);
+    pdf.setLineWidth(0.5);
+    pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
+    
+    // Company info
+    pdf.setFontSize(13);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(data.companyName || "", pageWidth / 2, 158, { align: "center" });
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(200, 240, 235);
+    pdf.text(data.contactName || "", pageWidth / 2, 167, { align: "center" });
+    pdf.text(data.email || "", pageWidth / 2, 176, { align: "center" });
+    
+    // Footer area
+    pdf.setTextColor(180, 230, 225);
+    pdf.setFontSize(9);
+    pdf.text("d365.se – Vägledning för Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.text(`Analysens datum: ${analysisDate}`, pageWidth / 2, pageHeight - 18, { align: "center" });
+
+    // Start report on page 2
+    pdf.addPage();
+
     // Header with gradient-like effect
     pdf.setFillColor(0, 150, 136);
     pdf.rect(0, 0, pageWidth, 50, 'F');

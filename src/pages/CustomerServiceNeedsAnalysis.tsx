@@ -691,6 +691,7 @@ const CustomerServiceNeedsAnalysis = () => {
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
     const margin = 20;
     const contentWidth = pageWidth - margin * 2;
     let yPos = margin;
@@ -750,7 +751,63 @@ const CustomerServiceNeedsAnalysis = () => {
       yPos += Math.max(6, valLines.length * 5);
     };
 
-    // ─── Page 1: Header ─────────────────────────────────────────────────────────
+    // ─── COVER PAGE ─────────────────────────────────────────────────────────────
+    const analysisDate = new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
+
+    pdf.setFillColor(30, 58, 138);
+    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+
+    pdf.setFillColor(56, 100, 220);
+    pdf.rect(0, pageHeight * 0.55, pageWidth, 3, 'F');
+
+    try {
+      const logoImg = new Image();
+      logoImg.crossOrigin = "anonymous";
+      await new Promise<void>((resolve) => {
+        logoImg.onload = () => {
+          try {
+            const logoW = 70;
+            const logoH = (logoImg.height / logoImg.width) * logoW;
+            pdf.addImage(logoImg, "JPEG", pageWidth / 2 - logoW / 2, 30, logoW, logoH);
+          } catch {}
+          resolve();
+        };
+        logoImg.onerror = () => resolve();
+        logoImg.src = "/src/assets/dynamic-factory-logo-new.jpg";
+      });
+    } catch {}
+
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(28);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
+    pdf.setFontSize(16);
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Dynamics 365 Customer Service", pageWidth / 2, 133, { align: "center" });
+
+    pdf.setDrawColor(255, 255, 255);
+    pdf.setLineWidth(0.5);
+    pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
+
+    pdf.setFontSize(13);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(data.companyName || "", pageWidth / 2, 158, { align: "center" });
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(200, 215, 255);
+    pdf.text(data.contactName || "", pageWidth / 2, 167, { align: "center" });
+    pdf.text(data.email || "", pageWidth / 2, 176, { align: "center" });
+
+    pdf.setTextColor(180, 200, 255);
+    pdf.setFontSize(9);
+    pdf.text("d365.se – Vägledning för Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.text(`Analysens datum: ${analysisDate}`, pageWidth / 2, pageHeight - 18, { align: "center" });
+
+    pdf.addPage();
+
+    // ─── Page 2: Header ─────────────────────────────────────────────────────────
     pdf.setFillColor(30, 58, 138);
     pdf.rect(0, 0, pageWidth, 50, 'F');
     pdf.setTextColor(255, 255, 255);
