@@ -34,6 +34,7 @@ const contactFormSchema = z.object({
 type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>, string>>;
 
 interface CustomerServiceAnalysisData {
+  serviceModel: string;
   employees: string;
   industry: string;
   industryOther: string;
@@ -61,6 +62,7 @@ interface CustomerServiceAnalysisData {
 }
 
 const initialData: CustomerServiceAnalysisData = {
+  serviceModel: "",
   employees: "",
   industry: "",
   industryOther: "",
@@ -311,11 +313,12 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 7;
+  const totalSteps = 8;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Target, Target, Target, Target, BarChart3, FileText];
+  const stepIcons = [Headphones, Building2, Target, Target, Target, Target, BarChart3, FileText];
   const stepTitles = [
+    "Service-modell",
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
@@ -372,6 +375,23 @@ const CustomerServiceNeedsAnalysis = () => {
       fieldService: { score: 0, reasons: [] },
       contactCenter: { score: 0, reasons: [] },
     };
+
+    // Step 1: Service model steers the entire analysis
+    if (data.serviceModel === "Digital ärendehantering") {
+      recommendations.customerService.score += 40;
+      recommendations.customerService.reasons.push("Primärt digital ärendehantering – Customer Service passar bäst");
+    } else if (data.serviceModel === "Telefonbaserad kundservice") {
+      recommendations.contactCenter.score += 40;
+      recommendations.contactCenter.reasons.push("Telefonbaserad kundservice – Contact Center är rätt lösning");
+    } else if (data.serviceModel === "Fältservice med tekniker") {
+      recommendations.fieldService.score += 40;
+      recommendations.fieldService.reasons.push("Fältservice med tekniker – Field Service är rätt lösning");
+    } else if (data.serviceModel === "Kombination av flera") {
+      recommendations.customerService.score += 20;
+      recommendations.contactCenter.score += 20;
+      recommendations.fieldService.score += 15;
+      recommendations.customerService.reasons.push("Kombinerad service-modell kräver flexibel plattform");
+    }
 
     if (data.serviceChannels.length > 0) {
       recommendations.customerService.score += data.serviceChannels.length * 5;
@@ -583,6 +603,7 @@ const CustomerServiceNeedsAnalysis = () => {
       yPos += 4;
     };
 
+    addSection("Service-modell", data.serviceModel || "Ej angivet");
     addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Serviceteam: ${data.serviceTeamSize}`);
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     const systemsText = filledSystems.length > 0 
@@ -716,6 +737,49 @@ const CustomerServiceNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div>
+              <Label className="text-base font-semibold mb-1 block">Hur levererar ni huvudsakligen kundservice?</Label>
+              <p className="text-sm text-muted-foreground mb-4">Ditt val styr vilka frågor och rekommendationer som är relevanta för er.</p>
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  {
+                    value: "Digital ärendehantering",
+                    label: "Digital ärendehantering",
+                    description: "Mail, portal, chatt – ärenden hanteras primärt digitalt av agenter"
+                  },
+                  {
+                    value: "Telefonbaserad kundservice",
+                    label: "Telefonbaserad kundservice",
+                    description: "Contact center – telefon är huvudkanalen för er support"
+                  },
+                  {
+                    value: "Fältservice med tekniker",
+                    label: "Fältservice med tekniker på plats",
+                    description: "Tekniker åker ut till kunder för service, installation eller underhåll"
+                  },
+                  {
+                    value: "Kombination av flera",
+                    label: "Kombination av flera",
+                    description: "Ni arbetar med en mix av digitalt, telefoni och/eller fältservice"
+                  },
+                ].map((option) => (
+                  <SelectionCard
+                    key={option.value}
+                    label={option.label}
+                    description={option.description}
+                    selected={data.serviceModel === option.value}
+                    onClick={() => setData({ ...data, serviceModel: option.value })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 2:
+        return (
+          <div className="space-y-6">
+            <div>
               <Label className="text-base font-semibold mb-3 block">Antal anställda i företaget</Label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {employeeOptions.map((option) => (
@@ -769,8 +833,6 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
           </div>
         );
-
-      case 2:
         return (
           <div className="space-y-6">
             <div>
@@ -838,7 +900,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 3:
+      case 4:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
@@ -894,7 +956,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -935,7 +997,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
@@ -971,7 +1033,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1042,7 +1104,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <div>
