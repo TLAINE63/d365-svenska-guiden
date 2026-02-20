@@ -3117,91 +3117,93 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {showContactForm ? (
-                <div className="space-y-6">
-                  <p className="text-muted-foreground">
-                    Fyll i dina kontaktuppgifter för att ladda ned din personliga behovsanalys.
-                  </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="companyName">Företagsnamn *</Label>
-                      <Input
-                        id="companyName"
-                        placeholder="Ditt företag AB"
-                        value={data.companyName}
-                        onChange={(e) => {
-                          setData({ ...data, companyName: e.target.value });
-                          if (contactErrors.companyName) {
-                            setContactErrors({ ...contactErrors, companyName: undefined });
-                          }
-                        }}
-                        className={`mt-2 ${contactErrors.companyName ? 'border-destructive' : ''}`}
-                      />
-                      {contactErrors.companyName && (
-                        <p className="text-sm text-destructive mt-1">{contactErrors.companyName}</p>
-                      )}
-                    </div>
-                    <div>
-                      <Label htmlFor="contactName">Ditt namn *</Label>
-                      <Input
-                        id="contactName"
-                        placeholder="Förnamn Efternamn"
-                        value={data.contactName}
-                        onChange={(e) => {
-                          setData({ ...data, contactName: e.target.value });
-                          if (contactErrors.contactName) {
-                            setContactErrors({ ...contactErrors, contactName: undefined });
-                          }
-                        }}
-                        className={`mt-2 ${contactErrors.contactName ? 'border-destructive' : ''}`}
-                      />
-                      {contactErrors.contactName && (
-                        <p className="text-sm text-destructive mt-1">{contactErrors.contactName}</p>
-                      )}
-                    </div>
-                    <div>
-                      <Label htmlFor="phone">Telefonnummer *</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+46 70 123 45 67"
-                        value={data.phone}
-                        onChange={(e) => {
-                          setData({ ...data, phone: e.target.value });
-                          if (contactErrors.phone) {
-                            setContactErrors({ ...contactErrors, phone: undefined });
-                          }
-                        }}
-                        className={`mt-2 ${contactErrors.phone ? 'border-destructive' : ''}`}
-                      />
-                      {contactErrors.phone && (
-                        <p className="text-sm text-destructive mt-1">{contactErrors.phone}</p>
-                      )}
-                    </div>
-                    <div>
-                      <Label htmlFor="email">E-postadress *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="namn@foretag.se"
-                        value={data.email}
-                        onChange={(e) => {
-                          setData({ ...data, email: e.target.value });
-                          if (contactErrors.email) {
-                            setContactErrors({ ...contactErrors, email: undefined });
-                          }
-                        }}
-                        className={`mt-2 ${contactErrors.email ? 'border-destructive' : ''}`}
-                      />
-                      {contactErrors.email && (
-                        <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>
-                      )}
+              <div className="analysis-form theme-erp">
+                {showContactForm ? (
+                  <div className="space-y-6">
+                    <p className="text-muted-foreground">
+                      Fyll i dina kontaktuppgifter för att ladda ned din personliga behovsanalys.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="companyName">Företagsnamn *</Label>
+                        <Input
+                          id="companyName"
+                          placeholder="Ditt företag AB"
+                          value={data.companyName}
+                          onChange={(e) => {
+                            setData({ ...data, companyName: e.target.value });
+                            if (contactErrors.companyName) {
+                              setContactErrors({ ...contactErrors, companyName: undefined });
+                            }
+                          }}
+                          className={`mt-2 ${contactErrors.companyName ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.companyName && (
+                          <p className="text-sm text-destructive mt-1">{contactErrors.companyName}</p>
+                        )}
+                      </div>
+                      <div>
+                        <Label htmlFor="contactName">Ditt namn *</Label>
+                        <Input
+                          id="contactName"
+                          placeholder="Förnamn Efternamn"
+                          value={data.contactName}
+                          onChange={(e) => {
+                            setData({ ...data, contactName: e.target.value });
+                            if (contactErrors.contactName) {
+                              setContactErrors({ ...contactErrors, contactName: undefined });
+                            }
+                          }}
+                          className={`mt-2 ${contactErrors.contactName ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.contactName && (
+                          <p className="text-sm text-destructive mt-1">{contactErrors.contactName}</p>
+                        )}
+                      </div>
+                      <div>
+                        <Label htmlFor="phone">Telefonnummer *</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          placeholder="+46 70 123 45 67"
+                          value={data.phone}
+                          onChange={(e) => {
+                            setData({ ...data, phone: e.target.value });
+                            if (contactErrors.phone) {
+                              setContactErrors({ ...contactErrors, phone: undefined });
+                            }
+                          }}
+                          className={`mt-2 ${contactErrors.phone ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.phone && (
+                          <p className="text-sm text-destructive mt-1">{contactErrors.phone}</p>
+                        )}
+                      </div>
+                      <div>
+                        <Label htmlFor="email">E-postadress *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="namn@foretag.se"
+                          value={data.email}
+                          onChange={(e) => {
+                            setData({ ...data, email: e.target.value });
+                            if (contactErrors.email) {
+                              setContactErrors({ ...contactErrors, email: undefined });
+                            }
+                          }}
+                          className={`mt-2 ${contactErrors.email ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.email && (
+                          <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ) : (
-                renderStep()
-              )}
+                ) : (
+                  renderStep()
+                )}
+              </div>
 
               {/* Navigation */}
               <div className="flex justify-between mt-8 pt-6 border-t">

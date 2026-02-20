@@ -2310,7 +2310,9 @@ const CustomerServiceNeedsAnalysis = () => {
               </div>
             </CardHeader>
             <CardContent className="pt-6">
-              {showContactForm ? renderContactForm() : renderStep()}
+              <div className="analysis-form theme-cs">
+                {showContactForm ? renderContactForm() : renderStep()}
+              </div>
             </CardContent>
           </Card>
 
