@@ -375,15 +375,15 @@ const CustomerServiceNeedsAnalysis = () => {
   const totalSteps = 9;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Building2, Sparkles, CheckCircle2];
+  const stepIcons = [Building2, Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Sparkles, CheckCircle2];
   const stepTitles = [
+    "Företagsinformation",
     "Service-modell",
     "Er situation",
     "Servicekomplexitet",
     "Organisation & styrning",
     "Systemintegration",
     "AI & Automation",
-    "Företagsinformation",
     "AI & Framtid",
     "Er serviceprofil",
   ];
@@ -930,7 +930,7 @@ const CustomerServiceNeedsAnalysis = () => {
 
   const renderStep = () => {
     switch (currentStep) {
-      case 1:
+      case 2:
         return (
           <div className="space-y-6">
             <div>
@@ -973,7 +973,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 2: {
+      case 3: {
         const isDigital = data.serviceModel === "Digital ärendehantering";
         const isContactCenter = data.serviceModel === "Telefonbaserad kundservice";
         const isFieldService = data.serviceModel === "Fältservice med tekniker";
@@ -1145,7 +1145,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 3: {
+      case 4: {
         const complexityRadio = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {options.map((opt) => (
@@ -1230,7 +1230,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 4: {
+      case 5: {
         const orgRadio = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {options.map((opt) => (
@@ -1293,7 +1293,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 5: {
+      case 6: {
         const systemOptions = [
           { id: "erp", label: "ERP", description: "T.ex. Business Central, Finance, SAP, Navision", icon: "🏭" },
           { id: "iot", label: "IoT / Sensorer", description: "Uppkopplade produkter eller maskiner som skickar data", icon: "📡" },
@@ -1360,7 +1360,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 6: {
+      case 7: {
         const aiAutomationOptions = [
           {
             id: "auto_routing",
@@ -1441,7 +1441,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 7:
+      case 1:
         return (
           <div className="space-y-6">
             <div>
