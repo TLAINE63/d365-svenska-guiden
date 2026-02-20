@@ -82,12 +82,39 @@ const Navbar = () => {
             >
               Branschlösningar
             </Link>
-            <Link
-              to="/valj-partner"
-              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-            >
-              Det kritiska partnervalet
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
+                  Det kritiska partnervalet
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-background border border-border z-50 w-64">
+                <DropdownMenuItem asChild>
+                  <Link to="/valj-partner" className="cursor-pointer font-medium">
+                    Hitta rätt partner
+                  </Link>
+                </DropdownMenuItem>
+                <div className="px-2 py-1.5">
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</p>
+                </div>
+                <DropdownMenuItem asChild>
+                  <Link to="/behovsanalys" className="cursor-pointer">
+                    📊 ERP (Affärssystem)
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/salj-marknad-behovsanalys" className="cursor-pointer">
+                    📈 Sälj & Marknad (CRM)
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/kundservice-behovsanalys" className="cursor-pointer">
+                    🎧 Kundservice & Field Service
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
@@ -206,6 +233,18 @@ const Navbar = () => {
                 >
                   Det kritiska partnervalet
                 </Link>
+                <div className="flex flex-col gap-2 ml-4">
+                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
+                  <Link to="/behovsanalys" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                    📊 ERP (Affärssystem)
+                  </Link>
+                  <Link to="/salj-marknad-behovsanalys" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                    📈 Sälj & Marknad (CRM)
+                  </Link>
+                  <Link to="/kundservice-behovsanalys" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                    🎧 Kundservice & Field Service
+                  </Link>
+                </div>
                 <div className="flex flex-col gap-2">
                   <span className="text-lg font-semibold text-foreground">Affärssystem (ERP)</span>
                   <div className="flex flex-col gap-2 ml-4">
