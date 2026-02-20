@@ -26,10 +26,14 @@ import {
 
 // Customer Service FAQs for schema
 const customerServiceFaqs = [
-  { question: "Vad är skillnaden mellan Customer Service Professional och Enterprise?", answer: "Professional inkluderar ärendehantering, kunskapsdatabas och SLA-hantering. Enterprise lägger till Copilot, multisessions-stöd, enhetlig dirigering, avancerad analys och kundportaler." },
-  { question: "Hur fungerar Copilot i Customer Service?", answer: "Copilot analyserar kundärenden, föreslår lösningar från kunskapsdatabasen, sammanfattar konversationer automatiskt och ger realtidscoaching." },
-  { question: "Vilka kanaler stöds för kundkommunikation?", answer: "Dynamics 365 Customer Service stöder e-post, chatt, telefon, SMS och sociala medier. Enterprise Omnichannel samlar alla kanaler i ett enhetligt gränssnitt." },
-  { question: "Kan vi skapa självbetjäningsportaler för kunder?", answer: "Ja, med Enterprise-licensen kan du skapa kundportaler där kunder kan se ärenden, söka i kunskapsdatabasen och skapa nya supportärenden." },
+  { question: "Vad kostar Dynamics 365 Customer Service?", answer: "Dynamics 365 Customer Service finns i två licensnivåer: Professional kostar 553 kr/kundservicemedarbetare/mån och Enterprise kostar 1 160 kr/mån. Enterprise inkluderar Copilot AI, omnikanalstöd och avancerad analys. Implementeringskostnad för ett standardprojekt ligger typiskt på 150 000–400 000 kr." },
+  { question: "Vad är Dynamics 365 Customer Service och hur används det?", answer: "Microsoft Dynamics 365 Customer Service är ett molnbaserat ärendehanteringssystem (helpdesk/kundservice-system) för kundservicemedarbetare. Det samlar ärenden från alla kanaler – e-post, chatt, telefon, sociala medier och portal – i ett enhetligt gränssnitt med inbyggd AI via Microsoft Copilot." },
+  { question: "Är Dynamics 365 Customer Service ett bra helpdesk-system för Microsoft-miljöer?", answer: "Ja, Dynamics 365 Customer Service är Microsofts egna helpdesk och kundserviceplattform och integreras nativt med Microsoft 365 (Outlook, Teams), Azure och Power Platform. Det är ett ledande alternativ till Zendesk och ServiceNow för organisationer som redan använder Microsoft-ekosystemet." },
+  { question: "Vad är skillnaden mellan Customer Service Professional och Enterprise?", answer: "Professional (553 kr/mån) inkluderar ärendehantering, kunskapsdatabas och SLA-hantering via e-post och chatt. Enterprise (1 160 kr/mån) lägger till Copilot AI, multisessions-gränssnitt, omnikanalstöd (telefon, SMS, sociala medier), enhetlig dirigering, avancerad analys och kundsjälvbetjäningsportaler." },
+  { question: "Hur fungerar Microsoft Copilot i Dynamics 365 Customer Service?", answer: "Copilot i Customer Service analyserar kundärenden och föreslår automatiskt lösningar från kunskapsdatabasen, sammanfattar konversationshistorik, ger realtidscoaching till kundservicemedarbetare och kan generera svarsutkast. Det minskar genomsnittlig hanteringstid (AHT) och förbättrar kundnöjdhet (CSAT)." },
+  { question: "Vilka kanaler stöds i Dynamics 365 Customer Service?", answer: "Dynamics 365 Customer Service stöder ärendehantering via e-post och chatt i Professional-planen. Med Enterprise-planen och Omnichannel-tillägget tillkommer telefoni, SMS, WhatsApp, Facebook Messenger och Twitter/X – allt samordnat i ett enhetligt agentkokpit." },
+  { question: "Kan vi skapa självbetjäningsportaler med Dynamics 365 Customer Service?", answer: "Ja, med Enterprise-licensen kan du bygga kundportaler via Power Pages där kunder kan logga in, följa sina ärenden, söka i kunskapsdatabasen och skapa nya supportärenden – vilket minskar behovet av direktkontakt med kundservicemedarbetare." },
+  { question: "Hur lång tid tar det att implementera Dynamics 365 Customer Service?", answer: "En standardimplementering med ärendehantering och e-postkanal tar 2–4 månader. Fullständig omnikanalimplementering med telefoni, Copilot och portaler tar 4–8 månader. En erfaren Microsoft-partner är avgörande för att säkerställa korrekt konfiguration och adoption bland kundservicemedarbetare." },
 ];
 
 const D365CustomerService = () => {
@@ -69,16 +73,16 @@ const D365CustomerService = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Customer Service | Priser & Implementering"
-        description="Komplett guide till Microsoft Dynamics 365 Customer Service. Licenspriser, Copilot-funktioner och tips för att välja rätt partner."
+        title="Dynamics 365 Customer Service – Helpdesk & Ärendehantering | Priser | d365.se"
+        description="Guide till Microsoft Dynamics 365 Customer Service – molnbaserat helpdesk och kundservicesystem. Priser från 553 kr/mån, Copilot AI inbyggt, omnikanalstöd. Hitta certifierad partner i Sverige."
         canonicalPath="/d365-customer-service"
-        keywords="Dynamics 365 Customer Service, kundservice, ärendehantering, Copilot, AI, priser"
+        keywords="Dynamics 365 Customer Service pris, helpdesk system Microsoft, kundservice system, ärendehantering system, Microsoft helpdesk, Dynamics 365 Customer Service Enterprise, CRM kundservice, omnichannel kundservice, Zendesk alternativ Microsoft, kundservice AI Copilot Sverige"
         ogImage="https://d365.se/og-customer-service.png"
       />
       <FAQSchema faqs={customerServiceFaqs} />
       <ServiceSchema 
-        name="Dynamics 365 Customer Service"
-        description="Intelligent ärendehantering för exceptionell kundservice med AI-drivna insikter och omnikanal-stöd."
+        name="Microsoft Dynamics 365 Customer Service – Helpdesk & Ärendehantering"
+        description="Molnbaserat kundservicesystem och helpdesk med inbyggd Copilot AI, omnikanalstöd (e-post, chatt, telefon, SMS) och självbetjäningsportaler. Licenspriser från 553 kr/kundservicemedarbetare/mån."
       />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />
