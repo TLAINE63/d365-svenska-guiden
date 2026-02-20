@@ -27,10 +27,38 @@ import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
 // Partner FAQs for schema
 const partnerFaqs = [
-  { question: "Har partnern erfarenhet av vår bransch?", answer: "Välj en partner med erfarenhet från liknande projekt och som förstår era specifika krav inom er bransch. Många har branschspecifika lösningar." },
-  { question: "Hur ser deras implementationsmetodik ut?", answer: "Bra partners arbetar enligt beprövade metoder som Microsoft's Success by Design och erbjuder tydlig projektledning, förändringsledning och utbildning." },
-  { question: "Vilken support erbjuder de efter implementationen?", answer: "Kontrollera att det finns tydlig plan för support, uppgraderingar och vidareutveckling med dedikerad supportorganisation och SLA:er." },
-  { question: "Hur transparenta är de med kostnader?", answer: "Be om tydlig offert med alla kostnader specificerade och fråga hur de hanterar förändringar i omfattning." },
+  {
+    question: "Hur hittar jag rätt Dynamics 365 partner i Sverige?",
+    answer: "Hitta rätt Dynamics 365 partner i Sverige genom att filtrera på din bransch, vald applikation (Business Central, Sales, Customer Service m.fl.) och geografisk täckning. Välj en partner med dokumenterad erfarenhet i din bransch, relevant referensuppdrag och Microsoft-certifiering (Solutions Partner). På d365.se kan du jämföra partners kostnadsfritt och begära matchning."
+  },
+  {
+    question: "Vad är skillnaden mellan olika Dynamics 365 partners i Sverige?",
+    answer: "Business Central partner jämförelse: partners skiljer sig i storlek (10–500 konsulter), branschfokus, pris och certifieringsnivå. Stora partners som Stena/Systeam har bredare kapacitet men kan vara dyrare. Mellanstora nischade partners erbjuder ofta djupare branschkompetens och bättre tillgänglighet. Nyckelskillnader: antal certifierade konsulter, antal genomförda projekt, kundreferenser och supportmodell."
+  },
+  {
+    question: "Vad innebär Microsoft-certifiering för Dynamics 365 partners?",
+    answer: "Microsoft-certifierade partners (Solutions Partner) har genomgått Microsofts kvalitetsgranskning och uppfyller krav på antal certifierade konsulter, kundnöjdhet och genomförda projekt. Det finns fyra specialiseringar relevanta för Dynamics 365: Business Applications (ERP), Business Applications (CRM), Modern Work och Azure. En certifierad Microsoft partner ger högre trygghet vid implementering och ger kunden tillgång till Microsofts supportkanaler."
+  },
+  {
+    question: "Hur mycket kostar ett Dynamics 365-implementeringsprojekt?",
+    answer: "Implementeringskostnader varierar kraftigt: Business Central för SMB (10–50 användare) kostar typiskt 200 000–800 000 kr i konsulttid. Finance & Supply Chain för större företag kan kosta 1–5 MSEK. Faktorer som påverkar: antal användare, komplexitet av integrationer, befintliga system, branschspecifika krav och vald partner. Licenskostnaden tillkommer – Business Central från 884 kr/användare/mån."
+  },
+  {
+    question: "Har partnern erfarenhet av vår bransch?",
+    answer: "Välj en partner med erfarenhet från liknande projekt och som förstår era specifika krav inom er bransch. Många partners har branschspecifika lösningar och acceleratorer som kortar implementationstiden. Be alltid om 2–3 referensuppdrag från liknande bolag i er bransch."
+  },
+  {
+    question: "Hur ser en bra Dynamics 365-implementationsmetodik ut?",
+    answer: "Bra partners arbetar enligt beprövade metoder som Microsofts Success by Design och erbjuder tydlig projektledning, förändringsledning och utbildning. Be partnern beskriva hur de hanterar scope creep, förseningar och ändrade krav – det avslöjar deras professionalism."
+  },
+  {
+    question: "Vilken support erbjuder Dynamics 365-partners efter implementationen?",
+    answer: "Kontrollera att det finns tydlig plan för support, uppgraderingar och vidareutveckling med dedikerad supportorganisation och SLA:er. Microsoft releases 2 release waves per år – fråga hur partnern hanterar uppgraderingar och om de ingår i supportavtalet."
+  },
+  {
+    question: "Hur transparenta är Dynamics 365-partners med kostnader?",
+    answer: "Be om tydlig offert med alla kostnader specificerade – konsulttimmar, licenser, tredjepartslösningar och löpande support. Fråga specifikt hur de hanterar förändringar i projektomfattning (change requests) och om de erbjuder fast pris eller löpande räkning."
+  },
 ];
 
 
@@ -348,10 +376,10 @@ const ValjPartner = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Välj Dynamics 365 Partner | Hitta rätt implementeringspartner"
-        description="Jämför och välj rätt Microsoft Dynamics 365 partner för ditt projekt. Filtrera på bransch, applikation och geografi för att hitta bästa match."
+        title="Hitta Dynamics 365 Partner Sverige – Jämför certifierade Microsoft-partners"
+        description="Jämför Microsoft-certifierade Dynamics 365 partners i Sverige. Filtrera på bransch, applikation och geografi. Business Central, Finance, Sales & CRM. Kostnadsfri matchning."
         canonicalPath="/valj-partner"
-        keywords="Dynamics 365 partner, Microsoft partner, implementering, ERP partner, CRM partner, Sverige"
+        keywords="hitta Dynamics 365 partner Sverige, Business Central partner jämförelse, Microsoft partner certifierad, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Microsoft Solutions Partner, Business Central konsult"
         ogImage="https://d365.se/og-partner.png"
       />
       <FAQSchema faqs={partnerFaqs} />
