@@ -608,8 +608,157 @@ const SalesMarketingNeedsAnalysis = () => {
 
   const generateDocument = async () => {
     if (!validateContactForm()) return;
-    
-    const recommendation = getRecommendation();
+
+    // ── Kör samma poängmotor som steg 7 ─────────────────────────────────
+    let pdfSalesScore = 0;
+    if (data.commercialModel === "b2b_relational") pdfSalesScore += 4;
+    if (data.commercialModel === "b2b_complex") pdfSalesScore += 3;
+    if (data.commercialModel === "partner_channel") pdfSalesScore += 3;
+    if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") pdfSalesScore += 2;
+    if (data.b2bStructuredPipeline === "Vi har definierade säljsteg") pdfSalesScore += 1;
+    if (data.b2bForecastNeeds === "Ja, kritiskt") pdfSalesScore += 2;
+    if (data.b2bForecastNeeds === "Vore bra att ha") pdfSalesScore += 1;
+    if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) pdfSalesScore += 1;
+    if (data.b2bComplexRoleBased?.startsWith("Ja")) pdfSalesScore += 2;
+    if (data.b2bComplexParallelDeals && data.b2bComplexParallelDeals !== "Färre än 10") pdfSalesScore += 1;
+    if (data.b2bComplexPartnerChannel?.startsWith("Ja")) pdfSalesScore += 1;
+    if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfSalesScore += 2;
+    if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) pdfSalesScore += 1;
+    if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) pdfSalesScore += 1;
+    if (data.followUpMethod === "Excel" || data.followUpMethod === "Lokala system") pdfSalesScore += 1;
+    if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") pdfSalesScore += 1;
+    if (data.multiCountry === "Ja, flera länder") pdfSalesScore += 1;
+
+    let pdfInsightsScore = 0;
+    if (data.commercialModel === "digital_market") pdfInsightsScore += 4;
+    if (data.commercialModel === "b2c_volume") pdfInsightsScore += 4;
+    if (data.digitalDataSources && !data.digitalDataSources.startsWith("Nej")) pdfInsightsScore += 2;
+    if (data.digitalBehaviorSegmentation?.startsWith("Ja")) pdfInsightsScore += 2;
+    if (data.digitalAutoCommunication?.startsWith("Ja")) pdfInsightsScore += 2;
+    if (data.digitalCDPNeed?.startsWith("Ja, kritiskt")) pdfInsightsScore += 2;
+    else if (data.digitalCDPNeed?.startsWith("Ja")) pdfInsightsScore += 1;
+    if (data.b2cSegmentation?.startsWith("Ja")) pdfInsightsScore += 2;
+    if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) pdfInsightsScore += 2;
+    if (data.b2cPersonalization?.startsWith("Ja")) pdfInsightsScore += 2;
+    if (data.b2cUnifiedView === "Nej, fragmenterad kunddata") pdfInsightsScore += 2;
+    if (data.multipleDataSources === "Ja") pdfInsightsScore += 2;
+    if (data.unifiedCustomerView === "Nej, informationen är spridd") pdfInsightsScore += 2;
+    if (data.unifiedCustomerView === "Delvis, men inte komplett") pdfInsightsScore += 1;
+    if (data.personalizationCritical === "I hög grad") pdfInsightsScore += 3;
+    if (data.personalizationCritical === "I viss utsträckning") pdfInsightsScore += 1;
+    if ((data.integrationTypes || []).includes("Marketing automation")) pdfInsightsScore += 2;
+    if ((data.integrationTypes || []).includes("E-handel")) pdfInsightsScore += 1;
+    if ((data.integrationTypes || []).includes("BI")) pdfInsightsScore += 1;
+    if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") pdfInsightsScore += 3;
+    if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") pdfInsightsScore += 2;
+    if ((data.aiUseCases || []).includes("AI-driven segmentering")) pdfInsightsScore += 2;
+    if ((data.aiUseCases || []).includes("Predictive Nurturing & Timing")) pdfInsightsScore += 1;
+    if ((data.aiUseCases || []).includes("Personalisering i stor skala")) pdfInsightsScore += 1;
+    if (data.customerDataSpread === "Spridd i flera system") pdfInsightsScore += 1;
+
+    const pdfGap = pdfSalesScore - pdfInsightsScore;
+    const PDF_THRESHOLD = 5;
+    const pdfProduct = pdfGap > PDF_THRESHOLD ? "Dynamics 365 Sales"
+      : -pdfGap > PDF_THRESHOLD ? "Dynamics 365 Customer Insights"
+      : "Dynamics 365 Sales + Customer Insights";
+
+    // Datakomplexitet
+    const pdfDataComplexity = (() => {
+      let s = 0;
+      if (data.multipleDataSources === "Ja") s += 2;
+      if (data.customerDataSpread === "Spridd i flera system") s += 2;
+      else if (data.customerDataSpread === "Delvis samlad") s += 1;
+      if (data.integrationScope === "Omfattande och affärskritiskt") s += 2;
+      else if (data.integrationScope === "Måttligt") s += 1;
+      if (data.unifiedCustomerView === "Nej, informationen är spridd") s += 1;
+      return s <= 2 ? "Låg" : s <= 5 ? "Medel" : "Hög";
+    })();
+
+    const pdfComplexity = pdfSalesScore <= 4 ? "Låg" : pdfSalesScore <= 9 ? "Medel" : "Hög";
+
+    const pdfScalability = (() => {
+      if (["250-999 anställda", "1.000-4.999 anställda", "Mer än 5.000 anställda"].includes(data.employees) || data.b2bComplexGlobalReporting?.startsWith("Ja")) return "Hög";
+      if (["100-249 anställda"].includes(data.employees) || data.b2bComplexRoleBased?.startsWith("Ja")) return "Medel";
+      return "Låg";
+    })();
+
+    const pdfAiReadiness = (() => {
+      const uses = data.aiUseCases?.length ?? 0;
+      if (data.aiInterest === "Inte just nu" || uses === 0) return "Ej påbörjad";
+      if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna" || uses <= 3) return "Påbörjad";
+      return "Redo";
+    })();
+
+    // Dynamisk bedömningstext (samma logik som steg 7)
+    const pdfModelLabel: Record<string, string> = {
+      b2b_relational: "relationsbaserad B2B-försäljning",
+      b2b_complex: "komplex B2B med långa affärscykler",
+      b2c_volume: "volymbaserad B2C-försäljning",
+      digital_market: "marknadsdriven digital affär",
+      partner_channel: "partner- och kanaldriven försäljning",
+    };
+    const pdfModelText = pdfModelLabel[data.commercialModel] ?? "er kommersiella modell";
+    const pdfHasNoProcess = data.b2bStructuredPipeline?.includes("ad hoc") || data.b2bStructuredPipeline?.includes("Nej");
+    const pdfHasBasicPipeline = data.b2bStructuredPipeline === "Vi har definierade säljsteg";
+    const pdfHasPipeline = data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning";
+    const pdfSpreadData = data.unifiedCustomerView === "Nej, informationen är spridd" || data.customerDataSpread === "Spridd i flera system";
+    const pdfPartialData = data.unifiedCustomerView === "Delvis, men inte komplett" || data.customerDataSpread === "Delvis samlad";
+    const pdfUnifiedData = data.unifiedCustomerView === "Ja, vi har en samlad bild";
+    const pdfIsLarge = ["250-999 anställda", "1.000-4.999 anställda", "Mer än 5.000 anställda"].includes(data.employees);
+    const pdfIsMid = ["100-249 anställda"].includes(data.employees);
+    const pdfIsSmall = ["1-49 anställda", "50-99 anställda"].includes(data.employees);
+    const pdfAiHigh = data.aiInterest === "Mycket intresserade – Vi vill vara i framkant";
+    const pdfAiMedium = data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna";
+    const pdfAiRisk = (pdfAiHigh || pdfAiMedium) && pdfSpreadData;
+    const pdfUsesExcel = data.followUpMethod === "Excel" || data.currentCrmUsage === "Nej";
+    const pdfUsesBasicCrm = data.currentCrmUsage === "Enkelt";
+
+    let pdfAssessmentIntro = `Er verksamhet arbetar med ${pdfModelText}`;
+    if (pdfIsLarge) pdfAssessmentIntro += ` och har en organisation av en storlek där skalbarhet och standardisering är avgörande`;
+    else if (pdfIsMid) pdfAssessmentIntro += ` i en organisation där strukturerade arbetsflöden börjar bli affärskritiska`;
+    else if (pdfIsSmall) pdfAssessmentIntro += ` i ett tillväxtskede där rätt plattform lägger grunden för skalbarhet`;
+    pdfAssessmentIntro += ".";
+    if (pdfHasPipeline) pdfAssessmentIntro += " Ni har en väldefinierad och gemensam säljprocess – en stark utgångspunkt.";
+    else if (pdfHasBasicPipeline) pdfAssessmentIntro += " Ni har definierade säljsteg men det finns potential att göra processen mer enhetlig och datadriven.";
+    else if (pdfHasNoProcess) pdfAssessmentIntro += " Säljprocessen saknar i dagsläget en gemensam struktur, vilket är en av de viktigaste sakerna att adressera.";
+    if (pdfSpreadData) pdfAssessmentIntro += " Kundinformationen är spridd i flera system, vilket begränsar möjligheten att agera på rätt underlag vid rätt tillfälle.";
+    else if (pdfPartialData) pdfAssessmentIntro += " Ni har en delvis samlad kundbild men det finns luckor som påverkar möjligheten till personalisering.";
+    else if (pdfUnifiedData) pdfAssessmentIntro += " Ni har redan en samlad kundbild – nu handlar det om att omsätta den i automatisering och AI-driven insikt.";
+
+    const pdfAssessmentPoints: string[] = [];
+    if (pdfHasNoProcess || pdfHasBasicPipeline) pdfAssessmentPoints.push("Strukturera och standardisera er säljprocess");
+    if (data.b2bForecastNeeds === "Ja, kritiskt") pdfAssessmentPoints.push("Implementera pålitlig pipeline-prognos och säljstyrning");
+    if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) pdfAssessmentPoints.push("Hantera komplexa affärer med flera beslutsfattare");
+    if (data.b2bComplexRoleBased?.startsWith("Ja")) pdfAssessmentPoints.push("Rollbaserad säljstyrning och behörighetsstyrning");
+    if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfAssessmentPoints.push("Partnerportal och kanalhantering");
+    if (pdfSpreadData) pdfAssessmentPoints.push("Konsolidera kundinformation till en enhetlig bild");
+    if (data.personalizationCritical === "I hög grad") pdfAssessmentPoints.push("Möjliggöra personalisering i stor skala");
+    if (data.multipleDataSources === "Ja") pdfAssessmentPoints.push("Integrera datakällor för en komplett kundprofil");
+    if ((data.integrationTypes || []).includes("Marketing automation")) pdfAssessmentPoints.push("Integrera marketing automation med säljdata");
+    if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) pdfAssessmentPoints.push("Automatisera kampanjflöden baserat på beteende");
+    if (data.digitalBehaviorSegmentation?.startsWith("Ja")) pdfAssessmentPoints.push("Beteendebaserad segmentering och triggerkommunikation");
+    if (data.integrationScope === "Omfattande och affärskritiskt") pdfAssessmentPoints.push("Säkerställa robusta integrationer mot affärskritiska system");
+    else if (data.integrationScope === "Måttligt") pdfAssessmentPoints.push("Bygga ut integrationer mot befintliga system");
+    if (pdfAiHigh && !pdfAiRisk) {
+      if ((data.aiUseCases?.length ?? 0) >= 4) pdfAssessmentPoints.push(`Realisera AI-initiativ inom ${(data.aiUseCases || []).slice(0, 2).join(" och ")}`);
+      else pdfAssessmentPoints.push("Påbörja AI-driven säljcoachning och prediktion");
+    } else if (pdfAiMedium) pdfAssessmentPoints.push("Börja utforska AI-funktioner i kontrollerad skala");
+    if (pdfUsesExcel) pdfAssessmentPoints.push("Ersätta Excel-baserad säljuppföljning med strukturerat CRM");
+    else if (pdfUsesBasicCrm) pdfAssessmentPoints.push("Uppgradera från befintligt CRM till en mer komplett plattform");
+    if (pdfAssessmentPoints.length === 0) pdfAssessmentPoints.push("Stärka den kommersiella plattformen för framtida tillväxt");
+
+    // Avgörande faktorer (samma logik som steg 7)
+    const pdfKeyFactors: string[] = [];
+    if (data.commercialModel === "b2b_relational" || data.commercialModel === "b2b_complex") pdfKeyFactors.push("Relationsbaserad / komplex B2B-försäljning");
+    if (data.commercialModel === "partner_channel") pdfKeyFactors.push("Partner- och kanaldriven försäljning");
+    if (data.commercialModel === "digital_market" || data.commercialModel === "b2c_volume") pdfKeyFactors.push("Digital / volymbaserad kundaffär");
+    if (data.personalizationCritical === "I hög grad") pdfKeyFactors.push("Personalisering är affärskritiskt");
+    if (data.multipleDataSources === "Ja") pdfKeyFactors.push("Data från flera källor");
+    if (data.b2bForecastNeeds === "Ja, kritiskt") pdfKeyFactors.push("Kritiskt behov av säljprognos");
+    if (data.b2bComplexRoleBased?.startsWith("Ja")) pdfKeyFactors.push("Rollbaserad säljstyrning");
+    if ((data.integrationTypes || []).includes("Marketing automation")) pdfKeyFactors.push("Integrerat marketing automation");
+    if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfKeyFactors.push("Behov av partnerportal");
+
     // Dynamic import to reduce initial bundle size
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
@@ -704,69 +853,7 @@ const SalesMarketingNeedsAnalysis = () => {
     
     yPos += 50;
 
-    // ── Samma poängmotor som steg 7 ──────────────────────────────────────
-    let pdfSalesScore = 0;
-    if (data.commercialModel === "b2b_relational") pdfSalesScore += 4;
-    if (data.commercialModel === "b2b_complex") pdfSalesScore += 3;
-    if (data.commercialModel === "partner_channel") pdfSalesScore += 3;
-    if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") pdfSalesScore += 2;
-    if (data.b2bForecastNeeds === "Ja, kritiskt") pdfSalesScore += 2;
-    if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) pdfSalesScore += 1;
-    if (data.b2bComplexRoleBased?.startsWith("Ja")) pdfSalesScore += 2;
-    if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfSalesScore += 2;
-    if (data.aiAmbition === "AI-stöd i sälj (prognos, rekommendationer)") pdfSalesScore += 2;
-
-    let pdfInsightsScore = 0;
-    if (data.commercialModel === "digital_market") pdfInsightsScore += 4;
-    if (data.commercialModel === "b2c_volume") pdfInsightsScore += 4;
-    if (data.digitalBehaviorSegmentation?.startsWith("Ja")) pdfInsightsScore += 2;
-    if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) pdfInsightsScore += 2;
-    if (data.multipleDataSources === "Ja") pdfInsightsScore += 2;
-    if (data.unifiedCustomerView === "Nej, informationen är spridd") pdfInsightsScore += 2;
-    if (data.personalizationCritical === "I hög grad") pdfInsightsScore += 3;
-    if ((data.integrationTypes || []).includes("Marketing automation")) pdfInsightsScore += 2;
-    if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") pdfInsightsScore += 3;
-    if ((data.aiUseCases || []).includes("AI-driven segmentering")) pdfInsightsScore += 2;
-
-    const pdfGap = pdfSalesScore - pdfInsightsScore;
-    const pdfProduct = pdfGap > 5 ? "Dynamics 365 Sales"
-      : -pdfGap > 5 ? "Dynamics 365 Customer Insights"
-      : "Dynamics 365 Sales + Customer Insights";
-
-    const pdfDataComplexity = (() => {
-      let s = 0;
-      if (data.multipleDataSources === "Ja") s += 2;
-      if (data.customerDataSpread === "Spridd i flera system") s += 2;
-      else if (data.customerDataSpread === "Delvis samlad") s += 1;
-      if (data.integrationScope === "Omfattande och affärskritiskt") s += 2;
-      else if (data.integrationScope === "Måttligt") s += 1;
-      if (data.unifiedCustomerView === "Nej, informationen är spridd") s += 1;
-      return s <= 2 ? "Låg" : s <= 5 ? "Medel" : "Hög";
-    })();
-
-    const pdfComplexity = pdfSalesScore <= 4 ? "Låg" : pdfSalesScore <= 9 ? "Medel" : "Hög";
-    const pdfAiReadiness = data.aiInterest === "Inte just nu" || (data.aiUseCases?.length ?? 0) === 0 ? "Ej påbörjad"
-      : data.aiInterest === "Mycket intresserade – Vi vill vara i framkant" || (data.aiUseCases?.length ?? 0) > 3 ? "Redo"
-      : "Påbörjad";
-
-    // Dynamiska fokuspunkter (samma logik som steg 7)
-    const pdfPoints: string[] = [];
-    const pdfHasNoProcess = data.b2bStructuredPipeline?.includes("ad hoc") || data.b2bStructuredPipeline?.includes("Nej");
-    const pdfHasBasicPipeline = data.b2bStructuredPipeline === "Vi har definierade säljsteg";
-    const pdfSpreadData = data.unifiedCustomerView === "Nej, informationen är spridd" || data.customerDataSpread === "Spridd i flera system";
-    if (pdfHasNoProcess || pdfHasBasicPipeline) pdfPoints.push("Strukturera och standardisera er säljprocess");
-    if (data.b2bForecastNeeds === "Ja, kritiskt") pdfPoints.push("Implementera pålitlig pipeline-prognos och säljstyrning");
-    if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) pdfPoints.push("Hantera komplexa affärer med flera beslutsfattare");
-    if (pdfSpreadData) pdfPoints.push("Konsolidera kundinformation till en enhetlig bild");
-    if (data.personalizationCritical === "I hög grad") pdfPoints.push("Möjliggöra personalisering i stor skala");
-    if ((data.integrationTypes || []).includes("Marketing automation")) pdfPoints.push("Integrera marketing automation med säljdata");
-    if (data.integrationScope === "Omfattande och affärskritiskt") pdfPoints.push("Säkerställa robusta integrationer mot affärskritiska system");
-    if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") pdfPoints.push("Realisera AI-initiativ i säljprocessen");
-    else if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") pdfPoints.push("Börja utforska AI-funktioner i kontrollerad skala");
-    if (data.currentCrmUsage === "Nej" || data.followUpMethod === "Excel") pdfPoints.push("Ersätta Excel-baserad säljuppföljning med strukturerat CRM");
-    if (pdfPoints.length === 0) pdfPoints.push("Stärka den kommersiella plattformen för framtida tillväxt");
-
-    // Kommersiell profil – sektion i PDF
+    // ── ER KOMMERSIELLA PROFIL ────────────────────────────────────────────
     if (yPos > 200) { pdf.addPage(); yPos = margin; }
     yPos += 5;
     pdf.setFillColor(30, 58, 138);
@@ -780,7 +867,7 @@ const SalesMarketingNeedsAnalysis = () => {
     const profileRows = [
       ["Säljkomplexitet", pdfComplexity],
       ["Datamognad", pdfDataComplexity],
-      ["Skalbarhetskrav", ["250-999 anställda","1.000-4.999 anställda","Mer än 5.000 anställda"].includes(data.employees) ? "Hög" : ["100-249 anställda"].includes(data.employees) ? "Medel" : "Låg"],
+      ["Skalbarhetskrav", pdfScalability],
       ["AI-beredskap", pdfAiReadiness],
     ];
     profileRows.forEach(([label, value], i) => {
@@ -798,8 +885,8 @@ const SalesMarketingNeedsAnalysis = () => {
     });
     yPos += 5;
 
-    // Bedömning – sektion i PDF
-    if (yPos > 200) { pdf.addPage(); yPos = margin; }
+    // ── BEDÖMNING ─────────────────────────────────────────────────────────
+    if (yPos > 210) { pdf.addPage(); yPos = margin; }
     pdf.setFillColor(30, 58, 138);
     pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
     pdf.setTextColor(255, 255, 255);
@@ -808,53 +895,89 @@ const SalesMarketingNeedsAnalysis = () => {
     pdf.text("BEDÖMNING", margin + 5, yPos + 7);
     yPos += 14;
 
-    pdf.setTextColor(51, 51, 51);
+    // Dynamisk bedömningstext
+    pdf.setTextColor(80, 80, 80);
     pdf.setFontSize(9);
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Rekommenderad lösning: ${pdfProduct}`, margin, yPos);
-    yPos += 7;
     pdf.setFont("helvetica", "normal");
-    pdf.text("Prioriterade fokusområden:", margin, yPos);
-    yPos += 6;
-    pdfPoints.forEach((point) => {
+    const introLines = pdf.splitTextToSize(pdfAssessmentIntro, contentWidth);
+    introLines.forEach((line: string) => {
       if (yPos > 270) { pdf.addPage(); yPos = margin; }
-      pdf.setFillColor(16, 185, 129);
-      pdf.circle(margin + 2, yPos - 1.5, 1.2, "F");
-      const lines = pdf.splitTextToSize(point, contentWidth - 10);
-      pdf.text(lines, margin + 8, yPos);
-      yPos += lines.length * 5 + 2;
+      pdf.text(line, margin, yPos);
+      yPos += 5;
     });
-    yPos += 8;
+    yPos += 4;
 
-    // Original rekommenderade produkter (från getRecommendation)
-    if (recommendation.products.length > 0) {
-      if (yPos > 220) { pdf.addPage(); yPos = margin; }
-      pdf.setFillColor(30, 58, 138);
-      pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(10);
+    // Fokusområden
+    if (pdfAssessmentPoints.length > 0) {
       pdf.setFont("helvetica", "bold");
-      pdf.text("REKOMMENDERADE APPLIKATIONER", margin + 5, yPos + 7);
-      yPos += 14;
-
-      recommendation.products.forEach((product, index) => {
-        if (yPos > 250) { pdf.addPage(); yPos = margin; }
-        pdf.setFillColor(240, 245, 255);
-        pdf.roundedRect(margin, yPos, contentWidth, 25, 2, 2, 'F');
-        pdf.setTextColor(30, 58, 138);
-        pdf.setFontSize(11);
-        pdf.setFont("helvetica", "bold");
-        pdf.text(`${index + 1}. ${product.name}`, margin + 5, yPos + 10);
-        pdf.setTextColor(51, 51, 51);
-        pdf.setFontSize(9);
-        pdf.setFont("helvetica", "normal");
-        pdf.text(product.description, margin + 5, yPos + 18);
-        yPos += 30;
+      pdf.setTextColor(51, 51, 51);
+      pdf.text("Prioriterade fokusområden:", margin, yPos);
+      yPos += 6;
+      pdf.setFont("helvetica", "normal");
+      pdfAssessmentPoints.forEach((point) => {
+        if (yPos > 270) { pdf.addPage(); yPos = margin; }
+        pdf.setFillColor(16, 185, 129);
+        pdf.circle(margin + 2, yPos - 1.5, 1.2, "F");
+        const lines = pdf.splitTextToSize(point, contentWidth - 10);
+        pdf.text(lines, margin + 8, yPos);
+        yPos += lines.length * 5 + 2;
       });
     }
 
+    // AI-risk-varning
+    if (pdfAiRisk) {
+      yPos += 4;
+      if (yPos > 260) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(254, 243, 199);
+      pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
+      pdf.setTextColor(120, 80, 0);
+      pdf.setFontSize(8);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("OBS: AI-ambition vs datamognad", margin + 4, yPos + 6);
+      pdf.setFont("helvetica", "normal");
+      const warnLines = pdf.splitTextToSize("Hög AI-ambition men kundinformationen är spridd. En lyckad AI-satsning kräver att datagrunden konsolideras först.", contentWidth - 8);
+      pdf.text(warnLines, margin + 4, yPos + 11);
+      yPos += 16 + (warnLines.length - 1) * 4;
+    }
+    yPos += 8;
 
-    // Summary sections
+    // ── REKOMMENDERAD LÖSNING ─────────────────────────────────────────────
+    if (yPos > 230) { pdf.addPage(); yPos = margin; }
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("REKOMMENDERAD LÖSNING", margin + 5, yPos + 7);
+    yPos += 14;
+
+    pdf.setFillColor(240, 245, 255);
+    pdf.roundedRect(margin, yPos, contentWidth, pdfKeyFactors.length > 0 ? 12 + pdfKeyFactors.slice(0,5).length * 6 : 12, 2, 2, 'F');
+    pdf.setTextColor(30, 58, 138);
+    pdf.setFontSize(11);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(pdfProduct, margin + 5, yPos + 9);
+    yPos += 14;
+
+    if (pdfKeyFactors.length > 0) {
+      pdf.setFontSize(8);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(80, 80, 80);
+      pdf.text("Avgörande faktorer:", margin + 5, yPos);
+      yPos += 5;
+      pdf.setFont("helvetica", "normal");
+      pdfKeyFactors.slice(0, 5).forEach((f) => {
+        if (yPos > 270) { pdf.addPage(); yPos = margin; }
+        pdf.setFillColor(59, 130, 246);
+        pdf.circle(margin + 7, yPos - 1.5, 1, "F");
+        const fLines = pdf.splitTextToSize(f, contentWidth - 15);
+        pdf.text(fLines, margin + 11, yPos);
+        yPos += fLines.length * 5 + 1;
+      });
+      yPos += 6;
+    }
+
+    // ── Helpers för frågeavsnitt ──────────────────────────────────────────
     const addSection = (title: string, content: string) => {
       if (yPos > 250) {
         pdf.addPage();
@@ -903,86 +1026,99 @@ const SalesMarketingNeedsAnalysis = () => {
       yPos += 4;
     };
 
+    // ── Sidbrytning innan frågeavsnitten ──────────────────────────────────
+    pdf.addPage();
+    yPos = margin;
+
+    // Rubrik för appendix
+    pdf.setFillColor(30, 58, 138);
+    pdf.rect(0, 0, pageWidth, 24, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(13);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("BILAGA – DINA SVAR", margin, 16);
+    yPos = 32;
+
+    // ── STEG 1: Kommersiell modell ────────────────────────────────────────
     const commercialModelLabel = commercialModelOptions.find(o => o.value === data.commercialModel)?.label || data.commercialModel || "Ej angivet";
-    addSection("Kommersiell modell", commercialModelLabel);
-    if (data.commercialModel === "b2b_relational" && (data.b2bSalesCount || data.b2bStructuredPipeline || data.b2bMultipleDecisionMakers || data.b2bForecastNeeds)) {
+    addSection("Steg 1 – Vilken kommersiell modell stämmer bäst?", commercialModelLabel);
+
+    if (data.commercialModel === "b2b_relational") {
       const b2bDetails = [
-        data.b2bSalesCount && `Antal säljare: ${data.b2bSalesCount}`,
-        data.b2bStructuredPipeline && `Pipeline: ${data.b2bStructuredPipeline}`,
-        data.b2bMultipleDecisionMakers && `Beslutsprocess: ${data.b2bMultipleDecisionMakers}`,
-        data.b2bForecastNeeds && `Forecast-behov: ${data.b2bForecastNeeds}`,
+        data.b2bStructuredPipeline && `Hur strukturerad är er säljprocess? → ${data.b2bStructuredPipeline}`,
+        data.b2bMultipleDecisionMakers && `Flera steg i beslutsprocessen? → ${data.b2bMultipleDecisionMakers}`,
+        data.b2bForecastNeeds && `Behov av forecast & säljuppföljning? → ${data.b2bForecastNeeds}`,
       ].filter(Boolean) as string[];
-      addBulletSection("B2B-detaljer", b2bDetails);
+      if (b2bDetails.length > 0) addBulletSection("  Relationsbaserad B2B – följdfrågor", b2bDetails);
     }
-    if (data.commercialModel === "b2c_volume" && (data.b2cSegmentation || data.b2cCampaignAutomation || data.b2cPersonalization || data.b2cUnifiedView)) {
+    if (data.commercialModel === "b2b_complex") {
+      const b2bComplexDetails = [
+        data.b2bComplexParallelDeals && `Parallella affärer per säljare? → ${data.b2bComplexParallelDeals}`,
+        data.b2bComplexRoleBased && `Rollbaserad säljstyrning? → ${data.b2bComplexRoleBased}`,
+        data.b2bComplexGlobalReporting && `Global/multi-entity-rapportering? → ${data.b2bComplexGlobalReporting}`,
+        data.b2bComplexPartnerChannel && `Försäljning via partners/kanaler? → ${data.b2bComplexPartnerChannel}`,
+      ].filter(Boolean) as string[];
+      if (b2bComplexDetails.length > 0) addBulletSection("  Komplex B2B – följdfrågor", b2bComplexDetails);
+    }
+    if (data.commercialModel === "digital_market") {
+      const digitalDetails = [
+        data.digitalDataSources && `Data från flera källor? → ${data.digitalDataSources}`,
+        data.digitalBehaviorSegmentation && `Beteendebaserad segmentering? → ${data.digitalBehaviorSegmentation}`,
+        data.digitalAutoCommunication && `Automatisk kommunikation baserat på beteende? → ${data.digitalAutoCommunication}`,
+        data.digitalCDPNeed && `Behov av enhetlig kundprofil (CDP)? → ${data.digitalCDPNeed}`,
+      ].filter(Boolean) as string[];
+      if (digitalDetails.length > 0) addBulletSection("  Marknadsdriven digital affär – följdfrågor", digitalDetails);
+    }
+    if (data.commercialModel === "partner_channel") {
+      const partnerDetails = [
+        data.partnerPortalNeed && `Partnerportal för återförsäljare/agenter? → ${data.partnerPortalNeed}`,
+        data.partnerDealRegistration && `Deal registration? → ${data.partnerDealRegistration}`,
+        data.partnerChannelReporting && `Kanalrapportering per partner/region? → ${data.partnerChannelReporting}`,
+      ].filter(Boolean) as string[];
+      if (partnerDetails.length > 0) addBulletSection("  Partner-/kanalförsäljning – följdfrågor", partnerDetails);
+    }
+    if (data.commercialModel === "b2c_volume") {
       const b2cDetails = [
-        data.b2cSegmentation && `Segmentering: ${data.b2cSegmentation}`,
-        data.b2cCampaignAutomation && `Kampanjautomation: ${data.b2cCampaignAutomation}`,
-        data.b2cPersonalization && `Personalisering: ${data.b2cPersonalization}`,
-        data.b2cUnifiedView && `Enhetlig kundvy: ${data.b2cUnifiedView}`,
+        data.b2cSegmentation && `Kundsegmentering idag? → ${data.b2cSegmentation}`,
+        data.b2cCampaignAutomation && `Kampanjautomation? → ${data.b2cCampaignAutomation}`,
+        data.b2cPersonalization && `Personaliserade utskick? → ${data.b2cPersonalization}`,
+        data.b2cUnifiedView && `Enhetlig kundvy? → ${data.b2cUnifiedView}`,
       ].filter(Boolean) as string[];
-      addBulletSection("B2C-detaljer", b2cDetails);
+      if (b2cDetails.length > 0) addBulletSection("  Volymbaserad B2C – följdfrågor", b2cDetails);
     }
+
     // ── STEG 2: Organisation & Struktur ──────────────────────────────────
-    addSection("Antal anställda", data.employees || "Ej angivet");
+    addSection("Steg 2 – Antal anställda i företaget", data.employees || "Ej angivet");
     addSection("Bransch", data.industry || data.industryOther || "Ej angivet");
-    addSection("Säljteamets storlek", data.salesTeamSize || "Ej angivet");
-    if (data.multiCountry) addSection("Internationell närvaro", data.multiCountry);
-    if (data.globalCommercialModel) addSection("Enhetlighet i sälj- och marknadsarbete", data.globalCommercialModel);
-    if (data.marketingOrgStructure) addSection("Marknadsorganisation", data.marketingOrgStructure);
+    addSection("Storlek på säljteam", data.salesTeamSize || "Ej angivet");
+    if (data.multiCountry) addSection("Är ni verksamma i flera länder?", data.multiCountry);
+    if (data.globalCommercialModel) addSection("Hur enhetligt ska sälj- och marknadsarbetet vara?", data.globalCommercialModel);
+    if (data.marketingOrgStructure) addSection("Central eller lokal marknadsorganisation?", data.marketingOrgStructure);
 
     // ── STEG 3: Nuvarande arbetssätt & system ─────────────────────────────
-    if (data.currentCrmUsage) addSection("CRM-användning idag", data.currentCrmUsage);
-    if (data.customerDataSpread) addSection("Kunddata – spridd eller samlad", data.customerDataSpread);
-    if (data.followUpMethod) addSection("Hur sker uppföljning idag", data.followUpMethod);
-    const filledSystems = data.currentSystems.filter(s => s.product.trim());
-    const systemsText = filledSystems.length > 0 
-      ? filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")
-      : "Ej angivet";
-    addSection("Nuvarande system", systemsText);
+    if (data.currentCrmUsage) addSection("Steg 3 – Använder ni CRM idag?", data.currentCrmUsage);
+    if (data.customerDataSpread) addSection("Är kunddata samlad eller spridd?", data.customerDataSpread);
+    if (data.followUpMethod) addSection("Hur sker uppföljning idag?", data.followUpMethod);
 
     // ── STEG 4: Datamognad & kundbild ─────────────────────────────────────
-    if (data.unifiedCustomerView) addSection("Samlad och tillförlitlig kundinformation", data.unifiedCustomerView);
-    if (data.multipleDataSources) addSection("Kunddata från flera källor", data.multipleDataSources);
-    if (data.personalizationCritical) addSection("Träffsäker kommunikation påverkar försäljning", data.personalizationCritical);
+    if (data.unifiedCustomerView) addSection("Steg 4 – Samlad och tillförlitlig information om kunder på ett ställe?", data.unifiedCustomerView);
+    if (data.multipleDataSources) addSection("Samlas kunddata från flera källor?", data.multipleDataSources);
+    if (data.personalizationCritical) addSection("Påverkar träffsäker kommunikation er försäljning i hög grad?", data.personalizationCritical);
 
     // ── STEG 5: Integrationer ──────────────────────────────────────────────
-    if (data.integrationScope) addSection("Integrationsbehov (omfång)", data.integrationScope);
+    if (data.integrationScope) addSection("Steg 5 – Hur omfattande är behovet av att CRM samverkar med andra system?", data.integrationScope);
     if ((data.integrationTypes || []).length > 0) {
       const integTypes = [...(data.integrationTypes || [])];
-      if (data.integrationTypesCustom?.trim()) integTypes.push(data.integrationTypesCustom.trim());
-      addBulletSection("System att integrera med", integTypes);
+      if (data.integrationTypesCustom?.trim()) integTypes.push(`Övriga: ${data.integrationTypesCustom.trim()}`);
+      addBulletSection("Vilka system behöver CRM samverka med?", integTypes);
     } else if (data.integrationTypesCustom?.trim()) {
       addSection("Övriga system att integrera med", data.integrationTypesCustom);
     }
 
-    // ── STEG 2 (forts): Utmaningar & Behov ────────────────────────────────
-    const challengeItems = Object.entries(data.situationChallenges)
-      .filter(([_, value]) => value && value !== "Inget problem idag")
-      .map(([key, value]) => {
-        const category = situationChallengeCategories.find(c => c.id === key);
-        return category ? `${category.title}: ${value}` : `${key}: ${value}`;
-      });
-    addBulletSection("Utmaningar och nuläge", challengeItems);
-    if (data.currentSituationReason) addSection("Anledning till förändring", data.currentSituationReason);
-    if (data.salesNeeds.length > 0) addSection("Säljbehov", data.salesNeeds.join(", "));
-    if (data.salesProcessComplexity) addSection("Säljprocessens komplexitet", data.salesProcessComplexity);
-    if (data.marketingNeeds.length > 0) addSection("Marknadsföringsbehov", data.marketingNeeds.join(", "));
-    if (data.marketingChannels.length > 0) addSection("Marknadsföringskanaler", data.marketingChannels.join(", "));
-    if (data.kpis.length > 0) addSection("KPI:er", data.kpis.join(", "));
-    
-    // Önskelista & tidslinje
-    if (data.wishlist?.trim()) addSection("Önskelista / Övrigt", data.wishlist);
-    if (data.decisionTimeline) addSection("Beslutstidslinje", data.decisionTimeline);
-
     // ── STEG 6: AI & Framtid ──────────────────────────────────────────────
-    if (data.aiInterest) addSection("AI-intresse", data.aiInterest);
-    if ((data.aiUseCases || []).length > 0) addBulletSection("AI-användningsområden", data.aiUseCases);
-    if (data.aiDetails) addSection("AI-detaljer / verksamhetsbehov", data.aiDetails);
-
-    // Övrig information
-    if (data.additionalInfo) addSection("Övrig information", data.additionalInfo);
-    if (data.currentPartners) addSection("Nuvarande Microsoft-partners", data.currentPartners);
+    if (data.aiInterest) addSection("Steg 6 – Hur intresserade är ni av AI i CRM-systemet?", data.aiInterest);
+    if ((data.aiUseCases || []).length > 0) addBulletSection("Vilka AI-användningsområden är mest intressanta?", data.aiUseCases);
+    if (data.aiDetails) addSection("Beskriv hur AI skulle kunna hjälpa er verksamhet", data.aiDetails);
 
     // Footer with contact info
     if (yPos > 230) {
@@ -1059,9 +1195,9 @@ const SalesMarketingNeedsAnalysis = () => {
             "Övrig information": data.additionalInfo || "Ej angivet",
             "Nuvarande partners": data.currentPartners || "Ej angivet",
           },
-          recommendation: recommendation.products.length > 0 ? {
-            product: recommendation.products.map(p => p.name).join(", "),
-            reasons: recommendation.products.flatMap(p => p.reasons).slice(0, 5),
+          recommendation: pdfKeyFactors.length > 0 ? {
+            product: pdfProduct,
+            reasons: pdfKeyFactors.slice(0, 5),
           } : undefined,
           pdfBase64: pdfBase64,
           pdfFilename: pdfFilename,
