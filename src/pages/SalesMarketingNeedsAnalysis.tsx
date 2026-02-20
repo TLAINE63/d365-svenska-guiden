@@ -923,52 +923,66 @@ const SalesMarketingNeedsAnalysis = () => {
       ].filter(Boolean) as string[];
       addBulletSection("B2C-detaljer", b2cDetails);
     }
-    addSection("Företagsinformation", `Anställda: ${data.employees}, Bransch: ${data.industry || data.industryOther || "Ej angivet"}, Säljteam: ${data.salesTeamSize}`);
+    // ── STEG 2: Organisation & Struktur ──────────────────────────────────
+    addSection("Antal anställda", data.employees || "Ej angivet");
+    addSection("Bransch", data.industry || data.industryOther || "Ej angivet");
+    addSection("Säljteamets storlek", data.salesTeamSize || "Ej angivet");
+    if (data.multiCountry) addSection("Internationell närvaro", data.multiCountry);
+    if (data.globalCommercialModel) addSection("Enhetlighet i sälj- och marknadsarbete", data.globalCommercialModel);
+    if (data.marketingOrgStructure) addSection("Marknadsorganisation", data.marketingOrgStructure);
+
+    // ── STEG 3: Nuvarande arbetssätt & system ─────────────────────────────
+    if (data.currentCrmUsage) addSection("CRM-användning idag", data.currentCrmUsage);
+    if (data.customerDataSpread) addSection("Kunddata – spridd eller samlad", data.customerDataSpread);
+    if (data.followUpMethod) addSection("Hur sker uppföljning idag", data.followUpMethod);
     const filledSystems = data.currentSystems.filter(s => s.product.trim());
     const systemsText = filledSystems.length > 0 
       ? filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")
       : "Ej angivet";
-    addSection("Nuvarande CRM", systemsText);
+    addSection("Nuvarande system", systemsText);
+
+    // ── STEG 4: Datamognad & kundbild ─────────────────────────────────────
+    if (data.unifiedCustomerView) addSection("Samlad och tillförlitlig kundinformation", data.unifiedCustomerView);
+    if (data.multipleDataSources) addSection("Kunddata från flera källor", data.multipleDataSources);
+    if (data.personalizationCritical) addSection("Träffsäker kommunikation påverkar försäljning", data.personalizationCritical);
+
+    // ── STEG 5: Integrationer ──────────────────────────────────────────────
+    if (data.integrationScope) addSection("Integrationsbehov (omfång)", data.integrationScope);
+    if ((data.integrationTypes || []).length > 0) {
+      const integTypes = [...(data.integrationTypes || [])];
+      if (data.integrationTypesCustom?.trim()) integTypes.push(data.integrationTypesCustom.trim());
+      addBulletSection("System att integrera med", integTypes);
+    } else if (data.integrationTypesCustom?.trim()) {
+      addSection("Övriga system att integrera med", data.integrationTypesCustom);
+    }
+
+    // ── STEG 2 (forts): Utmaningar & Behov ────────────────────────────────
     const challengeItems = Object.entries(data.situationChallenges)
       .filter(([_, value]) => value && value !== "Inget problem idag")
       .map(([key, value]) => {
         const category = situationChallengeCategories.find(c => c.id === key);
         return category ? `${category.title}: ${value}` : `${key}: ${value}`;
       });
-    addBulletSection("Utmaningar", challengeItems);
-    addSection("Säljbehov", data.salesNeeds.join(", ") || "Ej angivet");
-    addSection("Säljprocessens komplexitet", data.salesProcessComplexity || "Ej angivet");
-    addSection("Marknadsföringsbehov", data.marketingNeeds.join(", ") || "Ej angivet");
-    addSection("Marknadsföringskanaler", data.marketingChannels.join(", ") || "Ej angivet");
-    addSection("Integrationer", data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet");
-    addSection("KPI:er", data.kpis.join(", ") || "Ej angivet");
+    addBulletSection("Utmaningar och nuläge", challengeItems);
+    if (data.currentSituationReason) addSection("Anledning till förändring", data.currentSituationReason);
+    if (data.salesNeeds.length > 0) addSection("Säljbehov", data.salesNeeds.join(", "));
+    if (data.salesProcessComplexity) addSection("Säljprocessens komplexitet", data.salesProcessComplexity);
+    if (data.marketingNeeds.length > 0) addSection("Marknadsföringsbehov", data.marketingNeeds.join(", "));
+    if (data.marketingChannels.length > 0) addSection("Marknadsföringskanaler", data.marketingChannels.join(", "));
+    if (data.kpis.length > 0) addSection("KPI:er", data.kpis.join(", "));
     
-    // Önskelista
-    if (data.wishlist.trim()) {
-      addSection("Önskelista", data.wishlist);
-    }
-    
-    // Beslutstidslinje
-    if (data.decisionTimeline) {
-      addSection("Beslutstidslinje", data.decisionTimeline);
-    }
+    // Önskelista & tidslinje
+    if (data.wishlist?.trim()) addSection("Önskelista / Övrigt", data.wishlist);
+    if (data.decisionTimeline) addSection("Beslutstidslinje", data.decisionTimeline);
 
-    // AI & Framtid
-    addSection("AI-intresse", data.aiInterest || "Ej angivet");
-    if (data.aiUseCases.length > 0) {
-      addBulletSection("AI-användningsområden", data.aiUseCases);
-    }
-    if (data.aiDetails) {
-      addSection("AI-detaljer", data.aiDetails);
-    }
+    // ── STEG 6: AI & Framtid ──────────────────────────────────────────────
+    if (data.aiInterest) addSection("AI-intresse", data.aiInterest);
+    if ((data.aiUseCases || []).length > 0) addBulletSection("AI-användningsområden", data.aiUseCases);
+    if (data.aiDetails) addSection("AI-detaljer / verksamhetsbehov", data.aiDetails);
 
     // Övrig information
-    if (data.additionalInfo) {
-      addSection("Övrig information", data.additionalInfo);
-    }
-    if (data.currentPartners) {
-      addSection("Nuvarande Microsoft-partners", data.currentPartners);
-    }
+    if (data.additionalInfo) addSection("Övrig information", data.additionalInfo);
+    if (data.currentPartners) addSection("Nuvarande Microsoft-partners", data.currentPartners);
 
     // Footer with contact info
     if (yPos > 230) {
