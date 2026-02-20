@@ -237,9 +237,26 @@ All colors MUST be HSL.
 }
 
 @layer components {
-  /* Question labels in needs analysis forms */
-  .analysis-form .space-y-6 > div > label {
-    @apply text-[13px] font-bold tracking-wide;
-    color: hsl(var(--primary) / 0.85);
+  /* Question labels in needs analysis forms – all Label elements within analysis-form */
+  .analysis-form label,
+  .analysis-form .text-base.font-semibold {
+    color: hsl(var(--theme-accent, var(--primary)) / 0.85);
+  }
+
+  /* ─── Behovsanalys färgteman ─── */
+
+  /* Kundservice – violett (customer-service) */
+  .theme-cs {
+    --theme-accent: var(--customer-service);
+  }
+
+  /* Sälj & Marknad – Microsoft-blå (crm/sales) */
+  .theme-crm {
+    --theme-accent: var(--crm);
+  }
+
+  /* ERP – Finance & Supply Chain (mörkblå) */
+  .theme-erp {
+    --theme-accent: var(--finance-supply);
   }
 }

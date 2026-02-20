@@ -2282,7 +2282,7 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
             </CardHeader>
             <CardContent className="pt-6">
-              <div className="analysis-form">
+              <div className="analysis-form theme-crm">
                 {showContactForm ? renderContactForm() : renderStep()}
               </div>
             </CardContent>
