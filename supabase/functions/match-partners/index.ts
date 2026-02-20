@@ -27,6 +27,7 @@ interface UserCriteria {
   geography: string;
   companySize: string;
   workload?: string; // CRM workload focus
+  preferCrmOnly?: boolean; // For CRM apps: prefer partners without ERP products
 }
 
 interface PartnerMatch {
@@ -83,7 +84,7 @@ KUNDPROFIL:
 - Applikation: ${criteria.application}
 - Bransch: ${criteria.industry || 'Ej specificerat'}
 - Geografi: ${criteria.geography || 'Ej specificerat'}
-- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}
+- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
 
 PARTNERS ATT UTVÄRDERA:
 ${partnerSummaries}
@@ -94,8 +95,10 @@ INSTRUKTIONER:
    - Branscherfarenhet (30%)
    - Geografi och storlek (20%)
    - Kundexempel och referensers relevans (10%)
-
-2. Skriv en kort motivering på svenska (max 15 ord) per partner som förklarar varför de matchar eller inte.
+${criteria.preferCrmOnly ? `
+2. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
+` : ''}
+${criteria.preferCrmOnly ? '3.' : '2.'} Skriv en kort motivering på svenska (max 15 ord) per partner som förklarar varför de matchar eller inte.
 
 Svara med JSON i EXAKT detta format (inga andra fält):
 {
