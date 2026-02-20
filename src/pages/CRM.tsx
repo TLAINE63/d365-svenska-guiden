@@ -32,12 +32,34 @@ import {
 
 // CRM FAQs for schema
 const crmFaqs = [
-  { question: "Vad är Microsoft Dynamics 365 CRM?", answer: "Microsoft Dynamics 365 CRM (Customer Engagement) är en svit av molnbaserade affärsapplikationer för försäljning, kundservice, marknadsföring, kontaktcenter och fältservice. Det hjälper företag att hantera kundrelationer, automatisera säljprocesser och leverera bättre kundservice med inbyggd AI via Microsoft Copilot." },
-  { question: "Vad kostar Dynamics 365 Sales?", answer: "Dynamics 365 Sales Professional kostar ca 550 kr/användare/mån och Sales Enterprise ca 1 100 kr/användare/mån. Implementeringskostnader för en standardimplementering börjar från ca 100 000–250 000 kr beroende på anpassningsbehov." },
-  { question: "Hur skiljer sig Dynamics 365 från Salesforce och andra CRM-system?", answer: "Dynamics 365 sticker ut genom djup integration med Microsoft 365 (Outlook, Teams, Excel), kraftfull AI via Copilot, möjligheten att kombinera CRM med Microsoft ERP-system som Business Central och Finance, samt flexibel anpassning via Power Platform." },
-  { question: "Hur snabbt kan vi komma igång med Dynamics 365 CRM?", answer: "En standardimplementering av Dynamics 365 Sales eller Customer Service kan vara klar på 2–3 månader. Större implementeringar med flera applikationer och anpassningar tar normalt 4–6 månader." },
-  { question: "Vilka Dynamics 365 CRM-applikationer finns tillgängliga?", answer: "Microsoft erbjuder följande CRM-applikationer: Dynamics 365 Sales (sälj), Customer Insights/Marketing (marknadsföring och kunddata), Customer Service (kundtjänst), Field Service (fältservice), och Contact Center (kontaktcenter). Alla kan kombineras och delar samma dataplattform." },
-  { question: "Behöver man en Microsoft-partner för att implementera Dynamics 365 CRM?", answer: "Ja, Dynamics 365 implementeras via certifierade Microsoft-partners som har specialistkompetens inom CRM. En erfaren partner hjälper till med konfiguration, anpassning och utbildning. På d365.se kan du jämföra och filtrera certifierade Dynamics 365 CRM-partners i Sverige." },
+  {
+    question: "Vad kostar CRM system i Sverige – Dynamics 365 jämförelse?",
+    answer: "CRM system pris Sverige 2025: Dynamics 365 Sales Professional ca 550 kr/användare/mån, Sales Enterprise ca 1 100 kr/mån. Customer Service Professional ca 660 kr/mån, Customer Service Enterprise ca 1 100 kr/mån. Customer Insights (Marketing) prissätts per tenant från ca 16 000 kr/mån. Implementeringskostnad: standardimplementering Sales/Customer Service från 100 000–250 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
+  },
+  {
+    question: "Dynamics 365 CRM vs Salesforce – vilket ska jag välja?",
+    answer: "Dynamics 365 vs Salesforce: D365 sticker ut genom djup inbyggd integration med Microsoft 365 (Outlook, Teams, Excel), kraftfull AI via Copilot utan extra kostnad, och möjligheten att kombinera CRM med Microsoft ERP (Business Central, Finance). Salesforce har bredare tredjepartsekosystem men kräver fler integrationer mot Microsoft-verktyg du redan betalar för. För företag med Microsoft 365-infrastruktur är TCO ofta lägre med Dynamics 365."
+  },
+  {
+    question: "Vad är Microsoft Dynamics 365 CRM?",
+    answer: "Microsoft Dynamics 365 CRM (Customer Engagement) är en svit av molnbaserade affärsapplikationer för försäljning, kundservice, marknadsföring, kontaktcenter och fältservice. Det hjälper företag att hantera kundrelationer, automatisera säljprocesser och leverera bättre kundservice med inbyggd AI via Microsoft Copilot – ingår i befintlig licens utan extra avgift."
+  },
+  {
+    question: "Hur snabbt kan vi implementera Dynamics 365 CRM i Sverige?",
+    answer: "CRM implementering Sverige: En standardimplementering av Dynamics 365 Sales eller Customer Service kan vara klar på 2–3 månader. Större implementeringar med flera applikationer, anpassade processer och integrationer tar normalt 4–6 månader. Microsoft-certifierade CRM-partners arbetar enligt Success by Design för att hålla tidsplan och budget."
+  },
+  {
+    question: "Vilka Dynamics 365 CRM-applikationer finns tillgängliga?",
+    answer: "Microsoft erbjuder dessa CRM-applikationer: Dynamics 365 Sales (sälj & pipeline), Customer Insights/Marketing (marknadsföring & kunddata), Customer Service (kundtjänst & ärenden), Field Service (fältservice & tekniker), och Contact Center (omnikanal-kundservice). Alla delar samma Dataverse-dataplattform och kan kombineras fritt."
+  },
+  {
+    question: "Dynamics 365 CRM vs HubSpot – för vem passar vad?",
+    answer: "HubSpot passar bäst för nystartade och digitalt mogna bolag (1–50 anst.) med fokus på inbound marketing och enkel säljhantering. Dynamics 365 Sales passar bättre för medelstora till stora företag (50+ anst.) som behöver djup Microsoft-integration, avancerad AI, komplexa säljprocesser och möjlighet att skala mot ERP-integration. HubSpot saknar native-integration mot Microsoft 365 utan tilläggskostnader."
+  },
+  {
+    question: "Behöver man en Microsoft-partner för att implementera Dynamics 365 CRM?",
+    answer: "Ja, Dynamics 365 CRM implementeras via Microsoft-certifierade partners med specialistkompetens (Solutions Partner for Business Applications). En erfaren partner hjälper till med konfiguration, anpassning, datamigrering och utbildning. På d365.se kan du kostnadsfritt jämföra och filtrera certifierade Dynamics 365 CRM-partners i Sverige per bransch."
+  },
 ];
 
 // Geography filter options
@@ -110,10 +132,10 @@ const CRM = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 CRM – Sales, Marketing & Customer Service | d365.se"
-        description="Guide till Microsoft Dynamics 365 CRM i Sverige. Jämför Sales, Customer Insights, Customer Service, Field Service och Contact Center. Priser, licensguide och hjälp att välja certifierad Microsoft-partner."
+        title="CRM system Sverige – Dynamics 365 Sales, Service & pris jämförelse"
+        description="CRM system Sverige: Dynamics 365 Sales från 550 kr/mån, Customer Service från 660 kr/mån. Jämför Microsoft CRM vs Salesforce & HubSpot. Hitta certifierad CRM-partner."
         canonicalPath="/crm"
-        keywords="Dynamics 365 CRM, Microsoft CRM system, Dynamics 365 Sales pris, Dynamics 365 Customer Service, CRM system Sverige, Microsoft CRM partner, Dynamics 365 vs Salesforce, Customer Insights Marketing, CRM implementering Sverige"
+        keywords="CRM system Sverige pris, Dynamics 365 CRM Sverige, Microsoft CRM system, Dynamics 365 Sales pris, CRM jämförelse Sverige, Dynamics 365 vs Salesforce, Customer Service CRM, CRM implementering Sverige, Microsoft CRM partner certifierad"
         ogImage="https://d365.se/og-crm.png"
       />
       <FAQSchema faqs={crmFaqs} />
