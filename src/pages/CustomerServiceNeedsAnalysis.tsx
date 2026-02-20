@@ -205,7 +205,7 @@ const situationChallengeCategories = [
     title: "Kunder återkommer med samma frågor",
     subtitle: "Ingen riktig ärendehistorik eller knowledge base",
     items: [
-      "Agenter börjar om från noll varje gång",
+      "Kundservicemedarbetare börjar om från noll varje gång",
       "Ingen självbetjäning för kunder",
     ],
     quote: "\"Vi svarar på samma frågor om och om igen.\"",
@@ -220,7 +220,7 @@ const situationChallengeCategories = [
       "Kunder får olika svar beroende på kanal",
     ],
     quote: "\"Vi vet inte om kunden redan pratat med oss i en annan kanal.\"",
-    quoteSource: "Agenternas frustration:",
+    quoteSource: "Kundservicemedarbetarnas frustration:",
   },
   {
     id: "sla_eskalering",
@@ -245,15 +245,15 @@ const situationChallengeCategories = [
     quoteSource: "Fältservice säger:",
   },
   {
-    id: "agenter_improduktiva",
-    title: "Agenter lägger tid på fel saker",
+    id: "kundservicemedarbetare_improduktiva",
+    title: "Kundservicemedarbetare lägger tid på fel saker",
     subtitle: "Mycket manuellt arbete och systembyten",
     items: [
       "Registrering i flera system",
       "Ingen AI-assistans eller automatisering",
     ],
     quote: "Vi hinner inte ta hand om kunderna ordentligt.",
-    quoteSource: "Agenternas beteende:",
+    quoteSource: "Kundservicemedarbetarnas beteende:",
   },
   {
     id: "ingen_insyn",
@@ -317,7 +317,7 @@ const aiUseCaseCategories = [
     id: "chatbot-virtual-agent",
     title: "Chatbot och virtuell agent",
     description: "AI-driven självbetjäning som hanterar vanliga frågor dygnet runt. Sömlös överlämning till mänsklig agent vid behov.",
-    benefit: "Affärsnytta: Lägre kostnad per ärende, tillgänglig 24/7, frigör agenter."
+    benefit: "Affärsnytta: Lägre kostnad per ärende, tillgänglig 24/7, frigör kundservicemedarbetare."
   },
   {
     id: "predictive-service",
@@ -334,7 +334,7 @@ const aiUseCaseCategories = [
   {
     id: "quality-management",
     title: "Automatiserad kvalitetsgranskning",
-    description: "AI analyserar samtal och ärenden för att bedöma agenters prestation. Identifierar coachingmöjligheter och best practices.",
+    description: "AI analyserar samtal och ärenden för att bedöma kundservicemedarbetarnas prestation. Identifierar coachingmöjligheter och best practices.",
     benefit: "Affärsnytta: Konsekvent kvalitet, effektiv coaching, bättre kundupplevelse."
   },
   {
@@ -470,9 +470,9 @@ const CustomerServiceNeedsAnalysis = () => {
     }
 
     // Step 2 adaptive: Contact Center
-    if (data.numberOfAgents === "51–150 agenter" || data.numberOfAgents === "151–500 agenter" || data.numberOfAgents === "Mer än 500 agenter") {
+    if (data.numberOfAgents === "51–150 kundservicemedarbetare" || data.numberOfAgents === "151–500 kundservicemedarbetare" || data.numberOfAgents === "Mer än 500 kundservicemedarbetare") {
       recommendations.contactCenter.score += 15;
-      recommendations.contactCenter.reasons.push("Stort agentteam kräver Contact Center-plattform");
+      recommendations.contactCenter.reasons.push("Stort team av kundservicemedarbetare kräver Contact Center-plattform");
     }
     if (data.inboundVolume === "500–2 000 kontakter/dag" || data.inboundVolume === "Mer än 2 000 kontakter/dag") {
       recommendations.contactCenter.score += 12;
@@ -1030,7 +1030,7 @@ const CustomerServiceNeedsAnalysis = () => {
                   ])}
                 </div>
                 <div>
-                  <Label className="text-base font-semibold mb-3 block">Har ni en strukturerad kunskapsdatabas för agenter?</Label>
+                  <Label className="text-base font-semibold mb-3 block">Har ni en strukturerad kunskapsdatabas för kundservicemedarbetare?</Label>
                   {makeRadioGroup("knowledgeBase", [
                     "Ja, uppdaterad och välstrukturerad",
                     "Delvis – spridd i dokument och e-post",
@@ -1045,14 +1045,14 @@ const CustomerServiceNeedsAnalysis = () => {
               <>
                 <div>
                   <Label className="text-base font-semibold mb-3 block">
-                    {isCombination ? "Hur många agenter arbetar i ert contact center?" : "Hur många agenter arbetar ni med?"}
+                    {isCombination ? "Hur många kundservicemedarbetare arbetar i ert contact center?" : "Hur många kundservicemedarbetare arbetar ni med?"}
                   </Label>
                   {makeRadioGroup("numberOfAgents", [
-                    "1–10 agenter",
-                    "11–50 agenter",
-                    "51–150 agenter",
-                    "151–500 agenter",
-                    "Mer än 500 agenter",
+                    "1–10 kundservicemedarbetare",
+                    "11–50 kundservicemedarbetare",
+                    "51–150 kundservicemedarbetare",
+                    "151–500 kundservicemedarbetare",
+                    "Mer än 500 kundservicemedarbetare",
                   ])}
                 </div>
                 <div>
@@ -1328,7 +1328,7 @@ const CustomerServiceNeedsAnalysis = () => {
           {
             id: "ai_responses",
             label: "AI-assisterade svar",
-            description: "Agenter får förslag på svar baserade på ärendehistorik och kunskapsdatabas",
+            description: "Kundservicemedarbetare får förslag på svar baserade på ärendehistorik och kunskapsdatabas",
             icon: "🤖",
           },
           {
@@ -1632,7 +1632,7 @@ const CustomerServiceNeedsAnalysis = () => {
                           "Dynamics 365 Customer Service": [
                             { icon: "📋", label: "Central ärendehantering" },
                             { icon: "🔀", label: "Omnichannel och kanalsamordning" },
-                            { icon: "🤖", label: "AI-assisterade agenter och kunskapsbas" },
+                            { icon: "🤖", label: "AI-assisterade kundservicemedarbetare och kunskapsbas" },
                           ],
                           "Dynamics 365 Field Service": [
                             { icon: "🗓️", label: "Schemaläggning och mobilt teknikerstöd" },
