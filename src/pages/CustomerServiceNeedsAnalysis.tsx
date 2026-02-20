@@ -1252,7 +1252,7 @@ const CustomerServiceNeedsAnalysis = () => {
 
       case 5: {
         const systemOptions = [
-          { id: "erp", label: "ERP", description: "T.ex. Business Central, Finance, SAP, Navision", icon: "🏭" },
+          { id: "erp", label: "ERP", description: "T.ex. Business Central, Finance, SAP", icon: "🏭" },
           { id: "iot", label: "IoT / Sensorer", description: "Uppkopplade produkter eller maskiner som skickar data", icon: "📡" },
           { id: "product_register", label: "Produktregister", description: "Artikeldatabas, produktkatalog eller PIM-system", icon: "📋" },
           { id: "lager", label: "Lager & lagerstyrning", description: "WMS eller lagermodul för reservdelar och produkter", icon: "📦" },
