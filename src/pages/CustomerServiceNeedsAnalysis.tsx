@@ -61,6 +61,8 @@ interface CustomerServiceAnalysisData {
   sharedReporting: string;
   realtimeReporting: string;
   integratedWithSalesErp: string;
+  // Step 5: Systemintegrationsberoenden
+  systemDependencies: string[];
   employees: string;
   industry: string;
   industryOther: string;
@@ -110,6 +112,7 @@ const initialData: CustomerServiceAnalysisData = {
   sharedReporting: "",
   realtimeReporting: "",
   integratedWithSalesErp: "",
+  systemDependencies: [],
   ticketsPerMonthComplex: "",
   multiCountry: "",
   multiLanguage: "",
@@ -366,19 +369,20 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 11;
+  const totalSteps = 12;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Target, BarChart3, Building2, Building2, Target, Target, Target, Target, Sparkles, FileText];
+  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Building2, Target, Target, Target, Target, Sparkles, FileText];
   const stepTitles = [
     "Service-modell",
     "Er situation",
     "Servicekomplexitet",
     "Organisation & styrning",
+    "Systemintegration",
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
-    "Integrationer",
+    "Nuvarande system",
     "Önskelista",
     "AI & Framtid",
     "Övrig Information",
@@ -560,6 +564,33 @@ const CustomerServiceNeedsAnalysis = () => {
     } else if (data.integratedWithSalesErp === "Ja, integration via API eller middleware") {
       recommendations.customerService.score += 6;
       recommendations.customerService.reasons.push("API-integration med sälj och ERP krävs");
+    }
+
+    // Step 5: Systemintegrationsberoenden → påverkar partner-matchning och arkitektur
+    if (data.systemDependencies.includes("erp")) {
+      recommendations.customerService.score += 10;
+      recommendations.fieldService.score += 8;
+      recommendations.customerService.reasons.push("ERP-integration – Dynamics 365-plattformen ger sömlös koppling");
+    }
+    if (data.systemDependencies.includes("iot")) {
+      recommendations.fieldService.score += 12;
+      recommendations.fieldService.reasons.push("IoT-integration – Field Service har inbyggt IoT-stöd");
+    }
+    if (data.systemDependencies.includes("lager")) {
+      recommendations.fieldService.score += 8;
+      recommendations.fieldService.reasons.push("Lagerintegration viktig för reservdelshantering i fältservice");
+    }
+    if (data.systemDependencies.includes("crm_sales")) {
+      recommendations.customerService.score += 10;
+      recommendations.customerService.reasons.push("CRM/Sälj-integration – Customer Service och Sales på samma plattform");
+    }
+    if (data.systemDependencies.includes("telefoni")) {
+      recommendations.contactCenter.score += 10;
+      recommendations.contactCenter.reasons.push("Telefoniplattform – Contact Center med Teams/Genesys-integration");
+    }
+    if (data.systemDependencies.length >= 4) {
+      recommendations.customerService.score += 8;
+      recommendations.customerService.reasons.push("Många systemintegrationsberoenden – krävs en partner med bred erfarenhet");
     }
 
     if (data.serviceChannels.length >= 3) {
@@ -1242,7 +1273,74 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 5:
+      case 5: {
+        const systemOptions = [
+          { id: "erp", label: "ERP", description: "T.ex. Business Central, Finance, SAP, Navision", icon: "🏭" },
+          { id: "iot", label: "IoT / Sensorer", description: "Uppkopplade produkter eller maskiner som skickar data", icon: "📡" },
+          { id: "product_register", label: "Produktregister", description: "Artikeldatabas, produktkatalog eller PIM-system", icon: "📋" },
+          { id: "lager", label: "Lager & lagerstyrning", description: "WMS eller lagermodul för reservdelar och produkter", icon: "📦" },
+          { id: "fakturering", label: "Fakturering & ekonomi", description: "Fakturahantering, kreditgränser, betalstatus", icon: "💰" },
+          { id: "crm_sales", label: "CRM / Sälj", description: "T.ex. Dynamics 365 Sales, Salesforce, HubSpot", icon: "🤝" },
+          { id: "field_service_ext", label: "Fältservice-system", description: "Externt system för arbetsorder och tekniker", icon: "🔧" },
+          { id: "telefoni", label: "Telefoni / Växel", description: "Telefoniplattform, Teams, Genesys, Avaya etc.", icon: "📞" },
+          { id: "e_handel", label: "E-handel", description: "Webshop, orderhantering online", icon: "🛒" },
+          { id: "hr", label: "HR-system", description: "Personaldata, kompetensprofiler, certifikat", icon: "👥" },
+        ];
+        return (
+          <div className="space-y-6">
+            <div className="bg-muted/50 border border-border rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Varför frågar vi detta?</span> Integrationsbehoven avgör vilken arkitektur och vilka partners som passar er bäst. En partner med rätt erfarenhet av era system kan halvera implementationstiden.
+              </p>
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-1 block">Hur beroende är er service av andra system?</Label>
+              <p className="text-sm text-muted-foreground mb-4">Markera alla system som er kundservice behöver läsa eller skriva data från/till.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {systemOptions.map((sys) => {
+                  const isSelected = data.systemDependencies.includes(sys.id);
+                  return (
+                    <button
+                      key={sys.id}
+                      type="button"
+                      onClick={() => handleCheckboxChange("systemDependencies", sys.id)}
+                      className={`relative flex items-start gap-3 p-4 rounded-lg border-2 text-left transition-all duration-200 group ${
+                        isSelected
+                          ? "border-primary bg-primary/[0.07] shadow-sm"
+                          : "border-border/70 bg-background hover:border-primary/40 hover:bg-muted/40"
+                      }`}
+                    >
+                      <span className="text-2xl flex-shrink-0 mt-0.5">{sys.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-semibold text-sm ${isSelected ? "text-primary" : "text-foreground"}`}>{sys.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{sys.description}</p>
+                      </div>
+                      <div className={`flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-all mt-0.5 ${
+                        isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                      }`}>
+                        {isSelected && (
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+              {data.systemDependencies.length > 0 && (
+                <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                  <p className="text-sm text-primary font-medium">
+                    ✓ {data.systemDependencies.length} system valda – vi matchar er med partners som har erfarenhet av dessa integrationer
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      case 6:
         return (
           <div className="space-y-6">
             <div>
@@ -1300,7 +1398,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
@@ -1311,10 +1409,9 @@ const CustomerServiceNeedsAnalysis = () => {
               onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
               className="min-h-[150px]"
             />
-
             <div className="space-y-4">
               <p className="text-muted-foreground">
-                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som kundservice-projekt brukar adressera. 
+                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som kundservice-projekt brukar adressera.
                 Klicka gärna i de områden som stämmer för din verksamhet.
               </p>
               <div className="space-y-6">
@@ -1356,7 +1453,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <div>
@@ -1424,10 +1521,10 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 9:
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
+            <p className="text-muted-foreground">Vilka ytterligare system behöver ni integrera med?</p>
             <div className="border-2 border-border rounded-lg overflow-hidden">
               <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
                 <div className="p-3 font-medium text-sm">Övriga relevanta produkter/system</div>
@@ -1465,7 +1562,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 9:
+      case 10:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
@@ -1478,7 +1575,6 @@ const CustomerServiceNeedsAnalysis = () => {
                 className="min-h-[200px]"
               />
             </div>
-
             <div>
               <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1501,12 +1597,12 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 10:
+      case 11: {
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
           { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
-          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" }
+          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" },
         ];
         return (
           <div className="space-y-6">
@@ -1571,8 +1667,9 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
           </div>
         );
+      }
 
-      case 11:
+      case 12:
         return (
           <div className="space-y-6">
             <div>
@@ -1600,6 +1697,7 @@ const CustomerServiceNeedsAnalysis = () => {
         return null;
     }
   };
+
 
   const renderContactForm = () => (
     <div className="space-y-6">
