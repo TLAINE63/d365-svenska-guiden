@@ -8,8 +8,28 @@ export const OrganizationSchema = () => {
     "name": "Dynamic Factory",
     "alternateName": "d365.se",
     "url": "https://d365.se",
-    "logo": "https://d365.se/logo.png",
-    "description": "Oberoende rådgivning och guide för Microsoft Dynamics 365 ERP och CRM i Sverige",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://d365.se/logo.png",
+      "width": 200,
+      "height": 60
+    },
+    "description": "Oberoende guide och rådgivning för Microsoft Dynamics 365 ERP och CRM i Sverige. Hjälper företag välja rätt affärssystem och Microsoft-partner.",
+    "foundingDate": "2020",
+    "areaServed": {
+      "@type": "Country",
+      "name": "Sweden"
+    },
+    "knowsAbout": [
+      "Microsoft Dynamics 365",
+      "Business Central",
+      "Dynamics 365 Finance",
+      "Dynamics 365 Supply Chain Management",
+      "Dynamics 365 Sales",
+      "Dynamics 365 Customer Service",
+      "ERP-system",
+      "CRM-system"
+    ],
     "sameAs": [
       "https://www.linkedin.com/showcase/d365se/"
     ],
@@ -169,14 +189,27 @@ export const WebSiteSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "d365.se",
+    "name": "d365.se – Microsoft Dynamics 365 Guide",
     "alternateName": "Dynamic Factory Dynamics 365 Guide",
     "url": "https://d365.se",
-    "description": "Oberoende guide till Microsoft Dynamics 365 ERP och CRM - priser, implementering och partnerval",
+    "description": "Oberoende guide till Microsoft Dynamics 365 ERP och CRM i Sverige – priser, implementering och partnerval",
     "inLanguage": "sv-SE",
     "publisher": {
       "@type": "Organization",
-      "name": "Dynamic Factory"
+      "name": "Dynamic Factory",
+      "url": "https://d365.se",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://d365.se/logo.png"
+      }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://d365.se/valj-partner?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
     }
   };
 
