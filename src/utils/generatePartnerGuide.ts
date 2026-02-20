@@ -238,10 +238,37 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   addBullet("Vilka branschspecifika utmaningar har ni löst tidigare?");
 
   currentPage = checkNewPage(60, currentPage);
-  
-  // Section 3
+
+  // Section 3 - CRM Workloads (new)
   y += 10;
-  addSectionTitle("3.", "Utvärdera teknisk kompetens");
+  addSectionTitle("3.", "För CRM: utvärdera workload-expertis");
+  addParagraph("Om du implementerar Dynamics 365 Sales, Customer Insights, Customer Service, Field Service eller Contact Center är det inte tillräckligt att bara titta på branscherfarenhet. Lika viktigt är att partnern har djup erfarenhet av de specifika säljprocesser, marknadsuppdrag eller servicemodeller som passar din verksamhet.");
+  y += 3;
+  addSubtitle("Säljprocesser (Sales):");
+  addBullet("Jobbar ni med långa B2B-säljcykler med flera beslutsfattare?");
+  addBullet("Eller med transaktionell försäljning i hög volym?");
+  addBullet("Har partnern erfarenhet av er typ av säljprocess och hur den konfigureras i Dynamics 365?");
+
+  currentPage = checkNewPage(40, currentPage);
+  addSubtitle("Marknadsföring (Customer Insights – Journeys):");
+  addBullet("Har de arbetat med kampanjautomation och Customer Journey-flöden?");
+  addBullet("Har de erfarenhet av segmentering, CDP-integration och personalisering i stor skala?");
+  addBullet("Vet de hur man kopplar marknad till sälj på ett effektivt sätt?");
+
+  currentPage = checkNewPage(40, currentPage);
+  addSubtitle("Kundservice och Contact Center:");
+  addBullet("Har de byggt ärendehanteringsflöden med SLA och eskaleringsregler?");
+  addBullet("Har de konfigurerat omnikanal-kundservice (chatt, mejl, telefon)?");
+  addBullet("Kan de sätta upp fältservice med schemaläggning och mobila tekniker?");
+  addBullet("Har de erfarenhet av AI-driven ärendetriagering eller chatbottar?");
+  y += 3;
+  addParagraph("Fråga alltid efter konkreta exempel och kundcase – inte bara om de 'har erfarenhet' utan vad de faktiskt levererat.");
+
+  currentPage = checkNewPage(60, currentPage);
+  
+  // Section 4 (was 3)
+  y += 10;
+  addSectionTitle("4.", "Utvärdera teknisk kompetens");
   addParagraph("Dynamics 365 är en kraftfull plattform, men kräver rätt kompetens för att implementeras framgångsrikt.");
   y += 3;
   addSubtitle("Kontrollera:");
@@ -258,8 +285,8 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   addHeader();
   y = 30;
   
-  // Section 4
-  addSectionTitle("4.", "Förstå deras projektmetodik");
+  // Section 5 (was 4)
+  addSectionTitle("5.", "Förstå deras projektmetodik");
   addParagraph("En strukturerad metodik minskar risken för överraskningar och förseningar.");
   y += 3;
   addSubtitle("Be om svar på:");
@@ -271,9 +298,9 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
 
   currentPage = checkNewPage(60, currentPage);
   
-  // Section 5
+  // Section 6 (was 5)
   y += 10;
-  addSectionTitle("5.", "Klargör support och underhåll");
+  addSectionTitle("6.", "Klargör support och underhåll");
   addParagraph("Relationen slutar inte vid go-live. Förstå hur partnern stöttar er efter implementeringen.");
   y += 3;
   addSubtitle("Viktiga frågor:");
@@ -284,9 +311,9 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
 
   currentPage = checkNewPage(60, currentPage);
   
-  // Section 6
+  // Section 7 (was 6)
   y += 10;
-  addSectionTitle("6.", "Utvärdera kulturell matchning");
+  addSectionTitle("7.", "Utvärdera kulturell matchning");
   addParagraph("En bra partner ska kännas som en förlängning av ert eget team. Kulturell matchning underskattas ofta men är avgörande för ett lyckat samarbete.");
   y += 3;
   addSubtitle("Tänk på:");
@@ -303,8 +330,8 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   addHeader();
   y = 30;
   
-  // Section 7
-  addSectionTitle("7.", "Granska prismodellen noggrant");
+  // Section 8 (was 7)
+  addSectionTitle("8.", "Granska prismodellen noggrant");
   addParagraph("Förstå exakt vad som ingår och vad som kostar extra. Oväntade kostnader är en vanlig orsak till missnöje.");
   y += 3;
   addSubtitle("Klargör:");
@@ -316,9 +343,9 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
 
   currentPage = checkNewPage(60, currentPage);
   
-  // Section 8
+  // Section 9 (was 8)
   y += 10;
-  addSectionTitle("8.", "Kontrollera referenser");
+  addSectionTitle("9.", "Kontrollera referenser");
   addParagraph("Prata med befintliga kunder - gärna i er egen bransch. Be partnern om referenskontakter och ställ ärliga frågor.");
   y += 3;
   addSubtitle("Fråga referenserna:");
@@ -330,17 +357,18 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
 
   addFooter(currentPage);
   
-  // ===== PAGE 5 - Red flags & Checklist =====
+  // ===== PAGE 5 - Checklist =====
   doc.addPage();
   currentPage = 5;
   addHeader();
   y = 30;
   
-  
   // Checklist section
   addTitle("Checklista inför beslutet", 16);
   y += 5;
   addCheckbox("Har partnern bevisad erfarenhet inom vår bransch?");
+  addCheckbox("(CRM) Har partnern erfarenhet av vår typ av säljprocess, marknadsarbete eller servicemodell?");
+  addCheckbox("(CRM) Kan de visa konkreta kundcase för liknande workloads?");
   addCheckbox("Har vi pratat med referenskunder?");
   addCheckbox("Förstår vi prismodellen fullt ut?");
   addCheckbox("Vet vi vilka personer som kommer arbeta med oss?");
