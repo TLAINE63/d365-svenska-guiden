@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import eventsHeroImage from "@/assets/events-hero.jpg";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -46,6 +48,36 @@ interface PartnerEvent {
   recording_available: boolean;
   partners: Partner | null; // Can be null for d365.se events
 }
+
+// Breadcrumb items
+const eventsBreadcrumbs = [
+  { name: "Hem", url: "https://d365.se" },
+  { name: "Events & Webinars", url: "https://d365.se/events" },
+];
+
+// FAQ items for schema
+const eventsFaqs = [
+  {
+    question: "Var hittar jag Microsoft Dynamics 365 events och webinars i Sverige?",
+    answer: "På d365.se samlar vi kommande events, webinars och seminarier från Microsoft Dynamics 365-partners i Sverige. Eventen täcker Business Central, Finance & Supply Chain, Sales, Customer Service och AI/Copilot. De flesta events är kostnadsfria och hålls online – du anmäler dig direkt via arrangörens länk."
+  },
+  {
+    question: "Är Dynamics 365 webinars gratis att delta i?",
+    answer: "Ja, de flesta webinars och seminarier arrangerade av Dynamics 365-partners i Sverige är kostnadsfria. Events kan handla om produktdemos, branschlösningar, uppgraderingsguider eller best practices. Anmälan sker direkt hos respektive arrangör via länken på eventsidan."
+  },
+  {
+    question: "Vilka typer av Dynamics 365 events anordnas i Sverige?",
+    answer: "Svenska Dynamics 365-partners arrangerar: online webinars och demos (Business Central, Sales, Customer Service m.fl.), branschspecifika seminarier (tillverkning, grossist, fastighet), AI & Copilot-introduktioner, användarträffar och Microsoft-ledda evenemang. Events riktar sig till beslutsfattare, projektledare och slutanvändare som vill lära sig mer om Dynamics 365."
+  },
+  {
+    question: "Hur anmäler jag mig till ett Dynamics 365 event?",
+    answer: "Klicka på 'Läs mer & anmäl dig' på valfritt event i listan. Du skickas direkt till arrangörens anmälningssida. Varje event har sin egen anmälningsprocess hos respektive partner. Håll koll på sista anmälningsdag som visas under varje event."
+  },
+  {
+    question: "Kan jag se inspelningar av genomförda Dynamics 365 webinars?",
+    answer: "Ja, för genomförda events där inspelning finns tillgänglig visas knappen 'Se inspelning'. Klicka på eventet under fliken Genomförda events för att komma till inspelningen hos arrangören. Många partners publicerar sina webinar-inspelningar öppet på sin hemsida eller YouTube."
+  },
+];
 
 const Events = () => {
   const [upcomingEvents, setUpcomingEvents] = useState<PartnerEvent[]>([]);
@@ -132,13 +164,15 @@ const Events = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Events & Webinars | Dynamics 365 Partner-events | d365.se</title>
-        <meta
-          name="description"
-          content="Upptäck kommande webinars, seminarier och events från Microsoft Dynamics 365-partners i Sverige. Anmäl dig till kostnadsfria events och se inspelningar."
-        />
-      </Helmet>
+      <SEOHead
+        title="Dynamics 365 Events och Webinars Sverige – Kostnadsfria seminarier"
+        description="Hitta kommande webinars, seminarier och events från Microsoft Dynamics 365-partners i Sverige. Business Central, Sales, Customer Service, AI & Copilot. Anmäl dig kostnadsfritt."
+        canonicalPath="/events"
+        keywords="Dynamics 365 event Sverige, Microsoft Dynamics 365 webinar, Business Central seminarium, Dynamics 365 partner event, Microsoft ERP webinar Sverige, Copilot event"
+        ogImage="https://d365.se/og-partner.png"
+      />
+      <FAQSchema faqs={eventsFaqs} />
+      <BreadcrumbSchema items={eventsBreadcrumbs} />
 
       <Navbar />
 
