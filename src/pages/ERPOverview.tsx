@@ -7,13 +7,23 @@ import { ArrowRight, ClipboardList } from "lucide-react";
 import { useEffect } from "react";
 import LeadCTA from "@/components/LeadCTA";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { ServiceSchema, BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
 const erpBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
 ];
+
+// ERP FAQs for schema
+const erpFaqs = [
+  { question: "Vad är skillnaden mellan Dynamics 365 Business Central och Finance & Supply Chain?", answer: "Business Central är designat för små och medelstora företag (5–300 användare) och täcker ekonomi, lager, försäljning och produktion. Dynamics 365 Finance & Supply Chain Management riktar sig till större koncerner med komplexa krav på multinationell ekonomistyrning, avancerad tillverkning och global supply chain-hantering." },
+  { question: "Vilket ERP-system från Microsoft passar mitt företag?", answer: "Företag med upp till ca 300 användare och omsättning under 1–2 miljarder väljer ofta Business Central. Större internationella koncerner med komplexa regulatoriska krav och avancerade supply chain-behov väljer Finance & Supply Chain Management. En oberoende behovsanalys hjälper dig välja rätt." },
+  { question: "Vad kostar Microsoft Dynamics 365 ERP?", answer: "Business Central Essentials kostar 884 kr/användare/mån och Premium 1 216 kr/mån. Dynamics 365 Finance kostar ca 3 700 kr/användare/mån och Supply Chain Management ca 3 700 kr/mån. Implementeringskostnaderna varierar från 150 000 kr för ett startpaket upp till flera miljoner för Enterprise-projekt." },
+  { question: "Hur lång tid tar en ERP-implementation med Dynamics 365?", answer: "Business Central tar typiskt 3–6 månader. Dynamics 365 Finance & Supply Chain Management kräver normalt 9–18 månader. Tidsåtgången beror på komplexitet, antal anpassningar och hur väl förberedda processer och data är." },
+  { question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 ERP?", answer: "Ja, alla Dynamics 365 ERP-implementeringar görs via certifierade Microsoft-partners. Valet av rätt partner är lika viktigt som valet av system. På d365.se kan du jämföra och filtrera certifierade ERP-partners baserat på din bransch och geografi." },
+];
+
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
@@ -26,16 +36,17 @@ const ERPOverview = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="ERP Affärssystem | Business Central vs Finance & SCM"
-        description="Jämför Microsoft Dynamics 365 Business Central och Finance & Supply Chain Management. Hitta rätt ERP-lösning för din organisation."
+        title="Microsoft Dynamics 365 ERP – Business Central vs Finance & SCM | d365.se"
+        description="Jämför Dynamics 365 Business Central och Finance & Supply Chain Management. Vilket ERP-system passar ditt företag? Priser, funktioner och oberoende råd om val av Microsoft-partner."
         canonicalPath="/erp"
-        keywords="ERP, affärssystem, Business Central, Finance Supply Chain, Dynamics 365, jämförelse"
+        keywords="Dynamics 365 ERP, Microsoft ERP system, Business Central vs Finance SCM, affärssystem Sverige, ERP system jämförelse, Dynamics 365 Finance, Supply Chain Management, Microsoft affärssystem pris"
         ogImage="https://d365.se/og-erp.png"
       />
       <ServiceSchema 
-        name="Microsoft Dynamics 365 ERP Rådgivning"
-        description="Oberoende rådgivning för val av rätt Microsoft Dynamics 365 affärssystem - Business Central eller Finance & Supply Chain Management."
+        name="Microsoft Dynamics 365 ERP – Rådgivning & Partnerval"
+        description="Oberoende rådgivning för val av rätt Microsoft Dynamics 365 ERP-system i Sverige. Jämför Business Central och Finance & Supply Chain Management baserat på dina krav och budget."
       />
+      <FAQSchema faqs={erpFaqs} />
       <BreadcrumbSchema items={erpBreadcrumbs} />
       <Navbar />
       
