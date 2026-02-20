@@ -224,6 +224,19 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     return 'size';
   };
 
+  // CRM apps where at least one result should be a CRM-only specialist (no ERP)
+  const crmSpecialistApps = ["Customer Insights (Marketing)", "Customer Service", "Contact Center", "Sales", "Field Service"];
+  const erpApps = ["Business Central", "Finance & SCM"];
+
+  const isCrmSpecialistApp = crmSpecialistApps.includes(selectedApp);
+
+  // Check if a partner is an ERP specialist (has ERP apps but no or very few CRM apps)
+  const isCrmOnlyPartner = (partner: PartnerData): boolean => {
+    const apps = partner.applications || [];
+    const hasErp = apps.some(a => erpApps.includes(a));
+    return !hasErp;
+  };
+
   const findBestPartners = async () => {
     const productKey = getProductKey(selectedApp);
     
@@ -233,28 +246,71 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
       return;
     }
 
-    // Step 1: filter by hard criteria (product, industry, geography)
-    const matchingPartners = partners.filter(partner => {
-      if (isDatabasePartner(partner)) {
-        return matchesDbProductFilter(
-          partner,
-          productKey,
-          selectedIndustry || undefined,
-          undefined, // Don't hard-filter on size – let AI score it
-          selectedMarket || undefined
-        );
-      }
-      return partner.productFilters?.[productKey];
-    });
+    const MIN_RESULTS = 3;
 
-    setSuggestedPartners(matchingPartners);
+    // Helper: filter partners by criteria with optional relaxations
+    const filterPartners = (
+      relaxIndustry: boolean,
+      relaxGeography: boolean
+    ): PartnerData[] => {
+      return partners.filter(partner => {
+        if (isDatabasePartner(partner)) {
+          return matchesDbProductFilter(
+            partner,
+            productKey,
+            relaxIndustry ? undefined : (selectedIndustry || undefined),
+            undefined, // size always relaxed – AI scores it
+            relaxGeography ? undefined : (selectedMarket || undefined)
+          );
+        }
+        return partner.productFilters?.[productKey];
+      });
+    };
+
+    // Step 1: strict filter (industry + geography)
+    let matchingPartners = filterPartners(false, false);
+
+    // Step 2: relax industry if < MIN_RESULTS
+    if (matchingPartners.length < MIN_RESULTS) {
+      matchingPartners = filterPartners(true, false);
+    }
+
+    // Step 3: relax geography too if still < MIN_RESULTS
+    if (matchingPartners.length < MIN_RESULTS) {
+      matchingPartners = filterPartners(true, true);
+    }
+
+    // For CRM apps: ensure at least one CRM-only partner in the set
+    // We do this by promoting a CRM-only partner if none exists in current results
+    let finalPartners = [...matchingPartners];
+    if (isCrmSpecialistApp && finalPartners.length >= MIN_RESULTS) {
+      const hasCrmOnly = finalPartners.some(isCrmOnlyPartner);
+      if (!hasCrmOnly) {
+        // Find a CRM-only partner from the full pool (relaxed filters)
+        const allCrmOnlyPartners = filterPartners(true, true).filter(isCrmOnlyPartner);
+        if (allCrmOnlyPartners.length > 0) {
+          // Add one CRM-only partner (shuffle picks random one)
+          const crmOnlyCandidate = allCrmOnlyPartners[Math.floor(Math.random() * allCrmOnlyPartners.length)];
+          // Only add if not already present
+          if (!finalPartners.find(p => {
+            const pId = isDatabasePartner(p) ? p.id : p.name;
+            const cId = isDatabasePartner(crmOnlyCandidate) ? crmOnlyCandidate.id : crmOnlyCandidate.name;
+            return pId === cId;
+          })) {
+            finalPartners = [...finalPartners, crmOnlyCandidate];
+          }
+        }
+      }
+    }
+
+    setSuggestedPartners(finalPartners);
     setStep(totalSteps + 1);
 
     // Step 2: AI ranking (async, non-blocking)
-    if (matchingPartners.length > 0) {
+    if (finalPartners.length > 0) {
       setIsAiLoading(true);
       try {
-        const partnerPayload = matchingPartners
+        const partnerPayload = finalPartners
           .filter(isDatabasePartner)
           .map(p => ({
             id: p.id,
@@ -281,6 +337,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               geography: selectedMarket,
               companySize: selectedSize,
               workload: selectedWorkload || undefined,
+              preferCrmOnly: isCrmSpecialistApp, // hint to AI
             },
           },
         });
@@ -296,20 +353,37 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
         const matches: AiMatchResult[] = data?.matches || [];
         setAiMatches(matches);
 
-        // Re-sort suggestedPartners by AI score (desc)
+        // Re-sort by AI score (desc), but if CRM app: guarantee a CRM-only partner
+        // appears in the top 3 by swapping the lowest-ranked CRM-only in if needed
         if (matches.length > 0) {
           const scoreMap = new Map(matches.map(m => [m.id, m.score]));
-          setSuggestedPartners(prev => 
-            [...prev].sort((a, b) => {
-              const scoreA = isDatabasePartner(a) ? (scoreMap.get(a.id) ?? 0) : 0;
-              const scoreB = isDatabasePartner(b) ? (scoreMap.get(b.id) ?? 0) : 0;
-              return scoreB - scoreA;
-            })
-          );
+
+          let sorted = [...finalPartners].sort((a, b) => {
+            const scoreA = isDatabasePartner(a) ? (scoreMap.get(a.id) ?? 0) : 0;
+            const scoreB = isDatabasePartner(b) ? (scoreMap.get(b.id) ?? 0) : 0;
+            return scoreB - scoreA;
+          });
+
+          // For CRM apps: if no CRM-only partner is in top 3, swap one in
+          if (isCrmSpecialistApp && sorted.length >= MIN_RESULTS) {
+            const top3HasCrmOnly = sorted.slice(0, MIN_RESULTS).some(isCrmOnlyPartner);
+            if (!top3HasCrmOnly) {
+              // Find highest-scored CRM-only partner outside top 3
+              const crmOnlyIdx = sorted.findIndex((p, i) => i >= MIN_RESULTS && isCrmOnlyPartner(p));
+              if (crmOnlyIdx !== -1) {
+                // Swap it into position 3 (index 2) – the weakest of the top 3
+                const temp = sorted[MIN_RESULTS - 1];
+                sorted[MIN_RESULTS - 1] = sorted[crmOnlyIdx];
+                sorted[crmOnlyIdx] = temp;
+              }
+            }
+          }
+
+          setSuggestedPartners(sorted);
         }
       } catch (e) {
         console.error('AI matching error:', e);
-        // Graceful degradation: keep partners in random order
+        // Graceful degradation: keep partners in current order
       } finally {
         setIsAiLoading(false);
       }
