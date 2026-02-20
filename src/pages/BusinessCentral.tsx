@@ -35,12 +35,38 @@ import {
 
 // Business Central FAQs for schema
 const bcFaqs = [
-  { question: "Vad kostar Microsoft Dynamics 365 Business Central?", answer: "Business Central har tre licensnivåer: Team Member kostar 88,40 kr/mån, Essentials kostar 884,10 kr/mån och Premium kostar 1 215,60 kr/mån per användare. Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning." },
-  { question: "Vilket företag passar Business Central bäst för?", answer: "Microsoft Dynamics 365 Business Central är designat för mindre och medelstora företag med 5–300 användare som behöver ett komplett molnbaserat affärssystem för ekonomi, lager, försäljning, inköp och produktion. Det är Microsofts mest populära ERP-system i Sverige." },
-  { question: "Hur lång tid tar det att implementera Dynamics 365 Business Central?", answer: "En typisk Business Central-implementation tar 3–6 månader. Mindre företag med standardprocesser kan vara igång på 2–3 månader med ett startpaket, medan mer komplexa projekt med anpassningar tar 6–12 månader." },
-  { question: "Hur fungerar Business Central med Microsoft 365 och Copilot?", answer: "Business Central integreras nativt med Outlook, Excel och Teams. Microsoft Copilot är inbyggd i Business Central och kan automatisera uppgifter, skriva e-post och analysera data. Det är också enkelt att koppla ihop med e-handel, Dynamics 365 Sales (CRM) och branschspecifika tillägg från Marketplace." },
-  { question: "Behöver man en partner för att implementera Business Central?", answer: "Ja, Microsoft Dynamics 365 Business Central implementeras alltid via certifierade Microsoft-partners. Valet av partner är avgörande för projektets framgång. På d365.se kan du filtrera och jämföra Business Central-partners baserat på bransch och geografi." },
-  { question: "Vad är skillnaden mellan Business Central Essentials och Premium?", answer: "Business Central Essentials inkluderar ekonomi, lager, försäljning och inköp. Premium-licensen lägger till tillverkning och servicehantering. De flesta företag börjar med Essentials och uppgraderar vid behov." },
+  {
+    question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
+    answer: "Business Central pris Sverige 2025: Team Member 88,40 kr/användare/mån, Essentials 884,10 kr/användare/mån och Premium 1 215,60 kr/användare/mån (Microsoft MSRP exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
+  },
+  {
+    question: "Hur lång tid tar Business Central implementering i Sverige?",
+    answer: "Business Central implementering tar typiskt 3–6 månader. Mindre företag med standardprocesser kan vara igång på 2–3 månader med ett startpaket. Mer komplexa projekt med många anpassningar, integrationer mot befintliga system eller flera bolag tar 6–12 månader. Microsoft-certifierade partners arbetar enligt Success by Design-metodik för att hålla tidsplan och budget."
+  },
+  {
+    question: "Vilket företag passar Business Central bäst för?",
+    answer: "Microsoft Dynamics 365 Business Central är designat för mindre och medelstora företag med 5–300 användare som behöver ett komplett molnbaserat affärssystem för ekonomi, lager, försäljning, inköp och produktion. Det är Microsofts mest populära ERP-system i Sverige och används brett inom tillverkning, grossist & distribution, konsultbolag och bygg & entreprenad."
+  },
+  {
+    question: "Vad är skillnaden mellan Business Central Essentials och Premium?",
+    answer: "Business Central Essentials (884 kr/mån) inkluderar ekonomi, lager, försäljning, inköp och projekthantering. Premium-licensen (1 216 kr/mån) lägger till tillverkning (MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt). De flesta företag börjar med Essentials och uppgraderar vid behov. Team Member (88 kr/mån) för användare som bara behöver läsbehörighet eller enkla godkännanden."
+  },
+  {
+    question: "Business Central vs Fortnox – vilket ska jag välja?",
+    answer: "Fortnox passar nystartade och mycket små bolag (1–10 anst.) med enkel bokföring. Business Central passar dig som vuxit ur Fortnox och behöver lager, projektstyrning, produktion eller avancerad rapportering. Viktiga skillnader: Business Central ger djupare Microsoft 365-integration (Outlook, Teams, Power BI), inbyggd Copilot AI, obegränsad skalning och globalt stöd för flera valutor och juridiska enheter – funktioner Fortnox saknar."
+  },
+  {
+    question: "Hur fungerar Business Central med Microsoft 365 och Copilot AI?",
+    answer: "Business Central integreras nativt med Outlook, Excel och Teams. Microsoft Copilot är inbyggd utan extra licensavgift och kan automatisera uppgifter, generera produktbeskrivningar, hjälpa med bankavstämning och analysera data. Det är också enkelt att koppla ihop med e-handel (inbyggd Shopify-koppling), Dynamics 365 Sales (CRM) och branschspecifika tillägg från Marketplace."
+  },
+  {
+    question: "Behöver man en partner för att implementera Business Central?",
+    answer: "Ja, Business Central implementeras alltid via Microsoft-certifierade partners (Solutions Partner for Business Applications). Valet av partner är avgörande för projektets framgång – en erfaren partner med branschkännedom halverar typiskt implementationstiden. På d365.se kan du filtrera och jämföra Business Central-partners baserat på bransch och geografi kostnadsfritt."
+  },
+  {
+    question: "Kan Business Central hantera tillverkning och produktion?",
+    answer: "Ja, med Premium-licensen (1 216 kr/mån) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
+  },
 ];
 
 // Geography filter options
@@ -142,10 +168,10 @@ const BusinessCentral = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Business Central – Priser, Licenser & Implementering | d365.se"
-        description="Komplett guide till Microsoft Dynamics 365 Business Central. Licenspriser från 884 kr/mån, implementeringstid 3–6 månader. Hitta certifierade Business Central-partners i Sverige."
+        title="Business Central pris Sverige – Licenser, implementering & partners"
+        description="Business Central pris Sverige: Essentials 884 kr/mån, Premium 1 216 kr/mån. Implementering 3–6 månader. Jämför Microsoft-certifierade Business Central-partners per bransch."
         canonicalPath="/business-central"
-        keywords="Dynamics 365 Business Central, Business Central pris, Business Central licens, Business Central implementering, Microsoft ERP system Sverige, affärssystem medelstora företag, Business Central partner Sverige, Business Central Essentials, Business Central Premium"
+        keywords="Business Central pris Sverige, Business Central implementering, Business Central licens, Dynamics 365 Business Central Sverige, Business Central Essentials Premium, Business Central partner Sverige, Microsoft ERP SMB Sverige, affärssystem tillverkning grossist, Business Central vs Fortnox, Business Central kostnad"
         ogImage="https://d365.se/og-business-central.png"
       />
       <FAQSchema faqs={bcFaqs} />
