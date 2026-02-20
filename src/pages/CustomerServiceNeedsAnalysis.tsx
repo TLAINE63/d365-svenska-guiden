@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Download, Headphones, Wrench, Target, Building2, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, Headphones, Wrench, Building2, BarChart3, Sparkles, FileText, CheckCircle2 } from "lucide-react";
 // jsPDF is dynamically imported when needed to reduce initial bundle size
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
@@ -372,15 +372,14 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 8;
+  const totalSteps = 7;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Headphones, Target, BarChart3, Building2, Wrench, Sparkles, CheckCircle2];
+  const stepIcons = [Building2, Headphones, BarChart3, Building2, Wrench, Sparkles, CheckCircle2];
   const stepTitles = [
     "Företagsinformation",
     "Service-modell",
-    "Er situation",
-    "Servicekomplexitet",
+    "Er situation & komplexitet",
     "Organisation & styrning",
     "Systemintegration",
     "AI & Automation",
@@ -1140,75 +1139,55 @@ const CustomerServiceNeedsAnalysis = () => {
                 </div>
               </>
             )}
+
+            {/* KOMPLEXITET – gemensamt för alla service-modeller */}
+            <div className="border-t border-border pt-6">
+              <h3 className="text-base font-semibold mb-1">Verksamhetens komplexitet</h3>
+              <p className="text-sm text-muted-foreground mb-6">Avgör vilken arkitektur och plattformsnivå som passar er bäst.</p>
+
+              <div className="space-y-6">
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Verkar ni i flera länder?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["Nej, endast Sverige", "Ja, Norden", "Ja, Europa", "Ja, globalt"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.multiCountry === opt} onClick={() => setData({ ...data, multiCountry: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Behöver ni hantera flera språk i kundservice?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["Nej, bara svenska", "Ja, svenska + engelska", "Ja, 3–5 språk", "Ja, mer än 5 språk"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.multiLanguage === opt} onClick={() => setData({ ...data, multiLanguage: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Prioriterar ni kunder olika baserat på t.ex. avtal, segment eller värde?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["Nej, alla kunder behandlas lika", "Ja, vi delar in kunder i 2–3 nivåer", "Ja, vi har komplexa prioriteringsregler"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.customerPrioritization === opt} onClick={() => setData({ ...data, customerPrioritization: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hanterar ni service för flera produktlinjer eller produktkategorier?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["Nej, en produkt/tjänst", "Ja, 2–5 produktlinjer", "Ja, mer än 5 produktlinjer", "Ja, och de kräver specialistkompetens"].map((opt) => (
+                      <SelectionCard key={opt} label={opt} selected={data.multipleProductLines === opt} onClick={() => setData({ ...data, multipleProductLines: opt })} type="radio" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         );
       }
 
       case 4: {
-        const complexityRadio = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {options.map((opt) => (
-              <SelectionCard
-                key={opt}
-                label={opt}
-                selected={data[field] === opt}
-                onClick={() => setData({ ...data, [field]: opt })}
-                type="radio"
-              />
-            ))}
-          </div>
-        );
-        return (
-          <div className="space-y-8">
-            <div className="bg-muted/50 border border-border rounded-lg p-4">
-              <p className="text-sm text-muted-foreground">
-                <span className="font-semibold text-foreground">Varför frågar vi detta?</span> Svaren avgör vilken arkitektur som passar bäst – en enkel installation eller en enterprise-plattform med multi-site-stöd.
-              </p>
-            </div>
-
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Verkar ni i flera länder?</Label>
-              {complexityRadio("multiCountry", [
-                "Nej, endast Sverige",
-                "Ja, Norden",
-                "Ja, Europa",
-                "Ja, globalt",
-              ])}
-            </div>
-
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Behöver ni hantera flera språk i kundservice?</Label>
-              {complexityRadio("multiLanguage", [
-                "Nej, bara svenska",
-                "Ja, svenska + engelska",
-                "Ja, 3–5 språk",
-                "Ja, mer än 5 språk",
-              ])}
-            </div>
-
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Prioriterar ni kunder olika baserat på t.ex. avtal, segment eller värde?</Label>
-              {complexityRadio("customerPrioritization", [
-                "Nej, alla kunder behandlas lika",
-                "Ja, vi delar in kunder i 2–3 nivåer",
-                "Ja, vi har komplexa prioriteringsregler",
-              ])}
-            </div>
-
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Hanterar ni service för flera produktlinjer eller produktkategorier?</Label>
-              {complexityRadio("multipleProductLines", [
-                "Nej, en produkt/tjänst",
-                "Ja, 2–5 produktlinjer",
-                "Ja, mer än 5 produktlinjer",
-                "Ja, och de kräver specialistkompetens",
-              ])}
-            </div>
-          </div>
-        );
-      }
-
-      case 5: {
         const orgRadio = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {options.map((opt) => (
@@ -1271,7 +1250,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 6: {
+      case 5: {
         const systemOptions = [
           { id: "erp", label: "ERP", description: "T.ex. Business Central, Finance, SAP, Navision", icon: "🏭" },
           { id: "iot", label: "IoT / Sensorer", description: "Uppkopplade produkter eller maskiner som skickar data", icon: "📡" },
@@ -1338,7 +1317,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 7: {
+      case 6: {
         const aiAutomationOptions = [
           {
             id: "auto_routing",
@@ -1514,7 +1493,7 @@ const CustomerServiceNeedsAnalysis = () => {
 
 
 
-      case 8: {
+      case 7: {
         const rec = getRecommendation();
 
         // 1️⃣ Er serviceprofil
