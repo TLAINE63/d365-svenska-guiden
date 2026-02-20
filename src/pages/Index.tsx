@@ -37,10 +37,11 @@ const homeFaqs = [
 const Index = () => {
   return <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Microsoft Dynamics 365 Guide | Priser & Implementering"
-        description="Oberoende guide till Microsoft Dynamics 365 ERP och CRM. Transparenta priser, videoguider, behovsanalyser och hjälp att välja rätt partner."
+        title="Microsoft Dynamics 365 – Guide till ERP & CRM i Sverige | d365.se"
+        description="Oberoende guide till Microsoft Dynamics 365. Jämför Business Central, Finance & SCM, Sales och Customer Service. Transparenta priser, behovsanalyser och hjälp att välja rätt partner i Sverige."
         canonicalPath="/"
-        keywords="Microsoft Dynamics 365, ERP, CRM, Business Central, Finance Supply Chain, priser, implementering, Sverige"
+        keywords="Microsoft Dynamics 365, Dynamics 365 Business Central, Dynamics 365 Finance, ERP system Sverige, CRM system, affärssystem Microsoft, Dynamics 365 partner Sverige, Business Central pris, implementering Dynamics 365"
+        ogImage="https://d365.se/og-image.png"
       />
       <OrganizationSchema />
       <WebSiteSchema />
