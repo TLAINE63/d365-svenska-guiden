@@ -26,10 +26,14 @@ import {
 
 // Contact Center FAQs for schema
 const contactCenterFaqs = [
-  { question: "Vad är skillnaden mellan Contact Center och Customer Service?", answer: "Contact Center är för högvolym-kontaktcenter med avancerade telefoni-funktioner, intelligent routing och virtuella agenter. Customer Service fokuserar mer på ärendehantering." },
-  { question: "Hur fungerar virtuella agenter?", answer: "Virtuella agenter använder AI för att automatiskt hantera vanliga kundförfrågningar via chatt eller telefon, och kan eskalera till mänskliga agenter med full konversationshistorik." },
-  { question: "Vilka kanaler stöds?", answer: "Contact Center stöder telefon, chatt, e-post, SMS, sociala medier och Microsoft Teams i ett enhetligt gränssnitt." },
-  { question: "Hur fungerar integration med Microsoft Teams?", answer: "Agenter kan hantera kundsamtal direkt i Teams-gränssnittet och enkelt konsultera kollegor eller experter under pågående kundsamtal." },
+  { question: "Vad kostar Dynamics 365 Contact Center?", answer: "Dynamics 365 Contact Center kostar från 1 215,60 kr per agent och månad (Microsofts officiella prislista). Priset inkluderar omnichannel-stöd, intelligent routing och AI-assistans. Implementationskostnaden varierar från 250 000 kr för grundläggande telefoni upp till 2 000 000 kr för en fullständig omnichannel-lösning med AI-botar." },
+  { question: "Vad är skillnaden mellan Dynamics 365 Contact Center och Customer Service?", answer: "Dynamics 365 Contact Center är specifikt designat för högvolym-kontaktcenter med avancerade telefoni-funktioner (ACD, IVR), intelligent routing, virtuella agenter och real-time övervakning av agentprestanda. Customer Service fokuserar mer på ärendehantering och kunskapsdatabaser. De kan kombineras för en komplett lösning – Contact Center hanterar den inkommande kommunikationen, Customer Service hanterar ärendets livscykel." },
+  { question: "Hur fungerar AI-drivna virtuella agenter i Contact Center?", answer: "Virtuella agenter i Contact Center använder Copilot AI och naturlig språkförståelse för att automatiskt hantera 30–60% av vanliga kundförfrågningar via chatt eller telefon. De kan svara på frågor, guida kunder genom processer och vid behov eskalera till mänskliga agenter med full konversationshistorik. Detta minskar väntetider, sänker kostnad per kontakt och frigör agenter för komplexa ärenden." },
+  { question: "Vilka kanaler stöds i Dynamics 365 Contact Center?", answer: "Contact Center stöder alla viktiga kommunikationskanaler: telefon (inkommande och utgående med ACD/IVR), live-chatt på webbplats, e-post, SMS, sociala medier (Facebook Messenger, Twitter/X, WhatsApp) och Microsoft Teams. Alla kanaler samlas i ett enhetligt agentgränssnitt så att agenter kan hantera alla interaktioner från samma plats och kunder kan byta kanal utan att förlora kontext." },
+  { question: "Hur fungerar intelligent routing i Contact Center?", answer: "Intelligent routing i Dynamics 365 Contact Center matchar automatiskt inkommande ärenden med rätt agent baserat på kompetens, tillgänglighet, kundhistorik, ärendets prioritet och SLA-krav. Copilot AI analyserar ärendets innehåll och rekommenderar den bäst lämpade agenten. Detta minskar genomsnittlig handläggningstid (AHT) och ökar first contact resolution." },
+  { question: "Hur länge tar en Contact Center-implementation?", answer: "En grundläggande telefoni-implementation tar 2–3 månader. Med chatt och e-post 5–7 månader. En fullständig omnichannel-lösning med AI-botar och djupintegrationer tar 8–12 månader. Implementationstiden beror på antal agenter, antal kanaler, befintliga system att integrera med och specifika anpassningsbehov." },
+  { question: "Dynamics 365 Contact Center vs Genesys/Avaya – vilket ska jag välja?", answer: "Dynamics 365 Contact Center är optimalt för organisationer som redan använder Microsoft 365 och Dynamics 365 CRM, då det ger djup inbyggd integration med Teams, Outlook och kunddata. Genesys är en stark konkurrent för mycket stora kontaktcenter med extremt avancerade routing-behov. Avaya passar organisationer med befintlig Avaya-infrastruktur. D365 Contact Center utmärker sig på AI-integration, Microsoft-ekosystemet och lägre total ägandekostnad för Microsoftmiljöer." },
+  { question: "Kan Dynamics 365 Contact Center integreras med befintliga system?", answer: "Ja, Contact Center integreras med Dynamics 365 Customer Service och Sales, Microsoft Teams, ERP-system via Power Automate, och externa system via öppna API:er. Det finns även färdiga kopplingar till populära CRM-system, e-handelssystem och ärendehanteringssystem. Integration med telefonibärare sker via Azure Communication Services eller befintliga SIP-trunkar." },
 ];
 
 const D365ContactCenter = () => {
@@ -55,16 +59,16 @@ const D365ContactCenter = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Contact Center | Priser & Implementering"
-        description="Komplett guide till Microsoft Dynamics 365 Contact Center. Modern kontaktcenterlösning med omnichannel, AI och automation."
+        title="Dynamics 365 Contact Center – Omnichannel & AI-kontaktcenter | Priser | d365.se"
+        description="Guide till Microsoft Dynamics 365 Contact Center. Priser från 1 215 kr/agent/mån, AI-drivna virtuella agenter, intelligent routing och omnichannel. Jämför med Genesys och Avaya."
         canonicalPath="/d365-contact-center"
-        keywords="Dynamics 365 Contact Center, kontaktcenter, omnichannel, virtuella agenter, AI, Teams"
+        keywords="Dynamics 365 Contact Center pris, contact center Microsoft, omnichannel kontaktcenter, virtuella agenter AI, intelligent routing, Genesys alternativ, Avaya alternativ Microsoft, kontaktcenter system Sverige, Teams kontaktcenter, contact center molntjänst"
         ogImage="https://d365.se/og-contact-center.png"
       />
       <FAQSchema faqs={contactCenterFaqs} />
       <ServiceSchema 
-        name="Dynamics 365 Contact Center"
-        description="Modern och innovativ kontaktcenterlösning med omnichannel-stöd, AI-driven samtalsassistent och real-time analytics."
+        name="Microsoft Dynamics 365 Contact Center – Omnichannel & AI-kontaktcenter"
+        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 215 kr per agent och månad. Implementationstid 2–12 månader."
       />
       <BreadcrumbSchema items={contactCenterBreadcrumbs} />
       <Navbar />
