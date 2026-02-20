@@ -359,6 +359,28 @@ const Copilot = () => {
               </div>
             </div>
 
+            {/* Internal Links to Product Pages */}
+            <div className="mt-8 sm:mt-10">
+              <p className="text-sm font-semibold text-muted-foreground uppercase tracking-widest text-center mb-4">Utforska Copilot per applikation</p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {[
+                  { label: "Business Central", desc: "Produktbeskrivningar & bankavstämning", path: "/business-central", color: "text-business-central border-business-central/30 hover:border-business-central/60 hover:bg-business-central/5" },
+                  { label: "Dynamics 365 Sales", desc: "Mötes­samman­fattningar & lead-scoring", path: "/d365-sales", color: "text-crm border-crm/30 hover:border-crm/60 hover:bg-crm/5" },
+                  { label: "Customer Service", desc: "Ärendestöd & svarsgenerering", path: "/d365-customer-service", color: "text-crm border-crm/30 hover:border-crm/60 hover:bg-crm/5" },
+                  { label: "Finance & Supply Chain", desc: "Ekonomianalys & supply chain-AI", path: "/finance-supply-chain", color: "text-finance-supply border-finance-supply/30 hover:border-finance-supply/60 hover:bg-finance-supply/5" },
+                ].map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`flex flex-col gap-1 p-4 rounded-xl border-2 bg-card transition-all duration-200 ${item.color}`}
+                  >
+                    <span className="font-semibold text-sm">{item.label}</span>
+                    <span className="text-xs text-muted-foreground leading-snug">{item.desc}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             {/* ROI Section */}
             <div className="mt-10 sm:mt-12 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] rounded-lg p-6 sm:p-8 text-primary-foreground">
               <h3 className="text-xl sm:text-2xl font-bold mb-6 text-center">Mätbar Affärsnytta</h3>
