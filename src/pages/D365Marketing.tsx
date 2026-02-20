@@ -26,10 +26,14 @@ import {
 
 // Customer Insights FAQs for schema
 const customerInsightsFaqs = [
-  { question: "Vad är skillnaden mellan Customer Insights och Dynamics 365 Marketing?", answer: "Customer Insights är den nya generationens marknadsföringsplattform som ersätter Marketing. Den kombinerar marknadsföringsautomation med avancerad kunddata-analys och AI-drivna insikter." },
-  { question: "Hur fungerar kundresor i Customer Insights?", answer: "Kundresor är visuella flöden som definierar kommunikation baserat på kundbeteende. Du kan skapa triggers, definiera villkor och automatiskt skicka e-post, SMS eller push-notiser." },
-  { question: "Kan Customer Insights integreras med Dynamics 365 Sales?", answer: "Ja, leads som genereras genom kampanjer överförs automatiskt till säljteamet med full historik och scoring. Säljare ser hela kundresan i Sales-appen." },
-  { question: "Vad är skillnaden på licenserna?", answer: "Customer Insights-licensen är baserad på kontaktvolym. Attach-licensen ger rabatterat pris för kunder med minst 10 Dynamics 365-användarlicenser." },
+  { question: "Vad kostar Dynamics 365 Customer Insights (Marketing)?", answer: "Dynamics 365 Customer Insights kostar 18 786,60 kr per månad för grundlicensen (baserat på kontaktvolym, inte per användare). För företag med minst 10 befintliga Dynamics 365-licenser finns Attach-licensen för 11 050,90 kr/mån. Implementationskostnaden varierar från 150 000 kr för en grundläggande setup upp till 1 200 000 kr för en komplett lösning med integrationer." },
+  { question: "Vad är skillnaden mellan Customer Insights och det gamla Dynamics 365 Marketing?", answer: "Dynamics 365 Customer Insights är nästa generation av Dynamics 365 Marketing och ersätter det helt. Customer Insights kombinerar marknadsföringsautomation (tidigare 'Journeys'-modulen) med avancerad kunddata-analys och AI-drivna insikter. Namnbytet skedde 2023. Befintliga Marketing-kunder migreras automatiskt till Customer Insights." },
+  { question: "Dynamics 365 Customer Insights vs HubSpot – vilket ska jag välja?", answer: "Dynamics 365 Customer Insights är optimalt för företag som redan använder Microsoft 365 och Dynamics 365 Sales/Customer Service, eftersom det ger djup inbyggd integration och en gemensam dataplattform. HubSpot är starkare för SMB-marknaden och har en snabbare onboarding. Customer Insights utmärker sig på AI-driven personalisering, komplex segmentering och integration med ERP-data. För Microsoftmiljöer ger Customer Insights lägre total ägandekostnad." },
+  { question: "Hur fungerar kundresor i Customer Insights?", answer: "Kundresor (Customer Journeys) i Customer Insights är visuella flöden som definierar hur och när du kommunicerar med kunder baserat på deras beteende och attribut. Du kan skapa triggers som startar resan (t.ex. webbformulär, e-postöppning, köphändelse), definiera villkor och grenar, och automatiskt skicka e-post, SMS eller push-notiser vid rätt tidpunkt. Copilot AI kan föreslå optimal timing och kanalval." },
+  { question: "Kan Customer Insights integreras med Dynamics 365 Sales?", answer: "Ja, Customer Insights har inbyggd integration med Dynamics 365 Sales. Leads som genereras av marknadsföringskampanjer kan automatiskt överföras till säljteamet med full historik och lead scoring. Säljare ser hela kundresan och alla marknadsinteraktioner i Sales-appen. Gemensam kunddata eliminerar gapet mellan marknad och sälj." },
+  { question: "Vilka kanaler stöder Customer Insights för kampanjer?", answer: "Customer Insights stöder e-post (med avancerad personalisering och A/B-testning), SMS, push-notiser, LinkedIn-annonser, webbformulär och landningssidor, event management för fysiska och digitala evenemang, samt realtids-triggers baserade på kundbeteende på webben eller i appen." },
+  { question: "Hur länge tar en Customer Insights-implementation?", answer: "En grundläggande setup med e-postmarknadsföring tar 6–8 veckor. Med kundresor och automatisering 4–6 månader. En komplett implementation med dataintegrationer, avancerad segmentering och CDP (Customer Data Platform) tar 6–10 månader. Implementationstiden beror på antalet datakällor, befintliga system och kampanjkomplexitet." },
+  { question: "Vad är Customer Insights Data (CDP) och behöver jag det?", answer: "Customer Insights Data är den Customer Data Platform-del av lösningen som samlar och förenar kunddata från alla källor (CRM, ERP, webbplats, butik m.fl.) till en enhetlig kundprofil. Det är särskilt värdefullt för B2C-företag med stora kundvolymer och komplexa datakällor. B2B-företag som primärt arbetar med Dynamics 365 Sales behöver ofta bara Journeys-modulen för marknadsföringsautomation." },
 ];
 
 const D365Marketing = () => {
@@ -65,16 +69,16 @@ const D365Marketing = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Customer Insights | Priser & Implementering"
-        description="Komplett guide till Microsoft Dynamics 365 Customer Insights (Marketing). Marknadsföringsautomation, kundresor och AI-drivna insikter."
+        title="Dynamics 365 Customer Insights – Marketing Automation | Priser & HubSpot-alternativ | d365.se"
+        description="Guide till Microsoft Dynamics 365 Customer Insights (Marketing). Priser från 11 050 kr/mån, AI-drivna kundresor, lead scoring och CDP. Jämför med HubSpot och Marketo."
         canonicalPath="/d365-marketing"
-        keywords="Dynamics 365 Customer Insights, Marketing, marknadsföringsautomation, kundresor, leads, AI"
+        keywords="Dynamics 365 Customer Insights pris, marketing automation Microsoft, HubSpot alternativ, Marketo alternativ Sverige, Dynamics 365 Marketing pris, kundresor automation, CDP customer data platform, lead scoring CRM, marknadsföringsautomation Microsoft, Customer Insights Journeys"
         ogImage="https://d365.se/og-marketing.png"
       />
       <FAQSchema faqs={customerInsightsFaqs} />
       <ServiceSchema 
-        name="Dynamics 365 Customer Insights"
-        description="Kraftfull marknadsföringsautomation för personliga kundresor, leadgenerering och AI-drivna kampanjer."
+        name="Microsoft Dynamics 365 Customer Insights – Marketing Automation & CDP"
+        description="Molnbaserad marknadsföringsautomation med AI-drivna kundresor, Customer Data Platform (CDP), lead scoring och omnikanalskampanjer. Grundlicens från 11 050 kr/mån (Attach). Implementationstid 6 veckor till 10 månader beroende på komplexitet."
       />
       <BreadcrumbSchema items={marketingBreadcrumbs} />
       <Navbar />
