@@ -239,6 +239,50 @@ const Index = () => {
                   </div>
                 </AccordionContent>
               </AccordionItem>
+
+              {/* Fråga 7 – SAP/Salesforce-jämförelse */}
+              <AccordionItem value="item-7" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">⚖️</span>
+                    <span>Är Dynamics 365 ett bra alternativ till SAP, Salesforce eller Fortnox?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>Ja – Dynamics 365 är ett starkt alternativ i alla tre segmenten:</p>
+                    <p>• <strong>Vs Fortnox / Visma / Monitor (SMB ERP):</strong> Business Central erbjuder samma enkelhet men med bättre skalbarhet, djupare Microsoft-integration och inbyggd AI. Passar dig som har vuxit ur Fortnox men inte vill ta steget till SAP.</p>
+                    <p>• <strong>Vs SAP S/4HANA (Enterprise ERP):</strong> Finance & Supply Chain Management är ett modernt alternativ med lägre totalkostnad (TCO), snabbare implementation och inbyggd Copilot AI. För nordiska medelstora till stora företag väljer allt fler D365 framför SAP.</p>
+                    <p>• <strong>Vs Salesforce / HubSpot (CRM):</strong> Dynamics 365 Sales och Customer Service konkurrerar direkt – med fördelen att allt ingår i samma Microsoft-ekosystem som Office 365, Teams och Power BI. Ingen extra integration krävs.</p>
+                    <p>• <strong>Gemensam fördel:</strong> För företag med befintlig Microsoft 365-infrastruktur är Dynamics 365 ofta det naturligaste valet – du betalar inte för redundanta integrationer och data bor i ett och samma ekosystem.</p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+
+              {/* Fråga 8 – Microsoft Copilot AI */}
+              <AccordionItem value="item-8" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
+                    <span className="text-xl sm:text-2xl flex-shrink-0">🤖</span>
+                    <span>Hur fungerar Microsoft Copilot AI i Dynamics 365?</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-6">
+                  <div className="space-y-3 text-muted-foreground">
+                    <p>Microsoft Copilot är inbyggt i alla Dynamics 365-appar <strong>utan extra licensavgift</strong> – det ingår i din befintliga licens.</p>
+                    <p>• <strong>Business Central:</strong> Copilot genererar produktbeskrivningar automatiskt, hjälper till med bankavstämning och skapar försäljningsrader från dokument.</p>
+                    <p>• <strong>Dynamics 365 Sales:</strong> Copilot sammanfattar möten, skriver e-postutkast och identifierar leads med hög sannolikhet att konvertera.</p>
+                    <p>• <strong>Customer Service:</strong> Copilot sammanfattar ärenden, föreslår svar och analyserar sentiment i kundinteraktioner – 25% snabbare ärendehantering.</p>
+                    <p>• <strong>Finance & Supply Chain:</strong> Copilot varnar för leveransrisker, identifierar ekonomiavvikelser och optimerar inköpsplaner i realtid.</p>
+                    <p>• <strong>Mätbar affärsnytta:</strong> Forrester TEI-studie (oktober 2024) visar 353% potentiell ROI över 3 år, 20% reducerade driftskostnader och 18% ökad medarbetarnöjdhet.</p>
+                    <p className="pt-1">
+                      <Link to="/copilot" className="text-primary hover:underline font-semibold">
+                        → Läs mer om Copilot i Dynamics 365
+                      </Link>
+                    </p>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
           </div>
         </div>
