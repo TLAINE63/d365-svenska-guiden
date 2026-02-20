@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, ArrowLeft, CheckCircle, Building2, Search, Shuffle } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Building2, Search, Shuffle, Sparkles, Loader2, Star } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -22,6 +22,8 @@ import {
 import LeadCTA from "@/components/LeadCTA";
 import { Partner } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 // Union type to support both static and database partners
 type PartnerData = Partner | DatabasePartner;
@@ -56,34 +58,34 @@ const crmApps = ["Sales", "Customer Insights (Marketing)", "Customer Service", "
 // Workload options per CRM application
 const workloadOptions: Record<string, { value: string; label: string; description: string }[]> = {
   "Sales": [
-    { value: "b2b-komplex", label: "B2B komplex säljcykel", description: "Långa affärer med flera beslutsfattare och anbudssteg" },
-    { value: "transaktionell", label: "Transaktionell försäljning", description: "Hög volym, kortare cykler och standardiserade erbjudanden" },
-    { value: "prenumeration", label: "Prenumeration / Recurring", description: "Abonnemang, löpande avtal och förnyelser" },
-    { value: "partner-kanal", label: "Partner- och kanalförsäljning", description: "Försäljning via återförsäljare, agenter eller kanalnätverk" },
+    { value: "B2B komplex säljcykel", label: "B2B komplex säljcykel", description: "Långa affärer med flera beslutsfattare och anbudssteg" },
+    { value: "Transaktionell försäljning", label: "Transaktionell försäljning", description: "Hög volym, kortare cykler och standardiserade erbjudanden" },
+    { value: "Prenumeration / Recurring", label: "Prenumeration / Recurring", description: "Abonnemang, löpande avtal och förnyelser" },
+    { value: "Partner- och kanalförsäljning", label: "Partner- och kanalförsäljning", description: "Försäljning via återförsäljare, agenter eller kanalnätverk" },
   ],
   "Customer Insights (Marketing)": [
-    { value: "kampanj", label: "Kampanjhantering", description: "E-post, event och flerkanalskampanjer" },
-    { value: "cdp", label: "CDP / Dataplattform", description: "Kunddata från flera källor, segmentering och aktivering" },
-    { value: "lojalitet", label: "Lojalitet & personalisering", description: "Lojalitetsprogram och riktade budskap baserade på beteende" },
-    { value: "b2b-marknad", label: "B2B-marknadsföring (ABM)", description: "Account-based marketing mot specifika målkonton" },
+    { value: "Kampanjhantering", label: "Kampanjhantering", description: "E-post, event och flerkanalskampanjer" },
+    { value: "CDP / Dataplattform", label: "CDP / Dataplattform", description: "Kunddata från flera källor, segmentering och aktivering" },
+    { value: "Lojalitet & personalisering", label: "Lojalitet & personalisering", description: "Lojalitetsprogram och riktade budskap baserade på beteende" },
+    { value: "B2B-marknadsföring (ABM)", label: "B2B-marknadsföring (ABM)", description: "Account-based marketing mot specifika målkonton" },
   ],
   "Customer Service": [
-    { value: "arendehantering", label: "Ärendehantering", description: "Ticketsystem, SLA och eskaleringsflöden" },
-    { value: "sjalvbetjaning", label: "Självbetjäning / Kundportal", description: "Kunskapsbas, FAQ och kundportaler" },
-    { value: "sla-kontrakt", label: "SLA & kontraktsstyrning", description: "Garantier, serviceavtal och kontraktsbaserad support" },
-    { value: "omni-service", label: "Omnikanal-service", description: "Enhetlig serviceupplevelse via e-post, chatt, telefon och webb" },
+    { value: "Ärendehantering", label: "Ärendehantering", description: "Ticketsystem, SLA och eskaleringsflöden" },
+    { value: "Självbetjäning / Kundportal", label: "Självbetjäning / Kundportal", description: "Kunskapsbas, FAQ och kundportaler" },
+    { value: "SLA & kontraktsstyrning", label: "SLA & kontraktsstyrning", description: "Garantier, serviceavtal och kontraktsbaserad support" },
+    { value: "Omnikanal-service", label: "Omnikanal-service", description: "Enhetlig serviceupplevelse via e-post, chatt, telefon och webb" },
   ],
   "Field Service": [
-    { value: "planerat-underhall", label: "Planerat underhåll", description: "Schemalagt förebyggande underhåll och inspektioner" },
-    { value: "felanmalan", label: "Felanmälan & akututryckningar", description: "Reaktiv service och snabb utryckning vid driftstopp" },
-    { value: "iot", label: "IoT-kopplad service", description: "Sensordata som triggar serviceorder automatiskt" },
-    { value: "installation", label: "Installation & driftsättning", description: "Projektstyrd installation och idrifttagning hos kund" },
+    { value: "Planerat underhåll", label: "Planerat underhåll", description: "Schemalagt förebyggande underhåll och inspektioner" },
+    { value: "Felanmälan & akututryckningar", label: "Felanmälan & akututryckningar", description: "Reaktiv service och snabb utryckning vid driftstopp" },
+    { value: "IoT-kopplad service", label: "IoT-kopplad service", description: "Sensordata som triggar serviceorder automatiskt" },
+    { value: "Installation & driftsättning", label: "Installation & driftsättning", description: "Projektstyrd installation och idrifttagning hos kund" },
   ],
   "Contact Center": [
-    { value: "omnikanal-cc", label: "Omnikanal-kontaktcenter", description: "Samlar röst, chatt, e-post och sociala medier i en vy" },
-    { value: "ai-assisterad", label: "AI-assisterad service", description: "Copilot, bot-integration och föreslagen respons" },
-    { value: "volym", label: "Högvolym & routing", description: "Automatisk köhantering, routing och kompetensbaserad fördelning" },
-    { value: "outbound", label: "Utgående kontakt (Outbound)", description: "Kampanjsamtal, påminnelser och proaktiv kundkontakt" },
+    { value: "Omnikanal-kontaktcenter", label: "Omnikanal-kontaktcenter", description: "Samlar röst, chatt, e-post och sociala medier i en vy" },
+    { value: "AI-assisterad service", label: "AI-assisterad service", description: "Copilot, bot-integration och föreslagen respons" },
+    { value: "Högvolym & routing", label: "Högvolym & routing", description: "Automatisk köhantering, routing och kompetensbaserad fördelning" },
+    { value: "Utgående kontakt (Outbound)", label: "Utgående kontakt (Outbound)", description: "Kampanjsamtal, påminnelser och proaktiv kundkontakt" },
   ],
 };
 
@@ -160,24 +162,38 @@ const matchesDbProductFilter = (
   return true;
 };
 
-// Session-stable seeded shuffle for fair partner exposure
-const seededShuffle = <T,>(array: T[], seed: number): T[] => {
-  const shuffled = [...array];
-  let currentSeed = seed;
-  
-  const seededRandom = () => {
-    currentSeed = (currentSeed * 9301 + 49297) % 233280;
-    return currentSeed / 233280;
-  };
-  
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(seededRandom() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
+// Determine product key from selected application
+const getProductKey = (app: string): ProductKey | null => {
+  if (app === "Business Central") return 'bc';
+  if (app === "Finance & SCM") return 'fsc';
+  if (["Sales", "Customer Insights (Marketing)"].includes(app)) return 'sales';
+  if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return 'service';
+  if (["Project Operations", "Commerce", "Human Resources"].includes(app)) return 'fsc';
+  return null;
 };
 
+// Score color helper
+const getScoreColor = (score: number) => {
+  if (score >= 75) return "text-green-600 dark:text-green-400";
+  if (score >= 50) return "text-amber-600 dark:text-amber-400";
+  return "text-muted-foreground";
+};
+
+const getScoreBg = (score: number) => {
+  if (score >= 75) return "bg-green-50 border-green-200 dark:bg-green-950/30 dark:border-green-800";
+  if (score >= 50) return "bg-amber-50 border-amber-200 dark:bg-amber-950/30 dark:border-amber-800";
+  return "bg-muted/30 border-border";
+};
+
+// AI match result type
+interface AiMatchResult {
+  id: string;
+  score: number;
+  matchReason: string;
+}
+
 const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialogProps) => {
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [selectedApp, setSelectedApp] = useState<string>("");
   const [selectedWorkload, setSelectedWorkload] = useState<string>("");
@@ -185,13 +201,14 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
+  const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
+  const [isAiLoading, setIsAiLoading] = useState(false);
 
   const isCrmApp = crmApps.includes(selectedApp);
   // CRM apps get an extra workload step → 5 steps total, others 4
   const totalSteps = isCrmApp ? 5 : 4;
 
   // Map logical step index to content, skipping workload step for non-CRM
-  // Step 1 = App, Step 2 = Workload (CRM only), Step 3/2 = Industry, Step 4/3 = Market, Step 5/4 = Size
   const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'market' | 'size' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
@@ -207,17 +224,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     return 'size';
   };
 
-  // Determine product key from selected application
-  const getProductKey = (app: string): ProductKey | null => {
-    if (app === "Business Central") return 'bc';
-    if (app === "Finance & SCM") return 'fsc';
-    if (["Sales", "Customer Insights (Marketing)"].includes(app)) return 'sales';
-    if (["Customer Service", "Field Service", "Contact Center"].includes(app)) return 'service';
-    if (["Project Operations", "Commerce", "Human Resources"].includes(app)) return 'fsc';
-    return null;
-  };
-
-  const findBestPartners = () => {
+  const findBestPartners = async () => {
     const productKey = getProductKey(selectedApp);
     
     if (!productKey) {
@@ -226,29 +233,91 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
       return;
     }
 
+    // Step 1: filter by hard criteria (product, industry, geography)
     const matchingPartners = partners.filter(partner => {
       if (isDatabasePartner(partner)) {
         return matchesDbProductFilter(
           partner,
           productKey,
           selectedIndustry || undefined,
-          undefined,
+          undefined, // Don't hard-filter on size – let AI score it
           selectedMarket || undefined
         );
       }
       return partner.productFilters?.[productKey];
     });
 
-    const sessionSeed = Math.floor(Date.now() / (1000 * 60 * 60));
-    const shuffledPartners = seededShuffle(matchingPartners, sessionSeed);
-
-    setSuggestedPartners(shuffledPartners);
+    setSuggestedPartners(matchingPartners);
     setStep(totalSteps + 1);
+
+    // Step 2: AI ranking (async, non-blocking)
+    if (matchingPartners.length > 0) {
+      setIsAiLoading(true);
+      try {
+        const partnerPayload = matchingPartners
+          .filter(isDatabasePartner)
+          .map(p => ({
+            id: p.id,
+            name: p.name,
+            description: p.description,
+            applications: p.applications || [],
+            industries: p.industries || [],
+            geography: p.geography || [],
+            product_filters: p.product_filters || {},
+          }));
+
+        if (partnerPayload.length === 0) {
+          setIsAiLoading(false);
+          return;
+        }
+
+        const { data, error } = await supabase.functions.invoke('match-partners', {
+          body: {
+            partners: partnerPayload,
+            criteria: {
+              application: selectedApp,
+              productKey,
+              industry: selectedIndustry,
+              geography: selectedMarket,
+              companySize: selectedSize,
+              workload: selectedWorkload || undefined,
+            },
+          },
+        });
+
+        if (error) throw error;
+        if (data?.error) {
+          if (data.error.includes('Rate limit') || data.error.includes('429')) {
+            toast({ title: "AI temporärt otillgänglig", description: "Partners visas utan AI-rangordning.", variant: "destructive" });
+          }
+          throw new Error(data.error);
+        }
+
+        const matches: AiMatchResult[] = data?.matches || [];
+        setAiMatches(matches);
+
+        // Re-sort suggestedPartners by AI score (desc)
+        if (matches.length > 0) {
+          const scoreMap = new Map(matches.map(m => [m.id, m.score]));
+          setSuggestedPartners(prev => 
+            [...prev].sort((a, b) => {
+              const scoreA = isDatabasePartner(a) ? (scoreMap.get(a.id) ?? 0) : 0;
+              const scoreB = isDatabasePartner(b) ? (scoreMap.get(b.id) ?? 0) : 0;
+              return scoreB - scoreA;
+            })
+          );
+        }
+      } catch (e) {
+        console.error('AI matching error:', e);
+        // Graceful degradation: keep partners in random order
+      } finally {
+        setIsAiLoading(false);
+      }
+    }
   };
 
   const handleNext = () => {
     if (step < totalSteps) {
-      // When moving from step 1, reset workload if app changed to non-CRM
       if (step === 1 && !crmApps.includes(selectedApp)) {
         setSelectedWorkload("");
       }
@@ -272,6 +341,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     setSelectedMarket("");
     setSelectedSize("");
     setSuggestedPartners([]);
+    setAiMatches([]);
+    setIsAiLoading(false);
   };
 
   const canProceed = () => {
@@ -452,7 +523,26 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               )}
               {selectedIndustry && <Badge variant="outline">{selectedIndustry}</Badge>}
               {selectedMarket && <Badge variant="outline">{selectedMarket}</Badge>}
+              {selectedSize && <Badge variant="outline">{selectedSize}</Badge>}
             </div>
+
+            {/* AI loading indicator */}
+            {isAiLoading && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/40 rounded-lg px-4 py-3">
+                <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                <span>AI analyserar och rangordnar partners efter dina behov…</span>
+              </div>
+            )}
+
+            {/* AI ranked badge (shown after loading) */}
+            {!isAiLoading && aiMatches.length > 0 && (
+              <div className="flex items-center gap-2 text-sm text-primary bg-primary/5 rounded-lg px-4 py-2.5 border border-primary/20">
+                <Sparkles className="h-4 w-4" />
+                <span className="font-medium">AI-rangordnade resultat</span>
+                <span className="text-muted-foreground text-xs">– baserat på profil, erbjudande och branschmatchning</span>
+              </div>
+            )}
 
             <div className="flex items-center gap-2 text-primary">
               <CheckCircle className="h-6 w-6" />
@@ -484,6 +574,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                     : (partner.name || '').toLowerCase().replace(/[^a-z0-9]+/g, "-");
                   const profileUrl = `/partner/${partnerSlug}${selectedApp ? `?product=${encodeURIComponent(selectedApp)}` : ""}${selectedIndustry ? `${selectedApp ? "&" : "?"}industry=${encodeURIComponent(selectedIndustry)}` : ""}`;
                   
+                  const aiMatch = isDatabasePartner(partner) 
+                    ? aiMatches.find(m => m.id === partner.id)
+                    : undefined;
+                  
                   return (
                     <Card 
                       key={index} 
@@ -514,27 +608,58 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                           
                           {/* Content */}
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                              <Link 
-                                to={profileUrl} 
-                                onClick={() => onOpenChange(false)}
-                                className="font-semibold text-foreground hover:text-primary transition-colors truncate"
-                              >
-                                {partner.name || 'Partner'}
-                              </Link>
-                              <TooltipProvider delayDuration={100}>
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center cursor-help">
-                                      <Shuffle className="w-2.5 h-2.5 text-muted-foreground" />
-                                    </div>
-                                  </TooltipTrigger>
-                                  <TooltipContent side="top" className="text-xs">
-                                    <p>Ordningen slumpas för rättvis exponering</p>
-                                  </TooltipContent>
-                                </Tooltip>
-                              </TooltipProvider>
+                            <div className="flex items-start justify-between gap-2 mb-1">
+                              <div className="flex items-center gap-2 min-w-0">
+                                <Link 
+                                  to={profileUrl} 
+                                  onClick={() => onOpenChange(false)}
+                                  className="font-semibold text-foreground hover:text-primary transition-colors truncate"
+                                >
+                                  {partner.name || 'Partner'}
+                                </Link>
+                                {/* Only show shuffle icon when no AI scores */}
+                                {aiMatches.length === 0 && !isAiLoading && (
+                                  <TooltipProvider delayDuration={100}>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center cursor-help flex-shrink-0">
+                                          <Shuffle className="w-2.5 h-2.5 text-muted-foreground" />
+                                        </div>
+                                      </TooltipTrigger>
+                                      <TooltipContent side="top" className="text-xs">
+                                        <p>Ordningen slumpas för rättvis exponering</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </TooltipProvider>
+                                )}
+                              </div>
+                              
+                              {/* AI Match Score */}
+                              {aiMatch && !isAiLoading && (
+                                <TooltipProvider delayDuration={100}>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold flex-shrink-0 cursor-help ${getScoreBg(aiMatch.score)}`}>
+                                        <Star className={`w-3 h-3 ${getScoreColor(aiMatch.score)}`} />
+                                        <span className={getScoreColor(aiMatch.score)}>{aiMatch.score}%</span>
+                                      </div>
+                                    </TooltipTrigger>
+                                    <TooltipContent side="top" className="text-xs max-w-48">
+                                      <p className="font-medium mb-1">AI-matchning</p>
+                                      <p>{aiMatch.matchReason}</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              )}
                             </div>
+                            
+                            {/* AI match reason inline */}
+                            {aiMatch && !isAiLoading && (
+                              <p className="text-xs text-muted-foreground italic mb-2 flex items-start gap-1">
+                                <Sparkles className="w-3 h-3 mt-0.5 flex-shrink-0 text-primary/60" />
+                                {aiMatch.matchReason}
+                              </p>
+                            )}
                             
                             <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{partner.description}</p>
                             
