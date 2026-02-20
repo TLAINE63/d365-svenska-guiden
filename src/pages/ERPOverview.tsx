@@ -17,11 +17,34 @@ const erpBreadcrumbs = [
 
 // ERP FAQs for schema
 const erpFaqs = [
-  { question: "Vad är skillnaden mellan Dynamics 365 Business Central och Finance & Supply Chain?", answer: "Business Central är designat för små och medelstora företag (5–300 användare) och täcker ekonomi, lager, försäljning och produktion. Dynamics 365 Finance & Supply Chain Management riktar sig till större koncerner med komplexa krav på multinationell ekonomistyrning, avancerad tillverkning och global supply chain-hantering." },
-  { question: "Vilket ERP-system från Microsoft passar mitt företag?", answer: "Företag med upp till ca 300 användare och omsättning under 1–2 miljarder väljer ofta Business Central. Större internationella koncerner med komplexa regulatoriska krav och avancerade supply chain-behov väljer Finance & Supply Chain Management. En oberoende behovsanalys hjälper dig välja rätt." },
-  { question: "Vad kostar Microsoft Dynamics 365 ERP?", answer: "Business Central Essentials kostar 884 kr/användare/mån och Premium 1 216 kr/mån. Dynamics 365 Finance kostar ca 3 700 kr/användare/mån och Supply Chain Management ca 3 700 kr/mån. Implementeringskostnaderna varierar från 150 000 kr för ett startpaket upp till flera miljoner för Enterprise-projekt." },
-  { question: "Hur lång tid tar en ERP-implementation med Dynamics 365?", answer: "Business Central tar typiskt 3–6 månader. Dynamics 365 Finance & Supply Chain Management kräver normalt 9–18 månader. Tidsåtgången beror på komplexitet, antal anpassningar och hur väl förberedda processer och data är." },
-  { question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 ERP?", answer: "Ja, alla Dynamics 365 ERP-implementeringar görs via certifierade Microsoft-partners. Valet av rätt partner är lika viktigt som valet av system. På d365.se kan du jämföra och filtrera certifierade ERP-partners baserat på din bransch och geografi." },
+  {
+    question: "Vilket ERP system passar bäst i Sverige – jämförelse Business Central vs Finance & SCM?",
+    answer: "ERP system jämförelse Sverige: Business Central är bäst för företag med 5–300 användare och omsättning under 1–2 miljarder – det täcker ekonomi, lager, försäljning och produktion i ett kostnadseffektivt molnsystem. Dynamics 365 Finance & Supply Chain Management (F&SCM) passar stora internationella koncerner med komplexa regulatoriska krav, multinationell ekonomistyrning och avancerad supply chain. Huvudskillnad: BC kostar 884 kr/mån vs F&SCM ca 3 700 kr/mån per användare."
+  },
+  {
+    question: "Vad kostar Microsoft ERP system i Sverige?",
+    answer: "Microsoft ERP pris Sverige 2025: Business Central Essentials 884 kr/användare/mån, Business Central Premium 1 216 kr/mån, Dynamics 365 Finance ca 3 700 kr/mån och Supply Chain Management ca 3 700 kr/mån. Implementeringskostnaden varierar: Business Central startpaket från 150 000 kr, F&SCM Enterprise-projekt från 1–5 MSEK. Välj rätt licens utifrån antal användare och funktionsbehov."
+  },
+  {
+    question: "Vad är skillnaden mellan Business Central och Finance & Supply Chain?",
+    answer: "Business Central är designat för SMB (5–300 användare) och täcker ekonomi, lager, försäljning och produktion (Premium). Finance & Supply Chain Management riktar sig till enterprise med krav på global juridisk struktur, avancerat MRP/MPS, WMS och komplexa internprissättningsregler. Business Central är snabbare att implementera (3–6 mån vs 9–18 mån) och har lägre total ägandekostnad för de flesta medelstora företag."
+  },
+  {
+    question: "Hur lång tid tar ERP implementation i Sverige med Dynamics 365?",
+    answer: "ERP implementation Sverige: Business Central tar typiskt 3–6 månader. Dynamics 365 Finance & Supply Chain Management kräver normalt 9–18 månader. Tidsåtgången beror på komplexitet, antal anpassningar och hur väl förberedda processer och data är. Microsoft-certifierade partners arbetar enligt Success by Design-metodik för att säkra projektleveransen."
+  },
+  {
+    question: "Vilket Microsoft ERP-system passar mitt företag?",
+    answer: "Välj Business Central om: du har 5–300 användare, omsättning under 1–2 miljarder, behov av ett komplett men lätthanterligt system. Välj Finance & SCM om: du är en global koncern med flera juridiska entiteter, komplexa regulatoriska krav, avancerad tillverkning med MRP/MPS eller global supply chain. En oberoende behovsanalys hjälper dig välja rätt – utan säljpåverkan."
+  },
+  {
+    question: "Behöver vi en Microsoft-partner för att implementera Dynamics 365 ERP?",
+    answer: "Ja, alla Dynamics 365 ERP-implementeringar görs via Microsoft-certifierade partners (Solutions Partner for Business Applications). Valet av rätt partner är lika viktigt som valet av system – en erfaren partner med branschkännedom kan halvera implementationstiden. På d365.se kan du jämföra och filtrera certifierade ERP-partners baserat på din bransch och geografi kostnadsfritt."
+  },
+  {
+    question: "Kan Microsoft Dynamics 365 ERP integreras med befintliga system?",
+    answer: "Ja, Dynamics 365 ERP integreras via REST API:er, Microsoft Power Platform (Power Automate) och ett rikt ekosystem av färdiga kopplings-appar mot vanliga system som Shopify, Magento, EDI-lösningar, lönesystem och branschspecifika applikationer. Business Central har inbyggd Shopify-integration. F&SCM har djupare enterprise-integrationsmöjligheter via Azure Integration Services."
+  },
 ];
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -36,10 +59,10 @@ const ERPOverview = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Microsoft Dynamics 365 ERP – Business Central vs Finance & SCM | d365.se"
-        description="Jämför Dynamics 365 Business Central och Finance & Supply Chain Management. Vilket ERP-system passar ditt företag? Priser, funktioner och oberoende råd om val av Microsoft-partner."
+        title="ERP system Sverige – Business Central vs Finance & SCM jämförelse"
+        description="Jämför ERP system Sverige: Business Central från 884 kr/mån vs Finance & SCM från 3 700 kr/mån. Oberoende guide till val av Microsoft ERP och certifierad partner."
         canonicalPath="/erp"
-        keywords="Dynamics 365 ERP, Microsoft ERP system, Business Central vs Finance SCM, affärssystem Sverige, ERP system jämförelse, Dynamics 365 Finance, Supply Chain Management, Microsoft affärssystem pris"
+        keywords="ERP system Sverige jämförelse, Microsoft ERP Sverige, Business Central vs Finance SCM, affärssystem jämförelse Sverige, Dynamics 365 ERP pris, ERP implementation Sverige, Microsoft affärssystem SMB, Dynamics 365 Finance Supply Chain, ERP system medelstora företag"
         ogImage="https://d365.se/og-erp.png"
       />
       <ServiceSchema 
