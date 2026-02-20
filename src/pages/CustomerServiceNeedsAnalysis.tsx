@@ -375,7 +375,7 @@ const CustomerServiceNeedsAnalysis = () => {
   const totalSteps = 13;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Building2, Target, Target, Target, Target, Sparkles, FileText];
+  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Building2, Target, Target, Target, Target, Sparkles, CheckCircle2];
   const stepTitles = [
     "Service-modell",
     "Er situation",
@@ -389,7 +389,7 @@ const CustomerServiceNeedsAnalysis = () => {
     "Nuvarande system",
     "Önskelista",
     "AI & Framtid",
-    "Övrig Information",
+    "Er serviceprofil",
   ];
 
   const handleNext = () => {
@@ -1774,29 +1774,181 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 13:
+      case 13: {
+        const rec = getRecommendation();
+
+        // 1️⃣ Er serviceprofil
+        const serviceProfileMap: Record<string, { label: string; icon: string; color: string }> = {
+          "Digital ärendehantering": { label: "Digital service", icon: "💻", color: "text-blue-600" },
+          "Telefonbaserad kundservice": { label: "Contact Center", icon: "📞", color: "text-purple-600" },
+          "Fältservice med tekniker": { label: "Fältservice", icon: "🔧", color: "text-amber-600" },
+          "Kombination av flera": { label: "Hybrid service", icon: "🔀", color: "text-green-600" },
+        };
+        const profile = serviceProfileMap[data.serviceModel] || { label: "Ej angiven", icon: "❓", color: "text-muted-foreground" };
+
+        // 2️⃣ Servicekomplexitet
+        let complexityScore = 0;
+        if (data.ticketsPerMonthComplex === "2 000–10 000" || data.ticketsPerMonthComplex === "Mer än 10 000") complexityScore += 2;
+        else if (data.ticketsPerMonthComplex === "500–2 000") complexityScore += 1;
+        if (data.multiCountry === "Ja, globalt" || data.multiCountry === "Ja, Europa") complexityScore += 2;
+        else if (data.multiCountry === "Ja, Norden") complexityScore += 1;
+        if (data.multiLanguage === "Ja, mer än 5 språk" || data.multiLanguage === "Ja, 3–5 språk") complexityScore += 2;
+        else if (data.multiLanguage === "Ja, svenska + engelska") complexityScore += 1;
+        if (data.slaContracts === "Ja, komplexa SLA per kundsegment" || data.slaContracts === "Ja, kontraktuella SLA med viten") complexityScore += 2;
+        else if (data.slaContracts === "Ja, informella mål") complexityScore += 1;
+        if (data.customerPrioritization === "Ja, vi har komplexa prioriteringsregler") complexityScore += 2;
+        else if (data.customerPrioritization === "Ja, vi delar in kunder i 2–3 nivåer") complexityScore += 1;
+        if (data.multipleProductLines === "Ja, och de kräver specialistkompetens" || data.multipleProductLines === "Ja, mer än 5 produktlinjer") complexityScore += 2;
+        else if (data.multipleProductLines === "Ja, 2–5 produktlinjer") complexityScore += 1;
+
+        const complexityLevel = complexityScore >= 8 ? "Hög" : complexityScore >= 4 ? "Medel" : "Låg";
+        const complexityColor = complexityLevel === "Hög" ? "text-red-600 bg-red-50 border-red-200" : complexityLevel === "Medel" ? "text-amber-600 bg-amber-50 border-amber-200" : "text-green-600 bg-green-50 border-green-200";
+        const complexityBar = complexityLevel === "Hög" ? 85 : complexityLevel === "Medel" ? 50 : 20;
+
+        // 4️⃣ Rekommenderad partnertyp
+        const partnerTypes: { icon: string; label: string; description: string }[] = [];
+        const hasFieldService = rec.products.some(p => p.name.includes("Field Service") && p.score > 30);
+        const hasContactCenter = rec.products.some(p => p.name.includes("Contact Center") && p.score > 30);
+        const hasCustomerService = rec.products.some(p => p.name.includes("Customer Service") && p.score > 30);
+        const isEnterprise = complexityLevel === "Hög" || data.multiCountry === "Ja, Europa" || data.multiCountry === "Ja, globalt" || (data.orgStructure || "").includes("Hybrid") || (data.orgStructure || "").includes("Decentraliserad");
+
+        if (hasFieldService) {
+          partnerTypes.push({ icon: "🔧", label: "Field Service-specialist", description: "Partner med djup erfarenhet av IoT, schemaläggning och fältservice-implementationer" });
+        }
+        if (hasContactCenter) {
+          partnerTypes.push({ icon: "📞", label: "Contact Center-specialist", description: "Partner med telefoniplattformar (Teams, Genesys) och omnichannel-kompetens" });
+        }
+        if (isEnterprise && (hasCustomerService || hasContactCenter)) {
+          partnerTypes.push({ icon: "🏢", label: "Enterprise service-arkitekt", description: "Partner med erfarenhet av komplexa multi-site och enterprise-lösningar" });
+        }
+        if (!isEnterprise && hasCustomerService) {
+          partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva Customer Service-driftsättningar" });
+        }
+        if (partnerTypes.length === 0) {
+          partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva Customer Service-driftsättningar" });
+        }
+
         return (
           <div className="space-y-6">
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Har ni kontakt med några Microsoftpartners idag?</Label>
-              <Textarea
-                placeholder="Ange vilka Microsoft-partners ni eventuellt har kontakt med..."
-                value={data.currentPartners}
-                onChange={(e) => setData({ ...data, currentPartners: e.target.value })}
-                className="min-h-[100px]"
-              />
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+              <p className="text-sm text-primary font-medium">
+                🎯 Baserat på era svar har vi sammanställt er serviceprofil. Fyll i kontaktuppgifter i nästa steg för att ladda ner den fullständiga analysen.
+              </p>
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Övrig information</Label>
-              <Textarea
-                placeholder="Berätta mer om era behov, utmaningar, tidplan eller andra relevanta faktorer..."
-                value={data.additionalInfo}
-                onChange={(e) => setData({ ...data, additionalInfo: e.target.value })}
-                className="min-h-[150px]"
-              />
+
+            {/* 1️⃣ Er serviceprofil */}
+            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">1</span>
+                Er serviceprofil
+              </h3>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <span className="text-3xl">{profile.icon}</span>
+                <div>
+                  <p className={`text-lg font-bold ${profile.color}`}>{profile.label}</p>
+                  <p className="text-xs text-muted-foreground">Primär service-modell baserat på era svar</p>
+                </div>
+              </div>
+              {data.serviceModel === "Kombination av flera" && (
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {["💻 Digital", "📞 Contact Center", "🔧 Fält"].map(tag => (
+                    <span key={tag} className="text-xs bg-muted px-2 py-1 rounded-full text-muted-foreground">{tag}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* 2️⃣ Servicekomplexitet */}
+            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">2</span>
+                Servicekomplexitet
+              </h3>
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border font-semibold text-sm ${complexityColor}`}>
+                {complexityLevel === "Hög" ? "🔴" : complexityLevel === "Medel" ? "🟡" : "🟢"} {complexityLevel} komplexitet
+              </div>
+              <div className="space-y-1">
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>Låg</span><span>Medel</span><span>Hög</span>
+                </div>
+                <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all ${complexityLevel === "Hög" ? "bg-red-500" : complexityLevel === "Medel" ? "bg-amber-500" : "bg-green-500"}`}
+                    style={{ width: `${complexityBar}%` }}
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                {[
+                  { label: "Länder", value: data.multiCountry || "Ej angivet" },
+                  { label: "Språk", value: data.multiLanguage || "Ej angivet" },
+                  { label: "SLA", value: data.slaContracts || "Ej angivet" },
+                  { label: "Kundprioritering", value: data.customerPrioritization || "Ej angivet" },
+                ].map(item => (
+                  <div key={item.label} className="bg-muted/40 rounded-lg p-2">
+                    <p className="text-xs text-muted-foreground">{item.label}</p>
+                    <p className="text-xs font-medium text-foreground truncate">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 3️⃣ Rekommenderad lösningsinriktning */}
+            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">3</span>
+                Rekommenderad lösningsinriktning
+              </h3>
+              {rec.products.length > 0 ? (
+                <div className="space-y-3">
+                  {rec.products.slice(0, 2).map((product, i) => (
+                    <div key={product.name} className={`flex items-start gap-3 p-3 rounded-lg border-2 ${i === 0 ? "border-primary bg-primary/5" : "border-border bg-muted/30"}`}>
+                      <span className="text-2xl flex-shrink-0">{product.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className={`font-bold text-sm ${i === 0 ? "text-primary" : "text-foreground"}`}>{product.name}</p>
+                          {i === 0 && <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">Primär rekommendation</span>}
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-0.5">{product.description}</p>
+                        {product.reasons.length > 0 && (
+                          <p className="text-xs text-muted-foreground mt-1 italic">"{product.reasons[0]}"</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">Fyll i fler steg för en fullständig rekommendation.</p>
+              )}
+            </div>
+
+            {/* 4️⃣ Rekommenderad partnertyp */}
+            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">4</span>
+                Rekommenderad partnertyp
+              </h3>
+              <div className="grid grid-cols-1 gap-3">
+                {partnerTypes.map((pt) => (
+                  <div key={pt.label} className="flex items-start gap-3 p-3 rounded-lg border border-border bg-muted/20">
+                    <span className="text-2xl flex-shrink-0">{pt.icon}</span>
+                    <div>
+                      <p className="font-semibold text-sm text-foreground">{pt.label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{pt.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-muted/40 border border-border rounded-lg p-4 text-center">
+              <p className="text-sm text-muted-foreground">
+                📄 Fyll i kontaktuppgifter i nästa steg för att ladda ner er fullständiga analys med detaljerade rekommendationer och skräddarsydda partner-förslag.
+              </p>
             </div>
           </div>
         );
+      }
 
       default:
         return null;
