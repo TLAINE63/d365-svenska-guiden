@@ -7,13 +7,41 @@ import { Sparkles, Zap, Brain, Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import SEOHead from "@/components/SEOHead";
-import { ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { ServiceSchema, BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
 const agentsBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Microsoft AI", url: "https://d365.se/copilot" },
   { name: "Agenter", url: "https://d365.se/agents" },
+];
+
+// Agents FAQs for schema
+const agentsFaqs = [
+  {
+    question: "Vad är Microsoft AI Agents i Dynamics 365?",
+    answer: "Microsoft AI Agents (autonoma agenter) är självständiga AI-system inbyggda i Dynamics 365 som kan utföra komplexa affärsuppgifter utan mänsklig styrning. De arbetar proaktivt – samlar in data, fattar beslut och vidtar åtgärder baserat på definierade mål. Exempel: Sales Agent kvalificerar leads automatiskt, Customer Service Agent hanterar kundärenden och Supply Chain Agent varnar för leveransrisker och föreslår åtgärder."
+  },
+  {
+    question: "Hur skiljer sig Microsoft Autonomous Agents från Copilot?",
+    answer: "Microsoft Copilot är en AI-assistent som svarar på frågor och hjälper användaren på begäran (reaktiv). Microsoft Autonomous Agents agerar självständigt – de planerar, beslutar och genomför arbetsuppgifter utan att vänta på användarinput (proaktiv). Copilot är steget ett; agenter är steget två. Agenter kan orkestrera flera Copilot-förmågor och köra komplexa arbetsflöden autonomt dygnet runt."
+  },
+  {
+    question: "Vilka Microsoft AI Agents finns i Dynamics 365?",
+    answer: "Dynamics 365 har förbyggda AI-agenter per applikation: Sales Qualification Agent (kvalificerar och prioriterar leads), Customer Intent Agent (förstår och förutser kundbehov), Customer Knowledge Management Agent (underhåller kunskapsbas automatiskt), Case Management Agent (hanterar serviceärenden), Supplier Communications Agent (kommunicerar med leverantörer), Financial Reconciliation Agent (bankavstämning) och Scheduling Operations Agent (optimerar resursplanering). Egna agenter kan byggas via Microsoft Copilot Studio."
+  },
+  {
+    question: "Kostar Microsoft AI Agents extra utöver Dynamics 365-licensen?",
+    answer: "Förbyggda agenter i Dynamics 365 ingår i befintliga licenser för respektive applikation utan extra kostnad. Agenter byggda i Copilot Studio prissätts per meddelande (message capacity) – från ca 0,01 USD/meddelande. Microsoft 365 Copilot (365 kr/mån) ger även tillgång till Copilot Studio för att bygga egna agenter. Kontakta din Microsoft-partner för en exakt kostnadsuppskattning baserad på volym."
+  },
+  {
+    question: "Hur implementerar man Microsoft AI Agents i Dynamics 365?",
+    answer: "Förbyggda agenter aktiveras direkt i Dynamics 365-inställningarna – de kräver minimal konfiguration. Egna agenter byggs i Microsoft Copilot Studio med ett lågkods-gränssnitt (drag-and-drop). Avancerade agenter med anpassad logik kräver Power Platform-kompetens. En Microsoft-certifierad partner hjälper till med design, implementering och governance-ramverk för agenter i produktionsmiljö."
+  },
+  {
+    question: "Är Microsoft AI Agents redo för produktion i svenska företag?",
+    answer: "Ja – Microsoft har lanserat ett antal förbyggda agenter i Dynamics 365 sedan 2024 som är produktionsfärdiga. Microsoft Ignite 2024 markerade en acceleration: agenter finns nu för Sales, Customer Service, Finance och Supply Chain. Datasuveränitet och GDPR hanteras via Microsoft Azure-regioner i EU. Flera svenska Microsoft-partners erbjuder nu agent-implementeringar som standardtjänst."
+  },
 ];
 
 const Agents = () => {
@@ -37,14 +65,16 @@ const Agents = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Microsoft Agenter | AI-automation för Dynamics 365"
-        description="Nästa generation av AI-automation med Microsoft Agenter. Autonoma AI-system som arbetar självständigt för att lösa komplexa affärsuppgifter."
+        title="Microsoft AI Agents – Autonoma agenter i Dynamics 365 Sverige"
+        description="Microsoft Autonomous Agents i Dynamics 365: Sales Agent, Customer Service Agent, Supply Chain Agent. AI-automation för svenska företag. Se hur agenter skiljer sig från Copilot."
         canonicalPath="/agents"
-        keywords="Microsoft Agenter, AI agents, automation, Dynamics 365, Copilot, autonoma agenter"
+        keywords="Dynamics 365 AI agents, Microsoft autonomous agents Sverige, Microsoft AI agenter, Copilot agents Dynamics 365, autonoma AI-system affärssystem, Copilot Studio agenter, AI automation Dynamics 365"
+        ogImage="https://d365.se/og-copilot.png"
       />
+      <FAQSchema faqs={agentsFaqs} />
       <ServiceSchema 
-        name="Microsoft Agenter"
-        description="Autonoma AI-agenter som arbetar självständigt för att lösa komplexa affärsuppgifter i Dynamics 365."
+        name="Microsoft AI Agents – Autonoma agenter i Dynamics 365"
+        description="Autonoma AI-agenter i Dynamics 365 som arbetar självständigt för att lösa komplexa affärsuppgifter inom försäljning, kundservice, ekonomi och supply chain. Redo för svenska företag."
       />
       <BreadcrumbSchema items={agentsBreadcrumbs} />
       <Navbar />
