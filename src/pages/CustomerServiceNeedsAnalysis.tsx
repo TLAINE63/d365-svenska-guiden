@@ -372,10 +372,10 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 13;
+  const totalSteps = 9;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Building2, Target, Target, Target, Target, Sparkles, CheckCircle2];
+  const stepIcons = [Headphones, Target, BarChart3, Building2, Wrench, Sparkles, Building2, Sparkles, CheckCircle2];
   const stepTitles = [
     "Service-modell",
     "Er situation",
@@ -384,10 +384,6 @@ const CustomerServiceNeedsAnalysis = () => {
     "Systemintegration",
     "AI & Automation",
     "Företagsinformation",
-    "Nuvarande Situation",
-    "Utmaningar",
-    "Nuvarande system",
-    "Önskelista",
     "AI & Framtid",
     "Er serviceprofil",
   ];
@@ -1503,206 +1499,8 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
-        return (
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
-            <Textarea
-              id="currentSituationReason"
-              placeholder="Beskriv er nuvarande situation och varför ni överväger ett nytt kundservice-system..."
-              value={data.currentSituationReason}
-              onChange={(e) => setData({ ...data, currentSituationReason: e.target.value })}
-              className="min-h-[150px]"
-            />
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                Låt oss hjälpa dig på traven lite. Nedan listas några vanliga utmaningar som kundservice-projekt brukar adressera.
-                Klicka gärna i de områden som stämmer för din verksamhet.
-              </p>
-              <div className="space-y-6">
-                {situationChallengeCategories.map((category) => (
-                  <div key={category.id} className="border rounded-lg p-4 space-y-3">
-                    <div>
-                      <h4 className="font-bold text-foreground">{category.title}</h4>
-                      <p className="text-sm text-muted-foreground italic">{category.subtitle}</p>
-                    </div>
-                    <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                      {category.items.map((item, idx) => (
-                        <li key={idx}>{item}</li>
-                      ))}
-                    </ul>
-                    <div className="bg-muted/50 p-3 rounded-md">
-                      <p className="text-xs text-muted-foreground font-medium">{category.quoteSource}</p>
-                      <p className="text-sm italic text-foreground">{category.quote}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {situationChallengeOptions.map((option) => (
-                        <button
-                          key={option}
-                          type="button"
-                          onClick={() => handleSituationChallengeChange(category.id, option)}
-                          className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                            data.situationChallenges[category.id] === option
-                              ? "bg-primary text-primary-foreground shadow-md"
-                              : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                          }`}
-                        >
-                          {option}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
 
-      case 9:
-        return (
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Nuvarande kundservice-system</h3>
-              <div className="border-2 border-border rounded-lg overflow-hidden">
-                <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                  <div className="p-3 font-medium text-sm">Kundservice-/Contact Center-system</div>
-                  <div className="p-3 font-medium text-sm border-l-2 border-border">Driftsattes år</div>
-                </div>
-                {data.currentSystems.map((system, index) => (
-                  <div key={index} className={`grid grid-cols-2 ${index < data.currentSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
-                    <div className="p-2">
-                      <Input
-                        placeholder=""
-                        value={system.product}
-                        onChange={(e) => {
-                          const newSystems = [...data.currentSystems];
-                          newSystems[index] = { ...newSystems[index], product: e.target.value };
-                          setData({ ...data, currentSystems: newSystems });
-                        }}
-                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                      />
-                    </div>
-                    <div className="p-2 border-l-2 border-border">
-                      <Input
-                        type="number"
-                        placeholder="T.ex. 2020"
-                        value={system.year}
-                        onChange={(e) => {
-                          const newSystems = [...data.currentSystems];
-                          newSystems[index] = { ...newSystems[index], year: e.target.value };
-                          setData({ ...data, currentSystems: newSystems });
-                        }}
-                        className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 max-w-[120px]"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <Label htmlFor="otherSystemsDetails">Övriga system som används i verksamheten</Label>
-              <Textarea
-                id="otherSystemsDetails"
-                placeholder="Beskriv vilka övriga system som används, t.ex. ERP, telefoni, CRM för sälj..."
-                value={data.otherSystemsDetails}
-                onChange={(e) => setData({ ...data, otherSystemsDetails: e.target.value })}
-                className="mt-2"
-              />
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Vilka kanaler använder ni för kundservice?</Label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                {serviceChannelOptions.map((option) => (
-                  <SelectionCard
-                    key={option}
-                    label={option}
-                    selected={data.serviceChannels.includes(option)}
-                    onClick={() => handleCheckboxChange("serviceChannels", option)}
-                    type="checkbox"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 10:
-        return (
-          <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka ytterligare system behöver ni integrera med?</p>
-            <div className="border-2 border-border rounded-lg overflow-hidden">
-              <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                <div className="p-3 font-medium text-sm">Övriga relevanta produkter/system</div>
-                <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integration med detta system</div>
-              </div>
-              {data.integrationSystems.map((integration, index) => (
-                <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
-                  <div className="p-2">
-                    <Input
-                      placeholder=""
-                      value={integration.system}
-                      onChange={(e) => {
-                        const newSystems = [...data.integrationSystems];
-                        newSystems[index] = { ...newSystems[index], system: e.target.value };
-                        setData({ ...data, integrationSystems: newSystems });
-                      }}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-                  <div className="p-2 border-l-2 border-border">
-                    <Input
-                      placeholder=""
-                      value={integration.importance}
-                      onChange={(e) => {
-                        const newSystems = [...data.integrationSystems];
-                        newSystems[index] = { ...newSystems[index], importance: e.target.value };
-                        setData({ ...data, integrationSystems: newSystems });
-                      }}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 11:
-        return (
-          <div className="space-y-6">
-            <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
-            <div>
-              <Textarea
-                id="wishlist"
-                placeholder="Beskriv de funktioner och förmågor ni önskar i ett nytt system..."
-                value={data.wishlist}
-                onChange={(e) => setData({ ...data, wishlist: e.target.value })}
-                className="min-h-[200px]"
-              />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Vart skulle du säga att ni ligger i beslutsprocessen för detta?</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  { value: "Under kommande halvår", label: "Under kommande halvår" },
-                  { value: "Inom 6-12 månader", label: "Inom 6-12 månader" },
-                  { value: "Under nästa 12-24 månader", label: "Under nästa 12-24 månader" },
-                  { value: "Inga planer just nu", label: "Inga planer just nu" },
-                ].map((option) => (
-                  <SelectionCard
-                    key={option.value}
-                    label={option.label}
-                    selected={data.decisionTimeline === option.value}
-                    onClick={() => setData({ ...data, decisionTimeline: option.value })}
-                    type="radio"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 12: {
+      case 8: {
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1774,7 +1572,7 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 13: {
+      case 9: {
         const rec = getRecommendation();
 
         // 1️⃣ Er serviceprofil
