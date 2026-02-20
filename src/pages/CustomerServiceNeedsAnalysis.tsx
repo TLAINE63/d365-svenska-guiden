@@ -1259,7 +1259,7 @@ const CustomerServiceNeedsAnalysis = () => {
           { id: "fakturering", label: "Fakturering & ekonomi", description: "Fakturahantering, kreditgränser, betalstatus", icon: "💰" },
           { id: "crm_sales", label: "CRM / Sälj", description: "T.ex. Dynamics 365 Sales, Salesforce", icon: "🤝" },
           { id: "field_service_ext", label: "Fältservice-system", description: "Externt system för arbetsorder och tekniker", icon: "🔧" },
-          { id: "telefoni", label: "Telefoni / Växel", description: "Telefoniplattform, Teams, Genesys, Avaya etc.", icon: "📞" },
+          { id: "telefoni", label: "Telefoni / Växel", description: "Telefoniplattform, Teams, Telavox etc.", icon: "📞" },
           { id: "e_handel", label: "E-handel", description: "Webshop, orderhantering online", icon: "🛒" },
           { id: "hr", label: "HR-system", description: "Personaldata, kompetensprofiler, certifikat", icon: "👥" },
         ];
