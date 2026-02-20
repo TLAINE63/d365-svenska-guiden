@@ -35,6 +35,22 @@ type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>,
 
 interface CustomerServiceAnalysisData {
   serviceModel: string;
+  // Adaptive: Digital ärendehantering
+  ticketsPerMonth: string;
+  slaRequirements: string;
+  selfServicePortal: string;
+  knowledgeBase: string;
+  // Adaptive: Contact Center
+  numberOfAgents: string;
+  inboundVolume: string;
+  contactCenterChannels: string[];
+  realtimeManagement: string;
+  // Adaptive: Fältservice
+  numberOfTechnicians: string;
+  schedulingNeeds: string;
+  sparepartsManagement: string;
+  serviceAgreements: string;
+  geographicSpread: string;
   employees: string;
   industry: string;
   industryOther: string;
@@ -61,8 +77,25 @@ interface CustomerServiceAnalysisData {
   email: string;
 }
 
+
 const initialData: CustomerServiceAnalysisData = {
   serviceModel: "",
+  // Adaptive: Digital
+  ticketsPerMonth: "",
+  slaRequirements: "",
+  selfServicePortal: "",
+  knowledgeBase: "",
+  // Adaptive: Contact Center
+  numberOfAgents: "",
+  inboundVolume: "",
+  contactCenterChannels: [],
+  realtimeManagement: "",
+  // Adaptive: Fältservice
+  numberOfTechnicians: "",
+  schedulingNeeds: "",
+  sparepartsManagement: "",
+  serviceAgreements: "",
+  geographicSpread: "",
   employees: "",
   industry: "",
   industryOther: "",
@@ -313,12 +346,13 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 8;
+  const totalSteps = 9;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Building2, Target, Target, Target, Target, BarChart3, FileText];
+  const stepIcons = [Headphones, Target, Building2, Target, Target, Target, Target, BarChart3, FileText];
   const stepTitles = [
     "Service-modell",
+    "Er situation",
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
@@ -393,43 +427,79 @@ const CustomerServiceNeedsAnalysis = () => {
       recommendations.customerService.reasons.push("Kombinerad service-modell kräver flexibel plattform");
     }
 
-    if (data.serviceChannels.length > 0) {
-      recommendations.customerService.score += data.serviceChannels.length * 5;
-      recommendations.customerService.reasons.push(`${data.serviceChannels.length} servicekanaler identifierade`);
-    }
-    if (data.serviceChannels.length >= 3) {
+    // Step 2 adaptive: Digital
+    if (data.ticketsPerMonth === "2 000–10 000" || data.ticketsPerMonth === "Mer än 10 000") {
       recommendations.customerService.score += 15;
-      recommendations.contactCenter.score += 20;
-      recommendations.customerService.reasons.push("Multichannel-support kräver robust ärendehantering");
-      recommendations.contactCenter.reasons.push("Flera kanaler kräver Contact Center-lösning");
+      recommendations.customerService.reasons.push("Hög ärendevolym kräver skalbar ärendehantering");
     }
-    if (data.serviceTeamSize && !["1-5"].includes(data.serviceTeamSize)) {
-      recommendations.customerService.score += 15;
-      recommendations.customerService.reasons.push("Större serviceteam behöver strukturerad ärendehantering");
+    if (data.slaRequirements === "Ja, strikta krav med avtalade svarstider") {
+      recommendations.customerService.score += 10;
+      recommendations.customerService.reasons.push("Strikta SLA-krav kräver automatisk prioritering och uppföljning");
+    }
+    if (data.selfServicePortal === "Nej, men vi vill ha det") {
+      recommendations.customerService.score += 8;
+      recommendations.customerService.reasons.push("Önskad self-service portal inkluderad i Customer Service");
+    }
+    if (data.knowledgeBase === "Delvis – spridd i dokument och e-post" || data.knowledgeBase === "Nej, kunskapen sitter hos individerna") {
+      recommendations.customerService.score += 8;
+      recommendations.customerService.reasons.push("Fragmenterad kunskap – behov av strukturerad knowledge base");
     }
 
-    // Check for significant challenges
+    // Step 2 adaptive: Contact Center
+    if (data.numberOfAgents === "51–150 agenter" || data.numberOfAgents === "151–500 agenter" || data.numberOfAgents === "Mer än 500 agenter") {
+      recommendations.contactCenter.score += 15;
+      recommendations.contactCenter.reasons.push("Stort agentteam kräver Contact Center-plattform");
+    }
+    if (data.inboundVolume === "500–2 000 kontakter/dag" || data.inboundVolume === "Mer än 2 000 kontakter/dag") {
+      recommendations.contactCenter.score += 12;
+      recommendations.contactCenter.reasons.push("Hög inkommande volym kräver intelligent routing och köhantering");
+    }
+    if (data.contactCenterChannels.length >= 3) {
+      recommendations.contactCenter.score += 10;
+      recommendations.contactCenter.reasons.push(`${data.contactCenterChannels.length} kanaler – omnichannel Contact Center krävs`);
+    }
+    if (data.realtimeManagement === "Ja, kritiskt för oss") {
+      recommendations.contactCenter.score += 10;
+      recommendations.contactCenter.reasons.push("Realtidsstyrning och supervisor-dashboard är prioriterat");
+    }
+
+    // Step 2 adaptive: Field Service
+    if (data.numberOfTechnicians === "51–200 tekniker" || data.numberOfTechnicians === "Mer än 200 tekniker") {
+      recommendations.fieldService.score += 15;
+      recommendations.fieldService.reasons.push("Stort teknikerteam kräver intelligent schemaläggning");
+    }
+    if (data.schedulingNeeds === "Manuellt via telefon/mail" || data.schedulingNeeds === "Excel eller enklare verktyg") {
+      recommendations.fieldService.score += 10;
+      recommendations.fieldService.reasons.push("Manuell schemaläggning – stor effektiviseringsvinst med Field Service");
+    }
+    if (data.sparepartsManagement === "Kritisk – tekniker måste ha rätt delar vid besöket") {
+      recommendations.fieldService.score += 10;
+      recommendations.fieldService.reasons.push("Kritisk reservdelshantering integrerad i Field Service");
+    }
+    if (data.serviceAgreements === "Ja, med garanterade svarstider och tillgänglighet") {
+      recommendations.fieldService.score += 10;
+      recommendations.fieldService.reasons.push("Serviceavtal med SLA kräver automatisk prioritering och uppföljning");
+    }
+    if (data.geographicSpread === "Nationellt – hela Sverige" || data.geographicSpread === "Nordiska länder" || data.geographicSpread === "Globalt") {
+      recommendations.fieldService.score += 8;
+      recommendations.fieldService.reasons.push("Bred geografisk spridning kräver ruttoptimering och GPS-spårning");
+    }
+
+    // Additional signals from later steps
+    if (data.serviceChannels.length >= 3) {
+      recommendations.customerService.score += 10;
+      recommendations.contactCenter.score += 10;
+    }
     const significantChallenges = Object.entries(data.situationChallenges).filter(
       ([_, value]) => value === "Betydande utmaning"
     );
     if (significantChallenges.length > 0) {
-      recommendations.customerService.score += significantChallenges.length * 5;
+      recommendations.customerService.score += significantChallenges.length * 4;
       recommendations.contactCenter.score += significantChallenges.length * 3;
-      recommendations.customerService.reasons.push(`${significantChallenges.length} betydande utmaningar identifierade`);
     }
-
     if (data.hasFieldService === "Ja" || data.hasFieldService === "Planerar att starta") {
-      recommendations.fieldService.score += 25;
+      recommendations.fieldService.score += 20;
       recommendations.fieldService.reasons.push("Verksamhet med fältservice");
-    }
-    if (data.fieldServiceNeeds.length > 0) {
-      recommendations.fieldService.score += data.fieldServiceNeeds.length * 5;
-      recommendations.fieldService.reasons.push(`${data.fieldServiceNeeds.length} fältservicefunktioner identifierade`);
-    }
-
-    if (data.serviceChannels.includes("Telefon") && data.serviceTeamSize && !["1-5", "6-15"].includes(data.serviceTeamSize)) {
-      recommendations.contactCenter.score += 15;
-      recommendations.contactCenter.reasons.push("Telefonisupport med större team kräver Contact Center");
     }
 
     const products = [];
@@ -776,7 +846,179 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 2:
+      case 2: {
+        const isDigital = data.serviceModel === "Digital ärendehantering";
+        const isContactCenter = data.serviceModel === "Telefonbaserad kundservice";
+        const isFieldService = data.serviceModel === "Fältservice med tekniker";
+        const isCombination = data.serviceModel === "Kombination av flera";
+
+        const makeRadioGroup = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {options.map((opt) => (
+              <SelectionCard
+                key={opt}
+                label={opt}
+                selected={data[field] === opt}
+                onClick={() => setData({ ...data, [field]: opt })}
+                type="radio"
+              />
+            ))}
+          </div>
+        );
+
+        return (
+          <div className="space-y-8">
+            {/* Header indicating this is adaptive */}
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+              <p className="text-sm text-primary font-medium">
+                📋 Frågorna nedan är anpassade för: <span className="font-bold">{data.serviceModel || "er valda service-modell"}</span>
+              </p>
+            </div>
+
+            {/* DIGITAL ÄRENDEHANTERING */}
+            {(isDigital || isCombination) && (
+              <>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur många ärenden hanterar ni per månad?</Label>
+                  {makeRadioGroup("ticketsPerMonth", [
+                    "Färre än 100",
+                    "100–500",
+                    "500–2 000",
+                    "2 000–10 000",
+                    "Mer än 10 000",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Har ni SLA-krav på svarstider?</Label>
+                  {makeRadioGroup("slaRequirements", [
+                    "Ja, strikta krav med avtalade svarstider",
+                    "Ja, informella interna mål",
+                    "Nej, vi mäter inte detta idag",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Använder ni eller vill ni ha en self-service portal?</Label>
+                  {makeRadioGroup("selfServicePortal", [
+                    "Ja, vi har en idag",
+                    "Nej, men vi vill ha det",
+                    "Nej, inte aktuellt",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Har ni en strukturerad kunskapsdatabas för agenter?</Label>
+                  {makeRadioGroup("knowledgeBase", [
+                    "Ja, uppdaterad och välstrukturerad",
+                    "Delvis – spridd i dokument och e-post",
+                    "Nej, kunskapen sitter hos individerna",
+                  ])}
+                </div>
+              </>
+            )}
+
+            {/* CONTACT CENTER */}
+            {(isContactCenter || isCombination) && (
+              <>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">
+                    {isCombination ? "Hur många agenter arbetar i ert contact center?" : "Hur många agenter arbetar ni med?"}
+                  </Label>
+                  {makeRadioGroup("numberOfAgents", [
+                    "1–10 agenter",
+                    "11–50 agenter",
+                    "51–150 agenter",
+                    "151–500 agenter",
+                    "Mer än 500 agenter",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur stor är er inkommande volym per dag?</Label>
+                  {makeRadioGroup("inboundVolume", [
+                    "Färre än 100 kontakter/dag",
+                    "100–500 kontakter/dag",
+                    "500–2 000 kontakter/dag",
+                    "Mer än 2 000 kontakter/dag",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Vilka kanaler hanterar ni i ert contact center?</Label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {["Telefon (röst)", "E-post", "Chatt", "Sociala medier", "SMS", "Video"].map((ch) => (
+                      <SelectionCard
+                        key={ch}
+                        label={ch}
+                        selected={data.contactCenterChannels.includes(ch)}
+                        onClick={() => handleCheckboxChange("contactCenterChannels", ch)}
+                        type="checkbox"
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Behöver ni realtidsstyrning och dashboard för supervisors?</Label>
+                  {makeRadioGroup("realtimeManagement", [
+                    "Ja, kritiskt för oss",
+                    "Ja, önskvärt",
+                    "Nej, inte prioriterat",
+                  ])}
+                </div>
+              </>
+            )}
+
+            {/* FÄLTSERVICE */}
+            {(isFieldService || isCombination) && (
+              <>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">
+                    {isCombination ? "Hur många fälttekniker har ni?" : "Hur många tekniker arbetar ni med?"}
+                  </Label>
+                  {makeRadioGroup("numberOfTechnicians", [
+                    "1–10 tekniker",
+                    "11–50 tekniker",
+                    "51–200 tekniker",
+                    "Mer än 200 tekniker",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur hanterar ni schemaläggning av tekniker idag?</Label>
+                  {makeRadioGroup("schedulingNeeds", [
+                    "Manuellt via telefon/mail",
+                    "Excel eller enklare verktyg",
+                    "Specialiserat schemaläggningssystem",
+                    "Ingen fast process",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur viktig är reservdelshantering för er?</Label>
+                  {makeRadioGroup("sparepartsManagement", [
+                    "Kritisk – tekniker måste ha rätt delar vid besöket",
+                    "Viktig – men inte alltid avgörande",
+                    "Låg – vi beställer vid behov",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Har ni serviceavtal (SLA) med kunder?</Label>
+                  {makeRadioGroup("serviceAgreements", [
+                    "Ja, med garanterade svarstider och tillgänglighet",
+                    "Ja, men enklare åtaganden",
+                    "Nej, vi arbetar på förfrågan",
+                  ])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur stor är er geografiska spridning?</Label>
+                  {makeRadioGroup("geographicSpread", [
+                    "Lokalt – en stad/region",
+                    "Nationellt – hela Sverige",
+                    "Nordiska länder",
+                    "Globalt",
+                  ])}
+                </div>
+              </>
+            )}
+          </div>
+        );
+      }
+
+      case 3:
         return (
           <div className="space-y-6">
             <div>
@@ -900,7 +1142,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 4:
+      case 5:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
@@ -956,7 +1198,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -997,7 +1239,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
@@ -1033,7 +1275,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 8:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1104,7 +1346,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 9:
         return (
           <div className="space-y-6">
             <div>
