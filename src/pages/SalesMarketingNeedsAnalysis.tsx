@@ -2134,46 +2134,111 @@ const SalesMarketingNeedsAnalysis = () => {
           "Ledande": "text-green-700 dark:text-green-400",
         };
 
+        // Mognadsnivå (1–4) kommentarer
+        const maturityCommentData: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
+          1: {
+            text: "Er kommersiella organisation är i ett tidigt skede med begränsad processstruktur och systemstöd. Det finns stor potential att snabbt skapa ordning och effektivitet med rätt CRM-plattform.",
+            strengths: ["Flexibelt och anpassningsbart", "Kort beslutsväg i organisationen", "Hög förändringsvilja"],
+            gaps: ["Ingen strukturerad säljprocess", "Begränsad uppföljning av pipeline", "Kunddata spridd i flera system", "Manuell kommunikation och uppföljning"],
+          },
+          2: {
+            text: "Er säljorganisation har grundläggande processer på plats men saknar ännu fullt systemstöd. Nästa steg är att samla kunddata och säljaktiviteter på en plattform.",
+            strengths: ["Definierade säljsteg finns", "Viss uppföljning av affärer", "Tydlig ansvarsfördelning"],
+            gaps: ["Begränsad integration mellan system", "Ingen automatisering av kommunikation", "Forecast bygger på magkänsla", "Manuell rapportering"],
+          },
+          3: {
+            text: "Er kommersiella organisation är strukturerad med tydlig säljprocess och systemstöd. Ni har god datamognad men har ännu inte fullt utnyttjat AI och automatisering.",
+            strengths: ["Tydlig säljprocess och metodik", "God pipeline-synlighet", "Systematisk kunduppföljning", "Central kunddata"],
+            gaps: ["Begränsad AI-driven insikt", "Automation kan byggas ut", "Prediktiv prognos ej implementerat"],
+          },
+          4: {
+            text: "Er kommersiella organisation är mogen och datadriven med hög grad av automatisering. Fokus handlar nu om att optimera och nyttja AI till fullo för att skapa konkurrensfördel.",
+            strengths: ["Hög automationsgrad", "AI-drivet beslutsstöd", "Prediktiv pipeline och scoring", "Sömlösa system-integrationer"],
+            gaps: ["Kontinuerlig AI-modelloptimering", "Skalning till nya marknader"],
+          },
+        };
+        const maturityComment = maturityCommentData[maturityScore];
+
+        // Fokusområden per produkt
+        const crmFocusMap: Record<string, { icon: string; label: string }[]> = {
+          "Dynamics 365 Sales": [
+            { icon: "🎯", label: "Strukturerad pipeline och säljprognos" },
+            { icon: "🤝", label: "Hantering av komplexa affärer och beslutsfattare" },
+            { icon: "📊", label: "Säljcoachning och aktivitetsuppföljning" },
+            { icon: "🤖", label: "Copilot AI för mötessammanfattning och e-postförslag" },
+            { icon: "🔗", label: "Integration med Microsoft Teams och Outlook" },
+          ],
+          "Dynamics 365 Customer Insights": [
+            { icon: "🧩", label: "Enhetlig kundprofil (CDP) och datainsamling" },
+            { icon: "🎯", label: "AI-driven segmentering och målgruppsaktivering" },
+            { icon: "✉️", label: "Personaliserade kundresor i alla kanaler" },
+            { icon: "📈", label: "Realtidsaktivering och beteendebaserade triggers" },
+            { icon: "🔍", label: "Analys av kundlivstidsvärde och churn-risk" },
+          ],
+        };
+        const crmFocusItems = crmFocusMap[product] || crmFocusMap["Dynamics 365 Sales"];
+
         return (
           <div className="space-y-6">
-            <p className="text-muted-foreground">Baserat på era svar har vi sammanställt er kommersiella profil nedan.</p>
+            <div className="bg-crm/5 border border-crm/20 rounded-lg p-4">
+              <p className="text-sm text-crm font-medium">
+                🎯 Baserat på era svar har vi sammanställt er kommersiella profil. Fyll i kontaktuppgifter i nästa steg för att ladda ner den fullständiga analysen.
+              </p>
+            </div>
 
             <AnalysisDisclaimer />
 
-            {/* Kommersiell profil */}
-            <div className="border rounded-xl overflow-hidden">
-              <div className="bg-primary/8 px-5 py-3 border-b">
-                <h3 className="font-semibold text-foreground text-sm uppercase tracking-wide">Er kommersiella profil</h3>
+            {/* Sammanfattning */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-blue-600 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">📄 Sammanfattning</h3>
               </div>
-              <div className="divide-y">
+              <div className="p-5 bg-background grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {profileDimensions.map(({ label, value }) => (
-                  <div key={label} className="flex items-center justify-between px-5 py-3">
-                    <span className="text-sm text-muted-foreground">{label}</span>
-                    <span className={`text-sm font-semibold ${valueColors[value] ?? "text-foreground"}`}>{value}</span>
+                  <div key={label} className="bg-muted/40 rounded-lg px-4 py-3">
+                    <p className="text-xs text-muted-foreground font-medium mb-0.5">{label}</p>
+                    <p className={`text-sm font-semibold ${valueColors[value] ?? "text-foreground"}`}>{value}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Bedömning */}
-            <div className="border rounded-xl overflow-hidden">
-              <div className="bg-primary/8 px-5 py-3 border-b">
-                <h3 className="font-semibold text-foreground text-sm uppercase tracking-wide">Bedömning</h3>
+            {/* Kommersiell mognad */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-emerald-600 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">🟩 Kommersiell mognad</h3>
               </div>
-              <div className="px-5 py-4 space-y-4">
+              <div className="p-5 bg-background space-y-3">
+                <p className="text-xs text-muted-foreground font-medium uppercase tracking-wide">Commercial Maturity Level</p>
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4].map(i => (
+                    <span key={i} className={`text-2xl leading-none ${i <= maturityScore ? "text-emerald-500" : "text-muted-foreground/30"}`}>⬤</span>
+                  ))}
+                </div>
+                <p className="text-lg font-bold text-foreground">Nivå {maturityScore} – {maturityLabels[maturityScore]}</p>
+              </div>
+            </div>
+
+            {/* Kommentar / Bedömning */}
+            <div className="border rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-slate-700 px-5 py-3">
+                <h3 className="font-bold text-white text-sm tracking-wide">🧠 Bedömning</h3>
+              </div>
+              <div className="p-5 bg-background space-y-4">
+                <p className="text-sm text-foreground leading-relaxed">{maturityComment.text}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">{assessmentIntro}</p>
                 {assessmentPoints.length > 0 && (
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 pt-1">
                     {assessmentPoints.map((point) => (
                       <li key={point} className="flex items-center gap-2 text-sm text-foreground">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-crm flex-shrink-0" />
                         {point}
                       </li>
                     ))}
                   </ul>
                 )}
                 {showAiRiskWarning && (
-                  <div className="flex items-start gap-2 bg-muted border border-border rounded-lg px-4 py-3">
+                  <div className="flex items-start gap-2 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg px-4 py-3">
                     <span className="text-base mt-0.5">⚠️</span>
                     <p className="text-xs text-foreground leading-snug">
                       <strong>AI-ambition vs datamognad:</strong> Ni har hög AI-ambition men kundinformationen är fortfarande spridd. En lyckad AI-satsning kräver att datagrunden konsolideras först.
@@ -2183,27 +2248,112 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
             </div>
 
-            {/* Rekommendation */}
-            <div className="border-2 border-primary/30 rounded-xl overflow-hidden">
-              <div className="bg-primary/10 px-5 py-3 border-b border-primary/20">
-                <h3 className="font-semibold text-primary text-sm uppercase tracking-wide">Rekommenderad lösning</h3>
+            {/* Styrkor + Utvecklingsområden */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="border rounded-xl overflow-hidden shadow-sm">
+                <div className="bg-green-600 px-5 py-3">
+                  <h3 className="font-bold text-white text-sm tracking-wide">🟢 Styrkor</h3>
+                </div>
+                <ul className="p-5 space-y-2 bg-background">
+                  {maturityComment.strengths.map(s => (
+                    <li key={s} className="flex items-start gap-2 text-sm text-foreground">
+                      <span className="text-green-500 font-bold flex-shrink-0 mt-0.5">✔</span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="px-5 py-4 space-y-3">
-                <p className="text-base font-bold text-foreground">{product}</p>
-                {keyFactors.length > 0 && (
-                  <div className="space-y-1.5">
-                    <p className="text-xs text-muted-foreground font-medium">Avgörande faktorer:</p>
-                    <ul className="space-y-1.5">
-                      {keyFactors.slice(0, 5).map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-xs text-foreground">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
+              <div className="border rounded-xl overflow-hidden shadow-sm">
+                <div className="bg-amber-500 px-5 py-3">
+                  <h3 className="font-bold text-white text-sm tracking-wide">🟡 Utvecklingsområden</h3>
+                </div>
+                <ul className="p-5 space-y-2 bg-background">
+                  {maturityComment.gaps.map(g => (
+                    <li key={g} className="flex items-start gap-2 text-sm text-foreground">
+                      <span className="text-amber-500 font-bold flex-shrink-0 mt-0.5">–</span>
+                      {g}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-border pt-2" />
+
+            {/* Rekommenderad lösningsinriktning */}
+            <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">1</span>
+                Rekommenderad lösningsinriktning
+              </h3>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                <span className="text-3xl">💼</span>
+                <div>
+                  <p className="text-lg font-bold text-crm">{product}</p>
+                  <p className="text-xs text-muted-foreground">Primär plattformsrekommendation baserat på era svar</p>
+                </div>
+              </div>
+              <p className="text-sm font-medium text-foreground">Baserat på er kommersiella profil rekommenderas en plattform med fokus på:</p>
+              <div className="space-y-2">
+                {crmFocusItems.map(focus => (
+                  <div key={focus.label} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-crm/5 border border-crm/10">
+                    <span className="text-lg flex-shrink-0">{focus.icon}</span>
+                    <p className="text-sm font-medium text-foreground">{focus.label}</p>
                   </div>
+                ))}
+              </div>
+              <div className="pt-2 border-t border-border">
+                <p className="text-xs text-muted-foreground font-medium mb-3 uppercase tracking-wide">
+                  Bakom kulisserna lutar det mot
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border bg-crm/10 border-crm/30 text-crm">
+                    <span>💼</span>
+                    <span>{product}</span>
+                  </div>
+                </div>
+                {keyFactors[0] && (
+                  <p className="text-xs text-muted-foreground mt-3 italic border-l-2 border-crm/30 pl-3">
+                    "{keyFactors[0]}"
+                  </p>
                 )}
               </div>
+            </div>
+
+            {/* Rekommenderad partnertyp */}
+            <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
+              <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                <span className="w-6 h-6 rounded-full bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">2</span>
+                Rekommenderad partnertyp
+              </h3>
+              {(() => {
+                const partners: { icon: string; label: string; description: string }[] = [];
+                if (product.includes("Sales")) {
+                  if (["500+", "250-999 anställda"].includes(data.employees)) {
+                    partners.push({ icon: "🏢", label: "Enterprise CRM-arkitekt", description: "Partner med erfarenhet av komplexa säljorganisationer och globala CRM-implementationer" });
+                  } else {
+                    partners.push({ icon: "⚡", label: "Sales-specialist", description: "Partner specialiserad på effektiva Dynamics 365 Sales-implementationer för tillväxtbolag" });
+                  }
+                }
+                if (product.includes("Customer Insights")) {
+                  partners.push({ icon: "🎯", label: "Customer Insights-specialist", description: "Partner med kompetens inom CDP, AI-segmentering och personaliserade kundresor" });
+                }
+                if ((data.integrationTypes || []).length >= 3 || data.integrationScope === "Omfattande och affärskritiskt") {
+                  partners.push({ icon: "🔗", label: "Integrationsspecialist", description: "Partner med stark kompetens i systemintegrationer och dataarkitektur för komplexa CRM-projekt" });
+                }
+                if (partners.length === 0) {
+                  partners.push({ icon: "⚡", label: "CRM-specialist", description: "Partner specialiserad på Dynamics 365 CRM-lösningar för er affärsmodell" });
+                }
+                return partners.map(p => (
+                  <div key={p.label} className="flex items-start gap-3 p-3 rounded-lg bg-muted/40">
+                    <span className="text-xl flex-shrink-0">{p.icon}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{p.label}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{p.description}</p>
+                    </div>
+                  </div>
+                ));
+              })()}
             </div>
           </div>
         );
