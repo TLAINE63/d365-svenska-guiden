@@ -18,11 +18,14 @@ const copilotBreadcrumbs = [
 
 // FAQ items for schema
 const copilotFaqs = [
-  { question: "Vad är Microsoft Copilot i Dynamics 365?", answer: "Microsoft Copilot är en AI-driven assistent integrerad i Dynamics 365 som hjälper användare automatisera rutinuppgifter, få intelligenta insikter och fatta snabbare beslut baserade på affärsdata." },
-  { question: "Vad är skillnaden mellan Copilot och Agents?", answer: "Copilot fungerar som en AI-assistent som hjälper användaren med uppgifter och kräver interaktion. Agents är autonoma AI-system som arbetar självständigt 24/7 och kan utföra hela arbetsflöden automatiskt utan mänsklig inblandning." },
-  { question: "Vilken ROI kan man förvänta sig av Copilot?", answer: "Enligt Forresters TEI-studie från oktober 2024 kan företag uppnå 353% potentiell ROI över 3 år, 20% reducerade driftskostnader och 18% ökad medarbetarnöjdhet." },
-  { question: "I vilka Dynamics 365-applikationer finns Copilot?", answer: "Copilot finns i Business Central, Dynamics 365 Sales, Customer Service, Finance och Supply Chain Management. Varje applikation har Copilot-funktioner anpassade för sina specifika användningsområden." },
-  { question: "Hur kommer jag igång med Copilot?", answer: "Vi rekommenderar att börja med en behovsanalys för att identifiera vilka arbetsflöden som ger störst nytta. Kontakta oss för en kostnadsfri AI-rådgivning där vi kan guida dig genom processen." },
+  { question: "Vad är Microsoft Copilot i Dynamics 365?", answer: "Microsoft Copilot är en AI-driven assistent inbyggd direkt i Dynamics 365 som hjälper användare automatisera rutinuppgifter, få intelligenta insikter och fatta snabbare beslut baserade på affärsdata. Copilot är inkluderat utan extra licensavgift i Dynamics 365 Business Central, Finance, Supply Chain Management, Sales och Customer Service." },
+  { question: "Kostar Microsoft Copilot i Dynamics 365 extra?", answer: "Nej – Copilot-funktionerna i Dynamics 365 (Business Central, Finance, SCM, Sales, Customer Service) ingår i respektive applikationslicens utan tillägg. Microsoft 365 Copilot (för Word, Excel, Outlook, Teams) kräver en separat licens på cirka 330 kr/användare/mån. Det är viktigt att skilja på Dynamics 365 Copilot och Microsoft 365 Copilot – de är olika produkter." },
+  { question: "Vilken ROI kan man förvänta sig av Microsoft Copilot?", answer: "Enligt Forresters TEI-studie från oktober 2024 kan företag uppnå 353% potentiell ROI över 3 år med Microsoft Copilot. Studien visar även 20% reducerade driftskostnader och 18% ökad medarbetarnöjdhet. I praktiken ser vi att produktivitetsvinster varierar kraftigt beroende på vilka processer som automatiseras och hur vältränade användarna är." },
+  { question: "Vad är skillnaden mellan Copilot och Microsoft Agents?", answer: "Copilot är en AI-assistent som hjälper användaren med specifika uppgifter och kräver interaktion – du ställer en fråga och får ett svar eller förslag. Agents är autonoma AI-system som arbetar självständigt 24/7 och utför hela arbetsflöden automatiskt utan mänsklig inblandning. En Agent kan t.ex. övervaka orderflöden, identifiera problem och vidta åtgärder helt utan mänsklig inblandning." },
+  { question: "I vilka Dynamics 365-applikationer finns Copilot?", answer: "Copilot finns i Business Central (produktbeskrivningar, bankavstämning, inköpsförslag), Dynamics 365 Sales (mötessammanfattningar, e-postförslag, lead-scoring), Customer Service (ärendesammanfattning, svarsgenerering, sentimentanalys), Finance (ekonomiavvikelser, rapportgenerering) och Supply Chain Management (leveransriskvarningar, omplaneringsförslag). Varje applikation har Copilot-funktioner anpassade för sina specifika användningsfall." },
+  { question: "Microsoft Copilot för ERP – hur fungerar det i Finance och Supply Chain?", answer: "Copilot i Dynamics 365 Finance identifierar automatiskt avvikelser i ekonomidata, föreslår bankpostmatchning, sammanfattar periodbokslut och varnar för budgetavvikelser. I Supply Chain Management analyserar Copilot leveransrisker, optimerar inköpsplaner, identifierar flaskhalsar i produktionen och föreslår omplanering vid störningar – allt baserat på realtidsdata i ERP-systemet." },
+  { question: "Hur skiljer sig Microsoft Copilot från ChatGPT och andra AI-verktyg?", answer: "Microsoft Copilot i Dynamics 365 är integrerad direkt i affärssystemet och arbetar mot din faktiska affärsdata (kunder, order, lager, ekonomi). ChatGPT och liknande generella AI-verktyg har inte tillgång till din interna data. Copilot följer Microsofts säkerhets- och compliance-ramverk, inklusive GDPR, och företagets data lämnar aldrig organisationens kontroll. Det gör det säkert att använda även för känslig affärsinformation." },
+  { question: "Hur kommer jag igång med Microsoft Copilot i Dynamics 365?", answer: "Om du redan har Dynamics 365 är Copilot ofta redan aktiverat – kontrollera med din systemadministratör eller partner. För nya kunder ingår Copilot från dag ett. Vi rekommenderar att börja med en AI-workshop där vi identifierar de tre processer som ger störst produktivitetsvinst i just er verksamhet. Kontakta oss för en kostnadsfri AI-rådgivning." },
 ];
 
 const Copilot = () => {
@@ -60,15 +63,15 @@ const Copilot = () => {
       '--shadow-accent': '0 8px 30px hsl(255 72% 58% / 0.3)',
     } as React.CSSProperties}>
       <SEOHead 
-        title="Microsoft Copilot i Dynamics 365 | AI för affärssystem"
-        description="Upptäck hur Microsoft Copilot revolutionerar Dynamics 365 med AI-drivna insikter, automatisering och produktivitetsvinster. 353% potentiell ROI."
+        title="Microsoft Copilot i Dynamics 365 – AI för ERP & CRM | ROI & Priser | d365.se"
+        description="Guide till Microsoft Copilot i Dynamics 365. Ingår i licensen utan tillägg. 353% potentiell ROI (Forrester 2024). AI för Finance, SCM, Sales och Customer Service. Jämför med ChatGPT."
         canonicalPath="/copilot"
-        keywords="Microsoft Copilot, Dynamics 365, AI, artificiell intelligens, affärssystem, automation, ROI"
+        keywords="Microsoft Copilot Dynamics 365, Copilot ERP, Microsoft Copilot pris, AI affärssystem, Copilot Finance Supply Chain, Copilot Business Central, Dynamics 365 AI, Microsoft Copilot ROI, ChatGPT alternativ ERP, AI automation CRM"
         ogImage="https://d365.se/og-copilot.png"
       />
       <ServiceSchema 
-        name="Microsoft Copilot i Dynamics 365"
-        description="AI-driven assistent som förbättrar produktivitet och beslutsfattande i Microsoft Dynamics 365 affärssystem."
+        name="Microsoft Copilot i Dynamics 365 – AI för ERP och CRM"
+        description="Inbyggd AI-assistent i Dynamics 365 utan extra licensavgift. Copilot automatiserar processer i Finance, Supply Chain, Sales, Customer Service och Business Central. 353% potentiell ROI över 3 år enligt Forrester TEI-studie 2024."
       />
       <FAQSchema faqs={copilotFaqs} />
       <BreadcrumbSchema items={copilotBreadcrumbs} />
