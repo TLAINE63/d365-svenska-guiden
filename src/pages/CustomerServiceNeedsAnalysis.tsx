@@ -584,7 +584,7 @@ const CustomerServiceNeedsAnalysis = () => {
     }
     if (data.systemDependencies.includes("telefoni")) {
       recommendations.contactCenter.score += 10;
-      recommendations.contactCenter.reasons.push("Telefoniplattform – Contact Center med Teams/Genesys-integration");
+      recommendations.contactCenter.reasons.push("Telefoniplattform – Contact Center med röst- och omnichannel-integration");
     }
     if (data.systemDependencies.length >= 4) {
       recommendations.customerService.score += 8;
@@ -1532,19 +1532,19 @@ const CustomerServiceNeedsAnalysis = () => {
         const isEnterprise = complexityLevel === "Hög" || data.multiCountry === "Ja, Europa" || data.multiCountry === "Ja, globalt" || (data.orgStructure || "").includes("Hybrid") || (data.orgStructure || "").includes("Decentraliserad");
 
         if (hasFieldService) {
-          partnerTypes.push({ icon: "🔧", label: "Field Service-specialist", description: "Partner med djup erfarenhet av IoT, schemaläggning och fältservice-implementationer" });
+          partnerTypes.push({ icon: "🔧", label: "Field Service-specialist", description: "Partner med djup erfarenhet av schemaläggning, mobilt teknikerstöd och fältservice-implementationer" });
         }
         if (hasContactCenter) {
-          partnerTypes.push({ icon: "📞", label: "Contact Center-specialist", description: "Partner med telefoniplattformar (Teams, Genesys) och omnichannel-kompetens" });
+          partnerTypes.push({ icon: "📞", label: "Contact Center-specialist", description: "Partner med kompetens inom omnichannel, röstintegration och volymstyrd kundservice" });
         }
         if (isEnterprise && (hasCustomerService || hasContactCenter)) {
           partnerTypes.push({ icon: "🏢", label: "Enterprise service-arkitekt", description: "Partner med erfarenhet av komplexa multi-site och enterprise-lösningar" });
         }
         if (!isEnterprise && hasCustomerService) {
-          partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva Customer Service-driftsättningar" });
+          partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva implementationer för medelstora organisationer" });
         }
         if (partnerTypes.length === 0) {
-          partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva Customer Service-driftsättningar" });
+          partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva implementationer för medelstora organisationer" });
         }
 
         // 5️⃣ Service Transformation Level (1–4)
