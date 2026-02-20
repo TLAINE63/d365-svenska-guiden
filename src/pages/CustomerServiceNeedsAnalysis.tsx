@@ -35,22 +35,27 @@ type ContactFormErrors = Partial<Record<keyof z.infer<typeof contactFormSchema>,
 
 interface CustomerServiceAnalysisData {
   serviceModel: string;
-  // Adaptive: Digital ärendehantering
+  // Adaptive step 2: model-specific
   ticketsPerMonth: string;
   slaRequirements: string;
   selfServicePortal: string;
   knowledgeBase: string;
-  // Adaptive: Contact Center
   numberOfAgents: string;
   inboundVolume: string;
   contactCenterChannels: string[];
   realtimeManagement: string;
-  // Adaptive: Fältservice
   numberOfTechnicians: string;
   schedulingNeeds: string;
   sparepartsManagement: string;
   serviceAgreements: string;
   geographicSpread: string;
+  // Step 3: Servicekomplexitet
+  ticketsPerMonthComplex: string;
+  multiCountry: string;
+  multiLanguage: string;
+  slaContracts: string;
+  customerPrioritization: string;
+  multipleProductLines: string;
   employees: string;
   industry: string;
   industryOther: string;
@@ -96,6 +101,12 @@ const initialData: CustomerServiceAnalysisData = {
   sparepartsManagement: "",
   serviceAgreements: "",
   geographicSpread: "",
+  ticketsPerMonthComplex: "",
+  multiCountry: "",
+  multiLanguage: "",
+  slaContracts: "",
+  customerPrioritization: "",
+  multipleProductLines: "",
   employees: "",
   industry: "",
   industryOther: "",
@@ -346,13 +357,14 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 9;
+  const totalSteps = 10;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Headphones, Target, Building2, Target, Target, Target, Target, BarChart3, FileText];
+  const stepIcons = [Headphones, Target, BarChart3, Building2, Target, Target, Target, Target, Sparkles, FileText];
   const stepTitles = [
     "Service-modell",
     "Er situation",
+    "Servicekomplexitet",
     "Företagsinformation",
     "Nuvarande Situation",
     "Utmaningar",
@@ -485,7 +497,38 @@ const CustomerServiceNeedsAnalysis = () => {
       recommendations.fieldService.reasons.push("Bred geografisk spridning kräver ruttoptimering och GPS-spårning");
     }
 
-    // Additional signals from later steps
+    // Step 3: Servicekomplexitet → påverkar arkitekturvalet
+    if (data.ticketsPerMonthComplex === "2 000–10 000" || data.ticketsPerMonthComplex === "Mer än 10 000") {
+      recommendations.customerService.score += 10;
+      recommendations.contactCenter.score += 10;
+      recommendations.customerService.reasons.push("Hög ärendevolym kräver enterprise-arkitektur");
+    }
+    if (data.multiCountry === "Ja, Europa" || data.multiCountry === "Ja, globalt") {
+      recommendations.customerService.score += 8;
+      recommendations.contactCenter.score += 8;
+      recommendations.customerService.reasons.push("Flerlandsverksamhet kräver centraliserad plattform");
+    }
+    if (data.multiLanguage === "Ja, 3–5 språk" || data.multiLanguage === "Ja, mer än 5 språk") {
+      recommendations.customerService.score += 8;
+      recommendations.contactCenter.score += 8;
+      recommendations.customerService.reasons.push("Flerspråkigt stöd kräver avancerad routing och AI");
+    }
+    if (data.slaContracts === "Ja, kontraktuella SLA med viten" || data.slaContracts === "Ja, komplexa SLA per kundsegment") {
+      recommendations.customerService.score += 10;
+      recommendations.fieldService.score += 10;
+      recommendations.customerService.reasons.push("Kontraktuella SLA kräver automatisk spårning och eskalering");
+    }
+    if (data.customerPrioritization === "Ja, vi har komplexa prioriteringsregler") {
+      recommendations.customerService.score += 8;
+      recommendations.contactCenter.score += 8;
+      recommendations.customerService.reasons.push("Komplex kundprioritering kräver konfigurerbar routinglogik");
+    }
+    if (data.multipleProductLines === "Ja, mer än 5 produktlinjer" || data.multipleProductLines === "Ja, och de kräver specialistkompetens") {
+      recommendations.customerService.score += 8;
+      recommendations.customerService.reasons.push("Flera produktlinjer kräver specialiströuting och kunskapsdatabas");
+    }
+
+
     if (data.serviceChannels.length >= 3) {
       recommendations.customerService.score += 10;
       recommendations.contactCenter.score += 10;
@@ -1018,7 +1061,92 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 3:
+      case 3: {
+        const complexityRadio = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {options.map((opt) => (
+              <SelectionCard
+                key={opt}
+                label={opt}
+                selected={data[field] === opt}
+                onClick={() => setData({ ...data, [field]: opt })}
+                type="radio"
+              />
+            ))}
+          </div>
+        );
+        return (
+          <div className="space-y-8">
+            <div className="bg-muted/50 border border-border rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-semibold text-foreground">Varför frågar vi detta?</span> Svaren avgör vilken arkitektur som passar bäst – en enkel installation eller en enterprise-plattform med multi-site-stöd.
+              </p>
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur många ärenden hanterar ni totalt per månad?</Label>
+              {complexityRadio("ticketsPerMonthComplex", [
+                "Färre än 500",
+                "500–2 000",
+                "2 000–10 000",
+                "Mer än 10 000",
+                "Vet ej",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Verkar ni i flera länder?</Label>
+              {complexityRadio("multiCountry", [
+                "Nej, endast Sverige",
+                "Ja, Norden",
+                "Ja, Europa",
+                "Ja, globalt",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Behöver ni hantera flera språk i kundservice?</Label>
+              {complexityRadio("multiLanguage", [
+                "Nej, bara svenska",
+                "Ja, svenska + engelska",
+                "Ja, 3–5 språk",
+                "Ja, mer än 5 språk",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Har ni formella serviceavtal (SLA) med kunder?</Label>
+              {complexityRadio("slaContracts", [
+                "Nej",
+                "Ja, informella mål",
+                "Ja, kontraktuella SLA med viten",
+                "Ja, komplexa SLA per kundsegment",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Prioriterar ni kunder olika baserat på t.ex. avtal, segment eller värde?</Label>
+              {complexityRadio("customerPrioritization", [
+                "Nej, alla kunder behandlas lika",
+                "Ja, vi delar in kunder i 2–3 nivåer",
+                "Ja, vi har komplexa prioriteringsregler",
+              ])}
+            </div>
+
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hanterar ni service för flera produktlinjer eller produktkategorier?</Label>
+              {complexityRadio("multipleProductLines", [
+                "Nej, en produkt/tjänst",
+                "Ja, 2–5 produktlinjer",
+                "Ja, mer än 5 produktlinjer",
+                "Ja, och de kräver specialistkompetens",
+              ])}
+            </div>
+          </div>
+        );
+      }
+
+      case 4:
         return (
           <div className="space-y-6">
             <div>
@@ -1142,7 +1270,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <h3 className="text-lg font-semibold mb-4">Vad är anledningen till att ni ser över ert nuvarande kundservice-/fältservicesystem?</h3>
@@ -1198,7 +1326,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
@@ -1239,7 +1367,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-6">
             <p className="text-muted-foreground">Om du fick önska fritt - vilka funktioner vill du få in i ett nytt kundservice-system?</p>
@@ -1275,7 +1403,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 8:
+      case 9:
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -1346,7 +1474,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 9:
+      case 10:
         return (
           <div className="space-y-6">
             <div>
