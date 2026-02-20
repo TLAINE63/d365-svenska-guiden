@@ -646,17 +646,141 @@ const SalesMarketingNeedsAnalysis = () => {
     
     yPos += 50;
 
-    // Recommendations
-    if (recommendation.products.length > 0) {
-      pdf.setFillColor(30, 58, 138);
-      pdf.roundedRect(margin, yPos, contentWidth, 12, 2, 2, 'F');
-      pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(11);
+    // ── Samma poängmotor som steg 7 ──────────────────────────────────────
+    let pdfSalesScore = 0;
+    if (data.commercialModel === "b2b_relational") pdfSalesScore += 4;
+    if (data.commercialModel === "b2b_complex") pdfSalesScore += 3;
+    if (data.commercialModel === "partner_channel") pdfSalesScore += 3;
+    if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") pdfSalesScore += 2;
+    if (data.b2bForecastNeeds === "Ja, kritiskt") pdfSalesScore += 2;
+    if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) pdfSalesScore += 1;
+    if (data.b2bComplexRoleBased?.startsWith("Ja")) pdfSalesScore += 2;
+    if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfSalesScore += 2;
+    if (data.aiAmbition === "AI-stöd i sälj (prognos, rekommendationer)") pdfSalesScore += 2;
+
+    let pdfInsightsScore = 0;
+    if (data.commercialModel === "digital_market") pdfInsightsScore += 4;
+    if (data.commercialModel === "b2c_volume") pdfInsightsScore += 4;
+    if (data.digitalBehaviorSegmentation?.startsWith("Ja")) pdfInsightsScore += 2;
+    if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) pdfInsightsScore += 2;
+    if (data.multipleDataSources === "Ja") pdfInsightsScore += 2;
+    if (data.unifiedCustomerView === "Nej, informationen är spridd") pdfInsightsScore += 2;
+    if (data.personalizationCritical === "I hög grad") pdfInsightsScore += 3;
+    if ((data.integrationTypes || []).includes("Marketing automation")) pdfInsightsScore += 2;
+    if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") pdfInsightsScore += 3;
+    if ((data.aiUseCases || []).includes("AI-driven segmentering")) pdfInsightsScore += 2;
+
+    const pdfGap = pdfSalesScore - pdfInsightsScore;
+    const pdfProduct = pdfGap > 5 ? "Dynamics 365 Sales"
+      : -pdfGap > 5 ? "Dynamics 365 Customer Insights"
+      : "Dynamics 365 Sales + Customer Insights";
+
+    const pdfDataComplexity = (() => {
+      let s = 0;
+      if (data.multipleDataSources === "Ja") s += 2;
+      if (data.customerDataSpread === "Spridd i flera system") s += 2;
+      else if (data.customerDataSpread === "Delvis samlad") s += 1;
+      if (data.integrationScope === "Omfattande och affärskritiskt") s += 2;
+      else if (data.integrationScope === "Måttligt") s += 1;
+      if (data.unifiedCustomerView === "Nej, informationen är spridd") s += 1;
+      return s <= 2 ? "Låg" : s <= 5 ? "Medel" : "Hög";
+    })();
+
+    const pdfComplexity = pdfSalesScore <= 4 ? "Låg" : pdfSalesScore <= 9 ? "Medel" : "Hög";
+    const pdfAiReadiness = data.aiInterest === "Inte just nu" || (data.aiUseCases?.length ?? 0) === 0 ? "Ej påbörjad"
+      : data.aiInterest === "Mycket intresserade – Vi vill vara i framkant" || (data.aiUseCases?.length ?? 0) > 3 ? "Redo"
+      : "Påbörjad";
+
+    // Dynamiska fokuspunkter (samma logik som steg 7)
+    const pdfPoints: string[] = [];
+    const pdfHasNoProcess = data.b2bStructuredPipeline?.includes("ad hoc") || data.b2bStructuredPipeline?.includes("Nej");
+    const pdfHasBasicPipeline = data.b2bStructuredPipeline === "Vi har definierade säljsteg";
+    const pdfSpreadData = data.unifiedCustomerView === "Nej, informationen är spridd" || data.customerDataSpread === "Spridd i flera system";
+    if (pdfHasNoProcess || pdfHasBasicPipeline) pdfPoints.push("Strukturera och standardisera er säljprocess");
+    if (data.b2bForecastNeeds === "Ja, kritiskt") pdfPoints.push("Implementera pålitlig pipeline-prognos och säljstyrning");
+    if (data.b2bMultipleDecisionMakers?.startsWith("Ja")) pdfPoints.push("Hantera komplexa affärer med flera beslutsfattare");
+    if (pdfSpreadData) pdfPoints.push("Konsolidera kundinformation till en enhetlig bild");
+    if (data.personalizationCritical === "I hög grad") pdfPoints.push("Möjliggöra personalisering i stor skala");
+    if ((data.integrationTypes || []).includes("Marketing automation")) pdfPoints.push("Integrera marketing automation med säljdata");
+    if (data.integrationScope === "Omfattande och affärskritiskt") pdfPoints.push("Säkerställa robusta integrationer mot affärskritiska system");
+    if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") pdfPoints.push("Realisera AI-initiativ i säljprocessen");
+    else if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") pdfPoints.push("Börja utforska AI-funktioner i kontrollerad skala");
+    if (data.currentCrmUsage === "Nej" || data.followUpMethod === "Excel") pdfPoints.push("Ersätta Excel-baserad säljuppföljning med strukturerat CRM");
+    if (pdfPoints.length === 0) pdfPoints.push("Stärka den kommersiella plattformen för framtida tillväxt");
+
+    // Kommersiell profil – sektion i PDF
+    if (yPos > 200) { pdf.addPage(); yPos = margin; }
+    yPos += 5;
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("ER KOMMERSIELLA PROFIL", margin + 5, yPos + 7);
+    yPos += 14;
+
+    const profileRows = [
+      ["Säljkomplexitet", pdfComplexity],
+      ["Datamognad", pdfDataComplexity],
+      ["Skalbarhetskrav", ["250-999 anställda","1.000-4.999 anställda","Mer än 5.000 anställda"].includes(data.employees) ? "Hög" : ["100-249 anställda"].includes(data.employees) ? "Medel" : "Låg"],
+      ["AI-beredskap", pdfAiReadiness],
+    ];
+    profileRows.forEach(([label, value], i) => {
+      if (i % 2 === 0) pdf.setFillColor(248, 250, 252);
+      else pdf.setFillColor(255, 255, 255);
+      pdf.rect(margin, yPos - 4, contentWidth, 8, 'F');
+      pdf.setTextColor(80, 80, 80);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "normal");
+      pdf.text(label, margin + 3, yPos);
       pdf.setFont("helvetica", "bold");
-      pdf.text("REKOMMENDERADE APPLIKATIONER", margin + 5, yPos + 8);
-      yPos += 18;
+      pdf.setTextColor(30, 58, 138);
+      pdf.text(value, margin + contentWidth - 3, yPos, { align: "right" });
+      yPos += 8;
+    });
+    yPos += 5;
+
+    // Bedömning – sektion i PDF
+    if (yPos > 200) { pdf.addPage(); yPos = margin; }
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("BEDÖMNING", margin + 5, yPos + 7);
+    yPos += 14;
+
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(`Rekommenderad lösning: ${pdfProduct}`, margin, yPos);
+    yPos += 7;
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Prioriterade fokusområden:", margin, yPos);
+    yPos += 6;
+    pdfPoints.forEach((point) => {
+      if (yPos > 270) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(16, 185, 129);
+      pdf.circle(margin + 2, yPos - 1.5, 1.2, "F");
+      const lines = pdf.splitTextToSize(point, contentWidth - 10);
+      pdf.text(lines, margin + 8, yPos);
+      yPos += lines.length * 5 + 2;
+    });
+    yPos += 8;
+
+    // Original rekommenderade produkter (från getRecommendation)
+    if (recommendation.products.length > 0) {
+      if (yPos > 220) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(30, 58, 138);
+      pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("REKOMMENDERADE APPLIKATIONER", margin + 5, yPos + 7);
+      yPos += 14;
 
       recommendation.products.forEach((product, index) => {
+        if (yPos > 250) { pdf.addPage(); yPos = margin; }
         pdf.setFillColor(240, 245, 255);
         pdf.roundedRect(margin, yPos, contentWidth, 25, 2, 2, 'F');
         pdf.setTextColor(30, 58, 138);
@@ -670,6 +794,7 @@ const SalesMarketingNeedsAnalysis = () => {
         yPos += 30;
       });
     }
+
 
     // Summary sections
     const addSection = (title: string, content: string) => {
