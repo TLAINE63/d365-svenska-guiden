@@ -2162,14 +2162,14 @@ const CustomerServiceNeedsAnalysis = () => {
         <Navbar />
         <main className="pt-24 pb-16">
           <div className="container mx-auto px-4 max-w-4xl">
-            <Card className="border-2 border-crm/30">
-              <CardHeader className="text-center bg-gradient-to-r from-crm/10 to-crm/5">
+            <Card className="border-2 border-customer-service/30">
+              <CardHeader className="text-center bg-gradient-to-r from-customer-service/10 to-customer-service/5">
                 <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 bg-crm rounded-full flex items-center justify-center">
+                  <div className="w-16 h-16 bg-customer-service rounded-full flex items-center justify-center">
                     <CheckCircle2 className="w-8 h-8 text-white" />
                   </div>
                 </div>
-                <CardTitle className="text-2xl sm:text-3xl text-crm">Tack för din behovsanalys!</CardTitle>
+                <CardTitle className="text-2xl sm:text-3xl text-customer-service">Tack för din behovsanalys!</CardTitle>
                 <p className="text-muted-foreground mt-2">Din analys har sparats och PDF:en har laddats ner.</p>
               </CardHeader>
               <CardContent className="pt-8">
@@ -2178,11 +2178,11 @@ const CustomerServiceNeedsAnalysis = () => {
                     <h3 className="text-xl font-bold text-center mb-6">Baserat på era svar lutar det mot</h3>
                     <div className="space-y-4">
                       {recommendation.products.map((product, index) => (
-                        <Card key={product.name} className={`border-2 ${index === 0 ? 'border-crm bg-crm/5' : 'border-border'}`}>
+                        <Card key={product.name} className={`border-2 ${index === 0 ? 'border-customer-service bg-customer-service/5' : 'border-border'}`}>
                           <CardHeader>
                             <div className="flex items-center gap-3">
                               <span className="text-3xl">{product.icon}</span>
-                              <CardTitle className={`text-lg ${index === 0 ? 'text-crm' : ''}`}>{product.name}</CardTitle>
+                              <CardTitle className={`text-lg ${index === 0 ? 'text-customer-service' : ''}`}>{product.name}</CardTitle>
                             </div>
                           </CardHeader>
                           <CardContent>
@@ -2190,7 +2190,7 @@ const CustomerServiceNeedsAnalysis = () => {
                             <ul className="mt-3 space-y-1">
                               {product.reasons.map((reason, i) => (
                                 <li key={i} className="text-sm flex items-start gap-2">
-                                  <CheckCircle2 className="w-4 h-4 text-crm mt-0.5 flex-shrink-0" />
+                                  <CheckCircle2 className="w-4 h-4 text-customer-service mt-0.5 flex-shrink-0" />
                                   <span>{reason}</span>
                                 </li>
                               ))}
@@ -2204,8 +2204,8 @@ const CustomerServiceNeedsAnalysis = () => {
                 <div className="text-center space-y-4">
                   <p className="text-muted-foreground">Vi kommer att kontakta dig inom kort.</p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button asChild className="bg-crm hover:bg-crm/90">
-                      <Link to="/crm">Läs mer om Dynamics 365 CRM</Link>
+                    <Button asChild className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground">
+                      <Link to="/d365-customer-service">Läs mer om Dynamics 365 Customer Service</Link>
                     </Button>
                     <Button variant="outline" asChild>
                       <Link to="/kontakt">Kontakta oss direkt</Link>
@@ -2254,11 +2254,11 @@ const CustomerServiceNeedsAnalysis = () => {
                 {showContactForm ? "Kontaktuppgifter" : `Steg ${currentStep} av ${totalSteps}`}
               </span>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-crm">
+                <span className="text-sm font-medium text-customer-service">
                   {showContactForm ? "100%" : `${Math.round(progress)}%`}
                 </span>
                 {!showContactForm && (
-                  <Button onClick={handleNext} size="sm" className="bg-crm hover:bg-crm/90">
+                  <Button onClick={handleNext} size="sm" className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground">
                     Nästa
                     <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
@@ -2281,13 +2281,13 @@ const CustomerServiceNeedsAnalysis = () => {
                     className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity"
                   >
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${
-                      isActive ? 'bg-crm text-white' : 
-                      isCompleted ? 'bg-crm/20 text-crm' : 
+                      isActive ? 'bg-customer-service text-customer-service-foreground' : 
+                      isCompleted ? 'bg-customer-service/20 text-customer-service' : 
                       'bg-muted text-muted-foreground'
                     }`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className={`text-xs text-center ${isActive ? 'text-crm font-medium' : 'text-muted-foreground'}`}>
+                    <span className={`text-xs text-center ${isActive ? 'text-customer-service font-medium' : 'text-muted-foreground'}`}>
                       {title}
                     </span>
                   </button>
@@ -2297,14 +2297,14 @@ const CustomerServiceNeedsAnalysis = () => {
           )}
 
           <Card className="shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-crm/10 to-crm/5 border-b">
+            <CardHeader className="bg-gradient-to-r from-customer-service/10 to-customer-service/5 border-b">
               <div className="flex items-center gap-3">
                 {showContactForm ? (
-                  <FileText className="w-6 h-6 text-crm" />
+                  <FileText className="w-6 h-6 text-customer-service" />
                 ) : (
-                  <StepIcon className="w-6 h-6 text-crm" />
+                  <StepIcon className="w-6 h-6 text-customer-service" />
                 )}
-                <CardTitle className="text-xl text-crm">
+                <CardTitle className="text-xl text-customer-service">
                   {showContactForm ? "Kontaktuppgifter" : stepTitles[currentStep - 1]}
                 </CardTitle>
               </div>
@@ -2328,13 +2328,13 @@ const CustomerServiceNeedsAnalysis = () => {
               <Button
                 onClick={generateDocument}
                 disabled={!data.companyName || !data.contactName || !data.email}
-                className="bg-crm hover:bg-crm/90"
+                className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Ladda ner analys
               </Button>
             ) : (
-              <Button onClick={handleNext} className="bg-crm hover:bg-crm/90">
+              <Button onClick={handleNext} className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground">
                 Nästa
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
