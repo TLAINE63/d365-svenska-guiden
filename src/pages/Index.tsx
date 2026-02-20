@@ -28,19 +28,42 @@ import MarketingIcon from "@/assets/icons/Marketing.svg";
 import BizAppsNetwork from "@/assets/biz-apps-network.png";
 
 const homeFaqs = [
-  { question: "Vad är Microsoft Dynamics 365?", answer: "Microsoft Dynamics 365 är en svit av affärssystem (ERP)- och CRM-appar som täcker allt från ekonomi och lager till försäljning och kundservice. Alla appar delar samma dataplattform och kan integreras sömlöst." },
-  { question: "Vilken Dynamics 365-lösning passar vårt företag bäst?", answer: "Mindre företag börjar ofta med Business Central, medan större koncerner väljer Finance & Supply Chain Management. CRM-appar som Sales och Customer Service kan kombineras med båda ERP-lösningarna." },
-  { question: "Vad kostar Dynamics 365?", answer: "Licenspriser varierar från ca 550 kr/mån för grundläggande licenser upp till 3500+ kr/mån för avancerade användare. Projektkostnader startar från 50 000 kr för startpaket till flera miljoner för Enterprise-implementeringar." },
-  { question: "Hur lång tid tar det att implementera Dynamics 365?", answer: "Typisk implementationsresa är 3-6 månader för Business Central, 9-18 månader för Finance & SCM. För CRM beror det på omfattning men räkna med från 2 månader." },
-  { question: "Hur fungerar Dynamics 365 med Microsoft 365?", answer: "Dynamics 365 integreras sömlöst med Outlook, Teams och Excel. Power Platform möjliggör egna appar och automatiseringar. AI/Copilot är inbyggd i alla affärsapplikationer." },
+  {
+    question: "Vad är Microsoft Dynamics 365?",
+    answer: "Microsoft Dynamics 365 är Microsofts plattform för affärssystem (ERP) och kundrelationshantering (CRM) i molnet. Det är en familj av specialiserade affärsappar – Business Central och Finance & Supply Chain för ERP, samt Sales, Customer Service, Field Service och Customer Insights för CRM. Alla appar delar samma dataplattform, integreras sömlöst med Microsoft 365 (Outlook, Teams, Excel) och har inbyggd AI via Microsoft Copilot. Dynamics 365 faktureras per användare och månad utan egna servrar."
+  },
+  {
+    question: "Vad kostar Business Central i Sverige – pris per användare?",
+    answer: "Dynamics 365 Business Central kostar från 884 kr per användare och månad (Essentials-licens) eller 1 255 kr/mån (Premium-licens som inkluderar produktion och servicehantering). Teammedlemmar med begränsad åtkomst kostar från ca 70 kr/mån. Utöver licensen tillkommer implementeringskostnad – räkna med 300 000–1 500 000 kr för en fullständig implementation beroende på komplexitet. Välj en Microsoft-certifierad partner i Sverige för korrekt offert."
+  },
+  {
+    question: "Vilken Dynamics 365-lösning passar vårt företag bäst – ERP eller CRM?",
+    answer: "Business Central passar SMB-företag (10–500 anställda) som behöver allt-i-ett ERP för ekonomi, lager och inköp. Finance & Supply Chain Management passar globala koncerner med komplexa produktionsflöden och flera juridiska entiteter. Dynamics 365 Sales passar säljorganisationer som vill digitalisera pipeline och kundrelationer. Customer Service passar företag med supportärenden och fälttekniker. Gör gärna vår kostnadsfria behovsanalys för en personlig rekommendation."
+  },
+  {
+    question: "Hur hittar jag rätt Microsoft Dynamics 365-partner i Sverige?",
+    answer: "En bra Dynamics 365-partner i Sverige bör ha dokumenterad branschkunskap inom din sektor, referenskunder av liknande storlek och djupkompetens på just den app du ska implementera. Undvik partners som 'kan allt' – de flesta är starka på antingen ERP (Business Central eller Finance & SCM) eller CRM (Sales och Customer Service). På d365.se kan du filtrera partners på bransch, produkt och geografi kostnadsfritt. Valet av partner är ofta viktigare än valet av system."
+  },
+  {
+    question: "Hur lång tid tar det att implementera Dynamics 365?",
+    answer: "Business Central startpaket: 2–4 månader. Fullständig Business Central-implementation: 4–9 månader. Finance & Supply Chain Management: 9–18 månader, internationella utrullningar 18–36 månader. Dynamics 365 Sales eller Customer Service: 2–6 månader. Customer Insights (Marketing Automation): 2–4 månader. Den interna resurstillgången – engagerad projektledare och nyckelanvändare – är ofta den mest kritiska framgångsfaktorn."
+  },
+  {
+    question: "Är Dynamics 365 ett bra alternativ till SAP, Salesforce eller Fortnox?",
+    answer: "Ja. Dynamics 365 Business Central är ett starkt alternativ till Fortnox, Visma och Monitor för SMB – med bättre skalbarhet och djupare Microsoft-integration. Finance & Supply Chain Management är ett modernt alternativ till SAP S/4HANA med lägre licenspriser och inbyggd Copilot AI. Dynamics 365 Sales och Customer Service konkurrerar direkt med Salesforce och HubSpot, med fördelen att allt ligger i samma Microsoft-ekosystem som Office 365. För svenska företag med befintlig Microsoft-infrastruktur är D365 ofta det naturligaste valet."
+  },
+  {
+    question: "Hur fungerar Microsoft Copilot AI i Dynamics 365?",
+    answer: "Microsoft Copilot är inbyggt i alla Dynamics 365-appar utan extra licensavgift. I Business Central hjälper Copilot med produktbeskrivningar och bankavstämning. I Sales sammanfattar Copilot möten och skriver e-postutkast. I Customer Service föreslår Copilot svar och sammanfattar ärenden. I Finance & Supply Chain varnar Copilot för leveransrisker och avvikelser. Enligt Forresters TEI-studie (oktober 2024) kan Copilot ge 353% potentiell ROI över 3 år."
+  },
 ];
 const Index = () => {
   return <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Microsoft Dynamics 365 – Guide till ERP & CRM i Sverige | d365.se"
-        description="Oberoende guide till Microsoft Dynamics 365. Jämför Business Central, Finance & SCM, Sales och Customer Service. Transparenta priser, behovsanalyser och hjälp att välja rätt partner i Sverige."
+        title="Dynamics 365 Sverige – ERP & CRM guide | Priser, partners & behovsanalys"
+        description="Oberoende guide till Dynamics 365 i Sverige. Business Central från 884 kr/mån. Jämför ERP & CRM, hitta Microsoft-certifierade partners per bransch. Kostnadsfri behovsanalys."
         canonicalPath="/"
-        keywords="Microsoft Dynamics 365, Dynamics 365 Business Central, Dynamics 365 Finance, ERP system Sverige, CRM system, affärssystem Microsoft, Dynamics 365 partner Sverige, Business Central pris, implementering Dynamics 365"
+        keywords="Dynamics 365 Sverige, Microsoft Dynamics 365, Business Central pris Sverige, Microsoft ERP CRM partner, affärssystem Sverige, Dynamics 365 partner Sverige, Business Central Sverige, SAP alternativ Sverige, CRM system Sverige, Dynamics 365 implementering, ERP system jämförelse, Microsoft partner Sverige, Dynamics 365 pris, Business Central vs SAP, Salesforce alternativ Sverige"
         ogImage="https://d365.se/og-image.png"
       />
       <OrganizationSchema />
