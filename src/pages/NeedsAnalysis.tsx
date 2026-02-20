@@ -752,7 +752,6 @@ const complexityRetailOptions = {
 const NeedsAnalysis = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [data, setData] = useState<AnalysisData>(initialData);
-  const [showContactForm, setShowContactForm] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [contactErrors, setContactErrors] = useState<ContactFormErrors>({});
   const [isSendingEmail, setIsSendingEmail] = useState(false);
@@ -782,16 +781,12 @@ const NeedsAnalysis = () => {
   const handleNext = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
-    } else {
-      setShowContactForm(true);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
-    if (showContactForm) {
-      setShowContactForm(false);
-    } else if (currentStep > 1) {
+    if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2796,7 +2791,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="space-y-6">
             <div className="bg-finance-supply/5 border border-finance-supply/20 rounded-lg p-4">
               <p className="text-sm text-finance-supply font-medium">
-                🎯 Baserat på era svar har vi sammanställt er ERP-profil. Fyll i kontaktuppgifter i nästa steg för att ladda ner den fullständiga analysen.
+                🎯 Baserat på era svar har vi sammanställt er ERP-profil. Fyll i kontaktuppgifter längst ned för att ladda ner den fullständiga analysen som PDF.
               </p>
             </div>
 
@@ -2982,6 +2977,102 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   </div>
                 ));
               })()}
+            </div>
+
+            {/* Kontaktformulär */}
+            <div className="border-t border-border pt-6 mt-2 print:hidden">
+              <div className="border rounded-xl p-5 bg-background shadow-sm space-y-4">
+                <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
+                  <Download className="w-5 h-5 text-finance-supply" />
+                  Ladda ned din fullständiga ERP-analys
+                </h3>
+                <p className="text-sm text-muted-foreground">Fyll i kontaktuppgifter för att ladda ned en PDF med din analys och alla svar.</p>
+                {isComplete ? (
+                  <div className="flex items-center gap-3 p-4 rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/30 dark:border-green-800">
+                    <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-green-800 dark:text-green-200">Analys skickad!</p>
+                      <p className="text-sm text-green-700 dark:text-green-300">Din PDF har laddats ned och analysen har skickats till {data.email}.</p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="companyName">Företagsnamn *</Label>
+                        <Input
+                          id="companyName"
+                          placeholder="Ditt företag AB"
+                          value={data.companyName}
+                          onChange={(e) => {
+                            setData({ ...data, companyName: e.target.value });
+                            if (contactErrors.companyName) setContactErrors({ ...contactErrors, companyName: undefined });
+                          }}
+                          className={`mt-2 ${contactErrors.companyName ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.companyName && <p className="text-sm text-destructive mt-1">{contactErrors.companyName}</p>}
+                      </div>
+                      <div>
+                        <Label htmlFor="contactName">Ditt namn *</Label>
+                        <Input
+                          id="contactName"
+                          placeholder="Förnamn Efternamn"
+                          value={data.contactName}
+                          onChange={(e) => {
+                            setData({ ...data, contactName: e.target.value });
+                            if (contactErrors.contactName) setContactErrors({ ...contactErrors, contactName: undefined });
+                          }}
+                          className={`mt-2 ${contactErrors.contactName ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.contactName && <p className="text-sm text-destructive mt-1">{contactErrors.contactName}</p>}
+                      </div>
+                      <div>
+                        <Label htmlFor="phone">Telefonnummer *</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          placeholder="+46 70 123 45 67"
+                          value={data.phone}
+                          onChange={(e) => {
+                            setData({ ...data, phone: e.target.value });
+                            if (contactErrors.phone) setContactErrors({ ...contactErrors, phone: undefined });
+                          }}
+                          className={`mt-2 ${contactErrors.phone ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.phone && <p className="text-sm text-destructive mt-1">{contactErrors.phone}</p>}
+                      </div>
+                      <div>
+                        <Label htmlFor="email">E-postadress *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="namn@foretag.se"
+                          value={data.email}
+                          onChange={(e) => {
+                            setData({ ...data, email: e.target.value });
+                            if (contactErrors.email) setContactErrors({ ...contactErrors, email: undefined });
+                          }}
+                          className={`mt-2 ${contactErrors.email ? 'border-destructive' : ''}`}
+                        />
+                        {contactErrors.email && <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>}
+                      </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                      <Button
+                        onClick={generateDocument}
+                        disabled={!isContactFormValid() || isSendingEmail}
+                        className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground flex-1"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        {isSendingEmail ? "Skickar..." : "Ladda ner & skicka analys"}
+                      </Button>
+                      <Button variant="outline" onClick={() => window.print()} className="flex-shrink-0">
+                        🖨️ Skriv ut
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         );
@@ -3243,7 +3334,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 onClick={() => {
                   setData(initialData);
                   setCurrentStep(1);
-                  setShowContactForm(false);
                   setIsComplete(false);
                 }}
               >
@@ -3290,186 +3380,80 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           <div className="mb-8">
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm text-muted-foreground">
-                {showContactForm ? "Kontaktuppgifter" : `Steg ${currentStep} av ${totalSteps}`}
+                Steg {currentStep} av {totalSteps}
               </span>
               <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-finance-supply">
-                  {showContactForm ? "100%" : `${Math.round(progress)}%`}
+                <span className="text-sm font-medium text-finance-supply">
+                  {Math.round(progress)}%
                 </span>
-                {!showContactForm && (
-                  <Button onClick={handleNext} size="sm" className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
-                    Nästa
-                    <ArrowRight className="w-4 h-4 ml-1" />
-                  </Button>
-                )}
+                <Button onClick={handleNext} size="sm" className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
+                  Nästa
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
               </div>
             </div>
-            <Progress value={showContactForm ? 100 : progress} className="h-2" />
+            <Progress value={progress} className="h-2" />
           </div>
 
           {/* Step indicators */}
-          {!showContactForm && (
-            <div className="flex justify-center gap-2 mb-8 flex-wrap">
-              {stepTitles.map((title, index) => {
-                const Icon = stepIcons[index];
-                const stepNum = index + 1;
-                const isActive = stepNum === currentStep;
-                const isCompleted = stepNum < currentStep;
-                return (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentStep(stepNum)}
-                    className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                      isActive
-                        ? "bg-finance-supply text-finance-supply-foreground"
-                        : isCompleted
-                        ? "bg-finance-supply/20 text-finance-supply"
-                        : "bg-muted text-muted-foreground"
-                    }`}
-                  >
-                    <Icon className="w-3 h-3" />
-                    <span className="hidden sm:inline">{title}</span>
-                    <span className="sm:hidden">{stepNum}</span>
-                  </button>
-                );
-              })}
-            </div>
-          )}
+          <div className="flex justify-center gap-2 mb-8 flex-wrap">
+            {stepTitles.map((title, index) => {
+              const Icon = stepIcons[index];
+              const stepNum = index + 1;
+              const isActive = stepNum === currentStep;
+              const isCompleted = stepNum < currentStep;
+              return (
+                <button
+                  key={index}
+                  onClick={() => setCurrentStep(stepNum)}
+                  className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    isActive
+                      ? "bg-finance-supply text-finance-supply-foreground"
+                      : isCompleted
+                      ? "bg-finance-supply/20 text-finance-supply"
+                      : "bg-muted text-muted-foreground"
+                  }`}
+                >
+                  <Icon className="w-3 h-3" />
+                  <span className="hidden sm:inline">{title}</span>
+                  <span className="sm:hidden">{stepNum}</span>
+                </button>
+              );
+            })}
+          </div>
 
           {/* Content */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
-                {showContactForm ? (
-                  <>
-                    <Download className="w-6 h-6 text-finance-supply" />
-                    Ladda ned din behovsanalys
-                  </>
-                ) : (
-                  <>
-                    {(() => {
-                      const Icon = stepIcons[currentStep - 1];
-                      return <Icon className="w-6 h-6 text-finance-supply" />;
-                    })()}
-                    {stepTitles[currentStep - 1]}
-                  </>
-                )}
+                {(() => {
+                  const Icon = stepIcons[currentStep - 1];
+                  return <Icon className="w-6 h-6 text-finance-supply" />;
+                })()}
+                {stepTitles[currentStep - 1]}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="analysis-form theme-erp">
-                {showContactForm ? (
-                  <div className="space-y-6">
-                    <p className="text-muted-foreground">
-                      Fyll i dina kontaktuppgifter för att ladda ned din personliga behovsanalys.
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="companyName">Företagsnamn *</Label>
-                        <Input
-                          id="companyName"
-                          placeholder="Ditt företag AB"
-                          value={data.companyName}
-                          onChange={(e) => {
-                            setData({ ...data, companyName: e.target.value });
-                            if (contactErrors.companyName) {
-                              setContactErrors({ ...contactErrors, companyName: undefined });
-                            }
-                          }}
-                          className={`mt-2 ${contactErrors.companyName ? 'border-destructive' : ''}`}
-                        />
-                        {contactErrors.companyName && (
-                          <p className="text-sm text-destructive mt-1">{contactErrors.companyName}</p>
-                        )}
-                      </div>
-                      <div>
-                        <Label htmlFor="contactName">Ditt namn *</Label>
-                        <Input
-                          id="contactName"
-                          placeholder="Förnamn Efternamn"
-                          value={data.contactName}
-                          onChange={(e) => {
-                            setData({ ...data, contactName: e.target.value });
-                            if (contactErrors.contactName) {
-                              setContactErrors({ ...contactErrors, contactName: undefined });
-                            }
-                          }}
-                          className={`mt-2 ${contactErrors.contactName ? 'border-destructive' : ''}`}
-                        />
-                        {contactErrors.contactName && (
-                          <p className="text-sm text-destructive mt-1">{contactErrors.contactName}</p>
-                        )}
-                      </div>
-                      <div>
-                        <Label htmlFor="phone">Telefonnummer *</Label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          placeholder="+46 70 123 45 67"
-                          value={data.phone}
-                          onChange={(e) => {
-                            setData({ ...data, phone: e.target.value });
-                            if (contactErrors.phone) {
-                              setContactErrors({ ...contactErrors, phone: undefined });
-                            }
-                          }}
-                          className={`mt-2 ${contactErrors.phone ? 'border-destructive' : ''}`}
-                        />
-                        {contactErrors.phone && (
-                          <p className="text-sm text-destructive mt-1">{contactErrors.phone}</p>
-                        )}
-                      </div>
-                      <div>
-                        <Label htmlFor="email">E-postadress *</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="namn@foretag.se"
-                          value={data.email}
-                          onChange={(e) => {
-                            setData({ ...data, email: e.target.value });
-                            if (contactErrors.email) {
-                              setContactErrors({ ...contactErrors, email: undefined });
-                            }
-                          }}
-                          className={`mt-2 ${contactErrors.email ? 'border-destructive' : ''}`}
-                        />
-                        {contactErrors.email && (
-                          <p className="text-sm text-destructive mt-1">{contactErrors.email}</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  renderStep()
-                )}
+                {renderStep()}
               </div>
 
               {/* Navigation */}
-              <div className="flex justify-between mt-8 pt-6 border-t">
+              <div className="flex justify-between mt-8 pt-6 border-t print:hidden">
                 <Button
                   variant="outline"
                   onClick={handleBack}
-                  disabled={currentStep === 1 && !showContactForm}
+                  disabled={currentStep === 1}
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Tillbaka
                 </Button>
-                {showContactForm ? (
-                  <Button
-                    onClick={generateDocument}
-                    disabled={!isContactFormValid()}
-                    className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Ladda ned dokument
-                  </Button>
-                ) : (
+                {currentStep < totalSteps ? (
                   <Button onClick={handleNext} className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
-                    {currentStep === totalSteps ? "Slutför" : "Nästa"}
+                    Nästa
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                )}
+                ) : null}
               </div>
             </CardContent>
           </Card>
