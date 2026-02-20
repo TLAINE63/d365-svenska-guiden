@@ -39,24 +39,63 @@ All colors MUST be HSL.
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
     
-    /* Product area colors */
-    --business-central: 184 100% 33%;
+    /* ─── Microsoft Dynamics 365 officiella produktfärger ─── */
+    
+    /* Business Central – cyan/teal (officiell MS-färg) */
+    --business-central: 192 100% 35%;
     --business-central-foreground: 0 0% 100%;
     
-    --crm: 25 95% 45%;
+    /* Sales – Microsoft-blå */
+    --sales: 210 100% 42%;
+    --sales-foreground: 0 0% 100%;
+
+    /* Customer Insights / Marketing – röd-orange */
+    --marketing: 14 88% 52%;
+    --marketing-foreground: 0 0% 100%;
+
+    /* CRM (Sales + Marketing samlat) – Microsoft-blå */
+    --crm: 210 100% 42%;
     --crm-foreground: 0 0% 100%;
     
-    --finance-supply: 220 70% 35%;
+    /* Finance – grön */
+    --finance: 130 58% 38%;
+    --finance-foreground: 0 0% 100%;
+
+    /* Supply Chain – blå-lila */
+    --supply-chain: 230 62% 52%;
+    --supply-chain-foreground: 0 0% 100%;
+
+    /* Finance & Supply Chain (kombinerat) – mörkblå */
+    --finance-supply: 225 68% 44%;
     --finance-supply-foreground: 0 0% 100%;
     
-    --copilot: 270 70% 50%;
+    /* Customer Service – lila/violett */
+    --customer-service: 267 72% 55%;
+    --customer-service-foreground: 0 0% 100%;
+
+    /* Field Service – orange */
+    --field-service: 32 100% 48%;
+    --field-service-foreground: 0 0% 100%;
+
+    /* Contact Center – cyan-blå */
+    --contact-center: 200 82% 44%;
+    --contact-center-foreground: 0 0% 100%;
+
+    /* Project Operations – gul-grön */
+    --project-operations: 78 68% 40%;
+    --project-operations-foreground: 0 0% 100%;
+
+    /* Human Resources – aubergine/lila */
+    --human-resources: 278 52% 48%;
+    --human-resources-foreground: 0 0% 100%;
+
+    /* Copilot – blå-lila */
+    --copilot: 255 72% 58%;
     --copilot-foreground: 0 0% 100%;
     
+    /* Agents – grön (behåll befintlig) */
     --agents: 145 75% 40%;
     --agents-foreground: 0 0% 100%;
-    
-    --customer-service: 280 65% 50%;
-    --customer-service-foreground: 0 0% 100%;
 
     --border: 0 0% 90%;
     --input: 0 0% 90%;
@@ -125,6 +164,22 @@ All colors MUST be HSL.
     --border: 0 0% 20%;
     --input: 0 0% 18%;
     --ring: 180 75% 50%;
+
+    /* Dark mode produktfärger – något ljusare för kontrast */
+    --business-central: 192 100% 42%;
+    --sales: 210 100% 52%;
+    --marketing: 14 88% 60%;
+    --crm: 210 100% 52%;
+    --finance: 130 58% 46%;
+    --supply-chain: 230 62% 60%;
+    --finance-supply: 225 68% 54%;
+    --customer-service: 267 72% 65%;
+    --field-service: 32 100% 56%;
+    --contact-center: 200 82% 54%;
+    --project-operations: 78 68% 48%;
+    --human-resources: 278 52% 58%;
+    --copilot: 255 72% 68%;
+    --agents: 145 65% 48%;
     
     --gradient-primary: linear-gradient(135deg, hsl(180 75% 40%) 0%, hsl(180 75% 50%) 100%);
     --gradient-hero: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%);

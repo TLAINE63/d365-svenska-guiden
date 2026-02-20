@@ -97,7 +97,7 @@ const D365ContactCenter = () => {
                 <ContactFormDialog>
                   <Button 
                     size="lg"
-                    className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                    className="bg-contact-center hover:bg-contact-center/90 text-contact-center-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
                     Boka en kostnadsfri rådgivning
                   </Button>
@@ -270,7 +270,7 @@ const D365ContactCenter = () => {
       <ApplicationPartners applicationFilter="Contact Center" pageSource="D365 Contact Center" />
 
       {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-crm">
+      <section className="py-12 sm:py-16 md:py-20 bg-contact-center">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             Redo att modernisera ditt kontaktcenter?
@@ -281,7 +281,7 @@ const D365ContactCenter = () => {
           <ContactFormDialog>
             <Button 
               size="lg"
-              className="bg-white text-crm hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+              className="bg-white text-contact-center hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
               Boka en kostnadsfri rådgivning
             </Button>

@@ -61,9 +61,25 @@ export default {
           DEFAULT: "hsl(var(--business-central))",
           foreground: "hsl(var(--business-central-foreground))",
         },
+        sales: {
+          DEFAULT: "hsl(var(--sales))",
+          foreground: "hsl(var(--sales-foreground))",
+        },
+        marketing: {
+          DEFAULT: "hsl(var(--marketing))",
+          foreground: "hsl(var(--marketing-foreground))",
+        },
         crm: {
           DEFAULT: "hsl(var(--crm))",
           foreground: "hsl(var(--crm-foreground))",
+        },
+        finance: {
+          DEFAULT: "hsl(var(--finance))",
+          foreground: "hsl(var(--finance-foreground))",
+        },
+        "supply-chain": {
+          DEFAULT: "hsl(var(--supply-chain))",
+          foreground: "hsl(var(--supply-chain-foreground))",
         },
         "finance-supply": {
           DEFAULT: "hsl(var(--finance-supply))",
@@ -80,6 +96,22 @@ export default {
         "customer-service": {
           DEFAULT: "hsl(var(--customer-service))",
           foreground: "hsl(var(--customer-service-foreground))",
+        },
+        "field-service": {
+          DEFAULT: "hsl(var(--field-service))",
+          foreground: "hsl(var(--field-service-foreground))",
+        },
+        "contact-center": {
+          DEFAULT: "hsl(var(--contact-center))",
+          foreground: "hsl(var(--contact-center-foreground))",
+        },
+        "project-operations": {
+          DEFAULT: "hsl(var(--project-operations))",
+          foreground: "hsl(var(--project-operations-foreground))",
+        },
+        "human-resources": {
+          DEFAULT: "hsl(var(--human-resources))",
+          foreground: "hsl(var(--human-resources-foreground))",
         },
       },
       borderRadius: {
