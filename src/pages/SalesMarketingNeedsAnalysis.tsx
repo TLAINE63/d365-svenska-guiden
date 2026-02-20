@@ -769,9 +769,6 @@ const SalesMarketingNeedsAnalysis = () => {
     pdf.setFillColor(30, 58, 138);
     pdf.rect(0, 0, pageWidth, pageHeight, 'F');
 
-    pdf.setFillColor(59, 130, 246);
-    pdf.rect(0, pageHeight * 0.55, pageWidth, 3, 'F');
-
     try {
       const logoImg = new Image();
       logoImg.crossOrigin = "anonymous";
@@ -801,14 +798,17 @@ const SalesMarketingNeedsAnalysis = () => {
     pdf.setLineWidth(0.5);
     pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
 
+    // Contact info block – centered, clean
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(255, 255, 255);
     pdf.text(data.companyName || "", pageWidth / 2, 158, { align: "center" });
+
     pdf.setFontSize(10);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(200, 215, 255);
-    pdf.text(data.contactName || "", pageWidth / 2, 167, { align: "center" });
-    pdf.text(data.email || "", pageWidth / 2, 176, { align: "center" });
+    pdf.text(data.contactName || "", pageWidth / 2, 170, { align: "center" });
+    pdf.text(data.email || "", pageWidth / 2, 181, { align: "center" });
 
     pdf.setTextColor(180, 200, 255);
     pdf.setFontSize(9);
