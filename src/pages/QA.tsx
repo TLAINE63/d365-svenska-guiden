@@ -85,6 +85,7 @@ const QA = () => {
         description="Svar på vanliga frågor om Dynamics 365: implementeringstid, licenskostnader, Business Central vs Finance, CRM-val och AI med Copilot. Oberoende guide för svenska företag."
         canonicalPath="/qa"
         keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
+        ogImage="https://d365.se/og-qa.png"
       />
       <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: f.answer.substring(0, 300) }))} />
       <BreadcrumbSchema items={[
