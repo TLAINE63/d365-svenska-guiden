@@ -3,6 +3,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import VideoCard from "@/components/VideoCard";
+import SEOHead from "@/components/SEOHead";
+import { FAQSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
@@ -78,6 +80,17 @@ const QA = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title="Vanliga frågor om Microsoft Dynamics 365 – Priser, implementering & licenser"
+        description="Svar på vanliga frågor om Dynamics 365: implementeringstid, licenskostnader, Business Central vs Finance, CRM-val och AI med Copilot. Oberoende guide för svenska företag."
+        canonicalPath="/qa"
+        keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
+      />
+      <FAQSchema faqs={faqs.map(f => ({ question: f.question, answer: f.answer.substring(0, 300) }))} />
+      <BreadcrumbSchema items={[
+        { name: "Hem", url: "https://d365.se" },
+        { name: "Vanliga frågor", url: "https://d365.se/qa" },
+      ]} />
       <Navbar />
       
       {/* Header */}

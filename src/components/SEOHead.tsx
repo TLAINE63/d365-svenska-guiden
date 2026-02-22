@@ -15,7 +15,7 @@ const SEOHead = ({
   description,
   canonicalPath = "",
   keywords,
-  ogImage = "https://d365.se/og-image.png",
+  ogImage = "https://d365.se/og-erp.png",
   ogType = "website",
   noIndex = false,
 }: SEOHeadProps) => {
