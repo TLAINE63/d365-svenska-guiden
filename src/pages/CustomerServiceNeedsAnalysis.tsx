@@ -1577,6 +1577,7 @@ const CustomerServiceNeedsAnalysis = () => {
         description="Gör vår kostnadsfria behovsanalys och få en personlig rekommendation för Dynamics 365 Customer Service, Field Service och Contact Center."
         canonicalPath="/kundservice-behovsanalys"
         keywords="kundservice behovsanalys, Dynamics 365 Customer Service, Field Service, Contact Center"
+        ogImage="https://d365.se/og-kundservice-behovsanalys.png"
       />
       <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice." />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />

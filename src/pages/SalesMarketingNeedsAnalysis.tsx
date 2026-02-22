@@ -2526,6 +2526,7 @@ const SalesMarketingNeedsAnalysis = () => {
         description="Gör vår kostnadsfria behovsanalys och få en personlig rekommendation för Dynamics 365 Sales och Customer Insights (Marketing)."
         canonicalPath="/salj-marknad-behovsanalys"
         keywords="CRM behovsanalys, Dynamics 365 Sales, Marketing, Customer Insights, försäljning"
+        ogImage="https://d365.se/og-salj-marknad-behovsanalys.png"
       />
       <ServiceSchema 
         name="Sälj & Marknad Behovsanalys"

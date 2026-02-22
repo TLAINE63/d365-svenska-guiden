@@ -169,7 +169,7 @@ const Events = () => {
         description="Hitta kommande webinars, seminarier och events från Microsoft Dynamics 365-partners i Sverige. Business Central, Sales, Customer Service, AI & Copilot. Anmäl dig kostnadsfritt."
         canonicalPath="/events"
         keywords="Dynamics 365 event Sverige, Microsoft Dynamics 365 webinar, Business Central seminarium, Dynamics 365 partner event, Microsoft ERP webinar Sverige, Copilot event"
-        ogImage="https://d365.se/og-partner.png"
+        ogImage="https://d365.se/og-events.png"
       />
       <FAQSchema faqs={eventsFaqs} />
       <BreadcrumbSchema items={eventsBreadcrumbs} />
