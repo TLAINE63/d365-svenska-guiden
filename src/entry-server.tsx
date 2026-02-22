@@ -25,6 +25,7 @@ import D365CustomerService from './pages/D365CustomerService';
 import D365FieldService from './pages/D365FieldService';
 import D365ContactCenter from './pages/D365ContactCenter';
 import Events from './pages/Events';
+import QA from './pages/QA';
 
 export interface PrerenderRoute {
   path: string;
@@ -45,12 +46,13 @@ export const routes: PrerenderRoute[] = [
   { path: '/d365-field-service', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365-contact-center', priority: '0.8', changefreq: 'monthly' },
   { path: '/copilot', priority: '0.8', changefreq: 'monthly' },
-  { path: '/agents', priority: '0.8', changefreq: 'monthly' },
+  { path: '/agents', priority: '0.9', changefreq: 'monthly' },
   { path: '/behovsanalys', priority: '0.8', changefreq: 'monthly' },
   { path: '/salj-marknad-behovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/kundservice-behovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/branschlosningar', priority: '0.8', changefreq: 'monthly' },
-  { path: '/events', priority: '0.7', changefreq: 'weekly' },
+  { path: '/events', priority: '0.8', changefreq: 'weekly' },
+  { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly' },
 ];
@@ -86,6 +88,7 @@ export function render(url: string) {
           <Route path="/d365-field-service" element={<D365FieldService />} />
           <Route path="/d365-contact-center" element={<D365ContactCenter />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/qa" element={<QA />} />
         </Routes>
       </StaticRouter>
     </QueryClientProvider>
