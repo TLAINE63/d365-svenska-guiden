@@ -1,16 +1,17 @@
 import type { Plugin } from 'vite';
 import { build } from 'vite';
 import { resolve, join } from 'path';
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync } from 'fs';
 import { pathToFileURL } from 'url';
 import react from '@vitejs/plugin-react-swc';
 
 /**
  * Vite plugin that prerenders static HTML for all defined routes after the
- * client build completes. Runs as an isolated SSR build to avoid loops.
+ * client build completes.
  *
  * - Builds a separate SSR bundle from src/entry-server.tsx
  * - Renders each route to static HTML with react-helmet SEO tags
+ * - Links CSS files correctly in each generated HTML
  * - Writes route/index.html files into the dist directory
  * - Generates a fresh sitemap.xml from the prerendered routes
  */
@@ -67,19 +68,30 @@ export default function prerenderPlugin(): Plugin {
         // ── 4. Read the client-built index.html as template ──────────────
         const template = readFileSync(resolve(root, outDir, 'index.html'), 'utf-8');
 
+        // ── 5. Discover CSS files from the build output ──────────────────
+        const assetsDir = resolve(root, outDir, 'assets');
+        let cssFiles: string[] = [];
+        try {
+          cssFiles = readdirSync(assetsDir)
+            .filter(f => f.endsWith('.css'))
+            .map(f => `/assets/${f}`);
+        } catch {
+          /* assets dir might not exist */
+        }
+
         const baseUrl = 'https://d365.se';
         const today = new Date().toISOString().split('T')[0];
         const sitemapEntries: string[] = [];
 
-        // ── 5. Render each route ─────────────────────────────────────────
+        // ── 6. Render each route ─────────────────────────────────────────
         for (const route of routes) {
           try {
-            const { html, head } = render(route.path);
+            const { html: appHtml, head } = render(route.path);
 
             let page = template;
 
-            // Remove existing SEO tags from the template head
-            page = page.replace(/<title>.*?<\/title>/s, '');
+            // Remove existing SEO tags from the template head to avoid duplicates
+            page = page.replace(/<title>.*?<\/title>/gs, '');
             page = page.replace(/<meta\s+name="description"[^>]*>/g, '');
             page = page.replace(/<meta\s+name="keywords"[^>]*>/g, '');
             page = page.replace(/<meta\s+name="robots"[^>]*>/g, '');
@@ -87,6 +99,16 @@ export default function prerenderPlugin(): Plugin {
             page = page.replace(/<meta\s+property="og:[^"]*"[^>]*>/g, '');
             page = page.replace(/<meta\s+name="twitter:[^"]*"[^>]*>/g, '');
             page = page.replace(/<link\s+rel="canonical"[^>]*>/g, '');
+
+            // Ensure CSS files are linked in head (Vite usually does this, but verify)
+            for (const cssFile of cssFiles) {
+              if (!page.includes(cssFile)) {
+                page = page.replace(
+                  '</head>',
+                  `    <link rel="stylesheet" href="${cssFile}" />\n  </head>`
+                );
+              }
+            }
 
             // Inject route-specific head tags from react-helmet
             const headTags = [head.title, head.meta, head.link, head.script]
@@ -100,10 +122,10 @@ export default function prerenderPlugin(): Plugin {
             // Inject rendered HTML into the root div
             page = page.replace(
               '<div id="root"></div>',
-              `<div id="root">${html}</div>`
+              `<div id="root">${appHtml}</div>`
             );
 
-            // Clean up extra blank lines
+            // Clean up excessive blank lines for tidy output
             page = page.replace(/\n{3,}/g, '\n\n');
 
             // Write the file
@@ -120,7 +142,7 @@ export default function prerenderPlugin(): Plugin {
             writeFileSync(filePath, page, 'utf-8');
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 
-            // Collect sitemap entry
+            // Collect sitemap entry (exclude index.html, just paths)
             sitemapEntries.push(
               [
                 '  <url>',
@@ -136,7 +158,7 @@ export default function prerenderPlugin(): Plugin {
           }
         }
 
-        // ── 6. Generate sitemap.xml ──────────────────────────────────────
+        // ── 7. Generate sitemap.xml ──────────────────────────────────────
         const sitemap = [
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
