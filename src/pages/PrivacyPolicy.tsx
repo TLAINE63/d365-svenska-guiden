@@ -2,10 +2,17 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import SEOHead from "@/components/SEOHead";
 
 const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Dataskyddspolicy – GDPR och integritet"
+        description="Läs om hur d365.se hanterar dina personuppgifter i enlighet med GDPR. Information om cookies, datalagring och dina rättigheter."
+        canonicalPath="/dataskydd"
+        noIndex={true}
+      />
       <Navbar />
       
       <main className="pt-20 sm:pt-24 pb-12 sm:pb-16 md:pb-20">
