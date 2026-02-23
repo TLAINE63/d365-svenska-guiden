@@ -78,6 +78,11 @@ interface SalesMarketingAnalysisData {
   unifiedCustomerView: string;
   multipleDataSources: string;
   personalizationCritical: string;
+  ciCurrentMarketing: string;
+  ciJourneyNeed: string;
+  ciLeadScoring: string;
+  ciEventManagement: string;
+  ciMeasurement: string;
   integrationScope: string;
   integrationTypes: string[];
   integrationTypesCustom: string;
@@ -158,6 +163,11 @@ const initialData: SalesMarketingAnalysisData = {
   unifiedCustomerView: "",
   multipleDataSources: "",
   personalizationCritical: "",
+  ciCurrentMarketing: "",
+  ciJourneyNeed: "",
+  ciLeadScoring: "",
+  ciEventManagement: "",
+  ciMeasurement: "",
   integrationScope: "",
   integrationTypes: [],
   integrationTypesCustom: "",
@@ -470,15 +480,16 @@ const SalesMarketingNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 7;
+  const totalSteps = 8;
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Target, Building2, Target, Target, Target, Sparkles, FileText];
+  const stepIcons = [Target, Building2, Target, Target, Megaphone, Target, Sparkles, FileText];
   const stepTitles = [
     "Kommersiell modell",
     "Organisation & struktur",
     "Nuvarande arbetssätt & system",
     "Datamognad & kundbild",
+    "Customer Insights",
     "Integrationer",
     "AI & framtid",
     "Resultat",
@@ -650,6 +661,22 @@ const SalesMarketingNeedsAnalysis = () => {
     if ((data.aiUseCases || []).includes("Predictive Nurturing & Timing")) pdfInsightsScore += 1;
     if ((data.aiUseCases || []).includes("Personalisering i stor skala")) pdfInsightsScore += 1;
     if (data.customerDataSpread === "Spridd i flera system") pdfInsightsScore += 1;
+    // Steg 5 – Customer Insights & Marketing Automation
+    if (data.ciCurrentMarketing?.includes("Avancerat")) pdfInsightsScore += 2;
+    else if (data.ciCurrentMarketing?.includes("grundläggande")) pdfInsightsScore += 1;
+    if (data.ciJourneyNeed?.includes("Kritiskt")) pdfInsightsScore += 3;
+    else if (data.ciJourneyNeed?.includes("Viktigt")) pdfInsightsScore += 2;
+    if (data.ciLeadScoring?.includes("automatiserad nurturing")) pdfInsightsScore += 2;
+    else if (data.ciLeadScoring?.includes("poängsätta")) pdfInsightsScore += 1;
+    if (data.ciEventManagement?.includes("viktig del")) pdfInsightsScore += 2;
+    else if (data.ciEventManagement?.includes("regelbundet")) pdfInsightsScore += 1;
+    if (data.ciMeasurement?.includes("Avancerat")) pdfInsightsScore += 2;
+    else if (data.ciMeasurement?.includes("Grundläggande")) pdfInsightsScore += 1;
+    if (data.marketingNeeds.length >= 5) pdfInsightsScore += 3;
+    else if (data.marketingNeeds.length >= 3) pdfInsightsScore += 2;
+    else if (data.marketingNeeds.length > 0) pdfInsightsScore += 1;
+    if (data.marketingChannels.length >= 4) pdfInsightsScore += 2;
+    else if (data.marketingChannels.length >= 2) pdfInsightsScore += 1;
 
     const pdfGap = pdfSalesScore - pdfInsightsScore;
     const PDF_THRESHOLD = 5;
@@ -734,6 +761,10 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.digitalBehaviorSegmentation?.startsWith("Ja")) pdfAssessmentPoints.push("Beteendebaserad segmentering och triggerkommunikation");
     if (data.integrationScope === "Omfattande och affärskritiskt") pdfAssessmentPoints.push("Säkerställa robusta integrationer mot affärskritiska system");
     else if (data.integrationScope === "Måttligt") pdfAssessmentPoints.push("Bygga ut integrationer mot befintliga system");
+    if (data.ciJourneyNeed?.includes("Kritiskt")) pdfAssessmentPoints.push("Implementera flerkanaliga, personaliserade kundresor");
+    if (data.ciLeadScoring?.includes("automatiserad nurturing")) pdfAssessmentPoints.push("Automatisera lead scoring och nurturing");
+    if (data.ciEventManagement?.includes("viktig del")) pdfAssessmentPoints.push("Integrera event management i marknadsplattformen");
+    if (data.ciMeasurement === "Vi mäter inte systematiskt") pdfAssessmentPoints.push("Etablera mätning av marknadsföringens bidrag till pipeline");
     if (pdfAiHigh && !pdfAiRisk) {
       if ((data.aiUseCases?.length ?? 0) >= 4) pdfAssessmentPoints.push(`Realisera AI-initiativ inom ${(data.aiUseCases || []).slice(0, 2).join(" och ")}`);
       else pdfAssessmentPoints.push("Påbörja AI-driven säljcoachning och prediktion");
@@ -753,6 +784,9 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.b2bComplexRoleBased?.startsWith("Ja")) pdfKeyFactors.push("Rollbaserad säljstyrning");
     if ((data.integrationTypes || []).includes("Marketing automation")) pdfKeyFactors.push("Integrerat marketing automation");
     if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfKeyFactors.push("Behov av partnerportal");
+    if (data.ciJourneyNeed?.includes("Kritiskt")) pdfKeyFactors.push("Kritiskt behov av automatiserade kundresor");
+    if (data.ciLeadScoring?.includes("automatiserad nurturing")) pdfKeyFactors.push("Automatiserad lead nurturing");
+    if (data.marketingNeeds.length >= 5) pdfKeyFactors.push("Brett behov av marketing automation");
 
     // Dynamic import to reduce initial bundle size
     const { default: jsPDF } = await import("jspdf");
@@ -1094,10 +1128,23 @@ const SalesMarketingNeedsAnalysis = () => {
     // ── STEG 4: Datamognad & kundbild ─────────────────────────────────────
     if (data.unifiedCustomerView) addSection("Steg 4 – Samlad och tillförlitlig information om kunder på ett ställe?", data.unifiedCustomerView);
     if (data.multipleDataSources) addSection("Samlas kunddata från flera källor?", data.multipleDataSources);
-    if (data.personalizationCritical) addSection("Påverkar träffsäker kommunikation er försäljning i hög grad?", data.personalizationCritical);
 
-    // ── STEG 5: Integrationer ──────────────────────────────────────────────
-    if (data.integrationScope) addSection("Steg 5 – Hur omfattande är behovet av att CRM samverkar med andra system?", data.integrationScope);
+    // ── STEG 5: Customer Insights & Marketing Automation ──────────────────
+    if (data.ciCurrentMarketing) addSection("Steg 5 – Hur arbetar ni med marknadsföring idag?", data.ciCurrentMarketing);
+    if (data.marketingNeeds.length > 0) {
+      const mktgNeeds = [...data.marketingNeeds];
+      if (data.marketingNeedsOther?.trim()) mktgNeeds.push(`Övriga: ${data.marketingNeedsOther.trim()}`);
+      addBulletSection("Viktiga funktioner inom marketing automation", mktgNeeds);
+    }
+    if (data.ciJourneyNeed) addSection("Behov av automatiserade kundresor", data.ciJourneyNeed);
+    if (data.ciLeadScoring) addSection("Behov av lead scoring och nurturing", data.ciLeadScoring);
+    if (data.personalizationCritical) addSection("Personaliserat innehåll i kommunikation", data.personalizationCritical);
+    if (data.ciEventManagement) addSection("Event management via marknadsplattformen", data.ciEventManagement);
+    if (data.marketingChannels.length > 0) addBulletSection("Kommunikationskanaler", data.marketingChannels);
+    if (data.ciMeasurement) addSection("Mätning av marknadsföringens effekt", data.ciMeasurement);
+
+    // ── STEG 6: Integrationer ──────────────────────────────────────────────
+    if (data.integrationScope) addSection("Steg 6 – Hur omfattande är behovet av att CRM samverkar med andra system?", data.integrationScope);
     if ((data.integrationTypes || []).length > 0) {
       const integTypes = [...(data.integrationTypes || [])];
       if (data.integrationTypesCustom?.trim()) integTypes.push(`Övriga: ${data.integrationTypesCustom.trim()}`);
@@ -1106,8 +1153,8 @@ const SalesMarketingNeedsAnalysis = () => {
       addSection("Övriga system att integrera med", data.integrationTypesCustom);
     }
 
-    // ── STEG 6: AI & Framtid ──────────────────────────────────────────────
-    if (data.aiInterest) addSection("Steg 6 – Hur intresserade är ni av AI i CRM-systemet?", data.aiInterest);
+    // ── STEG 7: AI & Framtid ──────────────────────────────────────────────
+    if (data.aiInterest) addSection("Steg 7 – Hur intresserade är ni av AI i CRM-systemet?", data.aiInterest);
     if ((data.aiUseCases || []).length > 0) addBulletSection("Vilka AI-användningsområden är mest intressanta?", data.aiUseCases);
     if (data.aiDetails) addSection("Beskriv hur AI skulle kunna hjälpa er verksamhet", data.aiDetails);
 
@@ -1176,6 +1223,12 @@ const SalesMarketingNeedsAnalysis = () => {
             "Säljprocessens komplexitet": data.salesProcessComplexity || "Ej angivet",
             "Marknadsföring": data.marketingNeeds.join(", ") || "Ej angivet",
             "Marknadsföringskanaler": data.marketingChannels.join(", ") || "Ej angivet",
+            "CI – Nuvarande marknadsföring": data.ciCurrentMarketing || "Ej angivet",
+            "CI – Kundresor": data.ciJourneyNeed || "Ej angivet",
+            "CI – Lead scoring": data.ciLeadScoring || "Ej angivet",
+            "CI – Personalisering": data.personalizationCritical || "Ej angivet",
+            "CI – Event management": data.ciEventManagement || "Ej angivet",
+            "CI – Mätning": data.ciMeasurement || "Ej angivet",
             "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => `${s.system} (${s.importance})`).join(", ") || "Ej angivet",
             "KPI:er": data.kpis.join(", ") || "Ej angivet",
             "Önskelista": data.wishlist || "Ej angivet",
@@ -1708,9 +1761,101 @@ const SalesMarketingNeedsAnalysis = () => {
               </div>
             </div>
 
+          </div>
+        );
+
+      case 5:
+        return (
+          <div className="space-y-6">
+            {/* Nuvarande marknadsföring */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur arbetar ni med marknadsföring idag?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "Mest manuellt (nyhetsbrev, enstaka kampanjer)",
+                  "Vi har grundläggande automation (e-postflöden, enkel segmentering)",
+                  "Avancerat (marketing automation, kundresor, lead scoring)",
+                ].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.ciCurrentMarketing === opt}
+                    onClick={() => setData({ ...data, ciCurrentMarketing: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Funktioner inom marketing automation */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Vilka funktioner inom marketing automation är viktigast för er? (välj alla som stämmer)</Label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {marketingNeedOptions.map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.marketingNeeds.includes(opt)}
+                    onClick={() => handleCheckboxChange("marketingNeeds", opt)}
+                    type="checkbox"
+                  />
+                ))}
+              </div>
+              <div className="mt-3">
+                <Label className="text-sm text-muted-foreground mb-1.5 block">Övriga behov (fritext)</Label>
+                <input
+                  type="text"
+                  placeholder="Ange övriga behov..."
+                  value={data.marketingNeedsOther}
+                  onChange={(e) => setData({ ...data, marketingNeedsOther: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Kundresor */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur viktigt är det att kunna skapa automatiserade kundresor (customer journeys)?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "Inte aktuellt just nu",
+                  "Viktigt – vi vill guida leads genom köpresan automatiskt",
+                  "Kritiskt – vi behöver flerkanaliga, personaliserade kundresor",
+                ].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.ciJourneyNeed === opt}
+                    onClick={() => setData({ ...data, ciJourneyNeed: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Lead scoring */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Behöver ni lead scoring och nurturing?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "Nej, våra leads hanteras direkt av sälj",
+                  "Ja, vi vill poängsätta och kvalificera leads innan överlämning till sälj",
+                  "Ja, med automatiserad nurturing baserat på beteende och engagemang",
+                ].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.ciLeadScoring === opt}
+                    onClick={() => setData({ ...data, ciLeadScoring: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
             {/* Personalisering */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Påverkar träffsäker kommunikation er försäljning och konvertering i hög grad?</Label>
+              <Label className="text-base font-semibold mb-3 block">Hur viktigt är personaliserat och beteendeanpassat innehåll i er kommunikation?</Label>
               <div className="grid grid-cols-1 gap-2">
                 {[
                   "I begränsad utsträckning",
@@ -1727,10 +1872,66 @@ const SalesMarketingNeedsAnalysis = () => {
                 ))}
               </div>
             </div>
+
+            {/* Event management */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Behöver ni hantera event (fysiska eller digitala) via marknadsplattformen?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "Nej, det är inte relevant för oss",
+                  "Ja, vi arrangerar event och webinars regelbundet",
+                  "Ja, event är en viktig del av vår leadgenerering",
+                ].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.ciEventManagement === opt}
+                    onClick={() => setData({ ...data, ciEventManagement: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Kanaler */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Vilka kanaler vill ni kommunicera via? (välj alla som stämmer)</Label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {marketingChannelOptions.map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.marketingChannels.includes(opt)}
+                    onClick={() => handleCheckboxChange("marketingChannels", opt)}
+                    type="checkbox"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Mätning */}
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur mäter ni marknadsföringens effekt idag?</Label>
+              <div className="grid grid-cols-1 gap-2">
+                {[
+                  "Vi mäter inte systematiskt",
+                  "Grundläggande (öppningsgrad, klick, antal leads)",
+                  "Avancerat (attribution, kampanj-ROI, pipeline-bidrag)",
+                ].map((opt) => (
+                  <SelectionCard
+                    key={opt}
+                    label={opt}
+                    selected={data.ciMeasurement === opt}
+                    onClick={() => setData({ ...data, ciMeasurement: opt })}
+                    type="radio"
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             {/* Integrationsbehov */}
@@ -1783,7 +1984,7 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
         );
 
-      case 6: {
+      case 7: {
         const aiUseCaseOptions = [
           {
             label: "Predictive Lead & Opportunity Scoring",
@@ -1892,7 +2093,7 @@ const SalesMarketingNeedsAnalysis = () => {
         );
       }
 
-      case 7: {
+      case 8: {
         // ── POÄNGMOTOR ───────────────────────────────────────────────────
         // Signaler för D365 Sales
         let salesScore = 0;
@@ -1955,6 +2156,22 @@ const SalesMarketingNeedsAnalysis = () => {
         if ((data.aiUseCases || []).includes("Predictive Nurturing & Timing")) insightsScore += 1;
         if ((data.aiUseCases || []).includes("Personalisering i stor skala")) insightsScore += 1;
         if (data.customerDataSpread === "Spridd i flera system") insightsScore += 1;
+        // Steg 5 – Customer Insights & Marketing Automation
+        if (data.ciCurrentMarketing?.includes("Avancerat")) insightsScore += 2;
+        else if (data.ciCurrentMarketing?.includes("grundläggande")) insightsScore += 1;
+        if (data.ciJourneyNeed?.includes("Kritiskt")) insightsScore += 3;
+        else if (data.ciJourneyNeed?.includes("Viktigt")) insightsScore += 2;
+        if (data.ciLeadScoring?.includes("automatiserad nurturing")) insightsScore += 2;
+        else if (data.ciLeadScoring?.includes("poängsätta")) insightsScore += 1;
+        if (data.ciEventManagement?.includes("viktig del")) insightsScore += 2;
+        else if (data.ciEventManagement?.includes("regelbundet")) insightsScore += 1;
+        if (data.ciMeasurement?.includes("Avancerat")) insightsScore += 2;
+        else if (data.ciMeasurement?.includes("Grundläggande")) insightsScore += 1;
+        if (data.marketingNeeds.length >= 5) insightsScore += 3;
+        else if (data.marketingNeeds.length >= 3) insightsScore += 2;
+        else if (data.marketingNeeds.length > 0) insightsScore += 1;
+        if (data.marketingChannels.length >= 4) insightsScore += 2;
+        else if (data.marketingChannels.length >= 2) insightsScore += 1;
 
         // ── Avgörande: produkt & inriktning ────────────────────────────
         const gap = salesScore - insightsScore;
@@ -1988,6 +2205,9 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.b2bComplexRoleBased?.startsWith("Ja")) keyFactors.push("Rollbaserad säljstyrning");
         if ((data.integrationTypes || []).includes("Marketing automation")) keyFactors.push("Integrerat marketing automation");
         if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) keyFactors.push("Behov av partnerportal");
+        if (data.ciJourneyNeed?.includes("Kritiskt")) keyFactors.push("Kritiskt behov av automatiserade kundresor");
+        if (data.ciLeadScoring?.includes("automatiserad nurturing")) keyFactors.push("Automatiserad lead nurturing");
+        if (data.marketingNeeds.length >= 5) keyFactors.push("Brett behov av marketing automation");
 
         // ── Kommersiell mognadsnivå (1–4) ──────────────────────────────
         const maturityScore = (() => {
@@ -2093,6 +2313,10 @@ const SalesMarketingNeedsAnalysis = () => {
         if ((data.integrationTypes || []).includes("Marketing automation")) assessmentPoints.push("Integrera marketing automation med säljdata");
         if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) assessmentPoints.push("Automatisera kampanjflöden baserat på beteende");
         if (data.digitalBehaviorSegmentation?.startsWith("Ja")) assessmentPoints.push("Beteendebaserad segmentering och triggerkommunikation");
+        if (data.ciJourneyNeed?.includes("Kritiskt")) assessmentPoints.push("Implementera flerkanaliga, personaliserade kundresor");
+        if (data.ciLeadScoring?.includes("automatiserad nurturing")) assessmentPoints.push("Automatisera lead scoring och nurturing");
+        if (data.ciEventManagement?.includes("viktig del")) assessmentPoints.push("Integrera event management i marknadsplattformen");
+        if (data.ciMeasurement === "Vi mäter inte systematiskt") assessmentPoints.push("Etablera mätning av marknadsföringens bidrag till pipeline");
         if (hasHeavyIntegrations) assessmentPoints.push("Säkerställa robusta integrationer mot affärskritiska system");
         else if (hasModerateIntegrations) assessmentPoints.push("Bygga ut integrationer mot befintliga system");
         if (aiHighAmbition && !aiRiskFlag) {
