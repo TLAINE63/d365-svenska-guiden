@@ -911,10 +911,8 @@ const SalesMarketingNeedsAnalysis = () => {
       pdf.setFont("helvetica", "normal");
       pdfAssessmentPoints.forEach((point) => {
         if (yPos > 270) { pdf.addPage(); yPos = margin; }
-        pdf.setFillColor(16, 185, 129);
-        pdf.circle(margin + 2, yPos - 1.5, 1.2, "F");
-        const lines = pdf.splitTextToSize(point, contentWidth - 10);
-        pdf.text(lines, margin + 8, yPos);
+        const lines = pdf.splitTextToSize(`– ${point}`, contentWidth - 5);
+        pdf.text(lines, margin + 2, yPos);
         yPos += lines.length * 5 + 2;
       });
     }
@@ -963,10 +961,8 @@ const SalesMarketingNeedsAnalysis = () => {
       pdf.setFont("helvetica", "normal");
       pdfKeyFactors.slice(0, 5).forEach((f) => {
         if (yPos > 270) { pdf.addPage(); yPos = margin; }
-        pdf.setFillColor(59, 130, 246);
-        pdf.circle(margin + 7, yPos - 1.5, 1, "F");
-        const fLines = pdf.splitTextToSize(f, contentWidth - 15);
-        pdf.text(fLines, margin + 11, yPos);
+        const fLines = pdf.splitTextToSize(`– ${f}`, contentWidth - 10);
+        pdf.text(fLines, margin + 7, yPos);
         yPos += fLines.length * 5 + 1;
       });
       yPos += 6;
