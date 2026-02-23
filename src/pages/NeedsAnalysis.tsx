@@ -1429,9 +1429,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setTextColor(51, 51, 51);
       items.forEach((item) => {
         addNewPageIfNeeded(8);
-        pdf.setFillColor(0, 150, 136);
-        pdf.circle(margin + 3, yPos - 1.5, 1.5, 'F');
-        pdf.text(item, margin + 8, yPos);
+        pdf.text(`– ${item}`, margin + 3, yPos);
         yPos += 7;
       });
       
@@ -1664,10 +1662,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(51, 51, 51);
       recommendation.reasons.forEach((reason) => {
-        pdf.setFillColor(...recommendationColor);
-        pdf.circle(margin + 8, yPos - 1.5, 1.5, 'F');
-        const reasonLines = pdf.splitTextToSize(reason, contentWidth - 20);
-        pdf.text(reasonLines, margin + 13, yPos);
+        const reasonLines = pdf.splitTextToSize(`– ${reason}`, contentWidth - 15);
+        pdf.text(reasonLines, margin + 8, yPos);
         yPos += reasonLines.length * 5 + 3;
       });
       yPos += 5;
@@ -1690,10 +1686,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       addNewPageIfNeeded(8);
       let cleanLine = line.replace(/\*\*/g, '');
       if (line.startsWith('•')) {
-        pdf.setFillColor(...recommendationColor);
-        pdf.circle(margin + 3, yPos - 1.5, 1.5, 'F');
-        const textLines = pdf.splitTextToSize(cleanLine.substring(2), contentWidth - 10);
-        pdf.text(textLines, margin + 8, yPos);
+        const textLines = pdf.splitTextToSize(`– ${cleanLine.substring(2)}`, contentWidth - 5);
+        pdf.text(textLines, margin + 3, yPos);
         yPos += textLines.length * 5 + 2;
       } else if (cleanLine.trim()) {
         const textLines = pdf.splitTextToSize(cleanLine, contentWidth);
@@ -1829,9 +1823,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         addNewPageIfNeeded(8);
         const category = situationChallengeCategories.find(c => c.id === categoryId);
         if (category) {
-          pdf.setFillColor(0, 150, 136);
-          pdf.circle(margin + 3 + 5, yPos - 1.5, 1.5, 'F');
-          pdf.text(`${category.title}: ${value}`, margin + 8 + 5, yPos);
+          pdf.text(`– ${category.title}: ${value}`, margin + 5, yPos);
           yPos += 7;
         }
       });
@@ -1854,10 +1846,8 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setTextColor(51, 51, 51);
       data.challenges.forEach((challenge: string) => {
         addNewPageIfNeeded(8);
-        pdf.setFillColor(0, 150, 136);
-        pdf.circle(margin + 3 + 5, yPos - 1.5, 1.5, 'F');
-        const challengeLines = pdf.splitTextToSize(challenge, contentWidth - 18);
-        pdf.text(challengeLines, margin + 8 + 5, yPos);
+        const challengeLines = pdf.splitTextToSize(`– ${challenge}`, contentWidth - 10);
+        pdf.text(challengeLines, margin + 5, yPos);
         yPos += challengeLines.length * 6;
       });
       if (data.challengesOther) {
@@ -1884,9 +1874,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       pdf.setTextColor(51, 51, 51);
       data.kpis.forEach((kpi: string) => {
         addNewPageIfNeeded(8);
-        pdf.setFillColor(0, 150, 136);
-        pdf.circle(margin + 3 + 5, yPos - 1.5, 1.5, 'F');
-        pdf.text(kpi, margin + 8 + 5, yPos);
+        pdf.text(`– ${kpi}`, margin + 5, yPos);
         yPos += 7;
       });
       if (data.kpisOther) {
