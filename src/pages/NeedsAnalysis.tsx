@@ -687,7 +687,6 @@ const complexityMaturityOptions = {
   ],
   integrationPlatform: [
     { value: "inga", label: "Vi har idag inga externa system som behöver kopplas samman med affärssystemet" },
-    { value: "fa", label: "Vi har få externa system som behöver kopplas samman" },
     { value: "nagra", label: "Vi har flera system som behöver integreras" },
     { value: "manga", label: "Vi är starkt beroende av flera affärskritiska integrationer" },
   ],
@@ -892,7 +891,6 @@ const NeedsAnalysis = () => {
     
     if (c.integrationPlatform === "manga") { maturityScore += 25; maturityFactors.push("Många affärskritiska integrationer"); }
     else if (c.integrationPlatform === "nagra") { maturityScore += 15; }
-    else if (c.integrationPlatform === "fa") { maturityScore += 5; }
     
     if (c.governance === "formell") { maturityScore += 25; maturityFactors.push("Formell styrmodell"); }
     else if (c.governance === "viss") { maturityScore += 15; }
