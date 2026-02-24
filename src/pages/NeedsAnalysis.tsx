@@ -686,6 +686,7 @@ const complexityMaturityOptions = {
     { value: "stor", label: "Stor/dedikerad IT-organisation" },
   ],
   integrationPlatform: [
+    { value: "inga", label: "Vi har idag inga externa system som behöver kopplas samman med affärssystemet" },
     { value: "fa", label: "Vi har få externa system som behöver kopplas samman" },
     { value: "nagra", label: "Vi har flera system som behöver integreras" },
     { value: "manga", label: "Vi är starkt beroende av flera affärskritiska integrationer" },
