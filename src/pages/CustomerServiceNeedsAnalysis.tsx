@@ -941,7 +941,7 @@ const CustomerServiceNeedsAnalysis = () => {
               )}
             </div>
             <div>
-              <Label className="text-base font-semibold mb-3 block">Hur stort är ert serviceteam?</Label>
+              <Label className="text-base font-semibold mb-3 block">Hur stort är ert kundserviceteam?</Label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {teamSizeOptions.map((opt) => (
                   <SelectionCard key={opt} label={opt} selected={data.serviceTeamSize === opt} onClick={() => setData({ ...data, serviceTeamSize: opt })} type="radio" />
