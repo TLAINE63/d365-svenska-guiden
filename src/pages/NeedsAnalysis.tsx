@@ -2941,6 +2941,13 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               </h3>
               {(() => {
                 const partners: { icon: string; label: string; description: string }[] = [];
+                
+                // Resolve display names for business model and industry
+                const businessModelDisplay = data.businessModel || "Generell";
+                const industryDisplay = data.industry === "Övrigt" && data.industryOther 
+                  ? data.industryOther 
+                  : (data.industry || "");
+
                 if (maturityLevel >= 3 || complexity.riskLevel === "Hög" || complexity.riskLevel === "Medel-hög") {
                   partners.push({ icon: "🏢", label: "Enterprise ERP-arkitekt", description: "Partner med dokumenterad erfarenhet av komplexa multi-entity eller globala implementationer" });
                 }
@@ -2956,6 +2963,35 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 if (partners.length === 0) {
                   partners.push({ icon: "⚡", label: "Business Central-specialist", description: "Partner specialiserad på effektiva ERP-implementationer för medelstora organisationer" });
                 }
+
+                // Always add business model competency
+                if (businessModelDisplay && businessModelDisplay !== "Generell") {
+                  const modelIcons: Record<string, string> = { "Produktion": "🏭", "Distribution": "📦", "Konsulttjänster": "💼", "Retail / E-handel": "🛒" };
+                  const modelDescriptions: Record<string, string> = {
+                    "Produktion": "Erfarenhet av tillverkningsprocesser, MRP/APS, produktionsplanering och kvalitetsstyrning",
+                    "Distribution": "Erfarenhet av lager, logistik, inköp och supply chain-processer",
+                    "Konsulttjänster": "Erfarenhet av projektredovisning, resursplanering och konsultverksamhet",
+                    "Retail / E-handel": "Erfarenhet av butikslösningar, POS, e-handel och omnikanalförsäljning",
+                  };
+                  // Only add if not already covered by a more specific entry (e.g. Produktion)
+                  if (!partners.some(p => p.label.toLowerCase().includes(businessModelDisplay.toLowerCase().split(" ")[0]))) {
+                    partners.push({
+                      icon: modelIcons[businessModelDisplay] || "📋",
+                      label: `Kompetens inom ${businessModelDisplay}`,
+                      description: modelDescriptions[businessModelDisplay] || `Partner med erfarenhet av affärsmodellen ${businessModelDisplay}`
+                    });
+                  }
+                }
+
+                // Always add industry competency
+                if (industryDisplay) {
+                  partners.push({
+                    icon: "🎯",
+                    label: `Branscherfarenhet: ${industryDisplay}`,
+                    description: `Partner med dokumenterade kundcase eller specialisering inom ${industryDisplay}`
+                  });
+                }
+
                 return partners.map(p => (
                   <div key={p.label} className="flex items-start gap-3 p-3 rounded-lg bg-muted/40">
                     <span className="text-xl flex-shrink-0">{p.icon}</span>
