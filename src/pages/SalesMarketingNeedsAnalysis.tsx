@@ -359,7 +359,6 @@ const salesComplexityOptions = [
 
 const marketingNeedOptions = [
   "E-postmarknadsföring",
-  "Marketing automation",
   "Lead scoring och nurturing",
   "Kampanjhantering",
   "Event management",
