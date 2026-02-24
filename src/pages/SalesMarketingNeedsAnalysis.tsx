@@ -631,7 +631,7 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfSalesScore += 2;
     if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) pdfSalesScore += 1;
     if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) pdfSalesScore += 1;
-    if (data.followUpMethod === "Excel" || data.followUpMethod === "Lokala system") pdfSalesScore += 1;
+    if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Lokala system") pdfSalesScore += 1;
     if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") pdfSalesScore += 1;
     if (data.multiCountry === "Ja, flera länder") pdfSalesScore += 1;
 
@@ -732,7 +732,7 @@ const SalesMarketingNeedsAnalysis = () => {
     const pdfAiHigh = data.aiInterest === "Mycket intresserade – Vi vill vara i framkant";
     const pdfAiMedium = data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna";
     const pdfAiRisk = (pdfAiHigh || pdfAiMedium) && pdfSpreadData;
-    const pdfUsesExcel = data.followUpMethod === "Excel" || data.currentCrmUsage === "Nej";
+    const pdfUsesExcel = data.followUpMethod === "Mestadels genom Excel" || data.currentCrmUsage === "Nej";
     const pdfUsesBasicCrm = data.currentCrmUsage === "Enkelt";
 
     let pdfAssessmentIntro = `Er verksamhet arbetar med ${pdfModelText}`;
@@ -1712,7 +1712,7 @@ const SalesMarketingNeedsAnalysis = () => {
             <div>
               <Label className="text-base font-semibold mb-3 block">Hur sker uppföljning idag?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Excel", "Lokala system", "Central rapportering"].map((opt) => (
+                {["Mestadels genom Excel", "Lokala system", "Central rapportering"].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
@@ -2119,7 +2119,7 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) salesScore += 1;
         if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) salesScore += 1;
         // Steg 3 – nuläge
-        if (data.followUpMethod === "Excel" || data.followUpMethod === "Lokala system") salesScore += 1;
+        if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Lokala system") salesScore += 1;
         if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") salesScore += 1;
         // AI-ambition sälj
         if (data.aiAmbition === "AI-stöd i sälj (prognos, rekommendationer)") salesScore += 2;
@@ -2286,7 +2286,7 @@ const SalesMarketingNeedsAnalysis = () => {
         const aiMediumAmbition = data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna";
         const aiUseCaseCount = data.aiUseCases?.length ?? 0;
         const aiRiskFlag = (aiHighAmbition || aiMediumAmbition) && hasSpreadData;
-        const usesExcel = data.followUpMethod === "Excel" || data.currentCrmUsage === "Nej";
+        const usesExcel = data.followUpMethod === "Mestadels genom Excel" || data.currentCrmUsage === "Nej";
         const usesBasicCrm = data.currentCrmUsage === "Enkelt";
         const isLarge = ["250-999 anställda", "1.000-4.999 anställda", "Mer än 5.000 anställda"].includes(data.employees);
         const isMid = ["100-249 anställda"].includes(data.employees);
