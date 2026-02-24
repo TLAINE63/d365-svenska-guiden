@@ -352,7 +352,7 @@ const CustomerServiceNeedsAnalysis = () => {
       recommendations.customerService.score += 8;
       recommendations.customerService.reasons.push("Fragmenterad kunskap – behov av strukturerad knowledge base");
     }
-    if (data.numberOfAgents === "51–150 kundservicemedarbetare" || data.numberOfAgents === "151–500 kundservicemedarbetare" || data.numberOfAgents === "Mer än 500 kundservicemedarbetare") {
+    if (data.serviceTeamSize === "51-100" || data.serviceTeamSize === "100+") {
       recommendations.contactCenter.score += 15;
       recommendations.contactCenter.reasons.push("Stort team av kundservicemedarbetare kräver Contact Center-plattform");
     }
@@ -777,7 +777,6 @@ const CustomerServiceNeedsAnalysis = () => {
           ["SLA-krav", data.slaRequirements || data.serviceAgreements],
           ["Self-service portal", data.selfServicePortal],
           ["Kunskapsdatabas", data.knowledgeBase],
-          ["Antal kundservicemedarbetare", data.numberOfAgents],
           ["Inkommande volym/dag", data.inboundVolume],
           ["Contact center-kanaler", data.contactCenterChannels?.join(", ")],
           ["Realtidsstyrning (CC)", data.realtimeManagement],
@@ -872,7 +871,6 @@ const CustomerServiceNeedsAnalysis = () => {
             "SLA-krav": data.slaRequirements || data.serviceAgreements,
             "Self-service portal": data.selfServicePortal,
             "Kunskapsdatabas": data.knowledgeBase,
-            "Antal kundservicemedarbetare": data.numberOfAgents,
             "Inkommande volym/dag": data.inboundVolume,
             "Contact center-kanaler": data.contactCenterChannels?.join(", "),
             "Antal tekniker": data.numberOfTechnicians,
@@ -1021,10 +1019,6 @@ const CustomerServiceNeedsAnalysis = () => {
 
             {(isContactCenter || isCombination) && (
               <>
-                <div>
-                  <Label className="text-base font-semibold mb-3 block">Hur många kundservicemedarbetare har ni?</Label>
-                  {makeRadioGroup("numberOfAgents", ["Färre än 10 kundservicemedarbetare", "10–50 kundservicemedarbetare", "51–150 kundservicemedarbetare", "151–500 kundservicemedarbetare", "Mer än 500 kundservicemedarbetare"])}
-                </div>
                 <div>
                   <Label className="text-base font-semibold mb-3 block">Hur hög är er inkommande volym per dag?</Label>
                   {makeRadioGroup("inboundVolume", ["Färre än 100 kontakter/dag", "100–500 kontakter/dag", "500–2 000 kontakter/dag", "Mer än 2 000 kontakter/dag"])}
@@ -1463,7 +1457,7 @@ const CustomerServiceNeedsAnalysis = () => {
                       { label: "SLA-krav (digital)", value: data.slaRequirements },
                       { label: "Self-service portal", value: data.selfServicePortal },
                       { label: "Kunskapsdatabas", value: data.knowledgeBase },
-                      { label: "Antal kundservicemedarbetare", value: data.numberOfAgents },
+                      
                       { label: "Inkommande volym/dag", value: data.inboundVolume },
                       { label: "Contact center-kanaler", value: data.contactCenterChannels?.join(", ") },
                       { label: "Realtidsstyrning (CC)", value: data.realtimeManagement },
