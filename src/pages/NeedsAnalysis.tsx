@@ -2651,8 +2651,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
-          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" },
-          { value: "Inte intresserade just nu", label: "Inte intresserade just nu" }
+          { value: "Avvaktande", label: "Avvaktande - Vi vill se konkreta användningsfall först" }
         ];
         return (
           <div className="space-y-6">

@@ -2042,7 +2042,6 @@ const SalesMarketingNeedsAnalysis = () => {
                   "Mycket intresserade – Vi vill vara i framkant",
                   "Ganska intresserade – Vi vill utforska möjligheterna",
                   "Avvaktande – Vi vill se konkreta användningsfall först",
-                  "Inte intresserade just nu",
                 ].map((opt) => (
                   <SelectionCard
                     key={opt}
