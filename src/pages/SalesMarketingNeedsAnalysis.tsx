@@ -616,10 +616,12 @@ const SalesMarketingNeedsAnalysis = () => {
     if (!validateContactForm()) return;
 
     // ── Kör samma poängmotor som steg 7 ─────────────────────────────────
-    let pdfSalesScore = 0;
+    let pdfSalesScore = 3;
     if (data.commercialModel === "b2b_relational") pdfSalesScore += 4;
     if (data.commercialModel === "b2b_complex") pdfSalesScore += 3;
     if (data.commercialModel === "partner_channel") pdfSalesScore += 3;
+    if (data.commercialModel === "digital_market") pdfSalesScore += 1;
+    if (data.commercialModel === "b2c_volume") pdfSalesScore += 1;
     if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") pdfSalesScore += 2;
     if (data.b2bStructuredPipeline === "Vi har definierade säljsteg") pdfSalesScore += 1;
     if (data.b2bForecastNeeds === "Ja, kritiskt") pdfSalesScore += 2;
@@ -631,8 +633,9 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfSalesScore += 2;
     if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) pdfSalesScore += 1;
     if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) pdfSalesScore += 1;
-    if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Flera olika rapporter från flera olika system, beroende på avdelning, enhet, organisation") pdfSalesScore += 1;
-    if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") pdfSalesScore += 1;
+    if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Flera olika rapporter från flera olika system, beroende på avdelning, enhet, organisation") pdfSalesScore += 2;
+    if (data.currentCrmUsage === "Nej") pdfSalesScore += 2;
+    else if (data.currentCrmUsage === "Vi har ett enklare CRM-system som används av delar av organisationen") pdfSalesScore += 1;
     if (data.multiCountry === "Ja, flera länder") pdfSalesScore += 1;
 
     let pdfInsightsScore = 0;
@@ -650,13 +653,13 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.multipleDataSources === "Ja") pdfInsightsScore += 2;
     if (data.unifiedCustomerView === "Nej, informationen är spridd") pdfInsightsScore += 2;
     if (data.unifiedCustomerView === "Delvis, men inte komplett") pdfInsightsScore += 1;
-    if (data.personalizationCritical === "I hög grad") pdfInsightsScore += 3;
+    if (data.personalizationCritical === "I hög grad") pdfInsightsScore += 2;
     if (data.personalizationCritical === "I viss utsträckning") pdfInsightsScore += 1;
     if ((data.integrationTypes || []).includes("Marketing automation")) pdfInsightsScore += 2;
     if ((data.integrationTypes || []).includes("E-handel")) pdfInsightsScore += 1;
     if ((data.integrationTypes || []).includes("BI")) pdfInsightsScore += 1;
-    if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") pdfInsightsScore += 3;
-    if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") pdfInsightsScore += 2;
+    if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") pdfInsightsScore += 2;
+    if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") pdfInsightsScore += 1;
     if ((data.aiUseCases || []).includes("AI-driven segmentering")) pdfInsightsScore += 2;
     if ((data.aiUseCases || []).includes("Predictive Nurturing & Timing")) pdfInsightsScore += 1;
     if ((data.aiUseCases || []).includes("Personalisering i stor skala")) pdfInsightsScore += 1;
@@ -672,14 +675,15 @@ const SalesMarketingNeedsAnalysis = () => {
     else if (data.ciEventManagement?.includes("regelbundet")) pdfInsightsScore += 1;
     if (data.ciMeasurement?.includes("Avancerat")) pdfInsightsScore += 2;
     else if (data.ciMeasurement?.includes("Grundläggande")) pdfInsightsScore += 1;
-    if (data.marketingNeeds.length >= 5) pdfInsightsScore += 3;
-    else if (data.marketingNeeds.length >= 3) pdfInsightsScore += 2;
-    else if (data.marketingNeeds.length > 0) pdfInsightsScore += 1;
+    if (data.marketingNeeds.length >= 5) pdfInsightsScore += 2;
+    else if (data.marketingNeeds.length >= 3) pdfInsightsScore += 1;
     if (data.marketingChannels.length >= 4) pdfInsightsScore += 2;
     else if (data.marketingChannels.length >= 2) pdfInsightsScore += 1;
 
-    const pdfGap = pdfSalesScore - pdfInsightsScore;
-    const PDF_THRESHOLD = 5;
+    const pdfNormalizedSales = (pdfSalesScore / 28) * 100;
+    const pdfNormalizedInsights = (pdfInsightsScore / 45) * 100;
+    const pdfGap = pdfNormalizedSales - pdfNormalizedInsights;
+    const PDF_THRESHOLD = 25;
     const pdfProduct = pdfGap > PDF_THRESHOLD ? "Dynamics 365 Sales"
       : -pdfGap > PDF_THRESHOLD ? "Dynamics 365 Customer Insights"
       : "Dynamics 365 Sales + Customer Insights";
@@ -2099,11 +2103,15 @@ const SalesMarketingNeedsAnalysis = () => {
       case 8: {
         // ── POÄNGMOTOR ───────────────────────────────────────────────────
         // Signaler för D365 Sales
-        let salesScore = 0;
+        // Baspoäng: de flesta organisationer har nytta av Sales
+        let salesScore = 3;
         // Kommersiell modell
         if (data.commercialModel === "b2b_relational") salesScore += 4;
         if (data.commercialModel === "b2b_complex") salesScore += 3;
         if (data.commercialModel === "partner_channel") salesScore += 3;
+        // Även digitala/B2C-modeller har viss nytta av Sales
+        if (data.commercialModel === "digital_market") salesScore += 1;
+        if (data.commercialModel === "b2c_volume") salesScore += 1;
         // B2B-relational följdfrågor
         if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") salesScore += 2;
         if (data.b2bStructuredPipeline === "Vi har definierade säljsteg") salesScore += 1;
@@ -2118,9 +2126,10 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) salesScore += 2;
         if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) salesScore += 1;
         if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) salesScore += 1;
-        // Steg 3 – nuläge
-        if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Flera olika rapporter från flera olika system, beroende på avdelning, enhet, organisation") salesScore += 1;
-        if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") salesScore += 1;
+        // Steg 3 – nuläge (behov av bättre system → Sales relevant)
+        if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Flera olika rapporter från flera olika system, beroende på avdelning, enhet, organisation") salesScore += 2;
+        if (data.currentCrmUsage === "Nej") salesScore += 2;
+        else if (data.currentCrmUsage === "Vi har ett enklare CRM-system som används av delar av organisationen") salesScore += 1;
         // AI-ambition sälj
         if (data.aiAmbition === "AI-stöd i sälj (prognos, rekommendationer)") salesScore += 2;
         // Multi-country → ger sales-komplexitet
@@ -2146,15 +2155,15 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.multipleDataSources === "Ja") insightsScore += 2;
         if (data.unifiedCustomerView === "Nej, informationen är spridd") insightsScore += 2;
         if (data.unifiedCustomerView === "Delvis, men inte komplett") insightsScore += 1;
-        if (data.personalizationCritical === "I hög grad") insightsScore += 3;
+        if (data.personalizationCritical === "I hög grad") insightsScore += 2;
         if (data.personalizationCritical === "I viss utsträckning") insightsScore += 1;
         // Steg 5 – integrationer
         if ((data.integrationTypes || []).includes("Marketing automation")) insightsScore += 2;
         if ((data.integrationTypes || []).includes("E-handel")) insightsScore += 1;
         if ((data.integrationTypes || []).includes("BI")) insightsScore += 1;
         // Steg 6 – AI
-        if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") insightsScore += 3;
-        if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") insightsScore += 2;
+        if (data.aiInterest === "Mycket intresserade – Vi vill vara i framkant") insightsScore += 2;
+        if (data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna") insightsScore += 1;
         if ((data.aiUseCases || []).includes("AI-driven segmentering")) insightsScore += 2;
         if ((data.aiUseCases || []).includes("Predictive Nurturing & Timing")) insightsScore += 1;
         if ((data.aiUseCases || []).includes("Personalisering i stor skala")) insightsScore += 1;
@@ -2170,15 +2179,17 @@ const SalesMarketingNeedsAnalysis = () => {
         else if (data.ciEventManagement?.includes("regelbundet")) insightsScore += 1;
         if (data.ciMeasurement?.includes("Avancerat")) insightsScore += 2;
         else if (data.ciMeasurement?.includes("Grundläggande")) insightsScore += 1;
-        if (data.marketingNeeds.length >= 5) insightsScore += 3;
-        else if (data.marketingNeeds.length >= 3) insightsScore += 2;
-        else if (data.marketingNeeds.length > 0) insightsScore += 1;
+        if (data.marketingNeeds.length >= 5) insightsScore += 2;
+        else if (data.marketingNeeds.length >= 3) insightsScore += 1;
         if (data.marketingChannels.length >= 4) insightsScore += 2;
         else if (data.marketingChannels.length >= 2) insightsScore += 1;
 
         // ── Avgörande: produkt & inriktning ────────────────────────────
-        const gap = salesScore - insightsScore;
-        const THRESHOLD = 5;
+        // Normalisera poäng till jämförbar skala (Sales max ~28, Insights max ~45)
+        const normalizedSales = (salesScore / 28) * 100;
+        const normalizedInsights = (insightsScore / 45) * 100;
+        const gap = normalizedSales - normalizedInsights;
+        const THRESHOLD = 25; // Behöver tydlig övervikt för att rekommendera enbart ett system
         let product: string;
         let direction: string;
         let isGransland = false;
@@ -2192,7 +2203,7 @@ const SalesMarketingNeedsAnalysis = () => {
         } else {
           product = "Dynamics 365 Sales + Customer Insights";
           direction = "Integrerad kommersiell plattform";
-          isGransland = Math.abs(gap) < 3;
+          isGransland = Math.abs(gap) < 10;
         }
 
         // ── Drivande faktorer ───────────────────────────────────────────
