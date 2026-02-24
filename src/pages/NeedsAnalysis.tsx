@@ -3356,18 +3356,18 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       <main className="flex-grow pt-24 pb-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+          <div className="text-center mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
               Behovsanalys för Dynamics 365 ERP
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm">
               Svara på frågorna nedan för att få en personlig rekommendation och analys
             </p>
           </div>
 
           {/* Progress */}
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-2">
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-1">
               <span className="text-sm text-muted-foreground">
                 Steg {currentStep} av {totalSteps}
               </span>
@@ -3385,7 +3385,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           </div>
 
           {/* Step indicators */}
-          <div className="flex justify-center gap-2 mb-8 flex-wrap">
+          <div className="flex justify-center gap-2 mb-4 flex-wrap">
             {stepTitles.map((title, index) => {
               const Icon = stepIcons[index];
               const stepNum = index + 1;
@@ -3413,11 +3413,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
           {/* Content */}
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-3">
+            <CardHeader className="py-3">
+              <CardTitle className="flex items-center gap-2 text-lg">
                 {(() => {
                   const Icon = stepIcons[currentStep - 1];
-                  return <Icon className="w-6 h-6 text-finance-supply" />;
+                  return <Icon className="w-5 h-5 text-finance-supply" />;
                 })()}
                 {stepTitles[currentStep - 1]}
               </CardTitle>
