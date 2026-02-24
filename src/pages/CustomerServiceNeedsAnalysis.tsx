@@ -1077,31 +1077,36 @@ const CustomerServiceNeedsAnalysis = () => {
             ))}
           </div>
         );
+        const hasNoFieldTechnicians = data.numberOfTechnicians === "Vi har inga fältservicetekniker";
         return (
           <div className="space-y-8">
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-              <p className="text-sm text-primary font-medium">🔧 Frågorna nedan gäller er fältserviceverksamhet</p>
+              <p className="text-sm text-primary font-medium">🔧 Har ni tekniker som arbetar ute hos kund?</p>
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Hur många tekniker har ni i fält?</Label>
-              {makeRadioGroup4("numberOfTechnicians", ["Färre än 10 tekniker", "10–50 tekniker", "51–200 tekniker", "Mer än 200 tekniker"])}
+              {makeRadioGroup4("numberOfTechnicians", ["Vi har inga fältservicetekniker", "Färre än 10 tekniker", "10–50 tekniker", "51–200 tekniker", "Mer än 200 tekniker"])}
             </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Hur sker schemaläggning av servicebesök idag?</Label>
-              {makeRadioGroup4("schedulingNeeds", ["Manuellt via telefon/mail", "Excel eller enklare verktyg", "Dedikerat schemaläggningssystem", "Optimerat med AI/automatisering"])}
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Hur viktig är reservdelshantering?</Label>
-              {makeRadioGroup4("sparepartsManagement", ["Inte relevant", "Viktigt men inte kritiskt", "Kritisk – tekniker måste ha rätt delar vid besöket"])}
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Har ni serviceavtal med garanterade svarstider?</Label>
-              {makeRadioGroup4("serviceAgreements", ["Nej, inga formella avtal", "Ja, informella SLA", "Ja, med garanterade svarstider och tillgänglighet"])}
-            </div>
-            <div>
-              <Label className="text-base font-semibold mb-3 block">Hur stor är er geografiska spridning?</Label>
-              {makeRadioGroup4("geographicSpread", ["Lokalt – en stad/region", "Regionalt – delar av Sverige", "Nationellt – hela Sverige", "Nordiska länder", "Globalt"])}
-            </div>
+            {!hasNoFieldTechnicians && data.numberOfTechnicians && (
+              <>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur sker schemaläggning av servicebesök idag?</Label>
+                  {makeRadioGroup4("schedulingNeeds", ["Manuellt via telefon/mail", "Excel eller enklare verktyg", "Dedikerat schemaläggningssystem", "Optimerat med AI/automatisering"])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur viktig är reservdelshantering?</Label>
+                  {makeRadioGroup4("sparepartsManagement", ["Inte relevant", "Viktigt men inte kritiskt", "Kritisk – tekniker måste ha rätt delar vid besöket"])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Har ni serviceavtal med garanterade svarstider?</Label>
+                  {makeRadioGroup4("serviceAgreements", ["Nej, inga formella avtal", "Ja, informella SLA", "Ja, med garanterade svarstider och tillgänglighet"])}
+                </div>
+                <div>
+                  <Label className="text-base font-semibold mb-3 block">Hur stor är er geografiska spridning?</Label>
+                  {makeRadioGroup4("geographicSpread", ["Lokalt – en stad/region", "Regionalt – delar av Sverige", "Nationellt – hela Sverige", "Nordiska länder", "Globalt"])}
+                </div>
+              </>
+            )}
           </div>
         );
       }
