@@ -367,6 +367,7 @@ const marketingNeedOptions = [
   "Automatiserade Kundresor (customer journeys)",
   "Flexibel Segmentering",
   "A/B-testning",
+  "Spåra besökare på hemsidan",
 ];
 
 const marketingChannelOptions = [
