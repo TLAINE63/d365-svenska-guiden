@@ -891,11 +891,6 @@ const NeedsAnalysis = () => {
     if (c.integrationPlatform === "manga") { maturityScore += 25; maturityFactors.push("Många affärskritiska integrationer"); }
     else if (c.integrationPlatform === "nagra") { maturityScore += 15; }
     
-    if (c.governance === "formell") { maturityScore += 25; maturityFactors.push("Formell styrmodell"); }
-    else if (c.governance === "viss") { maturityScore += 15; }
-    
-    if (c.globalStandardization === "hog") { maturityScore += 25; maturityFactors.push("Höga krav på global standardisering"); }
-    else if (c.globalStandardization === "viss") { maturityScore += 12; }
 
     // Weighted total (0-100)
     const weightedTotal = (structureScore * 0.3) + (operativeScore * 0.4) + (maturityScore * 0.3);
@@ -909,7 +904,7 @@ const NeedsAnalysis = () => {
 
     // Risk assessment: high complexity + low IT maturity = high risk
     const isHighComplexity = (structureScore + operativeScore) > 50;
-    const isLowMaturity = c.itOrganization === "ingen" || (!c.itOrganization && !c.governance);
+    const isLowMaturity = c.itOrganization === "ingen" || !c.itOrganization;
     const isHighRisk = isHighComplexity && isLowMaturity;
     
     let riskLevel: string;
@@ -1227,14 +1222,6 @@ const NeedsAnalysis = () => {
       bcReasons.push("Minimal IT-resurs gynnas av Business Centrals lägre komplexitet");
     }
 
-    // ---- Governance ----
-    const gov = data.complexity.governance;
-    if (gov === "formell") {
-      fscScore += 10;
-      fscReasons.push("Formell styrmodell matchar F&SC:s strukturerade processhantering");
-    } else if (gov === "informell") {
-      bcScore += 5;
-    }
 
     // ---- POS integration (Retail) ----
     if (bm === "Retail" && data.complexity.posIntegration === "ja") {
@@ -1298,11 +1285,6 @@ const NeedsAnalysis = () => {
       fscReasons.push("Komplex konsolidering (multi-GAAP) kräver F&SC");
     }
 
-    // ---- Global standardization ----
-    if (data.complexity.globalStandardization === "hog") {
-      fscScore += 5;
-      fscReasons.push("Höga krav på global standardisering gynnas av F&SC");
-    }
 
     // ---- Complexity assessment ----
     const complexity = getComplexityScores();
@@ -1766,8 +1748,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const maturityLabels: { label: string; value: string }[] = [
       { label: "IT-organisation", value: complexityMaturityOptions.itOrganization.find(o => o.value === c.itOrganization)?.label || "Ej angivet" },
       { label: "Integrationer", value: complexityMaturityOptions.integrationPlatform.find(o => o.value === c.integrationPlatform)?.label || "Ej angivet" },
-      { label: "Governance", value: complexityMaturityOptions.governance.find(o => o.value === c.governance)?.label || "Ej angivet" },
-      { label: "Global standard.", value: complexityMaturityOptions.globalStandardization.find(o => o.value === c.globalStandardization)?.label || "Ej angivet" },
     ];
     maturityLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
 
@@ -2448,14 +2428,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                       </div>
                     </div>
                   )}
-                </div>
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">Hur strukturerat arbetar ni med system- och processbeslut?</Label>
-                  {renderComplexityRadio("governance", complexityMaturityOptions.governance)}
-                </div>
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">Hur viktigt är det att arbeta enligt gemensamma processer i hela organisationen?</Label>
-                  {renderComplexityRadio("globalStandardization", complexityMaturityOptions.globalStandardization)}
                 </div>
               </div>
             </div>
