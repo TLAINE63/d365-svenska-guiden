@@ -1679,7 +1679,7 @@ const SalesMarketingNeedsAnalysis = () => {
                 {[
                   "Nej",
                   "Vi har ett enklare CRM-system som används av delar av organisationen",
-                  "Avancerat",
+                  "Ja, vi har ett avancerat CRM-system",
                 ].map((opt) => (
                   <SelectionCard
                     key={opt}
