@@ -365,7 +365,7 @@ const marketingNeedOptions = [
   "Event management",
   "Landningssidor och formulär",
   "Social media marketing",
-  "Kundresor (customer journeys)",
+  "Automatiserade Kundresor (customer journeys)",
   "Flexibel Segmentering",
   "A/B-testning",
 ];
