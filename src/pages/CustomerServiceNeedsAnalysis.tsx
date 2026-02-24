@@ -326,20 +326,26 @@ const CustomerServiceNeedsAnalysis = () => {
       contactCenter: { score: 0, reasons: [] },
     };
 
+    // Customer Service är alltid grunden – de flesta organisationer behöver ärendehantering
+    recommendations.customerService.score += 15; // Grundvikt: ärendehantering är alltid relevant
+    recommendations.customerService.reasons.push("Ärendehantering är grunden i alla kundserviceorganisationer");
+
     if (data.serviceModel === "Ärendebaserad kundservice") {
       recommendations.customerService.score += 40;
       recommendations.customerService.reasons.push("Ärendebaserad kundservice – Customer Service passar bäst");
     } else if (data.serviceModel === "Volymbaserad kundservice / Contact Center") {
       recommendations.contactCenter.score += 40;
+      recommendations.customerService.score += 10; // CS är fortfarande relevant som grund
       recommendations.contactCenter.reasons.push("Volymbaserad kundservice med contact center-fokus – Contact Center är rätt lösning");
     } else if (data.serviceModel === "Fältservice med tekniker") {
       recommendations.fieldService.score += 40;
+      recommendations.customerService.score += 10;
       recommendations.fieldService.reasons.push("Fältservice med tekniker på plats – Field Service är rätt lösning");
     } else if (data.serviceModel === "Kombination av flera") {
-      recommendations.customerService.score += 20;
-      recommendations.contactCenter.score += 20;
-      recommendations.fieldService.score += 15;
-      recommendations.customerService.reasons.push("Kombinerad service-modell kräver flexibel plattform");
+      recommendations.customerService.score += 25;
+      recommendations.contactCenter.score += 15;
+      recommendations.fieldService.score += 10;
+      recommendations.customerService.reasons.push("Kombinerad service-modell – Customer Service som nav");
     }
 
     if (data.ticketsPerMonth === "2 000–10 000" || data.ticketsPerMonth === "Mer än 10 000") {
