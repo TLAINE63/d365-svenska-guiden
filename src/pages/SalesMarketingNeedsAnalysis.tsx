@@ -1619,7 +1619,7 @@ const SalesMarketingNeedsAnalysis = () => {
             <div>
               <Label className="text-base font-semibold mb-3 block">Är ni verksamma i flera länder?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Ja, flera länder", "Ja, planerar expansion", "Nej, enbart Sverige"].map((opt) => (
+                {["Ja, flera länder", "Planerar expansion", "Nej, enbart Sverige"].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
