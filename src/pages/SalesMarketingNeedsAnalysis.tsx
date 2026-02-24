@@ -680,13 +680,11 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.marketingChannels.length >= 4) pdfInsightsScore += 2;
     else if (data.marketingChannels.length >= 2) pdfInsightsScore += 1;
 
-    const pdfNormalizedSales = (pdfSalesScore / 28) * 100;
     const pdfNormalizedInsights = (pdfInsightsScore / 45) * 100;
-    const pdfGap = pdfNormalizedSales - pdfNormalizedInsights;
-    const PDF_THRESHOLD = 25;
-    const pdfProduct = pdfGap > PDF_THRESHOLD ? "Dynamics 365 Sales"
-      : -pdfGap > PDF_THRESHOLD ? "Dynamics 365 Customer Insights"
-      : "Dynamics 365 Sales + Customer Insights";
+    const PDF_INSIGHTS_THRESHOLD = 20;
+    const pdfProduct = pdfNormalizedInsights >= PDF_INSIGHTS_THRESHOLD
+      ? "Dynamics 365 Sales + Customer Insights"
+      : "Dynamics 365 Sales";
 
     // Datakomplexitet
     const pdfDataComplexity = (() => {
@@ -2185,25 +2183,20 @@ const SalesMarketingNeedsAnalysis = () => {
         else if (data.marketingChannels.length >= 2) insightsScore += 1;
 
         // ── Avgörande: produkt & inriktning ────────────────────────────
-        // Normalisera poäng till jämförbar skala (Sales max ~28, Insights max ~45)
-        const normalizedSales = (salesScore / 28) * 100;
+        // Sales är alltid grunden – Customer Insights läggs till vid tydligt behov
         const normalizedInsights = (insightsScore / 45) * 100;
-        const gap = normalizedSales - normalizedInsights;
-        const THRESHOLD = 25; // Behöver tydlig övervikt för att rekommendera enbart ett system
+        const INSIGHTS_THRESHOLD = 20; // Minst 20% av max CI-poäng för att rekommendera CI också
         let product: string;
         let direction: string;
         let isGransland = false;
 
-        if (gap > THRESHOLD) {
-          product = "Dynamics 365 Sales";
-          direction = "Fokus på strukturerad säljplattform";
-        } else if (-gap > THRESHOLD) {
-          product = "Dynamics 365 Customer Insights";
-          direction = "Fokus på datadriven kundplattform";
-        } else {
+        if (normalizedInsights >= INSIGHTS_THRESHOLD) {
           product = "Dynamics 365 Sales + Customer Insights";
           direction = "Integrerad kommersiell plattform";
-          isGransland = Math.abs(gap) < 10;
+          isGransland = normalizedInsights < 35;
+        } else {
+          product = "Dynamics 365 Sales";
+          direction = "Fokus på strukturerad säljplattform";
         }
 
         // ── Drivande faktorer ───────────────────────────────────────────
