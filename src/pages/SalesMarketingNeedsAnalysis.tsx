@@ -2759,17 +2759,17 @@ const SalesMarketingNeedsAnalysis = () => {
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+          <div className="text-center mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
               Behovsanalys Sälj & Marknad
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
               Svara på frågorna för att få en personlig rekommendation om Dynamics 365 Sales och Marketing (Customer Insights).
             </p>
           </div>
 
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-2">
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-1">
               <span className="text-sm text-muted-foreground">
                 Steg {currentStep} av {totalSteps}
               </span>
@@ -2786,7 +2786,7 @@ const SalesMarketingNeedsAnalysis = () => {
             <Progress value={progress} className="h-2" />
           </div>
 
-          <div className="hidden md:flex justify-between mb-8 overflow-x-auto pb-2">
+          <div className="hidden md:flex justify-between mb-4 overflow-x-auto pb-2">
             {stepTitles.map((title, index) => {
               const Icon = stepIcons[index];
               const isActive = currentStep === index + 1;
@@ -2813,15 +2813,15 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
 
           <Card className="shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-crm/10 to-crm/5 border-b">
-              <div className="flex items-center gap-3">
-                <StepIcon className="w-6 h-6 text-crm" />
-                <CardTitle className="text-xl text-crm">
+            <CardHeader className="bg-gradient-to-r from-crm/10 to-crm/5 border-b py-3">
+              <div className="flex items-center gap-2">
+                <StepIcon className="w-5 h-5 text-crm" />
+                <CardTitle className="text-lg text-crm">
                   {stepTitles[currentStep - 1]}
                 </CardTitle>
               </div>
             </CardHeader>
-            <CardContent className="pt-6">
+            <CardContent className="pt-4">
               <div className="analysis-form theme-crm">
                 {renderStep()}
               </div>
