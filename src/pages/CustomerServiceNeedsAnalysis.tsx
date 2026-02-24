@@ -277,7 +277,7 @@ const CustomerServiceNeedsAnalysis = () => {
   const stepTitles = [
     "Företagsinformation",
     "Service-modell",
-    "Er situation & komplexitet",
+    "Nuvarande situation",
     "Organisation & styrning",
     "Systemintegration",
     "AI & Automation",
