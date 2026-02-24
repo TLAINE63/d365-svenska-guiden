@@ -2393,12 +2393,11 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     <div className="mt-4 p-4 border rounded-lg bg-muted/30 space-y-3">
                       <Label className="text-sm font-medium">Vilka system behöver ni integrera med?</Label>
                       <div className="border-2 border-border rounded-lg overflow-hidden">
-                        <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                        <div className="bg-muted border-b-2 border-border">
                           <div className="p-3 font-medium text-sm">Applikation / Systemnamn</div>
-                          <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integrationen?</div>
                         </div>
                         {data.integrationSystems.map((integration, index) => (
-                          <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                          <div key={index} className={`${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
                             <div className="p-2">
                               <Input
                                 placeholder=""
@@ -2406,18 +2405,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                                 onChange={(e) => {
                                   const newSystems = [...data.integrationSystems];
                                   newSystems[index] = { ...newSystems[index], system: e.target.value };
-                                  setData({ ...data, integrationSystems: newSystems });
-                                }}
-                                className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                              />
-                            </div>
-                            <div className="p-2 border-l-2 border-border">
-                              <Input
-                                placeholder=""
-                                value={integration.importance}
-                                onChange={(e) => {
-                                  const newSystems = [...data.integrationSystems];
-                                  newSystems[index] = { ...newSystems[index], importance: e.target.value };
                                   setData({ ...data, integrationSystems: newSystems });
                                 }}
                                 className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
