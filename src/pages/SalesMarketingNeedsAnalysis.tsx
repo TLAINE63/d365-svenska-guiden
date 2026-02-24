@@ -691,7 +691,7 @@ const SalesMarketingNeedsAnalysis = () => {
       if (data.customerDataSpread === "Spridd i flera system") s += 2;
       else if (data.customerDataSpread === "Delvis samlad") s += 1;
       if (data.integrationScope === "Omfattande och affärskritiskt") s += 2;
-      else if (data.integrationScope === "Måttligt") s += 1;
+      else if (data.integrationScope === "Till viss del kan det vara bra") s += 1;
       if (data.unifiedCustomerView === "Nej, informationen är spridd") s += 1;
       return s <= 2 ? "Låg" : s <= 5 ? "Medel" : "Hög";
     })();
@@ -760,7 +760,7 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.b2cCampaignAutomation && !data.b2cCampaignAutomation.startsWith("Nej")) pdfAssessmentPoints.push("Automatisera kampanjflöden baserat på beteende");
     if (data.digitalBehaviorSegmentation?.startsWith("Ja")) pdfAssessmentPoints.push("Beteendebaserad segmentering och triggerkommunikation");
     if (data.integrationScope === "Omfattande och affärskritiskt") pdfAssessmentPoints.push("Säkerställa robusta integrationer mot affärskritiska system");
-    else if (data.integrationScope === "Måttligt") pdfAssessmentPoints.push("Bygga ut integrationer mot befintliga system");
+    else if (data.integrationScope === "Till viss del kan det vara bra") pdfAssessmentPoints.push("Bygga ut integrationer mot befintliga system");
     if (data.ciJourneyNeed?.includes("Kritiskt")) pdfAssessmentPoints.push("Implementera flerkanaliga, personaliserade kundresor");
     if (data.ciLeadScoring?.includes("automatiserad nurturing")) pdfAssessmentPoints.push("Automatisera lead scoring och nurturing");
     if (data.ciEventManagement?.includes("viktig del")) pdfAssessmentPoints.push("Integrera event management i marknadsplattformen");
@@ -1942,7 +1942,7 @@ const SalesMarketingNeedsAnalysis = () => {
             <div>
               <Label className="text-base font-semibold mb-3 block">Hur omfattande är ert behov av att CRM samverkar med andra system?</Label>
               <div className="grid grid-cols-1 gap-3">
-                {["Begränsat", "Måttligt", "Omfattande och affärskritiskt"].map((opt) => (
+                {["Begränsat", "Till viss del kan det vara bra", "Omfattande och affärskritiskt"].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
@@ -2234,7 +2234,7 @@ const SalesMarketingNeedsAnalysis = () => {
           if (data.customerDataSpread === "Spridd i flera system") score += 2;
           else if (data.customerDataSpread === "Delvis samlad") score += 1;
           if (data.integrationScope === "Omfattande och affärskritiskt") score += 2;
-          else if (data.integrationScope === "Måttligt") score += 1;
+          else if (data.integrationScope === "Till viss del kan det vara bra") score += 1;
           if (data.unifiedCustomerView === "Nej, informationen är spridd") score += 1;
           if (data.aiDataMaturity === "Låg – data är spridd och ostrukturerad") score += 1;
           if (score <= 2) return "Låg";
@@ -2281,7 +2281,7 @@ const SalesMarketingNeedsAnalysis = () => {
         const hasPartialData = data.unifiedCustomerView === "Delvis, men inte komplett" || data.customerDataSpread === "Delvis samlad";
         const hasUnifiedData = data.unifiedCustomerView === "Ja, vi har en samlad bild";
         const hasHeavyIntegrations = data.integrationScope === "Omfattande och affärskritiskt";
-        const hasModerateIntegrations = data.integrationScope === "Måttligt";
+        const hasModerateIntegrations = data.integrationScope === "Till viss del kan det vara bra";
         const aiHighAmbition = data.aiInterest === "Mycket intresserade – Vi vill vara i framkant";
         const aiMediumAmbition = data.aiInterest === "Ganska intresserade – Vi vill utforska möjligheterna";
         const aiUseCaseCount = data.aiUseCases?.length ?? 0;
