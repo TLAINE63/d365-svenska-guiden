@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, Download, Headphones, Wrench, Building2, BarChart3, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, Headphones, Wrench, Building2, BarChart3, Sparkles, CheckCircle2, Truck } from "lucide-react";
 import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -270,14 +270,16 @@ const CustomerServiceNeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 7;
+  const totalSteps = 8;
+  const needsFieldServiceStep = data.serviceModel === "Fältservice med tekniker" || data.serviceModel === "Kombination av flera";
   const progress = (currentStep / totalSteps) * 100;
 
-  const stepIcons = [Building2, Headphones, BarChart3, Building2, Wrench, Sparkles, CheckCircle2];
+  const stepIcons = [Building2, Headphones, BarChart3, Truck, Building2, Wrench, Sparkles, CheckCircle2];
   const stepTitles = [
     "Företagsinformation",
     "Service-modell",
     "Nuvarande situation",
+    "Fältservice",
     "Organisation & styrning",
     "Systemintegration",
     "AI & Automation",
@@ -285,12 +287,16 @@ const CustomerServiceNeedsAnalysis = () => {
   ];
 
   const handleNext = () => {
-    if (currentStep < totalSteps) setCurrentStep(currentStep + 1);
+    let next = currentStep + 1;
+    if (next === 4 && !needsFieldServiceStep) next = 5; // Hoppa över fältservice-steget
+    if (next <= totalSteps) setCurrentStep(next);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBack = () => {
-    if (currentStep > 1) setCurrentStep(currentStep - 1);
+    let prev = currentStep - 1;
+    if (prev === 4 && !needsFieldServiceStep) prev = 3; // Hoppa över fältservice-steget
+    if (prev >= 1) setCurrentStep(prev);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -1038,30 +1044,6 @@ const CustomerServiceNeedsAnalysis = () => {
               </>
             )}
 
-            {(isFieldService || isCombination) && (
-              <>
-                <div>
-                  <Label className="text-base font-semibold mb-3 block">Hur många tekniker har ni i fält?</Label>
-                  {makeRadioGroup("numberOfTechnicians", ["Färre än 10 tekniker", "10–50 tekniker", "51–200 tekniker", "Mer än 200 tekniker"])}
-                </div>
-                <div>
-                  <Label className="text-base font-semibold mb-3 block">Hur sker schemaläggning av servicebesök idag?</Label>
-                  {makeRadioGroup("schedulingNeeds", ["Manuellt via telefon/mail", "Excel eller enklare verktyg", "Dedikerat schemaläggningssystem", "Optimerat med AI/automatisering"])}
-                </div>
-                <div>
-                  <Label className="text-base font-semibold mb-3 block">Hur viktig är reservdelshantering?</Label>
-                  {makeRadioGroup("sparepartsManagement", ["Inte relevant", "Viktigt men inte kritiskt", "Kritisk – tekniker måste ha rätt delar vid besöket"])}
-                </div>
-                <div>
-                  <Label className="text-base font-semibold mb-3 block">Har ni serviceavtal med garanterade svarstider?</Label>
-                  {makeRadioGroup("serviceAgreements", ["Nej, inga formella avtal", "Ja, informella SLA", "Ja, med garanterade svarstider och tillgänglighet"])}
-                </div>
-                <div>
-                  <Label className="text-base font-semibold mb-3 block">Hur stor är er geografiska spridning?</Label>
-                  {makeRadioGroup("geographicSpread", ["Lokalt – en stad/region", "Regionalt – delar av Sverige", "Nationellt – hela Sverige", "Nordiska länder", "Globalt"])}
-                </div>
-              </>
-            )}
 
             <div>
               <Label className="text-base font-semibold mb-3 block">Verkar ni i flera länder?</Label>
@@ -1087,7 +1069,44 @@ const CustomerServiceNeedsAnalysis = () => {
         );
       }
 
-      case 4:
+      case 4: {
+        const makeRadioGroup4 = (field: keyof CustomerServiceAnalysisData, options: string[]) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {options.map((opt) => (
+              <SelectionCard key={opt} label={opt} selected={data[field] === opt} onClick={() => setData({ ...data, [field]: opt })} type="radio" />
+            ))}
+          </div>
+        );
+        return (
+          <div className="space-y-8">
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+              <p className="text-sm text-primary font-medium">🔧 Frågorna nedan gäller er fältserviceverksamhet</p>
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur många tekniker har ni i fält?</Label>
+              {makeRadioGroup4("numberOfTechnicians", ["Färre än 10 tekniker", "10–50 tekniker", "51–200 tekniker", "Mer än 200 tekniker"])}
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur sker schemaläggning av servicebesök idag?</Label>
+              {makeRadioGroup4("schedulingNeeds", ["Manuellt via telefon/mail", "Excel eller enklare verktyg", "Dedikerat schemaläggningssystem", "Optimerat med AI/automatisering"])}
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur viktig är reservdelshantering?</Label>
+              {makeRadioGroup4("sparepartsManagement", ["Inte relevant", "Viktigt men inte kritiskt", "Kritisk – tekniker måste ha rätt delar vid besöket"])}
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Har ni serviceavtal med garanterade svarstider?</Label>
+              {makeRadioGroup4("serviceAgreements", ["Nej, inga formella avtal", "Ja, informella SLA", "Ja, med garanterade svarstider och tillgänglighet"])}
+            </div>
+            <div>
+              <Label className="text-base font-semibold mb-3 block">Hur stor är er geografiska spridning?</Label>
+              {makeRadioGroup4("geographicSpread", ["Lokalt – en stad/region", "Regionalt – delar av Sverige", "Nationellt – hela Sverige", "Nordiska länder", "Globalt"])}
+            </div>
+          </div>
+        );
+      }
+
+      case 5:
         return (
           <div className="space-y-8">
             <div>
@@ -1125,7 +1144,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 5:
+      case 6:
         return (
           <div className="space-y-6">
             <div>
@@ -1150,7 +1169,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-6">
             <div>
@@ -1195,7 +1214,7 @@ const CustomerServiceNeedsAnalysis = () => {
           </div>
         );
 
-      case 7: {
+      case 8: {
         const rec = getRecommendation();
 
         let complexityScore2 = 0;
@@ -1602,11 +1621,14 @@ const CustomerServiceNeedsAnalysis = () => {
 
           <div className="hidden md:flex justify-between mb-4 overflow-x-auto pb-2">
             {stepTitles.map((title, index) => {
+              const stepNum = index + 1;
+              const isSkipped = stepNum === 4 && !needsFieldServiceStep;
+              if (isSkipped) return null;
               const Icon = stepIcons[index];
-              const isActive = currentStep === index + 1;
-              const isCompleted = currentStep > index + 1;
+              const isActive = currentStep === stepNum;
+              const isCompleted = currentStep > stepNum;
               return (
-                <button key={index} onClick={() => setCurrentStep(index + 1)} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity">
+                <button key={index} onClick={() => setCurrentStep(stepNum)} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${isActive ? 'bg-customer-service text-customer-service-foreground' : isCompleted ? 'bg-customer-service/20 text-customer-service' : 'bg-muted text-muted-foreground'}`}>
                     <Icon className="w-5 h-5" />
                   </div>
