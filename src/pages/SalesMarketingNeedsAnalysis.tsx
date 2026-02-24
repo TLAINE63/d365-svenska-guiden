@@ -363,7 +363,7 @@ const marketingNeedOptions = [
   "Kampanjhantering",
   "Event management",
   "Landningssidor och formulär",
-  "Social media marketing",
+  "Sociala Medier marketing",
   "Automatiserade Kundresor (customer journeys)",
   "Flexibel Segmentering",
   "A/B-testning",
@@ -372,7 +372,7 @@ const marketingNeedOptions = [
 
 const marketingChannelOptions = [
   "E-post",
-  "Social media",
+  "Sociala Medier",
   "Webbsida",
   "SMS",
   "Events/Webinars",
