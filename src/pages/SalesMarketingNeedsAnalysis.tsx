@@ -1675,8 +1675,12 @@ const SalesMarketingNeedsAnalysis = () => {
             {/* CRM-användning */}
             <div>
               <Label className="text-base font-semibold mb-3 block">Använder ni något CRM-system idag?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Nej", "Enkelt", "Avancerat"].map((opt) => (
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  "Nej",
+                  "Vi har ett enklare CRM-system som används av delar av organisationen",
+                  "Avancerat",
+                ].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
