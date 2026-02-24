@@ -374,9 +374,15 @@ const CustomerServiceNeedsAnalysis = () => {
       recommendations.contactCenter.score += 10;
       recommendations.contactCenter.reasons.push("Realtidsstyrning och supervisor-dashboard är prioriterat");
     }
-    if (data.numberOfTechnicians === "51–200 tekniker" || data.numberOfTechnicians === "Mer än 200 tekniker") {
+    if (data.numberOfTechnicians === "Vi har inga fältservicetekniker") {
+      recommendations.fieldService.score = 0;
+      recommendations.fieldService.reasons = [];
+    } else if (data.numberOfTechnicians === "51–200 tekniker" || data.numberOfTechnicians === "Mer än 200 tekniker") {
       recommendations.fieldService.score += 15;
       recommendations.fieldService.reasons.push("Stort teknikerteam kräver intelligent schemaläggning");
+    } else if (data.numberOfTechnicians) {
+      recommendations.fieldService.score += 5;
+      recommendations.fieldService.reasons.push("Teknikerteam i fält – Field Service ger struktur och stöd");
     }
     if (data.schedulingNeeds === "Manuellt via telefon/mail" || data.schedulingNeeds === "Excel eller enklare verktyg") {
       recommendations.fieldService.score += 10;
@@ -1248,8 +1254,8 @@ const CustomerServiceNeedsAnalysis = () => {
 
         if (hasFieldService) partnerTypes.push({ icon: "🔧", label: "Field Service-specialist", description: "Partner med djup erfarenhet av schemaläggning, mobilt teknikerstöd och fältservice-implementationer" });
         if (hasContactCenter) partnerTypes.push({ icon: "📞", label: "Contact Center-specialist", description: "Partner med kompetens inom omnichannel, röstintegration och volymstyrd kundservice" });
+        if (hasCustomerService && !isEnterprise) partnerTypes.push({ icon: "🎧", label: "Customer Service-specialist", description: "Partner med erfarenhet av ärendehantering, knowledge base och Copilot-driven kundservice" });
         if (isEnterprise && (hasCustomerService || hasContactCenter)) partnerTypes.push({ icon: "🏢", label: "Enterprise service-arkitekt", description: "Partner med erfarenhet av komplexa multi-site och enterprise-lösningar" });
-        if (!isEnterprise && hasCustomerService) partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva implementationer för medelstora organisationer" });
         if (partnerTypes.length === 0) partnerTypes.push({ icon: "⚡", label: "Mid-market servicepartner", description: "Partner specialiserad på snabba och kostnadseffektiva implementationer för medelstora organisationer" });
 
         const transformationLevel2 = complexityScore2 >= 9 ? 4 : complexityScore2 >= 6 ? 3 : complexityScore2 >= 3 ? 2 : 1;
