@@ -757,11 +757,11 @@ const NeedsAnalysis = () => {
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const { toast } = useToast();
 
-  const totalSteps = 10;
+  const totalSteps = 9;
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [
-    BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Link2, Boxes, Sparkles, FileText
+    BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Boxes, Sparkles, FileText
   ];
 
   const stepTitles = [
@@ -772,7 +772,6 @@ const NeedsAnalysis = () => {
     "Geografi",
     "Nuvarande Situation",
     "Utmaningar",
-    "Integrationer",
     "AI & Framtid",
     "ERP-profil",
   ];
@@ -2409,6 +2408,46 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 <div>
                   <Label className="text-sm font-medium mb-2 block">Hur omfattande är ert behov av att koppla ERP/Affärssystem till andra system?</Label>
                   {renderComplexityRadio("integrationPlatform", complexityMaturityOptions.integrationPlatform)}
+                  
+                  {(data.complexity.integrationPlatform === "nagra" || data.complexity.integrationPlatform === "manga") && (
+                    <div className="mt-4 p-4 border rounded-lg bg-muted/30 space-y-3">
+                      <Label className="text-sm font-medium">Vilka system behöver ni integrera med?</Label>
+                      <div className="border-2 border-border rounded-lg overflow-hidden">
+                        <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
+                          <div className="p-3 font-medium text-sm">Applikation / Systemnamn</div>
+                          <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integrationen?</div>
+                        </div>
+                        {data.integrationSystems.map((integration, index) => (
+                          <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
+                            <div className="p-2">
+                              <Input
+                                placeholder=""
+                                value={integration.system}
+                                onChange={(e) => {
+                                  const newSystems = [...data.integrationSystems];
+                                  newSystems[index] = { ...newSystems[index], system: e.target.value };
+                                  setData({ ...data, integrationSystems: newSystems });
+                                }}
+                                className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                              />
+                            </div>
+                            <div className="p-2 border-l-2 border-border">
+                              <Input
+                                placeholder=""
+                                value={integration.importance}
+                                onChange={(e) => {
+                                  const newSystems = [...data.integrationSystems];
+                                  newSystems[index] = { ...newSystems[index], importance: e.target.value };
+                                  setData({ ...data, integrationSystems: newSystems });
+                                }}
+                                className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <Label className="text-sm font-medium mb-2 block">Hur strukturerat arbetar ni med system- och processbeslut?</Label>
@@ -2565,48 +2604,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
       }
 
-      case 8:
-        return (
-          <div className="space-y-6">
-            <p className="text-muted-foreground">Vilka system behöver ni integrera med?</p>
-            <div className="border-2 border-border rounded-lg overflow-hidden">
-              <div className="grid grid-cols-2 bg-muted border-b-2 border-border">
-                <div className="p-3 font-medium text-sm">Övriga relevanta produkter/system</div>
-                <div className="p-3 font-medium text-sm border-l-2 border-border">Hur viktigt är integration med detta system</div>
-              </div>
-              {data.integrationSystems.map((integration, index) => (
-                <div key={index} className={`grid grid-cols-2 ${index < data.integrationSystems.length - 1 ? 'border-b-2 border-border' : ''}`}>
-                  <div className="p-2">
-                    <Input
-                      placeholder=""
-                      value={integration.system}
-                      onChange={(e) => {
-                        const newSystems = [...data.integrationSystems];
-                        newSystems[index] = { ...newSystems[index], system: e.target.value };
-                        setData({ ...data, integrationSystems: newSystems });
-                      }}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-                  <div className="p-2 border-l-2 border-border">
-                    <Input
-                      placeholder=""
-                      value={integration.importance}
-                      onChange={(e) => {
-                        const newSystems = [...data.integrationSystems];
-                        newSystems[index] = { ...newSystems[index], importance: e.target.value };
-                        setData({ ...data, integrationSystems: newSystems });
-                      }}
-                      className="border-0 bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 9: {
+      case 8: {
         const aiInterestOptions = [
           { value: "Mycket intresserade", label: "Mycket intresserade - Vi vill vara i framkant" },
           { value: "Ganska intresserade", label: "Ganska intresserade - Vi vill utforska möjligheterna" },
@@ -2697,7 +2695,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         );
       }
 
-      case 10: {
+      case 9: {
         const rec = getERPRecommendation();
         const complexity = getComplexityScores();
         const isBC = rec.product === "Business Central";
