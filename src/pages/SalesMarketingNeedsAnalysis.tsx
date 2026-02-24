@@ -631,7 +631,7 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.partnerPortalNeed && !data.partnerPortalNeed.startsWith("Nej")) pdfSalesScore += 2;
     if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) pdfSalesScore += 1;
     if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) pdfSalesScore += 1;
-    if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Lokala system") pdfSalesScore += 1;
+    if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Flera olika rapporter från flera olika system, beroende på avdelning, enhet, organisation") pdfSalesScore += 1;
     if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") pdfSalesScore += 1;
     if (data.multiCountry === "Ja, flera länder") pdfSalesScore += 1;
 
@@ -1711,8 +1711,8 @@ const SalesMarketingNeedsAnalysis = () => {
             {/* Uppföljning */}
             <div>
               <Label className="text-base font-semibold mb-3 block">Hur sker uppföljning idag?</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {["Mestadels genom Excel", "Lokala system", "Central rapportering"].map((opt) => (
+              <div className="grid grid-cols-1 gap-3">
+                {["Mestadels genom Excel", "Flera olika rapporter från flera olika system, beroende på avdelning, enhet, organisation", "Central rapportering"].map((opt) => (
                   <SelectionCard
                     key={opt}
                     label={opt}
@@ -2119,7 +2119,7 @@ const SalesMarketingNeedsAnalysis = () => {
         if (data.partnerDealRegistration && !data.partnerDealRegistration.startsWith("Nej")) salesScore += 1;
         if (data.partnerChannelReporting && !data.partnerChannelReporting.startsWith("Nej")) salesScore += 1;
         // Steg 3 – nuläge
-        if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Lokala system") salesScore += 1;
+        if (data.followUpMethod === "Mestadels genom Excel" || data.followUpMethod === "Flera olika rapporter från flera olika system, beroende på avdelning, enhet, organisation") salesScore += 1;
         if (data.currentCrmUsage === "Enkelt" || data.currentCrmUsage === "Nej") salesScore += 1;
         // AI-ambition sälj
         if (data.aiAmbition === "AI-stöd i sälj (prognos, rekommendationer)") salesScore += 2;
