@@ -1121,7 +1121,7 @@ const SalesMarketingNeedsAnalysis = () => {
     if (data.marketingOrgStructure) addSection("Central eller lokal marknadsorganisation?", data.marketingOrgStructure);
 
     // ── STEG 3: Nuvarande arbetssätt & system ─────────────────────────────
-    if (data.currentCrmUsage) addSection("Steg 3 – Använder ni CRM idag?", data.currentCrmUsage);
+    if (data.currentCrmUsage) addSection("Steg 3 – Använder ni något CRM-system idag?", data.currentCrmUsage);
     if (data.customerDataSpread) addSection("Är kunddata samlad eller spridd?", data.customerDataSpread);
     if (data.followUpMethod) addSection("Hur sker uppföljning idag?", data.followUpMethod);
 
@@ -1674,7 +1674,7 @@ const SalesMarketingNeedsAnalysis = () => {
           <div className="space-y-6">
             {/* CRM-användning */}
             <div>
-              <Label className="text-base font-semibold mb-3 block">Använder ni CRM idag?</Label>
+              <Label className="text-base font-semibold mb-3 block">Använder ni något CRM-system idag?</Label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {["Nej", "Enkelt", "Avancerat"].map((opt) => (
                   <SelectionCard
