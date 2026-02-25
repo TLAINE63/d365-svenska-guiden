@@ -565,7 +565,7 @@ const ValjPartner = () => {
           </div>
 
           {/* Partner Map */}
-          <div className="mb-10 max-w-xs mx-auto">
+          <div className="mb-10 max-w-[224px] mx-auto">
             <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
               <img 
                 src={partnerMapSweden} 
