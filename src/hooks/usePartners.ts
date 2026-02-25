@@ -94,6 +94,8 @@ export interface PartnerInput {
   admin_notes?: string;
   admin_contact_name?: string;
   admin_contact_email?: string;
+  office_cities?: string[];
+  map_url?: string;
 }
 
 // Fetch all featured partners from database (public view - excludes sensitive contact info)
