@@ -134,7 +134,7 @@ export const LeadCTA = ({
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="company_name" className="font-medium">Företagsnamn *</Label>
+          <Label htmlFor="company_name" className={`font-medium ${variant === 'inline' ? 'text-white' : ''}`}>Företagsnamn *</Label>
           <Input
             id="company_name"
             value={formData.company_name}
@@ -145,7 +145,7 @@ export const LeadCTA = ({
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="contact_name" className="font-medium">Kontaktperson *</Label>
+          <Label htmlFor="contact_name" className={`font-medium ${variant === 'inline' ? 'text-white' : ''}`}>Kontaktperson *</Label>
           <Input
             id="contact_name"
             value={formData.contact_name}
@@ -159,7 +159,7 @@ export const LeadCTA = ({
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="email" className="font-medium">E-post *</Label>
+          <Label htmlFor="email" className={`font-medium ${variant === 'inline' ? 'text-white' : ''}`}>E-post *</Label>
           <Input
             id="email"
             type="email"
@@ -171,7 +171,7 @@ export const LeadCTA = ({
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone" className="font-medium">Telefon</Label>
+          <Label htmlFor="phone" className={`font-medium ${variant === 'inline' ? 'text-white' : ''}`}>Telefon</Label>
           <Input
             id="phone"
             type="tel"
@@ -185,7 +185,7 @@ export const LeadCTA = ({
 
 
       <div className="space-y-2">
-        <Label htmlFor="message" className="font-medium">Meddelande (valfritt)</Label>
+        <Label htmlFor="message" className={`font-medium ${variant === 'inline' ? 'text-white' : ''}`}>Meddelande (valfritt)</Label>
         <Textarea
           id="message"
           value={formData.message}
@@ -215,7 +215,7 @@ export const LeadCTA = ({
         </Button>
       </div>
       
-      <p className="text-xs text-muted-foreground text-center">
+      <p className={`text-xs text-center ${variant === 'inline' ? 'text-white/60' : 'text-muted-foreground'}`}>
         Genom att skicka godkänner du vår{" "}
         <a href="/dataskydd" className="underline hover:text-primary">
           integritetspolicy
