@@ -466,6 +466,46 @@ const AIOverview = () => {
           </div>
         </section>
 
+        {/* Getting started steps */}
+        <section className="max-w-4xl mx-auto mb-20">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">🛠</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Så kommer ni igång
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-10">
+            Tre steg från idé till verklig AI-effekt.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
+            {[
+              { step: "1", title: "Identifiera process", desc: "Vi definierar var AI ger störst affärseffekt." },
+              { step: "2", title: "Proof of Value", desc: "Testa i liten skala." },
+              { step: "3", title: "Skala", desc: "Rulla ut brett med rätt partner." },
+            ].map((s) => (
+              <Card key={s.step} className="border bg-card text-center">
+                <CardContent className="p-6 sm:p-8">
+                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-lg mb-4">
+                    {s.step}
+                  </span>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{s.title}</h3>
+                  <p className="text-muted-foreground text-sm">{s.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              to="/valj-partner"
+              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg hover:bg-primary/90 transition-colors"
+            >
+              👉 Hitta rätt Dynamics 365-partner för AI <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </section>
+
         {/* AI Readiness Check */}
         <section className="max-w-3xl mx-auto">
           <div className="flex items-center justify-center gap-3 mb-3">
