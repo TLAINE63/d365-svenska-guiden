@@ -2146,8 +2146,9 @@ const AdminDashboard = () => {
                   <Label htmlFor="office_cities" className="font-medium">Kontorsstäder (kommaseparerade)</Label>
                   <Input
                     id="office_cities"
-                    value={(partnerFormData as any).office_cities?.join(', ') || ''}
-                    onChange={(e) => {
+                    defaultValue={(partnerFormData as any).office_cities?.join(', ') || ''}
+                    key={`cities-${editingPartner?.id || 'new'}`}
+                    onBlur={(e) => {
                       const cities = e.target.value.split(',').map((c: string) => c.trim()).filter(Boolean);
                       setPartnerFormData({ ...partnerFormData, office_cities: cities } as any);
                     }}
