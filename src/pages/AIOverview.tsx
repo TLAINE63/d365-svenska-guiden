@@ -43,11 +43,11 @@ const roles = [
 ];
 
 const benefits = [
-  { icon: Bot, text: "Automatisera repetitiva uppgifter" },
-  { icon: Brain, text: "Få bättre beslutsunderlag i realtid" },
-  { icon: TrendingUp, text: "Öka träffsäkerhet i försäljning" },
-  { icon: Package, text: "Effektivisera ekonomi- och lagerprocesser" },
-  { icon: Users, text: "Skala kundservice utan att öka personalstyrkan" },
+  { icon: TrendingUp, text: "Öka lönsamheten genom smartare beslutsunderlag" },
+  { icon: Bot, text: "Spara tid – låt AI ta hand om rutinarbetet" },
+  { icon: Package, text: "Förenkla ekonomi- och lagerprocesser" },
+  { icon: Brain, text: "Få kontroll med prognoser och insikter i realtid" },
+  { icon: Users, text: "Väx utan att behöva anställa för varje ny kund" },
 ];
 
 const goals = [
@@ -249,8 +249,8 @@ const AIOverview = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="AI med Copilot & Agenter i Dynamics 365 | d365.se"
-        description="Från automation till verklig affärseffekt. Se hur Copilot och intelligenta agenter i Dynamics 365 effektiviserar din verksamhet."
+        title="Mer effekt, mindre manuellt arbete – AI i Dynamics 365 | d365.se"
+        description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
         canonicalPath="/ai-oversikt"
       />
       <Navbar />
@@ -262,13 +262,13 @@ const AIOverview = () => {
             Microsoft AI i Dynamics 365
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            AI med Copilot &amp; Agenter i Dynamics 365
+            Mer effekt, mindre manuellt arbete
           </h1>
           <p className="text-xl sm:text-2xl text-muted-foreground font-medium mb-8">
-            Från automation till verklig affärseffekt
+            AI i Dynamics 365 – för dig som vill förenkla, spara tid och öka lönsamheten
           </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            AI i Dynamics 365 handlar inte om experiment. Det handlar om att:
+            Det handlar inte om teknik. Det handlar om affärseffekt:
           </p>
 
           <div className="grid gap-4 max-w-xl mx-auto text-left mb-10">
@@ -281,7 +281,7 @@ const AIOverview = () => {
           </div>
 
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Med <strong>Copilot</strong> och <strong>intelligenta agenter</strong> byggs AI direkt in i dina affärsprocesser.
+            <strong>Copilot</strong> och <strong>intelligenta agenter</strong> gör det möjligt – inbyggt i de verktyg ditt team redan använder.
           </p>
         </section>
 
