@@ -233,7 +233,7 @@ serve(async (req: Request): Promise<Response> => {
       to: [email], // Send to customer
       cc: ["info@d365.se", "thomas.laine@dynamicfactory.se"], // Copy to admin
       reply_to: "info@d365.se",
-      subject: `Din Behovsanalys för ${safeAnalysisType}`,
+      subject: `Din Behovsanalys för ${safeAnalysisType} från D365.se`,
       html: `
         <h1>Tack för din behovsanalys för ${safeAnalysisType}!</h1>
         
