@@ -285,6 +285,85 @@ const AIOverview = () => {
           </p>
         </section>
 
+        {/* Copilot vs Agenter */}
+        <section className="max-w-4xl mx-auto mb-20">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">📌</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Copilot vs Agenter – vad är skillnaden?
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-10">
+            Många blandar ihop begreppen. Här är den viktiga skillnaden.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Copilot */}
+            <Card className="border bg-gradient-to-br from-sky-600/10 to-blue-600/10 border-sky-500/20">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <Sparkles className="h-7 w-7 text-sky-500" />
+                  <h3 className="text-xl font-bold text-foreground">Copilot</h3>
+                </div>
+                <p className="text-lg font-semibold text-foreground/90 mb-4">
+                  Assisterar användare
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-sky-500 shrink-0 mt-1" />
+                    <span>Föreslår svar, sammanfattar och ger rekommendationer</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-sky-500 shrink-0 mt-1" />
+                    <span>Användaren fattar beslut och bekräftar</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-sky-500 shrink-0 mt-1" />
+                    <span>Inbyggd i gränssnittet – alltid till hands</span>
+                  </li>
+                </ul>
+                <div className="mt-6 rounded-lg bg-sky-500/10 px-4 py-3">
+                  <p className="text-sm font-medium text-foreground/80 italic">
+                    "Din AI-assistent som gör dig snabbare och smartare."
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Agenter */}
+            <Card className="border bg-gradient-to-br from-purple-600/10 to-fuchsia-600/10 border-purple-500/20">
+              <CardContent className="p-6 sm:p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <Bot className="h-7 w-7 text-purple-500" />
+                  <h3 className="text-xl font-bold text-foreground">Agenter</h3>
+                </div>
+                <p className="text-lg font-semibold text-foreground/90 mb-4">
+                  Automatiserar processer självständigt
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-purple-500 shrink-0 mt-1" />
+                    <span>Utför uppgifter utan manuell inblandning</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-purple-500 shrink-0 mt-1" />
+                    <span>Övervakar, agerar och eskalerar vid behov</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-purple-500 shrink-0 mt-1" />
+                    <span>Arbetar dygnet runt i bakgrunden</span>
+                  </li>
+                </ul>
+                <div className="mt-6 rounded-lg bg-purple-500/10 px-4 py-3">
+                  <p className="text-sm font-medium text-foreground/80 italic">
+                    "Din digitala medarbetare som jobbar även när du inte gör det."
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
         {/* Step 1 – Role cards */}
         <section className="max-w-5xl mx-auto mb-20">
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-3">
