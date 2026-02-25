@@ -450,6 +450,30 @@ const PartnerProfile = () => {
                 </div>
               ) : null;
             })()}
+
+            {/* Partner map */}
+            {(() => {
+              const mapUrl = dbPartner?.map_url as string | undefined;
+              if (!mapUrl) return null;
+              // Convert edit/viewer URLs to embed format
+              const embedUrl = mapUrl.replace('/edit', '/embed').replace('/viewer', '/embed').split('&usp=')[0];
+              return (
+                <div className="mt-6 w-full max-w-2xl mx-auto">
+                  <div className="rounded-2xl overflow-hidden border border-white/20 shadow-lg">
+                    <iframe
+                      src={embedUrl}
+                      width="100%"
+                      height="300"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={`Karta över ${partner.name}s kontor`}
+                    />
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         </div>
         

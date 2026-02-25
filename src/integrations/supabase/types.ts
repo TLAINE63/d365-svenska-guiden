@@ -399,6 +399,7 @@ export type Database = {
           is_featured: boolean | null
           logo_dark_bg: boolean
           logo_url: string | null
+          map_url: string | null
           monthly_fee: number | null
           name: string
           office_cities: string[] | null
@@ -429,6 +430,7 @@ export type Database = {
           is_featured?: boolean | null
           logo_dark_bg?: boolean
           logo_url?: string | null
+          map_url?: string | null
           monthly_fee?: number | null
           name: string
           office_cities?: string[] | null
@@ -459,6 +461,7 @@ export type Database = {
           is_featured?: boolean | null
           logo_dark_bg?: boolean
           logo_url?: string | null
+          map_url?: string | null
           monthly_fee?: number | null
           name?: string
           office_cities?: string[] | null
@@ -554,6 +557,7 @@ export type Database = {
           is_featured: boolean | null
           logo_dark_bg: boolean | null
           logo_url: string | null
+          map_url: string | null
           name: string | null
           office_cities: string[] | null
           phone: string | null
@@ -577,6 +581,7 @@ export type Database = {
           is_featured?: boolean | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
+          map_url?: string | null
           name?: string | null
           office_cities?: string[] | null
           phone?: string | null
@@ -600,6 +605,7 @@ export type Database = {
           is_featured?: boolean | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
+          map_url?: string | null
           name?: string | null
           office_cities?: string[] | null
           phone?: string | null
