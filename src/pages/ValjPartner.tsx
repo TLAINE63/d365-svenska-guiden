@@ -22,6 +22,7 @@ const partnerBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Välj Partner", url: "https://d365.se/valj-partner" },
 ];
+import partnerMapSweden from "@/assets/partner-map-sweden.png";
 import { allIndustries } from "@/data/partners";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 
@@ -560,6 +561,21 @@ const ValjPartner = () => {
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
               Här är ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+            </p>
+          </div>
+
+          {/* Partner Map */}
+          <div className="mb-10 max-w-2xl mx-auto">
+            <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
+              <img 
+                src={partnerMapSweden} 
+                alt="Karta över Dynamics 365-partners kontor i Sverige" 
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+            <p className="text-sm text-muted-foreground text-center mt-3">
+              Kontorsplaceringar för Dynamics 365-partners i Sverige
             </p>
           </div>
 
