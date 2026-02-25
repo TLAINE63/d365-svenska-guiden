@@ -435,6 +435,21 @@ const PartnerProfile = () => {
                 )}
               </div>
             )}
+
+            {/* Office cities */}
+            {(() => {
+              const cities = dbPartner?.office_cities as string[] | undefined;
+              return cities && cities.length > 0 ? (
+                <div className="flex flex-wrap justify-center items-center gap-2 mt-4">
+                  <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm text-white/90 shadow-lg">
+                    <MapPin className="w-4 h-4 text-sky-400 shrink-0" />
+                    <span className="font-medium">
+                      Vi har kontor i: {cities.join(', ')}
+                    </span>
+                  </div>
+                </div>
+              ) : null;
+            })()}
           </div>
         </div>
         

@@ -401,6 +401,7 @@ export type Database = {
           logo_url: string | null
           monthly_fee: number | null
           name: string
+          office_cities: string[] | null
           phone: string | null
           product_filters: Json | null
           secondary_industries: string[] | null
@@ -430,6 +431,7 @@ export type Database = {
           logo_url?: string | null
           monthly_fee?: number | null
           name: string
+          office_cities?: string[] | null
           phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
@@ -459,6 +461,7 @@ export type Database = {
           logo_url?: string | null
           monthly_fee?: number | null
           name?: string
+          office_cities?: string[] | null
           phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
@@ -552,6 +555,7 @@ export type Database = {
           logo_dark_bg: boolean | null
           logo_url: string | null
           name: string | null
+          office_cities: string[] | null
           phone: string | null
           product_filters: Json | null
           secondary_industries: string[] | null
@@ -574,6 +578,7 @@ export type Database = {
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
+          office_cities?: string[] | null
           phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
@@ -596,6 +601,7 @@ export type Database = {
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           name?: string | null
+          office_cities?: string[] | null
           phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null

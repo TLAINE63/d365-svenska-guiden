@@ -53,6 +53,7 @@ export interface DatabasePartner {
   created_at: string;
   updated_at: string;
   customer_examples?: string[];
+  office_cities?: string[];
   industry_apps?: Array<{
     name: string;
     url: string;
