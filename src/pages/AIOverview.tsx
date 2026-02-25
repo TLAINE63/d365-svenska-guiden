@@ -39,6 +39,14 @@ const roles = [
     color: "from-amber-600/20 to-orange-600/20 border-amber-500/30",
     link: "/finance-supply-chain",
   },
+  {
+    emoji: "📣",
+    title: "Marknadschef",
+    focus: "Segmentering, kampanjoptimering, kundinsikter med AI",
+    icon: Users,
+    color: "from-pink-600/20 to-rose-600/20 border-pink-500/30",
+    link: "/d365-marketing",
+  },
 ];
 
 const benefits = [
