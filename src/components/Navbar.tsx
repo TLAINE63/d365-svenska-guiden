@@ -23,6 +23,7 @@ const Navbar = () => {
   ];
 
   const aiItems = [
+    { label: "AI med Copilot & Agenter", path: "/ai-oversikt" },
     { label: "Copilot", path: "/copilot" },
     { label: "Agenter", path: "/agents" },
   ];
