@@ -47,6 +47,14 @@ const roles = [
     color: "from-pink-600/20 to-rose-600/20 border-pink-500/30",
     link: "/d365-marketing",
   },
+  {
+    emoji: "🖥️",
+    title: "IT-chef / CIO",
+    focus: "AI-strategi, systemintegration, säkerhet och skalbarhet",
+    icon: Cog,
+    color: "from-slate-600/20 to-gray-600/20 border-slate-500/30",
+    link: "/ai-readiness",
+  },
 ];
 
 const benefits = [
