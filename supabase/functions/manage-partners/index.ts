@@ -142,6 +142,8 @@ interface PartnerData {
   admin_notes?: string;
   admin_contact_name?: string;
   admin_contact_email?: string;
+  office_cities?: string[];
+  map_url?: string;
 }
 
 interface RequestBody {
@@ -265,6 +267,8 @@ serve(async (req: Request): Promise<Response> => {
             admin_notes: partner.admin_notes?.trim() || null,
             admin_contact_name: partner.admin_contact_name?.trim() || null,
             admin_contact_email: partner.admin_contact_email?.trim() || null,
+            office_cities: partner.office_cities || [],
+            map_url: partner.map_url?.trim() || null,
           })
           .select()
           .single();
@@ -318,6 +322,8 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.admin_notes !== undefined) updateData.admin_notes = partner.admin_notes?.trim() || null;
         if (partner?.admin_contact_name !== undefined) updateData.admin_contact_name = partner.admin_contact_name?.trim() || null;
         if (partner?.admin_contact_email !== undefined) updateData.admin_contact_email = partner.admin_contact_email?.trim() || null;
+        if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
+        if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
 
         const { data, error } = await supabase
           .from("partners")

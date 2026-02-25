@@ -258,6 +258,8 @@ const AdminDashboard = () => {
     geography: ["Sverige"],
     product_filters: {},
     is_featured: false,
+    office_cities: [],
+    map_url: "",
     activation_date: "",
     monthly_fee: undefined,
     cancellation_date: "",
@@ -579,6 +581,8 @@ const AdminDashboard = () => {
       geography: ["Sverige"],
       product_filters: {},
       is_featured: false,
+      office_cities: [],
+      map_url: "",
       activation_date: "",
       monthly_fee: undefined,
       cancellation_date: "",
@@ -614,6 +618,8 @@ const AdminDashboard = () => {
       geography: partner.geography || ["Sverige"],
       product_filters: partner.product_filters || {},
       is_featured: partner.is_featured || false,
+      office_cities: (partner as any).office_cities || [],
+      map_url: (partner as any).map_url || "",
       activation_date: partner.activation_date || "",
       monthly_fee: partner.monthly_fee || undefined,
       cancellation_date: partner.cancellation_date || "",
@@ -2133,7 +2139,34 @@ const AdminDashboard = () => {
                     );
                   })}
                 </div>
-              </div>
+                </div>
+
+                {/* Office cities */}
+                <div className="space-y-2 mt-4">
+                  <Label htmlFor="office_cities" className="font-medium">Kontorsstäder (kommaseparerade)</Label>
+                  <Input
+                    id="office_cities"
+                    value={(partnerFormData as any).office_cities?.join(', ') || ''}
+                    onChange={(e) => {
+                      const cities = e.target.value.split(',').map((c: string) => c.trim()).filter(Boolean);
+                      setPartnerFormData({ ...partnerFormData, office_cities: cities } as any);
+                    }}
+                    placeholder="Stockholm, Göteborg, Malmö"
+                  />
+                  <p className="text-xs text-muted-foreground">Ange städer separerade med komma (max 20)</p>
+                </div>
+
+                {/* Map URL */}
+                <div className="space-y-2 mt-4">
+                  <Label htmlFor="map_url" className="font-medium">Google Maps-karta (URL)</Label>
+                  <Input
+                    id="map_url"
+                    value={(partnerFormData as any).map_url || ''}
+                    onChange={(e) => setPartnerFormData({ ...partnerFormData, map_url: e.target.value } as any)}
+                    placeholder="https://www.google.com/maps/d/edit?mid=..."
+                  />
+                  <p className="text-xs text-muted-foreground">Länk till Google My Maps som bäddas in på partnerprofilen</p>
+                </div>
 
               <Separator />
 
