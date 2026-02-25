@@ -9,11 +9,16 @@ import react from '@vitejs/plugin-react-swc';
  * Vite plugin that prerenders static HTML for all defined routes after the
  * client build completes.
  *
- * - Builds a separate SSR bundle from src/entry-server.tsx
- * - Renders each route to static HTML with react-helmet SEO tags
- * - Links CSS files correctly in each generated HTML
- * - Writes route/index.html files into the dist directory
- * - Generates a fresh sitemap.xml from the prerendered routes
+ * How it works:
+ * 1. Builds a separate, isolated SSR bundle from src/entry-server.tsx
+ * 2. Renders each route to static HTML with react-helmet SEO tags
+ * 3. Links CSS files from the client build into each HTML file
+ * 4. Writes route/index.html files into the dist directory
+ * 5. Generates a sitemap.xml from the prerendered routes
+ *
+ * Loop prevention:
+ * - Uses __VITE_PRERENDER env flag to prevent re-entry
+ * - SSR build uses configFile: false to avoid loading this plugin again
  */
 export default function prerenderPlugin(): Plugin {
   let outDir: string;
@@ -45,7 +50,7 @@ export default function prerenderPlugin(): Plugin {
 
         // ── 2. Build the SSR bundle (completely isolated) ────────────────
         await build({
-          configFile: false, // Do NOT load vite.config.ts → no plugin loop
+          configFile: false,
           root,
           plugins: [react()],
           resolve: {
@@ -90,17 +95,17 @@ export default function prerenderPlugin(): Plugin {
 
             let page = template;
 
-            // Remove existing SEO tags from the template head to avoid duplicates
+            // Strip existing SEO tags from the template to avoid duplicates
             page = page.replace(/<title>.*?<\/title>/gs, '');
-            page = page.replace(/<meta\s+name="description"[^>]*>/g, '');
-            page = page.replace(/<meta\s+name="keywords"[^>]*>/g, '');
-            page = page.replace(/<meta\s+name="robots"[^>]*>/g, '');
-            page = page.replace(/<meta\s+name="author"[^>]*>/g, '');
-            page = page.replace(/<meta\s+property="og:[^"]*"[^>]*>/g, '');
-            page = page.replace(/<meta\s+name="twitter:[^"]*"[^>]*>/g, '');
-            page = page.replace(/<link\s+rel="canonical"[^>]*>/g, '');
+            page = page.replace(/<meta\s+name="description"[^>]*\/?>/g, '');
+            page = page.replace(/<meta\s+name="keywords"[^>]*\/?>/g, '');
+            page = page.replace(/<meta\s+name="robots"[^>]*\/?>/g, '');
+            page = page.replace(/<meta\s+name="author"[^>]*\/?>/g, '');
+            page = page.replace(/<meta\s+property="og:[^"]*"[^>]*\/?>/g, '');
+            page = page.replace(/<meta\s+name="twitter:[^"]*"[^>]*\/?>/g, '');
+            page = page.replace(/<link\s+rel="canonical"[^>]*\/?>/g, '');
 
-            // Ensure CSS files are linked in head (Vite usually does this, but verify)
+            // Ensure all CSS files from the client build are linked
             for (const cssFile of cssFiles) {
               if (!page.includes(cssFile)) {
                 page = page.replace(
@@ -125,7 +130,7 @@ export default function prerenderPlugin(): Plugin {
               `<div id="root">${appHtml}</div>`
             );
 
-            // Clean up excessive blank lines for tidy output
+            // Clean up excessive blank lines
             page = page.replace(/\n{3,}/g, '\n\n');
 
             // Write the file
@@ -142,7 +147,7 @@ export default function prerenderPlugin(): Plugin {
             writeFileSync(filePath, page, 'utf-8');
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 
-            // Collect sitemap entry (exclude index.html, just paths)
+            // Collect sitemap entry
             sitemapEntries.push(
               [
                 '  <url>',
@@ -175,7 +180,6 @@ export default function prerenderPlugin(): Plugin {
         console.error('❌ Prerender failed:', err);
       } finally {
         delete process.env.__VITE_PRERENDER;
-        // Clean up temporary SSR bundle
         try {
           rmSync(tempDir, { recursive: true, force: true });
         } catch {
@@ -312,7 +316,6 @@ function setupBrowserGlobals() {
     implementation: { createHTMLDocument: () => g.document },
   };
 
-  // Expose commonly accessed globals
   g.localStorage = g.window.localStorage;
   g.sessionStorage = g.window.sessionStorage;
   g.navigator = g.window.navigator;
