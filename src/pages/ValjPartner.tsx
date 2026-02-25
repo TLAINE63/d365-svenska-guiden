@@ -555,28 +555,30 @@ const ValjPartner = () => {
 
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-8 sm:mb-10 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Vem är din mest lämpade Dynamics 365-partner?
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-4xl mx-auto">
-              Här är ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
-            </p>
-          </div>
-
-          {/* Partner Map */}
-          <div className="mb-10 max-w-[224px] mx-auto">
-            <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
-              <img 
-                src={partnerMapSweden} 
-                alt="Karta över Dynamics 365-partners kontor i Sverige" 
-                className="w-full h-auto"
-                loading="lazy"
-              />
+          <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 mb-8 sm:mb-10 md:mb-12">
+            {/* Partner Map */}
+            <div className="shrink-0 w-48 md:w-56">
+              <div className="rounded-2xl overflow-hidden border border-border shadow-lg">
+                <img 
+                  src={partnerMapSweden} 
+                  alt="Karta över Dynamics 365-partners kontor i Sverige" 
+                  className="w-full h-auto"
+                  loading="lazy"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground text-center mt-2">
+                Kontorsplaceringar för partners i Sverige
+              </p>
             </div>
-            <p className="text-sm text-muted-foreground text-center mt-3">
-              Kontorsplaceringar för Dynamics 365-partners i Sverige
-            </p>
+
+            <div className="text-center md:text-left">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+                Vem är din mest lämpade Dynamics 365-partner?
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                Här är ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+              </p>
+            </div>
           </div>
 
           {/* Application Filter */}
