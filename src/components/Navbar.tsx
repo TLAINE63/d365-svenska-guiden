@@ -25,8 +25,6 @@ const Navbar = () => {
   const aiItems = [
     { label: "AI med Copilot & Agenter", path: "/ai-oversikt" },
     { label: "🧠 AI Readiness Assessment", path: "/ai-readiness" },
-    { label: "Copilot", path: "/copilot" },
-    { label: "Agenter", path: "/agents" },
   ];
 
   const crmSalesItems = [
