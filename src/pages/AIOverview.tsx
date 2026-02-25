@@ -4,7 +4,8 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Briefcase, BarChart3, Headphones, Truck, Bot, Sparkles, TrendingUp, Brain, Users, Package, Cog, LineChart, ShieldAlert, Heart, DollarSign, Check } from "lucide-react";
+import { Briefcase, BarChart3, Headphones, Truck, Bot, Sparkles, TrendingUp, Brain, Users, Package, Cog, LineChart, ShieldAlert, Heart, DollarSign, Check, Search, ArrowRight, CircleCheck, CircleDot, CircleAlert } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const roles = [
   {
@@ -137,10 +138,113 @@ const goals = [
   },
 ];
 
+const readinessQuestions = [
+  "Har ni strukturerad och kvalitetssäkrad data?",
+  "Är era processer standardiserade?",
+  "Arbetar ni redan i Dynamics 365?",
+  "Har ni identifierat flaskhalsar?",
+  "Finns tydliga affärsmål kopplade till effektivisering?",
+];
+
+const crmScenarios = [
+  {
+    num: "1",
+    title: "Smart lead-prioritering",
+    desc: "Copilot analyserar historiska affärer, beteende och kommunikation → visar vilka affärer du bör fokusera på denna vecka.",
+  },
+  {
+    num: "2",
+    title: "Automatiska mötessammanfattningar",
+    desc: "Efter Teams-möten skapas automatiska sammanfattningar, uppgifter och nästa steg.",
+  },
+  {
+    num: "3",
+    title: "Förslag på nästa bästa åtgärd",
+    desc: "Systemet föreslår åtgärder baserat på kunddata, historik och sannolikhet.",
+  },
+  {
+    num: "4",
+    title: "AI-baserad kundservice",
+    desc: "Agenter kan svara på vanliga frågor, skapa ärenden automatiskt och föreslå lösningar till handläggare.",
+  },
+];
+
+const erpScenarios = [
+  {
+    num: "1",
+    title: "Automatisk avvikelseanalys",
+    desc: "AI identifierar transaktioner som avviker från normala mönster.",
+  },
+  {
+    num: "2",
+    title: "Prognoser för kassaflöde",
+    desc: "Prediktiv analys baserad på historik och aktuella data.",
+  },
+  {
+    num: "3",
+    title: "Lageroptimering",
+    desc: "AI förutser efterfrågan och minskar överlager.",
+  },
+  {
+    num: "4",
+    title: "Bokslutsagenter",
+    desc: "Automatiserade moment i periodavslut och rapportering.",
+  },
+];
+
+const practicalEffects = [
+  "20–40% minskning av manuella moment",
+  "Kortare ledtider i säljcykeln",
+  "Förbättrad prognosprecision",
+  "Färre fel i ekonomiprocesser",
+  "Ökad kundnöjdhet",
+];
+
+type ReadinessLevel = "early" | "pilot" | "scale" | null;
+
+const readinessResults: Record<Exclude<ReadinessLevel, null>, { icon: typeof CircleAlert; color: string; title: string; description: string }> = {
+  early: {
+    icon: CircleAlert,
+    color: "text-amber-500",
+    title: "Tidigt läge – börja med datagrund",
+    description: "Ni har potential men behöver först säkerställa datakvalitet och standardiserade processer. Vi rekommenderar att börja med en nulägesanalys.",
+  },
+  pilot: {
+    icon: CircleDot,
+    color: "text-blue-500",
+    title: "Redo för pilotprojekt",
+    description: "Ni har en bra grund. Nästa steg är att identifiera ett avgränsat område för ett AI-pilotprojekt med tydliga KPI:er.",
+  },
+  scale: {
+    icon: CircleCheck,
+    color: "text-emerald-500",
+    title: "Redo för AI-skalning",
+    description: "Ni har förutsättningarna på plats för att bredda AI-användningen. Dags att skapa en roadmap för skalbar AI i hela verksamheten.",
+  },
+};
+
 const AIOverview = () => {
   const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
+  const [answers, setAnswers] = useState<boolean[]>(new Array(readinessQuestions.length).fill(false));
+  const [showResult, setShowResult] = useState(false);
 
   const activeScenario = goals.find((g) => g.id === selectedGoal)?.scenario;
+
+  const yesCount = answers.filter(Boolean).length;
+  const readinessLevel: ReadinessLevel = !showResult
+    ? null
+    : yesCount <= 2
+    ? "early"
+    : yesCount <= 4
+    ? "pilot"
+    : "scale";
+
+  const toggleAnswer = (index: number) => {
+    const next = [...answers];
+    next[index] = !next[index];
+    setAnswers(next);
+    setShowResult(false);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -210,7 +314,7 @@ const AIOverview = () => {
         </section>
 
         {/* Step 2 – Goals */}
-        <section className="max-w-5xl mx-auto">
+        <section className="max-w-5xl mx-auto mb-20">
           <div className="flex items-center justify-center gap-3 mb-3">
             <span className="text-3xl">🧠</span>
             <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
@@ -254,7 +358,6 @@ const AIOverview = () => {
             })}
           </div>
 
-          {/* Scenario result */}
           {activeScenario && (
             <div className="max-w-3xl mx-auto animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
               <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
@@ -283,6 +386,152 @@ const AIOverview = () => {
               </Card>
             </div>
           )}
+        </section>
+
+        {/* Concrete AI Scenarios */}
+        <section className="max-w-5xl mx-auto mb-20">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">🎯</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Konkreta AI-scenarier i Dynamics 365
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-12">
+            Så används Copilot och agenter i verkliga affärsprocesser.
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+            {/* CRM column */}
+            <div>
+              <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-primary" />
+                AI i CRM (Sales &amp; Customer Service)
+              </h3>
+              <div className="space-y-5">
+                {crmScenarios.map((s) => (
+                  <div key={s.num} className="flex gap-4">
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
+                      {s.num}
+                    </span>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">{s.title}</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ERP column */}
+            <div>
+              <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Package className="h-5 w-5 text-primary" />
+                AI i ERP (Finance &amp; Supply Chain)
+              </h3>
+              <div className="space-y-5">
+                {erpScenarios.map((s) => (
+                  <div key={s.num} className="flex gap-4">
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
+                      {s.num}
+                    </span>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">{s.title}</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Practical effects */}
+        <section className="max-w-3xl mx-auto mb-20">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">📊</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Vad betyder detta i praktiken?
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-8">
+            Typiska effekter vi ser i projekt med AI i Dynamics 365:
+          </p>
+          <div className="grid gap-3">
+            {practicalEffects.map((effect, i) => (
+              <div key={i} className="flex items-center gap-3 bg-muted/50 rounded-lg px-5 py-3.5">
+                <Check className="h-5 w-5 text-emerald-500 shrink-0" />
+                <span className="text-foreground font-medium">{effect}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* AI Readiness Check */}
+        <section className="max-w-3xl mx-auto">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <Search className="h-7 w-7 text-primary" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Är ni redo för AI?
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-10">
+            Svara på 5 snabba frågor och se var ni befinner er på AI-resan.
+          </p>
+
+          <Card className="border-primary/10">
+            <CardContent className="p-6 sm:p-8">
+              <div className="space-y-4 mb-8">
+                {readinessQuestions.map((q, i) => (
+                  <button
+                    key={i}
+                    onClick={() => toggleAnswer(i)}
+                    className="w-full flex items-center gap-4 text-left rounded-lg border px-4 py-3.5 transition-all hover:bg-muted/50"
+                  >
+                    <div className={`shrink-0 w-6 h-6 rounded-md border-2 flex items-center justify-center transition-colors ${
+                      answers[i] ? "bg-primary border-primary" : "border-muted-foreground/30"
+                    }`}>
+                      {answers[i] && <Check className="h-4 w-4 text-primary-foreground" />}
+                    </div>
+                    <span className="text-foreground font-medium">{q}</span>
+                  </button>
+                ))}
+              </div>
+
+              <Button
+                onClick={() => setShowResult(true)}
+                className="w-full"
+                size="lg"
+              >
+                Visa mitt resultat <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+
+              {readinessLevel && (
+                <div className="mt-8 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
+                  {(() => {
+                    const result = readinessResults[readinessLevel];
+                    const ResultIcon = result.icon;
+                    return (
+                      <div className="rounded-lg border bg-muted/30 p-6">
+                        <div className="flex items-start gap-4">
+                          <ResultIcon className={`h-8 w-8 shrink-0 ${result.color}`} />
+                          <div>
+                            <h4 className="text-lg font-bold text-foreground mb-2">{result.title}</h4>
+                            <p className="text-muted-foreground mb-4">{result.description}</p>
+                            <Link
+                              to="/kontakt"
+                              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                            >
+                              Boka AI-workshop <ArrowRight className="h-4 w-4" />
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </section>
       </main>
       <Footer />
