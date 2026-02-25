@@ -18,6 +18,7 @@ const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Agents = lazy(() => import("./pages/Agents"));
+const AIOverview = lazy(() => import("./pages/AIOverview"));
 const QA = lazy(() => import("./pages/QA"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
@@ -64,6 +65,7 @@ const App = () => (
             <Route path="/erp" element={<ERPOverview />} />
             <Route path="/copilot" element={<Copilot />} />
             <Route path="/agents" element={<Agents />} />
+            <Route path="/ai-oversikt" element={<AIOverview />} />
             <Route path="/qa" element={<QA />} />
             <Route path="/kontakt" element={<ContactUs />} />
             
