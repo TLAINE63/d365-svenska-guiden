@@ -49,13 +49,14 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 5: Resources */}
+          {/* Column 5: AI & Resurser */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Resurser</h3>
+            <h3 className="font-semibold text-foreground mb-4">AI & Resurser</h3>
             <ul className="space-y-2 text-sm">
+              <li><Link to="/ai-oversikt" className="text-muted-foreground hover:text-foreground transition-colors">AI med Copilot & Agenter</Link></li>
+              <li><Link to="/ai-readiness" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
               <li><Link to="/valj-partner" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branschlosningar" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>
-              <li><Link to="/copilot" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Copilot</Link></li>
               <li><Link to="/events" className="text-muted-foreground hover:text-foreground transition-colors">Events</Link></li>
               <li><Link to="/kontakt" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>
             </ul>
