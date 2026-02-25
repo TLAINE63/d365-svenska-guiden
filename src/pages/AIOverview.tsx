@@ -364,6 +364,178 @@ const AIOverview = () => {
           </div>
         </section>
 
+        {/* Common myths */}
+        <section className="max-w-4xl mx-auto mb-20">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">💡</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Vanliga missförstånd om AI
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-10">
+            Låt oss avdramatisera de vanligaste myterna.
+          </p>
+
+          <div className="grid gap-5 max-w-3xl mx-auto">
+            {[
+              {
+                myth: '"AI ersätter personal"',
+                reality: "AI frigör tid från rutinuppgifter så att medarbetare kan fokusera på det som kräver mänskligt omdöme – kundrelationer, strategi och kreativitet.",
+              },
+              {
+                myth: '"Vi måste byta system"',
+                reality: "Copilot och agenter byggs in direkt i Dynamics 365. Ni behöver inte byta – ni aktiverar AI i det system ni redan använder.",
+              },
+              {
+                myth: '"Det kräver enorma datamängder"',
+                reality: "AI i Dynamics 365 arbetar med den data ni redan har. Ju mer strukturerad den är, desto bättre – men ni behöver inte vara perfekta för att börja.",
+              },
+            ].map((item, i) => (
+              <Card key={i} className="border bg-card">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <span className="shrink-0 text-2xl">❌</span>
+                    <div>
+                      <p className="font-bold text-foreground mb-2">{item.myth}</p>
+                      <div className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+                        <p className="text-muted-foreground">{item.reality}</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Industry-specific AI examples */}
+        <section className="max-w-5xl mx-auto mb-20">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">🏭</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              AI-exempel per bransch
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-10">
+            Så kan AI i Dynamics 365 skapa värde i just din bransch.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {[
+              {
+                emoji: "🏭",
+                title: "Tillverkning",
+                examples: [
+                  "Prediktivt underhåll som minskar oplanerade stopp",
+                  "AI-optimerad produktionsplanering",
+                  "Automatisk kvalitetskontroll med avvikelseanalys",
+                ],
+                link: "/branschlosningar",
+              },
+              {
+                emoji: "🛒",
+                title: "Handel & Distribution",
+                examples: [
+                  "Lageroptimering baserad på efterfrågeprognoser",
+                  "Personaliserade produktrekommendationer",
+                  "Automatisk prissättning utifrån marknadstrender",
+                ],
+                link: "/branschlosningar",
+              },
+              {
+                emoji: "💼",
+                title: "Professional Services",
+                examples: [
+                  "Copilot som sammanfattar projekt och kundmöten",
+                  "Resursplanering med AI-baserad beläggningsprognos",
+                  "Automatisk tidrapportering och fakturering",
+                ],
+                link: "/branschlosningar",
+              },
+              {
+                emoji: "🏛️",
+                title: "Offentlig sektor",
+                examples: [
+                  "Ärendehantering med AI-kategorisering",
+                  "Copilot som stöd i medborgarservice",
+                  "Budgetprognoser och avvikelsedetektering",
+                ],
+                link: "/branschlosningar",
+              },
+            ].map((industry) => (
+              <Link key={industry.title} to={industry.link}>
+                <Card className="group border bg-card hover:bg-muted/50 hover:scale-[1.01] transition-all duration-300 h-full">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-2xl">{industry.emoji}</span>
+                      <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                        {industry.title}
+                      </h3>
+                    </div>
+                    <ul className="space-y-2">
+                      {industry.examples.map((ex, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                          <span>{ex}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Risk, governance & security */}
+        <section className="max-w-4xl mx-auto mb-20">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <ShieldAlert className="h-7 w-7 text-primary" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Styrning, säkerhet &amp; dataskydd
+            </h2>
+          </div>
+          <p className="text-center text-muted-foreground mb-10">
+            Beslutsfattare behöver trygga svar. Här är vad som gäller för AI i Dynamics 365.
+          </p>
+
+          <div className="grid sm:grid-cols-2 gap-6">
+            {[
+              {
+                icon: "🔒",
+                title: "Dataskydd & GDPR",
+                desc: "All data stannar inom er Microsoft-tenant. Copilot använder inte kunddata för att träna AI-modeller. Microsoft följer GDPR och har EU Data Boundary.",
+              },
+              {
+                icon: "🛡️",
+                title: "Säkerhet i Copilot",
+                desc: "Copilot respekterar befintliga behörigheter – en användare ser bara det de redan har tillgång till. Inget data läcker mellan användare eller organisationer.",
+              },
+              {
+                icon: "⚙️",
+                title: "Governance & kontroll",
+                desc: "Administratörer styr vilka Copilot-funktioner och agenter som aktiveras, vem som har tillgång och vilka datakällor som används.",
+              },
+              {
+                icon: "📋",
+                title: "Ansvarsfull AI",
+                desc: "Microsoft följer principerna för ansvarsfull AI: transparens, rättvisa, tillförlitlighet och integritet. AI-beslut kan alltid granskas och förklaras.",
+              },
+            ].map((item, i) => (
+              <Card key={i} className="border bg-card">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-2xl">{item.icon}</span>
+                    <h3 className="font-bold text-foreground">{item.title}</h3>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         {/* Step 1 – Role cards */}
         <section className="max-w-5xl mx-auto mb-20">
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-3">
