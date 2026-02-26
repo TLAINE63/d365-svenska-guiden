@@ -271,7 +271,8 @@ const D365Sales = () => {
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• <strong>Liten implementation (5-15 användare):</strong> 6-10 veckor</li>
                     <li>• <strong>Medelstor (15-50 användare):</strong> 4-8 månader</li>
-                    <li>• <strong>Stor (50+ användare):</strong> 6-12 månader</li>
+                    <li>• <strong>Stor (50+ användare):</strong> 7-15 månader</li>
+                    <li>• <strong>Omfattande (Många användare, flera verksamhetsområden/bolag/länder och rikligt med integrationer):</strong> 12-24 månader</li>
                   </ul>
                 </div>
                 <div>
