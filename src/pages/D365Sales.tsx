@@ -221,7 +221,7 @@ const D365Sales = () => {
                   ❓ Hur lång tid tar det att implementera Dynamics 365 Sales?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  En standardimplementering av Dynamics 365 Sales för 10-30 användare tar normalt 2-4 månader. Tiden kan variera beroende på om ni har möjlighet att lägga den interna tiden som ofta krävs och om ni har en god bild över hur ni vill att säljprocessen skall se ut.
+                  En standardimplementering av Dynamics 365 Sales för 10-30 användare tar normalt 2-4 månader. Tiden kan variera beroende på om ni har möjlighet att lägga den interna tiden som ofta krävs och om ni har en god bild över hur ni vill att säljprocessen skall se ut. Detta inkluderar grundkonfiguration, datamigrering, användarutbildning och integrationer. Större implementeringar för en större verksamhet och med mer omfattande anpassningar kan ta 6-12 månader eller mer.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
