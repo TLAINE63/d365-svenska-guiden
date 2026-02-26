@@ -600,7 +600,7 @@ const Branschlosningar = () => {
                 },
                 {
                   label: "Sales & Marketing",
-                  desc: "CRM för försäljning och marknadsautomation",
+                  desc: "CRM för försäljning och en effektiv marknadsbearbetning",
                   path: "/crm",
                   industries: "Fastighet, Finans, Konsult, IT-tjänster",
                   badge: "bg-crm/10 text-crm border-crm/30",
