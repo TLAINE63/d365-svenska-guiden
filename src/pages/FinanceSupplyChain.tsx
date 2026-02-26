@@ -257,7 +257,7 @@ const FinanceSupplyChain = () => {
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6 pl-11">
-                  En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning och komplexitet. Processen följer vanligtvis följande faser: (1) Analys och planering, (2) Design och konfiguration, (3) Datamigrering, (4) Testning och validering, (5) Utbildning, (6) Go-live och (7) Stabilisering. Vi rekommenderar en fasad implementering där ni rullar ut funktionaliteten stegvis för att minimera risker.
+                  En typisk F&SCM-implementering tar 9-24 månader beroende på omfattning och komplexitet. Processen följer vanligtvis följande faser: (1) Analys och planering, (2) Design och konfiguration, (3) Datamigrering, (4) Testning och validering, (5) Utbildning, (6) Go-live och (7) Stabilisering. Kan en fasad implementering, där ni rullar ut funktionaliteten stegvis för att minimera risker, vara en variant för er?
                 </AccordionContent>
               </AccordionItem>
               
