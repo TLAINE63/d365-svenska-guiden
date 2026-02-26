@@ -38,7 +38,7 @@ const homeFaqs = [
   },
   {
     question: "Vilken Dynamics 365-lösning passar vårt företag bäst – ERP eller CRM?",
-    answer: "Business Central passar SMB-företag (ca 10–300 anställda) som behöver allt-i-ett ERP för ekonomi, lager och inköp. Finance & Supply Chain Management passar globala koncerner med komplexa produktionsflöden och flera juridiska entiteter. Dynamics 365 Sales passar säljorganisationer som vill digitalisera pipeline och kundrelationer. Customer Service passar företag med supportärenden och fälttekniker. Gör gärna vår kostnadsfria behovsanalys för en personlig rekommendation."
+    answer: "Business Central passar SMB-företag (ca 10–300 anställda) som behöver allt-i-ett ERP för ekonomi, order, lager, inköp, produktion och projekt. Finance & Supply Chain Management passar globala koncerner med komplexa produktionsflöden och flera juridiska entiteter. Dynamics 365 Sales passar säljorganisationer som vill digitalisera pipeline och kundrelationer. Customer Service passar företag med supportärenden och fälttekniker. Gör gärna vår kostnadsfria behovsanalys för en personlig rekommendation."
   },
   {
     question: "Hur hittar jag rätt Microsoft Dynamics 365-partner i Sverige?",
@@ -134,7 +134,7 @@ const Index = () => {
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
                     <p>Det beror på om du primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda. Här är de vanligaste scenarierna:</p>
-                    <p>• <strong>Business Central</strong> passar dig om du är ett litet eller medelstort företag (ca 10–300 anställda) och behöver ett modernt allt-i-ett affärssystem för ekonomi, lager, inköp och projekt. Vanligt i branscher som tillverkning, distribution, bygg och konsulttjänster.</p>
+                    <p>• <strong>Business Central</strong> passar dig om du är ett litet eller medelstort företag (ca 10–300 anställda) och behöver ett modernt allt-i-ett affärssystem för ekonomi, order, lager, inköp, produktion och projekt. Vanligt i branscher som tillverkning, distribution, bygg och konsulttjänster.</p>
                     <p>• <strong>Finance & Supply Chain Management</strong> passar dig om du är en större koncern med komplexa globala flöden, flera juridiska enheter eller avancerade produktionskrav. Kräver mer av implementering och intern resurser.</p>
                     <p>• <strong>Dynamics 365 Sales</strong> passar dig om du vill digitalisera och effektivisera din säljprocess – pipeline-hantering, offerthantering och kundrelationer.</p>
                     <p>• <strong>Customer Service & Field Service</strong> passar dig om du hanterar ärenden, garantier, serviceavtal eller fälttekniker som behöver digital planering och support.</p>
