@@ -140,7 +140,7 @@ const Index = () => {
                     <p>• <strong>Customer Service & Field Service</strong> passar dig om du hanterar ärenden, garantier, serviceavtal eller fälttekniker som behöver digital planering och support.</p>
                     <p>• <strong>Customer Insights</strong> passar dig om du vill arbeta datadrivet med marknadsföring, kampanjer och personalisering mot kunder.</p>
                     <p className="pt-1">
-                      <Link to="/behovsanalys" className="text-primary hover:underline font-semibold">→ Gör vår kostnadsfria ERP-behovsanalys</Link> eller <Link to="/salj-marknad-behovsanalys" className="text-primary hover:underline font-semibold">CRM-behovsanalys</Link> för en personlig rekommendation.
+                      → Gör gärna någon av våra kostnadsfria behovsanalyser för <Link to="/behovsanalys" className="text-primary hover:underline font-semibold">ERP/Affärssystem</Link>, <Link to="/salj-marknad-behovsanalys" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys" className="text-primary hover:underline font-semibold">Kundservice</Link> för en personlig rekommendation.
                     </p>
                   </div>
                 </AccordionContent>
