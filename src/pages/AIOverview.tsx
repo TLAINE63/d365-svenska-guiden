@@ -157,7 +157,14 @@ const crmScenarios = [
   { num: "1", title: "Smart lead-prioritering", desc: "Copilot analyserar historiska affärer, beteende och kommunikation → visar vilka affärer du bör fokusera på denna vecka." },
   { num: "2", title: "Automatiska mötessammanfattningar", desc: "Efter Teams-möten skapas automatiska sammanfattningar, uppgifter och nästa steg." },
   { num: "3", title: "Förslag på nästa bästa åtgärd", desc: "Systemet föreslår åtgärder baserat på kunddata, historik och sannolikhet." },
-  { num: "4", title: "AI-baserad kundservice", desc: "Agenter kan svara på vanliga frågor, skapa ärenden automatiskt och föreslå lösningar till handläggare." },
+];
+
+const customerServiceScenarios = [
+  { num: "1", title: "AI-driven ärendesortering", desc: "Copilot kategoriserar och prioriterar inkommande ärenden automatiskt baserat på ämne, sentiment och SLA – rätt ärende hamnar hos rätt kundservicemedarbetare direkt." },
+  { num: "2", title: "Svarsförslag från kunskapsdatabas", desc: "Copilot söker igenom kunskapsartiklar och tidigare lösningar och föreslår färdiga svar som kundservicemedarbetaren kan skicka med ett klick." },
+  { num: "3", title: "Sentimentanalys i realtid", desc: "AI övervakar kundens tonläge under chatt och samtal. Vid negativt sentiment eskaleras ärendet automatiskt till en senior medarbetare." },
+  { num: "4", title: "Autonoma serviceagenter", desc: "AI-agenter hanterar vanliga frågor (orderstatus, lösenordsåterställning, returärenden) helt utan mänsklig inblandning – dygnet runt." },
+  { num: "5", title: "Ärendesammanfattning vid överföring", desc: "När ett ärende eskaleras eller överlämnas skapar Copilot en komplett sammanfattning så att nästa medarbetare slipper be kunden upprepa sig." },
 ];
 
 const erpScenarios = [
@@ -585,15 +592,36 @@ const AIOverview = () => {
             Så används Copilot och agenter i verkliga affärsprocesser.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-10">
             {/* CRM column */}
             <div>
               <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                 <BarChart3 className="h-5 w-5 text-primary" />
-                AI i CRM (Sales &amp; Customer Service)
+                AI i Sälj
               </h3>
               <div className="space-y-5">
                 {crmScenarios.map((s) => (
+                  <div key={s.num} className="flex gap-4">
+                    <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
+                      {s.num}
+                    </span>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">{s.title}</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{s.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Customer Service column */}
+            <div>
+              <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                <Headphones className="h-5 w-5 text-primary" />
+                AI i Kundservice
+              </h3>
+              <div className="space-y-5">
+                {customerServiceScenarios.map((s) => (
                   <div key={s.num} className="flex gap-4">
                     <span className="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center text-sm">
                       {s.num}
