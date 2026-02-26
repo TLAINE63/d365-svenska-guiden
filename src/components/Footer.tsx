@@ -51,7 +51,7 @@ const Footer = () => {
 
           {/* Column 5: AI & Resurser */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">AI & Resurser</h3>
+            <h3 className="font-semibold text-foreground mb-4">AI & Interna resurser</h3>
             <ul className="space-y-2 text-sm">
               <li><Link to="/ai-oversikt" className="text-muted-foreground hover:text-foreground transition-colors">AI med Copilot & Agenter</Link></li>
               <li><Link to="/ai-readiness" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
