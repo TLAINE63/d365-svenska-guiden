@@ -284,7 +284,7 @@ const D365Sales = () => {
                     <li>• <strong>Liten implementation:</strong> 100 000 - 250 000 kr</li>
                     <li>• <strong>Medelstor:</strong> 250 000 - 600 000 kr</li>
                     <li>• <strong>Stor med anpassningar:</strong> 600 000 - 1 500 000 kr</li>
-                    <li>• <strong>Omfattande:</strong> &gt; 1 000 000 kr</li>
+                    <li>• <strong>Omfattande:</strong> &gt; 1 000 000 kr - ...</li>
                   </ul>
                 </div>
               </div>
