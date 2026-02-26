@@ -270,7 +270,7 @@ const D365Sales = () => {
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li>• <strong>Liten implementation (5-15 användare):</strong> 6-10 veckor</li>
-                    <li>• <strong>Medelstor (15-50 användare):</strong> 4-6 månader</li>
+                    <li>• <strong>Medelstor (15-50 användare):</strong> 4-8 månader</li>
                     <li>• <strong>Stor (50+ användare):</strong> 6-12 månader</li>
                   </ul>
                 </div>
