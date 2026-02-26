@@ -212,7 +212,7 @@ const D365Sales = () => {
                   ❓ Kan Dynamics 365 Sales integreras med vårt befintliga ERP-system?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Ja, Dynamics 365 Sales kan integreras med de flesta ERP-system, både Microsofts egna (Business Central, Finance & Supply Chain) och tredjepartssystem. Inbyggd integration med Business Central är enkel att konfigurera, medan integrationer med andra system ofta kräver anpassade lösningar via Power Platform eller standardkopplingar.
+                  Ja, Dynamics 365 Sales kan integreras med de flesta ERP-system, både Microsofts egna (Business Central, Finance & Supply Chain) och mängder av andra moderna ERP-system. Inbyggd integration med Business Central är enkel att konfigurera, medan integrationer med andra system ofta kräver anpassade lösningar via Power Platform eller standardkopplingar.
                 </AccordionContent>
               </AccordionItem>
 
