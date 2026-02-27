@@ -30,6 +30,7 @@ import {
   Shield,
   Zap,
   Factory,
+  Headphones,
   Lightbulb,
   Sparkles,
   Bot,
@@ -46,7 +47,7 @@ import { useToast } from "@/hooks/use-toast";
 
 // ─── TYPES ───────────────────────────────────────────────
 
-type RoleId = "it" | "sales" | "marketing" | "finance" | "project" | "logistics" | "production";
+type RoleId = "it" | "sales" | "marketing" | "finance" | "project" | "logistics" | "production" | "customer_service";
 type IndexId = "automation" | "augmentation" | "prediction" | "governance";
 type ProfileId = "exploring" | "structurally_ready" | "scaling";
 type SystemTrack = "optimization" | "transformation" | "strategy";
@@ -441,6 +442,35 @@ const roleTracks: RoleTrack[] = [
       { condition: (s) => s.augmentation < 40, text: "Utan realtidsdata från produktion saknas grund för AI-driven kvalitetskontroll" },
     ],
   },
+  {
+    id: "customer_service",
+    label: "Kundservice",
+    emoji: "🎧",
+    icon: Headphones,
+    color: "text-teal-600",
+    headerBg: "bg-teal-600",
+    measures: "Lösningstid · Självbetjäningsgrad · Kundnöjdhet",
+    timeSavingsRange: "20–40%",
+    forecastImprovement: "10–20%",
+    riskReduction: "Minskad eskaleringsfrekvens",
+    questions: [
+      { id: "cs_resolution", question: "Hur lång är den genomsnittliga lösningstiden för ärenden?", index: "automation", options: [{ label: "Under 4 timmar", score: 1 }, { label: "4–24 timmar", score: 2 }, { label: "Över 24 timmar", score: 3 }] },
+      { id: "cs_selfservice", question: "Hur stor andel av ärenden löses via självbetjäning?", index: "automation", options: [{ label: "Över 40%", score: 1 }, { label: "10–40%", score: 2 }, { label: "Under 10% eller ingen självbetjäning", score: 3 }] },
+      { id: "cs_routing", question: "Hur dirigeras ärenden till rätt medarbetare?", index: "augmentation", options: [{ label: "AI-driven routing baserat på kompetens", score: 1 }, { label: "Regelbaserad routing", score: 2 }, { label: "Manuellt eller round-robin", score: 3 }] },
+      { id: "cs_sentiment", question: "Analyseras kundsentiment under pågående ärenden?", index: "prediction", options: [{ label: "Ja, i realtid med AI", score: 1 }, { label: "Delvis, via enkäter efteråt", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "cs_knowledge", question: "Får agenter automatiska förslag på lösningar från kunskapsdatabasen?", index: "augmentation", options: [{ label: "Ja, AI-drivna förslag i realtid", score: 1 }, { label: "Manuell sökning i kunskapsbas", score: 2 }, { label: "Ingen strukturerad kunskapsbas", score: 3 }] },
+    ],
+    aiResults: [
+      { label: "Conversational AI Potential", labelEn: "Conversational AI", description: "AI-drivna chatbottar och virtuella agenter som löser ärenden autonomt", d365Context: "Copilot i Dynamics 365 Customer Service ger AI-assisterad ärendehantering" },
+      { label: "Sentiment Analysis Potential", labelEn: "Sentiment Analysis", description: "Realtidsanalys av kundsentiment för proaktiv eskalering", d365Context: "Sentimentanalys är inbyggd i Dynamics 365 Customer Service och Contact Center" },
+      { label: "Knowledge AI Potential", labelEn: "Knowledge AI", description: "AI som automatiskt föreslår relevanta artiklar och lösningar", d365Context: "Copilot i Customer Service söker och sammanfattar kunskapsartiklar automatiskt" },
+    ],
+    risks: [
+      { condition: (s) => s.automation < 40, text: "Låg självbetjäningsgrad och manuell ärendehantering begränsar AI-automatisering" },
+      { condition: (s) => s.augmentation < 40, text: "Utan intelligent routing och kunskapsstöd utnyttjas inte AI:s beslutsstöd" },
+      { condition: (s) => s.prediction < 40, text: "Avsaknad av sentimentanalys gör det svårt att prediktera eskaleringar" },
+    ],
+  },
 ];
 
 // ─── SCORING (inverted: high score = high AI opportunity) ─
@@ -550,14 +580,15 @@ function calcROI(
     project: 700000,
     logistics: 600000,
     production: 550000,
+    customer_service: 500000,
   };
 
   // Team size estimate per headcount bracket
   const teamSizeMap: Record<string, Record<RoleId, number>> = {
-    "1–49 anställda": { sales: 3, finance: 2, it: 2, marketing: 2, project: 3, logistics: 3, production: 10 },
-    "50–249 anställda": { sales: 8, finance: 5, it: 5, marketing: 4, project: 6, logistics: 8, production: 30 },
-    "250–999 anställda": { sales: 20, finance: 12, it: 12, marketing: 8, project: 15, logistics: 20, production: 80 },
-    "1 000+ anställda": { sales: 50, finance: 25, it: 25, marketing: 15, project: 30, logistics: 50, production: 200 },
+    "1–49 anställda": { sales: 3, finance: 2, it: 2, marketing: 2, project: 3, logistics: 3, production: 10, customer_service: 4 },
+    "50–249 anställda": { sales: 8, finance: 5, it: 5, marketing: 4, project: 6, logistics: 8, production: 30, customer_service: 12 },
+    "250–999 anställda": { sales: 20, finance: 12, it: 12, marketing: 8, project: 15, logistics: 20, production: 80, customer_service: 30 },
+    "1 000+ anställda": { sales: 50, finance: 25, it: 25, marketing: 15, project: 30, logistics: 50, production: 200, customer_service: 80 },
   };
   const teamSize = teamSizeMap[headcount]?.[role] || 5;
 
@@ -620,6 +651,7 @@ function getPartnerSuggestions(
     project: { icon: "📊", type: "Project Operations-specialist", desc: "Partner med expertis inom projektbaserade verksamheter" },
     logistics: { icon: "🚛", type: "Supply Chain-specialist", desc: "Partner med erfarenhet av lagerstyrning, prognos och supply chain-optimering" },
     production: { icon: "🏭", type: "Produktions- och tillverkningsspecialist", desc: "Partner med erfarenhet av smart manufacturing, prediktivt underhåll och produktionsoptimering" },
+    customer_service: { icon: "🎧", type: "Customer Service-specialist", desc: "Partner med erfarenhet av kundservice, ärendehantering och AI-drivna kontaktcenter" },
   };
 
   suggestions.push({
@@ -676,6 +708,7 @@ function generateRoadmap(role: RoleId, profile: ProfileId, system: string): { q1
     project: "Dynamics 365 Project Operations",
     logistics: "Dynamics 365 Supply Chain Management",
     production: "Dynamics 365 Supply Chain Management",
+    customer_service: "Dynamics 365 Customer Service",
   };
 
   const roadmaps: Record<RoleId, Record<ProfileId, { q1: string; q2: string; q3: string; q4: string }>> = {
@@ -713,6 +746,11 @@ function generateRoadmap(role: RoleId, profile: ProfileId, system: string): { q1
       scaling: { q1: "Implementera prediktivt underhåll med IoT-data", q2: "AI-driven kvalitetskontroll i realtid", q3: "Optimera produktionssekvensering med AI", q4: "Skala till autonoma produktionsagenter" },
       structurally_ready: { q1: "Koppla maskiner och sensorer till central dataplattform", q2: "Standardisera OEE-mätning och KPI:er", q3: "Testa prediktivt underhåll på pilotlinje", q4: "Utvärdera AI-driven schemaläggning" },
       exploring: { q1: "Digitalisera produktionsrapportering", q2: "Börja samla maskindata och stilleståndstider", q3: "Etablera systematisk kvalitetsuppföljning", q4: "Utvärdera IoT- och AI-readiness" },
+    },
+    customer_service: {
+      scaling: { q1: "Implementera AI-drivna virtuella agenter", q2: "Aktivera sentimentanalys i realtid", q3: "Automatisera ärendeklassificering och routing", q4: "Skala till autonoma kundserviceagenter" },
+      structurally_ready: { q1: "Strukturera kunskapsdatabas och FAQ", q2: "Implementera intelligent ärenderouting", q3: hasDynamics ? "Aktivera Copilot i Customer Service" : "Testa AI-assisterad ärendehantering", q4: "Mäta och optimera självbetjäningsgrad" },
+      exploring: { q1: "Centralisera alla kundservicekanaler", q2: "Etablera ärendekategorisering och SLA:er", q3: "Bygga grundläggande kunskapsdatabas", q4: "Utvärdera AI-readiness för kundservice" },
     },
   };
 
@@ -928,6 +966,7 @@ const AIReadiness = () => {
       project: { r: 234, g: 88, b: 12 },
       logistics: { r: 6, g: 182, b: 212 },
       production: { r: 225, g: 29, b: 72 },
+      customer_service: { r: 13, g: 148, b: 136 },
     };
 
     const addPageFooter = () => {
