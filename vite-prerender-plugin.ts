@@ -351,7 +351,7 @@ function setupBrowserGlobals() {
     Element: class {},
     Node: class {},
     Event: class { type = ''; constructor(t: string) { this.type = t; } preventDefault = noop; stopPropagation = noop; },
-    DOMParser: class { parseFromString: () => null },
+    DOMParser: class { parseFromString = () => null; },
     URL: globalThis.URL,
     URLSearchParams: globalThis.URLSearchParams,
     AbortController: globalThis.AbortController || class { signal = {}; abort = noop; },
