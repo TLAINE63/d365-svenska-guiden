@@ -156,6 +156,7 @@ const PartnerUpdate = () => {
     phone: "",
     address: "",
     notes: "",
+    office_cities_input: "",
   });
 
   // Industry apps state
@@ -219,6 +220,7 @@ const PartnerUpdate = () => {
             phone: result.existingData.phone || "",
             address: result.existingData.address || "",
             notes: "",
+            office_cities_input: (result.existingData.office_cities || []).join(", "),
           });
           
           // Set logo preview if exists
@@ -495,6 +497,12 @@ const PartnerUpdate = () => {
       // Add specialty products
       applications.push(...selectedSpecialtyProducts);
 
+      // Parse office cities from comma-separated input
+      const officeCities = formData.office_cities_input
+        .split(",")
+        .map(c => c.trim())
+        .filter(Boolean);
+
       // Build submission data
       const submissionData = {
         ...formData,
@@ -504,6 +512,7 @@ const PartnerUpdate = () => {
         geography: [],
         product_filters: productFilters,
         industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
+        office_cities: officeCities,
       };
 
       const response = await fetch(
@@ -699,6 +708,18 @@ const PartnerUpdate = () => {
                       onChange={handleInputChange}
                     />
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="office_cities_input">Kontorsstäder</Label>
+                  <Input
+                    id="office_cities_input"
+                    name="office_cities_input"
+                    placeholder="t.ex. Stockholm, Göteborg, Malmö"
+                    value={formData.office_cities_input}
+                    onChange={handleInputChange}
+                  />
+                  <p className="text-xs text-muted-foreground">Separera med kommatecken</p>
                 </div>
 
                 {/* Logo Upload Section */}

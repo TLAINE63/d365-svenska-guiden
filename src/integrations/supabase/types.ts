@@ -305,6 +305,7 @@ export type Database = {
           logo_url: string | null
           name: string
           notes: string | null
+          office_cities: string[] | null
           partner_id: string | null
           phone: string | null
           product_filters: Json | null
@@ -326,6 +327,7 @@ export type Database = {
           logo_url?: string | null
           name: string
           notes?: string | null
+          office_cities?: string[] | null
           partner_id?: string | null
           phone?: string | null
           product_filters?: Json | null
@@ -347,6 +349,7 @@ export type Database = {
           logo_url?: string | null
           name?: string
           notes?: string | null
+          office_cities?: string[] | null
           partner_id?: string | null
           phone?: string | null
           product_filters?: Json | null
