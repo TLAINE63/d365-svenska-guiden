@@ -153,24 +153,25 @@ const PartnerProfile = () => {
     return Array.from(categories);
   };
 
-  // Get industries for a specific product (map sales/service to crm for productFilters lookup)
+  // Get industries for a specific product
   const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { primary: string[] } => {
-    // Map sales and service to 'crm' for productFilters lookup
-    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    
-    // Prioritize database product_filters over static data
     const dbProductFilters = dbPartner?.product_filters as Record<string, { industries?: string[] }> | undefined;
-    if (dbProductFilters?.[filterKey]?.industries && dbProductFilters[filterKey].industries.length > 0) {
-      return {
-        primary: dbProductFilters[filterKey].industries
-      };
+    
+    // Try the direct key first (sales, service, bc, fsc)
+    if (dbProductFilters?.[category]?.industries && dbProductFilters[category].industries.length > 0) {
+      return { primary: dbProductFilters[category].industries };
+    }
+    
+    // Legacy fallback: sales/service were previously stored under 'crm'
+    if (category === 'sales' || category === 'service') {
+      if (dbProductFilters?.['crm']?.industries && dbProductFilters['crm'].industries.length > 0) {
+        return { primary: dbProductFilters['crm'].industries };
+      }
     }
     
     // Final fallback to general industries
     const allIndustries = partner?.industries || [];
-    return { 
-      primary: allIndustries.slice(0, 3)
-    };
+    return { primary: allIndustries.slice(0, 3) };
   };
 
   // Get geography for a specific product - prioritize database data, return as array
