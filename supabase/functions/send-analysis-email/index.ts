@@ -256,7 +256,7 @@ serve(async (req: Request): Promise<Response> => {
         <p>Vi kontaktar dig inom kort för att diskutera hur vi kan hjälpa er vidare. Du är också välkommen att kontakta oss direkt:</p>
         <p>
           <strong>Thomas Laine</strong><br>
-          Partner & Rådgivare<br>
+          Senior Rådgivare inom Microsoft CRM- och Affärssystem<br>
           E-post: <a href="mailto:info@d365.se">info@d365.se</a><br>
           Tel: 072-232 40 60
         </p>

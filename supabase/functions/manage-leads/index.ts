@@ -246,7 +246,7 @@ const handler = async (req: Request): Promise<Response> => {
                 
                 <hr>
                 <p>Vänligen kontakta kunden direkt. Svara på detta mail om ni har frågor.</p>
-                <p>Med vänlig hälsning,<br>Thomas Laine<br>Dynamic Factory</p>
+                <p>Med vänlig hälsning,<br>Thomas Laine<br>Senior Rådgivare inom Microsoft CRM- och Affärssystem<br>Dynamic Factory</p>
               `,
             });
           }
