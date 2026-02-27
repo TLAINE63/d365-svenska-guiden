@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-5 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
           {/* Column 1: About */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Om d365.se</h3>
@@ -28,10 +28,11 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: Marknad & Sälj */}
+          {/* Column 3: CRM / Marknad & Sälj */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Marknad & Sälj</h3>
+            <h3 className="font-semibold text-foreground mb-4">CRM / Marknad & Sälj</h3>
             <ul className="space-y-2 text-sm">
+              <li><Link to="/crm" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365-sales" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365-marketing" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
               <li><Link to="/salj-marknad-behovsanalys" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
@@ -51,13 +52,16 @@ const Footer = () => {
 
           {/* Column 5: AI & Resurser */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">AI & Interna resurser</h3>
+            <h3 className="font-semibold text-foreground mb-4">AI & Resurser</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/ai-oversikt" className="text-muted-foreground hover:text-foreground transition-colors">AI med Copilot & Agenter</Link></li>
+              <li><Link to="/copilot" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Copilot</Link></li>
+              <li><Link to="/agents" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Agenter</Link></li>
+              <li><Link to="/ai-oversikt" className="text-muted-foreground hover:text-foreground transition-colors">AI Översikt</Link></li>
               <li><Link to="/ai-readiness" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
               <li><Link to="/valj-partner" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branschlosningar" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>
               <li><Link to="/events" className="text-muted-foreground hover:text-foreground transition-colors">Events</Link></li>
+              <li><Link to="/qa" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
               <li><Link to="/kontakt" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>
             </ul>
           </div>
