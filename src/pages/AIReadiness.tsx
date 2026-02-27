@@ -857,215 +857,522 @@ const AIReadiness = () => {
     const sysData = systemTrackData[sysTrack];
     const roi = calcROI(selectedRole!, scores, foundationAnswers.headcount);
 
+    const pw = 210;
+    const ph = 297;
     const lm = 20;
-    const pw = 170;
+    const rm = pw - 20;
+    const cw = rm - lm;
     let y = 0;
+    let pageNum = 0;
 
-    const addHeader = (title: string) => {
-      doc.setFillColor(30, 41, 59);
-      doc.rect(0, 0, 210, 28, "F");
-      doc.setFontSize(16);
+    // Brand colors
+    const slate800 = { r: 30, g: 41, b: 59 };
+    const slate600 = { r: 71, g: 85, b: 105 };
+    const slate400 = { r: 148, g: 163, b: 184 };
+    const emerald = { r: 16, g: 185, b: 129 };
+    const emerald700 = { r: 4, g: 120, b: 87 };
+    const blue500 = { r: 59, g: 130, b: 246 };
+    const amber500 = { r: 245, g: 158, b: 11 };
+    const purple500 = { r: 168, g: 85, b: 247 };
+    const red500 = { r: 239, g: 68, b: 68 };
+
+    const profileColors: Record<ProfileId, { r: number; g: number; b: number }> = {
+      scaling: emerald,
+      structurally_ready: amber500,
+      exploring: red500,
+    };
+
+    const trackColors: Record<RoleId, { r: number; g: number; b: number }> = {
+      sales: { r: 22, g: 163, b: 74 },
+      finance: { r: 202, g: 138, b: 4 },
+      it: blue500,
+      marketing: purple500,
+      project: { r: 234, g: 88, b: 12 },
+      logistics: { r: 6, g: 182, b: 212 },
+    };
+
+    const addPageFooter = () => {
+      pageNum++;
+      doc.setDrawColor(200, 210, 220);
+      doc.setLineWidth(0.3);
+      doc.line(lm, ph - 18, rm, ph - 18);
+      doc.setFontSize(7.5);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(slate400.r, slate400.g, slate400.b);
+      doc.text("d365.se – Oberoende guide till Dynamics 365 i Sverige", lm, ph - 12);
+      doc.text(`Sida ${pageNum}`, rm, ph - 12, { align: "right" });
+    };
+
+    const newPage = (headerTitle: string, headerColor?: { r: number; g: number; b: number }) => {
+      doc.addPage();
+      const hc = headerColor || slate800;
+      doc.setFillColor(hc.r, hc.g, hc.b);
+      doc.rect(0, 0, pw, 32, "F");
+      // Subtle gradient overlay
+      doc.setFillColor(255, 255, 255);
+      doc.setGState(new (doc as any).GState({ opacity: 0.08 }));
+      doc.rect(0, 0, pw * 0.6, 32, "F");
+      doc.setGState(new (doc as any).GState({ opacity: 1 }));
+      doc.setFontSize(15);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(255, 255, 255);
-      doc.text(title, lm, 18);
-      doc.setTextColor(0, 0, 0);
-      y = 40;
+      doc.text(headerTitle, lm, 21);
+      y = 44;
     };
 
-    const addSectionTitle = (title: string) => {
-      doc.setFontSize(13);
-      doc.setFont("helvetica", "bold");
-      doc.text(title, lm, y);
-      y += 8;
-    };
-
-    const addText = (text: string, indent = 0) => {
+    const addSectionBox = (title: string, color: { r: number; g: number; b: number }) => {
+      doc.setFillColor(color.r, color.g, color.b);
+      doc.roundedRect(lm, y, cw, 9, 1.5, 1.5, "F");
       doc.setFontSize(10);
-      doc.setFont("helvetica", "normal");
-      const lines = doc.splitTextToSize(text, pw - indent);
-      doc.text(lines, lm + indent, y);
-      y += lines.length * 5 + 2;
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(255, 255, 255);
+      doc.text(title, lm + 5, y + 6.2);
+      y += 14;
     };
 
-    // ═══ PAGE 1: Executive Summary ═══
-    addHeader("AI Impact & Readiness Assessment – Executive Summary");
+    const addText = (text: string, indent = 0, size = 9.5) => {
+      doc.setFontSize(size);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      const lines = doc.splitTextToSize(text, cw - indent);
+      doc.text(lines, lm + indent, y);
+      y += lines.length * (size * 0.45) + 3;
+    };
 
-    doc.setFontSize(10);
+    const addProgressBar = (label: string, value: number, color: { r: number; g: number; b: number }, description?: string) => {
+      // Label + value
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      doc.text(label, lm + 3, y);
+      const impactLabel = getImpactLabel(value);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8);
+      doc.setTextColor(color.r, color.g, color.b);
+      doc.text(impactLabel, rm - 3, y, { align: "right" });
+      y += 4;
+      // Bar background
+      doc.setFillColor(235, 238, 242);
+      doc.roundedRect(lm + 3, y, cw - 6, 4, 2, 2, "F");
+      // Bar fill
+      const barWidth = Math.max(((cw - 6) * value) / 100, 4);
+      doc.setFillColor(color.r, color.g, color.b);
+      doc.roundedRect(lm + 3, y, barWidth, 4, 2, 2, "F");
+      y += 6;
+      if (description) {
+        doc.setFontSize(7.5);
+        doc.setTextColor(slate400.r, slate400.g, slate400.b);
+        doc.text(description, lm + 3, y);
+        y += 4;
+      }
+      y += 2;
+    };
+
+    const checkSpace = (needed: number) => {
+      if (y > ph - needed - 25) {
+        addPageFooter();
+        return true;
+      }
+      return false;
+    };
+
+    // ═══ COVER PAGE ═══
+    // Full dark background
+    doc.setFillColor(slate800.r, slate800.g, slate800.b);
+    doc.rect(0, 0, pw, ph, "F");
+
+    // Accent bar at top
+    doc.setFillColor(emerald.r, emerald.g, emerald.b);
+    doc.rect(0, 0, pw, 6, "F");
+
+    // Title
+    doc.setFontSize(36);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(255, 255, 255);
+    doc.text("AI Impact &", lm, 70);
+    doc.text("Readiness Assessment", lm, 85);
+
+    // Accent line
+    doc.setDrawColor(emerald.r, emerald.g, emerald.b);
+    doc.setLineWidth(2.5);
+    doc.line(lm, 95, lm + 70, 95);
+
+    // Subtitle
+    doc.setFontSize(14);
     doc.setFont("helvetica", "normal");
-    doc.text(`Datum: ${new Date().toLocaleDateString("sv-SE")}`, lm, y);
-    if (reportForm.company) { doc.text(`Foretag: ${reportForm.company}`, lm + 80, y); }
-    y += 8;
+    doc.setTextColor(slate400.r, slate400.g, slate400.b);
+    doc.text("Hur stor effekt kan AI skapa i er roll?", lm, 112);
 
-    const summaryItems = [
+    // Summary info cards
+    const cardY = 140;
+    const cardW = (cw - 10) / 3;
+    const cardData = [
       { label: "Roll", value: track!.label },
       { label: "Bransch", value: foundationAnswers.industry || "Ej angiven" },
-      { label: "Storlek", value: foundationAnswers.headcount },
-      { label: "System", value: foundationAnswers.system },
-      { label: "Systemspar", value: sysData.label },
       { label: "AI-profil", value: pd.title },
     ];
-
-    summaryItems.forEach((item) => {
+    cardData.forEach((cd, i) => {
+      const cx = lm + i * (cardW + 5);
+      doc.setFillColor(40, 52, 72);
+      doc.roundedRect(cx, cardY, cardW, 30, 3, 3, "F");
+      doc.setFontSize(8);
+      doc.setTextColor(emerald.r, emerald.g, emerald.b);
       doc.setFont("helvetica", "bold");
+      doc.text(cd.label.toUpperCase(), cx + 8, cardY + 12);
+      doc.setFontSize(12);
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      const valLines = doc.splitTextToSize(cd.value, cardW - 16);
+      doc.text(valLines[0], cx + 8, cardY + 22);
+    });
+
+    // ROI highlight
+    const roiY = 190;
+    doc.setFillColor(emerald700.r, emerald700.g, emerald700.b);
+    doc.roundedRect(lm, roiY, cw, 38, 4, 4, "F");
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(255, 255, 255);
+    doc.text("UPPSKATTAD ARLIG AI-EFFEKT", lm + 10, roiY + 12);
+    doc.setFontSize(28);
+    doc.text(`~${formatSEK(roi.annualSavingSEK)}`, lm + 10, roiY + 30);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(200, 240, 220);
+    doc.text(`~${roi.timeSavingPct}% tidsbesparing`, lm + 100, roiY + 18);
+    if (roi.forecastImprovePct > 0) {
+      doc.text(`~${roi.forecastImprovePct}% prognosprecision`, lm + 100, roiY + 28);
+    }
+
+    // Bottom info
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(slate400.r, slate400.g, slate400.b);
+    doc.text(`Datum: ${new Date().toLocaleDateString("sv-SE")}`, lm, ph - 50);
+    if (reportForm.company) {
+      doc.text(`Foretag: ${reportForm.company}`, lm, ph - 42);
+    }
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(emerald.r, emerald.g, emerald.b);
+    doc.text("www.d365.se", lm, ph - 25);
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(slate400.r, slate400.g, slate400.b);
+    doc.text("Oberoende guide till Dynamics 365 i Sverige", lm, ph - 19);
+
+    // ═══ PAGE 1: Executive Summary ═══
+    newPage("Executive Summary");
+
+    // Profile badge
+    const pc = profileColors[profile];
+    doc.setFillColor(pc.r, pc.g, pc.b);
+    doc.roundedRect(lm, y, cw, 22, 3, 3, "F");
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(255, 255, 255);
+    doc.text(`${pd.emoji}  ${pd.title}`, lm + 8, y + 10);
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text(pd.subtitle, lm + 8, y + 17);
+    y += 28;
+
+    addText(pd.description);
+    y += 3;
+
+    // Summary grid
+    addSectionBox("Sammanfattning", slate600);
+    const summaryPairs = [
+      ["Roll", track!.label],
+      ["Bransch", foundationAnswers.industry || "Ej angiven"],
+      ["Storlek", foundationAnswers.headcount],
+      ["System", foundationAnswers.system],
+      ["Systemspar", sysData.label],
+    ];
+    summaryPairs.forEach(([label, value]) => {
       doc.setFontSize(9);
-      doc.text(item.label + ":", lm, y);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(slate600.r, slate600.g, slate600.b);
+      doc.text(label + ":", lm + 3, y);
       doc.setFont("helvetica", "normal");
-      doc.text(item.value, lm + 40, y);
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      doc.text(value, lm + 40, y);
       y += 6;
     });
     y += 5;
 
-    // AI Impact overview
-    addSectionTitle("AI-effektpotential");
-    const impactItems = [
-      { label: "Automation Impact", value: getImpactLabel(scores.automation) },
-      { label: "Prediction Impact", value: getImpactLabel(scores.prediction) },
-      { label: "Decision Augmentation", value: getImpactLabel(scores.augmentation) },
+    // AI Impact dimensions with progress bars
+    addSectionBox("AI-effektpotential", emerald700);
+    const dimColors = [blue500, purple500, amber500];
+    const dimDescriptions = [
+      "Repetitivt arbete som AI kan automatisera",
+      "Prognoser och risker AI kan forutse",
+      "Beslutsstod som AI kan forbattra",
     ];
-    impactItems.forEach((item) => {
-      doc.setFontSize(10);
-      doc.text(`${item.label}: ${item.value}`, lm + 3, y);
-      y += 6;
+    const dimData = [
+      { label: "Automation Impact", value: scores.automation },
+      { label: "Prediction Impact", value: scores.prediction },
+      { label: "Decision Augmentation", value: scores.augmentation },
+    ];
+    dimData.forEach((d, i) => {
+      addProgressBar(d.label, d.value, dimColors[i], dimDescriptions[i]);
     });
-    y += 3;
-
-    addSectionTitle("Uppskattad AI-effekt");
-    addText(`Tidsbesparing: ~${roi.timeSavingPct}%`);
-    if (roi.forecastImprovePct > 0) {
-      addText(`Forbattrad prognosprecision: ~${roi.forecastImprovePct}%`);
+    if (scores.governance > 0) {
+      addProgressBar("AI Governance", scores.governance, slate600, "Ramverk for ansvarsfull AI-anvandning");
     }
-    addText(`Uppskattad arlig besparing: ~${formatSEK(roi.annualSavingSEK)}`);
-    addText(track!.riskReduction);
+
     y += 3;
 
-    addSectionTitle("3 viktigaste insikterna");
+    // Key insights
+    addSectionBox("3 viktigaste insikterna", slate800);
     const insights: string[] = [];
     if (scores.automation >= 60) insights.push("Hog automationspotential – repetitiva processer kan effektiviseras med AI");
-    else insights.push("Automation redan delvis pa plats – fokusera pa avancerade AI-anvandningsfall");
+    else insights.push("Automation delvis pa plats – fokusera pa avancerade AI-anvandningsfall");
     if (scores.prediction >= 55) insights.push("Tydlig potential for prediktiv AI – historisk data kan ge battre prognoser");
     else insights.push("Prediktiv kapacitet finns – vidareutveckla med mer strukturerad data");
     if (scores.augmentation >= 55) insights.push("AI kan markbart forbattra beslutsstod och insikter i er roll");
     else insights.push("Beslutsstod ar redan relativt starkt – overväg avancerad AI-analys");
 
     insights.forEach((insight) => {
-      doc.text(`- ${insight}`, lm + 3, y);
+      doc.setFillColor(245, 248, 252);
+      doc.roundedRect(lm + 2, y - 3.5, cw - 4, 8, 1.5, 1.5, "F");
+      doc.setFontSize(8.5);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      doc.text(`–  ${insight}`, lm + 5, y + 1);
+      y += 10;
+    });
+
+    addPageFooter();
+
+    // ═══ PAGE 2: AI potential per role ═══
+    const tc = trackColors[selectedRole!];
+    newPage(`AI-potential inom ${track!.label}`, tc);
+
+    addText("Baserat pa era svar finns foljande AI-mojligheter:");
+    y += 3;
+
+    track!.aiResults.forEach((ar, i) => {
+      if (checkSpace(40)) {
+        newPage(`AI-potential inom ${track!.label} (forts.)`, tc);
+      }
+
+      const effect = getEffectLevel(scores, i);
+      const badge = getEffectBadge(effect);
+      const badgeColor = effect === "high" ? emerald : effect === "medium" ? amber500 : slate400;
+
+      // Card background
+      doc.setFillColor(248, 250, 252);
+      doc.roundedRect(lm, y, cw, 30, 3, 3, "F");
+      doc.setDrawColor(220, 225, 235);
+      doc.setLineWidth(0.3);
+      doc.roundedRect(lm, y, cw, 30, 3, 3, "S");
+
+      // Effect badge
+      doc.setFillColor(badgeColor.r, badgeColor.g, badgeColor.b);
+      const badgeWidth = doc.getTextWidth(badge.label) * 0.8 + 10;
+      doc.roundedRect(rm - badgeWidth - 5, y + 4, badgeWidth, 7, 3, 3, "F");
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(255, 255, 255);
+      doc.text(badge.label, rm - badgeWidth / 2 - 2.5, y + 8.8, { align: "center" });
+
+      // Title
+      doc.setFontSize(11);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      doc.text(ar.label, lm + 6, y + 9);
+
+      // Description
+      doc.setFontSize(8.5);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(slate600.r, slate600.g, slate600.b);
+      doc.text(ar.description, lm + 6, y + 16);
+
+      // D365 context
+      doc.setFontSize(7.5);
+      doc.setFont("helvetica", "italic");
+      doc.setTextColor(slate400.r, slate400.g, slate400.b);
+      const ctxLines = doc.splitTextToSize(ar.d365Context, cw - 14);
+      doc.text(ctxLines, lm + 6, y + 23);
+
+      y += 35;
+    });
+
+    y += 5;
+
+    // System recommendation
+    if (checkSpace(50)) {
+      newPage("Systemrekommendation", slate600);
+    } else {
+      addSectionBox("Systemrekommendation", slate600);
+    }
+
+    const sysColor = sysTrack === "optimization" ? emerald : sysTrack === "transformation" ? blue500 : purple500;
+    doc.setFillColor(sysColor.r, sysColor.g, sysColor.b);
+    doc.roundedRect(lm + 2, y, 55, 7, 3, 3, "F");
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(255, 255, 255);
+    doc.text(`${sysData.emoji}  ${sysData.label}`, lm + 6, y + 5);
+    y += 12;
+    addText(sysData.description);
+    y += 2;
+    doc.setFillColor(245, 248, 252);
+    doc.roundedRect(lm + 2, y, cw - 4, 18, 2, 2, "F");
+    doc.setFontSize(8.5);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(slate800.r, slate800.g, slate800.b);
+    doc.text("Rekommendation:", lm + 6, y + 6);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(slate600.r, slate600.g, slate600.b);
+    const recLines = doc.splitTextToSize(sysData.recommendation, cw - 16);
+    doc.text(recLines, lm + 6, y + 12);
+    y += 24;
+
+    addPageFooter();
+
+    // ═══ PAGE 3: Risk + Partners ═══
+    newPage("Riskanalys & Partnermatchning");
+
+    if (activeRisks.length > 0) {
+      addSectionBox("Identifierade riskområden", red500);
+      activeRisks.forEach((risk) => {
+        doc.setFillColor(254, 242, 242);
+        const riskLines = doc.splitTextToSize(risk.text, cw - 18);
+        const riskH = riskLines.length * 4 + 6;
+        doc.roundedRect(lm + 2, y - 2, cw - 4, riskH, 2, 2, "F");
+        doc.setDrawColor(252, 165, 165);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(lm + 2, y - 2, cw - 4, riskH, 2, 2, "S");
+        doc.setFontSize(8.5);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(153, 27, 27);
+        doc.text(`!  ${riskLines[0]}`, lm + 6, y + 2);
+        if (riskLines.length > 1) {
+          doc.text(riskLines.slice(1), lm + 9, y + 6);
+        }
+        y += riskH + 3;
+      });
+    } else {
+      addSectionBox("Riskanalys", emerald700);
+      doc.setFillColor(240, 253, 244);
+      doc.roundedRect(lm + 2, y - 2, cw - 4, 12, 2, 2, "F");
+      doc.setFontSize(9);
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      doc.text("Inga kritiska riskomraden identifierades. Grunden ar stabil.", lm + 6, y + 4);
+      y += 16;
+    }
+
+    // General observations
+    y += 3;
+    addSectionBox("Generella observationer", slate600);
+    const observations: string[] = [];
+    if (scores.automation >= 60) observations.push("Hog andel repetitivt arbete – AI-automatisering kan ge snabb effekt");
+    if (scores.augmentation >= 60) observations.push("Beslut baseras ofta pa magkansla – AI-beslutsstod kan ge forbattring");
+    if (scores.prediction >= 60) observations.push("Avvikelser upptacks sent – prediktiv AI kan forbattra reaktionstiden");
+    if (scores.governance >= 60) observations.push("Avsaknad av AI-governance okar risken for okontrollerade initiativ");
+    if (observations.length === 0) observations.push("Generellt god mognad – fokusera pa att skala befintliga AI-initiativ");
+
+    observations.forEach((obs) => {
+      doc.setFontSize(8.5);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      doc.text(`–  ${obs}`, lm + 5, y);
       y += 6;
     });
 
-    // ═══ PAGE 2: AI potential per area ═══
-    doc.addPage();
-    addHeader(`AI-potential inom ${track!.label}`);
-
-    addText("Baserat pa era svar finns foljande AI-mojligheter:");
-    y += 2;
-
-    track!.aiResults.forEach((ar, i) => {
-      const effect = getEffectLevel(scores, i);
-      const badge = getEffectBadge(effect);
-
-      doc.setFontSize(11);
-      doc.setFont("helvetica", "bold");
-      doc.text(ar.label, lm, y);
-      doc.setFontSize(9);
-      doc.setFont("helvetica", "normal");
-      doc.text(`[${badge.label}]`, lm + 100, y);
-      y += 5;
-      addText(ar.description, 3);
-      doc.setFontSize(8);
-      doc.setFont("helvetica", "italic");
-      doc.setTextColor(100, 100, 100);
-      const ctxLines = doc.splitTextToSize(ar.d365Context, pw - 10);
-      doc.text(ctxLines, lm + 3, y);
-      y += ctxLines.length * 4 + 4;
-      doc.setTextColor(0, 0, 0);
-    });
-
-    y += 5;
-    addSectionTitle("Systemrekommendation");
-    addText(`${sysData.label}: ${sysData.description}`);
-
-    // ═══ PAGE 3: Risk areas ═══
-    doc.addPage();
-    addHeader("Riskanalys");
-
-    if (activeRisks.length > 0) {
-      activeRisks.forEach((risk) => {
-        doc.setFontSize(10);
-        doc.text(`! ${risk.text}`, lm + 3, y);
-        y += 8;
-      });
-    } else {
-      addText("Inga kritiska riskomraden identifierades. Grunden ar stabil.");
-    }
-    y += 5;
-
-    addSectionTitle("Generella observationer");
-    if (scores.automation >= 60) addText("– Hog andel repetitivt arbete – AI-automatisering kan ge snabb effekt");
-    if (scores.augmentation >= 60) addText("– Beslut baseras ofta pa magkansla – AI-beslutsst kan ge markbar forbattring");
-    if (scores.prediction >= 60) addText("– Avvikelser upptacks sent – prediktiv AI kan forbattra reaktionstiden");
-    if (scores.governance >= 60) addText("– Avsaknad av AI-governance okar risken for okontrollerade initiativ");
-
     y += 8;
-    addSectionTitle("Rekommenderad partnertyp");
+
+    // Partner matching
+    addSectionBox("Rekommenderad partnertyp", emerald);
     addText("Baserat pa roll, bransch och mognadsniva rekommenderas en partner med foljande profil:");
     y += 2;
     partners.forEach((p) => {
+      if (checkSpace(25)) {
+        newPage("Partnermatchning (forts.)");
+      }
+      doc.setFillColor(248, 250, 252);
+      doc.roundedRect(lm + 2, y, cw - 4, 16, 2, 2, "F");
+      doc.setFontSize(9.5);
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(10);
-      doc.text(`${p.icon} ${p.type}`, lm + 3, y);
-      y += 5;
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      doc.text(`${p.icon}  ${p.type}`, lm + 6, y + 6);
+      doc.setFontSize(8);
       doc.setFont("helvetica", "normal");
-      doc.setFontSize(9);
-      const descLines = doc.splitTextToSize(p.description, pw - 10);
-      doc.text(descLines, lm + 8, y);
-      y += descLines.length * 4 + 4;
+      doc.setTextColor(slate600.r, slate600.g, slate600.b);
+      const descLines = doc.splitTextToSize(p.description, cw - 18);
+      doc.text(descLines, lm + 10, y + 12);
+      y += 20;
     });
+
+    addPageFooter();
 
     // ═══ PAGE 4: 12-month Roadmap ═══
-    doc.addPage();
-    addHeader(`12-manaders AI-roadmap – ${track!.label}`);
+    newPage(`12-manaders AI-roadmap – ${track!.label}`, slate800);
 
-    [
-      { label: "Kvartal 1 (Manad 1-3)", data: roadmap.q1 },
-      { label: "Kvartal 2 (Manad 4-6)", data: roadmap.q2 },
-      { label: "Kvartal 3 (Manad 7-9)", data: roadmap.q3 },
-      { label: "Kvartal 4 (Manad 10-12)", data: roadmap.q4 },
-    ].forEach((q) => {
+    const qColors = [blue500, emerald, amber500, purple500];
+    const quarters = [
+      { label: "Q1", period: "Manad 1–3", data: roadmap.q1 },
+      { label: "Q2", period: "Manad 4–6", data: roadmap.q2 },
+      { label: "Q3", period: "Manad 7–9", data: roadmap.q3 },
+      { label: "Q4", period: "Manad 10–12", data: roadmap.q4 },
+    ];
+
+    quarters.forEach((q, i) => {
+      const qc = qColors[i];
+      // Color accent bar
+      doc.setFillColor(qc.r, qc.g, qc.b);
+      doc.rect(lm, y, 4, 28, "F");
+      // Background
+      doc.setFillColor(248, 250, 252);
+      doc.roundedRect(lm + 4, y, cw - 4, 28, 0, 0, "F");
+      // Quarter label
+      doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(11);
-      doc.text(q.label, lm, y);
-      y += 6;
+      doc.setTextColor(qc.r, qc.g, qc.b);
+      doc.text(q.label, lm + 10, y + 9);
+      doc.setFontSize(8);
       doc.setFont("helvetica", "normal");
-      doc.setFontSize(10);
-      const lines = doc.splitTextToSize(q.data.text, pw - 8);
-      doc.text(lines, lm + 5, y);
-      y += lines.length * 5 + 8;
+      doc.setTextColor(slate400.r, slate400.g, slate400.b);
+      doc.text(q.period, lm + 24, y + 9);
+      // Content
+      doc.setFontSize(9.5);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(slate800.r, slate800.g, slate800.b);
+      const qLines = doc.splitTextToSize(q.data.text, cw - 22);
+      doc.text(qLines, lm + 10, y + 18);
+      y += 34;
     });
 
-    y += 5;
-    doc.setFontSize(9);
-    doc.setFont("helvetica", "italic");
-    doc.setTextColor(80, 80, 80);
+    // D365 footnote
     const footNote = roadmap.q4.d365Note || "";
     if (footNote) {
-      const fnLines = doc.splitTextToSize(footNote, pw);
-      doc.text(fnLines, lm, y);
-      y += fnLines.length * 4 + 5;
+      y += 3;
+      doc.setFillColor(240, 253, 244);
+      doc.roundedRect(lm, y, cw, 16, 3, 3, "F");
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "italic");
+      doc.setTextColor(emerald700.r, emerald700.g, emerald700.b);
+      const fnLines = doc.splitTextToSize(footNote, cw - 14);
+      doc.text(fnLines, lm + 7, y + 7);
+      y += 22;
     }
-    doc.setTextColor(0, 0, 0);
 
-    y += 5;
-    doc.setDrawColor(200);
-    doc.line(lm, y, lm + pw, y);
-    y += 7;
-    doc.setFontSize(8);
+    y += 10;
+    // Disclaimer
+    doc.setDrawColor(220, 225, 235);
+    doc.setLineWidth(0.3);
+    doc.line(lm, y, rm, y);
+    y += 8;
+    doc.setFontSize(7.5);
     doc.setFont("helvetica", "italic");
+    doc.setTextColor(slate400.r, slate400.g, slate400.b);
     const disc = "Denna analys ar vagledande och baseras pa de svar du angivit. Den ersatter inte en fullstandig forstudie. Uppskattade besparingar ar indikativa och baseras pa branschgenomsnitt. Vi rekommenderar att du diskuterar dina behov med en kvalificerad Microsoft-partner.";
-    const discLines = doc.splitTextToSize(disc, pw);
+    const discLines = doc.splitTextToSize(disc, cw);
     doc.text(discLines, lm, y);
-    y += discLines.length * 4 + 5;
-    doc.setFont("helvetica", "normal");
-    doc.text("d365.se – Oberoende guide till Dynamics 365 i Sverige", lm, y);
+
+    addPageFooter();
 
     doc.save("AI-Impact-Assessment.pdf");
   }, [foundationAnswers, selectedRole, roleScores, track, reportForm]);
