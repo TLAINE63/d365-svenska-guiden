@@ -29,6 +29,8 @@ import {
   FolderKanban,
   Shield,
   Zap,
+  Lightbulb,
+  Sparkles,
 } from "lucide-react";
 import SelectionCard from "@/components/SelectionCard";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
@@ -40,6 +42,7 @@ import { useToast } from "@/hooks/use-toast";
 type RoleId = "it" | "sales" | "marketing" | "finance" | "project" | "logistics";
 type IndexId = "ai_potential" | "data_maturity" | "process_stability" | "org_readiness";
 type ProfileId = "exploring" | "structurally_ready" | "scaling";
+type SystemTrack = "optimization" | "transformation" | "strategy";
 
 interface FoundationAnswers {
   system: string;
@@ -51,7 +54,7 @@ interface FoundationAnswers {
 interface IndexedQuestion {
   id: string;
   question: string;
-  index: IndexId; // Which of the 4 indices this question contributes to
+  index: IndexId;
   options: { label: string; score: number }[];
 }
 
@@ -64,7 +67,7 @@ interface RoleTrack {
   headerBg: string;
   measures: string;
   questions: IndexedQuestion[];
-  aiPotentials: { label: string; description: string }[];
+  aiPotentials: { label: string; description: string; d365Context: string }[];
   risks: { condition: (scores: IndexScores) => boolean; text: string }[];
 }
 
@@ -74,6 +77,38 @@ interface IndexScores {
   process_stability: number;
   org_readiness: number;
 }
+
+// ─── SYSTEM TRACK LOGIC ─────────────────────────────────
+
+function getSystemTrack(system: string): SystemTrack {
+  if (system === "Dynamics 365") return "optimization";
+  if (system === "Oklart / blandat") return "strategy";
+  return "transformation"; // "Annat ERP/CRM" or "Flera system"
+}
+
+const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color: string; description: string; recommendation: string }> = {
+  optimization: {
+    label: "Optimeringsspår",
+    emoji: "🟢",
+    color: "text-emerald-600",
+    description: "Ni använder redan en plattform med inbyggd AI-kapacitet. Nästa steg är att aktivera och strukturera nyttjandet – inte att byta system, utan att maximera värdet ur er nuvarande investering.",
+    recommendation: "Fokusera på att aktivera Copilot och AI-agenter inom er befintliga Dynamics 365-miljö. Prioritera de funktioner som ger snabbast ROI baserat på er rollanalys.",
+  },
+  transformation: {
+    label: "Transformationsspår",
+    emoji: "🔄",
+    color: "text-blue-600",
+    description: "För att realisera den AI-nivå analysen pekar mot krävs en strukturerad CRM/ERP-plattform med centraliserad data och inbyggt AI-stöd. Plattformar som Microsoft Dynamics 365 är designade för just detta.",
+    recommendation: "Utvärdera moderna affärssystem med inbyggda AI-kapabiliteter. En plattform med integrerat AI-stöd eliminerar behovet av separata AI-verktyg och ger snabbare tid till värde.",
+  },
+  strategy: {
+    label: "Strategispår",
+    emoji: "🧭",
+    color: "text-purple-600",
+    description: "Er systemsituation är oklar, vilket ofta indikerar att en strategisk kartläggning behövs innan AI-initiativ startas. Rätt beslut nu sparar betydande tid och resurser längre fram.",
+    recommendation: "Börja med att kartlägga ert nuvarande systemlandskap och identifiera var AI kan ge störst effekt. En kvalificerad partner kan hjälpa er navigera alternativen.",
+  },
+};
 
 // ─── INDUSTRY OPTIONS ────────────────────────────────────
 
@@ -104,7 +139,7 @@ const industryOptions = [
 const foundationQuestions: { id: keyof FoundationAnswers; question: string; index: IndexId | null; options: { label: string; score: number }[] }[] = [
   {
     id: "system",
-    question: "Hur ser er systemsituation ut idag?",
+    question: "Vilket affärssystem använder ni idag?",
     index: "data_maturity",
     options: [
       { label: "Dynamics 365", score: 3 },
@@ -139,7 +174,7 @@ const foundationQuestions: { id: keyof FoundationAnswers; question: string; inde
   {
     id: "industry",
     question: "Vilken bransch verkar ni inom?",
-    index: null, // No scoring – used for partner matching
+    index: null,
     options: industryOptions.map((i) => ({ label: i, score: 0 })),
   },
 ];
@@ -163,10 +198,10 @@ const roleTracks: RoleTrack[] = [
       { id: "it_testenv", question: "Har ni testmiljö för innovation?", index: "ai_potential", options: [{ label: "Ja, dedikerad sandbox", score: 3 }, { label: "Delvis", score: 1 }, { label: "Nej", score: 0 }] },
     ],
     aiPotentials: [
-      { label: "API-orchestration & automation", description: "Automatisera systemintegrationer och dataflöden med AI" },
-      { label: "Data mesh / centralisering", description: "AI-driven datakvalitet och masterdatahantering" },
-      { label: "AI governance framework", description: "Strukturerat ramverk för ansvarsfull AI-användning" },
-      { label: "Innovation sandbox", description: "Säker miljö för att testa och validera AI-initiativ" },
+      { label: "API-orchestration & automation", description: "Automatisera systemintegrationer och dataflöden med AI", d365Context: "Dynamics 365 erbjuder inbyggda API:er och Power Platform-integrationer för detta" },
+      { label: "Data mesh / centralisering", description: "AI-driven datakvalitet och masterdatahantering", d365Context: "Dataverse i Dynamics 365 ger en enhetlig datamodell som grund" },
+      { label: "AI governance framework", description: "Strukturerat ramverk för ansvarsfull AI-användning", d365Context: "Microsoft Responsible AI-ramverket är integrerat i plattformen" },
+      { label: "Innovation sandbox", description: "Säker miljö för att testa och validera AI-initiativ", d365Context: "Sandbox-miljöer och Power Platform ger en trygg experimentyta" },
     ],
     risks: [
       { condition: (s) => s.data_maturity < 40, text: "Silobaserad data begränsar AI:s förmåga att ge insikter tvärs system" },
@@ -190,10 +225,10 @@ const roleTracks: RoleTrack[] = [
       { id: "sales_kpi", question: "Har ni tydliga KPI:er per säljare?", index: "org_readiness", options: [{ label: "Ja, med regelbunden uppföljning", score: 3 }, { label: "Ja, men inte konsekvent", score: 2 }, { label: "Nej", score: 0 }] },
     ],
     aiPotentials: [
-      { label: "Lead scoring", description: "AI rangordnar leads baserat på köpsannolikhet och historik" },
-      { label: "Mötessammanfattning", description: "Automatisk sammanfattning och CRM-uppdatering efter möten" },
-      { label: "Next-best-action", description: "AI föreslår nästa steg baserat på affärsfas och kundbeteende" },
-      { label: "Prognosförbättring", description: "Pipeline-prognoser baserade på data istället för magkänsla" },
+      { label: "Lead scoring", description: "AI rangordnar leads baserat på köpsannolikhet och historik", d365Context: "I en modern CRM-plattform som Dynamics 365 Sales är detta inbyggt via Copilot" },
+      { label: "Mötessammanfattning", description: "Automatisk sammanfattning och CRM-uppdatering efter möten", d365Context: "Copilot i Dynamics 365 sammanfattar möten och uppdaterar CRM automatiskt" },
+      { label: "Next-best-action", description: "AI föreslår nästa steg baserat på affärsfas och kundbeteende", d365Context: "Dynamics 365 Sales erbjuder AI-drivna rekommendationer per affär" },
+      { label: "Prognosförbättring", description: "Pipeline-prognoser baserade på data istället för magkänsla", d365Context: "Prediktiv prognos är en inbyggd funktion i Dynamics 365 Sales" },
     ],
     risks: [
       { condition: (s) => s.data_maturity < 40, text: "Datakvalitet riskerar att begränsa precision i lead scoring och prognoser" },
@@ -217,10 +252,10 @@ const roleTracks: RoleTrack[] = [
       { id: "mkt_content", question: "Produceras innehåll strukturerat?", index: "process_stability", options: [{ label: "Ja, med content calendar och process", score: 3 }, { label: "Delvis", score: 2 }, { label: "Ad hoc", score: 0 }] },
     ],
     aiPotentials: [
-      { label: "Automatiserad innehållsgenerering", description: "AI skapar anpassat innehåll per segment och kanal" },
-      { label: "Segmentoptimering", description: "Dynamiska segment baserade på beteende och intent-data" },
-      { label: "Prediktiv kampanjanalys", description: "AI optimerar budget och kanalval i realtid" },
-      { label: "Personaliserad kommunikation", description: "Individuellt anpassade budskap i stor skala" },
+      { label: "Automatiserad innehållsgenerering", description: "AI skapar anpassat innehåll per segment och kanal", d365Context: "Copilot i Customer Insights genererar segmentanpassade budskap" },
+      { label: "Segmentoptimering", description: "Dynamiska segment baserade på beteende och intent-data", d365Context: "Customer Insights skapar AI-drivna segment automatiskt" },
+      { label: "Prediktiv kampanjanalys", description: "AI optimerar budget och kanalval i realtid", d365Context: "Customer Insights erbjuder prediktiv analys av kampanjeffekt" },
+      { label: "Personaliserad kommunikation", description: "Individuellt anpassade budskap i stor skala", d365Context: "Journey orchestration i Customer Insights möjliggör detta i stor skala" },
     ],
     risks: [
       { condition: (s) => s.data_maturity < 40, text: "Fragmenterad kunddata gör segmentering och personalisering opålitlig" },
@@ -244,10 +279,10 @@ const roleTracks: RoleTrack[] = [
       { id: "fin_reports", question: "Finns standardiserade rapporter?", index: "data_maturity", options: [{ label: "Ja, med dashboards", score: 3 }, { label: "Ja, men manuella", score: 2 }, { label: "Nej, ad hoc", score: 0 }] },
     ],
     aiPotentials: [
-      { label: "Avvikelseidentifiering", description: "AI upptäcker anomalier i transaktioner automatiskt" },
-      { label: "Kassaflödesprognoser", description: "Realtidsprognoser baserade på historik och mönster" },
-      { label: "Automatiserad matchning", description: "AI matchar fakturor, betalningar och order" },
-      { label: "Bokslutsagenter", description: "Autonoma agenter som assisterar vid periodavslut" },
+      { label: "Avvikelseidentifiering", description: "AI upptäcker anomalier i transaktioner automatiskt", d365Context: "Dynamics 365 Finance erbjuder inbyggd avvikelsedetektering via Copilot" },
+      { label: "Kassaflödesprognoser", description: "Realtidsprognoser baserade på historik och mönster", d365Context: "Cash flow forecasting är en inbyggd AI-funktion i Dynamics 365 Finance" },
+      { label: "Automatiserad matchning", description: "AI matchar fakturor, betalningar och order", d365Context: "Intelligent fakturamatchning automatiserar detta i Dynamics 365" },
+      { label: "Bokslutsagenter", description: "Autonoma agenter som assisterar vid periodavslut", d365Context: "AI-agenter i Finance kan automatisera delar av bokslutsprocessen" },
     ],
     risks: [
       { condition: (s) => s.process_stability < 40, text: "Manuella bokslutsprocesser gör det svårt att införa AI-automatisering" },
@@ -271,10 +306,10 @@ const roleTracks: RoleTrack[] = [
       { id: "proj_resource", question: "Är resurser över- eller underallokerade?", index: "org_readiness", options: [{ label: "Optimerad resursallokering", score: 3 }, { label: "Viss obalans", score: 2 }, { label: "Stor obalans", score: 0 }] },
     ],
     aiPotentials: [
-      { label: "Riskprediktion", description: "AI identifierar riskprojekt innan de spårar ur" },
-      { label: "Resursoptimering", description: "Intelligent allokering baserat på kompetens och kapacitet" },
-      { label: "Marginalanalys", description: "Löpande marginalprognos per projekt" },
-      { label: "Automatiserad statusrapportering", description: "AI sammanställer status från projektdata" },
+      { label: "Riskprediktion", description: "AI identifierar riskprojekt innan de spårar ur", d365Context: "Dynamics 365 Project Operations erbjuder AI-driven riskanalys" },
+      { label: "Resursoptimering", description: "Intelligent allokering baserat på kompetens och kapacitet", d365Context: "Resursschemaläggning med AI-stöd finns i Project Operations" },
+      { label: "Marginalanalys", description: "Löpande marginalprognos per projekt", d365Context: "Realtidsmarginaler beräknas automatiskt i Project Operations" },
+      { label: "Automatiserad statusrapportering", description: "AI sammanställer status från projektdata", d365Context: "Copilot kan generera projektstatusrapporter automatiskt" },
     ],
     risks: [
       { condition: (s) => s.data_maturity < 40, text: "Sporadisk datainsamling gör prediktiv analys opålitlig" },
@@ -298,10 +333,10 @@ const roleTracks: RoleTrack[] = [
       { id: "log_delivery", question: "Har ni leveransprecision över 95%?", index: "process_stability", options: [{ label: "Ja, konsekvent", score: 3 }, { label: "Varierar", score: 2 }, { label: "Under 90%", score: 0 }] },
     ],
     aiPotentials: [
-      { label: "Efterfrågeprognoser", description: "AI-drivna prognoser baserade på historik och externa signaler" },
-      { label: "Lageroptimering", description: "Automatiserad beställningspunktsberäkning och säkerhetslager" },
-      { label: "Avvikelsedetektion", description: "AI flaggar anomalier i leverans- och lagermönster" },
-      { label: "Leveransriskanalys", description: "Prediktiv analys av leverantörs- och transportrisker" },
+      { label: "Efterfrågeprognoser", description: "AI-drivna prognoser baserade på historik och externa signaler", d365Context: "Demand forecasting är inbyggt i Dynamics 365 Supply Chain Management" },
+      { label: "Lageroptimering", description: "Automatiserad beställningspunktsberäkning och säkerhetslager", d365Context: "AI-driven lageroptimering finns i Supply Chain Management" },
+      { label: "Avvikelsedetektion", description: "AI flaggar anomalier i leverans- och lagermönster", d365Context: "Proaktiva notifieringar och anomalidetektering via Copilot" },
+      { label: "Leveransriskanalys", description: "Prediktiv analys av leverantörs- och transportrisker", d365Context: "Supply risk assessment-funktioner i Dynamics 365" },
     ],
     risks: [
       { condition: (s) => s.data_maturity < 40, text: "Otillräcklig historisk data begränsar prognosens träffsäkerhet" },
@@ -320,7 +355,6 @@ function calcIndexScores(
 ): IndexScores {
   const track = roleTracks.find((t) => t.id === role)!;
 
-  // Collect all scored contributions per index
   const indexPoints: Record<IndexId, number[]> = {
     ai_potential: [],
     data_maturity: [],
@@ -328,7 +362,6 @@ function calcIndexScores(
     org_readiness: [],
   };
 
-  // Foundation contributions
   foundationQuestions.forEach((fq) => {
     if (!fq.index) return;
     const answer = foundationAnswers[fq.id];
@@ -336,13 +369,11 @@ function calcIndexScores(
     if (opt) indexPoints[fq.index].push(opt.score);
   });
 
-  // Role question contributions
   track.questions.forEach((rq) => {
     const score = roleScoreMap[rq.id];
     if (score !== undefined) indexPoints[rq.index].push(score);
   });
 
-  // Calculate percentage per index (each question is 0-3)
   const calcPct = (points: number[]) => {
     if (points.length === 0) return 50;
     const max = points.length * 3;
@@ -417,14 +448,13 @@ function getPartnerSuggestions(
   const suggestions: PartnerSuggestion[] = [];
   const hasDynamics = system === "Dynamics 365";
 
-  // Role-based primary suggestion
   const rolePartnerMap: Record<RoleId, { icon: string; type: string; desc: string }> = {
     it: { icon: "🏗️", type: "Integrations- och arkitekturfokus", desc: "Partner med erfarenhet av systemlandskap, API-strategi och dataarkitektur" },
-    sales: { icon: "📈", type: "CRM- och säljspecialist", desc: "Partner med djup erfarenhet av Dynamics 365 Sales och Copilot" },
-    marketing: { icon: "🎯", type: "Marketing automation-specialist", desc: "Partner med kompetens inom Customer Insights och marketing automation" },
-    finance: { icon: "💰", type: "Finance & AI-specialist", desc: "Partner med erfarenhet av Dynamics 365 Finance och AI-driven ekonomistyrning" },
+    sales: { icon: "📈", type: "CRM- och säljspecialist", desc: "Partner med djup erfarenhet av CRM-plattformar och AI-driven försäljning" },
+    marketing: { icon: "🎯", type: "Marketing automation-specialist", desc: "Partner med kompetens inom kundinsikter och marketing automation" },
+    finance: { icon: "💰", type: "Finance & AI-specialist", desc: "Partner med erfarenhet av modern ekonomistyrning och AI-driven analys" },
     project: { icon: "📊", type: "Project Operations-specialist", desc: "Partner med expertis inom projektbaserade verksamheter" },
-    logistics: { icon: "🚛", type: "Supply Chain-specialist", desc: "Partner med erfarenhet av lagerstyrning, prognos och Dynamics 365 SCM" },
+    logistics: { icon: "🚛", type: "Supply Chain-specialist", desc: "Partner med erfarenhet av lagerstyrning, prognos och supply chain-optimering" },
   };
 
   suggestions.push({
@@ -433,7 +463,6 @@ function getPartnerSuggestions(
     description: rolePartnerMap[role].desc,
   });
 
-  // Profile-based additional suggestion
   if (profile === "exploring") {
     suggestions.push({
       icon: "🧭",
@@ -448,7 +477,6 @@ function getPartnerSuggestions(
     });
   }
 
-  // System-based suggestion
   if (!hasDynamics && (role === "sales" || role === "finance" || role === "logistics")) {
     suggestions.push({
       icon: "🔄",
@@ -457,7 +485,6 @@ function getPartnerSuggestions(
     });
   }
 
-  // Industry specialization
   if (industry) {
     suggestions.push({
       icon: "🏭",
@@ -471,8 +498,19 @@ function getPartnerSuggestions(
 
 // ─── ROADMAP ─────────────────────────────────────────────
 
-function generateRoadmap(role: RoleId, profile: ProfileId, system: string) {
+interface RoadmapQuarter { text: string; d365Note?: string }
+
+function generateRoadmap(role: RoleId, profile: ProfileId, system: string): { q1: RoadmapQuarter; q2: RoadmapQuarter; q3: RoadmapQuarter; q4: RoadmapQuarter } {
   const hasDynamics = system === "Dynamics 365";
+
+  const d365RoleApp: Record<RoleId, string> = {
+    it: "Dynamics 365 och Power Platform",
+    sales: "Dynamics 365 Sales",
+    marketing: "Dynamics 365 Customer Insights",
+    finance: "Dynamics 365 Finance",
+    project: "Dynamics 365 Project Operations",
+    logistics: "Dynamics 365 Supply Chain Management",
+  };
 
   const roadmaps: Record<RoleId, Record<ProfileId, { q1: string; q2: string; q3: string; q4: string }>> = {
     it: {
@@ -481,7 +519,7 @@ function generateRoadmap(role: RoleId, profile: ProfileId, system: string) {
       exploring: { q1: "Kartlägg systemlandskap och integrationsbehov", q2: "Centralisera nyckeldata", q3: "Etablera grundläggande API-struktur", q4: "Definiera AI-policy och roadmap" },
     },
     sales: {
-      scaling: { q1: hasDynamics ? "Aktivera Copilot i Sales för mötessammanfattning" : "Implementera CRM med AI-kapabiliteter", q2: "Inför prediktiv lead scoring", q3: "Skala next-best-action till hela teamet", q4: "Automatisera prognoser och pipeline-analys" },
+      scaling: { q1: hasDynamics ? "Aktivera Copilot för mötessammanfattning" : "Implementera CRM med AI-kapabiliteter", q2: "Inför prediktiv lead scoring", q3: "Skala next-best-action till hela teamet", q4: "Automatisera prognoser och pipeline-analys" },
       structurally_ready: { q1: "Kvalitetssäkra CRM-data och pipeline-process", q2: "Standardisera KPI:er och uppföljningsrytm", q3: hasDynamics ? "Aktivera Copilot för grundläggande assistans" : "Utforska AI-verktyg för CRM", q4: "Mäta och utvärdera AI-effekt" },
       exploring: { q1: "Etablera grundläggande CRM-disciplin", q2: "Definiera pipeline-steg och konverteringsmått", q3: "Börja logga all kundkommunikation", q4: "Utvärdera AI-readiness på nytt" },
     },
@@ -507,7 +545,18 @@ function generateRoadmap(role: RoleId, profile: ProfileId, system: string) {
     },
   };
 
-  return roadmaps[role][profile];
+  const rm = roadmaps[role][profile];
+  const d365App = d365RoleApp[role];
+  const footnote = hasDynamics
+    ? `Dessa steg stöds av AI-funktionalitet i er befintliga ${d365App}-miljö.`
+    : `Dessa steg stöds av AI-funktionalitet i moderna affärssystem såsom ${d365App}.`;
+
+  return {
+    q1: { text: rm.q1 },
+    q2: { text: rm.q2 },
+    q3: { text: rm.q3 },
+    q4: { text: rm.q4, d365Note: footnote },
+  };
 }
 
 // ─── HELPERS ─────────────────────────────────────────────
@@ -559,7 +608,7 @@ const AIReadiness = () => {
 
   const track = selectedRole ? roleTracks.find((t) => t.id === selectedRole)! : null;
 
-  const foundationCount = foundationQuestions.length; // 4
+  const foundationCount = foundationQuestions.length;
   const totalSteps = foundationCount + 1 + 5;
   const currentProgress =
     step === "foundation" ? foundationStep + 1
@@ -623,6 +672,7 @@ const AIReadiness = () => {
       const scores = calcIndexScores(foundationAnswers, selectedRole!, roleScores);
       const profile = getProfile(scores);
       const roadmap = generateRoadmap(selectedRole!, profile, foundationAnswers.system);
+      const sysTrack = getSystemTrack(foundationAnswers.system);
 
       const answerSummary = [
         `System: ${foundationAnswers.system}`,
@@ -630,10 +680,11 @@ const AIReadiness = () => {
         `AI-mål: ${foundationAnswers.goal}`,
         `Bransch: ${foundationAnswers.industry}`,
         `Roll: ${track!.label}`,
+        `Systemspår: ${systemTrackData[sysTrack].label}`,
         ...track!.questions.map((q) => `${q.question}: ${roleAnswers[q.id] || "—"}`),
       ].join("\n");
 
-      const message = `AI Business Impact Assessment\n\nRoll: ${track!.label}\nProfil: ${profileData[profile].title}\nBransch: ${foundationAnswers.industry}\n\nIndex:\n- AI-Potential: ${scores.ai_potential}%\n- Datamognad: ${scores.data_maturity}%\n- Processtabilitet: ${scores.process_stability}%\n- Organisatorisk beredskap: ${scores.org_readiness}%\n\nSvar:\n${answerSummary}\n\nRoadmap:\nQ1: ${roadmap.q1}\nQ2: ${roadmap.q2}\nQ3: ${roadmap.q3}\nQ4: ${roadmap.q4}`;
+      const message = `AI & Affärssystem-analys\n\nRoll: ${track!.label}\nProfil: ${profileData[profile].title}\nBransch: ${foundationAnswers.industry}\nSystemspår: ${systemTrackData[sysTrack].label}\n\nIndex:\n- AI-Potential: ${scores.ai_potential}%\n- Datamognad: ${scores.data_maturity}%\n- Processtabilitet: ${scores.process_stability}%\n- Organisatorisk beredskap: ${scores.org_readiness}%\n\nSvar:\n${answerSummary}\n\nRoadmap:\nQ1: ${roadmap.q1.text}\nQ2: ${roadmap.q2.text}\nQ3: ${roadmap.q3.text}\nQ4: ${roadmap.q4.text}`;
 
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
@@ -670,13 +721,15 @@ const AIReadiness = () => {
     const roadmap = generateRoadmap(selectedRole!, profile, foundationAnswers.system);
     const partners = getPartnerSuggestions(selectedRole!, foundationAnswers.system, profile, foundationAnswers.industry);
     const activeRisks = track!.risks.filter((r) => r.condition(scores));
+    const sysTrack = getSystemTrack(foundationAnswers.system);
+    const sysData = systemTrackData[sysTrack];
 
     const lm = 20;
     const pw = 170;
     let y = 0;
 
     const addHeader = (title: string) => {
-      doc.setFillColor(30, 41, 59); // slate-800
+      doc.setFillColor(30, 41, 59);
       doc.rect(0, 0, 210, 28, "F");
       doc.setFontSize(16);
       doc.setFont("helvetica", "bold");
@@ -702,7 +755,7 @@ const AIReadiness = () => {
     };
 
     // ═══ PAGE 1: Executive Summary ═══
-    addHeader("AI Business Impact Assessment – Executive Summary");
+    addHeader("AI & Affärssystem-analys – Executive Summary");
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
@@ -710,11 +763,11 @@ const AIReadiness = () => {
     if (reportForm.company) { doc.text(`Företag: ${reportForm.company}`, lm + 80, y); }
     y += 8;
 
-    // Profile cards
     const summaryItems = [
       { label: "Roll", value: track!.label },
       { label: "Bransch", value: foundationAnswers.industry || "Ej angiven" },
       { label: "System", value: foundationAnswers.system },
+      { label: "Systemspår", value: sysData.label },
       { label: "AI-profil", value: pd.title },
     ];
 
@@ -728,7 +781,6 @@ const AIReadiness = () => {
     });
     y += 5;
 
-    // Index scores
     addSectionTitle("Mognadsprofil");
     const indices = [
       { label: "AI-Potential Index", value: scores.ai_potential },
@@ -740,7 +792,6 @@ const AIReadiness = () => {
       doc.setFontSize(10);
       doc.setFont("helvetica", "normal");
       doc.text(`${idx.label}: ${getLevelLabel(idx.value)} (${idx.value}%)`, lm + 3, y);
-      // Simple bar
       doc.setFillColor(229, 231, 235);
       doc.rect(lm + 100, y - 3, 60, 4, "F");
       const barColor = idx.value >= 70 ? [16, 185, 129] : idx.value >= 40 ? [245, 158, 11] : [239, 68, 68];
@@ -750,7 +801,6 @@ const AIReadiness = () => {
     });
     y += 5;
 
-    // Top 3 insights
     addSectionTitle("3 viktigaste insikterna");
     const insights: string[] = [];
     if (scores.ai_potential >= 60) insights.push("Hög AI-potential – ni kan realisera konkret affärsnytta med rätt prioritering");
@@ -766,13 +816,19 @@ const AIReadiness = () => {
     });
     y += 5;
 
-    // Profile description
     addSectionTitle(`Profil: ${pd.title}`);
     addText(pd.description);
 
+    y += 3;
+    addSectionTitle(`Systemrekommendation: ${sysData.label}`);
+    addText(sysData.description);
+
     // ═══ PAGE 2: AI Potential per area ═══
     doc.addPage();
-    addHeader(`AI-potential inom ${track!.label}`);
+    addHeader(`AI-möjlighet inom ${track!.label}`);
+
+    addText("Baserat på era svar finns potential att:");
+    y += 2;
 
     track!.aiPotentials.forEach((ap, i) => {
       const effect = getEffectLevel(scores, i);
@@ -786,7 +842,13 @@ const AIReadiness = () => {
       doc.text(`[${badge.label}]`, lm + 100, y);
       y += 5;
       addText(ap.description, 3);
-      y += 3;
+      doc.setFontSize(8);
+      doc.setFont("helvetica", "italic");
+      doc.setTextColor(100, 100, 100);
+      const ctxLines = doc.splitTextToSize(ap.d365Context, pw - 10);
+      doc.text(ctxLines, lm + 3, y);
+      y += ctxLines.length * 4 + 4;
+      doc.setTextColor(0, 0, 0);
     });
 
     y += 5;
@@ -814,7 +876,6 @@ const AIReadiness = () => {
     }
     y += 5;
 
-    // General risks based on indices
     addSectionTitle("Generella observationer");
     if (scores.process_stability < 50) {
       addText("– Otydlig processägarstruktur kan leda till att AI-initiativ saknar förankring");
@@ -831,6 +892,8 @@ const AIReadiness = () => {
 
     y += 8;
     addSectionTitle("Rekommenderad partnertyp");
+    addText("Baserat på er roll, bransch och mognadsnivå rekommenderar vi en partner med följande profil:");
+    y += 2;
     partners.forEach((p) => {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(10);
@@ -848,10 +911,10 @@ const AIReadiness = () => {
     addHeader(`12-månaders AI-roadmap – ${track!.label}`);
 
     [
-      { label: "Kvartal 1 (Månad 1–3)", text: roadmap.q1 },
-      { label: "Kvartal 2 (Månad 4–6)", text: roadmap.q2 },
-      { label: "Kvartal 3 (Månad 7–9)", text: roadmap.q3 },
-      { label: "Kvartal 4 (Månad 10–12)", text: roadmap.q4 },
+      { label: "Kvartal 1 (Månad 1–3)", data: roadmap.q1 },
+      { label: "Kvartal 2 (Månad 4–6)", data: roadmap.q2 },
+      { label: "Kvartal 3 (Månad 7–9)", data: roadmap.q3 },
+      { label: "Kvartal 4 (Månad 10–12)", data: roadmap.q4 },
     ].forEach((q) => {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
@@ -859,13 +922,25 @@ const AIReadiness = () => {
       y += 6;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
-      const lines = doc.splitTextToSize(q.text, pw - 8);
+      const lines = doc.splitTextToSize(q.data.text, pw - 8);
       doc.text(lines, lm + 5, y);
       y += lines.length * 5 + 8;
     });
 
-    y += 10;
-    // Disclaimer
+    y += 5;
+    // D365 footnote
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "italic");
+    doc.setTextColor(80, 80, 80);
+    const footNote = roadmap.q4.d365Note || "";
+    if (footNote) {
+      const fnLines = doc.splitTextToSize(footNote, pw);
+      doc.text(fnLines, lm, y);
+      y += fnLines.length * 4 + 5;
+    }
+    doc.setTextColor(0, 0, 0);
+
+    y += 5;
     doc.setDrawColor(200);
     doc.line(lm, y, lm + pw, y);
     y += 7;
@@ -878,7 +953,7 @@ const AIReadiness = () => {
     doc.setFont("helvetica", "normal");
     doc.text("d365.se – Oberoende guide till Dynamics 365 i Sverige", lm, y);
 
-    doc.save("AI-Business-Impact-Assessment.pdf");
+    doc.save("AI-Affarssystem-Analys.pdf");
   }, [foundationAnswers, selectedRole, roleScores, track, reportForm]);
 
   const resetAll = () => {
@@ -901,8 +976,8 @@ const AIReadiness = () => {
     return (
       <div className="min-h-screen bg-background">
         <SEOHead
-          title="AI Business Impact Assessment – Rollbaserad AI-analys | d365.se"
-          description="En rollbaserad analys av er AI-potential. Svara på frågor anpassade för din roll och få en personlig AI-roadmap med partnermatchning."
+          title="AI & Affärssystem-analys – Hur redo är ni för AI? | d365.se"
+          description="Rollbaserad AI-analys kopplad till Dynamics 365. Förstå er AI-mognad, var AI ger störst effekt och vilken typ av partner som passar er situation."
           canonicalPath="/ai-readiness"
         />
         <Navbar />
@@ -910,16 +985,34 @@ const AIReadiness = () => {
           <section className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
               <Brain className="h-4 w-4" />
-              AI Business Impact Assessment
+              AI & Affärssystem-analys
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
-              En rollbaserad analys av er AI-potential
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+              Hur redo är ni att skapa affärsvärde med AI?
             </h1>
-            <p className="text-lg text-muted-foreground mb-4">
-              AI-potential varierar mellan roller och avdelningar. Denna analys anpassas efter just din verklighet.
+            <p className="text-lg text-muted-foreground mb-3">
+              – och hur kan Dynamics 365 stödja er?
             </p>
-            <p className="text-muted-foreground mb-10 max-w-lg mx-auto">
-              Svara på <strong>4 grundfrågor</strong>, välj din roll och besvara <strong>5 rollspecifika frågor</strong>. Du får en professionell AI-profil, riskanalys, partnermatchning och en 12-månaders roadmap.
+            <p className="text-muted-foreground mb-4 max-w-lg mx-auto">
+              Oavsett om ni redan använder Dynamics 365 eller utvärderar plattformen hjälper denna analys er att förstå:
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto mb-8 text-left">
+              {[
+                { icon: BarChart3, text: "Er AI-mognad" },
+                { icon: Zap, text: "Var AI ger störst effekt i er roll" },
+                { icon: Settings, text: "Vilka förutsättningar som krävs" },
+                { icon: Users, text: "Vilken typ av partner som passar" },
+              ].map((item) => (
+                <div key={item.text} className="flex items-center gap-3 bg-muted/50 rounded-lg px-4 py-3">
+                  <item.icon className="h-4 w-4 text-primary shrink-0" />
+                  <span className="text-sm text-foreground">{item.text}</span>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-xs text-muted-foreground mb-8">
+              Detta är rådgivande – men kontextuellt anpassat efter er systemsituation, roll och bransch.
             </p>
 
             <Button size="lg" className="text-lg px-8 py-6" onClick={() => setStep("foundation")}>
@@ -1065,6 +1158,8 @@ const AIReadiness = () => {
   const roadmap = generateRoadmap(selectedRole!, profile, foundationAnswers.system);
   const activeRisks = track!.risks.filter((r) => r.condition(scores));
   const partners = getPartnerSuggestions(selectedRole!, foundationAnswers.system, profile, foundationAnswers.industry);
+  const sysTrack = getSystemTrack(foundationAnswers.system);
+  const sysData = systemTrackData[sysTrack];
 
   const indexBars: { label: string; shortLabel: string; value: number; icon: typeof Rocket }[] = [
     { label: "AI-Potential Index", shortLabel: "AI-Potential", value: scores.ai_potential, icon: Zap },
@@ -1075,7 +1170,7 @@ const AIReadiness = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title={`AI Impact: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" />
+      <SEOHead title={`AI & Affärssystem-analys: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" />
       <Navbar />
       <main className="container mx-auto px-4 pt-28 pb-16">
         <div className="max-w-3xl mx-auto">
@@ -1085,19 +1180,19 @@ const AIReadiness = () => {
             <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">
               Er AI-profil – {track!.label} {foundationAnswers.industry ? `| ${foundationAnswers.industry}` : ""}
             </p>
-            <h1 className={`text-3xl sm:text-4xl font-bold mb-2 ${pd.color}`}>{pd.title}</h1>
-            <p className="text-base text-muted-foreground font-medium">{pd.subtitle}</p>
-            <p className="text-sm text-muted-foreground mt-3 max-w-xl mx-auto">{pd.description}</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">{pd.title}</h1>
+            <p className="text-lg text-muted-foreground">{pd.subtitle}</p>
           </div>
 
           <AnalysisDisclaimer />
 
-          {/* 4 Index bars */}
-          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
-            <div className="bg-slate-700 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide">📊 Mognadsprofil – 4 index</h3>
+          {/* 1️⃣ AI Profile – 4 indices */}
+          <div className="border rounded-xl overflow-hidden shadow-sm mt-8">
+            <div className="bg-slate-800 px-5 py-3">
+              <h3 className="font-bold text-white text-sm tracking-wide">📊 Er AI-profil</h3>
             </div>
             <div className="p-5 bg-background space-y-4">
+              <p className="text-sm text-muted-foreground mb-2">{pd.description}</p>
               {indexBars.map((d) => {
                 const DIcon = d.icon;
                 return (
@@ -1120,27 +1215,60 @@ const AIReadiness = () => {
             </div>
           </div>
 
-          {/* AI Potentials with effect indicators */}
+          {/* 2️⃣ AI Opportunity in your role (with subtle D365 context) */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className={`px-5 py-3 ${track!.headerBg}`}>
-              <h3 className="font-bold text-white text-sm tracking-wide">⚡ AI-potential inom {track!.label}</h3>
+              <h3 className="font-bold text-white text-sm tracking-wide">⚡ Er AI-möjlighet inom {track!.label}</h3>
             </div>
-            <div className="p-5 bg-background space-y-3">
+            <div className="p-5 bg-background space-y-1">
+              <p className="text-sm text-muted-foreground mb-4">Baserat på era svar finns potential att:</p>
               {track!.aiPotentials.map((ap, i) => {
                 const effect = getEffectLevel(scores, i);
                 const badge = getEffectBadge(effect);
+                const showD365Context = foundationAnswers.system === "Dynamics 365" || profile === "scaling";
                 return (
-                  <div key={ap.label} className="flex items-start justify-between gap-4 px-3 py-3 rounded-lg bg-muted/30 border border-border/50">
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-foreground">{ap.label}</p>
-                      <p className="text-xs text-muted-foreground mt-0.5">{ap.description}</p>
+                  <div key={ap.label} className="px-3 py-3 rounded-lg bg-muted/30 border border-border/50 mb-3">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-foreground">{ap.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{ap.description}</p>
+                      </div>
+                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${badge.color}`}>
+                        {badge.label}
+                      </span>
                     </div>
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${badge.color}`}>
-                      {badge.label}
-                    </span>
+                    {showD365Context && (
+                      <p className="text-xs text-muted-foreground/70 mt-2 italic flex items-start gap-1.5">
+                        <Sparkles className="h-3 w-3 shrink-0 mt-0.5" />
+                        {ap.d365Context}
+                      </p>
+                    )}
                   </div>
                 );
               })}
+            </div>
+          </div>
+
+          {/* 3️⃣ System Recommendation (smart, not aggressive) */}
+          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+            <div className="bg-slate-700 px-5 py-3">
+              <h3 className="font-bold text-white text-sm tracking-wide flex items-center gap-2">
+                <Lightbulb className="h-4 w-4" /> Systemrekommendation
+              </h3>
+            </div>
+            <div className="p-5 bg-background">
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold mb-4 ${
+                sysTrack === "optimization" ? "text-emerald-600 bg-emerald-50 border-emerald-200"
+                : sysTrack === "transformation" ? "text-blue-600 bg-blue-50 border-blue-200"
+                : "text-purple-600 bg-purple-50 border-purple-200"
+              }`}>
+                {sysData.emoji} {sysData.label}
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">{sysData.description}</p>
+              <div className="bg-muted/40 rounded-lg p-4 border border-border/50">
+                <p className="text-sm text-foreground font-medium mb-1">Rekommendation:</p>
+                <p className="text-sm text-muted-foreground">{sysData.recommendation}</p>
+              </div>
             </div>
           </div>
 
@@ -1200,7 +1328,7 @@ const AIReadiness = () => {
             </div>
           </div>
 
-          {/* 12-month Roadmap */}
+          {/* 12-month Roadmap with D365 footnote */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className="bg-slate-700 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide">🗓️ 12-månaders AI-roadmap – {track!.label}</h3>
@@ -1208,27 +1336,36 @@ const AIReadiness = () => {
             <div className="p-5 bg-background">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { label: "Q1", period: "Månad 1–3", text: roadmap.q1, color: "border-l-blue-500" },
-                  { label: "Q2", period: "Månad 4–6", text: roadmap.q2, color: "border-l-emerald-500" },
-                  { label: "Q3", period: "Månad 7–9", text: roadmap.q3, color: "border-l-amber-500" },
-                  { label: "Q4", period: "Månad 10–12", text: roadmap.q4, color: "border-l-purple-500" },
+                  { label: "Q1", period: "Månad 1–3", data: roadmap.q1, color: "border-l-blue-500" },
+                  { label: "Q2", period: "Månad 4–6", data: roadmap.q2, color: "border-l-emerald-500" },
+                  { label: "Q3", period: "Månad 7–9", data: roadmap.q3, color: "border-l-amber-500" },
+                  { label: "Q4", period: "Månad 10–12", data: roadmap.q4, color: "border-l-purple-500" },
                 ].map((q) => (
                   <div key={q.label} className={`border-l-4 ${q.color} pl-4 py-2`}>
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wide">{q.label} <span className="font-normal">({q.period})</span></p>
-                    <p className="text-sm text-foreground mt-1">{q.text}</p>
+                    <p className="text-sm text-foreground mt-1">{q.data.text}</p>
                   </div>
                 ))}
               </div>
+              {/* D365 footnote */}
+              {roadmap.q4.d365Note && (
+                <p className="text-xs text-muted-foreground/60 italic mt-5 pt-4 border-t border-border/50 flex items-start gap-1.5">
+                  <Sparkles className="h-3 w-3 shrink-0 mt-0.5" />
+                  {roadmap.q4.d365Note}
+                </p>
+              )}
             </div>
           </div>
 
-          {/* Partner matching */}
+          {/* Partner matching – curated feel */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className="bg-primary px-5 py-3">
               <h3 className="font-bold text-primary-foreground text-sm tracking-wide">🤝 Rekommenderad partnertyp</h3>
             </div>
             <div className="p-5 bg-background space-y-3">
-              <p className="text-xs text-muted-foreground mb-3">Baserat på er roll, systemsituation, mognadsnivå och bransch</p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Baserat på er roll, bransch och mognadsnivå rekommenderar vi en partner med följande profil:
+              </p>
               {partners.map((p, i) => (
                 <div key={i} className="flex items-start gap-3 px-3 py-3 rounded-lg bg-muted/30 border border-border/50">
                   <span className="text-xl flex-shrink-0">{p.icon}</span>
@@ -1238,28 +1375,15 @@ const AIReadiness = () => {
                   </div>
                 </div>
               ))}
-              <div className="text-center mt-4">
-                <Link to="/valj-partner" className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:underline">
-                  Hitta matchande partners <ArrowRight className="h-4 w-4" />
+              <div className="text-center mt-5 pt-4 border-t border-border/50">
+                <Link to="/valj-partner">
+                  <Button variant="outline" className="gap-2">
+                    Se matchande partners <ArrowRight className="h-4 w-4" />
+                  </Button>
                 </Link>
               </div>
             </div>
           </div>
-
-          {/* Dynamics 365 note */}
-          {foundationAnswers.system === "Dynamics 365" && (
-            <Card className="mt-6 border-primary/20 bg-primary/5">
-              <CardContent className="p-5">
-                <h3 className="font-bold text-foreground mb-2 flex items-center gap-2 text-sm">
-                  <Briefcase className="h-4 w-4 text-primary" />
-                  Ni har redan Dynamics 365
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Det innebär att ni kan nyttja Copilot och agenter direkt inom er befintliga plattform. Roadmapen ovan är anpassad för att maximera värde ur er nuvarande investering.
-                </p>
-              </CardContent>
-            </Card>
-          )}
 
           {/* Reality Check */}
           <div className="rounded-lg border bg-muted/30 p-6 mt-8 text-center">
@@ -1281,9 +1405,9 @@ const AIReadiness = () => {
                 </p>
                 <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto mb-6 text-xs text-muted-foreground">
                   <span className="bg-muted/50 rounded px-2 py-1">📄 Executive Summary</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">⚡ AI-potential per område</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">⚠️ Riskområden</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">🗓️ 12-månaders roadmap</span>
+                  <span className="bg-muted/50 rounded px-2 py-1">⚡ AI-möjlighet per område</span>
+                  <span className="bg-muted/50 rounded px-2 py-1">⚠️ Riskområden & roadmap</span>
+                  <span className="bg-muted/50 rounded px-2 py-1">🤝 Partnermatchning</span>
                 </div>
                 <Button size="lg" onClick={() => setShowReportForm(true)}>
                   <Download className="mr-2 h-4 w-4" /> Ladda ner rapport
