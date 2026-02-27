@@ -259,36 +259,85 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
-      // Update invitation status
-      // - pending → submitted (first submission)
-      // - approved → submitted (re-edit triggers review)
-      // - submitted stays submitted
-      if (invitation.status === "pending" || invitation.status === "approved") {
-        await supabase
-          .from("partner_invitations")
-          .update({ status: "submitted", submitted_at: new Date().toISOString() })
-          .eq("id", invitation.id);
+      // Auto-apply partner data immediately (no approval step)
+      const partnerData = {
+        name: submissionData.name,
+        description: submissionData.description,
+        website: submissionData.website,
+        logo_url: submissionData.logo_url,
+        contact_person: submissionData.contact_person,
+        email: submissionData.email,
+        phone: submissionData.phone,
+        address: submissionData.address,
+        applications: submissionData.applications || [],
+        industries: submissionData.industries || [],
+        secondary_industries: submissionData.secondary_industries || [],
+        geography: submissionData.geography || [],
+        product_filters: submissionData.product_filters || {},
+        industry_apps: submissionData.industry_apps || [],
+        office_cities: submissionData.office_cities || [],
+        updated_at: new Date().toISOString(),
+      };
+
+      let partnerId = invitation.partner_id;
+
+      if (partnerId) {
+        // Update existing partner
+        const { error: updateError } = await supabase
+          .from("partners")
+          .update(partnerData)
+          .eq("id", partnerId);
+
+        if (updateError) {
+          console.error("Auto-update partner error:", updateError);
+          // Don't fail the submission, just log the error
+        }
       } else {
-        // For 'submitted' status, just update submitted_at to track latest submission
-        await supabase
-          .from("partner_invitations")
-          .update({ submitted_at: new Date().toISOString() })
-          .eq("id", invitation.id);
+        // Create new partner
+        const slug = submissionData.name.toLowerCase().replace(/[^a-z0-9åäöü]+/g, "-").replace(/-+$/, "");
+        const { data: newPartner, error: createError } = await supabase
+          .from("partners")
+          .insert({ ...partnerData, slug, is_featured: false })
+          .select()
+          .single();
+
+        if (createError) {
+          console.error("Auto-create partner error:", createError);
+        } else {
+          partnerId = newPartner.id;
+          // Link invitation to the new partner
+          await supabase
+            .from("partner_invitations")
+            .update({ partner_id: partnerId })
+            .eq("id", invitation.id);
+        }
       }
 
-      console.log("Partner submission received for:", submissionData.name, "(re-edit:", invitation.status !== "pending", ")");
+      // Update invitation status to approved (auto-approved)
+      await supabase
+        .from("partner_invitations")
+        .update({ 
+          status: "approved", 
+          submitted_at: new Date().toISOString(),
+          reviewed_at: new Date().toISOString(),
+          reviewed_by: "auto"
+        })
+        .eq("id", invitation.id);
+
+      console.log("Partner submission auto-applied for:", submissionData.name, "(partner_id:", partnerId, ")");
 
       // Send notification email to admin
       const resendApiKey = Deno.env.get("RESEND_API_KEY");
       if (resendApiKey) {
         try {
           const resend = new Resend(resendApiKey);
+          const isUpdate = !!invitation.partner_id;
           const adminUrl = "https://d365-svenska-guiden.lovable.app/admin";
           
           await resend.emails.send({
             from: "D365.se <info@d365.se>",
             to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
-            subject: `Ny partnerinlämning: ${submissionData.name}`,
+            subject: `Partner ${isUpdate ? "uppdaterad" : "skapad"}: ${submissionData.name}`,
             html: `
               <!DOCTYPE html>
               <html>
@@ -302,7 +351,8 @@ serve(async (req: Request): Promise<Response> => {
                   <p style="color: #6b7280; margin: 5px 0 0 0;">Admin-notifikation</p>
                 </div>
                 
-                <h2 style="color: #059669;">Ny partnerinlämning mottagen!</h2>
+                <h2 style="color: #059669;">Partnerprofil ${isUpdate ? "uppdaterad" : "skapad"}!</h2>
+                <p>${submissionData.name} har ${isUpdate ? "uppdaterat sin profil" : "skapat en ny profil"} via sin inbjudningslänk. Ändringarna är redan publicerade.</p>
                 
                 <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
                   <p style="margin: 0 0 10px 0;"><strong>Partner:</strong> ${submissionData.name}</p>
@@ -312,10 +362,8 @@ serve(async (req: Request): Promise<Response> => {
                   <p style="margin: 0;"><strong>Produkter:</strong> ${(submissionData.applications || []).join(', ') || 'Ej angivet'}</p>
                 </div>
                 
-                <p>Partnern har fyllt i sitt profilkort och väntar på granskning.</p>
-                
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="${adminUrl}" style="display: inline-block; background-color: #059669; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Granska i Admin</a>
+                  <a href="${adminUrl}" style="display: inline-block; background-color: #059669; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Visa i Admin</a>
                 </div>
                 
                 <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
@@ -328,15 +376,14 @@ serve(async (req: Request): Promise<Response> => {
             `,
           });
           
-          console.log("Admin notification email sent for submission:", submissionData.name);
+          console.log("Admin notification email sent for:", submissionData.name);
         } catch (emailError) {
-          // Log error but don't fail the submission
           console.error("Failed to send admin notification email:", emailError);
         }
       }
 
       return new Response(
-        JSON.stringify({ success: true, message: "Tack! Dina uppgifter har skickats in för granskning." }),
+        JSON.stringify({ success: true, message: "Tack! Din profil har uppdaterats." }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
