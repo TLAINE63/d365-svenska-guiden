@@ -343,10 +343,10 @@ const PartnerProfile = () => {
               <div className="absolute -inset-3 bg-gradient-to-br from-amber-400/40 via-primary/30 to-amber-400/40 rounded-3xl blur-xl opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
               
               {/* Logo card - dynamic background based on logo_dark_bg setting */}
-              <div className={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl shadow-2xl shadow-black/30 flex items-center justify-center p-5 overflow-hidden border-2 ${
+              <div className={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl shadow-2xl shadow-black/30 flex items-center justify-center p-5 overflow-hidden ${
                 dbPartner?.logo_dark_bg 
-                  ? 'bg-slate-700 border-slate-600' 
-                  : 'bg-white border-gray-200'
+                  ? 'bg-slate-700' 
+                  : 'bg-white'
               }`}>
                 
                 {partner.logo_url ? (
