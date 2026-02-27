@@ -337,25 +337,14 @@ const PartnerProfile = () => {
 
           {/* Main content - centered layout */}
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Premium Logo Container with glow effect - centered */}
+            {/* Logo Container - centered */}
             <div className="relative group/logo mb-6">
-              {/* Outer glow ring */}
-              <div className="absolute -inset-3 bg-gradient-to-br from-amber-400/40 via-primary/30 to-amber-400/40 rounded-3xl blur-xl opacity-60 group-hover/logo:opacity-100 transition-opacity duration-500" />
-              
-              {/* Logo card - dynamic background based on logo_dark_bg setting */}
-              <div className={`relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl shadow-2xl shadow-black/30 flex items-center justify-center p-5 overflow-hidden ${
-                dbPartner?.logo_dark_bg 
-                  ? 'bg-slate-700' 
-                  : 'bg-white'
-              }`}>
-                
+              <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center p-2 overflow-hidden">
                 {partner.logo_url ? (
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className={`max-w-full max-h-full object-contain relative z-10 ${
-                      dbPartner?.logo_dark_bg ? 'brightness-125 contrast-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]' : ''
-                    }`}
+                    className="max-w-full max-h-full object-contain relative z-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.4)]"
                   />
                 ) : (
                   <Building2 className="w-14 h-14 text-slate-400" />
