@@ -29,6 +29,7 @@ import {
   FolderKanban,
   Shield,
   Zap,
+  Factory,
   Lightbulb,
   Sparkles,
   Bot,
@@ -45,7 +46,7 @@ import { useToast } from "@/hooks/use-toast";
 
 // ─── TYPES ───────────────────────────────────────────────
 
-type RoleId = "it" | "sales" | "marketing" | "finance" | "project" | "logistics";
+type RoleId = "it" | "sales" | "marketing" | "finance" | "project" | "logistics" | "production";
 type IndexId = "automation" | "augmentation" | "prediction" | "governance";
 type ProfileId = "exploring" | "structurally_ready" | "scaling";
 type SystemTrack = "optimization" | "transformation" | "strategy";
@@ -411,6 +412,35 @@ const roleTracks: RoleTrack[] = [
       { condition: (s) => s.augmentation < 40, text: "Utan automatiska larm detekteras avvikelser för sent" },
     ],
   },
+  {
+    id: "production",
+    label: "Produktion",
+    emoji: "🏭",
+    icon: Factory,
+    color: "text-rose-600",
+    headerBg: "bg-rose-600",
+    measures: "Maskinutnyttjande · Kvalitetsavvikelser · Produktionsplanering",
+    timeSavingsRange: "15–35%",
+    forecastImprovement: "15–30%",
+    riskReduction: "Minskad kassation och stillestånd",
+    questions: [
+      { id: "prod_downtime", question: "Hur ofta drabbas ni av oplanerade produktionsstopp?", index: "prediction", options: [{ label: "Sällan, prediktivt underhåll", score: 1 }, { label: "Ibland, planerat underhåll", score: 2 }, { label: "Regelbundet, reaktivt", score: 3 }] },
+      { id: "prod_quality", question: "Hur identifieras kvalitetsavvikelser i produktionen?", index: "augmentation", options: [{ label: "Automatiskt via sensorer/system", score: 1 }, { label: "Vid stickprov och slutkontroll", score: 2 }, { label: "Ofta först hos kund", score: 3 }] },
+      { id: "prod_planning", question: "Hur hanteras produktionsplanering och sekvensering?", index: "automation", options: [{ label: "Automatiserat med optimering", score: 1 }, { label: "Delvis manuellt med systemstöd", score: 2 }, { label: "Helt manuellt (Excel/whiteboard)", score: 3 }] },
+      { id: "prod_oee", question: "Mäts OEE (Overall Equipment Effectiveness) systematiskt?", index: "augmentation", options: [{ label: "Ja, i realtid med dashboards", score: 1 }, { label: "Ja, men manuellt/periodvis", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "prod_waste", question: "Hur mycket kassation/spill uppstår i produktion?", index: "prediction", options: [{ label: "Under 2%, aktivt optimerat", score: 1 }, { label: "2–5%", score: 2 }, { label: "Över 5% eller okänt", score: 3 }] },
+    ],
+    aiResults: [
+      { label: "Predictive Maintenance Potential", labelEn: "Predictive Maintenance", description: "AI förutser maskinfel och optimerar underhållsintervall", d365Context: "Dynamics 365 Supply Chain Management stöder IoT-baserat prediktivt underhåll" },
+      { label: "Quality AI Potential", labelEn: "Quality AI", description: "AI-driven kvalitetskontroll som identifierar avvikelser i realtid", d365Context: "Kvalitetshantering med AI-stöd finns i Dynamics 365 Supply Chain Management" },
+      { label: "Production Scheduling AI", labelEn: "Scheduling AI", description: "Intelligent produktionsplanering som optimerar sekvens och resurser", d365Context: "AI-optimerad planering och schemaläggning i Dynamics 365 Supply Chain Management" },
+    ],
+    risks: [
+      { condition: (s) => s.prediction < 40, text: "Utan prediktivt underhåll ökar risken för kostsamma oplanerade stopp" },
+      { condition: (s) => s.automation < 40, text: "Manuell produktionsplanering begränsar möjligheten till AI-optimering" },
+      { condition: (s) => s.augmentation < 40, text: "Utan realtidsdata från produktion saknas grund för AI-driven kvalitetskontroll" },
+    ],
+  },
 ];
 
 // ─── SCORING (inverted: high score = high AI opportunity) ─
@@ -519,14 +549,15 @@ function calcROI(
     marketing: 600000,
     project: 700000,
     logistics: 600000,
+    production: 550000,
   };
 
   // Team size estimate per headcount bracket
   const teamSizeMap: Record<string, Record<RoleId, number>> = {
-    "1–49 anställda": { sales: 3, finance: 2, it: 2, marketing: 2, project: 3, logistics: 3 },
-    "50–249 anställda": { sales: 8, finance: 5, it: 5, marketing: 4, project: 6, logistics: 8 },
-    "250–999 anställda": { sales: 20, finance: 12, it: 12, marketing: 8, project: 15, logistics: 20 },
-    "1 000+ anställda": { sales: 50, finance: 25, it: 25, marketing: 15, project: 30, logistics: 50 },
+    "1–49 anställda": { sales: 3, finance: 2, it: 2, marketing: 2, project: 3, logistics: 3, production: 10 },
+    "50–249 anställda": { sales: 8, finance: 5, it: 5, marketing: 4, project: 6, logistics: 8, production: 30 },
+    "250–999 anställda": { sales: 20, finance: 12, it: 12, marketing: 8, project: 15, logistics: 20, production: 80 },
+    "1 000+ anställda": { sales: 50, finance: 25, it: 25, marketing: 15, project: 30, logistics: 50, production: 200 },
   };
   const teamSize = teamSizeMap[headcount]?.[role] || 5;
 
@@ -588,6 +619,7 @@ function getPartnerSuggestions(
     finance: { icon: "💰", type: "Finance & AI-specialist", desc: "Partner med erfarenhet av modern ekonomistyrning och AI-driven analys" },
     project: { icon: "📊", type: "Project Operations-specialist", desc: "Partner med expertis inom projektbaserade verksamheter" },
     logistics: { icon: "🚛", type: "Supply Chain-specialist", desc: "Partner med erfarenhet av lagerstyrning, prognos och supply chain-optimering" },
+    production: { icon: "🏭", type: "Produktions- och tillverkningsspecialist", desc: "Partner med erfarenhet av smart manufacturing, prediktivt underhåll och produktionsoptimering" },
   };
 
   suggestions.push({
@@ -643,6 +675,7 @@ function generateRoadmap(role: RoleId, profile: ProfileId, system: string): { q1
     finance: "Dynamics 365 Finance",
     project: "Dynamics 365 Project Operations",
     logistics: "Dynamics 365 Supply Chain Management",
+    production: "Dynamics 365 Supply Chain Management",
   };
 
   const roadmaps: Record<RoleId, Record<ProfileId, { q1: string; q2: string; q3: string; q4: string }>> = {
@@ -675,6 +708,11 @@ function generateRoadmap(role: RoleId, profile: ProfileId, system: string): { q1
       scaling: { q1: "Implementera AI-drivna efterfrågeprognoser", q2: "Automatisera lageroptimering", q3: "AI-driven avvikelsedetektion", q4: "Prediktiv leveransriskanalys" },
       structurally_ready: { q1: "Strukturera historisk efterfrågedata", q2: "Automatisera grundläggande lagerplanering", q3: "Implementera avvikelsevarningar", q4: "Testa prediktiv prognos" },
       exploring: { q1: "Digitalisera lagerstyrning", q2: "Börja samla efterfrågedata", q3: "Automatisera beställningspunkter", q4: "Utvärdera prognosverktyg" },
+    },
+    production: {
+      scaling: { q1: "Implementera prediktivt underhåll med IoT-data", q2: "AI-driven kvalitetskontroll i realtid", q3: "Optimera produktionssekvensering med AI", q4: "Skala till autonoma produktionsagenter" },
+      structurally_ready: { q1: "Koppla maskiner och sensorer till central dataplattform", q2: "Standardisera OEE-mätning och KPI:er", q3: "Testa prediktivt underhåll på pilotlinje", q4: "Utvärdera AI-driven schemaläggning" },
+      exploring: { q1: "Digitalisera produktionsrapportering", q2: "Börja samla maskindata och stilleståndstider", q3: "Etablera systematisk kvalitetsuppföljning", q4: "Utvärdera IoT- och AI-readiness" },
     },
   };
 
@@ -889,6 +927,7 @@ const AIReadiness = () => {
       marketing: purple500,
       project: { r: 234, g: 88, b: 12 },
       logistics: { r: 6, g: 182, b: 212 },
+      production: { r: 225, g: 29, b: 72 },
     };
 
     const addPageFooter = () => {
