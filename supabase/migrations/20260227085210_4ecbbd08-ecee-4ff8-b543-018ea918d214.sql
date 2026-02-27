@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_submissions ADD COLUMN office_cities text[] DEFAULT '{}'::text[];

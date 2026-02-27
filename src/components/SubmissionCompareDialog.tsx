@@ -49,6 +49,7 @@ interface Submission {
   secondary_industries: string[] | null;
   geography: string[] | null;
   product_filters: ProductFilters | null;
+  office_cities: string[] | null;
   notes: string | null;
   submitted_at: string;
 }
@@ -68,6 +69,7 @@ interface ExistingPartner {
   secondary_industries: string[] | null;
   geography: string[] | null;
   product_filters: ProductFilters | null;
+  office_cities: string[] | null;
 }
 
 interface SubmissionCompareDialogProps {
@@ -374,11 +376,17 @@ export const SubmissionCompareDialog = ({
               <CardHeader className="py-3 px-4 bg-muted/30">
                 <CardTitle className="text-sm">Geografisk täckning</CardTitle>
               </CardHeader>
-              <CardContent className="py-4">
+              <CardContent className="py-4 space-y-4">
                 <CompareArrayField 
                   label="Regioner" 
                   oldValue={existingPartner?.geography} 
                   newValue={submission.geography}
+                  isNew={isNewPartner}
+                />
+                <CompareArrayField 
+                  label="Kontorsstäder" 
+                  oldValue={existingPartner?.office_cities} 
+                  newValue={submission.office_cities}
                   isNew={isNewPartner}
                 />
               </CardContent>

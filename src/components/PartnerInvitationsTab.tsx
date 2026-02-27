@@ -78,6 +78,7 @@ interface Submission {
   secondary_industries: string[] | null;
   geography: string[] | null;
   product_filters: ProductFilters | null;
+  office_cities: string[] | null;
   notes: string | null;
   submitted_at: string;
   partner_invitations: {
