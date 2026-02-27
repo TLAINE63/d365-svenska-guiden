@@ -576,7 +576,7 @@ const ValjPartner = () => {
                 Vem är din mest lämpade Dynamics 365-partner?
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground">
-                Här är ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör och din företagsstorlek (antal anställda), så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+                Nedan följer ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige och som även har kontor på platserna som kartan visar. Ännu viktigare vid partnerval, är vilken kompetens partner besitter, dels inom respektive applikationsområde, men framförallt att de förstår din verksamhet - din bransch. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör, så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
               </p>
             </div>
           </div>
