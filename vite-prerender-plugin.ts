@@ -1,7 +1,7 @@
 import type { Plugin } from 'vite';
 import { build } from 'vite';
 import { resolve, join } from 'path';
-import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync } from 'fs';
 import { pathToFileURL } from 'url';
 import react from '@vitejs/plugin-react-swc';
 
@@ -39,6 +39,13 @@ export default function prerenderPlugin(): Plugin {
       // Guard: skip if this IS the SSR build or if env flag is set (prevents loops)
       if (isSsr || process.env.__VITE_PRERENDER === '1') return;
 
+      // Check that entry-server.tsx exists
+      const entryPath = resolve(root, 'src/entry-server.tsx');
+      if (!existsSync(entryPath)) {
+        console.warn('⚠️  Prerender skipped: src/entry-server.tsx not found');
+        return;
+      }
+
       process.env.__VITE_PRERENDER = '1';
       const tempDir = resolve(root, '.prerender-temp');
 
@@ -57,10 +64,12 @@ export default function prerenderPlugin(): Plugin {
             alias: { '@': resolve(root, 'src') },
           },
           build: {
-            ssr: resolve(root, 'src/entry-server.tsx'),
+            ssr: entryPath,
             outDir: tempDir,
             rollupOptions: {
               output: { format: 'esm' },
+              // Externalize node builtins to avoid bundling issues
+              external: ['stream', 'http', 'https', 'url', 'zlib', 'crypto'],
             },
           },
           logLevel: 'warn',
@@ -68,10 +77,21 @@ export default function prerenderPlugin(): Plugin {
 
         // ── 3. Import the built SSR module ───────────────────────────────
         const modulePath = pathToFileURL(resolve(tempDir, 'entry-server.js')).href;
-        const { render, routes } = await import(modulePath);
+        const mod = await import(modulePath);
+        const { render, routes } = mod;
+
+        if (!render || !routes) {
+          console.error('❌ Prerender: entry-server.js missing render() or routes export');
+          return;
+        }
 
         // ── 4. Read the client-built index.html as template ──────────────
-        const template = readFileSync(resolve(root, outDir, 'index.html'), 'utf-8');
+        const templatePath = resolve(root, outDir, 'index.html');
+        if (!existsSync(templatePath)) {
+          console.error('❌ Prerender: dist/index.html not found');
+          return;
+        }
+        const template = readFileSync(templatePath, 'utf-8');
 
         // ── 5. Discover CSS files from the build output ──────────────────
         const assetsDir = resolve(root, outDir, 'assets');
@@ -87,6 +107,7 @@ export default function prerenderPlugin(): Plugin {
         const baseUrl = 'https://d365.se';
         const today = new Date().toISOString().split('T')[0];
         const sitemapEntries: string[] = [];
+        let successCount = 0;
 
         // ── 6. Render each route ─────────────────────────────────────────
         for (const route of routes) {
@@ -145,6 +166,7 @@ export default function prerenderPlugin(): Plugin {
 
             const filePath = join(dir, 'index.html');
             writeFileSync(filePath, page, 'utf-8');
+            successCount++;
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 
             // Collect sitemap entry
@@ -164,20 +186,23 @@ export default function prerenderPlugin(): Plugin {
         }
 
         // ── 7. Generate sitemap.xml ──────────────────────────────────────
-        const sitemap = [
-          '<?xml version="1.0" encoding="UTF-8"?>',
-          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-          ...sitemapEntries,
-          '</urlset>',
-          '',
-        ].join('\n');
+        if (sitemapEntries.length > 0) {
+          const sitemap = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+            ...sitemapEntries,
+            '</urlset>',
+            '',
+          ].join('\n');
 
-        writeFileSync(resolve(root, outDir, 'sitemap.xml'), sitemap, 'utf-8');
-        console.log('  ✅ sitemap.xml');
+          writeFileSync(resolve(root, outDir, 'sitemap.xml'), sitemap, 'utf-8');
+          console.log('  ✅ sitemap.xml');
+        }
 
-        console.log(`\n✅ Prerendering complete – ${routes.length} routes\n`);
+        console.log(`\n✅ Prerendering complete – ${successCount}/${routes.length} routes\n`);
       } catch (err: any) {
-        console.error('❌ Prerender failed:', err);
+        console.error('❌ Prerender failed:', err.message || err);
+        // Don't throw - let the build succeed even if prerendering fails
       } finally {
         delete process.env.__VITE_PRERENDER;
         try {
@@ -216,6 +241,61 @@ function setupBrowserGlobals() {
     key: () => null,
   };
 
+  const createMockElement = (tag: string) => ({
+    tagName: tag.toUpperCase(),
+    style: new Proxy({}, { get: () => '', set: () => true }),
+    dataset: {},
+    setAttribute: noop,
+    getAttribute: () => null,
+    removeAttribute: noop,
+    appendChild: function(child: any) { return child; },
+    removeChild: function(child: any) { return child; },
+    insertBefore: function(child: any) { return child; },
+    replaceChild: noop,
+    addEventListener: noop,
+    removeEventListener: noop,
+    classList: { add: noop, remove: noop, toggle: noop, contains: () => false },
+    children: [],
+    childNodes: [],
+    innerHTML: '',
+    textContent: '',
+    firstChild: null,
+    lastChild: null,
+    nextSibling: null,
+    previousSibling: null,
+    parentNode: null,
+    parentElement: null,
+    ownerDocument: null,
+    nodeType: 1,
+    nodeName: tag.toUpperCase(),
+    cloneNode: () => createMockElement(tag),
+    contains: () => false,
+    matches: () => false,
+    closest: () => null,
+    getBoundingClientRect: () => ({ top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0, x: 0, y: 0, toJSON: noop }),
+    getClientRects: () => [],
+    hasAttribute: () => false,
+    hasAttributes: () => false,
+    hasChildNodes: () => false,
+    normalize: noop,
+    isEqualNode: () => false,
+    isSameNode: () => false,
+    compareDocumentPosition: () => 0,
+    focus: noop,
+    blur: noop,
+    click: noop,
+    scrollIntoView: noop,
+    querySelectorAll: () => [],
+    querySelector: () => null,
+    getElementsByTagName: () => [],
+    getElementsByClassName: () => [],
+    // For Radix UI
+    role: null,
+    id: '',
+    className: '',
+    tabIndex: -1,
+  });
+
   g.window = {
     __SSR_POLYFILLED: true,
     matchMedia: () => noopMediaQuery,
@@ -244,14 +324,18 @@ function setupBrowserGlobals() {
     outerWidth: 1280,
     outerHeight: 800,
     devicePixelRatio: 1,
-    screen: { width: 1280, height: 800, availWidth: 1280, availHeight: 800 },
-    navigator: { userAgent: 'prerender-bot', language: 'sv-SE', languages: ['sv-SE', 'sv'] },
-    getComputedStyle: () => new Proxy({}, { get: () => '' }),
+    screen: { width: 1280, height: 800, availWidth: 1280, availHeight: 800, colorDepth: 24, pixelDepth: 24, orientation: { type: 'landscape-primary', angle: 0 } },
+    navigator: { userAgent: 'prerender-bot', language: 'sv-SE', languages: ['sv-SE', 'sv'], platform: 'Linux', vendor: '', cookieEnabled: true, onLine: true },
+    getComputedStyle: () => new Proxy({}, { get: (_target, prop) => typeof prop === 'string' ? '' : undefined }),
     scrollTo: noop,
     scroll: noop,
     scrollBy: noop,
-    requestAnimationFrame: (cb: any) => setTimeout(cb, 0),
+    requestAnimationFrame: (cb: any) => { setTimeout(cb, 0); return 0; },
     cancelAnimationFrame: noop,
+    setTimeout: globalThis.setTimeout,
+    clearTimeout: globalThis.clearTimeout,
+    setInterval: globalThis.setInterval,
+    clearInterval: globalThis.clearInterval,
     ResizeObserver: class { observe = noop; unobserve = noop; disconnect = noop; },
     IntersectionObserver: class {
       observe = noop; unobserve = noop; disconnect = noop;
@@ -259,11 +343,21 @@ function setupBrowserGlobals() {
       takeRecords = () => [];
     },
     MutationObserver: class { observe = noop; disconnect = noop; takeRecords = () => []; },
-    fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({}), text: () => Promise.resolve('') }),
-    Image: class { src = ''; onload = noop; onerror = noop; },
+    fetch: () => Promise.resolve({ ok: true, json: () => Promise.resolve({}), text: () => Promise.resolve(''), headers: new Map() }),
+    Image: class { src = ''; onload = noop; onerror = noop; width = 0; height = 0; },
     CustomEvent: class { type = ''; detail = null; constructor(t: string, o?: any) { this.type = t; this.detail = o?.detail; } },
     HTMLElement: class {},
     SVGElement: class {},
+    Element: class {},
+    Node: class {},
+    Event: class { type = ''; constructor(t: string) { this.type = t; } preventDefault = noop; stopPropagation = noop; },
+    DOMParser: class { parseFromString: () => null },
+    URL: globalThis.URL,
+    URLSearchParams: globalThis.URLSearchParams,
+    AbortController: globalThis.AbortController || class { signal = {}; abort = noop; },
+    TextEncoder: globalThis.TextEncoder,
+    TextDecoder: globalThis.TextDecoder,
+    crypto: globalThis.crypto || { getRandomValues: (arr: any) => arr, randomUUID: () => 'ssr-uuid' },
   };
 
   g.document = {
@@ -272,39 +366,25 @@ function setupBrowserGlobals() {
     getElementById: () => null,
     getElementsByClassName: () => [],
     getElementsByTagName: () => [],
-    createElement: (tag: string) => ({
-      tagName: tag.toUpperCase(),
-      style: {},
-      dataset: {},
-      setAttribute: noop,
-      getAttribute: () => null,
-      removeAttribute: noop,
-      appendChild: noop,
-      removeChild: noop,
-      insertBefore: noop,
-      replaceChild: noop,
-      addEventListener: noop,
-      removeEventListener: noop,
-      classList: { add: noop, remove: noop, toggle: noop, contains: () => false },
-      children: [],
-      childNodes: [],
-      innerHTML: '',
-      textContent: '',
-      getBoundingClientRect: () => ({ top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0 }),
-    }),
-    createElementNS: (_ns: string, tag: string) => g.document.createElement(tag),
-    createTextNode: (text: string) => ({ textContent: text }),
-    createDocumentFragment: () => ({ appendChild: noop, children: [], childNodes: [] }),
-    createComment: () => ({}),
-    head: { appendChild: noop, removeChild: noop, querySelectorAll: () => [], insertBefore: noop, children: [] },
-    body: { appendChild: noop, removeChild: noop, classList: { add: noop, remove: noop, toggle: noop, contains: () => false } },
+    createElement: (tag: string) => createMockElement(tag),
+    createElementNS: (_ns: string, tag: string) => createMockElement(tag),
+    createTextNode: (text: string) => ({ textContent: text, nodeType: 3, nodeName: '#text' }),
+    createDocumentFragment: () => ({ appendChild: (child: any) => child, children: [], childNodes: [], nodeType: 11, querySelectorAll: () => [] }),
+    createComment: (text: string) => ({ textContent: text, nodeType: 8 }),
+    head: { appendChild: (child: any) => child, removeChild: noop, querySelectorAll: () => [], insertBefore: noop, children: [], contains: () => false },
+    body: { appendChild: (child: any) => child, removeChild: noop, classList: { add: noop, remove: noop, toggle: noop, contains: () => false }, contains: () => false, querySelectorAll: () => [], querySelector: () => null, style: {} },
     documentElement: {
-      style: {},
+      style: new Proxy({}, { get: () => '', set: () => true }),
       classList: { add: noop, remove: noop, toggle: noop, contains: () => false },
       setAttribute: noop,
       getAttribute: () => null,
       removeAttribute: noop,
       lang: 'sv',
+      dir: 'ltr',
+      scrollTop: 0,
+      scrollLeft: 0,
+      clientWidth: 1280,
+      clientHeight: 800,
     },
     cookie: '',
     title: '',
@@ -312,9 +392,27 @@ function setupBrowserGlobals() {
     addEventListener: noop,
     removeEventListener: noop,
     dispatchEvent: () => true,
-    createRange: () => ({ setStart: noop, setEnd: noop, commonAncestorContainer: {} }),
+    createRange: () => ({
+      setStart: noop,
+      setEnd: noop,
+      commonAncestorContainer: {},
+      createContextualFragment: (html: string) => ({ childNodes: [], children: [], innerHTML: html }),
+      selectNode: noop,
+      selectNodeContents: noop,
+      collapse: noop,
+      cloneRange: () => ({}),
+      getBoundingClientRect: () => ({ top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0 }),
+    }),
     implementation: { createHTMLDocument: () => g.document },
+    createTreeWalker: () => ({ nextNode: () => null, currentNode: null }),
+    activeElement: null,
+    defaultView: null,
+    nodeType: 9,
   };
+
+  // Set defaultView after document is created
+  g.document.defaultView = g.window;
+  g.document.body.ownerDocument = g.document;
 
   g.localStorage = g.window.localStorage;
   g.sessionStorage = g.window.sessionStorage;
@@ -331,4 +429,13 @@ function setupBrowserGlobals() {
   g.CustomEvent = g.window.CustomEvent;
   g.HTMLElement = g.window.HTMLElement;
   g.SVGElement = g.window.SVGElement;
+  g.Element = g.window.Element;
+  g.Node = g.window.Node;
+  g.Event = g.window.Event;
+  g.DOMParser = g.window.DOMParser;
+  g.location = g.window.location;
+  g.history = g.window.history;
+  g.screen = g.window.screen;
+  g.innerWidth = g.window.innerWidth;
+  g.innerHeight = g.window.innerHeight;
 }
