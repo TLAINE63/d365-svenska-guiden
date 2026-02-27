@@ -13,6 +13,8 @@ import FinanceSupplyChain from './pages/FinanceSupplyChain';
 import ERPOverview from './pages/ERPOverview';
 import Copilot from './pages/Copilot';
 import Agents from './pages/Agents';
+import AIOverview from './pages/AIOverview';
+import AIReadiness from './pages/AIReadiness';
 import ContactUs from './pages/ContactUs';
 import ValjPartner from './pages/ValjPartner';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -49,6 +51,8 @@ export const routes: PrerenderRoute[] = [
   { path: '/d365-contact-center', priority: '0.8', changefreq: 'monthly' },
   { path: '/copilot', priority: '0.8', changefreq: 'monthly' },
   { path: '/agents', priority: '0.9', changefreq: 'monthly' },
+  { path: '/ai-oversikt', priority: '0.7', changefreq: 'monthly' },
+  { path: '/ai-readiness', priority: '0.6', changefreq: 'monthly' },
   { path: '/behovsanalys', priority: '0.8', changefreq: 'monthly' },
   { path: '/salj-marknad-behovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/kundservice-behovsanalys', priority: '0.7', changefreq: 'monthly' },
@@ -77,6 +81,8 @@ export function render(url: string) {
             <Route path="/erp" element={<ERPOverview />} />
             <Route path="/copilot" element={<Copilot />} />
             <Route path="/agents" element={<Agents />} />
+            <Route path="/ai-oversikt" element={<AIOverview />} />
+            <Route path="/ai-readiness" element={<AIReadiness />} />
             <Route path="/kontakt" element={<ContactUs />} />
             <Route path="/valj-partner" element={<ValjPartner />} />
             <Route path="/dataskydd" element={<PrivacyPolicy />} />

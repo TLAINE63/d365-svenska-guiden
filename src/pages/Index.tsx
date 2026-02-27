@@ -10,6 +10,7 @@ import HeroCarousel from "@/components/HeroCarousel";
 import CommonMistakesTeaser from "@/components/CommonMistakesTeaser";
 import ScrollCTA from "@/components/ScrollCTA";
 import SEOHead from "@/components/SEOHead";
+import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -70,6 +71,18 @@ const Index = () => {
       <WebSiteSchema />
       <LocalBusinessSchema />
       <FAQSchema faqs={homeFaqs} />
+      <NoscriptSEO
+        title="Dynamics 365 Sverige – Oberoende guide till ERP & CRM"
+        description="Oberoende guide till Microsoft Dynamics 365 i Sverige. Business Central från 884 kr/mån. Jämför ERP & CRM, hitta Microsoft-certifierade partners per bransch. Kostnadsfri behovsanalys."
+        sections={[
+          { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts plattform för affärssystem (ERP) och kundrelationshantering (CRM) i molnet. Det är en familj av specialiserade affärsappar – Business Central och Finance & Supply Chain för ERP, samt Sales, Customer Service, Field Service och Customer Insights för CRM." },
+          { heading: "Vad kostar Business Central?", text: "Dynamics 365 Business Central kostar från 884 kr per användare och månad (Essentials-licens) eller 1 255 kr/mån (Premium). Utöver licensen tillkommer implementeringskostnad – räkna med 300 000–1 500 000 kr beroende på komplexitet." },
+          { heading: "Hitta rätt Dynamics 365-partner", text: "En bra Dynamics 365-partner i Sverige bör ha dokumenterad branschkunskap, referenskunder av liknande storlek och djupkompetens på just den app du ska implementera. På d365.se kan du filtrera partners på bransch, produkt och geografi kostnadsfritt." },
+          { heading: "Hur lång tid tar implementering?", text: "Business Central startpaket: 2–4 månader. Fullständig implementation: 4–9 månader. Finance & SCM: 9–18 månader. Sales eller Customer Service: 2–6 månader." },
+          { heading: "Dynamics 365 vs SAP, Salesforce, Fortnox", text: "Business Central är ett starkt alternativ till Fortnox, Visma och Monitor för SMB. Finance & SCM är ett modernt alternativ till SAP S/4HANA. Sales och Customer Service konkurrerar direkt med Salesforce och HubSpot." },
+          { heading: "Microsoft Copilot AI", text: "Microsoft Copilot är inbyggt i alla Dynamics 365-appar utan extra licensavgift. I Business Central hjälper Copilot med produktbeskrivningar och bankavstämning. I Sales sammanfattar Copilot möten och skriver e-postutkast." },
+        ]}
+      />
       <Navbar />
       
       <main>
