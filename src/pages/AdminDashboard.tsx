@@ -1403,11 +1403,29 @@ const AdminDashboard = () => {
                                 if (!filter || (filter.industries?.length === 0 && filter.secondaryIndustries?.length === 0)) return null;
                                 return (
                                   <Badge key={section.key} variant="outline" className="text-xs">
+                                    <img src={section.icon} alt="" className="h-3 w-3 mr-1 inline-block" />
                                     {section.label}
                                   </Badge>
                                 );
                               })}
                             </div>
+                            {(() => {
+                              const allInds = new Set<string>();
+                              productSections.forEach(section => {
+                                const filter = partner.product_filters?.[section.key];
+                                filter?.industries?.forEach((ind: string) => allInds.add(ind));
+                              });
+                              if (allInds.size === 0) return null;
+                              return (
+                                <div className="flex flex-wrap gap-1 mt-1">
+                                  {Array.from(allInds).sort((a, b) => a.localeCompare(b, 'sv')).map(ind => (
+                                    <Badge key={ind} variant="secondary" className="text-xs font-normal">
+                                      {ind}
+                                    </Badge>
+                                  ))}
+                                </div>
+                              );
+                            })()}
                             {(partner.activation_date || partner.monthly_fee) && (
                               <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
                                 {partner.activation_date && (
