@@ -1178,7 +1178,7 @@ const AIReadiness = () => {
           <div className="text-center mb-10">
             <span className="text-5xl mb-4 block">{pd.emoji}</span>
             <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">
-              Er AI-profil – {track!.label} {foundationAnswers.industry ? `| ${foundationAnswers.industry}` : ""}
+              AI-profil – {track!.label} {foundationAnswers.industry ? `| ${foundationAnswers.industry}` : ""}
             </p>
             <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">{pd.title}</h1>
             <p className="text-lg text-muted-foreground">{pd.subtitle}</p>
@@ -1189,7 +1189,7 @@ const AIReadiness = () => {
           {/* 1️⃣ AI Profile – 4 indices */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-8">
             <div className="bg-slate-800 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide">📊 Er AI-profil</h3>
+              <h3 className="font-bold text-white text-sm tracking-wide">📊 AI-profil</h3>
             </div>
             <div className="p-5 bg-background space-y-4">
               <p className="text-sm text-muted-foreground mb-2">{pd.description}</p>
@@ -1218,7 +1218,7 @@ const AIReadiness = () => {
           {/* 2️⃣ AI Opportunity in your role (with subtle D365 context) */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className={`px-5 py-3 ${track!.headerBg}`}>
-              <h3 className="font-bold text-white text-sm tracking-wide">⚡ Er AI-möjlighet inom {track!.label}</h3>
+              <h3 className="font-bold text-white text-sm tracking-wide">⚡ AI-möjlighet inom {track!.label}</h3>
             </div>
             <div className="p-5 bg-background space-y-1">
               <p className="text-sm text-muted-foreground mb-4">Baserat på era svar finns potential att:</p>
