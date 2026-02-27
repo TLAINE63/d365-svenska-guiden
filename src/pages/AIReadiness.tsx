@@ -31,6 +31,12 @@ import {
   Zap,
   Lightbulb,
   Sparkles,
+  Bot,
+  Eye,
+  Activity,
+  DollarSign,
+  Clock,
+  Percent,
 } from "lucide-react";
 import SelectionCard from "@/components/SelectionCard";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
@@ -40,15 +46,18 @@ import { useToast } from "@/hooks/use-toast";
 // ─── TYPES ───────────────────────────────────────────────
 
 type RoleId = "it" | "sales" | "marketing" | "finance" | "project" | "logistics";
-type IndexId = "ai_potential" | "data_maturity" | "process_stability" | "org_readiness";
+type IndexId = "automation" | "augmentation" | "prediction" | "governance";
 type ProfileId = "exploring" | "structurally_ready" | "scaling";
 type SystemTrack = "optimization" | "transformation" | "strategy";
 
 interface FoundationAnswers {
   system: string;
-  maturity: string;
-  goal: string;
   industry: string;
+  headcount: string;
+  repetitive: string;
+  gut_decisions: string;
+  decision_time: string;
+  anomaly_speed: string;
 }
 
 interface IndexedQuestion {
@@ -56,6 +65,13 @@ interface IndexedQuestion {
   question: string;
   index: IndexId;
   options: { label: string; score: number }[];
+}
+
+interface AIResult {
+  label: string;
+  labelEn: string;
+  description: string;
+  d365Context: string;
 }
 
 interface RoleTrack {
@@ -67,15 +83,18 @@ interface RoleTrack {
   headerBg: string;
   measures: string;
   questions: IndexedQuestion[];
-  aiPotentials: { label: string; description: string; d365Context: string }[];
+  aiResults: AIResult[];
   risks: { condition: (scores: IndexScores) => boolean; text: string }[];
+  timeSavingsRange: string;
+  forecastImprovement: string;
+  riskReduction: string;
 }
 
 interface IndexScores {
-  ai_potential: number;
-  data_maturity: number;
-  process_stability: number;
-  org_readiness: number;
+  automation: number;
+  augmentation: number;
+  prediction: number;
+  governance: number;
 }
 
 // ─── SYSTEM TRACK LOGIC ─────────────────────────────────
@@ -83,7 +102,7 @@ interface IndexScores {
 function getSystemTrack(system: string): SystemTrack {
   if (system === "Dynamics 365") return "optimization";
   if (system === "Oklart / blandat") return "strategy";
-  return "transformation"; // "Annat ERP/CRM" or "Flera system"
+  return "transformation";
 }
 
 const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color: string; description: string; recommendation: string }> = {
@@ -105,8 +124,8 @@ const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color
     label: "Strategispår",
     emoji: "🧭",
     color: "text-purple-600",
-    description: "Er systemsituation är oklar, vilket ofta indikerar att en strategisk kartläggning behövs innan AI-initiativ startas. Rätt beslut nu sparar betydande tid och resurser längre fram.",
-    recommendation: "Börja med att kartlägga ert nuvarande systemlandskap och identifiera var AI kan ge störst effekt. En kvalificerad partner kan hjälpa er navigera alternativen.",
+    description: "Systemsituationen är oklar, vilket ofta indikerar att en strategisk kartläggning behövs innan AI-initiativ startas. Rätt beslut nu sparar betydande tid och resurser längre fram.",
+    recommendation: "Börja med att kartlägga det nuvarande systemlandskapet och identifiera var AI kan ge störst effekt. En kvalificerad partner kan hjälpa er navigera alternativen.",
   },
 };
 
@@ -134,13 +153,27 @@ const industryOptions = [
   "Uthyrningsverksamhet",
 ];
 
-// ─── FOUNDATION QUESTIONS ────────────────────────────────
+const headcountOptions = [
+  { label: "1–49 anställda", score: 1 },
+  { label: "50–249 anställda", score: 2 },
+  { label: "250–999 anställda", score: 3 },
+  { label: "1 000+ anställda", score: 3 },
+];
 
-const foundationQuestions: { id: keyof FoundationAnswers; question: string; index: IndexId | null; options: { label: string; score: number }[] }[] = [
+// ─── FOUNDATION QUESTIONS (AI-focused) ──────────────────
+
+interface FoundationQuestion {
+  id: keyof FoundationAnswers;
+  question: string;
+  index: IndexId | null;
+  options: { label: string; score: number }[];
+}
+
+const foundationQuestions: FoundationQuestion[] = [
   {
     id: "system",
     question: "Vilket affärssystem använder ni idag?",
-    index: "data_maturity",
+    index: null,
     options: [
       { label: "Dynamics 365", score: 3 },
       { label: "Annat ERP/CRM", score: 2 },
@@ -149,66 +182,62 @@ const foundationQuestions: { id: keyof FoundationAnswers; question: string; inde
     ],
   },
   {
-    id: "maturity",
-    question: "Hur upplever ni er digitala mognad?",
-    index: "process_stability",
-    options: [
-      { label: "Mycket hög", score: 3 },
-      { label: "Stabil", score: 2 },
-      { label: "Fragmenterad", score: 1 },
-      { label: "Efter", score: 0 },
-    ],
-  },
-  {
-    id: "goal",
-    question: "Vad är ert huvudsakliga mål med AI?",
-    index: "org_readiness",
-    options: [
-      { label: "Effektivisering", score: 3 },
-      { label: "Tillväxt", score: 3 },
-      { label: "Bättre beslutsstöd", score: 3 },
-      { label: "Kostnadsbesparing", score: 2 },
-      { label: "Utforskar", score: 1 },
-    ],
-  },
-  {
     id: "industry",
     question: "Vilken bransch verkar ni inom?",
     index: null,
     options: industryOptions.map((i) => ({ label: i, score: 0 })),
   },
-];
-
-// ─── ROLE TRACKS ─────────────────────────────────────────
-
-const roleTracks: RoleTrack[] = [
   {
-    id: "it",
-    label: "IT",
-    emoji: "🔵",
-    icon: Monitor,
-    color: "text-blue-600",
-    headerBg: "bg-blue-600",
-    measures: "Teknisk förutsättning + governance",
-    questions: [
-      { id: "it_api", question: "Har ni API-struktur och integrationsplattform?", index: "data_maturity", options: [{ label: "Ja, dokumenterad och aktiv", score: 3 }, { label: "Delvis, men ofullständig", score: 2 }, { label: "Nej", score: 0 }] },
-      { id: "it_data", question: "Är er data centraliserad eller silobaserad?", index: "data_maturity", options: [{ label: "Centraliserad med gemensam datamodell", score: 3 }, { label: "Delvis centraliserad", score: 2 }, { label: "Silobaserad", score: 0 }] },
-      { id: "it_ownership", question: "Har ni tydligt dataägarskap?", index: "process_stability", options: [{ label: "Ja, definierat och efterlevt", score: 3 }, { label: "Delvis", score: 1 }, { label: "Nej", score: 0 }] },
-      { id: "it_governance", question: "Har ni AI-policy / governance?", index: "org_readiness", options: [{ label: "Ja, formaliserad", score: 3 }, { label: "Under utveckling", score: 2 }, { label: "Nej", score: 0 }] },
-      { id: "it_testenv", question: "Har ni testmiljö för innovation?", index: "ai_potential", options: [{ label: "Ja, dedikerad sandbox", score: 3 }, { label: "Delvis", score: 1 }, { label: "Nej", score: 0 }] },
-    ],
-    aiPotentials: [
-      { label: "API-orchestration & automation", description: "Automatisera systemintegrationer och dataflöden med AI", d365Context: "Dynamics 365 erbjuder inbyggda API:er och Power Platform-integrationer för detta" },
-      { label: "Data mesh / centralisering", description: "AI-driven datakvalitet och masterdatahantering", d365Context: "Dataverse i Dynamics 365 ger en enhetlig datamodell som grund" },
-      { label: "AI governance framework", description: "Strukturerat ramverk för ansvarsfull AI-användning", d365Context: "Microsoft Responsible AI-ramverket är integrerat i plattformen" },
-      { label: "Innovation sandbox", description: "Säker miljö för att testa och validera AI-initiativ", d365Context: "Sandbox-miljöer och Power Platform ger en trygg experimentyta" },
-    ],
-    risks: [
-      { condition: (s) => s.data_maturity < 40, text: "Silobaserad data begränsar AI:s förmåga att ge insikter tvärs system" },
-      { condition: (s) => s.org_readiness < 40, text: "Avsaknad av AI-governance ökar risk för okontrollerade initiativ" },
-      { condition: (s) => s.process_stability < 40, text: "Otydligt dataägarskap gör det svårt att säkerställa datakvalitet" },
+    id: "headcount",
+    question: "Hur många anställda har organisationen?",
+    index: null,
+    options: headcountOptions,
+  },
+  {
+    id: "repetitive",
+    question: "Hur stor andel av ert dagliga arbete är repetitivt och regelstyrt?",
+    index: "automation",
+    options: [
+      { label: "Under 20%", score: 1 },
+      { label: "20–50%", score: 2 },
+      { label: "Över 50%", score: 3 },
     ],
   },
+  {
+    id: "gut_decisions",
+    question: "Hur ofta fattas beslut baserat på magkänsla snarare än data?",
+    index: "augmentation",
+    options: [
+      { label: "Sällan – data styr", score: 1 },
+      { label: "Ibland – blandat", score: 2 },
+      { label: "Ofta – magkänsla dominerar", score: 3 },
+    ],
+  },
+  {
+    id: "decision_time",
+    question: "Hur lång tid tar det att sammanställa underlag inför beslut?",
+    index: "augmentation",
+    options: [
+      { label: "Realtid / minuter", score: 1 },
+      { label: "Några timmar", score: 2 },
+      { label: "Flera dagar", score: 3 },
+    ],
+  },
+  {
+    id: "anomaly_speed",
+    question: "Hur snabbt upptäcks avvikelser eller risker i verksamheten?",
+    index: "prediction",
+    options: [
+      { label: "Omedelbart via systemlarm", score: 1 },
+      { label: "Efter rapport eller granskning", score: 2 },
+      { label: "Ofta för sent", score: 3 },
+    ],
+  },
+];
+
+// ─── ROLE TRACKS (AI-spetsade) ──────────────────────────
+
+const roleTracks: RoleTrack[] = [
   {
     id: "sales",
     label: "Försäljning",
@@ -216,51 +245,26 @@ const roleTracks: RoleTrack[] = [
     icon: TrendingUp,
     color: "text-green-600",
     headerBg: "bg-green-600",
-    measures: "Automationspotential + datakvalitet + pipeline-struktur",
+    measures: "Prediktiv precision · Administrativ belastning · Kundinsikt",
+    timeSavingsRange: "15–30%",
+    forecastImprovement: "10–25%",
+    riskReduction: "Minskad churn-risk",
     questions: [
-      { id: "sales_admin", question: "Hur mycket tid lägger säljare på administration?", index: "ai_potential", options: [{ label: "Under 20%", score: 3 }, { label: "20–40%", score: 2 }, { label: "Över 40%", score: 1 }] },
-      { id: "sales_pipeline", question: "Är pipeline konsekvent uppdaterad?", index: "process_stability", options: [{ label: "Ja, i realtid", score: 3 }, { label: "Delvis, varierar mellan säljare", score: 2 }, { label: "Nej, sporadiskt", score: 0 }] },
-      { id: "sales_history", question: "Finns historisk affärsdata?", index: "data_maturity", options: [{ label: "Ja, 2+ år strukturerad data", score: 3 }, { label: "Ja, men ofullständig", score: 2 }, { label: "Begränsat", score: 0 }] },
-      { id: "sales_comms", question: "Har ni strukturerad kundkommunikation?", index: "data_maturity", options: [{ label: "Ja, loggad i CRM", score: 3 }, { label: "Delvis", score: 2 }, { label: "Nej, mestadels i mejl/telefon", score: 0 }] },
-      { id: "sales_kpi", question: "Har ni tydliga KPI:er per säljare?", index: "org_readiness", options: [{ label: "Ja, med regelbunden uppföljning", score: 3 }, { label: "Ja, men inte konsekvent", score: 2 }, { label: "Nej", score: 0 }] },
+      { id: "sales_forecast", question: "Hur exakt är era säljprognoser (± avvikelse)?", index: "prediction", options: [{ label: "Inom ±10%", score: 1 }, { label: "Inom ±25%", score: 2 }, { label: "Över ±25% eller ingen prognos", score: 3 }] },
+      { id: "sales_admin", question: "Hur mycket tid lägger säljare på CRM-administration per vecka?", index: "automation", options: [{ label: "Under 2 timmar", score: 1 }, { label: "2–5 timmar", score: 2 }, { label: "Över 5 timmar", score: 3 }] },
+      { id: "sales_pipeline", question: "Uppdateras pipeline i realtid?", index: "augmentation", options: [{ label: "Ja, automatiserat", score: 1 }, { label: "Delvis, varierar mellan säljare", score: 2 }, { label: "Nej, sporadiskt", score: 3 }] },
+      { id: "sales_churn", question: "Kan ni identifiera vilka affärer som sannolikt faller bort?", index: "prediction", options: [{ label: "Ja, med datadrivna varningar", score: 1 }, { label: "Delvis, erfarenhetsbaserat", score: 2 }, { label: "Nej, det överraskar oss", score: 3 }] },
+      { id: "sales_nba", question: "Får säljare automatiska rekommendationer om nästa steg?", index: "augmentation", options: [{ label: "Ja, AI-drivna förslag", score: 1 }, { label: "Viss vägledning via playbooks", score: 2 }, { label: "Nej, helt manuellt", score: 3 }] },
     ],
-    aiPotentials: [
-      { label: "Lead scoring", description: "AI rangordnar leads baserat på köpsannolikhet och historik", d365Context: "I en modern CRM-plattform som Dynamics 365 Sales är detta inbyggt via Copilot" },
-      { label: "Mötessammanfattning", description: "Automatisk sammanfattning och CRM-uppdatering efter möten", d365Context: "Copilot i Dynamics 365 sammanfattar möten och uppdaterar CRM automatiskt" },
-      { label: "Next-best-action", description: "AI föreslår nästa steg baserat på affärsfas och kundbeteende", d365Context: "Dynamics 365 Sales erbjuder AI-drivna rekommendationer per affär" },
-      { label: "Prognosförbättring", description: "Pipeline-prognoser baserade på data istället för magkänsla", d365Context: "Prediktiv prognos är en inbyggd funktion i Dynamics 365 Sales" },
+    aiResults: [
+      { label: "Lead Scoring Potential", labelEn: "Lead Scoring", description: "AI rangordnar leads baserat på köpsannolikhet och historik", d365Context: "Inbyggt i Dynamics 365 Sales via Copilot" },
+      { label: "Forecast AI Potential", labelEn: "Forecast AI", description: "Pipeline-prognoser baserade på data istället för magkänsla", d365Context: "Prediktiv prognos är en inbyggd funktion i Dynamics 365 Sales" },
+      { label: "Conversational AI Potential", labelEn: "Conversational AI", description: "Automatisk mötessammanfattning och CRM-uppdatering", d365Context: "Copilot i Dynamics 365 sammanfattar möten och uppdaterar CRM automatiskt" },
     ],
     risks: [
-      { condition: (s) => s.data_maturity < 40, text: "Datakvalitet riskerar att begränsa precision i lead scoring och prognoser" },
-      { condition: (s) => s.process_stability < 40, text: "Inkonsekvent pipeline-disciplin gör prediktiv AI opålitlig" },
-      { condition: (s) => s.org_readiness < 40, text: "Utan tydliga KPI:er går det inte att mäta AI:s faktiska effekt" },
-    ],
-  },
-  {
-    id: "marketing",
-    label: "Marknad",
-    emoji: "🟣",
-    icon: Megaphone,
-    color: "text-purple-600",
-    headerBg: "bg-purple-600",
-    measures: "Datadriven marknadsföring + segmentering",
-    questions: [
-      { id: "mkt_segment", question: "Har ni segmenterad kunddata?", index: "data_maturity", options: [{ label: "Ja, dynamiska segment", score: 3 }, { label: "Ja, manuella segment", score: 2 }, { label: "Nej", score: 0 }] },
-      { id: "mkt_automation", question: "Använder ni marketing automation?", index: "process_stability", options: [{ label: "Ja, med flöden och scoring", score: 3 }, { label: "Grundläggande e-postutskick", score: 1 }, { label: "Nej", score: 0 }] },
-      { id: "mkt_roi", question: "Spårar ni kampanj-ROI?", index: "ai_potential", options: [{ label: "Ja, end-to-end attribution", score: 3 }, { label: "Delvis, manuella rapporter", score: 2 }, { label: "Nej", score: 0 }] },
-      { id: "mkt_integration", question: "Är CRM och marknadssystem integrerade?", index: "data_maturity", options: [{ label: "Ja, sömlöst", score: 3 }, { label: "Delvis, manuell synk", score: 1 }, { label: "Nej, separata system", score: 0 }] },
-      { id: "mkt_content", question: "Produceras innehåll strukturerat?", index: "process_stability", options: [{ label: "Ja, med content calendar och process", score: 3 }, { label: "Delvis", score: 2 }, { label: "Ad hoc", score: 0 }] },
-    ],
-    aiPotentials: [
-      { label: "Automatiserad innehållsgenerering", description: "AI skapar anpassat innehåll per segment och kanal", d365Context: "Copilot i Customer Insights genererar segmentanpassade budskap" },
-      { label: "Segmentoptimering", description: "Dynamiska segment baserade på beteende och intent-data", d365Context: "Customer Insights skapar AI-drivna segment automatiskt" },
-      { label: "Prediktiv kampanjanalys", description: "AI optimerar budget och kanalval i realtid", d365Context: "Customer Insights erbjuder prediktiv analys av kampanjeffekt" },
-      { label: "Personaliserad kommunikation", description: "Individuellt anpassade budskap i stor skala", d365Context: "Journey orchestration i Customer Insights möjliggör detta i stor skala" },
-    ],
-    risks: [
-      { condition: (s) => s.data_maturity < 40, text: "Fragmenterad kunddata gör segmentering och personalisering opålitlig" },
-      { condition: (s) => s.process_stability < 40, text: "Utan marketing automation saknas infrastruktur för AI-drivna flöden" },
-      { condition: (s) => s.ai_potential < 40, text: "Utan kampanj-ROI-mätning går det inte att optimera med AI" },
+      { condition: (s) => s.prediction < 40, text: "Bristande prognosdata begränsar AI:s prediktiva förmåga i pipeline" },
+      { condition: (s) => s.augmentation < 40, text: "Manuell pipeline-hantering gör det svårt att implementera beslutsstöd" },
+      { condition: (s) => s.governance < 40, text: "Avsaknad av AI-governance riskerar okontrollerad AI-användning i säljprocessen" },
     ],
   },
   {
@@ -270,24 +274,84 @@ const roleTracks: RoleTrack[] = [
     icon: Calculator,
     color: "text-yellow-600",
     headerBg: "bg-yellow-600",
-    measures: "Transaktionsstruktur + analysförmåga",
+    measures: "Transaktionsvolym · Avvikelsefrekvens · Prognosprecision",
+    timeSavingsRange: "20–40%",
+    forecastImprovement: "15–30%",
+    riskReduction: "Minskad felfrekvens",
     questions: [
-      { id: "fin_ap", question: "Hur automatiserad är er leverantörsreskontra?", index: "process_stability", options: [{ label: "Hög grad av automation", score: 3 }, { label: "Delvis automatiserad", score: 2 }, { label: "Manuell", score: 0 }] },
-      { id: "fin_close", question: "Hur lång tid tar månadsbokslut?", index: "process_stability", options: [{ label: "1–3 dagar", score: 3 }, { label: "4–7 dagar", score: 2 }, { label: "Mer än en vecka", score: 0 }] },
-      { id: "fin_forecast", question: "Har ni realtidsprognoser?", index: "ai_potential", options: [{ label: "Ja, löpande uppdaterade", score: 3 }, { label: "Kvartalsvis", score: 2 }, { label: "Nej", score: 0 }] },
-      { id: "fin_anomaly", question: "Identifieras avvikelser manuellt?", index: "data_maturity", options: [{ label: "Nej, automatiserat", score: 3 }, { label: "Delvis automatiserat", score: 2 }, { label: "Ja, helt manuellt", score: 0 }] },
-      { id: "fin_reports", question: "Finns standardiserade rapporter?", index: "data_maturity", options: [{ label: "Ja, med dashboards", score: 3 }, { label: "Ja, men manuella", score: 2 }, { label: "Nej, ad hoc", score: 0 }] },
+      { id: "fin_volume", question: "Hur många manuella verifikationer hanteras per månad?", index: "automation", options: [{ label: "Under 100", score: 1 }, { label: "100–500", score: 2 }, { label: "Över 500", score: 3 }] },
+      { id: "fin_errors", question: "Hur ofta upptäcks fel efter bokslut?", index: "prediction", options: [{ label: "Sällan, systemkontroller fångar det", score: 1 }, { label: "Ibland, vid stickprov", score: 2 }, { label: "Regelbundet", score: 3 }] },
+      { id: "fin_cashflow", question: "Hur exakt är kassaflödesprognosen?", index: "prediction", options: [{ label: "Hög precision, löpande uppdaterad", score: 1 }, { label: "Rimlig, kvartalsvis", score: 2 }, { label: "Svag eller saknas", score: 3 }] },
+      { id: "fin_matching", question: "Matchas leverantörsfakturor automatiskt?", index: "automation", options: [{ label: "Ja, automatiserat", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej, manuellt", score: 3 }] },
+      { id: "fin_anomaly", question: "Identifieras ovanliga transaktioner systematiskt?", index: "augmentation", options: [{ label: "Ja, med automatiska larm", score: 1 }, { label: "Delvis, via rapporter", score: 2 }, { label: "Nej, manuellt", score: 3 }] },
     ],
-    aiPotentials: [
-      { label: "Avvikelseidentifiering", description: "AI upptäcker anomalier i transaktioner automatiskt", d365Context: "Dynamics 365 Finance erbjuder inbyggd avvikelsedetektering via Copilot" },
-      { label: "Kassaflödesprognoser", description: "Realtidsprognoser baserade på historik och mönster", d365Context: "Cash flow forecasting är en inbyggd AI-funktion i Dynamics 365 Finance" },
-      { label: "Automatiserad matchning", description: "AI matchar fakturor, betalningar och order", d365Context: "Intelligent fakturamatchning automatiserar detta i Dynamics 365" },
-      { label: "Bokslutsagenter", description: "Autonoma agenter som assisterar vid periodavslut", d365Context: "AI-agenter i Finance kan automatisera delar av bokslutsprocessen" },
+    aiResults: [
+      { label: "Anomaly Detection Potential", labelEn: "Anomaly Detection", description: "AI upptäcker anomalier i transaktioner automatiskt", d365Context: "Inbyggd avvikelsedetektering via Copilot i Dynamics 365 Finance" },
+      { label: "Predictive Cashflow Potential", labelEn: "Predictive Cashflow", description: "Realtidsprognoser baserade på historik och mönster", d365Context: "Cash flow forecasting är en inbyggd AI-funktion i Dynamics 365 Finance" },
+      { label: "Close Automation Potential", labelEn: "Close Automation", description: "Autonoma agenter som assisterar vid periodavslut", d365Context: "AI-agenter i Finance kan automatisera delar av bokslutsprocessen" },
     ],
     risks: [
-      { condition: (s) => s.process_stability < 40, text: "Manuella bokslutsprocesser gör det svårt att införa AI-automatisering" },
-      { condition: (s) => s.data_maturity < 40, text: "Utan strukturerade rapporter saknas datagrund för AI-prognoser" },
-      { condition: (s) => s.ai_potential < 40, text: "Avsaknad av prognosprocess begränsar möjligheten att utnyttja prediktiv AI" },
+      { condition: (s) => s.automation < 40, text: "Manuella transaktionsprocesser begränsar möjligheten till AI-automatisering" },
+      { condition: (s) => s.prediction < 40, text: "Svag prognosförmåga gör det svårt att utnyttja prediktiv AI för kassaflöde" },
+      { condition: (s) => s.augmentation < 40, text: "Utan systematisk avvikelsehantering saknas datagrund för AI-detektering" },
+    ],
+  },
+  {
+    id: "it",
+    label: "IT",
+    emoji: "🔵",
+    icon: Monitor,
+    color: "text-blue-600",
+    headerBg: "bg-blue-600",
+    measures: "AI Governance · Infrastruktur · Datakontroll",
+    timeSavingsRange: "10–25%",
+    forecastImprovement: "N/A",
+    riskReduction: "Minskad säkerhetsrisk",
+    questions: [
+      { id: "it_policy", question: "Har ni definierat en AI-policy?", index: "governance", options: [{ label: "Ja, formaliserad och kommunicerad", score: 1 }, { label: "Under utveckling", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "it_logging", question: "Loggas AI-genererade beslut och rekommendationer?", index: "governance", options: [{ label: "Ja, systematiskt", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "it_classified", question: "Är er data klassificerad (känslig, intern, publik)?", index: "augmentation", options: [{ label: "Ja, fullständig klassificering", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "it_platform", question: "Finns en central dataplattform?", index: "automation", options: [{ label: "Ja, med enhetlig datamodell", score: 1 }, { label: "Delvis centraliserad", score: 2 }, { label: "Silobaserad", score: 3 }] },
+      { id: "it_sandbox", question: "Har ni testmiljö för AI-initiativ?", index: "automation", options: [{ label: "Ja, dedikerad sandbox", score: 1 }, { label: "Delvis", score: 2 }, { label: "Nej", score: 3 }] },
+    ],
+    aiResults: [
+      { label: "Responsible AI Readiness", labelEn: "Responsible AI", description: "Strukturerat ramverk för ansvarsfull AI-användning", d365Context: "Microsoft Responsible AI-ramverket är integrerat i plattformen" },
+      { label: "Integration AI Readiness", labelEn: "Integration AI", description: "Automatisera systemintegrationer och dataflöden med AI", d365Context: "Power Platform och Dataverse ger en enhetlig datamodell" },
+      { label: "Scalable AI Infrastructure", labelEn: "Scalable AI Infra", description: "Säker miljö för att testa och validera AI-initiativ", d365Context: "Sandbox-miljöer och Power Platform ger en trygg experimentyta" },
+    ],
+    risks: [
+      { condition: (s) => s.governance < 40, text: "Avsaknad av AI-policy ökar risk för okontrollerade initiativ" },
+      { condition: (s) => s.automation < 40, text: "Silobaserad data begränsar AI:s förmåga att ge insikter tvärs system" },
+      { condition: (s) => s.augmentation < 40, text: "Oklassificerad data ökar säkerhetsrisken vid AI-implementation" },
+    ],
+  },
+  {
+    id: "marketing",
+    label: "Marknad",
+    emoji: "🟣",
+    icon: Megaphone,
+    color: "text-purple-600",
+    headerBg: "bg-purple-600",
+    measures: "Personalisering · Kampanjoptimering · Innehållsproduktion",
+    timeSavingsRange: "15–35%",
+    forecastImprovement: "10–20%",
+    riskReduction: "Minskad churn-risk",
+    questions: [
+      { id: "mkt_segment", question: "Segmenteras kunder dynamiskt baserat på beteende?", index: "prediction", options: [{ label: "Ja, dynamiska AI-segment", score: 1 }, { label: "Manuella segment", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "mkt_ai_content", question: "Används AI för innehållsgenerering?", index: "automation", options: [{ label: "Ja, i produktionen", score: 1 }, { label: "Testar", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "mkt_predict", question: "Predikteras kampanjutfall innan lansering?", index: "prediction", options: [{ label: "Ja, med datamodeller", score: 1 }, { label: "Baserat på erfarenhet", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "mkt_churn", question: "Identifieras churn-risk hos kunder?", index: "augmentation", options: [{ label: "Ja, med prediktiv analys", score: 1 }, { label: "Delvis, via manuella signaler", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "mkt_crm", question: "Är data från CRM och marketing integrerad?", index: "augmentation", options: [{ label: "Ja, sömlöst", score: 1 }, { label: "Delvis, manuell synk", score: 2 }, { label: "Nej, separata system", score: 3 }] },
+    ],
+    aiResults: [
+      { label: "Personalization AI Potential", labelEn: "Personalization AI", description: "Individuellt anpassade budskap i stor skala", d365Context: "Customer Insights möjliggör personalisering via journey orchestration" },
+      { label: "Content AI Leverage", labelEn: "Content AI", description: "AI skapar anpassat innehåll per segment och kanal", d365Context: "Copilot i Customer Insights genererar segmentanpassade budskap" },
+      { label: "Predictive Marketing Potential", labelEn: "Predictive Marketing", description: "AI optimerar budget och kanalval i realtid", d365Context: "Customer Insights erbjuder prediktiv analys av kampanjeffekt" },
+    ],
+    risks: [
+      { condition: (s) => s.augmentation < 40, text: "Fragmenterad kunddata gör segmentering och personalisering opålitlig" },
+      { condition: (s) => s.automation < 40, text: "Utan AI-stödd innehållsproduktion begränsas skalbarheten" },
+      { condition: (s) => s.prediction < 40, text: "Utan prediktiv analys optimeras kampanjer reaktivt istället för proaktivt" },
     ],
   },
   {
@@ -297,24 +361,25 @@ const roleTracks: RoleTrack[] = [
     icon: FolderKanban,
     color: "text-orange-600",
     headerBg: "bg-orange-600",
-    measures: "Resursstyrning + prognosprecision",
+    measures: "Resursoptimering · Riskidentifiering · Prognosprecision",
+    timeSavingsRange: "10–25%",
+    forecastImprovement: "15–30%",
+    riskReduction: "Minskad marginalavvikelse",
     questions: [
-      { id: "proj_forecast", question: "Hur exakt är era projektprognoser?", index: "ai_potential", options: [{ label: "Inom 10% avvikelse", score: 3 }, { label: "Inom 20% avvikelse", score: 2 }, { label: "Stor variation", score: 0 }] },
-      { id: "proj_data", question: "Uppdateras projektdata löpande?", index: "data_maturity", options: [{ label: "Ja, i realtid", score: 3 }, { label: "Veckovis", score: 2 }, { label: "Sporadiskt", score: 0 }] },
-      { id: "proj_profit", question: "Spåras lönsamhet i realtid?", index: "data_maturity", options: [{ label: "Ja, per projekt", score: 3 }, { label: "Ja, men manuellt", score: 2 }, { label: "Nej", score: 0 }] },
-      { id: "proj_risk", question: "Identifieras risker proaktivt?", index: "process_stability", options: [{ label: "Ja, med tidiga varningsindikatorer", score: 3 }, { label: "Delvis, vid milstolpar", score: 2 }, { label: "Nej, reaktivt", score: 0 }] },
-      { id: "proj_resource", question: "Är resurser över- eller underallokerade?", index: "org_readiness", options: [{ label: "Optimerad resursallokering", score: 3 }, { label: "Viss obalans", score: 2 }, { label: "Stor obalans", score: 0 }] },
+      { id: "proj_margin", question: "Hur ofta avviker projektmarginaler från prognos?", index: "prediction", options: [{ label: "Sällan (under 10%)", score: 1 }, { label: "Ibland (10–25%)", score: 2 }, { label: "Ofta (över 25%)", score: 3 }] },
+      { id: "proj_delays", question: "Upptäcks förseningar proaktivt eller reaktivt?", index: "prediction", options: [{ label: "Proaktivt med tidiga varningar", score: 1 }, { label: "Vid milstolpar", score: 2 }, { label: "Reaktivt, ofta för sent", score: 3 }] },
+      { id: "proj_overalloc", question: "Är resurser ofta över- eller underallokerade?", index: "automation", options: [{ label: "Sällan, optimerad allokering", score: 1 }, { label: "Viss obalans", score: 2 }, { label: "Stor obalans", score: 3 }] },
+      { id: "proj_realtime", question: "Spåras projektlönsamhet i realtid?", index: "augmentation", options: [{ label: "Ja, per projekt i realtid", score: 1 }, { label: "Ja, men manuellt/veckovis", score: 2 }, { label: "Nej", score: 3 }] },
+      { id: "proj_status", question: "Sammanställs statusrapporter manuellt?", index: "automation", options: [{ label: "Nej, automatiserat", score: 1 }, { label: "Delvis automatiserat", score: 2 }, { label: "Ja, helt manuellt", score: 3 }] },
     ],
-    aiPotentials: [
-      { label: "Riskprediktion", description: "AI identifierar riskprojekt innan de spårar ur", d365Context: "Dynamics 365 Project Operations erbjuder AI-driven riskanalys" },
-      { label: "Resursoptimering", description: "Intelligent allokering baserat på kompetens och kapacitet", d365Context: "Resursschemaläggning med AI-stöd finns i Project Operations" },
-      { label: "Marginalanalys", description: "Löpande marginalprognos per projekt", d365Context: "Realtidsmarginaler beräknas automatiskt i Project Operations" },
-      { label: "Automatiserad statusrapportering", description: "AI sammanställer status från projektdata", d365Context: "Copilot kan generera projektstatusrapporter automatiskt" },
+    aiResults: [
+      { label: "Risk Prediction Potential", labelEn: "Risk Prediction", description: "AI identifierar riskprojekt innan de spårar ur", d365Context: "Dynamics 365 Project Operations erbjuder AI-driven riskanalys" },
+      { label: "Resource Optimization Potential", labelEn: "Resource Optimization", description: "Intelligent allokering baserat på kompetens och kapacitet", d365Context: "Resursschemaläggning med AI-stöd finns i Project Operations" },
     ],
     risks: [
-      { condition: (s) => s.data_maturity < 40, text: "Sporadisk datainsamling gör prediktiv analys opålitlig" },
-      { condition: (s) => s.process_stability < 40, text: "Avsaknad av proaktiv riskhantering ökar projektrisken" },
-      { condition: (s) => s.org_readiness < 40, text: "Obalanserad resursallokering tyder på svag styrning" },
+      { condition: (s) => s.prediction < 40, text: "Bristande prognosprecision gör prediktiv projektanalys opålitlig" },
+      { condition: (s) => s.automation < 40, text: "Manuella statusrapporter och allokeringsprocesser begränsar AI-effekt" },
+      { condition: (s) => s.augmentation < 40, text: "Utan realtidsdata saknas grund för AI-drivet beslutsstöd" },
     ],
   },
   {
@@ -324,29 +389,31 @@ const roleTracks: RoleTrack[] = [
     icon: Truck,
     color: "text-cyan-600",
     headerBg: "bg-cyan-600",
-    measures: "Prognos, lagerstruktur, reaktivitet",
+    measures: "Efterfrågevariation · Lagerbindning · Leveransprecision",
+    timeSavingsRange: "15–30%",
+    forecastImprovement: "20–40%",
+    riskReduction: "Minskad lagerbindning",
     questions: [
-      { id: "log_forecast", question: "Hur ofta justeras lagerprognoser?", index: "process_stability", options: [{ label: "Dagligen / automatiserat", score: 3 }, { label: "Veckovis", score: 2 }, { label: "Sällan / ad hoc", score: 0 }] },
-      { id: "log_history", question: "Finns historisk efterfrågedata?", index: "data_maturity", options: [{ label: "Ja, 2+ år strukturerad", score: 3 }, { label: "Ja, men ofullständig", score: 2 }, { label: "Begränsat", score: 0 }] },
-      { id: "log_overstock", question: "Uppstår ofta överlager?", index: "ai_potential", options: [{ label: "Sällan, proaktiv styrning", score: 3 }, { label: "Ibland", score: 2 }, { label: "Regelbundet", score: 0 }] },
-      { id: "log_anomaly", question: "Hanteras avvikelser manuellt?", index: "data_maturity", options: [{ label: "Nej, automatiserat", score: 3 }, { label: "Delvis", score: 2 }, { label: "Ja, helt manuellt", score: 0 }] },
-      { id: "log_delivery", question: "Har ni leveransprecision över 95%?", index: "process_stability", options: [{ label: "Ja, konsekvent", score: 3 }, { label: "Varierar", score: 2 }, { label: "Under 90%", score: 0 }] },
+      { id: "log_forecast_err", question: "Hur stor är avvikelsen i era efterfrågeprognoser?", index: "prediction", options: [{ label: "Under 10%", score: 1 }, { label: "10–25%", score: 2 }, { label: "Över 25% eller ingen prognos", score: 3 }] },
+      { id: "log_overstock", question: "Uppstår ofta överlager?", index: "automation", options: [{ label: "Sällan, proaktiv styrning", score: 1 }, { label: "Ibland", score: 2 }, { label: "Regelbundet", score: 3 }] },
+      { id: "log_late", question: "Hur ofta drabbas ni av sena leveranser?", index: "prediction", options: [{ label: "Under 5% av leveranser", score: 1 }, { label: "5–15%", score: 2 }, { label: "Över 15%", score: 3 }] },
+      { id: "log_anomaly", question: "Hanteras avvikelser i leveranskedjan manuellt?", index: "augmentation", options: [{ label: "Nej, automatiserade larm", score: 1 }, { label: "Delvis", score: 2 }, { label: "Ja, helt manuellt", score: 3 }] },
+      { id: "log_history", question: "Finns strukturerad historisk efterfrågedata (2+ år)?", index: "prediction", options: [{ label: "Ja, kvalitetssäkrad", score: 1 }, { label: "Ja, men ofullständig", score: 2 }, { label: "Begränsat", score: 3 }] },
     ],
-    aiPotentials: [
-      { label: "Efterfrågeprognoser", description: "AI-drivna prognoser baserade på historik och externa signaler", d365Context: "Demand forecasting är inbyggt i Dynamics 365 Supply Chain Management" },
-      { label: "Lageroptimering", description: "Automatiserad beställningspunktsberäkning och säkerhetslager", d365Context: "AI-driven lageroptimering finns i Supply Chain Management" },
-      { label: "Avvikelsedetektion", description: "AI flaggar anomalier i leverans- och lagermönster", d365Context: "Proaktiva notifieringar och anomalidetektering via Copilot" },
-      { label: "Leveransriskanalys", description: "Prediktiv analys av leverantörs- och transportrisker", d365Context: "Supply risk assessment-funktioner i Dynamics 365" },
+    aiResults: [
+      { label: "Demand Forecast AI Potential", labelEn: "Demand Forecast AI", description: "AI-drivna prognoser baserade på historik och externa signaler", d365Context: "Demand forecasting är inbyggt i Dynamics 365 Supply Chain Management" },
+      { label: "Inventory Optimization Potential", labelEn: "Inventory Optimization", description: "Automatiserad beställningspunktsberäkning och säkerhetslager", d365Context: "AI-driven lageroptimering finns i Supply Chain Management" },
+      { label: "Disruption Prediction Potential", labelEn: "Disruption Prediction", description: "Prediktiv analys av leverantörs- och transportrisker", d365Context: "Supply risk assessment-funktioner i Dynamics 365" },
     ],
     risks: [
-      { condition: (s) => s.data_maturity < 40, text: "Otillräcklig historisk data begränsar prognosens träffsäkerhet" },
-      { condition: (s) => s.process_stability < 40, text: "Oregelbunden prognosprocess minskar AI:s effekt" },
-      { condition: (s) => s.ai_potential < 40, text: "Återkommande överlager tyder på manuella processer som AI kan förbättra" },
+      { condition: (s) => s.prediction < 40, text: "Otillräcklig historisk data begränsar prognosens träffsäkerhet" },
+      { condition: (s) => s.automation < 40, text: "Manuell lagerstyrning ökar risken för över- och underlager" },
+      { condition: (s) => s.augmentation < 40, text: "Utan automatiska larm detekteras avvikelser för sent" },
     ],
   },
 ];
 
-// ─── SCORING ─────────────────────────────────────────────
+// ─── SCORING (inverted: high score = high AI opportunity) ─
 
 function calcIndexScores(
   foundationAnswers: FoundationAnswers,
@@ -356,12 +423,13 @@ function calcIndexScores(
   const track = roleTracks.find((t) => t.id === role)!;
 
   const indexPoints: Record<IndexId, number[]> = {
-    ai_potential: [],
-    data_maturity: [],
-    process_stability: [],
-    org_readiness: [],
+    automation: [],
+    augmentation: [],
+    prediction: [],
+    governance: [],
   };
 
+  // Foundation questions contribute
   foundationQuestions.forEach((fq) => {
     if (!fq.index) return;
     const answer = foundationAnswers[fq.id];
@@ -369,6 +437,7 @@ function calcIndexScores(
     if (opt) indexPoints[fq.index].push(opt.score);
   });
 
+  // Role questions contribute
   track.questions.forEach((rq) => {
     const score = roleScoreMap[rq.id];
     if (score !== undefined) indexPoints[rq.index].push(score);
@@ -381,20 +450,19 @@ function calcIndexScores(
   };
 
   return {
-    ai_potential: calcPct(indexPoints.ai_potential),
-    data_maturity: calcPct(indexPoints.data_maturity),
-    process_stability: calcPct(indexPoints.process_stability),
-    org_readiness: calcPct(indexPoints.org_readiness),
+    automation: calcPct(indexPoints.automation),
+    augmentation: calcPct(indexPoints.augmentation),
+    prediction: calcPct(indexPoints.prediction),
+    governance: calcPct(indexPoints.governance),
   };
 }
 
 function getProfile(scores: IndexScores): ProfileId {
-  const avg = (scores.ai_potential + scores.data_maturity + scores.process_stability + scores.org_readiness) / 4;
-  const structureAvg = (scores.data_maturity + scores.process_stability) / 2;
-
-  if (avg >= 65 && structureAvg >= 55) return "scaling";
-  if (avg >= 35 || structureAvg >= 45) return "structurally_ready";
-  return "exploring";
+  const avg = (scores.automation + scores.augmentation + scores.prediction + scores.governance) / 4;
+  // Higher scores = more gaps = more AI opportunity but less readiness
+  if (avg <= 40) return "scaling"; // Low scores = already mature = scaling
+  if (avg <= 65) return "structurally_ready";
+  return "exploring"; // High scores = many gaps = exploring
 }
 
 const profileData: Record<ProfileId, { emoji: string; color: string; title: string; subtitle: string; description: string }> = {
@@ -402,32 +470,97 @@ const profileData: Record<ProfileId, { emoji: string; color: string; title: stri
     emoji: "🔴",
     color: "text-red-600",
     title: "Utforskande fas",
-    subtitle: "Hög potential – låg struktur",
-    description: "Ni har ambitioner och ser AI:s potential, men datakvalitet, processer och governance behöver stärkas innan AI kan ge verklig effekt. Risken är att initiativ ger begränsat resultat utan denna grund.",
+    subtitle: "Hög AI-potential – låg strukturell beredskap",
+    description: "Analysen visar betydande utrymme för AI-driven förbättring – men datakvalitet, processer och governance behöver stärkas innan AI kan ge full effekt. Risken är att initiativ ger begränsat resultat utan denna grund.",
   },
   structurally_ready: {
     emoji: "🟠",
     color: "text-amber-600",
     title: "Strukturellt redo",
-    subtitle: "Stabil grund – begränsad AI-implementation",
-    description: "Ni har en fungerande grund med rimlig datakvalitet och processer. Fokusera på ett avgränsat pilotprojekt i den funktion där AI kan ge störst och snabbast effekt.",
+    subtitle: "Tydlig AI-potential med stabil grund",
+    description: "Grundläggande struktur finns. Fokusera på ett avgränsat pilotprojekt i den funktion där AI kan ge störst och snabbast effekt. Potential att snabbt realisera mätbart värde.",
   },
   scaling: {
     emoji: "🟢",
     color: "text-emerald-600",
     title: "Skalningsfas",
-    subtitle: "Struktur + datamognad + mandat",
-    description: "Ni har den datagrund, processstruktur och det organisatoriska mandat som krävs. Fokus bör vara breddinförande av AI och autonoma agenter för att accelerera verksamheten.",
+    subtitle: "Mogen grund – redo för breddinförande",
+    description: "Datagrund, processtruktur och organisatorisk beredskap är på plats. Fokus bör vara breddinförande av AI och autonoma agenter för att accelerera verksamheten.",
   },
 };
 
+// ─── ROI CALCULATION ─────────────────────────────────────
+
+function calcROI(
+  role: RoleId,
+  scores: IndexScores,
+  headcount: string
+): { annualSavingSEK: number; timeSavingPct: number; forecastImprovePct: number } {
+  const track = roleTracks.find((t) => t.id === role)!;
+
+  // Base multiplier from headcount
+  const hcMap: Record<string, number> = {
+    "1–49 anställda": 0.6,
+    "50–249 anställda": 1.0,
+    "250–999 anställda": 1.5,
+    "1 000+ anställda": 2.2,
+  };
+  const hcMultiplier = hcMap[headcount] || 1.0;
+
+  // AI opportunity intensity (higher scores = more gaps = more potential)
+  const avgScore = (scores.automation + scores.augmentation + scores.prediction) / 3;
+  const opportunityFactor = avgScore / 100; // 0..1
+
+  // Base annual cost per FTE in function (approximate average SEK)
+  const roleCostBase: Record<RoleId, number> = {
+    sales: 650000,
+    finance: 700000,
+    it: 750000,
+    marketing: 600000,
+    project: 700000,
+    logistics: 600000,
+  };
+
+  // Team size estimate per headcount bracket
+  const teamSizeMap: Record<string, Record<RoleId, number>> = {
+    "1–49 anställda": { sales: 3, finance: 2, it: 2, marketing: 2, project: 3, logistics: 3 },
+    "50–249 anställda": { sales: 8, finance: 5, it: 5, marketing: 4, project: 6, logistics: 8 },
+    "250–999 anställda": { sales: 20, finance: 12, it: 12, marketing: 8, project: 15, logistics: 20 },
+    "1 000+ anställda": { sales: 50, finance: 25, it: 25, marketing: 15, project: 30, logistics: 50 },
+  };
+  const teamSize = teamSizeMap[headcount]?.[role] || 5;
+
+  // Calculate time saving percentage based on score ranges in track
+  const tsRange = track.timeSavingsRange.match(/(\d+)–(\d+)/);
+  const tsLow = tsRange ? parseInt(tsRange[1]) : 15;
+  const tsHigh = tsRange ? parseInt(tsRange[2]) : 30;
+  const timeSavingPct = Math.round(tsLow + (tsHigh - tsLow) * opportunityFactor);
+
+  // Forecast improvement
+  const fiRange = track.forecastImprovement.match(/(\d+)–(\d+)/);
+  const forecastImprovePct = fiRange
+    ? Math.round(parseInt(fiRange[1]) + (parseInt(fiRange[2]) - parseInt(fiRange[1])) * opportunityFactor)
+    : 0;
+
+  // Annual saving = teamSize * costPerFTE * timeSavingPct
+  const annualSavingSEK = Math.round((teamSize * roleCostBase[role] * timeSavingPct) / 100 / 10000) * 10000;
+
+  return { annualSavingSEK, timeSavingPct, forecastImprovePct };
+}
+
+function formatSEK(amount: number): string {
+  if (amount >= 1000000) {
+    return `${(amount / 1000000).toFixed(1).replace(".", ",")} MSEK`;
+  }
+  return `${Math.round(amount / 1000)} TSEK`;
+}
+
 // ─── EFFECT LEVEL ────────────────────────────────────────
 
-function getEffectLevel(scores: IndexScores, aiPotentialIdx: number): "high" | "medium" | "low" {
-  const dataReady = scores.data_maturity >= 55;
-  const processReady = scores.process_stability >= 50;
-  if (dataReady && processReady && aiPotentialIdx >= 0) return "high";
-  if (dataReady || processReady) return "medium";
+function getEffectLevel(scores: IndexScores, aiResultIdx: number): "high" | "medium" | "low" {
+  const avgOpp = (scores.automation + scores.augmentation + scores.prediction) / 3;
+  if (avgOpp >= 60) return "high";
+  if (avgOpp >= 35) return "medium";
   return "low";
 }
 
@@ -582,6 +715,13 @@ function getEffectBadge(level: "high" | "medium" | "low") {
   return { label: "Låg effekt", color: "text-red-600 bg-red-50 border-red-200" };
 }
 
+// Impact labels for the 3 AI dimensions
+function getImpactLabel(pct: number): string {
+  if (pct >= 65) return "Hög";
+  if (pct >= 40) return "Medel";
+  return "Låg";
+}
+
 // ─── COMPONENT ───────────────────────────────────────────
 
 type Step = "intro" | "foundation" | "role_select" | "role_questions" | "result";
@@ -591,9 +731,12 @@ const AIReadiness = () => {
   const [foundationStep, setFoundationStep] = useState(0);
   const [foundationAnswers, setFoundationAnswers] = useState<FoundationAnswers>({
     system: "",
-    maturity: "",
-    goal: "",
     industry: "",
+    headcount: "",
+    repetitive: "",
+    gut_decisions: "",
+    decision_time: "",
+    anomaly_speed: "",
   });
   const [selectedRole, setSelectedRole] = useState<RoleId | null>(null);
   const [roleQuestionIdx, setRoleQuestionIdx] = useState(0);
@@ -655,49 +798,38 @@ const AIReadiness = () => {
   };
 
   const goBackInQuiz = () => {
-    if (step === "role_questions" && roleQuestionIdx > 0) setRoleQuestionIdx(roleQuestionIdx - 1);
-    else if (step === "role_questions") setStep("role_select");
-    else if (step === "role_select") { setFoundationStep(foundationCount - 1); setStep("foundation"); }
-    else if (step === "foundation" && foundationStep > 0) setFoundationStep(foundationStep - 1);
+    if (step === "role_questions" && roleQuestionIdx > 0) {
+      setRoleQuestionIdx(roleQuestionIdx - 1);
+    } else if (step === "role_questions" && roleQuestionIdx === 0) {
+      setStep("role_select");
+    } else if (step === "role_select") {
+      setFoundationStep(foundationCount - 1);
+      setStep("foundation");
+    } else if (step === "foundation" && foundationStep > 0) {
+      setFoundationStep(foundationStep - 1);
+    }
   };
 
-  // ─── Report submit ───────────────────────────────────
+  // ─── Report submit ──────────────────────────────────
   const handleReportSubmit = async () => {
     if (!reportForm.name || !reportForm.company || !reportForm.email) {
-      toast({ title: "Fyll i alla obligatoriska fält", variant: "destructive" });
+      toast({ title: "Fyll i namn, företag och e-post.", variant: "destructive" });
       return;
     }
     setSubmitting(true);
     try {
-      const scores = calcIndexScores(foundationAnswers, selectedRole!, roleScores);
-      const profile = getProfile(scores);
-      const roadmap = generateRoadmap(selectedRole!, profile, foundationAnswers.system);
-      const sysTrack = getSystemTrack(foundationAnswers.system);
-
-      const answerSummary = [
-        `System: ${foundationAnswers.system}`,
-        `Digital mognad: ${foundationAnswers.maturity}`,
-        `AI-mål: ${foundationAnswers.goal}`,
-        `Bransch: ${foundationAnswers.industry}`,
-        `Roll: ${track!.label}`,
-        `Systemspår: ${systemTrackData[sysTrack].label}`,
-        ...track!.questions.map((q) => `${q.question}: ${roleAnswers[q.id] || "—"}`),
-      ].join("\n");
-
-      const message = `AI & Affärssystem-analys\n\nRoll: ${track!.label}\nProfil: ${profileData[profile].title}\nBransch: ${foundationAnswers.industry}\nSystemspår: ${systemTrackData[sysTrack].label}\n\nIndex:\n- AI-Potential: ${scores.ai_potential}%\n- Datamognad: ${scores.data_maturity}%\n- Processtabilitet: ${scores.process_stability}%\n- Organisatorisk beredskap: ${scores.org_readiness}%\n\nSvar:\n${answerSummary}\n\nRoadmap:\nQ1: ${roadmap.q1.text}\nQ2: ${roadmap.q2.text}\nQ3: ${roadmap.q3.text}\nQ4: ${roadmap.q4.text}`;
-
       const { error } = await supabase.functions.invoke("submit-lead", {
         body: {
-          company_name: reportForm.company,
           contact_name: reportForm.name,
+          company_name: reportForm.company,
           email: reportForm.email,
           phone: "",
-          message,
+          message: `AI Impact Assessment – Roll: ${track!.label}, Bransch: ${foundationAnswers.industry || "Ej angiven"}, System: ${foundationAnswers.system}`,
+          source_type: "ai_readiness",
           source_page: "/ai-readiness",
-          source_type: "ai-business-impact-assessment",
-          selected_product: "AI & Copilot",
-          industry: foundationAnswers.industry,
-          company_size: "",
+          selected_product: `AI Assessment – ${track!.label}`,
+          industry: foundationAnswers.industry || "",
+          company_size: foundationAnswers.headcount || "",
         },
       });
       if (error) throw error;
@@ -711,7 +843,7 @@ const AIReadiness = () => {
     }
   };
 
-  // ─── PDF Generation (4 pages) ────────────────────────
+  // ─── PDF Generation ──────────────────────────────────
   const generatePDF = useCallback(async () => {
     const { default: jsPDF } = await import("jspdf");
     const doc = new jsPDF();
@@ -723,6 +855,7 @@ const AIReadiness = () => {
     const activeRisks = track!.risks.filter((r) => r.condition(scores));
     const sysTrack = getSystemTrack(foundationAnswers.system);
     const sysData = systemTrackData[sysTrack];
+    const roi = calcROI(selectedRole!, scores, foundationAnswers.headcount);
 
     const lm = 20;
     const pw = 170;
@@ -755,19 +888,20 @@ const AIReadiness = () => {
     };
 
     // ═══ PAGE 1: Executive Summary ═══
-    addHeader("AI & Affärssystem-analys – Executive Summary");
+    addHeader("AI Impact & Readiness Assessment – Executive Summary");
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text(`Datum: ${new Date().toLocaleDateString("sv-SE")}`, lm, y);
-    if (reportForm.company) { doc.text(`Företag: ${reportForm.company}`, lm + 80, y); }
+    if (reportForm.company) { doc.text(`Foretag: ${reportForm.company}`, lm + 80, y); }
     y += 8;
 
     const summaryItems = [
       { label: "Roll", value: track!.label },
       { label: "Bransch", value: foundationAnswers.industry || "Ej angiven" },
+      { label: "Storlek", value: foundationAnswers.headcount },
       { label: "System", value: foundationAnswers.system },
-      { label: "Systemspår", value: sysData.label },
+      { label: "Systemspar", value: sysData.label },
       { label: "AI-profil", value: pd.title },
     ];
 
@@ -781,123 +915,104 @@ const AIReadiness = () => {
     });
     y += 5;
 
-    addSectionTitle("Mognadsprofil");
-    const indices = [
-      { label: "AI-Potential Index", value: scores.ai_potential },
-      { label: "Data Maturity Index", value: scores.data_maturity },
-      { label: "Process Stability Index", value: scores.process_stability },
-      { label: "Organizational Readiness Index", value: scores.org_readiness },
+    // AI Impact overview
+    addSectionTitle("AI-effektpotential");
+    const impactItems = [
+      { label: "Automation Impact", value: getImpactLabel(scores.automation) },
+      { label: "Prediction Impact", value: getImpactLabel(scores.prediction) },
+      { label: "Decision Augmentation", value: getImpactLabel(scores.augmentation) },
     ];
-    indices.forEach((idx) => {
+    impactItems.forEach((item) => {
       doc.setFontSize(10);
-      doc.setFont("helvetica", "normal");
-      doc.text(`${idx.label}: ${getLevelLabel(idx.value)} (${idx.value}%)`, lm + 3, y);
-      doc.setFillColor(229, 231, 235);
-      doc.rect(lm + 100, y - 3, 60, 4, "F");
-      const barColor = idx.value >= 70 ? [16, 185, 129] : idx.value >= 40 ? [245, 158, 11] : [239, 68, 68];
-      doc.setFillColor(barColor[0], barColor[1], barColor[2]);
-      doc.rect(lm + 100, y - 3, (idx.value / 100) * 60, 4, "F");
-      y += 7;
+      doc.text(`${item.label}: ${item.value}`, lm + 3, y);
+      y += 6;
     });
-    y += 5;
+    y += 3;
+
+    addSectionTitle("Uppskattad AI-effekt");
+    addText(`Tidsbesparing: ~${roi.timeSavingPct}%`);
+    if (roi.forecastImprovePct > 0) {
+      addText(`Forbattrad prognosprecision: ~${roi.forecastImprovePct}%`);
+    }
+    addText(`Uppskattad arlig besparing: ~${formatSEK(roi.annualSavingSEK)}`);
+    addText(track!.riskReduction);
+    y += 3;
 
     addSectionTitle("3 viktigaste insikterna");
     const insights: string[] = [];
-    if (scores.ai_potential >= 60) insights.push("Hög AI-potential – ni kan realisera konkret affärsnytta med rätt prioritering");
-    else insights.push("AI-potentialen behöver stärkas genom bättre datagrund och processer");
-    if (scores.data_maturity >= 55) insights.push("Er datamognad ger en solid grund för prediktiv AI");
-    else insights.push("Datamognad är ett utvecklingsområde – prioritera strukturering och kvalitetssäkring");
-    if (scores.org_readiness >= 55) insights.push("Organisationen har mandat och vilja att driva AI-initiativ");
-    else insights.push("Stärk organisatorisk beredskap genom tydligare ägarskap och governance");
+    if (scores.automation >= 60) insights.push("Hog automationspotential – repetitiva processer kan effektiviseras med AI");
+    else insights.push("Automation redan delvis pa plats – fokusera pa avancerade AI-anvandningsfall");
+    if (scores.prediction >= 55) insights.push("Tydlig potential for prediktiv AI – historisk data kan ge battre prognoser");
+    else insights.push("Prediktiv kapacitet finns – vidareutveckla med mer strukturerad data");
+    if (scores.augmentation >= 55) insights.push("AI kan markbart forbattra beslutsstod och insikter i er roll");
+    else insights.push("Beslutsstod ar redan relativt starkt – overväg avancerad AI-analys");
 
     insights.forEach((insight) => {
-      doc.text(`–  ${insight}`, lm + 3, y);
+      doc.text(`- ${insight}`, lm + 3, y);
       y += 6;
     });
-    y += 5;
 
-    addSectionTitle(`Profil: ${pd.title}`);
-    addText(pd.description);
-
-    y += 3;
-    addSectionTitle(`Systemrekommendation: ${sysData.label}`);
-    addText(sysData.description);
-
-    // ═══ PAGE 2: AI Potential per area ═══
+    // ═══ PAGE 2: AI potential per area ═══
     doc.addPage();
-    addHeader(`AI-möjlighet inom ${track!.label}`);
+    addHeader(`AI-potential inom ${track!.label}`);
 
-    addText("Baserat på era svar finns potential att:");
+    addText("Baserat pa era svar finns foljande AI-mojligheter:");
     y += 2;
 
-    track!.aiPotentials.forEach((ap, i) => {
+    track!.aiResults.forEach((ar, i) => {
       const effect = getEffectLevel(scores, i);
       const badge = getEffectBadge(effect);
 
       doc.setFontSize(11);
       doc.setFont("helvetica", "bold");
-      doc.text(ap.label, lm, y);
+      doc.text(ar.label, lm, y);
       doc.setFontSize(9);
       doc.setFont("helvetica", "normal");
       doc.text(`[${badge.label}]`, lm + 100, y);
       y += 5;
-      addText(ap.description, 3);
+      addText(ar.description, 3);
       doc.setFontSize(8);
       doc.setFont("helvetica", "italic");
       doc.setTextColor(100, 100, 100);
-      const ctxLines = doc.splitTextToSize(ap.d365Context, pw - 10);
+      const ctxLines = doc.splitTextToSize(ar.d365Context, pw - 10);
       doc.text(ctxLines, lm + 3, y);
       y += ctxLines.length * 4 + 4;
       doc.setTextColor(0, 0, 0);
     });
 
     y += 5;
-    addSectionTitle("Rekommenderad start");
-    if (profile === "scaling") {
-      addText("Identifiera de 2–3 processer där AI ger störst ROI. Starta med en avgränsad pilot och mät resultat.");
-    } else if (profile === "structurally_ready") {
-      addText("Välj en process med hög repetitiv belastning. Säkerställ datakvalitet i det området och testa AI i begränsad skala.");
-    } else {
-      addText("Fokusera på att stärka datakvalitet och etablera processdisciplin. AI-effekten blir begränsad utan denna grund.");
-    }
+    addSectionTitle("Systemrekommendation");
+    addText(`${sysData.label}: ${sysData.description}`);
 
     // ═══ PAGE 3: Risk areas ═══
     doc.addPage();
-    addHeader("Riskområden");
+    addHeader("Riskanalys");
 
     if (activeRisks.length > 0) {
       activeRisks.forEach((risk) => {
         doc.setFontSize(10);
-        doc.text(`⚠  ${risk.text}`, lm + 3, y);
+        doc.text(`! ${risk.text}`, lm + 3, y);
         y += 8;
       });
     } else {
-      addText("Inga kritiska riskområden identifierades. Er grund är stabil.");
+      addText("Inga kritiska riskomraden identifierades. Grunden ar stabil.");
     }
     y += 5;
 
     addSectionTitle("Generella observationer");
-    if (scores.process_stability < 50) {
-      addText("– Otydlig processägarstruktur kan leda till att AI-initiativ saknar förankring");
-    }
-    if (scores.data_maturity < 50) {
-      addText("– Datakvalitet riskerar att begränsa precision i AI-modeller");
-    }
-    if (scores.org_readiness < 50) {
-      addText("– Avsaknad av AI-governance ökar risken för okontrollerade initiativ");
-    }
-    if (scores.ai_potential < 50) {
-      addText("– Begränsad insikt i AI:s möjligheter kan bromsa organisationens utveckling");
-    }
+    if (scores.automation >= 60) addText("– Hog andel repetitivt arbete – AI-automatisering kan ge snabb effekt");
+    if (scores.augmentation >= 60) addText("– Beslut baseras ofta pa magkansla – AI-beslutsst kan ge markbar forbattring");
+    if (scores.prediction >= 60) addText("– Avvikelser upptacks sent – prediktiv AI kan forbattra reaktionstiden");
+    if (scores.governance >= 60) addText("– Avsaknad av AI-governance okar risken for okontrollerade initiativ");
 
     y += 8;
     addSectionTitle("Rekommenderad partnertyp");
-    addText("Baserat på er roll, bransch och mognadsnivå rekommenderar vi en partner med följande profil:");
+    addText("Baserat pa roll, bransch och mognadsniva rekommenderas en partner med foljande profil:");
     y += 2;
     partners.forEach((p) => {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(10);
-      doc.text(`${p.icon}  ${p.type}`, lm + 3, y);
+      doc.text(`${p.icon} ${p.type}`, lm + 3, y);
       y += 5;
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
@@ -908,13 +1023,13 @@ const AIReadiness = () => {
 
     // ═══ PAGE 4: 12-month Roadmap ═══
     doc.addPage();
-    addHeader(`12-månaders AI-roadmap – ${track!.label}`);
+    addHeader(`12-manaders AI-roadmap – ${track!.label}`);
 
     [
-      { label: "Kvartal 1 (Månad 1–3)", data: roadmap.q1 },
-      { label: "Kvartal 2 (Månad 4–6)", data: roadmap.q2 },
-      { label: "Kvartal 3 (Månad 7–9)", data: roadmap.q3 },
-      { label: "Kvartal 4 (Månad 10–12)", data: roadmap.q4 },
+      { label: "Kvartal 1 (Manad 1-3)", data: roadmap.q1 },
+      { label: "Kvartal 2 (Manad 4-6)", data: roadmap.q2 },
+      { label: "Kvartal 3 (Manad 7-9)", data: roadmap.q3 },
+      { label: "Kvartal 4 (Manad 10-12)", data: roadmap.q4 },
     ].forEach((q) => {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(11);
@@ -928,7 +1043,6 @@ const AIReadiness = () => {
     });
 
     y += 5;
-    // D365 footnote
     doc.setFontSize(9);
     doc.setFont("helvetica", "italic");
     doc.setTextColor(80, 80, 80);
@@ -946,20 +1060,20 @@ const AIReadiness = () => {
     y += 7;
     doc.setFontSize(8);
     doc.setFont("helvetica", "italic");
-    const disc = "Denna analys är vägledande och baseras på de svar du angivit. Den ersätter inte en fullständig förstudie. Vi rekommenderar att du diskuterar dina behov med en kvalificerad Microsoft-partner.";
+    const disc = "Denna analys ar vagledande och baseras pa de svar du angivit. Den ersatter inte en fullstandig forstudie. Uppskattade besparingar ar indikativa och baseras pa branschgenomsnitt. Vi rekommenderar att du diskuterar dina behov med en kvalificerad Microsoft-partner.";
     const discLines = doc.splitTextToSize(disc, pw);
     doc.text(discLines, lm, y);
     y += discLines.length * 4 + 5;
     doc.setFont("helvetica", "normal");
     doc.text("d365.se – Oberoende guide till Dynamics 365 i Sverige", lm, y);
 
-    doc.save("AI-Affarssystem-Analys.pdf");
+    doc.save("AI-Impact-Assessment.pdf");
   }, [foundationAnswers, selectedRole, roleScores, track, reportForm]);
 
   const resetAll = () => {
     setStep("intro");
     setFoundationStep(0);
-    setFoundationAnswers({ system: "", maturity: "", goal: "", industry: "" });
+    setFoundationAnswers({ system: "", industry: "", headcount: "", repetitive: "", gut_decisions: "", decision_time: "", anomaly_speed: "" });
     setSelectedRole(null);
     setRoleQuestionIdx(0);
     setRoleAnswers({});
@@ -976,8 +1090,8 @@ const AIReadiness = () => {
     return (
       <div className="min-h-screen bg-background">
         <SEOHead
-          title="AI & Affärssystem-analys – Hur redo är ni för AI? | d365.se"
-          description="Rollbaserad AI-analys kopplad till Dynamics 365. Förstå er AI-mognad, var AI ger störst effekt och vilken typ av partner som passar er situation."
+          title="AI Impact & Readiness Assessment – Hur stor effekt kan AI skapa? | d365.se"
+          description="Rollbaserad AI-analys: mät automation, prediktion och beslutsstöd. Få uppskattat ROI i kronor, rollspecifik roadmap och intelligent partnermatchning."
           canonicalPath="/ai-readiness"
         />
         <Navbar />
@@ -985,24 +1099,38 @@ const AIReadiness = () => {
           <section className="max-w-2xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
               <Brain className="h-4 w-4" />
-              AI & Affärssystem-analys
+              AI Impact & Readiness Assessment
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-              Hur redo är ni att skapa affärsvärde med AI?
+              Hur stor effekt kan AI faktiskt skapa i er roll?
             </h1>
             <p className="text-lg text-muted-foreground mb-3">
               – och hur kan Dynamics 365 stödja er?
             </p>
-            <p className="text-muted-foreground mb-4 max-w-lg mx-auto">
-              Oavsett om ni redan använder Dynamics 365 eller utvärderar plattformen hjälper denna analys er att förstå:
+            <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
+              Denna analys mäter tre AI-dimensioner i er verksamhet och ger konkreta svar på:
             </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-4 text-left">
+              {[
+                { icon: Bot, text: "Automation Potential", desc: "Repetitivt arbete som AI kan ersätta" },
+                { icon: Eye, text: "Augmentation Potential", desc: "Beslutsstöd som AI kan förbättra" },
+                { icon: Activity, text: "Prediction Potential", desc: "Prognoser och risker AI kan förutse" },
+              ].map((item) => (
+                <div key={item.text} className="bg-muted/50 rounded-lg px-4 py-3 text-center">
+                  <item.icon className="h-5 w-5 text-primary mx-auto mb-1.5" />
+                  <span className="text-xs font-semibold text-foreground block">{item.text}</span>
+                  <span className="text-xs text-muted-foreground">{item.desc}</span>
+                </div>
+              ))}
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md mx-auto mb-8 text-left">
               {[
-                { icon: BarChart3, text: "Er AI-mognad" },
-                { icon: Zap, text: "Var AI ger störst effekt i er roll" },
-                { icon: Settings, text: "Vilka förutsättningar som krävs" },
-                { icon: Users, text: "Vilken typ av partner som passar" },
+                { icon: DollarSign, text: "Uppskattat ROI i kronor" },
+                { icon: Percent, text: "Effekt- och besparingsnivåer" },
+                { icon: BarChart3, text: "Rollspecifik AI-roadmap (12 mån)" },
+                { icon: Users, text: "Intelligent partnermatchning" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3 bg-muted/50 rounded-lg px-4 py-3">
                   <item.icon className="h-4 w-4 text-primary shrink-0" />
@@ -1012,7 +1140,7 @@ const AIReadiness = () => {
             </div>
 
             <p className="text-xs text-muted-foreground mb-8">
-              Detta är rådgivande – men kontextuellt anpassat efter er systemsituation, roll och bransch.
+              Rådgivande och kontextuellt anpassad efter systemsituation, roll och bransch.
             </p>
 
             <Button size="lg" className="text-lg px-8 py-6" onClick={() => setStep("foundation")}>
@@ -1021,10 +1149,10 @@ const AIReadiness = () => {
 
             <div className="mt-10 grid grid-cols-4 gap-3 text-center">
               {[
-                { val: "9", label: "frågor totalt" },
-                { val: "4", label: "AI-index" },
+                { val: "12", label: "frågor totalt" },
+                { val: "3", label: "AI-dimensioner" },
                 { val: "6", label: "rollspår" },
-                { val: "PDF", label: "rapport" },
+                { val: "ROI", label: "i kronor" },
               ].map((s) => (
                 <div key={s.label} className="bg-muted/50 rounded-lg p-3">
                   <p className="text-xl font-bold text-foreground">{s.val}</p>
@@ -1045,6 +1173,18 @@ const AIReadiness = () => {
   if (step === "foundation" || step === "role_select" || step === "role_questions") {
     const isIndustryStep = step === "foundation" && foundationQuestions[foundationStep].id === "industry";
 
+    // Determine which section label
+    const isAiMapping = step === "foundation" && foundationStep >= 3;
+    const sectionLabel = isAiMapping
+      ? "AI-kartläggning"
+      : step === "foundation"
+        ? "Grundval"
+        : step === "role_select"
+          ? "Välj roll"
+          : track!.label;
+
+    const sectionNumber = isAiMapping ? 2 : step === "foundation" ? 1 : step === "role_select" ? 3 : 3;
+
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
@@ -1053,7 +1193,7 @@ const AIReadiness = () => {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-muted-foreground">
-                  {step === "foundation" ? `Grundfråga ${foundationStep + 1} av ${foundationCount}` : step === "role_select" ? "Välj din roll" : `Rollfråga ${roleQuestionIdx + 1} av 5`}
+                  {step === "foundation" ? `Fråga ${foundationStep + 1} av ${foundationCount}` : step === "role_select" ? "Välj din roll" : `Rollfråga ${roleQuestionIdx + 1} av 5`}
                 </span>
                 <span className="text-sm text-muted-foreground">{Math.round(progressPct)}%</span>
               </div>
@@ -1063,8 +1203,10 @@ const AIReadiness = () => {
             {step === "foundation" && (
               <>
                 <div className="mb-6 flex items-center gap-2">
-                  <span className="text-2xl">🔹</span>
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Steg 1 – Grundval</span>
+                  <span className="text-2xl">{isAiMapping ? "🧠" : "🔹"}</span>
+                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">
+                    Steg {sectionNumber} – {sectionLabel}
+                  </span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
                   {foundationQuestions[foundationStep].question}
@@ -1090,10 +1232,10 @@ const AIReadiness = () => {
               <>
                 <div className="mb-6 flex items-center gap-2">
                   <span className="text-2xl">🔹</span>
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Steg 2 – Välj roll</span>
+                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Steg 3 – Välj roll</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Jag arbetar inom:</h2>
-                <p className="text-sm text-muted-foreground mb-6">Härifrån anpassas analysen efter din roll.</p>
+                <p className="text-sm text-muted-foreground mb-6">Härifrån anpassas analysen efter din roll med AI-spetsade frågor.</p>
                 <div className="grid gap-3">
                   {roleTracks.map((t) => {
                     const Icon = t.icon;
@@ -1160,17 +1302,17 @@ const AIReadiness = () => {
   const partners = getPartnerSuggestions(selectedRole!, foundationAnswers.system, profile, foundationAnswers.industry);
   const sysTrack = getSystemTrack(foundationAnswers.system);
   const sysData = systemTrackData[sysTrack];
+  const roi = calcROI(selectedRole!, scores, foundationAnswers.headcount);
 
-  const indexBars: { label: string; shortLabel: string; value: number; icon: typeof Rocket }[] = [
-    { label: "AI-Potential Index", shortLabel: "AI-Potential", value: scores.ai_potential, icon: Zap },
-    { label: "Data Maturity Index", shortLabel: "Datamognad", value: scores.data_maturity, icon: BarChart3 },
-    { label: "Process Stability Index", shortLabel: "Processtabilitet", value: scores.process_stability, icon: Shield },
-    { label: "Organizational Readiness", shortLabel: "Org. beredskap", value: scores.org_readiness, icon: Users },
+  const impactDimensions = [
+    { label: "Automation Impact", icon: Bot, value: scores.automation, desc: "Hur mycket repetitivt arbete kan automatiseras" },
+    { label: "Prediction Impact", icon: Activity, value: scores.prediction, desc: "Hur mycket som kan bli mer förutsägbart" },
+    { label: "Decision Augmentation", icon: Eye, value: scores.augmentation, desc: "Hur mycket beslutsstöd kan förbättras" },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title={`AI & Affärssystem-analys: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" />
+      <SEOHead title={`AI Impact Assessment: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" />
       <Navbar />
       <main className="container mx-auto px-4 pt-28 pb-16">
         <div className="max-w-3xl mx-auto">
@@ -1186,24 +1328,27 @@ const AIReadiness = () => {
 
           <AnalysisDisclaimer />
 
-          {/* 1️⃣ AI Profile – 4 indices */}
+          {/* 1️⃣ AI Effect Potential – 3 dimensions */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-8">
             <div className="bg-slate-800 px-5 py-3">
-              <h3 className="font-bold text-white text-sm tracking-wide">📊 AI-profil</h3>
+              <h3 className="font-bold text-white text-sm tracking-wide">🎯 AI-effektpotential</h3>
             </div>
             <div className="p-5 bg-background space-y-4">
               <p className="text-sm text-muted-foreground mb-2">{pd.description}</p>
-              {indexBars.map((d) => {
+              {impactDimensions.map((d) => {
                 const DIcon = d.icon;
                 return (
                   <div key={d.label} className="space-y-1.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <DIcon className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm font-medium text-foreground">{d.label}</span>
+                        <div>
+                          <span className="text-sm font-medium text-foreground">{d.label}</span>
+                          <span className="text-xs text-muted-foreground ml-2 hidden sm:inline">{d.desc}</span>
+                        </div>
                       </div>
                       <span className={`text-sm font-bold ${getLevelTextColor(d.value)}`}>
-                        {getLevelLabel(d.value)} ({d.value}%)
+                        {getImpactLabel(d.value)}
                       </span>
                     </div>
                     <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
@@ -1212,26 +1357,73 @@ const AIReadiness = () => {
                   </div>
                 );
               })}
+              {scores.governance > 0 && (
+                <div className="space-y-1.5 pt-2 border-t border-border/50">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Shield className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm font-medium text-foreground">AI Governance</span>
+                    </div>
+                    <span className={`text-sm font-bold ${getLevelTextColor(scores.governance)}`}>
+                      {getImpactLabel(scores.governance)}
+                    </span>
+                  </div>
+                  <div className="w-full h-2.5 bg-muted rounded-full overflow-hidden">
+                    <div className={`h-full rounded-full transition-all duration-700 ${getLevelColor(scores.governance)}`} style={{ width: `${scores.governance}%` }} />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* 2️⃣ AI Opportunity in your role (with subtle D365 context) */}
+          {/* 2️⃣ ROI Estimate */}
+          <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
+            <div className="bg-emerald-700 px-5 py-3">
+              <h3 className="font-bold text-white text-sm tracking-wide">💰 Uppskattad AI-effekt</h3>
+            </div>
+            <div className="p-5 bg-background">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                <div className="text-center bg-muted/30 rounded-xl p-4 border border-border/50">
+                  <Clock className="h-5 w-5 text-primary mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-foreground">~{roi.timeSavingPct}%</p>
+                  <p className="text-xs text-muted-foreground">Tidsbesparing</p>
+                </div>
+                {roi.forecastImprovePct > 0 && (
+                  <div className="text-center bg-muted/30 rounded-xl p-4 border border-border/50">
+                    <TrendingUp className="h-5 w-5 text-primary mx-auto mb-2" />
+                    <p className="text-2xl font-bold text-foreground">~{roi.forecastImprovePct}%</p>
+                    <p className="text-xs text-muted-foreground">Förbättrad prognosprecision</p>
+                  </div>
+                )}
+                <div className="text-center bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+                  <DollarSign className="h-5 w-5 text-emerald-600 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-emerald-700">~{formatSEK(roi.annualSavingSEK)}</p>
+                  <p className="text-xs text-emerald-600">Uppskattad årlig besparing</p>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground/70 italic">
+                {track!.riskReduction}. Beräkningen är indikativ och baseras på branschgenomsnitt och antal anställda.
+              </p>
+            </div>
+          </div>
+
+          {/* 3️⃣ Role-specific AI Results */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className={`px-5 py-3 ${track!.headerBg}`}>
               <h3 className="font-bold text-white text-sm tracking-wide">⚡ AI-möjlighet inom {track!.label}</h3>
             </div>
             <div className="p-5 bg-background space-y-1">
-              <p className="text-sm text-muted-foreground mb-4">Baserat på era svar finns potential att:</p>
-              {track!.aiPotentials.map((ap, i) => {
+              <p className="text-sm text-muted-foreground mb-4">Baserat på era svar finns potential inom:</p>
+              {track!.aiResults.map((ar, i) => {
                 const effect = getEffectLevel(scores, i);
                 const badge = getEffectBadge(effect);
                 const showD365Context = foundationAnswers.system === "Dynamics 365" || profile === "scaling";
                 return (
-                  <div key={ap.label} className="px-3 py-3 rounded-lg bg-muted/30 border border-border/50 mb-3">
+                  <div key={ar.label} className="px-3 py-3 rounded-lg bg-muted/30 border border-border/50 mb-3">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <p className="text-sm font-semibold text-foreground">{ap.label}</p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{ap.description}</p>
+                        <p className="text-sm font-semibold text-foreground">{ar.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">{ar.description}</p>
                       </div>
                       <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border whitespace-nowrap ${badge.color}`}>
                         {badge.label}
@@ -1240,7 +1432,7 @@ const AIReadiness = () => {
                     {showD365Context && (
                       <p className="text-xs text-muted-foreground/70 mt-2 italic flex items-start gap-1.5">
                         <Sparkles className="h-3 w-3 shrink-0 mt-0.5" />
-                        {ap.d365Context}
+                        {ar.d365Context}
                       </p>
                     )}
                   </div>
@@ -1249,7 +1441,7 @@ const AIReadiness = () => {
             </div>
           </div>
 
-          {/* 3️⃣ System Recommendation (smart, not aggressive) */}
+          {/* 4️⃣ System Recommendation */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className="bg-slate-700 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide flex items-center gap-2">
@@ -1269,6 +1461,10 @@ const AIReadiness = () => {
                 <p className="text-sm text-foreground font-medium mb-1">Rekommendation:</p>
                 <p className="text-sm text-muted-foreground">{sysData.recommendation}</p>
               </div>
+              <p className="text-xs text-muted-foreground/60 italic mt-4 flex items-start gap-1.5">
+                <Sparkles className="h-3 w-3 shrink-0 mt-0.5" />
+                För organisationer som använder moderna plattformar som Microsoft Dynamics 365 finns många av dessa AI-funktioner redan integrerade via Copilot och inbyggd prediktiv analys.
+              </p>
             </div>
           </div>
 
@@ -1328,7 +1524,7 @@ const AIReadiness = () => {
             </div>
           </div>
 
-          {/* 12-month Roadmap with D365 footnote */}
+          {/* 12-month Roadmap */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className="bg-slate-700 px-5 py-3">
               <h3 className="font-bold text-white text-sm tracking-wide">🗓️ 12-månaders AI-roadmap – {track!.label}</h3>
@@ -1347,7 +1543,6 @@ const AIReadiness = () => {
                   </div>
                 ))}
               </div>
-              {/* D365 footnote */}
               {roadmap.q4.d365Note && (
                 <p className="text-xs text-muted-foreground/60 italic mt-5 pt-4 border-t border-border/50 flex items-start gap-1.5">
                   <Sparkles className="h-3 w-3 shrink-0 mt-0.5" />
@@ -1357,14 +1552,14 @@ const AIReadiness = () => {
             </div>
           </div>
 
-          {/* Partner matching – curated feel */}
+          {/* Partner matching */}
           <div className="border rounded-xl overflow-hidden shadow-sm mt-6">
             <div className="bg-primary px-5 py-3">
               <h3 className="font-bold text-primary-foreground text-sm tracking-wide">🤝 Rekommenderad partnertyp</h3>
             </div>
             <div className="p-5 bg-background space-y-3">
               <p className="text-sm text-muted-foreground mb-4">
-                Baserat på er roll, bransch och mognadsnivå rekommenderar vi en partner med följande profil:
+                Baserat på roll, bransch och mognadsnivå rekommenderas en partner med följande profil:
               </p>
               {partners.map((p, i) => (
                 <div key={i} className="flex items-start gap-3 px-3 py-3 rounded-lg bg-muted/30 border border-border/50">
@@ -1385,7 +1580,7 @@ const AIReadiness = () => {
             </div>
           </div>
 
-          {/* Reality Check */}
+          {/* Quote */}
           <div className="rounded-lg border bg-muted/30 p-6 mt-8 text-center">
             <p className="text-foreground font-medium italic text-lg">
               "AI misslyckas sällan på grund av teknik.
@@ -1394,19 +1589,19 @@ const AIReadiness = () => {
             </p>
           </div>
 
-          {/* Unlock report */}
+          {/* Report form */}
           {!showReportForm && !submitted && (
             <Card className="mt-8 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
               <CardContent className="p-6 sm:p-8 text-center">
                 <Lock className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-foreground mb-2">Ladda ner din AI-rapport som PDF</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Ladda ner din AI Impact-rapport som PDF</h3>
                 <p className="text-muted-foreground mb-2 max-w-md mx-auto text-sm">
                   En professionell 4-sidig rapport med:
                 </p>
                 <div className="grid grid-cols-2 gap-2 max-w-sm mx-auto mb-6 text-xs text-muted-foreground">
-                  <span className="bg-muted/50 rounded px-2 py-1">📄 Executive Summary</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">⚡ AI-möjlighet per område</span>
-                  <span className="bg-muted/50 rounded px-2 py-1">⚠️ Riskområden & roadmap</span>
+                  <span className="bg-muted/50 rounded px-2 py-1">📄 Executive Summary + ROI</span>
+                  <span className="bg-muted/50 rounded px-2 py-1">⚡ AI-potential per område</span>
+                  <span className="bg-muted/50 rounded px-2 py-1">⚠️ Riskanalys & roadmap</span>
                   <span className="bg-muted/50 rounded px-2 py-1">🤝 Partnermatchning</span>
                 </div>
                 <Button size="lg" onClick={() => setShowReportForm(true)}>
