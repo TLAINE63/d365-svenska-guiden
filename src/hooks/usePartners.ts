@@ -26,6 +26,7 @@ export interface ProductFilterInput {
   aiProjectCount?: string;      // Number of AI projects last 24 months: "0-2", "3-5", "6+"
   hasBuiltAgents?: boolean;     // Has built custom AI agents or Copilot solutions
   aiCaseDescription?: string;   // Short description of an AI case (max 200 chars)
+  aiBusinessImpact?: string;    // Required for advanced (🔴) AI: business impact description (max 200 chars)
 }
 
 // Updated product filters to include 4 product areas plus combined crm
