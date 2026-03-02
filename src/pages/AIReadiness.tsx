@@ -174,7 +174,7 @@ interface FoundationQuestion {
 const foundationQuestions: FoundationQuestion[] = [
   {
     id: "system",
-    question: "Vilket affärssystem använder ni idag?",
+    question: "Vilket/vilka CRM- och ERP/Affärssystem använder ni idag?",
     index: null,
     options: [
       { label: "Dynamics 365", score: 3 },
