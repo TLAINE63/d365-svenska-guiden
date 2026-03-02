@@ -478,44 +478,51 @@ const AIOverview = () => {
           </div>
         </section>
 
-        {/* Step 1 – Role cards */}
+        {/* Role-based entry points */}
         <section className="max-w-5xl mx-auto mb-20">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground mb-3">
-            Steg 1 – Välj din roll
-          </h2>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-3xl">👤</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
+              Hitta din AI-ingång
+            </h2>
+          </div>
           <p className="text-center text-muted-foreground mb-10">
-            Klicka på den roll som bäst beskriver dig för att se relevanta AI-möjligheter.
+            Vilken roll har du? Utforska AI-möjligheter som är relevanta för just dig.
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {roles.map((role) => (
-              <Link key={role.title} to={role.link}>
-                <Card className={`group relative overflow-hidden border bg-gradient-to-br ${role.color} hover:scale-[1.02] transition-all duration-300 cursor-pointer h-full`}>
-                  <CardContent className="p-6 sm:p-8">
-                    <div className="text-4xl mb-4">{role.emoji}</div>
-                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
-                      {role.title}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      <span className="font-semibold text-foreground/80">Fokus:</span> {role.focus}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
+              <Card key={role.title} className={`relative overflow-hidden border bg-gradient-to-br ${role.color} h-full`}>
+                <CardContent className="p-6 sm:p-8 flex flex-col h-full">
+                  <div className="text-3xl mb-3">{role.emoji}</div>
+                  <h3 className="text-lg font-bold text-foreground mb-1">
+                    {role.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4 flex-1">
+                    {role.focus}
+                  </p>
+                  <Link
+                    to={role.link}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline mt-auto"
+                  >
+                    Utforska <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>
 
-        {/* Step 2 – Goals */}
+        {/* AI use-case explorer */}
         <section className="max-w-5xl mx-auto mb-20">
           <div className="flex items-center justify-center gap-3 mb-3">
             <span className="text-3xl">🧠</span>
             <h2 className="text-2xl sm:text-3xl font-bold text-center text-foreground">
-              Steg 2 – Vad vill du uppnå?
+              Vad vill du uppnå med AI?
             </h2>
           </div>
           <p className="text-center text-muted-foreground mb-10">
-            Välj ett mål nedan så visar vi ett relevant AI-scenario.
+            Klicka på ett mål för att se hur Dynamics 365 kan hjälpa.
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
