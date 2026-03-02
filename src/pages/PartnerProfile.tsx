@@ -594,7 +594,7 @@ const PartnerProfile = () => {
                                     </Badge>
                                   </div>
                                 </TooltipTrigger>
-                                <TooltipContent side="right" className="max-w-xs text-xs">
+                                <TooltipContent side="right" className="max-w-xs text-xs z-[100]">
                                   <p>{descriptions[productLevel.level]}</p>
                                 </TooltipContent>
                               </Tooltip>
