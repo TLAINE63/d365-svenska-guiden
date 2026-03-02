@@ -1,3 +1,4 @@
+import RelatedPages, { crmRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
@@ -458,6 +459,7 @@ const CRM = () => {
         </div>
       </section>
 
+      <RelatedPages pages={crmRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );

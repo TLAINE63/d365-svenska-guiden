@@ -1,3 +1,4 @@
+import RelatedPages, { salesRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
@@ -319,6 +320,7 @@ const D365Sales = () => {
         </div>
       </section>
 
+      <RelatedPages pages={salesRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );

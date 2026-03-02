@@ -1,3 +1,4 @@
+import RelatedPages, { contactCenterRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
@@ -293,6 +294,7 @@ const D365ContactCenter = () => {
         </div>
       </section>
 
+      <RelatedPages pages={contactCenterRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );

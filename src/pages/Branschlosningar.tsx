@@ -1,3 +1,4 @@
+import RelatedPages, { branschRelatedPages } from "@/components/RelatedPages";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
@@ -641,6 +642,7 @@ const Branschlosningar = () => {
         <LeadMagnetBanner sourcePage="branschlosningar" onClose={() => setShowLeadMagnet(false)} />
       )}
 
+      <RelatedPages pages={branschRelatedPages} heading="Utforska vidare" />
       <Footer />
 
       {/* No Partner Dialog */}

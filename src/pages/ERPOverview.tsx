@@ -1,3 +1,4 @@
+import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
@@ -334,6 +335,7 @@ const ERPOverview = () => {
         </div>
       </section>
 
+      <RelatedPages pages={erpRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );

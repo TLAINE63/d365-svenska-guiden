@@ -1,3 +1,4 @@
+import RelatedPages, { aiOverviewRelatedPages } from "@/components/RelatedPages";
 import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -740,6 +741,7 @@ const AIOverview = () => {
           </Card>
         </section>
       </main>
+      <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );
