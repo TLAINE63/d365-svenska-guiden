@@ -99,6 +99,7 @@ interface ProductFilter {
   aiCaseDescription: string;
   aiBusinessImpact: string;
   aiSegmentationDetails: string[];
+  aiPredictiveDetails: string[];
 }
 
 interface ProductFilters {
@@ -148,6 +149,7 @@ const emptyProductFilter: ProductFilter = {
   aiCaseDescription: "",
   aiBusinessImpact: "",
   aiSegmentationDetails: [],
+  aiPredictiveDetails: [],
 };
 
 const PartnerUpdate = () => {
@@ -445,6 +447,7 @@ const PartnerUpdate = () => {
       aiCaseDescription: existing.aiCaseDescription || "",
       aiBusinessImpact: existing.aiBusinessImpact || "",
       aiSegmentationDetails: existing.aiSegmentationDetails || [],
+      aiPredictiveDetails: existing.aiPredictiveDetails || [],
     };
   };
 
@@ -1094,6 +1097,34 @@ const PartnerUpdate = () => {
                                               ? [...current, opt.value]
                                               : current.filter(v => v !== opt.value);
                                             updateProductFilter(productKey, { aiSegmentationDetails: updated });
+                                          }}
+                                        />
+                                        <span className="text-sm">{opt.label}</span>
+                                      </label>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Predictive maintenance follow-up (Service only) */}
+                              {filter.aiCapabilities.includes("svc-adv-predictive") && (
+                                <div className="p-3 rounded-lg border border-border bg-muted/30">
+                                  <Label className="text-sm font-medium">Hur genomförs prediktivt underhåll?</Label>
+                                  <div className="mt-2 space-y-2">
+                                    {[
+                                      { value: "iot-integrated", label: "Integrerat med IoT" },
+                                      { value: "azure-ai-built", label: "Byggt med Azure AI" },
+                                      { value: "standard-function", label: "Byggt med standardfunktion" },
+                                    ].map((opt) => (
+                                      <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                                        <Checkbox
+                                          checked={filter.aiPredictiveDetails.includes(opt.value)}
+                                          onCheckedChange={(checked) => {
+                                            const current = filter.aiPredictiveDetails;
+                                            const updated = checked
+                                              ? [...current, opt.value]
+                                              : current.filter(v => v !== opt.value);
+                                            updateProductFilter(productKey, { aiPredictiveDetails: updated });
                                           }}
                                         />
                                         <span className="text-sm">{opt.label}</span>

@@ -28,6 +28,7 @@ export interface ProductFilterInput {
   aiCaseDescription?: string;   // Short description of an AI case (max 200 chars)
   aiBusinessImpact?: string;    // Required for advanced (🔴) AI: business impact description (max 200 chars)
   aiSegmentationDetails?: string[]; // Follow-up for customer segmentation capability
+  aiPredictiveDetails?: string[];   // Follow-up for predictive maintenance capability
 }
 
 // Updated product filters to include 4 product areas plus combined crm
