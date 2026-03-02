@@ -605,47 +605,35 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
           </div>
         )}
 
-        {/* AI interest step */}
+        {/* AI interest step – auto-submits on click */}
         {getContentStep(step) === 'ai' && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Hur viktigt är AI i ert val av partner?</h3>
             <p className="text-sm text-muted-foreground">
               Microsoft erbjuder AI-funktioner som Copilot, AI-agenter, Copilot Studio och Azure AI Foundry. Vill ni att partnern har kompetens inom dessa?
             </p>
-            <RadioGroup value={selectedAiInterest} onValueChange={(value) => {
-              setSelectedAiInterest(value);
-              // Auto-submit on selection – trigger search immediately
-              setTimeout(() => {
-                findBestPartnersWithAi(value);
-              }, 200);
-            }}>
-              <div className="space-y-3">
-                {aiInterestOptions.map(option => (
-                  <div
-                    key={option.value}
-                    className={`flex items-start space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                      selectedAiInterest === option.value
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:border-primary/50"
-                    }`}
-                    onClick={() => {
-                      setSelectedAiInterest(option.value);
-                      setTimeout(() => {
-                        findBestPartnersWithAi(option.value);
-                      }, 200);
-                    }}
-                  >
-                    <RadioGroupItem value={option.value} id={`ai-${option.value}`} className="mt-0.5" />
-                    <div>
-                      <Label htmlFor={`ai-${option.value}`} className="cursor-pointer text-base font-medium">
-                        {option.label}
-                      </Label>
-                      <p className="text-sm text-muted-foreground mt-0.5">{option.description}</p>
-                    </div>
+            <div className="space-y-3">
+              {aiInterestOptions.map(option => (
+                <div
+                  key={option.value}
+                  className={`flex items-start space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
+                    selectedAiInterest === option.value
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50"
+                  }`}
+                  onClick={() => {
+                    setSelectedAiInterest(option.value);
+                    findBestPartnersWithAi(option.value);
+                  }}
+                >
+                  <div className={`w-4 h-4 mt-0.5 rounded-full border-2 flex-shrink-0 ${selectedAiInterest === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+                  <div>
+                    <span className="text-base font-medium">{option.label}</span>
+                    <p className="text-sm text-muted-foreground mt-0.5">{option.description}</p>
                   </div>
-                ))}
-              </div>
-            </RadioGroup>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -862,9 +850,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
             <div />
           )}
           
-          {!isResultStep && (
+          {!isResultStep && getContentStep(step) !== 'ai' && (
             <Button onClick={handleNext} disabled={!canProceed()}>
-              {step === totalSteps ? "Visa förslag" : "Nästa"}
+              Nästa
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           )}
