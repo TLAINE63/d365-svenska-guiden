@@ -246,7 +246,14 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     return !hasErp;
   };
 
-  const findBestPartners = async () => {
+  const findBestPartnersWithAi = (aiInterestOverride?: string) => {
+    const aiInterest = aiInterestOverride ?? selectedAiInterest;
+    findBestPartnersInner(aiInterest);
+  };
+
+  const findBestPartners = () => findBestPartnersInner(selectedAiInterest);
+
+  const findBestPartnersInner = async (aiInterest: string) => {
     const productKey = getProductKey(selectedApp);
     
     if (!productKey) {
@@ -345,9 +352,9 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               industry: selectedIndustry,
               geography: selectedMarket,
               companySize: selectedSize,
-              workload: selectedWorkload || undefined,
+               workload: selectedWorkload || undefined,
               preferCrmOnly: isCrmSpecialistApp,
-              aiInterest: selectedAiInterest || undefined,
+              aiInterest: aiInterest || undefined,
             },
           },
         });
@@ -605,7 +612,13 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
             <p className="text-sm text-muted-foreground">
               Microsoft erbjuder AI-funktioner som Copilot, AI-agenter, Copilot Studio och Azure AI Foundry. Vill ni att partnern har kompetens inom dessa?
             </p>
-            <RadioGroup value={selectedAiInterest} onValueChange={setSelectedAiInterest}>
+            <RadioGroup value={selectedAiInterest} onValueChange={(value) => {
+              setSelectedAiInterest(value);
+              // Auto-submit on selection – trigger search immediately
+              setTimeout(() => {
+                findBestPartnersWithAi(value);
+              }, 200);
+            }}>
               <div className="space-y-3">
                 {aiInterestOptions.map(option => (
                   <div
@@ -615,7 +628,12 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
                         ? "border-primary bg-primary/10"
                         : "border-border hover:border-primary/50"
                     }`}
-                    onClick={() => setSelectedAiInterest(option.value)}
+                    onClick={() => {
+                      setSelectedAiInterest(option.value);
+                      setTimeout(() => {
+                        findBestPartnersWithAi(option.value);
+                      }, 200);
+                    }}
                   >
                     <RadioGroupItem value={option.value} id={`ai-${option.value}`} className="mt-0.5" />
                     <div>
@@ -634,17 +652,21 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
         {/* Results step */}
         {isResultStep && (
           <div className="space-y-6">
-            {/* Summary chips */}
-            <div className="flex flex-wrap gap-2 text-xs">
-              <Badge variant="outline">{selectedApp}</Badge>
-              {selectedWorkloadLabel && (
-                <Badge variant="secondary">{selectedWorkloadLabel}</Badge>
-              )}
-              {selectedIndustry && <Badge variant="outline">{selectedIndustry}</Badge>}
-              {selectedMarket && <Badge variant="outline">{selectedMarket}</Badge>}
-              {selectedSize && <Badge variant="outline">{selectedSize}</Badge>}
-              {selectedAiInterest === 'high' && <Badge variant="secondary">🤖 AI-fokus</Badge>}
-              {selectedAiInterest === 'medium' && <Badge variant="outline">AI intressant</Badge>}
+            {/* Structured summary */}
+            <div className="bg-muted/30 rounded-lg p-4 border border-border/50">
+              <h4 className="text-sm font-semibold mb-2 text-foreground">Dessa val har du gjort</h4>
+              <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm">
+                <span className="text-muted-foreground">Produkt:</span>
+                <span className="font-medium">{selectedApp}{selectedWorkloadLabel ? ` – ${selectedWorkloadLabel}` : ''}</span>
+                <span className="text-muted-foreground">Bransch:</span>
+                <span className="font-medium">{selectedIndustry || '–'}</span>
+                <span className="text-muted-foreground">Marknad:</span>
+                <span className="font-medium">{selectedMarket || '–'}</span>
+                <span className="text-muted-foreground">Företagsstorlek:</span>
+                <span className="font-medium">{sizeOptions.find(o => o.value === selectedSize)?.label || '–'}</span>
+                <span className="text-muted-foreground">AI-fokus:</span>
+                <span className="font-medium">{aiInterestOptions.find(o => o.value === selectedAiInterest)?.label || '–'}</span>
+              </div>
             </div>
 
             {/* AI loading indicator */}
