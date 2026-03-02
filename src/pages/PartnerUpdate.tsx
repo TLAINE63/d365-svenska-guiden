@@ -98,6 +98,7 @@ interface ProductFilter {
   hasBuiltAgents: boolean | null;
   aiCaseDescription: string;
   aiBusinessImpact: string;
+  aiSegmentationDetails: string[];
 }
 
 interface ProductFilters {
@@ -146,6 +147,7 @@ const emptyProductFilter: ProductFilter = {
   hasBuiltAgents: null,
   aiCaseDescription: "",
   aiBusinessImpact: "",
+  aiSegmentationDetails: [],
 };
 
 const PartnerUpdate = () => {
@@ -442,6 +444,7 @@ const PartnerUpdate = () => {
       hasBuiltAgents: existing.hasBuiltAgents ?? null,
       aiCaseDescription: existing.aiCaseDescription || "",
       aiBusinessImpact: existing.aiBusinessImpact || "",
+      aiSegmentationDetails: existing.aiSegmentationDetails || [],
     };
   };
 
@@ -1072,6 +1075,33 @@ const PartnerUpdate = () => {
                           {/* Conditional follow-up questions - only show if any AI capability is selected */}
                           {filter.aiCapabilities.length > 0 && (
                             <div className="mt-4 ml-2 pl-4 border-l-2 border-primary/30 space-y-4">
+                              {/* Segmentation follow-up (Sales only) */}
+                              {filter.aiCapabilities.includes("sales-std-segmentation") && (
+                                <div className="p-3 rounded-lg border border-border bg-muted/30">
+                                  <Label className="text-sm font-medium">Hur genomförs kundsegmenteringen?</Label>
+                                  <div className="mt-2 space-y-2">
+                                    {[
+                                      { value: "ci-platform", label: "Använder Microsoft Customer Insights" },
+                                      { value: "azure-ai", label: "Byggd med Azure AI" },
+                                      { value: "external-data", label: "Integrerad med externa datakällor" },
+                                    ].map((opt) => (
+                                      <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                                        <Checkbox
+                                          checked={filter.aiSegmentationDetails.includes(opt.value)}
+                                          onCheckedChange={(checked) => {
+                                            const current = filter.aiSegmentationDetails;
+                                            const updated = checked
+                                              ? [...current, opt.value]
+                                              : current.filter(v => v !== opt.value);
+                                            updateProductFilter(productKey, { aiSegmentationDetails: updated });
+                                          }}
+                                        />
+                                        <span className="text-sm">{opt.label}</span>
+                                      </label>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
                               {/* AI Project Count */}
                               <div>
                                 <Label className="text-sm">Antal AI-relaterade projekt senaste 24 månader</Label>
