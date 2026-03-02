@@ -1,3 +1,4 @@
+import RelatedPages, { copilotRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
@@ -567,6 +568,7 @@ const Copilot = () => {
         </div>
       </section>
 
+      <RelatedPages pages={copilotRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );

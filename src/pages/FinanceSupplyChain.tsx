@@ -1,3 +1,4 @@
+import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
@@ -816,6 +817,7 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
+      <RelatedPages pages={fscRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );

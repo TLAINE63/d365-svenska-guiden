@@ -1,3 +1,4 @@
+import RelatedPages, { bcRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
 import PricingCard from "@/components/PricingCard";
@@ -766,6 +767,7 @@ const BusinessCentral = () => {
         </div>
       </section>
 
+      <RelatedPages pages={bcRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );
