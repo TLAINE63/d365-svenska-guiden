@@ -2472,7 +2472,7 @@ const AdminDashboard = () => {
                         <div className="space-y-1">
                           <Label className="text-xs">Appnamn *</Label>
                           <Input
-                            placeholder="T.ex. AppCloud Expense Management"
+                            placeholder="Appnamn"
                             value={app.name}
                             onChange={(e) => {
                               const updated = [...industryApps];
