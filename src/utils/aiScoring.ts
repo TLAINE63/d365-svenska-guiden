@@ -154,16 +154,16 @@ export interface AiLevelInfo {
 
 export function getAiLevel(score: number): AiLevelInfo {
   if (score >= 60) return {
-    level: "transformation", label: "AI Transformation Partner", emoji: "🟣",
-    color: "border-purple-500/40 text-purple-700 bg-purple-50 dark:text-purple-400 dark:bg-purple-950/30", score,
+    level: "transformation", label: "AI Transformation Partner", emoji: "🌟",
+    color: "border-emerald-600/40 text-emerald-800 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/30", score,
   };
   if (score >= 35) return {
-    level: "advanced", label: "AI Advanced", emoji: "🔴",
-    color: "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30", score,
+    level: "advanced", label: "AI Advanced", emoji: "🟢",
+    color: "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30", score,
   };
   if (score >= 15) return {
-    level: "integration", label: "AI Integration Partner", emoji: "🟠",
-    color: "border-orange-500/40 text-orange-700 bg-orange-50 dark:text-orange-400 dark:bg-orange-950/30", score,
+    level: "integration", label: "AI Integration Partner", emoji: "🔵",
+    color: "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30", score,
   };
   if (score > 0) return {
     level: "enabled", label: "AI Enabled", emoji: "🟡",
