@@ -37,6 +37,19 @@ const CAPABILITY_TIER: Record<string, string> = {
   "fsc-adv-predictive": AI_TIERS.ADVANCED,
   "fsc-adv-optimization": AI_TIERS.ADVANCED,
   "fsc-adv-fraud": AI_TIERS.ADVANCED,
+  // Sales Standard (🟢)
+  "sales-std-copilot": AI_TIERS.STANDARD,
+  "sales-std-scoring": AI_TIERS.STANDARD,
+  "sales-std-forecast": AI_TIERS.STANDARD,
+  "sales-std-segmentation": AI_TIERS.STANDARD,
+  // Sales Partner-built (🟡)
+  "sales-partner-agent": AI_TIERS.PARTNER,
+  "sales-partner-marketing": AI_TIERS.PARTNER,
+  "sales-partner-automation": AI_TIERS.PARTNER,
+  // Sales Advanced (🔴)
+  "sales-adv-predictive": AI_TIERS.ADVANCED,
+  "sales-adv-personalization": AI_TIERS.ADVANCED,
+  "sales-adv-analytics": AI_TIERS.ADVANCED,
 };
 
 // Points per tier
@@ -149,6 +162,19 @@ export const AI_TIER_LABELS: Record<string, string> = {
   "fsc-adv-predictive": "Prediktiv modell (Finance/SCM)",
   "fsc-adv-optimization": "Azure-optimering (produktion/SCM)",
   "fsc-adv-fraud": "Risk- & fraud-detektering",
+  // Sales Standard
+  "sales-std-copilot": "Sales Copilot",
+  "sales-std-scoring": "Lead/opportunity scoring",
+  "sales-std-forecast": "Pipeline-prognos",
+  "sales-std-segmentation": "AI-kundsegmentering",
+  // Sales Partner
+  "sales-partner-agent": "AI-agent för säljprocesser",
+  "sales-partner-marketing": "AI-agent för marknad/kunddialog",
+  "sales-partner-automation": "AI-automatisering Sales",
+  // Sales Advanced
+  "sales-adv-predictive": "Prediktiv modell (försäljning/churn)",
+  "sales-adv-personalization": "Personalisering & rekommendation",
+  "sales-adv-analytics": "Avancerad kundanalys (Azure)",
 };
 
 // Badge styles per capability
@@ -161,6 +187,10 @@ export const AI_TIER_BADGE_STYLES: Record<string, string> = {
   "fsc-std-forecast": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
   "fsc-std-planning": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
   "fsc-std-risk": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "sales-std-copilot": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "sales-std-scoring": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "sales-std-forecast": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "sales-std-segmentation": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
   // Yellow tier
   [AI_TIERS.PARTNER]: "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   "bc-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
@@ -170,6 +200,9 @@ export const AI_TIER_BADGE_STYLES: Record<string, string> = {
   "fsc-partner-finance": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   "fsc-partner-scm": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   "fsc-partner-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
+  "sales-partner-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
+  "sales-partner-marketing": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
+  "sales-partner-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   // Red tier
   [AI_TIERS.ADVANCED]: "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
   "bc-azure": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
@@ -177,6 +210,9 @@ export const AI_TIER_BADGE_STYLES: Record<string, string> = {
   "fsc-adv-predictive": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
   "fsc-adv-optimization": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
   "fsc-adv-fraud": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
+  "sales-adv-predictive": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
+  "sales-adv-personalization": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
+  "sales-adv-analytics": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
 };
 
 // Emoji per capability
@@ -238,7 +274,42 @@ export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
   },
 ];
 
-// Generic options (for BC, Sales, Service - until they get their own)
+// Sales-specific options
+export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
+  {
+    tierLabel: "MICROSOFT STANDARD (Embedded AI & Copilot)",
+    emoji: "🟢",
+    pointsLabel: "1 poäng styck",
+    options: [
+      { value: "sales-std-copilot", label: "AI-assistent för säljare (Sales Copilot)", description: "t.ex. mötessammanfattningar, förslag på nästa steg, e-postutkast" },
+      { value: "sales-std-scoring", label: "AI-driven lead- eller opportunity scoring", description: "automatiskt prioriterar affärsmöjligheter" },
+      { value: "sales-std-forecast", label: "Prediktiv pipeline- eller intäktsprognos", description: "" },
+      { value: "sales-std-segmentation", label: "AI-baserad kundsegmentering i Customer Insights", description: "" },
+    ],
+  },
+  {
+    tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
+    emoji: "🟡",
+    pointsLabel: "4 poäng styck",
+    options: [
+      { value: "sales-partner-agent", label: "Anpassad AI-agent för säljprocesser", description: "t.ex. intern affärscoach, offertstöd, kvalificeringsagent" },
+      { value: "sales-partner-marketing", label: "Anpassad AI-agent för marknadsautomation eller kunddialog", description: "" },
+      { value: "sales-partner-automation", label: "AI-baserade arbetsflöden eller automatiseringar ovanpå Sales", description: "" },
+    ],
+  },
+  {
+    tierLabel: "AVANCERAD AI (Azure AI / Foundry / Custom ML)",
+    emoji: "🔴",
+    pointsLabel: "7 poäng styck",
+    options: [
+      { value: "sales-adv-predictive", label: "Egenutvecklad prediktiv modell för försäljning eller churn", description: "" },
+      { value: "sales-adv-personalization", label: "Avancerad personalisering eller rekommendationsmotor byggd på Azure", description: "" },
+      { value: "sales-adv-analytics", label: "AI-lösning integrerad med externa datakällor för förbättrad kundanalys", description: "" },
+    ],
+  },
+];
+
+// Generic options (for BC, Service - until they get their own)
 export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
@@ -270,6 +341,7 @@ export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
 export function getAiOptionsForProduct(productKey: string): AiFormTierGroup[] {
   switch (productKey) {
     case 'fsc': return FSC_AI_OPTIONS;
+    case 'sales': return SALES_AI_OPTIONS;
     default: return GENERIC_AI_OPTIONS;
   }
 }
