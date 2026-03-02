@@ -38,6 +38,7 @@ interface PartnerGuideDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   partners: PartnerData[];
+  initialAiInterest?: string;
 }
 
 const applicationOptions = [
@@ -179,7 +180,7 @@ interface AiMatchResult {
   matchReason: string;
 }
 
-const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialogProps) => {
+const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }: PartnerGuideDialogProps) => {
   const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [selectedApp, setSelectedApp] = useState<string>("");
@@ -187,7 +188,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
-  const [selectedAiInterest, setSelectedAiInterest] = useState<string>("");
+  const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);

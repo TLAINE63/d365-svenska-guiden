@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star, Loader2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
@@ -178,8 +178,10 @@ const getDbProductRanking = (partner: DatabasePartner, productKey: ProductKey): 
 
 const ValjPartner = () => {
   const { data: dbPartners, isLoading } = usePartners();
+  const [searchParams] = useSearchParams();
+  const aiParam = searchParams.get("ai");
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
-  const [guideOpen, setGuideOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(!!aiParam);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
@@ -395,6 +397,7 @@ const ValjPartner = () => {
         open={guideOpen} 
         onOpenChange={setGuideOpen} 
         partners={partners}
+        initialAiInterest={aiParam || undefined}
       />
       
       {/* Header */}
