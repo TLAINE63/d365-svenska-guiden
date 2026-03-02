@@ -26,7 +26,13 @@ import { usePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
-import { calculateProductAiScore, calculateAiScore, getAiLevel, getAiLevel as getProductAiLevel } from "@/utils/aiScoring";
+import { calculateProductAiScore, calculateAiScore, getAiLevel } from "@/utils/aiScoring";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -395,20 +401,37 @@ const PartnerProfile = () => {
               </a>
             </div>
 
-            {/* Overall AI Score Badge */}
+            {/* Overall AI Level Badge */}
             {(() => {
               const score = calculateAiScore(partner.product_filters);
               const aiLevel = getAiLevel(score);
               if (aiLevel.level === "none") return null;
+              const descriptions: Record<string, string> = {
+                enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
+                integration: "Bygger anpassade AI-agenter och processer",
+                advanced: "Utvecklar egna AI-lösningar och prediktiva modeller",
+                transformation: "Levererar avancerade Azure AI-arkitekturer",
+              };
               return (
                 <div className="mt-4">
-                  <Badge
-                    variant="outline"
-                    className={`text-sm font-semibold px-4 py-1.5 ${aiLevel.color} border-2`}
-                  >
-                    <Award className="w-4 h-4 mr-1.5" />
-                    {aiLevel.emoji} {aiLevel.label} — {Math.round(score)}/100
-                  </Badge>
+                  <TooltipProvider delayDuration={100}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div>
+                          <Badge
+                            variant="outline"
+                            className={`text-sm font-semibold px-4 py-1.5 cursor-help ${aiLevel.color} border-2`}
+                          >
+                            <Award className="w-4 h-4 mr-1.5" />
+                            {aiLevel.emoji} {aiLevel.label}
+                          </Badge>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom" className="max-w-xs text-sm">
+                        <p>{descriptions[aiLevel.level]}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
               );
             })()}
@@ -544,21 +567,38 @@ const PartnerProfile = () => {
                           )}
                         </div>
 
-                        {/* Per-product AI Score */}
+                        {/* Per-product AI Level */}
                         {(() => {
                           const pf = partner.product_filters?.[category];
                           if (!pf?.aiCapabilities || pf.aiCapabilities.length === 0) return null;
                           const productScore = calculateProductAiScore(pf.aiCapabilities, pf.aiProjectCount, category);
                           const productLevel = getAiLevel(productScore);
                           if (productLevel.level === "none") return null;
+                          const descriptions: Record<string, string> = {
+                            enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
+                            integration: "Bygger anpassade AI-agenter och processer",
+                            advanced: "Utvecklar egna AI-lösningar och prediktiva modeller",
+                            transformation: "Levererar avancerade Azure AI-arkitekturer",
+                          };
                           return (
-                            <Badge
-                              variant="outline"
-                              className={`text-xs font-semibold mb-3 self-start ${productLevel.color}`}
-                            >
-                              <Award className="w-3 h-3 mr-1" />
-                              AI Score: {Math.round(productScore)}/100
-                            </Badge>
+                            <TooltipProvider delayDuration={100}>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <div className="mb-3 self-start">
+                                    <Badge
+                                      variant="outline"
+                                      className={`text-xs font-semibold cursor-help ${productLevel.color}`}
+                                    >
+                                      <Award className="w-3 h-3 mr-1" />
+                                      {productLevel.emoji} {productLevel.label}
+                                    </Badge>
+                                  </div>
+                                </TooltipTrigger>
+                                <TooltipContent side="right" className="max-w-xs text-xs">
+                                  <p>{descriptions[productLevel.level]}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
                           );
                         })()}
                         

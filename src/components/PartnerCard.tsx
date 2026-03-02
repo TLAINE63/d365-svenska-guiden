@@ -379,20 +379,37 @@ const PartnerCard = ({
             </div>
           </div>
 
-          {/* AI Level Badge with score */}
+          {/* AI Level Badge with hover tooltip */}
           {isDatabasePartner(partner) && (() => {
             const score = calculateAiScore(partner.product_filters);
             const aiLevel = getAiLevel(score);
             if (aiLevel.level === "none") return null;
+            const descriptions: Record<string, string> = {
+              enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
+              integration: "Bygger anpassade AI-agenter och processer",
+              advanced: "Utvecklar egna AI-lösningar och prediktiva modeller",
+              transformation: "Levererar avancerade Azure AI-arkitekturer",
+            };
             return (
               <div className="mb-3">
-                <Badge
-                  variant="outline"
-                  className={`text-xs font-semibold ${aiLevel.color}`}
-                >
-                  <Award className="w-3 h-3 mr-1" />
-                  {aiLevel.emoji} {aiLevel.label} — {Math.round(score)}/100
-                </Badge>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div>
+                        <Badge
+                          variant="outline"
+                          className={`text-xs font-semibold cursor-help ${aiLevel.color}`}
+                        >
+                          <Award className="w-3 h-3 mr-1" />
+                          {aiLevel.emoji} {aiLevel.label}
+                        </Badge>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" className="max-w-xs text-xs z-[100]">
+                      <p>{descriptions[aiLevel.level]}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             );
           })()}
