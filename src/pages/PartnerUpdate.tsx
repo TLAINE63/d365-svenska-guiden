@@ -91,6 +91,11 @@ interface ProductFilter {
   customerExamples: string[];
   customerCaseLinks: string[];
   productDescription: string;
+  // AI capability fields
+  aiCapabilities: string[];
+  aiProjectCount: string;
+  hasBuiltAgents: boolean | null;
+  aiCaseDescription: string;
 }
 
 interface ProductFilters {
@@ -134,6 +139,10 @@ const emptyProductFilter: ProductFilter = {
   customerExamples: [],
   customerCaseLinks: [],
   productDescription: "",
+  aiCapabilities: [],
+  aiProjectCount: "",
+  hasBuiltAgents: null,
+  aiCaseDescription: "",
 };
 
 const PartnerUpdate = () => {
@@ -425,6 +434,10 @@ const PartnerUpdate = () => {
       swedenCities: existing.swedenCities || [],
       customerExamples: existing.customerExamples || [],
       customerCaseLinks: existing.customerCaseLinks || [],
+      aiCapabilities: existing.aiCapabilities || [],
+      aiProjectCount: existing.aiProjectCount || "",
+      hasBuiltAgents: existing.hasBuiltAgents ?? null,
+      aiCaseDescription: existing.aiCaseDescription || "",
     };
   };
 
@@ -1002,6 +1015,111 @@ const PartnerUpdate = () => {
                               );
                             })}
                           </div>
+                        </div>
+                        {/* AI Capabilities */}
+                        <div className="pt-4 border-t border-border">
+                          <Label className="text-sm font-semibold">Vilken typ av AI-lösningar har ni levererat inom denna applikation?</Label>
+                          <div className="mt-3 space-y-2">
+                            {[
+                              { value: "ai-assistant", label: "AI-assistent som hjälper användare i det dagliga arbetet", description: "ex: sammanfattningar, e-postförslag, guidning i systemet" },
+                              { value: "ai-automation", label: "AI som automatiserar prioritering eller beslut", description: "ex: lead scoring, ärenderouting, riskbedömning" },
+                              { value: "ai-prediction", label: "AI-driven prognostisering eller prediktion", description: "ex: försäljningsprognoser, efterfrågeplanering" },
+                              { value: "ai-agents", label: "Anpassade AI-assistenter eller agenter", description: "ex: skräddarsydda AI-flöden eller interna AI-verktyg" },
+                              { value: "ai-azure", label: "Avancerad AI-lösning byggd på Microsoft Azure", description: "" },
+                            ].map((option) => (
+                              <label
+                                key={option.value}
+                                className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                                  filter.aiCapabilities.includes(option.value)
+                                    ? 'border-primary bg-primary/5'
+                                    : 'border-border hover:border-primary/40'
+                                }`}
+                              >
+                                <Checkbox
+                                  checked={filter.aiCapabilities.includes(option.value)}
+                                  onCheckedChange={(checked) => {
+                                    const current = filter.aiCapabilities;
+                                    const updated = checked
+                                      ? [...current, option.value]
+                                      : current.filter(v => v !== option.value);
+                                    updateProductFilter(productKey, { aiCapabilities: updated });
+                                  }}
+                                  className="mt-0.5"
+                                />
+                                <div>
+                                  <span className="text-sm font-medium">{option.label}</span>
+                                  {option.description && (
+                                    <p className="text-xs text-muted-foreground mt-0.5">{option.description}</p>
+                                  )}
+                                </div>
+                              </label>
+                            ))}
+                          </div>
+
+                          {/* Conditional follow-up questions - only show if any AI capability is selected */}
+                          {filter.aiCapabilities.length > 0 && (
+                            <div className="mt-4 ml-2 pl-4 border-l-2 border-primary/30 space-y-4">
+                              {/* AI Project Count */}
+                              <div>
+                                <Label className="text-sm">Antal AI-relaterade projekt senaste 24 månader</Label>
+                                <div className="mt-2 flex flex-wrap gap-2">
+                                  {["0–2", "3–5", "6+"].map((option) => (
+                                    <button
+                                      key={option}
+                                      type="button"
+                                      onClick={() => updateProductFilter(productKey, { aiProjectCount: option })}
+                                      className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
+                                        filter.aiProjectCount === option
+                                          ? 'border-primary bg-primary text-primary-foreground'
+                                          : 'border-border hover:border-primary/50'
+                                      }`}
+                                    >
+                                      {option}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Has Built Agents */}
+                              <div>
+                                <Label className="text-sm">Har ni byggt egna AI-agenter eller Copilot-lösningar?</Label>
+                                <div className="mt-2 flex gap-2">
+                                  {[
+                                    { value: true, label: "Ja" },
+                                    { value: false, label: "Nej" },
+                                  ].map((option) => (
+                                    <button
+                                      key={String(option.value)}
+                                      type="button"
+                                      onClick={() => updateProductFilter(productKey, { hasBuiltAgents: option.value })}
+                                      className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
+                                        filter.hasBuiltAgents === option.value
+                                          ? 'border-primary bg-primary text-primary-foreground'
+                                          : 'border-border hover:border-primary/50'
+                                      }`}
+                                    >
+                                      {option.label}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* AI Case Description */}
+                              <div>
+                                <Label className="text-sm">Kort beskrivning av ett AI-case (max 200 tecken)</Label>
+                                <Input
+                                  placeholder="T.ex. 'Implementerade Copilot för att automatisera offertförslag inom tillverkningsindustrin'"
+                                  value={filter.aiCaseDescription}
+                                  maxLength={200}
+                                  onChange={(e) => updateProductFilter(productKey, { aiCaseDescription: e.target.value })}
+                                  className="mt-2"
+                                />
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  {filter.aiCaseDescription.length}/200 tecken
+                                </p>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
