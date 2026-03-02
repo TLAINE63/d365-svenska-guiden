@@ -29,11 +29,13 @@ import D365FieldService from './pages/D365FieldService';
 import D365ContactCenter from './pages/D365ContactCenter';
 import Events from './pages/Events';
 import QA from './pages/QA';
+import PartnerProfile from './pages/PartnerProfile';
 
 export interface PrerenderRoute {
   path: string;
   priority: string;
   changefreq: string;
+  meta?: { title: string; description: string };
 }
 
 export const routes: PrerenderRoute[] = [
@@ -97,6 +99,7 @@ export function render(url: string) {
             <Route path="/d365-contact-center" element={<D365ContactCenter />} />
             <Route path="/events" element={<Events />} />
             <Route path="/qa" element={<QA />} />
+            <Route path="/partner/:slug" element={<PartnerProfile />} />
           </Routes>
         </StaticRouter>
       </TooltipProvider>
@@ -114,4 +117,52 @@ export function render(url: string) {
       script: helmet.script.toString(),
     },
   };
+}
+
+/**
+ * Fetch dynamic partner routes from Supabase at build time.
+ * Called by the prerender plugin to discover /partner/:slug pages.
+ */
+export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
+  const supabaseUrl = process.env.VITE_SUPABASE_URL;
+  const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.warn('⚠️  Supabase env vars missing – skipping dynamic partner routes');
+    return [];
+  }
+
+  try {
+    const res = await fetch(
+      `${supabaseUrl}/rest/v1/partners_public?select=slug,name,description&is_featured=eq.true&order=name`,
+      {
+        headers: {
+          apikey: supabaseKey,
+          Authorization: `Bearer ${supabaseKey}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      console.warn(`⚠️  Failed to fetch partners: ${res.status}`);
+      return [];
+    }
+
+    const partners: { slug: string; name: string; description: string | null }[] = await res.json();
+
+    return partners.map((p) => ({
+      path: `/partner/${p.slug}`,
+      priority: '0.7',
+      changefreq: 'weekly',
+      meta: {
+        title: `${p.name} – Dynamics 365 Partner | d365.se`,
+        description:
+          p.description?.slice(0, 155) ||
+          `${p.name} är en Microsoft Dynamics 365-partner i Sverige. Läs mer om deras kompetenser och branschfokus.`,
+      },
+    }));
+  } catch (err: any) {
+    console.warn(`⚠️  getDynamicRoutes error: ${err.message}`);
+    return [];
+  }
 }
