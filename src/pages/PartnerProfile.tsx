@@ -26,6 +26,7 @@ import { usePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { calculateProductAiScore, calculateAiScore, getAiLevel, getAiLevel as getProductAiLevel } from "@/utils/aiScoring";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -394,6 +395,24 @@ const PartnerProfile = () => {
               </a>
             </div>
 
+            {/* Overall AI Score Badge */}
+            {(() => {
+              const score = calculateAiScore(partner.product_filters);
+              const aiLevel = getAiLevel(score);
+              if (aiLevel.level === "none") return null;
+              return (
+                <div className="mt-4">
+                  <Badge
+                    variant="outline"
+                    className={`text-sm font-semibold px-4 py-1.5 ${aiLevel.color} border-2`}
+                  >
+                    <Award className="w-4 h-4 mr-1.5" />
+                    {aiLevel.emoji} {aiLevel.label} — {Math.round(score)}/100
+                  </Badge>
+                </div>
+              );
+            })()}
+
             {/* Sales contact - separate row */}
             {dbPartner?.contactPerson && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
@@ -524,6 +543,24 @@ const PartnerProfile = () => {
                             </div>
                           )}
                         </div>
+
+                        {/* Per-product AI Score */}
+                        {(() => {
+                          const pf = partner.product_filters?.[category];
+                          if (!pf?.aiCapabilities || pf.aiCapabilities.length === 0) return null;
+                          const productScore = calculateProductAiScore(pf.aiCapabilities, pf.aiProjectCount, category);
+                          const productLevel = getAiLevel(productScore);
+                          if (productLevel.level === "none") return null;
+                          return (
+                            <Badge
+                              variant="outline"
+                              className={`text-xs font-semibold mb-3 self-start ${productLevel.color}`}
+                            >
+                              <Award className="w-3 h-3 mr-1" />
+                              AI Score: {Math.round(productScore)}/100
+                            </Badge>
+                          );
+                        })()}
                         
                         <div className="space-y-4">
                           {/* Primary industries */}

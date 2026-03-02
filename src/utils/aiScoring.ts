@@ -99,6 +99,11 @@ function getMaxRawScore(productKey: string): number {
   return maxPoints * 2;
 }
 
+// Calculate normalized AI score (0–100) for a single product key
+export function calculateProductAiScore(capabilities: string[] | undefined, projectCount: string | undefined, productKey: string): number {
+  return scoreProduct(capabilities || [], projectCount, productKey);
+}
+
 // Calculate AI score for a single product, normalized to 0–100
 function scoreProduct(capabilities: string[], projectCount: string | undefined, productKey: string): number {
   if (!capabilities || capabilities.length === 0) return 0;
