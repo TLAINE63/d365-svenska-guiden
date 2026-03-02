@@ -53,7 +53,7 @@ type ProfileId = "exploring" | "structurally_ready" | "scaling";
 type SystemTrack = "optimization" | "transformation" | "strategy";
 
 interface FoundationAnswers {
-  system: string;
+  system: string[];
   industry: string;
   headcount: string;
   repetitive: string;
@@ -101,10 +101,16 @@ interface IndexScores {
 
 // ─── SYSTEM TRACK LOGIC ─────────────────────────────────
 
-function getSystemTrack(system: string): SystemTrack {
-  if (system === "Dynamics 365") return "optimization";
-  if (system === "Oklart / blandat") return "strategy";
+function getSystemTrack(system: string | string[]): SystemTrack {
+  const systems = Array.isArray(system) ? system : [system];
+  if (systems.includes("Microsoft Dynamics 365")) return "optimization";
+  if (systems.length === 1 && systems[0] === "Vet ej - oklart") return "strategy";
+  if (systems.length === 0) return "strategy";
   return "transformation";
+}
+
+function systemDisplayString(system: string[]): string {
+  return system.length > 0 ? system.join(", ") : "Ej angiven";
 }
 
 const systemTrackData: Record<SystemTrack, { label: string; emoji: string; color: string; description: string; recommendation: string }> = {
@@ -169,6 +175,7 @@ interface FoundationQuestion {
   question: string;
   index: IndexId | null;
   options: { label: string; score: number }[];
+  multiSelect?: boolean;
 }
 
 const foundationQuestions: FoundationQuestion[] = [
@@ -176,11 +183,13 @@ const foundationQuestions: FoundationQuestion[] = [
     id: "system",
     question: "Vilket/vilka CRM- och ERP/Affärssystem använder ni idag?",
     index: null,
+    multiSelect: true,
     options: [
-      { label: "Dynamics 365", score: 3 },
-      { label: "Annat ERP/CRM", score: 2 },
-      { label: "Flera system", score: 1 },
-      { label: "Oklart / blandat", score: 0 },
+      { label: "Microsoft Dynamics 365", score: 3 },
+      { label: "Annat ERP/Affärssystem", score: 2 },
+      { label: "Annat CRM-system", score: 2 },
+      { label: "Annat Kundtjänst/Ärendehanteringssystem", score: 1 },
+      { label: "Vet ej - oklart", score: 0 },
     ],
   },
   {
@@ -636,12 +645,13 @@ interface PartnerSuggestion {
 
 function getPartnerSuggestions(
   role: RoleId,
-  system: string,
+  system: string | string[],
   profile: ProfileId,
   industry: string
 ): PartnerSuggestion[] {
   const suggestions: PartnerSuggestion[] = [];
-  const hasDynamics = system === "Dynamics 365";
+  const systems = Array.isArray(system) ? system : [system];
+  const hasDynamics = systems.includes("Microsoft Dynamics 365");
 
   const rolePartnerMap: Record<RoleId, { icon: string; type: string; desc: string }> = {
     it: { icon: "🏗️", type: "Integrations- och arkitekturfokus", desc: "Partner med erfarenhet av systemlandskap, API-strategi och dataarkitektur" },
@@ -697,8 +707,9 @@ function getPartnerSuggestions(
 
 interface RoadmapQuarter { text: string; d365Note?: string }
 
-function generateRoadmap(role: RoleId, profile: ProfileId, system: string): { q1: RoadmapQuarter; q2: RoadmapQuarter; q3: RoadmapQuarter; q4: RoadmapQuarter } {
-  const hasDynamics = system === "Dynamics 365";
+function generateRoadmap(role: RoleId, profile: ProfileId, system: string | string[]): { q1: RoadmapQuarter; q2: RoadmapQuarter; q3: RoadmapQuarter; q4: RoadmapQuarter } {
+  const systems = Array.isArray(system) ? system : [system];
+  const hasDynamics = systems.includes("Microsoft Dynamics 365");
 
   const d365RoleApp: Record<RoleId, string> = {
     it: "Dynamics 365 och Power Platform",
@@ -806,7 +817,7 @@ const AIReadiness = () => {
   const [step, setStep] = useState<Step>("intro");
   const [foundationStep, setFoundationStep] = useState(0);
   const [foundationAnswers, setFoundationAnswers] = useState<FoundationAnswers>({
-    system: "",
+    system: [],
     industry: "",
     headcount: "",
     repetitive: "",
@@ -841,20 +852,50 @@ const AIReadiness = () => {
 
   // ─── Foundation handlers ─────────────────────────────
   const handleFoundationAnswer = (label: string) => {
-    const key = foundationQuestions[foundationStep].id;
+    const fq = foundationQuestions[foundationStep];
+    const key = fq.id;
+
+    if (fq.multiSelect && key === "system") {
+      const current = foundationAnswers.system;
+      const vetEj = "Vet ej - oklart";
+      let next: string[];
+
+      if (label === vetEj) {
+        // "Vet ej" deselects everything else
+        next = current.includes(vetEj) ? [] : [vetEj];
+      } else {
+        // Toggle the label, remove "Vet ej" if present
+        const withoutVetEj = current.filter((s) => s !== vetEj);
+        next = withoutVetEj.includes(label)
+          ? withoutVetEj.filter((s) => s !== label)
+          : [...withoutVetEj, label];
+      }
+
+      setFoundationAnswers({ ...foundationAnswers, system: next });
+      return; // Don't auto-advance; user clicks "Nästa"
+    }
+
     setFoundationAnswers({ ...foundationAnswers, [key]: label });
 
     setTimeout(() => {
       if (foundationStep === 2) {
-        // After headcount (question 3), go to role selection
         setStep("role_select");
       } else if (foundationStep < foundationCount - 1) {
         setFoundationStep(foundationStep + 1);
       } else {
-        // After all foundation questions, go to role-specific questions
         setStep("role_questions");
       }
     }, 300);
+  };
+
+  const advanceFromMultiSelect = () => {
+    if (foundationStep === 2) {
+      setStep("role_select");
+    } else if (foundationStep < foundationCount - 1) {
+      setFoundationStep(foundationStep + 1);
+    } else {
+      setStep("role_questions");
+    }
   };
 
   const handleRoleSelect = (roleId: RoleId) => {
@@ -916,7 +957,7 @@ const AIReadiness = () => {
           company_name: reportForm.company,
           email: reportForm.email,
           phone: "",
-          message: `AI Impact Assessment – Roll: ${track!.label}, Bransch: ${foundationAnswers.industry || "Ej angiven"}, System: ${foundationAnswers.system}`,
+          message: `AI Impact Assessment – Roll: ${track!.label}, Bransch: ${foundationAnswers.industry || "Ej angiven"}, System: ${systemDisplayString(foundationAnswers.system)}`,
           source_type: "ai_readiness",
           source_page: "/ai-readiness",
           selected_product: `AI Assessment – ${track!.label}`,
@@ -1180,7 +1221,7 @@ const AIReadiness = () => {
       ["Roll", track!.label],
       ["Bransch", foundationAnswers.industry || "Ej angiven"],
       ["Storlek", foundationAnswers.headcount],
-      ["System", foundationAnswers.system],
+      ["System", systemDisplayString(foundationAnswers.system)],
       ["Systemspar", sysData.label],
     ];
     summaryPairs.forEach(([label, value]) => {
@@ -1474,7 +1515,7 @@ const AIReadiness = () => {
   const resetAll = () => {
     setStep("intro");
     setFoundationStep(0);
-    setFoundationAnswers({ system: "", industry: "", headcount: "", repetitive: "", gut_decisions: "", decision_time: "", anomaly_speed: "" });
+    setFoundationAnswers({ system: [], industry: "", headcount: "", repetitive: "", gut_decisions: "", decision_time: "", anomaly_speed: "" });
     setSelectedRole(null);
     setRoleQuestionIdx(0);
     setRoleAnswers({});
@@ -1612,20 +1653,47 @@ const AIReadiness = () => {
                 <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
                   {foundationQuestions[foundationStep].question}
                 </h2>
-                <div className={`grid gap-3 ${isIndustryStep ? "grid-cols-1 sm:grid-cols-2" : ""}`}>
-                  {foundationQuestions[foundationStep].options.map((opt) => {
-                    const isSelected = foundationAnswers[foundationQuestions[foundationStep].id] === opt.label;
-                    return (
-                      <SelectionCard
-                        key={opt.label}
-                        label={opt.label}
-                        selected={isSelected}
-                        onClick={() => handleFoundationAnswer(opt.label)}
-                        type="radio"
-                      />
-                    );
-                  })}
-                </div>
+                {foundationQuestions[foundationStep].multiSelect && foundationQuestions[foundationStep].id === "system" ? (
+                  <>
+                    <p className="text-sm text-muted-foreground mb-4">Du kan välja flera alternativ.</p>
+                    <div className="grid gap-3">
+                      {foundationQuestions[foundationStep].options.map((opt) => {
+                        const isSelected = foundationAnswers.system.includes(opt.label);
+                        return (
+                          <SelectionCard
+                            key={opt.label}
+                            label={opt.label}
+                            selected={isSelected}
+                            onClick={() => handleFoundationAnswer(opt.label)}
+                            type="checkbox"
+                          />
+                        );
+                      })}
+                    </div>
+                    <button
+                      disabled={foundationAnswers.system.length === 0}
+                      onClick={advanceFromMultiSelect}
+                      className="mt-6 w-full py-3 rounded-lg font-semibold text-sm transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      Nästa →
+                    </button>
+                  </>
+                ) : (
+                  <div className={`grid gap-3 ${isIndustryStep ? "grid-cols-1 sm:grid-cols-2" : ""}`}>
+                    {foundationQuestions[foundationStep].options.map((opt) => {
+                      const isSelected = foundationAnswers[foundationQuestions[foundationStep].id] === opt.label;
+                      return (
+                        <SelectionCard
+                          key={opt.label}
+                          label={opt.label}
+                          selected={isSelected}
+                          onClick={() => handleFoundationAnswer(opt.label)}
+                          type="radio"
+                        />
+                      );
+                    })}
+                  </div>
+                )}
               </>
             )}
 
@@ -1818,7 +1886,7 @@ const AIReadiness = () => {
               {track!.aiResults.map((ar, i) => {
                 const effect = getEffectLevel(scores, i);
                 const badge = getEffectBadge(effect);
-                const showD365Context = foundationAnswers.system === "Dynamics 365" || profile === "scaling";
+                const showD365Context = foundationAnswers.system.includes("Microsoft Dynamics 365") || profile === "scaling";
                 return (
                   <div key={ar.label} className="px-3 py-3 rounded-lg bg-muted/30 border border-border/50 mb-3">
                     <div className="flex items-start justify-between gap-4">
