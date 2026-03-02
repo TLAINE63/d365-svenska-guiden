@@ -1272,7 +1272,7 @@ const PartnerUpdate = () => {
                         <div className="space-y-1">
                           <Label className="text-xs">Appnamn *</Label>
                           <Input
-                            placeholder="T.ex. Continia Document Capture"
+                            placeholder="T.ex. AppCloud Expense Management"
                             value={app.name}
                             onChange={(e) => {
                               const updated = [...industryApps];
