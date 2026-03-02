@@ -606,7 +606,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
         )}
 
         {/* AI interest step – auto-submits on click */}
-        {getContentStep(step) === 'ai' && (
+        {getContentStep(step) === 'ai' && !isResultStep && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Hur viktigt är AI i ert val av partner?</h3>
             <p className="text-sm text-muted-foreground">
