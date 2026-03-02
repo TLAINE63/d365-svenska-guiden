@@ -728,7 +728,7 @@ const AIOverview = () => {
                 Är ni redo för AI?
               </h2>
               <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-                Gör vårt AI Readiness Assessment – 13 frågor, 2 minuter – och få en personlig rekommendation för hur ni tar nästa steg med Copilot och agenter.
+                Gör vårt AI Readiness Assessment – 12 frågor, 3 minuter – och få en personlig rekommendation för hur ni tar nästa steg med Copilot och agenter.
               </p>
               <Link
                 to="/ai-readiness"
