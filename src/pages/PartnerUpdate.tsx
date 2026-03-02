@@ -1021,7 +1021,7 @@ const PartnerUpdate = () => {
                           <Label className="text-sm font-semibold">Vilken typ av AI-lösningar har ni levererat inom denna applikation?</Label>
                           <div className="mt-3 space-y-2">
                             {(productKey === 'bc' ? [
-                              { value: "bc-copilot", label: "Microsoft Copilot eller färdig AI-funktion i Business Central", description: "ex: orderförslag, användarstöd, analys" },
+                              { value: "bc-copilot", label: "Microsoft Copilot eller färdig AI-funktion (Agents) i Business Central", description: "ex: orderförslag, användarstöd, analys" },
                               { value: "bc-agent", label: "Anpassad AI-agent byggd ovanpå Business Central", description: "ex: egenutvecklad orderagent eller AI-flöde" },
                               { value: "bc-azure", label: "Avancerad AI-lösning integrerad med Business Central", description: "ex: Azure-baserad AI-modell" },
                             ] : [
