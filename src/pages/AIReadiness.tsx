@@ -828,10 +828,12 @@ const AIReadiness = () => {
   const track = selectedRole ? roleTracks.find((t) => t.id === selectedRole)! : null;
 
   const foundationCount = foundationQuestions.length;
-  const totalSteps = foundationCount + 1 + 5;
+  // Flow: foundation(0-2) → role_select → foundation(3-6) → role_questions(5) → result
+  const totalSteps = foundationCount + 1 + 5; // 7 foundation + 1 role_select + 5 role questions = 13
   const currentProgress =
-    step === "foundation" ? foundationStep + 1
-    : step === "role_select" ? foundationCount + 1
+    step === "foundation" && foundationStep <= 2 ? foundationStep + 1
+    : step === "role_select" ? 4
+    : step === "foundation" && foundationStep >= 3 ? 4 + (foundationStep - 2) // steps 5-8
     : step === "role_questions" ? foundationCount + 1 + roleQuestionIdx + 1
     : step === "result" ? totalSteps
     : 0;
@@ -843,10 +845,14 @@ const AIReadiness = () => {
     setFoundationAnswers({ ...foundationAnswers, [key]: label });
 
     setTimeout(() => {
-      if (foundationStep < foundationCount - 1) {
+      if (foundationStep === 2) {
+        // After headcount (question 3), go to role selection
+        setStep("role_select");
+      } else if (foundationStep < foundationCount - 1) {
         setFoundationStep(foundationStep + 1);
       } else {
-        setStep("role_select");
+        // After all foundation questions, go to role-specific questions
+        setStep("role_questions");
       }
     }, 300);
   };
@@ -856,7 +862,11 @@ const AIReadiness = () => {
     setRoleQuestionIdx(0);
     setRoleAnswers({});
     setRoleScores({});
-    setTimeout(() => setStep("role_questions"), 300);
+    // After role selection, continue with foundation questions from step 3
+    setTimeout(() => {
+      setFoundationStep(3);
+      setStep("foundation");
+    }, 300);
   };
 
   const handleRoleAnswer = (label: string, score: number) => {
@@ -877,9 +887,15 @@ const AIReadiness = () => {
     if (step === "role_questions" && roleQuestionIdx > 0) {
       setRoleQuestionIdx(roleQuestionIdx - 1);
     } else if (step === "role_questions" && roleQuestionIdx === 0) {
+      // Go back to last foundation question
+      setFoundationStep(foundationCount - 1);
+      setStep("foundation");
+    } else if (step === "foundation" && foundationStep === 3) {
+      // Going back from first AI-mapping question → role_select
       setStep("role_select");
     } else if (step === "role_select") {
-      setFoundationStep(foundationCount - 1);
+      // Going back from role_select → headcount (step 2)
+      setFoundationStep(2);
       setStep("foundation");
     } else if (step === "foundation" && foundationStep > 0) {
       setFoundationStep(foundationStep - 1);
@@ -1558,7 +1574,7 @@ const AIReadiness = () => {
   if (step === "foundation" || step === "role_select" || step === "role_questions") {
     const isIndustryStep = step === "foundation" && foundationQuestions[foundationStep].id === "industry";
 
-    // Determine which section label
+    // Determine which section label - Flow: Grundval(1) → Välj roll(2) → AI-kartläggning(3) → Rollfrågor(4)
     const isAiMapping = step === "foundation" && foundationStep >= 3;
     const sectionLabel = isAiMapping
       ? "AI-kartläggning"
@@ -1568,7 +1584,7 @@ const AIReadiness = () => {
           ? "Välj roll"
           : track!.label;
 
-    const sectionNumber = isAiMapping ? 2 : step === "foundation" ? 1 : step === "role_select" ? 3 : 3;
+    const sectionNumber = isAiMapping ? 3 : step === "foundation" ? 1 : step === "role_select" ? 2 : 4;
 
     return (
       <div className="min-h-screen bg-background">
@@ -1617,7 +1633,7 @@ const AIReadiness = () => {
               <>
                 <div className="mb-6 flex items-center gap-2">
                   <span className="text-2xl">🔹</span>
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Steg 3 – Välj roll</span>
+                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Steg 2 – Välj roll</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Jag arbetar inom:</h2>
                 <p className="text-sm text-muted-foreground mb-6">Härifrån anpassas analysen efter din roll med AI-spetsade frågor.</p>
