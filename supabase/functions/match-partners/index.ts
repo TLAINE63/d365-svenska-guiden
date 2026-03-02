@@ -28,6 +28,7 @@ interface UserCriteria {
   companySize: string;
   workload?: string; // CRM workload focus
   preferCrmOnly?: boolean; // For CRM apps: prefer partners without ERP products
+  aiInterest?: 'high' | 'medium' | 'none'; // User's interest in AI capabilities
 }
 
 interface PartnerMatch {
@@ -84,17 +85,19 @@ KUNDPROFIL:
 - Applikation: ${criteria.application}
 - Bransch: ${criteria.industry || 'Ej specificerat'}
 - Geografi: ${criteria.geography || 'Ej specificerat'}
-- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
+- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.aiInterest && criteria.aiInterest !== 'none' ? `\n- AI-intresse: ${criteria.aiInterest === 'high' ? 'Högt – kunden vill ha en partner med stark kompetens inom Microsoft Copilot, AI-agenter, Copilot Studio och/eller Azure AI Foundry' : 'Medelhögt – kunden är intresserad men det är inte avgörande'}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
 
 PARTNERS ATT UTVÄRDERA:
 ${partnerSummaries}
 
 INSTRUKTIONER:
 1. Ge varje partner ett matchningspoäng 0-100 baserat på:
-   - Hur väl deras beskrivning och erbjudande matchar den valda applikationen och workload (40%)
-   - Branscherfarenhet (30%)
-   - Geografi och storlek (20%)
-   - Kundexempel och referensers relevans (10%)
+   - Hur väl deras beskrivning och erbjudande matchar den valda applikationen och workload (${criteria.aiInterest === 'high' ? '30%' : '40%'})
+   - Branscherfarenhet (${criteria.aiInterest === 'high' ? '25%' : '30%'})
+   - Geografi och storlek (${criteria.aiInterest === 'high' ? '15%' : '20%'})
+   - Kundexempel och referensers relevans (10%)${criteria.aiInterest === 'high' ? `
+   - AI-kompetens (20%): Bedöm hur väl partnern verkar erbjuda Microsoft AI-lösningar (Copilot, AI-agenter, Copilot Studio, Azure AI Foundry). Leta efter omnämnanden av AI, Copilot, agenter, automation och intelligent beslutsfattande i deras beskrivningar. Partners som tydligt lyfter AI-erbjudanden ska premieras.` : criteria.aiInterest === 'medium' ? `
+   - AI-kompetens (bonuspoäng, ej obligatoriskt): Om partnern nämner AI, Copilot, agenter eller Copilot Studio, ge upp till 10 bonus-poäng.` : ''}
 ${criteria.preferCrmOnly ? `
 2. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
 ` : ''}
