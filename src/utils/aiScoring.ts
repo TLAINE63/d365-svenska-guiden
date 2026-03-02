@@ -85,9 +85,22 @@ function getTier(cap: string): string {
   return CAPABILITY_TIER[cap] || AI_TIERS.STANDARD;
 }
 
-// Calculate AI score for a single product
-// Each selected capability scores individually (not deduplicated)
-function scoreProduct(capabilities: string[], projectCount?: string): number {
+// Calculate max possible raw score for a product key
+function getMaxRawScore(productKey: string): number {
+  const options = getAiOptionsForProduct(productKey);
+  let maxPoints = 0;
+  for (const group of options) {
+    for (const opt of group.options) {
+      const tier = getTier(opt.value);
+      maxPoints += TIER_POINTS[tier] || 0;
+    }
+  }
+  // Max multiplier is 2 (6+ projects)
+  return maxPoints * 2;
+}
+
+// Calculate AI score for a single product, normalized to 0–100
+function scoreProduct(capabilities: string[], projectCount: string | undefined, productKey: string): number {
   if (!capabilities || capabilities.length === 0) return 0;
 
   let basePoints = 0;
@@ -96,10 +109,14 @@ function scoreProduct(capabilities: string[], projectCount?: string): number {
     basePoints += TIER_POINTS[tier] || 0;
   }
 
-  return basePoints * getProjectMultiplier(projectCount);
+  const raw = basePoints * getProjectMultiplier(projectCount);
+  const max = getMaxRawScore(productKey);
+  if (max === 0) return 0;
+
+  return (raw / max) * 100;
 }
 
-// Calculate total AI score across all products (average per active product)
+// Calculate total AI score across all products (average of normalized scores, 0–100)
 export function calculateAiScore(productFilters?: ProductFilters): number {
   if (!productFilters) return 0;
 
@@ -109,7 +126,7 @@ export function calculateAiScore(productFilters?: ProductFilters): number {
   for (const key of products) {
     const pf = productFilters[key];
     if (pf?.aiCapabilities && pf.aiCapabilities.length > 0) {
-      scores.push(scoreProduct(pf.aiCapabilities, pf.aiProjectCount));
+      scores.push(scoreProduct(pf.aiCapabilities, pf.aiProjectCount, key));
     }
   }
 
@@ -131,15 +148,15 @@ export interface AiLevelInfo {
 }
 
 export function getAiLevel(score: number): AiLevelInfo {
-  if (score >= 26) return {
+  if (score >= 60) return {
     level: "transformation", label: "AI Transformation Partner", emoji: "🟣",
     color: "border-purple-500/40 text-purple-700 bg-purple-50 dark:text-purple-400 dark:bg-purple-950/30", score,
   };
-  if (score >= 16) return {
+  if (score >= 35) return {
     level: "advanced", label: "AI Advanced", emoji: "🔴",
     color: "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30", score,
   };
-  if (score >= 6) return {
+  if (score >= 15) return {
     level: "integration", label: "AI Integration Partner", emoji: "🟠",
     color: "border-orange-500/40 text-orange-700 bg-orange-50 dark:text-orange-400 dark:bg-orange-950/30", score,
   };
