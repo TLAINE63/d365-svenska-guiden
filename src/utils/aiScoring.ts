@@ -50,6 +50,19 @@ const CAPABILITY_TIER: Record<string, string> = {
   "sales-adv-predictive": AI_TIERS.ADVANCED,
   "sales-adv-personalization": AI_TIERS.ADVANCED,
   "sales-adv-analytics": AI_TIERS.ADVANCED,
+  // Service Standard (🟢)
+  "svc-std-copilot": AI_TIERS.STANDARD,
+  "svc-std-routing": AI_TIERS.STANDARD,
+  "svc-std-fieldservice": AI_TIERS.STANDARD,
+  "svc-std-contactcenter": AI_TIERS.STANDARD,
+  // Service Partner-built (🟡)
+  "svc-partner-agent": AI_TIERS.PARTNER,
+  "svc-partner-fieldservice": AI_TIERS.PARTNER,
+  "svc-partner-automation": AI_TIERS.PARTNER,
+  // Service Advanced (🔴)
+  "svc-adv-predictive": AI_TIERS.ADVANCED,
+  "svc-adv-chatbot": AI_TIERS.ADVANCED,
+  "svc-adv-analytics": AI_TIERS.ADVANCED,
 };
 
 // Points per tier
@@ -175,6 +188,19 @@ export const AI_TIER_LABELS: Record<string, string> = {
   "sales-adv-predictive": "Prediktiv modell (försäljning/churn)",
   "sales-adv-personalization": "Personalisering & rekommendation",
   "sales-adv-analytics": "Avancerad kundanalys (Azure)",
+  // Service Standard
+  "svc-std-copilot": "AI-assistent för handläggare",
+  "svc-std-routing": "Ärenderouting & prioritering",
+  "svc-std-fieldservice": "Field Service-optimering",
+  "svc-std-contactcenter": "Contact Center AI",
+  // Service Partner
+  "svc-partner-agent": "AI-agent för kundservice",
+  "svc-partner-fieldservice": "AI-agent för Field Service",
+  "svc-partner-automation": "AI-automatisering service",
+  // Service Advanced
+  "svc-adv-predictive": "Prediktivt underhåll",
+  "svc-adv-chatbot": "Avancerad AI-chattbot",
+  "svc-adv-analytics": "Analysmodell kundbeteende",
 };
 
 // Badge styles per capability
@@ -191,6 +217,10 @@ export const AI_TIER_BADGE_STYLES: Record<string, string> = {
   "sales-std-scoring": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
   "sales-std-forecast": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
   "sales-std-segmentation": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "svc-std-copilot": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "svc-std-routing": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "svc-std-fieldservice": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "svc-std-contactcenter": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
   // Yellow tier
   [AI_TIERS.PARTNER]: "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   "bc-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
@@ -203,6 +233,9 @@ export const AI_TIER_BADGE_STYLES: Record<string, string> = {
   "sales-partner-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   "sales-partner-marketing": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   "sales-partner-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
+  "svc-partner-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
+  "svc-partner-fieldservice": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
+  "svc-partner-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
   // Red tier
   [AI_TIERS.ADVANCED]: "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
   "bc-azure": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
@@ -213,6 +246,9 @@ export const AI_TIER_BADGE_STYLES: Record<string, string> = {
   "sales-adv-predictive": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
   "sales-adv-personalization": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
   "sales-adv-analytics": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
+  "svc-adv-predictive": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
+  "svc-adv-chatbot": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
+  "svc-adv-analytics": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
 };
 
 // Emoji per capability
@@ -309,7 +345,42 @@ export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
   },
 ];
 
-// Generic options (for BC, Service - until they get their own)
+// Service-specific options
+export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
+  {
+    tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
+    emoji: "🟢",
+    pointsLabel: "1 poäng styck",
+    options: [
+      { value: "svc-std-copilot", label: "AI-assistent för handläggare eller agenter", description: "t.ex. sammanfattar ärenden, föreslår svar, guidar i realtid – Customer Service Copilot" },
+      { value: "svc-std-routing", label: "AI-driven ärenderouting eller prioritering", description: "automatiskt skickar ärenden till rätt kö eller agent" },
+      { value: "svc-std-fieldservice", label: "AI-baserad schemaläggning och optimering i Field Service", description: "intelligent planering av tekniker och besök" },
+      { value: "svc-std-contactcenter", label: "Realtidsstöd i Contact Center", description: "förslag på svar, sammanfattning av samtal, sentiment-analys" },
+    ],
+  },
+  {
+    tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
+    emoji: "🟡",
+    pointsLabel: "4 poäng styck",
+    options: [
+      { value: "svc-partner-agent", label: "Anpassad AI-agent för kundserviceprocesser", description: "t.ex. intern AI-assistent för specialiserade flöden" },
+      { value: "svc-partner-fieldservice", label: "Anpassad AI-agent för Field Service eller teknikerstöd", description: "" },
+      { value: "svc-partner-automation", label: "AI-baserade automatiseringar ovanpå serviceprocesser", description: "t.ex. intelligent eskalering, SLA-stöd, kvalitetskontroll" },
+    ],
+  },
+  {
+    tierLabel: "AVANCERAD AI (Azure AI / Foundry / Custom ML)",
+    emoji: "🔴",
+    pointsLabel: "7 poäng styck",
+    options: [
+      { value: "svc-adv-predictive", label: "Prediktivt underhåll baserat på egna AI-modeller", description: "t.ex. analys av IoT-data för att förebygga fel" },
+      { value: "svc-adv-chatbot", label: "Avancerad AI-baserad röst- eller chattbot", description: "byggd med Azure AI, ej enbart standard Copilot" },
+      { value: "svc-adv-analytics", label: "Egenutvecklad analysmodell för kundbeteende eller serviceoptimering", description: "" },
+    ],
+  },
+];
+
+// Generic options (for BC - until it gets its own)
 export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
@@ -342,6 +413,7 @@ export function getAiOptionsForProduct(productKey: string): AiFormTierGroup[] {
   switch (productKey) {
     case 'fsc': return FSC_AI_OPTIONS;
     case 'sales': return SALES_AI_OPTIONS;
+    case 'service': return SERVICE_AI_OPTIONS;
     default: return GENERIC_AI_OPTIONS;
   }
 }
