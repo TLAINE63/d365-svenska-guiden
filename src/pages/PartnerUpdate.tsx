@@ -1020,13 +1020,17 @@ const PartnerUpdate = () => {
                         <div className="pt-4 border-t border-border">
                           <Label className="text-sm font-semibold">Vilken typ av AI-lösningar har ni levererat inom denna applikation?</Label>
                           <div className="mt-3 space-y-2">
-                            {[
+                            {(productKey === 'bc' ? [
+                              { value: "bc-copilot", label: "Microsoft Copilot eller färdig AI-funktion i Business Central", description: "ex: orderförslag, användarstöd, analys" },
+                              { value: "bc-agent", label: "Anpassad AI-agent byggd ovanpå Business Central", description: "ex: egenutvecklad orderagent eller AI-flöde" },
+                              { value: "bc-azure", label: "Avancerad AI-lösning integrerad med Business Central", description: "ex: Azure-baserad AI-modell" },
+                            ] : [
                               { value: "ai-assistant", label: "AI-assistent som hjälper användare i det dagliga arbetet", description: "ex: sammanfattningar, e-postförslag, guidning i systemet" },
                               { value: "ai-automation", label: "AI som automatiserar prioritering eller beslut", description: "ex: lead scoring, ärenderouting, riskbedömning" },
                               { value: "ai-prediction", label: "AI-driven prognostisering eller prediktion", description: "ex: försäljningsprognoser, efterfrågeplanering" },
                               { value: "ai-agents", label: "Anpassade AI-assistenter eller agenter", description: "ex: skräddarsydda AI-flöden eller interna AI-verktyg" },
                               { value: "ai-azure", label: "Avancerad AI-lösning byggd på Microsoft Azure", description: "" },
-                            ].map((option) => (
+                            ]).map((option) => (
                               <label
                                 key={option.value}
                                 className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${

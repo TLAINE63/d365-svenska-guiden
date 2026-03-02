@@ -79,6 +79,17 @@ const aiCapabilityLabels: Record<string, string> = {
   "ai-prediction": "Prediktiv analys & prognoser",
   "ai-agents": "Anpassade AI-agenter",
   "ai-azure": "Azure AI-lösningar",
+  // BC-specific
+  "bc-copilot": "Microsoft Standard",
+  "bc-agent": "Partner-byggd agent",
+  "bc-azure": "Custom Azure AI",
+};
+
+// Color-coded badge styles for BC AI tiers
+const aiCapabilityBadgeStyles: Record<string, string> = {
+  "bc-copilot": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "bc-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
+  "bc-azure": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
 };
 
 // Product key to Swedish label for AI section header
@@ -390,8 +401,9 @@ const PartnerCard = ({
                   <Badge
                     key={cap}
                     variant="outline"
-                    className="text-xs border-primary/30 text-primary bg-primary/5 font-medium"
+                    className={`text-xs font-medium ${aiCapabilityBadgeStyles[cap] || "border-primary/30 text-primary bg-primary/5"}`}
                   >
+                    {cap.startsWith("bc-") && (cap === "bc-copilot" ? "🟢 " : cap === "bc-agent" ? "🟡 " : "🔴 ")}
                     {aiCapabilityLabels[cap] || cap}
                   </Badge>
                 ))}
