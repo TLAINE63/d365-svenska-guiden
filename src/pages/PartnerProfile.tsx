@@ -186,9 +186,11 @@ const PartnerProfile = () => {
       const normalized = geoArray.map(geo => 
         geo === "Internationellt" ? "Övriga världen" : geo
       );
-      // Filter to only valid values, remove duplicates, and sort by defined order
-      const uniqueValid = [...new Set(normalized.filter(geo => geographyOrder.includes(geo)))];
-      return uniqueValid.sort((a, b) => geographyOrder.indexOf(a) - geographyOrder.indexOf(b));
+      // Find the broadest geography level and include all levels up to it
+      const maxIndex = Math.max(...normalized.map(geo => geographyOrder.indexOf(geo)).filter(i => i >= 0));
+      if (maxIndex < 0) return [];
+      // Return all levels from Sverige up to the broadest selected
+      return geographyOrder.slice(0, maxIndex + 1);
     };
     
     // Check database partner's product_filters first
