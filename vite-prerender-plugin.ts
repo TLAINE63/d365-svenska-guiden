@@ -1,5 +1,5 @@
 import type { Plugin } from 'vite';
-import { build } from 'vite';
+import { build, loadEnv } from 'vite';
 import { resolve, join } from 'path';
 import { readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, existsSync } from 'fs';
 import { pathToFileURL } from 'url';
@@ -52,7 +52,11 @@ export default function prerenderPlugin(): Plugin {
       console.log('\n🔄 Prerendering routes...\n');
 
       try {
-        // ── 1. Polyfill browser globals for SSR ──────────────────────────
+        // ── 1. Load environment variables for dynamic route fetching ─────
+        const env = loadEnv('production', root, '');
+        Object.assign(process.env, env);
+
+        // ── 1b. Polyfill browser globals for SSR ─────────────────────────
         setupBrowserGlobals();
 
         // ── 2. Build the SSR bundle (completely isolated) ────────────────
@@ -78,11 +82,23 @@ export default function prerenderPlugin(): Plugin {
         // ── 3. Import the built SSR module ───────────────────────────────
         const modulePath = pathToFileURL(resolve(tempDir, 'entry-server.js')).href;
         const mod = await import(modulePath);
-        const { render, routes } = mod;
+        const { render, routes, getDynamicRoutes } = mod;
 
         if (!render || !routes) {
           console.error('❌ Prerender: entry-server.js missing render() or routes export');
           return;
+        }
+
+        // ── 3b. Fetch dynamic routes (partner profiles etc.) ─────────────
+        let allRoutes = [...routes];
+        if (typeof getDynamicRoutes === 'function') {
+          try {
+            const dynamicRoutes = await getDynamicRoutes();
+            console.log(`  📦 Found ${dynamicRoutes.length} dynamic partner routes`);
+            allRoutes = [...routes, ...dynamicRoutes];
+          } catch (err: any) {
+            console.warn(`  ⚠️  Dynamic routes failed: ${err.message}`);
+          }
         }
 
         // ── 4. Read the client-built index.html as template ──────────────
@@ -110,7 +126,7 @@ export default function prerenderPlugin(): Plugin {
         let successCount = 0;
 
         // ── 6. Render each route ─────────────────────────────────────────
-        for (const route of routes) {
+        for (const route of allRoutes) {
           try {
             const { html: appHtml, head } = render(route.path);
 
@@ -137,9 +153,24 @@ export default function prerenderPlugin(): Plugin {
             }
 
             // Inject route-specific head tags from react-helmet
-            const headTags = [head.title, head.meta, head.link, head.script]
+            let headTags = [head.title, head.meta, head.link, head.script]
               .filter(Boolean)
               .join('\n    ');
+
+            // For dynamic routes with custom meta (e.g. partner profiles),
+            // inject the meta directly if Helmet didn't produce useful tags
+            if (route.meta && (!head.title || head.title.includes('d365.se</title>') && !head.title.includes(route.meta.title))) {
+              const customHead = [
+                `<title>${route.meta.title}</title>`,
+                `<meta name="description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
+                `<link rel="canonical" href="https://d365.se${route.path}" />`,
+                `<meta property="og:title" content="${route.meta.title}" />`,
+                `<meta property="og:description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
+                `<meta property="og:url" content="https://d365.se${route.path}" />`,
+                `<meta property="og:type" content="website" />`,
+              ].join('\n    ');
+              headTags = customHead;
+            }
 
             if (headTags) {
               page = page.replace('</head>', `    ${headTags}\n  </head>`);
@@ -199,7 +230,7 @@ export default function prerenderPlugin(): Plugin {
           console.log('  ✅ sitemap.xml');
         }
 
-        console.log(`\n✅ Prerendering complete – ${successCount}/${routes.length} routes\n`);
+        console.log(`\n✅ Prerendering complete – ${successCount}/${allRoutes.length} routes\n`);
       } catch (err: any) {
         console.error('❌ Prerender failed:', err.message || err);
         // Don't throw - let the build succeed even if prerendering fails
