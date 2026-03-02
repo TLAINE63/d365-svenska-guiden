@@ -17,6 +17,10 @@ interface PartnerInput {
     ranking?: number;
     productDescription?: string;
     customerExamples?: string[];
+    aiCapabilities?: string[];
+    aiProjectCount?: string;
+    aiCaseDescription?: string;
+    aiBusinessImpact?: string;
   }>;
 }
 
@@ -66,13 +70,33 @@ Deno.serve(async (req) => {
       const productDesc = productFilter?.productDescription || '';
       const customerExamples = productFilter?.customerExamples?.slice(0, 3).join(', ') || '';
       const pfIndustries = productFilter?.industries?.slice(0, 5).join(', ') || '';
+      
+      // AI capability summary
+      const aiCaps = productFilter?.aiCapabilities || [];
+      const aiProjects = productFilter?.aiProjectCount || '';
+      const aiCase = productFilter?.aiCaseDescription || '';
+      const aiImpact = productFilter?.aiBusinessImpact || '';
+      
+      // Calculate AI level from capabilities
+      let aiLevel = 'Ingen';
+      if (aiCaps.length > 0) {
+        const hasAdvanced = aiCaps.some((c: string) => c.includes('-adv-') || c === 'ai-advanced' || c === 'bc-azure');
+        const hasPartner = aiCaps.some((c: string) => c.includes('-partner') || c === 'ai-partner' || c === 'bc-agent' || c.includes('ai-automation') || c.includes('ai-prediction') || c.includes('ai-agents'));
+        if (hasAdvanced) aiLevel = 'Avancerad (Azure AI / ML)';
+        else if (hasPartner) aiLevel = 'Integration (Copilot Studio / agenter)';
+        else aiLevel = 'Enabled (Microsoft standard AI)';
+      }
+      
+      const aiSummary = aiCaps.length > 0 
+        ? `\nAI-nivå: ${aiLevel} (${aiCaps.length} kapabiliteter${aiProjects ? `, ${aiProjects} projekt` : ''})${aiCase ? `\nAI-case: ${aiCase}` : ''}${aiImpact ? `\nAI-affärseffekt: ${aiImpact}` : ''}`
+        : '\nAI-nivå: Ingen registrerad AI-kompetens';
 
       return `ID: ${p.id}
 Namn: ${p.name}
 Beskrivning: ${(p.description || '').substring(0, 400)}
 Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
-Kundexempel: ${customerExamples}`;
+Kundexempel: ${customerExamples}${aiSummary}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner. 
@@ -96,8 +120,8 @@ INSTRUKTIONER:
    - Branscherfarenhet (${criteria.aiInterest === 'high' ? '25%' : '30%'})
    - Geografi och storlek (${criteria.aiInterest === 'high' ? '15%' : '20%'})
    - Kundexempel och referensers relevans (10%)${criteria.aiInterest === 'high' ? `
-   - AI-kompetens (20%): Bedöm hur väl partnern verkar erbjuda Microsoft AI-lösningar (Copilot, AI-agenter, Copilot Studio, Azure AI Foundry). Leta efter omnämnanden av AI, Copilot, agenter, automation och intelligent beslutsfattande i deras beskrivningar. Partners som tydligt lyfter AI-erbjudanden ska premieras.` : criteria.aiInterest === 'medium' ? `
-   - AI-kompetens (bonuspoäng, ej obligatoriskt): Om partnern nämner AI, Copilot, agenter eller Copilot Studio, ge upp till 10 bonus-poäng.` : ''}
+    - AI-kompetens (20%): Använd den strukturerade AI-nivån och antalet kapabiliteter/projekt som anges för varje partner. Partners med nivån "Avancerad" ska premieras mest, följt av "Integration" och sedan "Enabled". Fler AI-projekt och tydliga AI-case-beskrivningar ger extra poäng.` : criteria.aiInterest === 'medium' ? `
+    - AI-kompetens (bonuspoäng, ej obligatoriskt): Använd den strukturerade AI-nivån. Partners med registrerad AI-kompetens får upp till 10 bonus-poäng baserat på nivå och antal kapabiliteter.` : ''}
 ${criteria.preferCrmOnly ? `
 2. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
 ` : ''}
