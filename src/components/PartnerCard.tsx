@@ -379,9 +379,10 @@ const PartnerCard = ({
             </div>
           </div>
 
-          {/* AI Level Badge (aggregated across all products) */}
+          {/* AI Level Badge with score */}
           {isDatabasePartner(partner) && (() => {
-            const aiLevel = getAiLevel(calculateAiScore(partner.product_filters));
+            const score = calculateAiScore(partner.product_filters);
+            const aiLevel = getAiLevel(score);
             if (aiLevel.level === "none") return null;
             return (
               <div className="mb-3">
@@ -390,7 +391,7 @@ const PartnerCard = ({
                   className={`text-xs font-semibold ${aiLevel.color}`}
                 >
                   <Award className="w-3 h-3 mr-1" />
-                  {aiLevel.emoji} {aiLevel.label}
+                  {aiLevel.emoji} {aiLevel.label} — {Math.round(score)}/100
                 </Badge>
               </div>
             );
