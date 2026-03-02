@@ -651,7 +651,8 @@ function getPartnerSuggestions(
   role: RoleId,
   system: string | string[],
   profile: ProfileId,
-  industry: string
+  industry: string,
+  scores?: IndexScores
 ): PartnerSuggestion[] {
   const suggestions: PartnerSuggestion[] = [];
   const systems = Array.isArray(system) ? system : [system];
@@ -694,6 +695,24 @@ function getPartnerSuggestions(
       type: "Transformationspartner",
       description: "Partner som kan genomföra systemskifte och etablera en modern plattform som grund för AI",
     });
+  }
+
+  // AI-specific suggestion based on assessment scores
+  if (scores) {
+    const avgAi = (scores.automation + scores.augmentation + scores.prediction) / 3;
+    if (avgAi >= 60) {
+      suggestions.push({
+        icon: "🤖",
+        type: "AI Transformation Partner",
+        description: "Partner med dokumenterad AI-kompetens på avancerad nivå – erfarenhet av Copilot Studio, AI-agenter och Azure AI Foundry",
+      });
+    } else if (avgAi >= 35) {
+      suggestions.push({
+        icon: "🧠",
+        type: "AI-kompetent partner",
+        description: "Partner med erfarenhet av Microsoft Copilot och AI-integrationer utöver standardfunktionalitet",
+      });
+    }
   }
 
   if (industry) {
@@ -988,7 +1007,7 @@ const AIReadiness = () => {
     const profile = getProfile(scores);
     const pd = profileData[profile];
     const roadmap = generateRoadmap(selectedRole!, profile, foundationAnswers.system);
-    const partners = getPartnerSuggestions(selectedRole!, foundationAnswers.system, profile, foundationAnswers.industry);
+    const partners = getPartnerSuggestions(selectedRole!, foundationAnswers.system, profile, foundationAnswers.industry, scores);
     const activeRisks = track!.risks.filter((r) => r.condition(scores));
     const sysTrack = getSystemTrack(foundationAnswers.system);
     const sysData = systemTrackData[sysTrack];
@@ -1772,7 +1791,7 @@ const AIReadiness = () => {
   const pd = profileData[profile];
   const roadmap = generateRoadmap(selectedRole!, profile, foundationAnswers.system);
   const activeRisks = track!.risks.filter((r) => r.condition(scores));
-  const partners = getPartnerSuggestions(selectedRole!, foundationAnswers.system, profile, foundationAnswers.industry);
+  const partners = getPartnerSuggestions(selectedRole!, foundationAnswers.system, profile, foundationAnswers.industry, scores);
   const sysTrack = getSystemTrack(foundationAnswers.system);
   const sysData = systemTrackData[sysTrack];
   const roi = calcROI(selectedRole!, scores, foundationAnswers.headcount);
@@ -2065,7 +2084,12 @@ const AIReadiness = () => {
                 </div>
               ))}
               <div className="text-center mt-5 pt-4 border-t border-border/50">
-                <Link to="/valj-partner">
+                <Link to={`/valj-partner${(() => {
+                  const avgAi = (scores.automation + scores.augmentation + scores.prediction) / 3;
+                  if (avgAi >= 60) return '?ai=high';
+                  if (avgAi >= 35) return '?ai=medium';
+                  return '';
+                })()}`}>
                   <Button variant="outline" className="gap-2">
                     Se matchande partners <ArrowRight className="h-4 w-4" />
                   </Button>
