@@ -100,6 +100,8 @@ interface ProductFilter {
   aiBusinessImpact: string;
   aiSegmentationDetails: string[];
   aiPredictiveDetails: string[];
+  aiOtherPartner: string;
+  aiOtherAdvanced: string;
 }
 
 interface ProductFilters {
@@ -150,6 +152,8 @@ const emptyProductFilter: ProductFilter = {
   aiBusinessImpact: "",
   aiSegmentationDetails: [],
   aiPredictiveDetails: [],
+  aiOtherPartner: "",
+  aiOtherAdvanced: "",
 };
 
 const PartnerUpdate = () => {
@@ -448,6 +452,8 @@ const PartnerUpdate = () => {
       aiBusinessImpact: existing.aiBusinessImpact || "",
       aiSegmentationDetails: existing.aiSegmentationDetails || [],
       aiPredictiveDetails: existing.aiPredictiveDetails || [],
+      aiOtherPartner: existing.aiOtherPartner || "",
+      aiOtherAdvanced: existing.aiOtherAdvanced || "",
     };
   };
 
@@ -1070,6 +1076,29 @@ const PartnerUpdate = () => {
                                       </div>
                                     </label>
                                   ))}
+                                  {/* Free-text "Annat" field for 🟡 and 🔴 tiers */}
+                                  {tierGroup.emoji === "🟡" && (
+                                    <div className="mt-2">
+                                      <Input
+                                        placeholder="Annat – beskriv er egenutvecklade lösning"
+                                        value={filter.aiOtherPartner}
+                                        maxLength={200}
+                                        onChange={(e) => updateProductFilter(productKey, { aiOtherPartner: e.target.value })}
+                                        className="text-sm"
+                                      />
+                                    </div>
+                                  )}
+                                  {tierGroup.emoji === "🔴" && (
+                                    <div className="mt-2">
+                                      <Input
+                                        placeholder="Annat – beskriv er avancerade AI-lösning"
+                                        value={filter.aiOtherAdvanced}
+                                        maxLength={200}
+                                        onChange={(e) => updateProductFilter(productKey, { aiOtherAdvanced: e.target.value })}
+                                        className="text-sm"
+                                      />
+                                    </div>
+                                  )}
                                 </div>
                               </div>
                             ))}
