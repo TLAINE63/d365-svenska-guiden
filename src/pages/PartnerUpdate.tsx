@@ -22,6 +22,7 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import CommerceIcon from "@/assets/icons/Commerce.svg";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+import { getAiOptionsForProduct } from "@/utils/aiScoring";
 
 // Product sections matching admin structure
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
@@ -1016,41 +1017,52 @@ const PartnerUpdate = () => {
                             })}
                           </div>
                         </div>
-                        {/* AI Capabilities - Unified 3-tier system */}
+                        {/* AI Capabilities - Product-specific tier system */}
                         <div className="pt-4 border-t border-border">
-                          <Label className="text-sm font-semibold">Vilken typ av AI-lösningar har ni levererat inom denna applikation?</Label>
-                          <div className="mt-3 space-y-2">
-                            {[
-                              { value: "ai-standard", label: "🟢 Microsoft Copilot eller färdig AI-funktion (Agents)", description: "ex: orderförslag, användarstöd, analys, inbyggda Copilot-funktioner" },
-                              { value: "ai-partner", label: "🟡 Anpassad AI-agent (Copilot Studio / Power Platform)", description: "ex: egenutvecklad agent, AI-flöde, skräddarsydda AI-verktyg" },
-                              { value: "ai-advanced", label: "🔴 Avancerad AI-lösning (Azure AI / AI Foundry / ML)", description: "ex: Azure-baserad AI-modell, prediktiv analys, custom ML" },
-                            ].map((option) => (
-                              <label
-                                key={option.value}
-                                className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                                  filter.aiCapabilities.includes(option.value)
-                                    ? 'border-primary bg-primary/5'
-                                    : 'border-border hover:border-primary/40'
-                                }`}
-                              >
-                                <Checkbox
-                                  checked={filter.aiCapabilities.includes(option.value)}
-                                  onCheckedChange={(checked) => {
-                                    const current = filter.aiCapabilities;
-                                    const updated = checked
-                                      ? [...current, option.value]
-                                      : current.filter(v => v !== option.value);
-                                    updateProductFilter(productKey, { aiCapabilities: updated });
-                                  }}
-                                  className="mt-0.5"
-                                />
-                                <div>
-                                  <span className="text-sm font-medium">{option.label}</span>
-                                  {option.description && (
-                                    <p className="text-xs text-muted-foreground mt-0.5">{option.description}</p>
-                                  )}
+                          <Label className="text-sm font-semibold">
+                            AI & Automation inom {productKey === 'bc' ? 'Business Central' : productKey === 'fsc' ? 'Finance & Supply Chain' : productKey === 'sales' ? 'Sälj & Marknad' : 'Kundservice'}
+                          </Label>
+                          <p className="text-xs text-muted-foreground mt-1 mb-3">Vilken typ av AI-lösningar har ni levererat inom denna applikation?</p>
+                          
+                          <div className="space-y-5">
+                            {getAiOptionsForProduct(productKey).map((tierGroup) => (
+                              <div key={tierGroup.tierLabel}>
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-sm">{tierGroup.emoji}</span>
+                                  <span className="text-xs font-bold uppercase tracking-wider text-foreground/70">{tierGroup.tierLabel}</span>
+                                  <span className="text-xs text-muted-foreground ml-auto">({tierGroup.pointsLabel})</span>
                                 </div>
-                              </label>
+                                <div className="space-y-2">
+                                  {tierGroup.options.map((option) => (
+                                    <label
+                                      key={option.value}
+                                      className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                                        filter.aiCapabilities.includes(option.value)
+                                          ? 'border-primary bg-primary/5'
+                                          : 'border-border hover:border-primary/40'
+                                      }`}
+                                    >
+                                      <Checkbox
+                                        checked={filter.aiCapabilities.includes(option.value)}
+                                        onCheckedChange={(checked) => {
+                                          const current = filter.aiCapabilities;
+                                          const updated = checked
+                                            ? [...current, option.value]
+                                            : current.filter(v => v !== option.value);
+                                          updateProductFilter(productKey, { aiCapabilities: updated });
+                                        }}
+                                        className="mt-0.5"
+                                      />
+                                      <div>
+                                        <span className="text-sm font-medium">{option.label}</span>
+                                        {option.description && (
+                                          <p className="text-xs text-muted-foreground mt-0.5">{option.description}</p>
+                                        )}
+                                      </div>
+                                    </label>
+                                  ))}
+                                </div>
+                              </div>
                             ))}
                           </div>
 
