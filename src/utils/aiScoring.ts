@@ -99,21 +99,24 @@ function scoreProduct(capabilities: string[], projectCount?: string): number {
   return basePoints * getProjectMultiplier(projectCount);
 }
 
-// Calculate total AI score across all products
+// Calculate total AI score across all products (average per active product)
 export function calculateAiScore(productFilters?: ProductFilters): number {
   if (!productFilters) return 0;
 
-  let total = 0;
   const products = ['bc', 'fsc', 'sales', 'service'] as const;
+  const scores: number[] = [];
 
   for (const key of products) {
     const pf = productFilters[key];
     if (pf?.aiCapabilities && pf.aiCapabilities.length > 0) {
-      total += scoreProduct(pf.aiCapabilities, pf.aiProjectCount);
+      scores.push(scoreProduct(pf.aiCapabilities, pf.aiProjectCount));
     }
   }
 
-  return Math.round(total * 10) / 10;
+  if (scores.length === 0) return 0;
+
+  const average = scores.reduce((sum, s) => sum + s, 0) / scores.length;
+  return Math.round(average * 10) / 10;
 }
 
 // AI level thresholds
