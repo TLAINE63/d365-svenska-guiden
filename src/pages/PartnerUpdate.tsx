@@ -97,6 +97,7 @@ interface ProductFilter {
   aiProjectCount: string;
   hasBuiltAgents: boolean | null;
   aiCaseDescription: string;
+  aiBusinessImpact: string;
 }
 
 interface ProductFilters {
@@ -144,6 +145,7 @@ const emptyProductFilter: ProductFilter = {
   aiProjectCount: "",
   hasBuiltAgents: null,
   aiCaseDescription: "",
+  aiBusinessImpact: "",
 };
 
 const PartnerUpdate = () => {
@@ -439,6 +441,7 @@ const PartnerUpdate = () => {
       aiProjectCount: existing.aiProjectCount || "",
       hasBuiltAgents: existing.hasBuiltAgents ?? null,
       aiCaseDescription: existing.aiCaseDescription || "",
+      aiBusinessImpact: existing.aiBusinessImpact || "",
     };
   };
 
@@ -1104,6 +1107,27 @@ const PartnerUpdate = () => {
                                   {filter.aiCaseDescription.length}/200 tecken
                                 </p>
                               </div>
+
+                              {/* Business Impact - only for advanced (🔴) selections */}
+                              {filter.aiCapabilities.some(c => c.includes('-adv-') || c === 'ai-advanced') && (
+                                <div className="p-3 rounded-lg border-2 border-red-200 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20">
+                                  <Label className="text-sm font-semibold flex items-center gap-1.5">
+                                    🔴 Kravfält för Avancerad AI
+                                  </Label>
+                                  <p className="text-xs text-muted-foreground mt-1 mb-2">
+                                    Beskriv kort vilken affärseffekt lösningen skapade
+                                  </p>
+                                  <Input
+                                    placeholder="T.ex. 'Minskade lagerkostnader med 18% genom prediktiv efterfrågemodell för 12 produktionslinjer'"
+                                    value={filter.aiBusinessImpact}
+                                    maxLength={200}
+                                    onChange={(e) => updateProductFilter(productKey, { aiBusinessImpact: e.target.value })}
+                                  />
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    {filter.aiBusinessImpact.length}/200 tecken
+                                  </p>
+                                </div>
+                              )}
                             </div>
                           )}
                         </div>
