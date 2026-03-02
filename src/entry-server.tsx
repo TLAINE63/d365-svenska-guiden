@@ -28,6 +28,7 @@ import D365CustomerService from './pages/D365CustomerService';
 import D365FieldService from './pages/D365FieldService';
 import D365ContactCenter from './pages/D365ContactCenter';
 import Events from './pages/Events';
+import EventDetail from './pages/EventDetail';
 import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
 
@@ -98,6 +99,7 @@ export function render(url: string) {
             <Route path="/d365-field-service" element={<D365FieldService />} />
             <Route path="/d365-contact-center" element={<D365ContactCenter />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/qa" element={<QA />} />
             <Route path="/partner/:slug" element={<PartnerProfile />} />
           </Routes>
@@ -150,10 +152,10 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
     const partners: { slug: string; name: string; description: string | null }[] = await res.json();
 
-    return partners.map((p) => ({
+    const partnerRoutes = partners.map((p) => ({
       path: `/partner/${p.slug}`,
       priority: '0.7',
-      changefreq: 'weekly',
+      changefreq: 'weekly' as const,
       meta: {
         title: `${p.name} – Dynamics 365 Partner | d365.se`,
         description:
@@ -161,6 +163,40 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
           `${p.name} är en Microsoft Dynamics 365-partner i Sverige. Läs mer om deras kompetenser och branschfokus.`,
       },
     }));
+
+    // Fetch approved events
+    let eventRoutes: PrerenderRoute[] = [];
+    try {
+      const eventsRes = await fetch(
+        `${supabaseUrl}/rest/v1/partner_events?select=id,title,description&status=eq.approved&order=event_date.desc`,
+        {
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`,
+          },
+        }
+      );
+
+      if (eventsRes.ok) {
+        const events: { id: string; title: string; description: string | null }[] = await eventsRes.json();
+        eventRoutes = events.map((e) => ({
+          path: `/events/${e.id}`,
+          priority: '0.6',
+          changefreq: 'weekly' as const,
+          meta: {
+            title: `${e.title} – Event | d365.se`,
+            description:
+              e.description?.slice(0, 155) ||
+              `${e.title} – ett Dynamics 365-event. Läs mer och anmäl dig på d365.se.`,
+          },
+        }));
+        console.log(`  📦 Found ${eventRoutes.length} dynamic event routes`);
+      }
+    } catch (err: any) {
+      console.warn(`  ⚠️  Event routes failed: ${err.message}`);
+    }
+
+    return [...partnerRoutes, ...eventRoutes];
   } catch (err: any) {
     console.warn(`⚠️  getDynamicRoutes error: ${err.message}`);
     return [];
