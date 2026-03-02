@@ -10,8 +10,16 @@ import {
   Shuffle,
   BrainCircuit,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Award
 } from "lucide-react";
+import {
+  calculateAiScore,
+  getAiLevel,
+  AI_TIER_LABELS,
+  AI_TIER_BADGE_STYLES,
+  getCapabilityEmoji,
+} from "@/utils/aiScoring";
 import {
   Tooltip,
   TooltipContent,
@@ -72,25 +80,7 @@ const getApplicationIcon = (appName: string): string | null => {
   return null;
 };
 
-// Human-readable AI capability labels for card display
-const aiCapabilityLabels: Record<string, string> = {
-  "ai-assistant": "AI-assistent för användare",
-  "ai-automation": "Automatisk prioritering & beslut",
-  "ai-prediction": "Prediktiv analys & prognoser",
-  "ai-agents": "Anpassade AI-agenter",
-  "ai-azure": "Azure AI-lösningar",
-  // BC-specific
-  "bc-copilot": "Microsoft Standard",
-  "bc-agent": "Partner-byggd agent",
-  "bc-azure": "Custom Azure AI",
-};
-
-// Color-coded badge styles for BC AI tiers
-const aiCapabilityBadgeStyles: Record<string, string> = {
-  "bc-copilot": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "bc-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "bc-azure": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-};
+// (AI labels and badge styles now come from aiScoring.ts)
 
 // Product key to Swedish label for AI section header
 const productKeyToSwedish: Record<string, string> = {
@@ -389,7 +379,24 @@ const PartnerCard = ({
             </div>
           </div>
 
-          {/* AI Capabilities */}
+          {/* AI Level Badge (aggregated across all products) */}
+          {isDatabasePartner(partner) && (() => {
+            const aiLevel = getAiLevel(calculateAiScore(partner.product_filters));
+            if (aiLevel.level === "none") return null;
+            return (
+              <div className="mb-3">
+                <Badge
+                  variant="outline"
+                  className={`text-xs font-semibold ${aiLevel.color}`}
+                >
+                  <Award className="w-3 h-3 mr-1" />
+                  {aiLevel.emoji} {aiLevel.label}
+                </Badge>
+              </div>
+            );
+          })()}
+
+          {/* AI Capabilities per product */}
           {productFilter?.aiCapabilities && productFilter.aiCapabilities.length > 0 && (
             <div className="mb-3">
               <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
@@ -401,16 +408,15 @@ const PartnerCard = ({
                   <Badge
                     key={cap}
                     variant="outline"
-                    className={`text-xs font-medium ${aiCapabilityBadgeStyles[cap] || "border-primary/30 text-primary bg-primary/5"}`}
+                    className={`text-xs font-medium ${AI_TIER_BADGE_STYLES[cap] || "border-primary/30 text-primary bg-primary/5"}`}
                   >
-                    {cap.startsWith("bc-") && (cap === "bc-copilot" ? "🟢 " : cap === "bc-agent" ? "🟡 " : "🔴 ")}
-                    {aiCapabilityLabels[cap] || cap}
+                    {getCapabilityEmoji(cap)} {AI_TIER_LABELS[cap] || cap}
                   </Badge>
                 ))}
               </div>
               
               {/* Expandable details */}
-              {(productFilter.hasBuiltAgents || productFilter.aiCaseDescription || productFilter.aiProjectCount) && (
+              {(productFilter.aiCaseDescription || productFilter.aiProjectCount) && (
                 <button
                   type="button"
                   onClick={(e) => {
@@ -429,9 +435,6 @@ const PartnerCard = ({
                 <div className="mt-2 p-3 rounded-lg bg-muted/50 border border-border/60 text-xs text-muted-foreground space-y-1.5">
                   {productFilter.aiProjectCount && (
                     <p>📊 <span className="font-medium text-foreground/80">{productFilter.aiProjectCount}</span> AI-projekt (senaste 24 mån)</p>
-                  )}
-                  {productFilter.hasBuiltAgents && (
-                    <p>🤖 Bygger på <span className="font-medium text-foreground/80">Microsoft Copilot & Azure AI</span></p>
                   )}
                   {productFilter.aiCaseDescription && (
                     <p className="italic">💡 {productFilter.aiCaseDescription}</p>

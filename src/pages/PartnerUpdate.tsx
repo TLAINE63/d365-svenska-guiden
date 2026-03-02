@@ -1016,21 +1016,15 @@ const PartnerUpdate = () => {
                             })}
                           </div>
                         </div>
-                        {/* AI Capabilities */}
+                        {/* AI Capabilities - Unified 3-tier system */}
                         <div className="pt-4 border-t border-border">
                           <Label className="text-sm font-semibold">Vilken typ av AI-lösningar har ni levererat inom denna applikation?</Label>
                           <div className="mt-3 space-y-2">
-                            {(productKey === 'bc' ? [
-                              { value: "bc-copilot", label: "Microsoft Copilot eller färdig AI-funktion (Agents) i Business Central", description: "ex: orderförslag, användarstöd, analys" },
-                              { value: "bc-agent", label: "Anpassad AI-agent byggd ovanpå Business Central", description: "ex: egenutvecklad orderagent eller AI-flöde" },
-                              { value: "bc-azure", label: "Avancerad AI-lösning integrerad med Business Central", description: "ex: Azure-baserad AI-modell" },
-                            ] : [
-                              { value: "ai-assistant", label: "AI-assistent som hjälper användare i det dagliga arbetet", description: "ex: sammanfattningar, e-postförslag, guidning i systemet" },
-                              { value: "ai-automation", label: "AI som automatiserar prioritering eller beslut", description: "ex: lead scoring, ärenderouting, riskbedömning" },
-                              { value: "ai-prediction", label: "AI-driven prognostisering eller prediktion", description: "ex: försäljningsprognoser, efterfrågeplanering" },
-                              { value: "ai-agents", label: "Anpassade AI-assistenter eller agenter", description: "ex: skräddarsydda AI-flöden eller interna AI-verktyg" },
-                              { value: "ai-azure", label: "Avancerad AI-lösning byggd på Microsoft Azure", description: "" },
-                            ]).map((option) => (
+                            {[
+                              { value: "ai-standard", label: "🟢 Microsoft Copilot eller färdig AI-funktion (Agents)", description: "ex: orderförslag, användarstöd, analys, inbyggda Copilot-funktioner" },
+                              { value: "ai-partner", label: "🟡 Anpassad AI-agent (Copilot Studio / Power Platform)", description: "ex: egenutvecklad agent, AI-flöde, skräddarsydda AI-verktyg" },
+                              { value: "ai-advanced", label: "🔴 Avancerad AI-lösning (Azure AI / AI Foundry / ML)", description: "ex: Azure-baserad AI-modell, prediktiv analys, custom ML" },
+                            ].map((option) => (
                               <label
                                 key={option.value}
                                 className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
@@ -1079,30 +1073,6 @@ const PartnerUpdate = () => {
                                       }`}
                                     >
                                       {option}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Has Built Agents */}
-                              <div>
-                                <Label className="text-sm">Har ni byggt egna AI-agenter eller Copilot-lösningar?</Label>
-                                <div className="mt-2 flex gap-2">
-                                  {[
-                                    { value: true, label: "Ja" },
-                                    { value: false, label: "Nej" },
-                                  ].map((option) => (
-                                    <button
-                                      key={String(option.value)}
-                                      type="button"
-                                      onClick={() => updateProductFilter(productKey, { hasBuiltAgents: option.value })}
-                                      className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
-                                        filter.hasBuiltAgents === option.value
-                                          ? 'border-primary bg-primary text-primary-foreground'
-                                          : 'border-border hover:border-primary/50'
-                                      }`}
-                                    >
-                                      {option.label}
                                     </button>
                                   ))}
                                 </div>
