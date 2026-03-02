@@ -71,7 +71,7 @@ import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
-  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays
+  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
@@ -1337,6 +1337,30 @@ const AdminDashboard = () => {
                 <Button onClick={openCreatePartnerDialog}>
                   <Plus className="mr-2 h-4 w-4" />
                   Lägg till partner
+                </Button>
+                <Button variant="outline" onClick={() => {
+                  const header = "Partnernamn\tKontaktperson\tE-post\tTelefon\tAdmin-kontakt\tAdmin-e-post";
+                  const rows = fullPartners.map(p => 
+                    [
+                      p.name,
+                      p.contactPerson || (p as any).contact_person || '',
+                      p.email || '',
+                      p.phone || '',
+                      p.admin_contact_name || '',
+                      p.admin_contact_email || '',
+                    ].join('\t')
+                  );
+                  const tsv = [header, ...rows].join('\n');
+                  const blob = new Blob(['\uFEFF' + tsv], { type: 'text/tab-separated-values;charset=utf-8' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `partners-kontakter-${new Date().toISOString().slice(0,10)}.xls`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}>
+                  <Download className="mr-2 h-4 w-4" />
+                  Exportera kontakter
                 </Button>
               </div>
               <p className="text-sm text-muted-foreground">
