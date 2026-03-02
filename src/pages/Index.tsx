@@ -88,6 +88,9 @@ const Index = () => {
       
       <main>
       
+      {/* Visually hidden H1 for crawlers that don't execute JS */}
+      <h1 className="sr-only">Dynamics 365 Sverige – Oberoende guide till ERP &amp; CRM från Microsoft</h1>
+
       {/* Hero Carousel */}
       <HeroCarousel />
 
