@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
@@ -39,6 +40,8 @@ import {
   DollarSign,
   Clock,
   Percent,
+  Info,
+  ChevronDown,
 } from "lucide-react";
 import SelectionCard from "@/components/SelectionCard";
 import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
@@ -1871,8 +1874,29 @@ const AIReadiness = () => {
                 </div>
               </div>
               <p className="text-xs text-muted-foreground/70 italic">
-                {track!.riskReduction}. Beräkningen är indikativ och baseras på branschgenomsnitt och antal anställda.
+                {track!.riskReduction}.
               </p>
+              <Collapsible>
+                <CollapsibleTrigger className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors mt-2 group">
+                  <Info className="h-3.5 w-3.5" />
+                  <span>Hur beräknas siffrorna?</span>
+                  <ChevronDown className="h-3 w-3 transition-transform group-data-[state=open]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="mt-3 p-3 rounded-lg bg-muted/40 border border-border/50 text-xs text-muted-foreground space-y-2">
+                    <p>Beräkningen baseras på era svar och ger en <strong>indikativ uppskattning</strong> — inte en exakt prognos.</p>
+                    <ul className="list-disc pl-4 space-y-1">
+                      <li><strong>Tre AI-dimensioner</strong> poängsätts (Automation, Augmentation, Prediktion) baserat på era svar om nuvarande processer och verktyg.</li>
+                      <li><strong>Tidsbesparingen</strong> interpoleras inom ett branschbaserat spann för er valda roll, viktat mot ert AI-mognadsvärde.</li>
+                      <li><strong>Årlig besparing</strong> = uppskattad teamstorlek × genomsnittlig personalkostnad × tidsbesparing. Teamstorlek och kostnad baseras på branschgenomsnitt för er organisationsstorlek.</li>
+                      {roi.forecastImprovePct > 0 && (
+                        <li><strong>Prognosprecision</strong> beräknas på samma sätt inom rollens definierade förbättringsspann.</li>
+                      )}
+                    </ul>
+                    <p className="italic">Siffrorna bygger på publicerade branschstudier och ska ses som en utgångspunkt för vidare diskussion med en kvalificerad partner.</p>
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           </div>
 
