@@ -409,7 +409,7 @@ const PartnerProfile = () => {
               const descriptions: Record<string, string> = {
                 enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
                 integration: "Bygger anpassade AI-agenter och processer",
-                advanced: "Utvecklar egna AI-lösningar och prediktiva modeller",
+                advanced: "Utvecklar kundunika AI-lösningar och prediktiva modeller",
                 transformation: "Levererar avancerade Azure AI-arkitekturer",
               };
               return (
@@ -577,7 +577,7 @@ const PartnerProfile = () => {
                           const descriptions: Record<string, string> = {
                             enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
                             integration: "Bygger anpassade AI-agenter och processer",
-                            advanced: "Utvecklar egna AI-lösningar och prediktiva modeller",
+                            advanced: "Utvecklar kundunika AI-lösningar och prediktiva modeller",
                             transformation: "Levererar avancerade Azure AI-arkitekturer",
                           };
                           return (
