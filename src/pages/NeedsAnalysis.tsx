@@ -340,6 +340,7 @@ const industryOptions = [
   "Jordbruk & Skogsbruk",
   "Hälsa- & sjukvård",
   "Non-profit / Organisationer",
+  "Medlemsorganisationer",
   "Utbildning",
   "Offentlig sektor",
   "Uthyrningsverksamhet",
@@ -543,6 +544,15 @@ const industryKpiMapping: Record<string, string[]> = {
     "Volontärengagemang",
     "Räckvidd (personer hjälpta)",
     "Transparens och rapportering",
+  ],
+  "Medlemsorganisationer": [
+    "Medlemstillväxt",
+    "Medlemsretention",
+    "Eventdeltagande",
+    "Avgiftsintäkter",
+    "Kommunikationseffektivitet",
+    "Volontärengagemang",
+    "Medlemsnöjdhet (NPS)",
   ],
   "Utbildning": [
     "Genomströmning",

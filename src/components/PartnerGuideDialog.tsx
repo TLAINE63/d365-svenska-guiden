@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { allIndustries } from "@/data/partners";
 import { Link } from "react-router-dom";
 import {
   Dialog,
@@ -89,27 +90,7 @@ const workloadOptions: Record<string, { value: string; label: string; descriptio
   ],
 };
 
-const industryOptions = [
-  "Tillverkningsindustri",
-  "Livsmedel & Processindustri",
-  "Grossist & Distribution",
-  "Retail & E-handel",
-  "Konsulttjänster",
-  "Bygg & Entreprenad",
-  "Fastighet & Förvaltning",
-  "Energi & Utilities",
-  "Finans & Försäkring",
-  "Life Science / Medtech",
-  "Telekom & IT-tjänster",
-  "Logistik & Transport",
-  "Media & Publishing",
-  "Jordbruk & Skogsbruk",
-  "Hälsa- & sjukvård",
-  "Non-profit / Organisationer",
-  "Utbildning",
-  "Offentlig sektor",
-  "Uthyrningsverksamhet",
-];
+const industryOptions = allIndustries;
 
 const marketOptions = [
   { value: "Sverige", label: "Sverige" },

@@ -218,6 +218,7 @@ const industryOptions = [
   "Jordbruk & Skogsbruk",
   "Hälsa- & sjukvård",
   "Non-profit / Organisationer",
+  "Medlemsorganisationer",
   "Utbildning",
   "Offentlig sektor",
   "Uthyrningsverksamhet",
