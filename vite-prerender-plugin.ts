@@ -176,9 +176,9 @@ export default function prerenderPlugin(): Plugin {
               page = page.replace('</head>', `    ${headTags}\n  </head>`);
             }
 
-            // Inject rendered HTML into the root div
+            // Inject rendered HTML into the root div (replace any existing noscript fallback content)
             page = page.replace(
-              '<div id="root"></div>',
+              /<div id="root">[\s\S]*?<\/div>/,
               `<div id="root">${appHtml}</div>`
             );
 
