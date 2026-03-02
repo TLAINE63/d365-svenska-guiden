@@ -127,6 +127,12 @@ const sizeOptions = [
   { value: ">5.000", label: "Mer än 5.000 anställda" }
 ];
 
+const aiInterestOptions = [
+  { value: "high", label: "Ja, det är viktigt", description: "Vi vill ha en partner med stark kompetens inom Copilot, AI-agenter och/eller Copilot Studio" },
+  { value: "medium", label: "Intressant men inte avgörande", description: "Vi vill veta mer, men det är inte ett krav för val av partner" },
+  { value: "none", label: "Nej, inte aktuellt just nu", description: "AI är inte prioriterat i vår implementering" },
+];
+
 // Product key type matching database structure
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
@@ -200,28 +206,31 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
   const [selectedIndustry, setSelectedIndustry] = useState<string>("");
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const [selectedAiInterest, setSelectedAiInterest] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
   const isCrmApp = crmApps.includes(selectedApp);
-  // CRM apps get an extra workload step → 5 steps total, others 4
-  const totalSteps = isCrmApp ? 5 : 4;
+  // CRM apps get an extra workload step → 6 steps total, others 5
+  const totalSteps = isCrmApp ? 6 : 5;
 
   // Map logical step index to content, skipping workload step for non-CRM
-  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'market' | 'size' => {
+  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'market' | 'size' | 'ai' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
       if (s === 2) return 'workload';
       if (s === 3) return 'industry';
       if (s === 4) return 'market';
       if (s === 5) return 'size';
+      if (s === 6) return 'ai';
     } else {
       if (s === 2) return 'industry';
       if (s === 3) return 'market';
       if (s === 4) return 'size';
+      if (s === 5) return 'ai';
     }
-    return 'size';
+    return 'ai';
   };
 
   // CRM apps where at least one result should be a CRM-only specialist (no ERP)
@@ -337,7 +346,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               geography: selectedMarket,
               companySize: selectedSize,
               workload: selectedWorkload || undefined,
-              preferCrmOnly: isCrmSpecialistApp, // hint to AI
+              preferCrmOnly: isCrmSpecialistApp,
+              aiInterest: selectedAiInterest || undefined,
             },
           },
         });
@@ -414,6 +424,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
     setSelectedIndustry("");
     setSelectedMarket("");
     setSelectedSize("");
+    setSelectedAiInterest("");
     setSuggestedPartners([]);
     setAiMatches([]);
     setIsAiLoading(false);
@@ -427,6 +438,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
       case 'industry': return selectedIndustry !== "";
       case 'market': return selectedMarket !== "";
       case 'size': return selectedSize !== "";
+      case 'ai': return selectedAiInterest !== "";
       default: return true;
     }
   };
@@ -586,6 +598,39 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
           </div>
         )}
 
+        {/* AI interest step */}
+        {getContentStep(step) === 'ai' && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Hur viktigt är AI i ert val av partner?</h3>
+            <p className="text-sm text-muted-foreground">
+              Microsoft erbjuder AI-funktioner som Copilot, AI-agenter, Copilot Studio och Azure AI Foundry. Vill ni att partnern har kompetens inom dessa?
+            </p>
+            <RadioGroup value={selectedAiInterest} onValueChange={setSelectedAiInterest}>
+              <div className="space-y-3">
+                {aiInterestOptions.map(option => (
+                  <div
+                    key={option.value}
+                    className={`flex items-start space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
+                      selectedAiInterest === option.value
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                    onClick={() => setSelectedAiInterest(option.value)}
+                  >
+                    <RadioGroupItem value={option.value} id={`ai-${option.value}`} className="mt-0.5" />
+                    <div>
+                      <Label htmlFor={`ai-${option.value}`} className="cursor-pointer text-base font-medium">
+                        {option.label}
+                      </Label>
+                      <p className="text-sm text-muted-foreground mt-0.5">{option.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </RadioGroup>
+          </div>
+        )}
+
         {/* Results step */}
         {isResultStep && (
           <div className="space-y-6">
@@ -598,6 +643,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners }: PartnerGuideDialog
               {selectedIndustry && <Badge variant="outline">{selectedIndustry}</Badge>}
               {selectedMarket && <Badge variant="outline">{selectedMarket}</Badge>}
               {selectedSize && <Badge variant="outline">{selectedSize}</Badge>}
+              {selectedAiInterest === 'high' && <Badge variant="secondary">🤖 AI-fokus</Badge>}
+              {selectedAiInterest === 'medium' && <Badge variant="outline">AI intressant</Badge>}
             </div>
 
             {/* AI loading indicator */}
