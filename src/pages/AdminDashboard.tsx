@@ -59,6 +59,7 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import CommerceIcon from "@/assets/icons/Commerce.svg";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
+import { getAiOptionsForProduct } from "@/utils/aiScoring";
 
 // Icons for specialty products
 const specialtyProductIcons: Record<string, string> = {
@@ -233,6 +234,15 @@ const AdminDashboard = () => {
     ranking: 999,
     customerExamples: [],
     customerCaseLinks: [],
+    aiCapabilities: [],
+    aiProjectCount: "",
+    hasBuiltAgents: false,
+    aiCaseDescription: "",
+    aiBusinessImpact: "",
+    aiSegmentationDetails: [],
+    aiPredictiveDetails: [],
+    aiOtherPartner: "",
+    aiOtherAdvanced: "",
   };
 
   const [partnerFormData, setPartnerFormData] = useState<PartnerInput & {
@@ -797,6 +807,15 @@ const AdminDashboard = () => {
       customerExamples: existing?.customerExamples || [],
       customerCaseLinks: existing?.customerCaseLinks || [],
       productDescription: existing?.productDescription || '',
+      aiCapabilities: existing?.aiCapabilities || [],
+      aiProjectCount: existing?.aiProjectCount || '',
+      hasBuiltAgents: existing?.hasBuiltAgents ?? false,
+      aiCaseDescription: existing?.aiCaseDescription || '',
+      aiBusinessImpact: existing?.aiBusinessImpact || '',
+      aiSegmentationDetails: existing?.aiSegmentationDetails || [],
+      aiPredictiveDetails: existing?.aiPredictiveDetails || [],
+      aiOtherPartner: existing?.aiOtherPartner || '',
+      aiOtherAdvanced: existing?.aiOtherAdvanced || '',
     };
   };
 
@@ -2391,6 +2410,191 @@ const AdminDashboard = () => {
                               </div>
                             )}
                           </div>
+
+                          {/* AI Capabilities Section */}
+                          <div className="pt-4 border-t border-border">
+                            <Label className="text-sm font-semibold">
+                              AI & Automation inom {section.key === 'bc' ? 'Business Central' : section.key === 'fsc' ? 'Finance & Supply Chain' : section.key === 'sales' ? 'Sälj & Marknad' : 'Kundservice & Field Service'}
+                            </Label>
+                            <p className="text-xs text-muted-foreground mt-1 mb-3">Vilken typ av AI-lösningar har partnern levererat inom denna applikation?</p>
+                            
+                            <div className="space-y-5">
+                              {getAiOptionsForProduct(section.key).map((tierGroup) => (
+                                <div key={tierGroup.tierLabel}>
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <span className="text-sm">{tierGroup.emoji}</span>
+                                    <span className="text-xs font-bold uppercase tracking-wider text-foreground/70">{tierGroup.tierLabel}</span>
+                                    <span className="text-xs text-muted-foreground ml-auto">({tierGroup.pointsLabel})</span>
+                                  </div>
+                                  <div className="space-y-2">
+                                    {tierGroup.options.map((option) => (
+                                      <label
+                                        key={option.value}
+                                        className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
+                                          (filter.aiCapabilities || []).includes(option.value)
+                                            ? 'border-primary bg-primary/5'
+                                            : 'border-border hover:border-primary/40'
+                                        }`}
+                                      >
+                                        <Checkbox
+                                          checked={(filter.aiCapabilities || []).includes(option.value)}
+                                          onCheckedChange={(checked) => {
+                                            const current = filter.aiCapabilities || [];
+                                            const updated = checked
+                                              ? [...current, option.value]
+                                              : current.filter((v: string) => v !== option.value);
+                                            updateProductFilter(section.key, { aiCapabilities: updated });
+                                          }}
+                                          className="mt-0.5"
+                                        />
+                                        <div>
+                                          <span className="text-sm font-medium">{option.label}</span>
+                                          {option.description && (
+                                            <p className="text-xs text-muted-foreground mt-0.5">{option.description}</p>
+                                          )}
+                                        </div>
+                                      </label>
+                                    ))}
+                                    {tierGroup.emoji === "🟡" && (
+                                      <div className="mt-2">
+                                        <Input
+                                          placeholder="Annat – beskriv egenutvecklad lösning"
+                                          value={filter.aiOtherPartner || ''}
+                                          maxLength={200}
+                                          onChange={(e) => updateProductFilter(section.key, { aiOtherPartner: e.target.value })}
+                                          className="text-sm"
+                                        />
+                                      </div>
+                                    )}
+                                    {tierGroup.emoji === "🔴" && (
+                                      <div className="mt-2">
+                                        <Input
+                                          placeholder="Annat – beskriv avancerad AI-lösning"
+                                          value={filter.aiOtherAdvanced || ''}
+                                          maxLength={200}
+                                          onChange={(e) => updateProductFilter(section.key, { aiOtherAdvanced: e.target.value })}
+                                          className="text-sm"
+                                        />
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+
+                            {(filter.aiCapabilities || []).length > 0 && (
+                              <div className="mt-4 ml-2 pl-4 border-l-2 border-primary/30 space-y-4">
+                                {(filter.aiCapabilities || []).includes("sales-std-segmentation") && (
+                                  <div className="p-3 rounded-lg border border-border bg-muted/30">
+                                    <Label className="text-sm font-medium">Hur genomförs kundsegmenteringen?</Label>
+                                    <div className="mt-2 space-y-2">
+                                      {[
+                                        { value: "ci-platform", label: "Använder Microsoft Customer Insights" },
+                                        { value: "azure-ai", label: "Byggd med Azure AI" },
+                                        { value: "external-data", label: "Integrerad med externa datakällor" },
+                                      ].map((opt) => (
+                                        <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                                          <Checkbox
+                                            checked={(filter.aiSegmentationDetails || []).includes(opt.value)}
+                                            onCheckedChange={(checked) => {
+                                              const current = filter.aiSegmentationDetails || [];
+                                              const updated = checked
+                                                ? [...current, opt.value]
+                                                : current.filter((v: string) => v !== opt.value);
+                                              updateProductFilter(section.key, { aiSegmentationDetails: updated });
+                                            }}
+                                          />
+                                          <span className="text-sm">{opt.label}</span>
+                                        </label>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {(filter.aiCapabilities || []).includes("svc-adv-predictive") && (
+                                  <div className="p-3 rounded-lg border border-border bg-muted/30">
+                                    <Label className="text-sm font-medium">Hur genomförs prediktivt underhåll?</Label>
+                                    <div className="mt-2 space-y-2">
+                                      {[
+                                        { value: "iot-integrated", label: "Integrerat med IoT" },
+                                        { value: "azure-ai-built", label: "Byggt med Azure AI" },
+                                        { value: "standard-function", label: "Byggt med standardfunktion" },
+                                      ].map((opt) => (
+                                        <label key={opt.value} className="flex items-center gap-2 cursor-pointer">
+                                          <Checkbox
+                                            checked={(filter.aiPredictiveDetails || []).includes(opt.value)}
+                                            onCheckedChange={(checked) => {
+                                              const current = filter.aiPredictiveDetails || [];
+                                              const updated = checked
+                                                ? [...current, opt.value]
+                                                : current.filter((v: string) => v !== opt.value);
+                                              updateProductFilter(section.key, { aiPredictiveDetails: updated });
+                                            }}
+                                          />
+                                          <span className="text-sm">{opt.label}</span>
+                                        </label>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                <div>
+                                  <Label className="text-sm">Antal AI-relaterade projekt senaste 24 månader</Label>
+                                  <div className="mt-2 flex flex-wrap gap-2">
+                                    {["0–2", "3–5", "6+"].map((option) => (
+                                      <button
+                                        key={option}
+                                        type="button"
+                                        onClick={() => updateProductFilter(section.key, { aiProjectCount: option })}
+                                        className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
+                                          filter.aiProjectCount === option
+                                            ? 'border-primary bg-primary text-primary-foreground'
+                                            : 'border-border hover:border-primary/50'
+                                        }`}
+                                      >
+                                        {option}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <Label className="text-sm">Kort beskrivning av ett AI-case (max 200 tecken)</Label>
+                                  <Input
+                                    placeholder="T.ex. 'Implementerade Copilot för att automatisera offertförslag'"
+                                    value={filter.aiCaseDescription || ''}
+                                    maxLength={200}
+                                    onChange={(e) => updateProductFilter(section.key, { aiCaseDescription: e.target.value })}
+                                    className="mt-2"
+                                  />
+                                  <p className="text-xs text-muted-foreground mt-1">
+                                    {(filter.aiCaseDescription || '').length}/200 tecken
+                                  </p>
+                                </div>
+
+                                {(filter.aiCapabilities || []).some((c: string) => c.includes('-adv-') || c === 'ai-advanced') && (
+                                  <div className="p-3 rounded-lg border-2 border-red-200 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20">
+                                    <Label className="text-sm font-semibold flex items-center gap-1.5">
+                                      🔴 Kravfält för Avancerad AI
+                                    </Label>
+                                    <p className="text-xs text-muted-foreground mt-1 mb-2">
+                                      Beskriv kort vilken affärseffekt lösningen skapade
+                                    </p>
+                                    <Input
+                                      placeholder="T.ex. 'Minskade lagerkostnader med 18% genom prediktiv modell'"
+                                      value={filter.aiBusinessImpact || ''}
+                                      maxLength={200}
+                                      onChange={(e) => updateProductFilter(section.key, { aiBusinessImpact: e.target.value })}
+                                    />
+                                    <p className="text-xs text-muted-foreground mt-1">
+                                      {(filter.aiBusinessImpact || '').length}/200 tecken
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+
                         </CardContent>
                       </Card>
                     );
