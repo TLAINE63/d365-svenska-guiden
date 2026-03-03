@@ -1440,19 +1440,41 @@ const AdminDashboard = () => {
                             <p className="text-sm text-muted-foreground line-clamp-1">
                               {partner.description || "Ingen beskrivning"}
                             </p>
-                            {(partner.contactPerson || (partner as any).contact_person || partner.email) && (
-                              <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-muted-foreground">
-                                {(partner.contactPerson || (partner as any).contact_person) && (
-                                  <span className="flex items-center gap-1">
-                                    <User className="h-3 w-3" />
-                                    {partner.contactPerson || (partner as any).contact_person}
-                                  </span>
+                            {(partner.admin_contact_name || partner.admin_contact_email || partner.contactPerson || (partner as any).contact_person || partner.email) && (
+                              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-xs text-muted-foreground">
+                                {(partner.admin_contact_name || partner.admin_contact_email) && (
+                                  <>
+                                    <span className="font-medium text-foreground/70">Admin:</span>
+                                    {partner.admin_contact_name && (
+                                      <span className="flex items-center gap-1">
+                                        <User className="h-3 w-3" />
+                                        {partner.admin_contact_name}
+                                      </span>
+                                    )}
+                                    {partner.admin_contact_email && (
+                                      <span className="flex items-center gap-1">
+                                        <Mail className="h-3 w-3" />
+                                        {partner.admin_contact_email}
+                                      </span>
+                                    )}
+                                  </>
                                 )}
-                                {partner.email && (
-                                  <span className="flex items-center gap-1">
-                                    <Mail className="h-3 w-3" />
-                                    {partner.email}
-                                  </span>
+                                {(partner.contactPerson || (partner as any).contact_person || partner.email) && (
+                                  <>
+                                    <span className="font-medium text-foreground/70">Profil:</span>
+                                    {(partner.contactPerson || (partner as any).contact_person) && (
+                                      <span className="flex items-center gap-1">
+                                        <User className="h-3 w-3" />
+                                        {partner.contactPerson || (partner as any).contact_person}
+                                      </span>
+                                    )}
+                                    {partner.email && (
+                                      <span className="flex items-center gap-1">
+                                        <Mail className="h-3 w-3" />
+                                        {partner.email}
+                                      </span>
+                                    )}
+                                  </>
                                 )}
                               </div>
                             )}
