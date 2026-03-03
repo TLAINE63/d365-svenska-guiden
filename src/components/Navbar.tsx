@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -111,6 +112,12 @@ const Navbar = () => {
                 <DropdownMenuItem asChild>
                   <Link to="/kundservice-behovsanalys" className="cursor-pointer">
                     🎧 Kundservice & Field Service
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/ai-readiness" className="cursor-pointer">
+                    🤖 AI Readiness Assessment
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -243,6 +250,9 @@ const Navbar = () => {
                   </Link>
                   <Link to="/kundservice-behovsanalys" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🎧 Kundservice & Field Service
+                  </Link>
+                  <Link to="/ai-readiness" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                    🤖 AI Readiness Assessment
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2">
