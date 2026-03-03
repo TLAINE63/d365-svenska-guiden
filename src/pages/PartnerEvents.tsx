@@ -262,6 +262,19 @@ const PartnerEvents = () => {
             </div>
           </div>
 
+          {/* Content guidance */}
+          <div className="mb-6 p-4 rounded-xl border border-primary/20 bg-primary/5">
+            <h3 className="text-sm font-semibold text-foreground mb-1 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-primary" />
+              Vilka events kan publiceras?
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Events ska handla om <strong>Microsoft Dynamics 365</strong> eller närliggande områden som{" "}
+              <strong>AI, Copilot, Agents, Business Intelligence, Power Platform</strong> och liknande.
+              Eventet granskas av admin innan det publiceras på d365.se.
+            </p>
+          </div>
+
           {/* Add Event Button */}
           {!showForm && (
             <Button onClick={() => { setEditingEvent(null); setShowForm(true); }} className="mb-6">

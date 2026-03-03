@@ -36,7 +36,7 @@ import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import {
-  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X
+  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X, Link2, Copy, Loader2
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -281,6 +281,46 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     }
   };
 
+  const [generatingLink, setGeneratingLink] = useState(false);
+  const [generatedLink, setGeneratedLink] = useState<string | null>(null);
+
+  const handleGenerateEventLink = async (partner: Partner) => {
+    setGeneratingLink(true);
+    setGeneratedLink(null);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=create-token`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ partner_id: partner.id }),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
+          onSessionExpired();
+        }
+        throw new Error(data.error || "Kunde inte skapa länk");
+      }
+      const url = data.url || `${window.location.origin}/partner-events/${data.token}`;
+      setGeneratedLink(url);
+      toast({ title: "Länk genererad", description: `Event-portallänk skapad för ${partner.name}` });
+    } catch (error: any) {
+      toast({ title: "Fel", description: error.message, variant: "destructive" });
+    } finally {
+      setGeneratingLink(false);
+    }
+  };
+
+  const handleCopyLink = (link: string) => {
+    navigator.clipboard.writeText(link);
+    toast({ title: "Kopierad!", description: "Länken har kopierats till urklipp." });
+  };
+
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
@@ -329,6 +369,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                               setSelectedPartner(partner);
                               setPartnerSearchOpen(false);
                               setPartnerFilter("");
+                              setGeneratedLink(null);
                             }}
                           >
                             <Check
@@ -349,7 +390,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  onClick={() => setSelectedPartner(null)}
+                  onClick={() => { setSelectedPartner(null); setGeneratedLink(null); }}
                   title="Visa alla kommande events"
                 >
                   <X className="h-4 w-4" />
@@ -358,12 +399,45 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
             </div>
           </div>
           {selectedPartner && (
-            <Button onClick={() => openNewForm(selectedPartner)} size="sm" className="gap-2 self-end">
-              <Plus className="h-4 w-4" />
-              Lägg till event
-            </Button>
+            <div className="flex gap-2 self-end">
+              {selectedPartner.is_featured && (
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="gap-2"
+                  onClick={() => handleGenerateEventLink(selectedPartner)}
+                  disabled={generatingLink}
+                >
+                  {generatingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Link2 className="h-4 w-4" />}
+                  Skapa event-länk
+                </Button>
+              )}
+              <Button onClick={() => openNewForm(selectedPartner)} size="sm" className="gap-2">
+                <Plus className="h-4 w-4" />
+                Lägg till event
+              </Button>
+            </div>
           )}
         </div>
+
+        {/* Generated link display */}
+        {generatedLink && selectedPartner && (
+          <div className="p-4 rounded-lg border border-primary/30 bg-primary/5 space-y-2">
+            <p className="text-sm font-medium flex items-center gap-2">
+              <Link2 className="h-4 w-4 text-primary" />
+              Event-portallänk för {selectedPartner.name}
+            </p>
+            <div className="flex items-center gap-2">
+              <Input value={generatedLink} readOnly className="text-sm font-mono" />
+              <Button size="icon" variant="outline" onClick={() => handleCopyLink(generatedLink)} title="Kopiera länk">
+                <Copy className="h-4 w-4" />
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Skicka denna länk till partnern så kan de själva publicera och hantera sina events.
+            </p>
+          </div>
+        )}
 
         {/* Events List */}
         <div className="space-y-4">
