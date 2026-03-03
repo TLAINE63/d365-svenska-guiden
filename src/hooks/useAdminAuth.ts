@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 const TOKEN_STORAGE_KEY = "admin_token";
@@ -12,29 +12,56 @@ interface AdminAuthState {
   logout: () => void;
 }
 
-export function useAdminAuth(): AdminAuthState {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken] = useState<string | null>(null);
-
-  // Check for existing valid token on mount
-  useEffect(() => {
-    const storedToken = sessionStorage.getItem(TOKEN_STORAGE_KEY);
-    const storedExpiry = sessionStorage.getItem(TOKEN_EXPIRY_KEY);
-
-    if (storedToken && storedExpiry) {
-      const expiryTime = parseInt(storedExpiry, 10);
-      if (Date.now() < expiryTime) {
-        setToken(storedToken);
-        setIsAuthenticated(true);
-      } else {
-        // Token expired, clean up
-        sessionStorage.removeItem(TOKEN_STORAGE_KEY);
-        sessionStorage.removeItem(TOKEN_EXPIRY_KEY);
-      }
+const safeSessionStorage = {
+  getItem(key: string): string | null {
+    if (typeof window === "undefined") return null;
+    try {
+      return window.sessionStorage.getItem(key);
+    } catch {
+      return null;
     }
-    setIsLoading(false);
-  }, []);
+  },
+  setItem(key: string, value: string) {
+    if (typeof window === "undefined") return;
+    try {
+      window.sessionStorage.setItem(key, value);
+    } catch {
+      // Ignore storage errors (e.g. blocked in iframe/private mode)
+    }
+  },
+  removeItem(key: string) {
+    if (typeof window === "undefined") return;
+    try {
+      window.sessionStorage.removeItem(key);
+    } catch {
+      // Ignore storage errors
+    }
+  },
+};
+
+const getStoredAuth = () => {
+  const storedToken = safeSessionStorage.getItem(TOKEN_STORAGE_KEY);
+  const storedExpiry = safeSessionStorage.getItem(TOKEN_EXPIRY_KEY);
+
+  if (!storedToken || !storedExpiry) {
+    return { token: null, isAuthenticated: false };
+  }
+
+  const expiryTime = parseInt(storedExpiry, 10);
+  if (!Number.isFinite(expiryTime) || Date.now() >= expiryTime) {
+    safeSessionStorage.removeItem(TOKEN_STORAGE_KEY);
+    safeSessionStorage.removeItem(TOKEN_EXPIRY_KEY);
+    return { token: null, isAuthenticated: false };
+  }
+
+  return { token: storedToken, isAuthenticated: true };
+};
+
+export function useAdminAuth(): AdminAuthState {
+  const initialAuth = getStoredAuth();
+  const [isAuthenticated, setIsAuthenticated] = useState(initialAuth.isAuthenticated);
+  const [isLoading] = useState(false);
+  const [token, setToken] = useState<string | null>(initialAuth.token);
 
   const login = useCallback(async (password: string): Promise<{ success: boolean; error?: string }> => {
     try {
@@ -52,11 +79,10 @@ export function useAdminAuth(): AdminAuthState {
       }
 
       if (data.success && data.token) {
-        // Store token in sessionStorage (not localStorage for better security)
         const expiryTime = Date.now() + data.expiresIn;
-        sessionStorage.setItem(TOKEN_STORAGE_KEY, data.token);
-        sessionStorage.setItem(TOKEN_EXPIRY_KEY, expiryTime.toString());
-        
+        safeSessionStorage.setItem(TOKEN_STORAGE_KEY, data.token);
+        safeSessionStorage.setItem(TOKEN_EXPIRY_KEY, expiryTime.toString());
+
         setToken(data.token);
         setIsAuthenticated(true);
         return { success: true };
@@ -70,8 +96,8 @@ export function useAdminAuth(): AdminAuthState {
   }, []);
 
   const logout = useCallback(() => {
-    sessionStorage.removeItem(TOKEN_STORAGE_KEY);
-    sessionStorage.removeItem(TOKEN_EXPIRY_KEY);
+    safeSessionStorage.removeItem(TOKEN_STORAGE_KEY);
+    safeSessionStorage.removeItem(TOKEN_EXPIRY_KEY);
     setToken(null);
     setIsAuthenticated(false);
   }, []);
@@ -84,3 +110,5 @@ export function useAdminAuth(): AdminAuthState {
     logout,
   };
 }
+
+
