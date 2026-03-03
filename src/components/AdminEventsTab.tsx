@@ -664,15 +664,15 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                   <p className="font-medium">{emailConfirmPartner.name}</p>
                   <p className="text-sm flex items-center gap-2">
                     <Mail className="h-4 w-4 text-muted-foreground" />
-                    {emailConfirmPartner.email || <span className="text-destructive">Ingen e-post registrerad</span>}
+                    {emailConfirmPartner.admin_contact_email || emailConfirmPartner.email || <span className="text-destructive">Ingen e-post registrerad</span>}
                   </p>
-                  {emailConfirmPartner.admin_contact_email && emailConfirmPartner.admin_contact_email !== emailConfirmPartner.email && (
+                  {emailConfirmPartner.admin_contact_email && emailConfirmPartner.email && emailConfirmPartner.admin_contact_email !== emailConfirmPartner.email && (
                     <p className="text-xs text-muted-foreground">
-                      Admin-kontakt: {emailConfirmPartner.admin_contact_email}
+                      Profilkontakt: {emailConfirmPartner.email}
                     </p>
                   )}
                 </div>
-                {!emailConfirmPartner.email && (
+                {!emailConfirmPartner.admin_contact_email && !emailConfirmPartner.email && (
                   <p className="text-sm text-destructive">
                     Partnern saknar e-postadress. Lägg till en e-post i partnerinställningarna först.
                   </p>
@@ -690,7 +690,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                     setEmailConfirmPartner(null);
                   }
                 }}
-                disabled={!emailConfirmPartner?.email || sendingEmail}
+                disabled={!(emailConfirmPartner?.admin_contact_email || emailConfirmPartner?.email) || sendingEmail}
                 className="gap-2"
               >
                 <Mail className="h-4 w-4" />

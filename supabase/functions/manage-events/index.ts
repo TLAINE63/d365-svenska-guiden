@@ -745,7 +745,7 @@ serve(async (req: Request): Promise<Response> => {
       // Get partner info
       const { data: partner, error: partnerError } = await supabase
         .from("partners")
-        .select("id, name, email, contact_person, is_featured")
+        .select("id, name, email, admin_contact_email, contact_person, is_featured")
         .eq("id", partner_id)
         .single();
 
@@ -763,7 +763,8 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
-      if (!partner.email) {
+      const recipientEmail = partner.admin_contact_email || partner.email;
+      if (!recipientEmail) {
         return new Response(
           JSON.stringify({ error: "Partnern saknar e-postadress. Lägg till en e-post i partnerinställningarna först." }),
           { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -800,7 +801,7 @@ serve(async (req: Request): Promise<Response> => {
 
         await resend.emails.send({
           from: "D365.se <info@d365.se>",
-          to: [partner.email],
+          to: [recipientEmail],
           subject: `Din event-portal på D365.se – Publicera dina Dynamics 365-events`,
           html: `
             <!DOCTYPE html>
@@ -849,10 +850,10 @@ serve(async (req: Request): Promise<Response> => {
           `,
         });
 
-        console.log("Event portal link emailed to:", partner.email, "for partner:", partner.name);
+        console.log("Event portal link emailed to:", recipientEmail, "for partner:", partner.name);
 
         return new Response(
-          JSON.stringify({ success: true, email: partner.email }),
+          JSON.stringify({ success: true, email: recipientEmail }),
           { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       } catch (emailError) {

@@ -44,7 +44,7 @@ interface Invitation {
 
 interface PartnerInvitationsTabProps {
   token: string;
-  partners: Array<{ id: string; name: string; slug: string }>;
+  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string }>;
 }
 
 const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) => {
@@ -548,7 +548,17 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
                 id="partner_id"
                 className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
                 value={newInvitation.partner_id}
-                onChange={(e) => setNewInvitation(prev => ({ ...prev, partner_id: e.target.value }))}
+                onChange={(e) => {
+                  const selectedId = e.target.value;
+                  const selected = partners.find(p => p.id === selectedId);
+                  const autoEmail = selected ? (selected.admin_contact_email || selected.email || "") : "";
+                  setNewInvitation(prev => ({ 
+                    ...prev, 
+                    partner_id: selectedId,
+                    partner_name: selected ? selected.name : prev.partner_name,
+                    email: autoEmail || prev.email,
+                  }));
+                }}
               >
                 <option value="">-- Ny partner --</option>
                 {partners.map((p) => (

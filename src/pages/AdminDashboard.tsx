@@ -1559,7 +1559,7 @@ const AdminDashboard = () => {
           <TabsContent value="invitations">
             <PartnerInvitationsTab 
               token={token || ""} 
-              partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug }))}
+              partners={fullPartners.map(p => ({ id: p.id, name: p.name, slug: p.slug, email: p.email || "", admin_contact_email: p.admin_contact_email || "" }))}
             />
           </TabsContent>
 
