@@ -1529,7 +1529,7 @@ const AdminDashboard = () => {
           <TabsContent value="events">
             <AdminEventsTab
               token={token || ""}
-              partners={fullPartners.map(p => ({ id: p.id, name: p.name, is_featured: p.is_featured || false, slug: p.slug }))}
+              partners={fullPartners.map(p => ({ id: p.id, name: p.name, is_featured: p.is_featured || false, slug: p.slug, email: p.email || "", admin_contact_email: p.admin_contact_email || "" }))}
               onSessionExpired={logout}
             />
           </TabsContent>
