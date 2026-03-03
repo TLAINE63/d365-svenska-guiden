@@ -45,6 +45,8 @@ interface Partner {
   name: string;
   is_featured: boolean;
   slug: string;
+  email: string;
+  admin_contact_email: string;
 }
 
 interface PartnerEvent {
@@ -284,6 +286,11 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   const [generatingLink, setGeneratingLink] = useState(false);
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
   const [sendingEmail, setSendingEmail] = useState(false);
+  const [emailConfirmPartner, setEmailConfirmPartner] = useState<Partner | null>(null);
+
+  const handleConfirmSendEmail = (partner: Partner) => {
+    setEmailConfirmPartner(partner);
+  };
 
   const handleGenerateEventLink = async (partner: Partner) => {
     setGeneratingLink(true);
@@ -436,7 +443,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                     variant="outline" 
                     size="sm" 
                     className="gap-2"
-                    onClick={() => handleSendEmailLink(selectedPartner)}
+                    onClick={() => handleConfirmSendEmail(selectedPartner)}
                     disabled={sendingEmail}
                   >
                     {sendingEmail ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
@@ -637,6 +644,57 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
               </Button>
               <Button onClick={handleSaveEvent} disabled={isSaving}>
                 {isSaving ? "Sparar..." : (editingEvent ? "Spara ändringar" : "Lägg till")}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Email Confirmation Dialog */}
+        <Dialog open={!!emailConfirmPartner} onOpenChange={(open) => !open && setEmailConfirmPartner(null)}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Bekräfta e-postutskick</DialogTitle>
+            </DialogHeader>
+            {emailConfirmPartner && (
+              <div className="space-y-4 py-4">
+                <p className="text-sm">
+                  Event-portallänken kommer att skickas till:
+                </p>
+                <div className="p-3 rounded-lg border bg-muted/30 space-y-1">
+                  <p className="font-medium">{emailConfirmPartner.name}</p>
+                  <p className="text-sm flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-muted-foreground" />
+                    {emailConfirmPartner.email || <span className="text-destructive">Ingen e-post registrerad</span>}
+                  </p>
+                  {emailConfirmPartner.admin_contact_email && emailConfirmPartner.admin_contact_email !== emailConfirmPartner.email && (
+                    <p className="text-xs text-muted-foreground">
+                      Admin-kontakt: {emailConfirmPartner.admin_contact_email}
+                    </p>
+                  )}
+                </div>
+                {!emailConfirmPartner.email && (
+                  <p className="text-sm text-destructive">
+                    Partnern saknar e-postadress. Lägg till en e-post i partnerinställningarna först.
+                  </p>
+                )}
+              </div>
+            )}
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setEmailConfirmPartner(null)}>
+                Avbryt
+              </Button>
+              <Button 
+                onClick={() => {
+                  if (emailConfirmPartner) {
+                    handleSendEmailLink(emailConfirmPartner);
+                    setEmailConfirmPartner(null);
+                  }
+                }}
+                disabled={!emailConfirmPartner?.email || sendingEmail}
+                className="gap-2"
+              >
+                <Mail className="h-4 w-4" />
+                Skicka
               </Button>
             </DialogFooter>
           </DialogContent>
