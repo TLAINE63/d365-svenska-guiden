@@ -36,7 +36,7 @@ import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import {
-  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X, Link2, Copy, Loader2
+  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X, Link2, Copy, Loader2, Mail
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -283,6 +283,7 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
 
   const [generatingLink, setGeneratingLink] = useState(false);
   const [generatedLink, setGeneratedLink] = useState<string | null>(null);
+  const [sendingEmail, setSendingEmail] = useState(false);
 
   const handleGenerateEventLink = async (partner: Partner) => {
     setGeneratingLink(true);
@@ -319,6 +320,35 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   const handleCopyLink = (link: string) => {
     navigator.clipboard.writeText(link);
     toast({ title: "Kopierad!", description: "Länken har kopierats till urklipp." });
+  };
+
+  const handleSendEmailLink = async (partner: Partner) => {
+    setSendingEmail(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=send-event-link-email`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ partner_id: partner.id }),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
+          onSessionExpired();
+        }
+        throw new Error(data.error || "Kunde inte skicka e-post");
+      }
+      toast({ title: "E-post skickad!", description: `Event-portallänken har skickats till ${data.email}` });
+    } catch (error: any) {
+      toast({ title: "Fel", description: error.message, variant: "destructive" });
+    } finally {
+      setSendingEmail(false);
+    }
   };
 
   return (
@@ -401,16 +431,28 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
           {selectedPartner && (
             <div className="flex gap-2 self-end">
               {selectedPartner.is_featured && (
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="gap-2"
-                  onClick={() => handleGenerateEventLink(selectedPartner)}
-                  disabled={generatingLink}
-                >
-                  {generatingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Link2 className="h-4 w-4" />}
-                  Skapa event-länk
-                </Button>
+                <>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="gap-2"
+                    onClick={() => handleSendEmailLink(selectedPartner)}
+                    disabled={sendingEmail}
+                  >
+                    {sendingEmail ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                    Skicka via e-post
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="gap-2"
+                    onClick={() => handleGenerateEventLink(selectedPartner)}
+                    disabled={generatingLink}
+                  >
+                    {generatingLink ? <Loader2 className="h-4 w-4 animate-spin" /> : <Link2 className="h-4 w-4" />}
+                    Kopiera event-länk
+                  </Button>
+                </>
               )}
               <Button onClick={() => openNewForm(selectedPartner)} size="sm" className="gap-2">
                 <Plus className="h-4 w-4" />
