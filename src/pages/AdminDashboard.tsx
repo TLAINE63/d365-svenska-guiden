@@ -1440,6 +1440,22 @@ const AdminDashboard = () => {
                             <p className="text-sm text-muted-foreground line-clamp-1">
                               {partner.description || "Ingen beskrivning"}
                             </p>
+                            {(partner.contactPerson || (partner as any).contact_person || partner.email) && (
+                              <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-muted-foreground">
+                                {(partner.contactPerson || (partner as any).contact_person) && (
+                                  <span className="flex items-center gap-1">
+                                    <User className="h-3 w-3" />
+                                    {partner.contactPerson || (partner as any).contact_person}
+                                  </span>
+                                )}
+                                {partner.email && (
+                                  <span className="flex items-center gap-1">
+                                    <Mail className="h-3 w-3" />
+                                    {partner.email}
+                                  </span>
+                                )}
+                              </div>
+                            )}
                             <div className="flex flex-wrap gap-1 mt-2">
                               {productSections.map(section => {
                                 const filter = partner.product_filters?.[section.key];
