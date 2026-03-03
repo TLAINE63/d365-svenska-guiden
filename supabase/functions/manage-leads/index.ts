@@ -339,12 +339,25 @@ case "click-stats": {
       case "visitor-stats": {
         const { startDate } = data;
         
-        // Fetch all visitor analytics from the specified date
-        const { data: visitors, error } = await supabase
-          .from("visitor_analytics")
-          .select("*")
-          .gte("visited_at", startDate)
-          .order("visited_at", { ascending: false });
+        // Fetch all visitor analytics from the specified date (paginated to avoid 1000-row limit)
+        let allVisitors: any[] = [];
+        let from = 0;
+        const pageSize = 1000;
+        while (true) {
+          const { data: batch, error: batchError } = await supabase
+            .from("visitor_analytics")
+            .select("*")
+            .gte("visited_at", startDate)
+            .order("visited_at", { ascending: false })
+            .range(from, from + pageSize - 1);
+          if (batchError) throw batchError;
+          if (!batch || batch.length === 0) break;
+          allVisitors = allVisitors.concat(batch);
+          if (batch.length < pageSize) break;
+          from += pageSize;
+        }
+        const visitors = allVisitors;
+        const error = null;
 
         if (error) throw error;
 
