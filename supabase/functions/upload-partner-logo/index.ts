@@ -190,12 +190,56 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Read file content
+    const arrayBuffer = await file.arrayBuffer();
+
+    // SVG sanitization: reject SVGs with scripts or dangerous content
+    if (file.type === "image/svg+xml") {
+      const svgText = new TextDecoder().decode(arrayBuffer);
+      const dangerousPatterns = [
+        /<script[\s>]/i,
+        /javascript:/i,
+        /on\w+\s*=/i,          // onclick, onerror, onload, etc.
+        /<iframe[\s>]/i,
+        /<embed[\s>]/i,
+        /<object[\s>]/i,
+        /<foreignObject[\s>]/i,
+        /data:\s*text\/html/i,
+        /xlink:href\s*=\s*["'](?!#)/i, // external xlink references
+      ];
+      for (const pattern of dangerousPatterns) {
+        if (pattern.test(svgText)) {
+          return new Response(
+            JSON.stringify({ error: "SVG-filen innehåller otillåtet innehåll" }),
+            { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+      }
+    }
+
+    // Verify magic bytes match declared MIME type
+    const header = new Uint8Array(arrayBuffer.slice(0, 8));
+    const magicValid =
+      (file.type === "image/png" && header[0] === 0x89 && header[1] === 0x50 && header[2] === 0x4E && header[3] === 0x47) ||
+      (file.type === "image/jpeg" && header[0] === 0xFF && header[1] === 0xD8) ||
+      (file.type === "image/webp" && header[8 - 4] === 0x57 && new TextDecoder().decode(arrayBuffer.slice(0, 12)).includes("WEBP")) ||
+      file.type === "image/svg+xml"; // SVG is text-based, validated above
+
+    if (!magicValid) {
+      // Re-check webp more carefully
+      const first12 = new TextDecoder().decode(new Uint8Array(arrayBuffer.slice(0, 12)));
+      const isWebp = file.type === "image/webp" && first12.startsWith("RIFF") && first12.includes("WEBP");
+      if (!isWebp) {
+        return new Response(
+          JSON.stringify({ error: "Filinnehållet matchar inte den angivna filtypen" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+    }
+
     // Generate filename
     const ext = file.name.split('.').pop() || 'png';
     const filename = `${partnerSlug}.${ext}`;
-
-    // Upload to storage
-    const arrayBuffer = await file.arrayBuffer();
     const { data, error } = await supabase.storage
       .from("partner-logos")
       .upload(filename, arrayBuffer, {
