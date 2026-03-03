@@ -730,6 +730,140 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Admin: Send event portal link via email
+    if (action === "send-event-link-email" && req.method === "POST") {
+      const body = await req.json();
+      const { partner_id } = body;
+
+      if (!partner_id) {
+        return new Response(
+          JSON.stringify({ error: "partner_id krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Get partner info
+      const { data: partner, error: partnerError } = await supabase
+        .from("partners")
+        .select("id, name, email, contact_person, is_featured")
+        .eq("id", partner_id)
+        .single();
+
+      if (partnerError || !partner) {
+        return new Response(
+          JSON.stringify({ error: "Partner hittades inte" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      if (!partner.is_featured) {
+        return new Response(
+          JSON.stringify({ error: "Endast utvalda partners kan få event-länk" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      if (!partner.email) {
+        return new Response(
+          JSON.stringify({ error: "Partnern saknar e-postadress. Lägg till en e-post i partnerinställningarna först." }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Upsert token (create or return existing)
+      const { data: tokenData, error: tokenError } = await supabase
+        .from("partner_event_tokens")
+        .upsert({ partner_id }, { onConflict: "partner_id" })
+        .select()
+        .single();
+
+      if (tokenError) {
+        console.error("Error creating token:", tokenError);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte skapa token" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const portalUrl = `https://d365.se/partner-events/${tokenData.token}`;
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "E-posttjänsten är inte konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      try {
+        const resend = new Resend(resendApiKey);
+
+        await resend.emails.send({
+          from: "D365.se <info@d365.se>",
+          to: [partner.email],
+          subject: `Din event-portal på D365.se – Publicera dina Dynamics 365-events`,
+          html: `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                <p style="color: #6b7280; margin: 5px 0 0 0;">Event-portal</p>
+              </div>
+              
+              <p>Hej${partner.contact_person ? ` ${partner.contact_person}` : ''},</p>
+              
+              <p>Här kommer länken till er dedikerade event-portal på D365.se där ni kan publicera och hantera era egna events.</p>
+              
+              <div style="background-color: #eff6ff; border: 1px solid #93c5fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #1e40af; margin: 0 0 10px 0;">📅 Riktlinjer för events</h3>
+                <p style="margin: 0; font-size: 14px;">Events ska fokusera på <strong>Microsoft Dynamics 365</strong> eller närliggande områden som <strong>AI, Copilot, Agents, BI</strong> och <strong>Power Platform</strong>.</p>
+              </div>
+              
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${portalUrl}" style="display: inline-block; background-color: #7c3aed; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Öppna er Event-portal</a>
+              </div>
+              
+              <p style="font-size: 14px; color: #6b7280;">
+                Spara gärna länken – den är unik för <strong>${partner.name}</strong> och kan användas när ni vill lägga till eller uppdatera events. Inskickade events granskas och godkänns innan de publiceras.
+              </p>
+              
+              <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+              
+              <p style="color: #6b7280; font-size: 14px;">
+                Med vänliga hälsningar,<br>
+                <strong>Thomas Laine</strong><br>
+                Senior Rådgivare inom Microsoft CRM- och Affärssystem<br>
+                D365.se
+              </p>
+              
+              <p style="color: #9ca3af; font-size: 12px; text-align: center; margin-top: 30px;">
+                Detta meddelande skickades från D365.se
+              </p>
+            </body>
+            </html>
+          `,
+        });
+
+        console.log("Event portal link emailed to:", partner.email, "for partner:", partner.name);
+
+        return new Response(
+          JSON.stringify({ success: true, email: partner.email }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      } catch (emailError) {
+        console.error("Failed to send event portal email:", emailError);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte skicka e-post" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+    }
+
     // Admin: List event tokens
     if (action === "list-tokens") {
       const { data: tokens, error } = await supabase
