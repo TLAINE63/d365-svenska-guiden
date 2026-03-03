@@ -92,10 +92,11 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
                 <DropdownMenuItem asChild>
-                  <Link to="/valj-partner" className="cursor-pointer font-medium">
-                    Hitta rätt partner
+                  <Link to="/valj-partner" className="cursor-pointer font-medium text-primary">
+                    🔍 Hitta rätt partner
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</p>
                 </div>
