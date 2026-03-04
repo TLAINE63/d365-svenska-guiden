@@ -373,6 +373,41 @@ const PartnerProfile = () => {
               {partner.description}
             </p>
             
+            {/* Overall AI Level Badge */}
+            {(() => {
+              const score = calculateAiScore(partner.product_filters);
+              const aiLevel = getAiLevel(score);
+              if (aiLevel.level === "none") return null;
+              const descriptions: Record<string, string> = {
+                enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
+                integration: "Bygger anpassade AI-agenter och processer",
+                advanced: "Utvecklar kundunika AI-lösningar och prediktiva modeller",
+                transformation: "Levererar avancerade Azure AI-arkitekturer",
+              };
+              return (
+                <div className="mb-4">
+                  <TooltipProvider delayDuration={100}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div>
+                          <Badge
+                            variant="outline"
+                            className={`text-sm font-semibold px-4 py-1.5 cursor-help ${aiLevel.color} border-2`}
+                          >
+                            <Award className="w-4 h-4 mr-1.5" />
+                            {aiLevel.emoji} {aiLevel.label}
+                          </Badge>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom" className="max-w-xs text-sm">
+                        <p>{descriptions[aiLevel.level]}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              );
+            })()}
+
             {/* Premium stats row - centered */}
             <div className="flex flex-wrap items-center justify-center gap-3">
               {/* Website link only - geography and competency count removed */}
@@ -400,41 +435,6 @@ const PartnerProfile = () => {
                 <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
             </div>
-
-            {/* Overall AI Level Badge */}
-            {(() => {
-              const score = calculateAiScore(partner.product_filters);
-              const aiLevel = getAiLevel(score);
-              if (aiLevel.level === "none") return null;
-              const descriptions: Record<string, string> = {
-                enabled: "Aktiverar och implementerar Microsofts inbyggda AI",
-                integration: "Bygger anpassade AI-agenter och processer",
-                advanced: "Utvecklar kundunika AI-lösningar och prediktiva modeller",
-                transformation: "Levererar avancerade Azure AI-arkitekturer",
-              };
-              return (
-                <div className="mt-4">
-                  <TooltipProvider delayDuration={100}>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div>
-                          <Badge
-                            variant="outline"
-                            className={`text-sm font-semibold px-4 py-1.5 cursor-help ${aiLevel.color} border-2`}
-                          >
-                            <Award className="w-4 h-4 mr-1.5" />
-                            {aiLevel.emoji} {aiLevel.label}
-                          </Badge>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom" className="max-w-xs text-sm">
-                        <p>{descriptions[aiLevel.level]}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-              );
-            })()}
 
             {/* Sales contact - separate row */}
             {dbPartner?.contactPerson && (
