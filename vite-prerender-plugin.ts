@@ -230,6 +230,24 @@ export default function prerenderPlugin(): Plugin {
           console.log('  ✅ sitemap.xml');
         }
 
+        // ── 8. Generate 404.html for GitHub Pages SPA fallback ─────────
+        try {
+          // Try to render the NotFound-like page, or fall back to root index.html
+          const notFoundHtml = readFileSync(resolve(root, outDir, 'index.html'), 'utf-8');
+          writeFileSync(resolve(root, outDir, '404.html'), notFoundHtml, 'utf-8');
+          console.log('  ✅ 404.html (GitHub Pages fallback)');
+        } catch {
+          console.warn('  ⚠️  Could not generate 404.html');
+        }
+
+        // ── 9. Generate .nojekyll for GitHub Pages ───────────────────────
+        writeFileSync(resolve(root, outDir, '.nojekyll'), '', 'utf-8');
+        console.log('  ✅ .nojekyll');
+
+        // ── 10. Generate CNAME for custom domain ─────────────────────────
+        writeFileSync(resolve(root, outDir, 'CNAME'), 'd365.se', 'utf-8');
+        console.log('  ✅ CNAME (d365.se)');
+
         console.log(`\n✅ Prerendering complete – ${successCount}/${allRoutes.length} routes\n`);
       } catch (err: any) {
         console.error('❌ Prerender failed:', err.message || err);
