@@ -344,23 +344,21 @@ const PartnerProfile = () => {
           {/* Main content - centered layout */}
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
             {/* Partner identity - logo OR name, not both */}
-            {partner.logo_url ? (
-              <div className="relative mb-2">
-                <div className="relative w-56 h-32 sm:w-72 sm:h-36 flex items-center justify-center overflow-hidden">
+            <div className="flex items-center justify-center mb-4">
+              {partner.logo_url ? (
+                <div className="w-56 h-32 sm:w-72 sm:h-36 flex items-center justify-center overflow-hidden">
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
                     className="max-w-full max-h-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
                   />
                 </div>
-              </div>
-            ) : (
-              <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+              ) : (
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
                   {partner.name}
                 </h1>
-              </div>
-            )}
+              )}
+            </div>
             
             {/* Description */}
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-light mb-6">
