@@ -125,6 +125,20 @@ export function render(url: string) {
  * Fetch dynamic partner routes from Supabase at build time.
  * Called by the prerender plugin to discover /partner/:slug pages.
  */
+async function fetchWithTimeout(url: string, headers: Record<string, string>, timeoutMs = 10000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(url, {
+      headers,
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   const supabaseUrl = process.env.VITE_SUPABASE_URL;
   const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -134,66 +148,63 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     return [];
   }
 
-  try {
-    const res = await fetch(
-      `${supabaseUrl}/rest/v1/partners_public?select=slug,name,description&is_featured=eq.true&order=name`,
-      {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-        },
-      }
-    );
+  const headers = {
+    apikey: supabaseKey,
+    Authorization: `Bearer ${supabaseKey}`,
+  };
 
-    if (!res.ok) {
-      console.warn(`⚠️  Failed to fetch partners: ${res.status}`);
-      return [];
+  try {
+    const [partnersRes, eventsRes] = await Promise.allSettled([
+      fetchWithTimeout(
+        `${supabaseUrl}/rest/v1/partners_public?select=slug,name,description&is_featured=eq.true&order=name`,
+        headers,
+        12000
+      ),
+      fetchWithTimeout(
+        `${supabaseUrl}/rest/v1/partner_events?select=id,title,description&status=eq.approved&order=event_date.desc`,
+        headers,
+        12000
+      ),
+    ]);
+
+    let partnerRoutes: PrerenderRoute[] = [];
+    if (partnersRes.status === 'fulfilled' && partnersRes.value.ok) {
+      const partners: { slug: string; name: string; description: string | null }[] = await partnersRes.value.json();
+      partnerRoutes = partners.map((p) => ({
+        path: `/partner/${p.slug}`,
+        priority: '0.7',
+        changefreq: 'weekly' as const,
+        meta: {
+          title: `${p.name} – Dynamics 365 Partner | d365.se`,
+          description:
+            p.description?.slice(0, 155) ||
+            `${p.name} är en Microsoft Dynamics 365-partner i Sverige. Läs mer om deras kompetenser och branschfokus.`,
+        },
+      }));
+      console.log(`  📦 Found ${partnerRoutes.length} dynamic partner routes`);
+    } else {
+      const reason = partnersRes.status === 'rejected' ? partnersRes.reason?.message : `HTTP ${partnersRes.value.status}`;
+      console.warn(`  ⚠️  Partner routes failed: ${reason}`);
     }
 
-    const partners: { slug: string; name: string; description: string | null }[] = await res.json();
-
-    const partnerRoutes = partners.map((p) => ({
-      path: `/partner/${p.slug}`,
-      priority: '0.7',
-      changefreq: 'weekly' as const,
-      meta: {
-        title: `${p.name} – Dynamics 365 Partner | d365.se`,
-        description:
-          p.description?.slice(0, 155) ||
-          `${p.name} är en Microsoft Dynamics 365-partner i Sverige. Läs mer om deras kompetenser och branschfokus.`,
-      },
-    }));
-
-    // Fetch approved events
     let eventRoutes: PrerenderRoute[] = [];
-    try {
-      const eventsRes = await fetch(
-        `${supabaseUrl}/rest/v1/partner_events?select=id,title,description&status=eq.approved&order=event_date.desc`,
-        {
-          headers: {
-            apikey: supabaseKey,
-            Authorization: `Bearer ${supabaseKey}`,
-          },
-        }
-      );
-
-      if (eventsRes.ok) {
-        const events: { id: string; title: string; description: string | null }[] = await eventsRes.json();
-        eventRoutes = events.map((e) => ({
-          path: `/events/${e.id}`,
-          priority: '0.6',
-          changefreq: 'weekly' as const,
-          meta: {
-            title: `${e.title} – Event | d365.se`,
-            description:
-              e.description?.slice(0, 155) ||
-              `${e.title} – ett Dynamics 365-event. Läs mer och anmäl dig på d365.se.`,
-          },
-        }));
-        console.log(`  📦 Found ${eventRoutes.length} dynamic event routes`);
-      }
-    } catch (err: any) {
-      console.warn(`  ⚠️  Event routes failed: ${err.message}`);
+    if (eventsRes.status === 'fulfilled' && eventsRes.value.ok) {
+      const events: { id: string; title: string; description: string | null }[] = await eventsRes.value.json();
+      eventRoutes = events.map((e) => ({
+        path: `/events/${e.id}`,
+        priority: '0.6',
+        changefreq: 'weekly' as const,
+        meta: {
+          title: `${e.title} – Event | d365.se`,
+          description:
+            e.description?.slice(0, 155) ||
+            `${e.title} – ett Dynamics 365-event. Läs mer och anmäl dig på d365.se.`,
+        },
+      }));
+      console.log(`  📦 Found ${eventRoutes.length} dynamic event routes`);
+    } else {
+      const reason = eventsRes.status === 'rejected' ? eventsRes.reason?.message : `HTTP ${eventsRes.value.status}`;
+      console.warn(`  ⚠️  Event routes failed: ${reason}`);
     }
 
     return [...partnerRoutes, ...eventRoutes];
