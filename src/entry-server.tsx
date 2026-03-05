@@ -169,7 +169,8 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
     let partnerRoutes: PrerenderRoute[] = [];
     if (partnersRes.status === 'fulfilled' && partnersRes.value.ok) {
-      const partners: { slug: string; name: string; description: string | null }[] = await partnersRes.value.json();
+      const partnersRaw = await partnersRes.value.json();
+      const partners: { slug: string; name: string; description: string | null }[] = Array.isArray(partnersRaw) ? partnersRaw : [];
       partnerRoutes = partners.map((p) => ({
         path: `/partner/${p.slug}`,
         priority: '0.7',
@@ -189,7 +190,8 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
     let eventRoutes: PrerenderRoute[] = [];
     if (eventsRes.status === 'fulfilled' && eventsRes.value.ok) {
-      const events: { id: string; title: string; description: string | null }[] = await eventsRes.value.json();
+      const eventsRaw = await eventsRes.value.json();
+      const events: { id: string; title: string; description: string | null }[] = Array.isArray(eventsRaw) ? eventsRaw : [];
       eventRoutes = events.map((e) => ({
         path: `/events/${e.id}`,
         priority: '0.6',
