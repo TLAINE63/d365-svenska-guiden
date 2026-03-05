@@ -315,30 +315,27 @@ const PartnerProfile = () => {
 
       <Navbar />
 
-      {/* Premium Hero Header */}
+      {/* Premium Hero Header - Light theme */}
       <header className="relative overflow-hidden mt-16">
-        {/* Sophisticated multi-layer background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/25 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-accent/20 via-transparent to-transparent" />
+        {/* Light multi-layer background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-800 dark:via-slate-850 dark:to-slate-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/8 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-accent/6 via-transparent to-transparent" />
         
-        {/* Animated floating orbs */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-primary/30 to-accent/20 rounded-full blur-[100px] animate-pulse" />
-        <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-gradient-to-tr from-accent/25 to-primary/15 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s' }} />
+        {/* Subtle floating orbs */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-gradient-to-br from-primary/8 to-accent/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-gradient-to-tr from-accent/6 to-primary/4 rounded-full blur-[80px]" />
         
         {/* Subtle grid pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{ 
-          backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)',
+        <div className="absolute inset-0 opacity-[0.04]" style={{ 
+          backgroundImage: 'linear-gradient(rgba(0,0,0,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.06) 1px, transparent 1px)',
           backgroundSize: '50px 50px'
         }} />
-        
-        {/* Shimmer effect overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[shimmer_3s_ease-in-out_infinite]" />
         
         <div className="relative container mx-auto px-4 sm:px-6 py-8 sm:py-12">
           <button
             onClick={() => window.history.back()}
-            className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-6 group text-sm font-medium backdrop-blur-sm bg-white/5 px-3 py-1.5 rounded-full border border-white/10"
+            className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors mb-6 group text-sm font-medium backdrop-blur-sm bg-foreground/5 px-3 py-1.5 rounded-full border border-border"
           >
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Tillbaka till partnerlistan
@@ -346,30 +343,28 @@ const PartnerProfile = () => {
 
           {/* Main content - centered layout */}
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Logo Container - centered */}
-            <div className="relative group/logo mb-6">
-              <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center p-2 overflow-hidden">
-                {partner.logo_url ? (
+            {/* Logo Container - only shown if logo exists */}
+            {partner.logo_url && (
+              <div className="relative mb-6">
+                <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center p-2 overflow-hidden">
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className="max-w-full max-h-full object-contain relative z-10 drop-shadow-[0_2px_8px_rgba(255,255,255,0.4)]"
+                    className="max-w-full max-h-full object-contain relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
                   />
-                ) : (
-                  <Building2 className="w-14 h-14 text-slate-400" />
-                )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Partner name and badge */}
             <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight drop-shadow-lg">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground tracking-tight">
                 {partner.name}
               </h1>
             </div>
             
             {/* Description */}
-            <p className="text-base sm:text-lg text-white/80 max-w-3xl leading-relaxed font-light mb-6">
+            <p className="text-base sm:text-lg text-muted-foreground max-w-3xl leading-relaxed font-light mb-6">
               {partner.description}
             </p>
             
@@ -428,7 +423,7 @@ const PartnerProfile = () => {
                     }
                   );
                 }}
-                className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-white shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
+                className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-primary-foreground shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
               >
                 <Globe className="w-4 h-4" />
                 <span className="font-medium">{partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
@@ -441,8 +436,8 @@ const PartnerProfile = () => {
               const cities = dbPartner?.office_cities as string[] | undefined;
               return cities && cities.length > 0 ? (
                 <div className="flex flex-wrap justify-center items-center gap-2 mt-4">
-                  <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-sm text-white shadow-lg">
-                    <MapPin className="w-4 h-4 text-sky-400 shrink-0" />
+                  <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-foreground/5 backdrop-blur-md border border-border text-sm text-foreground shadow-sm">
+                    <MapPin className="w-4 h-4 text-primary shrink-0" />
                     <span className="font-medium">
                       Vi har kontor i: {cities.join(', ')}
                     </span>
@@ -454,25 +449,25 @@ const PartnerProfile = () => {
             {/* Sales contact - separate row */}
             {dbPartner?.contactPerson && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
-                <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-900/60 backdrop-blur-md border border-emerald-400/40 text-sm text-white shadow-lg">
-                  <User className="w-4 h-4 text-emerald-300" />
+                <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-50 dark:bg-emerald-900/40 backdrop-blur-md border border-emerald-200 dark:border-emerald-400/30 text-sm text-foreground shadow-sm">
+                  <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span className="font-semibold">Säljkontakt: {dbPartner.contactPerson}</span>
                 </div>
                 {dbPartner?.email && (
                   <a 
                     href={`mailto:${dbPartner.email}`}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-sm text-white shadow-lg hover:bg-white/30 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-foreground/5 backdrop-blur-md border border-border text-sm text-foreground shadow-sm hover:bg-foreground/10 transition-colors"
                   >
-                    <Mail className="w-4 h-4 text-emerald-300" />
+                    <Mail className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span className="font-semibold">{dbPartner.email}</span>
                   </a>
                 )}
                 {dbPartner?.phone && (
                   <a 
                     href={`tel:${dbPartner.phone}`}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-sm text-white shadow-lg hover:bg-white/30 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-foreground/5 backdrop-blur-md border border-border text-sm text-foreground shadow-sm hover:bg-foreground/10 transition-colors"
                   >
-                    <Phone className="w-4 h-4 text-emerald-300" />
+                    <Phone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                     <span className="font-semibold">{dbPartner.phone}</span>
                   </a>
                 )}
