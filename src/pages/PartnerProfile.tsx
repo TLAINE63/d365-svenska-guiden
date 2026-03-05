@@ -343,25 +343,24 @@ const PartnerProfile = () => {
 
           {/* Main content - centered layout */}
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            {/* Logo Container - only shown if logo exists */}
-            {partner.logo_url && (
-              <div className="relative mb-6">
-                <div className="relative w-28 h-28 sm:w-36 sm:h-36 flex items-center justify-center p-2 overflow-hidden">
+            {/* Partner identity - logo OR name, not both */}
+            {partner.logo_url ? (
+              <div className="relative mb-4">
+                <div className="relative w-36 h-20 sm:w-48 sm:h-24 flex items-center justify-center overflow-hidden">
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
-                    className="max-w-full max-h-full object-contain relative z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
+                    className="max-w-full max-h-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
                   />
                 </div>
               </div>
+            ) : (
+              <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+                  {partner.name}
+                </h1>
+              </div>
             )}
-
-            {/* Partner name and badge */}
-            <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
-                {partner.name}
-              </h1>
-            </div>
             
             {/* Description */}
             <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-light mb-6">
