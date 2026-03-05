@@ -345,8 +345,8 @@ const PartnerProfile = () => {
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
             {/* Partner identity - logo OR name, not both */}
             {partner.logo_url ? (
-              <div className="relative mb-4">
-                <div className="relative w-36 h-20 sm:w-48 sm:h-24 flex items-center justify-center overflow-hidden">
+              <div className="relative mb-2">
+                <div className="relative w-56 h-32 sm:w-72 sm:h-36 flex items-center justify-center overflow-hidden">
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} logotyp`}
