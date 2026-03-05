@@ -345,7 +345,7 @@ const PartnerProfile = () => {
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
             {/* Partner identity - logo OR name, not both */}
             {partner.logo_url ? (
-              <div className="relative mb-1">
+              <div className="relative mb-2">
                 <div className="relative w-56 h-32 sm:w-72 sm:h-36 flex items-center justify-center overflow-hidden">
                   <img
                     src={partner.logo_url}
@@ -363,7 +363,7 @@ const PartnerProfile = () => {
             )}
             
             {/* Description */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-light mb-3">
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-light mb-6">
               {partner.description}
             </p>
             
