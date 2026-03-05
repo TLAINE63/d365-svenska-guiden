@@ -264,6 +264,8 @@ export default function prerenderPlugin(): Plugin {
         } catch {
           /* ignore */
         }
+        // Force exit to prevent dangling SSR module connections (Supabase auth refresh etc.)
+        setTimeout(() => process.exit(0), 500);
       }
     },
   };
