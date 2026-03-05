@@ -128,7 +128,12 @@ export default function prerenderPlugin(): Plugin {
         // ── 6. Render each route ─────────────────────────────────────────
         for (const route of allRoutes) {
           try {
+            const start = Date.now();
             const { html: appHtml, head } = render(route.path);
+            const elapsed = Date.now() - start;
+            if (elapsed > 5000) {
+              console.warn(`  ⚠️  Slow render: ${route.path} took ${elapsed}ms`);
+            }
 
             let page = template;
 
