@@ -315,7 +315,7 @@ serve(async (req: Request): Promise<Response> => {
       from: "D365 Guiden <info@d365.se>",
       to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
       reply_to: email, // Reply goes to customer
-      subject: `🔔 Ny ${safeAnalysisType}-behovsanalys från ${safeCompanyName}`,
+      subject: `Ny: Behovsanalys ${analysisType} - ${companyName.trim()}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #0078D4 0%, #00BCF2 100%); padding: 20px; border-radius: 8px 8px 0 0;">
