@@ -131,6 +131,12 @@ export default function prerenderPlugin(): Plugin {
             const start = Date.now();
             const { html: appHtml, head } = render(route.path);
             const elapsed = Date.now() - start;
+
+            // Diagnostic logging
+            console.log(`    📊 ${route.path}: appHtml=${appHtml.length} chars, title=${head.title ? 'YES' : 'NO'}, meta=${head.meta ? 'YES' : 'NO'} (${elapsed}ms)`);
+            if (appHtml.length === 0) {
+              console.warn(`  ⚠️  Empty render output for ${route.path}`);
+            }
             if (elapsed > 5000) {
               console.warn(`  ⚠️  Slow render: ${route.path} took ${elapsed}ms`);
             }
@@ -181,11 +187,36 @@ export default function prerenderPlugin(): Plugin {
               page = page.replace('</head>', `    ${headTags}\n  </head>`);
             }
 
-            // Inject rendered HTML into the root div (replace any existing noscript fallback content)
-            page = page.replace(
-              /<div id="root">[\s\S]*?<\/div>/,
-              `<div id="root">${appHtml}</div>`
-            );
+            // Inject rendered HTML into the root div
+            // Use indexOf-based approach instead of regex to avoid:
+            // 1. Regex not matching due to quote style variations (id="root" vs id='root' vs id=root)
+            // 2. String.replace() interpreting $ patterns in appHtml as backreferences
+            const rootMarkers = ['<div id="root">', "<div id='root'>", '<div id=root>'];
+            let rootStart = -1;
+            let usedMarker = '';
+            for (const marker of rootMarkers) {
+              rootStart = page.indexOf(marker);
+              if (rootStart !== -1) {
+                usedMarker = marker;
+                break;
+              }
+            }
+
+            if (rootStart !== -1) {
+              const contentStart = rootStart + usedMarker.length;
+              const closingDiv = page.indexOf('</div>', contentStart);
+              if (closingDiv !== -1) {
+                page = page.substring(0, contentStart) + appHtml + page.substring(closingDiv);
+                console.log(`    💉 Injected ${appHtml.length} chars into root div (marker: ${usedMarker})`);
+              } else {
+                console.warn(`  ⚠️  Could not find closing </div> for root div on ${route.path}`);
+              }
+            } else {
+              console.warn(`  ⚠️  Could not find <div id="root"> in template for ${route.path}`);
+              // Log template snippet for debugging
+              const bodySnippet = page.substring(page.indexOf('<body'), Math.min(page.indexOf('<body') + 300, page.length));
+              console.warn(`  📊 Body snippet: ${bodySnippet}`);
+            }
 
             // Clean up excessive blank lines
             page = page.replace(/\n{3,}/g, '\n\n');
