@@ -1005,6 +1005,152 @@ const SalesMarketingNeedsAnalysis = () => {
       yPos += 6;
     }
 
+    // ── KOMMERSIELL MOGNAD ─────────────────────────────────────────────
+    if (yPos > 200) { pdf.addPage(); yPos = margin; }
+    pdf.setFillColor(16, 185, 80);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("KOMMERSIELL MOGNAD", margin + 5, yPos + 7);
+    yPos += 14;
+
+    // Maturity score (same logic as step 8)
+    const pdfMaturityScore = (() => {
+      let score = 0;
+      if (["b2b_complex", "digital_market", "partner_channel"].includes(data.commercialModel)) score += 2;
+      else if (data.commercialModel) score += 1;
+      if (data.b2bStructuredPipeline === "Vi arbetar enligt en gemensam metodik med tydlig uppföljning") score += 1;
+      if (data.currentCrmUsage === "Avancerat") score += 1;
+      if (data.b2bComplexRoleBased?.startsWith("Ja")) score += 1;
+      if (data.b2bForecastNeeds === "Ja, kritiskt") score += 1;
+      if (["AI-driven segmentering & personalisering", "Strategisk AI-satsning"].includes(data.aiAmbition)) score += 1;
+      return Math.min(4, Math.max(1, Math.round(1 + (score / 7) * 3)));
+    })();
+    const pdfMaturityLabels = ["", "Grundlaggande", "Utvecklande", "Avancerad", "Ledande"];
+    const pdfMaturityComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
+      1: {
+        text: "Er kommersiella organisation ar i ett tidigt skede med begransad processstruktur och systemstod. Det finns stor potential att snabbt skapa ordning och effektivitet med ratt CRM-plattform.",
+        strengths: ["Flexibelt och anpassningsbart", "Kort beslutsvag i organisationen", "Hog forandringsvilja"],
+        gaps: ["Ingen strukturerad saljprocess", "Begransad uppfoljning av pipeline", "Kunddata spridd i flera system", "Manuell kommunikation och uppfoljning"],
+      },
+      2: {
+        text: "Er saljorganisation har grundlaggande processer pa plats men saknar annu fullt systemstod. Nasta steg ar att samla kunddata och saljaktiviteter pa en plattform.",
+        strengths: ["Definierade saljsteg finns", "Viss uppfoljning av affarer", "Tydlig ansvarsfordelning"],
+        gaps: ["Begransad integration mellan system", "Ingen automatisering av kommunikation", "Forecast bygger pa magkansla", "Manuell rapportering"],
+      },
+      3: {
+        text: "Er kommersiella organisation ar strukturerad med tydlig saljprocess och systemstod. Ni har god datamognad men har annu inte fullt utnyttjat AI och automatisering.",
+        strengths: ["Tydlig saljprocess och metodik", "God pipeline-synlighet", "Systematisk kunduppfoljning", "Central kunddata"],
+        gaps: ["Begransad AI-driven insikt", "Automation kan byggas ut", "Prediktiv prognos ej implementerat"],
+      },
+      4: {
+        text: "Er kommersiella organisation ar mogen och datadriven med hog grad av automatisering. Fokus handlar nu om att optimera och nyttja AI till fullo for att skapa konkurrensfordel.",
+        strengths: ["Hog automationsgrad", "AI-drivet beslutsstod", "Prediktiv pipeline och scoring", "Somlosa system-integrationer"],
+        gaps: ["Kontinuerlig AI-modelloptimering", "Skalning till nya marknader"],
+      },
+    };
+    const pdfMaturityComment = pdfMaturityComments[pdfMaturityScore];
+
+    // Maturity level indicator
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(80, 80, 80);
+    pdf.text("Commercial Maturity Level:", margin, yPos);
+    // Draw dots
+    for (let i = 1; i <= 4; i++) {
+      if (i <= pdfMaturityScore) pdf.setFillColor(16, 185, 80);
+      else pdf.setFillColor(220, 220, 220);
+      pdf.circle(margin + 60 + (i - 1) * 10, yPos - 1.5, 3, "F");
+    }
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(16, 185, 80);
+    pdf.text(pdfMaturityLabels[pdfMaturityScore], margin + 105, yPos);
+    yPos += 8;
+
+    // Description
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(80, 80, 80);
+    const maturityDescLines = pdf.splitTextToSize(pdfMaturityComment.text, contentWidth);
+    pdf.text(maturityDescLines, margin, yPos);
+    yPos += maturityDescLines.length * 5 + 6;
+
+    // Strengths
+    if (yPos > 240) { pdf.addPage(); yPos = margin; }
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(16, 185, 80);
+    pdf.text("Styrkor:", margin, yPos);
+    yPos += 5;
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(80, 80, 80);
+    pdfMaturityComment.strengths.forEach((s) => {
+      pdf.text(`- ${s}`, margin + 3, yPos);
+      yPos += 5;
+    });
+    yPos += 3;
+
+    // Gaps
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(200, 120, 0);
+    pdf.text("Utvecklingsomraden:", margin, yPos);
+    yPos += 5;
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(80, 80, 80);
+    pdfMaturityComment.gaps.forEach((g) => {
+      if (yPos > 270) { pdf.addPage(); yPos = margin; }
+      pdf.text(`- ${g}`, margin + 3, yPos);
+      yPos += 5;
+    });
+    yPos += 8;
+
+    // ── REKOMMENDERAD PARTNERTYP ─────────────────────────────────────────
+    if (yPos > 220) { pdf.addPage(); yPos = margin; }
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("REKOMMENDERAD PARTNERTYP", margin + 5, yPos + 7);
+    yPos += 14;
+
+    const pdfPartners: { label: string; description: string }[] = [];
+    if (pdfProduct.includes("Sales")) {
+      if (["500+", "250-999 anställda"].includes(data.employees)) {
+        pdfPartners.push({ label: "Enterprise CRM-arkitekt", description: "Partner med erfarenhet av komplexa saljorganisationer och globala CRM-implementationer" });
+      } else {
+        pdfPartners.push({ label: "Sales-specialist", description: "Partner specialiserad pa effektiva Dynamics 365 Sales-implementationer for tillvaxtbolag" });
+      }
+    }
+    if (pdfProduct.includes("Customer Insights")) {
+      pdfPartners.push({ label: "Customer Insights-specialist", description: "Partner med kompetens inom CDP, AI-segmentering och personaliserade kundresor" });
+    }
+    if ((data.integrationTypes || []).length >= 3 || data.integrationScope === "Omfattande och affärskritiskt") {
+      pdfPartners.push({ label: "Integrationsspecialist", description: "Partner med stark kompetens i systemintegrationer och dataarkitektur for komplexa CRM-projekt" });
+    }
+    if (pdfPartners.length === 0) {
+      pdfPartners.push({ label: "CRM-specialist", description: "Partner specialiserad pa Dynamics 365 CRM-losningar for er affarsmodell" });
+    }
+
+    pdfPartners.forEach((p) => {
+      if (yPos > 260) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(245, 248, 252);
+      pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
+      pdf.setFontSize(9.5);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(30, 58, 138);
+      pdf.text(p.label, margin + 5, yPos + 5.5);
+      pdf.setFontSize(8);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(100, 100, 100);
+      const pDescLines = pdf.splitTextToSize(p.description, contentWidth - 10);
+      pdf.text(pDescLines, margin + 5, yPos + 10.5);
+      yPos += 16 + (pDescLines.length - 1) * 4;
+    });
+    yPos += 8;
+
     // ── Helpers för frågeavsnitt ──────────────────────────────────────────
     const addSection = (title: string, content: string) => {
       if (yPos > 250) {
