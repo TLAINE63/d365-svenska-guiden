@@ -1229,7 +1229,7 @@ const AIReadiness = () => {
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(255, 255, 255);
-    doc.text(`${pd.emoji}  ${pd.title}`, lm + 8, y + 10);
+    doc.text(pd.title, lm + 8, y + 10);
     doc.setFontSize(9);
     doc.setFont("helvetica", "normal");
     doc.text(pd.subtitle, lm + 8, y + 17);
@@ -1372,7 +1372,7 @@ const AIReadiness = () => {
     doc.setFontSize(8);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(255, 255, 255);
-    doc.text(`${sysData.emoji}  ${sysData.label}`, lm + 6, y + 5);
+    doc.text(sysData.label, lm + 6, y + 5);
     y += 12;
     addText(sysData.description);
     y += 2;
@@ -1455,7 +1455,7 @@ const AIReadiness = () => {
       doc.setFontSize(9.5);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(slate800.r, slate800.g, slate800.b);
-      doc.text(`${p.icon}  ${p.type}`, lm + 6, y + 6);
+      doc.text(p.type, lm + 6, y + 6);
       doc.setFontSize(8);
       doc.setFont("helvetica", "normal");
       doc.setTextColor(slate600.r, slate600.g, slate600.b);
