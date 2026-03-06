@@ -856,157 +856,62 @@ const SalesMarketingNeedsAnalysis = () => {
 
     pdf.addPage();
 
-    // Header
+    // ── PAGE HEADER ─────────────────────────────────────────────────────
     pdf.setFillColor(30, 58, 138);
-    pdf.rect(0, 0, pageWidth, 50, 'F');
+    pdf.rect(0, 0, pageWidth, 40, 'F');
     pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(24);
+    pdf.setFontSize(20);
     pdf.setFont("helvetica", "bold");
-    pdf.text("BEHOVSANALYS SÄLJ & MARKNAD", margin, 25);
-    pdf.setFontSize(14);
+    pdf.text("RESULTAT & REKOMMENDATIONER", margin, 22);
+    pdf.setFontSize(11);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Sales & Marketing", margin, 35);
+    pdf.text(`${data.companyName} – ${new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" })}`, margin, 33);
 
-    yPos = 60;
+    yPos = 50;
 
-    // Contact info
-    pdf.setFillColor(240, 245, 255);
-    pdf.roundedRect(margin, yPos, contentWidth, 40, 3, 3, 'F');
-    pdf.setTextColor(30, 58, 138);
-    pdf.setFontSize(12);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("KONTAKTINFORMATION", margin + 8, yPos + 12);
-    pdf.setTextColor(51, 51, 51);
-    pdf.setFontSize(10);
-    pdf.setFont("helvetica", "normal");
-    pdf.text(data.companyName, margin + 8, yPos + 22);
-    pdf.text(data.contactName, margin + 8, yPos + 30);
-    pdf.text(`E-post: ${data.email}`, pageWidth / 2, yPos + 22);
-    
-    yPos += 50;
-
-    // ── ER KOMMERSIELLA PROFIL ────────────────────────────────────────────
-    if (yPos > 200) { pdf.addPage(); yPos = margin; }
-    yPos += 5;
-    pdf.setFillColor(30, 58, 138);
+    // ══════════════════════════════════════════════════════════════════════
+    // 1. SAMMANFATTNING (matches visual profile dimensions grid)
+    // ══════════════════════════════════════════════════════════════════════
+    pdf.setFillColor(30, 100, 200);
     pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(10);
     pdf.setFont("helvetica", "bold");
-    pdf.text("ER KOMMERSIELLA PROFIL", margin + 5, yPos + 7);
+    pdf.text("SAMMANFATTNING", margin + 5, yPos + 7);
     yPos += 14;
 
     const profileRows = [
-      ["Säljkomplexitet", pdfComplexity],
+      ["Saljkomplexitet", pdfComplexity],
       ["Datamognad", pdfDataComplexity],
       ["Skalbarhetskrav", pdfScalability],
       ["AI-beredskap", pdfAiReadiness],
     ];
+
+    // 2x2 grid layout
+    const cellW = contentWidth / 2;
+    const cellH = 14;
     profileRows.forEach(([label, value], i) => {
-      if (i % 2 === 0) pdf.setFillColor(248, 250, 252);
-      else pdf.setFillColor(255, 255, 255);
-      pdf.rect(margin, yPos - 4, contentWidth, 8, 'F');
-      pdf.setTextColor(80, 80, 80);
-      pdf.setFontSize(9);
+      const col = i % 2;
+      const row = Math.floor(i / 2);
+      const x = margin + col * cellW;
+      const y = yPos + row * cellH;
+      pdf.setFillColor(245, 248, 252);
+      pdf.roundedRect(x + 1, y, cellW - 2, cellH - 2, 2, 2, 'F');
+      pdf.setFontSize(7.5);
       pdf.setFont("helvetica", "normal");
-      pdf.text(label, margin + 3, yPos);
+      pdf.setTextColor(120, 120, 120);
+      pdf.text(label, x + 5, y + 5);
+      pdf.setFontSize(10);
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(30, 58, 138);
-      pdf.text(value, margin + contentWidth - 3, yPos, { align: "right" });
-      yPos += 8;
+      pdf.text(value, x + 5, y + 11);
     });
-    yPos += 5;
+    yPos += Math.ceil(profileRows.length / 2) * cellH + 8;
 
-    // ── BEDÖMNING ─────────────────────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════════════════
+    // 2. KOMMERSIELL MOGNAD (matches visual maturity section with dots)
+    // ══════════════════════════════════════════════════════════════════════
     if (yPos > 210) { pdf.addPage(); yPos = margin; }
-    pdf.setFillColor(30, 58, 138);
-    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
-    pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(10);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("BEDÖMNING", margin + 5, yPos + 7);
-    yPos += 14;
-
-    // Dynamisk bedömningstext
-    pdf.setTextColor(80, 80, 80);
-    pdf.setFontSize(9);
-    pdf.setFont("helvetica", "normal");
-    const introLines = pdf.splitTextToSize(pdfAssessmentIntro, contentWidth);
-    introLines.forEach((line: string) => {
-      if (yPos > 270) { pdf.addPage(); yPos = margin; }
-      pdf.text(line, margin, yPos);
-      yPos += 5;
-    });
-    yPos += 4;
-
-    // Fokusområden
-    if (pdfAssessmentPoints.length > 0) {
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(51, 51, 51);
-      pdf.text("Prioriterade fokusområden:", margin, yPos);
-      yPos += 6;
-      pdf.setFont("helvetica", "normal");
-      pdfAssessmentPoints.forEach((point) => {
-        if (yPos > 270) { pdf.addPage(); yPos = margin; }
-        const lines = pdf.splitTextToSize(`– ${point}`, contentWidth - 5);
-        pdf.text(lines, margin + 2, yPos);
-        yPos += lines.length * 5 + 2;
-      });
-    }
-
-    // AI-risk-varning
-    if (pdfAiRisk) {
-      yPos += 4;
-      if (yPos > 260) { pdf.addPage(); yPos = margin; }
-      pdf.setFillColor(254, 243, 199);
-      pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
-      pdf.setTextColor(120, 80, 0);
-      pdf.setFontSize(8);
-      pdf.setFont("helvetica", "bold");
-      pdf.text("OBS: AI-ambition vs datamognad", margin + 4, yPos + 6);
-      pdf.setFont("helvetica", "normal");
-      const warnLines = pdf.splitTextToSize("Hög AI-ambition men kundinformationen är spridd. En lyckad AI-satsning kräver att datagrunden konsolideras först.", contentWidth - 8);
-      pdf.text(warnLines, margin + 4, yPos + 11);
-      yPos += 16 + (warnLines.length - 1) * 4;
-    }
-    yPos += 8;
-
-    // ── REKOMMENDERAD LÖSNING ─────────────────────────────────────────────
-    if (yPos > 230) { pdf.addPage(); yPos = margin; }
-    pdf.setFillColor(30, 58, 138);
-    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
-    pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(10);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("REKOMMENDERAD LÖSNING", margin + 5, yPos + 7);
-    yPos += 14;
-
-    pdf.setFillColor(240, 245, 255);
-    pdf.roundedRect(margin, yPos, contentWidth, pdfKeyFactors.length > 0 ? 12 + pdfKeyFactors.slice(0,5).length * 6 : 12, 2, 2, 'F');
-    pdf.setTextColor(30, 58, 138);
-    pdf.setFontSize(11);
-    pdf.setFont("helvetica", "bold");
-    pdf.text(pdfProduct, margin + 5, yPos + 9);
-    yPos += 14;
-
-    if (pdfKeyFactors.length > 0) {
-      pdf.setFontSize(8);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(80, 80, 80);
-      pdf.text("Avgörande faktorer:", margin + 5, yPos);
-      yPos += 5;
-      pdf.setFont("helvetica", "normal");
-      pdfKeyFactors.slice(0, 5).forEach((f) => {
-        if (yPos > 270) { pdf.addPage(); yPos = margin; }
-        const fLines = pdf.splitTextToSize(`– ${f}`, contentWidth - 10);
-        pdf.text(fLines, margin + 7, yPos);
-        yPos += fLines.length * 5 + 1;
-      });
-      yPos += 6;
-    }
-
-    // ── KOMMERSIELL MOGNAD ─────────────────────────────────────────────
-    if (yPos > 200) { pdf.addPage(); yPos = margin; }
     pdf.setFillColor(16, 185, 80);
     pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
     pdf.setTextColor(255, 255, 255);
@@ -1015,7 +920,7 @@ const SalesMarketingNeedsAnalysis = () => {
     pdf.text("KOMMERSIELL MOGNAD", margin + 5, yPos + 7);
     yPos += 14;
 
-    // Maturity score (same logic as step 8)
+    // Maturity score
     const pdfMaturityScore = (() => {
       let score = 0;
       if (["b2b_complex", "digital_market", "partner_channel"].includes(data.commercialModel)) score += 2;
@@ -1052,61 +957,231 @@ const SalesMarketingNeedsAnalysis = () => {
     };
     const pdfMaturityComment = pdfMaturityComments[pdfMaturityScore];
 
-    // Maturity level indicator
-    pdf.setFontSize(9);
-    pdf.setFont("helvetica", "bold");
-    pdf.setTextColor(80, 80, 80);
-    pdf.text("Commercial Maturity Level:", margin, yPos);
-    // Draw dots
+    // Maturity dots
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(120, 120, 120);
+    pdf.text("Commercial Maturity Level", margin, yPos);
+    yPos += 6;
     for (let i = 1; i <= 4; i++) {
       if (i <= pdfMaturityScore) pdf.setFillColor(16, 185, 80);
       else pdf.setFillColor(220, 220, 220);
-      pdf.circle(margin + 60 + (i - 1) * 10, yPos - 1.5, 3, "F");
+      pdf.circle(margin + (i - 1) * 10 + 3, yPos, 3, "F");
     }
-    pdf.setFont("helvetica", "normal");
-    pdf.setTextColor(16, 185, 80);
-    pdf.text(pdfMaturityLabels[pdfMaturityScore], margin + 105, yPos);
+    yPos += 6;
+    pdf.setFontSize(13);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(51, 51, 51);
+    pdf.text(`Niva ${pdfMaturityScore} - ${pdfMaturityLabels[pdfMaturityScore]}`, margin, yPos);
     yPos += 8;
 
-    // Description
-    pdf.setFontSize(9);
-    pdf.setFont("helvetica", "normal");
-    pdf.setTextColor(80, 80, 80);
-    const maturityDescLines = pdf.splitTextToSize(pdfMaturityComment.text, contentWidth);
-    pdf.text(maturityDescLines, margin, yPos);
-    yPos += maturityDescLines.length * 5 + 6;
-
-    // Strengths
-    if (yPos > 240) { pdf.addPage(); yPos = margin; }
-    pdf.setFontSize(9);
+    // ══════════════════════════════════════════════════════════════════════
+    // 3. BEDOMNING (assessment intro + focus points + AI risk warning)
+    // ══════════════════════════════════════════════════════════════════════
+    if (yPos > 210) { pdf.addPage(); yPos = margin; }
+    pdf.setFillColor(80, 80, 100);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
     pdf.setFont("helvetica", "bold");
-    pdf.setTextColor(16, 185, 80);
-    pdf.text("Styrkor:", margin, yPos);
-    yPos += 5;
+    pdf.text("BEDOMNING", margin + 5, yPos + 7);
+    yPos += 14;
+
+    // Maturity comment text
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFontSize(9);
     pdf.setFont("helvetica", "normal");
-    pdf.setTextColor(80, 80, 80);
-    pdfMaturityComment.strengths.forEach((s) => {
-      pdf.text(`- ${s}`, margin + 3, yPos);
+    const matDescLines = pdf.splitTextToSize(pdfMaturityComment.text, contentWidth);
+    matDescLines.forEach((line: string) => {
+      if (yPos > 270) { pdf.addPage(); yPos = margin; }
+      pdf.text(line, margin, yPos);
       yPos += 5;
     });
     yPos += 3;
 
-    // Gaps
-    pdf.setFontSize(9);
-    pdf.setFont("helvetica", "bold");
-    pdf.setTextColor(200, 120, 0);
-    pdf.text("Utvecklingsomraden:", margin, yPos);
-    yPos += 5;
-    pdf.setFont("helvetica", "normal");
+    // Assessment intro
     pdf.setTextColor(80, 80, 80);
-    pdfMaturityComment.gaps.forEach((g) => {
+    const introLines = pdf.splitTextToSize(pdfAssessmentIntro, contentWidth);
+    introLines.forEach((line: string) => {
       if (yPos > 270) { pdf.addPage(); yPos = margin; }
-      pdf.text(`- ${g}`, margin + 3, yPos);
+      pdf.text(line, margin, yPos);
       yPos += 5;
     });
+    yPos += 4;
+
+    // Focus points
+    if (pdfAssessmentPoints.length > 0) {
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(51, 51, 51);
+      pdf.setFontSize(9);
+      pdf.text("Prioriterade fokusomraden:", margin, yPos);
+      yPos += 6;
+      pdf.setFont("helvetica", "normal");
+      pdfAssessmentPoints.forEach((point) => {
+        if (yPos > 270) { pdf.addPage(); yPos = margin; }
+        // Draw a small CRM-colored dot
+        pdf.setFillColor(30, 58, 138);
+        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+        const lines = pdf.splitTextToSize(point, contentWidth - 8);
+        pdf.setTextColor(51, 51, 51);
+        pdf.text(lines, margin + 6, yPos);
+        yPos += lines.length * 5 + 2;
+      });
+    }
+
+    // AI risk warning
+    if (pdfAiRisk) {
+      yPos += 4;
+      if (yPos > 255) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(254, 243, 199);
+      pdf.roundedRect(margin, yPos, contentWidth, 18, 2, 2, 'F');
+      pdf.setTextColor(120, 80, 0);
+      pdf.setFontSize(8);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("OBS: AI-ambition vs datamognad", margin + 4, yPos + 6);
+      pdf.setFont("helvetica", "normal");
+      const warnLines = pdf.splitTextToSize("Hog AI-ambition men kundinformationen ar fortfarande spridd. En lyckad AI-satsning kraver att datagrunden konsolideras forst.", contentWidth - 8);
+      pdf.text(warnLines, margin + 4, yPos + 11);
+      yPos += 20 + (warnLines.length - 1) * 4;
+    }
+    yPos += 6;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 4. STYRKOR + UTVECKLINGSOMRADEN (side by side like the visual)
+    // ══════════════════════════════════════════════════════════════════════
+    if (yPos > 200) { pdf.addPage(); yPos = margin; }
+    const colW = (contentWidth - 4) / 2;
+
+    // Left column: Styrkor
+    pdf.setFillColor(22, 163, 74);
+    pdf.roundedRect(margin, yPos, colW, 8, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("STYRKOR", margin + 4, yPos + 5.5);
+
+    // Right column: Utvecklingsomraden
+    pdf.setFillColor(245, 158, 11);
+    pdf.roundedRect(margin + colW + 4, yPos, colW, 8, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.text("UTVECKLINGSOMRADEN", margin + colW + 8, yPos + 5.5);
+    yPos += 12;
+
+    const maxItems = Math.max(pdfMaturityComment.strengths.length, pdfMaturityComment.gaps.length);
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "normal");
+    for (let i = 0; i < maxItems; i++) {
+      if (yPos > 270) { pdf.addPage(); yPos = margin; }
+      if (i < pdfMaturityComment.strengths.length) {
+        pdf.setTextColor(22, 163, 74);
+        pdf.text("-", margin + 2, yPos);
+        pdf.setTextColor(51, 51, 51);
+        const sLines = pdf.splitTextToSize(pdfMaturityComment.strengths[i], colW - 8);
+        pdf.text(sLines, margin + 6, yPos);
+      }
+      if (i < pdfMaturityComment.gaps.length) {
+        pdf.setTextColor(245, 158, 11);
+        pdf.text("-", margin + colW + 6, yPos);
+        pdf.setTextColor(51, 51, 51);
+        const gLines = pdf.splitTextToSize(pdfMaturityComment.gaps[i], colW - 8);
+        pdf.text(gLines, margin + colW + 10, yPos);
+      }
+      yPos += 6;
+    }
     yPos += 8;
 
-    // ── REKOMMENDERAD PARTNERTYP ─────────────────────────────────────────
+    // ══════════════════════════════════════════════════════════════════════
+    // 5. REKOMMENDERAD LOSNINGSINRIKTNING (product + focus items)
+    // ══════════════════════════════════════════════════════════════════════
+    if (yPos > 200) { pdf.addPage(); yPos = margin; }
+    pdf.setFillColor(30, 58, 138);
+    pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("REKOMMENDERAD LOSNINGSINRIKTNING", margin + 5, yPos + 7);
+    yPos += 14;
+
+    // Product name
+    pdf.setFillColor(240, 245, 255);
+    pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
+    pdf.setTextColor(30, 58, 138);
+    pdf.setFontSize(12);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(pdfProduct, margin + 5, yPos + 10);
+    yPos += 18;
+
+    pdf.setTextColor(51, 51, 51);
+    pdf.setFontSize(9);
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Baserat pa er kommersiella profil rekommenderas en plattform med fokus pa:", margin, yPos);
+    yPos += 7;
+
+    // Focus items (matching visual crmFocusItems)
+    const pdfCrmFocusMap: Record<string, string[]> = {
+      "Dynamics 365 Sales": [
+        "Strukturerad pipeline och saljprognos",
+        "Hantering av komplexa affarer och beslutsfattare",
+        "Saljcoachning och aktivitetsuppfoljning",
+        "Copilot AI for motessammanfattning och e-postforslag",
+        "Integration med Microsoft Teams och Outlook",
+      ],
+      "Dynamics 365 Customer Insights": [
+        "Enhetlig kundprofil (CDP) och datainsamling",
+        "AI-driven segmentering och malgruppsaktivering",
+        "Personaliserade kundresor i alla kanaler",
+        "Realtidsaktivering och beteendebaserade triggers",
+        "Analys av kundlivstidsvarde och churn-risk",
+      ],
+    };
+    const focusItems = pdfProduct.includes("Customer Insights")
+      ? pdfCrmFocusMap["Dynamics 365 Customer Insights"]
+      : pdfCrmFocusMap["Dynamics 365 Sales"];
+
+    focusItems.forEach((item) => {
+      if (yPos > 270) { pdf.addPage(); yPos = margin; }
+      pdf.setFillColor(240, 245, 255);
+      pdf.roundedRect(margin + 2, yPos - 3, contentWidth - 4, 8, 1, 1, 'F');
+      pdf.setFontSize(8.5);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      pdf.text(`  ${item}`, margin + 5, yPos + 1);
+      yPos += 9;
+    });
+    yPos += 4;
+
+    // "Bakom kulisserna" pill
+    pdf.setFontSize(7);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(120, 120, 120);
+    pdf.text("Bakom kulisserna lutar det mot:", margin, yPos);
+    yPos += 5;
+    pdf.setFillColor(230, 240, 255);
+    const pillW = pdf.getTextWidth(pdfProduct) + 12;
+    pdf.roundedRect(margin, yPos - 3.5, pillW, 8, 4, 4, 'F');
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(30, 58, 138);
+    pdf.text(pdfProduct, margin + 6, yPos + 1);
+    yPos += 10;
+
+    // Key factors quote
+    if (pdfKeyFactors[0]) {
+      pdf.setFontSize(7.5);
+      pdf.setFont("helvetica", "italic");
+      pdf.setTextColor(120, 120, 120);
+      pdf.setDrawColor(30, 58, 138);
+      pdf.setLineWidth(0.5);
+      pdf.line(margin + 2, yPos - 2, margin + 2, yPos + 4);
+      const quoteLine = pdf.splitTextToSize(`"${pdfKeyFactors[0]}"`, contentWidth - 10);
+      pdf.text(quoteLine, margin + 6, yPos + 1);
+      yPos += quoteLine.length * 4 + 4;
+    }
+    yPos += 6;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 6. REKOMMENDERAD PARTNERTYP
+    // ══════════════════════════════════════════════════════════════════════
     if (yPos > 220) { pdf.addPage(); yPos = margin; }
     pdf.setFillColor(30, 58, 138);
     pdf.roundedRect(margin, yPos, contentWidth, 10, 2, 2, 'F');
@@ -1135,19 +1210,19 @@ const SalesMarketingNeedsAnalysis = () => {
     }
 
     pdfPartners.forEach((p) => {
-      if (yPos > 260) { pdf.addPage(); yPos = margin; }
+      if (yPos > 255) { pdf.addPage(); yPos = margin; }
       pdf.setFillColor(245, 248, 252);
-      pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
+      pdf.roundedRect(margin, yPos, contentWidth, 16, 2, 2, 'F');
       pdf.setFontSize(9.5);
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(30, 58, 138);
-      pdf.text(p.label, margin + 5, yPos + 5.5);
+      pdf.text(p.label, margin + 5, yPos + 6);
       pdf.setFontSize(8);
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(100, 100, 100);
       const pDescLines = pdf.splitTextToSize(p.description, contentWidth - 10);
-      pdf.text(pDescLines, margin + 5, yPos + 10.5);
-      yPos += 16 + (pDescLines.length - 1) * 4;
+      pdf.text(pDescLines, margin + 5, yPos + 12);
+      yPos += 18 + (pDescLines.length - 1) * 4;
     });
     yPos += 8;
 
