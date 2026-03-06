@@ -15,11 +15,11 @@ interface NoscriptSEOProps {
 const NoscriptSEO = ({ title, description, sections = [] }: NoscriptSEOProps) => {
   return (
     <div className="sr-only" aria-hidden="true">
-      <h1>{title}</h1>
+      <p><strong>{title}</strong></p>
       <p>{description}</p>
       {sections.map((section, i) => (
         <div key={i}>
-          <h2>{section.heading}</h2>
+          <p><strong>{section.heading}</strong></p>
           <p>{section.text}</p>
         </div>
       ))}
