@@ -85,6 +85,18 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://d365.se/ai-oversikt</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://d365.se/ai-readiness</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://d365.se/behovsanalys</loc>
     <lastmod>2026-02-20</lastmod>
     <changefreq>monthly</changefreq>
