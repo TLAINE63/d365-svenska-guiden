@@ -1048,7 +1048,8 @@ const SalesMarketingNeedsAnalysis = () => {
           pdf.addPage();
           yPos = margin;
         }
-        pdf.text(`•  ${item}`, margin + 3, yPos);
+        const safeItem = item.replace(/→/g, "-");
+        pdf.text(`-  ${safeItem}`, margin + 3, yPos);
         yPos += 6;
       });
       yPos += 4;
