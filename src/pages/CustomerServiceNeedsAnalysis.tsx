@@ -812,7 +812,7 @@ const CustomerServiceNeedsAnalysis = () => {
       pdf.setFontSize(9);
       pdf.setFont("helvetica", "italic");
       pdf.setTextColor(80, 80, 80);
-      pdf.text("Baserat pa er serviceprofil rekommenderas en losning med fokus pa:", margin, yPos);
+      pdf.text("Baserat pa er kundserviceprofil rekommenderas en losning med fokus pa:", margin, yPos);
       yPos += 7;
 
       focuses.forEach((item) => {
@@ -1373,7 +1373,7 @@ const CustomerServiceNeedsAnalysis = () => {
         return (
           <div className="space-y-6">
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-              <p className="text-sm text-primary font-medium">🎯 Baserat på era svar har vi sammanställt er serviceprofil. Fyll i kontaktuppgifter nedan för att ladda ner analysen som PDF.</p>
+              <p className="text-sm text-primary font-medium">🎯 Baserat på era svar har vi sammanställt er kundserviceprofil. Fyll i kontaktuppgifter nedan för att ladda ner analysen som PDF.</p>
             </div>
 
             <AnalysisDisclaimer />
@@ -1454,10 +1454,10 @@ const CustomerServiceNeedsAnalysis = () => {
 
             <div className="border-t border-border pt-2" />
 
-            {/* Er serviceprofil */}
+            {/* Kundserviceprofil */}
             <div className="border rounded-xl p-5 space-y-3 bg-background shadow-sm">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
-                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">1</span>Er serviceprofil
+                <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center font-bold">1</span>Kundserviceprofil
               </h3>
               <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
                 <span className="text-3xl">{profile.icon}</span>
@@ -1492,7 +1492,7 @@ const CustomerServiceNeedsAnalysis = () => {
               {rec.products.length > 0 ? (
                 <>
                   <div>
-                    <p className="text-sm font-medium text-foreground mb-3">Baserat på er serviceprofil rekommenderas en lösning med fokus på:</p>
+                    <p className="text-sm font-medium text-foreground mb-3">Baserat på er kundserviceprofil rekommenderas en lösning med fokus på:</p>
                     <div className="space-y-2">
                       {(() => {
                         const focusMap2: Record<string, { icon: string; label: string }[]> = {
