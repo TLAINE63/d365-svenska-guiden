@@ -776,14 +776,14 @@ const NeedsAnalysis = () => {
 
   const stepTitles = [
     "Affärsmodell",
-    "Företagsstorlek",
+    "Storlek",
     "Bransch",
     "Komplexitet",
     "Geografi",
-    "Nuvarande Situation",
+    "Situation",
     "Utmaningar",
     "AI & Framtid",
-    "ERP-profil",
+    "Go-To-Market Profil",
   ];
 
   const handleNext = () => {
@@ -1354,7 +1354,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     
     const recommendation = getERPRecommendation();
     const complexity = getComplexityScores();
-    // Dynamic import to reduce initial bundle size
     const { default: jsPDF } = await import("jspdf");
     const pdf = new jsPDF();
     const pageWidth = pdf.internal.pageSize.getWidth();
@@ -1363,89 +1362,58 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     const contentWidth = pageWidth - margin * 2;
     let yPos = margin;
 
-    // Helper functions
-    const addNewPageIfNeeded = (requiredSpace: number) => {
-      if (yPos + requiredSpace > pageHeight - margin) {
-        pdf.addPage();
-        yPos = margin;
-        return true;
-      }
-      return false;
-    };
+    const checkPage = (needed = 20) => { if (yPos + needed > 270) { pdf.addPage(); yPos = margin; } };
 
-    const drawLine = (y: number, color: [number, number, number] = [0, 150, 136]) => {
-      pdf.setDrawColor(...color);
-      pdf.setLineWidth(0.5);
-      pdf.line(margin, y, pageWidth - margin, y);
-    };
-
-    const addSectionHeader = (title: string, number: string) => {
-      addNewPageIfNeeded(25);
-      pdf.setFillColor(0, 150, 136);
-      pdf.roundedRect(margin, yPos, contentWidth, 12, 2, 2, 'F');
+    const addSectionHeader = (title: string, r: number, g: number, b: number) => {
+      checkPage(18);
+      pdf.setFillColor(r, g, b);
+      pdf.roundedRect(margin, yPos, contentWidth, 11, 2, 2, 'F');
       pdf.setTextColor(255, 255, 255);
-      pdf.setFontSize(12);
-      pdf.setFont("helvetica", "bold");
-      pdf.text(`${number}. ${title}`, margin + 5, yPos + 8);
-      yPos += 18;
-      pdf.setTextColor(51, 51, 51);
-    };
-
-    const addContentRow = (label: string, value: string) => {
-      addNewPageIfNeeded(12);
       pdf.setFontSize(10);
       pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(100, 100, 100);
-      pdf.text(label, margin, yPos);
+      pdf.text(title, margin + 5, yPos + 7.5);
+      yPos += 15;
+      pdf.setTextColor(51, 51, 51);
       pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(51, 51, 51);
-      
-      const valueLines = pdf.splitTextToSize(value || "Ej angivet", contentWidth - 50);
-      pdf.text(valueLines, margin + 50, yPos);
-      yPos += Math.max(8, valueLines.length * 5) + 4;
     };
 
-    const addBulletList = (items: string[], otherText?: string) => {
-      if (items.length === 0 && !otherText) {
-        pdf.setFontSize(10);
-        pdf.setTextColor(150, 150, 150);
-        pdf.text("Inga val gjorda", margin + 5, yPos);
-        yPos += 8;
-        return;
-      }
-      
-      pdf.setFontSize(10);
-      pdf.setTextColor(51, 51, 51);
-      items.forEach((item) => {
-        addNewPageIfNeeded(8);
-        pdf.text(`– ${item}`, margin + 3, yPos);
-        yPos += 7;
-      });
-      
-      if (otherText) {
-        addNewPageIfNeeded(8);
-        pdf.setFont("helvetica", "italic");
-        pdf.setTextColor(100, 100, 100);
-        const otherLines = pdf.splitTextToSize(`Övrigt: ${otherText}`, contentWidth - 10);
-        pdf.text(otherLines, margin + 5, yPos);
-        yPos += otherLines.length * 5 + 3;
-        pdf.setFont("helvetica", "normal");
-      }
-      yPos += 5;
+    const addTextBlock = (text: string, fontSize = 9) => {
+      pdf.setFontSize(fontSize);
+      const lines = pdf.splitTextToSize(text || "Ej angivet", contentWidth);
+      checkPage(lines.length * 5 + 4);
+      pdf.text(lines, margin, yPos);
+      yPos += lines.length * 5 + 6;
     };
 
-    // ─── COVER PAGE ─────────────────────────────────────────────────────────────
+    const addBulletList = (items: string[]) => {
+      if (!items.length) return;
+      pdf.setFontSize(9);
+      items.forEach(item => { checkPage(7); pdf.text(`-  ${item}`, margin + 3, yPos); yPos += 6; });
+      yPos += 3;
+    };
+
+    const addKVRow = (label: string, value: string, shade: boolean) => {
+      if (!value || value === "Ej angivet") return;
+      checkPage(8);
+      if (shade) { pdf.setFillColor(245, 247, 252); pdf.rect(margin, yPos - 4, contentWidth, 7, 'F'); }
+      pdf.setFontSize(8.5);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(80, 80, 80);
+      pdf.text(label, margin + 2, yPos);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(30, 30, 30);
+      const valLines = pdf.splitTextToSize(value, contentWidth - 55);
+      pdf.text(valLines, margin + 55, yPos);
+      yPos += Math.max(6, valLines.length * 5);
+    };
+
+    // ── COVER PAGE ─────────────────────────────────────────────────────────────
     const analysisDate = new Date().toLocaleDateString("sv-SE", { year: "numeric", month: "long", day: "numeric" });
-    
-    // Cover background – deep teal
     pdf.setFillColor(0, 120, 108);
     pdf.rect(0, 0, pageWidth, pageHeight, 'F');
-    
-    // Accent stripe
     pdf.setFillColor(0, 180, 160);
     pdf.rect(0, pageHeight * 0.55, pageWidth, 3, 'F');
-    
-    // Try to add logo
+
     try {
       const logoImg = new Image();
       logoImg.crossOrigin = "anonymous";
@@ -1462,566 +1430,465 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
         logoImg.src = "/src/assets/dynamic-factory-logo-new.jpg";
       });
     } catch {}
-    
-    // Title block
+
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(28);
     pdf.setFont("helvetica", "bold");
     pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
-    
     pdf.setFontSize(16);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Affärssystem (ERP)", pageWidth / 2, 133, { align: "center" });
-    
-    // Divider
+    pdf.text("Dynamics 365 Affarssystem (ERP)", pageWidth / 2, 133, { align: "center" });
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(0.5);
     pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
-    
-    // Company info
+
     pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
     pdf.text(data.companyName || "", pageWidth / 2, 158, { align: "center" });
     pdf.setFontSize(10);
     pdf.setFont("helvetica", "normal");
     pdf.setTextColor(200, 240, 235);
-    pdf.text(data.contactName || "", pageWidth / 2, 167, { align: "center" });
-    pdf.text(data.email || "", pageWidth / 2, 176, { align: "center" });
-    
-    // Footer area
+    pdf.text(data.contactName || "", pageWidth / 2, 170, { align: "center" });
+    pdf.text(data.email || "", pageWidth / 2, 181, { align: "center" });
+
     pdf.setTextColor(180, 230, 225);
     pdf.setFontSize(9);
-    pdf.text("d365.se – Vägledning för Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
+    pdf.text("d365.se - Vagledning for Microsoft Dynamics 365-partner", pageWidth / 2, pageHeight - 28, { align: "center" });
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(10);
     pdf.text(`Analysens datum: ${analysisDate}`, pageWidth / 2, pageHeight - 18, { align: "center" });
-
-    // Start report on page 2
     pdf.addPage();
 
-    // Header with gradient-like effect – Business Central cyan (MS officiell)
+    // ── PAGE HEADER ────────────────────────────────────────────────────────────
     pdf.setFillColor(0, 143, 179);
-    pdf.rect(0, 0, pageWidth, 50, 'F');
-    pdf.setFillColor(0, 112, 140);
-    pdf.rect(0, 45, pageWidth, 5, 'F');
-    
+    pdf.rect(0, 0, pageWidth, 40, 'F');
     pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(24);
+    pdf.setFontSize(20);
     pdf.setFont("helvetica", "bold");
-    pdf.text("BEHOVSANALYS", margin, 25);
-    pdf.setFontSize(14);
+    pdf.text("RESULTAT & REKOMMENDATIONER", margin, 22);
+    pdf.setFontSize(11);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Affärssystem (ERP)", margin, 35);
-    
-    pdf.setFillColor(255, 255, 255);
-    pdf.roundedRect(pageWidth - 60, 15, 45, 20, 3, 3, 'F');
-    pdf.setTextColor(0, 143, 179);
+    pdf.text(`${data.companyName} - ${analysisDate}`, margin, 33);
+    yPos = 50;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 1. SAMMANFATTNING
+    // ══════════════════════════════════════════════════════════════════════
+    addSectionHeader("SAMMANFATTNING", 0, 143, 179);
+
+    const bmLabel = businessModelOptions.find(o => o.value === data.businessModel)?.label || data.businessModel || "Ej angivet";
+    const geoLabel = data.geography || "Ej angivet";
+    const sizeLabel = data.employees || "Ej angivet";
+    const criticalCount = complexity.criticalFactors.length > 0 ? `${complexity.criticalFactors.length} identifierade` : "Inga kritiska";
+
+    const profileRows = [
+      ["Affarsmodell", bmLabel],
+      ["Organisation", sizeLabel],
+      ["Geografisk rackvidd", geoLabel],
+      ["Kritiska faktorer", criticalCount],
+    ];
+    const cellW = contentWidth / 2;
+    const cellH = 14;
+    profileRows.forEach(([label, value], i) => {
+      const col = i % 2;
+      const row = Math.floor(i / 2);
+      const x = margin + col * cellW;
+      const y = yPos + row * cellH;
+      pdf.setFillColor(245, 248, 252);
+      pdf.roundedRect(x + 1, y, cellW - 2, cellH - 2, 2, 2, 'F');
+      pdf.setFontSize(7.5);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(120, 120, 120);
+      pdf.text(label, x + 5, y + 5);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(0, 100, 130);
+      pdf.text(value, x + 5, y + 11);
+    });
+    yPos += Math.ceil(profileRows.length / 2) * cellH + 8;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 2. ERP-MOGNAD (Complexity Level with dots)
+    // ══════════════════════════════════════════════════════════════════════
+    const maturityLevel = complexity.complexityLevel;
+    const maturityLabels = ["", "Grundlaggande ERP", "Strukturerat ERP", "Avancerat ERP", "Enterprise ERP"];
+    const maturityComments: Record<number, { text: string; strengths: string[]; gaps: string[] }> = {
+      1: {
+        text: "Er organisation har relativt enkla ERP-behov med begransad komplexitet i struktur och processer. Det finns stor mojlighet att snabbt fa varde av ett modernt affarssystem.",
+        strengths: ["Enkel och snabb implementation", "Lag TCO och tydlig ROI", "Latthanterade processer", "Flexibilitet att vaxa"],
+        gaps: ["Begransat systemstod idag", "Manuella processer kan skalas bort", "Potential att standardisera mer"],
+      },
+      2: {
+        text: "Er organisation har en mattlig komplexitet med etablerade affarsprocesser. Ratt ERP-plattform ger er mojlighet att effektivisera och automatisera utan onodig komplexitet.",
+        strengths: ["Etablerade affarsprocesser", "Viss systemerfarenhet", "Tydlig ansvarsfordelning"],
+        gaps: ["Begransad integrationskapacitet", "Manuell rapportering", "Processer ej fullt standardiserade"],
+      },
+      3: {
+        text: "Er organisation har en pataglig komplexitet i struktur eller operativa processer. Implementationsprojektet kraver noggrann forberedelse och en partner med dokumenterad erfarenhet.",
+        strengths: ["Tydliga processkrav", "IT-mognad pa plats", "Strukturerad styrmodell"],
+        gaps: ["Integrationsbehov kraver plan", "Forandringsledning viktigt", "Kraver branschanpassad partner"],
+      },
+      4: {
+        text: "Er organisation har hog komplexitet - multi-entity, globala floden eller avancerade operativa krav. Partnerurval och projektarkitektur ar avgorande for framgang.",
+        strengths: ["Stor intern IT-kapacitet", "Tydlig global styrmodell", "Avancerade systemkrav valdefinierade"],
+        gaps: ["Lang implementationstid att planera for", "Kraver enterprise-certifierad partner", "Change management kritiskt"],
+      },
+    };
+    const maturityData = maturityComments[maturityLevel];
+
+    checkPage(40);
+    addSectionHeader("ERP-KOMPLEXITETSNIVA", 5, 150, 105);
     pdf.setFontSize(8);
-    pdf.text("Genererad", pageWidth - 55, 23);
-    pdf.setFontSize(10);
+    pdf.setFont("helvetica", "normal");
+    pdf.setTextColor(120, 120, 120);
+    pdf.text("ERP Complexity Level", margin, yPos);
+    yPos += 6;
+    for (let i = 1; i <= 4; i++) {
+      if (i <= maturityLevel) pdf.setFillColor(5, 150, 105);
+      else pdf.setFillColor(220, 220, 220);
+      pdf.circle(margin + (i - 1) * 10 + 3, yPos, 3, "F");
+    }
+    yPos += 6;
+    pdf.setFontSize(13);
     pdf.setFont("helvetica", "bold");
-    pdf.text(new Date().toLocaleDateString('sv-SE'), pageWidth - 55, 31);
-    
-    yPos = 60;
-
-    // Introduction text
-    pdf.setTextColor(80, 80, 80);
-    pdf.setFontSize(10);
-    pdf.setFont("helvetica", "italic");
-    const introText = "Detta dokument sammanfattar er behovsanalys för ett nytt affärssystem (ERP) baserat på Microsoft Dynamics 365. Analysen har genomförts via Dynamic Factorys digitala verktyg och ger en första indikation på vilket system som passar era behov bäst.";
-    const introLines = pdf.splitTextToSize(introText, contentWidth);
-    pdf.text(introLines, margin, yPos);
-    yPos += introLines.length * 5 + 8;
-
-    // Contact Information Box
-    pdf.setFillColor(245, 245, 245);
-    pdf.roundedRect(margin, yPos, contentWidth, 50, 3, 3, 'F');
-    pdf.setDrawColor(0, 150, 136);
-    pdf.setLineWidth(1);
-    pdf.line(margin, yPos, margin, yPos + 50);
-    
-    pdf.setTextColor(0, 150, 136);
-    pdf.setFontSize(12);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("KONTAKTINFORMATION", margin + 8, yPos + 12);
-    
     pdf.setTextColor(51, 51, 51);
-    pdf.setFontSize(10);
+    pdf.text(`Niva ${maturityLevel} - ${maturityLabels[maturityLevel]}`, margin, yPos);
+    yPos += 4;
+    pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
-    
-    const contactY = yPos + 22;
-    pdf.setFont("helvetica", "bold");
-    pdf.text(data.companyName, margin + 8, contactY);
-    pdf.setFont("helvetica", "normal");
-    pdf.text(data.contactName, margin + 8, contactY + 8);
-    pdf.text(`Tel: ${data.phone || "Ej angivet"}`, margin + 8, contactY + 16);
-    pdf.text(`E-post: ${data.email}`, pageWidth / 2, contactY);
+    pdf.setTextColor(120, 120, 120);
+    pdf.text(`Riskniva: ${complexity.riskLevel}`, margin, yPos);
+    yPos += 8;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 3. BEDOMNING (assessment text + critical factors)
+    // ══════════════════════════════════════════════════════════════════════
+    checkPage(40);
+    addSectionHeader("BEDOMNING", 80, 80, 100);
+    pdf.setTextColor(51, 51, 51);
     pdf.setFontSize(9);
-    pdf.setTextColor(100, 100, 100);
-    pdf.text(`Analys genomförd: ${new Date().toLocaleDateString('sv-SE')}`, pageWidth / 2, contactY + 8);
-    
-    yPos += 60;
+    pdf.setFont("helvetica", "normal");
+    const matDescLines = pdf.splitTextToSize(maturityData.text, contentWidth);
+    matDescLines.forEach((line: string) => {
+      checkPage(6);
+      pdf.text(line, margin, yPos);
+      yPos += 5;
+    });
+    yPos += 3;
 
-    // COMPLEXITY ASSESSMENT in PDF
-    addNewPageIfNeeded(60);
-    pdf.setFillColor(240, 240, 255);
-    pdf.roundedRect(margin, yPos, contentWidth, 45, 3, 3, 'F');
-    pdf.setDrawColor(100, 100, 200);
-    pdf.setLineWidth(1);
-    pdf.line(margin, yPos, margin, yPos + 45);
-    
-    pdf.setTextColor(60, 60, 150);
+    if (complexity.criticalFactors.length > 0) {
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(51, 51, 51);
+      pdf.setFontSize(9);
+      pdf.text("Faktorer som driver bedomningen:", margin, yPos);
+      yPos += 6;
+      pdf.setFont("helvetica", "normal");
+      complexity.criticalFactors.forEach((factor) => {
+        checkPage(7);
+        pdf.setFillColor(0, 143, 179);
+        pdf.circle(margin + 2, yPos - 1.5, 1, "F");
+        const lines = pdf.splitTextToSize(factor, contentWidth - 8);
+        pdf.setTextColor(51, 51, 51);
+        pdf.text(lines, margin + 6, yPos);
+        yPos += lines.length * 5 + 2;
+      });
+    }
+
+    // Risk warning
+    if (recommendation.isHighRisk) {
+      yPos += 4;
+      checkPage(20);
+      pdf.setFillColor(254, 243, 199);
+      pdf.roundedRect(margin, yPos, contentWidth, 18, 2, 2, 'F');
+      pdf.setTextColor(120, 80, 0);
+      pdf.setFontSize(8);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("OBS: Hogriskprojekt", margin + 4, yPos + 6);
+      pdf.setFont("helvetica", "normal");
+      const warnLines = pdf.splitTextToSize("Hog komplexitet i kombination med lag IT-mognad. Partnerurval och projektstruktur blir avgorande.", contentWidth - 8);
+      pdf.text(warnLines, margin + 4, yPos + 11);
+      yPos += 20 + (warnLines.length - 1) * 4;
+    }
+    yPos += 6;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 4. STYRKOR + UTVECKLINGSOMRADEN (side by side)
+    // ══════════════════════════════════════════════════════════════════════
+    checkPage(50);
+    const colW = (contentWidth - 4) / 2;
+
+    pdf.setFillColor(22, 163, 74);
+    pdf.roundedRect(margin, yPos, colW, 8, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("STYRKOR", margin + 4, yPos + 5.5);
+
+    pdf.setFillColor(245, 158, 11);
+    pdf.roundedRect(margin + colW + 4, yPos, colW, 8, 2, 2, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.text("UTVECKLINGSOMRADEN", margin + colW + 8, yPos + 5.5);
+    yPos += 12;
+
+    const maxItems = Math.max(maturityData.strengths.length, maturityData.gaps.length);
+    pdf.setFontSize(8);
+    pdf.setFont("helvetica", "normal");
+    for (let i = 0; i < maxItems; i++) {
+      checkPage(8);
+      if (i < maturityData.strengths.length) {
+        pdf.setTextColor(22, 163, 74);
+        pdf.text("-", margin + 2, yPos);
+        pdf.setTextColor(51, 51, 51);
+        const sLines = pdf.splitTextToSize(maturityData.strengths[i], colW - 8);
+        pdf.text(sLines, margin + 6, yPos);
+      }
+      if (i < maturityData.gaps.length) {
+        pdf.setTextColor(245, 158, 11);
+        pdf.text("-", margin + colW + 6, yPos);
+        pdf.setTextColor(51, 51, 51);
+        const gLines = pdf.splitTextToSize(maturityData.gaps[i], colW - 8);
+        pdf.text(gLines, margin + colW + 10, yPos);
+      }
+      yPos += 6;
+    }
+    yPos += 8;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 5. REKOMMENDERAD LOSNINGSINRIKTNING
+    // ══════════════════════════════════════════════════════════════════════
+    checkPage(60);
+    addSectionHeader("REKOMMENDERAD LOSNINGSINRIKTNING", 0, 100, 130);
+
+    const isBC = recommendation.product === "Business Central";
+    const pdfProduct = `Dynamics 365 ${recommendation.product}`;
+
+    pdf.setFillColor(240, 248, 252);
+    pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
+    pdf.setTextColor(0, 100, 130);
     pdf.setFontSize(12);
     pdf.setFont("helvetica", "bold");
-    pdf.text("KOMPLEXITETSBEDÖMNING", margin + 8, yPos + 12);
-    
-    pdf.setTextColor(51, 51, 51);
-    pdf.setFontSize(10);
-    pdf.setFont("helvetica", "normal");
-    pdf.text(`Komplexitetsnivå: ${complexity.complexityLevel} av 4`, margin + 8, yPos + 22);
-    pdf.text(`Risknivå: ${complexity.riskLevel}`, margin + 8, yPos + 30);
-    if (complexity.criticalFactors.length > 0) {
-      pdf.text(`Kritiska faktorer: ${complexity.criticalFactors.slice(0, 3).join(", ")}`, margin + 8, yPos + 38);
-    }
-    yPos += 55;
+    pdf.text(pdfProduct, margin + 5, yPos + 10);
+    yPos += 18;
 
-    // RECOMMENDATION SECTION
-    addNewPageIfNeeded(100);
-    
-    const recommendationColor: [number, number, number] = recommendation.product === "Business Central" 
-      ? [25, 118, 210]
-      : [156, 39, 176];
-    
-    pdf.setFillColor(...recommendationColor);
-    pdf.roundedRect(margin, yPos, contentWidth, 18, 3, 3, 'F');
-    pdf.setTextColor(255, 255, 255);
-    pdf.setFontSize(14);
-    pdf.setFont("helvetica", "bold");
-    
-    if (recommendation.isCloseCall) {
-      pdf.text("PRELIMINÄR BEDÖMNING", margin + 5, yPos + 12);
-    } else {
-      pdf.text("BASERAT PÅ ERA SVAR LUTAR DET MOT", margin + 5, yPos + 12);
-    }
-    yPos += 25;
-
-    // Close call warning
     if (recommendation.isCloseCall) {
       pdf.setFillColor(255, 248, 225);
-      pdf.roundedRect(margin, yPos, contentWidth, 20, 2, 2, 'F');
+      pdf.roundedRect(margin, yPos, contentWidth, 14, 2, 2, 'F');
       pdf.setTextColor(180, 130, 0);
-      pdf.setFontSize(9);
+      pdf.setFontSize(8);
       pdf.setFont("helvetica", "bold");
-      pdf.text("Ni befinner er i gränslandet mellan plattformarna. Partnerns arkitekturkompetens blir avgörande.", margin + 5, yPos + 8);
-      pdf.setFont("helvetica", "normal");
-      pdf.text(`Poängfördelning: BC ${recommendation.bcScore} – F&SC ${recommendation.fscScore}`, margin + 5, yPos + 15);
-      yPos += 25;
-    }
-
-    // Risk flag
-    if (recommendation.isHighRisk) {
-      pdf.setFillColor(255, 235, 235);
-      pdf.roundedRect(margin, yPos, contentWidth, 15, 2, 2, 'F');
-      pdf.setTextColor(180, 30, 30);
-      pdf.setFontSize(9);
-      pdf.setFont("helvetica", "bold");
-      pdf.text("⚠ Högriskprojekt: Hög komplexitet + låg IT-mognad. Partnerurval och projektstruktur blir avgörande.", margin + 5, yPos + 10);
-      yPos += 20;
-    }
-    
-    pdf.setTextColor(...recommendationColor);
-    pdf.setFontSize(18);
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Microsoft Dynamics 365 ${recommendation.product}`, margin, yPos);
-    yPos += 12;
-    
-    // Reasons box
-    if (recommendation.reasons.length > 0) {
-      pdf.setFillColor(245, 245, 250);
-      const reasonsBoxHeight = recommendation.reasons.length * 8 + 15;
-      addNewPageIfNeeded(reasonsBoxHeight + 10);
-      pdf.roundedRect(margin, yPos, contentWidth, reasonsBoxHeight, 2, 2, 'F');
-      
-      pdf.setTextColor(100, 100, 100);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.text("Baserat på er behovsanalys:", margin + 5, yPos + 10);
+      pdf.text(`Gransland: BC ${recommendation.bcScore}p - F&SC ${recommendation.fscScore}p. Partnerns arkitekturkompetens blir avgorande.`, margin + 5, yPos + 9);
       yPos += 18;
-      
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(51, 51, 51);
-      recommendation.reasons.forEach((reason) => {
-        const reasonLines = pdf.splitTextToSize(`– ${reason}`, contentWidth - 15);
-        pdf.text(reasonLines, margin + 8, yPos);
-        yPos += reasonLines.length * 5 + 3;
-      });
-      yPos += 5;
     }
-    
-    // Description section
-    addNewPageIfNeeded(80);
-    yPos += 5;
+
     pdf.setTextColor(51, 51, 51);
-    pdf.setFontSize(11);
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Om ${recommendation.product}:`, margin, yPos);
-    yPos += 8;
-    
-    pdf.setFontSize(10);
+    pdf.setFontSize(9);
     pdf.setFont("helvetica", "normal");
-    
-    const descriptionLines = recommendation.description.split('\n');
-    descriptionLines.forEach((line) => {
-      addNewPageIfNeeded(8);
-      let cleanLine = line.replace(/\*\*/g, '');
-      if (line.startsWith('•')) {
-        const textLines = pdf.splitTextToSize(`– ${cleanLine.substring(2)}`, contentWidth - 5);
-        pdf.text(textLines, margin + 3, yPos);
-        yPos += textLines.length * 5 + 2;
-      } else if (cleanLine.trim()) {
-        const textLines = pdf.splitTextToSize(cleanLine, contentWidth);
-        pdf.text(textLines, margin, yPos);
-        yPos += textLines.length * 5 + 2;
-      } else {
-        yPos += 3;
-      }
+    pdf.text("Baserat pa er ERP-profil rekommenderas en plattform med fokus pa:", margin, yPos);
+    yPos += 7;
+
+    const pdfFocusMap: Record<string, string[]> = {
+      "Business Central": [
+        "Ekonomi och redovisning i molnet",
+        "Lagerstyrning och orderhantering",
+        "Inbyggd BI och rapportering med Power BI",
+        "Copilot AI for okad produktivitet",
+        "Somlos integration med Microsoft 365",
+      ],
+      "Finance & Supply Chain Management": [
+        "Avancerad koncernredovisning och multi-entity",
+        "Global supply chain och multi-site lager",
+        "Avancerad tillverkning och MRP/APS",
+        "Prediktiv analys och efterfrageprognoser",
+        "Regulatorisk efterlevnad och compliance",
+      ],
+    };
+    const focusItems = pdfFocusMap[recommendation.product] || [];
+
+    focusItems.forEach((item) => {
+      checkPage(10);
+      pdf.setFillColor(240, 248, 252);
+      pdf.roundedRect(margin + 2, yPos - 3, contentWidth - 4, 8, 1, 1, 'F');
+      pdf.setFontSize(8.5);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      pdf.text(`  ${item}`, margin + 5, yPos + 1);
+      yPos += 9;
     });
-    
-    yPos += 10;
-    drawLine(yPos, recommendationColor);
-    yPos += 15;
+    yPos += 4;
 
-    // Section 1: Business Model
-    addSectionHeader("AFFÄRSMODELL", "1");
-    const bmLabel = businessModelOptions.find(o => o.value === data.businessModel)?.label || "Ej angivet";
-    addContentRow("Affärsmodell:", bmLabel);
-    const subLabel = data.businessModelSubs.length > 0
-      ? data.businessModelSubs.join(", ")
-      : data.businessModelSub || "";
-    if (subLabel) {
-      addContentRow("Typ:", subLabel);
-    }
-    yPos += 5;
-
-    // Section 2: Company Size
-    addSectionHeader("FÖRETAGSSTORLEK", "2");
-    addContentRow("Anställda:", data.employees);
-    addContentRow("Omsättning:", data.revenue);
-    yPos += 5;
-
-    // Section 2: Industry
-    addSectionHeader("BRANSCH", "3");
-    addBulletList(data.industry ? [data.industry] : [], data.industryOther);
-
-    // Section 3: Complexity Assessment
-    addSectionHeader("KOMPLEXITETSBEDÖMNING", "4");
-    const c = data.complexity;
-    
-    // Structure labels (always shown)
-    const structureLabels: { label: string; value: string }[] = [
-      { label: "Juridiska enheter", value: complexityStructureOptions.legalEntities.find(o => o.value === c.legalEntities)?.label || "Ej angivet" },
-      { label: "Antal länder", value: complexityStructureOptions.countries.find(o => o.value === c.countries)?.label || "Ej angivet" },
-      { label: "Internhandel", value: complexityStructureOptions.intercompany.find(o => o.value === c.intercompany)?.label || "Ej angivet" },
-      { label: "Konsolidering", value: complexityStructureOptions.consolidation.find(o => o.value === c.consolidation)?.label || "Ej angivet" },
-    ];
-    structureLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
-
-    // Operative labels (business model specific)
-    let operativeLabels: { label: string; value: string }[] = [];
-    if (data.businessModel === "Konsult") {
-      operativeLabels = [
-        { label: "Samtidiga projekt", value: complexityConsultingOptions.simultaneousProjects.find(o => o.value === c.simultaneousProjects)?.label || "Ej angivet" },
-        { label: "Projektredovisning", value: complexityConsultingOptions.projectAccounting.find(o => o.value === c.projectAccounting)?.label || "Ej angivet" },
-        { label: "Global leverans", value: complexityConsultingOptions.globalDelivery.find(o => o.value === c.globalDelivery)?.label || "Ej angivet" },
-        { label: "Faktureringsmodell", value: complexityConsultingOptions.billingModels.find(o => o.value === c.billingModels)?.label || "Ej angivet" },
-      ];
-    } else if (data.businessModel === "Retail") {
-      operativeLabels = [
-        { label: "Antal butiker", value: complexityRetailOptions.storeCount.find(o => o.value === c.storeCount)?.label || "Ej angivet" },
-        { label: "E-handel", value: complexityRetailOptions.ecommercePlatform.find(o => o.value === c.ecommercePlatform)?.label || "Ej angivet" },
-        { label: "POS-integration", value: complexityRetailOptions.posIntegration.find(o => o.value === c.posIntegration)?.label || "Ej angivet" },
-        { label: "Realtidslager", value: complexityRetailOptions.realtimeInventory.find(o => o.value === c.realtimeInventory)?.label || "Ej angivet" },
-        { label: "Kampanj/pris", value: complexityRetailOptions.campaignPricing.find(o => o.value === c.campaignPricing)?.label || "Ej angivet" },
-      ];
-    } else {
-      operativeLabels = [
-        { label: "Produktionstyp", value: complexityOperativeOptions.productionType.find(o => o.value === c.productionType)?.label || "Ej angivet" },
-        { label: "Lagerstyrning", value: complexityOperativeOptions.warehouseManagement.find(o => o.value === c.warehouseManagement)?.label || "Ej angivet" },
-        { label: "Antal lager", value: complexityOperativeOptions.warehouseCount.find(o => o.value === c.warehouseCount)?.label || "Ej angivet" },
-        { label: "MRP/APS", value: complexityOperativeOptions.mrpAps.find(o => o.value === c.mrpAps)?.label || "Ej angivet" },
-        { label: "Transaktionsvolym", value: complexityOperativeOptions.transactionVolume.find(o => o.value === c.transactionVolume)?.label || "Ej angivet" },
-      ];
-    }
-    operativeLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
-
-    // Maturity labels (always shown)
-    const maturityLabels: { label: string; value: string }[] = [
-      { label: "IT-organisation", value: complexityMaturityOptions.itOrganization.find(o => o.value === c.itOrganization)?.label || "Ej angivet" },
-      { label: "Integrationer", value: complexityMaturityOptions.integrationPlatform.find(o => o.value === c.integrationPlatform)?.label || "Ej angivet" },
-    ];
-    maturityLabels.forEach(({ label, value }) => addContentRow(`${label}:`, value));
-
-    // Section 4: Geography
-    addSectionHeader("GEOGRAFI", "5");
-    addBulletList(data.geography ? [data.geography] : [], data.geographyOther);
-
-    // Section 5: Current Systems
-    addSectionHeader("NUVARANDE SITUATION", "6");
-    const filledSystems = data.currentSystems.filter(s => s.product.trim());
-    if (filledSystems.length > 0) {
-      filledSystems.forEach((system) => {
-        addContentRow("System:", `${system.product}${system.year ? ` (driftsatt ${system.year})` : ''}`);
-      });
-    }
-    if (data.otherSystemsDetails) {
-      addContentRow("Övriga system:", data.otherSystemsDetails);
-    }
-    if (data.currentSituationReason) {
-      addNewPageIfNeeded(30);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(100, 100, 100);
-      pdf.text("Nuvarande situation:", margin + 5, yPos);
-      yPos += 8;
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(51, 51, 51);
-      const reasonLines = pdf.splitTextToSize(data.currentSituationReason, contentWidth - 10);
-      reasonLines.forEach((line: string) => {
-        addNewPageIfNeeded(6);
-        pdf.text(line, margin + 5, yPos);
-        yPos += 6;
-      });
-      yPos += 4;
-    }
-    
-    // Situation challenges
-    const situationChallengeEntries = Object.entries(data.situationChallenges).filter(([, value]) => value);
-    if (situationChallengeEntries.length > 0) {
-      addNewPageIfNeeded(20);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(100, 100, 100);
-      pdf.text("Bedömning av utmaningsområden:", margin + 5, yPos);
-      yPos += 8;
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(51, 51, 51);
-      
-      situationChallengeEntries.forEach(([categoryId, value]) => {
-        addNewPageIfNeeded(8);
-        const category = situationChallengeCategories.find(c => c.id === categoryId);
-        if (category) {
-          pdf.text(`– ${category.title}: ${value}`, margin + 5, yPos);
-          yPos += 7;
-        }
-      });
-      yPos += 5;
-    }
-
-    if (data.decisionTimeline) {
-      addContentRow("Beslutstidslinje:", data.decisionTimeline);
-    }
-
-    // Challenges as bullet list
-    if (data.challenges && data.challenges.length > 0) {
-      addNewPageIfNeeded(20);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(100, 100, 100);
-      pdf.text("Utmaningar:", margin + 5, yPos);
-      yPos += 7;
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(51, 51, 51);
-      data.challenges.forEach((challenge: string) => {
-        addNewPageIfNeeded(8);
-        const challengeLines = pdf.splitTextToSize(`– ${challenge}`, contentWidth - 10);
-        pdf.text(challengeLines, margin + 5, yPos);
-        yPos += challengeLines.length * 6;
-      });
-      if (data.challengesOther) {
-        addNewPageIfNeeded(8);
-        pdf.setFont("helvetica", "italic");
-        pdf.setTextColor(100, 100, 100);
-        const otherLines = pdf.splitTextToSize(`Övrigt: ${data.challengesOther}`, contentWidth - 10);
-        pdf.text(otherLines, margin + 5, yPos);
-        yPos += otherLines.length * 5 + 3;
-        pdf.setFont("helvetica", "normal");
-      }
-      yPos += 5;
-    }
-
-    // KPIs as bullet list
-    if (data.kpis && data.kpis.length > 0) {
-      addNewPageIfNeeded(20);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(100, 100, 100);
-      pdf.text("KPI:er:", margin + 5, yPos);
-      yPos += 7;
-      pdf.setFont("helvetica", "normal");
-      pdf.setTextColor(51, 51, 51);
-      data.kpis.forEach((kpi: string) => {
-        addNewPageIfNeeded(8);
-        pdf.text(`– ${kpi}`, margin + 5, yPos);
-        yPos += 7;
-      });
-      if (data.kpisOther) {
-        addNewPageIfNeeded(8);
-        pdf.setFont("helvetica", "italic");
-        pdf.setTextColor(100, 100, 100);
-        const otherKpiLines = pdf.splitTextToSize(`Övrigt: ${data.kpisOther}`, contentWidth - 10);
-        pdf.text(otherKpiLines, margin + 5, yPos);
-        yPos += otherKpiLines.length * 5 + 3;
-        pdf.setFont("helvetica", "normal");
-      }
-      yPos += 5;
-    }
-
-    // Section 7: Integrations
-    addSectionHeader("INTEGRATIONER", "8");
-    const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
-    if (filledIntegrations.length > 0) {
-      filledIntegrations.forEach((integration) => {
-        const importanceText = integration.importance ? ` (${integration.importance})` : "";
-        addContentRow("System:", `${integration.system}${importanceText}`);
-      });
-    } else {
-      pdf.setFontSize(10);
-      pdf.setTextColor(150, 150, 150);
-      pdf.text("Inga integrationer angivna", margin + 5, yPos);
-      yPos += 8;
-    }
-
-    // Section 8: Wishlist
-    addSectionHeader("ÖNSKELISTA", "9");
-    if (data.wishlist.trim()) {
-      const wishlistLines = pdf.splitTextToSize(data.wishlist, contentWidth - 10);
-      wishlistLines.forEach((line: string) => {
-        if (yPos > 270) { pdf.addPage(); yPos = 20; }
-        pdf.setFontSize(10);
-        pdf.setTextColor(80, 80, 80);
-        pdf.text(line, margin + 5, yPos);
-        yPos += 6;
-      });
-      yPos += 4;
-    } else {
-      pdf.setFontSize(10);
-      pdf.setTextColor(150, 150, 150);
-      pdf.text("Ingen önskelista angiven", margin + 5, yPos);
-      yPos += 8;
-    }
-
-    // Section 9: AI & Future
-    addSectionHeader("AI & FRAMTID", "10");
-    addContentRow("Intresse:", data.aiInterest);
-    if (data.aiUseCases.length > 0) {
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(100, 100, 100);
-      pdf.text("Användningsområden:", margin, yPos);
-      yPos += 7;
-      addBulletList(data.aiUseCases);
-    }
-    if (data.aiDetails) {
-      addNewPageIfNeeded(15);
-      pdf.setFontSize(10);
-      pdf.setFont("helvetica", "italic");
-      pdf.setTextColor(100, 100, 100);
-      const detailLines = pdf.splitTextToSize(data.aiDetails, contentWidth - 10);
-      pdf.text(detailLines, margin + 5, yPos);
-      yPos += detailLines.length * 5 + 5;
-    }
-
-    // Section 10: Additional Info
-    addSectionHeader("ÖVRIG INFORMATION", "11");
-    if (data.additionalInfo) {
-      pdf.setFontSize(10);
-      pdf.setTextColor(51, 51, 51);
-      const infoLines = pdf.splitTextToSize(data.additionalInfo, contentWidth - 10);
-      addNewPageIfNeeded(infoLines.length * 5 + 10);
-      pdf.text(infoLines, margin + 5, yPos);
-      yPos += infoLines.length * 5 + 10;
-    } else {
-      pdf.setFontSize(10);
-      pdf.setTextColor(150, 150, 150);
-      pdf.text("Ingen övrig information angiven.", margin + 5, yPos);
-      yPos += 10;
-    }
-
-    // Next Steps Section
-    addNewPageIfNeeded(60);
-    yPos += 5;
-    pdf.setFillColor(255, 248, 225);
-    pdf.roundedRect(margin, yPos, contentWidth, 45, 3, 3, 'F');
-    pdf.setDrawColor(255, 193, 7);
-    pdf.setLineWidth(1);
-    pdf.line(margin, yPos, margin, yPos + 45);
-    
-    pdf.setTextColor(180, 130, 0);
-    pdf.setFontSize(12);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("NÄSTA STEG", margin + 8, yPos + 12);
-    
-    pdf.setTextColor(100, 80, 0);
-    pdf.setFontSize(9);
+    // "Bakom kulisserna" pill
+    pdf.setFontSize(7);
     pdf.setFont("helvetica", "normal");
-    const nextStepsY = yPos + 20;
-    pdf.text("1. Vi kontaktar er inom 1-2 arbetsdagar för att diskutera resultatet", margin + 8, nextStepsY);
-    pdf.text("2. Gemensam genomgång av era behov och vår rekommendation", margin + 8, nextStepsY + 6);
-    pdf.text("3. Presentation av lämpliga implementationspartners", margin + 8, nextStepsY + 12);
-    pdf.text("4. Detaljerad offert och projektplan vid fortsatt intresse", margin + 8, nextStepsY + 18);
-    
-    yPos += 55;
-
-    // Recommendation to contact
-    addNewPageIfNeeded(45);
-    pdf.setFillColor(232, 245, 233);
-    pdf.roundedRect(margin, yPos, contentWidth, 38, 3, 3, 'F');
-    pdf.setDrawColor(76, 175, 80);
-    pdf.setLineWidth(1);
-    pdf.line(margin, yPos, margin, yPos + 38);
-    
-    pdf.setTextColor(46, 125, 50);
-    pdf.setFontSize(11);
-    pdf.setFont("helvetica", "bold");
-    pdf.text("REKOMMENDATION", margin + 8, yPos + 11);
-    
-    pdf.setTextColor(56, 95, 58);
-    pdf.setFontSize(9);
-    pdf.setFont("helvetica", "normal");
-    pdf.text("• Kontakta oss på Dynamic Factory för en kostnadsfri rådgivning", margin + 8, yPos + 20);
-    pdf.text("• Besök vår partnerkatalog på d365.se/valj-partner för att hitta rätt", margin + 8, yPos + 27);
-    pdf.text("  implementationspartner som matchar era behov", margin + 8, yPos + 33);
-    
-    yPos += 45;
-
-    // Disclaimer
-    addNewPageIfNeeded(25);
     pdf.setTextColor(120, 120, 120);
+    pdf.text("Bakom kulisserna lutar det mot:", margin, yPos);
+    yPos += 5;
+    pdf.setFillColor(230, 245, 242);
+    const pillW = pdf.getTextWidth(pdfProduct) + 12;
+    pdf.roundedRect(margin, yPos - 3.5, pillW, 8, 4, 4, 'F');
     pdf.setFontSize(8);
-    pdf.setFont("helvetica", "italic");
-    const disclaimerText = "Denna analys ger en första indikation baserat på de uppgifter ni angett. En fullständig behovsanalys bör genomföras tillsammans med en certifierad Microsoft-partner för att säkerställa optimal lösning.";
-    const disclaimerLines = pdf.splitTextToSize(disclaimerText, contentWidth);
-    pdf.text(disclaimerLines, margin, yPos);
-    yPos += disclaimerLines.length * 4 + 5;
+    pdf.setFont("helvetica", "bold");
+    pdf.setTextColor(0, 100, 130);
+    pdf.text(pdfProduct, margin + 6, yPos + 1);
+    yPos += 10;
+
+    // Key factor quote
+    if (recommendation.reasons[0]) {
+      pdf.setFontSize(7.5);
+      pdf.setFont("helvetica", "italic");
+      pdf.setTextColor(120, 120, 120);
+      pdf.setDrawColor(0, 143, 179);
+      pdf.setLineWidth(0.5);
+      pdf.line(margin + 2, yPos - 2, margin + 2, yPos + 4);
+      const quoteLine = pdf.splitTextToSize(`"${recommendation.reasons[0]}"`, contentWidth - 10);
+      pdf.text(quoteLine, margin + 6, yPos + 1);
+      yPos += quoteLine.length * 4 + 4;
+    }
+    yPos += 6;
+
+    // ══════════════════════════════════════════════════════════════════════
+    // 6. REKOMMENDERAD PARTNERTYP
+    // ══════════════════════════════════════════════════════════════════════
+    checkPage(40);
+    addSectionHeader("REKOMMENDERAD PARTNERTYP", 0, 100, 130);
+
+    const pdfPartners: { label: string; description: string }[] = [];
+    if (maturityLevel >= 3 || complexity.riskLevel === "Hog" || complexity.riskLevel === "Medel-hog") {
+      pdfPartners.push({ label: "Enterprise ERP-arkitekt", description: "Partner med dokumenterad erfarenhet av komplexa multi-entity eller globala implementationer" });
+    }
+    if (isBC && maturityLevel <= 2) {
+      pdfPartners.push({ label: "Business Central-specialist", description: "Partner specialiserad pa snabba och kostnadseffektiva BC-implementationer for tillvaxtbolag" });
+    }
+    if (!isBC) {
+      pdfPartners.push({ label: "Auktoriserad partner inom Finance & Supply Chain", description: "Partner med certifiering och bevisad kompetens i Finance & Supply Chain Management" });
+    }
+    if (data.businessModel === "Produktion") {
+      pdfPartners.push({ label: "Tillverkningsspecialist", description: "Partner med djup kunskap om MRP, APS och produktionsprocesser i Dynamics 365" });
+    }
+    if (data.industry) {
+      pdfPartners.push({ label: `Branscherfarenhet: ${data.industry}`, description: `Partner med dokumenterade kundcase eller specialisering inom ${data.industry}` });
+    }
+    if (pdfPartners.length === 0) {
+      pdfPartners.push({ label: "ERP-specialist", description: "Partner specialiserad pa Dynamics 365 ERP-losningar" });
+    }
+
+    pdfPartners.forEach((p) => {
+      checkPage(20);
+      pdf.setFillColor(245, 248, 252);
+      pdf.roundedRect(margin, yPos, contentWidth, 16, 2, 2, 'F');
+      pdf.setFontSize(9.5);
+      pdf.setFont("helvetica", "bold");
+      pdf.setTextColor(0, 100, 130);
+      pdf.text(p.label, margin + 5, yPos + 6);
+      pdf.setFontSize(8);
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(100, 100, 100);
+      const pDescLines = pdf.splitTextToSize(p.description, contentWidth - 10);
+      pdf.text(pDescLines, margin + 5, yPos + 12);
+      yPos += 18 + (pDescLines.length - 1) * 4;
+    });
+    yPos += 8;
+
+    // ── APPENDIX ─────────────────────────────────────────────────────────────
+    pdf.addPage();
+    yPos = margin;
+    pdf.setFillColor(0, 143, 179);
+    pdf.rect(0, 0, pageWidth, 24, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(13);
+    pdf.setFont("helvetica", "bold");
+    pdf.text("BILAGA - DINA SVAR", margin, 16);
+    yPos = 32;
+
+    const addAppendixSection = (title: string, rows: [string, string][]) => {
+      checkPage(14);
+      pdf.setFontSize(9);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFillColor(230, 242, 245);
+      pdf.rect(margin, yPos - 4, contentWidth, 8, 'F');
+      pdf.setTextColor(0, 100, 130);
+      pdf.text(title, margin + 2, yPos);
+      yPos += 8;
+      pdf.setFont("helvetica", "normal");
+      pdf.setTextColor(51, 51, 51);
+      let shade = false;
+      rows.forEach(([l, v]) => { addKVRow(l, v || "", shade); shade = !shade; });
+      yPos += 3;
+    };
+
+    const c = data.complexity;
+    const subLabel = data.businessModelSubs.length > 0 ? data.businessModelSubs.join(", ") : data.businessModelSub || "";
+
+    addAppendixSection("Steg 1 - Affarsmodell", [
+      ["Affarsmodell", bmLabel],
+      ["Typ", subLabel],
+    ]);
+
+    addAppendixSection("Steg 2 - Foretagsstorlek", [
+      ["Anstallda", data.employees],
+      ["Omsattning", data.revenue],
+    ]);
+
+    addAppendixSection("Steg 3 - Bransch", [
+      ["Bransch", data.industry === "Annat" ? data.industryOther : data.industry],
+    ]);
+
+    addAppendixSection("Steg 4 - Komplexitet", [
+      ["Juridiska enheter", complexityStructureOptions.legalEntities.find(o => o.value === c.legalEntities)?.label || ""],
+      ["Antal lander", complexityStructureOptions.countries.find(o => o.value === c.countries)?.label || ""],
+      ["Internhandel", complexityStructureOptions.intercompany.find(o => o.value === c.intercompany)?.label || ""],
+      ["Konsolidering", complexityStructureOptions.consolidation.find(o => o.value === c.consolidation)?.label || ""],
+      ["IT-organisation", complexityMaturityOptions.itOrganization.find(o => o.value === c.itOrganization)?.label || ""],
+      ["Integrationer", complexityMaturityOptions.integrationPlatform.find(o => o.value === c.integrationPlatform)?.label || ""],
+    ]);
+
+    addAppendixSection("Steg 5 - Geografi", [
+      ["Geografi", data.geography],
+      ["Specifika lander", data.geographyOther || ""],
+    ]);
+
+    const filledSystems = data.currentSystems.filter(s => s.product.trim());
+    const systemsStr = filledSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ");
+    const challengeEntries = Object.entries(data.situationChallenges).filter(([, v]) => v);
+    const challengeStr = challengeEntries.map(([catId, val]) => {
+      const cat = situationChallengeCategories.find(c => c.id === catId);
+      return cat ? `${cat.title}: ${val}` : "";
+    }).filter(Boolean).join("; ");
+
+    addAppendixSection("Steg 6 - Nuvarande situation", [
+      ["Nuvarande system", systemsStr],
+      ["Ovriga system", data.otherSystemsDetails || ""],
+      ["Situation", data.currentSituationReason || ""],
+      ["Utmaningar", challengeStr || ""],
+      ["Beslutstidslinje", data.decisionTimeline || ""],
+    ]);
+
+    addAppendixSection("Steg 7 - Utmaningar & KPI:er", [
+      ["Utmaningar", data.challenges.join(", ")],
+      ["KPI:er", data.kpis.join(", ")],
+    ]);
+
+    const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
+    const integrationsStr = filledIntegrations.map(s => s.system).join(", ");
+
+    addAppendixSection("Steg 8 - AI & Framtid", [
+      ["AI-intresse", data.aiInterest],
+      ["AI-anvandningsomraden", data.aiUseCases.join(", ")],
+      ["Integrationer", integrationsStr],
+      ["Ovrig information", data.additionalInfo || ""],
+    ]);
 
     // Footer
-    addNewPageIfNeeded(35);
-    yPos = pageHeight - 40;
-    drawLine(yPos);
-    yPos += 8;
-    
-    pdf.setFillColor(0, 150, 136);
-    pdf.roundedRect(margin, yPos, contentWidth, 28, 3, 3, 'F');
-    
+    checkPage(40);
+    yPos += 10;
+    pdf.setFillColor(0, 120, 108);
+    pdf.roundedRect(margin, yPos, contentWidth, 32, 3, 3, 'F');
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(11);
     pdf.setFont("helvetica", "bold");
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
-    
-    pdf.setFontSize(9);
+    pdf.text("Din oberoende guide till ratt Dynamics 365-losning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 26);
@@ -2042,21 +1909,15 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
           phone: data.phone,
           email: data.email,
           analysisData: {
-            "Affärsmodell": `${data.businessModel}${data.businessModelSubs.length > 0 ? ` – ${data.businessModelSubs.join(", ")}` : data.businessModelSub ? ` – ${data.businessModelSub}` : ''}` || "Ej angivet",
-            "Anställda": data.employees,
-            "Omsättning": data.revenue,
+            "Affarsmodell": `${data.businessModel}${data.businessModelSubs.length > 0 ? ` - ${data.businessModelSubs.join(", ")}` : data.businessModelSub ? ` - ${data.businessModelSub}` : ''}` || "Ej angivet",
+            "Anstallda": data.employees,
+            "Omsattning": data.revenue,
             "Bransch": data.industry || "Ej angivet",
             "Geografi": data.geography || "Ej angivet",
-            "Juridiska enheter": data.complexity.legalEntities || "Ej angivet",
-            "Produktionstyp": data.complexity.productionType || "Ej angivet",
-            "Komplexitetsnivå": `${complexity.complexityLevel} av 4`,
-            "Risknivå": complexity.riskLevel,
-            "Önskelista": data.wishlist || "Ej angivet",
-            "Integrationer": data.integrationSystems.filter(s => s.system.trim()).map(s => s.system).join(", ") || "Ej angivet",
-            "Nuvarande situation": data.currentSystems.filter(s => s.product.trim()).map(s => s.product).join(", ") || "Ej angivet",
-            "KPI:er": data.kpis.join(", ") || "Ej angivet",
-            "AI-intresse": data.aiInterest || "Ej angivet",
-            "Övrig info": data.additionalInfo || "Ej angivet",
+            "Komplexitetsniva": `${complexity.complexityLevel} av 4`,
+            "Riskniva": complexity.riskLevel,
+            "Integrationer": integrationsStr || "Ej angivet",
+            "Rekommendation": recommendation.product,
           },
           recommendation: {
             product: recommendation.product,
@@ -2072,8 +1933,6 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
       if (error) {
         console.error("Error sending analysis email:", error);
-      } else {
-        console.log("Analysis email sent successfully");
       }
     } catch (error) {
       console.error("Failed to send analysis email:", error);
