@@ -487,13 +487,13 @@ const SalesMarketingNeedsAnalysis = () => {
   const stepIcons = [Target, Building2, Target, Target, Megaphone, Target, Sparkles, FileText];
   const stepTitles = [
     "Kommersiell modell",
-    "Organisation & struktur",
-    "Nuvarande arbetssätt & system",
-    "Datamognad & kundbild",
+    "Organisation",
+    "Arbetssätt & system",
+    "Data & kundbild",
     "Customer Insights",
     "Integrationer",
     "AI & framtid",
-    "Resultat",
+    "Go-To-Market Profil",
   ];
 
   const handleNext = () => {
@@ -3013,7 +3013,7 @@ const SalesMarketingNeedsAnalysis = () => {
             <Progress value={progress} className="h-2" />
           </div>
 
-          <div className="hidden md:flex justify-between mb-4 overflow-x-auto pb-2">
+          <div className="hidden md:flex justify-between mb-4 overflow-x-auto pb-2 gap-1">
             {stepTitles.map((title, index) => {
               const Icon = stepIcons[index];
               const isActive = currentStep === index + 1;
@@ -3022,16 +3022,16 @@ const SalesMarketingNeedsAnalysis = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentStep(index + 1)}
-                  className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity"
+                  className="flex flex-col items-center min-w-[70px] max-w-[100px] cursor-pointer hover:opacity-80 transition-opacity flex-1"
                 >
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1.5 transition-colors ${
                     isActive ? 'bg-crm text-white' : 
                     isCompleted ? 'bg-crm/20 text-crm' : 
                     'bg-muted text-muted-foreground'
                   }`}>
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className={`text-xs text-center ${isActive ? 'text-crm font-medium' : 'text-muted-foreground'}`}>
+                  <span className={`text-[10px] leading-tight text-center ${isActive ? 'text-crm font-medium' : 'text-muted-foreground'}`}>
                     {title}
                   </span>
                 </button>
