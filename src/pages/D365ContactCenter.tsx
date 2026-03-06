@@ -27,7 +27,7 @@ import {
 
 // Contact Center FAQs for schema
 const contactCenterFaqs = [
-  { question: "Vad kostar Dynamics 365 Contact Center?", answer: "Dynamics 365 Contact Center kostar från 1 215,60 kr per agent och månad (Microsofts officiella prislista). Priset inkluderar omnichannel-stöd, intelligent routing och AI-assistans. Implementationskostnaden varierar från 250 000 kr för grundläggande telefoni upp till 2 000 000 kr för en fullständig omnichannel-lösning med AI-botar." },
+  { question: "Vad kostar Dynamics 365 Contact Center?", answer: "Dynamics 365 Contact Center kostar från 1 051,40 kr per agent och månad (Microsofts officiella prislista). Priset inkluderar omnichannel-stöd, intelligent routing och AI-assistans. Implementationskostnaden varierar från 250 000 kr för grundläggande telefoni upp till 2 000 000 kr för en fullständig omnichannel-lösning med AI-botar." },
   { question: "Vad är skillnaden mellan Dynamics 365 Contact Center och Customer Service?", answer: "Dynamics 365 Contact Center är specifikt designat för högvolym-kontaktcenter med avancerade telefoni-funktioner (ACD, IVR), intelligent routing, virtuella agenter och real-time övervakning av agentprestanda. Customer Service fokuserar mer på ärendehantering och kunskapsdatabaser. De kan kombineras för en komplett lösning – Contact Center hanterar den inkommande kommunikationen, Customer Service hanterar ärendets livscykel." },
   { question: "Hur fungerar AI-drivna virtuella agenter i Contact Center?", answer: "Virtuella agenter i Contact Center använder Copilot AI och naturlig språkförståelse för att automatiskt hantera 30–60% av vanliga kundförfrågningar via chatt eller telefon. De kan svara på frågor, guida kunder genom processer och vid behov eskalera till mänskliga agenter med full konversationshistorik. Detta minskar väntetider, sänker kostnad per kontakt och frigör agenter för komplexa ärenden." },
   { question: "Vilka kanaler stöds i Dynamics 365 Contact Center?", answer: "Contact Center stöder alla viktiga kommunikationskanaler: telefon (inkommande och utgående med ACD/IVR), live-chatt på webbplats, e-post, SMS, sociala medier (Facebook Messenger, Twitter/X, WhatsApp) och Microsoft Teams. Alla kanaler samlas i ett enhetligt agentgränssnitt så att agenter kan hantera alla interaktioner från samma plats och kunder kan byta kanal utan att förlora kontext." },
@@ -46,7 +46,7 @@ const D365ContactCenter = () => {
     {
       title: "Contact Center",
       description: "Modern kontaktcenterlösning",
-      price: "Från 1 215,60 kr",
+      price: "Från 1 051,40 kr",
       features: [
         "Omnichannel-stöd (telefon, chatt, e-post)",
         "AI-driven samtalsassistent",
@@ -61,7 +61,7 @@ const D365ContactCenter = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Contact Center – Omnichannel & AI-kontaktcenter | Priser | d365.se"
-        description="Guide till Microsoft Dynamics 365 Contact Center. Priser från 1 215 kr/agent/mån, AI-drivna virtuella agenter, intelligent routing och omnichannel. Jämför med Genesys och Avaya."
+        description="Guide till Microsoft Dynamics 365 Contact Center. Priser från 1 051 kr/agent/mån, AI-drivna virtuella agenter, intelligent routing och omnichannel. Jämför med Genesys och Avaya."
         canonicalPath="/d365-contact-center"
         keywords="Dynamics 365 Contact Center pris, contact center Microsoft, omnichannel kontaktcenter, virtuella agenter AI, intelligent routing, Genesys alternativ, Avaya alternativ Microsoft, kontaktcenter system Sverige, Teams kontaktcenter, contact center molntjänst"
         ogImage="https://d365.se/og-contact-center.png"
@@ -69,7 +69,7 @@ const D365ContactCenter = () => {
       <FAQSchema faqs={contactCenterFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Contact Center – Omnichannel & AI-kontaktcenter"
-        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 215 kr per agent och månad. Implementationstid 2–12 månader."
+        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 051 kr per agent och månad. Implementationstid 2–12 månader."
       />
       <BreadcrumbSchema items={contactCenterBreadcrumbs} />
       <Navbar />

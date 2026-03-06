@@ -27,7 +27,7 @@ import {
 
 // Field Service FAQs for schema
 const fieldServiceFaqs = [
-  { question: "Vad kostar Dynamics 365 Field Service?", answer: "Dynamics 365 Field Service kostar 1 160,30 kr per användare och månad (Microsofts officiella prislista). Priset inkluderar schemaläggning, mobilapp och IoT-grundfunktioner. Implementationskostnaden varierar från 200 000 kr för en enklare driftsättning upp till 1 800 000 kr för en fullständig IoT-integration med Resource Scheduling Optimization." },
+  { question: "Vad kostar Dynamics 365 Field Service?", answer: "Dynamics 365 Field Service kostar 1 003,70 kr per användare och månad (Microsofts officiella prislista). Priset inkluderar schemaläggning, mobilapp och IoT-grundfunktioner. Implementationskostnaden varierar från 200 000 kr för en enklare driftsättning upp till 1 800 000 kr för en fullständig IoT-integration med Resource Scheduling Optimization." },
   { question: "Hur fungerar intelligent schemaläggning i Field Service?", answer: "Resource Scheduling Optimization (RSO) analyserar automatiskt teknikernas kompetens, geografisk position, restid, prioritet och SLA-krav för att skapa optimala scheman. Systemet kan omplanera i realtid vid akuta arbetsorder eller förseningar och maximerar antalet slutförda besök per dag – typiskt 15–25% fler serviceuppdrag." },
   { question: "Vad innebär IoT-integration i Field Service?", answer: "Med IoT Connected Field Service kan sensorer på maskiner och utrustning automatiskt rapportera status och skapa arbetsorder när något avviker. Detta möjliggör prediktivt underhåll – problem identifieras och åtgärdas innan de orsakar driftstopp. Resultatet är lägre underhållskostnader och nöjdare kunder." },
   { question: "Hur fungerar mobilappen för fälttekniker?", answer: "Field Service Mobile-appen ger tekniker tillgång till arbetsorder, kundinformation, utrustningshistorik, reservdelslagerstatus och kunskapsartiklar – även offline utan internetuppkoppling. De kan uppdatera arbetsstatus, ta bilder, inhämta kundsignaturer och registrera tid och material direkt i appen." },
@@ -46,7 +46,7 @@ const D365FieldService = () => {
     {
       title: "Field Service",
       description: "Fältservicehantering",
-      price: "1 160,30 kr",
+      price: "1 003,70 kr",
       features: [
         "Schemaläggning och resursoptimering",
         "Mobil arbetsorder-app",
@@ -61,7 +61,7 @@ const D365FieldService = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Field Service – Fältservice & Underhållshantering | Priser | d365.se"
-        description="Komplett guide till Microsoft Dynamics 365 Field Service. Priser från 1 160 kr/mån, intelligent schemaläggning, IoT-integration och mobilapp för fälttekniker. Jämför med IFS och SAP."
+        description="Komplett guide till Microsoft Dynamics 365 Field Service. Priser från 1 004 kr/mån, intelligent schemaläggning, IoT-integration och mobilapp för fälttekniker. Jämför med IFS och SAP."
         canonicalPath="/d365-field-service"
         keywords="Dynamics 365 Field Service pris, fältservice system, underhållshantering Microsoft, Field Service mobilapp, IoT fältservice, schemaläggning fälttekniker, prediktivt underhåll, Microsoft Field Service Sverige, fältservicehantering, Resource Scheduling Optimization"
         ogImage="https://d365.se/og-field-service.png"
@@ -69,7 +69,7 @@ const D365FieldService = () => {
       <FAQSchema faqs={fieldServiceFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Field Service – Fältservice & Underhållshantering"
-        description="Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från 1 160 kr per användare och månad. Implementationstid 2–12 månader beroende på komplexitet."
+        description="Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från 1 004 kr per användare och månad. Implementationstid 2–12 månader beroende på komplexitet."
       />
       <BreadcrumbSchema items={fieldServiceBreadcrumbs} />
       <Navbar />

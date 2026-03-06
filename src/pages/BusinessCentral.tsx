@@ -38,7 +38,7 @@ import {
 const bcFaqs = [
   {
     question: "Vad kostar Microsoft Dynamics 365 Business Central i Sverige?",
-    answer: "Business Central pris Sverige 2025: Team Member 88,40 kr/användare/mån, Essentials 884,10 kr/användare/mån och Premium 1 215,60 kr/användare/mån (Microsoft MSRP exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
+    answer: "Business Central pris Sverige 2025: Team Member 76,50 kr/användare/mån, Essentials 764,70 kr/användare/mån och Premium 1 051,40 kr/användare/mån (Microsoft MSRP exkl. moms). Utöver licensen tillkommer implementeringskostnader som typiskt ligger på 150 000–800 000 kr beroende på projektets omfattning, antal användare och grad av anpassning. Kostnaden påverkas också av vald partner och supportavtal."
   },
   {
     question: "Hur lång tid tar Business Central implementering i Sverige?",
@@ -50,7 +50,7 @@ const bcFaqs = [
   },
   {
     question: "Vad är skillnaden mellan Business Central Essentials och Premium?",
-    answer: "Business Central Essentials (884 kr/mån) inkluderar ekonomi, lager, försäljning, inköp och projekthantering. Premium-licensen (1 216 kr/mån) lägger till tillverkning (MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt). De flesta företag börjar med Essentials och uppgraderar vid behov. Team Member (88 kr/mån) för användare som bara behöver läsbehörighet eller enkla godkännanden."
+    answer: "Business Central Essentials (765 kr/mån) inkluderar ekonomi, lager, försäljning, inköp och projekthantering. Premium-licensen (1 051 kr/mån) lägger till tillverkning (MRP, kapacitetsplanering) och servicehantering (serviceorder, servicekontrakt). De flesta företag börjar med Essentials och uppgraderar vid behov. Team Member (77 kr/mån) för användare som bara behöver läsbehörighet eller enkla godkännanden."
   },
   {
     question: "Business Central vs Fortnox – vilket ska jag välja?",
@@ -66,7 +66,7 @@ const bcFaqs = [
   },
   {
     question: "Kan Business Central hantera tillverkning och produktion?",
-    answer: "Ja, med Premium-licensen (1 216 kr/mån) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
+    answer: "Ja, med Premium-licensen (1 051 kr/mån) ingår tillverkning med produktionsorder, MRP (Material Requirements Planning), kapacitetsplanering, versionskontroll och kvalitetsstyrning. Det finns dessutom ett rikt ekosystem av ISV-tillägg i Marketplace för avancerad WMS, batchhantering, maskinintegration (MES) och spårbarhet – vilket gör Business Central konkurrenskraftigt mot specialiserade tillverknings-ERP."
   },
 ];
 
@@ -133,7 +133,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Team Member",
       description: "För användare med begränsade behov",
-      price: "88,40 kr",
+      price: "76,50 kr",
       features: [
         "Läsbehörighet",
         "Grundläggande rapporter",
@@ -145,7 +145,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Essentials",
       description: "För mindre företag",
-      price: "884,10 kr",
+      price: "764,70 kr",
       features: [
         "Ekonomihantering",
         "Försäljning & Inköp",
@@ -157,7 +157,7 @@ const BusinessCentral = () => {
     {
       title: "Business Central Premium",
       description: "För växande företag",
-      price: "1 215,60 kr",
+      price: "1 051,40 kr",
       features: [
         "Alla Essentials-funktioner",
         "Serviceorderhantering",
@@ -170,7 +170,7 @@ const BusinessCentral = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Business Central pris Sverige – Licenser, implementering & partners"
-        description="Business Central pris Sverige: Essentials 884 kr/mån, Premium 1 216 kr/mån. Implementering 3–6 månader. Jämför Microsoft-certifierade Business Central-partners per bransch."
+        description="Business Central pris Sverige: Essentials 765 kr/mån, Premium 1 051 kr/mån. Implementering 3–6 månader. Jämför Microsoft-certifierade Business Central-partners per bransch."
         canonicalPath="/business-central"
         keywords="Business Central pris Sverige, Business Central implementering, Business Central licens, Dynamics 365 Business Central Sverige, Business Central Essentials Premium, Business Central partner Sverige, Microsoft ERP SMB Sverige, affärssystem tillverkning grossist, Business Central vs Fortnox, Business Central kostnad"
         ogImage="https://d365.se/og-business-central.png"
@@ -261,9 +261,9 @@ const BusinessCentral = () => {
                   <div className="bg-secondary/50 rounded-lg p-4 mt-4">
                     <p className="font-semibold text-foreground mb-2">💰 Licenspriser (prenumeration):</p>
                     <ul className="space-y-1">
-                      <li>• Team Member: <strong className="text-foreground">88,40 kr/månad</strong></li>
-                      <li>• Essentials: <strong className="text-foreground">884,10 kr/månad</strong></li>
-                      <li>• Premium: <strong className="text-foreground">1 215,60 kr/månad</strong></li>
+                      <li>• Team Member: <strong className="text-foreground">76,50 kr/månad</strong></li>
+                      <li>• Essentials: <strong className="text-foreground">764,70 kr/månad</strong></li>
+                      <li>• Premium: <strong className="text-foreground">1 051,40 kr/månad</strong></li>
                     </ul>
                   </div>
                   <p className="text-sm italic">
