@@ -40,7 +40,7 @@ const branschFaqs = [
   },
   {
     question: "Business Central för grossist – är det rätt val?",
-    answer: "Ja – Business Central är det populäraste ERP-valet för svenska grossist- och distributionsföretag. Det erbjuder stark lager- och orderhantering, stöd för flera lagerplatser, EDI-integration mot kunder och leverantörer, och rimliga implementeringskostnader (från 884 kr/användare/mån). Finance & Supply Chain Management används av större distributörer med komplexa transportbehov och globala flöden. Många grossister kombinerar Business Central med Dynamics 365 Sales för komplett sälj- och kundhantering."
+    answer: "Ja – Business Central är det populäraste ERP-valet för svenska grossist- och distributionsföretag. Det erbjuder stark lager- och orderhantering, stöd för flera lagerplatser, EDI-integration mot kunder och leverantörer, och rimliga implementeringskostnader (från 765 kr/användare/mån). Finance & Supply Chain Management används av större distributörer med komplexa transportbehov och globala flöden. Många grossister kombinerar Business Central med Dynamics 365 Sales för komplett sälj- och kundhantering."
   },
   {
     question: "Vilket CRM-system passar för fastighetsförvaltning?",

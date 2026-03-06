@@ -35,7 +35,7 @@ import {
 const crmFaqs = [
   {
     question: "Vad kostar CRM system i Sverige – Dynamics 365 jämförelse?",
-    answer: "CRM system pris Sverige 2025: Dynamics 365 Sales Professional ca 550 kr/användare/mån, Sales Enterprise ca 1 100 kr/mån. Customer Service Professional ca 660 kr/mån, Customer Service Enterprise ca 1 100 kr/mån. Customer Insights (Marketing) prissätts per tenant från ca 16 000 kr/mån. Implementeringskostnad: standardimplementering Sales/Customer Service från 100 000–250 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
+    answer: "CRM system pris Sverige 2025: Dynamics 365 Sales Professional ca 621 kr/användare/mån, Sales Enterprise ca 1 004 kr/mån. Customer Service Professional ca 478 kr/mån, Customer Service Enterprise ca 1 004 kr/mån. Customer Insights (Marketing) prissätts per tenant från ca 9 559 kr/mån. Implementeringskostnad: standardimplementering Sales/Customer Service från 100 000–250 000 kr, större projekt 4–6 månader och 500 000–2 MSEK."
   },
   {
     question: "Dynamics 365 CRM vs Salesforce – vilket ska jag välja?",

@@ -68,7 +68,7 @@ export const fscRelatedPages: RelatedPage[] = [
 ];
 
 export const erpRelatedPages: RelatedPage[] = [
-  { title: "Business Central", description: "ERP för SMB med 10–300 anställda – från 884 kr/mån", href: "/business-central" },
+  { title: "Business Central", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/business-central" },
   { title: "Finance & Supply Chain", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – vilken ERP-lösning passar dig?", href: "/behovsanalys" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branschlosningar" },

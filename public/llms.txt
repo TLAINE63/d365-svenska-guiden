@@ -30,8 +30,8 @@ d365.se är en oberoende informationsplattform för Microsoft Dynamics 365 i Sve
 
 ## Nyckeldata
 
-- Business Central Essentials: från 884 kr/användare/månad
-- Business Central Premium: från 1 255 kr/användare/månad
+- Business Central Essentials: från 765 kr/användare/månad
+- Business Central Premium: från 1 051 kr/användare/månad
 - Implementeringstid Business Central: 2–9 månader
 - Implementeringstid Finance & SCM: 9–18 månader
 - Målgrupp: Svenska företag med 10–1000+ anställda
