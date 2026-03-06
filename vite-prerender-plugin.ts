@@ -221,6 +221,9 @@ export default function prerenderPlugin(): Plugin {
             // Clean up excessive blank lines
             page = page.replace(/\n{3,}/g, '\n\n');
 
+            // Add source comment at the very top of the HTML
+            page = '<!-- Source: L -->\n' + page;
+
             // Write the file
             const routePath = route.path === '/' ? '' : route.path.replace(/^\//, '');
             const dir = routePath
