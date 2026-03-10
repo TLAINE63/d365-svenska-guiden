@@ -21,6 +21,7 @@ const Navbar = () => {
     { label: "Business Central", path: "/business-central" },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
     { label: "📊 Affärssystem (ERP) Behovsanalys", path: "/behovsanalys" },
+    { label: "📋 Kravspecifikation (ERP)", path: "/kravspecifikation" },
   ];
 
   const aiItems = [
