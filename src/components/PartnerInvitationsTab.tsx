@@ -318,6 +318,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
 
       const data = await response.json();
 
+      handleResponse(response);
       if (!response.ok) {
         throw new Error(data.error || "Kunde inte skicka påminnelser");
       }
