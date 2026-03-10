@@ -83,8 +83,19 @@ export const generateRequirementsSpec = async (
   const lightBg = { r: 248, g: 250, b: 252 };
 
   let logoBase64: string | null = null;
+  let logoAspect = 1;
   try {
     logoBase64 = await getBase64FromUrl(logoImage);
+    // Get natural aspect ratio
+    const img = new Image();
+    await new Promise<void>((resolve) => {
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = logoBase64!;
+    });
+    if (img.naturalWidth && img.naturalHeight) {
+      logoAspect = img.naturalWidth / img.naturalHeight;
+    }
   } catch (e) {
     console.log("Could not load logo:", e);
   }
@@ -160,7 +171,9 @@ export const generateRequirementsSpec = async (
   // === COVER PAGE ===
   if (logoBase64) {
     try {
-      doc.addImage(logoBase64, "JPEG", margin, 25, 40, 40);
+      const logoHeight = 30;
+      const logoWidth = logoHeight * logoAspect;
+      doc.addImage(logoBase64, "JPEG", margin, 25, logoWidth, logoHeight);
     } catch (e) { /* skip */ }
   }
 
