@@ -279,6 +279,7 @@ serve(async (req) => {
       fsc: fscBaseRequirements,
       sales: salesBaseRequirements,
       marketing: marketingBaseRequirements,
+      customer_service: customerServiceBaseRequirements,
     };
     const baseReqs = baseReqsMap[product] || bcBaseRequirements;
     const selectedAreas = (areas || Object.keys(baseReqs)).filter((a: string) => a in baseReqs);
