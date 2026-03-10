@@ -41,6 +41,7 @@ const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
 const PartnerEvents = lazy(() => import("./pages/PartnerEvents"));
+const RequirementsSpec = lazy(() => import("./pages/RequirementsSpec"));
 
 const queryClient = new QueryClient();
 
@@ -114,6 +115,7 @@ const App = () => (
             <Route path="/search" element={<Navigate to="/" replace />} />
             <Route path="/våratjänster" element={<Navigate to="/" replace />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/kravspecifikation" element={<RequirementsSpec />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/partner-events/:token" element={<PartnerEvents />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
