@@ -111,7 +111,61 @@ const salesBaseRequirements = {
   ],
 };
 
+const marketingBaseRequirements = {
+  segments: [
+    { area: "Segmentering", items: ["Dynamiska segment baserat på kontaktdata och beteende", "Statiska listor för manuell hantering", "Segmentering baserad på engagemang (öppningsgrad, klick)", "Uteslutningssegment och suppressionslistor"] },
+    { area: "Kundprofiler", items: ["Enhetlig kundprofil (Customer Data Platform)", "Beteendedata från webb, e-post och events", "Integration med externa datakällor"] },
+  ],
+  journeys: [
+    { area: "Kundresor", items: ["Visuell drag-and-drop-designer för kundresor", "Trigger-baserade resor (formulär, webbbesök, köp)", "Flerkanalsresor (e-post, SMS, push)", "Förgreningar baserade på kundbeteende", "A/B-testning inom kundresor"] },
+    { area: "Automation", items: ["Automatiska välkomstflöden", "Nurturing-sekvenser baserat på lead-score", "Re-engagement-kampanjer för inaktiva kontakter", "Händelsebaserad automation (trigger)"] },
+  ],
+  email: [
+    { area: "E-posthantering", items: ["Drag-and-drop e-postdesigner", "Responsiva e-postmallar", "Dynamiskt innehåll baserat på mottagarprofil", "Förhandsvisning och testskick", "Leveransbarhet och SPF/DKIM-konfiguration"] },
+    { area: "E-postanalys", items: ["Öppningsgrad, klickfrekvens och avregistreringar", "Heatmaps för klickpositioner", "Jämförelse mellan kampanjer"] },
+  ],
+  events_mgmt: [
+    { area: "Eventhantering", items: ["Skapa och hantera fysiska och digitala events", "Registreringsformulär och deltagarhantering", "Webinarintegration (Teams, Zoom)", "Automatiska påminnelser och uppföljningar", "Check-in och närvarorapportering"] },
+  ],
+  forms_pages: [
+    { area: "Formulär", items: ["Drag-and-drop-formulärdesigner", "Progressiva formulär (smart profiling)", "Fältvalidering och obligatoriska fält", "Dubbel opt-in-stöd", "Inbäddning på extern webbplats"] },
+    { area: "Landningssidor", items: ["Mallbaserad sidbyggare", "Personaliserat innehåll", "SEO-grundinställningar", "Konverteringsspårning"] },
+  ],
+  lead_scoring: [
+    { area: "Lead Scoring", items: ["Poängmodeller baserade på demografi och beteende", "Automatisk kvalificering vid tröskelvärde", "Överlämning till säljteam (Sales-integration)", "Flera scoringmodeller för olika produkter/segment"] },
+  ],
+  consent: [
+    { area: "Samtyckeshantering", items: ["Samtyckeregistrering per kanal och syfte", "Preference center för mottagare", "Automatisk efterlevnad av GDPR och e-privacy", "Rätt att bli glömd och dataexport", "Audit trail för samtyckesändringar"] },
+  ],
+  analytics: [
+    { area: "Kampanjanalys", items: ["Dashboards för kampanjprestanda", "ROI-beräkning per kampanj och kanal", "Attribution-modeller (first touch, last touch, multi-touch)", "Power BI-integration för avancerad analys"] },
+    { area: "Kundinsikter", items: ["Engagemang-score per kontakt", "Kanalpreferens-analys", "Churn-riskbedömning"] },
+  ],
+  personalization: [
+    { area: "Personalisering", items: ["Dynamiskt innehåll i e-post och på webben", "Produktrekommendationer baserade på beteende", "AI-optimerad sändningstid", "Copilot-assisterad innehållsgenerering"] },
+  ],
+  integration: [
+    { area: "Systemintegrationer", items: ["CRM-integration (Dynamics 365 Sales)", "E-handelsplattform", "Sociala medier (LinkedIn, Facebook)", "Webbanalys (Google Analytics)", "Annonsplattformar (Google Ads, LinkedIn Ads)"] },
+    { area: "Teknisk plattform", items: ["Dataverse och Power Platform", "API:er och webbtjänster", "Datamigrering från befintligt marknadsföringsverktyg", "Single Sign-On (SSO / Entra ID)"] },
+  ],
+};
+
 function getSystemPrompt(product: string) {
+  if (product === "marketing") {
+    return `Du är en expert på Microsoft Dynamics 365 Customer Insights (Marketing) med djup kunskap om marknadsautomation, kundresor, leadgenerering och kampanjhantering.
+
+Din uppgift är att berika en kravspecifikation med branschspecifika marknadsföringskrav, KPI:er och rekommendationer.
+
+VIKTIGA REGLER:
+- Svara ALLTID på svenska
+- Var specifik och praktisk - undvik generella floskler
+- Fokusera på branschspecifika MARKNADSFÖRINGSBEHOV som INTE finns i standardmallen
+- Ge konkreta marknadsförings-KPI:er relevanta för branschen (t.ex. konverteringsgrad, CPL, MQL-till-SQL)
+- Nämn relevanta regulatoriska krav (t.ex. GDPR, e-privacy, branschspecifika marknadsföringsregler)
+- Begränsa svaret till max 8 branschspecifika krav med 3-5 underpunkter vardera
+- Returnera ALLTID som JSON med exakt denna struktur`;
+  }
+
   if (product === "sales") {
     return `Du är en expert på Microsoft Dynamics 365 Sales (CRM) med djup kunskap om säljprocesser, pipeline-hantering och kundrelationer.
 
