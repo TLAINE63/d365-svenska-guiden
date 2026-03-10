@@ -172,10 +172,14 @@ serve(async (req) => {
       sections: (baseReqs as Record<string, any>)[area] || [],
     }));
 
-    // AI enrichment prompt
+    const productNames: Record<string, string> = {
+      bc: "Microsoft Dynamics 365 Business Central",
+      fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
+      sales: "Microsoft Dynamics 365 Sales",
+    };
     const userPrompt = `Generera branschspecifika tilläggskrav för en kravspecifikation.
 
-Produkt: ${product === "bc" ? "Microsoft Dynamics 365 Business Central" : "Microsoft Dynamics 365 Finance & Supply Chain Management"}
+Produkt: ${productNames[product] || product}
 Bransch: ${industry}
 Företagsstorlek: ${companySize || "Ej angiven"}
 Valda funktionsområden: ${selectedAreas.join(", ")}
