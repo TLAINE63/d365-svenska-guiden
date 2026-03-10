@@ -84,9 +84,14 @@ export const generateRequirementsSpec = async (
   const contentWidth = pageWidth - margin * 2;
   let y = 20;
 
-  // Colors - using Business Central teal or Finance green
+  // Colors - product-specific
   const isBc = data.product === "bc";
-  const primaryColor = isBc ? { r: 0, g: 120, b: 212 } : { r: 16, g: 124, b: 65 };
+  const isSales = data.product === "sales";
+  const primaryColor = isSales
+    ? { r: 42, g: 100, b: 168 }   // Dynamics 365 Sales blue
+    : isBc
+      ? { r: 0, g: 120, b: 212 }
+      : { r: 16, g: 124, b: 65 };
   const darkColor = { r: 30, g: 41, b: 59 };
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 248, g: 250, b: 252 };
