@@ -569,13 +569,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-10">
-                    {pendingInvitations.length > 0 && (
-                      <Checkbox
-                        checked={selectedForReminder.size === pendingInvitations.length && pendingInvitations.length > 0}
-                        onCheckedChange={toggleAllReminders}
-                        title="Markera alla väntande"
-                      />
-                    )}
+                    <Checkbox
+                      checked={selectedForDelete.size === sortedInvitations.length && sortedInvitations.length > 0}
+                      onCheckedChange={() => {
+                        if (selectedForDelete.size === sortedInvitations.length) {
+                          setSelectedForDelete(new Set());
+                        } else {
+                          setSelectedForDelete(new Set(sortedInvitations.map(i => i.id)));
+                        }
+                      }}
+                      title="Markera alla"
+                    />
                   </TableHead>
                   <TableHead>Partner</TableHead>
                   <TableHead>E-post</TableHead>
@@ -592,12 +596,18 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   return (
                   <TableRow key={invitation.id}>
                     <TableCell>
-                      {isPending ? (
-                        <Checkbox
-                          checked={selectedForReminder.has(invitation.id)}
-                          onCheckedChange={() => toggleReminderSelection(invitation.id)}
-                        />
-                      ) : null}
+                      <Checkbox
+                        checked={selectedForDelete.has(invitation.id)}
+                        onCheckedChange={() => {
+                          setSelectedForDelete(prev => {
+                            const next = new Set(prev);
+                            if (next.has(invitation.id)) next.delete(invitation.id); else next.add(invitation.id);
+                            return next;
+                          });
+                          // Also toggle reminder if pending
+                          if (isPending) toggleReminderSelection(invitation.id);
+                        }}
+                      />
                     </TableCell>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
