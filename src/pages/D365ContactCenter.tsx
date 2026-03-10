@@ -116,6 +116,16 @@ const D365ContactCenter = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </div>
+              <div className="mt-3">
+                <Button
+                  size="lg"
+                  className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  onClick={() => window.location.href = '/kravspecifikation-kundservice'}
+                >
+                  📋 Generera en kravspecifikation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
