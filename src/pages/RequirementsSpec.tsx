@@ -154,7 +154,7 @@ const RequirementsSpec = () => {
       <SEOHead
         title="Kravspecifikation för Dynamics 365 | d365.se"
         description="Skapa en skräddarsydd kravspecifikation för Microsoft Dynamics 365 Business Central eller Finance & Supply Chain Management. Anpassad efter din bransch."
-        url="https://d365.se/kravspecifikation"
+        canonicalPath="/kravspecifikation"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
@@ -192,18 +192,16 @@ const RequirementsSpec = () => {
               <h2 className="text-xl font-semibold text-foreground">Välj produktområde</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <SelectionCard
-                  title="Business Central"
+                  label="Business Central"
                   description="Komplett affärssystem för små och medelstora företag. Ekonomi, lager, försäljning och projekt i en lösning."
-                  isSelected={product === "bc"}
+                  selected={product === "bc"}
                   onClick={() => setProduct("bc")}
-                  icon={<Building2 className="h-6 w-6" />}
                 />
                 <SelectionCard
-                  title="Finance & Supply Chain"
+                  label="Finance & Supply Chain"
                   description="Enterprise-klass ERP för större organisationer. Avancerad ekonomi, tillverkning, WMS och global styrning."
-                  isSelected={product === "fsc"}
+                  selected={product === "fsc"}
                   onClick={() => setProduct("fsc")}
-                  icon={<Factory className="h-6 w-6" />}
                 />
               </div>
             </div>
