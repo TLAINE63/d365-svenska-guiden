@@ -171,7 +171,9 @@ export const generateRequirementsSpec = async (
   // === COVER PAGE ===
   if (logoBase64) {
     try {
-      doc.addImage(logoBase64, "JPEG", margin, 25, 40, 40);
+      const logoHeight = 30;
+      const logoWidth = logoHeight * logoAspect;
+      doc.addImage(logoBase64, "JPEG", margin, 25, logoWidth, logoHeight);
     } catch (e) { /* skip */ }
   }
 
