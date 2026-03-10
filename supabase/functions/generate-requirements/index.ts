@@ -160,7 +160,12 @@ serve(async (req) => {
     }
 
     // Get base requirements for selected areas
-    const baseReqs = product === "bc" ? bcBaseRequirements : fscBaseRequirements;
+    const baseReqsMap: Record<string, Record<string, any>> = {
+      bc: bcBaseRequirements,
+      fsc: fscBaseRequirements,
+      sales: salesBaseRequirements,
+    };
+    const baseReqs = baseReqsMap[product] || bcBaseRequirements;
     const selectedAreas = (areas || Object.keys(baseReqs)).filter((a: string) => a in baseReqs);
     const baseRequirements = selectedAreas.map((area: string) => ({
       category: area,
