@@ -552,6 +552,12 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                       {format(new Date(invitation.created_at), "d MMM yyyy", { locale: sv })}
                     </TableCell>
                     <TableCell>
+                      {invitation.partner_id && latestInvitationByPartner.get(invitation.partner_id)
+                        ? format(new Date(latestInvitationByPartner.get(invitation.partner_id)!), "d MMM yyyy HH:mm", { locale: sv })
+                        : "-"
+                      }
+                    </TableCell>
+                    <TableCell>
                       {invitation.submitted_at 
                         ? format(new Date(invitation.submitted_at), "d MMM yyyy HH:mm", { locale: sv })
                         : "-"
