@@ -43,6 +43,7 @@ const Navbar = () => {
     { label: "Dynamics 365 Field Service", path: "/d365-field-service" },
     { label: "Dynamics 365 Contact Center", path: "/d365-contact-center" },
     { label: "🎧 Behovsanalys Kundservice", path: "/kundservice-behovsanalys" },
+    { label: "📋 Kravspecifikation (Kundservice)", path: "/kravspecifikation-kundservice" },
   ];
 
   const menuItems = [
