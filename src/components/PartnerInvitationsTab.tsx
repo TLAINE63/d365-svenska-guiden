@@ -45,9 +45,19 @@ interface Invitation {
 interface PartnerInvitationsTabProps {
   token: string;
   partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean }>;
+  onSessionExpired?: () => void;
 }
 
-const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) => {
+const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInvitationsTabProps) => {
+
+  const handleResponse = (response: Response) => {
+    if (response.status === 401 && onSessionExpired) {
+      toast.error("Sessionen har gått ut. Logga in igen.");
+      onSessionExpired();
+      throw new Error("Session expired");
+    }
+    return response;
+  };
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
