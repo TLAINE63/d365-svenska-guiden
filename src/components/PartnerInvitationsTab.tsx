@@ -65,7 +65,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [sendingReminders, setSendingReminders] = useState(false);
   const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
   const [showCreateDialog, setShowCreateDialog] = useState(false);
-  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc">("created_desc");
+  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "status" | "latest_inv_desc">("created_desc");
   
   // Email template state
   const [emailTemplate, setEmailTemplate] = useState("");
@@ -279,16 +279,6 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
-  const sortedInvitations = useMemo(() => {
-    const sorted = [...invitations];
-    if (sortOrder === "name_asc") {
-      sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
-    } else {
-      sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    }
-    return sorted;
-  }, [invitations, sortOrder]);
-
   // Map partner_id -> latest invitation created_at
   const latestInvitationByPartner = useMemo(() => {
     const map = new Map<string, string>();
@@ -301,6 +291,33 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     });
     return map;
   }, [invitations]);
+
+  const sortedInvitations = useMemo(() => {
+    const sorted = [...invitations];
+    const statusOrder: Record<string, number> = { pending: 0, submitted: 1, approved: 2, expired: 3 };
+    switch (sortOrder) {
+      case "name_asc":
+        sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
+        break;
+      case "status":
+        sorted.sort((a, b) => {
+          const aStatus = new Date(a.expires_at) < new Date() && a.status === "pending" ? "expired" : a.status;
+          const bStatus = new Date(b.expires_at) < new Date() && b.status === "pending" ? "expired" : b.status;
+          return (statusOrder[aStatus] ?? 99) - (statusOrder[bStatus] ?? 99);
+        });
+        break;
+      case "latest_inv_desc":
+        sorted.sort((a, b) => {
+          const aLatest = a.partner_id ? latestInvitationByPartner.get(a.partner_id) : null;
+          const bLatest = b.partner_id ? latestInvitationByPartner.get(b.partner_id) : null;
+          return new Date(bLatest || 0).getTime() - new Date(aLatest || 0).getTime();
+        });
+        break;
+      default:
+        sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }
+    return sorted;
+  }, [invitations, sortOrder, latestInvitationByPartner]);
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
@@ -471,25 +488,25 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Alla inbjudningar</CardTitle>
-          <CardDescription className="flex items-center gap-3">
+          <CardDescription className="flex items-center gap-3 flex-wrap">
             <span>{invitations.length} inbjudningar totalt</span>
             <span className="text-xs">Sortera:</span>
-            <Button 
-              variant={sortOrder === "created_desc" ? "secondary" : "ghost"} 
-              size="sm" 
-              className="h-6 text-xs px-2"
-              onClick={() => setSortOrder("created_desc")}
-            >
-              Senast skickad
-            </Button>
-            <Button 
-              variant={sortOrder === "name_asc" ? "secondary" : "ghost"} 
-              size="sm" 
-              className="h-6 text-xs px-2"
-              onClick={() => setSortOrder("name_asc")}
-            >
-              A–Ö
-            </Button>
+            {([
+              { key: "created_desc", label: "Skapad" },
+              { key: "name_asc", label: "A–Ö" },
+              { key: "status", label: "Status" },
+              { key: "latest_inv_desc", label: "Senaste inbjudan" },
+            ] as const).map(opt => (
+              <Button
+                key={opt.key}
+                variant={sortOrder === opt.key ? "secondary" : "ghost"}
+                size="sm"
+                className="h-6 text-xs px-2"
+                onClick={() => setSortOrder(opt.key)}
+              >
+                {opt.label}
+              </Button>
+            ))}
           </CardDescription>
         </CardHeader>
         <CardContent>
