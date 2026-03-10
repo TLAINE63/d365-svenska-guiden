@@ -425,8 +425,17 @@ serve(async (req: Request): Promise<Response> => {
           { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
+      // Remove existing pending invitations for the same partner
+      if (partner_id) {
+        await supabase
+          .from("partner_invitations")
+          .delete()
+          .eq("partner_id", partner_id)
+          .eq("status", "pending");
+        console.log("Removed existing pending invitations for partner:", partner_id);
+      }
 
-      const { data: invitation, error } = await supabase
+
         .from("partner_invitations")
         .insert({
           email,
