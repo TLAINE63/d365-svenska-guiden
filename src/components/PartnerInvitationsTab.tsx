@@ -44,7 +44,7 @@ interface Invitation {
 
 interface PartnerInvitationsTabProps {
   token: string;
-  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string }>;
+  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean }>;
 }
 
 const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) => {
