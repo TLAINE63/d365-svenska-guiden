@@ -55,6 +55,15 @@ const categoryLabels: Record<string, string> = {
   inkop: "Inköp & Anskaffning",
   projekt: "Projekt & Resurser",
   integration: "Integrationer & Teknik",
+  // Sales (CRM) categories
+  lead_mgmt: "Lead- & Kvalificering",
+  opportunity: "Affärsmöjligheter & Pipeline",
+  account_contact: "Kund- & Kontakthantering",
+  activities: "Aktiviteter & Uppföljning",
+  quotes_orders: "Offerter & Order",
+  analytics: "Analys & Rapportering",
+  automation: "Automatisering & Copilot",
+  email_marketing: "E-post & Kampanjer",
 };
 
 const priorityLabels: Record<string, string> = {
@@ -75,9 +84,14 @@ export const generateRequirementsSpec = async (
   const contentWidth = pageWidth - margin * 2;
   let y = 20;
 
-  // Colors - using Business Central teal or Finance green
+  // Colors - product-specific
   const isBc = data.product === "bc";
-  const primaryColor = isBc ? { r: 0, g: 120, b: 212 } : { r: 16, g: 124, b: 65 };
+  const isSales = data.product === "sales";
+  const primaryColor = isSales
+    ? { r: 42, g: 100, b: 168 }   // Dynamics 365 Sales blue
+    : isBc
+      ? { r: 0, g: 120, b: 212 }
+      : { r: 16, g: 124, b: 65 };
   const darkColor = { r: 30, g: 41, b: 59 };
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 248, g: 250, b: 252 };
@@ -184,11 +198,12 @@ export const generateRequirementsSpec = async (
   doc.text("Kravspecifikation", margin, y);
   y += 14;
 
-  doc.setFontSize(16);
-  doc.setTextColor(primaryColor.r, primaryColor.g, primaryColor.b);
-  const productName = isBc
-    ? "Microsoft Dynamics 365 Business Central"
-    : "Microsoft Dynamics 365 Finance & Supply Chain Management";
+  const productNames: Record<string, string> = {
+    bc: "Microsoft Dynamics 365 Business Central",
+    fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
+    sales: "Microsoft Dynamics 365 Sales",
+  };
+  const productName = productNames[data.product] || data.product;
   const titleLines = doc.splitTextToSize(productName, contentWidth);
   doc.text(titleLines, margin, y);
   y += titleLines.length * 8 + 10;

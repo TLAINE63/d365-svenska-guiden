@@ -73,7 +73,60 @@ const fscBaseRequirements = {
   ],
 };
 
-function getSystemPrompt() {
+const salesBaseRequirements = {
+  lead_mgmt: [
+    { area: "Leadhantering", items: ["Leadregistrering från webb, e-post och telefon", "Automatisk lead-scoring och kvalificering", "Lead-routing och tilldelning till säljare", "Konvertering från lead till affärsmöjlighet"] },
+    { area: "Prospektering", items: ["Linkedin Sales Navigator-integration", "Prospektlistor och segmentering", "Dubbletthantering och dataförbättring"] },
+  ],
+  opportunity: [
+    { area: "Affärsmöjligheter", items: ["Anpassningsbara säljprocesser och steg", "Sannolikhetsbedömning och viktade pipeline-värden", "Konkurrentspårning per affär", "Samarbete i säljteam (co-selling)"] },
+    { area: "Pipeline-hantering", items: ["Pipeline-vyer och Kanban-tavla", "Prognoser (forecast) med AI-stöd", "Säljcoaching-insikter från Copilot", "Win/loss-analys"] },
+  ],
+  account_contact: [
+    { area: "Kundhantering", items: ["360°-kundvy med aktivitetshistorik", "Kundhierarki (koncern/dotterbolag)", "Relationsroller och beslutsfattare", "Kundkategorisering (A/B/C-kund)"] },
+    { area: "Kontakthantering", items: ["Kontaktregister med rollbaserad åtkomst", "Koppling till organisationer och affärer", "GDPR-hantering (samtycke, radering)"] },
+  ],
+  activities: [
+    { area: "Aktivitetshantering", items: ["Uppgifter, möten, telefonsamtal och e-post", "Outlook-integration för e-post och kalender", "Teams-integration för möten", "Automatiska påminnelser och uppföljning"] },
+    { area: "Tidslinjevy", items: ["Kronologisk aktivitetshistorik per kund", "Anteckningar och intern kommunikation", "Filbilagor kopplade till aktiviteter"] },
+  ],
+  quotes_orders: [
+    { area: "Offerthantering", items: ["Offertmallar och produktkatalog", "Prissättning med rabatter och enheter", "Offert-till-order-konvertering", "Digital signering (e-signatur)"] },
+    { area: "Orderhantering", items: ["Orderregistrering och bekräftelse", "Koppling till fakturering och ERP", "Returer och kreditnoter"] },
+  ],
+  analytics: [
+    { area: "Säljrapporter", items: ["Dashboards för pipeline, vunna/förlorade affärer", "Aktivitetsrapporter per säljare", "KPI-uppföljning (konverteringsgrad, säljtid, etc.)", "Power BI-integration för avancerad analys"] },
+    { area: "AI-insikter", items: ["Copilot-sammanfattningar av kundinteraktioner", "Prediktiv lead-scoring", "Relationsanalys och sentimentanalys"] },
+  ],
+  automation: [
+    { area: "Processautomatisering", items: ["Automatiska arbetsflöden vid statusändringar", "E-postsekvenser och uppföljningsautomation", "Godkännandeflöden för rabatter och offerter", "Power Automate-koppling"] },
+    { area: "Copilot-funktioner", items: ["Automatisk mötessammanfattning", "E-postförslag och svarsutkast", "Säljcoaching-rekommendationer"] },
+  ],
+  email_marketing: [
+    { area: "E-postkampanjer", items: ["Mallar för utgående e-post", "Spårning av öppningsgrad och klick", "Automatiserade drip-kampanjer", "Koppling till Customer Insights (Marketing)"] },
+  ],
+  integration: [
+    { area: "Systemintegrationer", items: ["ERP-integration (Business Central / Finance)", "E-handelsplattform", "Marknadsföringsplattform", "Kundservicesystem (Customer Service)", "Dokumenthantering (SharePoint)"] },
+    { area: "Teknisk plattform", items: ["Dataverse och Power Platform", "API:er och webbtjänster", "Datamigrering från befintligt CRM", "Single Sign-On (SSO / Entra ID)"] },
+  ],
+};
+
+function getSystemPrompt(product: string) {
+  if (product === "sales") {
+    return `Du är en expert på Microsoft Dynamics 365 Sales (CRM) med djup kunskap om säljprocesser, pipeline-hantering och kundrelationer.
+
+Din uppgift är att berika en kravspecifikation med branschspecifika CRM-krav, sälj-KPI:er och rekommendationer.
+
+VIKTIGA REGLER:
+- Svara ALLTID på svenska
+- Var specifik och praktisk - undvik generella floskler
+- Fokusera på branschspecifika SÄLJBEHOV som INTE finns i standardmallen
+- Ge konkreta sälj-KPI:er relevanta för branschen (t.ex. konverteringsgrad, säljcykellängd)
+- Nämn relevanta regulatoriska krav (t.ex. GDPR, branschspecifika regler)
+- Begränsa svaret till max 8 branschspecifika krav med 3-5 underpunkter vardera
+- Returnera ALLTID som JSON med exakt denna struktur`;
+  }
+
   return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om Business Central och Finance & Supply Chain Management. 
 
 Din uppgift är att berika en kravspecifikation med branschspecifika krav, KPI:er och rekommendationer.
@@ -107,17 +160,26 @@ serve(async (req) => {
     }
 
     // Get base requirements for selected areas
-    const baseReqs = product === "bc" ? bcBaseRequirements : fscBaseRequirements;
+    const baseReqsMap: Record<string, Record<string, any>> = {
+      bc: bcBaseRequirements,
+      fsc: fscBaseRequirements,
+      sales: salesBaseRequirements,
+    };
+    const baseReqs = baseReqsMap[product] || bcBaseRequirements;
     const selectedAreas = (areas || Object.keys(baseReqs)).filter((a: string) => a in baseReqs);
     const baseRequirements = selectedAreas.map((area: string) => ({
       category: area,
       sections: (baseReqs as Record<string, any>)[area] || [],
     }));
 
-    // AI enrichment prompt
+    const productNames: Record<string, string> = {
+      bc: "Microsoft Dynamics 365 Business Central",
+      fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
+      sales: "Microsoft Dynamics 365 Sales",
+    };
     const userPrompt = `Generera branschspecifika tilläggskrav för en kravspecifikation.
 
-Produkt: ${product === "bc" ? "Microsoft Dynamics 365 Business Central" : "Microsoft Dynamics 365 Finance & Supply Chain Management"}
+Produkt: ${productNames[product] || product}
 Bransch: ${industry}
 Företagsstorlek: ${companySize || "Ej angiven"}
 Valda funktionsområden: ${selectedAreas.join(", ")}
@@ -152,7 +214,7 @@ Returnera JSON med denna exakta struktur:
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
         messages: [
-          { role: "system", content: getSystemPrompt() },
+          { role: "system", content: getSystemPrompt(product) },
           { role: "user", content: userPrompt },
         ],
         tools: [
