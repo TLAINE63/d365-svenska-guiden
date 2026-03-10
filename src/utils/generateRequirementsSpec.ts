@@ -214,6 +214,7 @@ export const generateRequirementsSpec = async (
     bc: "Microsoft Dynamics 365 Business Central",
     fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
     sales: "Microsoft Dynamics 365 Sales",
+    marketing: "Microsoft Dynamics 365 Customer Insights (Marketing)",
   };
   const productName = productNames[data.product] || data.product;
   const titleLines = doc.splitTextToSize(productName, contentWidth);
