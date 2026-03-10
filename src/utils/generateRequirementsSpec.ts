@@ -83,8 +83,19 @@ export const generateRequirementsSpec = async (
   const lightBg = { r: 248, g: 250, b: 252 };
 
   let logoBase64: string | null = null;
+  let logoAspect = 1;
   try {
     logoBase64 = await getBase64FromUrl(logoImage);
+    // Get natural aspect ratio
+    const img = new Image();
+    await new Promise<void>((resolve) => {
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = logoBase64!;
+    });
+    if (img.naturalWidth && img.naturalHeight) {
+      logoAspect = img.naturalWidth / img.naturalHeight;
+    }
   } catch (e) {
     console.log("Could not load logo:", e);
   }
