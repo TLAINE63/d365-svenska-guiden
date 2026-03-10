@@ -293,23 +293,6 @@ const RequirementsSpec = () => {
                 </CardContent>
               </Card>
 
-              {/* Product recommendation */}
-              {result.aiEnrichment.productRecommendation && (
-                <Card className="border-accent/30 bg-accent/5">
-                  <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center gap-2">
-                      Rekommenderad produktkombination
-                      <Badge variant="secondary" className="text-xs">AI-genererat</Badge>
-                    </h3>
-                    <p className="text-sm font-medium text-foreground mb-1">
-                      {result.aiEnrichment.productRecommendation.recommendation}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      {result.aiEnrichment.productRecommendation.rationale}
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
 
               {result.baseRequirements.map((req) => (
                 <Card key={req.category}>
