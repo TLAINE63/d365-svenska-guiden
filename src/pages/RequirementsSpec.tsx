@@ -167,7 +167,7 @@ const RequirementsSpec = () => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
               <FileText className="h-4 w-4" />
-              Kravspecifikation – ERP
+              Kravspecifikation – ERP/Affärssystem
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
               Skapa din ERP-kravspecifikation
