@@ -41,6 +41,7 @@ const PartnerUpdate = lazy(() => import("./pages/PartnerUpdate"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
 const PartnerEvents = lazy(() => import("./pages/PartnerEvents"));
+const RequirementsSpec = lazy(() => import("./pages/RequirementsSpec"));
 
 const queryClient = new QueryClient();
 
