@@ -381,6 +381,15 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         </div>
       </div>
 
+      {/* Update round section */}
+      <UpdateRoundSection
+        token={token}
+        partners={partners}
+        invitations={invitations}
+        onSessionExpired={onSessionExpired}
+        onRefresh={fetchData}
+      />
+
       {/* Email template editor */}
       {showTemplateEditor && (
         <Card>
