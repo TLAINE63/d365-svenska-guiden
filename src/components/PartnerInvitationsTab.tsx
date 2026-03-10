@@ -279,7 +279,16 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
-  const toggleReminderSelection = (id: string) => {
+  const sortedInvitations = useMemo(() => {
+    const sorted = [...invitations];
+    if (sortOrder === "name_asc") {
+      sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
+    } else {
+      sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }
+    return sorted;
+  }, [invitations, sortOrder]);
+
     setSelectedForReminder(prev => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id); else next.add(id);
