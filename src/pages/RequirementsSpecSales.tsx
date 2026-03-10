@@ -12,7 +12,9 @@ import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
-import { allIndustries, companySizes } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+
+const salesTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
   ArrowLeft, ArrowRight, FileText, Download,
   Users, Target, BarChart3, Zap, Link2, Mail,
@@ -215,7 +217,7 @@ const RequirementsSpecSales = () => {
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Antal säljare / användare</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {companySizes.map((size) => (
+                {salesTeamSizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setCompanySize(size)}
