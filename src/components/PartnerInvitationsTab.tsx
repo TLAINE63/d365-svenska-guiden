@@ -279,6 +279,19 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
+  // Map partner_id -> latest invitation created_at
+  const latestInvitationByPartner = useMemo(() => {
+    const map = new Map<string, string>();
+    invitations.forEach(inv => {
+      if (!inv.partner_id) return;
+      const existing = map.get(inv.partner_id);
+      if (!existing || new Date(inv.created_at) > new Date(existing)) {
+        map.set(inv.partner_id, inv.created_at);
+      }
+    });
+    return map;
+  }, [invitations]);
+
   const sortedInvitations = useMemo(() => {
     const sorted = [...invitations];
     const statusOrder: Record<string, number> = { pending: 0, submitted: 1, approved: 2, expired: 3 };
@@ -305,19 +318,6 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
     return sorted;
   }, [invitations, sortOrder, latestInvitationByPartner]);
-
-  // Map partner_id -> latest invitation created_at
-  const latestInvitationByPartner = useMemo(() => {
-    const map = new Map<string, string>();
-    invitations.forEach(inv => {
-      if (!inv.partner_id) return;
-      const existing = map.get(inv.partner_id);
-      if (!existing || new Date(inv.created_at) > new Date(existing)) {
-        map.set(inv.partner_id, inv.created_at);
-      }
-    });
-    return map;
-  }, [invitations]);
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
