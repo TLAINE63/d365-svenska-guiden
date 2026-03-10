@@ -228,7 +228,7 @@ const RequirementsSpecCustomerService = () => {
                         : "border-border bg-card text-foreground hover:border-primary/50"
                     }`}
                   >
-                    {size} anställda
+                    {size} medarbetare
                   </button>
                 ))}
               </div>
