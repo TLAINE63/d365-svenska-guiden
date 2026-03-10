@@ -217,7 +217,7 @@ const RequirementsSpec = () => {
           {/* Step 2: Company Size */}
           {step === 2 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-foreground">Antal anställda</h2>
+              <h2 className="text-xl font-semibold text-foreground">Antal medarbetare</h2>
               <p className="text-sm text-muted-foreground">
                 Storleken påverkar komplexitet och vilka funktioner som prioriteras.
               </p>
@@ -232,7 +232,7 @@ const RequirementsSpec = () => {
                         : "border-border bg-card text-foreground hover:border-primary/50"
                     }`}
                   >
-                    {size} anställda
+                    {size} medarbetare
                   </button>
                 ))}
               </div>
@@ -283,7 +283,7 @@ const RequirementsSpec = () => {
                         Kravspecifikation – ERP / Affärssystem
                       </h2>
                       <p className="text-sm text-muted-foreground">
-                        {result.industry} | {result.companySize} anställda | {result.baseRequirements.length} funktionsområden
+                        {result.industry} | {result.companySize} medarbetare | {result.baseRequirements.length} funktionsområden
                       </p>
                     </div>
                     <Badge variant="outline" className="border-primary/30 text-primary">
