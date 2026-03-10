@@ -45,9 +45,19 @@ interface Invitation {
 interface PartnerInvitationsTabProps {
   token: string;
   partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean }>;
+  onSessionExpired?: () => void;
 }
 
-const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) => {
+const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInvitationsTabProps) => {
+
+  const handleResponse = (response: Response) => {
+    if (response.status === 401 && onSessionExpired) {
+      toast.error("Sessionen har gått ut. Logga in igen.");
+      onSessionExpired();
+      throw new Error("Session expired");
+    }
+    return response;
+  };
   const [invitations, setInvitations] = useState<Invitation[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -85,6 +95,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
         }
       );
 
+      handleResponse(response);
       if (!response.ok) {
         throw new Error("Kunde inte hämta data");
       }
@@ -119,6 +130,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
           },
         }
       );
+      handleResponse(response);
       if (!response.ok) throw new Error("Kunde inte hämta mall");
       const data = await response.json();
       setEmailTemplate(data.template || "");
@@ -146,6 +158,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
           body: JSON.stringify({ template: emailTemplate }),
         }
       );
+      handleResponse(response);
       if (!response.ok) throw new Error("Kunde inte spara mall");
       setEmailTemplateOriginal(emailTemplate);
       toast.success("E-postmall sparad!");
@@ -178,6 +191,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
         }
       );
 
+      handleResponse(response);
       if (!response.ok) {
         throw new Error("Kunde inte skapa inbjudan");
       }
@@ -219,6 +233,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
         }
       );
 
+      handleResponse(response);
       if (!response.ok) {
         throw new Error("Kunde inte radera inbjudan");
       }
@@ -303,6 +318,7 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
 
       const data = await response.json();
 
+      handleResponse(response);
       if (!response.ok) {
         throw new Error(data.error || "Kunde inte skicka påminnelser");
       }
