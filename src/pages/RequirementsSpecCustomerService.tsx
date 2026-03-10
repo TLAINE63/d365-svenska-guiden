@@ -172,7 +172,7 @@ const RequirementsSpecCustomerService = () => {
               Kravspecifikation – Kundservice
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Kravspecifikation för Dynamics 365 Kundservice
+              Kravspecifikation för Kundservice
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Omfattar ärendehantering, Contact Center, kanaler och fältservice.
