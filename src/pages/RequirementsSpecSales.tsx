@@ -217,7 +217,7 @@ const RequirementsSpecSales = () => {
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Antal säljare / användare</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {companySizes.map((size) => (
+                {salesTeamSizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setCompanySize(size)}
