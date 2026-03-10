@@ -12,7 +12,9 @@ import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
-import { allIndustries, companySizes } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+
+const salesTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
   ArrowLeft, ArrowRight, FileText, Download,
   Users, Target, BarChart3, Zap, Link2, Mail,
