@@ -214,7 +214,7 @@ Returnera JSON med denna exakta struktur:
       body: JSON.stringify({
         model: "google/gemini-3-flash-preview",
         messages: [
-          { role: "system", content: getSystemPrompt() },
+          { role: "system", content: getSystemPrompt(product) },
           { role: "user", content: userPrompt },
         ],
         tools: [
