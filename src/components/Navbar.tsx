@@ -74,7 +74,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             <Link
               to="/branschlosningar"
               onClick={(e) => {
