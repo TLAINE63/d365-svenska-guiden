@@ -191,6 +191,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         }
       );
 
+      handleResponse(response);
       if (!response.ok) {
         throw new Error("Kunde inte skapa inbjudan");
       }
