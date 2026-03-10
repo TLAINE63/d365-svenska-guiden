@@ -879,6 +879,160 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Admin: Start a new update round
+    if (action === "start-update-round" && req.method === "POST") {
+      const body = await req.json().catch(() => ({}));
+      const label = body.label || "";
+      const roundDate = new Date().toISOString();
+
+      const { error } = await supabase
+        .from("site_settings")
+        .upsert({ 
+          key: "profile_update_round_date", 
+          value: JSON.stringify({ date: roundDate, label }), 
+          updated_at: roundDate 
+        });
+
+      if (error) {
+        return new Response(
+          JSON.stringify({ error: "Kunde inte starta uppdateringsrunda" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ success: true, date: roundDate, label }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Admin: Get current update round
+    if (action === "get-update-round" && req.method === "GET") {
+      const { data: setting } = await supabase
+        .from("site_settings")
+        .select("value, updated_at")
+        .eq("key", "profile_update_round_date")
+        .single();
+
+      return new Response(
+        JSON.stringify({ round: setting?.value ? JSON.parse(setting.value) : null }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Admin: Bulk create invitations for multiple partners
+    if (action === "bulk-create" && req.method === "POST") {
+      const body = await req.json();
+      const { partners: partnerList, send_email } = body;
+
+      if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Partnerlista krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Create invitations for all partners
+      const invitations = partnerList.map((p: { id: string; name: string; email: string }) => ({
+        email: p.email,
+        partner_name: p.name,
+        partner_id: p.id,
+      }));
+
+      const { data: createdInvitations, error: insertError } = await supabase
+        .from("partner_invitations")
+        .insert(invitations)
+        .select();
+
+      if (insertError) {
+        console.error("Bulk create error:", insertError);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte skapa inbjudningar" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      let sent = 0;
+      let failed = 0;
+      const errors: string[] = [];
+
+      if (send_email && createdInvitations) {
+        const resendApiKey = Deno.env.get("RESEND_API_KEY");
+        if (resendApiKey) {
+          const resend = new Resend(resendApiKey);
+          const baseUrl = "https://d365-svenska-guiden.lovable.app";
+
+          // Fetch email template
+          let emailBody = "";
+          const { data: setting } = await supabase
+            .from("site_settings")
+            .select("value")
+            .eq("key", "invitation_email_body")
+            .single();
+          
+          emailBody = setting?.value || "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
+
+          for (const inv of createdInvitations) {
+            try {
+              const invitationLink = `${baseUrl}/partner-update/${inv.token}`;
+              const invitationButton = `<div style="text-align: center; margin: 30px 0;">
+                <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera partnerprofil</a>
+              </div>
+              <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
+              <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
+
+              const htmlBody = emailBody
+                .split("{{INVITATION_LINK}}")
+                .map((part: string) => {
+                  return part
+                    .split("\n\n")
+                    .map((paragraph: string) => {
+                      const trimmed = paragraph.trim();
+                      if (!trimmed) return "";
+                      const withBr = trimmed.replace(/\n/g, "<br>");
+                      const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
+                      const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
+                      return `<p>${withEmails}</p>`;
+                    })
+                    .filter(Boolean)
+                    .join("\n");
+                })
+                .join(invitationButton);
+
+              const fullHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">${htmlBody}</body></html>`;
+
+              await resend.emails.send({
+                from: "D365.se <info@d365.se>",
+                to: [inv.email],
+                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                html: fullHtml,
+              });
+              sent++;
+              console.log("Bulk invitation sent to:", inv.email, inv.partner_name);
+            } catch (sendErr: any) {
+              failed++;
+              errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
+              console.error("Bulk send error:", inv.email, sendErr);
+            }
+          }
+        }
+      }
+
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          created: createdInvitations?.length || 0,
+          sent,
+          failed,
+          errors: errors.length > 0 ? errors : undefined,
+          message: send_email 
+            ? `${createdInvitations?.length} inbjudningar skapade, ${sent} e-post skickade.${failed > 0 ? ` ${failed} misslyckades.` : ''}`
+            : `${createdInvitations?.length} inbjudningar skapade (utan e-post).`
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     return new Response(
       JSON.stringify({ error: "Ogiltig åtgärd" }),
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }

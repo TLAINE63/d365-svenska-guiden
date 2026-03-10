@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import UpdateRoundSection from "@/components/UpdateRoundSection";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -379,6 +380,15 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           </Button>
         </div>
       </div>
+
+      {/* Update round section */}
+      <UpdateRoundSection
+        token={token}
+        partners={partners}
+        invitations={invitations}
+        onSessionExpired={onSessionExpired}
+        onRefresh={fetchData}
+      />
 
       {/* Email template editor */}
       {showTemplateEditor && (
