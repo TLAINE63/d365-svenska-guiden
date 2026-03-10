@@ -437,6 +437,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <FileEdit className="w-4 h-4 mr-2" />
             {showTemplateEditor ? "Dölj mailmall" : "Redigera mailmall"}
           </Button>
+          {selectedForDelete.size > 0 && (
+            <Button 
+              variant="outline" 
+              onClick={bulkDeleteInvitations} 
+              disabled={deleting}
+              className="border-destructive text-destructive hover:bg-destructive/10"
+            >
+              <Trash2 className={`w-4 h-4 mr-2 ${deleting ? "animate-pulse" : ""}`} />
+              {deleting ? "Raderar..." : `Radera valda (${selectedForDelete.size})`}
+            </Button>
+          )}
           {pendingInvitations.length > 0 && (
             <Button 
               variant="outline" 
