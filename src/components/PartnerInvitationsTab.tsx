@@ -508,7 +508,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {invitations.map((invitation) => {
+                {sortedInvitations.map((invitation) => {
                   const isPending = invitation.status === "pending" && new Date(invitation.expires_at) >= new Date();
                   return (
                   <TableRow key={invitation.id}>
