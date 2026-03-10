@@ -64,6 +64,8 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [creating, setCreating] = useState(false);
   const [sendingReminders, setSendingReminders] = useState(false);
   const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
+  const [selectedForDelete, setSelectedForDelete] = useState<Set<string>>(new Set());
+  const [deleting, setDeleting] = useState(false);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "status" | "latest_inv_desc">("created_desc");
   
