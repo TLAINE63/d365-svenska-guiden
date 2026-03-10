@@ -293,6 +293,7 @@ serve(async (req) => {
       fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
       sales: "Microsoft Dynamics 365 Sales",
       marketing: "Microsoft Dynamics 365 Customer Insights (Marketing)",
+      customer_service: "Microsoft Dynamics 365 Customer Service, Contact Center & Field Service",
     };
     const userPrompt = `Generera branschspecifika tilläggskrav för en kravspecifikation.
 
