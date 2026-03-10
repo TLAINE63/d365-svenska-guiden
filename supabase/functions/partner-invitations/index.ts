@@ -425,6 +425,15 @@ serve(async (req: Request): Promise<Response> => {
           { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
+      // Remove existing pending invitations for the same partner
+      if (partner_id) {
+        await supabase
+          .from("partner_invitations")
+          .delete()
+          .eq("partner_id", partner_id)
+          .eq("status", "pending");
+        console.log("Removed existing pending invitations for partner:", partner_id);
+      }
 
       const { data: invitation, error } = await supabase
         .from("partner_invitations")
@@ -930,6 +939,17 @@ serve(async (req: Request): Promise<Response> => {
           JSON.stringify({ error: "Partnerlista krävs" }),
           { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
+      }
+
+      // Remove existing pending invitations for these partners
+      const partnerIds = partnerList.map((p: { id: string }) => p.id).filter(Boolean);
+      if (partnerIds.length > 0) {
+        await supabase
+          .from("partner_invitations")
+          .delete()
+          .in("partner_id", partnerIds)
+          .eq("status", "pending");
+        console.log("Removed existing pending invitations for", partnerIds.length, "partners");
       }
 
       // Create invitations for all partners
