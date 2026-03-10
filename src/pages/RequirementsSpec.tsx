@@ -8,15 +8,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import SelectionCard from "@/components/SelectionCard";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
-import { allIndustries, companySizes } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
 import {
-  ArrowLeft, ArrowRight, FileText, Download, Building2, Factory,
-  Calculator, Package, Wrench, ShoppingCart, Boxes, Link2,
-  CheckCircle2, Loader2, Eye, Lock,
+  ArrowLeft, ArrowRight, FileText, Download,
+  Calculator, Package, Factory, ShoppingCart, Boxes, Wrench,
+  Link2, CheckCircle2, Loader2, Eye, Lock, Users, Landmark, Truck,
 } from "lucide-react";
 
 const breadcrumbs = [
@@ -24,34 +23,36 @@ const breadcrumbs = [
   { name: "Kravspecifikation", url: "https://d365.se/kravspecifikation" },
 ];
 
+const erpTeamSizes = ["1–25", "26–50", "51–100", "101–250", "251–500", "500+"];
+
 const areaOptions = [
   { id: "ekonomi", label: "Ekonomi & Redovisning", icon: Calculator },
   { id: "lager", label: "Lager & Logistik", icon: Package },
   { id: "produktion", label: "Produktion & Tillverkning", icon: Factory },
-  { id: "forsaljning", label: "Försäljning", icon: ShoppingCart },
-  { id: "inkop", label: "Inköp", icon: Boxes },
-  { id: "projekt", label: "Projekt", icon: Wrench },
+  { id: "forsaljning", label: "Försäljning & Order", icon: ShoppingCart },
+  { id: "inkop", label: "Inköp & Anskaffning", icon: Boxes },
+  { id: "projekt", label: "Projekt & Resurser", icon: Wrench },
+  { id: "hr", label: "Personal & HR", icon: Users },
+  { id: "service", label: "Service & Underhåll", icon: Wrench },
+  { id: "transport", label: "Transport & Distribution", icon: Truck },
+  { id: "koncern", label: "Koncern & Flerbolag", icon: Landmark },
   { id: "integration", label: "Integrationer", icon: Link2 },
 ];
 
 const RequirementsSpec = () => {
   const { toast } = useToast();
   const [step, setStep] = useState(1);
-  const totalSteps = 5;
+  const totalSteps = 4;
 
-  // Wizard state
-  const [product, setProduct] = useState<string>("");
   const [industry, setIndustry] = useState<string>("");
   const [companySize, setCompanySize] = useState<string>("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([
     "ekonomi", "lager", "forsaljning", "inkop", "integration",
   ]);
 
-  // Result state
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
 
-  // Lead gate state
   const [email, setEmail] = useState("");
   const [isDownloading, setIsDownloading] = useState(false);
 
@@ -63,10 +64,9 @@ const RequirementsSpec = () => {
 
   const canProceed = () => {
     switch (step) {
-      case 1: return !!product;
-      case 2: return !!industry;
-      case 3: return !!companySize;
-      case 4: return selectedAreas.length > 0;
+      case 1: return !!industry;
+      case 2: return !!companySize;
+      case 3: return selectedAreas.length > 0;
       default: return true;
     }
   };
@@ -75,12 +75,12 @@ const RequirementsSpec = () => {
     setIsGenerating(true);
     try {
       const { data, error } = await supabase.functions.invoke("generate-requirements", {
-        body: { product, industry, companySize, areas: selectedAreas },
+        body: { product: "erp", industry, companySize, areas: selectedAreas },
       });
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       setResult(data);
-      setStep(5);
+      setStep(4);
     } catch (err: any) {
       console.error("Generation error:", err);
       toast({
@@ -101,7 +101,6 @@ const RequirementsSpec = () => {
     }
     setIsDownloading(true);
     try {
-      // Save lead
       await supabase.functions.invoke("submit-lead", {
         body: {
           email,
@@ -109,7 +108,7 @@ const RequirementsSpec = () => {
           contact_name: email.split("@")[0] || "Lead",
           source_page: "/kravspecifikation",
           source_type: "requirements_spec",
-          message: `Laddat ner kravspecifikation: ${result.product === "bc" ? "Business Central" : "Finance & SCM"} - ${result.industry}`,
+          message: `Laddat ner kravspecifikation: ERP - ${result.industry}`,
         },
       });
 
@@ -131,9 +130,13 @@ const RequirementsSpec = () => {
     ekonomi: "Ekonomi & Redovisning",
     lager: "Lager & Logistik",
     produktion: "Produktion & Tillverkning",
-    forsaljning: "Försäljning & CRM",
+    forsaljning: "Försäljning & Order",
     inkop: "Inköp & Anskaffning",
     projekt: "Projekt & Resurser",
+    hr: "Personal & HR",
+    service: "Service & Underhåll",
+    transport: "Transport & Distribution",
+    koncern: "Koncern & Flerbolag",
     integration: "Integrationer & Teknik",
   };
 
@@ -152,8 +155,8 @@ const RequirementsSpec = () => {
   return (
     <>
       <SEOHead
-        title="Kravspecifikation för Dynamics 365 | d365.se"
-        description="Skapa en skräddarsydd kravspecifikation för Microsoft Dynamics 365 Business Central eller Finance & Supply Chain Management. Anpassad efter din bransch."
+        title="Kravspecifikation för Dynamics 365 ERP | d365.se"
+        description="Skapa en systemoberoende kravspecifikation för ERP. Anpassad efter din bransch med AI-berikade krav, KPI:er och produktrekommendation."
         canonicalPath="/kravspecifikation"
       />
       <BreadcrumbSchema items={breadcrumbs} />
@@ -164,51 +167,30 @@ const RequirementsSpec = () => {
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
               <FileText className="h-4 w-4" />
-              Kravspecifikation
+              Kravspecifikation – ERP
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Skapa din kravspecifikation
+              Skapa din ERP-kravspecifikation
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Få en övergripande kravspecifikation anpassad efter din bransch och dina funktionsbehov.
-              AI-berikad med branschspecifika krav och KPI:er.
+              Fånga dina verksamhetsbehov oberoende av system. AI:n rekommenderar sedan vilken
+              produktkombination (Business Central, Finance & SCM eller båda) som passar bäst.
             </p>
           </div>
 
           {/* Progress */}
-          {step < 5 && (
+          {step < 4 && (
             <div className="mb-8">
               <div className="flex justify-between text-sm text-muted-foreground mb-2">
                 <span>Steg {step} av {totalSteps - 1}</span>
-                <span>{Math.round(((step) / (totalSteps - 1)) * 100)}%</span>
+                <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
               </div>
               <Progress value={(step / (totalSteps - 1)) * 100} className="h-2" />
             </div>
           )}
 
-          {/* Step 1: Product */}
+          {/* Step 1: Industry */}
           {step === 1 && (
-            <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-foreground">Välj produktområde</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <SelectionCard
-                  label="Business Central"
-                  description="Komplett affärssystem för små och medelstora företag. Ekonomi, lager, försäljning och projekt i en lösning."
-                  selected={product === "bc"}
-                  onClick={() => setProduct("bc")}
-                />
-                <SelectionCard
-                  label="Finance & Supply Chain"
-                  description="Enterprise-klass ERP för större organisationer. Avancerad ekonomi, tillverkning, WMS och global styrning."
-                  selected={product === "fsc"}
-                  onClick={() => setProduct("fsc")}
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Step 2: Industry */}
-          {step === 2 && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Välj bransch</h2>
               <p className="text-sm text-muted-foreground">
@@ -232,12 +214,15 @@ const RequirementsSpec = () => {
             </div>
           )}
 
-          {/* Step 3: Company Size */}
-          {step === 3 && (
+          {/* Step 2: Company Size */}
+          {step === 2 && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Antal anställda</h2>
+              <p className="text-sm text-muted-foreground">
+                Storleken påverkar komplexitet och vilka funktioner som prioriteras.
+              </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {companySizes.map((size) => (
+                {erpTeamSizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setCompanySize(size)}
@@ -254,8 +239,8 @@ const RequirementsSpec = () => {
             </div>
           )}
 
-          {/* Step 4: Areas */}
-          {step === 4 && (
+          {/* Step 3: Areas */}
+          {step === 3 && (
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Vilka funktionsområden är relevanta?</h2>
               <p className="text-sm text-muted-foreground">Välj de områden du vill inkludera i kravspecifikationen.</p>
@@ -287,16 +272,15 @@ const RequirementsSpec = () => {
             </div>
           )}
 
-          {/* Step 5: Results */}
-          {step === 5 && result && (
+          {/* Step 4: Results */}
+          {step === 4 && result && (
             <div className="space-y-8">
-              {/* Summary header */}
               <Card className="border-primary/30 bg-primary/5">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <h2 className="text-xl font-semibold text-foreground mb-1">
-                        Kravspecifikation - {result.product === "bc" ? "Business Central" : "Finance & SCM"}
+                        Kravspecifikation – ERP / Affärssystem
                       </h2>
                       <p className="text-sm text-muted-foreground">
                         {result.industry} | {result.companySize} anställda | {result.baseRequirements.length} funktionsområden
@@ -309,7 +293,24 @@ const RequirementsSpec = () => {
                 </CardContent>
               </Card>
 
-              {/* Base requirements preview */}
+              {/* Product recommendation */}
+              {result.aiEnrichment.productRecommendation && (
+                <Card className="border-accent/30 bg-accent/5">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold text-foreground mb-2 flex items-center gap-2">
+                      Rekommenderad produktkombination
+                      <Badge variant="secondary" className="text-xs">AI-genererat</Badge>
+                    </h3>
+                    <p className="text-sm font-medium text-foreground mb-1">
+                      {result.aiEnrichment.productRecommendation.recommendation}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {result.aiEnrichment.productRecommendation.rationale}
+                    </p>
+                  </CardContent>
+                </Card>
+              )}
+
               {result.baseRequirements.map((req) => (
                 <Card key={req.category}>
                   <CardContent className="p-6">
@@ -333,11 +334,10 @@ const RequirementsSpec = () => {
                 </Card>
               ))}
 
-              {/* AI Industry requirements */}
               {result.aiEnrichment.industryRequirements.length > 0 && (
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
-                    Branschspecifika krav - {result.industry}
+                    Branschspecifika krav – {result.industry}
                     <Badge variant="secondary" className="text-xs">AI-genererat</Badge>
                   </h3>
                   {result.aiEnrichment.industryRequirements.map((req, i) => (
@@ -364,7 +364,6 @@ const RequirementsSpec = () => {
                 </div>
               )}
 
-              {/* KPIs preview (partial - tease) */}
               {result.aiEnrichment.kpis.length > 0 && (
                 <Card className="relative overflow-hidden">
                   <CardContent className="p-6">
@@ -390,7 +389,6 @@ const RequirementsSpec = () => {
                 </Card>
               )}
 
-              {/* Download gate */}
               <Card className="border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -399,7 +397,7 @@ const RequirementsSpec = () => {
                         Ladda ner komplett kravspecifikation (PDF)
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        Inkluderar alla funktionskrav, branschkrav, KPI:er, regulatoriska krav och integrationsförslag.
+                        Inkluderar alla funktionskrav, branschkrav, KPI:er, produktrekommendation och integrationsförslag.
                       </p>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
@@ -427,7 +425,6 @@ const RequirementsSpec = () => {
                 </CardContent>
               </Card>
 
-              {/* Start over */}
               <div className="text-center">
                 <Button variant="ghost" onClick={() => { setStep(1); setResult(null); }}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Skapa ny kravspecifikation
@@ -437,7 +434,7 @@ const RequirementsSpec = () => {
           )}
 
           {/* Navigation */}
-          {step < 5 && (
+          {step < 4 && (
             <div className="flex justify-between mt-8">
               <Button
                 variant="outline"
@@ -447,7 +444,7 @@ const RequirementsSpec = () => {
                 <ArrowLeft className="mr-2 h-4 w-4" /> Tillbaka
               </Button>
 
-              {step < 4 ? (
+              {step < 3 ? (
                 <Button onClick={() => setStep((s) => s + 1)} disabled={!canProceed()}>
                   Nästa <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
