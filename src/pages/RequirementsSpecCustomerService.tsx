@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
@@ -269,6 +270,7 @@ const RequirementsSpecCustomerService = () => {
 
           {step === 4 && result && (
             <div className="space-y-8">
+              <RequirementsDisclaimer />
               <Card className="border-primary/30 bg-primary/5">
                 <CardContent className="p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
