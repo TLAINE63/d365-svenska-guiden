@@ -250,6 +250,41 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   };
 
+  const bulkDeleteInvitations = async () => {
+    const ids = Array.from(selectedForDelete);
+    if (ids.length === 0) return;
+    if (!confirm(`Radera ${ids.length} inbjudan(ar)?`)) return;
+
+    setDeleting(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=delete&ids=${ids.join(",")}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+
+      handleResponse(response);
+      if (!response.ok) throw new Error("Kunde inte radera");
+
+      const data = await response.json();
+      toast.success(`${data.deleted} inbjudan(ar) raderade`);
+      setSelectedForDelete(new Set());
+      fetchData();
+    } catch (err: any) {
+      if (err.message !== "Session expired") {
+        toast.error("Kunde inte radera inbjudningar");
+      }
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const copyInvitationLink = (invToken: string) => {
     const baseUrl = window.location.origin;
     const link = `${baseUrl}/partner-update/${invToken}`;
