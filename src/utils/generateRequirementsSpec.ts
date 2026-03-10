@@ -111,6 +111,7 @@ export const generateRequirementsSpec = async (
   let y = 20;
 
   // Colors - product-specific
+  const isErp = data.product === "erp";
   const isBc = data.product === "bc";
   const isSales = data.product === "sales";
   const isMarketing = data.product === "marketing";
@@ -120,10 +121,10 @@ export const generateRequirementsSpec = async (
     : isMarketing
       ? { r: 135, g: 50, b: 160 }   // Marketing purple
       : isSales
-        ? { r: 42, g: 100, b: 168 }
-        : isBc
-          ? { r: 0, g: 120, b: 212 }
-          : { r: 16, g: 124, b: 65 };
+        ? { r: 42, g: 100, b: 168 }  // Sales blue
+        : (isErp || isBc)
+          ? { r: 0, g: 120, b: 212 }  // ERP / BC blue
+          : { r: 16, g: 124, b: 65 }; // FSC green
   const darkColor = { r: 30, g: 41, b: 59 };
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 248, g: 250, b: 252 };
