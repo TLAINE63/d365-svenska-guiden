@@ -55,6 +55,15 @@ const categoryLabels: Record<string, string> = {
   inkop: "Inköp & Anskaffning",
   projekt: "Projekt & Resurser",
   integration: "Integrationer & Teknik",
+  // Sales (CRM) categories
+  lead_mgmt: "Lead- & Kvalificering",
+  opportunity: "Affärsmöjligheter & Pipeline",
+  account_contact: "Kund- & Kontakthantering",
+  activities: "Aktiviteter & Uppföljning",
+  quotes_orders: "Offerter & Order",
+  analytics: "Analys & Rapportering",
+  automation: "Automatisering & Copilot",
+  email_marketing: "E-post & Kampanjer",
 };
 
 const priorityLabels: Record<string, string> = {
