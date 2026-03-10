@@ -80,7 +80,7 @@ const Agents = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden mt-16 h-[400px] sm:h-[500px] md:h-[600px]">
+      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[500px] md:h-[600px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2070" 
