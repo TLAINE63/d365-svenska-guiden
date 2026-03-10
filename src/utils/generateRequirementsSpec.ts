@@ -55,6 +55,19 @@ const categoryLabels: Record<string, string> = {
   inkop: "Inköp & Anskaffning",
   projekt: "Projekt & Resurser",
   integration: "Integrationer & Teknik",
+  // Customer Service categories
+  case_mgmt: "Ärendehantering",
+  queues_routing: "Köer & Routing",
+  knowledge: "Kunskapsbas & FAQ",
+  sla_entitlements: "SLA & Serviceavtal",
+  channels: "Kanaler (Chatt, E-post, Telefon)",
+  contact_center: "Contact Center & Telefoni",
+  copilot_ai: "Copilot & AI-assistans",
+  field_service: "Fältservice & Arbetsorder",
+  scheduling: "Schemaläggning & Resurser",
+  analytics_cs: "Analys & Rapportering",
+  self_service: "Självbetjäningsportal",
+  integration_cs: "Integrationer",
   // Sales (CRM) categories
   lead_mgmt: "Lead- & Kvalificering",
   opportunity: "Affärsmöjligheter & Pipeline",
@@ -97,13 +110,16 @@ export const generateRequirementsSpec = async (
   const isBc = data.product === "bc";
   const isSales = data.product === "sales";
   const isMarketing = data.product === "marketing";
-  const primaryColor = isMarketing
-    ? { r: 135, g: 50, b: 160 }   // Marketing purple
-    : isSales
-      ? { r: 42, g: 100, b: 168 }
-      : isBc
-        ? { r: 0, g: 120, b: 212 }
-        : { r: 16, g: 124, b: 65 };
+  const isCustomerService = data.product === "customer_service";
+  const primaryColor = isCustomerService
+    ? { r: 134, g: 97, b: 197 }    // Customer Service violet
+    : isMarketing
+      ? { r: 135, g: 50, b: 160 }   // Marketing purple
+      : isSales
+        ? { r: 42, g: 100, b: 168 }
+        : isBc
+          ? { r: 0, g: 120, b: 212 }
+          : { r: 16, g: 124, b: 65 };
   const darkColor = { r: 30, g: 41, b: 59 };
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 248, g: 250, b: 252 };
@@ -215,6 +231,7 @@ export const generateRequirementsSpec = async (
     fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
     sales: "Microsoft Dynamics 365 Sales",
     marketing: "Microsoft Dynamics 365 Customer Insights (Marketing)",
+    customer_service: "Microsoft Dynamics 365 Customer Service, Contact Center & Field Service",
   };
   const productName = productNames[data.product] || data.product;
   const titleLines = doc.splitTextToSize(productName, contentWidth);

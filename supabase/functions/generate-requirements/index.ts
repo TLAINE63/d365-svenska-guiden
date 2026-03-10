@@ -150,7 +150,67 @@ const marketingBaseRequirements = {
   ],
 };
 
+const customerServiceBaseRequirements = {
+  case_mgmt: [
+    { area: "Ärendehantering", items: ["Skapa, kategorisera och prioritera ärenden", "Ärendetyper och statusflöden", "Automatisk tilldelning baserat på kompetens", "Sammanfogning av duplicerade ärenden", "Eskaleringsregler och hierarkier"] },
+    { area: "Ärendeuppföljning", items: ["Tidslinjevy med all kommunikation", "Interna anteckningar och samarbete", "Koppling till kund och kontakt (360°-vy)", "Ärendemallar för vanliga frågor"] },
+  ],
+  queues_routing: [
+    { area: "Köhantering", items: ["Automatisk och manuell köplacering", "Prioritetsbaserad kö-sortering", "Omnichannel-routing (chatt, e-post, telefon)", "Kapacitetsbaserad routing", "Överflödeshantering och load balancing"] },
+  ],
+  knowledge: [
+    { area: "Kunskapsbas", items: ["Skapa och publicera kunskapsartiklar", "Sökbar kunskapsbas för agenter och kunder", "Artikellivscykel (utkast, granskning, publicering)", "AI-föreslagna artiklar vid ärendehantering", "Flerspråkigt stöd"] },
+  ],
+  sla_entitlements: [
+    { area: "SLA-hantering", items: ["Definiera SLA:er med svarstid och lösningstid", "Automatisk SLA-spårning och varningar", "Eskalering vid SLA-brott", "SLA-rapportering och efterlevnad"] },
+    { area: "Serviceavtal", items: ["Servicenivåer per kund eller avtal", "Rättigheter och supportkrediter", "Avtalskoppling till ärenden"] },
+  ],
+  channels: [
+    { area: "Kanalstöd", items: ["Livechatt med realtidsmeddelanden", "E-postintegration (delad inkorg)", "SMS och sociala medier (Facebook, WhatsApp)", "Webbwidget och chatbot", "Sömlös kanalväxling (channel switch)"] },
+  ],
+  contact_center: [
+    { area: "Telefoni & Contact Center", items: ["Inbyggd telefonintegration (Dynamics 365 Contact Center)", "Samtalsinspelning och transkription", "IVR-integration och samtalsrouting", "Realtids-sentimentanalys under samtal", "Skärmpop med kundinformation vid inkommande samtal"] },
+    { area: "Agentupplevelse", items: ["Enhetlig agentarbetsyta (Unified Agent Desktop)", "Flerkanals-konversationsvy", "Copilot-assistans i realtid", "Snabbsvar och mallar"] },
+  ],
+  copilot_ai: [
+    { area: "AI & Copilot", items: ["Copilot-sammanfattning av ärenden och konversationer", "AI-föreslagna svar och nästa steg", "Sentimentanalys på inkommande meddelanden", "Automatisk kategorisering och prioritering", "Intelligenta chatbotar med generativ AI"] },
+  ],
+  field_service: [
+    { area: "Arbetsorder", items: ["Skapa och hantera arbetsorder", "Arbetsordertyper och tjänsteuppgifter", "Koppling till ärenden och kundavtal", "Checklista och instruktioner för tekniker", "Reservdels- och lagerhantering"] },
+    { area: "Fältarbete", items: ["Mobilapp för tekniker (iOS/Android)", "GPS-spårning och resplanering", "Kundunderskrift och kvittens", "Foto och dokumentation i fält", "Offline-stöd"] },
+  ],
+  scheduling: [
+    { area: "Schemaläggning", items: ["Schemaläggningstavla (Schedule Board)", "Automatisk optimering (Resource Scheduling Optimization)", "Kompetensbaserad resursallokering", "Områdes- och zontilldelning", "Restidsberäkning och ruttoptimering"] },
+  ],
+  analytics_cs: [
+    { area: "Rapportering", items: ["Dashboards för ärendevolymer och trender", "Agentprestanda och produktivitetsrapporter", "Kundnöjdhet (CSAT) och NPS-mätning", "SLA-efterlevnadsrapporter", "Power BI-integration för avancerad analys"] },
+    { area: "Omnichannel-analys", items: ["Konversationsanalys per kanal", "Genomsnittlig hanteringstid (AHT)", "Väntetider och köstatistik", "Sentimenttrender över tid"] },
+  ],
+  self_service: [
+    { area: "Självbetjäning", items: ["Kundportal med ärendeöversikt", "Kunskapsbas för slutanvändare", "Community-forum", "Chatbot för vanliga frågor", "Ärendeuppföljning och statusuppdateringar"] },
+  ],
+  integration_cs: [
+    { area: "Systemintegrationer", items: ["ERP-integration (Business Central / Finance)", "CRM-integration (Dynamics 365 Sales)", "Telefoniplattform (Teams, Cisco, Genesys)", "IoT-integration för proaktiv service", "Dokumenthantering (SharePoint)"] },
+    { area: "Teknisk plattform", items: ["Dataverse och Power Platform", "API:er och webbtjänster", "Datamigrering från befintligt ärendesystem", "Single Sign-On (SSO / Entra ID)"] },
+  ],
+};
+
 function getSystemPrompt(product: string) {
+  if (product === "customer_service") {
+    return `Du är en expert på Microsoft Dynamics 365 Customer Service, Dynamics 365 Contact Center och Dynamics 365 Field Service med djup kunskap om ärendehantering, omnikanal-kundtjänst, fältservice och serviceoptimering.
+
+Din uppgift är att berika en kravspecifikation med branschspecifika kundservicekrav, KPI:er och rekommendationer.
+
+VIKTIGA REGLER:
+- Svara ALLTID på svenska
+- Var specifik och praktisk - undvik generella floskler
+- Fokusera på branschspecifika KUNDSERVICEBEHOV som INTE finns i standardmallen
+- Ge konkreta kundservice-KPI:er relevanta för branschen (t.ex. FCR, CSAT, AHT, SLA-efterlevnad)
+- Nämn relevanta regulatoriska krav (t.ex. GDPR, tillgänglighetskrav, branschspecifika servicekrav)
+- Begränsa svaret till max 8 branschspecifika krav med 3-5 underpunkter vardera
+- Returnera ALLTID som JSON med exakt denna struktur`;
+  }
+
   if (product === "marketing") {
     return `Du är en expert på Microsoft Dynamics 365 Customer Insights (Marketing) med djup kunskap om marknadsautomation, kundresor, leadgenerering och kampanjhantering.
 
@@ -219,6 +279,7 @@ serve(async (req) => {
       fsc: fscBaseRequirements,
       sales: salesBaseRequirements,
       marketing: marketingBaseRequirements,
+      customer_service: customerServiceBaseRequirements,
     };
     const baseReqs = baseReqsMap[product] || bcBaseRequirements;
     const selectedAreas = (areas || Object.keys(baseReqs)).filter((a: string) => a in baseReqs);
@@ -232,6 +293,7 @@ serve(async (req) => {
       fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
       sales: "Microsoft Dynamics 365 Sales",
       marketing: "Microsoft Dynamics 365 Customer Insights (Marketing)",
+      customer_service: "Microsoft Dynamics 365 Customer Service, Contact Center & Field Service",
     };
     const userPrompt = `Generera branschspecifika tilläggskrav för en kravspecifikation.
 
