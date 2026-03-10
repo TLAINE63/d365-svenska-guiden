@@ -11,7 +11,9 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { generateRequirementsSpec, type RequirementsData } from "@/utils/generateRequirementsSpec";
-import { allIndustries, companySizes } from "@/data/partners";
+import { allIndustries } from "@/data/partners";
+
+const serviceTeamSizes = ["1–5", "6–10", "11–20", "21–50", "51–100", "100+"];
 import {
   ArrowLeft, ArrowRight, FileText, Download,
   Users, BarChart3, Zap, Link2, Headphones,
@@ -216,7 +218,7 @@ const RequirementsSpecCustomerService = () => {
             <div className="space-y-6">
               <h2 className="text-xl font-semibold text-foreground">Antal kundservicemedarbetare / användare</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {companySizes.map((size) => (
+                {serviceTeamSizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setCompanySize(size)}
