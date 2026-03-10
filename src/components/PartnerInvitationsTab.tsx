@@ -65,6 +65,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [sendingReminders, setSendingReminders] = useState(false);
   const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc">("created_desc");
   
   // Email template state
   const [emailTemplate, setEmailTemplate] = useState("");
