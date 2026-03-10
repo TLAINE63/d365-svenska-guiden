@@ -173,8 +173,8 @@ const RequirementsSpec = () => {
               Skapa din ERP-kravspecifikation
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Fånga dina verksamhetsbehov oberoende av system. AI:n rekommenderar sedan vilken
-              produktkombination (Business Central, Finance & SCM eller båda) som passar bäst.
+              Fånga dina verksamhetsbehov oberoende av system. AI-berikad med branschspecifika
+              krav och KPI:er anpassade efter din bransch och storlek.
             </p>
           </div>
 
