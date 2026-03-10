@@ -44,7 +44,7 @@ interface Invitation {
 
 interface PartnerInvitationsTabProps {
   token: string;
-  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string }>;
+  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean }>;
 }
 
 const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) => {
@@ -466,7 +466,18 @@ const PartnerInvitationsTab = ({ token, partners }: PartnerInvitationsTabProps) 
                         />
                       ) : null}
                     </TableCell>
-                    <TableCell className="font-medium">{invitation.partner_name}</TableCell>
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-2">
+                        {invitation.partner_name}
+                        {invitation.partner_id && (() => {
+                          const partner = partners.find(p => p.id === invitation.partner_id);
+                          if (partner && !partner.is_featured) {
+                            return <Badge variant="outline" className="border-orange-400 text-orange-600 text-xs">Ej publicerad</Badge>;
+                          }
+                          return null;
+                        })()}
+                      </div>
+                    </TableCell>
                     <TableCell>{invitation.email}</TableCell>
                     <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
                     <TableCell>
