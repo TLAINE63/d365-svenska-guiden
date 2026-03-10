@@ -218,6 +218,7 @@ serve(async (req) => {
       bc: bcBaseRequirements,
       fsc: fscBaseRequirements,
       sales: salesBaseRequirements,
+      marketing: marketingBaseRequirements,
     };
     const baseReqs = baseReqsMap[product] || bcBaseRequirements;
     const selectedAreas = (areas || Object.keys(baseReqs)).filter((a: string) => a in baseReqs);
