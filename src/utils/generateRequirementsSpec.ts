@@ -198,11 +198,12 @@ export const generateRequirementsSpec = async (
   doc.text("Kravspecifikation", margin, y);
   y += 14;
 
-  doc.setFontSize(16);
-  doc.setTextColor(primaryColor.r, primaryColor.g, primaryColor.b);
-  const productName = isBc
-    ? "Microsoft Dynamics 365 Business Central"
-    : "Microsoft Dynamics 365 Finance & Supply Chain Management";
+  const productNames: Record<string, string> = {
+    bc: "Microsoft Dynamics 365 Business Central",
+    fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
+    sales: "Microsoft Dynamics 365 Sales",
+  };
+  const productName = productNames[data.product] || data.product;
   const titleLines = doc.splitTextToSize(productName, contentWidth);
   doc.text(titleLines, margin, y);
   y += titleLines.length * 8 + 10;

@@ -117,6 +117,7 @@ const App = () => (
             <Route path="/våratjänster" element={<Navigate to="/" replace />} />
             <Route path="/events" element={<Events />} />
             <Route path="/kravspecifikation" element={<RequirementsSpec />} />
+            <Route path="/kravspecifikation-sales" element={<RequirementsSpecSales />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/partner-events/:token" element={<PartnerEvents />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
