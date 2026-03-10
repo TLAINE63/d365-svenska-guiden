@@ -275,10 +275,10 @@ const RequirementsSpecSales = () => {
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                       <h2 className="text-xl font-semibold text-foreground mb-1">
-                        Kravspecifikation – Dynamics 365 Sales
+                        Kravspecifikation – Säljavdelningen
                       </h2>
                       <p className="text-sm text-muted-foreground">
-                        {result.industry} | {result.companySize} anställda | {result.baseRequirements.length} funktionsområden
+                        {result.industry} | {result.companySize} medarbetare | {result.baseRequirements.length} funktionsområden
                       </p>
                     </div>
                     <Badge variant="outline" className="border-primary/30 text-primary">

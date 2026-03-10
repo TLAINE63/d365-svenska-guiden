@@ -283,7 +283,7 @@ const RequirementsSpec = () => {
                         Kravspecifikation – ERP / Affärssystem
                       </h2>
                       <p className="text-sm text-muted-foreground">
-                        {result.industry} | {result.companySize} anställda | {result.baseRequirements.length} funktionsområden
+                        {result.industry} | {result.companySize} medarbetare | {result.baseRequirements.length} funktionsområden
                       </p>
                     </div>
                     <Badge variant="outline" className="border-primary/30 text-primary">
