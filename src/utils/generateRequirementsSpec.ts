@@ -97,13 +97,16 @@ export const generateRequirementsSpec = async (
   const isBc = data.product === "bc";
   const isSales = data.product === "sales";
   const isMarketing = data.product === "marketing";
-  const primaryColor = isMarketing
-    ? { r: 135, g: 50, b: 160 }   // Marketing purple
-    : isSales
-      ? { r: 42, g: 100, b: 168 }
-      : isBc
-        ? { r: 0, g: 120, b: 212 }
-        : { r: 16, g: 124, b: 65 };
+  const isCustomerService = data.product === "customer_service";
+  const primaryColor = isCustomerService
+    ? { r: 134, g: 97, b: 197 }    // Customer Service violet
+    : isMarketing
+      ? { r: 135, g: 50, b: 160 }   // Marketing purple
+      : isSales
+        ? { r: 42, g: 100, b: 168 }
+        : isBc
+          ? { r: 0, g: 120, b: 212 }
+          : { r: 16, g: 124, b: 65 };
   const darkColor = { r: 30, g: 41, b: 59 };
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 248, g: 250, b: 252 };
