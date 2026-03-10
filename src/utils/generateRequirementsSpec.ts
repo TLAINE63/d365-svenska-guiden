@@ -236,6 +236,7 @@ export const generateRequirementsSpec = async (
   y += 14;
 
   const productNames: Record<string, string> = {
+    erp: "Microsoft Dynamics 365 – ERP / Affärssystem",
     bc: "Microsoft Dynamics 365 Business Central",
     fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
     sales: "Microsoft Dynamics 365 Sales",
