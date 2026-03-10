@@ -158,6 +158,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           body: JSON.stringify({ template: emailTemplate }),
         }
       );
+      handleResponse(response);
       if (!response.ok) throw new Error("Kunde inte spara mall");
       setEmailTemplateOriginal(emailTemplate);
       toast.success("E-postmall sparad!");
