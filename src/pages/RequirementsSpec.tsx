@@ -217,7 +217,7 @@ const RequirementsSpec = () => {
           {/* Step 2: Company Size */}
           {step === 2 && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-foreground">Antal anställda</h2>
+              <h2 className="text-xl font-semibold text-foreground">Antal medarbetare</h2>
               <p className="text-sm text-muted-foreground">
                 Storleken påverkar komplexitet och vilka funktioner som prioriteras.
               </p>
