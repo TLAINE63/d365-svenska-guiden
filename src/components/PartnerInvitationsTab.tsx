@@ -289,6 +289,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     return sorted;
   }, [invitations, sortOrder]);
 
+  const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id); else next.add(id);
