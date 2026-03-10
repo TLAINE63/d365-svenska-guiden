@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import UpdateRoundSection from "@/components/UpdateRoundSection";
 import { Button } from "@/components/ui/button";
@@ -65,6 +65,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [sendingReminders, setSendingReminders] = useState(false);
   const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
   const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc">("created_desc");
   
   // Email template state
   const [emailTemplate, setEmailTemplate] = useState("");
@@ -278,6 +279,16 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
+  const sortedInvitations = useMemo(() => {
+    const sorted = [...invitations];
+    if (sortOrder === "name_asc") {
+      sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
+    } else {
+      sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    }
+    return sorted;
+  }, [invitations, sortOrder]);
+
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
       const next = new Set(prev);
@@ -447,8 +458,25 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Alla inbjudningar</CardTitle>
-          <CardDescription>
-            {invitations.length} inbjudningar totalt
+          <CardDescription className="flex items-center gap-3">
+            <span>{invitations.length} inbjudningar totalt</span>
+            <span className="text-xs">Sortera:</span>
+            <Button 
+              variant={sortOrder === "created_desc" ? "secondary" : "ghost"} 
+              size="sm" 
+              className="h-6 text-xs px-2"
+              onClick={() => setSortOrder("created_desc")}
+            >
+              Senast skickad
+            </Button>
+            <Button 
+              variant={sortOrder === "name_asc" ? "secondary" : "ghost"} 
+              size="sm" 
+              className="h-6 text-xs px-2"
+              onClick={() => setSortOrder("name_asc")}
+            >
+              A–Ö
+            </Button>
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -480,7 +508,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {invitations.map((invitation) => {
+                {sortedInvitations.map((invitation) => {
                   const isPending = invitation.status === "pending" && new Date(invitation.expires_at) >= new Date();
                   return (
                   <TableRow key={invitation.id}>
