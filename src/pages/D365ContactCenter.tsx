@@ -91,7 +91,7 @@ const D365ContactCenter = () => {
               <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
                 <img src={ContactCenterIcon} alt="Contact Center" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Dynamics 365 Contact Center
               </h1>
               <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6">

@@ -200,7 +200,7 @@ const BusinessCentral = () => {
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Business Central
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
