@@ -302,6 +302,35 @@ export const generateRequirementsSpec = async (
     y += 5;
   }
 
+  // === PRODUCT RECOMMENDATION (ERP only) ===
+  if (data.aiEnrichment.productRecommendation) {
+    checkPageBreak(40);
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
+    doc.text("Rekommenderad produktkombination", margin, y);
+    y += 4;
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "italic");
+    doc.setTextColor(primaryColor.r, primaryColor.g, primaryColor.b);
+    doc.text("AI-genererad rekommendation", margin, y + 4);
+    y += 14;
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
+    const recLines = doc.splitTextToSize(data.aiEnrichment.productRecommendation.recommendation, contentWidth);
+    doc.text(recLines, margin, y);
+    y += recLines.length * 6 + 4;
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
+    const ratLines = doc.splitTextToSize(data.aiEnrichment.productRecommendation.rationale, contentWidth);
+    doc.text(ratLines, margin, y);
+    y += ratLines.length * 5 + 10;
+  }
+
   // === AI-ENRICHED INDUSTRY REQUIREMENTS ===
   if (data.aiEnrichment.industryRequirements.length > 0) {
     checkPageBreak(30);
