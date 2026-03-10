@@ -44,6 +44,10 @@ export interface RequirementsData {
     kpis: KPI[];
     regulatoryNotes: string[];
     integrationSuggestions: string[];
+    productRecommendation?: {
+      recommendation: string;
+      rationale: string;
+    };
   };
 }
 
@@ -51,9 +55,13 @@ const categoryLabels: Record<string, string> = {
   ekonomi: "Ekonomi & Redovisning",
   lager: "Lager & Logistik",
   produktion: "Produktion & Tillverkning",
-  forsaljning: "Försäljning & CRM",
+  forsaljning: "Försäljning & Order",
   inkop: "Inköp & Anskaffning",
   projekt: "Projekt & Resurser",
+  hr: "Personal & HR",
+  service: "Service & Underhåll",
+  transport: "Transport & Distribution",
+  koncern: "Koncern & Flerbolag",
   integration: "Integrationer & Teknik",
   // Customer Service categories
   case_mgmt: "Ärendehantering",
@@ -107,6 +115,7 @@ export const generateRequirementsSpec = async (
   let y = 20;
 
   // Colors - product-specific
+  const isErp = data.product === "erp";
   const isBc = data.product === "bc";
   const isSales = data.product === "sales";
   const isMarketing = data.product === "marketing";
@@ -116,10 +125,10 @@ export const generateRequirementsSpec = async (
     : isMarketing
       ? { r: 135, g: 50, b: 160 }   // Marketing purple
       : isSales
-        ? { r: 42, g: 100, b: 168 }
-        : isBc
-          ? { r: 0, g: 120, b: 212 }
-          : { r: 16, g: 124, b: 65 };
+        ? { r: 42, g: 100, b: 168 }  // Sales blue
+        : (isErp || isBc)
+          ? { r: 0, g: 120, b: 212 }  // ERP / BC blue
+          : { r: 16, g: 124, b: 65 }; // FSC green
   const darkColor = { r: 30, g: 41, b: 59 };
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 248, g: 250, b: 252 };
@@ -227,6 +236,7 @@ export const generateRequirementsSpec = async (
   y += 14;
 
   const productNames: Record<string, string> = {
+    erp: "Microsoft Dynamics 365 – ERP / Affärssystem",
     bc: "Microsoft Dynamics 365 Business Central",
     fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
     sales: "Microsoft Dynamics 365 Sales",
@@ -290,6 +300,35 @@ export const generateRequirementsSpec = async (
       y += 3;
     }
     y += 5;
+  }
+
+  // === PRODUCT RECOMMENDATION (ERP only) ===
+  if (data.aiEnrichment.productRecommendation) {
+    checkPageBreak(40);
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
+    doc.text("Rekommenderad produktkombination", margin, y);
+    y += 4;
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "italic");
+    doc.setTextColor(primaryColor.r, primaryColor.g, primaryColor.b);
+    doc.text("AI-genererad rekommendation", margin, y + 4);
+    y += 14;
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(darkColor.r, darkColor.g, darkColor.b);
+    const recLines = doc.splitTextToSize(data.aiEnrichment.productRecommendation.recommendation, contentWidth);
+    doc.text(recLines, margin, y);
+    y += recLines.length * 6 + 4;
+
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
+    const ratLines = doc.splitTextToSize(data.aiEnrichment.productRecommendation.rationale, contentWidth);
+    doc.text(ratLines, margin, y);
+    y += ratLines.length * 5 + 10;
   }
 
   // === AI-ENRICHED INDUSTRY REQUIREMENTS ===

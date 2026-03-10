@@ -5,7 +5,64 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-// Base requirement templates per product
+// Unified ERP base requirements (system-agnostic, covering both BC and F&SCM capabilities)
+const erpBaseRequirements = {
+  ekonomi: [
+    { area: "Redovisning & Huvudbok", items: ["Kontoplan och dimensioner", "Periodisering och bokslut", "Momshantering (svensk & EU)", "Valutahantering", "Koncernintern bokföring"] },
+    { area: "Leverantörsreskontra", items: ["Fakturamatchning (2/3-vägs)", "Betalningsförslag och bankfiler (ISO 20022)", "Leverantörssamarbete och portal"] },
+    { area: "Kundreskontra", items: ["Fakturering och kravhantering", "Autogiro och direktbetalning", "Räntefakturering"] },
+    { area: "Budget & Prognos", items: ["Budgetmallar och versioner", "Kassaflödesprognos", "Koppling till Excel och Power BI", "Kostnadsredovisning och internprissättning"] },
+    { area: "Anläggningstillgångar", items: ["Anläggningstillgångar och avskrivningsplaner", "Intäktsredovisning (IFRS 15/ASC 606)"] },
+  ],
+  lager: [
+    { area: "Artikelhantering", items: ["Artikelkategorier och attribut", "Varianter (storlek, färg, etc.)", "Spårning (parti/serienummer)", "Streckkodsstöd"] },
+    { area: "Lageroperationer", items: ["Inleverans och utleverans", "Plocklistor och leveransplanering", "Inventering och lagervärdering", "Lagerplatser och zoner"] },
+    { area: "Lagerstyrning", items: ["Beställningspunkt och säkerhetslager", "Inköpsförslag och behovsplanering", "Disponibelt och reservationer"] },
+    { area: "Avancerad lagerstyrning (WMS)", items: ["Lagerplatsdirektiv och arbetsmallar", "Vågprocesser och klusterplockningar", "Mobil lagerapp"] },
+  ],
+  produktion: [
+    { area: "Produktionsstruktur", items: ["Produktionsstrukturer (BOM)", "Operationsföljder och kapacitet", "Arbetscenter och maskingrupper"] },
+    { area: "Produktionsplanering", items: ["MRP/MPS-körningar", "Produktionsorder (planerade, fasta, släppta)", "Kapacitetsplanering (CRP)", "Underleverantörshantering"] },
+    { area: "Tillverkningstyper", items: ["Diskret tillverkning", "Processtillverkning (recept/formler)", "Lean manufacturing (kanban)", "Konfigurator för kundanpassade produkter"] },
+    { area: "Kvalitet & Spårbarhet", items: ["Kvalitetskontrollorder och karantän", "Lot- och serienummerspårning genom hela kedjan", "Avvikelsehantering"] },
+  ],
+  forsaljning: [
+    { area: "Försäljningsprocess", items: ["Offerthantering", "Order och blankett-order", "Direktleverans", "Returhantering"] },
+    { area: "Prissättning", items: ["Prislistor och kampanjpriser", "Radrabatter och fakturarabatter", "Kundspecifika priser och handelsavtal"] },
+    { area: "CRM-grundfunktioner", items: ["Kontakt- och kundhantering", "Möjligheter och pipeline", "Uppgifter och aktiviteter"] },
+  ],
+  inkop: [
+    { area: "Inköpsprocess", items: ["Inköpsrekvisitioner med arbetsflöden", "Inköpsorder och ramavtal", "Godkännandeflöden", "Kontraktshantering"] },
+    { area: "Mottagning & Matchning", items: ["Inleverans och kvalitetskontroll", "Fakturamatchning (2/3-vägs)", "Förbetalningar"] },
+    { area: "Sourcing", items: ["Leverantörsutvärdering och scorecards", "RFQ-processer", "Godkända leverantörslistor"] },
+  ],
+  projekt: [
+    { area: "Projekthantering", items: ["Projektstruktur och uppgifter (WBS)", "Tid- och materialregistrering", "Projektbudget och uppföljning", "Successiv vinstavräkning (WIP)"] },
+    { area: "Resursplanering", items: ["Resursplanering och kapacitet", "Milstolps- och tidsfakturering", "Integration med Project Operations"] },
+  ],
+  hr: [
+    { area: "Personalhantering", items: ["Personalregister och anställningsdata", "Frånvarohantering och semester", "Onboarding av nyanställda", "Kompetens- och utbildningsregister"] },
+    { area: "Lön & Förmåner", items: ["Löneintegration (svenska lönesystem)", "Förmånshantering", "Reseräkningar och utlägg"] },
+  ],
+  service: [
+    { area: "Servicehantering", items: ["Serviceorder och arbetsordrar", "Serviceavtal och SLA-hantering", "Reservdels- och garantihantering", "Fältserviceplanering"] },
+    { area: "Underhåll", items: ["Förebyggande underhåll och scheman", "Maskin- och utrustningsregister", "IoT-koppling för prediktivt underhåll"] },
+  ],
+  transport: [
+    { area: "Transporthantering", items: ["Fraktplanering och ruttoptimering", "Transportbokning och spedition", "Fraktkostnadsberäkning", "Spårning av leveranser"] },
+    { area: "Distribution", items: ["Distributionsplanering", "Cross-docking", "Last- och containerhantering", "Returer och returlogistik"] },
+  ],
+  koncern: [
+    { area: "Flerbolagshantering", items: ["Flera juridiska personer", "Koncernkonsolidering", "Koncerninterna transaktioner och eliminering", "Gemensam leverantörs-/kundstam"] },
+    { area: "Global styrning", items: ["Lokala skatteregler och rapportering", "Flerspråkighet och multivaluta", "Central styrning med lokal flexibilitet"] },
+  ],
+  integration: [
+    { area: "Systemintegrationer", items: ["E-handelsplattform", "CRM-system", "EDI / Orderhantering", "Lönesystem", "BI och rapportering (Power BI)"] },
+    { area: "Teknisk plattform", items: ["API:er och webbtjänster", "Datamigrering från befintligt system", "Single Sign-On (SSO / Entra ID)", "Power Platform (Power Automate, Power Apps)"] },
+  ],
+};
+
+// Keep legacy BC/FSC specific requirements for backward compatibility
 const bcBaseRequirements = {
   ekonomi: [
     { area: "Redovisning & Huvudbok", items: ["Kontoplan och dimensioner", "Periodisering och bokslut", "Momshantering (svensk & EU)", "Valutahantering", "Koncernintern bokföring"] },
@@ -113,7 +170,7 @@ const salesBaseRequirements = {
 
 const marketingBaseRequirements = {
   segments: [
-    { area: "Segmentering", items: ["Dynamiska segment baserat på kontaktdata och beteende", "Statiska listor för manuell hantering", "Segmentering baserad på engagemang (öppningsgrad, klick)", "Uteslutningssegment och suppressionslistor"] },
+    { area: "Segmentering", items: ["Dynamiska segment baserat på kontaktdata och beteende", "Statiska listor för manuell hantering", "Segmentering baserat på engagemang (öppningsgrad, klick)", "Uteslutningssegment och suppressionslistor"] },
     { area: "Kundprofiler", items: ["Enhetlig kundprofil (Customer Data Platform)", "Beteendedata från webb, e-post och events", "Integration med externa datakällor"] },
   ],
   journeys: [
@@ -241,6 +298,27 @@ VIKTIGA REGLER:
 - Returnera ALLTID som JSON med exakt denna struktur`;
   }
 
+  if (product === "erp") {
+    return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om BÅDE Business Central OCH Finance & Supply Chain Management, samt deras respektive branschlösningar (ISV-appar).
+
+Din uppgift är att:
+1. Berika en kravspecifikation med branschspecifika krav, KPI:er och rekommendationer
+2. Ge en PRODUKTREKOMMENDATION: Baserat på bransch, företagsstorlek och valda funktionsområden, rekommendera vilken produktkombination som passar bäst:
+   - Business Central (för SMB, enklare behov, många ISV-branschlösningar)
+   - Finance & Supply Chain Management (för enterprise, komplex tillverkning, avancerad WMS, multinationella)
+   - Kombination av båda (t.ex. BC med branschlösning + F&SCM för avancerad tillverkning/logistik)
+
+VIKTIGA REGLER:
+- Svara ALLTID på svenska
+- Var specifik och praktisk - undvik generella floskler
+- Fokusera på branschspecifika behov som INTE finns i standardmallen
+- Ge konkreta KPI:er relevanta för branschen
+- Nämn relevanta regulatoriska krav (t.ex. livsmedelsäkerhet, kemikaliehantering)
+- Begränsa svaret till max 8 branschspecifika krav med 3-5 underpunkter vardera
+- Inkludera ALLTID en produktrekommendation med motivering
+- Returnera ALLTID som JSON med exakt denna struktur`;
+  }
+
   return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om Business Central och Finance & Supply Chain Management. 
 
 Din uppgift är att berika en kravspecifikation med branschspecifika krav, KPI:er och rekommendationer.
@@ -275,13 +353,14 @@ serve(async (req) => {
 
     // Get base requirements for selected areas
     const baseReqsMap: Record<string, Record<string, any>> = {
+      erp: erpBaseRequirements,
       bc: bcBaseRequirements,
       fsc: fscBaseRequirements,
       sales: salesBaseRequirements,
       marketing: marketingBaseRequirements,
       customer_service: customerServiceBaseRequirements,
     };
-    const baseReqs = baseReqsMap[product] || bcBaseRequirements;
+    const baseReqs = baseReqsMap[product] || erpBaseRequirements;
     const selectedAreas = (areas || Object.keys(baseReqs)).filter((a: string) => a in baseReqs);
     const baseRequirements = selectedAreas.map((area: string) => ({
       category: area,
@@ -289,12 +368,16 @@ serve(async (req) => {
     }));
 
     const productNames: Record<string, string> = {
+      erp: "Microsoft Dynamics 365 ERP (systemoberoende – Business Central och/eller Finance & SCM)",
       bc: "Microsoft Dynamics 365 Business Central",
       fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
       sales: "Microsoft Dynamics 365 Sales",
       marketing: "Microsoft Dynamics 365 Customer Insights (Marketing)",
       customer_service: "Microsoft Dynamics 365 Customer Service, Contact Center & Field Service",
     };
+
+    const isErp = product === "erp";
+
     const userPrompt = `Generera branschspecifika tilläggskrav för en kravspecifikation.
 
 Produkt: ${productNames[product] || product}
@@ -320,8 +403,60 @@ Returnera JSON med denna exakta struktur:
     }
   ],
   "regulatoryNotes": ["Regulatoriskt krav 1", "Regulatoriskt krav 2"],
-  "integrationSuggestions": ["Branschspecifik integration 1", "Integration 2"]
+  "integrationSuggestions": ["Branschspecifik integration 1", "Integration 2"]${isErp ? `,
+  "productRecommendation": {
+    "recommendation": "Business Central / Finance & SCM / Kombination av båda",
+    "rationale": "Motivering baserad på bransch, storlek och funktionsbehov. Nämn specifika ISV-branschlösningar om relevanta."
+  }` : ""}
 }`;
+
+    // Build tool parameters - include productRecommendation for ERP
+    const toolProperties: Record<string, any> = {
+      industryRequirements: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            area: { type: "string" },
+            items: { type: "array", items: { type: "string" } },
+            priority: { type: "string", enum: ["must", "should", "could"] },
+            rationale: { type: "string" },
+          },
+          required: ["area", "items", "priority", "rationale"],
+          additionalProperties: false,
+        },
+      },
+      kpis: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            target: { type: "string" },
+            description: { type: "string" },
+          },
+          required: ["name", "target", "description"],
+          additionalProperties: false,
+        },
+      },
+      regulatoryNotes: { type: "array", items: { type: "string" } },
+      integrationSuggestions: { type: "array", items: { type: "string" } },
+    };
+
+    const requiredFields = ["industryRequirements", "kpis", "regulatoryNotes", "integrationSuggestions"];
+
+    if (isErp) {
+      toolProperties.productRecommendation = {
+        type: "object",
+        properties: {
+          recommendation: { type: "string" },
+          rationale: { type: "string" },
+        },
+        required: ["recommendation", "rationale"],
+        additionalProperties: false,
+      };
+      requiredFields.push("productRecommendation");
+    }
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -343,38 +478,8 @@ Returnera JSON med denna exakta struktur:
               description: "Generate industry-specific requirements for the specification",
               parameters: {
                 type: "object",
-                properties: {
-                  industryRequirements: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        area: { type: "string" },
-                        items: { type: "array", items: { type: "string" } },
-                        priority: { type: "string", enum: ["must", "should", "could"] },
-                        rationale: { type: "string" },
-                      },
-                      required: ["area", "items", "priority", "rationale"],
-                      additionalProperties: false,
-                    },
-                  },
-                  kpis: {
-                    type: "array",
-                    items: {
-                      type: "object",
-                      properties: {
-                        name: { type: "string" },
-                        target: { type: "string" },
-                        description: { type: "string" },
-                      },
-                      required: ["name", "target", "description"],
-                      additionalProperties: false,
-                    },
-                  },
-                  regulatoryNotes: { type: "array", items: { type: "string" } },
-                  integrationSuggestions: { type: "array", items: { type: "string" } },
-                },
-                required: ["industryRequirements", "kpis", "regulatoryNotes", "integrationSuggestions"],
+                properties: toolProperties,
+                required: requiredFields,
                 additionalProperties: false,
               },
             },
@@ -405,7 +510,7 @@ Returnera JSON med denna exakta struktur:
     const aiResult = await response.json();
     
     // Extract structured output from tool call
-    let aiEnrichment = {
+    let aiEnrichment: any = {
       industryRequirements: [],
       kpis: [],
       regulatoryNotes: [],
