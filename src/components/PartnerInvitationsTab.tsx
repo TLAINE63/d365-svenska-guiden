@@ -289,6 +289,19 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     return sorted;
   }, [invitations, sortOrder]);
 
+  // Map partner_id -> latest invitation created_at
+  const latestInvitationByPartner = useMemo(() => {
+    const map = new Map<string, string>();
+    invitations.forEach(inv => {
+      if (!inv.partner_id) return;
+      const existing = map.get(inv.partner_id);
+      if (!existing || new Date(inv.created_at) > new Date(existing)) {
+        map.set(inv.partner_id, inv.created_at);
+      }
+    });
+    return map;
+  }, [invitations]);
+
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
       const next = new Set(prev);
@@ -503,6 +516,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   <TableHead>E-post</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Skapad</TableHead>
+                  <TableHead>Senaste inbjudan</TableHead>
                   <TableHead>Senast inskickad</TableHead>
                   <TableHead className="text-right">Åtgärder</TableHead>
                 </TableRow>
@@ -536,6 +550,12 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                     <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
                     <TableCell>
                       {format(new Date(invitation.created_at), "d MMM yyyy", { locale: sv })}
+                    </TableCell>
+                    <TableCell>
+                      {invitation.partner_id && latestInvitationByPartner.get(invitation.partner_id)
+                        ? format(new Date(latestInvitationByPartner.get(invitation.partner_id)!), "d MMM yyyy HH:mm", { locale: sv })
+                        : "-"
+                      }
                     </TableCell>
                     <TableCell>
                       {invitation.submitted_at 
