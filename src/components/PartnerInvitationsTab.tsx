@@ -488,25 +488,25 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Alla inbjudningar</CardTitle>
-          <CardDescription className="flex items-center gap-3">
+          <CardDescription className="flex items-center gap-3 flex-wrap">
             <span>{invitations.length} inbjudningar totalt</span>
             <span className="text-xs">Sortera:</span>
-            <Button 
-              variant={sortOrder === "created_desc" ? "secondary" : "ghost"} 
-              size="sm" 
-              className="h-6 text-xs px-2"
-              onClick={() => setSortOrder("created_desc")}
-            >
-              Senast skickad
-            </Button>
-            <Button 
-              variant={sortOrder === "name_asc" ? "secondary" : "ghost"} 
-              size="sm" 
-              className="h-6 text-xs px-2"
-              onClick={() => setSortOrder("name_asc")}
-            >
-              A–Ö
-            </Button>
+            {([
+              { key: "created_desc", label: "Skapad" },
+              { key: "name_asc", label: "A–Ö" },
+              { key: "status", label: "Status" },
+              { key: "latest_inv_desc", label: "Senaste inbjudan" },
+            ] as const).map(opt => (
+              <Button
+                key={opt.key}
+                variant={sortOrder === opt.key ? "secondary" : "ghost"}
+                size="sm"
+                className="h-6 text-xs px-2"
+                onClick={() => setSortOrder(opt.key)}
+              >
+                {opt.label}
+              </Button>
+            ))}
           </CardDescription>
         </CardHeader>
         <CardContent>
