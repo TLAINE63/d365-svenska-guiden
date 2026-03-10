@@ -44,6 +44,10 @@ export interface RequirementsData {
     kpis: KPI[];
     regulatoryNotes: string[];
     integrationSuggestions: string[];
+    productRecommendation?: {
+      recommendation: string;
+      rationale: string;
+    };
   };
 }
 
