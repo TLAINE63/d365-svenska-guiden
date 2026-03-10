@@ -111,7 +111,22 @@ const salesBaseRequirements = {
   ],
 };
 
-function getSystemPrompt() {
+function getSystemPrompt(product: string) {
+  if (product === "sales") {
+    return `Du är en expert på Microsoft Dynamics 365 Sales (CRM) med djup kunskap om säljprocesser, pipeline-hantering och kundrelationer.
+
+Din uppgift är att berika en kravspecifikation med branschspecifika CRM-krav, sälj-KPI:er och rekommendationer.
+
+VIKTIGA REGLER:
+- Svara ALLTID på svenska
+- Var specifik och praktisk - undvik generella floskler
+- Fokusera på branschspecifika SÄLJBEHOV som INTE finns i standardmallen
+- Ge konkreta sälj-KPI:er relevanta för branschen (t.ex. konverteringsgrad, säljcykellängd)
+- Nämn relevanta regulatoriska krav (t.ex. GDPR, branschspecifika regler)
+- Begränsa svaret till max 8 branschspecifika krav med 3-5 underpunkter vardera
+- Returnera ALLTID som JSON med exakt denna struktur`;
+  }
+
   return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om Business Central och Finance & Supply Chain Management. 
 
 Din uppgift är att berika en kravspecifikation med branschspecifika krav, KPI:er och rekommendationer.
