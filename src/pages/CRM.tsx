@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
