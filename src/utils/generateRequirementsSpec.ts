@@ -218,6 +218,7 @@ export const generateRequirementsSpec = async (
     fsc: "Microsoft Dynamics 365 Finance & Supply Chain Management",
     sales: "Microsoft Dynamics 365 Sales",
     marketing: "Microsoft Dynamics 365 Customer Insights (Marketing)",
+    customer_service: "Microsoft Dynamics 365 Customer Service, Contact Center & Field Service",
   };
   const productName = productNames[data.product] || data.product;
   const titleLines = doc.splitTextToSize(productName, contentWidth);
