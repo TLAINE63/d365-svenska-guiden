@@ -64,6 +64,15 @@ const categoryLabels: Record<string, string> = {
   analytics: "Analys & Rapportering",
   automation: "Automatisering & Copilot",
   email_marketing: "E-post & Kampanjer",
+  // Marketing categories
+  segments: "Segment & Målgrupper",
+  journeys: "Kundresor & Automation",
+  email: "E-postkampanjer",
+  events_mgmt: "Event & Webinarier",
+  forms_pages: "Formulär & Landningssidor",
+  lead_scoring: "Lead Scoring & Kvalificering",
+  consent: "Samtycke & GDPR",
+  personalization: "Personalisering & AI",
 };
 
 const priorityLabels: Record<string, string> = {
