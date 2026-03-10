@@ -35,7 +35,7 @@ const Navbar = () => {
     { label: "Dynamics 365 Customer Insights", path: "/d365-marketing" },
     { label: "📈 Behovsanalys Sälj & Marknad", path: "/salj-marknad-behovsanalys" },
     { label: "📋 Kravspecifikation (Säljavdelningen)", path: "/kravspecifikation-sales" },
-    { label: "📋 Kravspecifikation (Marketing)", path: "/kravspecifikation-marketing" },
+    { label: "📋 Kravspecifikation (Marknad)", path: "/kravspecifikation-marketing" },
   ];
 
   const crmServiceItems = [
