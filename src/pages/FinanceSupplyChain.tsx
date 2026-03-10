@@ -5,7 +5,7 @@ import PricingCard from "@/components/PricingCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
@@ -208,6 +208,17 @@ const FinanceSupplyChain = () => {
                 >
                   Hitta rätt partner
                   <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button 
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-white/40 text-white hover:bg-white/10 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                >
+                  <Link to="/kravspecifikation">
+                    <FileText className="mr-2 h-5 w-5" />
+                    Generera en kravspecifikation
+                  </Link>
                 </Button>
               </div>
             </div>
