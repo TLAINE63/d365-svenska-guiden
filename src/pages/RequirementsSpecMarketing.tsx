@@ -166,7 +166,7 @@ const RequirementsSpecMarketing = () => {
               Kravspecifikation – Marketing
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Kravspecifikation för Dynamics 365 Marketing
+              Kravspecifikation för Marknad
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Få en övergripande kravspecifikation för marknadsautomation och kundresor anpassad efter din bransch.
