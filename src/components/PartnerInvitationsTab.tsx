@@ -289,6 +289,19 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     return sorted;
   }, [invitations, sortOrder]);
 
+  // Map partner_id -> latest invitation created_at
+  const latestInvitationByPartner = useMemo(() => {
+    const map = new Map<string, string>();
+    invitations.forEach(inv => {
+      if (!inv.partner_id) return;
+      const existing = map.get(inv.partner_id);
+      if (!existing || new Date(inv.created_at) > new Date(existing)) {
+        map.set(inv.partner_id, inv.created_at);
+      }
+    });
+    return map;
+  }, [invitations]);
+
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
       const next = new Set(prev);
