@@ -75,7 +75,7 @@ const ERPOverview = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2070" 
@@ -88,7 +88,7 @@ const ERPOverview = () => {
         <div className="relative h-full flex items-center">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 <span className="block">Microsoft Dynamics 365</span>
                 <span className="block">ERP – Affärssystem</span>
               </h1>

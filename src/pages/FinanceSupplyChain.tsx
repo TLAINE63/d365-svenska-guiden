@@ -168,7 +168,7 @@ const FinanceSupplyChain = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2070" 
@@ -185,7 +185,7 @@ const FinanceSupplyChain = () => {
                 <img src={FinanceIcon} alt="Finance" className="h-10 w-10 sm:h-12 sm:w-12" />
                 <img src={SupplyChainIcon} alt="Supply Chain" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Finance & Supply Chain
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">

@@ -79,7 +79,7 @@ const Copilot = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2070" 
@@ -95,7 +95,7 @@ const Copilot = () => {
               <div className="flex items-center mb-3 sm:mb-4">
                 <img src={CopilotLogo} alt="Copilot" className="h-10 w-10 sm:h-12 sm:w-12" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Microsoft Copilot för Dynamics 365
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">

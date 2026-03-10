@@ -80,7 +80,7 @@ const Agents = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden mt-16 h-[400px] sm:h-[500px] md:h-[600px]">
+      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[500px] md:h-[600px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2070" 
@@ -93,7 +93,7 @@ const Agents = () => {
         <div className="relative h-full flex items-center">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Microsoft Agenter
               </h1>
               <p className="text-xl sm:text-2xl md:text-3xl text-white/95 mb-2">

@@ -401,7 +401,7 @@ const ValjPartner = () => {
       />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 h-[350px] sm:h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src={partnersComparisonImg} 
@@ -417,7 +417,7 @@ const ValjPartner = () => {
               <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <Users className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
                 Det kritiska partnervalet
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-6 sm:mb-8">
