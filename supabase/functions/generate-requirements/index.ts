@@ -73,6 +73,44 @@ const fscBaseRequirements = {
   ],
 };
 
+const salesBaseRequirements = {
+  lead_mgmt: [
+    { area: "Leadhantering", items: ["Leadregistrering från webb, e-post och telefon", "Automatisk lead-scoring och kvalificering", "Lead-routing och tilldelning till säljare", "Konvertering från lead till affärsmöjlighet"] },
+    { area: "Prospektering", items: ["Linkedin Sales Navigator-integration", "Prospektlistor och segmentering", "Dubbletthantering och dataförbättring"] },
+  ],
+  opportunity: [
+    { area: "Affärsmöjligheter", items: ["Anpassningsbara säljprocesser och steg", "Sannolikhetsbedömning och viktade pipeline-värden", "Konkurrentspårning per affär", "Samarbete i säljteam (co-selling)"] },
+    { area: "Pipeline-hantering", items: ["Pipeline-vyer och Kanban-tavla", "Prognoser (forecast) med AI-stöd", "Säljcoaching-insikter från Copilot", "Win/loss-analys"] },
+  ],
+  account_contact: [
+    { area: "Kundhantering", items: ["360°-kundvy med aktivitetshistorik", "Kundhierarki (koncern/dotterbolag)", "Relationsroller och beslutsfattare", "Kundkategorisering (A/B/C-kund)"] },
+    { area: "Kontakthantering", items: ["Kontaktregister med rollbaserad åtkomst", "Koppling till organisationer och affärer", "GDPR-hantering (samtycke, radering)"] },
+  ],
+  activities: [
+    { area: "Aktivitetshantering", items: ["Uppgifter, möten, telefonsamtal och e-post", "Outlook-integration för e-post och kalender", "Teams-integration för möten", "Automatiska påminnelser och uppföljning"] },
+    { area: "Tidslinjevy", items: ["Kronologisk aktivitetshistorik per kund", "Anteckningar och intern kommunikation", "Filbilagor kopplade till aktiviteter"] },
+  ],
+  quotes_orders: [
+    { area: "Offerthantering", items: ["Offertmallar och produktkatalog", "Prissättning med rabatter och enheter", "Offert-till-order-konvertering", "Digital signering (e-signatur)"] },
+    { area: "Orderhantering", items: ["Orderregistrering och bekräftelse", "Koppling till fakturering och ERP", "Returer och kreditnoter"] },
+  ],
+  analytics: [
+    { area: "Säljrapporter", items: ["Dashboards för pipeline, vunna/förlorade affärer", "Aktivitetsrapporter per säljare", "KPI-uppföljning (konverteringsgrad, säljtid, etc.)", "Power BI-integration för avancerad analys"] },
+    { area: "AI-insikter", items: ["Copilot-sammanfattningar av kundinteraktioner", "Prediktiv lead-scoring", "Relationsanalys och sentimentanalys"] },
+  ],
+  automation: [
+    { area: "Processautomatisering", items: ["Automatiska arbetsflöden vid statusändringar", "E-postsekvenser och uppföljningsautomation", "Godkännandeflöden för rabatter och offerter", "Power Automate-koppling"] },
+    { area: "Copilot-funktioner", items: ["Automatisk mötessammanfattning", "E-postförslag och svarsutkast", "Säljcoaching-rekommendationer"] },
+  ],
+  email_marketing: [
+    { area: "E-postkampanjer", items: ["Mallar för utgående e-post", "Spårning av öppningsgrad och klick", "Automatiserade drip-kampanjer", "Koppling till Customer Insights (Marketing)"] },
+  ],
+  integration: [
+    { area: "Systemintegrationer", items: ["ERP-integration (Business Central / Finance)", "E-handelsplattform", "Marknadsföringsplattform", "Kundservicesystem (Customer Service)", "Dokumenthantering (SharePoint)"] },
+    { area: "Teknisk plattform", items: ["Dataverse och Power Platform", "API:er och webbtjänster", "Datamigrering från befintligt CRM", "Single Sign-On (SSO / Entra ID)"] },
+  ],
+};
+
 function getSystemPrompt() {
   return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om Business Central och Finance & Supply Chain Management. 
 
