@@ -96,11 +96,14 @@ export const generateRequirementsSpec = async (
   // Colors - product-specific
   const isBc = data.product === "bc";
   const isSales = data.product === "sales";
-  const primaryColor = isSales
-    ? { r: 42, g: 100, b: 168 }   // Dynamics 365 Sales blue
-    : isBc
-      ? { r: 0, g: 120, b: 212 }
-      : { r: 16, g: 124, b: 65 };
+  const isMarketing = data.product === "marketing";
+  const primaryColor = isMarketing
+    ? { r: 135, g: 50, b: 160 }   // Marketing purple
+    : isSales
+      ? { r: 42, g: 100, b: 168 }
+      : isBc
+        ? { r: 0, g: 120, b: 212 }
+        : { r: 16, g: 124, b: 65 };
   const darkColor = { r: 30, g: 41, b: 59 };
   const mutedColor = { r: 100, g: 116, b: 139 };
   const lightBg = { r: 248, g: 250, b: 252 };
