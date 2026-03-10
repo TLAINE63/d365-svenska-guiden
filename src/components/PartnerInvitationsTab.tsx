@@ -458,8 +458,25 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Alla inbjudningar</CardTitle>
-          <CardDescription>
-            {invitations.length} inbjudningar totalt
+          <CardDescription className="flex items-center gap-3">
+            <span>{invitations.length} inbjudningar totalt</span>
+            <span className="text-xs">Sortera:</span>
+            <Button 
+              variant={sortOrder === "created_desc" ? "secondary" : "ghost"} 
+              size="sm" 
+              className="h-6 text-xs px-2"
+              onClick={() => setSortOrder("created_desc")}
+            >
+              Senast skickad
+            </Button>
+            <Button 
+              variant={sortOrder === "name_asc" ? "secondary" : "ghost"} 
+              size="sm" 
+              className="h-6 text-xs px-2"
+              onClick={() => setSortOrder("name_asc")}
+            >
+              A–Ö
+            </Button>
           </CardDescription>
         </CardHeader>
         <CardContent>
