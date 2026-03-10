@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
