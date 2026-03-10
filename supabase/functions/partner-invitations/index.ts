@@ -941,6 +941,17 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
+      // Remove existing pending invitations for these partners
+      const partnerIds = partnerList.map((p: { id: string }) => p.id).filter(Boolean);
+      if (partnerIds.length > 0) {
+        await supabase
+          .from("partner_invitations")
+          .delete()
+          .in("partner_id", partnerIds)
+          .eq("status", "pending");
+        console.log("Removed existing pending invitations for", partnerIds.length, "partners");
+      }
+
       // Create invitations for all partners
       const invitations = partnerList.map((p: { id: string; name: string; email: string }) => ({
         email: p.email,
