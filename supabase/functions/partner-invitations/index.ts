@@ -724,11 +724,19 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // Admin: Delete invitation
+    // Admin: Delete invitation(s) - supports single id or bulk ids
     if (action === "delete" && req.method === "DELETE") {
       const invitationId = url.searchParams.get("id");
+      const idsParam = url.searchParams.get("ids");
       
-      if (!invitationId) {
+      const idsToDelete: string[] = [];
+      if (idsParam) {
+        idsToDelete.push(...idsParam.split(",").filter(Boolean));
+      } else if (invitationId) {
+        idsToDelete.push(invitationId);
+      }
+
+      if (idsToDelete.length === 0) {
         return new Response(
           JSON.stringify({ error: "ID krävs" }),
           { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -738,7 +746,7 @@ serve(async (req: Request): Promise<Response> => {
       const { error } = await supabase
         .from("partner_invitations")
         .delete()
-        .eq("id", invitationId);
+        .in("id", idsToDelete);
 
       if (error) {
         return new Response(
@@ -748,7 +756,7 @@ serve(async (req: Request): Promise<Response> => {
       }
 
       return new Response(
-        JSON.stringify({ success: true }),
+        JSON.stringify({ success: true, deleted: idsToDelete.length }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }

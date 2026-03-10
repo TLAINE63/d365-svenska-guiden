@@ -64,6 +64,8 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [creating, setCreating] = useState(false);
   const [sendingReminders, setSendingReminders] = useState(false);
   const [selectedForReminder, setSelectedForReminder] = useState<Set<string>>(new Set());
+  const [selectedForDelete, setSelectedForDelete] = useState<Set<string>>(new Set());
+  const [deleting, setDeleting] = useState(false);
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [sortOrder, setSortOrder] = useState<"created_desc" | "name_asc" | "status" | "latest_inv_desc">("created_desc");
   
@@ -248,6 +250,41 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   };
 
+  const bulkDeleteInvitations = async () => {
+    const ids = Array.from(selectedForDelete);
+    if (ids.length === 0) return;
+    if (!confirm(`Radera ${ids.length} inbjudan(ar)?`)) return;
+
+    setDeleting(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=delete&ids=${ids.join(",")}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+
+      handleResponse(response);
+      if (!response.ok) throw new Error("Kunde inte radera");
+
+      const data = await response.json();
+      toast.success(`${data.deleted} inbjudan(ar) raderade`);
+      setSelectedForDelete(new Set());
+      fetchData();
+    } catch (err: any) {
+      if (err.message !== "Session expired") {
+        toast.error("Kunde inte radera inbjudningar");
+      }
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   const copyInvitationLink = (invToken: string) => {
     const baseUrl = window.location.origin;
     const link = `${baseUrl}/partner-update/${invToken}`;
@@ -400,6 +437,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <FileEdit className="w-4 h-4 mr-2" />
             {showTemplateEditor ? "Dölj mailmall" : "Redigera mailmall"}
           </Button>
+          {selectedForDelete.size > 0 && (
+            <Button 
+              variant="outline" 
+              onClick={bulkDeleteInvitations} 
+              disabled={deleting}
+              className="border-destructive text-destructive hover:bg-destructive/10"
+            >
+              <Trash2 className={`w-4 h-4 mr-2 ${deleting ? "animate-pulse" : ""}`} />
+              {deleting ? "Raderar..." : `Radera valda (${selectedForDelete.size})`}
+            </Button>
+          )}
           {pendingInvitations.length > 0 && (
             <Button 
               variant="outline" 
@@ -521,13 +569,17 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-10">
-                    {pendingInvitations.length > 0 && (
-                      <Checkbox
-                        checked={selectedForReminder.size === pendingInvitations.length && pendingInvitations.length > 0}
-                        onCheckedChange={toggleAllReminders}
-                        title="Markera alla väntande"
-                      />
-                    )}
+                    <Checkbox
+                      checked={selectedForDelete.size === sortedInvitations.length && sortedInvitations.length > 0}
+                      onCheckedChange={() => {
+                        if (selectedForDelete.size === sortedInvitations.length) {
+                          setSelectedForDelete(new Set());
+                        } else {
+                          setSelectedForDelete(new Set(sortedInvitations.map(i => i.id)));
+                        }
+                      }}
+                      title="Markera alla"
+                    />
                   </TableHead>
                   <TableHead>Partner</TableHead>
                   <TableHead>E-post</TableHead>
@@ -544,12 +596,18 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   return (
                   <TableRow key={invitation.id}>
                     <TableCell>
-                      {isPending ? (
-                        <Checkbox
-                          checked={selectedForReminder.has(invitation.id)}
-                          onCheckedChange={() => toggleReminderSelection(invitation.id)}
-                        />
-                      ) : null}
+                      <Checkbox
+                        checked={selectedForDelete.has(invitation.id)}
+                        onCheckedChange={() => {
+                          setSelectedForDelete(prev => {
+                            const next = new Set(prev);
+                            if (next.has(invitation.id)) next.delete(invitation.id); else next.add(invitation.id);
+                            return next;
+                          });
+                          // Also toggle reminder if pending
+                          if (isPending) toggleReminderSelection(invitation.id);
+                        }}
+                      />
                     </TableCell>
                     <TableCell className="font-medium">
                       <div className="flex items-center gap-2">
