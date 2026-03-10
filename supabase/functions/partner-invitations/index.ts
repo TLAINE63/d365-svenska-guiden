@@ -435,7 +435,7 @@ serve(async (req: Request): Promise<Response> => {
         console.log("Removed existing pending invitations for partner:", partner_id);
       }
 
-
+      const { data: invitation, error } = await supabase
         .from("partner_invitations")
         .insert({
           email,
