@@ -196,6 +196,21 @@ const customerServiceBaseRequirements = {
 };
 
 function getSystemPrompt(product: string) {
+  if (product === "customer_service") {
+    return `Du är en expert på Microsoft Dynamics 365 Customer Service, Dynamics 365 Contact Center och Dynamics 365 Field Service med djup kunskap om ärendehantering, omnikanal-kundtjänst, fältservice och serviceoptimering.
+
+Din uppgift är att berika en kravspecifikation med branschspecifika kundservicekrav, KPI:er och rekommendationer.
+
+VIKTIGA REGLER:
+- Svara ALLTID på svenska
+- Var specifik och praktisk - undvik generella floskler
+- Fokusera på branschspecifika KUNDSERVICEBEHOV som INTE finns i standardmallen
+- Ge konkreta kundservice-KPI:er relevanta för branschen (t.ex. FCR, CSAT, AHT, SLA-efterlevnad)
+- Nämn relevanta regulatoriska krav (t.ex. GDPR, tillgänglighetskrav, branschspecifika servicekrav)
+- Begränsa svaret till max 8 branschspecifika krav med 3-5 underpunkter vardera
+- Returnera ALLTID som JSON med exakt denna struktur`;
+  }
+
   if (product === "marketing") {
     return `Du är en expert på Microsoft Dynamics 365 Customer Insights (Marketing) med djup kunskap om marknadsautomation, kundresor, leadgenerering och kampanjhantering.
 
