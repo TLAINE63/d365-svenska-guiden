@@ -130,6 +130,17 @@ const D365CustomerService = () => {
                   Hitta rätt partner
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
+                <Button 
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-white/40 text-white hover:bg-white/10 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                >
+                  <Link to="/kravspecifikation-kundservice">
+                    <FileText className="mr-2 h-5 w-5" />
+                    Generera en kravspecifikation
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
