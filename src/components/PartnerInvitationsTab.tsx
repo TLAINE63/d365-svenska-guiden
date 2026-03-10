@@ -281,13 +281,30 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
 
   const sortedInvitations = useMemo(() => {
     const sorted = [...invitations];
-    if (sortOrder === "name_asc") {
-      sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
-    } else {
-      sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    const statusOrder: Record<string, number> = { pending: 0, submitted: 1, approved: 2, expired: 3 };
+    switch (sortOrder) {
+      case "name_asc":
+        sorted.sort((a, b) => a.partner_name.localeCompare(b.partner_name, "sv"));
+        break;
+      case "status":
+        sorted.sort((a, b) => {
+          const aStatus = new Date(a.expires_at) < new Date() && a.status === "pending" ? "expired" : a.status;
+          const bStatus = new Date(b.expires_at) < new Date() && b.status === "pending" ? "expired" : b.status;
+          return (statusOrder[aStatus] ?? 99) - (statusOrder[bStatus] ?? 99);
+        });
+        break;
+      case "latest_inv_desc":
+        sorted.sort((a, b) => {
+          const aLatest = a.partner_id ? latestInvitationByPartner.get(a.partner_id) : null;
+          const bLatest = b.partner_id ? latestInvitationByPartner.get(b.partner_id) : null;
+          return new Date(bLatest || 0).getTime() - new Date(aLatest || 0).getTime();
+        });
+        break;
+      default:
+        sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     }
     return sorted;
-  }, [invitations, sortOrder]);
+  }, [invitations, sortOrder, latestInvitationByPartner]);
 
   // Map partner_id -> latest invitation created_at
   const latestInvitationByPartner = useMemo(() => {
