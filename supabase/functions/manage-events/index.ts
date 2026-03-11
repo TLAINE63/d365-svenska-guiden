@@ -93,6 +93,225 @@ serve(async (req: Request): Promise<Response> => {
     const url = new URL(req.url);
     const action = url.searchParams.get("action");
 
+    // ============ INVITATION TOKEN-BASED EVENT MANAGEMENT ============
+    // Used by PartnerUpdate form for partners to manage events via invitation token
+
+    // Get events for a partner using invitation token
+    if (action === "invitation-get-events") {
+      const invToken = url.searchParams.get("token");
+      if (!invToken) {
+        return new Response(
+          JSON.stringify({ error: "Token krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Verify invitation token and get partner_id
+      const { data: invitation, error: invError } = await supabase
+        .from("partner_invitations")
+        .select("partner_id, partner_name, status, expires_at")
+        .eq("token", invToken)
+        .single();
+
+      if (invError || !invitation || !invitation.partner_id) {
+        return new Response(
+          JSON.stringify({ error: "Ogiltig länk eller partner ej kopplad", events: [] }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Check expiry
+      if (new Date(invitation.expires_at) < new Date()) {
+        return new Response(
+          JSON.stringify({ error: "Inbjudan har gått ut", events: [] }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Get partner's events
+      const { data: events, error: eventsError } = await supabase
+        .from("partner_events")
+        .select("*")
+        .eq("partner_id", invitation.partner_id)
+        .order("event_date", { ascending: false });
+
+      if (eventsError) {
+        console.error("Error fetching invitation partner events:", eventsError);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte hämta events", events: [] }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ events: events || [], partner_id: invitation.partner_id }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Save event using invitation token
+    if (action === "invitation-save-event" && req.method === "POST") {
+      const body = await req.json();
+      const { token: invToken, event } = body;
+
+      if (!invToken) {
+        return new Response(
+          JSON.stringify({ error: "Token krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Verify invitation token
+      const { data: invitation, error: invError } = await supabase
+        .from("partner_invitations")
+        .select("partner_id, partner_name, expires_at")
+        .eq("token", invToken)
+        .single();
+
+      if (invError || !invitation || !invitation.partner_id) {
+        return new Response(
+          JSON.stringify({ error: "Ogiltig länk eller partner ej kopplad" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      if (new Date(invitation.expires_at) < new Date()) {
+        return new Response(
+          JSON.stringify({ error: "Inbjudan har gått ut" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Get partner name for notification
+      const { data: partnerData } = await supabase
+        .from("partners")
+        .select("name")
+        .eq("id", invitation.partner_id)
+        .single();
+
+      const eventData = {
+        partner_id: invitation.partner_id,
+        title: event.title,
+        description: event.description || null,
+        event_date: event.event_date,
+        event_time: event.event_time || null,
+        end_time: event.end_time || null,
+        is_online: event.is_online ?? true,
+        location: event.location || null,
+        event_link: event.event_link || null,
+        registration_link: event.registration_link || null,
+        status: "pending",
+      };
+
+      let result;
+      if (event.id) {
+        const { data, error } = await supabase
+          .from("partner_events")
+          .update({ ...eventData, status: "pending", updated_at: new Date().toISOString() })
+          .eq("id", event.id)
+          .eq("partner_id", invitation.partner_id)
+          .select()
+          .single();
+
+        if (error) {
+          console.error("Error updating event via invitation:", error);
+          return new Response(
+            JSON.stringify({ error: "Kunde inte uppdatera event" }),
+            { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+        result = data;
+      } else {
+        const { data, error } = await supabase
+          .from("partner_events")
+          .insert(eventData)
+          .select()
+          .single();
+
+        if (error) {
+          console.error("Error creating event via invitation:", error);
+          return new Response(
+            JSON.stringify({ error: "Kunde inte skapa event" }),
+            { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+        result = data;
+      }
+
+      // Send admin notification
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (resendApiKey) {
+        try {
+          const resend = new Resend(resendApiKey);
+          await resend.emails.send({
+            from: "D365.se <info@d365.se>",
+            to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
+            subject: `Nytt event att granska: ${event.title} (${partnerData?.name || invitation.partner_name})`,
+            html: `
+              <h2>Nytt event väntar på godkännande</h2>
+              <p><strong>Partner:</strong> ${partnerData?.name || invitation.partner_name}</p>
+              <p><strong>Eventtitel:</strong> ${event.title}</p>
+              <p><strong>Datum:</strong> ${event.event_date}</p>
+              <p><strong>Källa:</strong> Partnerprofilering (inbjudningsformulär)</p>
+              <p><a href="https://d365-svenska-guiden.lovable.app/admin">Granska i Admin</a></p>
+            `,
+          });
+        } catch (emailError) {
+          console.error("Failed to send admin notification:", emailError);
+        }
+      }
+
+      return new Response(
+        JSON.stringify({ success: true, event: result }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Delete event using invitation token
+    if (action === "invitation-delete-event" && req.method === "DELETE") {
+      const invToken = url.searchParams.get("token");
+      const eventId = url.searchParams.get("eventId");
+
+      if (!invToken || !eventId) {
+        return new Response(
+          JSON.stringify({ error: "Token och eventId krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const { data: invitation, error: invError } = await supabase
+        .from("partner_invitations")
+        .select("partner_id, expires_at")
+        .eq("token", invToken)
+        .single();
+
+      if (invError || !invitation || !invitation.partner_id) {
+        return new Response(
+          JSON.stringify({ error: "Ogiltig länk" }),
+          { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const { error } = await supabase
+        .from("partner_events")
+        .delete()
+        .eq("id", eventId)
+        .eq("partner_id", invitation.partner_id);
+
+      if (error) {
+        console.error("Error deleting event via invitation:", error);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte ta bort event" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      return new Response(
+        JSON.stringify({ success: true }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     // Public: Get approved upcoming events only
     if (action === "public-events") {
       const { data: events, error } = await supabase
