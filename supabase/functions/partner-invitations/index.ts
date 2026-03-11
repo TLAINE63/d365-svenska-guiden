@@ -481,6 +481,35 @@ serve(async (req: Request): Promise<Response> => {
             
             if (setting?.value) {
               emailBody = setting.value;
+            } else if (isNewPartner) {
+              emailBody = `Hej,
+
+Välkommen till D365.se – Sveriges guide för Microsoft Dynamics 365!
+
+Vi vill bjuda in dig att skapa din partnerprofil hos oss. Genom att profilera er på D365.se når ni potentiella kunder som aktivt söker efter rätt Dynamics 365-partner.
+
+Så här profilerar du ditt partnerskap:
+
+1. Välj rätt applikationer – Ange vilka Dynamics 365-produkter ni arbetar med (Business Central, Sales, Customer Service etc.). Detta är det viktigaste för att matcha rätt kunder.
+
+2. Välj era branscher – Kunder filtrerar ofta på bransch. Ange de branscher ni har störst erfarenhet inom som primära, och övriga som sekundära.
+
+3. Ange geografisk närvaro – Fyll i vilka städer ni har kontor och var ni är verksamma. Många kunder söker lokala partners.
+
+4. Beskriv er verksamhet – Skriv en tydlig och säljande beskrivning som förklarar vad som gör just er unika som Dynamics 365-partner.
+
+5. Ladda upp er logotyp – En professionell logotyp ökar trovärdigheten och gör er profil visuellt tilltalande.
+
+6. Ange kontaktuppgifter – Se till att potentiella kunder enkelt kan nå er.
+
+{{INVITATION_LINK}}
+
+Har du frågor? Svara gärna på detta mail eller kontakta oss på info@d365.se.
+
+Allt Gott!
+Thomas Laine
+Senior Rådgivare inom Microsoft CRM- och Affärssystem
+D365.se`;
             } else {
               emailBody = "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
             }
