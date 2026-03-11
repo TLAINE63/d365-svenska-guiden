@@ -72,9 +72,13 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   // Email template state
   const [emailTemplate, setEmailTemplate] = useState("");
   const [emailTemplateOriginal, setEmailTemplateOriginal] = useState("");
+  const [welcomeTemplate, setWelcomeTemplate] = useState("");
+  const [welcomeTemplateOriginal, setWelcomeTemplateOriginal] = useState("");
   const [loadingTemplate, setLoadingTemplate] = useState(false);
   const [savingTemplate, setSavingTemplate] = useState(false);
+  const [savingWelcomeTemplate, setSavingWelcomeTemplate] = useState(false);
   const [showTemplateEditor, setShowTemplateEditor] = useState(false);
+  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder">("welcome");
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
@@ -123,25 +127,41 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const fetchEmailTemplate = async () => {
     setLoadingTemplate(true);
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-        }
-      );
-      handleResponse(response);
-      if (!response.ok) throw new Error("Kunde inte hämta mall");
-      const data = await response.json();
-      setEmailTemplate(data.template || "");
-      setEmailTemplateOriginal(data.template || "");
+      const [reminderRes, welcomeRes] = await Promise.all([
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_email_body`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        ),
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_welcome_email_body`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        ),
+      ]);
+      handleResponse(reminderRes);
+      handleResponse(welcomeRes);
+      const reminderData = await reminderRes.json();
+      const welcomeData = await welcomeRes.json();
+      setEmailTemplate(reminderData.template || "");
+      setEmailTemplateOriginal(reminderData.template || "");
+      setWelcomeTemplate(welcomeData.template || "");
+      setWelcomeTemplateOriginal(welcomeData.template || "");
     } catch (err) {
       console.error("Fetch template error:", err);
-      toast.error("Kunde inte hämta e-postmall");
+      toast.error("Kunde inte hämta e-postmallar");
     } finally {
       setLoadingTemplate(false);
     }
@@ -159,18 +179,45 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             "Authorization": `Bearer ${token}`,
             "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
-          body: JSON.stringify({ template: emailTemplate }),
+          body: JSON.stringify({ template: emailTemplate, template_key: "invitation_email_body" }),
         }
       );
       handleResponse(response);
       if (!response.ok) throw new Error("Kunde inte spara mall");
       setEmailTemplateOriginal(emailTemplate);
-      toast.success("E-postmall sparad!");
+      toast.success("Påminnelsemall sparad!");
     } catch (err) {
       console.error("Save template error:", err);
       toast.error("Kunde inte spara e-postmall");
     } finally {
       setSavingTemplate(false);
+    }
+  };
+
+  const saveWelcomeTemplate = async () => {
+    setSavingWelcomeTemplate(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ template: welcomeTemplate, template_key: "invitation_welcome_email_body" }),
+        }
+      );
+      handleResponse(response);
+      if (!response.ok) throw new Error("Kunde inte spara mall");
+      setWelcomeTemplateOriginal(welcomeTemplate);
+      toast.success("Välkomstmall sparad!");
+    } catch (err) {
+      console.error("Save welcome template error:", err);
+      toast.error("Kunde inte spara välkomstmall");
+    } finally {
+      setSavingWelcomeTemplate(false);
     }
   };
 
@@ -485,28 +532,89 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <FileEdit className="w-5 h-5" />
-              Inbjudningsmailets brödtext
+              E-postmallar
             </CardTitle>
             <CardDescription>
-              Redigera texten som skickas till partners vid inbjudan. Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> där knappen för att uppdatera profil ska placeras. 
+              Redigera texten som skickas till partners. Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> där knappen för att uppdatera profil ska placeras. 
               Tomma rader skapar nya stycken. Webbadresser och e-postadresser görs automatiskt klickbara.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Tab switcher */}
+            <div className="flex gap-2 border-b pb-2">
+              <Button
+                variant={activeTemplateTab === "welcome" ? "secondary" : "ghost"}
+                size="sm"
+                onClick={() => setActiveTemplateTab("welcome")}
+              >
+                <Mail className="w-4 h-4 mr-2" />
+                Välkomstmail (nya partners)
+              </Button>
+              <Button
+                variant={activeTemplateTab === "reminder" ? "secondary" : "ghost"}
+                size="sm"
+                onClick={() => setActiveTemplateTab("reminder")}
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Påminnelse / uppdatering
+              </Button>
+            </div>
+
             {loadingTemplate ? (
-              <div className="text-center py-8 text-muted-foreground">Laddar mall...</div>
+              <div className="text-center py-8 text-muted-foreground">Laddar mallar...</div>
+            ) : activeTemplateTab === "welcome" ? (
+              <>
+                <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
+                  <strong>Välkomstmailet</strong> skickas till nya partners som bjuds in för första gången. 
+                  Inkludera gärna instruktioner för hur de ska profilera sig, vilka uppgifter som är viktiga att fylla i, 
+                  och tips för att maximera sin synlighet på D365.se.
+                </div>
+                <Textarea
+                  value={welcomeTemplate}
+                  onChange={(e) => setWelcomeTemplate(e.target.value)}
+                  rows={20}
+                  className="font-mono text-sm"
+                  placeholder="Skriv välkomstmailet här..."
+                />
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-muted-foreground">
+                    Ämnesrad: &quot;Välkommen till D365.se – Profilera ditt partnerskap&quot;
+                  </p>
+                  <div className="flex gap-2">
+                    {welcomeTemplate !== welcomeTemplateOriginal && (
+                      <Button 
+                        variant="outline" 
+                        onClick={() => setWelcomeTemplate(welcomeTemplateOriginal)}
+                      >
+                        Ångra ändringar
+                      </Button>
+                    )}
+                    <Button 
+                      onClick={saveWelcomeTemplate} 
+                      disabled={savingWelcomeTemplate || welcomeTemplate === welcomeTemplateOriginal}
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      {savingWelcomeTemplate ? "Sparar..." : "Spara välkomstmall"}
+                    </Button>
+                  </div>
+                </div>
+              </>
             ) : (
               <>
+                <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
+                  <strong>Påminnelsemailet</strong> skickas till partners som redan har en profil och behöver uppdatera sina uppgifter.
+                  Används även vid uppdateringsrundor och manuella påminnelser.
+                </div>
                 <Textarea
                   value={emailTemplate}
                   onChange={(e) => setEmailTemplate(e.target.value)}
                   rows={20}
                   className="font-mono text-sm"
-                  placeholder="Skriv din mailtext här..."
+                  placeholder="Skriv påminnelsetext här..."
                 />
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-muted-foreground">
-                    Ämnesrad är fast: "Vem är kundens mest lämpade Dynamics 365-partner?"
+                    Ämnesrad: &quot;Påminnelse: Vem är kundens mest lämpade Dynamics 365-partner?&quot;
                   </p>
                   <div className="flex gap-2">
                     {emailTemplate !== emailTemplateOriginal && (
@@ -522,7 +630,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                       disabled={savingTemplate || emailTemplate === emailTemplateOriginal}
                     >
                       <Save className="w-4 h-4 mr-2" />
-                      {savingTemplate ? "Sparar..." : "Spara mall"}
+                      {savingTemplate ? "Sparar..." : "Spara påminnelsemall"}
                     </Button>
                   </div>
                 </div>
