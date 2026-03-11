@@ -72,9 +72,13 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   // Email template state
   const [emailTemplate, setEmailTemplate] = useState("");
   const [emailTemplateOriginal, setEmailTemplateOriginal] = useState("");
+  const [welcomeTemplate, setWelcomeTemplate] = useState("");
+  const [welcomeTemplateOriginal, setWelcomeTemplateOriginal] = useState("");
   const [loadingTemplate, setLoadingTemplate] = useState(false);
   const [savingTemplate, setSavingTemplate] = useState(false);
+  const [savingWelcomeTemplate, setSavingWelcomeTemplate] = useState(false);
   const [showTemplateEditor, setShowTemplateEditor] = useState(false);
+  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder">("welcome");
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
