@@ -517,10 +517,21 @@ Er beskrivning syns direkt på partnerprofilen. Beskriv kort:
 
 💡 Tips: Undvik generiska texter. Var specifika om vad som skiljer er från andra partners.
 
-5. Ladda upp er logotyp
+5. Beskriv er AI-kompetens
+D365.se erbjuder en AI Business Impact Assessment där potentiella kunder kan utvärdera sin AI-mognad och matchas med partners som har rätt AI-kompetens. Er AI-profil påverkar direkt hur ni rankas i matchningen när kunder anger högt AI-intresse.
+
+Ni kan ange:
+- AI-kapabiliteter per produkt (t.ex. Copilot, Copilot Studio, Azure AI Foundry, AI-agenter)
+- Antal genomförda AI-projekt
+- En kort beskrivning av ett AI-case ni genomfört
+- Vilken affärseffekt AI-implementationen gav kunden
+
+💡 Tips: Partners med dokumenterad AI-kompetens premieras i matchningen. Även om ni bara har erfarenhet av Microsofts standard-AI (Copilot) är det värdefullt att ange det – det skiljer er från partners utan registrerad AI-kompetens.
+
+6. Ladda upp er logotyp
 En professionell logotyp ökar trovärdigheten avsevärt. Använd gärna en högupplöst version i PNG- eller JPG-format.
 
-6. Ange kontaktuppgifter
+7. Ange kontaktuppgifter
 Se till att potentiella kunder enkelt kan nå er. Ange kontaktperson, e-post och telefonnummer.
 
 
