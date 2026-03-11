@@ -1506,6 +1506,218 @@ const PartnerUpdate = () => {
               </Card>
             )}
 
+            {/* Events Section - only for existing partners */}
+            {invitation?.partner_id && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CalendarDays className="w-5 h-5 text-primary" />
+                    Kommande events
+                  </CardTitle>
+                  <CardDescription>
+                    Lägg till webinarier, workshops eller andra events kopplade till Dynamics 365. 
+                    Events granskas av admin innan publicering. Fokus bör vara på Microsoft Dynamics 365, 
+                    AI, Copilot, agenter, BI eller Power Platform.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {loadingEvents ? (
+                    <div className="flex items-center justify-center py-4">
+                      <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+                      <span className="ml-2 text-sm text-muted-foreground">Laddar events...</span>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Existing events */}
+                      {partnerEvents.length > 0 && (
+                        <div className="space-y-3">
+                          {partnerEvents.map((event) => (
+                            <div key={event.id} className="relative p-4 rounded-lg border border-border bg-muted/30">
+                              <div className="flex items-start justify-between gap-3">
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <h4 className="font-semibold text-foreground truncate">{event.title}</h4>
+                                    <Badge variant={
+                                      event.status === "approved" ? "default" :
+                                      event.status === "rejected" ? "destructive" : "secondary"
+                                    } className="text-xs shrink-0">
+                                      {event.status === "approved" ? "Godkänd" :
+                                       event.status === "rejected" ? "Avvisad" : "Väntar"}
+                                    </Badge>
+                                  </div>
+                                  <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                                    <span className="flex items-center gap-1">
+                                      <CalendarDays className="w-3.5 h-3.5" />
+                                      {new Date(event.event_date).toLocaleDateString("sv-SE")}
+                                    </span>
+                                    {event.event_time && (
+                                      <span className="flex items-center gap-1">
+                                        <Clock className="w-3.5 h-3.5" />
+                                        {event.event_time?.slice(0, 5)}
+                                        {event.end_time && `–${event.end_time.slice(0, 5)}`}
+                                      </span>
+                                    )}
+                                    {event.is_online ? (
+                                      <span className="flex items-center gap-1">
+                                        <Globe className="w-3.5 h-3.5" />Online
+                                      </span>
+                                    ) : event.location ? (
+                                      <span className="flex items-center gap-1">
+                                        <MapPin className="w-3.5 h-3.5" />{event.location}
+                                      </span>
+                                    ) : null}
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => handleDeleteEvent(event.id!)}
+                                  className="p-1.5 rounded-md hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Add new event form */}
+                      {showAddEvent ? (
+                        <div className="p-4 rounded-lg border-2 border-primary/20 bg-primary/5 space-y-4">
+                          <h4 className="font-semibold text-foreground">Nytt event</h4>
+                          
+                          <div className="space-y-2">
+                            <Label className="text-sm">Titel *</Label>
+                            <Input
+                              placeholder="T.ex. 'Webinar: AI i Business Central'"
+                              value={newEvent.title}
+                              onChange={(e) => setNewEvent(prev => ({ ...prev, title: e.target.value }))}
+                            />
+                          </div>
+
+                          <div className="grid sm:grid-cols-3 gap-3">
+                            <div className="space-y-2">
+                              <Label className="text-sm">Datum *</Label>
+                              <Input
+                                type="date"
+                                value={newEvent.event_date}
+                                onChange={(e) => setNewEvent(prev => ({ ...prev, event_date: e.target.value }))}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-sm">Starttid</Label>
+                              <Input
+                                type="time"
+                                value={newEvent.event_time}
+                                onChange={(e) => setNewEvent(prev => ({ ...prev, event_time: e.target.value }))}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-sm">Sluttid</Label>
+                              <Input
+                                type="time"
+                                value={newEvent.end_time}
+                                onChange={(e) => setNewEvent(prev => ({ ...prev, end_time: e.target.value }))}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label className="text-sm">Beskrivning</Label>
+                            <Textarea
+                              rows={2}
+                              placeholder="Kort beskrivning av eventet..."
+                              value={newEvent.description}
+                              onChange={(e) => setNewEvent(prev => ({ ...prev, description: e.target.value }))}
+                            />
+                          </div>
+
+                          <div className="flex items-center gap-4">
+                            <label className="flex items-center gap-2 cursor-pointer">
+                              <Checkbox
+                                checked={newEvent.is_online}
+                                onCheckedChange={(checked) => setNewEvent(prev => ({ ...prev, is_online: !!checked }))}
+                              />
+                              <span className="text-sm">Online-event</span>
+                            </label>
+                          </div>
+
+                          {!newEvent.is_online && (
+                            <div className="space-y-2">
+                              <Label className="text-sm">Plats</Label>
+                              <Input
+                                placeholder="T.ex. Stockholm, Göteborg..."
+                                value={newEvent.location}
+                                onChange={(e) => setNewEvent(prev => ({ ...prev, location: e.target.value }))}
+                              />
+                            </div>
+                          )}
+
+                          <div className="grid sm:grid-cols-2 gap-3">
+                            <div className="space-y-2">
+                              <Label className="text-sm">Eventlänk</Label>
+                              <Input
+                                type="url"
+                                placeholder="https://..."
+                                value={newEvent.event_link}
+                                onChange={(e) => setNewEvent(prev => ({ ...prev, event_link: e.target.value }))}
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label className="text-sm">Registreringslänk</Label>
+                              <Input
+                                type="url"
+                                placeholder="https://..."
+                                value={newEvent.registration_link}
+                                onChange={(e) => setNewEvent(prev => ({ ...prev, registration_link: e.target.value }))}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex gap-2 justify-end">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={() => { setShowAddEvent(false); setNewEvent({ ...emptyEvent }); }}
+                            >
+                              Avbryt
+                            </Button>
+                            <Button
+                              type="button"
+                              disabled={savingEvent === "new" || !newEvent.title.trim() || !newEvent.event_date}
+                              onClick={() => handleSaveEvent(newEvent)}
+                            >
+                              {savingEvent === "new" ? (
+                                <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Sparar...</>
+                              ) : (
+                                "Skapa event"
+                              )}
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowAddEvent(true)}
+                          className="w-full"
+                        >
+                          <Plus className="w-4 h-4 mr-2" />
+                          Lägg till event
+                        </Button>
+                      )}
+
+                      {partnerEvents.length === 0 && !showAddEvent && (
+                        <p className="text-sm text-muted-foreground text-center py-2">
+                          Inga events tillagda ännu. Lägg till webinarier, demos eller workshops för att synas på D365.se.
+                        </p>
+                      )}
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
             {/* Notes */}
             <Card>
               <CardHeader>
