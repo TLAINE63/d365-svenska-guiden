@@ -560,10 +560,14 @@ D365.se`;
                 </body>
                 </html>`;
             
+            const emailSubject = isNewPartner 
+              ? "Välkommen till D365.se – Profilera ditt partnerskap"
+              : "Vem är kundens mest lämpade Dynamics 365-partner?";
+            
             const emailResponse = await resend.emails.send({
               from: "D365.se <info@d365.se>",
               to: [email],
-              subject: `Vem är kundens mest lämpade Dynamics 365-partner?`,
+              subject: emailSubject,
               html: fullHtml,
             });
             
