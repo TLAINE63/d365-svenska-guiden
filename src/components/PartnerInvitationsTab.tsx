@@ -127,25 +127,41 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const fetchEmailTemplate = async () => {
     setLoadingTemplate(true);
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          },
-        }
-      );
-      handleResponse(response);
-      if (!response.ok) throw new Error("Kunde inte hämta mall");
-      const data = await response.json();
-      setEmailTemplate(data.template || "");
-      setEmailTemplateOriginal(data.template || "");
+      const [reminderRes, welcomeRes] = await Promise.all([
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_email_body`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        ),
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_welcome_email_body`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        ),
+      ]);
+      handleResponse(reminderRes);
+      handleResponse(welcomeRes);
+      const reminderData = await reminderRes.json();
+      const welcomeData = await welcomeRes.json();
+      setEmailTemplate(reminderData.template || "");
+      setEmailTemplateOriginal(reminderData.template || "");
+      setWelcomeTemplate(welcomeData.template || "");
+      setWelcomeTemplateOriginal(welcomeData.template || "");
     } catch (err) {
       console.error("Fetch template error:", err);
-      toast.error("Kunde inte hämta e-postmall");
+      toast.error("Kunde inte hämta e-postmallar");
     } finally {
       setLoadingTemplate(false);
     }
@@ -163,18 +179,45 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             "Authorization": `Bearer ${token}`,
             "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
-          body: JSON.stringify({ template: emailTemplate }),
+          body: JSON.stringify({ template: emailTemplate, template_key: "invitation_email_body" }),
         }
       );
       handleResponse(response);
       if (!response.ok) throw new Error("Kunde inte spara mall");
       setEmailTemplateOriginal(emailTemplate);
-      toast.success("E-postmall sparad!");
+      toast.success("Påminnelsemall sparad!");
     } catch (err) {
       console.error("Save template error:", err);
       toast.error("Kunde inte spara e-postmall");
     } finally {
       setSavingTemplate(false);
+    }
+  };
+
+  const saveWelcomeTemplate = async () => {
+    setSavingWelcomeTemplate(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ template: welcomeTemplate, template_key: "invitation_welcome_email_body" }),
+        }
+      );
+      handleResponse(response);
+      if (!response.ok) throw new Error("Kunde inte spara mall");
+      setWelcomeTemplateOriginal(welcomeTemplate);
+      toast.success("Välkomstmall sparad!");
+    } catch (err) {
+      console.error("Save welcome template error:", err);
+      toast.error("Kunde inte spara välkomstmall");
+    } finally {
+      setSavingWelcomeTemplate(false);
     }
   };
 
