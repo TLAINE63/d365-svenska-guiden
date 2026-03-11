@@ -612,7 +612,8 @@ D365.se`;
     // Admin: Update email template
     if (action === "update-email-template" && req.method === "POST") {
       const body = await req.json();
-      const { template } = body;
+      const { template, template_key } = body;
+      const key = template_key || "invitation_email_body";
 
       if (typeof template !== "string") {
         return new Response(
@@ -623,7 +624,7 @@ D365.se`;
 
       const { error } = await supabase
         .from("site_settings")
-        .upsert({ key: "invitation_email_body", value: template, updated_at: new Date().toISOString() });
+        .upsert({ key, value: template, updated_at: new Date().toISOString() });
 
       if (error) {
         return new Response(
