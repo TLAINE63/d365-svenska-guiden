@@ -196,6 +196,30 @@ const PartnerUpdate = () => {
   }
   const [industryApps, setIndustryApps] = useState<IndustryApp[]>([]);
 
+  // Events state
+  interface PartnerEvent {
+    id?: string;
+    title: string;
+    description: string;
+    event_date: string;
+    event_time: string;
+    end_time: string;
+    is_online: boolean;
+    location: string;
+    event_link: string;
+    registration_link: string;
+    status?: string;
+  }
+  const [partnerEvents, setPartnerEvents] = useState<PartnerEvent[]>([]);
+  const [loadingEvents, setLoadingEvents] = useState(false);
+  const [savingEvent, setSavingEvent] = useState<string | null>(null);
+  const [showAddEvent, setShowAddEvent] = useState(false);
+  const emptyEvent: PartnerEvent = {
+    title: "", description: "", event_date: "", event_time: "", end_time: "",
+    is_online: true, location: "", event_link: "", registration_link: "",
+  };
+  const [newEvent, setNewEvent] = useState<PartnerEvent>({ ...emptyEvent });
+
   // Product filters state - separated for easier management
   const [productFilters, setProductFilters] = useState<ProductFilters>({});
   const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
