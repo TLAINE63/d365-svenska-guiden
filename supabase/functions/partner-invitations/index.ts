@@ -499,12 +499,12 @@ Ange vilka produkter ni implementerar och supportar, t.ex. Business Central, Sal
 💡 Tips: Välj bara de produkter ni verkligen har kompetens och erfarenhet inom. Kvalitet slår kvantitet.
 
 2. Definiera era branscher
-Kunder filtrerar ofta på bransch, så detta är avgörande för er synlighet.
+Kunder filtrerar ofta på bransch, så detta är avgörande för er synlighet. Ni kan välja max 3 primära branscher per produktområde.
 
-Primära branscher: De branscher där ni har djupast erfarenhet, referenskunder och specialistkunskap. Dessa viktas högst i vår matchning.
+Primära branscher (max 3 per produkt): De branscher där ni har djupast erfarenhet, referenskunder och specialistkunskap. Dessa viktas högst i vår matchning.
 Sekundära branscher: Branscher ni kan hantera men där ni inte har samma djup. Dessa ger bredare synlighet utan att urvattna era kärnkompetenser.
 
-💡 Tips: Välj 2-5 primära branscher. Partners som fokuserar på "allt" hamnar ofta längre ner i matchningen.
+💡 Tips: Eftersom ni har max 3 primära branscher per produkt, välj de där ni verkligen utmärker er. Partners som fokuserar hamnar högre i matchningen.
 
 3. Ange geografisk närvaro
 Fyll i vilka städer ni har kontor och var ni är verksamma. Många kunder söker partners med lokal närvaro.
