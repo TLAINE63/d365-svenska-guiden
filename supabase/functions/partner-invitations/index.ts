@@ -528,10 +528,15 @@ Ni kan ange:
 
 💡 Tips: Partners med dokumenterad AI-kompetens premieras i matchningen. Även om ni bara har erfarenhet av Microsofts standard-AI (Copilot) är det värdefullt att ange det – det skiljer er från partners utan registrerad AI-kompetens.
 
-6. Ladda upp er logotyp
+6. Lägg till events
+Ni kan marknadsföra era webinarier, workshops och demos direkt i profilformuläret. Events som fokuserar på Dynamics 365, AI, Copilot, agenter, BI eller Power Platform publiceras på D365.se efter godkännande. Ange titel, datum, tid och en länk till er anmälningssida.
+
+💡 Tips: Events ökar er synlighet och visar potentiella kunder att ni är aktiva i ekosystemet.
+
+7. Ladda upp er logotyp
 En professionell logotyp ökar trovärdigheten avsevärt. Använd gärna en högupplöst version i PNG- eller JPG-format.
 
-7. Ange kontaktuppgifter
+8. Ange kontaktuppgifter
 Se till att potentiella kunder enkelt kan nå er. Ange kontaktperson, e-post och telefonnummer.
 
 
