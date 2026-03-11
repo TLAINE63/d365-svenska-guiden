@@ -323,7 +323,88 @@ const PartnerUpdate = () => {
     fetchInvitation();
   }, [token]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // Fetch partner events if partner exists
+  const fetchPartnerEvents = async () => {
+    if (!token) return;
+    setLoadingEvents(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=invitation-get-events&token=${token}`,
+        {
+          headers: {
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const result = await response.json();
+      if (result.events) {
+        setPartnerEvents(result.events);
+      }
+    } catch (err) {
+      console.error("Error fetching events:", err);
+    } finally {
+      setLoadingEvents(false);
+    }
+  };
+
+  useEffect(() => {
+    if (invitation?.partner_id) {
+      fetchPartnerEvents();
+    }
+  }, [invitation?.partner_id]);
+
+  const handleSaveEvent = async (event: PartnerEvent) => {
+    if (!token || !event.title.trim() || !event.event_date) {
+      toast.error("Titel och datum krävs");
+      return;
+    }
+    setSavingEvent(event.id || "new");
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=invitation-save-event`,
+        {
+          method: "POST",
+          headers: {
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token, event }),
+        }
+      );
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error);
+      toast.success(event.id ? "Event uppdaterat!" : "Event skapat! Det granskas av admin.");
+      setShowAddEvent(false);
+      setNewEvent({ ...emptyEvent });
+      fetchPartnerEvents();
+    } catch (err: any) {
+      toast.error(err.message || "Kunde inte spara event");
+    } finally {
+      setSavingEvent(null);
+    }
+  };
+
+  const handleDeleteEvent = async (eventId: string) => {
+    if (!token || !confirm("Vill du ta bort detta event?")) return;
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=invitation-delete-event&token=${token}&eventId=${eventId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+      if (!response.ok) throw new Error("Kunde inte ta bort event");
+      toast.success("Event borttaget");
+      fetchPartnerEvents();
+    } catch (err: any) {
+      toast.error(err.message);
+    }
+  };
+
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
