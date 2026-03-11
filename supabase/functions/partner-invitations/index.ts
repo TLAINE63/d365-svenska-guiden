@@ -596,10 +596,11 @@ D365.se`;
 
     // Admin: Get email template
     if (action === "get-email-template" && req.method === "GET") {
+      const templateKey = url.searchParams.get("template_key") || "invitation_email_body";
       const { data: setting } = await supabase
         .from("site_settings")
         .select("value, updated_at")
-        .eq("key", "invitation_email_body")
+        .eq("key", templateKey)
         .single();
 
       return new Response(
