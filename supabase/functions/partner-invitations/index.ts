@@ -467,12 +467,16 @@ serve(async (req: Request): Promise<Response> => {
             const baseUrl = "https://d365-svenska-guiden.lovable.app";
             const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
             
+            // Determine if this is a new partner (no partner_id) → use welcome template
+            const isNewPartner = !partner_id;
+            const templateKey = isNewPartner ? "invitation_welcome_email_body" : "invitation_email_body";
+            
             // Fetch email template from database
             let emailBody = "";
             const { data: setting } = await supabase
               .from("site_settings")
               .select("value")
-              .eq("key", "invitation_email_body")
+              .eq("key", templateKey)
               .single();
             
             if (setting?.value) {
