@@ -539,7 +539,7 @@ D365.se`;
               variant="outline" 
               size="sm" 
               className="gap-2"
-              onClick={() => setBulkEmailOpen(true)}
+              onClick={() => handleOpenBulkEmail()}
             >
               <Mail className="h-4 w-4" />
               Skicka event-inbjudan till alla partners
