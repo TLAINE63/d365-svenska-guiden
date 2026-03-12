@@ -773,6 +773,50 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        {/* Bulk Email Dialog */}
+        <Dialog open={bulkEmailOpen} onOpenChange={(open) => !open && setBulkEmailOpen(false)}>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Skicka event-inbjudan till alla partners</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <p className="text-sm text-muted-foreground">
+                E-postmeddelandet skickas till <strong>{featuredWithEmail.length}</strong> publicerade partners med registrerad e-postadress. 
+                Varje partner får sin unika event-portallänk.
+              </p>
+              
+              <div className="space-y-2">
+                <Label>Valfritt meddelande (visas i mailet)</Label>
+                <Textarea
+                  value={bulkCustomMessage}
+                  onChange={(e) => setBulkCustomMessage(e.target.value)}
+                  placeholder="T.ex. 'Vi uppmanar alla partners att lägga till sina kommande events inför hösten...'"
+                  rows={3}
+                />
+              </div>
+
+              <div className="p-3 rounded-lg border bg-muted/30">
+                <p className="text-xs text-muted-foreground">
+                  <strong>Mailet innehåller:</strong> En inbjudan att publicera events på D365.se, riktlinjer för events, och en unik länk till partnerns event-portal.
+                </p>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setBulkEmailOpen(false)} disabled={bulkSending}>
+                Avbryt
+              </Button>
+              <Button 
+                onClick={handleBulkSendEventEmail} 
+                disabled={bulkSending || featuredWithEmail.length === 0}
+                className="gap-2"
+              >
+                {bulkSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                {bulkSending ? "Skickar..." : `Skicka till ${featuredWithEmail.length} partners`}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </Card>
   );
