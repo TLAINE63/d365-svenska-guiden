@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
   TableBody,
@@ -445,9 +446,33 @@ D365.se`;
   const [bulkEmailOpen, setBulkEmailOpen] = useState(false);
   const [bulkCustomMessage, setBulkCustomMessage] = useState("");
   const [bulkSending, setBulkSending] = useState(false);
+  const [selectedPartnerIds, setSelectedPartnerIds] = useState<Set<string>>(new Set());
 
   const featuredPartners = partners.filter(p => p.is_featured);
   const featuredWithEmail = featuredPartners.filter(p => p.admin_contact_email || p.email);
+
+  const handleOpenBulkEmail = () => {
+    // Pre-select all featured partners with email
+    setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
+    setBulkEmailOpen(true);
+  };
+
+  const togglePartnerSelection = (id: string) => {
+    setSelectedPartnerIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleAllPartners = () => {
+    if (selectedPartnerIds.size === featuredWithEmail.length) {
+      setSelectedPartnerIds(new Set());
+    } else {
+      setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
+    }
+  };
 
   const handleBulkSendEventEmail = async () => {
     setBulkSending(true);
@@ -460,7 +485,10 @@ D365.se`;
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ custom_message: bulkCustomMessage || undefined }),
+          body: JSON.stringify({ 
+            custom_message: bulkCustomMessage || undefined,
+            partner_ids: Array.from(selectedPartnerIds),
+          }),
         }
       );
       const data = await response.json();
@@ -512,7 +540,7 @@ D365.se`;
               variant="outline" 
               size="sm" 
               className="gap-2"
-              onClick={() => setBulkEmailOpen(true)}
+              onClick={() => handleOpenBulkEmail()}
             >
               <Mail className="h-4 w-4" />
               Skicka event-inbjudan till alla partners
@@ -920,15 +948,37 @@ D365.se`;
 
         {/* Bulk Email Dialog */}
         <Dialog open={bulkEmailOpen} onOpenChange={(open) => !open && setBulkEmailOpen(false)}>
-          <DialogContent className="sm:max-w-lg">
+          <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
             <DialogHeader>
-              <DialogTitle>Skicka event-inbjudan till alla partners</DialogTitle>
+              <DialogTitle>Skicka event-inbjudan till partners</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4 py-4">
-              <p className="text-sm text-muted-foreground">
-                E-postmeddelandet skickas till <strong>{featuredWithEmail.length}</strong> publicerade partners med registrerad e-postadress. 
-                Varje partner får sin unika event-portallänk.
-              </p>
+            <div className="space-y-4 py-4 flex-1 overflow-hidden flex flex-col">
+              {/* Select/deselect all */}
+              <div className="flex items-center justify-between">
+                <Label className="text-sm">Välj mottagare ({selectedPartnerIds.size} av {featuredWithEmail.length})</Label>
+                <Button variant="ghost" size="sm" onClick={toggleAllPartners}>
+                  {selectedPartnerIds.size === featuredWithEmail.length ? "Avmarkera alla" : "Markera alla"}
+                </Button>
+              </div>
+
+              {/* Partner list with checkboxes */}
+              <div className="border rounded-lg overflow-y-auto max-h-[240px] divide-y">
+                {featuredWithEmail.map(p => (
+                  <label
+                    key={p.id}
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-muted/50 cursor-pointer"
+                  >
+                    <Checkbox
+                      checked={selectedPartnerIds.has(p.id)}
+                      onCheckedChange={() => togglePartnerSelection(p.id)}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{p.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{p.admin_contact_email || p.email}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
               
               <div className="space-y-2">
                 <Label>Valfritt meddelande (visas i mailet)</Label>
@@ -952,11 +1002,11 @@ D365.se`;
               </Button>
               <Button 
                 onClick={handleBulkSendEventEmail} 
-                disabled={bulkSending || featuredWithEmail.length === 0}
+                disabled={bulkSending || selectedPartnerIds.size === 0}
                 className="gap-2"
               >
                 {bulkSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
-                {bulkSending ? "Skickar..." : `Skicka till ${featuredWithEmail.length} partners`}
+                {bulkSending ? "Skickar..." : `Skicka till ${selectedPartnerIds.size} partners`}
               </Button>
             </DialogFooter>
           </DialogContent>
