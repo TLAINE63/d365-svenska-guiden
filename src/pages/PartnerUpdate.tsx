@@ -1057,6 +1057,41 @@ const PartnerUpdate = () => {
                           <p className="text-xs text-muted-foreground mt-1">Beskriv ert fokus och expertis för denna produkt (max ~100 tecken)</p>
                         </div>
 
+                        {/* Sales Contact for this product area */}
+                        <div className="rounded-lg border border-border p-3 space-y-3">
+                          <Label className="text-sm font-semibold">Säljkontakt för {section.label}</Label>
+                          <div className="grid sm:grid-cols-3 gap-3">
+                            <div>
+                              <Label className="text-xs text-muted-foreground">Namn</Label>
+                              <Input
+                                placeholder="Anna Svensson"
+                                value={filter.contactName || ''}
+                                onChange={(e) => updateProductFilter(productKey, { contactName: e.target.value })}
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs text-muted-foreground">E-post</Label>
+                              <Input
+                                type="email"
+                                placeholder="anna@foretag.se"
+                                value={filter.contactEmail || ''}
+                                onChange={(e) => updateProductFilter(productKey, { contactEmail: e.target.value })}
+                                className="mt-1"
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs text-muted-foreground">Telefon</Label>
+                              <Input
+                                placeholder="070-123 45 67"
+                                value={filter.contactPhone || ''}
+                                onChange={(e) => updateProductFilter(productKey, { contactPhone: e.target.value })}
+                                className="mt-1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
                         {/* Industries */}
                         <div>
                           <div className="flex items-center justify-between mb-2">
