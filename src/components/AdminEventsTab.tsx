@@ -484,7 +484,10 @@ D365.se`;
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ custom_message: bulkCustomMessage || undefined }),
+          body: JSON.stringify({ 
+            custom_message: bulkCustomMessage || undefined,
+            partner_ids: Array.from(selectedPartnerIds),
+          }),
         }
       );
       const data = await response.json();
