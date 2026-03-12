@@ -722,8 +722,10 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                         {invitation.partner_name}
                         {invitation.partner_id && (() => {
                           const partner = partners.find(p => p.id === invitation.partner_id);
-                          if (partner && !partner.is_featured) {
-                            return <Badge variant="outline" className="border-orange-400 text-orange-600 text-xs">Ej publicerad</Badge>;
+                          if (partner) {
+                            return partner.is_featured
+                              ? <Badge variant="outline" className="border-green-500 text-green-600 text-xs">Publicerad</Badge>
+                              : <Badge variant="outline" className="border-orange-400 text-orange-600 text-xs">Ej publicerad</Badge>;
                           }
                           return null;
                         })()}
