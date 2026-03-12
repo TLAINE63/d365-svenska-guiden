@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -366,11 +367,72 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     }
   };
 
+  // Bulk email state
+  const [bulkEmailOpen, setBulkEmailOpen] = useState(false);
+  const [bulkCustomMessage, setBulkCustomMessage] = useState("");
+  const [bulkSending, setBulkSending] = useState(false);
+
+  const featuredPartners = partners.filter(p => p.is_featured);
+  const featuredWithEmail = featuredPartners.filter(p => p.admin_contact_email || p.email);
+
+  const handleBulkSendEventEmail = async () => {
+    setBulkSending(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=bulk-send-event-email`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ custom_message: bulkCustomMessage || undefined }),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
+          onSessionExpired();
+        }
+        throw new Error(data.error || "Kunde inte skicka e-post");
+      }
+      toast({
+        title: "Utskick klart!",
+        description: `${data.sent} av ${data.total} e-postmeddelanden skickade.${data.failed ? ` ${data.failed} misslyckades.` : ''}`,
+      });
+      setBulkEmailOpen(false);
+      setBulkCustomMessage("");
+    } catch (error: any) {
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte skicka e-post",
+        variant: "destructive",
+      });
+    } finally {
+      setBulkSending(false);
+    }
+  };
+
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
-        {/* Partner Filter */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        {/* Bulk send + filter header */}
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            {featuredWithEmail.length} publicerade partners med e-post
+          </p>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="gap-2"
+            onClick={() => setBulkEmailOpen(true)}
+          >
+            <Mail className="h-4 w-4" />
+            Skicka event-inbjudan till alla partners
+          </Button>
+        </div>
+
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1">
             <Label className="text-base font-semibold mb-2 block">Filtrera på partner</Label>
             <div className="flex items-center gap-2">
@@ -708,6 +770,50 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
               >
                 <Mail className="h-4 w-4" />
                 Skicka
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Bulk Email Dialog */}
+        <Dialog open={bulkEmailOpen} onOpenChange={(open) => !open && setBulkEmailOpen(false)}>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Skicka event-inbjudan till alla partners</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <p className="text-sm text-muted-foreground">
+                E-postmeddelandet skickas till <strong>{featuredWithEmail.length}</strong> publicerade partners med registrerad e-postadress. 
+                Varje partner får sin unika event-portallänk.
+              </p>
+              
+              <div className="space-y-2">
+                <Label>Valfritt meddelande (visas i mailet)</Label>
+                <Textarea
+                  value={bulkCustomMessage}
+                  onChange={(e) => setBulkCustomMessage(e.target.value)}
+                  placeholder="T.ex. 'Vi uppmanar alla partners att lägga till sina kommande events inför hösten...'"
+                  rows={3}
+                />
+              </div>
+
+              <div className="p-3 rounded-lg border bg-muted/30">
+                <p className="text-xs text-muted-foreground">
+                  <strong>Mailet innehåller:</strong> En inbjudan att publicera events på D365.se, riktlinjer för events, och en unik länk till partnerns event-portal.
+                </p>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setBulkEmailOpen(false)} disabled={bulkSending}>
+                Avbryt
+              </Button>
+              <Button 
+                onClick={handleBulkSendEventEmail} 
+                disabled={bulkSending || featuredWithEmail.length === 0}
+                className="gap-2"
+              >
+                {bulkSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                {bulkSending ? "Skickar..." : `Skicka till ${featuredWithEmail.length} partners`}
               </Button>
             </DialogFooter>
           </DialogContent>
