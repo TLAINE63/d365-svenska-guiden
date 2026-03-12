@@ -263,14 +263,22 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     p.name.toLowerCase().includes(partnerFilter.toLowerCase())
   );
 
-  // Get events - show all upcoming if no partner selected, otherwise filter by partner
-  const upcomingEvents = events
-    .filter(e => new Date(e.event_date) >= new Date())
-    .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
+  // Sort all events: upcoming first (nearest first), then past (newest first)
+  const allEventsSorted = [...events].sort((a, b) => {
+    const now = new Date();
+    const aUpcoming = new Date(a.event_date) >= now;
+    const bUpcoming = new Date(b.event_date) >= now;
+    if (aUpcoming && !bUpcoming) return -1;
+    if (!aUpcoming && bUpcoming) return 1;
+    if (aUpcoming && bUpcoming) return new Date(a.event_date).getTime() - new Date(b.event_date).getTime();
+    return new Date(b.event_date).getTime() - new Date(a.event_date).getTime();
+  });
+
+  const upcomingCount = events.filter(e => new Date(e.event_date) >= new Date()).length;
 
   const displayedEvents = selectedPartner 
-    ? events.filter(e => e.partner_id === selectedPartner.id)
-    : upcomingEvents;
+    ? allEventsSorted.filter(e => e.partner_id === selectedPartner.id)
+    : allEventsSorted;
 
   // Check if event is upcoming
   const isUpcoming = (dateStr: string) => new Date(dateStr) >= new Date();
