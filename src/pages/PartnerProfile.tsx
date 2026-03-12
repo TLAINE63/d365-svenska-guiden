@@ -776,6 +776,33 @@ const PartnerProfile = () => {
                               </div>
                             </div>
                           )}
+
+                          {/* Per-product Sales Contact */}
+                          {productContact && (
+                            <div className="space-y-2 pt-2 border-t border-border/50">
+                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
+                                <User className="w-3.5 h-3.5 text-muted-foreground" />
+                                Säljkontakt
+                              </p>
+                              <div className="flex flex-wrap items-center gap-2">
+                                {productContact.name && (
+                                  <span className="text-sm font-semibold text-foreground">{productContact.name}</span>
+                                )}
+                                {productContact.email && (
+                                  <a href={`mailto:${productContact.email}`} className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+                                    <Mail className="w-3 h-3" />
+                                    {productContact.email}
+                                  </a>
+                                )}
+                                {productContact.phone && (
+                                  <a href={`tel:${productContact.phone}`} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                                    <Phone className="w-3 h-3" />
+                                    {productContact.phone}
+                                  </a>
+                                )}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </article>
