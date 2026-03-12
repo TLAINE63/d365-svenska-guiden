@@ -36,36 +36,16 @@ interface Partner {
 interface PartnerEvent {
   id?: string;
   title: string;
-  description: string;
   event_date: string;
-  event_time: string;
-  end_time: string;
-  is_online: boolean;
-  location: string;
   event_link: string;
-  registration_link: string;
-  registration_deadline: string;
-  image_url: string;
-  recording_url: string;
-  recording_available: boolean;
   status: "pending" | "approved" | "rejected";
   admin_notes?: string;
 }
 
 const emptyEvent: Omit<PartnerEvent, "status"> = {
   title: "",
-  description: "",
   event_date: "",
-  event_time: "",
-  end_time: "",
-  is_online: true,
-  location: "",
   event_link: "",
-  registration_link: "",
-  registration_deadline: "",
-  image_url: "",
-  recording_url: "",
-  recording_available: false,
 };
 
 const PartnerEvents = () => {
