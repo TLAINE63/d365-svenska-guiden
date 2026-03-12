@@ -816,6 +816,9 @@ const AdminDashboard = () => {
       aiPredictiveDetails: existing?.aiPredictiveDetails || [],
       aiOtherPartner: existing?.aiOtherPartner || '',
       aiOtherAdvanced: existing?.aiOtherAdvanced || '',
+      contactName: existing?.contactName || '',
+      contactEmail: existing?.contactEmail || '',
+      contactPhone: existing?.contactPhone || '',
     };
   };
 
