@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -37,7 +37,7 @@ import { useToast } from "@/hooks/use-toast";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
 import {
-  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X, Link2, Copy, Loader2, Mail
+  Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X, Link2, Copy, Loader2, Mail, FileEdit, Save, RotateCcw
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -90,6 +90,13 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   });
   const [isSaving, setIsSaving] = useState(false);
 
+  // Email template state
+  const [showTemplateEditor, setShowTemplateEditor] = useState(false);
+  const [eventTemplate, setEventTemplate] = useState("");
+  const [eventTemplateOriginal, setEventTemplateOriginal] = useState("");
+  const [loadingTemplate, setLoadingTemplate] = useState(false);
+  const [savingTemplate, setSavingTemplate] = useState(false);
+
   const fetchEvents = async () => {
     setIsLoading(true);
     try {
@@ -128,6 +135,73 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   useEffect(() => {
     fetchEvents();
   }, [token]);
+
+  const fetchEventTemplate = async () => {
+    setLoadingTemplate(true);
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=event_invitation_email_body`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+      const data = await res.json();
+      setEventTemplate(data.template || getDefaultEventTemplate());
+      setEventTemplateOriginal(data.template || getDefaultEventTemplate());
+    } catch (err) {
+      console.error("Fetch template error:", err);
+      toast({ title: "Fel", description: "Kunde inte hämta e-postmall", variant: "destructive" });
+    } finally {
+      setLoadingTemplate(false);
+    }
+  };
+
+  const saveEventTemplate = async () => {
+    setSavingTemplate(true);
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ template: eventTemplate, template_key: "event_invitation_email_body" }),
+        }
+      );
+      if (!res.ok) throw new Error("Kunde inte spara mall");
+      setEventTemplateOriginal(eventTemplate);
+      toast({ title: "Sparat!", description: "Event-inbjudningsmallen har sparats." });
+    } catch (err) {
+      toast({ title: "Fel", description: "Kunde inte spara e-postmall", variant: "destructive" });
+    } finally {
+      setSavingTemplate(false);
+    }
+  };
+
+  const getDefaultEventTemplate = () => `Hej {{contact_name}},
+
+Nu har ni möjlighet att publicera era events och webbinarier direkt på D365.se! Via er dedikerade event-portal kan ni enkelt lägga till, redigera och hantera era kommande events.
+
+{{custom_message}}
+
+📅 RIKTLINJER FÖR EVENTS
+Events ska fokusera på Microsoft Dynamics 365 eller närliggande områden som AI, Copilot, Agents, BI och Power Platform.
+
+{{PORTAL_LINK}}
+
+Spara gärna länken – den är unik för {{partner_name}} och kan användas när ni vill lägga till eller uppdatera events. Inskickade events granskas och godkänns innan de publiceras.
+
+Med vänliga hälsningar,
+Thomas Laine
+Senior Rådgivare inom Microsoft CRM- och Affärssystem
+D365.se`;
 
   const handleSaveEvent = async () => {
     if (!selectedPartner || !formData.title || !formData.event_date || !formData.event_link) {
@@ -417,20 +491,89 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     <Card>
       <CardContent className="pt-6 space-y-6">
         {/* Bulk send + filter header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-2">
           <p className="text-sm text-muted-foreground">
             {featuredWithEmail.length} publicerade partners med e-post
           </p>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="gap-2"
-            onClick={() => setBulkEmailOpen(true)}
-          >
-            <Mail className="h-4 w-4" />
-            Skicka event-inbjudan till alla partners
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="gap-2"
+              onClick={() => {
+                if (!showTemplateEditor) fetchEventTemplate();
+                setShowTemplateEditor(!showTemplateEditor);
+              }}
+            >
+              <FileEdit className="h-4 w-4" />
+              {showTemplateEditor ? "Dölj mailmall" : "Redigera mailmall"}
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="gap-2"
+              onClick={() => setBulkEmailOpen(true)}
+            >
+              <Mail className="h-4 w-4" />
+              Skicka event-inbjudan till alla partners
+            </Button>
+          </div>
         </div>
+
+        {/* Email template editor */}
+        {showTemplateEditor && (
+          <Card className="border-dashed">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <FileEdit className="h-4 w-4" />
+                E-postmall för event-inbjudan
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {loadingTemplate ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                </div>
+              ) : (
+                <>
+                  <Textarea
+                    value={eventTemplate}
+                    onChange={(e) => setEventTemplate(e.target.value)}
+                    rows={14}
+                    className="font-mono text-sm"
+                  />
+                  <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
+                    <span className="font-medium">Platshållare:</span>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{contact_name}}"}</Badge>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{partner_name}}"}</Badge>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{PORTAL_LINK}}"}</Badge>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{custom_message}}"}</Badge>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      onClick={saveEventTemplate} 
+                      disabled={savingTemplate || eventTemplate === eventTemplateOriginal}
+                      className="gap-2"
+                    >
+                      {savingTemplate ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                      Spara mall
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setEventTemplate(getDefaultEventTemplate())}
+                      className="gap-2"
+                    >
+                      <RotateCcw className="h-4 w-4" />
+                      Återställ standard
+                    </Button>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        )}
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1">
