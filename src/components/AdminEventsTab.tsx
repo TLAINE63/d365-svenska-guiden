@@ -136,6 +136,73 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     fetchEvents();
   }, [token]);
 
+  const fetchEventTemplate = async () => {
+    setLoadingTemplate(true);
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=event_invitation_email_body`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        }
+      );
+      const data = await res.json();
+      setEventTemplate(data.template || getDefaultEventTemplate());
+      setEventTemplateOriginal(data.template || getDefaultEventTemplate());
+    } catch (err) {
+      console.error("Fetch template error:", err);
+      toast({ title: "Fel", description: "Kunde inte hämta e-postmall", variant: "destructive" });
+    } finally {
+      setLoadingTemplate(false);
+    }
+  };
+
+  const saveEventTemplate = async () => {
+    setSavingTemplate(true);
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ template: eventTemplate, template_key: "event_invitation_email_body" }),
+        }
+      );
+      if (!res.ok) throw new Error("Kunde inte spara mall");
+      setEventTemplateOriginal(eventTemplate);
+      toast({ title: "Sparat!", description: "Event-inbjudningsmallen har sparats." });
+    } catch (err) {
+      toast({ title: "Fel", description: "Kunde inte spara e-postmall", variant: "destructive" });
+    } finally {
+      setSavingTemplate(false);
+    }
+  };
+
+  const getDefaultEventTemplate = () => `Hej {{contact_name}},
+
+Nu har ni möjlighet att publicera era events och webbinarier direkt på D365.se! Via er dedikerade event-portal kan ni enkelt lägga till, redigera och hantera era kommande events.
+
+{{custom_message}}
+
+📅 RIKTLINJER FÖR EVENTS
+Events ska fokusera på Microsoft Dynamics 365 eller närliggande områden som AI, Copilot, Agents, BI och Power Platform.
+
+{{PORTAL_LINK}}
+
+Spara gärna länken – den är unik för {{partner_name}} och kan användas när ni vill lägga till eller uppdatera events. Inskickade events granskas och godkänns innan de publiceras.
+
+Med vänliga hälsningar,
+Thomas Laine
+Senior Rådgivare inom Microsoft CRM- och Affärssystem
+D365.se`;
+
   const handleSaveEvent = async () => {
     if (!selectedPartner || !formData.title || !formData.event_date || !formData.event_link) {
       toast({
