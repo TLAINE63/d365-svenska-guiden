@@ -352,7 +352,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       case "submitted":
         return <Badge variant="outline" className="border-blue-500 text-blue-600"><Send className="w-3 h-3 mr-1" />Inskickad</Badge>;
       case "approved":
-        return <Badge className="bg-green-500"><CheckCircle2 className="w-3 h-3 mr-1" />Publicerad</Badge>;
+        return <Badge className="bg-green-500"><CheckCircle2 className="w-3 h-3 mr-1" />Godkänd</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -722,8 +722,10 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                         {invitation.partner_name}
                         {invitation.partner_id && (() => {
                           const partner = partners.find(p => p.id === invitation.partner_id);
-                          if (partner && !partner.is_featured) {
-                            return <Badge variant="outline" className="border-orange-400 text-orange-600 text-xs">Ej publicerad</Badge>;
+                          if (partner) {
+                            return partner.is_featured
+                              ? <Badge variant="outline" className="border-green-500 text-green-600 text-xs">Publicerad</Badge>
+                              : <Badge variant="outline" className="border-orange-400 text-orange-600 text-xs">Ej publicerad</Badge>;
                           }
                           return null;
                         })()}
