@@ -263,14 +263,22 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     p.name.toLowerCase().includes(partnerFilter.toLowerCase())
   );
 
-  // Get events - show all upcoming if no partner selected, otherwise filter by partner
-  const upcomingEvents = events
-    .filter(e => new Date(e.event_date) >= new Date())
-    .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
+  // Sort all events: upcoming first (nearest first), then past (newest first)
+  const allEventsSorted = [...events].sort((a, b) => {
+    const now = new Date();
+    const aUpcoming = new Date(a.event_date) >= now;
+    const bUpcoming = new Date(b.event_date) >= now;
+    if (aUpcoming && !bUpcoming) return -1;
+    if (!aUpcoming && bUpcoming) return 1;
+    if (aUpcoming && bUpcoming) return new Date(a.event_date).getTime() - new Date(b.event_date).getTime();
+    return new Date(b.event_date).getTime() - new Date(a.event_date).getTime();
+  });
+
+  const upcomingCount = events.filter(e => new Date(e.event_date) >= new Date()).length;
 
   const displayedEvents = selectedPartner 
-    ? events.filter(e => e.partner_id === selectedPartner.id)
-    : upcomingEvents;
+    ? allEventsSorted.filter(e => e.partner_id === selectedPartner.id)
+    : allEventsSorted;
 
   // Check if event is upcoming
   const isUpcoming = (dateStr: string) => new Date(dateStr) >= new Date();
@@ -491,9 +499,9 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
         {/* Events List */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
               <Calendar className="h-5 w-5 text-primary" />
-              {selectedPartner ? `Events för ${selectedPartner.name}` : `Kommande events (${upcomingEvents.length})`}
+              {selectedPartner ? `Events för ${selectedPartner.name}` : `Alla events (${events.length} totalt, ${upcomingCount} kommande)`}
             </h3>
           </div>
 
@@ -558,11 +566,16 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                         )}
                       </TableCell>
                       <TableCell>
-                        {isUpcoming(event.event_date) ? (
-                          <Badge variant="default" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">Kommande</Badge>
-                        ) : (
-                          <Badge variant="secondary">Passerat</Badge>
-                        )}
+                        <div className="flex flex-col gap-1">
+                          {event.status === "approved" ? (
+                            <Badge variant="default" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 w-fit">Godkänd</Badge>
+                          ) : (
+                            <Badge variant="outline" className="text-amber-700 border-amber-300 w-fit">Väntar</Badge>
+                          )}
+                          {!isUpcoming(event.event_date) && (
+                            <Badge variant="secondary" className="w-fit">Passerat</Badge>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-1">
