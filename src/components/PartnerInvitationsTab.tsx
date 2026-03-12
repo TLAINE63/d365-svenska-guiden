@@ -45,7 +45,7 @@ interface Invitation {
 
 interface PartnerInvitationsTabProps {
   token: string;
-  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean }>;
+  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean; contact_person: string }>;
   onSessionExpired?: () => void;
 }
 
