@@ -491,20 +491,89 @@ D365.se`;
     <Card>
       <CardContent className="pt-6 space-y-6">
         {/* Bulk send + filter header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-wrap gap-2">
           <p className="text-sm text-muted-foreground">
             {featuredWithEmail.length} publicerade partners med e-post
           </p>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="gap-2"
-            onClick={() => setBulkEmailOpen(true)}
-          >
-            <Mail className="h-4 w-4" />
-            Skicka event-inbjudan till alla partners
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="gap-2"
+              onClick={() => {
+                if (!showTemplateEditor) fetchEventTemplate();
+                setShowTemplateEditor(!showTemplateEditor);
+              }}
+            >
+              <FileEdit className="h-4 w-4" />
+              {showTemplateEditor ? "Dölj mailmall" : "Redigera mailmall"}
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="gap-2"
+              onClick={() => setBulkEmailOpen(true)}
+            >
+              <Mail className="h-4 w-4" />
+              Skicka event-inbjudan till alla partners
+            </Button>
+          </div>
         </div>
+
+        {/* Email template editor */}
+        {showTemplateEditor && (
+          <Card className="border-dashed">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-base flex items-center gap-2">
+                <FileEdit className="h-4 w-4" />
+                E-postmall för event-inbjudan
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {loadingTemplate ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                </div>
+              ) : (
+                <>
+                  <Textarea
+                    value={eventTemplate}
+                    onChange={(e) => setEventTemplate(e.target.value)}
+                    rows={14}
+                    className="font-mono text-sm"
+                  />
+                  <div className="flex flex-wrap gap-1.5 text-xs text-muted-foreground">
+                    <span className="font-medium">Platshållare:</span>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{contact_name}}"}</Badge>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{partner_name}}"}</Badge>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{PORTAL_LINK}}"}</Badge>
+                    <Badge variant="outline" className="text-xs font-mono">{"{{custom_message}}"}</Badge>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="sm" 
+                      onClick={saveEventTemplate} 
+                      disabled={savingTemplate || eventTemplate === eventTemplateOriginal}
+                      className="gap-2"
+                    >
+                      {savingTemplate ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                      Spara mall
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setEventTemplate(getDefaultEventTemplate())}
+                      className="gap-2"
+                    >
+                      <RotateCcw className="h-4 w-4" />
+                      Återställ standard
+                    </Button>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        )}
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1">
