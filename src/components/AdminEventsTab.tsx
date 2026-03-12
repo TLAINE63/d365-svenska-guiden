@@ -566,11 +566,16 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
                         )}
                       </TableCell>
                       <TableCell>
-                        {isUpcoming(event.event_date) ? (
-                          <Badge variant="default" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">Kommande</Badge>
-                        ) : (
-                          <Badge variant="secondary">Passerat</Badge>
-                        )}
+                        <div className="flex flex-col gap-1">
+                          {event.status === "approved" ? (
+                            <Badge variant="default" className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 w-fit">Godkänd</Badge>
+                          ) : (
+                            <Badge variant="outline" className="text-amber-700 border-amber-300 w-fit">Väntar</Badge>
+                          )}
+                          {!isUpcoming(event.event_date) && (
+                            <Badge variant="secondary" className="w-fit">Passerat</Badge>
+                          )}
+                        </div>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-1">
