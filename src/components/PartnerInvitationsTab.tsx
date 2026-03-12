@@ -691,7 +691,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   </TableHead>
                   <TableHead>Partner</TableHead>
                   <TableHead>E-post (mottagare)</TableHead>
-                  <TableHead>Säljansvarig</TableHead>
+                  <TableHead>Status</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Skapad</TableHead>
                   <TableHead>Senaste inbjudan</TableHead>
