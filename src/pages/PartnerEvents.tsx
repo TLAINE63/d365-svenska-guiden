@@ -7,17 +7,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { 
   Loader2, 
   Calendar, 
   Plus, 
   Trash2, 
-  Video, 
-  MapPin, 
   ExternalLink, 
-  Clock,
   CheckCircle2,
   XCircle,
   AlertCircle,
@@ -36,36 +32,16 @@ interface Partner {
 interface PartnerEvent {
   id?: string;
   title: string;
-  description: string;
   event_date: string;
-  event_time: string;
-  end_time: string;
-  is_online: boolean;
-  location: string;
   event_link: string;
-  registration_link: string;
-  registration_deadline: string;
-  image_url: string;
-  recording_url: string;
-  recording_available: boolean;
   status: "pending" | "approved" | "rejected";
   admin_notes?: string;
 }
 
 const emptyEvent: Omit<PartnerEvent, "status"> = {
   title: "",
-  description: "",
   event_date: "",
-  event_time: "",
-  end_time: "",
-  is_online: true,
-  location: "",
   event_link: "",
-  registration_link: "",
-  registration_deadline: "",
-  image_url: "",
-  recording_url: "",
-  recording_available: false,
 };
 
 const PartnerEvents = () => {
@@ -321,7 +297,7 @@ const PartnerEvents = () => {
               events.map((event) => (
                 <Card key={event.id} className="relative overflow-hidden">
                   {event.status === "approved" && (
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-green-500" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
                   )}
                   {event.status === "pending" && (
                     <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500" />
@@ -343,34 +319,18 @@ const PartnerEvents = () => {
                             <Calendar className="w-4 h-4" />
                             {new Date(event.event_date).toLocaleDateString("sv-SE")}
                           </span>
-                          {event.event_time && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              {event.event_time.slice(0, 5)}
-                              {event.end_time && ` - ${event.end_time.slice(0, 5)}`}
-                            </span>
+                          {event.event_link && (
+                            <a href={event.event_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:underline">
+                              <ExternalLink className="w-4 h-4" />
+                              Eventlänk
+                            </a>
                           )}
-                          <span className="flex items-center gap-1">
-                            {event.is_online ? <Video className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
-                            {event.is_online ? "Online" : event.location || "På plats"}
-                          </span>
                         </div>
-
-                        {event.description && (
-                          <p className="text-sm text-muted-foreground line-clamp-2">{event.description}</p>
-                        )}
 
                         {event.status === "rejected" && event.admin_notes && (
                           <div className="mt-2 p-2 bg-destructive/10 rounded text-sm text-destructive">
                             <strong>Anledning:</strong> {event.admin_notes}
                           </div>
-                        )}
-
-                        {event.recording_available && event.recording_url && (
-                          <Badge variant="outline" className="mt-2">
-                            <Video className="w-3 h-3 mr-1" />
-                            Inspelning tillgänglig
-                          </Badge>
                         )}
                       </div>
 
@@ -432,26 +392,16 @@ const EventForm = ({ event, onSave, onCancel, saving }: EventFormProps) => {
 
   return (
     <div className="space-y-4">
+      <div className="space-y-2">
+        <Label>Eventtitel *</Label>
+        <Input
+          value={formData.title}
+          onChange={(e) => handleChange("title", e.target.value)}
+          placeholder="T.ex. 'Webinar: Nyheter i Business Central'"
+        />
+      </div>
+
       <div className="grid sm:grid-cols-2 gap-4">
-        <div className="space-y-2 sm:col-span-2">
-          <Label>Eventtitel *</Label>
-          <Input
-            value={formData.title}
-            onChange={(e) => handleChange("title", e.target.value)}
-            placeholder="T.ex. 'Webinar: Nyheter i Business Central'"
-          />
-        </div>
-
-        <div className="space-y-2 sm:col-span-2">
-          <Label>Beskrivning</Label>
-          <Textarea
-            value={formData.description}
-            onChange={(e) => handleChange("description", e.target.value)}
-            placeholder="Beskriv vad eventet handlar om..."
-            rows={3}
-          />
-        </div>
-
         <div className="space-y-2">
           <Label>Datum *</Label>
           <Input
@@ -461,96 +411,14 @@ const EventForm = ({ event, onSave, onCancel, saving }: EventFormProps) => {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          <div className="space-y-2">
-            <Label>Starttid</Label>
-            <Input
-              type="time"
-              value={formData.event_time}
-              onChange={(e) => handleChange("event_time", e.target.value)}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Sluttid</Label>
-            <Input
-              type="time"
-              value={formData.end_time}
-              onChange={(e) => handleChange("end_time", e.target.value)}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Switch
-          checked={formData.is_online}
-          onCheckedChange={(checked) => handleChange("is_online", checked)}
-        />
-        <Label>Online-event</Label>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label>{formData.is_online ? "Möteslänk" : "Plats"}</Label>
+          <Label>Eventlänk</Label>
           <Input
-            value={formData.is_online ? formData.event_link : formData.location}
-            onChange={(e) => handleChange(formData.is_online ? "event_link" : "location", e.target.value)}
-            placeholder={formData.is_online ? "https://teams.microsoft.com/..." : "Adress"}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label>Anmälningslänk</Label>
-          <Input
-            value={formData.registration_link}
-            onChange={(e) => handleChange("registration_link", e.target.value)}
+            value={formData.event_link}
+            onChange={(e) => handleChange("event_link", e.target.value)}
             placeholder="https://..."
           />
         </div>
-      </div>
-
-      <div className="grid sm:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label>Sista anmälningsdag</Label>
-          <Input
-            type="date"
-            value={formData.registration_deadline}
-            onChange={(e) => handleChange("registration_deadline", e.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label>Eventbild (URL)</Label>
-          <Input
-            value={formData.image_url}
-            onChange={(e) => handleChange("image_url", e.target.value)}
-            placeholder="https://..."
-          />
-        </div>
-      </div>
-
-      {/* Recording section */}
-      <div className="p-4 bg-muted/50 rounded-lg space-y-3">
-        <div className="flex items-center justify-between">
-          <Label className="flex items-center gap-2">
-            <Video className="w-4 h-4" />
-            Inspelning tillgänglig
-          </Label>
-          <Switch
-            checked={formData.recording_available}
-            onCheckedChange={(checked) => handleChange("recording_available", checked)}
-          />
-        </div>
-        
-        {formData.recording_available && (
-          <div className="space-y-2">
-            <Label>Länk till inspelning</Label>
-            <Input
-              value={formData.recording_url}
-              onChange={(e) => handleChange("recording_url", e.target.value)}
-              placeholder="https://youtube.com/..."
-            />
-          </div>
-        )}
       </div>
 
       <div className="flex gap-3 pt-4">
