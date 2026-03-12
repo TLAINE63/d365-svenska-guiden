@@ -45,7 +45,7 @@ interface Invitation {
 
 interface PartnerInvitationsTabProps {
   token: string;
-  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean }>;
+  partners: Array<{ id: string; name: string; slug: string; email: string; admin_contact_email: string; is_featured: boolean; contact_person: string }>;
   onSessionExpired?: () => void;
 }
 
@@ -690,7 +690,8 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                     />
                   </TableHead>
                   <TableHead>Partner</TableHead>
-                  <TableHead>E-post</TableHead>
+                  <TableHead>E-post (mottagare)</TableHead>
+                  <TableHead>Säljansvarig</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Skapad</TableHead>
                   <TableHead>Senaste inbjudan</TableHead>
@@ -731,7 +732,29 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                         })()}
                       </div>
                     </TableCell>
-                    <TableCell>{invitation.email}</TableCell>
+                    <TableCell>
+                      <div className="text-sm">
+                        {(() => {
+                          const partner = invitation.partner_id ? partners.find(p => p.id === invitation.partner_id) : null;
+                          const adminEmail = partner?.admin_contact_email;
+                          if (adminEmail && adminEmail !== invitation.email) {
+                            return (
+                              <div>
+                                <div>{adminEmail}</div>
+                                <div className="text-xs text-muted-foreground">Profil: {invitation.email}</div>
+                              </div>
+                            );
+                          }
+                          return invitation.email;
+                        })()}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {(() => {
+                        const partner = invitation.partner_id ? partners.find(p => p.id === invitation.partner_id) : null;
+                        return partner?.contact_person || "-";
+                      })()}
+                    </TableCell>
                     <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
                     <TableCell>
                       {format(new Date(invitation.created_at), "d MMM yyyy", { locale: sv })}
