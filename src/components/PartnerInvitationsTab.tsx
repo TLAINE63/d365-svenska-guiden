@@ -752,7 +752,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                     <TableCell>
                       {(() => {
                         const partner = invitation.partner_id ? partners.find(p => p.id === invitation.partner_id) : null;
-                        return partner?.contactPerson || "-";
+                        return partner?.contact_person || "-";
                       })()}
                     </TableCell>
                     <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
