@@ -1098,13 +1098,19 @@ D365.se`;
     // Admin: Send event invitation email to ALL featured partners
     if (action === "bulk-send-event-email" && req.method === "POST") {
       const body = await req.json();
-      const { custom_message } = body;
+      const { custom_message, partner_ids } = body;
 
-      // Get all featured partners with email
-      const { data: featuredPartners, error: fpError } = await supabase
+      // Get featured partners, optionally filtered by IDs
+      let query = supabase
         .from("partners")
         .select("id, name, email, admin_contact_email, contact_person, is_featured")
         .eq("is_featured", true);
+
+      if (partner_ids && Array.isArray(partner_ids) && partner_ids.length > 0) {
+        query = query.in("id", partner_ids);
+      }
+
+      const { data: featuredPartners, error: fpError } = await query;
 
       if (fpError || !featuredPartners) {
         return new Response(
