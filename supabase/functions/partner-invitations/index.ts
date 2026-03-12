@@ -607,7 +607,7 @@ D365.se`;
                 </html>`;
             
             const emailSubject = isNewPartner 
-              ? "Välkommen till D365.se – Profilera ditt partnerskap"
+              ? "Välkommen till D365.se – Vilken Dynamics 365-partner passar kunden bäst?"
               : "Vem är kundens mest lämpade Dynamics 365-partner?";
             
             const emailResponse = await resend.emails.send({
