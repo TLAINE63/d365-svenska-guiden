@@ -947,15 +947,37 @@ D365.se`;
 
         {/* Bulk Email Dialog */}
         <Dialog open={bulkEmailOpen} onOpenChange={(open) => !open && setBulkEmailOpen(false)}>
-          <DialogContent className="sm:max-w-lg">
+          <DialogContent className="sm:max-w-lg max-h-[85vh] flex flex-col">
             <DialogHeader>
-              <DialogTitle>Skicka event-inbjudan till alla partners</DialogTitle>
+              <DialogTitle>Skicka event-inbjudan till partners</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4 py-4">
-              <p className="text-sm text-muted-foreground">
-                E-postmeddelandet skickas till <strong>{featuredWithEmail.length}</strong> publicerade partners med registrerad e-postadress. 
-                Varje partner får sin unika event-portallänk.
-              </p>
+            <div className="space-y-4 py-4 flex-1 overflow-hidden flex flex-col">
+              {/* Select/deselect all */}
+              <div className="flex items-center justify-between">
+                <Label className="text-sm">Välj mottagare ({selectedPartnerIds.size} av {featuredWithEmail.length})</Label>
+                <Button variant="ghost" size="sm" onClick={toggleAllPartners}>
+                  {selectedPartnerIds.size === featuredWithEmail.length ? "Avmarkera alla" : "Markera alla"}
+                </Button>
+              </div>
+
+              {/* Partner list with checkboxes */}
+              <div className="border rounded-lg overflow-y-auto max-h-[240px] divide-y">
+                {featuredWithEmail.map(p => (
+                  <label
+                    key={p.id}
+                    className="flex items-center gap-3 px-3 py-2 hover:bg-muted/50 cursor-pointer"
+                  >
+                    <Checkbox
+                      checked={selectedPartnerIds.has(p.id)}
+                      onCheckedChange={() => togglePartnerSelection(p.id)}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{p.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">{p.admin_contact_email || p.email}</p>
+                    </div>
+                  </label>
+                ))}
+              </div>
               
               <div className="space-y-2">
                 <Label>Valfritt meddelande (visas i mailet)</Label>
@@ -979,11 +1001,11 @@ D365.se`;
               </Button>
               <Button 
                 onClick={handleBulkSendEventEmail} 
-                disabled={bulkSending || featuredWithEmail.length === 0}
+                disabled={bulkSending || selectedPartnerIds.size === 0}
                 className="gap-2"
               >
                 {bulkSending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
-                {bulkSending ? "Skickar..." : `Skicka till ${featuredWithEmail.length} partners`}
+                {bulkSending ? "Skickar..." : `Skicka till ${selectedPartnerIds.size} partners`}
               </Button>
             </DialogFooter>
           </DialogContent>
