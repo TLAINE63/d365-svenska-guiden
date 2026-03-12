@@ -445,9 +445,33 @@ D365.se`;
   const [bulkEmailOpen, setBulkEmailOpen] = useState(false);
   const [bulkCustomMessage, setBulkCustomMessage] = useState("");
   const [bulkSending, setBulkSending] = useState(false);
+  const [selectedPartnerIds, setSelectedPartnerIds] = useState<Set<string>>(new Set());
 
   const featuredPartners = partners.filter(p => p.is_featured);
   const featuredWithEmail = featuredPartners.filter(p => p.admin_contact_email || p.email);
+
+  const handleOpenBulkEmail = () => {
+    // Pre-select all featured partners with email
+    setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
+    setBulkEmailOpen(true);
+  };
+
+  const togglePartnerSelection = (id: string) => {
+    setSelectedPartnerIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleAllPartners = () => {
+    if (selectedPartnerIds.size === featuredWithEmail.length) {
+      setSelectedPartnerIds(new Set());
+    } else {
+      setSelectedPartnerIds(new Set(featuredWithEmail.map(p => p.id)));
+    }
+  };
 
   const handleBulkSendEventEmail = async () => {
     setBulkSending(true);
