@@ -352,7 +352,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       case "submitted":
         return <Badge variant="outline" className="border-blue-500 text-blue-600"><Send className="w-3 h-3 mr-1" />Inskickad</Badge>;
       case "approved":
-        return <Badge className="bg-green-500"><CheckCircle2 className="w-3 h-3 mr-1" />Publicerad</Badge>;
+        return <Badge className="bg-green-500"><CheckCircle2 className="w-3 h-3 mr-1" />Godkänd</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
