@@ -158,6 +158,9 @@ const emptyProductFilter: ProductFilter = {
   aiPredictiveDetails: [],
   aiOtherPartner: "",
   aiOtherAdvanced: "",
+  contactName: "",
+  contactEmail: "",
+  contactPhone: "",
 };
 
 const PartnerUpdate = () => {
