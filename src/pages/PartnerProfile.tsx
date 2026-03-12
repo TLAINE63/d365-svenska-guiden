@@ -231,6 +231,20 @@ const PartnerProfile = () => {
     return dbProductFilters?.[filterKey]?.productDescription || null;
   };
 
+  // Get per-product sales contact
+  const getContactForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { name?: string; email?: string; phone?: string } | null => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { contactName?: string; contactEmail?: string; contactPhone?: string }> | undefined;
+    const pf = dbProductFilters?.[filterKey];
+    // Also check direct key
+    const directPf = dbProductFilters?.[category];
+    const contact = pf || directPf;
+    if (contact?.contactName || contact?.contactEmail || contact?.contactPhone) {
+      return { name: contact.contactName, email: contact.contactEmail, phone: contact.contactPhone };
+    }
+    return null;
+  };
+
   // Sweden regions and cities functions removed - no longer displaying regions on profiles
 
   // Get customer case links for a specific product
