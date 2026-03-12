@@ -733,26 +733,10 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="text-sm">
-                        {(() => {
-                          const partner = invitation.partner_id ? partners.find(p => p.id === invitation.partner_id) : null;
-                          const adminEmail = partner?.admin_contact_email;
-                          if (adminEmail && adminEmail !== invitation.email) {
-                            return (
-                              <div>
-                                <div>{adminEmail}</div>
-                                <div className="text-xs text-muted-foreground">Säljkontakt: {invitation.email}</div>
-                              </div>
-                            );
-                          }
-                          return invitation.email;
-                        })()}
-                      </div>
-                    </TableCell>
-                    <TableCell>
                       {(() => {
                         const partner = invitation.partner_id ? partners.find(p => p.id === invitation.partner_id) : null;
-                        return partner?.contact_person || "-";
+                        const adminEmail = partner?.admin_contact_email;
+                        return (adminEmail && adminEmail !== invitation.email) ? adminEmail : invitation.email;
                       })()}
                     </TableCell>
                     <TableCell>{getStatusBadge(invitation.status, invitation.expires_at)}</TableCell>
