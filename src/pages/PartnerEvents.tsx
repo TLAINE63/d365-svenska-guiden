@@ -297,7 +297,7 @@ const PartnerEvents = () => {
               events.map((event) => (
                 <Card key={event.id} className="relative overflow-hidden">
                   {event.status === "approved" && (
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-green-500" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-primary" />
                   )}
                   {event.status === "pending" && (
                     <div className="absolute top-0 left-0 right-0 h-1 bg-amber-500" />
@@ -319,34 +319,18 @@ const PartnerEvents = () => {
                             <Calendar className="w-4 h-4" />
                             {new Date(event.event_date).toLocaleDateString("sv-SE")}
                           </span>
-                          {event.event_time && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              {event.event_time.slice(0, 5)}
-                              {event.end_time && ` - ${event.end_time.slice(0, 5)}`}
-                            </span>
+                          {event.event_link && (
+                            <a href={event.event_link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:underline">
+                              <ExternalLink className="w-4 h-4" />
+                              Eventlänk
+                            </a>
                           )}
-                          <span className="flex items-center gap-1">
-                            {event.is_online ? <Video className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
-                            {event.is_online ? "Online" : event.location || "På plats"}
-                          </span>
                         </div>
-
-                        {event.description && (
-                          <p className="text-sm text-muted-foreground line-clamp-2">{event.description}</p>
-                        )}
 
                         {event.status === "rejected" && event.admin_notes && (
                           <div className="mt-2 p-2 bg-destructive/10 rounded text-sm text-destructive">
                             <strong>Anledning:</strong> {event.admin_notes}
                           </div>
-                        )}
-
-                        {event.recording_available && event.recording_url && (
-                          <Badge variant="outline" className="mt-2">
-                            <Video className="w-3 h-3 mr-1" />
-                            Inspelning tillgänglig
-                          </Badge>
                         )}
                       </div>
 
