@@ -522,6 +522,7 @@ const PartnerProfile = () => {
                   const customerCaseLinks = getCustomerCaseLinksForProduct(category);
                   const geography = getGeographyForProduct(category);
                   const industryAppsForProduct = getIndustryAppsForProduct(category);
+                  const productContact = getContactForProduct(category);
                   
                   return (
                     <article 
