@@ -7,17 +7,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import { 
   Loader2, 
   Calendar, 
   Plus, 
   Trash2, 
-  Video, 
-  MapPin, 
   ExternalLink, 
-  Clock,
   CheckCircle2,
   XCircle,
   AlertCircle,
