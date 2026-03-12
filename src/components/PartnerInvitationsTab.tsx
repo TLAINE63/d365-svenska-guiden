@@ -741,7 +741,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                             return (
                               <div>
                                 <div>{adminEmail}</div>
-                                <div className="text-xs text-muted-foreground">Profil: {invitation.email}</div>
+                                <div className="text-xs text-muted-foreground">Säljkontakt: {invitation.email}</div>
                               </div>
                             );
                           }
