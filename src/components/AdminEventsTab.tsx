@@ -366,11 +366,57 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
     }
   };
 
+  // Bulk email state
+  const [bulkEmailOpen, setBulkEmailOpen] = useState(false);
+  const [bulkCustomMessage, setBulkCustomMessage] = useState("");
+  const [bulkSending, setBulkSending] = useState(false);
+
+  const featuredPartners = partners.filter(p => p.is_featured);
+  const featuredWithEmail = featuredPartners.filter(p => p.admin_contact_email || p.email);
+
+  const handleBulkSendEventEmail = async () => {
+    setBulkSending(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-events?action=bulk-send-event-email`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ custom_message: bulkCustomMessage || undefined }),
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
+          onSessionExpired();
+        }
+        throw new Error(data.error || "Kunde inte skicka e-post");
+      }
+      toast({
+        title: "Utskick klart!",
+        description: `${data.sent} av ${data.total} e-postmeddelanden skickade.${data.failed ? ` ${data.failed} misslyckades.` : ''}`,
+      });
+      setBulkEmailOpen(false);
+      setBulkCustomMessage("");
+    } catch (error: any) {
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte skicka e-post",
+        variant: "destructive",
+      });
+    } finally {
+      setBulkSending(false);
+    }
+  };
+
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
-        {/* Partner Filter */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        {/* Bulk send button */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1">
             <Label className="text-base font-semibold mb-2 block">Filtrera på partner</Label>
             <div className="flex items-center gap-2">

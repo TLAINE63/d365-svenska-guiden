@@ -1084,6 +1084,163 @@ serve(async (req: Request): Promise<Response> => {
       }
     }
 
+    // Admin: Send event invitation email to ALL featured partners
+    if (action === "bulk-send-event-email" && req.method === "POST") {
+      const body = await req.json();
+      const { custom_message } = body;
+
+      // Get all featured partners with email
+      const { data: featuredPartners, error: fpError } = await supabase
+        .from("partners")
+        .select("id, name, email, admin_contact_email, contact_person, is_featured")
+        .eq("is_featured", true);
+
+      if (fpError || !featuredPartners) {
+        return new Response(
+          JSON.stringify({ error: "Kunde inte hämta partners" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const eligiblePartners = featuredPartners.filter(p => p.admin_contact_email || p.email);
+      
+      if (eligiblePartners.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Inga publicerade partners med e-postadress hittades" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "E-posttjänsten är inte konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resend = new Resend(resendApiKey);
+      let sent = 0;
+      let failed = 0;
+      const errors: string[] = [];
+
+      // Get or fetch custom email template from site_settings
+      const { data: templateSetting } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "event_invitation_email_body")
+        .single();
+
+      for (const partner of eligiblePartners) {
+        try {
+          // Upsert token for each partner
+          const { data: tokenData, error: tokenError } = await supabase
+            .from("partner_event_tokens")
+            .upsert({ partner_id: partner.id }, { onConflict: "partner_id" })
+            .select()
+            .single();
+
+          if (tokenError || !tokenData) {
+            console.error("Token error for", partner.name, tokenError);
+            failed++;
+            errors.push(partner.name);
+            continue;
+          }
+
+          const portalUrl = `https://d365.se/partner-events/${tokenData.token}`;
+          const recipientEmail = partner.admin_contact_email || partner.email;
+          const contactName = partner.contact_person || '';
+
+          // Use custom template or default
+          let emailHtml: string;
+          if (templateSetting?.value) {
+            emailHtml = templateSetting.value
+              .replace(/\{\{contact_name\}\}/g, contactName)
+              .replace(/\{\{partner_name\}\}/g, partner.name)
+              .replace(/\{\{portal_url\}\}/g, portalUrl)
+              .replace(/\{\{custom_message\}\}/g, custom_message || '');
+          } else {
+            const customMessageHtml = custom_message 
+              ? `<div style="background-color: #fefce8; border: 1px solid #fde68a; padding: 16px; border-radius: 8px; margin: 20px 0;"><p style="margin: 0; font-size: 14px;">${custom_message}</p></div>`
+              : '';
+
+            emailHtml = `
+              <!DOCTYPE html>
+              <html>
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              </head>
+              <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                  <p style="color: #6b7280; margin: 5px 0 0 0;">Event-portal</p>
+                </div>
+                
+                <p>Hej${contactName ? ` ${contactName}` : ''},</p>
+                
+                <p>Nu har ni möjlighet att publicera era events och webbinarier direkt på D365.se! Via er dedikerade event-portal kan ni enkelt lägga till, redigera och hantera era kommande events.</p>
+                
+                ${customMessageHtml}
+
+                <div style="background-color: #eff6ff; border: 1px solid #93c5fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                  <h3 style="color: #1e40af; margin: 0 0 10px 0;">📅 Riktlinjer för events</h3>
+                  <p style="margin: 0; font-size: 14px;">Events ska fokusera på <strong>Microsoft Dynamics 365</strong> eller närliggande områden som <strong>AI, Copilot, Agents, BI</strong> och <strong>Power Platform</strong>.</p>
+                </div>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                  <a href="${portalUrl}" style="display: inline-block; background-color: #7c3aed; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Öppna er Event-portal</a>
+                </div>
+                
+                <p style="font-size: 14px; color: #6b7280;">
+                  Spara gärna länken – den är unik för <strong>${partner.name}</strong> och kan användas när ni vill lägga till eller uppdatera events. Inskickade events granskas och godkänns innan de publiceras.
+                </p>
+                
+                <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+                
+                <p style="color: #6b7280; font-size: 14px;">
+                  Med vänliga hälsningar,<br>
+                  <strong>Thomas Laine</strong><br>
+                  Senior Rådgivare inom Microsoft CRM- och Affärssystem<br>
+                  D365.se
+                </p>
+                
+                <p style="color: #9ca3af; font-size: 12px; text-align: center; margin-top: 30px;">
+                  Detta meddelande skickades från D365.se
+                </p>
+              </body>
+              </html>
+            `;
+          }
+
+          await resend.emails.send({
+            from: "D365.se <info@d365.se>",
+            to: [recipientEmail!],
+            subject: `Din event-portal på D365.se – Publicera dina Dynamics 365-events`,
+            html: emailHtml,
+          });
+
+          sent++;
+          console.log("Event invitation sent to:", recipientEmail, "for:", partner.name);
+        } catch (emailError) {
+          console.error("Failed to send to", partner.name, emailError);
+          failed++;
+          errors.push(partner.name);
+        }
+      }
+
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          sent, 
+          failed, 
+          total: eligiblePartners.length,
+          errors: errors.length > 0 ? errors : undefined 
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     // Admin: List event tokens
     if (action === "list-tokens") {
       const { data: tokens, error } = await supabase
