@@ -415,7 +415,22 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   return (
     <Card>
       <CardContent className="pt-6 space-y-6">
-        {/* Bulk send button */}
+        {/* Bulk send + filter header */}
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            {featuredWithEmail.length} publicerade partners med e-post
+          </p>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="gap-2"
+            onClick={() => setBulkEmailOpen(true)}
+          >
+            <Mail className="h-4 w-4" />
+            Skicka event-inbjudan till alla partners
+          </Button>
+        </div>
+
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1">
             <Label className="text-base font-semibold mb-2 block">Filtrera på partner</Label>
