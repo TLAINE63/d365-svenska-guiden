@@ -102,6 +102,10 @@ interface ProductFilter {
   aiPredictiveDetails: string[];
   aiOtherPartner: string;
   aiOtherAdvanced: string;
+  // Per-product sales contact
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
 }
 
 interface ProductFilters {
