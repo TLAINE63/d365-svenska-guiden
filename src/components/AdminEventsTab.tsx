@@ -90,6 +90,13 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
   });
   const [isSaving, setIsSaving] = useState(false);
 
+  // Email template state
+  const [showTemplateEditor, setShowTemplateEditor] = useState(false);
+  const [eventTemplate, setEventTemplate] = useState("");
+  const [eventTemplateOriginal, setEventTemplateOriginal] = useState("");
+  const [loadingTemplate, setLoadingTemplate] = useState(false);
+  const [savingTemplate, setSavingTemplate] = useState(false);
+
   const fetchEvents = async () => {
     setIsLoading(true);
     try {
