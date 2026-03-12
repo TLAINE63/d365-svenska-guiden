@@ -499,9 +499,9 @@ export default function AdminEventsTab({ token, partners, onSessionExpired }: Ad
         {/* Events List */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
               <Calendar className="h-5 w-5 text-primary" />
-              {selectedPartner ? `Events för ${selectedPartner.name}` : `Kommande events (${upcomingEvents.length})`}
+              {selectedPartner ? `Events för ${selectedPartner.name}` : `Alla events (${events.length} totalt, ${upcomingCount} kommande)`}
             </h3>
           </div>
 
