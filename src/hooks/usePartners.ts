@@ -31,6 +31,10 @@ export interface ProductFilterInput {
   aiPredictiveDetails?: string[];   // Follow-up for predictive maintenance capability
   aiOtherPartner?: string;          // Free-text for custom partner-built AI solution
   aiOtherAdvanced?: string;         // Free-text for custom advanced AI solution
+  // Per-product sales contact
+  contactName?: string;             // Sales contact name for this product area
+  contactEmail?: string;            // Sales contact email for this product area
+  contactPhone?: string;            // Sales contact phone for this product area
 }
 
 // Updated product filters to include 4 product areas plus combined crm

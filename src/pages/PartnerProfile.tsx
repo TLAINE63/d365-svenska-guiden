@@ -231,6 +231,20 @@ const PartnerProfile = () => {
     return dbProductFilters?.[filterKey]?.productDescription || null;
   };
 
+  // Get per-product sales contact
+  const getContactForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { name?: string; email?: string; phone?: string } | null => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    const dbProductFilters = dbPartner?.product_filters as Record<string, { contactName?: string; contactEmail?: string; contactPhone?: string }> | undefined;
+    const pf = dbProductFilters?.[filterKey];
+    // Also check direct key
+    const directPf = dbProductFilters?.[category];
+    const contact = pf || directPf;
+    if (contact?.contactName || contact?.contactEmail || contact?.contactPhone) {
+      return { name: contact.contactName, email: contact.contactEmail, phone: contact.contactPhone };
+    }
+    return null;
+  };
+
   // Sweden regions and cities functions removed - no longer displaying regions on profiles
 
   // Get customer case links for a specific product
@@ -508,6 +522,7 @@ const PartnerProfile = () => {
                   const customerCaseLinks = getCustomerCaseLinksForProduct(category);
                   const geography = getGeographyForProduct(category);
                   const industryAppsForProduct = getIndustryAppsForProduct(category);
+                  const productContact = getContactForProduct(category);
                   
                   return (
                     <article 
@@ -758,6 +773,33 @@ const PartnerProfile = () => {
                                     </div>
                                   </a>
                                 ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Per-product Sales Contact */}
+                          {productContact && (
+                            <div className="space-y-2 pt-2 border-t border-border/50">
+                              <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
+                                <User className="w-3.5 h-3.5 text-muted-foreground" />
+                                Säljkontakt
+                              </p>
+                              <div className="flex flex-wrap items-center gap-2">
+                                {productContact.name && (
+                                  <span className="text-sm font-semibold text-foreground">{productContact.name}</span>
+                                )}
+                                {productContact.email && (
+                                  <a href={`mailto:${productContact.email}`} className="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+                                    <Mail className="w-3 h-3" />
+                                    {productContact.email}
+                                  </a>
+                                )}
+                                {productContact.phone && (
+                                  <a href={`tel:${productContact.phone}`} className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+                                    <Phone className="w-3 h-3" />
+                                    {productContact.phone}
+                                  </a>
+                                )}
                               </div>
                             </div>
                           )}

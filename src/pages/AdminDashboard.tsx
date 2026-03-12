@@ -816,6 +816,9 @@ const AdminDashboard = () => {
       aiPredictiveDetails: existing?.aiPredictiveDetails || [],
       aiOtherPartner: existing?.aiOtherPartner || '',
       aiOtherAdvanced: existing?.aiOtherAdvanced || '',
+      contactName: existing?.contactName || '',
+      contactEmail: existing?.contactEmail || '',
+      contactPhone: existing?.contactPhone || '',
     };
   };
 
@@ -2333,6 +2336,44 @@ const AdminDashboard = () => {
                               className="mt-2"
                             />
                             <p className="text-xs text-muted-foreground mt-1">Max ~100 tecken rekommenderas</p>
+                          </div>
+
+                          {/* Sales Contact for this product area */}
+                          <div className="rounded-lg border border-border p-3 space-y-3">
+                            <Label className="text-sm font-semibold">Säljkontakt för {section.label}</Label>
+                            <div className="grid sm:grid-cols-3 gap-3">
+                              <div>
+                                <Label className="text-xs text-muted-foreground">Namn</Label>
+                                <Input
+                                  placeholder="Anna Svensson"
+                                  defaultValue={filter.contactName || ''}
+                                  key={`${section.key}-contactName-${editingPartner?.id || 'new'}`}
+                                  onBlur={(e) => updateProductFilter(section.key, { contactName: e.target.value.trim() })}
+                                  className="mt-1"
+                                />
+                              </div>
+                              <div>
+                                <Label className="text-xs text-muted-foreground">E-post</Label>
+                                <Input
+                                  type="email"
+                                  placeholder="anna@foretag.se"
+                                  defaultValue={filter.contactEmail || ''}
+                                  key={`${section.key}-contactEmail-${editingPartner?.id || 'new'}`}
+                                  onBlur={(e) => updateProductFilter(section.key, { contactEmail: e.target.value.trim() })}
+                                  className="mt-1"
+                                />
+                              </div>
+                              <div>
+                                <Label className="text-xs text-muted-foreground">Telefon</Label>
+                                <Input
+                                  placeholder="070-123 45 67"
+                                  defaultValue={filter.contactPhone || ''}
+                                  key={`${section.key}-contactPhone-${editingPartner?.id || 'new'}`}
+                                  onBlur={(e) => updateProductFilter(section.key, { contactPhone: e.target.value.trim() })}
+                                  className="mt-1"
+                                />
+                              </div>
+                            </div>
                           </div>
 
                           <div>
