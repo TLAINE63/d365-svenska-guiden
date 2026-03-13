@@ -955,7 +955,7 @@ D365.se`;
           await resend.emails.send({
             from: "D365.se <info@d365.se>",
             to: [inv.email],
-            subject: `Påminnelse: Vem är kundens mest lämpade Dynamics 365-partner?`,
+            subject: `Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?`,
             html: fullHtml,
           });
 
