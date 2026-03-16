@@ -363,6 +363,36 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
+  // Partners who received invitations but never responded (no submitted/approved invitations)
+  const unansweredPartners = useMemo(() => {
+    // Group invitations by partner_id or partner_name
+    const partnerMap = new Map<string, { name: string; hasResponded: boolean; latestCreated: string; email: string }>();
+    
+    invitations.forEach(inv => {
+      const key = inv.partner_id || inv.partner_name;
+      const existing = partnerMap.get(key);
+      const hasResponded = inv.status === "submitted" || inv.status === "approved";
+      
+      if (!existing) {
+        partnerMap.set(key, {
+          name: inv.partner_name,
+          hasResponded,
+          latestCreated: inv.created_at,
+          email: inv.email,
+        });
+      } else {
+        if (hasResponded) existing.hasResponded = true;
+        if (new Date(inv.created_at) > new Date(existing.latestCreated)) {
+          existing.latestCreated = inv.created_at;
+        }
+      }
+    });
+
+    return Array.from(partnerMap.values())
+      .filter(p => !p.hasResponded)
+      .sort((a, b) => new Date(b.latestCreated).getTime() - new Date(a.latestCreated).getTime());
+  }, [invitations]);
+
   // Map partner_id -> latest invitation created_at
   const latestInvitationByPartner = useMemo(() => {
     const map = new Map<string, string>();
