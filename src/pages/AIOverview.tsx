@@ -191,7 +191,7 @@ const AIOverview = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Mer effekt, mindre manuellt arbete – AI i Dynamics 365 | d365.se"
+        title="AI i Dynamics 365 – Copilot & Agenter | d365.se"
         description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
         canonicalPath="/ai-oversikt"
       />

@@ -165,8 +165,8 @@ const Events = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Dynamics 365 Events och Webinars Sverige – Kostnadsfria seminarier"
-        description="Hitta kommande webinars, seminarier och events från Microsoft Dynamics 365-partners i Sverige. Business Central, Sales, Customer Service, AI & Copilot. Anmäl dig kostnadsfritt."
+        title="Dynamics 365 Events & Webinars Sverige | d365.se"
+        description="Kommande webinars, seminarier och events från Dynamics 365-partners i Sverige. Business Central, Sales, AI & Copilot."
         canonicalPath="/events"
         keywords="Dynamics 365 event Sverige, Microsoft Dynamics 365 webinar, Business Central seminarium, Dynamics 365 partner event, Microsoft ERP webinar Sverige, Copilot event"
         ogImage="https://d365.se/og-events.png"

@@ -66,7 +66,7 @@ const Agents = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Microsoft AI Agents – Autonoma agenter i Dynamics 365 Sverige"
-        description="Microsoft Autonomous Agents i Dynamics 365: Sales Agent, Customer Service Agent, Supply Chain Agent. AI-automation för svenska företag. Se hur agenter skiljer sig från Copilot."
+        description="Microsoft AI Agents i Dynamics 365: Sales, Customer Service och Supply Chain Agent. AI-automation för svenska företag."
         canonicalPath="/agents"
         keywords="Dynamics 365 AI agents, Microsoft autonomous agents Sverige, Microsoft AI agenter, Copilot agents Dynamics 365, autonoma AI-system affärssystem, Copilot Studio agenter, AI automation Dynamics 365"
         ogImage="https://d365.se/og-copilot.png"

@@ -75,8 +75,8 @@ const D365CustomerService = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Customer Service – Helpdesk & Ärendehantering | Priser | d365.se"
-        description="Guide till Microsoft Dynamics 365 Customer Service – molnbaserat helpdesk och kundservicesystem. Priser från 478 kr/mån, Copilot AI inbyggt, omnikanalstöd. Hitta certifierad partner i Sverige."
+        title="Dynamics 365 Customer Service – Priser & guide | d365.se"
+        description="Dynamics 365 Customer Service från 478 kr/mån. Molnbaserad helpdesk med Copilot AI och omnikanalstöd. Hitta certifierad partner."
         canonicalPath="/d365-customer-service"
         keywords="Dynamics 365 Customer Service pris, helpdesk system Microsoft, kundservice system, ärendehantering system, Microsoft helpdesk, Dynamics 365 Customer Service Enterprise, CRM kundservice, omnichannel kundservice, Zendesk alternativ Microsoft, kundservice AI Copilot Sverige"
         ogImage="https://d365.se/og-customer-service.png"
