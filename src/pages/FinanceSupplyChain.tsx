@@ -153,8 +153,8 @@ const FinanceSupplyChain = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Finance & Supply Chain – ERP för Enterprise | Priser & SAP-alternativ | d365.se"
-        description="Guide till Microsoft Dynamics 365 Finance & Supply Chain. Priser från 2 007 kr/mån, SAP S/4HANA-alternativ, global ERP för tillverkning och distribution. Implementeringstid 9–24 mån."
+        title="Dynamics 365 Finance & Supply Chain – Priser & guide | d365.se"
+        description="Dynamics 365 Finance & Supply Chain från 2 007 kr/mån. SAP-alternativ för tillverkning och distribution. Hitta certifierad partner."
         canonicalPath="/finance-supply-chain"
         keywords="Dynamics 365 Finance pris, Supply Chain Management Microsoft, SAP alternativ ERP, Dynamics 365 Finance SCM, enterprise ERP Sverige, ERP tillverkning, global ekonomihantering, Dynamics 365 vs SAP, supply chain system Microsoft, ERP grossist distribution"
         ogImage="https://d365.se/og-finance-scm.png"

@@ -61,8 +61,8 @@ const D365FieldService = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Field Service – Fältservice & Underhållshantering | Priser | d365.se"
-        description="Komplett guide till Microsoft Dynamics 365 Field Service. Priser från 1 004 kr/mån, intelligent schemaläggning, IoT-integration och mobilapp för fälttekniker. Jämför med IFS och SAP."
+        title="Dynamics 365 Field Service – Priser & guide | d365.se"
+        description="Dynamics 365 Field Service från 1 004 kr/mån. Intelligent schemaläggning, IoT-integration och mobilapp. Jämför med IFS och SAP."
         canonicalPath="/d365-field-service"
         keywords="Dynamics 365 Field Service pris, fältservice system, underhållshantering Microsoft, Field Service mobilapp, IoT fältservice, schemaläggning fälttekniker, prediktivt underhåll, Microsoft Field Service Sverige, fältservicehantering, Resource Scheduling Optimization"
         ogImage="https://d365.se/og-field-service.png"

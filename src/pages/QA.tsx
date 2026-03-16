@@ -81,8 +81,8 @@ const QA = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Vanliga frågor om Microsoft Dynamics 365 – Priser, implementering & licenser"
-        description="Svar på vanliga frågor om Dynamics 365: implementeringstid, licenskostnader, Business Central vs Finance, CRM-val och AI med Copilot. Oberoende guide för svenska företag."
+        title="Vanliga frågor om Dynamics 365 – FAQ | d365.se"
+        description="Svar på vanliga frågor om Dynamics 365: implementeringstid, licenskostnader, Business Central vs Finance och CRM-val."
         canonicalPath="/qa"
         keywords="Dynamics 365 frågor, Business Central pris, Dynamics 365 licenskostnad, ERP implementering tid, CRM val Microsoft"
         ogImage="https://d365.se/og-qa.png"

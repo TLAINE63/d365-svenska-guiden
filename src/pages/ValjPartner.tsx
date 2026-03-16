@@ -379,8 +379,8 @@ const ValjPartner = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
-        title="Hitta Dynamics 365 Partner Sverige – Jämför certifierade Microsoft-partners"
-        description="Jämför Microsoft-certifierade Dynamics 365 partners i Sverige. Filtrera på bransch, applikation och geografi. Business Central, Finance, Sales & CRM. Kostnadsfri matchning."
+        title="Dynamics 365 Partner Sverige – Jämför & hitta | d365.se"
+        description="Jämför certifierade Dynamics 365-partners i Sverige. Filtrera på bransch, applikation och geografi. Kostnadsfri matchning."
         canonicalPath="/valj-partner"
         keywords="hitta Dynamics 365 partner Sverige, Business Central partner jämförelse, Microsoft partner certifierad, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Microsoft Solutions Partner, Business Central konsult"
         ogImage="https://d365.se/og-partner.png"

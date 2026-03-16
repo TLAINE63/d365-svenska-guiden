@@ -60,8 +60,8 @@ const ERPOverview = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="ERP system Sverige – Business Central vs Finance & SCM jämförelse"
-        description="Jämför ERP system Sverige: Business Central från 765 kr/mån vs Finance & SCM från 2 007 kr/mån. Oberoende guide till val av Microsoft ERP och certifierad partner."
+        title="ERP system Sverige – Business Central vs Finance | d365.se"
+        description="Jämför ERP: Business Central från 765 kr/mån vs Finance & SCM från 2 007 kr/mån. Oberoende guide till Microsoft ERP."
         canonicalPath="/erp"
         keywords="ERP system Sverige jämförelse, Microsoft ERP Sverige, Business Central vs Finance SCM, affärssystem jämförelse Sverige, Dynamics 365 ERP pris, ERP implementation Sverige, Microsoft affärssystem SMB, Dynamics 365 Finance Supply Chain, ERP system medelstora företag"
         ogImage="https://d365.se/og-erp.png"

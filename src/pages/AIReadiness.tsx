@@ -1555,8 +1555,8 @@ const AIReadiness = () => {
     return (
       <div className="min-h-screen bg-background">
         <SEOHead
-          title="AI Impact & Readiness Assessment – Hur stor effekt kan AI skapa? | d365.se"
-          description="Rollbaserad AI-analys: mät automation, prediktion och beslutsstöd. Få uppskattat ROI i kronor, rollspecifik roadmap och intelligent partnermatchning."
+          title="AI Readiness Assessment – Mät AI-effekt | d365.se"
+          description="Rollbaserad AI-analys: mät automation, prediktion och beslutsstöd. Få uppskattat ROI i kronor och rollspecifik roadmap."
           canonicalPath="/ai-readiness"
         />
         <Navbar />

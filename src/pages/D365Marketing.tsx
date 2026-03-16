@@ -71,8 +71,8 @@ const D365Marketing = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Dynamics 365 Customer Insights – Marketing Automation | Priser & HubSpot-alternativ | d365.se"
-        description="Guide till Microsoft Dynamics 365 Customer Insights (Marketing). Priser från 9 559 kr/mån, AI-drivna kundresor, lead scoring och CDP. Jämför med HubSpot och Marketo."
+        title="Dynamics 365 Marketing – Priser & HubSpot-alternativ | d365.se"
+        description="Dynamics 365 Customer Insights (Marketing) från 9 559 kr/mån. AI-drivna kundresor, lead scoring och CDP. Jämför med HubSpot."
         canonicalPath="/d365-marketing"
         keywords="Dynamics 365 Customer Insights pris, marketing automation Microsoft, HubSpot alternativ, Marketo alternativ Sverige, Dynamics 365 Marketing pris, kundresor automation, CDP customer data platform, lead scoring CRM, marknadsföringsautomation Microsoft, Customer Insights Journeys"
         ogImage="https://d365.se/og-marketing.png"

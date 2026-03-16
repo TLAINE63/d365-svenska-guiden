@@ -169,8 +169,8 @@ const BusinessCentral = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Business Central pris Sverige – Licenser, implementering & partners"
-        description="Business Central pris Sverige: Essentials 765 kr/mån, Premium 1 051 kr/mån. Implementering 3–6 månader. Jämför Microsoft-certifierade Business Central-partners per bransch."
+        title="Business Central pris – Licenser & partners | d365.se"
+        description="Business Central: Essentials 765 kr/mån, Premium 1 051 kr/mån. Implementering 3–6 månader. Jämför certifierade partners per bransch."
         canonicalPath="/business-central"
         keywords="Business Central pris Sverige, Business Central implementering, Business Central licens, Dynamics 365 Business Central Sverige, Business Central Essentials Premium, Business Central partner Sverige, Microsoft ERP SMB Sverige, affärssystem tillverkning grossist, Business Central vs Fortnox, Business Central kostnad"
         ogImage="https://d365.se/og-business-central.png"
