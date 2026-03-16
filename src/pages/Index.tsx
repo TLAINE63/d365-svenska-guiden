@@ -62,7 +62,7 @@ const Index = () => {
   return <div className="min-h-screen bg-background">
       <SEOHead 
         title="Dynamics 365 Sverige – Priser, partners & behovsanalys | d365.se"
-        description="Oberoende guide till Dynamics 365 i Sverige. Business Central från 765 kr/mån. Jämför ERP & CRM, hitta Microsoft-certifierade partners per bransch. Kostnadsfri behovsanalys."
+        description="Oberoende guide till Dynamics 365 i Sverige. Jämför ERP & CRM, hitta certifierade partners per bransch. Kostnadsfri behovsanalys."
         canonicalPath="/"
         keywords="Dynamics 365 Sverige, Microsoft Dynamics 365, Business Central pris Sverige, Microsoft ERP CRM partner, affärssystem Sverige, Dynamics 365 partner Sverige, Business Central Sverige, SAP alternativ Sverige, CRM system Sverige, Dynamics 365 implementering, ERP system jämförelse, Microsoft partner Sverige, Dynamics 365 pris, Business Central vs SAP, Salesforce alternativ Sverige"
         ogImage="https://d365.se/og-image.png"
