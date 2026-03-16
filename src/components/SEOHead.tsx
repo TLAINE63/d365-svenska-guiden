@@ -32,9 +32,9 @@ const SEOHead = ({
       <link rel="canonical" href={canonicalUrl} />
       
       {/* Hreflang tags for international versions */}
-      <link rel="alternate" hreflang="sv" href={`${baseUrl}${canonicalPath}`} />
-      <link rel="alternate" hreflang="no" href={`${noBaseUrl}${canonicalPath}`} />
-      <link rel="alternate" hreflang="x-default" href={`${baseUrl}${canonicalPath}`} />
+      <link rel="alternate" hrefLang="sv" href={`${baseUrl}${canonicalPath}`} />
+      <link rel="alternate" hrefLang="no" href={`${noBaseUrl}${canonicalPath}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${canonicalPath}`} />
       
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
       
