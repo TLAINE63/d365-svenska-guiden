@@ -15,11 +15,21 @@ Domänbaserad flerspråksstrategi med **separata Lovable-projekt per marknad**. 
 
 ## Arkitekturbeslut
 
-- **Separata projekt per marknad** (inte i18n i samma kodbas)
-- **Subdomäner under d365guide.com** för alla marknader utom Sverige
+- **Fas 1: Separata projekt** – Norge körs som eget Lovable-projekt med subdomän
+- **Fas 2 (framtida option):** Konsolidera alla marknader utom Sverige till ett gemensamt i18n-projekt på d365guide.com med subdirectories (/no, /dk, /uk)
+- **Sverige (d365.se) förblir alltid separat projekt**
+- **Subdomäner under d365guide.com** för nu (no.d365guide.com), kan migreras till subdirectories senare
 - **Separata databaser** – varje projekt har egna partners, events, leads
 - **hreflang-taggar** kopplar ihop sajterna för Google (✅ implementerat på d365.se)
 - **Språk per land** (norska för Norge, danska för Danmark etc.)
+
+### Framtida migrering till subdirectories
+Om vi vill gå från `no.d365guide.com` → `d365guide.com/no`:
+1. Bygg i18n-stöd i ett nytt gemensamt projekt
+2. Flytta innehåll och partnerdata
+3. Uppdatera hreflang-taggar på d365.se
+4. 301-redirect från subdomän till subdirectory
+5. Uppdatera Google Search Console
 
 ---
 
