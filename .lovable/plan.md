@@ -1,146 +1,77 @@
-# Internationalisering – d365.se / d365.no / d365.com
+# Internationalisering – d365.se + d365guide.com
 
 ## Översikt
 
-Bygga domänbaserat flerspråksstöd (sv/no/en) i en och samma kodbas. Ingen URL-prefix – språket bestäms av domänen:
+Domänbaserad flerspråksstrategi med **separata Lovable-projekt per marknad**. Varje marknad har sin egen kodbas, databas och subdomän.
 
-| Domän | Språk | Marknad |
-|-------|-------|---------|
-| d365.se | Svenska (sv) | Sverige |
-| d365.no | Norska (no) | Norge |
-| d365.com | Engelska (en) | Global |
-
----
-
-## Fas 1: i18n-infrastruktur (~50 credits)
-
-### 1.1 Språkdetektering
-- Skapa `src/i18n/LanguageContext.tsx` med React Context
-- Detektera språk via `window.location.hostname` (.se → sv, .no → no, .com → en)
-- Fallback till `sv` i utvecklingsläge (localhost)
-- Exportera hook `useLanguage()` som returnerar aktuellt språk
-
-### 1.2 Översättningssystem
-- Skapa `src/i18n/translations/` med en JSON-fil per språk:
-  - `sv.json` (extrahera befintliga svenska texter)
-  - `no.json` (norska översättningar)
-  - `en.json` (engelska översättningar)
-- Skapa `useTranslation()` hook som hämtar rätt strängar baserat på språk
-- Strukturera översättningar per sida/komponent, t.ex.:
-  ```json
-  {
-    "nav": { "home": "Hem", "partners": "Välj partner", ... },
-    "index": { "hero_title": "...", "hero_subtitle": "..." },
-    "crm": { "title": "...", "description": "..." }
-  }
-  ```
-
-### 1.3 Översättningshjälp (t-funktion)
-- Skapa `t(key)` helper som slår upp nyckel i aktuellt språks JSON
-- Stöd för interpolation: `t('greeting', { name: 'Anna' })` → "Hej Anna"
+| Domän | Språk | Projekt | Status |
+|-------|-------|---------|--------|
+| d365.se | Svenska | Nuvarande | ✅ Live |
+| no.d365guide.com | Norska | Norskt remix-projekt | 🚧 Under uppbyggnad |
+| dk.d365guide.com | Danska | Framtida | ⏳ Planerat |
+| d365guide.com | Engelska | Framtida (global fallback) | ⏳ Planerat |
 
 ---
 
-## Fas 2: SEO & metadata (~30 credits)
+## Arkitekturbeslut
 
-### 2.1 Flerspråkig SEOHead
-- Uppdatera `SEOHead.tsx` med hreflang-taggar:
-  ```html
-  <link rel="alternate" hreflang="sv" href="https://d365.se/crm" />
-  <link rel="alternate" hreflang="no" href="https://d365.no/crm" />
-  <link rel="alternate" hreflang="en" href="https://d365.com/crm" />
-  <link rel="alternate" hreflang="x-default" href="https://d365.com/crm" />
-  ```
-- Dynamisk canonical URL baserat på aktuell domän
-- Översätt title och meta description per språk
-
-### 2.2 Strukturerad data
-- Uppdatera JSON-LD (Organization, WebSite, FAQ) med rätt språk
-- `inLanguage` sätts dynamiskt
-
-### 2.3 Sitemap & robots.txt
-- Generera språkspecifika sitemaps vid build (eller en sitemap med hreflang)
-- robots.txt pekar på rätt sitemap per domän
+- **Separata projekt per marknad** (inte i18n i samma kodbas)
+- **Subdomäner under d365guide.com** för alla marknader utom Sverige
+- **Separata databaser** – varje projekt har egna partners, events, leads
+- **hreflang-taggar** kopplar ihop sajterna för Google (✅ implementerat på d365.se)
+- **Språk per land** (norska för Norge, danska för Danmark etc.)
 
 ---
 
-## Fas 3: Komponentöversättning (~80–120 credits)
+## Genomfört på d365.se
 
-### 3.1 Prioritetsordning för sidöversättning
-1. **Navbar & Footer** (syns på alla sidor)
-2. **Startsidan (Index)** (mest trafik)
-3. **Produktsidor** (CRM, ERP, Business Central, etc.)
-4. **Partnerkatalog** (ValjPartner)
-5. **Behovsanalys-sidor**
-6. **Övriga sidor** (QA, Kontakt, Events, etc.)
-
-### 3.2 Strategi per komponent
-- Ersätt hårdkodade svenska strängar med `t('nyckel')`
-- Behåll all logik och layout oförändrad
-- Testa att sidan renderas korrekt på alla tre språk
+- [x] hreflang-taggar i SEOHead.tsx (sv + no + x-default)
+- [x] og:locale:alternate för norska
 
 ---
 
-## Fas 4: Partnerdata per marknad (~20 credits)
+## Att göra: Norskt projekt (no.d365guide.com)
 
-### 4.1 Databasuppdatering
-- Lägg till `markets` (text[]) kolumn på `partners`-tabellen
-- Standardvärde: `{'sv'}` för befintliga partners
-- Filtrera partnerlistan baserat på aktuellt språk/marknad
+### DNS & Domän
+- [ ] A-record: `no.d365guide.com` → `185.158.133.1`
+- [ ] TXT-record: `_lovable` → verifieringsvärde
+- [ ] Connect domain i norska projektets Settings → Domains
 
-### 4.2 Eventhantering
-- Events kan vara marknadsspecifika eller globala
-- Lägg till `market` kolumn på `partner_events`
+### Kodändringar i norska projektet
+- [ ] `lang="sv"` → `lang="no"` i index.html
+- [ ] Canonical-URLs → `no.d365guide.com`
+- [ ] Sitemap.xml → `no.d365guide.com`-URLs
+- [ ] Robots.txt → peka på norsk sitemap
+- [ ] hreflang-taggar (spegla svenska sajtens, men med `no` som canonical)
+- [ ] Översätt Navbar & Footer
+- [ ] Översätt startsidan
+- [ ] Översätt produktsidor (CRM, ERP, Business Central etc.)
+- [ ] Översätt behovsanalys-sidor
+- [ ] Översätt övriga sidor (QA, Kontakt, Events)
 
----
-
-## Fas 5: Domänkonfiguration (~10 credits)
-
-### 5.1 Custom domains i Lovable
-- Koppla d365.se som primary domain (redan klart?)
-- Koppla d365.no som extra custom domain
-- Koppla d365.com som extra custom domain
-- Alla tre pekar på samma deploy
-
-### 5.2 Prerendering
-- Uppdatera `vite-prerender-plugin.ts` för att generera HTML per språk
-- Alternativt: Förlita sig på runtime-detektering (enklare, men sämre för SEO)
+### Partnerdata
+- [ ] Rekrytera norska Dynamics 365-partners
+- [ ] Mata in partnerdata i norska projektets databas
 
 ---
 
-## Fas 6: Kvalitetssäkring (~20 credits)
+## Framtida marknader
 
-- [ ] Verifiera att alla sidor renderas korrekt på sv/no/en
-- [ ] Kontrollera hreflang-taggar i view-source
-- [ ] Testa partnerfiltrering per marknad
-- [ ] Validera structured data per språk
-- [ ] Google Search Console: lägg till d365.no och d365.com som properties
+### Danmark (dk.d365guide.com)
+- Remix av norskt projekt (liknande språk/struktur)
+- Danska översättningar
+- Danska partners
 
----
-
-## Estimat
-
-| Fas | Credits | Tid |
-|-----|---------|-----|
-| 1. i18n-infrastruktur | ~50 | Steg 1 |
-| 2. SEO & metadata | ~30 | Steg 2 |
-| 3. Komponentöversättning | ~80–120 | Steg 3 (största jobbet) |
-| 4. Partnerdata | ~20 | Steg 4 |
-| 5. Domänkonfiguration | ~10 | Steg 5 |
-| 6. QA | ~20 | Steg 6 |
-| **Totalt** | **~210–250** | |
+### Global (d365guide.com)
+- Engelskspråkig version
+- Fungerar som x-default fallback
+- Internationella partners
 
 ---
 
-## Risker & beslut att ta
+## SEO-strategi
 
-1. **Norska översättningar** – Bokmål eller nynorsk? (Rekommendation: Bokmål)
-2. **Partnerdata** – Ska norska/globala partners matas in manuellt eller importeras?
-3. **SEO-prerendering** – Runtime-detektering fungerar för crawlers med JS, men prerendering per språk ger bättre resultat
-4. **Underhåll** – Nya texter måste läggas till i alla tre JSON-filer. Överväg att använda AI-översättning som hjälpmedel.
-
----
-
-## Nästa steg
-
-Börja med **Fas 1** (i18n-infrastruktur) – detta är grunden som allt annat bygger på.
+- Varje subdomän behandlas som separat sajt av Google
+- hreflang kopplar ihop alla versioner
+- Varje sajt har egen sitemap och robots.txt
+- Google Search Console: lägg till varje subdomän som separat property
