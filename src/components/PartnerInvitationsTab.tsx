@@ -363,6 +363,36 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     inv => inv.status === "pending" && new Date(inv.expires_at) >= new Date()
   );
 
+  // Partners who received invitations but never responded (no submitted/approved invitations)
+  const unansweredPartners = useMemo(() => {
+    // Group invitations by partner_id or partner_name
+    const partnerMap = new Map<string, { name: string; hasResponded: boolean; latestCreated: string; email: string }>();
+    
+    invitations.forEach(inv => {
+      const key = inv.partner_id || inv.partner_name;
+      const existing = partnerMap.get(key);
+      const hasResponded = inv.status === "submitted" || inv.status === "approved";
+      
+      if (!existing) {
+        partnerMap.set(key, {
+          name: inv.partner_name,
+          hasResponded,
+          latestCreated: inv.created_at,
+          email: inv.email,
+        });
+      } else {
+        if (hasResponded) existing.hasResponded = true;
+        if (new Date(inv.created_at) > new Date(existing.latestCreated)) {
+          existing.latestCreated = inv.created_at;
+        }
+      }
+    });
+
+    return Array.from(partnerMap.values())
+      .filter(p => !p.hasResponded)
+      .sort((a, b) => new Date(b.latestCreated).getTime() - new Date(a.latestCreated).getTime());
+  }, [invitations]);
+
   // Map partner_id -> latest invitation created_at
   const latestInvitationByPartner = useMemo(() => {
     const map = new Map<string, string>();
@@ -517,7 +547,30 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         </div>
       </div>
 
-      {/* Update round section */}
+      {/* Unanswered partners summary */}
+      {unansweredPartners.length > 0 && (
+        <Card className="border-amber-200 dark:border-amber-800">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Clock className="w-5 h-5 text-amber-500" />
+              Ej svarat ({unansweredPartners.length})
+            </CardTitle>
+            <CardDescription>
+              Partners som fått inbjudan men aldrig skickat in formuläret.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {unansweredPartners.map((p, i) => (
+                <Badge key={i} variant="outline" className="border-amber-400 text-amber-700 dark:text-amber-400">
+                  {p.name}
+                </Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <UpdateRoundSection
         token={token}
         partners={partners}
