@@ -20,6 +20,7 @@ const SEOHead = ({
   noIndex = false,
 }: SEOHeadProps) => {
   const baseUrl = "https://d365.se";
+  const noBaseUrl = "https://no.d365guide.com";
   const canonicalUrl = `${baseUrl}${canonicalPath}`;
   const fullTitle = title.includes("d365.se") ? title : `${title} | d365.se`;
 
@@ -29,6 +30,11 @@ const SEOHead = ({
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrl} />
+      
+      {/* Hreflang tags for international versions */}
+      <link rel="alternate" hrefLang="sv" href={`${baseUrl}${canonicalPath}`} />
+      <link rel="alternate" hrefLang="no" href={`${noBaseUrl}${canonicalPath}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${canonicalPath}`} />
       
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
       
@@ -40,6 +46,7 @@ const SEOHead = ({
       <meta property="og:image" content={ogImage} />
       <meta property="og:site_name" content="d365.se" />
       <meta property="og:locale" content="sv_SE" />
+      <meta property="og:locale:alternate" content="nb_NO" />
       
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
