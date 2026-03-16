@@ -1,10 +1,27 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-};
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return false;
+  const allowedDomains = [
+    "https://d365.se",
+    "https://www.d365.se",
+    "https://d365-svenska-guiden.lovable.app",
+    "http://localhost:5173",
+  ];
+  if (allowedDomains.includes(origin)) return true;
+  if (origin.match(/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/)) return true;
+  if (origin.match(/^https:\/\/[a-z0-9-]+\.lovable\.app$/)) return true;
+  return false;
+}
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get("origin");
+  return {
+    "Access-Control-Allow-Origin": isAllowedOrigin(origin) ? origin! : "",
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type",
+  };
+}
 
 interface GeoData {
   country: string;
