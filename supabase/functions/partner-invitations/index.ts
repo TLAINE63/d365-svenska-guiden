@@ -133,7 +133,14 @@ serve(async (req: Request): Promise<Response> => {
       if (invitation.partner_id) {
         const { data: partner } = await supabase
           .from("partners")
-          .select("*")
+          .select(`
+            id, slug, name, description, logo_url, logo_dark_bg,
+            website, email, phone, contact_person, address,
+            applications, industries, secondary_industries,
+            geography, product_filters, industry_apps,
+            is_featured, office_cities, map_url, customer_examples,
+            created_at, updated_at
+          `)
           .eq("id", invitation.partner_id)
           .single();
         existingData = partner;
