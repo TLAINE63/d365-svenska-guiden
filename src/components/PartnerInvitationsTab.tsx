@@ -547,7 +547,30 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         </div>
       </div>
 
-      {/* Update round section */}
+      {/* Unanswered partners summary */}
+      {unansweredPartners.length > 0 && (
+        <Card className="border-amber-200 dark:border-amber-800">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Clock className="w-5 h-5 text-amber-500" />
+              Ej svarat ({unansweredPartners.length})
+            </CardTitle>
+            <CardDescription>
+              Partners som fått inbjudan men aldrig skickat in formuläret.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {unansweredPartners.map((p, i) => (
+                <Badge key={i} variant="outline" className="border-amber-400 text-amber-700 dark:text-amber-400">
+                  {p.name}
+                </Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <UpdateRoundSection
         token={token}
         partners={partners}
