@@ -1390,6 +1390,34 @@ const AdminDashboard = () => {
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
               </p>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Sortera:</span>
+                <Button
+                  variant={partnerSortBy === 'name' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => { setPartnerSortBy('name'); setPartnerSortDir('asc'); }}
+                >
+                  Namn
+                </Button>
+                <Button
+                  variant={partnerSortBy === 'updated_at' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => {
+                    if (partnerSortBy === 'updated_at') {
+                      setPartnerSortDir(d => d === 'asc' ? 'desc' : 'asc');
+                    } else {
+                      setPartnerSortBy('updated_at');
+                      setPartnerSortDir('asc');
+                    }
+                  }}
+                >
+                  <Clock className="h-3 w-3 mr-1" />
+                  Senast uppdaterad
+                  {partnerSortBy === 'updated_at' && (
+                    <ArrowUpDown className="h-3 w-3 ml-1" />
+                  )}
+                </Button>
+              </div>
             </div>
 
             {isLoadingFullPartners ? (
