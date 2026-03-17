@@ -77,6 +77,7 @@ import {
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
+import AdminStatsSummary from "@/components/AdminStatsSummary";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
