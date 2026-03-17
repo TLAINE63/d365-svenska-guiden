@@ -72,7 +72,7 @@ import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
-  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download
+  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
@@ -204,6 +204,8 @@ const AdminDashboard = () => {
   const { data: dbPartners = [], isLoading: isLoadingPartners, refetch: refetchPartners } = usePartners();
   const [fullPartners, setFullPartners] = useState<FullPartner[]>([]);
   const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
+  const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
+  const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
@@ -1388,6 +1390,34 @@ const AdminDashboard = () => {
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
               </p>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-muted-foreground">Sortera:</span>
+                <Button
+                  variant={partnerSortBy === 'name' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => { setPartnerSortBy('name'); setPartnerSortDir('asc'); }}
+                >
+                  Namn
+                </Button>
+                <Button
+                  variant={partnerSortBy === 'updated_at' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => {
+                    if (partnerSortBy === 'updated_at') {
+                      setPartnerSortDir(d => d === 'asc' ? 'desc' : 'asc');
+                    } else {
+                      setPartnerSortBy('updated_at');
+                      setPartnerSortDir('asc');
+                    }
+                  }}
+                >
+                  <Clock className="h-3 w-3 mr-1" />
+                  Senast uppdaterad
+                  {partnerSortBy === 'updated_at' && (
+                    <ArrowUpDown className="h-3 w-3 ml-1" />
+                  )}
+                </Button>
+              </div>
             </div>
 
             {isLoadingFullPartners ? (
@@ -1404,7 +1434,14 @@ const AdminDashboard = () => {
               </Card>
             ) : (
               <div className="grid gap-4">
-                {fullPartners.map((partner) => (
+                {[...fullPartners].sort((a, b) => {
+                  if (partnerSortBy === 'updated_at') {
+                    const diff = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
+                    return partnerSortDir === 'asc' ? diff : -diff;
+                  }
+                  const diff = a.name.localeCompare(b.name, 'sv');
+                  return partnerSortDir === 'asc' ? diff : -diff;
+                }).map((partner) => (
                   <Card 
                     key={partner.id}
                     className={partner.is_featured 
@@ -1515,27 +1552,39 @@ const AdminDashboard = () => {
                                 </div>
                               );
                             })()}
-                            {(partner.activation_date || partner.monthly_fee) && (
-                              <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
-                                {partner.activation_date && (
-                                  <span className="flex items-center gap-1">
-                                    <CalendarCheck className="h-3 w-3" />
-                                    {format(new Date(partner.activation_date), "d MMM yyyy", { locale: sv })}
+                            <div className="flex flex-wrap gap-3 mt-2 text-xs text-muted-foreground">
+                              {/* Updated at - always show */}
+                              {(() => {
+                                const daysSinceUpdate = Math.floor((Date.now() - new Date(partner.updated_at).getTime()) / (1000 * 60 * 60 * 24));
+                                const isOld = daysSinceUpdate > 60;
+                                const isStale = daysSinceUpdate > 30;
+                                return (
+                                  <span className={`flex items-center gap-1 ${isOld ? 'text-destructive font-medium' : isStale ? 'text-amber-600 dark:text-amber-400' : ''}`}>
+                                    <Clock className="h-3 w-3" />
+                                    Uppdaterad: {format(new Date(partner.updated_at), "d MMM yyyy", { locale: sv })}
+                                    {isOld && <span className="ml-1">({daysSinceUpdate} dagar sedan)</span>}
+                                    {isStale && !isOld && <span className="ml-1">({daysSinceUpdate} d)</span>}
                                   </span>
-                                )}
-                                {partner.monthly_fee && (
-                                  <span className="flex items-center gap-1">
-                                    {partner.monthly_fee} kr/mån
-                                  </span>
-                                )}
-                                {partner.cancellation_date && (
-                                  <span className="flex items-center gap-1 text-destructive">
-                                    <CalendarX className="h-3 w-3" />
-                                    Uppsägning: {format(new Date(partner.cancellation_date), "d MMM yyyy", { locale: sv })}
-                                  </span>
-                                )}
-                              </div>
-                            )}
+                                );
+                              })()}
+                              {partner.activation_date && (
+                                <span className="flex items-center gap-1">
+                                  <CalendarCheck className="h-3 w-3" />
+                                  {format(new Date(partner.activation_date), "d MMM yyyy", { locale: sv })}
+                                </span>
+                              )}
+                              {partner.monthly_fee && (
+                                <span className="flex items-center gap-1">
+                                  {partner.monthly_fee} kr/mån
+                                </span>
+                              )}
+                              {partner.cancellation_date && (
+                                <span className="flex items-center gap-1 text-destructive">
+                                  <CalendarX className="h-3 w-3" />
+                                  Uppsägning: {format(new Date(partner.cancellation_date), "d MMM yyyy", { locale: sv })}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                         <div className="flex gap-2">
