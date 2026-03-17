@@ -620,6 +620,7 @@ D365.se`;
             const emailResponse = await resend.emails.send({
               from: "D365.se <info@d365.se>",
               to: [email],
+              bcc: ["thomas.laine@dynamicfactory.se"],
               subject: emailSubject,
               html: fullHtml,
             });
@@ -962,6 +963,7 @@ D365.se`;
           await resend.emails.send({
             from: "D365.se <info@d365.se>",
             to: [inv.email],
+            bcc: ["thomas.laine@dynamicfactory.se"],
             subject: `Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?`,
             html: fullHtml,
           });
@@ -1124,6 +1126,7 @@ D365.se`;
               await resend.emails.send({
                 from: "D365.se <info@d365.se>",
                 to: [inv.email],
+                bcc: ["thomas.laine@dynamicfactory.se"],
                 subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
                 html: fullHtml,
               });
