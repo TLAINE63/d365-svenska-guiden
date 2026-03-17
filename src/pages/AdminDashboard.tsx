@@ -1434,7 +1434,14 @@ const AdminDashboard = () => {
               </Card>
             ) : (
               <div className="grid gap-4">
-                {fullPartners.map((partner) => (
+                {[...fullPartners].sort((a, b) => {
+                  if (partnerSortBy === 'updated_at') {
+                    const diff = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
+                    return partnerSortDir === 'asc' ? diff : -diff;
+                  }
+                  const diff = a.name.localeCompare(b.name, 'sv');
+                  return partnerSortDir === 'asc' ? diff : -diff;
+                }).map((partner) => (
                   <Card 
                     key={partner.id}
                     className={partner.is_featured 
