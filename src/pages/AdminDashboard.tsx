@@ -77,6 +77,7 @@ import {
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
+import AdminStatsSummary from "@/components/AdminStatsSummary";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
@@ -1153,6 +1154,10 @@ const AdminDashboard = () => {
               <TrendingUp className="h-4 w-4" />
               Besökare
             </TabsTrigger>
+            <TabsTrigger value="summary" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Emailsammanfattning
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -1843,6 +1848,14 @@ const AdminDashboard = () => {
                 />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* ==================== EMAIL SUMMARY TAB ==================== */}
+          <TabsContent value="summary">
+            <AdminStatsSummary
+              token={token || ""}
+              onSessionExpired={logout}
+            />
           </TabsContent>
         </Tabs>
 
