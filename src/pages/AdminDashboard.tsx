@@ -1552,27 +1552,39 @@ const AdminDashboard = () => {
                                 </div>
                               );
                             })()}
-                            {(partner.activation_date || partner.monthly_fee) && (
-                              <div className="flex gap-3 mt-2 text-xs text-muted-foreground">
-                                {partner.activation_date && (
-                                  <span className="flex items-center gap-1">
-                                    <CalendarCheck className="h-3 w-3" />
-                                    {format(new Date(partner.activation_date), "d MMM yyyy", { locale: sv })}
+                            <div className="flex flex-wrap gap-3 mt-2 text-xs text-muted-foreground">
+                              {/* Updated at - always show */}
+                              {(() => {
+                                const daysSinceUpdate = Math.floor((Date.now() - new Date(partner.updated_at).getTime()) / (1000 * 60 * 60 * 24));
+                                const isOld = daysSinceUpdate > 60;
+                                const isStale = daysSinceUpdate > 30;
+                                return (
+                                  <span className={`flex items-center gap-1 ${isOld ? 'text-destructive font-medium' : isStale ? 'text-amber-600 dark:text-amber-400' : ''}`}>
+                                    <Clock className="h-3 w-3" />
+                                    Uppdaterad: {format(new Date(partner.updated_at), "d MMM yyyy", { locale: sv })}
+                                    {isOld && <span className="ml-1">({daysSinceUpdate} dagar sedan)</span>}
+                                    {isStale && !isOld && <span className="ml-1">({daysSinceUpdate} d)</span>}
                                   </span>
-                                )}
-                                {partner.monthly_fee && (
-                                  <span className="flex items-center gap-1">
-                                    {partner.monthly_fee} kr/mån
-                                  </span>
-                                )}
-                                {partner.cancellation_date && (
-                                  <span className="flex items-center gap-1 text-destructive">
-                                    <CalendarX className="h-3 w-3" />
-                                    Uppsägning: {format(new Date(partner.cancellation_date), "d MMM yyyy", { locale: sv })}
-                                  </span>
-                                )}
-                              </div>
-                            )}
+                                );
+                              })()}
+                              {partner.activation_date && (
+                                <span className="flex items-center gap-1">
+                                  <CalendarCheck className="h-3 w-3" />
+                                  {format(new Date(partner.activation_date), "d MMM yyyy", { locale: sv })}
+                                </span>
+                              )}
+                              {partner.monthly_fee && (
+                                <span className="flex items-center gap-1">
+                                  {partner.monthly_fee} kr/mån
+                                </span>
+                              )}
+                              {partner.cancellation_date && (
+                                <span className="flex items-center gap-1 text-destructive">
+                                  <CalendarX className="h-3 w-3" />
+                                  Uppsägning: {format(new Date(partner.cancellation_date), "d MMM yyyy", { locale: sv })}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                         <div className="flex gap-2">
