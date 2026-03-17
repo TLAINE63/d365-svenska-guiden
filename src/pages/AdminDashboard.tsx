@@ -204,6 +204,8 @@ const AdminDashboard = () => {
   const { data: dbPartners = [], isLoading: isLoadingPartners, refetch: refetchPartners } = usePartners();
   const [fullPartners, setFullPartners] = useState<FullPartner[]>([]);
   const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
+  const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
+  const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
