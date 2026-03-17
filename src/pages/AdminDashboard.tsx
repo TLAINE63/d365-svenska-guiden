@@ -1849,6 +1849,14 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* ==================== EMAIL SUMMARY TAB ==================== */}
+          <TabsContent value="summary">
+            <AdminStatsSummary
+              token={token || ""}
+              onSessionExpired={logout}
+            />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
