@@ -620,6 +620,7 @@ D365.se`;
             const emailResponse = await resend.emails.send({
               from: "D365.se <info@d365.se>",
               to: [email],
+              bcc: ["thomas.laine@dynamicfactory.se"],
               subject: emailSubject,
               html: fullHtml,
             });
