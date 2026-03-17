@@ -1126,6 +1126,7 @@ D365.se`;
               await resend.emails.send({
                 from: "D365.se <info@d365.se>",
                 to: [inv.email],
+                bcc: ["thomas.laine@dynamicfactory.se"],
                 subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
                 html: fullHtml,
               });
