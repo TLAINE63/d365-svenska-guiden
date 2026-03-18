@@ -45,6 +45,7 @@ const RequirementsSpec = lazy(() => import("./pages/RequirementsSpec"));
 const RequirementsSpecSales = lazy(() => import("./pages/RequirementsSpecSales"));
 const RequirementsSpecMarketing = lazy(() => import("./pages/RequirementsSpecMarketing"));
 const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsSpecCustomerService"));
+const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
 
 const queryClient = new QueryClient();
 
@@ -117,6 +118,7 @@ const App = () => (
             <Route path="/projektpaket" element={<Navigate to="/" replace />} />
             <Route path="/search" element={<Navigate to="/" replace />} />
             <Route path="/våratjänster" element={<Navigate to="/" replace />} />
+            <Route path="/kunskapscenter" element={<Kunskapscenter />} />
             <Route path="/events" element={<Events />} />
             <Route path="/kravspecifikation" element={<RequirementsSpec />} />
             <Route path="/kravspecifikation-sales" element={<RequirementsSpecSales />} />
