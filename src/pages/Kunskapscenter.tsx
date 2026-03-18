@@ -59,7 +59,7 @@ interface EventItem {
   is_online: boolean;
   location: string | null;
   image_url: string | null;
-  partners: { name: string; slug: string } | null;
+  partners: { name: string; slug: string; logo_url: string | null } | null;
 }
 
 interface UnifiedItem {
