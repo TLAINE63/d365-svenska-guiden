@@ -111,7 +111,7 @@ const STATIC_TOOLS: Array<{
     description: "Utvärdera dina servicebehov och få matchning mot rätt Dynamics 365-lösning.",
     type: "behovsanalys",
     url: "/kundservice-behovsanalys",
-    image_url: null,
+    image_url: behovsKundserviceImage,
     icon: Wrench,
     products: ["Customer Service", "Field Service", "Contact Center"],
   },
