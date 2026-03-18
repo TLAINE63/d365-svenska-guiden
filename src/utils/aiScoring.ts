@@ -279,9 +279,9 @@ export const AI_TIER_BADGE_STYLES: Record<string, string> = {
 // Emoji per capability
 export function getCapabilityEmoji(cap: string): string {
   const tier = getTier(cap);
-  if (tier === AI_TIERS.STANDARD) return "🟢";
-  if (tier === AI_TIERS.PARTNER) return "🟡";
-  if (tier === AI_TIERS.ADVANCED) return "🔴";
+  if (tier === AI_TIERS.STANDARD) return "🔵";
+  if (tier === AI_TIERS.PARTNER) return "🟢";
+  if (tier === AI_TIERS.ADVANCED) return "🥇";
   return "";
 }
 
