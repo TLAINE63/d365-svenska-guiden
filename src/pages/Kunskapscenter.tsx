@@ -137,7 +137,7 @@ const STATIC_TOOLS: Array<{
     url: "/kravspecifikation-sales",
     image_url: null,
     icon: FileText,
-    roles: ["Säljchef", "VD", "CIO"],
+    products: ["Sales"],
   },
   {
     id: "tool-kravspec-marketing",
