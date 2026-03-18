@@ -365,6 +365,7 @@ const Kunskapscenter = () => {
       description: t.description,
       url: t.url,
       image_url: t.image_url,
+      isLogoImage: false,
       date: null as string | null,
       partner: null as string | null,
       isExternal: false,
