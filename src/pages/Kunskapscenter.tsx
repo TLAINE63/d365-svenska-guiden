@@ -35,7 +35,7 @@ type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | 
 
 type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
-type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "Copilot";
+type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "AI/Copilot/Agents";
 
 interface KnowledgeArticle {
   id: string;
