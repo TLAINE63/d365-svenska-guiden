@@ -67,13 +67,15 @@ const PAGE_LABELS: Record<string, string> = {
 
 // Sections for "visits per menu area"
 const MENU_SECTIONS: { label: string; paths: string[] }[] = [
-  { label: "ERP / Business Central", paths: ["/erp", "/business-central", "/finance-supply-chain"] },
-  { label: "CRM", paths: ["/crm", "/d365-sales", "/d365-customer-service", "/d365-marketing", "/d365-field-service", "/d365-contact-center"] },
-  { label: "AI & Copilot", paths: ["/copilot", "/ai-oversikt", "/ai-readiness", "/agents"] },
-  { label: "Behovsanalyser", paths: ["/behovsanalys", "/behovsanalys-salj-marknad", "/behovsanalys-kundservice"] },
-  { label: "Kravspecifikationer", paths: ["/kravspecifikation", "/kravspecifikation-sales", "/kravspecifikation-customer-service", "/kravspecifikation-marketing"] },
-  { label: "Partnersidor", paths: ["/valj-partner", "/branschlosningar"] },
-  { label: "Övrigt", paths: ["/kontakt", "/events", "/fragor-och-svar", "/integritetspolicy"] },
+  { label: "Startsidan", paths: ["/"] },
+  { label: "Branschlösningar", paths: ["/branschlosningar"] },
+  { label: "Det kritiska partnervalet", paths: ["/valj-partner"] },
+  { label: "Affärssystem (ERP)", paths: ["/erp", "/business-central", "/finance-supply-chain", "/behovsanalys", "/kravspecifikation"] },
+  { label: "Marknad & Sälj", paths: ["/crm", "/d365-sales", "/d365-marketing", "/behovsanalys-salj-marknad", "/kravspecifikation-sales", "/kravspecifikation-marketing"] },
+  { label: "Kundservice", paths: ["/d365-customer-service", "/d365-field-service", "/d365-contact-center", "/behovsanalys-kundservice", "/kravspecifikation-customer-service"] },
+  { label: "Microsoft AI", paths: ["/copilot", "/ai-oversikt", "/ai-readiness", "/agents"] },
+  { label: "Events", paths: ["/events"] },
+  { label: "Kontakt", paths: ["/kontakt"] },
 ];
 
 function getPageLabel(path: string): string {
