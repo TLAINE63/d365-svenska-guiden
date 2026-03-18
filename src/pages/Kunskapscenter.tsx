@@ -421,11 +421,11 @@ const Kunskapscenter = () => {
   const categoryLabel = (type: string) => {
     switch (type) {
       case "event": return "Event";
-      case "behovsanalys": return "Behovsanalys";
+      case "behovsanalys": return "Guide & Behovsanalys";
       case "kravspecifikation": return "Kravspecifikation";
       
       case "artikel": return "Artikel";
-      case "guide": return "Guide";
+      case "guide": return "Guide & Behovsanalys";
       case "video": return "Video";
       default: return type;
     }
