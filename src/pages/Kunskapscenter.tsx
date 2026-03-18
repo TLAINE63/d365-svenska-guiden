@@ -174,10 +174,9 @@ const STATIC_TOOLS: Array<{
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Alla", value: "alla" },
   { label: "Events", value: "event" },
-  { label: "Behovsanalyser", value: "behovsanalys" },
+  { label: "Guider & Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
   { label: "Artiklar", value: "artikel" },
-  { label: "Guider", value: "guide" },
   { label: "Videor", value: "video" },
 ];
 
