@@ -26,7 +26,7 @@ type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | 
 
 type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
-type RoleValue = "IT-chef" | "CFO" | "VD" | "CIO" | "COO" | "Säljchef" | "Marknadschef" | "Kundservicechef" | "Projektledare" | "Ekonomichef";
+type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "Copilot";
 
 interface KnowledgeArticle {
   id: string;
@@ -64,7 +64,7 @@ interface UnifiedItem {
   partner: string | null;
   isExternal: boolean;
   icon: typeof CalendarDays;
-  roles: string[];
+  products: string[];
 }
 
 // ── Static content ─────────────────────────────────────
@@ -77,7 +77,7 @@ const STATIC_TOOLS: Array<{
   url: string;
   image_url: null;
   icon: typeof Wrench;
-  roles: RoleValue[];
+  products: ProductValue[];
 }> = [
   {
     id: "tool-behovsanalys-erp",
@@ -87,7 +87,7 @@ const STATIC_TOOLS: Array<{
     url: "/behovsanalys",
     image_url: null,
     icon: Wrench,
-    roles: ["IT-chef", "CFO", "VD", "COO", "Ekonomichef", "Projektledare"],
+    products: ["Business Central", "Finance & SCM"],
   },
   {
     id: "tool-behovsanalys-salj",
@@ -97,7 +97,7 @@ const STATIC_TOOLS: Array<{
     url: "/salj-marknad-behovsanalys",
     image_url: null,
     icon: Wrench,
-    roles: ["Säljchef", "Marknadschef", "VD", "CIO"],
+    products: ["Sales", "Customer Insights"],
   },
   {
     id: "tool-behovsanalys-kundservice",
@@ -107,7 +107,7 @@ const STATIC_TOOLS: Array<{
     url: "/kundservice-behovsanalys",
     image_url: null,
     icon: Wrench,
-    roles: ["Kundservicechef", "VD", "COO", "IT-chef"],
+    products: ["Customer Service", "Field Service", "Contact Center"],
   },
   {
     id: "tool-ai-readiness",
@@ -117,7 +117,7 @@ const STATIC_TOOLS: Array<{
     url: "/ai-readiness",
     image_url: null,
     icon: Wrench,
-    roles: ["IT-chef", "VD", "CIO", "COO", "Projektledare"],
+    products: ["Copilot", "Business Central", "Sales", "Customer Service"],
   },
   {
     id: "tool-kravspec-erp",
@@ -127,7 +127,7 @@ const STATIC_TOOLS: Array<{
     url: "/kravspecifikation",
     image_url: null,
     icon: FileText,
-    roles: ["IT-chef", "CFO", "VD", "Projektledare", "Ekonomichef"],
+    products: ["Business Central", "Finance & SCM"],
   },
   {
     id: "tool-kravspec-sales",
@@ -137,7 +137,7 @@ const STATIC_TOOLS: Array<{
     url: "/kravspecifikation-sales",
     image_url: null,
     icon: FileText,
-    roles: ["Säljchef", "VD", "CIO"],
+    products: ["Sales"],
   },
   {
     id: "tool-kravspec-marketing",
@@ -147,7 +147,7 @@ const STATIC_TOOLS: Array<{
     url: "/kravspecifikation-marketing",
     image_url: null,
     icon: FileText,
-    roles: ["Marknadschef", "VD", "CIO"],
+    products: ["Customer Insights"],
   },
   {
     id: "tool-kravspec-kundservice",
@@ -157,7 +157,7 @@ const STATIC_TOOLS: Array<{
     url: "/kravspecifikation-kundservice",
     image_url: null,
     icon: FileText,
-    roles: ["Kundservicechef", "VD", "COO", "IT-chef"],
+    products: ["Customer Service", "Field Service", "Contact Center"],
   },
 ];
 
@@ -180,17 +180,15 @@ const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
   { label: "Video", value: "video" },
 ];
 
-const ROLE_OPTIONS: RoleValue[] = [
-  "VD",
-  "CFO",
-  "CIO",
-  "COO",
-  "IT-chef",
-  "Ekonomichef",
-  "Säljchef",
-  "Marknadschef",
-  "Kundservicechef",
-  "Projektledare",
+const PRODUCT_OPTIONS: ProductValue[] = [
+  "Business Central",
+  "Finance & SCM",
+  "Sales",
+  "Customer Insights",
+  "Customer Service",
+  "Field Service",
+  "Contact Center",
+  "Copilot",
 ];
 
 // ── Dropdown component ─────────────────────────────────
@@ -278,7 +276,7 @@ function MultiSelectDropdown<T extends string>({
 const Kunskapscenter = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("alla");
   const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
-  const [selectedRoles, setSelectedRoles] = useState<RoleValue[]>([]);
+  const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -347,7 +345,7 @@ const Kunskapscenter = () => {
       partner: e.partners?.name || null,
       isExternal: true,
       icon: CalendarDays,
-      roles: [] as string[],
+      products: [] as string[],
     })),
     ...STATIC_TOOLS.map((t) => ({
       id: t.id,
@@ -360,7 +358,7 @@ const Kunskapscenter = () => {
       partner: null as string | null,
       isExternal: false,
       icon: t.icon,
-      roles: t.roles as string[],
+      products: t.products as string[],
     })),
     ...articles.map((a) => ({
       id: a.id,
@@ -373,7 +371,7 @@ const Kunskapscenter = () => {
       partner: null as string | null,
       isExternal: a.url?.startsWith("http") ?? false,
       icon: a.content_type === "video" ? Play : BookOpen,
-      roles: a.target_roles || [],
+      products: a.target_roles || [],
     })),
   ];
 
@@ -383,11 +381,10 @@ const Kunskapscenter = () => {
     if (activeCategory !== "alla" && item.type !== activeCategory) return false;
     // Format multi-select
     if (selectedFormats.length > 0 && !selectedFormats.includes(item.type)) return false;
-    // Role multi-select
-    if (selectedRoles.length > 0 && item.roles.length > 0) {
-      if (!selectedRoles.some((r) => item.roles.includes(r))) return false;
+    // Product filter
+    if (selectedProducts.length > 0 && item.products.length > 0) {
+      if (!selectedProducts.some((p) => item.products.includes(p))) return false;
     }
-    // If roles filter is set but item has no roles, keep it (events etc.)
     return true;
   });
 
@@ -423,12 +420,12 @@ const Kunskapscenter = () => {
     }
   };
 
-  const hasActiveFilters = selectedFormats.length > 0 || selectedRoles.length > 0;
+  const hasActiveFilters = selectedFormats.length > 0 || selectedProducts.length > 0;
 
   const clearAllFilters = () => {
     setActiveCategory("alla");
     setSelectedFormats([]);
-    setSelectedRoles([]);
+    setSelectedProducts([]);
   };
 
   return (
@@ -490,11 +487,11 @@ const Kunskapscenter = () => {
                   selected={selectedFormats}
                   onChange={setSelectedFormats}
                 />
-                <MultiSelectDropdown<RoleValue>
-                  label="Målgrupp"
-                  options={ROLE_OPTIONS.map(r => ({ label: r, value: r }))}
-                  selected={selectedRoles}
-                  onChange={setSelectedRoles}
+                <MultiSelectDropdown<ProductValue>
+                  label="Produkt"
+                  options={PRODUCT_OPTIONS.map(p => ({ label: p, value: p }))}
+                  selected={selectedProducts}
+                  onChange={setSelectedProducts}
                 />
               </div>
 
@@ -591,19 +588,19 @@ const Kunskapscenter = () => {
                               {item.description}
                             </p>
                           )}
-                          {item.roles.length > 0 && (
+                          {item.products.length > 0 && (
                             <div className="flex flex-wrap gap-1">
-                              {item.roles.slice(0, 3).map((role) => (
+                              {item.products.slice(0, 3).map((product) => (
                                 <span
-                                  key={role}
+                                  key={product}
                                   className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
                                 >
-                                  {role}
+                                  {product}
                                 </span>
                               ))}
-                              {item.roles.length > 3 && (
+                              {item.products.length > 3 && (
                                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                  +{item.roles.length - 3}
+                                  +{item.products.length - 3}
                                 </span>
                               )}
                             </div>
