@@ -148,9 +148,24 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
 
 
       if (stats.topPages?.length > 0) {
+        // Aggregate partner-events sub-paths into one entry
+        const aggregated: { path: string; visits: number }[] = [];
+        let partnerEventsTotal = 0;
+        for (const p of stats.topPages) {
+          if (p.path.startsWith("/partner-events/")) {
+            partnerEventsTotal += p.visits;
+          } else {
+            aggregated.push(p);
+          }
+        }
+        if (partnerEventsTotal > 0) {
+          aggregated.push({ path: "/partner-events (portaler)", visits: partnerEventsTotal });
+        }
+        aggregated.sort((a: any, b: any) => b.visits - a.visits);
+
         lines.push("");
         lines.push("📄 Mest besökta sidor:");
-        stats.topPages.slice(0, 10).forEach((p: any, i: number) => {
+        aggregated.slice(0, 10).forEach((p: any, i: number) => {
           lines.push(`  ${i + 1}. ${getPageLabel(p.path)} – ${p.visits} besök`);
         });
       }
