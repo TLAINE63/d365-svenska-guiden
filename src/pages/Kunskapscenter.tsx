@@ -242,7 +242,7 @@ function MultiSelectDropdown<T extends string>({
         className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
           selected.length > 0
             ? "bg-primary text-primary-foreground border-primary shadow-md"
-            : "bg-muted/80 text-muted-foreground border-border hover:border-primary/40"
+            : "bg-slate-700 text-white border-slate-600 hover:bg-slate-600 hover:border-slate-500"
         }`}
       >
         {label}
