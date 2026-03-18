@@ -358,7 +358,7 @@ const Kunskapscenter = () => {
       partner: null as string | null,
       isExternal: false,
       icon: t.icon,
-      roles: t.roles as string[],
+      products: t.products as string[],
     })),
     ...articles.map((a) => ({
       id: a.id,
