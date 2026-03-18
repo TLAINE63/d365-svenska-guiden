@@ -127,7 +127,7 @@ const STATIC_TOOLS: Array<{
     url: "/ai-readiness",
     image_url: behovsAiImage,
     icon: Wrench,
-    products: ["Copilot", "Business Central", "Sales", "Customer Service"],
+    products: ["AI/Copilot/Agents", "Business Central", "Sales", "Customer Service"],
   },
   {
     id: "tool-kravspec-erp",
