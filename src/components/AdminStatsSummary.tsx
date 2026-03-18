@@ -92,17 +92,42 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
         throw new Error(visitorData.error || "Kunde inte hämta besökardata");
       }
 
-      // Fetch click stats
-      const clickRes = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`,
-        {
+      // Fetch click stats and published partners in parallel
+      const [clickRes, partnersRes] = await Promise.all([
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action: "click-stats", token }),
-        }
-      );
+        }),
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-partners`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "get-full", token }),
+        }),
+      ]);
       const clickData = await clickRes.json();
       if (!clickRes.ok) throw new Error(clickData.error || "Kunde inte hämta klickdata");
+      const partnersData = await partnersRes.json();
+      const publishedPartners: { name: string; slug: string }[] = (partnersData?.partners || [])
+        .filter((p: any) => p.is_featured)
+        .map((p: any) => ({ name: p.name, slug: p.slug }));
+
+      // Build a map of lowercase partner name -> current published name for merging
+      const nameMap = new Map<string, string>();
+      for (const p of publishedPartners) {
+        nameMap.set(p.name.toLowerCase(), p.name);
+      }
+      // Add common aliases for known renames
+      const ALIASES: Record<string, string> = {
+        "4ps sweden": "4PS Construction Software AB",
+        "bisqo": "Bisqo AB",
+        "nexer": "Nexer Group",
+      };
+      for (const [alias, canonical] of Object.entries(ALIASES)) {
+        if (nameMap.has(canonical.toLowerCase())) {
+          nameMap.set(alias.toLowerCase(), canonical);
+        }
+      }
 
       const stats = visitorData.stats;
       const clickStats = clickData?.stats || [];
@@ -138,10 +163,13 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       }
 
       if (clickStats.length > 0) {
-        // Aggregate clicks per partner across all months
+        // Aggregate clicks per partner, merging aliases and filtering to published only
         const partnerTotals: Record<string, number> = {};
         for (const cs of clickStats) {
-          partnerTotals[cs.partner_name] = (partnerTotals[cs.partner_name] || 0) + cs.clicks;
+          const key = cs.partner_name.toLowerCase();
+          const resolvedName = nameMap.get(key);
+          if (!resolvedName) continue; // Skip non-published / test partners
+          partnerTotals[resolvedName] = (partnerTotals[resolvedName] || 0) + cs.clicks;
         }
         const sorted = Object.entries(partnerTotals).sort((a, b) => b[1] - a[1]);
         const totalClicks = sorted.reduce((s, [, c]) => s + c, 0);
@@ -150,7 +178,7 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
         lines.push("─── PARTNERKLICK ───");
         lines.push(`Totalt antal klick till partnerwebbplatser: ${totalClicks}`);
         lines.push("");
-        lines.push("Klick per partner:");
+        lines.push("Klick per publicerad partner:");
         sorted.forEach(([name, clicks], i) => {
           lines.push(`  ${i + 1}. ${name} – ${clicks} klick`);
         });
