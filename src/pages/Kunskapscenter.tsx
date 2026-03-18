@@ -488,15 +488,15 @@ const Kunskapscenter = () => {
 
               {/* Dropdown filters */}
               <div className="flex gap-2">
-                <MultiSelectDropdown
+                <MultiSelectDropdown<FormatValue>
                   label="Format"
                   options={FORMAT_OPTIONS}
                   selected={selectedFormats}
                   onChange={setSelectedFormats}
                 />
-                <MultiSelectDropdown
+                <MultiSelectDropdown<RoleValue>
                   label="Målgrupp"
-                  options={ROLE_OPTIONS}
+                  options={ROLE_OPTIONS.map(r => ({ label: r, value: r }))}
                   selected={selectedRoles}
                   onChange={setSelectedRoles}
                 />
