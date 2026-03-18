@@ -107,7 +107,7 @@ const STATIC_TOOLS: Array<{
     url: "/kundservice-behovsanalys",
     image_url: null,
     icon: Wrench,
-    roles: ["Kundservicechef", "VD", "COO", "IT-chef"],
+    products: ["Customer Service", "Field Service", "Contact Center"],
   },
   {
     id: "tool-ai-readiness",
