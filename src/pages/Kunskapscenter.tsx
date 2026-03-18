@@ -174,19 +174,17 @@ const STATIC_TOOLS: Array<{
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Alla", value: "alla" },
   { label: "Events", value: "event" },
-  { label: "Behovsanalyser", value: "behovsanalys" },
+  { label: "Guider & Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
   { label: "Artiklar", value: "artikel" },
-  { label: "Guider", value: "guide" },
   { label: "Videor", value: "video" },
 ];
 
 const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
   { label: "Event", value: "event" },
-  { label: "Behovsanalys", value: "behovsanalys" },
+  { label: "Guide & Behovsanalys", value: "behovsanalys" },
   { label: "Kravspecifikation", value: "kravspecifikation" },
   { label: "Artikel", value: "artikel" },
-  { label: "Guide", value: "guide" },
   { label: "Video", value: "video" },
 ];
 
@@ -390,10 +388,16 @@ const Kunskapscenter = () => {
 
   // Apply filters
   const filteredItems = allItems.filter((item) => {
-    // Category pill filter
-    if (activeCategory !== "alla" && item.type !== activeCategory) return false;
-    // Format multi-select
-    if (selectedFormats.length > 0 && !selectedFormats.includes(item.type)) return false;
+    // Category pill filter (guide items grouped under behovsanalys)
+    if (activeCategory !== "alla") {
+      const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
+      if (itemCategory !== activeCategory) return false;
+    }
+    // Format multi-select (guide items grouped under behovsanalys)
+    if (selectedFormats.length > 0) {
+      const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
+      if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
+    }
     // Product filter
     if (selectedProducts.length > 0 && item.products.length > 0) {
       if (!selectedProducts.some((p) => item.products.includes(p))) return false;
@@ -423,11 +427,11 @@ const Kunskapscenter = () => {
   const categoryLabel = (type: string) => {
     switch (type) {
       case "event": return "Event";
-      case "behovsanalys": return "Behovsanalys";
+      case "behovsanalys": return "Guide & Behovsanalys";
       case "kravspecifikation": return "Kravspecifikation";
       
       case "artikel": return "Artikel";
-      case "guide": return "Guide";
+      case "guide": return "Guide & Behovsanalys";
       case "video": return "Video";
       default: return type;
     }
