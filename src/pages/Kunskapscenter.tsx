@@ -443,12 +443,12 @@ const Kunskapscenter = () => {
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-secondary/50 to-background">
+        <section className="py-10 md:py-14 bg-gradient-to-br from-primary/5 via-secondary/40 to-background">
           <div className="container mx-auto px-4 max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
+            <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-3 tracking-tight">
               Kunskapscenter
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-3xl">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
               Allt vi vet om Microsoft Dynamics 365 – behovsanalyser, kravspecifikationer,
               guider och kommande events. Samlat på ett ställe, utan formulär.
             </p>
@@ -456,8 +456,8 @@ const Kunskapscenter = () => {
         </section>
 
         {/* Filters */}
-        <section className="border-b border-border sticky top-16 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="container mx-auto px-4 py-4">
+        <section className="border-b border-border sticky top-16 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+          <div className="container mx-auto px-4 py-3">
             <div className="flex flex-wrap items-center gap-3">
               {/* Category pills */}
               <div className="flex flex-wrap gap-2">
@@ -467,8 +467,8 @@ const Kunskapscenter = () => {
                     onClick={() => setActiveCategory(cat.value)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
                       activeCategory === cat.value
-                        ? "bg-primary text-primary-foreground border-primary shadow-md"
-                        : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                        ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25 scale-[1.02]"
+                        : "bg-card text-foreground border-border hover:border-primary/50 hover:shadow-md hover:scale-[1.01]"
                     }`}
                   >
                     {cat.label}
