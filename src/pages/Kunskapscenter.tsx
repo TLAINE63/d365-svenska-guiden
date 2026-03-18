@@ -35,7 +35,7 @@ type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | 
 
 type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
-type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "Copilot";
+type ProductValue = "Business Central" | "Finance & SCM" | "Sales" | "Customer Insights" | "Customer Service" | "Field Service" | "Contact Center" | "AI/Copilot/Agents";
 
 interface KnowledgeArticle {
   id: string;
@@ -127,7 +127,7 @@ const STATIC_TOOLS: Array<{
     url: "/ai-readiness",
     image_url: behovsAiImage,
     icon: Wrench,
-    products: ["Copilot", "Business Central", "Sales", "Customer Service"],
+    products: ["AI/Copilot/Agents", "Business Central", "Sales", "Customer Service"],
   },
   {
     id: "tool-kravspec-erp",
@@ -198,7 +198,7 @@ const PRODUCT_OPTIONS: ProductValue[] = [
   "Customer Service",
   "Field Service",
   "Contact Center",
-  "Copilot",
+  "AI/Copilot/Agents",
 ];
 
 // ── Dropdown component ─────────────────────────────────
