@@ -163,10 +163,13 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       }
 
       if (clickStats.length > 0) {
-        // Aggregate clicks per partner across all months
+        // Aggregate clicks per partner, merging aliases and filtering to published only
         const partnerTotals: Record<string, number> = {};
         for (const cs of clickStats) {
-          partnerTotals[cs.partner_name] = (partnerTotals[cs.partner_name] || 0) + cs.clicks;
+          const key = cs.partner_name.toLowerCase();
+          const resolvedName = nameMap.get(key);
+          if (!resolvedName) continue; // Skip non-published / test partners
+          partnerTotals[resolvedName] = (partnerTotals[resolvedName] || 0) + cs.clicks;
         }
         const sorted = Object.entries(partnerTotals).sort((a, b) => b[1] - a[1]);
         const totalClicks = sorted.reduce((s, [, c]) => s + c, 0);
@@ -175,7 +178,7 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
         lines.push("─── PARTNERKLICK ───");
         lines.push(`Totalt antal klick till partnerwebbplatser: ${totalClicks}`);
         lines.push("");
-        lines.push("Klick per partner:");
+        lines.push("Klick per publicerad partner:");
         sorted.forEach(([name, clicks], i) => {
           lines.push(`  ${i + 1}. ${name} – ${clicks} klick`);
         });
