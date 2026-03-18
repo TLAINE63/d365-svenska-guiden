@@ -71,6 +71,7 @@ interface UnifiedItem {
   url: string | null;
   image_url: string | null;
   isLogoImage: boolean;
+  partnerLogoUrl: string | null;
   date: string | null;
   partner: string | null;
   isExternal: boolean;
