@@ -553,6 +553,36 @@ case "click-stats": {
         );
       }
 
+      case "email-logs": {
+        const { limit: logLimit = 100, offset: logOffset = 0, statusFilter } = data;
+        let query = supabase
+          .from("email_send_log")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .range(logOffset, logOffset + logLimit - 1);
+        
+        if (statusFilter && statusFilter !== "all") {
+          query = query.eq("status", statusFilter);
+        }
+
+        const { data: logs, error: logError } = await query;
+        if (logError) throw logError;
+
+        // Get total count
+        let countQuery = supabase
+          .from("email_send_log")
+          .select("id", { count: "exact", head: true });
+        if (statusFilter && statusFilter !== "all") {
+          countQuery = countQuery.eq("status", statusFilter);
+        }
+        const { count } = await countQuery;
+
+        return new Response(
+          JSON.stringify({ logs, total: count }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
       default:
         return new Response(
           JSON.stringify({ error: "Invalid action" }),
