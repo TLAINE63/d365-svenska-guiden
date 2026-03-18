@@ -267,7 +267,6 @@ const Kunskapscenter = () => {
       <SEOHead
         title="Kunskapscenter | d365.se – Guider, verktyg och events för Microsoft Dynamics 365"
         description="Utforska artiklar, videor, behovsanalyser, kravspecifikationer och kommande events – allt du behöver för att fatta rätt beslut om Microsoft Dynamics 365."
-        url="https://d365.se/kunskapscenter"
       />
       <BreadcrumbSchema
         items={[
