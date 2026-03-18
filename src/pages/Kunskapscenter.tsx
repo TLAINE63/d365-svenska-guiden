@@ -22,9 +22,9 @@ import {
 
 // ── Types ──────────────────────────────────────────────
 
-type CategoryFilter = "alla" | "event" | "verktyg" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
-type FormatValue = "event" | "verktyg" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
 type RoleValue = "IT-chef" | "CFO" | "VD" | "CIO" | "COO" | "Säljchef" | "Marknadschef" | "Kundservicechef" | "Projektledare" | "Ekonomichef";
 
