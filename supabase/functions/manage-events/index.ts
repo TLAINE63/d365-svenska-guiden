@@ -1260,10 +1260,25 @@ D365.se`;
 
           sent++;
           console.log("Event invitation sent to:", recipientEmail, "for:", partner.name);
-        } catch (emailError) {
+          await supabase.from("email_send_log").insert({
+            recipient_email: recipientEmail!,
+            template_name: "event_portal_bulk",
+            subject: "Din event-portal på D365.se – Publicera dina Dynamics 365-events",
+            status: "sent",
+            metadata: { partner_name: partner.name },
+          });
+        } catch (emailError: any) {
           console.error("Failed to send to", partner.name, emailError);
           failed++;
           errors.push(partner.name);
+          await supabase.from("email_send_log").insert({
+            recipient_email: recipientEmail!,
+            template_name: "event_portal_bulk",
+            subject: "Din event-portal på D365.se",
+            status: "failed",
+            error_message: emailError?.message || "Unknown error",
+            metadata: { partner_name: partner.name },
+          });
         }
       }
 
