@@ -166,7 +166,6 @@ const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Events", value: "event" },
   { label: "Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
-  { label: "Verktyg", value: "verktyg" },
   { label: "Artiklar", value: "artikel" },
   { label: "Guider", value: "guide" },
   { label: "Videor", value: "video" },
