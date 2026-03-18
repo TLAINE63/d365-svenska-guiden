@@ -52,10 +52,29 @@ const PAGE_LABELS: Record<string, string> = {
   "/behovsanalys": "Behovsanalys ERP",
   "/behovsanalys-salj-marknad": "Behovsanalys Sälj & Marknad",
   "/behovsanalys-kundservice": "Behovsanalys Kundservice",
-  "/kravspecifikation": "Kravspecifikation",
+  "/kravspecifikation": "Kravspecifikation ERP",
+  "/kravspecifikation-sales": "Kravspecifikation Sales",
+  "/kravspecifikation-customer-service": "Kravspecifikation Customer Service",
+  "/kravspecifikation-marketing": "Kravspecifikation Marketing",
   "/ai-oversikt": "AI-översikt",
+  "/ai-readiness": "AI Assessment",
   "/events": "Events",
+  "/fragor-och-svar": "Frågor & Svar",
+  "/integritetspolicy": "Integritetspolicy",
+  "/agents": "AI Agents",
+  "/partner-events (portaler)": "Partner Event-portaler",
 };
+
+// Sections for "visits per menu area"
+const MENU_SECTIONS: { label: string; paths: string[] }[] = [
+  { label: "ERP / Business Central", paths: ["/erp", "/business-central", "/finance-supply-chain"] },
+  { label: "CRM", paths: ["/crm", "/d365-sales", "/d365-customer-service", "/d365-marketing", "/d365-field-service", "/d365-contact-center"] },
+  { label: "AI & Copilot", paths: ["/copilot", "/ai-oversikt", "/ai-readiness", "/agents"] },
+  { label: "Behovsanalyser", paths: ["/behovsanalys", "/behovsanalys-salj-marknad", "/behovsanalys-kundservice"] },
+  { label: "Kravspecifikationer", paths: ["/kravspecifikation", "/kravspecifikation-sales", "/kravspecifikation-customer-service", "/kravspecifikation-marketing"] },
+  { label: "Partnersidor", paths: ["/valj-partner", "/branschlosningar"] },
+  { label: "Övrigt", paths: ["/kontakt", "/events", "/fragor-och-svar", "/integritetspolicy"] },
+];
 
 function getPageLabel(path: string): string {
   return PAGE_LABELS[path] || path;
@@ -156,7 +175,57 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
             partnerEventsTotal += p.visits;
           } else {
             aggregated.push(p);
+      }
+
+      // Helper to look up visits for a path from aggregated data
+      const allPages: Record<string, number> = {};
+      if (stats.topPages) {
+        for (const p of stats.topPages) {
+          if (p.path.startsWith("/partner-events/")) {
+            allPages["/partner-events (portaler)"] = (allPages["/partner-events (portaler)"] || 0) + p.visits;
+          } else {
+            allPages[p.path] = (allPages[p.path] || 0) + p.visits;
           }
+        }
+      }
+      const getVisits = (path: string) => allPages[path] || 0;
+
+      // Behovsanalyser, Kravspec & AI Assessment
+      const toolPages = [
+        "/behovsanalys",
+        "/behovsanalys-salj-marknad",
+        "/behovsanalys-kundservice",
+        "/kravspecifikation",
+        "/kravspecifikation-sales",
+        "/kravspecifikation-customer-service",
+        "/kravspecifikation-marketing",
+        "/ai-readiness",
+      ];
+      const toolData = toolPages.map(p => ({ path: p, visits: getVisits(p) })).filter(t => t.visits > 0);
+      if (toolData.length > 0) {
+        lines.push("");
+        lines.push("─── VERKTYG & ANALYSER ───");
+        toolData.sort((a, b) => b.visits - a.visits);
+        toolData.forEach((t, i) => {
+          lines.push(`  ${i + 1}. ${getPageLabel(t.path)} – ${t.visits} besök`);
+        });
+        const toolTotal = toolData.reduce((s, t) => s + t.visits, 0);
+        lines.push(`  Totalt: ${toolTotal} besök`);
+      }
+
+      // Visits per menu section
+      lines.push("");
+      lines.push("─── BESÖK PER MENYSEKTION ───");
+      for (const section of MENU_SECTIONS) {
+        const sectionTotal = section.paths.reduce((sum, p) => sum + getVisits(p), 0);
+        if (sectionTotal > 0) {
+          lines.push(`  ${section.label}: ${sectionTotal} besök`);
+        }
+      }
+      const startPageVisits = getVisits("/");
+      if (startPageVisits > 0) {
+        lines.push(`  Startsidan: ${startPageVisits} besök`);
+      }
         }
         if (partnerEventsTotal > 0) {
           aggregated.push({ path: "/partner-events (portaler)", visits: partnerEventsTotal });
