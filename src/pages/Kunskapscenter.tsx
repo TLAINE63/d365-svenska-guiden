@@ -351,6 +351,7 @@ const Kunskapscenter = () => {
       description: e.description,
       url: e.event_link,
       image_url: e.image_url || e.partners?.logo_url || null,
+      isLogoImage: !e.image_url && !!e.partners?.logo_url,
       date: e.event_date,
       partner: e.partners?.name || null,
       isExternal: true,
