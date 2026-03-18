@@ -59,7 +59,7 @@ interface EventItem {
   is_online: boolean;
   location: string | null;
   image_url: string | null;
-  partners: { name: string; slug: string } | null;
+  partners: { name: string; slug: string; logo_url: string | null } | null;
 }
 
 interface UnifiedItem {
@@ -69,6 +69,7 @@ interface UnifiedItem {
   description: string | null;
   url: string | null;
   image_url: string | null;
+  isLogoImage: boolean;
   date: string | null;
   partner: string | null;
   isExternal: boolean;
@@ -349,7 +350,8 @@ const Kunskapscenter = () => {
       title: e.title,
       description: e.description,
       url: e.event_link,
-      image_url: e.image_url,
+      image_url: e.image_url || e.partners?.logo_url || null,
+      isLogoImage: !e.image_url && !!e.partners?.logo_url,
       date: e.event_date,
       partner: e.partners?.name || null,
       isExternal: true,
@@ -363,6 +365,7 @@ const Kunskapscenter = () => {
       description: t.description,
       url: t.url,
       image_url: t.image_url,
+      isLogoImage: false,
       date: null as string | null,
       partner: null as string | null,
       isExternal: false,
@@ -376,6 +379,7 @@ const Kunskapscenter = () => {
       description: a.description,
       url: a.url,
       image_url: a.image_url,
+      isLogoImage: false,
       date: a.published_at,
       partner: null as string | null,
       isExternal: a.url?.startsWith("http") ?? false,
@@ -572,11 +576,11 @@ const Kunskapscenter = () => {
                     >
                       <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         {item.image_url ? (
-                          <div className="aspect-video overflow-hidden bg-muted">
+                          <div className={`aspect-video overflow-hidden ${item.isLogoImage ? 'bg-white flex items-center justify-center p-8' : 'bg-muted'}`}>
                             <img
                               src={item.image_url}
                               alt={item.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              className={`${item.isLogoImage ? 'max-w-[60%] max-h-full object-contain' : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'}`}
                               loading="lazy"
                             />
                           </div>
