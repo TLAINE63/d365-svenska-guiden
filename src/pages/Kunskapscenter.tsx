@@ -180,17 +180,15 @@ const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
   { label: "Video", value: "video" },
 ];
 
-const ROLE_OPTIONS: RoleValue[] = [
-  "VD",
-  "CFO",
-  "CIO",
-  "COO",
-  "IT-chef",
-  "Ekonomichef",
-  "Säljchef",
-  "Marknadschef",
-  "Kundservicechef",
-  "Projektledare",
+const PRODUCT_OPTIONS: ProductValue[] = [
+  "Business Central",
+  "Finance & SCM",
+  "Sales",
+  "Customer Insights",
+  "Customer Service",
+  "Field Service",
+  "Contact Center",
+  "Copilot",
 ];
 
 // ── Dropdown component ─────────────────────────────────
