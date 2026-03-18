@@ -627,9 +627,24 @@ D365.se`;
             
             console.log("Invitation email sent to:", email, emailResponse);
             emailSent = true;
+            await supabase.from("email_send_log").insert({
+              recipient_email: email,
+              template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
+              subject: emailSubject,
+              status: "sent",
+              metadata: { partner_name: partnerName },
+            });
           } catch (sendError: any) {
             console.error("Email send error:", sendError);
             emailError = sendError.message;
+            await supabase.from("email_send_log").insert({
+              recipient_email: email,
+              template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
+              subject: emailSubject,
+              status: "failed",
+              error_message: sendError.message,
+              metadata: { partner_name: partnerName },
+            });
           }
         } else {
           emailError = "RESEND_API_KEY ej konfigurerad";
