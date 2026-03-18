@@ -217,38 +217,57 @@ const handler = async (req: Request): Promise<Response> => {
           };
 
           for (const partnerEmail of partner_emails) {
-            await resend.emails.send({
-              from: "Dynamic Factory <onboarding@resend.dev>",
-              to: [partnerEmail],
-              reply_to: "thomas.laine@dynamicfactory.se",
-              subject: `Ny kundförfrågan: ${safeLead.company_name}`,
-              html: `
-                <h2>Ny kundförfrågan via Dynamic Factory</h2>
-                
-                <p>Vi har en potentiell kund som söker hjälp med Microsoft Dynamics 365 och tror att ni kan vara en bra match.</p>
-                
-                <h3>Kunduppgifter</h3>
-                <ul>
-                  <li><strong>Företag:</strong> ${safeLead.company_name}</li>
-                  <li><strong>Kontaktperson:</strong> ${safeLead.contact_name}</li>
-                  <li><strong>E-post:</strong> ${safeLead.email}</li>
-                  <li><strong>Telefon:</strong> ${safeLead.phone || "Ej angivet"}</li>
-                </ul>
-                
-                <h3>Behov</h3>
-                <ul>
-                  <li><strong>Företagsstorlek:</strong> ${safeLead.company_size || "Ej angivet"}</li>
-                  <li><strong>Bransch:</strong> ${safeLead.industry || "Ej angivet"}</li>
-                  <li><strong>Produkt:</strong> ${safeLead.selected_product || "Ej angivet"}</li>
-                </ul>
-                
-                ${safeLead.message ? `<h3>Meddelande från kunden</h3><p>${safeLead.message}</p>` : ""}
-                
-                <hr>
-                <p>Vänligen kontakta kunden direkt. Svara på detta mail om ni har frågor.</p>
-                <p>Med vänlig hälsning,<br>Thomas Laine<br>Senior Rådgivare inom Microsoft CRM- och Affärssystem<br>Dynamic Factory</p>
-              `,
-            });
+            try {
+              await resend.emails.send({
+                from: "Dynamic Factory <onboarding@resend.dev>",
+                to: [partnerEmail],
+                reply_to: "thomas.laine@dynamicfactory.se",
+                subject: `Ny kundförfrågan: ${safeLead.company_name}`,
+                html: `
+                  <h2>Ny kundförfrågan via Dynamic Factory</h2>
+                  
+                  <p>Vi har en potentiell kund som söker hjälp med Microsoft Dynamics 365 och tror att ni kan vara en bra match.</p>
+                  
+                  <h3>Kunduppgifter</h3>
+                  <ul>
+                    <li><strong>Företag:</strong> ${safeLead.company_name}</li>
+                    <li><strong>Kontaktperson:</strong> ${safeLead.contact_name}</li>
+                    <li><strong>E-post:</strong> ${safeLead.email}</li>
+                    <li><strong>Telefon:</strong> ${safeLead.phone || "Ej angivet"}</li>
+                  </ul>
+                  
+                  <h3>Behov</h3>
+                  <ul>
+                    <li><strong>Företagsstorlek:</strong> ${safeLead.company_size || "Ej angivet"}</li>
+                    <li><strong>Bransch:</strong> ${safeLead.industry || "Ej angivet"}</li>
+                    <li><strong>Produkt:</strong> ${safeLead.selected_product || "Ej angivet"}</li>
+                  </ul>
+                  
+                  ${safeLead.message ? `<h3>Meddelande från kunden</h3><p>${safeLead.message}</p>` : ""}
+                  
+                  <hr>
+                  <p>Vänligen kontakta kunden direkt. Svara på detta mail om ni har frågor.</p>
+                  <p>Med vänlig hälsning,<br>Thomas Laine<br>Senior Rådgivare inom Microsoft CRM- och Affärssystem<br>Dynamic Factory</p>
+                `,
+              });
+              await supabase.from("email_send_log").insert({
+                recipient_email: partnerEmail,
+                template_name: "lead_forward",
+                subject: `Ny kundförfrågan: ${safeLead.company_name}`,
+                status: "sent",
+                metadata: { lead_id: id, company_name: lead.company_name },
+              });
+            } catch (sendErr: any) {
+              console.error("Lead forward email error:", partnerEmail, sendErr);
+              await supabase.from("email_send_log").insert({
+                recipient_email: partnerEmail,
+                template_name: "lead_forward",
+                subject: `Ny kundförfrågan: ${safeLead.company_name}`,
+                status: "failed",
+                error_message: sendErr.message,
+                metadata: { lead_id: id, company_name: lead.company_name },
+              });
+            }
           }
 
           // Update lead status
