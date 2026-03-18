@@ -381,11 +381,10 @@ const Kunskapscenter = () => {
     if (activeCategory !== "alla" && item.type !== activeCategory) return false;
     // Format multi-select
     if (selectedFormats.length > 0 && !selectedFormats.includes(item.type)) return false;
-    // Role multi-select
-    if (selectedRoles.length > 0 && item.roles.length > 0) {
-      if (!selectedRoles.some((r) => item.roles.includes(r))) return false;
+    // Product filter
+    if (selectedProducts.length > 0 && item.products.length > 0) {
+      if (!selectedProducts.some((p) => item.products.includes(p))) return false;
     }
-    // If roles filter is set but item has no roles, keep it (events etc.)
     return true;
   });
 
