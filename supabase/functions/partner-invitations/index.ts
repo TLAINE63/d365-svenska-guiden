@@ -474,9 +474,9 @@ serve(async (req: Request): Promise<Response> => {
             const baseUrl = "https://d365-svenska-guiden.lovable.app";
             const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
             
-            // Determine if this is a new partner (no partner_id) → use welcome template
-            const isNewPartner = !partner_id;
-            const templateKey = isNewPartner ? "invitation_welcome_email_body" : "invitation_email_body";
+            // New invitations always use the welcome template
+            const isNewPartner = true;
+            const templateKey = "invitation_welcome_email_body";
             
             // Fetch email template from database
             let emailBody = "";
@@ -629,7 +629,7 @@ D365.se`;
             emailSent = true;
             await supabase.from("email_send_log").insert({
               recipient_email: email,
-              template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
+              template_name: "partner_welcome",
               subject: emailSubject,
               status: "sent",
               metadata: { partner_name: partner_name },
@@ -637,7 +637,7 @@ D365.se`;
           } catch (sendError: any) {
             console.error("Email send error:", sendError);
             emailError = sendError.message;
-            const logTemplateName = !partner_id ? "partner_welcome" : "partner_invitation";
+            const logTemplateName = "partner_welcome";
             await supabase.from("email_send_log").insert({
               recipient_email: email,
               template_name: logTemplateName,
