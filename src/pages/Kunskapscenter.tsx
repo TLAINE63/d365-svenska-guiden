@@ -382,6 +382,7 @@ const Kunskapscenter = () => {
       url: a.url,
       image_url: a.image_url,
       isLogoImage: false,
+      partnerLogoUrl: null as string | null,
       date: a.published_at,
       partner: null as string | null,
       isExternal: a.url?.startsWith("http") ?? false,
