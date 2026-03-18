@@ -388,10 +388,16 @@ const Kunskapscenter = () => {
 
   // Apply filters
   const filteredItems = allItems.filter((item) => {
-    // Category pill filter
-    if (activeCategory !== "alla" && item.type !== activeCategory) return false;
-    // Format multi-select
-    if (selectedFormats.length > 0 && !selectedFormats.includes(item.type)) return false;
+    // Category pill filter (guide items grouped under behovsanalys)
+    if (activeCategory !== "alla") {
+      const itemCategory = item.type === "guide" ? "behovsanalys" : item.type;
+      if (itemCategory !== activeCategory) return false;
+    }
+    // Format multi-select (guide items grouped under behovsanalys)
+    if (selectedFormats.length > 0) {
+      const itemFormat = item.type === "guide" ? "behovsanalys" : item.type;
+      if (!selectedFormats.includes(itemFormat as FormatValue)) return false;
+    }
     // Product filter
     if (selectedProducts.length > 0 && item.products.length > 0) {
       if (!selectedProducts.some((p) => item.products.includes(p))) return false;
