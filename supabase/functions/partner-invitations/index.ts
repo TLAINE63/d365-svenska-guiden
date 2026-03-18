@@ -629,7 +629,7 @@ D365.se`;
             emailSent = true;
             await supabase.from("email_send_log").insert({
               recipient_email: email,
-              template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
+              template_name: "partner_welcome",
               subject: emailSubject,
               status: "sent",
               metadata: { partner_name: partner_name },
