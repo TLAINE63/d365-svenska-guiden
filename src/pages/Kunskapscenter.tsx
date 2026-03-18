@@ -198,7 +198,7 @@ const PRODUCT_OPTIONS: ProductValue[] = [
   "Customer Service",
   "Field Service",
   "Contact Center",
-  "Copilot",
+  "AI/Copilot/Agents",
 ];
 
 // ── Dropdown component ─────────────────────────────────
