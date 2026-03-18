@@ -1098,13 +1098,28 @@ D365.se`;
         });
 
         console.log("Event portal link emailed to:", recipientEmail, "for partner:", partner.name);
+        await supabase.from("email_send_log").insert({
+          recipient_email: recipientEmail,
+          template_name: "event_portal_link",
+          subject: "Din event-portal på D365.se – Publicera dina Dynamics 365-events",
+          status: "sent",
+          metadata: { partner_name: partner.name },
+        });
 
         return new Response(
           JSON.stringify({ success: true, email: recipientEmail }),
           { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
-      } catch (emailError) {
+      } catch (emailError: any) {
         console.error("Failed to send event portal email:", emailError);
+        await supabase.from("email_send_log").insert({
+          recipient_email: recipientEmail,
+          template_name: "event_portal_link",
+          subject: "Din event-portal på D365.se",
+          status: "failed",
+          error_message: emailError?.message || "Unknown error",
+          metadata: { partner_name: partner.name },
+        });
         return new Response(
           JSON.stringify({ error: "Kunde inte skicka e-post" }),
           { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
