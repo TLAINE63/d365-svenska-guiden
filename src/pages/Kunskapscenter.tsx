@@ -121,7 +121,7 @@ const STATIC_TOOLS: Array<{
     description: "Testa din organisations mognad för AI och Copilot – få konkreta rekommendationer.",
     type: "behovsanalys",
     url: "/ai-readiness",
-    image_url: null,
+    image_url: behovsAiImage,
     icon: Wrench,
     products: ["Copilot", "Business Central", "Sales", "Customer Service"],
   },
