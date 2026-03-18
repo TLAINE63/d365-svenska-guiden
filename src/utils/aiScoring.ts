@@ -155,19 +155,19 @@ export interface AiLevelInfo {
 export function getAiLevel(score: number): AiLevelInfo {
   if (score >= 60) return {
     level: "transformation", label: "AI Transformation Partner", emoji: "🌟",
-    color: "border-emerald-600/40 text-emerald-800 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/30", score,
+    color: "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30", score,
   };
   if (score >= 35) return {
-    level: "advanced", label: "AI Advanced", emoji: "🟢",
-    color: "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30", score,
+    level: "advanced", label: "AI Advanced", emoji: "🥇",
+    color: "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30", score,
   };
   if (score >= 15) return {
-    level: "integration", label: "AI Integration Partner", emoji: "🔵",
-    color: "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30", score,
+    level: "integration", label: "AI Integration Partner", emoji: "🟢",
+    color: "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30", score,
   };
   if (score > 0) return {
-    level: "enabled", label: "AI Enabled", emoji: "🟡",
-    color: "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30", score,
+    level: "enabled", label: "AI Enabled", emoji: "🔵",
+    color: "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30", score,
   };
   return { level: "none", label: "", emoji: "", color: "", score: 0 };
 }
@@ -230,58 +230,58 @@ export const AI_TIER_LABELS: Record<string, string> = {
 
 // Badge styles per capability
 export const AI_TIER_BADGE_STYLES: Record<string, string> = {
-  // Green tier
-  [AI_TIERS.STANDARD]: "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "bc-copilot": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "ai-assistant": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "fsc-std-analysis": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "fsc-std-forecast": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "fsc-std-planning": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "fsc-std-risk": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "sales-std-copilot": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "sales-std-scoring": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "sales-std-forecast": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "sales-std-segmentation": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "svc-std-copilot": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "svc-std-routing": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "svc-std-fieldservice": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  "svc-std-contactcenter": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
-  // Yellow tier
-  [AI_TIERS.PARTNER]: "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "bc-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "ai-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "ai-prediction": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "ai-agents": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "fsc-partner-finance": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "fsc-partner-scm": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "fsc-partner-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "sales-partner-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "sales-partner-marketing": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "sales-partner-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "svc-partner-agent": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "svc-partner-fieldservice": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  "svc-partner-automation": "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30",
-  // Red tier
-  [AI_TIERS.ADVANCED]: "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "bc-azure": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "ai-azure": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "fsc-adv-predictive": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "fsc-adv-optimization": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "fsc-adv-fraud": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "sales-adv-predictive": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "sales-adv-personalization": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "sales-adv-analytics": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "svc-adv-predictive": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "svc-adv-chatbot": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
-  "svc-adv-analytics": "border-red-500/40 text-red-700 bg-red-50 dark:text-red-400 dark:bg-red-950/30",
+  // Blue tier (Standard)
+  [AI_TIERS.STANDARD]: "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "bc-copilot": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "ai-assistant": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "fsc-std-analysis": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "fsc-std-forecast": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "fsc-std-planning": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "fsc-std-risk": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "sales-std-copilot": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "sales-std-scoring": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "sales-std-forecast": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "sales-std-segmentation": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "svc-std-copilot": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "svc-std-routing": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "svc-std-fieldservice": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  "svc-std-contactcenter": "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30",
+  // Green tier (Partner)
+  [AI_TIERS.PARTNER]: "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "bc-agent": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "ai-automation": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "ai-prediction": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "ai-agents": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "fsc-partner-finance": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "fsc-partner-scm": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "fsc-partner-automation": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "sales-partner-agent": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "sales-partner-marketing": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "sales-partner-automation": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "svc-partner-agent": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "svc-partner-fieldservice": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  "svc-partner-automation": "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30",
+  // Gold tier (Advanced)
+  [AI_TIERS.ADVANCED]: "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "bc-azure": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "ai-azure": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "fsc-adv-predictive": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "fsc-adv-optimization": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "fsc-adv-fraud": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "sales-adv-predictive": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "sales-adv-personalization": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "sales-adv-analytics": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "svc-adv-predictive": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "svc-adv-chatbot": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
+  "svc-adv-analytics": "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30",
 };
 
 // Emoji per capability
 export function getCapabilityEmoji(cap: string): string {
   const tier = getTier(cap);
-  if (tier === AI_TIERS.STANDARD) return "🟢";
-  if (tier === AI_TIERS.PARTNER) return "🟡";
-  if (tier === AI_TIERS.ADVANCED) return "🔴";
+  if (tier === AI_TIERS.STANDARD) return "🔵";
+  if (tier === AI_TIERS.PARTNER) return "🟢";
+  if (tier === AI_TIERS.ADVANCED) return "🥇";
   return "";
 }
 
@@ -304,7 +304,7 @@ export interface AiFormTierGroup {
 export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng styck",
     options: [
       { value: "fsc-std-analysis", label: "AI-assistent för ekonomisk analys och rapportering", description: "t.ex. Finance Copilot som förklarar avvikelser, sammanfattar rapporter, stödjer bokslutsarbete" },
@@ -315,7 +315,7 @@ export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng styck",
     options: [
       { value: "fsc-partner-finance", label: "Anpassad AI-agent för finansprocesser", description: "t.ex. agent för budgetstöd, leverantörsreskontra, periodstängning" },
@@ -325,7 +325,7 @@ export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng styck",
     options: [
       { value: "fsc-adv-predictive", label: "Egenutvecklad prediktiv modell integrerad med Finance & SCM", description: "t.ex. avancerad cashflow-modell, custom demand model" },
@@ -339,7 +339,7 @@ export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
 export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded AI & Copilot)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng styck",
     options: [
       { value: "sales-std-copilot", label: "AI-assistent för säljare (Sales Copilot)", description: "t.ex. mötessammanfattningar, förslag på nästa steg, e-postutkast" },
@@ -350,7 +350,7 @@ export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng styck",
     options: [
       { value: "sales-partner-agent", label: "Anpassad AI-agent för säljprocesser", description: "t.ex. intern affärscoach, offertstöd, kvalificeringsagent" },
@@ -360,7 +360,7 @@ export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / Custom ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng styck",
     options: [
       { value: "sales-adv-predictive", label: "Egenutvecklad prediktiv modell för försäljning eller churn", description: "" },
@@ -374,7 +374,7 @@ export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
 export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng styck",
     options: [
       { value: "svc-std-copilot", label: "AI-assistent för handläggare eller agenter", description: "t.ex. sammanfattar ärenden, föreslår svar, guidar i realtid – Customer Service Copilot" },
@@ -385,7 +385,7 @@ export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng styck",
     options: [
       { value: "svc-partner-agent", label: "Anpassad AI-agent för kundserviceprocesser", description: "t.ex. intern AI-assistent för specialiserade flöden" },
@@ -395,7 +395,7 @@ export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / Custom ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng styck",
     options: [
       { value: "svc-adv-predictive", label: "Prediktivt underhåll baserat på egna AI-modeller", description: "t.ex. analys av IoT-data för att förebygga fel" },
@@ -409,7 +409,7 @@ export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
 export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng",
     options: [
       { value: "ai-standard", label: "Microsoft Copilot eller färdig AI-funktion (Agents)", description: "ex: orderförslag, användarstöd, analys, inbyggda Copilot-funktioner" },
@@ -417,7 +417,7 @@ export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng",
     options: [
       { value: "ai-partner", label: "Anpassad AI-agent (Copilot Studio / Power Platform)", description: "ex: egenutvecklad agent, AI-flöde, skräddarsydda AI-verktyg" },
@@ -425,7 +425,7 @@ export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng",
     options: [
       { value: "ai-advanced", label: "Avancerad AI-lösning (Azure AI / AI Foundry / ML)", description: "ex: Azure-baserad AI-modell, prediktiv analys, custom ML" },
