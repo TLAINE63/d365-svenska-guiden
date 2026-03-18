@@ -985,10 +985,25 @@ D365.se`;
 
           sent++;
           console.log("Reminder sent to:", inv.email, inv.partner_name);
+          await supabase.from("email_send_log").insert({
+            recipient_email: inv.email,
+            template_name: "partner_reminder",
+            subject: "Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?",
+            status: "sent",
+            metadata: { partner_name: inv.partner_name },
+          });
         } catch (sendErr: any) {
           failed++;
           errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
           console.error("Reminder send error:", inv.email, sendErr);
+          await supabase.from("email_send_log").insert({
+            recipient_email: inv.email,
+            template_name: "partner_reminder",
+            subject: "Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?",
+            status: "failed",
+            error_message: sendErr.message,
+            metadata: { partner_name: inv.partner_name },
+          });
         }
       }
 
