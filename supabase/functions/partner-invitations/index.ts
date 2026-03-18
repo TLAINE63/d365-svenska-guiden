@@ -632,18 +632,18 @@ D365.se`;
               template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
               subject: emailSubject,
               status: "sent",
-              metadata: { partner_name: partnerName },
+              metadata: { partner_name: partner_name },
             });
           } catch (sendError: any) {
             console.error("Email send error:", sendError);
             emailError = sendError.message;
+            const logTemplateName = !partner_id ? "partner_welcome" : "partner_invitation";
             await supabase.from("email_send_log").insert({
               recipient_email: email,
-              template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
-              subject: emailSubject,
+              template_name: logTemplateName,
               status: "failed",
               error_message: sendError.message,
-              metadata: { partner_name: partnerName },
+              metadata: { partner_name: partner_name },
             });
           }
         } else {
