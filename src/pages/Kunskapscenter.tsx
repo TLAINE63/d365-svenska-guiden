@@ -585,7 +585,7 @@ const Kunskapscenter = () => {
                     >
                       <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         {item.image_url ? (
-                          <div className="aspect-video overflow-hidden bg-muted relative">
+                          <div className="aspect-[2/1] overflow-hidden bg-muted relative">
                             <img
                               src={item.image_url}
                               alt={item.title}
