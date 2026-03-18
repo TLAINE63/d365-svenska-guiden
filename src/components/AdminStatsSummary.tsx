@@ -52,10 +52,29 @@ const PAGE_LABELS: Record<string, string> = {
   "/behovsanalys": "Behovsanalys ERP",
   "/behovsanalys-salj-marknad": "Behovsanalys Sälj & Marknad",
   "/behovsanalys-kundservice": "Behovsanalys Kundservice",
-  "/kravspecifikation": "Kravspecifikation",
+  "/kravspecifikation": "Kravspecifikation ERP",
+  "/kravspecifikation-sales": "Kravspecifikation Sales",
+  "/kravspecifikation-customer-service": "Kravspecifikation Customer Service",
+  "/kravspecifikation-marketing": "Kravspecifikation Marketing",
   "/ai-oversikt": "AI-översikt",
+  "/ai-readiness": "AI Assessment",
   "/events": "Events",
+  "/fragor-och-svar": "Frågor & Svar",
+  "/integritetspolicy": "Integritetspolicy",
+  "/agents": "AI Agents",
+  "/partner-events (portaler)": "Partner Event-portaler",
 };
+
+// Sections for "visits per menu area"
+const MENU_SECTIONS: { label: string; paths: string[] }[] = [
+  { label: "ERP / Business Central", paths: ["/erp", "/business-central", "/finance-supply-chain"] },
+  { label: "CRM", paths: ["/crm", "/d365-sales", "/d365-customer-service", "/d365-marketing", "/d365-field-service", "/d365-contact-center"] },
+  { label: "AI & Copilot", paths: ["/copilot", "/ai-oversikt", "/ai-readiness", "/agents"] },
+  { label: "Behovsanalyser", paths: ["/behovsanalys", "/behovsanalys-salj-marknad", "/behovsanalys-kundservice"] },
+  { label: "Kravspecifikationer", paths: ["/kravspecifikation", "/kravspecifikation-sales", "/kravspecifikation-customer-service", "/kravspecifikation-marketing"] },
+  { label: "Partnersidor", paths: ["/valj-partner", "/branschlosningar"] },
+  { label: "Övrigt", paths: ["/kontakt", "/events", "/fragor-och-svar", "/integritetspolicy"] },
+];
 
 function getPageLabel(path: string): string {
   return PAGE_LABELS[path] || path;
