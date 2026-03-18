@@ -399,8 +399,6 @@ const Kunskapscenter = () => {
         return "bg-accent/10 text-accent-foreground border-accent/20";
       case "kravspecifikation":
         return "bg-accent/10 text-accent-foreground border-accent/20";
-      case "verktyg":
-        return "bg-accent/10 text-accent-foreground border-accent/20";
       case "artikel":
         return "bg-secondary text-secondary-foreground border-border";
       case "guide":
