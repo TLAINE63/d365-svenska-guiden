@@ -182,10 +182,9 @@ const CATEGORIES: { label: string; value: CategoryFilter }[] = [
 
 const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
   { label: "Event", value: "event" },
-  { label: "Behovsanalys", value: "behovsanalys" },
+  { label: "Guide & Behovsanalys", value: "behovsanalys" },
   { label: "Kravspecifikation", value: "kravspecifikation" },
   { label: "Artikel", value: "artikel" },
-  { label: "Guide", value: "guide" },
   { label: "Video", value: "video" },
 ];
 
