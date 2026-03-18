@@ -345,7 +345,7 @@ const Kunskapscenter = () => {
       partner: e.partners?.name || null,
       isExternal: true,
       icon: CalendarDays,
-      roles: [] as string[],
+      products: [] as string[],
     })),
     ...STATIC_TOOLS.map((t) => ({
       id: t.id,
