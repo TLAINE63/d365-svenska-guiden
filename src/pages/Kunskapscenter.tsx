@@ -420,12 +420,12 @@ const Kunskapscenter = () => {
     }
   };
 
-  const hasActiveFilters = selectedFormats.length > 0 || selectedRoles.length > 0;
+  const hasActiveFilters = selectedFormats.length > 0 || selectedProducts.length > 0;
 
   const clearAllFilters = () => {
     setActiveCategory("alla");
     setSelectedFormats([]);
-    setSelectedRoles([]);
+    setSelectedProducts([]);
   };
 
   return (
