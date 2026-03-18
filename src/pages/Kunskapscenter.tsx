@@ -77,7 +77,7 @@ const STATIC_TOOLS: Array<{
   description: string;
   type: FormatValue;
   url: string;
-  image_url: null;
+  image_url: string | null;
   icon: typeof Wrench;
   products: ProductValue[];
 }> = [
