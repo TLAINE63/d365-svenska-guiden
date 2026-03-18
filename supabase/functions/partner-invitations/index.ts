@@ -637,7 +637,7 @@ D365.se`;
           } catch (sendError: any) {
             console.error("Email send error:", sendError);
             emailError = sendError.message;
-            const logTemplateName = !partner_id ? "partner_welcome" : "partner_invitation";
+            const logTemplateName = "partner_welcome";
             await supabase.from("email_send_log").insert({
               recipient_email: email,
               template_name: logTemplateName,
