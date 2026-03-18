@@ -879,9 +879,26 @@ serve(async (req: Request): Promise<Response> => {
           });
           
           console.log("Partner notification sent for event:", eventData.title, "to:", partnerEmail);
-        } catch (emailError) {
+          const emailSubject = isApproved 
+            ? `Ditt event "${eventData.title}" har godkänts! 🎉`
+            : `Ditt event "${eventData.title}" kunde inte godkännas`;
+          await supabase.from("email_send_log").insert({
+            recipient_email: partnerEmail,
+            template_name: isApproved ? "event_approved" : "event_rejected",
+            subject: emailSubject,
+            status: "sent",
+            metadata: { event_title: eventData.title, partner_name: eventData.partners?.name },
+          });
+        } catch (emailError: any) {
           console.error("Failed to send partner notification:", emailError);
-          // Don't fail the request if email fails - the review was still successful
+          await supabase.from("email_send_log").insert({
+            recipient_email: partnerEmail,
+            template_name: status === "approved" ? "event_approved" : "event_rejected",
+            subject: `Event: ${eventData.title}`,
+            status: "failed",
+            error_message: emailError?.message || "Unknown error",
+            metadata: { event_title: eventData.title },
+          });
         }
       }
 
@@ -1081,13 +1098,28 @@ D365.se`;
         });
 
         console.log("Event portal link emailed to:", recipientEmail, "for partner:", partner.name);
+        await supabase.from("email_send_log").insert({
+          recipient_email: recipientEmail,
+          template_name: "event_portal_link",
+          subject: "Din event-portal på D365.se – Publicera dina Dynamics 365-events",
+          status: "sent",
+          metadata: { partner_name: partner.name },
+        });
 
         return new Response(
           JSON.stringify({ success: true, email: recipientEmail }),
           { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
-      } catch (emailError) {
+      } catch (emailError: any) {
         console.error("Failed to send event portal email:", emailError);
+        await supabase.from("email_send_log").insert({
+          recipient_email: recipientEmail,
+          template_name: "event_portal_link",
+          subject: "Din event-portal på D365.se",
+          status: "failed",
+          error_message: emailError?.message || "Unknown error",
+          metadata: { partner_name: partner.name },
+        });
         return new Response(
           JSON.stringify({ error: "Kunde inte skicka e-post" }),
           { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
@@ -1228,10 +1260,25 @@ D365.se`;
 
           sent++;
           console.log("Event invitation sent to:", recipientEmail, "for:", partner.name);
-        } catch (emailError) {
+          await supabase.from("email_send_log").insert({
+            recipient_email: recipientEmail!,
+            template_name: "event_portal_bulk",
+            subject: "Din event-portal på D365.se – Publicera dina Dynamics 365-events",
+            status: "sent",
+            metadata: { partner_name: partner.name },
+          });
+        } catch (emailError: any) {
           console.error("Failed to send to", partner.name, emailError);
           failed++;
           errors.push(partner.name);
+          await supabase.from("email_send_log").insert({
+            recipient_email: recipientEmail!,
+            template_name: "event_portal_bulk",
+            subject: "Din event-portal på D365.se",
+            status: "failed",
+            error_message: emailError?.message || "Unknown error",
+            metadata: { partner_name: partner.name },
+          });
         }
       }
 

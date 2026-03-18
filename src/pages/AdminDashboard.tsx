@@ -78,6 +78,7 @@ import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
+import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
@@ -1158,6 +1159,10 @@ const AdminDashboard = () => {
               <FileText className="h-4 w-4" />
               Emailsammanfattning
             </TabsTrigger>
+            <TabsTrigger value="email-log" className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              E-postlogg
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -1853,6 +1858,14 @@ const AdminDashboard = () => {
           {/* ==================== EMAIL SUMMARY TAB ==================== */}
           <TabsContent value="summary">
             <AdminStatsSummary
+              token={token || ""}
+              onSessionExpired={logout}
+            />
+          </TabsContent>
+
+          {/* ==================== EMAIL LOG TAB ==================== */}
+          <TabsContent value="email-log">
+            <AdminEmailLogTab
               token={token || ""}
               onSessionExpired={logout}
             />

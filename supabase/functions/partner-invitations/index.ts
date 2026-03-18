@@ -627,9 +627,24 @@ D365.se`;
             
             console.log("Invitation email sent to:", email, emailResponse);
             emailSent = true;
+            await supabase.from("email_send_log").insert({
+              recipient_email: email,
+              template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
+              subject: emailSubject,
+              status: "sent",
+              metadata: { partner_name: partnerName },
+            });
           } catch (sendError: any) {
             console.error("Email send error:", sendError);
             emailError = sendError.message;
+            await supabase.from("email_send_log").insert({
+              recipient_email: email,
+              template_name: isNewPartner ? "partner_welcome" : "partner_invitation",
+              subject: emailSubject,
+              status: "failed",
+              error_message: sendError.message,
+              metadata: { partner_name: partnerName },
+            });
           }
         } else {
           emailError = "RESEND_API_KEY ej konfigurerad";
@@ -970,10 +985,25 @@ D365.se`;
 
           sent++;
           console.log("Reminder sent to:", inv.email, inv.partner_name);
+          await supabase.from("email_send_log").insert({
+            recipient_email: inv.email,
+            template_name: "partner_reminder",
+            subject: "Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?",
+            status: "sent",
+            metadata: { partner_name: inv.partner_name },
+          });
         } catch (sendErr: any) {
           failed++;
           errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
           console.error("Reminder send error:", inv.email, sendErr);
+          await supabase.from("email_send_log").insert({
+            recipient_email: inv.email,
+            template_name: "partner_reminder",
+            subject: "Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?",
+            status: "failed",
+            error_message: sendErr.message,
+            metadata: { partner_name: inv.partner_name },
+          });
         }
       }
 
@@ -1132,10 +1162,25 @@ D365.se`;
               });
               sent++;
               console.log("Bulk invitation sent to:", inv.email, inv.partner_name);
+              await supabase.from("email_send_log").insert({
+                recipient_email: inv.email,
+                template_name: "partner_bulk_invitation",
+                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                status: "sent",
+                metadata: { partner_name: inv.partner_name },
+              });
             } catch (sendErr: any) {
               failed++;
               errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
               console.error("Bulk send error:", inv.email, sendErr);
+              await supabase.from("email_send_log").insert({
+                recipient_email: inv.email,
+                template_name: "partner_bulk_invitation",
+                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                status: "failed",
+                error_message: sendErr.message,
+                metadata: { partner_name: inv.partner_name },
+              });
             }
           }
         }
