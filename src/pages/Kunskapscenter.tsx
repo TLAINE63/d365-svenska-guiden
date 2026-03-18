@@ -5,6 +5,7 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
