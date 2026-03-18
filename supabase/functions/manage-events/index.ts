@@ -879,9 +879,26 @@ serve(async (req: Request): Promise<Response> => {
           });
           
           console.log("Partner notification sent for event:", eventData.title, "to:", partnerEmail);
-        } catch (emailError) {
+          const emailSubject = isApproved 
+            ? `Ditt event "${eventData.title}" har godkänts! 🎉`
+            : `Ditt event "${eventData.title}" kunde inte godkännas`;
+          await supabase.from("email_send_log").insert({
+            recipient_email: partnerEmail,
+            template_name: isApproved ? "event_approved" : "event_rejected",
+            subject: emailSubject,
+            status: "sent",
+            metadata: { event_title: eventData.title, partner_name: eventData.partners?.name },
+          });
+        } catch (emailError: any) {
           console.error("Failed to send partner notification:", emailError);
-          // Don't fail the request if email fails - the review was still successful
+          await supabase.from("email_send_log").insert({
+            recipient_email: partnerEmail,
+            template_name: status === "approved" ? "event_approved" : "event_rejected",
+            subject: `Event: ${eventData.title}`,
+            status: "failed",
+            error_message: emailError?.message || "Unknown error",
+            metadata: { event_title: eventData.title },
+          });
         }
       }
 
