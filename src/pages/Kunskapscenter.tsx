@@ -127,7 +127,7 @@ const STATIC_TOOLS: Array<{
     url: "/kravspecifikation",
     image_url: null,
     icon: FileText,
-    roles: ["IT-chef", "CFO", "VD", "Projektledare", "Ekonomichef"],
+    products: ["Business Central", "Finance & SCM"],
   },
   {
     id: "tool-kravspec-sales",
