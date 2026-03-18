@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import kravspecErpImage from "@/assets/kravspec-erp-card.jpg";
+import eventCardBg from "@/assets/event-card-bg.jpg";
 import kravspecSalesImage from "@/assets/kravspec-sales-card.jpg";
 import kravspecMarketingImage from "@/assets/kravspec-marketing-card.jpg";
 import kravspecKundserviceImage from "@/assets/kravspec-kundservice-card.jpg";
@@ -70,6 +71,7 @@ interface UnifiedItem {
   url: string | null;
   image_url: string | null;
   isLogoImage: boolean;
+  partnerLogoUrl: string | null;
   date: string | null;
   partner: string | null;
   isExternal: boolean;
@@ -348,8 +350,9 @@ const Kunskapscenter = () => {
       title: e.title,
       description: e.description,
       url: e.event_link,
-      image_url: e.image_url || e.partners?.logo_url || null,
-      isLogoImage: !e.image_url && !!e.partners?.logo_url,
+      image_url: e.image_url || eventCardBg,
+      isLogoImage: false,
+      partnerLogoUrl: e.partners?.logo_url || null,
       date: e.event_date,
       partner: e.partners?.name || null,
       isExternal: true,
@@ -364,6 +367,7 @@ const Kunskapscenter = () => {
       url: t.url,
       image_url: t.image_url,
       isLogoImage: false,
+      partnerLogoUrl: null as string | null,
       date: null as string | null,
       partner: null as string | null,
       isExternal: false,
@@ -378,6 +382,7 @@ const Kunskapscenter = () => {
       url: a.url,
       image_url: a.image_url,
       isLogoImage: false,
+      partnerLogoUrl: null as string | null,
       date: a.published_at,
       partner: null as string | null,
       isExternal: a.url?.startsWith("http") ?? false,
@@ -580,13 +585,29 @@ const Kunskapscenter = () => {
                     >
                       <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         {item.image_url ? (
-                          <div className={`aspect-video overflow-hidden ${item.isLogoImage ? 'bg-white flex items-center justify-center p-8' : 'bg-muted'}`}>
+                          <div className="aspect-video overflow-hidden bg-muted relative">
                             <img
                               src={item.image_url}
                               alt={item.title}
-                              className={`${item.isLogoImage ? 'max-w-[60%] max-h-full object-contain' : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'}`}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                               loading="lazy"
                             />
+                            {item.type === "event" && (
+                              <>
+                                <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full shadow-lg tracking-wide uppercase">
+                                  Event
+                                </span>
+                                {item.partnerLogoUrl && (
+                                  <div className="absolute bottom-2 right-2 bg-white rounded-md shadow-md p-1.5">
+                                    <img
+                                      src={item.partnerLogoUrl}
+                                      alt={item.partner || "Partner"}
+                                      className="h-6 w-auto max-w-[80px] object-contain"
+                                    />
+                                  </div>
+                                )}
+                              </>
+                            )}
                           </div>
                         ) : (
                           <div className="aspect-video overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
