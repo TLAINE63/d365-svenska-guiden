@@ -154,7 +154,7 @@ const STATIC_TOOLS: Array<{
     description: "Skapa en kravspecifikation för din marknadsavdelning.",
     type: "kravspecifikation",
     url: "/kravspecifikation-marketing",
-    image_url: kravspecImage,
+    image_url: kravspecMarketingImage,
     icon: FileText,
     products: ["Customer Insights"],
   },
