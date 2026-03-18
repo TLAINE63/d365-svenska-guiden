@@ -144,7 +144,7 @@ const STATIC_TOOLS: Array<{
     description: "Generera en kravspecifikation anpassad för din säljavdelning.",
     type: "kravspecifikation",
     url: "/kravspecifikation-sales",
-    image_url: kravspecImage,
+    image_url: kravspecSalesImage,
     icon: FileText,
     products: ["Sales"],
   },
