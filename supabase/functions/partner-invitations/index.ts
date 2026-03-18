@@ -474,9 +474,9 @@ serve(async (req: Request): Promise<Response> => {
             const baseUrl = "https://d365-svenska-guiden.lovable.app";
             const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
             
-            // Determine if this is a new partner (no partner_id) → use welcome template
-            const isNewPartner = !partner_id;
-            const templateKey = isNewPartner ? "invitation_welcome_email_body" : "invitation_email_body";
+            // New invitations always use the welcome template
+            const isNewPartner = true;
+            const templateKey = "invitation_welcome_email_body";
             
             // Fetch email template from database
             let emailBody = "";
