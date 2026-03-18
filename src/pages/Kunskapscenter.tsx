@@ -7,6 +7,10 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import kravspecImage from "@/assets/kravspecifikation-card.jpg";
+import behovsErpImage from "@/assets/behovsanalys-erp-card.jpg";
+import behovsSaljImage from "@/assets/behovsanalys-salj-card.jpg";
+import behovsKundserviceImage from "@/assets/behovsanalys-kundservice-card.jpg";
+import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -87,7 +91,7 @@ const STATIC_TOOLS: Array<{
     description: "Kartlägg dina behov för ett nytt affärssystem och få en AI-driven analys med rekommendationer.",
     type: "behovsanalys",
     url: "/behovsanalys",
-    image_url: null,
+    image_url: behovsErpImage,
     icon: Wrench,
     products: ["Business Central", "Finance & SCM"],
   },
@@ -97,7 +101,7 @@ const STATIC_TOOLS: Array<{
     description: "Analysera dina behov inom sälj och marknad för att hitta rätt CRM-lösning.",
     type: "behovsanalys",
     url: "/salj-marknad-behovsanalys",
-    image_url: null,
+    image_url: behovsSaljImage,
     icon: Wrench,
     products: ["Sales", "Customer Insights"],
   },
@@ -107,7 +111,7 @@ const STATIC_TOOLS: Array<{
     description: "Utvärdera dina servicebehov och få matchning mot rätt Dynamics 365-lösning.",
     type: "behovsanalys",
     url: "/kundservice-behovsanalys",
-    image_url: null,
+    image_url: behovsKundserviceImage,
     icon: Wrench,
     products: ["Customer Service", "Field Service", "Contact Center"],
   },
@@ -117,7 +121,7 @@ const STATIC_TOOLS: Array<{
     description: "Testa din organisations mognad för AI och Copilot – få konkreta rekommendationer.",
     type: "behovsanalys",
     url: "/ai-readiness",
-    image_url: null,
+    image_url: behovsAiImage,
     icon: Wrench,
     products: ["Copilot", "Business Central", "Sales", "Customer Service"],
   },
