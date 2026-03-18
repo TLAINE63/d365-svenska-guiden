@@ -415,7 +415,7 @@ const Kunskapscenter = () => {
       case "event": return "Event";
       case "behovsanalys": return "Behovsanalys";
       case "kravspecifikation": return "Kravspecifikation";
-      case "verktyg": return "Verktyg";
+      
       case "artikel": return "Artikel";
       case "guide": return "Guide";
       case "video": return "Video";
