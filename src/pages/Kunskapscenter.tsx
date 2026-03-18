@@ -117,7 +117,7 @@ const STATIC_TOOLS: Array<{
     url: "/ai-readiness",
     image_url: null,
     icon: Wrench,
-    roles: ["IT-chef", "VD", "CIO", "COO", "Projektledare"],
+    products: ["Copilot", "Business Central", "Sales", "Customer Service"],
   },
   {
     id: "tool-kravspec-erp",
