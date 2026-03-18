@@ -585,13 +585,29 @@ const Kunskapscenter = () => {
                     >
                       <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                         {item.image_url ? (
-                          <div className={`aspect-video overflow-hidden ${item.isLogoImage ? 'bg-white flex items-center justify-center p-8' : 'bg-muted'}`}>
+                          <div className="aspect-video overflow-hidden bg-muted relative">
                             <img
                               src={item.image_url}
                               alt={item.title}
-                              className={`${item.isLogoImage ? 'max-w-[60%] max-h-full object-contain' : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'}`}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                               loading="lazy"
                             />
+                            {item.type === "event" && (
+                              <>
+                                <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full shadow-lg tracking-wide uppercase">
+                                  Event
+                                </span>
+                                {item.partnerLogoUrl && (
+                                  <div className="absolute bottom-2 right-2 bg-white rounded-md shadow-md p-1.5">
+                                    <img
+                                      src={item.partnerLogoUrl}
+                                      alt={item.partner || "Partner"}
+                                      className="h-6 w-auto max-w-[80px] object-contain"
+                                    />
+                                  </div>
+                                )}
+                              </>
+                            )}
                           </div>
                         ) : (
                           <div className="aspect-video overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
