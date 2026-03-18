@@ -465,7 +465,7 @@ const Kunskapscenter = () => {
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero */}
-        <section className="relative py-16 md:py-20 overflow-hidden">
+        <section className="relative py-8 md:py-10 overflow-hidden">
           <div className="absolute inset-0">
             <img
               src={kunskapscenterHero}
@@ -477,10 +477,10 @@ const Kunskapscenter = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
           </div>
           <div className="container mx-auto px-4 max-w-4xl relative z-10">
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-3 tracking-tight">
+            <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight">
               Kunskapscenter
             </h1>
-            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-2xl">
+            <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-2xl">
               Allt vi vet om Microsoft Dynamics 365 – behovsanalyser, kravspecifikationer,
               guider och kommande events. Samlat på ett ställe, utan formulär.
             </p>
