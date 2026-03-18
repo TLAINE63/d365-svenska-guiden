@@ -162,6 +162,15 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
         });
       }
 
+      if (stats.partnerProfileStats?.length > 0) {
+        lines.push("");
+        lines.push("─── PROFILBESÖK PER PARTNER ───");
+        lines.push("(exkl. admin och partnerinterna besök)");
+        stats.partnerProfileStats.forEach((p: any, i: number) => {
+          lines.push(`  ${i + 1}. ${p.name} – ${p.visits} besök`);
+        });
+      }
+
       if (clickStats.length > 0) {
         // Aggregate clicks per partner, merging aliases and filtering to published only
         const partnerTotals: Record<string, number> = {};

@@ -388,6 +388,32 @@ case "click-stats": {
 
       case "visitor-stats": {
         const { startDate } = data;
+
+        // Get admin IP from JWT for filtering
+        const vsAdminIp = verification.payload?.ip as string || "";
+        const vsAdminIpPrefix = vsAdminIp ? vsAdminIp.split(".").slice(0, 2).join(".") : "";
+
+        // Get partner update page visitor IPs (same logic as click-stats)
+        const partnerUpdateIpPrefixes = new Set<string>();
+        const { data: puVisits } = await supabase
+          .from("visitor_analytics")
+          .select("ip_anonymized")
+          .like("page_path", "%partner-uppdatering%");
+        for (const v of puVisits || []) {
+          if (v.ip_anonymized && v.ip_anonymized !== "unknown") {
+            partnerUpdateIpPrefixes.add(v.ip_anonymized.split(".").slice(0, 2).join("."));
+          }
+        }
+
+        // Fetch published partners for slug-to-name mapping
+        const { data: pubPartners } = await supabase
+          .from("partners")
+          .select("name, slug")
+          .eq("is_featured", true);
+        const slugToName: Record<string, string> = {};
+        for (const p of pubPartners || []) {
+          slugToName[p.slug] = p.name;
+        }
         
         // Fetch all visitor analytics from the specified date (paginated to avoid 1000-row limit)
         let allVisitors: any[] = [];
@@ -407,9 +433,15 @@ case "click-stats": {
           from += pageSize;
         }
         const visitors = allVisitors;
-        const error = null;
 
-        if (error) throw error;
+        // Helper to check if an IP should be excluded
+        const isExcludedIp = (ipAnon: string | null): boolean => {
+          if (!ipAnon || ipAnon === "unknown") return false;
+          const prefix = ipAnon.split(".").slice(0, 2).join(".");
+          if (vsAdminIpPrefix && prefix === vsAdminIpPrefix) return true;
+          if (partnerUpdateIpPrefixes.has(prefix)) return true;
+          return false;
+        };
 
         const NORDIC_COUNTRIES = ["SE", "NO", "DK", "FI", "IS"];
         const EUROPEAN_COUNTRIES = [
@@ -468,6 +500,21 @@ case "click-stats": {
         const topCities = Object.values(cityCount)
           .sort((a, b) => b.visits - a.visits);
 
+        // Partner profile visits (filtered by IP)
+        const partnerProfileVisits: Record<string, number> = {};
+        for (const v of visitors || []) {
+          if (v.page_path?.startsWith("/partner/") && !isExcludedIp(v.ip_anonymized)) {
+            const slug = v.page_path.replace("/partner/", "").replace(/\/$/, "");
+            const partnerName = slugToName[slug];
+            if (partnerName) {
+              partnerProfileVisits[partnerName] = (partnerProfileVisits[partnerName] || 0) + 1;
+            }
+          }
+        }
+        const partnerProfileStats = Object.entries(partnerProfileVisits)
+          .map(([name, visits]) => ({ name, visits }))
+          .sort((a, b) => b.visits - a.visits);
+
         const stats = {
           totalVisitors: visitors?.length || 0,
           swedishVisitors: swedishVisitors.length,
@@ -478,6 +525,7 @@ case "click-stats": {
           avgTimeOnPage,
           topPages,
           topCities,
+          partnerProfileStats,
         };
 
         return new Response(
