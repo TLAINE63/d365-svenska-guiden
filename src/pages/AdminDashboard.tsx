@@ -1159,6 +1159,10 @@ const AdminDashboard = () => {
               <FileText className="h-4 w-4" />
               Emailsammanfattning
             </TabsTrigger>
+            <TabsTrigger value="email-log" className="flex items-center gap-2">
+              <Mail className="h-4 w-4" />
+              E-postlogg
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
