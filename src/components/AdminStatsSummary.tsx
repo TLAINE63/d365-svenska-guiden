@@ -177,6 +177,10 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
         lines.push("");
         lines.push("─── PARTNERKLICK ───");
         lines.push(`Totalt antal klick till partnerwebbplatser: ${totalClicks}`);
+        const excludedClicks = clickData?.excludedClicks || 0;
+        if (excludedClicks > 0) {
+          lines.push(`(${excludedClicks} klick exkluderade – admin och partnerinternt)`);
+        }
         lines.push("");
         lines.push("Klick per publicerad partner:");
         sorted.forEach(([name, clicks], i) => {
