@@ -408,17 +408,17 @@ const Kunskapscenter = () => {
   const categoryBadgeColor = (type: string) => {
     switch (type) {
       case "event":
-        return "bg-primary/10 text-primary border-primary/20";
+        return "bg-primary text-primary-foreground border-primary";
       case "behovsanalys":
-        return "bg-accent/10 text-accent-foreground border-accent/20";
+        return "bg-teal-600 text-white border-teal-600";
       case "kravspecifikation":
-        return "bg-accent/10 text-accent-foreground border-accent/20";
+        return "bg-indigo-600 text-white border-indigo-600";
       case "artikel":
-        return "bg-secondary text-secondary-foreground border-border";
+        return "bg-slate-600 text-white border-slate-600";
       case "guide":
-        return "bg-secondary text-secondary-foreground border-border";
+        return "bg-teal-600 text-white border-teal-600";
       case "video":
-        return "bg-destructive/10 text-destructive border-destructive/20";
+        return "bg-rose-600 text-white border-rose-600";
       default:
         return "bg-muted text-muted-foreground border-border";
     }
