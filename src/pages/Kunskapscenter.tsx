@@ -349,7 +349,7 @@ const Kunskapscenter = () => {
       title: e.title,
       description: e.description,
       url: e.event_link,
-      image_url: e.image_url,
+      image_url: e.image_url || e.partners?.logo_url || null,
       date: e.event_date,
       partner: e.partners?.name || null,
       isExternal: true,
