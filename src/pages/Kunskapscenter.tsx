@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
+import kravspecImage from "@/assets/kravspecifikation-card.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -76,7 +77,7 @@ const STATIC_TOOLS: Array<{
   description: string;
   type: FormatValue;
   url: string;
-  image_url: null;
+  image_url: string | null;
   icon: typeof Wrench;
   products: ProductValue[];
 }> = [
@@ -126,7 +127,7 @@ const STATIC_TOOLS: Array<{
     description: "Skapa en skräddarsydd kravspecifikation för ditt ERP-projekt.",
     type: "kravspecifikation",
     url: "/kravspecifikation",
-    image_url: null,
+    image_url: kravspecImage,
     icon: FileText,
     products: ["Business Central", "Finance & SCM"],
   },
@@ -136,7 +137,7 @@ const STATIC_TOOLS: Array<{
     description: "Generera en kravspecifikation anpassad för din säljavdelning.",
     type: "kravspecifikation",
     url: "/kravspecifikation-sales",
-    image_url: null,
+    image_url: kravspecImage,
     icon: FileText,
     products: ["Sales"],
   },
@@ -146,7 +147,7 @@ const STATIC_TOOLS: Array<{
     description: "Skapa en kravspecifikation för din marknadsavdelning.",
     type: "kravspecifikation",
     url: "/kravspecifikation-marketing",
-    image_url: null,
+    image_url: kravspecImage,
     icon: FileText,
     products: ["Customer Insights"],
   },
@@ -156,7 +157,7 @@ const STATIC_TOOLS: Array<{
     description: "Generera en detaljerad kravspecifikation för kundserviceavdelningen.",
     type: "kravspecifikation",
     url: "/kravspecifikation-kundservice",
-    image_url: null,
+    image_url: kravspecImage,
     icon: FileText,
     products: ["Customer Service", "Field Service", "Contact Center"],
   },
