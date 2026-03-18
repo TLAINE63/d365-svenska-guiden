@@ -168,18 +168,7 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       lines.push(`Snittid på sidan: ${stats.avgTimeOnPage} sekunder`);
 
 
-      if (stats.topPages?.length > 0) {
-        // Aggregate partner-events sub-paths into one entry
-        const aggregated: { path: string; visits: number }[] = [];
-        let partnerEventsTotal = 0;
-        for (const p of stats.topPages) {
-          if (p.path.startsWith("/partner-events/")) {
-            partnerEventsTotal += p.visits;
-          } else {
-            aggregated.push(p);
-      }
-
-      // Helper to look up visits for a path from aggregated data
+      // Build allPages lookup from topPages
       const allPages: Record<string, number> = {};
       if (stats.topPages) {
         for (const p of stats.topPages) {
@@ -191,6 +180,18 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
         }
       }
       const getVisits = (path: string) => allPages[path] || 0;
+
+      // Top pages (aggregated)
+      if (stats.topPages?.length > 0) {
+        const aggregated = Object.entries(allPages).map(([path, visits]) => ({ path, visits }));
+        aggregated.sort((a, b) => b.visits - a.visits);
+
+        lines.push("");
+        lines.push("📄 Mest besökta sidor:");
+        aggregated.slice(0, 10).forEach((p, i) => {
+          lines.push(`  ${i + 1}. ${getPageLabel(p.path)} – ${p.visits} besök`);
+        });
+      }
 
       // Behovsanalyser, Kravspec & AI Assessment
       const toolPages = [
@@ -223,18 +224,6 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
         if (sectionTotal > 0) {
           lines.push(`  ${section.label}: ${sectionTotal} besök`);
         }
-      }
-        }
-        if (partnerEventsTotal > 0) {
-          aggregated.push({ path: "/partner-events (portaler)", visits: partnerEventsTotal });
-        }
-        aggregated.sort((a: any, b: any) => b.visits - a.visits);
-
-        lines.push("");
-        lines.push("📄 Mest besökta sidor:");
-        aggregated.slice(0, 10).forEach((p: any, i: number) => {
-          lines.push(`  ${i + 1}. ${getPageLabel(p.path)} – ${p.visits} besök`);
-        });
       }
 
       if (stats.partnerProfileStats?.length > 0) {
