@@ -157,7 +157,7 @@ const STATIC_TOOLS: Array<{
     url: "/kravspecifikation-kundservice",
     image_url: null,
     icon: FileText,
-    roles: ["Kundservicechef", "VD", "COO", "IT-chef"],
+    products: ["Customer Service", "Field Service", "Contact Center"],
   },
 ];
 
