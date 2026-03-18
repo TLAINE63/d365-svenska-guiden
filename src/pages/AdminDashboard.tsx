@@ -1862,6 +1862,14 @@ const AdminDashboard = () => {
               onSessionExpired={logout}
             />
           </TabsContent>
+
+          {/* ==================== EMAIL LOG TAB ==================== */}
+          <TabsContent value="email-log">
+            <AdminEmailLogTab
+              token={token || ""}
+              onSessionExpired={logout}
+            />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
