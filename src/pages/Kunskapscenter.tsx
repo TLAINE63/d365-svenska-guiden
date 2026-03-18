@@ -113,7 +113,7 @@ const STATIC_TOOLS: Array<{
     id: "tool-ai-readiness",
     title: "AI Readiness Assessment",
     description: "Testa din organisations mognad för AI och Copilot – få konkreta rekommendationer.",
-    type: "verktyg",
+    type: "behovsanalys",
     url: "/ai-readiness",
     image_url: null,
     icon: Wrench,
