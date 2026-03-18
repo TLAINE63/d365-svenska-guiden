@@ -105,7 +105,7 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       if (!clickRes.ok) throw new Error(clickData.error || "Kunde inte hämta klickdata");
 
       const stats = visitorData.stats;
-      const clickStats = clickRes.data?.stats || [];
+      const clickStats = clickData?.stats || [];
 
       // Build text
       const today = format(new Date(), "d MMMM yyyy", { locale: sv });
