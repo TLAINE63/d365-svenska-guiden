@@ -101,7 +101,7 @@ const STATIC_TOOLS: Array<{
     description: "Analysera dina behov inom sälj och marknad för att hitta rätt CRM-lösning.",
     type: "behovsanalys",
     url: "/salj-marknad-behovsanalys",
-    image_url: null,
+    image_url: behovsSaljImage,
     icon: Wrench,
     products: ["Sales", "Customer Insights"],
   },
