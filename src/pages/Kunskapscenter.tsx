@@ -5,6 +5,7 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -443,12 +444,22 @@ const Kunskapscenter = () => {
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero */}
-        <section className="py-10 md:py-14 bg-gradient-to-br from-primary/5 via-secondary/40 to-background">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-3 tracking-tight">
+        <section className="relative py-16 md:py-20 overflow-hidden">
+          <div className="absolute inset-0">
+            <img
+              src={kunskapscenterHero}
+              alt=""
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+          </div>
+          <div className="container mx-auto px-4 max-w-4xl relative z-10">
+            <h1 className="text-3xl md:text-5xl font-bold text-white mb-3 tracking-tight">
               Kunskapscenter
             </h1>
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+            <p className="text-base md:text-lg text-white/80 leading-relaxed max-w-2xl">
               Allt vi vet om Microsoft Dynamics 365 – behovsanalyser, kravspecifikationer,
               guider och kommande events. Samlat på ett ställe, utan formulär.
             </p>
