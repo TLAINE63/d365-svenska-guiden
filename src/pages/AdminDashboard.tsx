@@ -2535,40 +2535,6 @@ const AdminDashboard = () => {
                               </div>
                             </div>
                             
-                            {(filter.geography || []).includes("Sverige") && (
-                              <div className="space-y-4">
-                                {/* Sweden Regions */}
-                                <div>
-                                  <Label className="text-sm">Regioner i Sverige</Label>
-                                  <p className="text-xs text-muted-foreground mb-2">Välj vilka regioner ni täcker i Sverige, dvs där ni har lokal leveransförmåga.</p>
-                                  <div className="flex flex-wrap gap-2 mt-2">
-                                    {(["Storstockholm / Mälardalen", "Syd / Sydväst", "Väst", "Sydost", "Mellansverige", "Norr"] as const).map((region) => {
-                                      const isSelected = (filter.swedenRegions || []).includes(region);
-                                      return (
-                                        <button
-                                          key={region}
-                                          type="button"
-                                          onClick={() => {
-                                            const current = filter.swedenRegions || [];
-                                            const updated = isSelected
-                                              ? current.filter(r => r !== region)
-                                              : [...current, region];
-                                            updateProductFilter(section.key, { swedenRegions: updated });
-                                          }}
-                                          className={`px-3 py-2 text-sm rounded-lg border-2 transition-all ${
-                                            isSelected
-                                              ? 'bg-primary text-primary-foreground border-primary'
-                                              : 'bg-card border-border hover:border-primary/50'
-                                          }`}
-                                        >
-                                          {region}
-                                        </button>
-                                      );
-                                    })}
-                                  </div>
-                                </div>
-                              </div>
-                            )}
                           </div>
 
                           {/* AI Capabilities Section */}
