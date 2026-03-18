@@ -428,12 +428,6 @@ export const SubmissionCompareDialog = ({
                             isNew={isNewPartner}
                           />
                           <CompareArrayField 
-                            label="Regioner i Sverige" 
-                            oldValue={oldFilter?.swedenRegions} 
-                            newValue={newFilter.swedenRegions}
-                            isNew={isNewPartner}
-                          />
-                          <CompareArrayField 
                             label="Kundexempel" 
                             oldValue={oldFilter?.customerExamples} 
                             newValue={newFilter.customerExamples}
