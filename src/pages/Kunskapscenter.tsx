@@ -97,7 +97,7 @@ const STATIC_TOOLS: Array<{
     url: "/salj-marknad-behovsanalys",
     image_url: null,
     icon: Wrench,
-    roles: ["Säljchef", "Marknadschef", "VD", "CIO"],
+    products: ["Sales", "Customer Insights"],
   },
   {
     id: "tool-behovsanalys-kundservice",
