@@ -6,7 +6,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
-import kravspecImage from "@/assets/kravspecifikation-card.jpg";
+import kravspecErpImage from "@/assets/kravspec-erp-card.jpg";
+import kravspecSalesImage from "@/assets/kravspec-sales-card.jpg";
+import kravspecMarketingImage from "@/assets/kravspec-marketing-card.jpg";
+import kravspecKundserviceImage from "@/assets/kravspec-kundservice-card.jpg";
 import behovsErpImage from "@/assets/behovsanalys-erp-card.jpg";
 import behovsSaljImage from "@/assets/behovsanalys-salj-card.jpg";
 import behovsKundserviceImage from "@/assets/behovsanalys-kundservice-card.jpg";
@@ -131,7 +134,7 @@ const STATIC_TOOLS: Array<{
     description: "Skapa en skräddarsydd kravspecifikation för ditt ERP-projekt.",
     type: "kravspecifikation",
     url: "/kravspecifikation",
-    image_url: kravspecImage,
+    image_url: kravspecErpImage,
     icon: FileText,
     products: ["Business Central", "Finance & SCM"],
   },
@@ -141,7 +144,7 @@ const STATIC_TOOLS: Array<{
     description: "Generera en kravspecifikation anpassad för din säljavdelning.",
     type: "kravspecifikation",
     url: "/kravspecifikation-sales",
-    image_url: kravspecImage,
+    image_url: kravspecSalesImage,
     icon: FileText,
     products: ["Sales"],
   },
@@ -151,7 +154,7 @@ const STATIC_TOOLS: Array<{
     description: "Skapa en kravspecifikation för din marknadsavdelning.",
     type: "kravspecifikation",
     url: "/kravspecifikation-marketing",
-    image_url: kravspecImage,
+    image_url: kravspecMarketingImage,
     icon: FileText,
     products: ["Customer Insights"],
   },
@@ -161,7 +164,7 @@ const STATIC_TOOLS: Array<{
     description: "Generera en detaljerad kravspecifikation för kundserviceavdelningen.",
     type: "kravspecifikation",
     url: "/kravspecifikation-kundservice",
-    image_url: kravspecImage,
+    image_url: kravspecKundserviceImage,
     icon: FileText,
     products: ["Customer Service", "Field Service", "Contact Center"],
   },
