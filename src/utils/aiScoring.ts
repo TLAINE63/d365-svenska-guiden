@@ -155,19 +155,19 @@ export interface AiLevelInfo {
 export function getAiLevel(score: number): AiLevelInfo {
   if (score >= 60) return {
     level: "transformation", label: "AI Transformation Partner", emoji: "🌟",
-    color: "border-emerald-600/40 text-emerald-800 bg-emerald-50 dark:text-emerald-300 dark:bg-emerald-950/30", score,
+    color: "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30", score,
   };
   if (score >= 35) return {
-    level: "advanced", label: "AI Advanced", emoji: "🟢",
-    color: "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30", score,
+    level: "advanced", label: "AI Advanced", emoji: "🥇",
+    color: "border-amber-500/40 text-amber-700 bg-amber-50 dark:text-amber-400 dark:bg-amber-950/30", score,
   };
   if (score >= 15) return {
-    level: "integration", label: "AI Integration Partner", emoji: "🔵",
-    color: "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30", score,
+    level: "integration", label: "AI Integration Partner", emoji: "🟢",
+    color: "border-green-500/40 text-green-700 bg-green-50 dark:text-green-400 dark:bg-green-950/30", score,
   };
   if (score > 0) return {
-    level: "enabled", label: "AI Enabled", emoji: "🟡",
-    color: "border-yellow-500/40 text-yellow-700 bg-yellow-50 dark:text-yellow-400 dark:bg-yellow-950/30", score,
+    level: "enabled", label: "AI Enabled", emoji: "🔵",
+    color: "border-blue-500/40 text-blue-700 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30", score,
   };
   return { level: "none", label: "", emoji: "", color: "", score: 0 };
 }
