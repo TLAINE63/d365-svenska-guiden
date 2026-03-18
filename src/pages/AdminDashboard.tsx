@@ -78,6 +78,7 @@ import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
+import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
