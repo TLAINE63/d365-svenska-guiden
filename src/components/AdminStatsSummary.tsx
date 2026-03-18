@@ -93,12 +93,16 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       }
 
       // Fetch click stats
-      const { default: supabaseClient } = await import("@/integrations/supabase/client").then(m => ({ default: m.supabase }));
-      const clickRes = await supabaseClient.functions.invoke("manage-leads", {
-        body: { action: "click-stats", token },
-      });
-      if (clickRes.error) throw clickRes.error;
-      if (clickRes.data?.error) throw new Error(clickRes.data.error);
+      const clickRes = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "click-stats", token }),
+        }
+      );
+      const clickData = await clickRes.json();
+      if (!clickRes.ok) throw new Error(clickData.error || "Kunde inte hämta klickdata");
 
       const stats = visitorData.stats;
       const clickStats = clickRes.data?.stats || [];
