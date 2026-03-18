@@ -371,7 +371,7 @@ const Kunskapscenter = () => {
       partner: null as string | null,
       isExternal: a.url?.startsWith("http") ?? false,
       icon: a.content_type === "video" ? Play : BookOpen,
-      roles: a.target_roles || [],
+      products: a.target_roles || [],
     })),
   ];
 
