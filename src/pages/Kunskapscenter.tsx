@@ -127,7 +127,7 @@ const STATIC_TOOLS: Array<{
     description: "Skapa en skräddarsydd kravspecifikation för ditt ERP-projekt.",
     type: "kravspecifikation",
     url: "/kravspecifikation",
-    image_url: null,
+    image_url: kravspecImage,
     icon: FileText,
     products: ["Business Central", "Finance & SCM"],
   },
