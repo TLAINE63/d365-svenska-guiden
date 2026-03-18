@@ -224,10 +224,6 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
           lines.push(`  ${section.label}: ${sectionTotal} besök`);
         }
       }
-      const startPageVisits = getVisits("/");
-      if (startPageVisits > 0) {
-        lines.push(`  Startsidan: ${startPageVisits} besök`);
-      }
         }
         if (partnerEventsTotal > 0) {
           aggregated.push({ path: "/partner-events (portaler)", visits: partnerEventsTotal });
