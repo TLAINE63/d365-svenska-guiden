@@ -489,10 +489,13 @@ case "click-stats": {
           ? Math.round((swedishBounces / swedishVisitors.length) * 100) 
           : 0;
 
-        // Average time on page (Swedish visitors)
-        const validTimes = swedishVisitors.filter(v => v.time_on_page_seconds && v.time_on_page_seconds > 0);
+        // Average time on page (Swedish visitors), capped at 600s to exclude outliers
+        const MAX_TIME = 600;
+        const validTimes = swedishVisitors
+          .filter(v => v.time_on_page_seconds && v.time_on_page_seconds > 0)
+          .map(v => Math.min(v.time_on_page_seconds, MAX_TIME));
         const avgTimeOnPage = validTimes.length > 0
-          ? Math.round(validTimes.reduce((sum, v) => sum + v.time_on_page_seconds, 0) / validTimes.length)
+          ? Math.round(validTimes.reduce((sum, t) => sum + t, 0) / validTimes.length)
           : 0;
 
         // Top pages (Swedish visitors)
