@@ -286,6 +286,43 @@ const handler = async (req: Request): Promise<Response> => {
       }
 
 case "click-stats": {
+        // Get admin IP from JWT to exclude admin clicks
+        const adminIp = verification.payload?.ip as string || "";
+        const adminIpPrefix = adminIp ? adminIp.split(".").slice(0, 2).join(".") : "";
+
+        // Fetch partner admin emails to build exclusion domains
+        const { data: partners } = await supabase
+          .from("partners")
+          .select("name, admin_contact_email, email")
+          .eq("is_featured", true);
+
+        // Build a set of partner email domains for cross-referencing
+        const partnerDomains = new Set<string>();
+        for (const p of partners || []) {
+          for (const emailField of [p.admin_contact_email, p.email]) {
+            if (emailField) {
+              const domain = emailField.split("@")[1]?.toLowerCase();
+              if (domain) partnerDomains.add(domain);
+            }
+          }
+        }
+
+        // Fetch visitor analytics to map IP prefixes to email domains (from referrer patterns)
+        // This is a best-effort approach - we look for visitors whose page visits suggest internal traffic
+        const partnerIpPrefixes = new Set<string>();
+        // We'll check if any visitor IPs that clicked also visited /partner-uppdatering (partner update page)
+        const { data: partnerUpdateVisits } = await supabase
+          .from("visitor_analytics")
+          .select("ip_anonymized")
+          .like("page_path", "%partner-uppdatering%");
+        
+        for (const v of partnerUpdateVisits || []) {
+          if (v.ip_anonymized && v.ip_anonymized !== "unknown") {
+            const prefix = v.ip_anonymized.split(".").slice(0, 2).join(".");
+            partnerIpPrefixes.add(prefix);
+          }
+        }
+
         const { data: stats, error } = await supabase
           .from("partner_clicks")
           .select("partner_name, clicked_at, ip_address_anonymized")
@@ -293,12 +330,28 @@ case "click-stats": {
 
         if (error) throw error;
 
-        // Aggregate by partner and month
+        // Aggregate by partner and month, excluding admin and partner IPs
         const aggregated: Record<string, { partner_name: string; month: string; clicks: number }> = {};
-        // Aggregate by IP prefix for geographic overview
         const ipStats: Record<string, number> = {};
+        let excludedCount = 0;
         
         for (const row of stats || []) {
+          // Exclude admin's IP prefix
+          const rowIpPrefix = row.ip_address_anonymized 
+            ? row.ip_address_anonymized.split(".").slice(0, 2).join(".")
+            : "";
+          
+          if (adminIpPrefix && rowIpPrefix === adminIpPrefix) {
+            excludedCount++;
+            continue;
+          }
+
+          // Exclude IPs that visited partner update pages (likely partners themselves)
+          if (rowIpPrefix && partnerIpPrefixes.has(rowIpPrefix)) {
+            excludedCount++;
+            continue;
+          }
+
           const date = new Date(row.clicked_at);
           const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-01`;
           const key = `${row.partner_name}_${monthKey}`;
@@ -312,10 +365,8 @@ case "click-stats": {
           }
           aggregated[key].clicks++;
           
-          // Count IP prefixes (first two octets for broader geographic grouping)
           if (row.ip_address_anonymized && row.ip_address_anonymized !== "unknown") {
-            const ipPrefix = row.ip_address_anonymized.split(".").slice(0, 2).join(".");
-            ipStats[ipPrefix] = (ipStats[ipPrefix] || 0) + 1;
+            ipStats[rowIpPrefix] = (ipStats[rowIpPrefix] || 0) + 1;
           }
         }
 
@@ -324,14 +375,13 @@ case "click-stats": {
           return b.clicks - a.clicks;
         });
 
-        // Convert IP stats to sorted array
         const ipStatsArray = Object.entries(ipStats)
           .map(([prefix, count]) => ({ ip_prefix: prefix, clicks: count }))
           .sort((a, b) => b.clicks - a.clicks)
-          .slice(0, 20); // Top 20 IP prefixes
+          .slice(0, 20);
 
         return new Response(
-          JSON.stringify({ stats: result, ipStats: ipStatsArray }),
+          JSON.stringify({ stats: result, ipStats: ipStatsArray, excludedClicks: excludedCount }),
           { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
