@@ -610,7 +610,7 @@ const Kunskapscenter = () => {
                             )}
                           </div>
                         ) : (
-                          <div className="aspect-video overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
+                          <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
                             <item.icon className="w-12 h-12 text-muted-foreground/40" />
                           </div>
                         )}
