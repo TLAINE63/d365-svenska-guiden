@@ -77,7 +77,7 @@ const STATIC_TOOLS: Array<{
   url: string;
   image_url: null;
   icon: typeof Wrench;
-  roles: RoleValue[];
+  products: ProductValue[];
 }> = [
   {
     id: "tool-behovsanalys-erp",
