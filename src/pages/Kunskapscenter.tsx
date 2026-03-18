@@ -487,11 +487,11 @@ const Kunskapscenter = () => {
                   selected={selectedFormats}
                   onChange={setSelectedFormats}
                 />
-                <MultiSelectDropdown<RoleValue>
-                  label="Målgrupp"
-                  options={ROLE_OPTIONS.map(r => ({ label: r, value: r }))}
-                  selected={selectedRoles}
-                  onChange={setSelectedRoles}
+                <MultiSelectDropdown<ProductValue>
+                  label="Produkt"
+                  options={PRODUCT_OPTIONS.map(p => ({ label: p, value: p }))}
+                  selected={selectedProducts}
+                  onChange={setSelectedProducts}
                 />
               </div>
 
