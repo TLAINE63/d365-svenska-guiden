@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema } from "@/components/StructuredData";
@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Calendar,
   ExternalLink,
@@ -17,9 +16,17 @@ import {
   CalendarDays,
   BookOpen,
   ArrowRight,
+  ChevronDown,
+  Check,
 } from "lucide-react";
 
-type CategoryFilter = "alla" | "events" | "verktyg" | "artikel" | "video";
+// ── Types ──────────────────────────────────────────────
+
+type CategoryFilter = "alla" | "event" | "verktyg" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+
+type FormatValue = "event" | "verktyg" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+
+type RoleValue = "IT-chef" | "CFO" | "VD" | "CIO" | "COO" | "Säljchef" | "Marknadschef" | "Kundservicechef" | "Projektledare" | "Ekonomichef";
 
 interface KnowledgeArticle {
   id: string;
@@ -27,9 +34,11 @@ interface KnowledgeArticle {
   description: string | null;
   category: string;
   content_type: string;
+  format: string;
   url: string | null;
   image_url: string | null;
   published_at: string | null;
+  target_roles: string[];
 }
 
 interface EventItem {
@@ -44,99 +53,234 @@ interface EventItem {
   partners: { name: string; slug: string } | null;
 }
 
-const STATIC_TOOLS = [
+interface UnifiedItem {
+  id: string;
+  type: FormatValue;
+  title: string;
+  description: string | null;
+  url: string | null;
+  image_url: string | null;
+  date: string | null;
+  partner: string | null;
+  isExternal: boolean;
+  icon: typeof CalendarDays;
+  roles: string[];
+}
+
+// ── Static content ─────────────────────────────────────
+
+const STATIC_TOOLS: Array<{
+  id: string;
+  title: string;
+  description: string;
+  type: FormatValue;
+  url: string;
+  image_url: null;
+  icon: typeof Wrench;
+  roles: RoleValue[];
+}> = [
   {
     id: "tool-behovsanalys-erp",
     title: "Behovsanalys ERP (Affärssystem)",
     description: "Kartlägg dina behov för ett nytt affärssystem och få en AI-driven analys med rekommendationer.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "behovsanalys",
     url: "/behovsanalys",
     image_url: null,
     icon: Wrench,
+    roles: ["IT-chef", "CFO", "VD", "COO", "Ekonomichef", "Projektledare"],
   },
   {
     id: "tool-behovsanalys-salj",
     title: "Behovsanalys Sälj & Marknad (CRM)",
     description: "Analysera dina behov inom sälj och marknad för att hitta rätt CRM-lösning.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "behovsanalys",
     url: "/salj-marknad-behovsanalys",
     image_url: null,
     icon: Wrench,
+    roles: ["Säljchef", "Marknadschef", "VD", "CIO"],
   },
   {
     id: "tool-behovsanalys-kundservice",
     title: "Behovsanalys Kundservice & Field Service",
     description: "Utvärdera dina servicebehov och få matchning mot rätt Dynamics 365-lösning.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "behovsanalys",
     url: "/kundservice-behovsanalys",
     image_url: null,
     icon: Wrench,
+    roles: ["Kundservicechef", "VD", "COO", "IT-chef"],
   },
   {
     id: "tool-ai-readiness",
     title: "AI Readiness Assessment",
     description: "Testa din organisations mognad för AI och Copilot – få konkreta rekommendationer.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "verktyg",
     url: "/ai-readiness",
     image_url: null,
     icon: Wrench,
+    roles: ["IT-chef", "VD", "CIO", "COO", "Projektledare"],
   },
   {
     id: "tool-kravspec-erp",
     title: "Kravspecifikation ERP",
     description: "Skapa en skräddarsydd kravspecifikation för ditt ERP-projekt.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "kravspecifikation",
     url: "/kravspecifikation",
     image_url: null,
     icon: FileText,
+    roles: ["IT-chef", "CFO", "VD", "Projektledare", "Ekonomichef"],
   },
   {
     id: "tool-kravspec-sales",
     title: "Kravspecifikation Sälj",
     description: "Generera en kravspecifikation anpassad för din säljavdelning.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "kravspecifikation",
     url: "/kravspecifikation-sales",
     image_url: null,
     icon: FileText,
+    roles: ["Säljchef", "VD", "CIO"],
   },
   {
     id: "tool-kravspec-marketing",
     title: "Kravspecifikation Marknad",
     description: "Skapa en kravspecifikation för din marknadsavdelning.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "kravspecifikation",
     url: "/kravspecifikation-marketing",
     image_url: null,
     icon: FileText,
+    roles: ["Marknadschef", "VD", "CIO"],
   },
   {
     id: "tool-kravspec-kundservice",
     title: "Kravspecifikation Kundservice",
     description: "Generera en detaljerad kravspecifikation för kundserviceavdelningen.",
-    category: "verktyg",
-    content_type: "verktyg",
+    type: "kravspecifikation",
     url: "/kravspecifikation-kundservice",
     image_url: null,
     icon: FileText,
+    roles: ["Kundservicechef", "VD", "COO", "IT-chef"],
   },
 ];
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Alla", value: "alla" },
-  { label: "Events", value: "events" },
-  { label: "Verktyg & Analyser", value: "verktyg" },
-  { label: "Artiklar & Guider", value: "artikel" },
+  { label: "Events", value: "event" },
+  { label: "Behovsanalyser", value: "behovsanalys" },
+  { label: "Kravspecifikationer", value: "kravspecifikation" },
+  { label: "Verktyg", value: "verktyg" },
+  { label: "Artiklar", value: "artikel" },
+  { label: "Guider", value: "guide" },
   { label: "Videor", value: "video" },
 ];
 
+const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
+  { label: "Event", value: "event" },
+  { label: "Behovsanalys", value: "behovsanalys" },
+  { label: "Kravspecifikation", value: "kravspecifikation" },
+  { label: "Verktyg", value: "verktyg" },
+  { label: "Artikel", value: "artikel" },
+  { label: "Guide", value: "guide" },
+  { label: "Video", value: "video" },
+];
+
+const ROLE_OPTIONS: RoleValue[] = [
+  "VD",
+  "CFO",
+  "CIO",
+  "COO",
+  "IT-chef",
+  "Ekonomichef",
+  "Säljchef",
+  "Marknadschef",
+  "Kundservicechef",
+  "Projektledare",
+];
+
+// ── Dropdown component ─────────────────────────────────
+
+function MultiSelectDropdown<T extends string>({
+  label,
+  options,
+  selected,
+  onChange,
+}: {
+  label: string;
+  options: { label: string; value: T }[] | T[];
+  selected: T[];
+  onChange: (val: T[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const normalized = (options as any[]).map((o: any) =>
+    typeof o === "string" ? { label: o, value: o } : o
+  ) as { label: string; value: T }[];
+
+  const toggle = (val: T) => {
+    onChange(
+      selected.includes(val) ? selected.filter((v) => v !== val) : [...selected, val]
+    );
+  };
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(!open)}
+        className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+          selected.length > 0
+            ? "bg-primary text-primary-foreground border-primary shadow-md"
+            : "bg-muted/80 text-muted-foreground border-border hover:border-primary/40"
+        }`}
+      >
+        {label}
+        {selected.length > 0 && (
+          <span className="bg-primary-foreground/20 text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-bold leading-none">
+            {selected.length}
+          </span>
+        )}
+        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="absolute top-full mt-2 left-0 z-50 min-w-[200px] rounded-xl border border-border bg-card shadow-xl overflow-hidden">
+          <div className="p-1">
+            {normalized.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => toggle(opt.value)}
+                className="flex items-center gap-2.5 w-full px-3 py-2.5 text-sm text-left rounded-lg hover:bg-muted/60 transition-colors"
+              >
+                <span
+                  className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
+                    selected.includes(opt.value)
+                      ? "bg-primary border-primary text-primary-foreground"
+                      : "border-border"
+                  }`}
+                >
+                  {selected.includes(opt.value) && <Check className="w-3 h-3" />}
+                </span>
+                <span className="text-foreground">{opt.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Main component ─────────────────────────────────────
+
 const Kunskapscenter = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("alla");
+  const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
+  const [selectedRoles, setSelectedRoles] = useState<RoleValue[]>([]);
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -162,7 +306,7 @@ const Kunskapscenter = () => {
           ),
         ]);
 
-        if (articlesRes.data) setArticles(articlesRes.data);
+        if (articlesRes.data) setArticles(articlesRes.data as any);
 
         if (eventsRes.ok) {
           const result = await eventsRes.json();
@@ -193,10 +337,10 @@ const Kunskapscenter = () => {
     });
 
   // Build unified items list
-  const allItems = [
+  const allItems: UnifiedItem[] = [
     ...events.map((e) => ({
       id: e.id,
-      type: "events" as const,
+      type: "event" as const,
       title: e.title,
       description: e.description,
       url: e.event_link,
@@ -205,10 +349,11 @@ const Kunskapscenter = () => {
       partner: e.partners?.name || null,
       isExternal: true,
       icon: CalendarDays,
+      roles: [] as string[],
     })),
     ...STATIC_TOOLS.map((t) => ({
       id: t.id,
-      type: "verktyg" as const,
+      type: t.type,
       title: t.title,
       description: t.description,
       url: t.url,
@@ -217,10 +362,11 @@ const Kunskapscenter = () => {
       partner: null as string | null,
       isExternal: false,
       icon: t.icon,
+      roles: t.roles as string[],
     })),
     ...articles.map((a) => ({
       id: a.id,
-      type: a.category as "artikel" | "video",
+      type: (a.format || a.category) as FormatValue,
       title: a.title,
       description: a.description,
       url: a.url,
@@ -229,21 +375,37 @@ const Kunskapscenter = () => {
       partner: null as string | null,
       isExternal: a.url?.startsWith("http") ?? false,
       icon: a.content_type === "video" ? Play : BookOpen,
+      roles: a.target_roles || [],
     })),
   ];
 
-  const filteredItems =
-    activeCategory === "alla"
-      ? allItems
-      : allItems.filter((item) => item.type === activeCategory);
+  // Apply filters
+  const filteredItems = allItems.filter((item) => {
+    // Category pill filter
+    if (activeCategory !== "alla" && item.type !== activeCategory) return false;
+    // Format multi-select
+    if (selectedFormats.length > 0 && !selectedFormats.includes(item.type)) return false;
+    // Role multi-select
+    if (selectedRoles.length > 0 && item.roles.length > 0) {
+      if (!selectedRoles.some((r) => item.roles.includes(r))) return false;
+    }
+    // If roles filter is set but item has no roles, keep it (events etc.)
+    return true;
+  });
 
   const categoryBadgeColor = (type: string) => {
     switch (type) {
-      case "events":
+      case "event":
         return "bg-primary/10 text-primary border-primary/20";
+      case "behovsanalys":
+        return "bg-accent/10 text-accent-foreground border-accent/20";
+      case "kravspecifikation":
+        return "bg-accent/10 text-accent-foreground border-accent/20";
       case "verktyg":
         return "bg-accent/10 text-accent-foreground border-accent/20";
       case "artikel":
+        return "bg-secondary text-secondary-foreground border-border";
+      case "guide":
         return "bg-secondary text-secondary-foreground border-border";
       case "video":
         return "bg-destructive/10 text-destructive border-destructive/20";
@@ -254,12 +416,23 @@ const Kunskapscenter = () => {
 
   const categoryLabel = (type: string) => {
     switch (type) {
-      case "events": return "Event";
+      case "event": return "Event";
+      case "behovsanalys": return "Behovsanalys";
+      case "kravspecifikation": return "Kravspecifikation";
       case "verktyg": return "Verktyg";
       case "artikel": return "Artikel";
+      case "guide": return "Guide";
       case "video": return "Video";
       default: return type;
     }
+  };
+
+  const hasActiveFilters = selectedFormats.length > 0 || selectedRoles.length > 0;
+
+  const clearAllFilters = () => {
+    setActiveCategory("alla");
+    setSelectedFormats([]);
+    setSelectedRoles([]);
   };
 
   return (
@@ -292,20 +465,52 @@ const Kunskapscenter = () => {
         {/* Filters */}
         <section className="border-b border-border sticky top-16 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container mx-auto px-4 py-4">
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((cat) => (
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Category pills */}
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.value}
+                    onClick={() => setActiveCategory(cat.value)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
+                      activeCategory === cat.value
+                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Spacer */}
+              <div className="hidden lg:block w-px h-8 bg-border mx-1" />
+
+              {/* Dropdown filters */}
+              <div className="flex gap-2">
+                <MultiSelectDropdown<FormatValue>
+                  label="Format"
+                  options={FORMAT_OPTIONS}
+                  selected={selectedFormats}
+                  onChange={setSelectedFormats}
+                />
+                <MultiSelectDropdown<RoleValue>
+                  label="Målgrupp"
+                  options={ROLE_OPTIONS.map(r => ({ label: r, value: r }))}
+                  selected={selectedRoles}
+                  onChange={setSelectedRoles}
+                />
+              </div>
+
+              {/* Clear */}
+              {hasActiveFilters && (
                 <button
-                  key={cat.value}
-                  onClick={() => setActiveCategory(cat.value)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border ${
-                    activeCategory === cat.value
-                      ? "bg-primary text-primary-foreground border-primary shadow-md"
-                      : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
-                  }`}
+                  onClick={clearAllFilters}
+                  className="text-xs text-primary hover:text-primary/80 underline underline-offset-2 transition-colors"
                 >
-                  {cat.label}
+                  Rensa filter
                 </button>
-              ))}
+              )}
             </div>
           </div>
         </section>
@@ -313,15 +518,27 @@ const Kunskapscenter = () => {
         {/* Content Grid */}
         <section className="py-12">
           <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between mb-6">
+              <p className="text-sm text-muted-foreground">
+                {filteredItems.length} {filteredItems.length === 1 ? "resurs" : "resurser"}
+              </p>
+            </div>
+
             {loading ? (
               <div className="text-center py-16 text-muted-foreground animate-pulse">
                 Laddar innehåll...
               </div>
             ) : filteredItems.length === 0 ? (
               <div className="text-center py-16">
-                <p className="text-muted-foreground text-lg">
-                  Inget innehåll hittades i denna kategori ännu.
+                <p className="text-muted-foreground text-lg mb-4">
+                  Inga resurser matchade dina filter.
                 </p>
+                <button
+                  onClick={clearAllFilters}
+                  className="text-primary hover:text-primary/80 underline underline-offset-2 text-sm transition-colors"
+                >
+                  Rensa alla filter
+                </button>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -342,7 +559,7 @@ const Kunskapscenter = () => {
                       className="group block"
                     >
                       <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                        {item.image_url && (
+                        {item.image_url ? (
                           <div className="aspect-video overflow-hidden bg-muted">
                             <img
                               src={item.image_url}
@@ -351,9 +568,13 @@ const Kunskapscenter = () => {
                               loading="lazy"
                             />
                           </div>
+                        ) : (
+                          <div className="aspect-video overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
+                            <item.icon className="w-12 h-12 text-muted-foreground/40" />
+                          </div>
                         )}
                         <CardContent className="p-5 flex flex-col gap-3">
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-2 flex-wrap">
                             <Badge
                               variant="outline"
                               className={`text-xs ${categoryBadgeColor(item.type)}`}
@@ -373,6 +594,23 @@ const Kunskapscenter = () => {
                             <p className="text-sm text-muted-foreground line-clamp-2">
                               {item.description}
                             </p>
+                          )}
+                          {item.roles.length > 0 && (
+                            <div className="flex flex-wrap gap-1">
+                              {item.roles.slice(0, 3).map((role) => (
+                                <span
+                                  key={role}
+                                  className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                                >
+                                  {role}
+                                </span>
+                              ))}
+                              {item.roles.length > 3 && (
+                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                                  +{item.roles.length - 3}
+                                </span>
+                              )}
+                            </div>
                           )}
                           <div className="flex items-center justify-between mt-auto pt-2">
                             {item.date && (
