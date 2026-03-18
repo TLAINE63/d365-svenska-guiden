@@ -87,7 +87,7 @@ const STATIC_TOOLS: Array<{
     url: "/behovsanalys",
     image_url: null,
     icon: Wrench,
-    roles: ["IT-chef", "CFO", "VD", "COO", "Ekonomichef", "Projektledare"],
+    products: ["Business Central", "Finance & SCM"],
   },
   {
     id: "tool-behovsanalys-salj",
