@@ -146,13 +146,6 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       if (stats.europeanVisitors > 0) lines.push(`Övriga Europa: ${stats.europeanVisitors}`);
       lines.push(`Snittid på sidan: ${stats.avgTimeOnPage} sekunder`);
 
-      if (stats.topCities?.length > 0) {
-        lines.push("");
-        lines.push("🏙️ Topp städer (Sverige):");
-        stats.topCities.slice(0, 8).forEach((c: any, i: number) => {
-          lines.push(`  ${i + 1}. ${c.city} – ${c.visits} besök`);
-        });
-      }
 
       if (stats.topPages?.length > 0) {
         lines.push("");
