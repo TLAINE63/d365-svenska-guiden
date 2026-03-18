@@ -588,19 +588,19 @@ const Kunskapscenter = () => {
                               {item.description}
                             </p>
                           )}
-                          {item.roles.length > 0 && (
+                          {item.products.length > 0 && (
                             <div className="flex flex-wrap gap-1">
-                              {item.roles.slice(0, 3).map((role) => (
+                              {item.products.slice(0, 3).map((product) => (
                                 <span
-                                  key={role}
+                                  key={product}
                                   className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
                                 >
-                                  {role}
+                                  {product}
                                 </span>
                               ))}
-                              {item.roles.length > 3 && (
+                              {item.products.length > 3 && (
                                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                  +{item.roles.length - 3}
+                                  +{item.products.length - 3}
                                 </span>
                               )}
                             </div>
