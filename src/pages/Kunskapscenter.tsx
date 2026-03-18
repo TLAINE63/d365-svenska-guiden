@@ -91,7 +91,7 @@ const STATIC_TOOLS: Array<{
     description: "Kartlägg dina behov för ett nytt affärssystem och få en AI-driven analys med rekommendationer.",
     type: "behovsanalys",
     url: "/behovsanalys",
-    image_url: null,
+    image_url: behovsErpImage,
     icon: Wrench,
     products: ["Business Central", "Finance & SCM"],
   },
