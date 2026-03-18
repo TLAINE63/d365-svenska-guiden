@@ -22,9 +22,9 @@ import {
 
 // ── Types ──────────────────────────────────────────────
 
-type CategoryFilter = "alla" | "event" | "verktyg" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
-type FormatValue = "event" | "verktyg" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
 type RoleValue = "IT-chef" | "CFO" | "VD" | "CIO" | "COO" | "Säljchef" | "Marknadschef" | "Kundservicechef" | "Projektledare" | "Ekonomichef";
 
@@ -113,7 +113,7 @@ const STATIC_TOOLS: Array<{
     id: "tool-ai-readiness",
     title: "AI Readiness Assessment",
     description: "Testa din organisations mognad för AI och Copilot – få konkreta rekommendationer.",
-    type: "verktyg",
+    type: "behovsanalys",
     url: "/ai-readiness",
     image_url: null,
     icon: Wrench,
@@ -166,7 +166,6 @@ const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Events", value: "event" },
   { label: "Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
-  { label: "Verktyg", value: "verktyg" },
   { label: "Artiklar", value: "artikel" },
   { label: "Guider", value: "guide" },
   { label: "Videor", value: "video" },
@@ -176,7 +175,6 @@ const FORMAT_OPTIONS: { label: string; value: FormatValue }[] = [
   { label: "Event", value: "event" },
   { label: "Behovsanalys", value: "behovsanalys" },
   { label: "Kravspecifikation", value: "kravspecifikation" },
-  { label: "Verktyg", value: "verktyg" },
   { label: "Artikel", value: "artikel" },
   { label: "Guide", value: "guide" },
   { label: "Video", value: "video" },
@@ -401,8 +399,6 @@ const Kunskapscenter = () => {
         return "bg-accent/10 text-accent-foreground border-accent/20";
       case "kravspecifikation":
         return "bg-accent/10 text-accent-foreground border-accent/20";
-      case "verktyg":
-        return "bg-accent/10 text-accent-foreground border-accent/20";
       case "artikel":
         return "bg-secondary text-secondary-foreground border-border";
       case "guide":
@@ -419,7 +415,7 @@ const Kunskapscenter = () => {
       case "event": return "Event";
       case "behovsanalys": return "Behovsanalys";
       case "kravspecifikation": return "Kravspecifikation";
-      case "verktyg": return "Verktyg";
+      
       case "artikel": return "Artikel";
       case "guide": return "Guide";
       case "video": return "Video";
