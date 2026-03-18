@@ -64,7 +64,7 @@ interface UnifiedItem {
   partner: string | null;
   isExternal: boolean;
   icon: typeof CalendarDays;
-  roles: string[];
+  products: string[];
 }
 
 // ── Static content ─────────────────────────────────────
