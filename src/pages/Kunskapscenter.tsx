@@ -164,7 +164,7 @@ const STATIC_TOOLS: Array<{
     description: "Generera en detaljerad kravspecifikation för kundserviceavdelningen.",
     type: "kravspecifikation",
     url: "/kravspecifikation-kundservice",
-    image_url: kravspecImage,
+    image_url: kravspecKundserviceImage,
     icon: FileText,
     products: ["Customer Service", "Field Service", "Contact Center"],
   },
