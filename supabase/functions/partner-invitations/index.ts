@@ -1162,10 +1162,25 @@ D365.se`;
               });
               sent++;
               console.log("Bulk invitation sent to:", inv.email, inv.partner_name);
+              await supabase.from("email_send_log").insert({
+                recipient_email: inv.email,
+                template_name: "partner_bulk_invitation",
+                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                status: "sent",
+                metadata: { partner_name: inv.partner_name },
+              });
             } catch (sendErr: any) {
               failed++;
               errors.push(`${inv.partner_name} (${inv.email}): ${sendErr.message}`);
               console.error("Bulk send error:", inv.email, sendErr);
+              await supabase.from("email_send_log").insert({
+                recipient_email: inv.email,
+                template_name: "partner_bulk_invitation",
+                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                status: "failed",
+                error_message: sendErr.message,
+                metadata: { partner_name: inv.partner_name },
+              });
             }
           }
         }
