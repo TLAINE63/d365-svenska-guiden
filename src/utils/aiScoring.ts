@@ -304,7 +304,7 @@ export interface AiFormTierGroup {
 export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng styck",
     options: [
       { value: "fsc-std-analysis", label: "AI-assistent för ekonomisk analys och rapportering", description: "t.ex. Finance Copilot som förklarar avvikelser, sammanfattar rapporter, stödjer bokslutsarbete" },
@@ -315,7 +315,7 @@ export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng styck",
     options: [
       { value: "fsc-partner-finance", label: "Anpassad AI-agent för finansprocesser", description: "t.ex. agent för budgetstöd, leverantörsreskontra, periodstängning" },
@@ -325,7 +325,7 @@ export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng styck",
     options: [
       { value: "fsc-adv-predictive", label: "Egenutvecklad prediktiv modell integrerad med Finance & SCM", description: "t.ex. avancerad cashflow-modell, custom demand model" },
@@ -339,7 +339,7 @@ export const FSC_AI_OPTIONS: AiFormTierGroup[] = [
 export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded AI & Copilot)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng styck",
     options: [
       { value: "sales-std-copilot", label: "AI-assistent för säljare (Sales Copilot)", description: "t.ex. mötessammanfattningar, förslag på nästa steg, e-postutkast" },
@@ -350,7 +350,7 @@ export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng styck",
     options: [
       { value: "sales-partner-agent", label: "Anpassad AI-agent för säljprocesser", description: "t.ex. intern affärscoach, offertstöd, kvalificeringsagent" },
@@ -360,7 +360,7 @@ export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / Custom ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng styck",
     options: [
       { value: "sales-adv-predictive", label: "Egenutvecklad prediktiv modell för försäljning eller churn", description: "" },
@@ -374,7 +374,7 @@ export const SALES_AI_OPTIONS: AiFormTierGroup[] = [
 export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng styck",
     options: [
       { value: "svc-std-copilot", label: "AI-assistent för handläggare eller agenter", description: "t.ex. sammanfattar ärenden, föreslår svar, guidar i realtid – Customer Service Copilot" },
@@ -385,7 +385,7 @@ export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng styck",
     options: [
       { value: "svc-partner-agent", label: "Anpassad AI-agent för kundserviceprocesser", description: "t.ex. intern AI-assistent för specialiserade flöden" },
@@ -395,7 +395,7 @@ export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / Custom ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng styck",
     options: [
       { value: "svc-adv-predictive", label: "Prediktivt underhåll baserat på egna AI-modeller", description: "t.ex. analys av IoT-data för att förebygga fel" },
@@ -409,7 +409,7 @@ export const SERVICE_AI_OPTIONS: AiFormTierGroup[] = [
 export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   {
     tierLabel: "MICROSOFT STANDARD (Embedded Copilot & AI)",
-    emoji: "🟢",
+    emoji: "🔵",
     pointsLabel: "1 poäng",
     options: [
       { value: "ai-standard", label: "Microsoft Copilot eller färdig AI-funktion (Agents)", description: "ex: orderförslag, användarstöd, analys, inbyggda Copilot-funktioner" },
@@ -417,7 +417,7 @@ export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "PARTNER-BYGGD AI (Copilot Studio / Power Platform)",
-    emoji: "🟡",
+    emoji: "🟢",
     pointsLabel: "4 poäng",
     options: [
       { value: "ai-partner", label: "Anpassad AI-agent (Copilot Studio / Power Platform)", description: "ex: egenutvecklad agent, AI-flöde, skräddarsydda AI-verktyg" },
@@ -425,7 +425,7 @@ export const GENERIC_AI_OPTIONS: AiFormTierGroup[] = [
   },
   {
     tierLabel: "AVANCERAD AI (Azure AI / Foundry / ML)",
-    emoji: "🔴",
+    emoji: "🥇",
     pointsLabel: "7 poäng",
     options: [
       { value: "ai-advanced", label: "Avancerad AI-lösning (Azure AI / AI Foundry / ML)", description: "ex: Azure-baserad AI-modell, prediktiv analys, custom ML" },
