@@ -1578,7 +1578,10 @@ const AIReadiness = () => {
               <p className="text-white/70 mb-6 max-w-lg mx-auto">
                 Denna analys mäter tre AI-dimensioner i er verksamhet och ger konkreta svar på:
               </p>
-            </p>
+            </section>
+          </div>
+          <div className="container mx-auto px-4">
+            <section className="max-w-2xl mx-auto text-center">
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-4 text-left">
               {[
@@ -1629,7 +1632,8 @@ const AIReadiness = () => {
                 </div>
               ))}
             </div>
-          </section>
+            </section>
+          </div>
         </main>
         <Footer />
       </div>
