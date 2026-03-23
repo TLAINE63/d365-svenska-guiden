@@ -1561,20 +1561,23 @@ const AIReadiness = () => {
           canonicalPath="/ai-readiness"
         />
         <Navbar />
-        <main className="container mx-auto px-4 pt-28 pb-16">
-          <section className="max-w-2xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-              <Brain className="h-4 w-4" />
-              AI Impact & Readiness Assessment
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-              Hur stor effekt kan AI skapa?
-            </h1>
-            <p className="text-lg text-muted-foreground mb-3">
-              – och hur kan Dynamics 365 stödja er?
-            </p>
-            <p className="text-muted-foreground mb-6 max-w-lg mx-auto">
-              Denna analys mäter tre AI-dimensioner i er verksamhet och ger konkreta svar på:
+        <main className="pb-16">
+          <div className="relative bg-cover bg-center pt-28 pb-10 mb-8" style={{ backgroundImage: `url(${heroAiReadiness})` }}>
+            <div className="absolute inset-0 bg-black/60" />
+            <section className="relative max-w-2xl mx-auto text-center px-4">
+              <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded-full px-4 py-1.5 text-sm font-medium mb-6">
+                <Brain className="h-4 w-4" />
+                AI Impact & Readiness Assessment
+              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+                Hur stor effekt kan AI skapa?
+              </h1>
+              <p className="text-lg text-white/80 mb-3">
+                – och hur kan Dynamics 365 stödja er?
+              </p>
+              <p className="text-white/70 mb-6 max-w-lg mx-auto">
+                Denna analys mäter tre AI-dimensioner i er verksamhet och ger konkreta svar på:
+              </p>
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-4 text-left">
