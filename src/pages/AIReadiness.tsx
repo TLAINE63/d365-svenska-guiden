@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
