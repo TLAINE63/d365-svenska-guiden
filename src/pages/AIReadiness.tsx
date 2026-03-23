@@ -1567,7 +1567,7 @@ const AIReadiness = () => {
               AI Impact & Readiness Assessment
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-              Hur stor effekt kan AI faktiskt skapa i er roll?
+              Hur stor effekt kan AI skapa?
             </h1>
             <p className="text-lg text-muted-foreground mb-3">
               – och hur kan Dynamics 365 stödja er?
