@@ -753,6 +753,7 @@ const AIOverview = () => {
             </CardContent>
           </Card>
         </section>
+        </div>
       </main>
       <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
       <Footer />
