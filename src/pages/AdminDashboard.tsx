@@ -1718,6 +1718,7 @@ const AdminDashboard = () => {
                   </Card>
                 ))}
               </div>
+              </>
             )}
           </TabsContent>
 
