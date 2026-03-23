@@ -1447,6 +1447,17 @@ const AdminDashboard = () => {
                   <Download className="mr-2 h-4 w-4" />
                   Exportera kontakter
                 </Button>
+                {selectedForWelcome.size > 0 && (
+                  <Button 
+                    variant="outline"
+                    onClick={sendBulkWelcomeEmails} 
+                    disabled={sendingWelcome}
+                    className="border-primary text-primary hover:bg-primary/10"
+                  >
+                    <Mail className={`mr-2 h-4 w-4 ${sendingWelcome ? "animate-pulse" : ""}`} />
+                    {sendingWelcome ? "Skickar..." : `Skicka välkomstmail (${selectedForWelcome.size})`}
+                  </Button>
+                )}
               </div>
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
