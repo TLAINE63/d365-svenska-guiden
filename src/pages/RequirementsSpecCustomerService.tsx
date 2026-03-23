@@ -1,4 +1,5 @@
 import { useState } from "react";
+import heroKravspecKundservice from "@/assets/hero-kravspec-kundservice.jpg";
 import Navbar from "@/components/Navbar";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
 import Footer from "@/components/Footer";
