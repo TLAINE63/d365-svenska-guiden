@@ -181,9 +181,20 @@ const RequirementsSpecMarketing = () => {
 
           {step < 4 && (
             <div className="mb-8">
-              <div className="flex justify-between text-sm text-muted-foreground mb-2">
+              <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
                 <span>Steg {step} av {totalSteps - 1}</span>
-                <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
+                <div className="flex items-center gap-3">
+                  <span>{Math.round((step / (totalSteps - 1)) * 100)}%</span>
+                  {step < 3 ? (
+                    <Button onClick={() => setStep((s) => s + 1)} size="sm" disabled={!canProceed()}>
+                      Nästa <ArrowRight className="ml-1 h-4 w-4" />
+                    </Button>
+                  ) : (
+                    <Button onClick={handleGenerate} size="sm" disabled={!canProceed() || isGenerating}>
+                      {isGenerating ? <><Loader2 className="mr-1 h-4 w-4 animate-spin" /> Genererar...</> : <><FileText className="mr-1 h-4 w-4" /> Generera</>}
+                    </Button>
+                  )}
+                </div>
               </div>
               <Progress value={(step / (totalSteps - 1)) * 100} className="h-2" />
             </div>
