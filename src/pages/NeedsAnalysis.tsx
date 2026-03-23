@@ -1,4 +1,5 @@
 import { useState } from "react";
+import heroBehovsanalysErp from "@/assets/hero-behovsanalys-erp.jpg";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
