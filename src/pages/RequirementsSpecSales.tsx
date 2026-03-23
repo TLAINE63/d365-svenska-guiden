@@ -48,9 +48,7 @@ const RequirementsSpecSales = () => {
 
   const [industry, setIndustry] = useState<string>("");
   const [companySize, setCompanySize] = useState<string>("");
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([
-    "lead_mgmt", "opportunity", "account_contact", "activities", "quotes_orders", "analytics", "integration",
-  ]);
+  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
