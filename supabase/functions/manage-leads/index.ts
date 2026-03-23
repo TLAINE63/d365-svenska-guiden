@@ -537,6 +537,46 @@ case "click-stats": {
           .map(([name, visits]) => ({ name, visits }))
           .sort((a, b) => b.visits - a.visits);
 
+        // Partner clicks (website clicks) within date range, filtered by IP
+        const { data: clickData } = await supabase
+          .from("partner_clicks")
+          .select("partner_name, clicked_at, ip_address_anonymized")
+          .gte("clicked_at", startDate)
+          .order("clicked_at", { ascending: false });
+
+        // Historical partner name aliases
+        const partnerAliases: Record<string, string> = {
+          "Bisqo": "Bisqo AB",
+          "B3 Elevate": "B3 Elevate",
+          "Nexer": "Nexer",
+        };
+
+        const partnerClickCounts: Record<string, number> = {};
+        for (const click of clickData || []) {
+          const ipPrefix = click.ip_address_anonymized
+            ? click.ip_address_anonymized.split(".").slice(0, 2).join(".")
+            : "";
+          if (vsAdminIpPrefix && ipPrefix === vsAdminIpPrefix) continue;
+          if (ipPrefix && partnerUpdateIpPrefixes.has(ipPrefix)) continue;
+          
+          const name = partnerAliases[click.partner_name] || click.partner_name;
+          partnerClickCounts[name] = (partnerClickCounts[name] || 0) + 1;
+        }
+        const partnerClickStats = Object.entries(partnerClickCounts)
+          .map(([name, clicks]) => ({ name, clicks }))
+          .sort((a, b) => b.clicks - a.clicks);
+
+        // Partner event clicks within date range
+        const partnerEventVisits: Record<string, number> = {};
+        for (const v of visitors || []) {
+          if (v.page_path?.startsWith("/events/") && !isExcludedIp(v.ip_anonymized)) {
+            const eventSlug = v.page_path.replace("/events/", "").replace(/\/$/, "");
+            if (eventSlug && eventSlug !== "") {
+              partnerEventVisits[eventSlug] = (partnerEventVisits[eventSlug] || 0) + 1;
+            }
+          }
+        }
+
         const stats = {
           totalVisitors: visitors?.length || 0,
           swedishVisitors: swedishVisitors.length,
@@ -548,6 +588,7 @@ case "click-stats": {
           topPages,
           topCities,
           partnerProfileStats,
+          partnerClickStats,
         };
 
         return new Response(

@@ -41,6 +41,8 @@ interface VisitorStats {
   avgTimeOnPage: number;
   topPages: { path: string; visits: number }[];
   topCities: { city: string; region: string; visits: number }[];
+  partnerProfileStats: { name: string; visits: number }[];
+  partnerClickStats: { name: string; clicks: number }[];
 }
 
 interface AdminVisitorStatsTabProps {
