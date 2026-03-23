@@ -41,6 +41,8 @@ interface VisitorStats {
   avgTimeOnPage: number;
   topPages: { path: string; visits: number }[];
   topCities: { city: string; region: string; visits: number }[];
+  partnerProfileStats: { name: string; visits: number }[];
+  partnerClickStats: { name: string; clicks: number }[];
 }
 
 interface AdminVisitorStatsTabProps {
@@ -274,40 +276,38 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
       </Card>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Swedish Cities */}
+        {/* Partner Profile Visits */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              Städer i Sverige
+              <Users className="h-4 w-4" />
+              Profilbesök per partner
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {stats.topCities.length === 0 ? (
+            {!stats.partnerProfileStats || stats.partnerProfileStats.length === 0 ? (
               <p className="text-muted-foreground text-sm py-4 text-center">
-                Ingen stadsdata tillgänglig ännu.
+                Ingen profildata tillgänglig ännu.
               </p>
             ) : (
               <>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Stad</TableHead>
-                      <TableHead>Region</TableHead>
+                      <TableHead>Partner</TableHead>
                       <TableHead className="text-right">Besök</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {(showAllCities ? stats.topCities : stats.topCities.slice(0, 5)).map((city, i) => (
+                    {(showAllCities ? stats.partnerProfileStats : stats.partnerProfileStats.slice(0, 10)).map((p, i) => (
                       <TableRow key={i}>
-                        <TableCell className="font-medium">{city.city}</TableCell>
-                        <TableCell className="text-muted-foreground">{city.region}</TableCell>
-                        <TableCell className="text-right">{city.visits}</TableCell>
+                        <TableCell className="font-medium">{p.name}</TableCell>
+                        <TableCell className="text-right">{p.visits}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
-                {stats.topCities.length > 5 && (
+                {stats.partnerProfileStats.length > 10 && (
                   <button
                     onClick={() => setShowAllCities(!showAllCities)}
                     className="w-full mt-2 py-2 text-sm text-muted-foreground hover:text-foreground flex items-center justify-center gap-1"
@@ -315,7 +315,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
                     {showAllCities ? (
                       <>Visa färre <ChevronUp className="h-4 w-4" /></>
                     ) : (
-                      <>Visa alla {stats.topCities.length} <ChevronDown className="h-4 w-4" /></>
+                      <>Visa alla {stats.partnerProfileStats.length} <ChevronDown className="h-4 w-4" /></>
                     )}
                   </button>
                 )}
@@ -324,34 +324,32 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
           </CardContent>
         </Card>
 
-        {/* Top Pages */}
+        {/* Partner Clicks (to partner websites) */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
-              <TrendingUp className="h-4 w-4" />
-              Populära sidor (Sverige)
+              <MousePointerClick className="h-4 w-4" />
+              Klick till partners sidor
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {stats.topPages.length === 0 ? (
+            {!stats.partnerClickStats || stats.partnerClickStats.length === 0 ? (
               <p className="text-muted-foreground text-sm py-4 text-center">
-                Ingen siddata tillgänglig ännu.
+                Ingen klickdata tillgänglig ännu.
               </p>
             ) : (
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Sida</TableHead>
-                    <TableHead className="text-right">Besök</TableHead>
+                    <TableHead>Partner</TableHead>
+                    <TableHead className="text-right">Klick</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {stats.topPages.slice(0, 10).map((page, i) => (
+                  {stats.partnerClickStats.slice(0, 10).map((p, i) => (
                     <TableRow key={i}>
-                      <TableCell className="font-medium font-mono text-sm">
-                        {page.path === "/" ? "/ (Startsidan)" : page.path}
-                      </TableCell>
-                      <TableCell className="text-right">{page.visits}</TableCell>
+                      <TableCell className="font-medium">{p.name}</TableCell>
+                      <TableCell className="text-right">{p.clicks}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -360,6 +358,42 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
           </CardContent>
         </Card>
       </div>
+
+      {/* Top Pages */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base flex items-center gap-2">
+            <TrendingUp className="h-4 w-4" />
+            Populära sidor (Sverige)
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {stats.topPages.length === 0 ? (
+            <p className="text-muted-foreground text-sm py-4 text-center">
+              Ingen siddata tillgänglig ännu.
+            </p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Sida</TableHead>
+                  <TableHead className="text-right">Besök</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {stats.topPages.slice(0, 10).map((page, i) => (
+                  <TableRow key={i}>
+                    <TableCell className="font-medium font-mono text-sm">
+                      {page.path === "/" ? "/ (Startsidan)" : page.path}
+                    </TableCell>
+                    <TableCell className="text-right">{page.visits}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }
