@@ -1,4 +1,5 @@
 import RelatedPages, { aiOverviewRelatedPages } from "@/components/RelatedPages";
+import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
