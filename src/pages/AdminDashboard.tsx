@@ -401,6 +401,53 @@ const AdminDashboard = () => {
     }
   };
 
+  const sendBulkWelcomeEmails = async () => {
+    const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
+    if (selected.length === 0) return;
+    if (!confirm(`Skicka välkomstmail till ${selected.length} partner(s)?`)) return;
+
+    setSendingWelcome(true);
+    try {
+      const partnerList = selected.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: p.admin_contact_email || p.email || "",
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=bulk-create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ partners: partnerList, send_email: true }),
+        }
+      );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut", variant: "destructive" });
+        logout();
+        return;
+      }
+      if (!response.ok) throw new Error("Kunde inte skicka välkomstmail");
+      const data = await response.json();
+      toast({ title: data.message || "Välkomstmail skickade!" });
+      setSelectedForWelcome(new Set());
+      fetchOpenInvitations();
+    } catch (error: any) {
+      console.error("Send welcome error:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte skicka välkomstmail",
+        variant: "destructive",
+      });
+    } finally {
+      setSendingWelcome(false);
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated && token) {
       fetchLeads();
