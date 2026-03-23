@@ -48,9 +48,7 @@ const RequirementsSpec = () => {
 
   const [industry, setIndustry] = useState<string>("");
   const [companySize, setCompanySize] = useState<string>("");
-  const [selectedAreas, setSelectedAreas] = useState<string[]>([
-    "ekonomi", "lager", "forsaljning", "inkop", "integration",
-  ]);
+  const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
   const [isGenerating, setIsGenerating] = useState(false);
   const [result, setResult] = useState<RequirementsData | null>(null);
