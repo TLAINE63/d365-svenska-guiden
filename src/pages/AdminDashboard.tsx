@@ -221,6 +221,10 @@ const AdminDashboard = () => {
   // Open invitations tracking (partner_id -> {status, email})
   const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
   
+  // Bulk welcome email state
+  const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
+  const [sendingWelcome, setSendingWelcome] = useState(false);
+  
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
