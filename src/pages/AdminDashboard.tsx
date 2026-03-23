@@ -221,6 +221,10 @@ const AdminDashboard = () => {
   // Open invitations tracking (partner_id -> {status, email})
   const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
   
+  // Bulk welcome email state
+  const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
+  const [sendingWelcome, setSendingWelcome] = useState(false);
+  
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -394,6 +398,53 @@ const AdminDashboard = () => {
       setOpenInvitations(map);
     } catch {
       // silently ignore
+    }
+  };
+
+  const sendBulkWelcomeEmails = async () => {
+    const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
+    if (selected.length === 0) return;
+    if (!confirm(`Skicka välkomstmail till ${selected.length} partner(s)?`)) return;
+
+    setSendingWelcome(true);
+    try {
+      const partnerList = selected.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: p.admin_contact_email || p.email || "",
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=bulk-create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ partners: partnerList, send_email: true }),
+        }
+      );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut", variant: "destructive" });
+        logout();
+        return;
+      }
+      if (!response.ok) throw new Error("Kunde inte skicka välkomstmail");
+      const data = await response.json();
+      toast({ title: data.message || "Välkomstmail skickade!" });
+      setSelectedForWelcome(new Set());
+      fetchOpenInvitations();
+    } catch (error: any) {
+      console.error("Send welcome error:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte skicka välkomstmail",
+        variant: "destructive",
+      });
+    } finally {
+      setSendingWelcome(false);
     }
   };
 
@@ -1396,6 +1447,17 @@ const AdminDashboard = () => {
                   <Download className="mr-2 h-4 w-4" />
                   Exportera kontakter
                 </Button>
+                {selectedForWelcome.size > 0 && (
+                  <Button 
+                    variant="outline"
+                    onClick={sendBulkWelcomeEmails} 
+                    disabled={sendingWelcome}
+                    className="border-primary text-primary hover:bg-primary/10"
+                  >
+                    <Mail className={`mr-2 h-4 w-4 ${sendingWelcome ? "animate-pulse" : ""}`} />
+                    {sendingWelcome ? "Skickar..." : `Skicka välkomstmail (${selectedForWelcome.size})`}
+                  </Button>
+                )}
               </div>
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
@@ -1443,6 +1505,28 @@ const AdminDashboard = () => {
                 </CardContent>
               </Card>
             ) : (
+              <>
+                {(() => {
+                  const nonPublished = fullPartners.filter(p => !p.is_featured && (p.admin_contact_email || p.email));
+                  if (nonPublished.length === 0) return null;
+                  return (
+                    <div className="flex items-center gap-3 mb-2">
+                      <Checkbox
+                        checked={nonPublished.length > 0 && nonPublished.every(p => selectedForWelcome.has(p.id))}
+                        onCheckedChange={(checked) => {
+                          setSelectedForWelcome(prev => {
+                            const next = new Set(prev);
+                            nonPublished.forEach(p => { if (checked) next.add(p.id); else next.delete(p.id); });
+                            return next;
+                          });
+                        }}
+                      />
+                      <span className="text-sm text-muted-foreground">
+                        Markera alla ej publicerade ({nonPublished.length})
+                      </span>
+                    </div>
+                  );
+                })()}
               <div className="grid gap-4">
                 {[...fullPartners].sort((a, b) => {
                   if (partnerSortBy === 'updated_at') {
@@ -1462,6 +1546,21 @@ const AdminDashboard = () => {
                     <CardContent className="py-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start gap-4">
+                          {!partner.is_featured && (
+                            <Checkbox
+                              checked={selectedForWelcome.has(partner.id)}
+                              onCheckedChange={(checked) => {
+                                setSelectedForWelcome(prev => {
+                                  const next = new Set(prev);
+                                  if (checked) next.add(partner.id); else next.delete(partner.id);
+                                  return next;
+                                });
+                              }}
+                              className="mt-1"
+                              disabled={!(partner.admin_contact_email || partner.email)}
+                              title={!(partner.admin_contact_email || partner.email) ? "E-postadress saknas" : "Markera för välkomstmail"}
+                            />
+                          )}
                           {partner.logo_url ? (
                             <img 
                               src={partner.logo_url} 
@@ -1619,6 +1718,7 @@ const AdminDashboard = () => {
                   </Card>
                 ))}
               </div>
+              </>
             )}
           </TabsContent>
 
