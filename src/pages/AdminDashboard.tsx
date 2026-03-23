@@ -1524,6 +1524,21 @@ const AdminDashboard = () => {
                     <CardContent className="py-4">
                       <div className="flex items-start justify-between">
                         <div className="flex items-start gap-4">
+                          {!partner.is_featured && (
+                            <Checkbox
+                              checked={selectedForWelcome.has(partner.id)}
+                              onCheckedChange={(checked) => {
+                                setSelectedForWelcome(prev => {
+                                  const next = new Set(prev);
+                                  if (checked) next.add(partner.id); else next.delete(partner.id);
+                                  return next;
+                                });
+                              }}
+                              className="mt-1"
+                              disabled={!(partner.admin_contact_email || partner.email)}
+                              title={!(partner.admin_contact_email || partner.email) ? "E-postadress saknas" : "Markera för välkomstmail"}
+                            />
+                          )}
                           {partner.logo_url ? (
                             <img 
                               src={partner.logo_url} 
