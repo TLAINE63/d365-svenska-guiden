@@ -197,36 +197,41 @@ const AIOverview = () => {
         canonicalPath="/ai-oversikt"
       />
       <Navbar />
-      <main className="container mx-auto px-4 pt-28 pb-16">
+      <main className="pb-16">
         {/* Hero */}
-        <section className="max-w-4xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-            <Sparkles className="h-4 w-4" />
-            Microsoft AI i Dynamics 365
-          </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
-            Mer effekt, mindre manuellt arbete
-          </h1>
-          <p className="text-xl sm:text-2xl text-muted-foreground font-medium mb-8">
-            AI i Dynamics 365 – för dig som vill förenkla, spara tid och öka lönsamheten
-          </p>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            Det handlar inte om teknik. Det handlar om affärseffekt:
-          </p>
+        <div className="relative bg-cover bg-center pt-28 pb-12 mb-16" style={{ backgroundImage: `url(${heroAiReadiness})` }}>
+          <div className="absolute inset-0 bg-black/60" />
+          <section className="relative max-w-4xl mx-auto text-center px-4">
+            <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded-full px-4 py-1.5 text-sm font-medium mb-6">
+              <Sparkles className="h-4 w-4" />
+              Microsoft AI i Dynamics 365
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+              Mer effekt, mindre manuellt arbete
+            </h1>
+            <p className="text-xl sm:text-2xl text-white/80 font-medium mb-8">
+              AI i Dynamics 365 – för dig som vill förenkla, spara tid och öka lönsamheten
+            </p>
+            <p className="text-lg text-white/70 max-w-2xl mx-auto mb-10">
+              Det handlar inte om teknik. Det handlar om affärseffekt:
+            </p>
 
-          <div className="grid gap-4 max-w-xl mx-auto text-left mb-10">
-            {benefits.map((b, i) => (
-              <div key={i} className="flex items-center gap-3 bg-muted/50 rounded-lg px-4 py-3">
-                <b.icon className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-foreground font-medium">{b.text}</span>
-              </div>
-            ))}
-          </div>
+            <div className="grid gap-4 max-w-xl mx-auto text-left mb-10">
+              {benefits.map((b, i) => (
+                <div key={i} className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3">
+                  <b.icon className="h-5 w-5 text-white shrink-0" />
+                  <span className="text-white font-medium">{b.text}</span>
+                </div>
+              ))}
+            </div>
 
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            <strong>Copilot</strong> och <strong>intelligenta agenter</strong> gör det möjligt – inbyggt i de verktyg ditt team redan använder.
-          </p>
-        </section>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+              <strong>Copilot</strong> och <strong>intelligenta agenter</strong> gör det möjligt – inbyggt i de verktyg ditt team redan använder.
+            </p>
+          </section>
+        </div>
+
+        <div className="container mx-auto px-4">
 
         {/* Copilot vs Agenter */}
         <section className="max-w-4xl mx-auto mb-20">
