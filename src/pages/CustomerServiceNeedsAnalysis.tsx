@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import heroBehovsanalysKundservice from "@/assets/hero-behovsanalys-kundservice.jpg";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -1693,14 +1694,17 @@ const CustomerServiceNeedsAnalysis = () => {
       <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice." />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-4">
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Behovsanalys Kundservice</h1>
-            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+      <main className="pb-16">
+        <div className="relative bg-cover bg-center pt-24 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysKundservice})` }}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative container mx-auto px-4 max-w-4xl text-center">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Behovsanalys Kundservice</h1>
+            <p className="text-sm text-white/80 max-w-2xl mx-auto">
               Svara på frågorna för att få en personlig rekommendation om Dynamics 365 Customer Service, Field Service och Contact Center.
             </p>
           </div>
+        </div>
+        <div className="container mx-auto px-4 max-w-4xl">
 
           <div className="mb-4">
             <div className="flex justify-between items-center mb-1">

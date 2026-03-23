@@ -1,4 +1,5 @@
 import { useState } from "react";
+import heroBehovsanalysErp from "@/assets/hero-behovsanalys-erp.jpg";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -3194,17 +3195,19 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       <BreadcrumbSchema items={needsAnalysisBreadcrumbs} />
       <Navbar />
       
-      <main className="flex-grow pt-24 pb-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          {/* Header */}
-          <div className="text-center mb-4">
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+      <main className="flex-grow pb-12">
+        <div className="relative bg-cover bg-center pt-24 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysErp})` }}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative container mx-auto px-4 max-w-4xl text-center">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
               Behovsanalys för Dynamics 365 ERP
             </h1>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-white/80 text-sm">
               Svara på frågorna nedan för att få en personlig rekommendation och analys
             </p>
           </div>
+        </div>
+        <div className="container mx-auto px-4 max-w-4xl">
 
           {/* Progress */}
           <div className="mb-4">
