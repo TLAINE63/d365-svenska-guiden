@@ -1,0 +1,1 @@
+ALTER TABLE public.partner_invitations ALTER COLUMN expires_at SET DEFAULT (now() + '14 days'::interval);
