@@ -1505,6 +1505,28 @@ const AdminDashboard = () => {
                 </CardContent>
               </Card>
             ) : (
+              <>
+                {(() => {
+                  const nonPublished = fullPartners.filter(p => !p.is_featured && (p.admin_contact_email || p.email));
+                  if (nonPublished.length === 0) return null;
+                  return (
+                    <div className="flex items-center gap-3 mb-2">
+                      <Checkbox
+                        checked={nonPublished.length > 0 && nonPublished.every(p => selectedForWelcome.has(p.id))}
+                        onCheckedChange={(checked) => {
+                          setSelectedForWelcome(prev => {
+                            const next = new Set(prev);
+                            nonPublished.forEach(p => { if (checked) next.add(p.id); else next.delete(p.id); });
+                            return next;
+                          });
+                        }}
+                      />
+                      <span className="text-sm text-muted-foreground">
+                        Markera alla ej publicerade ({nonPublished.length})
+                      </span>
+                    </div>
+                  );
+                })()}
               <div className="grid gap-4">
                 {[...fullPartners].sort((a, b) => {
                   if (partnerSortBy === 'updated_at') {
