@@ -159,21 +159,24 @@ const RequirementsSpecMarketing = () => {
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
-      <main className="min-h-screen bg-background pt-24 pb-16">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+      <main className="min-h-screen bg-background pb-16">
+        <div className="relative bg-cover bg-center pt-24 pb-10 mb-8" style={{ backgroundImage: `url(${heroKravspecMarketing})` }}>
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="relative container mx-auto px-4 max-w-4xl text-center">
+            <div className="inline-flex items-center gap-2 bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-4">
               <FileText className="h-4 w-4" />
               Kravspecifikation – Marketing
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3">
               Kravspecifikation för Marknad
             </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-white/80 max-w-2xl mx-auto">
               Få en övergripande kravspecifikation för marknadsautomation och kundresor anpassad efter din bransch.
               AI-berikad med branschspecifika krav och KPI:er.
             </p>
           </div>
+        </div>
+        <div className="container mx-auto px-4 max-w-4xl">
 
           {step < 4 && (
             <div className="mb-8">
