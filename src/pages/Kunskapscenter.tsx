@@ -342,8 +342,6 @@ const Kunskapscenter = () => {
     const day = String(d.getDate()).padStart(2, "0");
     return `${y}/${m}/${day}`;
   };
-      year: "numeric",
-    });
 
   // Build unified items list
   const allItems: UnifiedItem[] = [
