@@ -65,12 +65,11 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
   }
 
   const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("sv-SE", { 
-      day: "numeric", 
-      month: "long",
-      year: "numeric"
-    });
+    const d = new Date(dateStr);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${y}/${m}/${day}`;
   };
 
   return (
