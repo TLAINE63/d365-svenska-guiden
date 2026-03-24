@@ -1,0 +1,1 @@
+UPDATE public.partners SET logo_url = 'https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/knowit-logo.png', updated_at = now() WHERE slug = 'knowit';
