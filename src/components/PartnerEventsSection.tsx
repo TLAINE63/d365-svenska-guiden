@@ -75,7 +75,8 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
           <CalendarDays className="w-5 h-5 text-white" />
         </div>
         <h2 className="text-xl font-bold text-foreground tracking-tight">
-          Kommande events
+          Events
+        </h2>
         </h2>
       </div>
 
