@@ -77,7 +77,6 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
         <h2 className="text-xl font-bold text-foreground tracking-tight">
           Events
         </h2>
-        </h2>
       </div>
 
       <div className="space-y-3">
