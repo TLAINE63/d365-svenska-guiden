@@ -631,7 +631,7 @@ const Kunskapscenter = () => {
                               variant="outline"
                               className={`text-xs ${categoryBadgeColor(item.type)}`}
                             >
-                              {categoryLabel(item.type)}
+                              {categoryLabel(item.type, item.date)}
                             </Badge>
                             {item.partner && (
                               <span className="text-xs text-muted-foreground">
