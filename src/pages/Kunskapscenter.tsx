@@ -434,12 +434,18 @@ const Kunskapscenter = () => {
     }
   };
 
-  const categoryLabel = (type: string) => {
+  const categoryLabel = (type: string, date?: string | null) => {
     switch (type) {
-      case "event": return "Event";
+      case "event": {
+        if (date) {
+          const now = new Date();
+          now.setHours(0, 0, 0, 0);
+          if (new Date(date) < now) return "Event (datum passerat)";
+        }
+        return "Event";
+      }
       case "behovsanalys": return "Guide & Behovsanalys";
       case "kravspecifikation": return "Kravspecifikation";
-      
       case "artikel": return "Artikel";
       case "guide": return "Guide & Behovsanalys";
       case "video": return "Video";
@@ -625,7 +631,7 @@ const Kunskapscenter = () => {
                               variant="outline"
                               className={`text-xs ${categoryBadgeColor(item.type)}`}
                             >
-                              {categoryLabel(item.type)}
+                              {categoryLabel(item.type, item.date)}
                             </Badge>
                             {item.partner && (
                               <span className="text-xs text-muted-foreground">

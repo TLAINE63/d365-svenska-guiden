@@ -75,7 +75,7 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
           <CalendarDays className="w-5 h-5 text-white" />
         </div>
         <h2 className="text-xl font-bold text-foreground tracking-tight">
-          Kommande events
+          Events
         </h2>
       </div>
 
@@ -95,6 +95,9 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                     {event.title}
+                    {(() => { const now = new Date(); now.setHours(0,0,0,0); return new Date(event.event_date) < now; })() && (
+                      <span className="text-xs text-muted-foreground font-normal ml-2">(datum passerat)</span>
+                    )}
                   </h3>
                   <p className="text-sm text-muted-foreground flex items-center gap-1.5 mt-1">
                     <Calendar className="w-4 h-4" />
