@@ -318,13 +318,17 @@ const Kunskapscenter = () => {
           const result = await eventsRes.json();
           const now = new Date();
           now.setHours(0, 0, 0, 0);
-          const upcoming = (result.events || [])
-            .filter((e: EventItem) => new Date(e.event_date) >= now)
-            .sort(
-              (a: EventItem, b: EventItem) =>
-                new Date(a.event_date).getTime() - new Date(b.event_date).getTime()
-            );
-          setEvents(upcoming);
+          const allEvents = (result.events || []).sort(
+            (a: EventItem, b: EventItem) => {
+              const aUp = new Date(a.event_date) >= now;
+              const bUp = new Date(b.event_date) >= now;
+              if (aUp && !bUp) return -1;
+              if (!aUp && bUp) return 1;
+              if (aUp) return new Date(a.event_date).getTime() - new Date(b.event_date).getTime();
+              return new Date(b.event_date).getTime() - new Date(a.event_date).getTime();
+            }
+          );
+          setEvents(allEvents);
         }
       } catch (err) {
         console.error("Error fetching knowledge center data:", err);

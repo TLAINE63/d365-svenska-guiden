@@ -42,12 +42,8 @@ const PartnerEventsSection = ({ partnerId, partnerName }: PartnerEventsSectionPr
         
         const result = await response.json();
         // Filter events for this specific partner and only upcoming events
-        const now = new Date();
-        now.setHours(0, 0, 0, 0);
-        
         const partnerEvents = (result.events || []).filter(
-          (e: PartnerEvent & { partner_id: string }) => 
-            e.partner_id === partnerId && new Date(e.event_date) >= now
+          (e: PartnerEvent & { partner_id: string }) => e.partner_id === partnerId
         );
         setEvents(partnerEvents);
       } catch (err) {
