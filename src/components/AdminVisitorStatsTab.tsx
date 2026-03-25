@@ -33,6 +33,7 @@ import { sv } from "date-fns/locale";
 
 interface VisitorStats {
   totalVisitors: number;
+  totalPageViews: number;
   swedishVisitors: number;
   nordicVisitors: number;
   europeanVisitors: number;
