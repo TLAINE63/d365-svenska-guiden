@@ -560,7 +560,7 @@ case "click-stats": {
           }
         }
         const partnerProfileStats = Object.entries(partnerProfileVisits)
-          .map(([name, visits]) => ({ name, visits }))
+          .map(([name, sessionsSet]) => ({ name, visits: sessionsSet.size }))
           .sort((a, b) => b.visits - a.visits);
 
         // Partner clicks (website clicks) within date range, filtered by IP
