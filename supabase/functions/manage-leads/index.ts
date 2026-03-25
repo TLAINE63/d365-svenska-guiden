@@ -469,19 +469,42 @@ case "click-stats": {
           "SI", "ES", "GB", "CH", "UA", "BY", "RS", "BA", "ME", "MK", "AL"
         ];
 
-        // Calculate stats
-        const swedishVisitors = visitors?.filter(v => v.geo_country_code === "SE") || [];
-        const nordicVisitors = visitors?.filter(v => 
+        // Filter out preview/development traffic (lovableproject.com visits)
+        const filteredVisitors = (visitors || []).filter(v => {
+          // The referrer field may contain lovableproject.com URLs from dev previews
+          // But more importantly, we check the page_path doesn't come from preview
+          // Preview traffic is identified by referrers from lovableproject.com or lovable.dev
+          if (v.referrer) {
+            const ref = v.referrer.toLowerCase();
+            if (ref.includes("lovableproject.com") || ref.includes("lovable.dev") || ref.includes("lovable.app")) return false;
+          }
+          return true;
+        });
+
+        // Calculate unique sessions
+        const uniqueSessions = new Set(filteredVisitors.map(v => v.session_id).filter(Boolean));
+        const totalUniqueVisitors = uniqueSessions.size || filteredVisitors.length;
+        const totalPageViews = filteredVisitors.length;
+
+        // Calculate stats using filtered visitors
+        const swedishVisitors = filteredVisitors.filter(v => v.geo_country_code === "SE") || [];
+        const nordicVisitors = filteredVisitors.filter(v => 
           NORDIC_COUNTRIES.includes(v.geo_country_code) && v.geo_country_code !== "SE"
         ) || [];
-        const europeanVisitors = visitors?.filter(v => 
+        const europeanVisitors = filteredVisitors.filter(v => 
           EUROPEAN_COUNTRIES.includes(v.geo_country_code)
         ) || [];
-        const otherVisitors = visitors?.filter(v => 
+        const otherVisitors = filteredVisitors.filter(v => 
           v.geo_country_code && 
           !NORDIC_COUNTRIES.includes(v.geo_country_code) && 
           !EUROPEAN_COUNTRIES.includes(v.geo_country_code)
         ) || [];
+
+        // Unique sessions per geo category
+        const swedishSessions = new Set(swedishVisitors.map(v => v.session_id).filter(Boolean)).size;
+        const nordicSessions = new Set(nordicVisitors.map(v => v.session_id).filter(Boolean)).size;
+        const europeanSessions = new Set(europeanVisitors.map(v => v.session_id).filter(Boolean)).size;
+        const otherSessions = new Set(otherVisitors.map(v => v.session_id).filter(Boolean)).size;
 
         // Swedish bounce rate
         const swedishBounces = swedishVisitors.filter(v => v.is_bounce === true).length;
@@ -498,13 +521,15 @@ case "click-stats": {
           ? Math.round(validTimes.reduce((sum, t) => sum + t, 0) / validTimes.length)
           : 0;
 
-        // Top pages (Swedish visitors)
-        const pageCount: Record<string, number> = {};
+        // Top pages (Swedish visitors) - count unique sessions per page
+        const pageCount: Record<string, Set<string>> = {};
         swedishVisitors.forEach(v => {
-          pageCount[v.page_path] = (pageCount[v.page_path] || 0) + 1;
+          if (!pageCount[v.page_path]) pageCount[v.page_path] = new Set();
+          if (v.session_id) pageCount[v.page_path].add(v.session_id);
+          else pageCount[v.page_path].add(v.id); // fallback for rows without session
         });
         const topPages = Object.entries(pageCount)
-          .map(([path, visits]) => ({ path, visits }))
+          .map(([path, sessionsSet]) => ({ path, visits: sessionsSet.size }))
           .sort((a, b) => b.visits - a.visits)
           .slice(0, 10);
 
@@ -522,19 +547,20 @@ case "click-stats": {
         const topCities = Object.values(cityCount)
           .sort((a, b) => b.visits - a.visits);
 
-        // Partner profile visits (filtered by IP)
-        const partnerProfileVisits: Record<string, number> = {};
-        for (const v of visitors || []) {
+        // Partner profile visits (filtered by IP) - unique sessions
+        const partnerProfileVisits: Record<string, Set<string>> = {};
+        for (const v of filteredVisitors || []) {
           if (v.page_path?.startsWith("/partner/") && !isExcludedIp(v.ip_anonymized)) {
             const slug = v.page_path.replace("/partner/", "").replace(/\/$/, "");
             const partnerName = slugToName[slug];
             if (partnerName) {
-              partnerProfileVisits[partnerName] = (partnerProfileVisits[partnerName] || 0) + 1;
+              if (!partnerProfileVisits[partnerName]) partnerProfileVisits[partnerName] = new Set();
+              partnerProfileVisits[partnerName].add(v.session_id || v.id);
             }
           }
         }
         const partnerProfileStats = Object.entries(partnerProfileVisits)
-          .map(([name, visits]) => ({ name, visits }))
+          .map(([name, sessionsSet]) => ({ name, visits: sessionsSet.size }))
           .sort((a, b) => b.visits - a.visits);
 
         // Partner clicks (website clicks) within date range, filtered by IP
@@ -568,7 +594,7 @@ case "click-stats": {
 
         // Partner event clicks within date range
         const partnerEventVisits: Record<string, number> = {};
-        for (const v of visitors || []) {
+        for (const v of filteredVisitors || []) {
           if (v.page_path?.startsWith("/events/") && !isExcludedIp(v.ip_anonymized)) {
             const eventSlug = v.page_path.replace("/events/", "").replace(/\/$/, "");
             if (eventSlug && eventSlug !== "") {
@@ -578,11 +604,12 @@ case "click-stats": {
         }
 
         const stats = {
-          totalVisitors: visitors?.length || 0,
-          swedishVisitors: swedishVisitors.length,
-          nordicVisitors: nordicVisitors.length,
-          europeanVisitors: europeanVisitors.length,
-          otherVisitors: otherVisitors.length,
+          totalVisitors: totalUniqueVisitors,
+          totalPageViews: totalPageViews,
+          swedishVisitors: swedishSessions || swedishVisitors.length,
+          nordicVisitors: nordicSessions || nordicVisitors.length,
+          europeanVisitors: europeanSessions || europeanVisitors.length,
+          otherVisitors: otherSessions || otherVisitors.length,
           swedishBounceRate,
           avgTimeOnPage,
           topPages,

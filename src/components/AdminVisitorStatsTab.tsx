@@ -33,6 +33,7 @@ import { sv } from "date-fns/locale";
 
 interface VisitorStats {
   totalVisitors: number;
+  totalPageViews: number;
   swedishVisitors: number;
   nordicVisitors: number;
   europeanVisitors: number;
@@ -203,14 +204,23 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Card>
           <CardContent className="pt-4">
             <div className="flex items-center gap-2 text-muted-foreground mb-1">
               <Users className="h-4 w-4" />
-              <span className="text-sm">Totalt</span>
+              <span className="text-sm">Unika besökare</span>
             </div>
             <p className="text-2xl font-bold">{stats.totalVisitors}</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="pt-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <TrendingUp className="h-4 w-4" />
+              <span className="text-sm">Sidvisningar</span>
+            </div>
+            <p className="text-2xl font-bold">{stats.totalPageViews}</p>
           </CardContent>
         </Card>
         <Card className="border-blue-200 bg-blue-50/50 dark:bg-blue-950/20">
