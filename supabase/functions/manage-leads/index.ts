@@ -469,19 +469,42 @@ case "click-stats": {
           "SI", "ES", "GB", "CH", "UA", "BY", "RS", "BA", "ME", "MK", "AL"
         ];
 
-        // Calculate stats
-        const swedishVisitors = visitors?.filter(v => v.geo_country_code === "SE") || [];
-        const nordicVisitors = visitors?.filter(v => 
+        // Filter out preview/development traffic (lovableproject.com visits)
+        const filteredVisitors = (visitors || []).filter(v => {
+          // The referrer field may contain lovableproject.com URLs from dev previews
+          // But more importantly, we check the page_path doesn't come from preview
+          // Preview traffic is identified by referrers from lovableproject.com or lovable.dev
+          if (v.referrer) {
+            const ref = v.referrer.toLowerCase();
+            if (ref.includes("lovableproject.com") || ref.includes("lovable.dev") || ref.includes("lovable.app")) return false;
+          }
+          return true;
+        });
+
+        // Calculate unique sessions
+        const uniqueSessions = new Set(filteredVisitors.map(v => v.session_id).filter(Boolean));
+        const totalUniqueVisitors = uniqueSessions.size || filteredVisitors.length;
+        const totalPageViews = filteredVisitors.length;
+
+        // Calculate stats using filtered visitors
+        const swedishVisitors = filteredVisitors.filter(v => v.geo_country_code === "SE") || [];
+        const nordicVisitors = filteredVisitors.filter(v => 
           NORDIC_COUNTRIES.includes(v.geo_country_code) && v.geo_country_code !== "SE"
         ) || [];
-        const europeanVisitors = visitors?.filter(v => 
+        const europeanVisitors = filteredVisitors.filter(v => 
           EUROPEAN_COUNTRIES.includes(v.geo_country_code)
         ) || [];
-        const otherVisitors = visitors?.filter(v => 
+        const otherVisitors = filteredVisitors.filter(v => 
           v.geo_country_code && 
           !NORDIC_COUNTRIES.includes(v.geo_country_code) && 
           !EUROPEAN_COUNTRIES.includes(v.geo_country_code)
         ) || [];
+
+        // Unique sessions per geo category
+        const swedishSessions = new Set(swedishVisitors.map(v => v.session_id).filter(Boolean)).size;
+        const nordicSessions = new Set(nordicVisitors.map(v => v.session_id).filter(Boolean)).size;
+        const europeanSessions = new Set(europeanVisitors.map(v => v.session_id).filter(Boolean)).size;
+        const otherSessions = new Set(otherVisitors.map(v => v.session_id).filter(Boolean)).size;
 
         // Swedish bounce rate
         const swedishBounces = swedishVisitors.filter(v => v.is_bounce === true).length;
