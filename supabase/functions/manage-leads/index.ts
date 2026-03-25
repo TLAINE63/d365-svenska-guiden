@@ -594,7 +594,7 @@ case "click-stats": {
 
         // Partner event clicks within date range
         const partnerEventVisits: Record<string, number> = {};
-        for (const v of visitors || []) {
+        for (const v of filteredVisitors || []) {
           if (v.page_path?.startsWith("/events/") && !isExcludedIp(v.ip_anonymized)) {
             const eventSlug = v.page_path.replace("/events/", "").replace(/\/$/, "");
             if (eventSlug && eventSlug !== "") {
