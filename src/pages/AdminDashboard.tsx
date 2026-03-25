@@ -208,7 +208,7 @@ const AdminDashboard = () => {
   const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
   const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
-  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'unpublished'>('all');
+  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited'>('all');
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
@@ -221,6 +221,7 @@ const AdminDashboard = () => {
   
   // Open invitations tracking (partner_id -> {status, email})
   const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
+  const [everInvitedPartnerIds, setEverInvitedPartnerIds] = useState<Set<string>>(new Set());
   
   // Bulk welcome email state
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
@@ -391,12 +392,17 @@ const AdminDashboard = () => {
       const data = await response.json();
       const invitations = data?.invitations || [];
       const map: Record<string, { status: string; email: string }> = {};
+      const everInvitedSet = new Set<string>();
       for (const inv of invitations) {
-        if (inv.partner_id && (inv.status === 'pending' || inv.status === 'submitted')) {
-          map[inv.partner_id] = { status: inv.status, email: inv.email || '' };
+        if (inv.partner_id) {
+          everInvitedSet.add(inv.partner_id);
+          if (inv.status === 'pending' || inv.status === 'submitted') {
+            map[inv.partner_id] = { status: inv.status, email: inv.email || '' };
+          }
         }
       }
       setOpenInvitations(map);
+      setEverInvitedPartnerIds(everInvitedSet);
     } catch {
       // silently ignore
     }
@@ -1480,11 +1486,18 @@ const AdminDashboard = () => {
                   Publicerade ({fullPartners.filter(p => p.is_featured).length})
                 </Button>
                 <Button
-                  variant={partnerStatusFilter === 'unpublished' ? 'default' : 'outline'}
+                  variant={partnerStatusFilter === 'invited_unpublished' ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setPartnerStatusFilter('unpublished')}
+                  onClick={() => setPartnerStatusFilter('invited_unpublished')}
                 >
-                  Ej publicerade ({fullPartners.filter(p => !p.is_featured).length})
+                  Inbjudna ej publicerade ({fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length})
+                </Button>
+                <Button
+                  variant={partnerStatusFilter === 'not_invited' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('not_invited')}
+                >
+                  Ej inbjudna ({fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length})
                 </Button>
                 <Separator orientation="vertical" className="h-6 mx-1" />
                 <span className="text-xs text-muted-foreground">Sortera:</span>
@@ -1531,7 +1544,13 @@ const AdminDashboard = () => {
             ) : (
               <>
                 {(() => {
-                  const filtered = fullPartners.filter(p => partnerStatusFilter === 'all' ? true : partnerStatusFilter === 'published' ? p.is_featured : !p.is_featured);
+                  const filtered = fullPartners.filter(p => {
+                    if (partnerStatusFilter === 'all') return true;
+                    if (partnerStatusFilter === 'published') return p.is_featured;
+                    if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
+                    if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
+                    return true;
+                  });
                   const selectable = filtered.filter(p => p.admin_contact_email || p.email);
                   
                   if (selectable.length === 0) return null;
@@ -1555,7 +1574,13 @@ const AdminDashboard = () => {
                 })()}
               <div className="grid gap-4">
                 {[...fullPartners]
-                  .filter(p => partnerStatusFilter === 'all' ? true : partnerStatusFilter === 'published' ? p.is_featured : !p.is_featured)
+                  .filter(p => {
+                    if (partnerStatusFilter === 'all') return true;
+                    if (partnerStatusFilter === 'published') return p.is_featured;
+                    if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
+                    if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
+                    return true;
+                  })
                   .sort((a, b) => {
                   if (partnerSortBy === 'updated_at') {
                     const diff = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
