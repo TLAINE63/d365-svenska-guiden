@@ -1463,7 +1463,30 @@ const AdminDashboard = () => {
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
               </p>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs text-muted-foreground">Filter:</span>
+                <Button
+                  variant={partnerStatusFilter === 'all' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('all')}
+                >
+                  Alla ({fullPartners.length})
+                </Button>
+                <Button
+                  variant={partnerStatusFilter === 'published' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('published')}
+                >
+                  Publicerade ({fullPartners.filter(p => p.is_featured).length})
+                </Button>
+                <Button
+                  variant={partnerStatusFilter === 'unpublished' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('unpublished')}
+                >
+                  Ej publicerade ({fullPartners.filter(p => !p.is_featured).length})
+                </Button>
+                <Separator orientation="vertical" className="h-6 mx-1" />
                 <span className="text-xs text-muted-foreground">Sortera:</span>
                 <Button
                   variant={partnerSortBy === 'name' ? 'default' : 'outline'}
