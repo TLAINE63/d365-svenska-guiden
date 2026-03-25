@@ -529,7 +529,7 @@ case "click-stats": {
           else pageCount[v.page_path].add(v.id); // fallback for rows without session
         });
         const topPages = Object.entries(pageCount)
-          .map(([path, visits]) => ({ path, visits }))
+          .map(([path, sessionsSet]) => ({ path, visits: sessionsSet.size }))
           .sort((a, b) => b.visits - a.visits)
           .slice(0, 10);
 
