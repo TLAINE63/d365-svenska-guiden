@@ -1544,7 +1544,13 @@ const AdminDashboard = () => {
             ) : (
               <>
                 {(() => {
-                  const filtered = fullPartners.filter(p => partnerStatusFilter === 'all' ? true : partnerStatusFilter === 'published' ? p.is_featured : !p.is_featured);
+                  const filtered = fullPartners.filter(p => {
+                    if (partnerStatusFilter === 'all') return true;
+                    if (partnerStatusFilter === 'published') return p.is_featured;
+                    if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
+                    if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
+                    return true;
+                  });
                   const selectable = filtered.filter(p => p.admin_contact_email || p.email);
                   
                   if (selectable.length === 0) return null;
