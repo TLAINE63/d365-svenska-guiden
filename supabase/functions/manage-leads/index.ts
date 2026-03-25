@@ -554,7 +554,8 @@ case "click-stats": {
             const slug = v.page_path.replace("/partner/", "").replace(/\/$/, "");
             const partnerName = slugToName[slug];
             if (partnerName) {
-              partnerProfileVisits[partnerName] = (partnerProfileVisits[partnerName] || 0) + 1;
+              if (!partnerProfileVisits[partnerName]) partnerProfileVisits[partnerName] = new Set();
+              partnerProfileVisits[partnerName].add(v.session_id || v.id);
             }
           }
         }
