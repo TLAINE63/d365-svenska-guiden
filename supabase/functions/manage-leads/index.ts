@@ -604,11 +604,12 @@ case "click-stats": {
         }
 
         const stats = {
-          totalVisitors: visitors?.length || 0,
-          swedishVisitors: swedishVisitors.length,
-          nordicVisitors: nordicVisitors.length,
-          europeanVisitors: europeanVisitors.length,
-          otherVisitors: otherVisitors.length,
+          totalVisitors: totalUniqueVisitors,
+          totalPageViews: totalPageViews,
+          swedishVisitors: swedishSessions || swedishVisitors.length,
+          nordicVisitors: nordicSessions || nordicVisitors.length,
+          europeanVisitors: europeanSessions || europeanVisitors.length,
+          otherVisitors: otherSessions || otherVisitors.length,
           swedishBounceRate,
           avgTimeOnPage,
           topPages,
