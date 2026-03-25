@@ -1574,7 +1574,13 @@ const AdminDashboard = () => {
                 })()}
               <div className="grid gap-4">
                 {[...fullPartners]
-                  .filter(p => partnerStatusFilter === 'all' ? true : partnerStatusFilter === 'published' ? p.is_featured : !p.is_featured)
+                  .filter(p => {
+                    if (partnerStatusFilter === 'all') return true;
+                    if (partnerStatusFilter === 'published') return p.is_featured;
+                    if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
+                    if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
+                    return true;
+                  })
                   .sort((a, b) => {
                   if (partnerSortBy === 'updated_at') {
                     const diff = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
