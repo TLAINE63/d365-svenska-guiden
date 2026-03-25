@@ -391,12 +391,17 @@ const AdminDashboard = () => {
       const data = await response.json();
       const invitations = data?.invitations || [];
       const map: Record<string, { status: string; email: string }> = {};
+      const everInvitedSet = new Set<string>();
       for (const inv of invitations) {
-        if (inv.partner_id && (inv.status === 'pending' || inv.status === 'submitted')) {
-          map[inv.partner_id] = { status: inv.status, email: inv.email || '' };
+        if (inv.partner_id) {
+          everInvitedSet.add(inv.partner_id);
+          if (inv.status === 'pending' || inv.status === 'submitted') {
+            map[inv.partner_id] = { status: inv.status, email: inv.email || '' };
+          }
         }
       }
       setOpenInvitations(map);
+      setEverInvitedPartnerIds(everInvitedSet);
     } catch {
       // silently ignore
     }
