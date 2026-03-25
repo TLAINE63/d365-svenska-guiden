@@ -1486,11 +1486,18 @@ const AdminDashboard = () => {
                   Publicerade ({fullPartners.filter(p => p.is_featured).length})
                 </Button>
                 <Button
-                  variant={partnerStatusFilter === 'unpublished' ? 'default' : 'outline'}
+                  variant={partnerStatusFilter === 'invited_unpublished' ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setPartnerStatusFilter('unpublished')}
+                  onClick={() => setPartnerStatusFilter('invited_unpublished')}
                 >
-                  Ej publicerade ({fullPartners.filter(p => !p.is_featured).length})
+                  Inbjudna ej publicerade ({fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length})
+                </Button>
+                <Button
+                  variant={partnerStatusFilter === 'not_invited' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('not_invited')}
+                >
+                  Ej inbjudna ({fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length})
                 </Button>
                 <Separator orientation="vertical" className="h-6 mx-1" />
                 <span className="text-xs text-muted-foreground">Sortera:</span>
