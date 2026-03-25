@@ -1575,7 +1575,9 @@ const AdminDashboard = () => {
                   );
                 })()}
               <div className="grid gap-4">
-                {[...fullPartners].sort((a, b) => {
+                {[...fullPartners]
+                  .filter(p => partnerStatusFilter === 'all' ? true : partnerStatusFilter === 'published' ? p.is_featured : !p.is_featured)
+                  .sort((a, b) => {
                   if (partnerSortBy === 'updated_at') {
                     const diff = new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime();
                     return partnerSortDir === 'asc' ? diff : -diff;
