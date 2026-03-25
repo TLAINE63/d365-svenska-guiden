@@ -161,7 +161,8 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       lines.push(`Period: ${periodLabel} (t.o.m. ${today})`);
       lines.push("");
       lines.push("─── BESÖKARE ───");
-      lines.push(`Totalt antal besök: ${stats.totalVisitors}`);
+      lines.push(`Unika besökare: ${stats.totalVisitors}`);
+      lines.push(`Sidvisningar: ${stats.totalPageViews || 'N/A'}`);
       lines.push(`Varav från Sverige: ${stats.swedishVisitors} (${stats.totalVisitors > 0 ? Math.round((stats.swedishVisitors / stats.totalVisitors) * 100) : 0}%)`);
       if (stats.nordicVisitors > 0) lines.push(`Norden (exkl. Sverige): ${stats.nordicVisitors}`);
       if (stats.europeanVisitors > 0) lines.push(`Övriga Europa: ${stats.europeanVisitors}`);
