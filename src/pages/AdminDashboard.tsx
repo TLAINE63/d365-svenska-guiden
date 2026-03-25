@@ -221,6 +221,7 @@ const AdminDashboard = () => {
   
   // Open invitations tracking (partner_id -> {status, email})
   const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
+  const [everInvitedPartnerIds, setEverInvitedPartnerIds] = useState<Set<string>>(new Set());
   
   // Bulk welcome email state
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
