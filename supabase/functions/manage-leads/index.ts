@@ -521,10 +521,12 @@ case "click-stats": {
           ? Math.round(validTimes.reduce((sum, t) => sum + t, 0) / validTimes.length)
           : 0;
 
-        // Top pages (Swedish visitors)
-        const pageCount: Record<string, number> = {};
+        // Top pages (Swedish visitors) - count unique sessions per page
+        const pageCount: Record<string, Set<string>> = {};
         swedishVisitors.forEach(v => {
-          pageCount[v.page_path] = (pageCount[v.page_path] || 0) + 1;
+          if (!pageCount[v.page_path]) pageCount[v.page_path] = new Set();
+          if (v.session_id) pageCount[v.page_path].add(v.session_id);
+          else pageCount[v.page_path].add(v.id); // fallback for rows without session
         });
         const topPages = Object.entries(pageCount)
           .map(([path, visits]) => ({ path, visits }))
