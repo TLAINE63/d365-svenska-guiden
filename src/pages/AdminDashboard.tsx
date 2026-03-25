@@ -1507,23 +1507,46 @@ const AdminDashboard = () => {
             ) : (
               <>
                 {(() => {
-                  const nonPublished = fullPartners.filter(p => !p.is_featured && (p.admin_contact_email || p.email));
-                  if (nonPublished.length === 0) return null;
+                  const selectablePartners = fullPartners.filter(p => p.admin_contact_email || p.email);
+                  const publishedSelectable = selectablePartners.filter(p => p.is_featured);
+                  const nonPublishedSelectable = selectablePartners.filter(p => !p.is_featured);
+                  
                   return (
-                    <div className="flex items-center gap-3 mb-2">
-                      <Checkbox
-                        checked={nonPublished.length > 0 && nonPublished.every(p => selectedForWelcome.has(p.id))}
-                        onCheckedChange={(checked) => {
-                          setSelectedForWelcome(prev => {
-                            const next = new Set(prev);
-                            nonPublished.forEach(p => { if (checked) next.add(p.id); else next.delete(p.id); });
-                            return next;
-                          });
-                        }}
-                      />
-                      <span className="text-sm text-muted-foreground">
-                        Markera alla ej publicerade ({nonPublished.length})
-                      </span>
+                    <div className="flex flex-wrap items-center gap-4 mb-2">
+                      {publishedSelectable.length > 0 && (
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            checked={publishedSelectable.length > 0 && publishedSelectable.every(p => selectedForWelcome.has(p.id))}
+                            onCheckedChange={(checked) => {
+                              setSelectedForWelcome(prev => {
+                                const next = new Set(prev);
+                                publishedSelectable.forEach(p => { if (checked) next.add(p.id); else next.delete(p.id); });
+                                return next;
+                              });
+                            }}
+                          />
+                          <span className="text-sm text-muted-foreground">
+                            Alla publicerade ({publishedSelectable.length})
+                          </span>
+                        </div>
+                      )}
+                      {nonPublishedSelectable.length > 0 && (
+                        <div className="flex items-center gap-2">
+                          <Checkbox
+                            checked={nonPublishedSelectable.length > 0 && nonPublishedSelectable.every(p => selectedForWelcome.has(p.id))}
+                            onCheckedChange={(checked) => {
+                              setSelectedForWelcome(prev => {
+                                const next = new Set(prev);
+                                nonPublishedSelectable.forEach(p => { if (checked) next.add(p.id); else next.delete(p.id); });
+                                return next;
+                              });
+                            }}
+                          />
+                          <span className="text-sm text-muted-foreground">
+                            Alla ej publicerade ({nonPublishedSelectable.length})
+                          </span>
+                        </div>
+                      )}
                     </div>
                   );
                 })()}
