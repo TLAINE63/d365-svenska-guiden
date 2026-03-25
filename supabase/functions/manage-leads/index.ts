@@ -547,9 +547,9 @@ case "click-stats": {
         const topCities = Object.values(cityCount)
           .sort((a, b) => b.visits - a.visits);
 
-        // Partner profile visits (filtered by IP)
-        const partnerProfileVisits: Record<string, number> = {};
-        for (const v of visitors || []) {
+        // Partner profile visits (filtered by IP) - unique sessions
+        const partnerProfileVisits: Record<string, Set<string>> = {};
+        for (const v of filteredVisitors || []) {
           if (v.page_path?.startsWith("/partner/") && !isExcludedIp(v.ip_anonymized)) {
             const slug = v.page_path.replace("/partner/", "").replace(/\/$/, "");
             const partnerName = slugToName[slug];
