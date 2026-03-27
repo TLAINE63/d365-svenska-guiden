@@ -404,6 +404,11 @@ const AdminDashboard = () => {
           },
         }
       );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+        logout();
+        return;
+      }
       if (!response.ok) return;
       const data = await response.json();
       const invitations = data?.invitations || [];
