@@ -355,19 +355,35 @@ const AdminDashboard = () => {
         body: { action: "get-full", token },
       });
 
-      if (error) throw error;
+      if (error) {
+        const msg = error.message || "";
+        if (msg.includes("gått ut") || msg.includes("session") || msg.includes("Session expired") || msg.includes("401")) {
+          toast({ title: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+          logout();
+          return;
+        }
+        throw error;
+      }
       if (data.error) {
         if (data.error.includes("gått ut") || data.error.includes("session")) {
+          toast({ title: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
           logout();
+          return;
         }
         throw new Error(data.error);
       }
       setFullPartners(data.partners || []);
     } catch (error: any) {
       console.error("Error fetching full partners:", error);
+      const msg = error.message || "";
+      if (msg.includes("gått ut") || msg.includes("session") || msg.includes("401")) {
+        toast({ title: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+        logout();
+        return;
+      }
       toast({
         title: "Fel",
-        description: error.message || "Kunde inte hämta fullständig partnerdata",
+        description: msg || "Kunde inte hämta fullständig partnerdata",
         variant: "destructive",
       });
     } finally {
@@ -388,6 +404,11 @@ const AdminDashboard = () => {
           },
         }
       );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut. Logga in igen.", variant: "destructive" });
+        logout();
+        return;
+      }
       if (!response.ok) return;
       const data = await response.json();
       const invitations = data?.invitations || [];
