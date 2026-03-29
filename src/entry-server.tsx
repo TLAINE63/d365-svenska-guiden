@@ -31,6 +31,8 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
+import Kunskapscenter from './pages/Kunskapscenter';
+import RequirementsSpec from './pages/RequirementsSpec';
 
 export interface PrerenderRoute {
   path: string;
@@ -63,6 +65,8 @@ export const routes: PrerenderRoute[] = [
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly' },
+  { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
+  { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
 ];
 
 export function render(url: string) {
@@ -101,6 +105,8 @@ export function render(url: string) {
             <Route path="/events" element={<Events />} />
             <Route path="/events/:eventId" element={<EventDetail />} />
             <Route path="/qa" element={<QA />} />
+            <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+            <Route path="/kravspecifikation" element={<RequirementsSpec />} />
             <Route path="/partner/:slug" element={<PartnerProfile />} />
           </Routes>
         </StaticRouter>
