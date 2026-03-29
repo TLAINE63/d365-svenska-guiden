@@ -31,6 +31,8 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
+import Kunskapscenter from './pages/Kunskapscenter';
+import RequirementsSpec from './pages/RequirementsSpec';
 
 export interface PrerenderRoute {
   path: string;
