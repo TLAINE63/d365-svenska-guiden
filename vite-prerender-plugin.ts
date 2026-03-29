@@ -240,10 +240,11 @@ export default function prerenderPlugin(): Plugin {
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 
             // Collect sitemap entry
+            const trailingPath = route.path === '/' ? '/' : (route.path.endsWith('/') ? route.path : `${route.path}/`);
             sitemapEntries.push(
               [
                 '  <url>',
-                `    <loc>${baseUrl}${route.path}</loc>`,
+                `    <loc>${baseUrl}${trailingPath}</loc>`,
                 `    <lastmod>${today}</lastmod>`,
                 `    <changefreq>${route.changefreq}</changefreq>`,
                 `    <priority>${route.priority}</priority>`,
