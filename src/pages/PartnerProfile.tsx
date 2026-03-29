@@ -24,7 +24,7 @@ import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { calculateProductAiScore, calculateAiScore, getAiLevel } from "@/utils/aiScoring";
 import {
