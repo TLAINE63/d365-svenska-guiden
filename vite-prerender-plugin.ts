@@ -505,28 +505,41 @@ function setupBrowserGlobals() {
   g.document.defaultView = g.window;
   g.document.body.ownerDocument = g.document;
 
-  g.localStorage = g.window.localStorage;
-  g.sessionStorage = g.window.sessionStorage;
-  g.navigator = g.window.navigator;
-  g.matchMedia = g.window.matchMedia;
-  g.ResizeObserver = g.window.ResizeObserver;
-  g.IntersectionObserver = g.window.IntersectionObserver;
-  g.MutationObserver = g.window.MutationObserver;
-  g.requestAnimationFrame = g.window.requestAnimationFrame;
-  g.cancelAnimationFrame = g.window.cancelAnimationFrame;
-  g.getComputedStyle = g.window.getComputedStyle;
-  g.fetch = g.window.fetch;
-  g.Image = g.window.Image;
-  g.CustomEvent = g.window.CustomEvent;
-  g.HTMLElement = g.window.HTMLElement;
-  g.SVGElement = g.window.SVGElement;
-  g.Element = g.window.Element;
-  g.Node = g.window.Node;
-  g.Event = g.window.Event;
-  g.DOMParser = g.window.DOMParser;
-  g.location = g.window.location;
-  g.history = g.window.history;
-  g.screen = g.window.screen;
-  g.innerWidth = g.window.innerWidth;
-  g.innerHeight = g.window.innerHeight;
+  // Use Object.defineProperty for properties that may be read-only in newer Node.js
+  const safeSet = (obj: any, key: string, value: any) => {
+    try {
+      obj[key] = value;
+    } catch {
+      try {
+        Object.defineProperty(obj, key, { value, writable: true, configurable: true });
+      } catch {
+        /* skip if truly locked */
+      }
+    }
+  };
+
+  safeSet(g, 'localStorage', g.window.localStorage);
+  safeSet(g, 'sessionStorage', g.window.sessionStorage);
+  safeSet(g, 'navigator', g.window.navigator);
+  safeSet(g, 'matchMedia', g.window.matchMedia);
+  safeSet(g, 'ResizeObserver', g.window.ResizeObserver);
+  safeSet(g, 'IntersectionObserver', g.window.IntersectionObserver);
+  safeSet(g, 'MutationObserver', g.window.MutationObserver);
+  safeSet(g, 'requestAnimationFrame', g.window.requestAnimationFrame);
+  safeSet(g, 'cancelAnimationFrame', g.window.cancelAnimationFrame);
+  safeSet(g, 'getComputedStyle', g.window.getComputedStyle);
+  safeSet(g, 'fetch', g.window.fetch);
+  safeSet(g, 'Image', g.window.Image);
+  safeSet(g, 'CustomEvent', g.window.CustomEvent);
+  safeSet(g, 'HTMLElement', g.window.HTMLElement);
+  safeSet(g, 'SVGElement', g.window.SVGElement);
+  safeSet(g, 'Element', g.window.Element);
+  safeSet(g, 'Node', g.window.Node);
+  safeSet(g, 'Event', g.window.Event);
+  safeSet(g, 'DOMParser', g.window.DOMParser);
+  safeSet(g, 'location', g.window.location);
+  safeSet(g, 'history', g.window.history);
+  safeSet(g, 'screen', g.window.screen);
+  safeSet(g, 'innerWidth', g.window.innerWidth);
+  safeSet(g, 'innerHeight', g.window.innerHeight);
 }
