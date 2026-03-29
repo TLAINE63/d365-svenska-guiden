@@ -20,7 +20,7 @@ const SEOHead = ({
   noIndex = false,
 }: SEOHeadProps) => {
   const baseUrl = "https://d365.se";
-  const noBaseUrl = "https://d365guide.com";
+  
   const trailingPath = canonicalPath.endsWith("/") ? canonicalPath : `${canonicalPath}/`;
   const canonicalUrl = `${baseUrl}${trailingPath}`;
   const fullTitle = title.includes("d365.se") ? title : `${title} | d365.se`;
