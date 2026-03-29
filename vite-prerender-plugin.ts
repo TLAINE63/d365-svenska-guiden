@@ -174,10 +174,10 @@ export default function prerenderPlugin(): Plugin {
               const customHead = [
                 `<title>${route.meta.title}</title>`,
                 `<meta name="description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
-                `<link rel="canonical" href="https://d365.se${route.path}" />`,
+                `<link rel="canonical" href="https://d365.se${route.path.endsWith('/') ? route.path : route.path + '/'}" />`,
                 `<meta property="og:title" content="${route.meta.title}" />`,
                 `<meta property="og:description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
-                `<meta property="og:url" content="https://d365.se${route.path}" />`,
+                `<meta property="og:url" content="https://d365.se${route.path.endsWith('/') ? route.path : route.path + '/'}" />`,
                 `<meta property="og:type" content="website" />`,
               ].join('\n    ');
               headTags = customHead;
@@ -240,10 +240,11 @@ export default function prerenderPlugin(): Plugin {
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 
             // Collect sitemap entry
+            const trailingPath = route.path === '/' ? '/' : (route.path.endsWith('/') ? route.path : `${route.path}/`);
             sitemapEntries.push(
               [
                 '  <url>',
-                `    <loc>${baseUrl}${route.path}</loc>`,
+                `    <loc>${baseUrl}${trailingPath}</loc>`,
                 `    <lastmod>${today}</lastmod>`,
                 `    <changefreq>${route.changefreq}</changefreq>`,
                 `    <priority>${route.priority}</priority>`,

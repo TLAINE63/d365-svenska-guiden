@@ -230,7 +230,7 @@ const BusinessCentral = () => {
                   variant="outline"
                   className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
-                  <Link to="/kravspecifikation">
+                  <Link to="/kravspecifikation/">
                     <FileText className="mr-2 h-5 w-5" />
                     Generera en kravspecifikation
                   </Link>
@@ -387,7 +387,7 @@ const BusinessCentral = () => {
                   <div className="bg-business-central/10 border border-business-central/30 rounded-lg p-4 mt-4">
                     <p className="font-semibold text-foreground mb-2">🔍 Hitta rätt partner:</p>
                     <p>
-                      På vår <a href="/valj-partner" className="text-business-central hover:underline font-semibold">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav.
+                      På vår <a href="/valj-partner/" className="text-business-central hover:underline font-semibold">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav.
                     </p>
                   </div>
                 </AccordionContent>
@@ -519,7 +519,7 @@ const BusinessCentral = () => {
 
             <div className="mt-8 text-center">
               <Button asChild size="lg" variant="outline">
-                <Link to="/agents">
+                <Link to="/agents/">
                   Upptäck fler Agenter-användningsområden
                   <span className="ml-2">→</span>
                 </Link>
@@ -750,7 +750,7 @@ const BusinessCentral = () => {
 
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">
-              <Link to="/valj-partner">
+              <Link to="/valj-partner/">
                 Se alla partners
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

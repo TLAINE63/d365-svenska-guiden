@@ -197,7 +197,7 @@ const CRM = () => {
                   variant="outline"
                   className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
-                  <Link to="/kravspecifikation-sales">
+                  <Link to="/kravspecifikation-sales/">
                     <FileText className="mr-2 h-5 w-5" />
                     Generera en kravspecifikation
                   </Link>
@@ -287,7 +287,7 @@ const CRM = () => {
                   ❓ Vilken partner borde passa vår verksamhet bäst?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Rätt partner beror på er bransch, företagsstorlek och vilka CRM-applikationer ni behöver. Vi rekommenderar att ni väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna ni är intresserade av. På vår <a href="/valj-partner" className="text-crm hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+                  Rätt partner beror på er bransch, företagsstorlek och vilka CRM-applikationer ni behöver. Vi rekommenderar att ni väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna ni är intresserade av. På vår <a href="/valj-partner/" className="text-crm hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -442,7 +442,7 @@ const CRM = () => {
 
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">
-              <Link to="/valj-partner">
+              <Link to="/valj-partner/">
                 Se alla partners
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

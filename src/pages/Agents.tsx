@@ -542,7 +542,7 @@ const Agents = () => {
                 </Button>
               </ContactFormDialog>
               <Button size="lg" variant="outline" asChild>
-                <Link to="/copilot">
+                <Link to="/copilot/">
                   Läs om Copilot
                 </Link>
               </Button>

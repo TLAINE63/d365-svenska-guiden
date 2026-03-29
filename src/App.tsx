@@ -96,25 +96,25 @@ const App = () => (
             <Route path="/lead-admin" element={<Navigate to="/admin" replace />} />
             <Route path="/partner-update/:token" element={<PartnerUpdate />} />
             {/* Redirects for old/legacy URLs (44 st 404 i GSC) */}
-            <Route path="/kontakta-oss" element={<Navigate to="/kontakt" replace />} />
+            <Route path="/kontakta-oss" element={<Navigate to="/kontakt/" replace />} />
             <Route path="/om-oss" element={<Navigate to="/" replace />} />
             <Route path="/våra-tjänster" element={<Navigate to="/" replace />} />
             <Route path="/vara-tjanster" element={<Navigate to="/" replace />} />
-            <Route path="/nyheter" element={<Navigate to="/events" replace />} />
-            <Route path="/nyheter/f/*" element={<Navigate to="/events" replace />} />
-            <Route path="/start/f/*" element={<Navigate to="/events" replace />} />
-            <Route path="/f/*" element={<Navigate to="/events" replace />} />
+            <Route path="/nyheter" element={<Navigate to="/events/" replace />} />
+            <Route path="/nyheter/f/*" element={<Navigate to="/events/" replace />} />
+            <Route path="/start/f/*" element={<Navigate to="/events/" replace />} />
+            <Route path="/f/*" element={<Navigate to="/events/" replace />} />
             <Route path="/dynamics-365-introduktion" element={<Navigate to="/" replace />} />
             <Route path="/dynamics-365-demos" element={<Navigate to="/" replace />} />
-            <Route path="/partner" element={<Navigate to="/valj-partner" replace />} />
+            <Route path="/partner" element={<Navigate to="/valj-partner/" replace />} />
             <Route path="/konfigurator" element={<Navigate to="/" replace />} />
-            <Route path="/sekretesspolicy" element={<Navigate to="/dataskydd" replace />} />
+            <Route path="/sekretesspolicy" element={<Navigate to="/dataskydd/" replace />} />
             <Route path="/start" element={<Navigate to="/" replace />} />
-            <Route path="/evenemang" element={<Navigate to="/events" replace />} />
-            <Route path="/dynamics-365-customer-engagement-crm" element={<Navigate to="/crm" replace />} />
-            <Route path="/dynamics-365-erp-business-central" element={<Navigate to="/business-central" replace />} />
-            <Route path="/aktuellt" element={<Navigate to="/events" replace />} />
-            <Route path="/aktuellt/*" element={<Navigate to="/events" replace />} />
+            <Route path="/evenemang" element={<Navigate to="/events/" replace />} />
+            <Route path="/dynamics-365-customer-engagement-crm" element={<Navigate to="/crm/" replace />} />
+            <Route path="/dynamics-365-erp-business-central" element={<Navigate to="/business-central/" replace />} />
+            <Route path="/aktuellt" element={<Navigate to="/events/" replace />} />
+            <Route path="/aktuellt/*" element={<Navigate to="/events/" replace />} />
             <Route path="/projektpaket" element={<Navigate to="/" replace />} />
             <Route path="/search" element={<Navigate to="/" replace />} />
             <Route path="/våratjänster" element={<Navigate to="/" replace />} />

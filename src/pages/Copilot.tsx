@@ -161,7 +161,7 @@ const Copilot = () => {
               </div>
               <div className="mt-6 text-center">
                 <Button asChild variant="outline" size="lg">
-                  <Link to="/agents">
+                  <Link to="/agents/">
                     Läs mer om Microsoft Agents
                     <span className="ml-2">→</span>
                   </Link>

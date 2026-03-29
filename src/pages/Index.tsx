@@ -157,7 +157,7 @@ const Index = () => {
                     <p>• <strong>Customer Service & Field Service</strong> passar dig om du hanterar ärenden, garantier, serviceavtal eller fälttekniker som behöver digital planering och support.</p>
                     <p>• <strong>Customer Insights</strong> passar dig om du vill arbeta datadrivet med marknadsföring, kampanjer och personalisering mot kunder.</p>
                     <p className="pt-1">
-                      → Gör gärna någon av våra kostnadsfria behovsanalyser för <Link to="/behovsanalys" className="text-primary hover:underline font-semibold">ERP/Affärssystem</Link>, <Link to="/salj-marknad-behovsanalys" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys" className="text-primary hover:underline font-semibold">Kundservice</Link> för en personlig rekommendation.
+                      → Gör gärna någon av våra kostnadsfria behovsanalyser för <Link to="/behovsanalys/" className="text-primary hover:underline font-semibold">ERP/Affärssystem</Link>, <Link to="/salj-marknad-behovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link> för en personlig rekommendation.
                     </p>
                   </div>
                 </AccordionContent>
@@ -249,7 +249,7 @@ const Index = () => {
                     <p>• <strong>Geografisk närvaro:</strong> Lokal närvaro underlättar workshops, utbildning och löpande support – men de flesta partners levererar idag hybridprojekt med en mix av digitalt och på plats.</p>
                     <p>• <strong>Kundexempel och referenser:</strong> Be alltid om 2–3 referenskunder i liknande bransch och storlek. Hur lång tid tog projektet? Vad gick bra? Vad var utmanande?</p>
                     <p className="pt-2">
-                      <Link to="/valj-partner" className="text-primary hover:underline font-semibold">
+                      <Link to="/valj-partner/" className="text-primary hover:underline font-semibold">
                         → Utforska partnerkatalogen och använd AI-guiden för att hitta rätt match
                       </Link>
                     </p>
@@ -293,7 +293,7 @@ const Index = () => {
                     <p>• <strong>Finance & Supply Chain:</strong> Copilot varnar för leveransrisker, identifierar ekonomiavvikelser och optimerar inköpsplaner i realtid.</p>
                     <p>• <strong>Mätbar affärsnytta:</strong> Forrester TEI-studie (oktober 2024) visar 353% potentiell ROI över 3 år, 20% reducerade driftskostnader och 18% ökad medarbetarnöjdhet.</p>
                     <p className="pt-1">
-                      <Link to="/copilot" className="text-primary hover:underline font-semibold">
+                      <Link to="/copilot/" className="text-primary hover:underline font-semibold">
                         → Läs mer om Copilot i Dynamics 365
                       </Link>
                     </p>
@@ -342,7 +342,7 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/business-central" aria-label="Läs mer om Business Central">
+                <Link to="/business-central/" aria-label="Läs mer om Business Central">
                   Läs mer
                 </Link>
               </Button>
@@ -373,7 +373,7 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/finance-supply-chain" aria-label="Läs mer om Finance & Supply Chain Management">
+                <Link to="/finance-supply-chain/" aria-label="Läs mer om Finance & Supply Chain Management">
                   Läs mer
                 </Link>
               </Button>
@@ -404,7 +404,7 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/crm" aria-label="Läs mer om Dynamics 365 Marknad & Sälj">
+                <Link to="/crm/" aria-label="Läs mer om Dynamics 365 Marknad & Sälj">
                   Läs mer
                 </Link>
               </Button>
@@ -434,7 +434,7 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/d365-customer-service" aria-label="Läs mer om Dynamics 365 Kundservice">
+                <Link to="/d365-customer-service/" aria-label="Läs mer om Dynamics 365 Kundservice">
                   Läs mer
                 </Link>
               </Button>
@@ -562,7 +562,7 @@ const Index = () => {
             {/* CTA */}
             <div className="text-center">
               <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground">
-                <Link to="/agents">
+                <Link to="/agents/">
                   Upptäck Microsoft Agenter
                   <span className="ml-2">→</span>
                 </Link>
@@ -591,7 +591,7 @@ const Index = () => {
               skillnaden mellan ett projekt som levererar verkligt affärsvärde och ett som aldrig når sin fulla potential.
             </p>
             <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white">
-              <Link to="/valj-partner" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              <Link to="/valj-partner/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 Hitta rätt partner
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
@@ -616,7 +616,7 @@ const Index = () => {
             Boka en gratis konsultation så hjälper vi dig hitta rätt lösning för din verksamhet
           </p>
           <Button asChild size="lg" variant="secondary" className="text-sm sm:text-base md:text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-            <Link to="/kontakt">Kontakta oss idag!</Link>
+            <Link to="/kontakt/">Kontakta oss idag!</Link>
           </Button>
         </div>
       </section>

@@ -215,7 +215,7 @@ const FinanceSupplyChain = () => {
                   variant="outline"
                   className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
-                  <Link to="/kravspecifikation">
+                  <Link to="/kravspecifikation/">
                     <FileText className="mr-2 h-5 w-5" />
                     Generera en kravspecifikation
                   </Link>
@@ -305,7 +305,7 @@ const FinanceSupplyChain = () => {
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6 pl-11">
-                  Rätt partner beror på er bransch, företagsstorlek och specifika behov. För F&SCM-implementeringar rekommenderar vi partners med erfarenhet av komplexa, globala projekt och som har relevant branschexpertis. På vår <a href="/valj-partner" className="text-finance-supply hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+                  Rätt partner beror på er bransch, företagsstorlek och specifika behov. För F&SCM-implementeringar rekommenderar vi partners med erfarenhet av komplexa, globala projekt och som har relevant branschexpertis. På vår <a href="/valj-partner/" className="text-finance-supply hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -455,7 +455,7 @@ const FinanceSupplyChain = () => {
 
             <div className="mt-8 text-center">
               <Button asChild size="lg" variant="outline">
-                <Link to="/agents">
+                <Link to="/agents/">
                   Utforska Agenter för Enterprise
                   <span className="ml-2">→</span>
                 </Link>
@@ -604,7 +604,7 @@ const FinanceSupplyChain = () => {
                     </li>
                   </ul>
                   <Button asChild className="bg-business-central hover:bg-business-central/90 text-white">
-                    <Link to="/business-central">
+                    <Link to="/business-central/">
                       Läs mer om Business Central
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -630,7 +630,7 @@ const FinanceSupplyChain = () => {
                   </ul>
                   <div className="mt-6">
                     <Button asChild variant="outline" size="sm">
-                      <Link to="/erp">
+                      <Link to="/erp/">
                         Jämför Business Central vs Finance &amp; SCM
                       </Link>
                     </Button>
@@ -800,7 +800,7 @@ const FinanceSupplyChain = () => {
 
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">
-              <Link to="/valj-partner">
+              <Link to="/valj-partner/">
                 Se alla partners
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

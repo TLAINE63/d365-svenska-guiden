@@ -201,7 +201,7 @@ const HeroCarousel = () => {
                 {featuredIndustries.map((industry) => (
                   <Link
                     key={industry.name}
-                    to="/branschlosningar"
+                    to="/branschlosningar/"
                     className="group flex flex-col items-center bg-white/10 backdrop-blur-sm rounded-lg p-1 sm:p-2 hover:bg-white/20 transition-all duration-200 border border-white/20 hover:border-white/40"
                   >
                     <div className="w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full overflow-hidden mb-0.5 sm:mb-1.5 ring-2 ring-white/30 group-hover:ring-white/60 transition-all">

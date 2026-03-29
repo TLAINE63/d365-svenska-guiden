@@ -725,7 +725,7 @@ const AIOverview = () => {
 
           <div className="text-center">
             <Link
-              to="/valj-partner"
+              to="/valj-partner/"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg hover:bg-primary/90 transition-colors"
             >
               👉 Hitta rätt Dynamics 365-partner för AI <ArrowRight className="h-5 w-5" />
@@ -745,7 +745,7 @@ const AIOverview = () => {
                 Gör vårt AI Readiness Assessment – 12 frågor, 3 minuter – och få en personlig rekommendation för hur ni tar nästa steg med Copilot och agenter.
               </p>
               <Link
-                to="/ai-readiness"
+                to="/ai-readiness/"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg hover:bg-primary/90 transition-colors"
               >
                 Starta Assessment <ArrowRight className="h-5 w-5" />

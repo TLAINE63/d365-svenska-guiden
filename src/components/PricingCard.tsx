@@ -40,7 +40,7 @@ const PricingCard = ({ title, description, price, features, popular }: PricingCa
           asChild
           className="w-full mt-4 sm:mt-6 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] hover:opacity-90 text-primary-foreground h-11 sm:h-12 text-sm sm:text-base"
         >
-          <Link to="/kontakt">Kontakta oss</Link>
+          <Link to="/kontakt/">Kontakta oss</Link>
         </Button>
       </CardContent>
     </Card>
