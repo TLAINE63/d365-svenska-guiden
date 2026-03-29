@@ -76,53 +76,57 @@ export function render(url: string) {
     },
   });
 
+  const helmetContext: { helmet?: any } = {};
+
   const html = renderToString(
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <StaticRouter location={url}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/crm" element={<CRM />} />
-            <Route path="/business-central" element={<BusinessCentral />} />
-            <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
-            <Route path="/erp" element={<ERPOverview />} />
-            <Route path="/copilot" element={<Copilot />} />
-            <Route path="/agents" element={<Agents />} />
-            <Route path="/ai-oversikt" element={<AIOverview />} />
-            <Route path="/ai-readiness" element={<AIReadiness />} />
-            <Route path="/kontakt" element={<ContactUs />} />
-            <Route path="/valj-partner" element={<ValjPartner />} />
-            <Route path="/dataskydd" element={<PrivacyPolicy />} />
-            <Route path="/behovsanalys" element={<NeedsAnalysis />} />
-            <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
-            <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
-            <Route path="/branschlosningar" element={<Branschlosningar />} />
-            <Route path="/d365-sales" element={<D365Sales />} />
-            <Route path="/d365-marketing" element={<D365Marketing />} />
-            <Route path="/d365-customer-service" element={<D365CustomerService />} />
-            <Route path="/d365-field-service" element={<D365FieldService />} />
-            <Route path="/d365-contact-center" element={<D365ContactCenter />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/events/:eventId" element={<EventDetail />} />
-            <Route path="/qa" element={<QA />} />
-            <Route path="/kunskapscenter" element={<Kunskapscenter />} />
-            <Route path="/kravspecifikation" element={<RequirementsSpec />} />
-            <Route path="/partner/:slug" element={<PartnerProfile />} />
-          </Routes>
-        </StaticRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <HelmetProvider context={helmetContext}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <StaticRouter location={url}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/crm" element={<CRM />} />
+              <Route path="/business-central" element={<BusinessCentral />} />
+              <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
+              <Route path="/erp" element={<ERPOverview />} />
+              <Route path="/copilot" element={<Copilot />} />
+              <Route path="/agents" element={<Agents />} />
+              <Route path="/ai-oversikt" element={<AIOverview />} />
+              <Route path="/ai-readiness" element={<AIReadiness />} />
+              <Route path="/kontakt" element={<ContactUs />} />
+              <Route path="/valj-partner" element={<ValjPartner />} />
+              <Route path="/dataskydd" element={<PrivacyPolicy />} />
+              <Route path="/behovsanalys" element={<NeedsAnalysis />} />
+              <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
+              <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
+              <Route path="/branschlosningar" element={<Branschlosningar />} />
+              <Route path="/d365-sales" element={<D365Sales />} />
+              <Route path="/d365-marketing" element={<D365Marketing />} />
+              <Route path="/d365-customer-service" element={<D365CustomerService />} />
+              <Route path="/d365-field-service" element={<D365FieldService />} />
+              <Route path="/d365-contact-center" element={<D365ContactCenter />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/events/:eventId" element={<EventDetail />} />
+              <Route path="/qa" element={<QA />} />
+              <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+              <Route path="/kravspecifikation" element={<RequirementsSpec />} />
+              <Route path="/partner/:slug" element={<PartnerProfile />} />
+            </Routes>
+          </StaticRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 
-  const helmet = Helmet.renderStatic();
+  const helmet = helmetContext.helmet;
 
   return {
     html,
     head: {
-      title: helmet.title.toString(),
-      meta: helmet.meta.toString(),
-      link: helmet.link.toString(),
-      script: helmet.script.toString(),
+      title: helmet?.title?.toString() || '',
+      meta: helmet?.meta?.toString() || '',
+      link: helmet?.link?.toString() || '',
+      script: helmet?.script?.toString() || '',
     },
   };
 }
