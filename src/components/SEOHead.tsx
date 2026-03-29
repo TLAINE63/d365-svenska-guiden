@@ -20,8 +20,9 @@ const SEOHead = ({
   noIndex = false,
 }: SEOHeadProps) => {
   const baseUrl = "https://d365.se";
-  const noBaseUrl = "https://d365guide.com";
-  const canonicalUrl = `${baseUrl}${canonicalPath}`;
+  
+  const trailingPath = canonicalPath.endsWith("/") ? canonicalPath : `${canonicalPath}/`;
+  const canonicalUrl = `${baseUrl}${trailingPath}`;
   const fullTitle = title.includes("d365.se") ? title : `${title} | d365.se`;
 
   return (
@@ -30,11 +31,6 @@ const SEOHead = ({
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrl} />
-      
-      {/* Hreflang tags for international versions */}
-      <link rel="alternate" hrefLang="sv" href={`${baseUrl}${canonicalPath}`} />
-      <link rel="alternate" hrefLang="no" href={`${noBaseUrl}${canonicalPath}`} />
-      <link rel="alternate" hrefLang="x-default" href={`${baseUrl}${canonicalPath}`} />
       
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
       
