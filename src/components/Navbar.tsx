@@ -76,7 +76,7 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             <Link
-              to="/branschlosningar"
+              to="/branschlosningar/"
               onClick={(e) => {
                 if (window.location.pathname === '/branschlosningar') {
                   e.preventDefault();
@@ -96,7 +96,7 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
                 <DropdownMenuItem asChild>
-                  <Link to="/valj-partner" className="cursor-pointer font-medium text-primary">
+                  <Link to="/valj-partner/" className="cursor-pointer font-medium text-primary">
                     🔍 Hitta rätt partner
                   </Link>
                 </DropdownMenuItem>
@@ -105,23 +105,23 @@ const Navbar = () => {
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</p>
                 </div>
                 <DropdownMenuItem asChild>
-                  <Link to="/behovsanalys" className="cursor-pointer">
+                  <Link to="/behovsanalys/" className="cursor-pointer">
                     📊 ERP (Affärssystem)
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/salj-marknad-behovsanalys" className="cursor-pointer">
+                  <Link to="/salj-marknad-behovsanalys/" className="cursor-pointer">
                     📈 Sälj & Marknad (CRM)
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/kundservice-behovsanalys" className="cursor-pointer">
+                  <Link to="/kundservice-behovsanalys/" className="cursor-pointer">
                     🎧 Kundservice & Field Service
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/ai-readiness" className="cursor-pointer">
+                  <Link to="/ai-readiness/" className="cursor-pointer">
                     🤖 AI Readiness Assessment
                   </Link>
                 </DropdownMenuItem>
@@ -228,7 +228,7 @@ const Navbar = () => {
             <SheetContent className="overflow-y-auto">
               <div className="flex flex-col gap-4 mt-8 pb-8">
                 <Link
-                  to="/branschlosningar"
+                  to="/branschlosningar/"
                   onClick={(e) => {
                     if (window.location.pathname === '/branschlosningar') {
                       e.preventDefault();
@@ -240,23 +240,23 @@ const Navbar = () => {
                   Branschlösningar
                 </Link>
                 <Link
-                  to="/valj-partner"
+                  to="/valj-partner/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
                   Det kritiska partnervalet
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
-                  <Link to="/behovsanalys" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📊 ERP (Affärssystem)
                   </Link>
-                  <Link to="/salj-marknad-behovsanalys" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/salj-marknad-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📈 Sälj & Marknad (CRM)
                   </Link>
-                  <Link to="/kundservice-behovsanalys" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/kundservice-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🎧 Kundservice & Field Service
                   </Link>
-                  <Link to="/ai-readiness" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🤖 AI Readiness Assessment
                   </Link>
                 </div>

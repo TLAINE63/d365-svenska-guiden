@@ -2162,7 +2162,7 @@ const AIReadiness = () => {
                     {submitting ? "Skickar..." : "Ladda ner PDF-rapport"}
                   </Button>
                   <p className="text-xs text-muted-foreground text-center">
-                    Vi delar aldrig dina uppgifter. Läs vår <Link to="/dataskydd" className="underline">integritetspolicy</Link>.
+                    Vi delar aldrig dina uppgifter. Läs vår <Link to="/dataskydd/" className="underline">integritetspolicy</Link>.
                   </p>
                 </div>
               </CardContent>

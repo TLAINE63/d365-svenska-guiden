@@ -56,7 +56,7 @@ const CookieBanner = () => {
               <p className="text-sm text-muted-foreground">
                 Läs mer i vår{" "}
                 <Link 
-                  to="/dataskydd" 
+                  to="/dataskydd/" 
                   className="text-primary hover:underline font-medium"
                 >
                   dataskyddspolicy

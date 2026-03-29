@@ -660,7 +660,7 @@ const ValjPartner = () => {
                   Rensa alla filter
                 </Button>
                 <Button asChild className="bg-amber-500 hover:bg-amber-600 text-white">
-                  <Link to="/kontakt">
+                  <Link to="/kontakt/">
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Kontakta oss för hjälp
                   </Link>
@@ -797,7 +797,7 @@ const ValjPartner = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground h-14 text-base sm:text-lg px-6 sm:px-8 font-semibold shadow-lg hover:shadow-xl transition-all rounded-xl">
-                <Link to="/kontakt">
+                <Link to="/kontakt/">
                   <MessageSquare className="w-5 h-5 mr-2" />
                   Kontakta oss
                 </Link>

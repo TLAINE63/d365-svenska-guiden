@@ -41,7 +41,7 @@ const CommonMistakesTeaser = () => {
                   </div>
 
                   <Button asChild variant="outline" className="group">
-                    <Link to="/valj-partner">
+                    <Link to="/valj-partner/">
                       Hitta rätt partner – undvik misstagen
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>

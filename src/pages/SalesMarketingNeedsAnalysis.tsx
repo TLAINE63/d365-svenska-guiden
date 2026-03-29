@@ -2952,10 +2952,10 @@ const SalesMarketingNeedsAnalysis = () => {
                   <p className="text-muted-foreground">Vi kommer att kontakta dig inom kort.</p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button asChild className="bg-crm hover:bg-crm/90">
-                      <Link to="/crm">Läs mer om Dynamics 365 CRM</Link>
+                      <Link to="/crm/">Läs mer om Dynamics 365 CRM</Link>
                     </Button>
                     <Button variant="outline" asChild>
-                      <Link to="/kontakt">Kontakta oss direkt</Link>
+                      <Link to="/kontakt/">Kontakta oss direkt</Link>
                     </Button>
                   </div>
                 </div>

@@ -136,7 +136,7 @@ const D365CustomerService = () => {
                   variant="outline"
                   className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
-                  <Link to="/kravspecifikation-kundservice">
+                  <Link to="/kravspecifikation-kundservice/">
                     <FileText className="mr-2 h-5 w-5" />
                     Generera en kravspecifikation
                   </Link>

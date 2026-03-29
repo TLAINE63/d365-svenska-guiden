@@ -217,7 +217,7 @@ export const LeadCTA = ({
       
       <p className={`text-xs text-center ${variant === 'inline' ? 'text-white/60' : 'text-muted-foreground'}`}>
         Genom att skicka godkänner du vår{" "}
-        <a href="/dataskydd" className="underline hover:text-primary">
+        <a href="/dataskydd/" className="underline hover:text-primary">
           integritetspolicy
         </a>
         .

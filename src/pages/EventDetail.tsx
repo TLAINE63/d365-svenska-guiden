@@ -157,7 +157,7 @@ const EventDetail = () => {
                 Eventet du söker finns inte eller har tagits bort.
               </p>
               <Button asChild>
-                <Link to="/events">
+                <Link to="/events/">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Tillbaka till events
                 </Link>
@@ -189,7 +189,7 @@ const EventDetail = () => {
         
         <div className="relative container mx-auto px-4">
           <Link 
-            to="/events" 
+            to="/events/" 
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
