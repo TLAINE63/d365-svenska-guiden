@@ -65,6 +65,8 @@ export const routes: PrerenderRoute[] = [
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly' },
+  { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
+  { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
 ];
 
 export function render(url: string) {
