@@ -61,7 +61,6 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
       !confirm(
         `Skicka partneravtal till ${selectedPartners.length} partner(s)? Startdatum: ${formatDateSv(startDate)}, deadline: ${formatDateSv(deadline)}`
       )
-      )
     )
       return;
 
