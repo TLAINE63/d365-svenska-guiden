@@ -1243,6 +1243,10 @@ const AdminDashboard = () => {
               <Mail className="h-4 w-4" />
               E-postlogg
             </TabsTrigger>
+            <TabsTrigger value="agreement" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Partneravtal
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
