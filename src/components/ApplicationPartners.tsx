@@ -164,7 +164,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
           </div>
         )}
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPartners.map((partner, index) => {
             // Build profile URL with filter context
             const baseUrl = `/partner/${partner.slug}`;
