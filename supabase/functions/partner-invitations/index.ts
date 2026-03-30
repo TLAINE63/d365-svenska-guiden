@@ -1201,6 +1201,231 @@ D365.se`;
       );
     }
 
+    // Admin: Send agreement email to selected partners
+    if (action === "send-agreement" && req.method === "POST") {
+      const body = await req.json();
+      const { partners: partnerList, deadline, start_date } = body;
+
+      if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Partnerlista krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "RESEND_API_KEY ej konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resend = new Resend(resendApiKey);
+      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement.pdf`;
+      const deadlineStr = deadline || "2026-04-30";
+      const startDateStr = start_date || "2026-05-01";
+
+      // Fetch custom template from site_settings (if exists)
+      let emailBody = "";
+      const { data: setting } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "agreement_email_body")
+        .single();
+
+      if (setting?.value) {
+        emailBody = setting.value;
+      } else {
+        emailBody = `Hej,
+
+Stort tack för att ni har varit med i pilotperioden för d365.se och bidragit till att forma plattformen tillsammans med oss.
+
+Tillsammans har vi tagit viktiga steg – från idé till en levande plattform med guider, behovsanalyser och kravstöd för organisationer som utvärderar Microsoft Dynamics 365. Målet är tydligt: att skapa en oberoende plats där företag enklare kan förstå sina behov och hitta rätt partner.
+
+Det här är bara början.
+
+Vi ser redan nu ett växande intresse och flera Dynamics-partners har valt att fortsätta vara synliga när vi nu går in i nästa fas. Vår ambition framåt är att öka inflödet av relevanta kunddialoger genom fortsatt satsning på innehåll, funktionalitet och marknadsföring – med tydligt fokus på organisationer i aktiv utvärdering.
+
+Vi ser verkligen fram emot att fortsätta resan tillsammans med er och bygga vidare på något som kan skapa konkret affärsvärde för alla involverade.
+
+För de partners som vill fortsätta vara synliga på plattformen gäller följande villkor framåt:
+
+Partnerprofil
+
+Partnerprofilen gör det möjligt att synas inom följande produktområden:
+
+• Dynamics 365 Finance & Supply Chain
+• Dynamics 365 Business Central
+• Dynamics 365 Customer Engagement
+
+Inom varje produktområde väljer ni max tre (3) branschinriktningar. Välj noga.
+
+Pris
+
+Avgiften är 1.990 kr per månad och produktområde (exkl. moms).
+
+Debitering startar från {{START_DATE}}
+
+Avtalsvillkor
+
+• initial bindningstid: 6 månader
+• därefter 3 månaders uppsägningstid
+• fakturering sker månadsvis i förskott
+
+Fullständiga villkor finns i bifogad fil.
+
+{{PDF_LINK}}
+
+Bekräftelse
+
+Om ni vill fortsätta vara partner på d365.se, svara gärna på detta mail med:
+
+"Vi accepterar villkoren för partnerprofil på d365.se."
+
+och ange:
+
+Produktområden
+
+• Dynamics 365 Finance & Supply Chain
+• Dynamics 365 Business Central
+• Dynamics 365 Customer Engagement/CRM
+
+Fakturauppgifter
+
+• Företag
+• Organisationsnummer
+• Faktureringsadress
+• Fakturaemail (för e-faktura/PDF)
+• Referens eller märkning
+• Kontaktperson för fakturafrågor
+
+Partnern ansvarar för att tillhandahålla korrekta fakturauppgifter i samband med beställning av partnerprofil. Eventuella ändringar av fakturauppgifter ska meddelas skriftligen via email.
+
+Vi är tacksamma om ni kan bekräfta detta senast {{DEADLINE}}
+
+Vi ser fram emot att fortsätta utveckla plattformen tillsammans.
+
+Vänliga hälsningar
+
+Thomas Laine & Michael Uhman
+Moveahead AB (Dynamic Factory)
+https://d365.se`;
+      }
+
+      let sent = 0;
+      let failed = 0;
+      const errors: string[] = [];
+
+      for (const partner of partnerList) {
+        try {
+          const email = partner.email;
+          if (!email) {
+            errors.push(`${partner.name}: Ingen e-postadress`);
+            failed++;
+            continue;
+          }
+
+          // Replace placeholders
+          let body = emailBody
+            .replace(/\{\{DEADLINE\}\}/g, deadlineStr)
+            .replace(/\{\{START_DATE\}\}/g, startDateStr);
+
+          // Build PDF link button
+          const pdfButton = `<div style="text-align: center; margin: 20px 0;">
+            <a href="${pdfUrl}" style="display: inline-block; background-color: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">📄 Ladda ner partneravtal (PDF)</a>
+          </div>`;
+
+          // Convert plain text to HTML
+          const htmlBody = body
+            .split("{{PDF_LINK}}")
+            .map((part: string) => {
+              return part
+                .split("\n\n")
+                .map((paragraph: string) => {
+                  const trimmed = paragraph.trim();
+                  if (!trimmed) return "";
+                  const withBr = trimmed.replace(/\n/g, "<br>");
+                  const withLinks = withBr.replace(
+                    /(https?:\/\/[^\s<,]+)/g,
+                    '<a href="$1" style="color: #2563eb;">$1</a>'
+                  );
+                  const withEmails = withLinks.replace(
+                    /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
+                    '<a href="mailto:$1" style="color: #2563eb;">$1</a>'
+                  );
+                  return `<p>${withEmails}</p>`;
+                })
+                .filter(Boolean)
+                .join("\n");
+            })
+            .join(pdfButton);
+
+          const fullHtml = `<!DOCTYPE html>
+            <html>
+            <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                <p style="color: #6b7280; margin: 5px 0 0 0;">Partneravtal</p>
+              </div>
+              ${htmlBody}
+            </body>
+            </html>`;
+
+          await resend.emails.send({
+            from: "D365.se <info@d365.se>",
+            to: [email],
+            bcc: ["thomas.laine@dynamicfactory.se"],
+            subject: "Partneravtal – d365.se – Villkor för fortsatt partnerskap",
+            html: fullHtml,
+          });
+
+          sent++;
+          console.log("Agreement email sent to:", email, partner.name);
+          await supabase.from("email_send_log").insert({
+            recipient_email: email,
+            template_name: "partner_agreement",
+            subject: "Partneravtal – d365.se – Villkor för fortsatt partnerskap",
+            status: "sent",
+            metadata: { partner_name: partner.name, deadline: deadlineStr, start_date: startDateStr },
+          });
+
+          // Update partner activation_date if provided
+          if (partner.id && startDateStr) {
+            await supabase
+              .from("partners")
+              .update({ activation_date: startDateStr })
+              .eq("id", partner.id);
+          }
+        } catch (sendErr: any) {
+          failed++;
+          errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
+          console.error("Agreement send error:", partner.email, sendErr);
+          await supabase.from("email_send_log").insert({
+            recipient_email: partner.email,
+            template_name: "partner_agreement",
+            subject: "Partneravtal – d365.se – Villkor för fortsatt partnerskap",
+            status: "failed",
+            error_message: sendErr.message,
+            metadata: { partner_name: partner.name },
+          });
+        }
+      }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          sent,
+          failed,
+          total: partnerList.length,
+          errors: errors.length > 0 ? errors : undefined,
+          message: `Partneravtal skickat till ${sent} av ${partnerList.length} partners.${failed > 0 ? ` ${failed} misslyckades.` : ''}`,
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     return new Response(
       JSON.stringify({ error: "Ogiltig åtgärd" }),
       { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }

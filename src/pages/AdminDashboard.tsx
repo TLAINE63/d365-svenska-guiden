@@ -75,6 +75,7 @@ import {
   CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
+import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
@@ -1242,6 +1243,10 @@ const AdminDashboard = () => {
               <Mail className="h-4 w-4" />
               E-postlogg
             </TabsTrigger>
+            <TabsTrigger value="agreement" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Partneravtal
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2040,6 +2045,16 @@ const AdminDashboard = () => {
             <AdminEmailLogTab
               token={token || ""}
               onSessionExpired={logout}
+            />
+          </TabsContent>
+
+          {/* ==================== AGREEMENT TAB ==================== */}
+          <TabsContent value="agreement">
+            <AdminAgreementTab
+              partners={fullPartners}
+              token={token}
+              onRefresh={fetchFullPartners}
+              logout={logout}
             />
           </TabsContent>
         </Tabs>
