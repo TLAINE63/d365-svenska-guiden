@@ -1756,7 +1756,7 @@ const AdminDashboard = () => {
                               {partner.activation_date && (
                                 <span className="flex items-center gap-1">
                                   <CalendarCheck className="h-3 w-3" />
-                                  {format(new Date(partner.activation_date), "d MMM yyyy", { locale: sv })}
+                                  {format(new Date(partner.activation_date), "yyyy/MM/dd")}
                                 </span>
                               )}
                               {partner.monthly_fee && (
