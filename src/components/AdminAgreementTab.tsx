@@ -31,6 +31,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
   const [deadline, setDeadline] = useState("2026-04-30");
   const [startDate, setStartDate] = useState("2026-05-01");
 
+  const formatDateSv = (iso: string) => iso.replace(/-/g, "/");
+
   const partnersWithEmail = partners.filter(
     (p) => p.admin_contact_email || p.email
   );
@@ -57,7 +59,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     if (selectedPartners.length === 0) return;
     if (
       !confirm(
-        `Skicka partneravtal till ${selectedPartners.length} partner(s)? Startdatum: ${startDate}, deadline: ${deadline}`
+        `Skicka partneravtal till ${selectedPartners.length} partner(s)? Startdatum: ${formatDateSv(startDate)}, deadline: ${formatDateSv(deadline)}`
       )
     )
       return;
