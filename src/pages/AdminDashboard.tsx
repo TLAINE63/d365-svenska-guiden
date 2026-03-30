@@ -2047,6 +2047,16 @@ const AdminDashboard = () => {
               onSessionExpired={logout}
             />
           </TabsContent>
+
+          {/* ==================== AGREEMENT TAB ==================== */}
+          <TabsContent value="agreement">
+            <AdminAgreementTab
+              partners={fullPartners}
+              token={token}
+              onRefresh={fetchFullPartners}
+              logout={logout}
+            />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
