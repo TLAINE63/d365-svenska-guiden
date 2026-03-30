@@ -414,53 +414,6 @@ const PartnerCard = ({
             );
           })()}
 
-          {/* AI Capabilities per product */}
-          {productFilter?.aiCapabilities && productFilter.aiCapabilities.length > 0 && (
-            <div className="mb-3">
-              <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-                <BrainCircuit className="w-3 h-3 text-primary" />
-                AI inom {productKey ? (productKeyToSwedish[productKey] || productKey) : "Dynamics 365"}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {productFilter.aiCapabilities.map((cap: string) => (
-                  <Badge
-                    key={cap}
-                    variant="outline"
-                    className={`text-xs font-medium ${AI_TIER_BADGE_STYLES[cap] || "border-primary/30 text-primary bg-primary/5"}`}
-                  >
-                    {getCapabilityEmoji(cap)} {AI_TIER_LABELS[cap] || cap}
-                  </Badge>
-                ))}
-              </div>
-              
-              {/* Expandable details */}
-              {(productFilter.aiCaseDescription || productFilter.aiProjectCount) && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setShowAiDetails(!showAiDetails);
-                  }}
-                  className="mt-2 flex items-center gap-1 text-xs text-primary hover:text-primary/80 font-medium transition-colors"
-                >
-                  {showAiDetails ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-                  {showAiDetails ? "Dölj detaljer" : "Visa mer"}
-                </button>
-              )}
-              
-              {showAiDetails && (
-                <div className="mt-2 p-3 rounded-lg bg-muted/50 border border-border/60 text-xs text-muted-foreground space-y-1.5">
-                  {productFilter.aiProjectCount && (
-                    <p>📊 <span className="font-medium text-foreground/80">{productFilter.aiProjectCount}</span> AI-projekt (senaste 24 mån)</p>
-                  )}
-                  {productFilter.aiCaseDescription && (
-                    <p className="italic">💡 {productFilter.aiCaseDescription}</p>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
 
           <div className="mt-auto pt-3">
             <Button 
