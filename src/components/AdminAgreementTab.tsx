@@ -59,7 +59,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     if (selectedPartners.length === 0) return;
     if (
       !confirm(
-        `Skicka partneravtal till ${selectedPartners.length} partner(s)? Startdatum: ${startDate}, deadline: ${deadline}`
+        `Skicka partneravtal till ${selectedPartners.length} partner(s)? Startdatum: ${formatDateSv(startDate)}, deadline: ${formatDateSv(deadline)}`
+      )
       )
     )
       return;
