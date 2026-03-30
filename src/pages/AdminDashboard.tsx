@@ -75,6 +75,7 @@ import {
   CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
+import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
