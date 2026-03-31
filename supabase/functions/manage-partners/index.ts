@@ -269,6 +269,8 @@ serve(async (req: Request): Promise<Response> => {
             admin_notes: partner.admin_notes?.trim() || null,
             admin_contact_name: partner.admin_contact_name?.trim() || null,
             admin_contact_email: partner.admin_contact_email?.trim() || null,
+            invoice_email: partner.invoice_email?.trim() || null,
+            invoice_contact: partner.invoice_contact?.trim() || null,
             office_cities: partner.office_cities || [],
             map_url: partner.map_url?.trim() || null,
           })
