@@ -457,6 +457,25 @@ const PartnerProfile = () => {
               ) : null;
             })()}
 
+            {/* Invoice contact */}
+            {(dbPartner?.invoice_contact || dbPartner?.invoice_email) && (
+              <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
+                <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
+                  <Mail className="w-4 h-4 text-amber-600" />
+                  <span className="font-semibold">Faktura: {dbPartner.invoice_contact || ''}</span>
+                </div>
+                {dbPartner?.invoice_email && (
+                  <a 
+                    href={`mailto:${dbPartner.invoice_email}`}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm hover:bg-slate-200/80 transition-colors"
+                  >
+                    <Mail className="w-4 h-4 text-amber-600" />
+                    <span className="font-semibold">{dbPartner.invoice_email}</span>
+                  </a>
+                )}
+              </div>
+            )}
+
             {/* Sales contact - separate row */}
             {dbPartner?.contactPerson && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
