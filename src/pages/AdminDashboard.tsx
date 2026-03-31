@@ -3152,6 +3152,48 @@ const AdminDashboard = () => {
                     )}
                   </div>
                 </div>
+
+                {/* Invoice Contact */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="invoice_contact">Fakturakontakt (namn)</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="invoice_contact"
+                        value={partnerFormData.invoice_contact || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, invoice_contact: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="Namn på fakturamottagare"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="invoice_email">Faktura e-post</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="invoice_email"
+                        type="email"
+                        value={partnerFormData.invoice_email || ""}
+                        onChange={(e) => {
+                          setPartnerFormData({ ...partnerFormData, invoice_email: e.target.value });
+                          if (formErrors.invoice_email) setFormErrors({ ...formErrors, invoice_email: undefined });
+                        }}
+                        className={`pl-10 ${formErrors.invoice_email ? "border-destructive" : ""}`}
+                        placeholder="faktura@example.com"
+                      />
+                    </div>
+                    {formErrors.invoice_email && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.invoice_email}
+                      </p>
+                    )}
+                  </div>
+                </div>
                 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
