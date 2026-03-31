@@ -76,6 +76,9 @@ export interface DatabasePartner {
     industry: string;
     description: string;
   }>;
+  // Invoice fields
+  invoice_email: string | null;
+  invoice_contact: string | null;
   // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
@@ -101,6 +104,9 @@ export interface PartnerInput {
   geography?: string[];  // Changed to array for multi-select
   product_filters?: ProductFilters;
   is_featured?: boolean;
+  // Invoice fields
+  invoice_email?: string;
+  invoice_contact?: string;
   // Admin fields
   activation_date?: string;
   monthly_fee?: number;
@@ -136,6 +142,8 @@ export function usePartners() {
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
         industry_apps: (p.industry_apps as DatabasePartner['industry_apps']) || [],
+        invoice_email: null,
+        invoice_contact: null,
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
@@ -175,6 +183,8 @@ export function usePartner(slug: string | undefined) {
         geography: data.geography || ['Sverige'],
         product_filters: (data.product_filters as ProductFilters) || {},
         industry_apps: (data.industry_apps as DatabasePartner['industry_apps']) || [],
+        invoice_email: (data as any).invoice_email || null,
+        invoice_contact: (data as any).invoice_contact || null,
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,

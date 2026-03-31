@@ -96,6 +96,8 @@ const partnerValidationSchema = z.object({
   address: z.string().max(200, "Adress får max vara 200 tecken").optional(),
   admin_contact_name: z.string().max(100, "Administrativ kontakt får max vara 100 tecken").optional(),
   admin_contact_email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
+  invoice_email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
+  invoice_contact: z.string().max(100, "Fakturakontakt får max vara 100 tecken").optional(),
 });
 
 type PartnerFormErrors = Partial<Record<keyof z.infer<typeof partnerValidationSchema>, string>>;
@@ -147,6 +149,8 @@ interface FullPartner extends DatabasePartner {
   admin_notes: string | null;
   admin_contact_name: string | null;
   admin_contact_email: string | null;
+  invoice_email: string | null;
+  invoice_contact: string | null;
 }
 
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
@@ -263,6 +267,8 @@ const AdminDashboard = () => {
     admin_notes?: string;
     admin_contact_name?: string;
     admin_contact_email?: string;
+    invoice_email?: string;
+    invoice_contact?: string;
   }>({
     slug: "",
     name: "",
@@ -287,6 +293,8 @@ const AdminDashboard = () => {
     admin_notes: "",
     admin_contact_name: "",
     admin_contact_email: "",
+    invoice_email: "",
+    invoice_contact: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
@@ -683,6 +691,8 @@ const AdminDashboard = () => {
       admin_notes: "",
       admin_contact_name: "",
       admin_contact_email: "",
+      invoice_email: "",
+      invoice_contact: "",
     });
     setEditingPartner(null);
     setFormErrors({});
@@ -720,6 +730,8 @@ const AdminDashboard = () => {
       admin_notes: partner.admin_notes || "",
       admin_contact_name: (partner as any).admin_contact_name || "",
       admin_contact_email: (partner as any).admin_contact_email || "",
+      invoice_email: (partner as any).invoice_email || "",
+      invoice_contact: (partner as any).invoice_contact || "",
     });
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
@@ -3136,6 +3148,48 @@ const AdminDashboard = () => {
                       <p className="text-sm text-destructive flex items-center gap-1 mt-1">
                         <AlertCircle className="h-3 w-3" />
                         {formErrors.admin_contact_email}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Invoice Contact */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="invoice_contact">Fakturakontakt (namn)</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="invoice_contact"
+                        value={partnerFormData.invoice_contact || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, invoice_contact: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="Namn på fakturamottagare"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="invoice_email">Faktura e-post</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="invoice_email"
+                        type="email"
+                        value={partnerFormData.invoice_email || ""}
+                        onChange={(e) => {
+                          setPartnerFormData({ ...partnerFormData, invoice_email: e.target.value });
+                          if (formErrors.invoice_email) setFormErrors({ ...formErrors, invoice_email: undefined });
+                        }}
+                        className={`pl-10 ${formErrors.invoice_email ? "border-destructive" : ""}`}
+                        placeholder="faktura@example.com"
+                      />
+                    </div>
+                    {formErrors.invoice_email && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.invoice_email}
                       </p>
                     )}
                   </div>
