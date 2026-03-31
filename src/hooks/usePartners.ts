@@ -104,6 +104,9 @@ export interface PartnerInput {
   geography?: string[];  // Changed to array for multi-select
   product_filters?: ProductFilters;
   is_featured?: boolean;
+  // Invoice fields
+  invoice_email?: string;
+  invoice_contact?: string;
   // Admin fields
   activation_date?: string;
   monthly_fee?: number;
