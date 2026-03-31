@@ -191,6 +191,8 @@ const PartnerUpdate = () => {
     address: "",
     notes: "",
     office_cities_input: "",
+    invoice_email: "",
+    invoice_contact: "",
   });
 
   // Industry apps state
