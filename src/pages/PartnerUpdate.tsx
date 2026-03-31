@@ -281,6 +281,8 @@ const PartnerUpdate = () => {
             address: result.existingData.address || "",
             notes: "",
             office_cities_input: (result.existingData.office_cities || []).join(", "),
+            invoice_email: result.existingData.invoice_email || "",
+            invoice_contact: result.existingData.invoice_contact || "",
           });
           
           // Set logo preview if exists
