@@ -326,6 +326,8 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.admin_notes !== undefined) updateData.admin_notes = partner.admin_notes?.trim() || null;
         if (partner?.admin_contact_name !== undefined) updateData.admin_contact_name = partner.admin_contact_name?.trim() || null;
         if (partner?.admin_contact_email !== undefined) updateData.admin_contact_email = partner.admin_contact_email?.trim() || null;
+        if (partner?.invoice_email !== undefined) updateData.invoice_email = partner.invoice_email?.trim() || null;
+        if (partner?.invoice_contact !== undefined) updateData.invoice_contact = partner.invoice_contact?.trim() || null;
         if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
 
