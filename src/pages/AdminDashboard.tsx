@@ -691,6 +691,8 @@ const AdminDashboard = () => {
       admin_notes: "",
       admin_contact_name: "",
       admin_contact_email: "",
+      invoice_email: "",
+      invoice_contact: "",
     });
     setEditingPartner(null);
     setFormErrors({});
