@@ -24,6 +24,8 @@ export function useAdminPartners(token: string | null) {
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
         contactPerson: p.contact_person || null,
+        invoice_email: p.invoice_email || null,
+        invoice_contact: p.invoice_contact || null,
       }));
     },
     enabled: !!token,
