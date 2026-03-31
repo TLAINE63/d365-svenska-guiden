@@ -9,6 +9,9 @@ function isAllowedOrigin(origin: string): boolean {
   // Allow localhost for development
   if (origin.startsWith("http://localhost:")) return true;
   
+  // Allow custom domain
+  if (origin === "https://d365.se" || origin === "https://www.d365.se") return true;
+  
   // Allow all Lovable domains (production and preview)
   if (origin.endsWith(".lovable.app")) return true;
   if (origin.endsWith(".lovableproject.com")) return true;
