@@ -730,6 +730,8 @@ const AdminDashboard = () => {
       admin_notes: partner.admin_notes || "",
       admin_contact_name: (partner as any).admin_contact_name || "",
       admin_contact_email: (partner as any).admin_contact_email || "",
+      invoice_email: (partner as any).invoice_email || "",
+      invoice_contact: (partner as any).invoice_contact || "",
     });
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
