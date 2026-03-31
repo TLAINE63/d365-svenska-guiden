@@ -142,6 +142,8 @@ export function usePartners() {
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
         industry_apps: (p.industry_apps as DatabasePartner['industry_apps']) || [],
+        invoice_email: null,
+        invoice_contact: null,
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
