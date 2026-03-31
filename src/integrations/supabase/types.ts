@@ -480,6 +480,8 @@ export type Database = {
           id: string
           industries: string[] | null
           industry_apps: Json | null
+          invoice_contact: string | null
+          invoice_email: string | null
           is_featured: boolean | null
           logo_dark_bg: boolean
           logo_url: string | null
@@ -511,6 +513,8 @@ export type Database = {
           id?: string
           industries?: string[] | null
           industry_apps?: Json | null
+          invoice_contact?: string | null
+          invoice_email?: string | null
           is_featured?: boolean | null
           logo_dark_bg?: boolean
           logo_url?: string | null
@@ -542,6 +546,8 @@ export type Database = {
           id?: string
           industries?: string[] | null
           industry_apps?: Json | null
+          invoice_contact?: string | null
+          invoice_email?: string | null
           is_featured?: boolean | null
           logo_dark_bg?: boolean
           logo_url?: string | null
