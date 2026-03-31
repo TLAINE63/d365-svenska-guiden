@@ -887,7 +887,7 @@ const PartnerUpdate = () => {
                     />
                   </div>
                 </div>
-
+                <div className="space-y-2">
                   <Label htmlFor="office_cities_input">Kontorsstäder</Label>
                   <Input
                     id="office_cities_input"
