@@ -149,6 +149,8 @@ interface FullPartner extends DatabasePartner {
   admin_notes: string | null;
   admin_contact_name: string | null;
   admin_contact_email: string | null;
+  invoice_email: string | null;
+  invoice_contact: string | null;
 }
 
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {

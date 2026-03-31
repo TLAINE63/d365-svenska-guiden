@@ -183,6 +183,8 @@ export function usePartner(slug: string | undefined) {
         geography: data.geography || ['Sverige'],
         product_filters: (data.product_filters as ProductFilters) || {},
         industry_apps: (data.industry_apps as DatabasePartner['industry_apps']) || [],
+        invoice_email: (data as any).invoice_email || null,
+        invoice_contact: (data as any).invoice_contact || null,
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
