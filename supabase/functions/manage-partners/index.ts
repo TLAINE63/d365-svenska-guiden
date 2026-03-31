@@ -142,6 +142,8 @@ interface PartnerData {
   admin_notes?: string;
   admin_contact_name?: string;
   admin_contact_email?: string;
+  invoice_email?: string;
+  invoice_contact?: string;
   office_cities?: string[];
   map_url?: string;
 }
