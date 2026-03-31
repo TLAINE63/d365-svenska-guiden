@@ -76,6 +76,9 @@ export interface DatabasePartner {
     industry: string;
     description: string;
   }>;
+  // Invoice fields
+  invoice_email: string | null;
+  invoice_contact: string | null;
   // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
