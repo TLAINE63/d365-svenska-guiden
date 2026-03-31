@@ -267,6 +267,8 @@ const AdminDashboard = () => {
     admin_notes?: string;
     admin_contact_name?: string;
     admin_contact_email?: string;
+    invoice_email?: string;
+    invoice_contact?: string;
   }>({
     slug: "",
     name: "",
@@ -291,6 +293,8 @@ const AdminDashboard = () => {
     admin_notes: "",
     admin_contact_name: "",
     admin_contact_email: "",
+    invoice_email: "",
+    invoice_contact: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
