@@ -863,7 +863,31 @@ const PartnerUpdate = () => {
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                {/* Invoice fields */}
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="invoice_contact">Fakturakontakt (namn)</Label>
+                    <Input
+                      id="invoice_contact"
+                      name="invoice_contact"
+                      value={formData.invoice_contact}
+                      onChange={handleInputChange}
+                      placeholder="Namn på fakturamottagare"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="invoice_email">Faktura e-post</Label>
+                    <Input
+                      id="invoice_email"
+                      name="invoice_email"
+                      type="email"
+                      value={formData.invoice_email}
+                      onChange={handleInputChange}
+                      placeholder="faktura@example.com"
+                    />
+                  </div>
+                </div>
+
                   <Label htmlFor="office_cities_input">Kontorsstäder</Label>
                   <Input
                     id="office_cities_input"
