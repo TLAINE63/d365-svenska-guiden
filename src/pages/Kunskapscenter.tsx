@@ -16,6 +16,8 @@ import behovsSaljImage from "@/assets/behovsanalys-salj-card.jpg";
 import behovsKundserviceImage from "@/assets/behovsanalys-kundservice-card.jpg";
 import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import { Badge } from "@/components/ui/badge";
+import ProductQASection from "@/components/ProductQASection";
+import { PRODUCT_QA_DATA } from "@/data/productQA";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Calendar,
@@ -551,6 +553,7 @@ const Kunskapscenter = () => {
           </div>
         </section>
 
+
         {/* Content Grid */}
         <section className="py-12">
           <div className="container mx-auto px-4">
@@ -692,6 +695,9 @@ const Kunskapscenter = () => {
             )}
           </div>
         </section>
+
+        {/* Product Q&A sections */}
+        <ProductQASection categories={PRODUCT_QA_DATA} />
       </main>
       <Footer />
     </>
