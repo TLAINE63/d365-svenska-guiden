@@ -553,8 +553,6 @@ const Kunskapscenter = () => {
           </div>
         </section>
 
-        {/* Product Q&A sections */}
-        <ProductQASection categories={PRODUCT_QA_DATA} />
 
         {/* Content Grid */}
         <section className="py-12">
