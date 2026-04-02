@@ -695,6 +695,9 @@ const Kunskapscenter = () => {
             )}
           </div>
         </section>
+
+        {/* Product Q&A sections */}
+        <ProductQASection categories={PRODUCT_QA_DATA} />
       </main>
       <Footer />
     </>
