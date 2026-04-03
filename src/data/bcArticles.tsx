@@ -736,9 +736,11 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 ];
 
 import { FSC_ARTICLES } from "./fscArticles";
+import { SALES_ARTICLES } from "./salesArticles";
 
 // All deep-dive articles across products
 export const ALL_DEEP_DIVE_ARTICLES: DeepDiveArticle[] = [
   ...BC_ARTICLES,
   ...FSC_ARTICLES,
+  ...SALES_ARTICLES,
 ];
