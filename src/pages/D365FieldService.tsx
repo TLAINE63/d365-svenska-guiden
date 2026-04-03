@@ -10,6 +10,7 @@ import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import { FS_ARTICLES } from "@/data/fsArticles";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
@@ -279,6 +280,39 @@ const D365FieldService = () => {
                 * Priserna är uppskattningar och varierar beroende på partner, omfattning och specifika krav. Kontakta en partner för en exakt offert.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deep Dive Articles */}
+      <section className="py-12 sm:py-16 md:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
+          <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Utforska Field Service i detalj — från intelligent schemaläggning och IoT till hållbarhet och integration med Finance.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {FS_ARTICLES.map((article) => (
+              <Link
+                key={article.slug}
+                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
+                className="group flex items-start gap-4 rounded-xl border bg-card p-4 shadow-sm hover:shadow-md transition-all hover:border-primary/30"
+              >
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-16 h-16 rounded object-contain bg-secondary/50 p-1 shrink-0"
+                />
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                    {article.headerLabel || article.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                    {article.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
