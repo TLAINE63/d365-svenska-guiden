@@ -9,6 +9,8 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import { CC_ARTICLES } from "@/data/ccArticles";
+import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
