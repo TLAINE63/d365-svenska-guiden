@@ -33,6 +33,8 @@ import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
 import Kunskapscenter from './pages/Kunskapscenter';
 import RequirementsSpec from './pages/RequirementsSpec';
+import DeepDiveArticle from './pages/DeepDiveArticle';
+import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 
 export interface PrerenderRoute {
   path: string;

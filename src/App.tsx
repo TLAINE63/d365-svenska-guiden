@@ -120,6 +120,7 @@ const App = () => (
             <Route path="/search" element={<Navigate to="/" replace />} />
             <Route path="/våratjänster" element={<Navigate to="/" replace />} />
             <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+            <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
             <Route path="/events" element={<Events />} />
             <Route path="/kravspecifikation" element={<RequirementsSpec />} />
             <Route path="/kravspecifikation-sales" element={<RequirementsSpecSales />} />
