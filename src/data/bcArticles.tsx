@@ -17,7 +17,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "introduktion",
     title: "Vad är Microsoft Dynamics 365 Business Central?",
-    description: "En komplett introduktion till Sveriges populäraste affärssystem för små och medelstora företag.",
+    description: "En introduktion till ett av Sveriges populäraste affärssystem för SMB.",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
