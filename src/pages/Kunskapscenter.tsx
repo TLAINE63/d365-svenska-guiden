@@ -291,6 +291,7 @@ const Kunskapscenter = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("alla");
   const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
+  const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
