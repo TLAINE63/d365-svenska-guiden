@@ -18,6 +18,7 @@ import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
+import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Calendar,
