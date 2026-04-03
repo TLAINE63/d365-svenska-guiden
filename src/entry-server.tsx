@@ -33,6 +33,8 @@ import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
 import Kunskapscenter from './pages/Kunskapscenter';
 import RequirementsSpec from './pages/RequirementsSpec';
+import DeepDiveArticle from './pages/DeepDiveArticle';
+import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 
 export interface PrerenderRoute {
   path: string;
@@ -67,6 +69,16 @@ export const routes: PrerenderRoute[] = [
   { path: '/dataskydd', priority: '0.3', changefreq: 'yearly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
+  // Deep-dive article routes (generated from data)
+  ...ALL_DEEP_DIVE_ARTICLES.map((a) => ({
+    path: `/kunskapscenter/${a.productSlug}/${a.slug}`,
+    priority: '0.6',
+    changefreq: 'monthly' as const,
+    meta: {
+      title: `${a.title} | d365.se`,
+      description: a.description,
+    },
+  })),
 ];
 
 export function render(url: string) {
@@ -109,6 +121,7 @@ export function render(url: string) {
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+              <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />
               <Route path="/partner/:slug" element={<PartnerProfile />} />
             </Routes>

@@ -18,6 +18,7 @@ import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
+import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Calendar,
@@ -34,7 +35,7 @@ import {
 
 // ── Types ──────────────────────────────────────────────
 
-type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
+type CategoryFilter = "alla" | "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video" | "fordjupning";
 
 type FormatValue = "event" | "behovsanalys" | "kravspecifikation" | "artikel" | "guide" | "video";
 
@@ -177,6 +178,7 @@ const STATIC_TOOLS: Array<{
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Alla", value: "alla" },
+  { label: "Fördjupning (Q&A)", value: "fordjupning" },
   { label: "Events", value: "event" },
   { label: "Guider & Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
@@ -554,150 +556,207 @@ const Kunskapscenter = () => {
         </section>
 
 
-        {/* Content Grid */}
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between mb-6">
-              <p className="text-sm text-muted-foreground">
-                {filteredItems.length} {filteredItems.length === 1 ? "resurs" : "resurser"}
-              </p>
-            </div>
-
-            {loading ? (
-              <div className="text-center py-16 text-muted-foreground animate-pulse">
-                Laddar innehåll...
-              </div>
-            ) : filteredItems.length === 0 ? (
-              <div className="text-center py-16">
-                <p className="text-muted-foreground text-lg mb-4">
-                  Inga resurser matchade dina filter.
-                </p>
-                <button
-                  onClick={clearAllFilters}
-                  className="text-primary hover:text-primary/80 underline underline-offset-2 text-sm transition-colors"
-                >
-                  Rensa alla filter
-                </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredItems.map((item) => {
-                  const CardWrapper = item.isExternal ? "a" : Link;
-                  const linkProps = item.isExternal
-                    ? {
-                        href: item.url || "#",
-                        target: "_blank" as const,
-                        rel: "noopener noreferrer",
-                      }
-                    : { to: item.url || "#" };
-
+        {/* Deep-dive section (when Fördjupning tab is active) */}
+        {activeCategory === "fordjupning" ? (
+          <section className="py-12">
+            <div className="container mx-auto px-4">
+              {/* Group articles by product */}
+              {(() => {
+                const products = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
+                return products.map((product) => {
+                  const articles = ALL_DEEP_DIVE_ARTICLES.filter((a) => a.product === product);
                   return (
-                    <CardWrapper
-                      key={item.id}
-                      {...(linkProps as any)}
-                      className="group block"
-                    >
-                      <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                        {item.image_url ? (
-                          <div className="aspect-[2/1] overflow-hidden bg-muted relative">
-                            <img
-                              src={item.image_url}
-                              alt={item.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                              loading="lazy"
-                            />
-                            {item.type === "event" && (
-                              <>
-                                <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full shadow-lg tracking-wide uppercase">
-                                  Event
-                                </span>
-                                {item.partnerLogoUrl && (
-                                  <div className="absolute bottom-2 right-2 bg-white rounded-md shadow-md p-1.5">
-                                    <img
-                                      src={item.partnerLogoUrl}
-                                      alt={item.partner || "Partner"}
-                                      className="h-6 w-auto max-w-[80px] object-contain"
-                                    />
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
-                        ) : (
-                          <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
-                            <item.icon className="w-12 h-12 text-muted-foreground/40" />
-                          </div>
-                        )}
-                        <CardContent className="p-5 flex flex-col gap-3">
-                          <div className="flex items-center gap-2 flex-wrap">
-                            <Badge
-                              variant="outline"
-                              className={`text-xs ${categoryBadgeColor(item.type)}`}
-                            >
-                              {categoryLabel(item.type, item.date)}
-                            </Badge>
-                            {item.partner && (
-                              <span className="text-xs text-muted-foreground">
-                                {item.partner}
-                              </span>
-                            )}
-                          </div>
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-snug">
-                            {item.title}
-                          </h3>
-                          {item.description && (
-                            <p className="text-sm text-muted-foreground line-clamp-2">
-                              {item.description}
-                            </p>
-                          )}
-                          {item.products.length > 0 && (
-                            <div className="flex flex-wrap gap-1">
-                              {item.products.slice(0, 3).map((product) => (
-                                <span
-                                  key={product}
-                                  className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                    <div key={product} className="mb-12">
+                      <div className="flex items-center gap-3 mb-6">
+                        <BookOpen className="w-5 h-5 text-primary" />
+                        <h2 className="text-xl font-bold text-foreground">{product}</h2>
+                        <span className="text-sm text-muted-foreground">({articles.length} artiklar)</span>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {articles.map((article) => (
+                          <Link
+                            key={article.slug}
+                            to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
+                            className="group block"
+                          >
+                            <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                              <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-primary/10 to-secondary flex items-center justify-center">
+                                <BookOpen className="w-12 h-12 text-primary/30" />
+                              </div>
+                              <CardContent className="p-5 flex flex-col gap-3">
+                                <Badge
+                                  variant="outline"
+                                  className="text-xs bg-emerald-600 text-white border-emerald-600 w-fit"
                                 >
-                                  {product}
-                                </span>
-                              ))}
-                              {item.products.length > 3 && (
-                                <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                                  +{item.products.length - 3}
-                                </span>
-                              )}
-                            </div>
-                          )}
-                          <div className="flex items-center justify-between mt-auto pt-2">
-                            {item.date && (
-                              <span className="text-xs text-muted-foreground flex items-center gap-1">
-                                <Calendar className="w-3 h-3" />
-                                {formatDate(item.date)}
-                              </span>
-                            )}
-                            <span className="text-xs text-primary font-medium flex items-center gap-1 ml-auto">
-                              {item.isExternal ? (
-                                <>
-                                  Öppna <ExternalLink className="w-3 h-3" />
-                                </>
-                              ) : (
-                                <>
-                                  Läs mer <ArrowRight className="w-3 h-3" />
-                                </>
-                              )}
-                            </span>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </CardWrapper>
+                                  Fördjupning – {article.product}
+                                </Badge>
+                                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-snug">
+                                  {article.title}
+                                </h3>
+                                <p className="text-sm text-muted-foreground line-clamp-2">
+                                  {article.description}
+                                </p>
+                                <div className="flex items-center justify-end mt-auto pt-2">
+                                  <span className="text-xs text-primary font-medium flex items-center gap-1">
+                                    Läs mer <ArrowRight className="w-3 h-3" />
+                                  </span>
+                                </div>
+                              </CardContent>
+                            </Card>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
+                });
+              })()}
+            </div>
+          </section>
+        ) : (
+          <>
+            {/* Content Grid */}
+            <section className="py-12">
+              <div className="container mx-auto px-4">
+                <div className="flex items-center justify-between mb-6">
+                  <p className="text-sm text-muted-foreground">
+                    {filteredItems.length} {filteredItems.length === 1 ? "resurs" : "resurser"}
+                  </p>
+                </div>
 
-        {/* Product Q&A sections */}
-        <ProductQASection categories={PRODUCT_QA_DATA} />
+                {loading ? (
+                  <div className="text-center py-16 text-muted-foreground animate-pulse">
+                    Laddar innehåll...
+                  </div>
+                ) : filteredItems.length === 0 ? (
+                  <div className="text-center py-16">
+                    <p className="text-muted-foreground text-lg mb-4">
+                      Inga resurser matchade dina filter.
+                    </p>
+                    <button
+                      onClick={clearAllFilters}
+                      className="text-primary hover:text-primary/80 underline underline-offset-2 text-sm transition-colors"
+                    >
+                      Rensa alla filter
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredItems.map((item) => {
+                      const CardWrapper = item.isExternal ? "a" : Link;
+                      const linkProps = item.isExternal
+                        ? {
+                            href: item.url || "#",
+                            target: "_blank" as const,
+                            rel: "noopener noreferrer",
+                          }
+                        : { to: item.url || "#" };
+
+                      return (
+                        <CardWrapper
+                          key={item.id}
+                          {...(linkProps as any)}
+                          className="group block"
+                        >
+                          <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                            {item.image_url ? (
+                              <div className="aspect-[2/1] overflow-hidden bg-muted relative">
+                                <img
+                                  src={item.image_url}
+                                  alt={item.title}
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                  loading="lazy"
+                                />
+                                {item.type === "event" && (
+                                  <>
+                                    <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full shadow-lg tracking-wide uppercase">
+                                      Event
+                                    </span>
+                                    {item.partnerLogoUrl && (
+                                      <div className="absolute bottom-2 right-2 bg-white rounded-md shadow-md p-1.5">
+                                        <img
+                                          src={item.partnerLogoUrl}
+                                          alt={item.partner || "Partner"}
+                                          className="h-6 w-auto max-w-[80px] object-contain"
+                                        />
+                                      </div>
+                                    )}
+                                  </>
+                                )}
+                              </div>
+                            ) : (
+                              <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
+                                <item.icon className="w-12 h-12 text-muted-foreground/40" />
+                              </div>
+                            )}
+                            <CardContent className="p-5 flex flex-col gap-3">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <Badge
+                                  variant="outline"
+                                  className={`text-xs ${categoryBadgeColor(item.type)}`}
+                                >
+                                  {categoryLabel(item.type, item.date)}
+                                </Badge>
+                                {item.partner && (
+                                  <span className="text-xs text-muted-foreground">
+                                    {item.partner}
+                                  </span>
+                                )}
+                              </div>
+                              <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-snug">
+                                {item.title}
+                              </h3>
+                              {item.description && (
+                                <p className="text-sm text-muted-foreground line-clamp-2">
+                                  {item.description}
+                                </p>
+                              )}
+                              {item.products.length > 0 && (
+                                <div className="flex flex-wrap gap-1">
+                                  {item.products.slice(0, 3).map((product) => (
+                                    <span
+                                      key={product}
+                                      className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                                    >
+                                      {product}
+                                    </span>
+                                  ))}
+                                  {item.products.length > 3 && (
+                                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                                      +{item.products.length - 3}
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                              <div className="flex items-center justify-between mt-auto pt-2">
+                                {item.date && (
+                                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                                    <Calendar className="w-3 h-3" />
+                                    {formatDate(item.date)}
+                                  </span>
+                                )}
+                                <span className="text-xs text-primary font-medium flex items-center gap-1 ml-auto">
+                                  {item.isExternal ? (
+                                    <>
+                                      Öppna <ExternalLink className="w-3 h-3" />
+                                    </>
+                                  ) : (
+                                    <>
+                                      Läs mer <ArrowRight className="w-3 h-3" />
+                                    </>
+                                  )}
+                                </span>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </CardWrapper>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </section>
+          </>
+        )}
       </main>
       <Footer />
     </>
