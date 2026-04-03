@@ -121,6 +121,7 @@ export function render(url: string) {
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
+              <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />
               <Route path="/partner/:slug" element={<PartnerProfile />} />
             </Routes>
