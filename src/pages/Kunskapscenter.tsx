@@ -178,7 +178,7 @@ const STATIC_TOOLS: Array<{
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
   { label: "Alla", value: "alla" },
-  { label: "Fördjupning (Q&A)", value: "fordjupning" },
+  { label: "Produktfördjupningar (Q&A)", value: "fordjupning" },
   { label: "Events", value: "event" },
   { label: "Guider & Behovsanalyser", value: "behovsanalys" },
   { label: "Kravspecifikationer", value: "kravspecifikation" },
