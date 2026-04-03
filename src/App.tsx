@@ -9,9 +9,9 @@ import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import CookieBanner from "@/components/CookieBanner";
 import SnitcherTracking from "@/components/SnitcherTracking";
 import VisitorTracking from "@/components/VisitorTracking";
+import Index from "./pages/Index";
 
 // Lazy load pages for code splitting
-const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const CRM = lazy(() => import("./pages/CRM"));
 const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
