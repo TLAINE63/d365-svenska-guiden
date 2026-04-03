@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import bcOverviewImg from "@/assets/images/business-central-overview.png";
+import valjaPartnerImg from "@/assets/articles/valja-partner-overview.jpg";
 
 export interface DeepDiveArticle {
   slug: string;
@@ -304,27 +306,81 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   },
   {
     slug: "valja-partner",
-    title: "Hur väljer man Business Central-partner i Sverige?",
-    description: "Certifieringar, branschkunnande, leveransmodell och vad du bör kräva av din implementeringspartner.",
+    title: "Att välja Business Central-partner i Sverige — vad ska man tänka på?",
+    description: "Sex kriterier att bedöma när du väljer partner. Certifieringar, branschkunnande, leveransmodell och vad du bör kräva av din implementeringspartner.",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: valjaPartnerImg,
     content: (
       <>
-        <p>Valet av implementeringspartner är minst lika viktigt som valet av system — en erfaren partner ser till att implementeringen lyckas och att ni får värde långsiktigt.</p>
-        <h2>Vad gör en partner?</h2>
-        <p>Business Central säljs och implementeras via Microsofts partnernätverk. En certifierad partner hjälper med behovsanalys, implementering, datamigration, integration, utbildning, support och vidareutveckling.</p>
-        <h2>Certifieringar</h2>
-        <p>Välj en partner som är Microsoft Solutions Partner for Business Applications med dokumenterad erfarenhet i er bransch.</p>
+        <figure className="my-8">
+          <img
+            src={valjaPartnerImg}
+            alt="Att välja partner — sex kriterier att bedöma: Support efter go-live, Referenser, Geografisk närvaro, Certifiering, Branschkunnande och Leveransmodell"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Att välja partner — vad ska man bedöma?
+          </figcaption>
+        </figure>
+
+        <p>
+          <em>Sex kriterier att bedöma när du väljer partner.</em>
+        </p>
+
+        <p>
+          <strong>Rätt partner är lika viktig som rätt system.</strong> Att välja Microsoft Dynamics 365 Business Central som affärssystem är ett klokt beslut för många svenska företag. Men valet av implementeringspartner är minst lika viktigt — kanske viktigare. En erfaren och engagerad partner ser till att implementeringen lyckas, att systemet anpassas efter era unika behov och att ni får värde av er investering långsiktigt.
+        </p>
+
+        <h2>Vad gör en Business Central-partner?</h2>
+        <p>
+          Business Central säljs och implementeras uteslutande via Microsofts partnernätverk. En certifierad partner hjälper er med behovsanalys och kravspecifikation, implementering, konfiguration och datamigration, integration mot befintliga system, utbildning av användare, löpande support och förvaltning samt uppgraderingar och vidareutveckling.
+        </p>
+
+        <h2>Certifieringar och erfarenhet</h2>
+        <p>
+          Välj en partner som är certifierad Microsoft Solutions Partner for Business Applications och som har dokumenterad erfarenhet av Business Central-implementeringar i er bransch. Certifieringen garanterar att partnern uppfyller Microsofts krav på kompetens och kundnöjdhet.
+        </p>
+
         <h2>Branschkunnande</h2>
-        <p>En partner som förstår er bransch — handel, tillverkning, tjänster, distribution — kan identifiera bästa praxis och undvika onödiga anpassningar.</p>
+        <p>
+          En partner som förstår er bransch — handel, tillverkning, tjänster, distribution — kan hjälpa er att identifiera bästa praxis och undvika onödiga anpassningar. Branscherfarenhet innebär kortare projekttid och bättre resultat.
+        </p>
+
         <h2>Leveransmodell</h2>
-        <p>Fråga hur partnern genomför implementeringen — gärna agil metod med insyn och kontroll. Klargör fast pris eller löpande räkning.</p>
+        <p>
+          Fråga hur partnern genomför implementeringen. Bra partners har en tydlig och beprövad metod — gärna agil — som ger er insyn och kontroll under hela projektet. Fråga om de erbjuder fast pris eller löpande räkning, och vad som händer om projektet drar ut på tiden.
+        </p>
+
         <h2>Stöd efter go-live</h2>
-        <p>Förvaltning, support och löpande vidareutveckling. Fråga om svarstider och SLA-nivåer.</p>
-        <h2>Referenser</h2>
-        <p>Prata med befintliga kunder som liknar er verksamhet för bästa bilden av vad ni kan förvänta er.</p>
+        <p>
+          Implementeringen är bara början. Välj en partner som erbjuder förvaltning, support och löpande vidareutveckling av er lösning. Fråga om svarstider, SLA-nivåer och om supporten är lokalt förankrad i Sverige.
+        </p>
+
+        <h2>Be om referenser</h2>
+        <p>
+          Be om att få prata med befintliga kunder som liknar er verksamhet. Det ger den bästa bilden av vad ni kan förvänta er — hur partnern hanterar utmaningar, håller tidplaner och kommunicerar under projektet.
+        </p>
+
+        <h2>Svenska partners med stark kompetens</h2>
+        <p>
+          Sverige har ett antal välrenommerade Business Central-partners. Sök gärna partners i Business Central-menyn{" "}
+          <Link to="/valj-partner/" className="text-primary hover:underline">här</Link>.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Är vi rätt partner för er?</h3>
+          <p className="text-muted-foreground mb-4">
+            Ta ett förutsättningslöst möte med oss och se om vi är rätt match för er verksamhet.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
