@@ -2,6 +2,14 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import bcOverviewImg from "@/assets/images/business-central-overview.png";
 import valjaPartnerImg from "@/assets/articles/valja-partner-overview.jpg";
+import ekonomiImg from "@/assets/articles/ekonomi-overview.png";
+import lagerImg from "@/assets/articles/lager-overview.jpg";
+import forsaljningImg from "@/assets/articles/forsaljning-overview.jpg";
+import produktionImg from "@/assets/articles/produktion-overview.jpg";
+import inkopImg from "@/assets/articles/inkop-overview.jpg";
+import projektImg from "@/assets/articles/projekt-overview.jpg";
+import aiCopilotImg from "@/assets/articles/ai-copilot-overview.jpg";
+import licenserImg from "@/assets/articles/licenser-overview.jpg";
 
 export interface DeepDiveArticle {
   slug: string;
@@ -66,242 +74,581 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>För vem passar Business Central?</h2>
         <p>
-          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <a href="/business-central/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</a>
+          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <Link to="/business-central/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</Link>
         </p>
 
-        <div className="mt-8 p-6 bg-primary/5 border border-primary/20 rounded-lg text-center">
-          <p className="font-bold text-lg mb-2">Vill du veta mer om Business Central?</p>
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Vill du veta mer om Business Central?</h3>
           <p className="text-muted-foreground mb-4">Kontakta oss för en kostnadsfri genomgång av hur Business Central kan passa din verksamhet.</p>
-          <a href="/kontakt/" className="text-primary font-bold underline hover:text-primary/80">Boka ett kostnadsfritt rådgivningsmöte → d365.se/kontakt</a>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett kostnadsfritt rådgivningsmöte → d365.se/kontakt
+            </Link>
+          </p>
         </div>
       </>
     ),
   },
   {
     slug: "ekonomi-redovisning",
-    title: "Ekonomi och redovisning i Business Central",
-    description: "Hur hanterar Business Central bokföring, reskontra, kassaflöde och koncernkonsolidering?",
+    title: "Business Central för ekonomi och redovisning",
+    description: "Så ger Business Central din ekonomiavdelning full kontroll — i realtid",
+    headerLabel: "Ekonomi & redovisning",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: ekonomiImg,
     content: (
       <>
+        <figure className="my-8">
+          <img
+            src={ekonomiImg}
+            alt="Ekonomimodulen i Business Central: Redovisning, Kundreskontra, Leverantörsreskontra, Bankintegration, Kassaflöde, Dimensioner, Konsolidering och Power BI"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Ekonomimodulen täcker hela flödet — från transaktion till beslutsunderlag.
+          </figcaption>
+        </figure>
+
         <p>
-          Business Central är byggt med ekonomifunktioner i centrum och ger ekonomiteamet kraftfulla verktyg för att arbeta effektivt, träffsäkert och i realtid.
+          <strong>Så ger Business Central din ekonomiavdelning full kontroll — i realtid.</strong> För många företag är ekonomiavdelningen hjärtat i verksamheten. Microsoft Dynamics 365 Business Central är byggt med ekonomifunktioner i centrum och ger ekonomiteamet kraftfulla verktyg för att arbeta effektivt, träffsäkert och i realtid.
         </p>
 
         <h2>Redovisning och bokföring</h2>
         <p>
-          Systemet hanterar hela redovisningscykeln — från dagliga transaktioner och periodisering till månads- och årsbokslut. Du kan sätta upp kontoplaner, kostnadsdimensioner och bokföringsmallar. Systemet stöder automatisk kontering.
+          Business Central hanterar hela redovisningscykeln — från dagliga transaktioner och periodisering till månads- och årsbokslut. Du kan sätta upp kontoplaner, kostnadsdimensioner och bokföringsmallar som speglar exakt hur din verksamhet är organiserad. Systemet stöder automatisk kontering, vilket minskar manuella fel och sparar tid.
         </p>
 
         <h2>Kund- och leverantörsreskontra</h2>
         <p>
-          Hantera fakturor, betalningar och påminnelser i ett sammanhängande flöde med automatisering av fakturaprocessen.
+          Hantera fakturor, betalningar och påminnelser i ett sammanhängande flöde. Business Central kan automatisera stora delar av fakturaprocessen — från att skicka kundpåminnelser till att matcha inkommande bankbetalningar mot öppna poster.
         </p>
 
         <h2>Kassaflöde och likviditetsstyrning</h2>
         <p>
-          Den inbyggda kassaflödesprognosen samlar data från försäljning, inköp och lager för att ge en realistisk bild av det framtida kassaflödet.
+          Med den inbyggda kassaflödesprognosen kan ekonomichefen se kommande in- och utbetalningar och planera likviditeten proaktivt. Systemet samlar data från försäljning, inköp och lager för att ge en realistisk bild av det framtida kassaflödet.
         </p>
 
         <h2>Koncernkonsolidering</h2>
         <p>
-          Stöd för att sammanfoga dotterbolag och intressebolag i gemensam finansiell rapport.
+          Har ni flera bolag? Business Central stöder koncernkonsolidering, där dotterbolag och intressebolag sammanfogas i en gemensam finansiell rapport. Ni sätter upp ett separat konsolideringsbolag och kan hämta in data från övriga bolag automatiskt.
         </p>
 
         <h2>Dimensioner och rapportering</h2>
         <p>
-          Analysera data i flera dimensioner med Excel-integration och Power BI.
+          En av systemets styrkor är möjligheten att analysera data i flera dimensioner — till exempel avdelning, projekt, kostnadsställe eller geografi. Med Excel-integrationen och Power BI skapar ni skräddarsydda rapporter som uppdateras i realtid.
         </p>
 
-        <h2>Regelefterlevnad</h2>
+        <h2>Regelefterlevnad och revision</h2>
         <p>
-          Uppfyller svenska bokföringskrav med stöd för momshantering, SIE-export och elektroniska fakturaformat.
+          Business Central uppfyller svenska bokföringskrav och stöder momshantering, SIE-export och elektroniska fakturaformat. Systemets revisionslogg ger full spårbarhet för alla transaktioner, vilket förenklar internrevision och externa granskningar.
         </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Få kontroll över er ekonomi</h3>
+          <p className="text-muted-foreground mb-4">
+            Vi hjälper er att komma igång — från implementation till löpande support.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
   {
     slug: "lager-logistik",
     title: "Lager och logistik i Business Central",
-    description: "Lagerstyrning, automatisk påfyllning, utleveranser och integration med transportlösningar.",
+    description: "Optimera din lagerhantering och minska kostnaderna med smarta verktyg",
+    headerLabel: "Lager & logistik",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: lagerImg,
     content: (
       <>
+        <figure className="my-8">
+          <img
+            src={lagerImg}
+            alt="Lager- och logistikflöde i Business Central: Inleverans, Lagerstyrning med zoner och AI-prognos, Utleverans"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Hela flödet från leverantör till kund i ett system.
+          </figcaption>
+        </figure>
+
         <p>
-          Business Central ger dig precis rätt verktyg för att optimera lagerhanteringen och minska kostnaderna.
+          <strong>Optimera din lagerhantering och minska kostnaderna med smarta verktyg.</strong> Effektiv lagerhantering är avgörande för lönsamheten — för mycket lager binder kapital, för lite leder till förlorad försäljning. Microsoft Dynamics 365 Business Central ger dig precis rätt verktyg för att hitta den optimala balansen.
         </p>
+
         <h2>Lagerstyrning i realtid</h2>
-        <p>Alltid en aktuell bild av lagernivåerna, oavsett om du har ett eller flera lagerställen. Spåra artiklar med serie- eller partinummer och hantera olika lagerplatser.</p>
+        <p>
+          Business Central ger dig alltid en aktuell bild av lagernivåerna, oavsett om du har ett eller flera lagerställen. Du kan spåra artiklar med serie- eller partinummer, hantera olika lagerplatser och se exakt var varje artikel befinner sig i kedjan.
+        </p>
+
         <h2>Automatisk påfyllning med AI-stöd</h2>
-        <p>Inbyggd AI och efterfrågeprognoser föreslår när och hur mycket som behöver beställas baserat på historisk försäljning, säsongsvariation och aktuell lagernivå.</p>
+        <p>
+          Med inbyggd AI och efterfrågeprognoser kan Business Central föreslå när och hur mycket som behöver beställas hem — baserat på historisk försäljning, säsongsvariation och aktuell lagernivå. Det eliminerar gissningar och minskar risken för både överlager och brist.
+        </p>
+
         <h2>Godsmottagning och utleveranser</h2>
-        <p>Hela flödet från inleverans till utleverans — registrera godsmottagning mot inköpsorder, genomför kvalitetskontroller, generera plocklistor och fraktsedlar automatiskt.</p>
+        <p>
+          Systemet hanterar hela flödet från inleverans till utleverans. Ni kan registrera godsmottagning mot inköpsorder, genomföra kvalitetskontroller och märka upp artiklar. Vid utleverans genereras plocklistor, fraktsedlar och leveransdokument automatiskt.
+        </p>
+
         <h2>Flera lagerplatser och lagerstrukturer</h2>
-        <p>Hantera centrallager, regionala lager eller komplexa lagerupplägg med zoner och hyllplatser.</p>
+        <p>
+          Oavsett om ni har ett centrallager, flera regionala lager eller ett komplext lagerupplägg med zoner och hyllplatser — Business Central hanterar det. Ni kan konfigurera lagerstrukturen exakt som ert fysiska lager ser ut och styra plockordning efter era egna regler.
+        </p>
+
         <h2>Integration med transportlösningar</h2>
-        <p>Via AppSource kan ni integrera med transportbolag som PostNord och nShift.</p>
+        <p>
+          Via tillägg i AppSource kan Business Central integreras med transportbolag som PostNord och nShift, vilket gör det möjligt att skapa fraktavier, boka upphämtning och spåra försändelser direkt från affärssystemet.
+        </p>
+
         <h2>Montering och enkel produktion</h2>
-        <p>Stöd för monteringsorder — perfekt för företag som sätter ihop produkter från komponenter.</p>
+        <p>
+          Business Central stöder monteringsorder — perfekt för företag som sätter ihop produkter från komponenter. Systemet håller koll på materialåtgång och kostnad per monteringsorder.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Optimera ert lager med Business Central</h3>
+          <p className="text-muted-foreground mb-4">
+            Vi hjälper er att sätta upp en lösning som passar era flöden — från dag ett.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
   {
     slug: "forsaljning-crm",
     title: "Försäljning och CRM i Business Central",
-    description: "Kontakthantering, offertflöde, Outlook-integration och skalbar CRM-funktionalitet.",
+    description: "Från offert till betalad faktura — hela säljprocessen i ett system",
+    headerLabel: "Försäljning & CRM",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: forsaljningImg,
     content: (
       <>
-        <p>Business Central innehåller inbyggd CRM-funktionalitet och ett komplett flöde för försäljning — från den första kontakten med en prospekt till att fakturan är betald.</p>
+        <figure className="my-8">
+          <img
+            src={forsaljningImg}
+            alt="Säljprocessen i Business Central: Kontakt, Offert, Order, Leverans, Faktura med Outlook-integration, Kampanjer och Power BI"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Hela säljflödet hanteras i ett och samma system.
+          </figcaption>
+        </figure>
+
+        <p>
+          <strong>Från offert till betalad faktura — hela säljprocessen i ett system.</strong> Att ha full koll på säljprocesser och kundrelationer är avgörande för tillväxt. Microsoft Dynamics 365 Business Central innehåller inbyggd CRM-funktionalitet och ett komplett flöde för försäljning — från den första kontakten med en prospekt till att fakturan är betald.
+        </p>
+
         <h2>Kontakt- och kundhantering</h2>
-        <p>Registrera alla kontakter och koppla dem till kunder, leverantörer och affärsmöjligheter. Samlad bild av köphistorik, öppna ordrar och utestående betalningar.</p>
+        <p>
+          I Business Central registrerar du alla dina kontakter och kopplar dem till kunder, leverantörer och affärsmöjligheter. Du får en samlad bild av varje kunds köphistorik, öppna ordrar och utestående betalningar direkt på kundkortet.
+        </p>
+
         <h2>Offert och orderflöde</h2>
-        <p>Skapa offerter, konvertera till ordrar och följ hela vägen till leverans och fakturering. Prissättning, rabatter och betalningsvillkor per kund eller kundgrupp.</p>
+        <p>
+          Säljarna kan enkelt skapa offerter, konvertera dem till ordrar och följa dem hela vägen till leverans och fakturering — utan att behöva byta system. Prissättning, rabatter och betalningsvillkor hanteras per kund eller kundgrupp.
+        </p>
+
         <h2>Marknadsföring och kampanjer</h2>
-        <p>Segmentera kundbasen, skapa kampanjer och följ upp aktiviteter med registrering av interaktioner.</p>
-        <h2>Realtidsinsikter</h2>
-        <p>Dashboard med nyckeltal per säljare — öppna ordrar, vunna affärer, utestående offerter och prognoser med Power BI-integration.</p>
+        <p>
+          Business Central har stöd för att segmentera din kundbas, skapa kampanjer och följa upp aktiviteter. Du kan registrera interaktioner — samtal, möten, e-post — direkt kopplade till kontakter och affärsmöjligheter.
+        </p>
+
+        <h2>Realtidsinsikter för säljaren</h2>
+        <p>
+          Varje säljare har tillgång till sin egen dashboard med nyckeltal — öppna ordrar, vunna affärer, utestående offerter och prognoser. Med Power BI-integrationen kan dessa insikter visualiseras i interaktiva rapporter.
+        </p>
+
         <h2>Integration med Outlook och Teams</h2>
-        <p>Hantera kundkommunikation direkt från e-postklienten utan att logga in separat.</p>
-        <h2>Skalbar CRM</h2>
-        <p>Kan kombineras med Dynamics 365 Sales för mer avancerad leadhantering, pipeline-styrning eller marknadsautomatisering.</p>
+        <p>
+          Tack vare den inbyggda Outlook-integrationen kan säljarna hantera kundkommunikation direkt från sin e-postklient. E-posthistorik, offerter och ordrar syns direkt i Outlook-vyn utan att behöva logga in i affärssystemet separat.
+        </p>
+
+        <h2>Skalbar CRM-funktionalitet</h2>
+        <p>
+          Behöver ni mer avancerad CRM — leadhantering, pipeline-styrning eller marknadsautomatisering — kan Business Central kombineras med Dynamics 365 Sales för ett komplett säljstödsystem.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Stärk er säljprocess</h3>
+          <p className="text-muted-foreground mb-4">
+            Se hur Business Central kan hjälpa ert säljteam att arbeta smartare och stänga fler affärer.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
   {
     slug: "produktion",
     title: "Produktion i Business Central",
-    description: "Produktionsplanering, kapacitetsstyrning, kostnadskalkylering och spårbarhet.",
+    description: "Styr din tillverkning med full kontroll — från produktionsorder till färdig produkt",
+    headerLabel: "Produktion",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: produktionImg,
     content: (
       <>
-        <p>Business Central erbjuder en komplett uppsättning produktionsfunktioner som täcker hela tillverkningscykeln.</p>
+        <figure className="my-8">
+          <img
+            src={produktionImg}
+            alt="Produktionscykel i Business Central: Stycklistor, Kapacitetsplanering, Produktionsorder, Materialåtgång, Spårbarhet, Kostnadskalkyl"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Tre parallella spår: planering, utförande och kostnad.
+          </figcaption>
+        </figure>
+
+        <p>
+          <strong>Styr din tillverkning med full kontroll — från produktionsorder till färdig produkt.</strong> För tillverkande företag är förmågan att planera, genomföra och följa upp produktionen avgörande. Microsoft Dynamics 365 Business Central erbjuder en komplett uppsättning produktionsfunktioner som täcker hela tillverkningscykeln.
+        </p>
+
         <h2>Produktstruktur och stycklistor</h2>
-        <p>Stycklistor (BOM) definierar vilka material och komponenter som ingår i varje produkt. Stöd för flera nivåer av stycklistor för komplexa sammansatta produkter.</p>
+        <p>
+          Grundstenen i produktionsmodulen är stycklistorna (BOM – Bill of Materials). Här definierar ni exakt vilka material och komponenter som ingår i varje produkt, i vilka mängder och i vilken ordning. Business Central stöder flera nivåer av stycklistor — perfekt för komplexa sammansatta produkter.
+        </p>
+
         <h2>Produktionsplanering och kapacitetsstyrning</h2>
-        <p>Schemalägga produktionsordrar baserat på tillgänglig maskin- och personalkapacitet, med hänsyn till ledtider och kapacitetsbegränsningar.</p>
+        <p>
+          Med inbyggda planeringsverktyg kan ni schemalägga produktionsordrar baserat på tillgänglig maskin- och personalkapacitet. Systemet tar hänsyn till ledtider, kapacitetsbegränsningar och befintliga ordrar för att optimera produktionsflödet.
+        </p>
+
         <h2>Produktionsordrar och utförande</h2>
-        <p>Från planeringsförslaget skapas produktionsordrar. Operatörer registrerar förbrukning av material och tid direkt mot ordern i realtid.</p>
+        <p>
+          Från planeringsförslaget skapas produktionsordrar som styr det dagliga arbetet i produktionen. Operatörer kan registrera förbrukning av material och tid direkt mot ordern, vilket ger en realtidsbild av produktionsstatus och materialåtgång.
+        </p>
+
         <h2>Kostnadskalkylering</h2>
-        <p>Beräkna produktionskostnad baserat på materialåtgång, maskintid och direkt lön. Jämför faktisk kostnad mot standardkostnad.</p>
-        <h2>Montering vid beställning (ATO)</h2>
-        <p>Flexibelt monteringsflöde direkt kopplat till försäljningsordern med varianter och tillval.</p>
+        <p>
+          Business Central beräknar produktionskostnaden baserat på materialåtgång, maskintid och direkt lön. Ni kan jämföra faktisk kostnad mot standardkostnad och analysera avvikelser — ett viktigt verktyg för att förbättra lönsamheten.
+        </p>
+
+        <h2>Montering vid beställning</h2>
+        <p>
+          För företag som anpassar produkter efter kundorder (ATO – Assemble to Order) stöder Business Central ett flexibelt monteringsflöde direkt kopplat till försäljningsordern. Kunden kan välja varianter och tillval, och monteringsorder skapas automatiskt.
+        </p>
+
         <h2>Spårbarhet och kvalitet</h2>
-        <p>Serie- och partinummer genom hela tillverkningskedjan för kvalitetskontroll och spårbarhetskrav.</p>
+        <p>
+          Med stöd för serie- och partinummer kan ni spåra enskilda artiklar och råvarupartier genom hela tillverkningskedjan — viktigt för kvalitetskontroll, återkallelser och spårbarhetskrav i reglerade branscher.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Effektivisera er produktion</h3>
+          <p className="text-muted-foreground mb-4">
+            Låt oss visa hur Business Central passar ert tillverkningsflöde.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
   {
     slug: "inkop-leverantorer",
     title: "Inköp och leverantörsstyrning i Business Central",
-    description: "Inköpsförslag, e-fakturahantering, avtalshantering och leverantörsanalys.",
+    description: "Effektivisera inköpsprocessen och stärk relationen med dina leverantörer",
+    headerLabel: "Inköp & leverantörsstyrning",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: inkopImg,
     content: (
       <>
-        <p>Business Central ger inköpsavdelningen kraftfulla verktyg för att hantera hela flödet från behovsidentifiering till leverantörsbetalning.</p>
+        <figure className="my-8">
+          <img
+            src={inkopImg}
+            alt="Inköpsflöde i Business Central: Behov, Inköpsförslag, Inköpsorder, Godsmottagning, Betalning med E-faktura och Leverantörsanalys"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Inköpsflödet från behov till betalad leverantör.
+          </figcaption>
+        </figure>
+
+        <p>
+          <strong>Effektivisera inköpsprocessen och stärk relationen med dina leverantörer.</strong> En välskött inköpsprocess sparar pengar, säkrar leveranser och stärker leverantörsrelationerna. Microsoft Dynamics 365 Business Central ger inköpsavdelningen kraftfulla verktyg för att hantera hela flödet från behovsidentifiering till leverantörsbetalning.
+        </p>
+
         <h2>Leverantörsregister och avtalshantering</h2>
-        <p>All leverantörsinformation på ett ställe — kontaktuppgifter, betalningsvillkor, valuta, prisavtal och köphistorik med automatiska leverantörsspecifika priser och rabatter.</p>
+        <p>
+          I Business Central samlar ni all leverantörsinformation på ett ställe — kontaktuppgifter, betalningsvillkor, valuta, prisavtal och köphistorik. Ni kan sätta upp leverantörsspecifika priser och rabatter som tillämpas automatiskt vid beställning.
+        </p>
+
         <h2>Inköpsförslag och behovsstyrning</h2>
-        <p>Automatiska inköpsförslag baserade på lagernivåer, försäljningsprognoser och minimigränser. Konvertera till inköpsorder med ett knapptryck.</p>
+        <p>
+          Systemet genererar automatiska inköpsförslag baserade på aktuella lagernivåer, försäljningsprognoser och minimigränser. Inköparen granskar förslaget, justerar vid behov och konverterar till inköpsorder med ett knapptryck — utan manuell beräkning.
+        </p>
+
         <h2>Inköpsorder och godsmottagning</h2>
-        <p>Skapas och skickas direkt till leverantören. Vid godsmottagning matchas leveransen mot ordern med hantering av avvikelser.</p>
+        <p>
+          Inköpsorder skapas och skickas direkt till leverantören från Business Central. Vid godsmottagning matchas leveransen mot ordern, och systemet hanterar avvikelser i kvantitet eller pris, vilket möjliggör exakt lagervärdering och korrekt leverantörsskuld.
+        </p>
+
         <h2>Elektronisk fakturahantering</h2>
-        <p>Via tillägg som Continia Document Capture — ta emot och tolka e-faktura, PDF eller skannade dokument och matcha automatiskt mot inköpsorder.</p>
+        <p>
+          Via tillägg som Continia Document Capture kan Business Central ta emot och tolka elektroniska leverantörsfakturor (e-faktura, PDF eller skannade dokument) och automatiskt matcha dem mot inköpsorder och godsmottagning — vilket radikalt minskar manuellt arbete och fel.
+        </p>
+
         <h2>Återkommande inköp</h2>
-        <p>Sätt upp återkommande inköpsrader för förbrukningsmaterial, tjänster och abonnemang.</p>
-        <h2>Inköpsanalys</h2>
-        <p>Full insyn i inköpshistorik, ledtider och prisutveckling per leverantör.</p>
+        <p>
+          För artiklar som köps regelbundet kan ni sätta upp återkommande inköpsrader, vilket förenklar processen för inköp av förbrukningsmaterial, tjänster och abonnemang.
+        </p>
+
+        <h2>Inköpsanalys och leverantörsutvärdering</h2>
+        <p>
+          Business Central ger full insyn i inköpshistorik, ledtider och prisutveckling per leverantör. Det ger ett bra underlag för leverantörsutvärderingar och prisförhandlingar.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Effektivisera ert inköp</h3>
+          <p className="text-muted-foreground mb-4">
+            Se hur Business Central kan automatisera er inköpsprocess från behov till betalning.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
   {
     slug: "projekthantering",
     title: "Projekthantering i Business Central",
-    description: "Tidrapportering, resursplanering, PIA-redovisning och projektfakturering.",
+    description: "Styr projekt lönsamt från start till faktura",
+    headerLabel: "Projekthantering",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: projektImg,
     content: (
       <>
-        <p>Business Central har en dedikerad projektmodul som täcker hela projektlivscykeln — perfekt för konsultfirmor, bygg- och anläggningsbolag, ingenjörsföretag och IT-bolag.</p>
+        <figure className="my-8">
+          <img
+            src={projektImg}
+            alt="Projektets livscykel i Business Central: Planering, Utförande, Uppföljning och Fakturering med Teams och mobilapp"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Projektets livscykel — från planering till faktura.
+          </figcaption>
+        </figure>
+
+        <p>
+          <strong>Styr projekt lönsamt från start till faktura.</strong> Projektbaserade företag — konsultfirmor, bygg- och anläggningsbolag, ingenjörsföretag och IT-bolag — har särskilda krav på sina affärssystem. Microsoft Dynamics 365 Business Central har en dedikerad projektmodul som täcker hela projektlivscykeln.
+        </p>
+
         <h2>Projektstruktur och budgetering</h2>
-        <p>Varje projekt har sin egen struktur med faser, aktiviteter och resurser. Budget för tid och material sätts upp i planeringsfasen.</p>
+        <p>
+          Varje projekt i Business Central har sin egen struktur med faser, aktiviteter och resurser. Ni sätter upp budget för tid och material redan i planeringsfasen, vilket skapar en tydlig basplan att följa upp mot under projektets gång.
+        </p>
+
         <h2>Tidrapportering och resursplanering</h2>
-        <p>Konsulter rapporterar tid direkt per projekt och aktivitet. Systemet visar resursbelastning och tillgänglighet.</p>
+        <p>
+          Konsulter och projektmedarbetare rapporterar tid direkt i Business Central — per projekt och aktivitet. Systemet visar resursbelastning och tillgänglighet, vilket underlättar planeringen av nästa projekt och förhindrar överbookning.
+        </p>
+
         <h2>PIA och projektredovisning</h2>
-        <p>Stöd för pågående arbeten (PIA) enligt K3 och IFRS 15 med automatisk beräkning av intäktsperiodisering baserat på färdigställandegrad.</p>
+        <p>
+          Business Central stöder pågående arbeten (PIA), vilket är avgörande för att redovisa projektintäkter korrekt enligt K3 och IFRS 15. Systemet beräknar automatiskt hur mycket av ett projekts intäkter som ska periodiseras baserat på färdigställandegrad.
+        </p>
+
         <h2>Utfall mot budget</h2>
-        <p>Realtidsvy över hur projektet förhåller sig till budget — för tid, material och övriga kostnader.</p>
+        <p>
+          Projektledaren har alltid tillgång till en realtidsvy över hur projektet förhåller sig till budget — för tid, material och övriga kostnader. Avvikelser identifieras tidigt, vilket ger möjlighet att korrigera kursen innan kostnaderna skenar.
+        </p>
+
         <h2>Fakturering av projekt</h2>
-        <p>Fast pris, löpande räkning och milstolpefakturering. Fakturor kopplas automatiskt till redovisningen.</p>
+        <p>
+          Business Central stöder olika faktureringsmodeller: fast pris, löpande räkning och milstolpefakturering. Fakturor skapas direkt från projektet och kopplas automatiskt till redovisningen.
+        </p>
+
         <h2>Integration med Microsoft 365</h2>
-        <p>Registrera tid och följ upp via Teams och mobilappar utan att logga in i affärssystemet.</p>
+        <p>
+          Projektteamet kan registrera tid och följa upp projekt via Teams och mobilappar, utan att behöva logga in i affärssystemet på en stationär dator. Det ökar följsamheten i tidrapportering och håller projektstatus uppdaterat i realtid.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Driv era projekt mer lönsamt</h3>
+          <p className="text-muted-foreground mb-4">
+            Vi hjälper er att konfigurera Business Central för era unika projektflöden.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
   {
     slug: "ai-copilot",
-    title: "AI och Copilot i Business Central",
-    description: "Automatisering, AI-genererade produkttexter, smarta lagerprognoser och fakturahantering.",
+    title: "Business Central och AI — Copilot i affärssystemet",
+    description: "Hur artificiell intelligens gör Business Central smartare varje dag",
+    headerLabel: "AI & Copilot",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: aiCopilotImg,
     content: (
       <>
-        <p>Microsoft har integrerat AI djupt i Business Central via Copilot-teknik, och det förändrar hur användarna arbetar med allt från ordrar till lagerstyrning.</p>
-        <h2>Vad är Copilot?</h2>
-        <p>Microsofts AI-assistent inbyggd direkt i Business Central som hjälper användare utföra uppgifter snabbare, generera innehåll automatiskt och fatta bättre beslut baserat på data.</p>
+        <figure className="my-8">
+          <img
+            src={aiCopilotImg}
+            alt="Copilot i Business Central: Orderhantering, Produkttexter, Lagerprognoser, Leverantörsfaktura, Datainsikter och Ny funktionalitet"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            Copilot i centrum — sex konkreta användningsområden.
+          </figcaption>
+        </figure>
+
+        <p>
+          <strong>Hur artificiell intelligens gör Business Central smartare varje dag.</strong> Artificiell intelligens är inte längre framtidsmusik i affärssystem — det är verklighet. Microsoft har integrerat AI djupt i Dynamics 365 Business Central via sin Copilot-teknik, och det förändrar hur användarna arbetar med allt från ordrar till lagerstyrning.
+        </p>
+
+        <h2>Vad är Copilot i Business Central?</h2>
+        <p>
+          Copilot är Microsofts AI-assistent som är inbyggd direkt i Business Central. Den kan hjälpa användare att utföra uppgifter snabbare, generera innehåll automatiskt och fatta bättre beslut baserat på data — allt utan att lämna affärssystemet.
+        </p>
+
         <h2>Automatisering av försäljningsordrar</h2>
-        <p>Copilot tolkar inkommande e-post med beställningsinformation och föreslår automatiskt en försäljningsorder med rätt artiklar, kvantiteter och priser.</p>
+        <p>
+          En av de mest efterfrågade Copilot-funktionerna är automatisk orderhantering. Copilot kan tolka en inkommande e-post med beställningsinformation och automatiskt föreslå en försäljningsorder med rätt artiklar, kvantiteter och priser — vilket sparar säljaren ett betydande handpåläggning.
+        </p>
+
         <h2>AI-genererade produkttexter</h2>
-        <p>Automatiskt genererade beskrivande produkttexter baserade på artikelns egenskaper och attribut — perfekt för e-handel.</p>
+        <p>
+          Business Central kan med hjälp av AI automatiskt generera beskrivande produkttexter baserade på artikelns egenskaper och attribut. Perfekt för företag som säljer via e-handel och behöver hålla produktinformation aktuell och välskriven.
+        </p>
+
         <h2>Smarta lagerprognoser</h2>
-        <p>AI-drivna efterfrågeprognoser analyserar historisk försäljningsdata och räknar fram optimala påfyllningsnivåer.</p>
+        <p>
+          Med AI-drivna efterfrågeprognoser analyserar Business Central historisk försäljningsdata och räknar fram när och hur mycket av varje artikel som behöver fyllas på. Det minskar risken för brist och överlager, och optimerar det bundna kapitalet i lagret.
+        </p>
+
         <h2>Automatisering av leverantörsreskontra</h2>
-        <p>Copilot matchar inkommande leverantörsfakturor mot inköpsorder och flaggar avvikelser.</p>
+        <p>
+          Copilot kan matcha inkommande leverantörsfakturor mot inköpsorder och godsmottagning automatiskt — och flagga avvikelser för manuell hantering. Det frigör tid för ekonomiavdelningen och minskar risken för felaktiga betalningar.
+        </p>
+
         <h2>Kontinuerlig AI-utveckling</h2>
-        <p>Microsoft lanserar nya AI-funktioner varje halvår som ni får tillgång till automatiskt utan uppgradering.</p>
+        <p>
+          Microsoft investerar kraftigt i att utöka Copilots kapabilitet i Business Central. Varje halvår lanseras nya AI-funktioner, och eftersom systemet är molnbaserat får ni tillgång till dem automatiskt utan uppgradering. Er investering i Business Central är alltid framåtblickande.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Utnyttja AI i ert affärssystem</h3>
+          <p className="text-muted-foreground mb-4">
+            Låt oss visa hur Copilot kan automatisera era vardagsrutiner i Business Central.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
   {
     slug: "licenser-priser",
-    title: "Licensmodellen för Business Central",
-    description: "Essential, Premium och Team Member – priser, skillnader och vad som passar din organisation.",
+    title: "Licensmodellen för Business Central — Essential, Premium och Team Member",
+    description: "Förstå hur licenserna fungerar och välj rätt nivå för din verksamhet",
+    headerLabel: "Licensmodellen",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
     parentLabel: "Affärssystem (ERP) – Business Central",
+    image: licenserImg,
     content: (
       <>
-        <p>Microsoft erbjuder flera licensnivåer anpassade för olika roller och behov inom organisationen.</p>
-        <h2>Essential (764,70 kr/användare/månad)</h2>
-        <p>Grundlicensen för fullständiga användare — ekonomi, försäljning, inköp, lager, projekthantering, bank och CRM. Passar ekonomer, inköpare, lagermedarbetare och säljare.</p>
-        <h2>Premium (1 051,40 kr/användare/månad)</h2>
-        <p>Allt i Essential plus produktion (produktionsordrar, kapacitetsplanering, kostnadskalkylering) och servicehantering (serviceordrar, avtal, garantihantering). Relevant för tillverkande företag och serviceorganisationer.</p>
-        <h2>Team Member (76,50 kr/användare/månad)</h2>
-        <p>Begränsad licens för att läsa information, delta i godkännandeflöden och göra enklare registreringar. Kostnadseffektiv för chefer och tidrapporterande medarbetare.</p>
-        <h2>Device-licens</h2>
-        <p>Kopplas till en specifik enhet (t.ex. lagerterminal) snarare än en namngiven användare. Flera medarbetare kan dela enheten.</p>
-        <h2>Prenumerationsmodell</h2>
-        <p>Prissätts som prenumeration per användare och månad — inga stora investeringar upp front, och ni kan enkelt skala upp eller ned.</p>
+        <figure className="my-8">
+          <img
+            src={licenserImg}
+            alt="Licensmodellen i Business Central: Team Member, Essential, Premium och Device — från enklare roll till fler funktioner"
+            className="w-full max-w-2xl mx-auto rounded-lg"
+          />
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            De fyra licensnivåerna — välj rätt för varje användare.
+          </figcaption>
+        </figure>
+
+        <p>
+          <strong>Förstå hur licenserna fungerar och välj rätt nivå för din verksamhet.</strong> En vanlig fråga för företag som överväger Business Central är: vilken licens behöver vi? Microsoft erbjuder flera licensnivåer anpassade för olika roller och behov inom organisationen.
+        </p>
+
+        <h2>Essential-licensen</h2>
+        <p>
+          Essential är grundlicensen för fullständiga användare och inkluderar kärnfunktionalitet för de flesta verksamheter: ekonomihantering och redovisning, försäljning och orderhantering, inköp och leverantörsreskontra, lagerhantering och logistik, grundläggande projekthantering, bankhantering och kassaflöde samt CRM-funktionalitet. Essential passar de flesta medarbetare som arbetar aktivt i affärssystemet — ekonomer, inköpare, lagermedarbetare och säljare.
+        </p>
+
+        <h2>Premium-licensen</h2>
+        <p>
+          Premium inkluderar allt i Essential plus de mer avancerade modulerna för produktion (produktionsordrar, kapacitetsplanering och kostnadskalkylering) och servicehantering (serviceordrar, avtal och garantihantering). Premium-licensen är relevant för tillverkande företag och serviceorganisationer med behov av dessa specifika moduler.
+        </p>
+
+        <h2>Team Member-licensen</h2>
+        <p>
+          Team Member är en begränsad licens för användare som behöver läsa information, delta i godkännandeflöden och göra enklare registreringar — men inte arbeta aktivt i systemet. Det är en kostnadseffektiv lösning för exempelvis chefer som godkänner inköp eller anställda som rapporterar tid.
+        </p>
+
+        <h2>Device-licensen</h2>
+        <p>
+          Device-licensen kopplas till en specifik enhet (till exempel en terminal i lagret) snarare än en namngiven användare. Flera medarbetare kan dela enheten och ändå ha tillgång till systemets Essential-funktionalitet.
+        </p>
+
+        <h2>Prismodellen</h2>
+        <p>
+          Business Central prissätts som en prenumeration per användare och månad. Det innebär inga stora investeringar i licenser upp front, och ni kan enkelt skala upp eller ned i takt med att verksamheten förändras. Era Microsoft-licenser samlas i ett och samma avtal via er Business Central-partner.
+        </p>
+
+        <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
+          <h3 className="text-xl font-bold text-foreground mb-2">Osäker på vilken licens ni behöver?</h3>
+          <p className="text-muted-foreground mb-4">
+            Vi hjälper er att hitta den optimala licensmixen för er organisation.
+          </p>
+          <p>
+            <Link to="/kontakt/" className="font-semibold text-primary hover:underline">
+              Boka ett möte → d365.se/kontakt
+            </Link>
+          </p>
+        </div>
       </>
     ),
   },
