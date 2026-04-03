@@ -9,6 +9,8 @@ import ApplicationPartners from "@/components/ApplicationPartners";
 import { ArrowRight } from "lucide-react";
 import { useEffect } from "react";
 import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
+import { CC_ARTICLES } from "@/data/ccArticles";
+import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
@@ -277,6 +279,35 @@ const D365ContactCenter = () => {
                 * Priserna är uppskattningar och varierar beroende på partner, omfattning och specifika krav. Kontakta en partner för en exakt offert.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deep-dive articles */}
+      <section className="py-12 sm:py-16 bg-secondary/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-3">Fördjupningsartiklar</h2>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">Utforska Dynamics 365 Contact Center på djupet — från AI-drivna voicebots och intelligent routing till compliance och conversational intelligence.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {CC_ARTICLES.map((article) => (
+              <Link
+                key={article.slug}
+                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
+                className="flex items-start gap-4 p-4 rounded-xl border border-border bg-card hover:shadow-md hover:border-primary/40 transition-all group"
+              >
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-16 h-16 rounded object-contain bg-secondary/50 p-1 shrink-0"
+                />
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                    {article.headerLabel || article.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{article.description}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
