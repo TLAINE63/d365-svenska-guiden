@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import bcOverviewImg from "@/assets/images/business-central-overview.png";
 
 export interface DeepDiveArticle {
   slug: string;
