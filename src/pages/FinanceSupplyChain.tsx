@@ -1,3 +1,4 @@
+import { FSC_ARTICLES } from "@/data/fscArticles";
 import RelatedPages, { fscRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
