@@ -41,7 +41,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>Varför väljer svenska företag Business Central?</h2>
         <p>
-          Business Central är idag ett av de snabbast växande affärssystemen i Sverige. Varje dag implementerar ett antal svenska företag Business Central som sin primära affärsplattform. Systemet kombinerar bred funktionalitet med en bekant Microsoft-miljö och integrerar sömlöst med verktyg som Outlook, Excel, Teams och Power BI som många medarbetare redan använder dagligen. Globalt förlitar sig över 130 000 företag i mer än 40 länder på Business Central.
+          Business Central är idag ett av de snabbast växande affärssystemen i Sverige. Varje dag implementerar ett antal svenska företag Business Central som sin primära affärsplattform. Systemet kombinerar bred funktionalitet med en bekant Microsoft-miljö och integrerar sömlöst med verktyg som Outlook, Excel, Teams och Power BI som många medarbetare redan använder dagligen. Globalt förlitar sig över 50 000 företag i mer än 40 länder på Business Central.
         </p>
 
         <h2>Vad ingår i Business Central?</h2>
