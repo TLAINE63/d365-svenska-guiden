@@ -65,7 +65,7 @@ const DeepDiveArticle = () => {
                 <BookOpen className="w-5 h-5 text-primary" />
               </div>
               <span className="text-xs font-semibold uppercase tracking-wider text-primary">
-                Fördjupning – {article.product}
+                {article.headerLabel || `Fördjupning – ${article.product}`}
               </span>
             </div>
 

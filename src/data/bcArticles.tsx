@@ -308,7 +308,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "valja-partner",
     title: "Att välja Business Central-partner i Sverige — vad ska man tänka på?",
-    description: "Sex kriterier att bedöma när du väljer partner. Certifieringar, branschkunnande, leveransmodell och vad du bör kräva av din implementeringspartner.",
+    description: "Rätt partner är lika viktig som rätt system",
+    headerLabel: "Att välja partner",
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
