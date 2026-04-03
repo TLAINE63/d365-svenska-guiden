@@ -46,6 +46,7 @@ const RequirementsSpecSales = lazy(() => import("./pages/RequirementsSpecSales")
 const RequirementsSpecMarketing = lazy(() => import("./pages/RequirementsSpecMarketing"));
 const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsSpecCustomerService"));
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
+const DeepDiveArticle = lazy(() => import("./pages/DeepDiveArticle"));
 
 const queryClient = new QueryClient();
 
