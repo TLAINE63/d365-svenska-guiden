@@ -360,6 +360,48 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     ),
   },
   {
+    slug: "prismotorn-och-kampanjhantering",
+    title: "Prismotorn och kampanjhantering",
+    description: "Komplexa prisregler utan ett enda kalkylblad — realtidsprisberäkning i alla kanaler.",
+    product: "Finance & Supply Chain",
+    productSlug: "finance-supply-chain",
+    parentPath: "/finance-supply-chain/",
+    parentLabel: "Finance & Supply Chain Management",
+    headerLabel: "Fördjupning – Dynamics 365 Commerce",
+    image: CommerceIcon,
+    content: (
+      <>
+        <p>
+          <strong>Priset är detaljhandelns mest kraftfulla verktyg.</strong> Dynamics 365 Commerce prismotorn hanterar miljontals prisuträkningar per dag med sub-millisekund svarstider — och replikerar kampanjförändringar i realtid till alla kanaler.
+        </p>
+
+        <h2>Prioriterad prisregelmotor</h2>
+        <p>Prismotorn arbetar med prioriterade regler: kundspecifika priser slår kampanjpriser som slår prislistor som slår baslistpris. För varje köptillfälle beräknas bästa möjliga pris automatiskt baserat på kundens tillhörighet, tidpunkt och kanalval.</p>
+
+        <h2>Kampanjtyper och kombinationsregler</h2>
+        <p>Commerce stöder köp-N-betala-M, tröskelrabatter (köp för 500 kr — få 10 % rabatt), mix-och-matcha-kampanjer och kombinationsrabatter. Concurrency-regler styr om kampanjer kan kombineras eller om bästa priset väljs. Affinity-baserade kampanjer riktas mot kundsegment definierade i Customer Insights.</p>
+
+        <h2>Realtidsuppdatering</h2>
+        <p>Prisändringar och nya kampanjer publiceras omedelbart i Commerce Headquarters och replikeras till POS-terminaler, e-handelssajten och mobila kanaler på sekunder — inga nattliga prisuppdateringar behövs.</p>
+        <ul>
+          <li>Inbyggt stöd för clearance-prissättning och markdowns</li>
+          <li>Automatiska prisaviseringar till kunder (önskelista)</li>
+          <li>Kampanjkalender med schemalagd aktivering</li>
+          <li>Komplett prissättningshistorik per artikel och kanal</li>
+        </ul>
+
+        <div className="mt-8 p-4 bg-secondary/50 rounded-lg border border-border">
+          <p className="text-sm text-muted-foreground">
+            <strong>Tillbaka till produktsidan:</strong>{" "}
+            <Link to="/finance-supply-chain/" className="text-primary hover:underline">
+              Till Finance & Supply Chain-sidan →
+            </Link>
+          </p>
+        </div>
+      </>
+    ),
+  },
+  {
     slug: "medarbetarresan-hr",
     title: "Medarbetarresan i Dynamics 365 HR",
     description: "Från rekrytering till pensionering i ett system – en komplett HCM-plattform.",
