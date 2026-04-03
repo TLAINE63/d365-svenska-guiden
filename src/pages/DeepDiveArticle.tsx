@@ -119,7 +119,15 @@ const DeepDiveArticle = () => {
               )}
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to={article.parentPath}
+                className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                {article.parentLabel}
+              </Link>
+              <span className="hidden sm:inline text-muted-foreground">|</span>
               <Link
                 to="/kunskapscenter/"
                 className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
