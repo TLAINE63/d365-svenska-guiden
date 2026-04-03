@@ -10,6 +10,7 @@ import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import { FS_ARTICLES } from "@/data/fsArticles";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
