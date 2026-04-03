@@ -6,6 +6,7 @@ import ContactFormDialog from "@/components/ContactFormDialog";
 import { Sparkles, Zap, Brain, Users, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { AGENTS_ARTICLES } from "@/data/agentsArticles";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 
