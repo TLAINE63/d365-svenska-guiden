@@ -291,6 +291,7 @@ const Kunskapscenter = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("alla");
   const [selectedFormats, setSelectedFormats] = useState<FormatValue[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<ProductValue[]>([]);
+  const [deepDiveProduct, setDeepDiveProduct] = useState<string | null>(null);
   const [articles, setArticles] = useState<KnowledgeArticle[]>([]);
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -555,15 +556,50 @@ const Kunskapscenter = () => {
           </div>
         </section>
 
+        {/* Product sub-nav for Produktfördjupningar */}
+        {activeCategory === "fordjupning" && (() => {
+          const products = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
+          return (
+            <section className="border-b border-border bg-muted/30">
+              <div className="container mx-auto px-4 py-2.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => setDeepDiveProduct(null)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border ${
+                      deepDiveProduct === null
+                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        : "bg-card text-foreground border-border hover:border-primary/50"
+                    }`}
+                  >
+                    Alla produkter
+                  </button>
+                  {products.map((product) => (
+                    <button
+                      key={product}
+                      onClick={() => setDeepDiveProduct(product)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 border ${
+                        deepDiveProduct === product
+                          ? "bg-primary text-primary-foreground border-primary shadow-md"
+                          : "bg-card text-foreground border-border hover:border-primary/50"
+                      }`}
+                    >
+                      {product}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </section>
+          );
+        })()}
 
         {/* Deep-dive section (when Fördjupning tab is active) */}
         {activeCategory === "fordjupning" ? (
           <section className="py-12">
             <div className="container mx-auto px-4">
-              {/* Group articles by product */}
               {(() => {
-                const products = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
-                return products.map((product) => {
+                const allProducts = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
+                const productsToShow = deepDiveProduct ? [deepDiveProduct] : allProducts;
+                return productsToShow.map((product) => {
                   const articles = ALL_DEEP_DIVE_ARTICLES.filter((a) => a.product === product);
                   return (
                     <div key={product} className="mb-12">
