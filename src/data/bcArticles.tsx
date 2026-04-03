@@ -31,12 +31,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
             alt="Översikt över Business Central-moduler: Ekonomi, Försäljning, Inköp, Lager, Produktion, Projekt, Service och Rapportering"
             className="w-full max-w-2xl mx-auto rounded-lg"
           />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2">
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
             Business Central samlar alla affärsprocesser runt en gemensam kärna.
           </figcaption>
         </figure>
         <p>
-          En introduktion till ett av Sveriges populäraste affärssystem för SMB. Microsoft Dynamics 365 Business Central är ett molnbaserat affärssystem (ERP) utvecklat för att ge små och medelstora företag full kontroll över sin verksamhet — från ekonomi och inköp till lager, produktion och försäljning. Det är en modern efterföljare till det välkända Dynamics NAV (Navision) och ingår i Microsofts breda Dynamics 365-svit.
+          <strong>En komplett introduktion till Sveriges populäraste affärssystem för små och medelstora företag.</strong> Microsoft Dynamics 365 Business Central är ett molnbaserat affärssystem (ERP) utvecklat för att ge små och medelstora företag full kontroll över sin verksamhet — från ekonomi och inköp till lager, produktion och försäljning. Det är en modern efterföljare till det välkända Dynamics NAV (Navision) och ingår i Microsofts breda Dynamics 365-svit.
         </p>
 
         <h2>Varför väljer svenska företag Business Central?</h2>
@@ -65,6 +65,12 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         <p>
           Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <a href="/business-central/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</a>
         </p>
+
+        <div className="mt-8 p-6 bg-primary/5 border border-primary/20 rounded-lg text-center">
+          <p className="font-bold text-lg mb-2">Vill du veta mer om Business Central?</p>
+          <p className="text-muted-foreground mb-4">Kontakta oss för en kostnadsfri genomgång av hur Business Central kan passa din verksamhet.</p>
+          <a href="/kontakt/" className="text-primary font-bold underline hover:text-primary/80">Boka ett kostnadsfritt rådgivningsmöte → d365.se/kontakt</a>
+        </div>
       </>
     ),
   },
