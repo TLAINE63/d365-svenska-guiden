@@ -742,6 +742,7 @@ import { CS_ARTICLES } from "./csArticles";
 import { CC_ARTICLES } from "./ccArticles";
 import { FS_ARTICLES } from "./fsArticles";
 import { COPILOT_ARTICLES } from "./copilotArticles";
+import { AGENTS_ARTICLES } from "./agentsArticles";
 
 // All deep-dive articles across products
 export const ALL_DEEP_DIVE_ARTICLES: DeepDiveArticle[] = [
@@ -753,4 +754,5 @@ export const ALL_DEEP_DIVE_ARTICLES: DeepDiveArticle[] = [
   ...CC_ARTICLES,
   ...FS_ARTICLES,
   ...COPILOT_ARTICLES,
+  ...AGENTS_ARTICLES,
 ];
