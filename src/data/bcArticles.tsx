@@ -63,7 +63,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>För vem passar Business Central?</h2>
         <p>
-          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige.
+          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <a href="/business-central/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</a>
         </p>
       </>
     ),
