@@ -21,6 +21,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     product: "Business Central",
     productSlug: "business-central",
     parentPath: "/business-central/",
+    image: bcOverviewImg,
     parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>

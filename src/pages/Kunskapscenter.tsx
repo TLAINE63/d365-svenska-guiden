@@ -581,7 +581,11 @@ const Kunskapscenter = () => {
                           >
                             <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                               <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-primary/10 to-secondary flex items-center justify-center">
-                                <BookOpen className="w-12 h-12 text-primary/30" />
+                                {article.image ? (
+                                  <img src={article.image} alt={article.title} className="w-full h-full object-contain p-4" />
+                                ) : (
+                                  <BookOpen className="w-12 h-12 text-primary/30" />
+                                )}
                               </div>
                               <CardContent className="p-5 flex flex-col gap-3">
                                 <Badge
