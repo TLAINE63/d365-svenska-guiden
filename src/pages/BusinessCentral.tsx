@@ -810,36 +810,7 @@ const BusinessCentral = () => {
         </div>
       </section>
 
-      {/* Fördjupningsartiklar */}
-      <section className="py-16 bg-secondary/20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Business Central</h2>
-          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
-            Läs mer om varje modul och funktionsområde i Business Central
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
-            {BC_ARTICLES.map((article) => (
-              <Link
-                key={article.slug}
-                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
-              >
-                {article.image && (
-                  <img src={article.image} alt="" className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
-                )}
-                <div className="min-w-0">
-                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
-                    {article.headerLabel || article.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                    {article.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       <RelatedPages pages={bcRelatedPages} heading="Utforska vidare" />
       <Footer />
