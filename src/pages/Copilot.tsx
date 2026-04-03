@@ -549,6 +549,39 @@ const Copilot = () => {
         </div>
       </section>
 
+      {/* Deep Dive Articles */}
+      <section className="py-12 sm:py-16 md:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Fördjupningsartiklar</h2>
+          <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Utforska hur Copilot förstärker varje Dynamics 365-modul — från Sales och Finance till HR och Project Operations.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {COPILOT_ARTICLES.map((article) => (
+              <Link
+                key={article.slug}
+                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
+                className="group flex items-start gap-4 rounded-xl border bg-card p-4 shadow-sm hover:shadow-md transition-all hover:border-primary/30"
+              >
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-16 h-16 rounded object-contain bg-secondary/50 p-1 shrink-0"
+                />
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                    {article.headerLabel || article.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                    {article.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
