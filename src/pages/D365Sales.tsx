@@ -10,6 +10,7 @@ import { ArrowRight, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import SalesIcon from "@/assets/icons/Sales.svg";
+import { SALES_ARTICLES } from "@/data/salesArticles";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
