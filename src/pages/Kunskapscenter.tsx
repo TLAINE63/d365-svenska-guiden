@@ -724,7 +724,7 @@ const Kunskapscenter = () => {
                                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
                                       +{item.products.length - 3}
                                     </span>
-                                  ))}
+                                  )}
                                 </div>
                               )}
                               <div className="flex items-center justify-between mt-auto pt-2">
