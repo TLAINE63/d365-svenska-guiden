@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import bcOverviewImg from "@/assets/images/business-central-overview.png";
+import valjaPartnerImg from "@/assets/articles/valja-partner-overview.jpg";
 
 export interface DeepDiveArticle {
   slug: string;
