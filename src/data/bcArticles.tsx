@@ -9,6 +9,7 @@ export interface DeepDiveArticle {
   productSlug: string;
   parentPath: string;
   parentLabel: string;
+  image?: string;
   content: ReactNode;
 }
 
