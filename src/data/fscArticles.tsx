@@ -24,7 +24,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Finance – Konsolidering",
-    image: FinanceIcon,
+    image: fsc01,
     content: (
       <>
         <p>
@@ -98,7 +98,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "SCM – Lagerplanering",
-    image: SupplyChainIcon,
+    image: fsc02,
     content: (
       <>
         <p>
@@ -167,7 +167,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Finance – Fakturering",
-    image: FinanceIcon,
+    image: fsc01,
     content: (
       <>
         <p>
