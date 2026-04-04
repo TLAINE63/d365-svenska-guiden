@@ -34,6 +34,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Enhetlig kundprofil",
     image: ci01,
+    bannerImage: ci01banner,
     content: (
       <>
         <p>
@@ -87,6 +88,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – AI-segmentering",
     image: ci02,
+    bannerImage: ci02banner,
     content: (
       <>
         <p>
@@ -138,6 +140,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Churn-prediktion",
     image: ci03,
+    bannerImage: ci03banner,
     content: (
       <>
         <p>
@@ -194,6 +197,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – CLV-modellering",
     image: ci04,
+    bannerImage: ci04banner,
     content: (
       <>
         <p>
@@ -250,6 +254,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Personalisering",
     image: ci05,
+    bannerImage: ci05banner,
     content: (
       <>
         <p>
@@ -307,6 +312,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Journey Automation",
     image: ci06,
+    bannerImage: ci06banner,
     content: (
       <>
         <p>
@@ -360,6 +366,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – GDPR & Compliance",
     image: ci07,
+    bannerImage: ci07banner,
     content: (
       <>
         <p>
@@ -416,6 +423,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Marketing ROI",
     image: ci08,
+    bannerImage: ci08banner,
     content: (
       <>
         <p>
@@ -467,6 +475,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – B2B & ABM",
     image: ci09,
+    bannerImage: ci09banner,
     content: (
       <>
         <p>
@@ -518,6 +527,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – API & Integration",
     image: ci10,
+    bannerImage: ci10banner,
     content: (
       <>
         <p>
