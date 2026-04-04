@@ -21,7 +21,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Vad är Copilot?",
-    image: copilotIntroImg,
+    image: copilot01,
     content: (
       <>
         <p>
@@ -62,7 +62,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i Sales",
-    image: copilotSalesImg,
+    image: copilot02,
     content: (
       <>
         <p>
@@ -103,7 +103,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i Customer Service",
-    image: copilotCsImg,
+    image: copilot03,
     content: (
       <>
         <p>
@@ -144,7 +144,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i Finance",
-    image: copilotFinanceImg,
+    image: copilot04,
     content: (
       <>
         <p>
@@ -185,7 +185,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i Supply Chain",
-    image: copilotScmImg,
+    image: copilot05,
     content: (
       <>
         <p>
@@ -226,7 +226,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i Field Service",
-    image: copilotFieldServiceImg,
+    image: copilot06,
     content: (
       <>
         <p>
@@ -267,7 +267,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i Customer Insights",
-    image: copilotCiImg,
+    image: copilot07,
     content: (
       <>
         <p>
@@ -308,7 +308,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i HR",
-    image: copilotHrImg,
+    image: copilot08,
     content: (
       <>
         <p>
@@ -349,7 +349,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Copilot i Project Operations",
-    image: copilotPoImg,
+    image: copilot09,
     content: (
       <>
         <p>
@@ -390,7 +390,7 @@ export const COPILOT_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/copilot/",
     parentLabel: "Copilot i Dynamics 365",
     headerLabel: "Fördjupning – Adoption & strategi",
-    image: copilotAdoptionImg,
+    image: copilot10,
     content: (
       <>
         <p>
