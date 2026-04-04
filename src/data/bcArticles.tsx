@@ -21,6 +21,7 @@ export interface DeepDiveArticle {
   parentLabel: string;
   headerLabel?: string;
   image?: string;
+  bannerImage?: string;
   content: ReactNode;
 }
 
