@@ -416,7 +416,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "HR – Medarbetarresan",
-    image: HRIcon,
+    image: fsc07,
     content: (
       <>
         <p>
