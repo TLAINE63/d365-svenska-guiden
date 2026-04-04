@@ -17,7 +17,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Finance",
+    headerLabel: "Dynamics 365 Finance",
     image: FinanceIcon,
     content: (
       <>
@@ -91,7 +91,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Supply Chain Management",
+    headerLabel: "Supply Chain Management",
     image: SupplyChainIcon,
     content: (
       <>
@@ -160,7 +160,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Finance",
+    headerLabel: "Dynamics 365 Finance",
     image: FinanceIcon,
     content: (
       <>
@@ -229,7 +229,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Supply Chain Management",
+    headerLabel: "Supply Chain Management",
     image: SupplyChainIcon,
     content: (
       <>
@@ -298,7 +298,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Commerce",
+    headerLabel: "Dynamics 365 Commerce",
     image: CommerceIcon,
     content: (
       <>
@@ -367,7 +367,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Commerce",
+    headerLabel: "Dynamics 365 Commerce",
     image: CommerceIcon,
     content: (
       <>
@@ -409,7 +409,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Human Resources",
+    headerLabel: "Dynamics 365 Human Resources",
     image: HRIcon,
     content: (
       <>
@@ -475,7 +475,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Human Resources",
+    headerLabel: "Dynamics 365 Human Resources",
     image: HRIcon,
     content: (
       <>
@@ -544,7 +544,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Project Operations",
+    headerLabel: "Dynamics 365 Project Operations",
     image: ProjectOpsIcon,
     content: (
       <>
@@ -610,7 +610,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Fördjupning – Dynamics 365 Project Operations",
+    headerLabel: "Dynamics 365 Project Operations",
     image: ProjectOpsIcon,
     content: (
       <>
