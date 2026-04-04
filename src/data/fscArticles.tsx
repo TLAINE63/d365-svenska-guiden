@@ -374,7 +374,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Commerce – Prismotor",
-    image: CommerceIcon,
+    image: fsc06,
     content: (
       <>
         <p>
