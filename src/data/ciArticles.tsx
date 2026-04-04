@@ -33,7 +33,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Enhetlig kundprofil",
-    image: ci01,
+    image: ci01banner,
     bannerImage: ci01banner,
     content: (
       <>
@@ -87,7 +87,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – AI-segmentering",
-    image: ci02,
+    image: ci02banner,
     bannerImage: ci02banner,
     content: (
       <>
@@ -139,7 +139,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Churn-prediktion",
-    image: ci03,
+    image: ci03banner,
     bannerImage: ci03banner,
     content: (
       <>
@@ -196,7 +196,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – CLV-modellering",
-    image: ci04,
+    image: ci04banner,
     bannerImage: ci04banner,
     content: (
       <>
@@ -253,7 +253,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Personalisering",
-    image: ci05,
+    image: ci05banner,
     bannerImage: ci05banner,
     content: (
       <>
@@ -311,7 +311,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Journey Automation",
-    image: ci06,
+    image: ci06banner,
     bannerImage: ci06banner,
     content: (
       <>
@@ -365,7 +365,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – GDPR & Compliance",
-    image: ci07,
+    image: ci07banner,
     bannerImage: ci07banner,
     content: (
       <>
@@ -422,7 +422,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Marketing ROI",
-    image: ci08,
+    image: ci08banner,
     bannerImage: ci08banner,
     content: (
       <>
@@ -474,7 +474,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – B2B & ABM",
-    image: ci09,
+    image: ci09banner,
     bannerImage: ci09banner,
     content: (
       <>
@@ -526,7 +526,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-marketing/",
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – API & Integration",
-    image: ci10,
+    image: ci10banner,
     bannerImage: ci10banner,
     content: (
       <>
