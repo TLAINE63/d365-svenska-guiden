@@ -21,7 +21,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Vad är agenter?",
-    image: agentsIntroImg,
+    image: agents01,
     content: (
       <>
         <p>
@@ -65,7 +65,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Säljagenten",
-    image: agentsSalesImg,
+    image: agents02,
     content: (
       <>
         <p>
@@ -106,7 +106,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Kundserviceagenten",
-    image: agentsCsImg,
+    image: agents03,
     content: (
       <>
         <p>
@@ -147,7 +147,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Supply Chain-agenten",
-    image: agentsScmImg,
+    image: agents04,
     content: (
       <>
         <p>
@@ -188,7 +188,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Finansagenten",
-    image: agentsFinanceImg,
+    image: agents05,
     content: (
       <>
         <p>
@@ -229,7 +229,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – HR-agenten",
-    image: agentsHrImg,
+    image: agents06,
     content: (
       <>
         <p>
@@ -270,7 +270,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Fältserviceagenten",
-    image: agentsFieldServiceImg,
+    image: agents07,
     content: (
       <>
         <p>
@@ -311,7 +311,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Projektagenten",
-    image: agentsPoImg,
+    image: agents08,
     content: (
       <>
         <p>
@@ -352,7 +352,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – Bygg egna agenter",
-    image: agentsByggImg,
+    image: agents09,
     content: (
       <>
         <p>
@@ -393,7 +393,7 @@ export const AGENTS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/agents/",
     parentLabel: "Dynamics 365 Agents",
     headerLabel: "Fördjupning – ROI & implementation",
-    image: agentsRoiImg,
+    image: agents10,
     content: (
       <>
         <p>
