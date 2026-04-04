@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -65,6 +66,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <TrailingSlashRedirect />
+        <ChunkErrorBoundary>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -132,6 +134,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </ChunkErrorBoundary>
         <CookieBanner />
         <SnitcherTracking />
         <VisitorTracking />
