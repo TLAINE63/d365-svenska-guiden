@@ -1,5 +1,14 @@
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import type { DeepDiveArticle } from "./bcArticles";
+import cs01 from "@/assets/articles/cs-01-omnikanal.png";
+import cs02 from "@/assets/articles/cs-02-ai-copilot.png";
+import cs03 from "@/assets/articles/cs-03-kunskapsbas.png";
+import cs04 from "@/assets/articles/cs-04-sla.png";
+import cs05 from "@/assets/articles/cs-05-sjalvservice.png";
+import cs06 from "@/assets/articles/cs-06-workforce.png";
+import cs07 from "@/assets/articles/cs-07-voc.png";
+import cs08 from "@/assets/articles/cs-08-analytics.png";
+import cs09 from "@/assets/articles/cs-09-iot.png";
+import cs10 from "@/assets/articles/cs-10-qa.png";
 
 export const CS_ARTICLES: DeepDiveArticle[] = [
   {
