@@ -1,5 +1,14 @@
-import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import type { DeepDiveArticle } from "./bcArticles";
+import cc01 from "@/assets/articles/cc-01-plattformen.png";
+import cc02 from "@/assets/articles/cc-02-copilot.png";
+import cc03 from "@/assets/articles/cc-03-voicebots.png";
+import cc04 from "@/assets/articles/cc-04-routing.png";
+import cc05 from "@/assets/articles/cc-05-wem.png";
+import cc06 from "@/assets/articles/cc-06-analytik.png";
+import cc07 from "@/assets/articles/cc-07-digital.png";
+import cc08 from "@/assets/articles/cc-08-sakerhet.png";
+import cc09 from "@/assets/articles/cc-09-conversational.png";
+import cc10 from "@/assets/articles/cc-10-integration.png";
 
 export const CC_ARTICLES: DeepDiveArticle[] = [
   {
@@ -11,7 +20,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Plattformen",
-    image: ContactCenterIcon,
+    image: cc01,
     content: (
       <>
         <p>
@@ -61,7 +70,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Copilot & AI",
-    image: ContactCenterIcon,
+    image: cc02,
     content: (
       <>
         <p>
@@ -115,7 +124,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Voicebots & IVR",
-    image: ContactCenterIcon,
+    image: cc03,
     content: (
       <>
         <p>
@@ -164,7 +173,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Routing & Köer",
-    image: ContactCenterIcon,
+    image: cc04,
     content: (
       <>
         <p>
@@ -219,7 +228,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – WEM",
-    image: ContactCenterIcon,
+    image: cc05,
     content: (
       <>
         <p>
@@ -272,7 +281,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Realtidsanalytik",
-    image: ContactCenterIcon,
+    image: cc06,
     content: (
       <>
         <p>
@@ -328,7 +337,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Digitala kanaler",
-    image: ContactCenterIcon,
+    image: cc07,
     content: (
       <>
         <p>
@@ -380,7 +389,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Säkerhet & Compliance",
-    image: ContactCenterIcon,
+    image: cc08,
     content: (
       <>
         <p>
@@ -437,7 +446,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – Conversational Intelligence",
-    image: ContactCenterIcon,
+    image: cc09,
     content: (
       <>
         <p>
@@ -489,7 +498,7 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
     headerLabel: "CC – CRM-integration",
-    image: ContactCenterIcon,
+    image: cc10,
     content: (
       <>
         <p>
