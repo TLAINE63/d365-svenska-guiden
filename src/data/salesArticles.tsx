@@ -528,7 +528,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Revenue Intelligence",
-    image: SalesIcon,
+    image: sales10Img,
     content: (
       <>
         <p>

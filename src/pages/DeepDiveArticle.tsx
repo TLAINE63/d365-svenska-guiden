@@ -78,6 +78,20 @@ const DeepDiveArticle = () => {
           </div>
         </section>
 
+        {/* Banner image */}
+        {article.image && !article.image.endsWith('.svg') && (
+          <section className="border-b border-border">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <img
+                src={article.image}
+                alt={article.title}
+                className="w-full rounded-lg shadow-md"
+                loading="eager"
+              />
+            </div>
+          </section>
+        )}
+
         {/* Article content */}
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-4xl">
