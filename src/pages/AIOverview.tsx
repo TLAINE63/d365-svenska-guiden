@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { COPILOT_ARTICLES } from "@/data/copilotArticles";
+import { AGENTS_ARTICLES } from "@/data/agentsArticles";
 import { Briefcase, BarChart3, Headphones, Truck, Bot, Sparkles, TrendingUp, Brain, Users, Package, Cog, LineChart, ShieldAlert, Heart, DollarSign, Check, ArrowRight } from "lucide-react";
 
 const roles = [
