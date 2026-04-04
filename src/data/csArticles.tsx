@@ -20,7 +20,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Omnikanal",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -76,7 +76,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Copilot & AI",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -133,7 +133,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Kunskapsbas",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -185,7 +185,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – SLA-styrning",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -241,7 +241,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Självservice & Chatbot",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -297,7 +297,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Workforce Management",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -354,7 +354,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Voice of Customer",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -407,7 +407,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Analytics & BI",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -459,7 +459,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – IoT & Proaktiv service",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
@@ -512,7 +512,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Kvalitet & Coaching",
-    image: CustomerServiceIcon,
+    image: PLACEHOLDER,
     content: (
       <>
         <p>
