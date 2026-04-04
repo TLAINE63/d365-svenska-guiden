@@ -66,6 +66,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <TrailingSlashRedirect />
+        <ChunkErrorBoundary>
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Index />} />
