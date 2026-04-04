@@ -70,25 +70,25 @@ const branschFaqs = [
 
 
 // Industry images - new taxonomy (18 industries)
-import tillverkningImg from "@/assets/industries/tillverkning.jpg";
-import livsmedelsImg from "@/assets/industries/livsmedel.jpg";
-import handelDistributionImg from "@/assets/industries/handel-distribution.jpg";
-import detaljhandelImg from "@/assets/industries/detaljhandel.jpg";
-import konsultforetagImg from "@/assets/industries/konsultforetag.jpg";
-import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.jpg";
-import fastigheterImg from "@/assets/industries/fastigheter.jpg";
-import energiImg from "@/assets/industries/energi.jpg";
-import finansForsakringImg from "@/assets/industries/finans-forsakring.jpg";
-import lakemedelLifeScienceImg from "@/assets/industries/lakemedel-life-science.jpg";
-import itTechImg from "@/assets/industries/it-tech.jpg";
-import transportLogistikImg from "@/assets/industries/transport-logistik.jpg";
-import mediaPublishingImg from "@/assets/industries/media-publishing.jpg";
-import jordbrukSkogsbrukImg from "@/assets/industries/jordbruk-skogsbruk.jpg";
-import halsaSjukvardImg from "@/assets/industries/halsa-sjukvard.jpg";
-import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.jpg";
-import utbildningImg from "@/assets/industries/utbildning.jpg";
-import offentligSektorImg from "@/assets/industries/offentlig-sektor.jpg";
-import uthyrningImg from "@/assets/industries/uthyrning.jpg";
+import tillverkningImg from "@/assets/industries/tillverkning.webp";
+import livsmedelsImg from "@/assets/industries/livsmedel.webp";
+import handelDistributionImg from "@/assets/industries/handel-distribution.webp";
+import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
+import fastigheterImg from "@/assets/industries/fastigheter.webp";
+import energiImg from "@/assets/industries/energi.webp";
+import finansForsakringImg from "@/assets/industries/finans-forsakring.webp";
+import lakemedelLifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
+import itTechImg from "@/assets/industries/it-tech.webp";
+import transportLogistikImg from "@/assets/industries/transport-logistik.webp";
+import mediaPublishingImg from "@/assets/industries/media-publishing.webp";
+import jordbrukSkogsbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
+import halsaSjukvardImg from "@/assets/industries/halsa-sjukvard.webp";
+import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.webp";
+import utbildningImg from "@/assets/industries/utbildning.webp";
+import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
+import uthyrningImg from "@/assets/industries/uthyrning.webp";
 
 // Product icons
 import businessCentralIcon from "@/assets/icons/BusinessCentral.svg";
