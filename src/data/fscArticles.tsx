@@ -1,12 +1,18 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
-import HRIcon from "@/assets/icons/HumanResources.svg";
-import ProjectOpsIcon from "@/assets/icons/ProjectOperations.svg";
 
 import type { DeepDiveArticle } from "./bcArticles";
+
+import fsc01 from "@/assets/articles/fsc-01-konsolidering.png";
+import fsc02 from "@/assets/articles/fsc-02-mrp.png";
+import fsc03 from "@/assets/articles/fsc-03-fakturering.png";
+import fsc04 from "@/assets/articles/fsc-04-wms.png";
+import fsc05 from "@/assets/articles/fsc-05-commerce.png";
+import fsc06 from "@/assets/articles/fsc-06-prismotorn.png";
+import fsc07 from "@/assets/articles/fsc-07-hr-medarbetarresan.png";
+import fsc08 from "@/assets/articles/fsc-08-hr-sjalvservice.png";
+import fsc09 from "@/assets/articles/fsc-09-po-lonsamhet.png";
+import fsc10 from "@/assets/articles/fsc-10-po-resursoptimering.png";
 
 export const FSC_ARTICLES: DeepDiveArticle[] = [
   {
