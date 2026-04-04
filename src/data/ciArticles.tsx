@@ -12,6 +12,17 @@ import ci08 from "@/assets/articles/ci-08-roi.png";
 import ci09 from "@/assets/articles/ci-09-b2b.png";
 import ci10 from "@/assets/articles/ci-10-api.png";
 
+import ci01banner from "@/assets/articles/ci-01-kundprofil-banner.png";
+import ci02banner from "@/assets/articles/ci-02-segmentering-banner.png";
+import ci03banner from "@/assets/articles/ci-03-churn-banner.png";
+import ci04banner from "@/assets/articles/ci-04-clv-banner.png";
+import ci05banner from "@/assets/articles/ci-05-personalisering-banner.png";
+import ci06banner from "@/assets/articles/ci-06-journeys-banner.png";
+import ci07banner from "@/assets/articles/ci-07-gdpr-banner.png";
+import ci08banner from "@/assets/articles/ci-08-roi-banner.png";
+import ci09banner from "@/assets/articles/ci-09-b2b-banner.png";
+import ci10banner from "@/assets/articles/ci-10-api-banner.png";
+
 export const CI_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "den-enhetliga-kundprofilen",
