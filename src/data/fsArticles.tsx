@@ -1,16 +1,14 @@
-import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import type { DeepDiveArticle } from "./bcArticles";
-
-import fsSchemalagningImg from "@/assets/articles/fs-schemalagning.jpg";
-import fsMobilappImg from "@/assets/articles/fs-mobilapp.jpg";
-import fsUnderhallImg from "@/assets/articles/fs-underhall.jpg";
-import fsIotImg from "@/assets/articles/fs-iot.jpg";
-import fsRemoteAssistImg from "@/assets/articles/fs-remote-assist.jpg";
-import fsReservdelarImg from "@/assets/articles/fs-reservdelar.jpg";
-import fsKundkommunikationImg from "@/assets/articles/fs-kundkommunikation.jpg";
-import fsProduktivitetImg from "@/assets/articles/fs-produktivitet.jpg";
-import fsHallbarhetImg from "@/assets/articles/fs-hallbarhet.jpg";
-import fsIntegrationImg from "@/assets/articles/fs-integration.jpg";
+import fs01 from "@/assets/articles/fs-01-schemalagning.png";
+import fs02 from "@/assets/articles/fs-02-mobilapp.png";
+import fs03 from "@/assets/articles/fs-03-underhall.png";
+import fs04 from "@/assets/articles/fs-04-iot.png";
+import fs05 from "@/assets/articles/fs-05-remote-assist.png";
+import fs06 from "@/assets/articles/fs-06-reservdelar.png";
+import fs07 from "@/assets/articles/fs-07-kundkommunikation.png";
+import fs08 from "@/assets/articles/fs-08-produktivitet.png";
+import fs09 from "@/assets/articles/fs-09-hallbarhet.png";
+import fs10 from "@/assets/articles/fs-10-integration.png";
 
 export const FS_ARTICLES: DeepDiveArticle[] = [
   {
@@ -22,7 +20,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Schemaläggning",
-    image: fsSchemalagningImg,
+    image: fs01,
     content: (
       <>
         <p>
@@ -78,7 +76,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Mobilappen",
-    image: fsMobilappImg,
+    image: fs02,
     content: (
       <>
         <p>
@@ -130,7 +128,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Underhåll & Serviceavtal",
-    image: fsUnderhallImg,
+    image: fs03,
     content: (
       <>
         <p>
@@ -183,7 +181,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – IoT & Connected",
-    image: fsIotImg,
+    image: fs04,
     content: (
       <>
         <p>
@@ -237,7 +235,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Remote Assist",
-    image: fsRemoteAssistImg,
+    image: fs05,
     content: (
       <>
         <p>
@@ -290,7 +288,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Reservdelar & Lager",
-    image: fsReservdelarImg,
+    image: fs06,
     content: (
       <>
         <p>
@@ -343,7 +341,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Kundkommunikation",
-    image: fsKundkommunikationImg,
+    image: fs07,
     content: (
       <>
         <p>
@@ -396,7 +394,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Produktivitet & KPI",
-    image: fsProduktivitetImg,
+    image: fs08,
     content: (
       <>
         <p>
@@ -448,7 +446,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Hållbarhet & Miljö",
-    image: fsHallbarhetImg,
+    image: fs09,
     content: (
       <>
         <p>
@@ -505,7 +503,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Finance & SCM-integration",
-    image: fsIntegrationImg,
+    image: fs10,
     content: (
       <>
         <p>
