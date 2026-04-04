@@ -17,7 +17,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Finance",
+    headerLabel: "Finance – Konsolidering",
     image: FinanceIcon,
     content: (
       <>
@@ -91,7 +91,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Supply Chain Management",
+    headerLabel: "SCM – Lagerplanering",
     image: SupplyChainIcon,
     content: (
       <>
@@ -160,7 +160,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Finance",
+    headerLabel: "Finance – Fakturering",
     image: FinanceIcon,
     content: (
       <>
@@ -229,7 +229,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Supply Chain Management",
+    headerLabel: "SCM – Lagerstyrning",
     image: SupplyChainIcon,
     content: (
       <>
@@ -298,7 +298,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Commerce",
+    headerLabel: "Commerce – Omnikanal",
     image: CommerceIcon,
     content: (
       <>
@@ -367,7 +367,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Commerce",
+    headerLabel: "Commerce – Prismotor",
     image: CommerceIcon,
     content: (
       <>
@@ -409,7 +409,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Human Resources",
+    headerLabel: "HR – Medarbetarresan",
     image: HRIcon,
     content: (
       <>
@@ -475,7 +475,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Human Resources",
+    headerLabel: "HR – Självservice",
     image: HRIcon,
     content: (
       <>
@@ -544,7 +544,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Project Operations",
+    headerLabel: "Project Ops – Lönsamhet",
     image: ProjectOpsIcon,
     content: (
       <>
@@ -610,7 +610,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "finance-supply-chain",
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
-    headerLabel: "Dynamics 365 Project Operations",
+    headerLabel: "Project Ops – Resursplanering",
     image: ProjectOpsIcon,
     content: (
       <>
