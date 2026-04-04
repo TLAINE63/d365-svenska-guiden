@@ -12,6 +12,17 @@ import ci08 from "@/assets/articles/ci-08-roi.png";
 import ci09 from "@/assets/articles/ci-09-b2b.png";
 import ci10 from "@/assets/articles/ci-10-api.png";
 
+import ci01banner from "@/assets/articles/ci-01-kundprofil-banner.png";
+import ci02banner from "@/assets/articles/ci-02-segmentering-banner.png";
+import ci03banner from "@/assets/articles/ci-03-churn-banner.png";
+import ci04banner from "@/assets/articles/ci-04-clv-banner.png";
+import ci05banner from "@/assets/articles/ci-05-personalisering-banner.png";
+import ci06banner from "@/assets/articles/ci-06-journeys-banner.png";
+import ci07banner from "@/assets/articles/ci-07-gdpr-banner.png";
+import ci08banner from "@/assets/articles/ci-08-roi-banner.png";
+import ci09banner from "@/assets/articles/ci-09-b2b-banner.png";
+import ci10banner from "@/assets/articles/ci-10-api-banner.png";
+
 export const CI_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "den-enhetliga-kundprofilen",
@@ -23,6 +34,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Enhetlig kundprofil",
     image: ci01,
+    bannerImage: ci01banner,
     content: (
       <>
         <p>
@@ -76,6 +88,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – AI-segmentering",
     image: ci02,
+    bannerImage: ci02banner,
     content: (
       <>
         <p>
@@ -127,6 +140,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Churn-prediktion",
     image: ci03,
+    bannerImage: ci03banner,
     content: (
       <>
         <p>
@@ -183,6 +197,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – CLV-modellering",
     image: ci04,
+    bannerImage: ci04banner,
     content: (
       <>
         <p>
@@ -239,6 +254,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Personalisering",
     image: ci05,
+    bannerImage: ci05banner,
     content: (
       <>
         <p>
@@ -296,6 +312,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Journey Automation",
     image: ci06,
+    bannerImage: ci06banner,
     content: (
       <>
         <p>
@@ -349,6 +366,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – GDPR & Compliance",
     image: ci07,
+    bannerImage: ci07banner,
     content: (
       <>
         <p>
@@ -405,6 +423,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – Marketing ROI",
     image: ci08,
+    bannerImage: ci08banner,
     content: (
       <>
         <p>
@@ -456,6 +475,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – B2B & ABM",
     image: ci09,
+    bannerImage: ci09banner,
     content: (
       <>
         <p>
@@ -507,6 +527,7 @@ export const CI_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Customer Insights (Marketing)",
     headerLabel: "CI – API & Integration",
     image: ci10,
+    bannerImage: ci10banner,
     content: (
       <>
         <p>
