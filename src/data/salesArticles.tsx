@@ -1,5 +1,15 @@
 import { DeepDiveArticle } from "./bcArticles";
 import SalesIcon from "@/assets/icons/Sales.svg";
+import sales01Img from "@/assets/articles/sales-01-pipeline.png";
+import sales02Img from "@/assets/articles/sales-02-leadscoring.png";
+import sales03Img from "@/assets/articles/sales-03-offert.png";
+import sales04Img from "@/assets/articles/sales-04-coaching.png";
+import sales05Img from "@/assets/articles/sales-05-prognoser.png";
+import sales06Img from "@/assets/articles/sales-06-konto.png";
+import sales07Img from "@/assets/articles/sales-07-mobil.png";
+import sales08Img from "@/assets/articles/sales-08-linkedin.png";
+import sales09Img from "@/assets/articles/sales-09-kanal.png";
+import sales10Img from "@/assets/articles/sales-10-analytik.png";
 
 export const SALES_ARTICLES: DeepDiveArticle[] = [
   {
