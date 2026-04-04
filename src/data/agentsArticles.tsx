@@ -1,15 +1,15 @@
 import type { DeepDiveArticle } from "./bcArticles";
 
-import agentsIntroImg from "@/assets/articles/agents-intro.jpg";
-import agentsSalesImg from "@/assets/articles/agents-sales.jpg";
-import agentsCsImg from "@/assets/articles/agents-cs.jpg";
-import agentsScmImg from "@/assets/articles/agents-scm.jpg";
-import agentsFinanceImg from "@/assets/articles/agents-finance.jpg";
-import agentsHrImg from "@/assets/articles/agents-hr.jpg";
-import agentsFieldServiceImg from "@/assets/articles/agents-field-service.jpg";
-import agentsPoImg from "@/assets/articles/agents-po.jpg";
-import agentsByggImg from "@/assets/articles/agents-bygg.jpg";
-import agentsRoiImg from "@/assets/articles/agents-roi.jpg";
+import agents01 from "@/assets/articles/agents-01-intro.png";
+import agents02 from "@/assets/articles/agents-02-sales.png";
+import agents03 from "@/assets/articles/agents-03-cs.png";
+import agents04 from "@/assets/articles/agents-04-scm.png";
+import agents05 from "@/assets/articles/agents-05-finance.png";
+import agents06 from "@/assets/articles/agents-06-hr.png";
+import agents07 from "@/assets/articles/agents-07-field-service.png";
+import agents08 from "@/assets/articles/agents-08-po.png";
+import agents09 from "@/assets/articles/agents-09-bygg.png";
+import agents10 from "@/assets/articles/agents-10-roi.png";
 
 export const AGENTS_ARTICLES: DeepDiveArticle[] = [
   {
