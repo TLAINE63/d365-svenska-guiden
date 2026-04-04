@@ -79,7 +79,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Lead-scoring",
-    image: SalesIcon,
+    image: sales02Img,
     content: (
       <>
         <p>
