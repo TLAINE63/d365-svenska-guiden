@@ -1,5 +1,15 @@
 import { DeepDiveArticle } from "./bcArticles";
 import SalesIcon from "@/assets/icons/Sales.svg";
+import sales01Img from "@/assets/articles/sales-01-pipeline.png";
+import sales02Img from "@/assets/articles/sales-02-leadscoring.png";
+import sales03Img from "@/assets/articles/sales-03-offert.png";
+import sales04Img from "@/assets/articles/sales-04-coaching.png";
+import sales05Img from "@/assets/articles/sales-05-prognoser.png";
+import sales06Img from "@/assets/articles/sales-06-konto.png";
+import sales07Img from "@/assets/articles/sales-07-mobil.png";
+import sales08Img from "@/assets/articles/sales-08-linkedin.png";
+import sales09Img from "@/assets/articles/sales-09-kanal.png";
+import sales10Img from "@/assets/articles/sales-10-analytik.png";
 
 export const SALES_ARTICLES: DeepDiveArticle[] = [
   {
@@ -11,7 +21,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Pipeline-hantering",
-    image: SalesIcon,
+    image: sales01Img,
     content: (
       <>
         <p>
@@ -69,7 +79,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Lead-scoring",
-    image: SalesIcon,
+    image: sales02Img,
     content: (
       <>
         <p>
@@ -127,7 +137,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – CPQ & Offerter",
-    image: SalesIcon,
+    image: sales03Img,
     content: (
       <>
         <p>
@@ -183,7 +193,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Conversation Intelligence",
-    image: SalesIcon,
+    image: sales04Img,
     content: (
       <>
         <p>
@@ -239,7 +249,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Prognoser & Kvoter",
-    image: SalesIcon,
+    image: sales05Img,
     content: (
       <>
         <p>
@@ -295,7 +305,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Account Management",
-    image: SalesIcon,
+    image: sales06Img,
     content: (
       <>
         <p>
@@ -352,7 +362,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Mobilt säljstöd",
-    image: SalesIcon,
+    image: sales07Img,
     content: (
       <>
         <p>
@@ -408,7 +418,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – LinkedIn-integration",
-    image: SalesIcon,
+    image: sales08Img,
     content: (
       <>
         <p>
@@ -464,7 +474,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Kanalförsäljning",
-    image: SalesIcon,
+    image: sales09Img,
     content: (
       <>
         <p>
@@ -518,7 +528,7 @@ export const SALES_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-sales/",
     parentLabel: "Dynamics 365 Sales",
     headerLabel: "Sales – Revenue Intelligence",
-    image: SalesIcon,
+    image: sales10Img,
     content: (
       <>
         <p>
