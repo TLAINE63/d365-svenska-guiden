@@ -1,5 +1,14 @@
-import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 import type { DeepDiveArticle } from "./bcArticles";
+import cc01 from "@/assets/articles/cc-01-plattformen.png";
+import cc02 from "@/assets/articles/cc-02-copilot.png";
+import cc03 from "@/assets/articles/cc-03-voicebots.png";
+import cc04 from "@/assets/articles/cc-04-routing.png";
+import cc05 from "@/assets/articles/cc-05-wem.png";
+import cc06 from "@/assets/articles/cc-06-analytik.png";
+import cc07 from "@/assets/articles/cc-07-digital.png";
+import cc08 from "@/assets/articles/cc-08-sakerhet.png";
+import cc09 from "@/assets/articles/cc-09-conversational.png";
+import cc10 from "@/assets/articles/cc-10-integration.png";
 
 export const CC_ARTICLES: DeepDiveArticle[] = [
   {
