@@ -757,6 +757,68 @@ const AIOverview = () => {
         </section>
         </div>
       </main>
+      {/* Fördjupningsartiklar – Copilot */}
+      <section className="py-16 bg-secondary/20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om Copilot</h2>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+            Läs mer om hur Microsoft Copilot fungerar i varje Dynamics 365-applikation
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {COPILOT_ARTICLES.map((article) => (
+              <Link
+                key={article.slug}
+                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
+                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+              >
+                {article.image && (
+                  <img src={article.image} alt="" className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
+                )}
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                    {article.headerLabel || article.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                    {article.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Fördjupningsartiklar – Agenter */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Fördjupningsartiklar om AI-agenter</h2>
+          <p className="text-muted-foreground text-center mb-8 max-w-2xl mx-auto">
+            Läs mer om autonoma AI-agenter i Dynamics 365 – från introduktion till ROI
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            {AGENTS_ARTICLES.map((article) => (
+              <Link
+                key={article.slug}
+                to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
+                className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+              >
+                {article.image && (
+                  <img src={article.image} alt="" className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
+                )}
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
+                    {article.headerLabel || article.title}
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
+                    {article.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <RelatedPages pages={aiOverviewRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
