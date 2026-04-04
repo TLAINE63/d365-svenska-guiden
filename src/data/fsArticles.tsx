@@ -20,7 +20,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Schemaläggning",
-    image: fsSchemalagningImg,
+    image: fs01,
     content: (
       <>
         <p>
@@ -76,7 +76,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Mobilappen",
-    image: fsMobilappImg,
+    image: fs02,
     content: (
       <>
         <p>
@@ -128,7 +128,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Underhåll & Serviceavtal",
-    image: fsUnderhallImg,
+    image: fs03,
     content: (
       <>
         <p>
@@ -181,7 +181,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – IoT & Connected",
-    image: fsIotImg,
+    image: fs04,
     content: (
       <>
         <p>
@@ -235,7 +235,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Remote Assist",
-    image: fsRemoteAssistImg,
+    image: fs05,
     content: (
       <>
         <p>
@@ -288,7 +288,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Reservdelar & Lager",
-    image: fsReservdelarImg,
+    image: fs06,
     content: (
       <>
         <p>
@@ -341,7 +341,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Kundkommunikation",
-    image: fsKundkommunikationImg,
+    image: fs07,
     content: (
       <>
         <p>
@@ -394,7 +394,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Produktivitet & KPI",
-    image: fsProduktivitetImg,
+    image: fs08,
     content: (
       <>
         <p>
@@ -446,7 +446,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Hållbarhet & Miljö",
-    image: fsHallbarhetImg,
+    image: fs09,
     content: (
       <>
         <p>
@@ -503,7 +503,7 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
     headerLabel: "FS – Finance & SCM-integration",
-    image: fsIntegrationImg,
+    image: fs10,
     content: (
       <>
         <p>
