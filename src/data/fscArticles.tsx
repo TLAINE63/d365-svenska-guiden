@@ -167,7 +167,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Finance – Fakturering",
-    image: fsc01,
+    image: fsc03,
     content: (
       <>
         <p>
