@@ -1,12 +1,18 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
-import CommerceIcon from "@/assets/icons/Commerce.svg";
-import HRIcon from "@/assets/icons/HumanResources.svg";
-import ProjectOpsIcon from "@/assets/icons/ProjectOperations.svg";
 
 import type { DeepDiveArticle } from "./bcArticles";
+
+import fsc01 from "@/assets/articles/fsc-01-konsolidering.png";
+import fsc02 from "@/assets/articles/fsc-02-mrp.png";
+import fsc03 from "@/assets/articles/fsc-03-fakturering.png";
+import fsc04 from "@/assets/articles/fsc-04-wms.png";
+import fsc05 from "@/assets/articles/fsc-05-commerce.png";
+import fsc06 from "@/assets/articles/fsc-06-prismotorn.png";
+import fsc07 from "@/assets/articles/fsc-07-hr-medarbetarresan.png";
+import fsc08 from "@/assets/articles/fsc-08-hr-sjalvservice.png";
+import fsc09 from "@/assets/articles/fsc-09-po-lonsamhet.png";
+import fsc10 from "@/assets/articles/fsc-10-po-resursoptimering.png";
 
 export const FSC_ARTICLES: DeepDiveArticle[] = [
   {
@@ -18,7 +24,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Finance – Konsolidering",
-    image: FinanceIcon,
+    image: fsc01,
     content: (
       <>
         <p>
@@ -92,7 +98,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "SCM – Lagerplanering",
-    image: SupplyChainIcon,
+    image: fsc02,
     content: (
       <>
         <p>
@@ -161,7 +167,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Finance – Fakturering",
-    image: FinanceIcon,
+    image: fsc03,
     content: (
       <>
         <p>
@@ -230,7 +236,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "SCM – Lagerstyrning",
-    image: SupplyChainIcon,
+    image: fsc04,
     content: (
       <>
         <p>
@@ -299,7 +305,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Commerce – Omnikanal",
-    image: CommerceIcon,
+    image: fsc05,
     content: (
       <>
         <p>
@@ -368,7 +374,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Commerce – Prismotor",
-    image: CommerceIcon,
+    image: fsc06,
     content: (
       <>
         <p>
@@ -410,7 +416,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "HR – Medarbetarresan",
-    image: HRIcon,
+    image: fsc07,
     content: (
       <>
         <p>
@@ -476,7 +482,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "HR – Självservice",
-    image: HRIcon,
+    image: fsc08,
     content: (
       <>
         <p>
@@ -545,7 +551,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Project Ops – Lönsamhet",
-    image: ProjectOpsIcon,
+    image: fsc09,
     content: (
       <>
         <p>
@@ -611,7 +617,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "Project Ops – Resursplanering",
-    image: ProjectOpsIcon,
+    image: fsc10,
     content: (
       <>
         <p>
