@@ -236,7 +236,7 @@ export const FSC_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/finance-supply-chain/",
     parentLabel: "Finance & Supply Chain Management",
     headerLabel: "SCM – Lagerstyrning",
-    image: SupplyChainIcon,
+    image: fsc04,
     content: (
       <>
         <p>
