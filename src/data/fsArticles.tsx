@@ -1,16 +1,14 @@
-import FieldServiceIcon from "@/assets/icons/FieldService.svg";
 import type { DeepDiveArticle } from "./bcArticles";
-
-import fsSchemalagningImg from "@/assets/articles/fs-schemalagning.jpg";
-import fsMobilappImg from "@/assets/articles/fs-mobilapp.jpg";
-import fsUnderhallImg from "@/assets/articles/fs-underhall.jpg";
-import fsIotImg from "@/assets/articles/fs-iot.jpg";
-import fsRemoteAssistImg from "@/assets/articles/fs-remote-assist.jpg";
-import fsReservdelarImg from "@/assets/articles/fs-reservdelar.jpg";
-import fsKundkommunikationImg from "@/assets/articles/fs-kundkommunikation.jpg";
-import fsProduktivitetImg from "@/assets/articles/fs-produktivitet.jpg";
-import fsHallbarhetImg from "@/assets/articles/fs-hallbarhet.jpg";
-import fsIntegrationImg from "@/assets/articles/fs-integration.jpg";
+import fs01 from "@/assets/articles/fs-01-schemalagning.png";
+import fs02 from "@/assets/articles/fs-02-mobilapp.png";
+import fs03 from "@/assets/articles/fs-03-underhall.png";
+import fs04 from "@/assets/articles/fs-04-iot.png";
+import fs05 from "@/assets/articles/fs-05-remote-assist.png";
+import fs06 from "@/assets/articles/fs-06-reservdelar.png";
+import fs07 from "@/assets/articles/fs-07-kundkommunikation.png";
+import fs08 from "@/assets/articles/fs-08-produktivitet.png";
+import fs09 from "@/assets/articles/fs-09-hallbarhet.png";
+import fs10 from "@/assets/articles/fs-10-integration.png";
 
 export const FS_ARTICLES: DeepDiveArticle[] = [
   {
