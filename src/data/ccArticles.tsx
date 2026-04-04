@@ -10,28 +10,39 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Plattformen",
+    headerLabel: "CC – Plattformen",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Dynamics 365 Contact Center är Microsofts nästa generations molnbaserade contactcenter-lösning — byggd på Azure Communication Services och integrerad med Copilot AI för varje interaktion, i varje kanal.</em>
+          <em>
+            Dynamics 365 Contact Center är Microsofts nästa generations molnbaserade contactcenter-lösning 
+            — byggd på Azure Communication Services och integrerad med Copilot AI för varje interaktion, 
+            i varje kanal.
+          </em>
         </p>
 
         <h2>Azure Communication Services som grund</h2>
         <p>
-          Contact Center är byggt på Azure Communication Services — Microsofts molnbaserade kommunikationsplattform. Det innebär global räckvidd, elastisk skalbarhet och inbyggd säkerhet utan on-premise-hårdvara.
+          Contact Center är byggt på Azure Communication Services — Microsofts molnbaserade 
+          kommunikationsplattform. Det innebär global räckvidd, elastisk skalbarhet och inbyggd 
+          säkerhet utan on-premise-hårdvara.
         </p>
 
         <h2>Kanalöversikt och omnikanalhantering</h2>
         <p>
-          Plattformen stöder röst, video, chatt, e-post, SMS, WhatsApp, Facebook Messenger och Twitter direkt ur boxen. Alla interaktioner landar i ett enhetligt ärendesystem med komplett korskanal-historik.
+          Plattformen stöder röst, video, chatt, e-post, SMS, WhatsApp, Facebook Messenger och 
+          Twitter direkt ur boxen. Alla interaktioner landar i ett enhetligt ärendesystem med 
+          komplett korskanal-historik.
         </p>
 
         <h2>Microsoft Teams-integration</h2>
         <p>
-          Contact Center integreras nativt med Microsoft Teams för intern kommunikation, experteskalering och supervisor-coaching — utan att behöva separata telefonisystem.
+          Contact Center integreras nativt med Microsoft Teams för intern kommunikation, 
+          experteskalering och supervisor-coaching — utan att behöva separata telefonisystem.
         </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Elastisk skalning vid kampanjperioder</li>
           <li>Inbyggd redundans och disaster recovery</li>
@@ -49,28 +60,43 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Copilot & AI",
+    headerLabel: "CC – Copilot & AI",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Copilot är inte ett tillägg till Contact Center — det är inbyggt i plattformens kärna. Varje samtal, chatt och e-post assisteras av generativ AI som minskar hanteringstiden, ökar First Contact Resolution och förbättrar kundupplevelsen.</em>
+          <em>
+            Copilot är inte ett tillägg till Contact Center — det är inbyggt i plattformens kärna. 
+            Varje samtal, chatt och e-post assisteras av generativ AI som minskar hanteringstiden, 
+            ökar First Contact Resolution och förbättrar kundupplevelsen.
+          </em>
         </p>
 
         <h2>Realtids-samtalstranskription och assistans</h2>
         <p>
-          Varje samtal transkriberas i realtid. Copilot analyserar konversationens kontext och föreslår relevanta svarsmöjligheter, kunskapsartiklar och nästa steg direkt i handläggarens arbetsyta — utan att handläggaren behöver söka manuellt.
+          Varje samtal transkriberas i realtid. Copilot analyserar konversationens kontext och 
+          föreslår relevanta svarsmöjligheter, kunskapsartiklar och nästa steg direkt i 
+          handläggarens arbetsyta.
+        </p>
+        <p>
+          Handläggaren behöver aldrig söka manuellt — rätt information presenteras 
+          automatiskt baserat på vad kunden berättar.
         </p>
 
         <h2>Generativa svarsutkast</h2>
         <p>
-          Vid chatt och e-post genererar Copilot ett komplett svarsutkast baserat på kundens fråga och relevant kunskapsbasinformation. Handläggaren granskar, justerar och skickar — processen tar sekunder, inte minuter.
+          Vid chatt och e-post genererar Copilot ett komplett svarsutkast baserat på kundens 
+          fråga och relevant kunskapsbasinformation. Handläggaren granskar, justerar och skickar 
+          — processen tar sekunder, inte minuter.
         </p>
 
         <h2>Ärendesammanfattning och dokumentation</h2>
         <p>
-          Vid samtalsslut genererar Copilot en strukturerad ärendesammanfattning med orsak, åtgärder och resolution — ett klick dokumenterar hela interaktionen.
+          Vid samtalsslut genererar Copilot en strukturerad ärendesammanfattning med orsak, 
+          åtgärder och resolution — ett klick dokumenterar hela interaktionen.
         </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Automatisk ärendekategorisering</li>
           <li>Nästa-bästa-åtgärd-förslag</li>
@@ -88,28 +114,38 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Voicebots & IVR",
+    headerLabel: "CC – Voicebots & IVR",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Traditionella IVR-system frustrerar kunder med rigida menyer. Contact Centers AI-drivna voicebot förstår naturligt tal, hanterar komplexa frågor och löser ärenden självständigt — och eskalerar sömlöst till handläggare när det behövs.</em>
+          <em>
+            Traditionella IVR-system frustrerar kunder med rigida menyer. Contact Centers 
+            AI-drivna voicebot förstår naturligt tal, hanterar komplexa frågor och löser ärenden 
+            självständigt — och eskalerar sömlöst till handläggare när det behövs.
+          </em>
         </p>
 
         <h2>Naturlig språkförståelse och dialog</h2>
         <p>
-          Voiceboten drivs av Azure Cognitive Services och generativ AI. Kunden behöver inte välja siffror i menyer — de beskriver sitt ärende naturligt och boten förstår, klarifierar och agerar.
+          Voiceboten drivs av Azure Cognitive Services och generativ AI. Kunden behöver inte 
+          välja siffror i menyer — de beskriver sitt ärende naturligt och boten förstår, 
+          klarifierar och agerar.
         </p>
 
         <h2>Kontoidentifiering och säkerhet</h2>
         <p>
-          Röstautentisering och flerfaktorsverifiering integreras sömlöst i voicebotens flöde. Kunden autentiseras naturligt utan att behöva säkerhetsord i separata system.
+          Röstautentisering och flerfaktorsverifiering integreras sömlöst i voicebotens flöde. 
+          Kunden autentiseras naturligt utan att behöva säkerhetsord i separata system.
         </p>
 
         <h2>Sömlös övergång till mänsklig handläggare</h2>
         <p>
-          När voiceboten når sin kompetensgräns eller kunden begär mänsklig hjälp sker övergången sömlöst — hela konversationshistoriken och autentiseringsresultatet medföljer.
+          När voiceboten når sin kompetensgräns eller kunden begär mänsklig hjälp sker 
+          övergången sömlöst — hela konversationshistoriken och autentiseringsresultatet medföljer.
         </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Anpassningsbara botflöden i Copilot Studio</li>
           <li>Stöd för 70+ språk och dialekter</li>
@@ -127,28 +163,44 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Routing & Köer",
+    headerLabel: "CC – Routing & Köer",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Suboptimal routing orsakar längre väntetider, feldirigerade ärenden och frustration för både kund och handläggare. Contact Centers Unified Routing engine använder AI för att matcha varje ärende med bäst lämpade tillgängliga resurs.</em>
+          <em>
+            Suboptimal routing orsakar längre väntetider, feldirigerade ärenden och frustration 
+            för både kund och handläggare. Contact Centers Unified Routing engine använder AI 
+            för att matcha varje ärende med bäst lämpade tillgängliga resurs.
+          </em>
         </p>
 
         <h2>Unified Routing och AI-matchning</h2>
         <p>
-          Unified Routing analyserar ärendets kanal, ämne, kundprofil, historik och sentimentpoäng för att välja rätt handläggare. Kompetens, erfarenhet, workload och kundrelation vägs samman i matchningsalgoritmen.
+          Unified Routing analyserar ärendets kanal, ämne, kundprofil, historik och sentimentpoäng 
+          för att välja rätt handläggare.
+        </p>
+        <p>
+          Kompetens, erfarenhet, workload och kundrelation vägs samman i matchningsalgoritmen 
+          — vilket ger bättre resultat än enkel round-robin-fördelning.
         </p>
 
         <h2>Prioriterade köer och VIP-hantering</h2>
         <p>
-          Kunder med hög CLV eller premium-kontrakt prioriteras automatiskt i kön och kan erbjudas callback-alternativ för att undvika väntan. VIP-kunder kopplas till dedikerade handläggare.
+          Kunder med hög CLV eller premium-kontrakt prioriteras automatiskt i kön och kan 
+          erbjudas callback-alternativ för att undvika väntan.
+        </p>
+        <p>
+          VIP-kunder kopplas till dedikerade handläggare med full historik och relationskontext.
         </p>
 
         <h2>Prognosstyrd kapacitetsplanering</h2>
         <p>
-          Routing-engine kommunicerar med WFM-systemet för att säkerställa att prognostiserade volymer matchas med schemalagd kapacitet per kompetensgrupp.
+          Routing-engine kommunicerar med WFM-systemet för att säkerställa att prognostiserade 
+          volymer matchas med schemalagd kapacitet per kompetensgrupp.
         </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Skill-based routing med kompetensnivåer</li>
           <li>Preferred agent routing för VIP-kunder</li>
@@ -166,28 +218,42 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – WEM",
+    headerLabel: "CC – WEM",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Personalomkostnaderna är den största kostnadsposten i ett contact center. Workforce Engagement Management i Contact Center optimerar schemaläggning, coaching och engagemang för att maximera kvalitet och effektivitet simultant.</em>
+          <em>
+            Personalomkostnaderna är den största kostnadsposten i ett contact center. 
+            Workforce Engagement Management optimerar schemaläggning, coaching och engagemang 
+            för att maximera kvalitet och effektivitet simultant.
+          </em>
         </p>
 
         <h2>AI-driven WFM och schemaoptimering</h2>
         <p>
-          Volymprognos baserad på historiska mönster, kampanjkalender och säsong styr automatisk schemaoptimering. Systemet balanserar krav, preferenser och lagstadgade arbetstidsregler.
+          Volymprognos baserad på historiska mönster, kampanjkalender och säsong styr automatisk 
+          schemaoptimering. Systemet balanserar krav, preferenser och lagstadgade arbetstidsregler.
         </p>
 
         <h2>Quality Management och coaching</h2>
         <p>
-          AI granskar 100 % av interaktioner mot definierade kvalitetskriterier. Supervisorer ser automatiserade quality scores och kan prioritera coachningsinsatser mot handläggare med störst förbättringspotential.
+          AI granskar 100 % av interaktioner mot definierade kvalitetskriterier. Supervisorer 
+          ser automatiserade quality scores och kan prioritera coachningsinsatser mot handläggare 
+          med störst förbättringspotential.
         </p>
 
         <h2>Gamification och handläggarengagemang</h2>
         <p>
-          Prestationsbaserade utmaningar, achievements och topplistor driver motivation utan att öka trycket negativt.
+          Prestationsbaserade utmaningar, achievements och topplistor driver motivation 
+          utan att öka trycket negativt.
         </p>
+        <p>
+          Transparenta mätetal gör att handläggare själva kan följa sin utveckling 
+          och identifiera förbättringsområden.
+        </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Flexibel schemaläggning via mobilapp</li>
           <li>Shift-byte och intresseanmälan för övertid</li>
@@ -205,28 +271,45 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Realtidsanalytik",
+    headerLabel: "CC – Realtidsanalytik",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Supervisorer i ett contact center behöver omedelbar situationsöverblick för att agera snabbt vid kapacitetsproblem, kvalitetsavvikelser eller stora händelser. Contact Centers realtidsdashboard ger en komplett bild av operationsläget.</em>
+          <em>
+            Supervisorer i ett contact center behöver omedelbar situationsöverblick för att agera 
+            snabbt vid kapacitetsproblem, kvalitetsavvikelser eller stora händelser. Contact Centers 
+            realtidsdashboard ger en komplett bild av operationsläget.
+          </em>
         </p>
 
         <h2>Supervisor-dashboard och wallboard</h2>
         <p>
-          Anpassningsbara dashboards visar köstatus, handläggarstatus, SLA-tick, genomsnittliga väntetider och sentimentdistribution i realtid. Wallboard-vyn visas på skärmar i contact centret för teamöverblick.
+          Anpassningsbara dashboards visar köstatus, handläggarstatus, SLA-tick, genomsnittliga 
+          väntetider och sentimentdistribution i realtid.
+        </p>
+        <p>
+          Wallboard-vyn visas på skärmar i contact centret för teamöverblick — så att alla 
+          ser det aktuella läget.
         </p>
 
         <h2>Whisper coaching och live monitoring</h2>
         <p>
-          Supervisorer kan lyssna på pågående samtal och "whisper" (viska råd) till handläggaren utan att kunden hör. Vid kritiska situationer kan supervisorn ta över samtalet direkt.
+          Supervisorer kan lyssna på pågående samtal och "whisper" (viska råd) till handläggaren 
+          utan att kunden hör. Vid kritiska situationer kan supervisorn ta över samtalet direkt.
         </p>
 
         <h2>AI-driven anomalidetektering</h2>
         <p>
-          Systemet detekterar automatiskt ovanliga mönster: plötslig ökning av en viss ärendetyp, ovanligt lång kötid för ett segment, kraftigt försämrat sentiment — och notifierar supervisorn omedelbart.
+          Systemet detekterar automatiskt ovanliga mönster: plötslig ökning av en viss ärendetyp, 
+          ovanligt lång kötid för ett segment, kraftigt försämrat sentiment.
         </p>
+        <p>
+          Supervisorn notifieras omedelbart med kontextuell information om vad som avviker 
+          och förslag på åtgärder.
+        </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Tröskelbaserade larmregler per KPI</li>
           <li>Historisk trendanalys med drill-down</li>
@@ -244,28 +327,41 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Digitala kanaler",
+    headerLabel: "CC – Digitala kanaler",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Kunder föredrar alltmer asynkron digital kommunikation framför telefonsamtal. Contact Center stöder chatt, e-post, SMS, WhatsApp och sociala kanaler med samma AI-kvalitet och routing-intelligens som röstkanalen.</em>
+          <em>
+            Kunder föredrar alltmer asynkron digital kommunikation framför telefonsamtal. 
+            Contact Center stöder chatt, e-post, SMS, WhatsApp och sociala kanaler med samma 
+            AI-kvalitet och routing-intelligens som röstkanalen.
+          </em>
         </p>
 
         <h2>Proaktiv chatt och beteendetriggers</h2>
         <p>
-          Webbchatt-boten kan proaktivt initieras när en besökare uppvisar hjälpbehov-signaler: lång tid på kassasida, flera misslyckade sökningar eller upprepade sidbesök. Rätt erbjudande i rätt ögonblick ökar konverteringen.
+          Webbchatt-boten kan proaktivt initieras när en besökare uppvisar hjälpbehov-signaler: 
+          lång tid på kassasida, flera misslyckade sökningar eller upprepade sidbesök.
+        </p>
+        <p>
+          Rätt erbjudande i rätt ögonblick ökar konverteringen och minskar avhopp 
+          i köpprocessen.
         </p>
 
         <h2>Asynkrona kanaler och konversationshantering</h2>
         <p>
-          WhatsApp och SMS-konversationer är asynkrona — kunden skickar när det passar dem. Systemet håller konversationskontexten aktiv i dagar och möjliggör sömlösa återupptag.
+          WhatsApp och SMS-konversationer är asynkrona — kunden skickar när det passar dem. 
+          Systemet håller konversationskontexten aktiv i dagar och möjliggör sömlösa återupptag.
         </p>
 
         <h2>Social Service och sentimentövervakning</h2>
         <p>
-          Twitter/X och Facebook-omnämnanden av varumärket övervakas och kan automatiskt skapa ärenden vid negativa omnämnanden.
+          Twitter/X och Facebook-omnämnanden av varumärket övervakas och kan automatiskt 
+          skapa ärenden vid negativa omnämnanden.
         </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Co-browse-funktion för skärmdelning</li>
           <li>Asynkrona video-meddelanden</li>
@@ -283,28 +379,46 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Säkerhet & Compliance",
+    headerLabel: "CC – Säkerhet & Compliance",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Contact centers hanterar känslig kunddata och lyder under strikta regulatoriska krav — GDPR, PCI DSS, MiFID II och branschspecifika regler. Contact Centers compliance-funktioner hanterar krav utan att påverka operativ effektivitet.</em>
+          <em>
+            Contact centers hanterar känslig kunddata och lyder under strikta regulatoriska krav 
+            — GDPR, PCI DSS, MiFID II och branschspecifika regler. Contact Centers compliance-funktioner 
+            hanterar krav utan att påverka operativ effektivitet.
+          </em>
         </p>
 
         <h2>Samtalsinspelning och arkivering</h2>
         <p>
-          Alla samtal och chattinteraktioner spelas in automatiskt och arkiveras krypterat med konfigurerbara lagringstider. Sökbara transkript möjliggör effektiv ärendehantering och juridisk granskning.
+          Alla samtal och chattinteraktioner spelas in automatiskt och arkiveras krypterat 
+          med konfigurerbara lagringstider.
+        </p>
+        <p>
+          Sökbara transkript möjliggör effektiv ärendehantering och juridisk granskning 
+          vid behov.
         </p>
 
         <h2>PCI DSS och betalningsdata</h2>
         <p>
-          Vid betalningsinmatning pausas inspelningen automatiskt och handläggarens skärm döljer kortuppgifter. DTMF-tonbaserad betalning möjliggör korttransaktioner utan att handläggaren ser uppgifterna.
+          Vid betalningsinmatning pausas inspelningen automatiskt och handläggarens skärm 
+          döljer kortuppgifter. DTMF-tonbaserad betalning möjliggör korttransaktioner utan 
+          att handläggaren ser uppgifterna.
         </p>
 
         <h2>Åtkomststyrning och auditlogg</h2>
         <p>
-          Rollbaserad åtkomst styr vem som kan lyssna på inspelningar, exportera data och ändra konfiguration. Komplett auditlogg dokumenterar alla åtkomster för regulatorisk rapportering.
+          Rollbaserad åtkomst styr vem som kan lyssna på inspelningar, exportera data 
+          och ändra konfiguration.
         </p>
+        <p>
+          Komplett auditlogg dokumenterar alla åtkomster för regulatorisk rapportering 
+          och intern revision.
+        </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>ISO 27001-certifierad infrastruktur</li>
           <li>Data Residency-val per region</li>
@@ -322,28 +436,41 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – Conversational Intelligence",
+    headerLabel: "CC – Conversational Intelligence",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Tusentals kundsamtal innehåller ovärderlig information om produktproblem, konkurrenter, kundsentiment och marknadsinsikter. Contact Centers Conversation Intelligence omvandlar denna rådata till handlingsbara insikter för hela organisationen.</em>
+          <em>
+            Tusentals kundsamtal innehåller ovärderlig information om produktproblem, konkurrenter, 
+            kundsentiment och marknadsinsikter. Contact Centers Conversation Intelligence omvandlar 
+            denna rådata till handlingsbara insikter för hela organisationen.
+          </em>
         </p>
 
         <h2>Ämnesidentifiering och trendanalys</h2>
         <p>
-          NLP-modeller analyserar transkriberade samtal och identifierar återkommande ämnen, produktnämnanden, konkurrentnämnanden och kundklagomål — aggregerat och visualiserat per vecka, månad och kvartal.
+          NLP-modeller analyserar transkriberade samtal och identifierar återkommande ämnen, 
+          produktnämnanden, konkurrentnämnanden och kundklagomål.
+        </p>
+        <p>
+          Resultaten aggregeras och visualiseras per vecka, månad och kvartal — 
+          så att trender blir tydliga.
         </p>
 
         <h2>Sentimentkartläggning per ämne</h2>
         <p>
-          Sentimentet kopplas till specifika ämnen: kunder är nöjda med leveranshastigheten men missnöjda med monteringsinstruktionerna. Specificitet är nyckeln till handlingsbarhet.
+          Sentimentet kopplas till specifika ämnen: kunder är nöjda med leveranshastigheten 
+          men missnöjda med monteringsinstruktionerna. Specificitet är nyckeln till handlingsbarhet.
         </p>
 
         <h2>Insiktsdelning till produktutveckling och marknad</h2>
         <p>
-          Automatiserade insiktsrapporter skickas till produktteamet, marknadsavdelningen och kundservicechefen — var vecka — baserade på vad kunderna faktiskt säger.
+          Automatiserade insiktsrapporter skickas till produktteamet, marknadsavdelningen 
+          och kundservicechefen — var vecka — baserade på vad kunderna faktiskt säger.
         </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Automatisk FAQ-identifiering från samtalsdata</li>
           <li>Konkurrentnämnande-tracker</li>
@@ -361,28 +488,43 @@ export const CC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-contact-center",
     parentPath: "/d365-contact-center/",
     parentLabel: "Dynamics 365 Contact Center",
-    headerLabel: "Fördjupning – CRM-integration",
+    headerLabel: "CC – CRM-integration",
     image: ContactCenterIcon,
     content: (
       <>
         <p>
-          <em>Ett contact center isolerat från CRM-systemet ger handläggare halvt blinda. Contact Centers djupa integration med Dynamics 365 Sales, Customer Service och Customer Insights ger handläggaren fullständig kundkontext — automatiskt och i realtid.</em>
+          <em>
+            Ett contact center isolerat från CRM-systemet ger handläggare halvt blinda. 
+            Contact Centers djupa integration med Dynamics 365 Sales, Customer Service och 
+            Customer Insights ger handläggaren fullständig kundkontext — automatiskt och i realtid.
+          </em>
         </p>
 
         <h2>Screen-pop och automatisk kontextladdning</h2>
         <p>
-          När ett inkommande samtal identifieras via ANI (Automatic Number Identification) laddas automatiskt kundens fullständiga CRM-profil, ärendehistorik, aktiva affärsmöjligheter och senaste köp i handläggarens arbetsyta — innan de svarar.
+          När ett inkommande samtal identifieras via ANI (Automatic Number Identification) 
+          laddas automatiskt kundens fullständiga CRM-profil, ärendehistorik, aktiva 
+          affärsmöjligheter och senaste köp i handläggarens arbetsyta.
+        </p>
+        <p>
+          Allt sker innan handläggaren ens svarar — så att de kan hälsa kunden vid namn 
+          och vara redo med rätt kontext.
         </p>
 
         <h2>Integration med Customer Insights</h2>
         <p>
-          Handläggaren ser kundens CLV-score, churn-risk, segmentstillhörighet och AI-genererade Next Best Action direkt i arbetsytan. Detta möjliggör proaktiva retentionssamtal och upsell-möjligheter.
+          Handläggaren ser kundens CLV-score, churn-risk, segmentstillhörighet och AI-genererade 
+          Next Best Action direkt i arbetsytan. Detta möjliggör proaktiva retentionssamtal 
+          och upsell-möjligheter.
         </p>
 
         <h2>Ärendecreation och CRM-uppdatering</h2>
         <p>
-          Ärenden skapas, uppdateras och stängs direkt i CRM-systemet utan att lämna contact center-arbetsytan. Alla interaktioner loggas automatiskt mot rätt kund och ärende.
+          Ärenden skapas, uppdateras och stängs direkt i CRM-systemet utan att lämna 
+          contact center-arbetsytan. Alla interaktioner loggas automatiskt mot rätt kund och ärende.
         </p>
+
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Koppling till Sales för lead-skapande vid intressesignaler</li>
           <li>Integration med Field Service för tekniker-dispatch</li>

@@ -21,29 +21,45 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Schemaläggning",
+    headerLabel: "FS – Schemaläggning",
     image: fsSchemalagningImg,
     content: (
       <>
         <p>
-          <em>Manuell schemaläggning av fälttekniker är tidskrävande och suboptimal. Field Service Schedule Assistant och AI-optimering matchar rätt tekniker med rätt kompetens till rätt jobb — och minimerar restid och koldioxidutsläpp.</em>
+          <em>
+            Manuell schemaläggning av fälttekniker är tidskrävande och suboptimal. Field Service 
+            Schedule Assistant och AI-optimering matchar rätt tekniker med rätt kompetens till rätt jobb 
+            — och minimerar restid och koldioxidutsläpp.
+          </em>
         </p>
 
         <h2>Schedule Board och Resource Scheduling Optimization</h2>
         <p>
-          Schedule Board ger dispatchers en visuell realtidsöversikt av alla teknikerers positioner, kapacitet och scheman. RSO (Resource Scheduling Optimization) kör automatisk omoptimering av hela dagsschemat när nya jobb tillkommer eller störningar uppstår.
+          Schedule Board ger dispatchers en visuell realtidsöversikt av alla teknikerers positioner, 
+          kapacitet och scheman.
+        </p>
+        <p>
+          RSO (Resource Scheduling Optimization) kör automatisk omoptimering av hela dagsschemat 
+          när nya jobb tillkommer eller störningar uppstår — utan manuell intervention.
         </p>
 
         <h2>Kompetensbaserad matchning</h2>
         <p>
-          Varje jobb kräver specifika kompetenser, certifieringar och verktyg. Systemet matchar automatiskt mot teknikerprofiler och säkerställer att rätt person skickas — utan manuell kontroll av kompetensdatabaser.
+          Varje jobb kräver specifika kompetenser, certifieringar och verktyg. Systemet matchar 
+          automatiskt mot teknikerprofiler och säkerställer att rätt person skickas.
+        </p>
+        <p>
+          Ingen manuell kontroll av kompetensdatabaser behövs — systemet hanterar 
+          detta automatiskt.
         </p>
 
         <h2>Realtidsövervakning och dynamisk ombokning</h2>
         <p>
-          Teknikerernas GPS-position uppdateras kontinuerligt. Vid försening ombokas automatiskt nästa jobb om nödvändigt — kunden notifieras proaktivt med ny beräknad ankomsttid.
+          Teknikerernas GPS-position uppdateras kontinuerligt. Vid försening ombokas automatiskt 
+          nästa jobb om nödvändigt — kunden notifieras proaktivt med ny beräknad ankomsttid.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Heatmaps för jobbdensitet och tekniker-coverage</li>
           <li>Preferensbaserad kundbokning</li>
@@ -61,29 +77,41 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Mobilappen",
+    headerLabel: "FS – Mobilappen",
     image: fsMobilappImg,
     content: (
       <>
         <p>
-          <em>Fälttekniker arbetar i källare, serverhallar och avlägsna platser utan mobilnät. Field Service mobilappen ger full jobbinformation, checklistor och reservdelsinformation offline — och synkroniserar automatiskt när uppkoppling återupprättas.</em>
+          <em>
+            Fälttekniker arbetar i källare, serverhallar och avlägsna platser utan mobilnät. 
+            Field Service mobilappen ger full jobbinformation, checklistor och reservdelsinformation 
+            offline — och synkroniserar automatiskt när uppkoppling återupprättas.
+          </em>
         </p>
 
         <h2>Jobbinformation och arbetsordrar offline</h2>
         <p>
-          Tekniker laddar ned jobbdetaljer, kundhistorik, installerade produkter, servicemanualer och checklister till enheten. Allt tillgängligt utan internet — fullständig jobbkontext i fickan.
+          Tekniker laddar ned jobbdetaljer, kundhistorik, installerade produkter, servicemanualer 
+          och checklister till enheten. Allt tillgängligt utan internet — fullständig jobbkontext i fickan.
         </p>
 
         <h2>Checklistor, inspektioner och fotodokumentation</h2>
         <p>
-          Digitala checklistor ersätter pappersformulär. Tekniker fotograferar arbete och komponenter direkt i appen — foton kopplas automatiskt till serviceordern. Kundunderskrift samlas in digitalt på plats.
+          Digitala checklistor ersätter pappersformulär. Tekniker fotograferar arbete och 
+          komponenter direkt i appen — foton kopplas automatiskt till serviceordern.
+        </p>
+        <p>
+          Kundunderskrift samlas in digitalt på plats, vilket eliminerar behovet 
+          av pappersbaserade kvitteringar.
         </p>
 
         <h2>Reservdels- och lagerhantering</h2>
         <p>
-          Tekniker ser sin fordonslagerstatus, kan rekvirera reservdelar och registrera materialförbrukning i appen. Lagerpositioner uppdateras i realtid.
+          Tekniker ser sin fordonslagerstatus, kan rekvirera reservdelar och registrera 
+          materialförbrukning i appen. Lagerpositioner uppdateras i realtid.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Barkodsläsning för reservdelsregistrering</li>
           <li>Mixed Reality-stöd (Remote Assist via HoloLens)</li>
@@ -101,29 +129,42 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Underhåll",
+    headerLabel: "FS – Underhåll & Serviceavtal",
     image: fsUnderhallImg,
     content: (
       <>
         <p>
-          <em>Reaktiv service är dyr — nödleveranser, övertid och missnöjda kunder. Field Service servicekontrakt och underhållsplaner möjliggör systematiskt förebyggande underhåll som minskar haverier med upp till 70 %.</em>
+          <em>
+            Reaktiv service är dyr — nödleveranser, övertid och missnöjda kunder. Field Service 
+            servicekontrakt och underhållsplaner möjliggör systematiskt förebyggande underhåll 
+            som minskar haverier med upp till 70 %.
+          </em>
         </p>
 
         <h2>Servicekontraktshantering</h2>
         <p>
-          Serviceavtal definierar vad som ingår, SLA-krav och faktureringsmodell. Systemet spårar avtalets utnyttjande, varnar vid överkostnader och genererar automatiskt faktureringsunderlag.
+          Serviceavtal definierar vad som ingår, SLA-krav och faktureringsmodell. Systemet 
+          spårar avtalets utnyttjande och varnar vid överkostnader.
+        </p>
+        <p>
+          Faktureringsunderlag genereras automatiskt baserat på kontraktsvillkor, 
+          vilket eliminerar manuellt administrationsarbete.
         </p>
 
         <h2>Underhållsplaner och automatiska arbetsordrar</h2>
         <p>
-          Underhållsplaner baserade på tid (kvartalsvis), drifttimmar eller mätarvärden genererar automatiskt arbetsordrar med rätt resursallokering och reservdelsbehov — i god tid för planering.
+          Underhållsplaner baserade på tid (kvartalsvis), drifttimmar eller mätarvärden 
+          genererar automatiskt arbetsordrar med rätt resursallokering och reservdelsbehov 
+          — i god tid för planering.
         </p>
 
         <h2>Kundkommunikation och portaltillgång</h2>
         <p>
-          Kunder kan se sina serviceavtal, kommande planerat underhåll och servicehistorik via en kundportal.
+          Kunder kan se sina serviceavtal, kommande planerat underhåll och servicehistorik 
+          via en kundportal.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Garanti- och kontraktsuppföljning per enhet</li>
           <li>Automatisk förnyelsepåminnelse</li>
@@ -141,29 +182,43 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – IoT",
+    headerLabel: "FS – IoT & Connected",
     image: fsIotImg,
     content: (
       <>
         <p>
-          <em>Varje minut av oplanerat produktionsstopp kostar pengar. Connected Field Service kopplar ihop Dynamics 365 med Azure IoT Hub för att detektera anomalier i ansluten utrustning och dispatcha teknikern automatiskt — innan kunden rapporterar problemet.</em>
+          <em>
+            Varje minut av oplanerat produktionsstopp kostar pengar. Connected Field Service 
+            kopplar ihop Dynamics 365 med Azure IoT Hub för att detektera anomalier i ansluten 
+            utrustning och dispatcha teknikern automatiskt — innan kunden rapporterar problemet.
+          </em>
         </p>
 
         <h2>IoT-signaler och anomalidetektering</h2>
         <p>
-          Azure IoT Hub tar emot telemetridata från anslutna enheter. Regler och ML-modeller identifierar avvikelser — temperatur utanför normalintervall, vibration över threshold, spänningsvariationer — och skapar automatiskt ett serviceärende.
+          Azure IoT Hub tar emot telemetridata från anslutna enheter. Regler och ML-modeller 
+          identifierar avvikelser — temperatur utanför normalintervall, vibration över threshold, 
+          spänningsvariationer.
+        </p>
+        <p>
+          Vid avvikelse skapas automatiskt ett serviceärende med all diagnostikinformation 
+          bifogad.
         </p>
 
         <h2>Fjärrdiagnostik och remote commands</h2>
         <p>
-          Tekniker och specialister kan fjärrstyra enheter, genomföra diagnostik och i många fall lösa problemet utan platsbesök. Fjärrlösningsgraden minskar kostnader och ökar tillgängligheten.
+          Tekniker och specialister kan fjärrstyra enheter, genomföra diagnostik och i många 
+          fall lösa problemet utan platsbesök. Fjärrlösningsgraden minskar kostnader och 
+          ökar tillgängligheten.
         </p>
 
         <h2>Prediktivt underhåll med maskininlärning</h2>
         <p>
-          Historiska feldata tränar ML-modeller att förutse framtida haverier. Tekniker dispatchas för förebyggande åtgärd i god tid.
+          Historiska feldata tränar ML-modeller att förutse framtida haverier. Tekniker 
+          dispatchas för förebyggande åtgärd i god tid.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Digital twin-integration via Azure Digital Twins</li>
           <li>Realtids-telemetridashboard för driftsövervakning</li>
@@ -181,29 +236,42 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Remote Assist",
+    headerLabel: "FS – Remote Assist",
     image: fsRemoteAssistImg,
     content: (
       <>
         <p>
-          <em>Att flyga ut en specialist kostar tid och pengar. Remote Assist i Field Service låter en expert guida en fälttekniker via HoloLens eller smartphone — med annotations och diagrams projicerade direkt i teknikerns synfält.</em>
+          <em>
+            Att flyga ut en specialist kostar tid och pengar. Remote Assist i Field Service 
+            låter en expert guida en fälttekniker via HoloLens eller smartphone — med annotations 
+            och diagrams projicerade direkt i teknikerns synfält.
+          </em>
         </p>
 
         <h2>HoloLens och mobil Remote Assist</h2>
         <p>
-          Tekniker sätter på sig HoloLens eller håller upp sin smartphone mot utrustningen. Experten ser i realtid exakt vad tekniker ser och kan rita annotations, peka på komponenter och visa reparationssteg direkt i teknikerns synfält.
+          Tekniker sätter på sig HoloLens eller håller upp sin smartphone mot utrustningen. 
+          Experten ser i realtid exakt vad tekniker ser.
+        </p>
+        <p>
+          Experten kan rita annotations, peka på komponenter och visa reparationssteg 
+          direkt i teknikerns synfält — som att ha specialisten bredvid sig.
         </p>
 
         <h2>Integration med arbetsordrar och kunskapsbas</h2>
         <p>
-          Remote Assist-sessioner länkas direkt till serviceordern. Inspelningar och screenshots sparas automatiskt som dokumentation och kan återanvändas i kunskapsbasen för framtida ärenden.
+          Remote Assist-sessioner länkas direkt till serviceordern. Inspelningar och screenshots 
+          sparas automatiskt som dokumentation och kan återanvändas i kunskapsbasen.
         </p>
 
         <h2>Guides och steg-för-steg-instruktioner</h2>
         <p>
-          Dynamics 365 Guides skapar holografiska arbetsanvisningar kopplade till specifika utrustningar. Nya tekniker kan lära sig komplexa reparationer utan att ha en expert vid sin sida.
+          Dynamics 365 Guides skapar holografiska arbetsanvisningar kopplade till specifika 
+          utrustningar. Nya tekniker kan lära sig komplexa reparationer utan att ha en expert 
+          vid sin sida.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Teams-integration för videosamtal med expert</li>
           <li>Automatisk sessionsinspelning och transkription</li>
@@ -221,29 +289,42 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Reservdelar",
+    headerLabel: "FS – Reservdelar & Lager",
     image: fsReservdelarImg,
     content: (
       <>
         <p>
-          <em>Reservdelsbrist är den vanligaste orsaken till missade servicejobb och second visits. Field Service integrerar lager-, inköps- och logistikhantering för att säkerställa att teknikern alltid har vad som behövs — inte mer, inte mindre.</em>
+          <em>
+            Reservdelsbrist är den vanligaste orsaken till missade servicejobb och second visits. 
+            Field Service integrerar lager-, inköps- och logistikhantering för att säkerställa 
+            att teknikern alltid har vad som behövs — inte mer, inte mindre.
+          </em>
         </p>
 
         <h2>Fordonslagerstyrning</h2>
         <p>
-          Varje teknikerfordon är ett rörligt lagerställe med definierat min/max per artikel. Systemet spårar förbrukning i realtid och genererar automatiskt påfyllnadsorder när miniminivåer underskrids.
+          Varje teknikerfordon är ett rörligt lagerställe med definierat min/max per artikel. 
+          Systemet spårar förbrukning i realtid.
+        </p>
+        <p>
+          Påfyllnadsorder genereras automatiskt när miniminivåer underskrids — 
+          teknikern behöver aldrig själv bevaka lagernivåer.
         </p>
 
         <h2>Jobbspecifik reservdelsplanering</h2>
         <p>
-          Baserat på arbetsorderns typ och installerade enheter föreslår systemet vilka reservdelar tekniker sannolikt behöver. Förslag baseras på historisk reparationsstatistik för samma utrustningstyp.
+          Baserat på arbetsorderns typ och installerade enheter föreslår systemet vilka 
+          reservdelar tekniker sannolikt behöver. Förslag baseras på historisk 
+          reparationsstatistik för samma utrustningstyp.
         </p>
 
         <h2>Returhantering och garantiadministration</h2>
         <p>
-          Defekta delar returneras systematiskt med rätt klassificering: garantiersättning, reparation eller skrotning. Garantikrav hanteras automatiskt mot leverantör.
+          Defekta delar returneras systematiskt med rätt klassificering: garantiersättning, 
+          reparation eller skrotning. Garantikrav hanteras automatiskt mot leverantör.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Integration med SCM för inköpsautomation</li>
           <li>Reservdelstillgänglighet i realtid per tekniker</li>
@@ -261,29 +342,42 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Kundkommunikation",
+    headerLabel: "FS – Kundkommunikation",
     image: fsKundkommunikationImg,
     content: (
       <>
         <p>
-          <em>Den vanligaste klagomålet i fältservice är inte den tekniska lösningen — det är kommunikationen. Field Service kundkommunikationsmodul skapar proaktiva, transparenta kundupplevelser från bokning till avslutat jobb.</em>
+          <em>
+            Den vanligaste klagomålet i fältservice är inte den tekniska lösningen — det är 
+            kommunikationen. Field Service kundkommunikationsmodul skapar proaktiva, transparenta 
+            kundupplevelser från bokning till avslutat jobb.
+          </em>
         </p>
 
         <h2>Kundbokningsportal och tidsfönsterval</h2>
         <p>
-          Kunder bokar servicetid via en självserviceportal med tillgängliga tidsfönster. Realtidskalender visar teknikerens faktiska tillgänglighet — inga tomma löften om tider som inte håller.
+          Kunder bokar servicetid via en självserviceportal med tillgängliga tidsfönster. 
+          Realtidskalender visar teknikerens faktiska tillgänglighet — inga tomma löften 
+          om tider som inte håller.
         </p>
 
         <h2>Proaktiva notifikationer och "on my way"</h2>
         <p>
-          Automatiska SMS skickas vid jobbreservation, dagen innan besöket och när tekniker är 30 minuter bort. Kunden ser teknikerns position på en karta i realtid — liksom Uber för service.
+          Automatiska SMS skickas vid jobbreservation, dagen innan besöket och när tekniker 
+          är 30 minuter bort.
+        </p>
+        <p>
+          Kunden ser teknikerns position på en karta i realtid — liksom Uber för service.
         </p>
 
         <h2>Kundunderskrift och digital feedback</h2>
         <p>
-          Tekniker samlar in kundunderskrift på slutfört jobb direkt i appen. Omedelbart efter avslutat besök skickas en kort NPS-enkät — svarsfrekvensen är markant högre direkt efter besöket.
+          Tekniker samlar in kundunderskrift på slutfört jobb direkt i appen. Omedelbart efter 
+          avslutat besök skickas en kort NPS-enkät — svarsfrekvensen är markant högre 
+          direkt efter besöket.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Anpassningsbara notifikationsmallar</li>
           <li>Flerspråkig kommunikation</li>
@@ -301,29 +395,41 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Produktivitet",
+    headerLabel: "FS – Produktivitet & KPI",
     image: fsProduktivitetImg,
     content: (
       <>
         <p>
-          <em>Fältservicechefer behöver tydliga KPI:er för att driva kontinuerlig förbättring. Field Service Analytics ger en komplett bild av teknikerproduktivitet, servicekvalitet och kostnadseffektivitet — per individ, team och region.</em>
+          <em>
+            Fältservicechefer behöver tydliga KPI:er för att driva kontinuerlig förbättring. 
+            Field Service Analytics ger en komplett bild av teknikerproduktivitet, servicekvalitet 
+            och kostnadseffektivitet — per individ, team och region.
+          </em>
         </p>
 
         <h2>Produktivitets-KPI:er i realtid</h2>
         <p>
-          Dashboard visar i realtid: antal jobb per dag, genomsnittlig jobbtid, reseprocent, first-time fix rate och kundnöjdhet per tekniker. Supervisorer ser omedelbart om en tekniker behöver stöd.
+          Dashboard visar i realtid: antal jobb per dag, genomsnittlig jobbtid, reseprocent, 
+          first-time fix rate och kundnöjdhet per tekniker.
+        </p>
+        <p>
+          Supervisorer ser omedelbart om en tekniker behöver stöd eller om ett team 
+          överträffar sina mål.
         </p>
 
         <h2>Kostnadsanalys per jobb och kontraktstyp</h2>
         <p>
-          Faktisk kostnad per jobb beräknas automatiskt (arbetstid, material, resekostnad) och jämförs mot budgeterat. Olönsamma kontraktstyper identifieras.
+          Faktisk kostnad per jobb beräknas automatiskt (arbetstid, material, resekostnad) 
+          och jämförs mot budgeterat. Olönsamma kontraktstyper identifieras.
         </p>
 
         <h2>Prestationsbaserade belöningsprogram</h2>
         <p>
-          Teknikers prestationspoäng kan kopplas till bonusprogram. Transparenta KPI:er skapar rättvisa och motivation.
+          Teknikers prestationspoäng kan kopplas till bonusprogram. Transparenta KPI:er 
+          skapar rättvisa och motivation.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Benchmarking mot branschstandarder (TSIA-data)</li>
           <li>Träningsbehov identifierat via prestandadata</li>
@@ -341,29 +447,46 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Hållbarhet",
+    headerLabel: "FS – Hållbarhet & Miljö",
     image: fsHallbarhetImg,
     content: (
       <>
         <p>
-          <em>Fältserviceoperationer med hundratals fordon i daglig rörelse har ett betydande klimatavtryck. Field Service hållbarhetsmodul mäter, rapporterar och aktivt minskar koldioxidutsläpp via intelligent ruttoptimering och elfordonsstöd.</em>
+          <em>
+            Fältserviceoperationer med hundratals fordon i daglig rörelse har ett betydande 
+            klimatavtryck. Field Service hållbarhetsmodul mäter, rapporterar och aktivt minskar 
+            koldioxidutsläpp via intelligent ruttoptimering och elfordonsstöd.
+          </em>
         </p>
 
         <h2>Koldioxidspårning och rapportering</h2>
         <p>
-          Systemet beräknar koldioxidutsläpp per körning baserat på fordonstyp, bränsletyp och körsträcka. Månadsvis koldioxidrapport genereras automatiskt för ESG-rapportering.
+          Systemet beräknar koldioxidutsläpp per körning baserat på fordonstyp, bränsletyp 
+          och körsträcka.
+        </p>
+        <p>
+          Månadsvis koldioxidrapport genereras automatiskt för ESG-rapportering 
+          — inga manuella beräkningar behövs.
         </p>
 
         <h2>Ruttoptimering för lägst utsläpp</h2>
         <p>
-          RSO-algoritmen kan konfigureras för att prioritera lägst koldioxidavtryck (inte bara kortast tid) vid optimering av teknikerscheman. Tradeoff-analys visar kostnaden i tid kontra miljövinsten.
+          RSO-algoritmen kan konfigureras för att prioritera lägst koldioxidavtryck (inte 
+          bara kortast tid) vid optimering av teknikerscheman.
+        </p>
+        <p>
+          Tradeoff-analys visar kostnaden i tid kontra miljövinsten, 
+          så att ledningen kan fatta informerade beslut.
         </p>
 
         <h2>Elfordonsstöd och laddningsplanering</h2>
         <p>
-          Elfordon kräver laddningsplanering som en del av schemaläggningen. Field Service hanterar laddningsstopp, räckviddsberäkning och optimerar scheman med hänsyn till batterikapacitet.
+          Elfordon kräver laddningsplanering som en del av schemaläggningen. Field Service 
+          hanterar laddningsstopp, räckviddsberäkning och optimerar scheman med hänsyn 
+          till batterikapacitet.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Flottmixanalys för elfordonsövergång</li>
           <li>Integration med laddningsstationsdata</li>
@@ -381,29 +504,41 @@ export const FS_ARTICLES: DeepDiveArticle[] = [
     productSlug: "d365-field-service",
     parentPath: "/d365-field-service/",
     parentLabel: "Dynamics 365 Field Service",
-    headerLabel: "Fördjupning – Integration",
+    headerLabel: "FS – Finance & SCM-integration",
     image: fsIntegrationImg,
     content: (
       <>
         <p>
-          <em>Fältserviceoperationer genererar fakturor, förbrukar lager och driver garantikrav — data som måste flöda sömlöst till Finance och Supply Chain. Den inbyggda integrationen eliminerar manuell dataöverföring och säkerställer korrekt redovisning.</em>
+          <em>
+            Fältserviceoperationer genererar fakturor, förbrukar lager och driver garantikrav 
+            — data som måste flöda sömlöst till Finance och Supply Chain. Den inbyggda integrationen 
+            eliminerar manuell dataöverföring och säkerställer korrekt redovisning.
+          </em>
         </p>
 
         <h2>Automatisk fakturering och intäktsredovisning</h2>
         <p>
-          Avslutade serviceordrar genererar automatiskt fakturaunderlag i Finance baserat på kontraktsvillkor: tid och material, fast pris eller abonnemang. Ingen manuell handpåläggning krävs för standardjobb.
+          Avslutade serviceordrar genererar automatiskt fakturaunderlag i Finance baserat 
+          på kontraktsvillkor: tid och material, fast pris eller abonnemang.
+        </p>
+        <p>
+          Ingen manuell handpåläggning krävs för standardjobb — vilket sparar tid 
+          och eliminerar felkällor.
         </p>
 
         <h2>Lagerintegrering med SCM</h2>
         <p>
-          Reservdelsförbrukning i Field Service uppdaterar lagersaldon i Supply Chain Management i realtid. Inköpsorder genereras automatiskt vid påfyllnadsbehov baserat på konsumtion.
+          Reservdelsförbrukning i Field Service uppdaterar lagersaldon i Supply Chain Management 
+          i realtid. Inköpsorder genereras automatiskt vid påfyllnadsbehov baserat på konsumtion.
         </p>
 
         <h2>Garantihantering och kreditnotor</h2>
         <p>
-          Garantikrav hanteras som kreditnotor mot kund eller inköpskrav mot leverantör — med automatisk koppling till Financial-modulen för korrekt redovisning.
+          Garantikrav hanteras som kreditnotor mot kund eller inköpskrav mot leverantör 
+          — med automatisk koppling till Financial-modulen för korrekt redovisning.
         </p>
 
+        <h3>Viktiga funktioner</h3>
         <ul>
           <li>Projektbaserad fakturering för komplexa serviceuppdrag</li>
           <li>Intercompany-fakturering vid regionöverskridande service</li>
