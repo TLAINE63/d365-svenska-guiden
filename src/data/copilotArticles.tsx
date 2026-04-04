@@ -1,16 +1,15 @@
-import CopilotLogo from "@/assets/icons/Copilot.png";
 import type { DeepDiveArticle } from "./bcArticles";
 
-import copilotIntroImg from "@/assets/articles/copilot-intro.jpg";
-import copilotSalesImg from "@/assets/articles/copilot-sales.jpg";
-import copilotCsImg from "@/assets/articles/copilot-cs.jpg";
-import copilotFinanceImg from "@/assets/articles/copilot-finance.jpg";
-import copilotScmImg from "@/assets/articles/copilot-scm.jpg";
-import copilotFieldServiceImg from "@/assets/articles/copilot-field-service.jpg";
-import copilotCiImg from "@/assets/articles/copilot-ci.jpg";
-import copilotHrImg from "@/assets/articles/copilot-hr.jpg";
-import copilotPoImg from "@/assets/articles/copilot-po.jpg";
-import copilotAdoptionImg from "@/assets/articles/copilot-adoption.jpg";
+import copilot01 from "@/assets/articles/copilot-01-vad-ar.png";
+import copilot02 from "@/assets/articles/copilot-02-sales.png";
+import copilot03 from "@/assets/articles/copilot-03-cs.png";
+import copilot04 from "@/assets/articles/copilot-04-finance.png";
+import copilot05 from "@/assets/articles/copilot-05-scm.png";
+import copilot06 from "@/assets/articles/copilot-06-field-service.png";
+import copilot07 from "@/assets/articles/copilot-07-ci.png";
+import copilot08 from "@/assets/articles/copilot-08-hr.png";
+import copilot09 from "@/assets/articles/copilot-09-po.png";
+import copilot10 from "@/assets/articles/copilot-10-adoption.png";
 
 export const COPILOT_ARTICLES: DeepDiveArticle[] = [
   {
