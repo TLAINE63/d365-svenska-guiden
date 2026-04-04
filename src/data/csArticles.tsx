@@ -1,5 +1,14 @@
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import type { DeepDiveArticle } from "./bcArticles";
+import cs01 from "@/assets/articles/cs-01-omnikanal.png";
+import cs02 from "@/assets/articles/cs-02-ai-copilot.png";
+import cs03 from "@/assets/articles/cs-03-kunskapsbas.png";
+import cs04 from "@/assets/articles/cs-04-sla.png";
+import cs05 from "@/assets/articles/cs-05-sjalvservice.png";
+import cs06 from "@/assets/articles/cs-06-workforce.png";
+import cs07 from "@/assets/articles/cs-07-voc.png";
+import cs08 from "@/assets/articles/cs-08-analytics.png";
+import cs09 from "@/assets/articles/cs-09-iot.png";
+import cs10 from "@/assets/articles/cs-10-qa.png";
 
 export const CS_ARTICLES: DeepDiveArticle[] = [
   {
@@ -11,7 +20,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Omnikanal",
-    image: CustomerServiceIcon,
+    image: cs01,
     content: (
       <>
         <p>
@@ -67,7 +76,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Copilot & AI",
-    image: CustomerServiceIcon,
+    image: cs02,
     content: (
       <>
         <p>
@@ -124,7 +133,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Kunskapsbas",
-    image: CustomerServiceIcon,
+    image: cs03,
     content: (
       <>
         <p>
@@ -176,7 +185,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – SLA-styrning",
-    image: CustomerServiceIcon,
+    image: cs04,
     content: (
       <>
         <p>
@@ -232,7 +241,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Självservice & Chatbot",
-    image: CustomerServiceIcon,
+    image: cs05,
     content: (
       <>
         <p>
@@ -288,7 +297,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Workforce Management",
-    image: CustomerServiceIcon,
+    image: cs06,
     content: (
       <>
         <p>
@@ -345,7 +354,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Voice of Customer",
-    image: CustomerServiceIcon,
+    image: cs07,
     content: (
       <>
         <p>
@@ -398,7 +407,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Analytics & BI",
-    image: CustomerServiceIcon,
+    image: cs08,
     content: (
       <>
         <p>
@@ -450,7 +459,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – IoT & Proaktiv service",
-    image: CustomerServiceIcon,
+    image: cs09,
     content: (
       <>
         <p>
@@ -503,7 +512,7 @@ export const CS_ARTICLES: DeepDiveArticle[] = [
     parentPath: "/d365-customer-service/",
     parentLabel: "Dynamics 365 Customer Service",
     headerLabel: "CS – Kvalitet & Coaching",
-    image: CustomerServiceIcon,
+    image: cs10,
     content: (
       <>
         <p>
