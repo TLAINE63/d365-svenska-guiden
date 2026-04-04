@@ -1,6 +1,16 @@
 import { Link } from "react-router-dom";
-import MarketingIcon from "@/assets/icons/Marketing.svg";
 import type { DeepDiveArticle } from "./bcArticles";
+
+import ci01 from "@/assets/articles/ci-01-kundprofil.png";
+import ci02 from "@/assets/articles/ci-02-segmentering.png";
+import ci03 from "@/assets/articles/ci-03-churn.png";
+import ci04 from "@/assets/articles/ci-04-clv.png";
+import ci05 from "@/assets/articles/ci-05-personalisering.png";
+import ci06 from "@/assets/articles/ci-06-journeys.png";
+import ci07 from "@/assets/articles/ci-07-gdpr.png";
+import ci08 from "@/assets/articles/ci-08-roi.png";
+import ci09 from "@/assets/articles/ci-09-b2b.png";
+import ci10 from "@/assets/articles/ci-10-api.png";
 
 export const CI_ARTICLES: DeepDiveArticle[] = [
   {
