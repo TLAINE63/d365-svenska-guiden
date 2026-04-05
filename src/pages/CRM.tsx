@@ -302,8 +302,20 @@ const CRM = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur snabbt kan vi komma igång med Dynamics 365 CE?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Implementeringstiden varierar beroende på omfattning och komplexitet. För en standardimplementering av en enskild applikation (t.ex. Sales) kan ni vara igång på 2-3 månader. Större implementeringar med flera applikationer och omfattande anpassningar tar normalt 4-6 månader. Det börjar ofta med en noggrann kravanalys för att säkerställa att lösningen möter era verkliga behov.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>En av de vanligaste frågorna vi får handlar om tid – när kan vi vara igång? Svaret beror på flera faktorer, men det finns tydliga riktmärken att förhålla sig till. Nedan går vi igenom vad som påverkar tidsplanen och vad ni kan förvänta er i olika scenarion.</p>
+                  <p><strong>Enklare implementeringar – 2 till 3 månader</strong></p>
+                  <p>För företag som vill börja med en enskild applikation – till exempel Sales eller Customer Service – och där behoven är relativt väldefinierade, är en implementeringstid på 2 till 3 månader en realistisk målsättning.</p>
+                  <p>Det är tillräckligt med tid för att konfigurera systemet, anpassa det efter era processer, utbilda användarna och säkerställa en trygg driftsstart – utan att projektet drar ut på tiden i onödan.</p>
+                  <p><strong>Större och mer komplexa lösningar – 4 till 6 månader</strong></p>
+                  <p>När implementeringen omfattar flera applikationer, integrationer mot andra system eller mer omfattande anpassningar av processer och flöden, är en tidsplan på 4 till 6 månader mer realistisk.</p>
+                  <p>Det handlar inte om att projektet är långsamt – det handlar om att göra det rätt. Ju fler delar av verksamheten som berörs, desto viktigare är det att varje steg genomförs genomtänkt och med tillräcklig förankring hos de som ska använda systemet i vardagen.</p>
+                  <p><strong>Det börjar alltid med kravanalysen</strong></p>
+                  <p>Oavsett scope inleds implementeringen nästan alltid med en noggrann kravanalys. Det är ett avgörande steg som ofta underskattas, men som i praktiken lägger grunden för hela projektet.</p>
+                  <p>Under kravanalysen kartläggs era processer, behov och förväntningar i detalj. Vad ska systemet lösa? Vilka integrationer behövs? Hur arbetar olika team idag – och hur vill ni arbeta imorgon? Svaren på dessa frågor styr hur lösningen utformas och säkerställer att ni inte bygger något som ser bra ut på papper men fungerar dåligt i verkligheten.</p>
+                  <p><strong>En investering i tid som lönar sig</strong></p>
+                  <p>Det kan vara frestande att vilja skynda på ett implementeringsprojekt, men erfarenheten visar att de implementeringar som lyckas bäst är de där man tagit sig tid att göra rätt från början. En välplanerad och välgenomförd implementation ger ett system som faktiskt används – och som skapar värde från dag ett.</p>
+                  <p>Vill ni få en mer exakt bild av vad som gäller för just er situation? En erfaren Dynamics 365-partner kan snabbt hjälpa er att rama in ett realistiskt och anpassat tidsperspektiv utifrån era specifika förutsättningar.</p>
                 </AccordionContent>
               </AccordionItem>
 
