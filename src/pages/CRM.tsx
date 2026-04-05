@@ -241,8 +241,16 @@ const CRM = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Vad är Dynamics 365 Customer Engagement och vad ingår i det?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Dynamics 365 Customer Engagement är en samling intelligenta affärsapplikationer som hjälper företag att hantera sina kundrelationer. Det inkluderar lösningar för försäljning (Sales), kundservice (Customer Service), marknadsföring (Customer Insights), kontaktcenter (Contact Center), fältservice (Field Service) och projektstyrning (Project Operations). Alla applikationer integreras sömlöst och ger en helhetsbild av varje kund.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>Dynamics 365 Customer Engagement är en kraftfull samling intelligenta affärsapplikationer, noggrant utformade för att hjälpa moderna företag att bygga, vårda och stärka sina kundrelationer på ett effektivt och strukturerat sätt.</p>
+                  <p>Plattformen samlar flera specialiserade lösningar under ett och samma tak:</p>
+                  <p><strong>Sales</strong> ger säljteam de verktyg de behöver för att driva affärer framåt – från prospektering till avslut – med stöd av AI-drivna insikter och automatisering.</p>
+                  <p><strong>Customer Service</strong> möjliggör en snabb och personlig service som möter kundernas förväntningar, oavsett kanal eller tidpunkt.</p>
+                  <p><strong>Customer Insights</strong> (tidigare Marketing) hjälper marknadsföringsteam att skapa målinriktade kampanjer och djupare förstå sina kunders beteenden och behov.</p>
+                  <p><strong>Contact Center</strong> samlar alla kundinteraktioner på ett ställe och ger agenterna rätt information i rätt ögonblick, för en smidigare och mer enhetlig kundupplevelse.</p>
+                  <p><strong>Field Service</strong> säkerställer att servicetekniker ute i fält alltid har tillgång till rätt resurser, schema och kundinformation – vilket leder till snabbare lösningar och nöjdare kunder.</p>
+                  <p><strong>Project Operations</strong> kopplar samman projektledning, resurser och ekonomi för att ge företag full kontroll över sina leveranser och lönsamhet.</p>
+                  <p>Det som gör Dynamics 365 Customer Engagement verkligt kraftfullt är hur alla dessa applikationer integreras sömlöst med varandra. Resultatet är en sammanhängande helhetsbild av varje enskild kund – vilket ger medarbetare på alla nivåer möjligheten att fatta välgrundade beslut och skapa genuint värde i varje kundmöte.</p>
                 </AccordionContent>
               </AccordionItem>
 
