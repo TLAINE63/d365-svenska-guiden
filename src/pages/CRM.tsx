@@ -278,8 +278,23 @@ const CRM = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur mycket kostar Dynamics 365 Customer Engagement – och vad påverkar priset?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Kostnaden varierar beroende på vilka applikationer ni väljer och hur många användare ni har. Licenspriser börjar från ca 500 kr/användare/månad för Customer Service Professional och går upp till 1 500 kr/månad för Sales Premium. Till detta kommer implementeringskostnader (100-250 tkr för en applikation, upp till 800 tkr-2M kr för en komplett lösning) samt löpande support och anpassningar. En Dynamics 365 partner hjälper er att hitta rätt paket för era behov och budget.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>Det finns inget enkelt svar på vad Dynamics 365 CE kostar, eftersom priset formas av just era unika förutsättningar. Vilka applikationer behöver ni? Hur många användare ska ha tillgång? Och hur komplex är er verksamhet? Nedan går vi igenom de viktigaste kostnadskomponenterna.</p>
+                  <p><strong>Licenskostnad per användare</strong></p>
+                  <p>Licenserna prissätts per användare och månad, och varierar beroende på vilken applikation och vilken nivå ni väljer. Som en riktlinje kan nämnas att:</p>
+                  <p>Customer Service Professional börjar från cirka 500 kr/användare/månad – ett bra alternativ för team som vill komma igång med strukturerad kundservice.</p>
+                  <p>Sales Premium, med fulla AI-funktioner och avancerade säljverktyg, ligger på upp till 1 500 kr/användare/månad.</p>
+                  <p>Mellan dessa ytterligheter finns flera nivåer och kombinationer, vilket gör det möjligt att sätta ihop ett licenspaket som matchar både behov och budget.</p>
+                  <p><strong>Implementeringskostnader</strong></p>
+                  <p>Utöver licenserna tillkommer kostnader för att implementera och konfigurera systemet. Här spelar &quot;scope&quot; en avgörande roll:</p>
+                  <p>En enskild applikation – till exempel enbart Customer Service eller Sales – brukar kosta mellan 100 000 och 250 000 kr att implementera.</p>
+                  <p>En komplett lösning med flera integrerade applikationer, ERP-koppling och anpassade flöden kan ligga i intervallet 800 000 kr upp till 2 miljoner kronor.</p>
+                  <p>Det är viktigt att se implementeringskostnaden som en investering snarare än en utgift – en välgjord implementation lägger grunden för ett system som verkligen används och skapar värde.</p>
+                  <p><strong>Löpande kostnader</strong></p>
+                  <p>Efter att systemet är på plats tillkommer vanligtvis kostnader för support, förvaltning och löpande anpassningar. Verksamheter förändras, och ett CRM-system behöver utvecklas i takt med era processer och behov. Många väljer att teckna ett förvaltningsavtal med sin partner för att säkerställa kontinuerlig hjälp och vidareutveckling.</p>
+                  <p><strong>Hitta rätt paket med hjälp av en Dynamics 365-partner</strong></p>
+                  <p>Prisbilden kan kännas komplex, men det behöver den inte vara. En certifierad Dynamics 365-partner hjälper er att navigera bland licenser och lösningsalternativ – och viktigast av allt, att hitta den kombination som ger mest värde för just er verksamhet och er budget.</p>
+                  <p>Oavsett var ni befinner er i processen är ett förutsättningslöst samtal med en partner alltid ett bra första steg.</p>
                 </AccordionContent>
               </AccordionItem>
 
