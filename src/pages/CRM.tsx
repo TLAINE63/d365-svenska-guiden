@@ -323,8 +323,28 @@ const CRM = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur anpassningsbart är systemet för vår verksamhet?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Dynamics 365 CE är mycket flexibelt och kan anpassas till de flesta branscher och affärsprocesser. Via Power Platform kan ni bygga egna arbetsflöden, formulär och rapporter utan omfattande programmering. Systemet stödjer också branschspecifika lösningar för bland annat tillverkning, detaljhandel, hälsovård och professionella tjänster. Vi hjälper er att konfigurera systemet så att det passar era unika processer.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>En av de mest återkommande frågorna från företag som utvärderar ett nytt CRM-system handlar om flexibilitet – kan systemet verkligen anpassas efter hur vi arbetar, eller tvingas vi anpassa oss efter systemet? Med Dynamics 365 CE är svaret tydligt: systemet formar sig efter er verksamhet, inte tvärtom.</p>
+                  <p><strong>Flexibilitet som standard</strong></p>
+                  <p>Dynamics 365 CE är byggt från grunden för att vara anpassningsbart och branschoberoende. Oavsett om ni arbetar med långa och komplexa säljcykler, volymdriven kundservice eller projektbaserade leveranser – systemet kan konfigureras för att spegla just era processer, er terminologi och era flöden.</p>
+                  <p>Det handlar inte om att välja ett system och sedan leva med dess begränsningar. Det handlar om att ta ett kraftfullt fundament och forma det till något som känns skräddarsytt för er.</p>
+                  <p><strong>Power Platform – anpassning utan programmering</strong></p>
+                  <p>En av de mest kraftfulla komponenterna i ekosystemet är Microsoft Power Platform, som ger er möjlighet att:</p>
+                  <p>Bygga egna arbetsflöden och automatiseringar med Power Automate – utan att skriva en enda rad kod.</p>
+                  <p>Skapa skräddarsydda formulär och vyer som matchar hur era team faktiskt arbetar.</p>
+                  <p>Utveckla rapporter och dashboards i Power BI som ger er precis den insikt ni behöver, presenterad på det sätt som passar er bäst.</p>
+                  <p>Det innebär att ni inte är beroende av en utvecklare varje gång ni vill justera en process eller lägga till ett nytt fält. Mycket av anpassningen kan hanteras av er egna verksamhet – vilket ger snabbhet, kontroll och lägre kostnader över tid.</p>
+                  <p><strong>Branschspecifika lösningar</strong></p>
+                  <p>Dynamics 365 CE stödjer dessutom ett brett ekosystem av branschspecifika lösningar och tillägg, vilket innebär att ni inte behöver börja från noll oavsett vilken bransch ni verkar i. Det finns färdiga lösningar och ramverk anpassade för bland annat:</p>
+                  <p>Tillverkning – med stöd för servicehantering, garantiärenden och fältservice.</p>
+                  <p>Detaljhandel – med fokus på kundlojalitet, köphistorik och personalisering.</p>
+                  <p>Hälsovård – med lösningar för patientrelationer, compliance och ärendehantering.</p>
+                  <p>Professionella tjänster – med verktyg för projektuppföljning, resursplanering och kundengagemang.</p>
+                  <p>Oavsett bransch finns det med andra ord en solid grund att bygga vidare på – snarare än att börja från ett tomt blad.</p>
+                  <p><strong>Vi hjälper er hitta rätt konfiguration</strong></p>
+                  <p>Att ett system är flexibelt är en sak – att faktiskt nyttja den flexibiliteten på rätt sätt är en annan. En Dynamics 365-partner hjälper er att kartlägga era processer och behov, och sedan konfigurera systemet så att det passar er verksamhet från dag ett.</p>
+                  <p>Målet är alltid detsamma: ett system som känns naturligt att använda, som stödjer era medarbetare i deras vardag och som växer med er i takt med att verksamheten utvecklas.</p>
+                  <p>Vill ni se hur systemet skulle kunna se ut konfigurerat för just er bransch och era processer? Det är alltid ett bra ställe att börja samtalet.</p>
                 </AccordionContent>
               </AccordionItem>
 
