@@ -258,8 +258,19 @@ const CRM = () => {
                 <AccordionTrigger className="text-base sm:text-lg md:text-xl font-semibold text-card-foreground hover:no-underline py-4 sm:py-6">
                   ❓ Hur skiljer sig Dynamics 365 CE från andra CRM-system?
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-6">
-                  Dynamics 365 CE sticker ut genom sin djupa integration med Microsoft-ekosystemet (Office 365, Teams, Outlook), kraftfulla AI-funktioner via Copilot, flexibel anpassning utan omfattande programmering, samt möjligheten att kombinera CRM med ERP (Business Central eller Finance & Supply Chain) för en komplett affärslösning. Systemet är också byggt för att växa med din verksamhet – från små team till globala organisationer.
+                <AccordionContent className="text-muted-foreground pb-6 space-y-4">
+                  <p>Det finns många CRM-system på marknaden, men Dynamics 365 Customer Engagement har flera egenskaper som tillsammans gör det till ett unikt och framtidssäkrat val för företag som vill mer.</p>
+                  <p><strong>Ett hem i Microsoft-ekosystemet</strong></p>
+                  <p>En av de mest påtagliga fördelarna är den djupa och naturliga integrationen med Microsofts övriga produkter. Jobbar ditt team redan i Outlook, Teams eller Office 365? Då känns Dynamics 365 CE direkt bekant. E-post, möten, dokument och kunddata flödar sömlöst mellan systemen – utan krångliga kopplingar eller manuell hantering. Det handlar inte bara om teknisk integration, utan om att skapa ett sammanhängande arbetssätt som sparar tid och minskar friktionen i vardagen.</p>
+                  <p><strong>AI som faktiskt hjälper dig i jobbet</strong></p>
+                  <p>Dynamics 365 CE kommer med Microsoft Copilot inbyggt – en AI-assistent som inte bara automatiserar repetitiva uppgifter, utan aktivt hjälper användarna att arbeta smartare. Det kan handla om att sammanfatta ett kundärende, föreslå nästa steg i en säljprocess eller analysera trender i kunddata. Det är AI som känns praktisk och relevant, inte ett funktionslager som ingen använder.</p>
+                  <p><strong>Anpassa utan att koda</strong></p>
+                  <p>Många system kräver omfattande och kostsam utveckling för att passa just ditt företags processer. Dynamics 365 CE är byggt med flexibilitet i centrum – med lågkodslösningar och kraftfulla konfigurationsverktyg kan verksamheter anpassa flöden, formulär och automatiseringar utan att vara beroende av en utvecklare för varje liten förändring. Det ger organisationen större kontroll och snabbare anpassningsförmåga.</p>
+                  <p><strong>CRM och ERP – äntligen i ett</strong></p>
+                  <p>En annan stor skillnad är möjligheten att kombinera CRM med ERP i en och samma plattform. Genom att koppla ihop Dynamics 365 CE med exempelvis Business Central eller Finance &amp; Supply Chain Management får företaget en komplett affärslösning – från första kundkontakt till faktura och leverans. Det innebär att sälj, service, ekonomi och lager kan dela samma data och samma verklighet, vilket ger en helt ny nivå av transparens och effektivitet.</p>
+                  <p><strong>Byggt för att växa med dig</strong></p>
+                  <p>Oavsett om du är ett mindre team som precis kommit igång, eller en global organisation med komplexa behov, är Dynamics 365 CE designat för att skala. Du börjar där du är och bygger ut i den takt som passar din verksamhet – utan att behöva byta system när ni växer.</p>
+                  <p>Sammantaget är det just kombinationen av Microsoft-integration, inbyggd AI, flexibilitet, ERP-koppling och skalbarhet som gör Dynamics 365 CE till något mer än ett traditionellt CRM – det är en plattform för hela affären.</p>
                 </AccordionContent>
               </AccordionItem>
 
