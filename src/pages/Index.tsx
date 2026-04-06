@@ -390,6 +390,7 @@ const Index = () => {
             Vanliga frågor
           </h2>
           <div className="max-w-4xl mx-auto">
+            <Suspense fallback={<div className="space-y-3 sm:space-y-4" />}>
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
               {/* Fråga 1 */}
               <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
