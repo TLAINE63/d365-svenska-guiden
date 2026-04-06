@@ -451,6 +451,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               aiInterest: aiInterest || undefined,
               localPreference: selectedLocalPreference || undefined,
               platformNeeds: selectedPlatformNeeds.length > 0 ? selectedPlatformNeeds : undefined,
+              additionalApps: selectedAdditionalApps.length > 0 ? selectedAdditionalApps : undefined,
             },
           },
         });
@@ -544,6 +545,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       case 'app': return selectedApp !== "";
       case 'workload': return selectedWorkload !== "";
       case 'industry': return selectedIndustry !== "";
+      case 'additional': return true; // optional multi-select
       case 'size': return selectedSize !== "";
       case 'local': return selectedLocalPreference !== "";
       case 'platform': return true; // optional multi-select, always can proceed
@@ -662,7 +664,48 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           </div>
         )}
 
-        {/* Market step – temporarily removed */}
+        {/* Additional apps step (multi-select, optional) */}
+        {getContentStep(step) === 'additional' && !isResultStep && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">
+              {isErpApp
+                ? "Är någon av CRM-applikationerna också aktuella?"
+                : "Vilka övriga Dynamics 365-applikationer kan vara av intresse?"}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {isErpApp
+                ? "Välj de CRM-applikationer som kan vara relevanta utöver er ERP-satsning. Ni kan välja flera eller hoppa vidare."
+                : "Välj de applikationer som kan vara aktuella utöver er primära CRM-applikation. Ni kan välja flera eller hoppa vidare."}
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {(isErpApp ? crmAdditionalOptions : erpAdditionalOptions)
+                .filter(opt => opt.value !== selectedApp) // exclude already selected primary
+                .map(option => {
+                  const isSelected = selectedAdditionalApps.includes(option.value);
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      className={`flex flex-col items-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
+                        isSelected
+                          ? "border-primary bg-primary/10 shadow-md"
+                          : "border-border hover:border-primary/50 hover:shadow-sm"
+                      }`}
+                      onClick={() => {
+                        setSelectedAdditionalApps(prev =>
+                          isSelected ? prev.filter(v => v !== option.value) : [...prev, option.value]
+                        );
+                      }}
+                    >
+                      <img src={option.icon} alt={option.label} className="w-10 h-10 object-contain" />
+                      <span className="text-xs font-medium text-foreground text-center leading-tight">{option.label}</span>
+                      {isSelected && <CheckCircle className="w-4 h-4 text-primary" />}
+                    </button>
+                  );
+                })}
+            </div>
+          </div>
+        )}
 
         {/* Size step */}
         {getContentStep(step) === 'size' && (
