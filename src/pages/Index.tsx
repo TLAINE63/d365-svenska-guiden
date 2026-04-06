@@ -2,11 +2,10 @@ import { lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import HeroCarousel from "@/components/HeroCarousel";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -27,7 +26,6 @@ const UrgencyBadge = lazy(() => import("@/components/UrgencyBadge"));
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
-import BizAppsNetwork from "@/assets/biz-apps-network.png";
 
 const homeFaqs = [
   {
@@ -59,6 +57,23 @@ const homeFaqs = [
     answer: "Microsoft Copilot är inbyggt i alla Dynamics 365-appar utan extra licensavgift. I Business Central hjälper Copilot med produktbeskrivningar och bankavstämning. I Sales sammanfattar Copilot möten och skriver e-postutkast. I Customer Service föreslår Copilot svar och sammanfattar ärenden. I Finance & Supply Chain varnar Copilot för leveransrisker och avvikelser. Enligt Forresters TEI-studie (oktober 2024) kan Copilot ge 353% potentiell ROI över 3 år."
   },
 ];
+
+const quickQuestions = [
+  { label: "Vad kostar Business Central?", link: "/business-central/" },
+  { label: "Hur väljer man rätt partner?", link: "/valj-partner/" },
+  { label: "CRM vs ERP – Vad behöver vi?", link: "/behovsanalys/" },
+  { label: "Är vi redo för AI?", link: "/ai-readiness/" },
+];
+
+const whyD365Items = [
+  "Jämför partners utifrån bransch och behov",
+  "Realistisk bild av kostnad och tid",
+  "Undvik vanliga misstag i ERP & CRM",
+  "Kostnadsfria behovsanalyser",
+  "Opartisk guide – vi säljer inget system",
+  "Anpassat för svenska företag",
+];
+
 const Index = () => {
   return <div className="min-h-screen bg-background">
       <SEOHead 
@@ -89,27 +104,152 @@ const Index = () => {
       
       <main>
       
-      {/* Visually hidden H1 for crawlers that don't execute JS */}
-      <h1 className="sr-only">Dynamics 365 Sverige – Oberoende guide till ERP &amp; CRM från Microsoft</h1>
-
-      {/* Hero Carousel */}
-      <HeroCarousel />
-
-      {/* Partner Value Proposition */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6">
-              Hitta rätt Dynamics 365‑partner – snabbare, enklare och tryggare
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-4">
-              Att välja ERP- eller CRM‑system är stort. Men att välja rätt partner är ännu viktigare.
-              På d365.se hjälper vi dig att förstå dina behov, jämföra alternativ och hitta en partner som passar exakt för din verksamhet – baserat på bransch, storlek, systemkrav och budget.
-            </p>
-            <p className="text-base sm:text-lg font-semibold text-primary">
-              Oberoende. Kostnadsfritt. Kompetensdrivet.
-            </p>
+      {/* Hero Section */}
+      <section className="pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
+            Hitta rätt Dynamics 365‑lösning och partner
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">
+            Jämför affärssystem och CRM baserat på din verksamhet.
+            <br className="hidden sm:block" />
+            Opartiskt, konkret och anpassat för svenska företag.
+          </p>
+          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-base sm:text-lg h-12 sm:h-14 px-8 sm:px-10 rounded-xl shadow-lg mb-3">
+            <Link to="/behovsanalys/">Kom igång</Link>
+          </Button>
+          <div>
+            <Link to="/valj-partner/" className="inline-flex items-center gap-1 text-sm sm:text-base text-muted-foreground hover:text-foreground transition-colors mt-2">
+              Jag vill bara jämföra alternativ <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Vad vill du göra? */}
+      <section className="py-10 sm:py-14 md:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8 sm:mb-10">
+            Vad vill du göra?
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
+            <Link to="/behovsanalys/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
+              <div className="flex justify-center mb-3">
+                <div className="flex gap-1">
+                  <img src={BusinessCentralIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
+                  <img src={FinanceIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
+                </div>
+              </div>
+              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Införa nytt affärssystem</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Byta eller uppgradera ERP</p>
+            </Link>
+            <Link to="/salj-marknad-behovsanalys/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
+              <div className="flex justify-center mb-3">
+                <div className="flex gap-1">
+                  <img src={SalesIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
+                  <img src={MarketingIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
+                </div>
+              </div>
+              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Förbättra sälj och marknad</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Optimera sälj & CRM</p>
+            </Link>
+            <Link to="/kundservice-behovsanalys/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
+              <div className="flex justify-center mb-3">
+                <img src={CustomerServiceIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
+              </div>
+              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Utveckla kundservice</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Effektivisera support</p>
+            </Link>
+            <Link to="/kontakt/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
+              <div className="flex justify-center mb-3">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center text-2xl">🙋</div>
+              </div>
+              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Jag är osäker – Hjälp mig</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">Få vägledning</p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Därför använder företag d365.se */}
+      <section className="py-10 sm:py-14 md:py-16 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8 sm:mb-10">
+            Därför använder företag d365.se
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 max-w-3xl mx-auto">
+            {whyD365Items.map((item) => (
+              <div key={item} className="flex items-center gap-3">
+                <Check className="h-5 w-5 text-primary flex-shrink-0" />
+                <span className="text-sm sm:text-base text-foreground">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Vanliga frågor just nu */}
+      <section className="py-10 sm:py-14 md:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-6 sm:mb-8">
+            Vanliga frågor just nu
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+            {quickQuestions.map((q) => (
+              <Link
+                key={q.label}
+                to={q.link}
+                className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full border border-border bg-card text-sm sm:text-base text-foreground hover:shadow-[var(--shadow-hover)] hover:border-primary/40 transition-all"
+              >
+                {q.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Two CTA Cards */}
+      <section className="py-10 sm:py-14 md:py-16 bg-muted/30">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
+            <div className="bg-card rounded-xl p-6 sm:p-8 border border-border flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2">Hitta rätt partner</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Filtrera partners, branschanpassat och behovsbaserat för att hitta rätt Microsoft-partner
+                </p>
+              </div>
+              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground w-fit">
+                <Link to="/valj-partner/">Till partnerguiden</Link>
+              </Button>
+            </div>
+            <div className="bg-card rounded-xl p-6 sm:p-8 border border-border flex flex-col justify-between">
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2">AI i Dynamics 365</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Första stödfunktioner, standard och partnerutvecklade AI-exempel
+                </p>
+              </div>
+              <Button asChild variant="outline" className="w-fit">
+                <Link to="/ai-readiness/">Se AI readiness</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vill du ha hjälp att komma vidare? */}
+      <section className="py-12 sm:py-16 md:py-20 bg-background">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
+            Vill du ha hjälp att komma vidare?
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-xl mx-auto">
+            Börja med att beskriva din situation – så guidar vi dig rätt.
+          </p>
+          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-base sm:text-lg h-12 sm:h-14 px-8 sm:px-10 rounded-xl shadow-lg">
+            <Link to="/kontakt/">Kom igång</Link>
+          </Button>
         </div>
       </section>
 
