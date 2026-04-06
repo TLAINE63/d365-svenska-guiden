@@ -113,6 +113,27 @@ const applicationOptions = [
 // CRM apps that trigger the workload step
 const crmApps = ["Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service", "Contact Center"];
 
+// ERP apps
+const erpApps = ["Business Central", "Finance & SCM"];
+
+// Additional apps options depending on primary selection
+const crmAdditionalOptions = [
+  { value: "Sales", label: "Sales", icon: salesIcon },
+  { value: "Customer Insights (Marketing)", label: "Marketing", icon: marketingIcon },
+  { value: "Customer Service", label: "Customer Service", icon: csIcon },
+  { value: "Field Service", label: "Field Service", icon: fsIcon },
+  { value: "Contact Center", label: "Contact Center", icon: ccIcon },
+  { value: "Project Operations", label: "Project Operations", icon: poIcon },
+];
+
+const erpAdditionalOptions = [
+  { value: "Business Central", label: "Business Central", icon: bcIcon },
+  { value: "Finance & SCM", label: "Finance & SCM", icon: financeIcon },
+  { value: "Project Operations", label: "Project Operations", icon: poIcon },
+  { value: "Commerce", label: "Commerce", icon: commerceIcon },
+  { value: "Human Resources", label: "Human Resources", icon: hrIcon },
+];
+
 // Workload options per CRM application
 const workloadOptions: Record<string, { value: string; label: string; description: string }[]> = {
   "Sales": [
@@ -263,6 +284,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
   const [selectedLocalPreference, setSelectedLocalPreference] = useState<string>("");
   const [selectedPlatformNeeds, setSelectedPlatformNeeds] = useState<string[]>([]);
+  const [selectedAdditionalApps, setSelectedAdditionalApps] = useState<string[]>([]);
   const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
@@ -275,32 +297,35 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   };
 
   const isCrmApp = crmApps.includes(selectedApp);
-  // CRM apps get an extra workload step → total steps: app, [workload], industry, size, local, platform, ai
-  const totalSteps = isCrmApp ? 7 : 6;
+  const isErpApp = erpApps.includes(selectedApp);
+  // Steps: app, [workload], industry, additional, size, local, platform, ai
+  const totalSteps = isCrmApp ? 8 : 7;
 
   // Map logical step index to content
-  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'local' | 'platform' | 'ai' => {
+  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'additional' | 'size' | 'local' | 'platform' | 'ai' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
       if (s === 2) return 'workload';
       if (s === 3) return 'industry';
+      if (s === 4) return 'additional';
+      if (s === 5) return 'size';
+      if (s === 6) return 'local';
+      if (s === 7) return 'platform';
+      if (s === 8) return 'ai';
+    } else {
+      if (s === 2) return 'industry';
+      if (s === 3) return 'additional';
       if (s === 4) return 'size';
       if (s === 5) return 'local';
       if (s === 6) return 'platform';
       if (s === 7) return 'ai';
-    } else {
-      if (s === 2) return 'industry';
-      if (s === 3) return 'size';
-      if (s === 4) return 'local';
-      if (s === 5) return 'platform';
-      if (s === 6) return 'ai';
     }
     return 'ai';
   };
 
   // CRM apps where at least one result should be a CRM-only specialist (no ERP)
   const crmSpecialistApps = ["Customer Insights (Marketing)", "Customer Service", "Contact Center", "Sales", "Field Service"];
-  const erpApps = ["Business Central", "Finance & SCM"];
+  // erpApps already defined at module level
 
   const isCrmSpecialistApp = crmSpecialistApps.includes(selectedApp);
 
@@ -426,6 +451,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               aiInterest: aiInterest || undefined,
               localPreference: selectedLocalPreference || undefined,
               platformNeeds: selectedPlatformNeeds.length > 0 ? selectedPlatformNeeds : undefined,
+              additionalApps: selectedAdditionalApps.length > 0 ? selectedAdditionalApps : undefined,
             },
           },
         });
@@ -504,6 +530,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     setCustomCountries("");
     setSelectedSize("");
     setSelectedLocalPreference("");
+    setSelectedAdditionalApps([]);
+    setSelectedPlatformNeeds([]);
     setSelectedPlatformNeeds([]);
     setSelectedAiInterest("");
     setSuggestedPartners([]);
@@ -517,6 +545,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       case 'app': return selectedApp !== "";
       case 'workload': return selectedWorkload !== "";
       case 'industry': return selectedIndustry !== "";
+      case 'additional': return true; // optional multi-select
       case 'size': return selectedSize !== "";
       case 'local': return selectedLocalPreference !== "";
       case 'platform': return true; // optional multi-select, always can proceed
@@ -635,7 +664,48 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           </div>
         )}
 
-        {/* Market step – temporarily removed */}
+        {/* Additional apps step (multi-select, optional) */}
+        {getContentStep(step) === 'additional' && !isResultStep && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">
+              {isErpApp
+                ? "Är någon av CRM-applikationerna också aktuella?"
+                : "Vilka övriga Dynamics 365-applikationer kan vara av intresse?"}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {isErpApp
+                ? "Välj de CRM-applikationer som kan vara relevanta utöver er ERP-satsning. Ni kan välja flera eller hoppa vidare."
+                : "Välj de applikationer som kan vara aktuella utöver er primära CRM-applikation. Ni kan välja flera eller hoppa vidare."}
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {(isErpApp ? crmAdditionalOptions : erpAdditionalOptions)
+                .filter(opt => opt.value !== selectedApp) // exclude already selected primary
+                .map(option => {
+                  const isSelected = selectedAdditionalApps.includes(option.value);
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      className={`flex flex-col items-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
+                        isSelected
+                          ? "border-primary bg-primary/10 shadow-md"
+                          : "border-border hover:border-primary/50 hover:shadow-sm"
+                      }`}
+                      onClick={() => {
+                        setSelectedAdditionalApps(prev =>
+                          isSelected ? prev.filter(v => v !== option.value) : [...prev, option.value]
+                        );
+                      }}
+                    >
+                      <img src={option.icon} alt={option.label} className="w-10 h-10 object-contain" />
+                      <span className="text-xs font-medium text-foreground text-center leading-tight">{option.label}</span>
+                      {isSelected && <CheckCircle className="w-4 h-4 text-primary" />}
+                    </button>
+                  );
+                })}
+            </div>
+          </div>
+        )}
 
         {/* Size step */}
         {getContentStep(step) === 'size' && (
@@ -772,6 +842,12 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <span className="font-medium">{selectedApp}{selectedWorkloadLabel ? ` – ${selectedWorkloadLabel}` : ''}</span>
                 <span className="text-muted-foreground">Bransch:</span>
                 <span className="font-medium">{selectedIndustry || '–'}</span>
+                {selectedAdditionalApps.length > 0 && (
+                  <>
+                    <span className="text-muted-foreground">Övriga applikationer:</span>
+                    <span className="font-medium">{selectedAdditionalApps.join(', ')}</span>
+                  </>
+                )}
                 <span className="text-muted-foreground">Företagsstorlek:</span>
                 <span className="font-medium">{sizeOptions.find(o => o.value === selectedSize)?.label || '–'}</span>
                 <span className="text-muted-foreground">Lokal närvaro:</span>
