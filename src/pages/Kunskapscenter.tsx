@@ -604,45 +604,27 @@ const Kunskapscenter = () => {
                   return (
                     <div key={product} className="mb-12">
                       <div className="flex items-center gap-3 mb-6">
-                        <BookOpen className="w-5 h-5 text-primary" />
+                        <BookOpen className={`w-5 h-5 ${productColor(product).icon}`} />
                         <h2 className="text-xl font-bold text-foreground">{product}</h2>
                         <span className="text-sm text-muted-foreground">({articles.length} artiklar)</span>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                         {articles.map((article) => (
                           <Link
                             key={article.slug}
                             to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                            className="group block"
+                            className={`group block rounded-xl border overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ${productColor(product).border}`}
                           >
-                            <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                              <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-primary/10 to-secondary flex items-center justify-center">
-                                {article.image ? (
-                                  <img src={article.image} alt={article.title} className="w-full h-full object-contain p-4" />
-                                ) : (
-                                  <BookOpen className="w-12 h-12 text-primary/30" />
-                                )}
-                              </div>
-                              <CardContent className="p-5 flex flex-col gap-3">
-                                <Badge
-                                  variant="outline"
-                                  className="text-xs bg-emerald-600 text-white border-emerald-600 w-fit"
-                                >
-                                  Fördjupning – {article.product}
-                                </Badge>
-                                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-snug">
-                                  {article.title}
-                                </h3>
-                                <p className="text-sm text-muted-foreground line-clamp-2">
-                                  {article.description}
-                                </p>
-                                <div className="flex items-center justify-end mt-auto pt-2">
-                                  <span className="text-xs text-primary font-medium flex items-center gap-1">
-                                    Läs mer <ArrowRight className="w-3 h-3" />
-                                  </span>
-                                </div>
-                              </CardContent>
-                            </Card>
+                            <div className={`px-4 py-3 ${productColor(product).bg}`}>
+                              <p className={`text-sm font-semibold leading-snug ${productColor(product).text}`}>
+                                {article.headerLabel || article.title}
+                              </p>
+                            </div>
+                            <div className="px-4 py-3 bg-card">
+                              <p className="text-xs text-muted-foreground line-clamp-2">
+                                {article.description}
+                              </p>
+                            </div>
                           </Link>
                         ))}
                       </div>

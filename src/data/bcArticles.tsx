@@ -28,6 +28,7 @@ export interface DeepDiveArticle {
 export const BC_ARTICLES: DeepDiveArticle[] = [
   {
     slug: "introduktion",
+    headerLabel: "BC – Introduktion",
     title: "Vad är Microsoft Dynamics 365 Business Central?",
     description: "En introduktion till ett av Sveriges populäraste affärssystem för SMB.",
     product: "Business Central",
