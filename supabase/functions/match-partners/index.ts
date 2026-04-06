@@ -35,6 +35,7 @@ interface UserCriteria {
   aiInterest?: 'high' | 'medium' | 'none';
   localPreference?: 'very' | 'somewhat' | 'not';
   platformNeeds?: string[];
+  additionalApps?: string[];
 }
 
 interface PartnerMatch {
@@ -117,7 +118,7 @@ KUNDPROFIL:
 - Applikation: ${criteria.application}
 - Bransch: ${criteria.industry || 'Ej specificerat'}
 - Geografi: ${criteria.geography || 'Ej specificerat'}
-- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.localPreference && criteria.localPreference !== 'not' ? `\n- Lokal närvaro: ${criteria.localPreference === 'very' ? 'Mycket viktigt – kunden vill ha en partner med kontor nära sin verksamhet' : 'Ganska viktigt – lokal närvaro är en fördel men inte avgörande'}` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `\n- Önskad plattformskompetens: ${criteria.platformNeeds.join(', ')} – kunden vill att partnern har erfarenhet av dessa delar av Microsofts plattform` : ''}${criteria.aiInterest && criteria.aiInterest !== 'none' ? `\n- AI-intresse: ${criteria.aiInterest === 'high' ? 'Högt – kunden vill ha en partner med stark kompetens inom Microsoft Copilot, AI-agenter, Copilot Studio och/eller Azure AI Foundry' : 'Medelhögt – kunden är intresserad men det är inte avgörande'}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
+- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.additionalApps && criteria.additionalApps.length > 0 ? `\n- Övriga applikationer av intresse: ${criteria.additionalApps.join(', ')} – kunden vill gärna att partnern även har kompetens inom dessa Dynamics 365-applikationer` : ''}${criteria.localPreference && criteria.localPreference !== 'not' ? `\n- Lokal närvaro: ${criteria.localPreference === 'very' ? 'Mycket viktigt – kunden vill ha en partner med kontor nära sin verksamhet' : 'Ganska viktigt – lokal närvaro är en fördel men inte avgörande'}` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `\n- Önskad plattformskompetens: ${criteria.platformNeeds.join(', ')} – kunden vill att partnern har erfarenhet av dessa delar av Microsofts plattform` : ''}${criteria.aiInterest && criteria.aiInterest !== 'none' ? `\n- AI-intresse: ${criteria.aiInterest === 'high' ? 'Högt – kunden vill ha en partner med stark kompetens inom Microsoft Copilot, AI-agenter, Copilot Studio och/eller Azure AI Foundry' : 'Medelhögt – kunden är intresserad men det är inte avgörande'}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
 
 PARTNERS ATT UTVÄRDERA:
 ${partnerSummaries}
