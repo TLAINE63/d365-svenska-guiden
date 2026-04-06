@@ -224,8 +224,8 @@ const KomIgang = () => {
             criteria: {
               application: selectedApp || "Alla",
               industry: selectedIndustry,
-              situation: situationOptions.find(s => s.value === selectedSituation)?.label || "",
-              complexity: complexityOptions.find(c => c.value === selectedComplexity)?.label || "",
+              situation: selectedSituations.map(s => situationOptions.find(o => o.value === s)?.label).filter(Boolean).join(", ") || "",
+              complexity: selectedComplexities.map(c => complexityOptions.find(o => o.value === c)?.label).filter(Boolean).join(", ") || "",
             },
           },
         });
@@ -361,7 +361,7 @@ const KomIgang = () => {
                   "contact-center": { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
                   erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
                 };
-                const spec = specMap[selectedGoal];
+                const spec = selectedGoals.map(g => specMap[g]).find(Boolean);
                 if (!spec) return null;
                 return (
                   <div className="mt-8 rounded-xl border-2 border-primary/20 bg-primary/5 p-5 text-center">
