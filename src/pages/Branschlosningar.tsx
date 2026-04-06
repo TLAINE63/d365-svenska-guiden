@@ -478,7 +478,7 @@ const Branschlosningar = () => {
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
               <article className="relative rounded-3xl overflow-hidden shadow-2xl">
                 {/* Gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
                 
@@ -503,7 +503,7 @@ const Branschlosningar = () => {
                   {/* Filter context with glass effect */}
                   <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
