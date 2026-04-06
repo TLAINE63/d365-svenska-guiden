@@ -185,7 +185,7 @@ const CRM = () => {
                 </ContactFormDialog>
                 <Button 
                   size="lg"
-                  className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Hitta rätt partner
@@ -195,7 +195,7 @@ const CRM = () => {
                   asChild
                   size="lg"
                   variant="outline"
-                  className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
+                  className="bg-card text-foreground hover:bg-secondary hover:text-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                 >
                   <Link to="/kravspecifikation-sales/">
                     <FileText className="mr-2 h-5 w-5" />
@@ -449,7 +449,7 @@ const CRM = () => {
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
               <article className="relative rounded-3xl overflow-hidden shadow-2xl">
                 {/* Gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
                 
@@ -474,7 +474,7 @@ const CRM = () => {
                   {/* Filter context with glass effect */}
                   <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">

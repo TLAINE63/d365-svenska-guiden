@@ -321,8 +321,8 @@ const Branschlosningar = () => {
           {/* Step indicator - only show before solution is selected */}
           {!selectedIndustry && !selectedFilter && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-amber-500 text-white">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm border-cta-orange bg-cta-orange/10 text-cta-orange font-medium">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
                   1
                 </span>
                 <span>Börja med att välja Dynamics 365-lösning</span>
@@ -333,7 +333,7 @@ const Branschlosningar = () => {
           {/* Blinking arrow pointing to product selection */}
           {!selectedFilter && !selectedIndustry && (
             <div className="flex justify-center mb-2">
-              <ArrowDown className="h-6 w-6 text-amber-500 animate-bounce" />
+              <ArrowDown className="h-6 w-6 text-cta-orange animate-bounce" />
             </div>
           )}
           {/* Filter Buttons */}
@@ -396,8 +396,8 @@ const Branschlosningar = () => {
           {selectedFilter && !selectedIndustry && (
             <>
               <div className="flex justify-center mt-4">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium text-sm">
-                  <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-amber-500 text-white">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-cta-orange bg-cta-orange/10 text-cta-orange font-medium text-sm">
+                  <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
                     2
                   </span>
                   <span>Välj bransch nedan</span>
@@ -405,7 +405,7 @@ const Branschlosningar = () => {
               </div>
               {/* Arrow pointing to industry selection */}
               <div className="flex justify-center mt-2">
-                <ArrowDown className="h-6 w-6 text-amber-500 animate-bounce" />
+                <ArrowDown className="h-6 w-6 text-cta-orange animate-bounce" />
               </div>
             </>
           )}
@@ -478,7 +478,7 @@ const Branschlosningar = () => {
               {/* Premium Contact CTA Card - same design as PartnerProfile */}
               <article className="relative rounded-3xl overflow-hidden shadow-2xl">
                 {/* Gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
                 
@@ -503,7 +503,7 @@ const Branschlosningar = () => {
                   {/* Filter context with glass effect */}
                   <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -650,7 +650,7 @@ const Branschlosningar = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-lg">
-              <Info className="h-5 w-5 text-amber-500" />
+              <Info className="h-5 w-5 text-warning" />
               Ingen partner listad
             </DialogTitle>
             <DialogDescription className="text-base pt-2 leading-relaxed">

@@ -84,14 +84,14 @@ const slides: HeroSlide[] = [
     ctaType: "industries",
     ctaText: "Se alla branscher",
     ctaLink: "/branschlosningar",
-    buttonColor: "bg-amber-500 hover:bg-amber-600",
+    buttonColor: "bg-cta-orange hover:bg-cta-orange-hover",
   },
   {
     id: 2,
     backgroundImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=50&w=1280",
     title: (
       <>
-        Hitta rätt <span className="text-emerald-400">affärssystem</span>
+        Hitta rätt <span className="text-[hsl(var(--business-central))]">affärssystem</span>
       </>
     ),
     subtitle: "Starta här med en digital Affärssystem (ERP) - Behovsanalys",
@@ -124,14 +124,14 @@ const slides: HeroSlide[] = [
     backgroundImage: partnersHeroImg,
     title: (
       <>
-        Hitta rätt <span className="text-amber-400">partner</span>
+        Hitta rätt <span className="text-[hsl(var(--cta-orange))]">partner</span>
       </>
     ),
     subtitle: "Utforska vår partnerkatalog och hitta rätt partner för ditt Dynamics 365-projekt",
     ctaType: "link",
     ctaText: "Utforska partners här",
     ctaLink: "/valj-partner",
-    buttonColor: "bg-amber-500 hover:bg-amber-600",
+    buttonColor: "bg-cta-orange hover:bg-cta-orange-hover",
   },
 ];
 
@@ -251,30 +251,30 @@ const HeroCarousel = () => {
               {/* Offer bubbles for partner slide - centered above heading */}
               {slide.id === 4 && (
                 <div className="hidden md:flex justify-center gap-4 mb-4 animate-fade-in">
-                  <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]">
-                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #1</div>
-                    <div className="text-base font-bold text-emerald-600 mb-2 text-left">190 000 kr</div>
+                  <div className="bg-card rounded-xl shadow-xl p-3 border border-border min-w-[140px]">
+                    <div className="text-xs font-bold text-foreground mb-1 text-left">Offert #1</div>
+                    <div className="text-base font-bold text-success mb-2 text-left">190 000 kr</div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center text-white text-xs font-bold">X</div>
-                      <span className="text-xs text-gray-600 text-left">Partner X</span>
+                      <div className="w-5 h-5 bg-success rounded-full flex items-center justify-center text-success-foreground text-xs font-bold">X</div>
+                      <span className="text-xs text-muted-foreground text-left">Partner X</span>
                     </div>
                   </div>
 
-                  <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]" style={{ animationDelay: "0.2s" }}>
-                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #2</div>
-                    <div className="text-base font-bold text-blue-600 mb-2 text-left">475 000 kr</div>
+                  <div className="bg-card rounded-xl shadow-xl p-3 border border-border min-w-[140px]" style={{ animationDelay: "0.2s" }}>
+                    <div className="text-xs font-bold text-foreground mb-1 text-left">Offert #2</div>
+                    <div className="text-base font-bold text-crm mb-2 text-left">475 000 kr</div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Y</div>
-                      <span className="text-xs text-gray-600 text-left">Partner Y</span>
+                      <div className="w-5 h-5 bg-crm rounded-full flex items-center justify-center text-crm-foreground text-xs font-bold">Y</div>
+                      <span className="text-xs text-muted-foreground text-left">Partner Y</span>
                     </div>
                   </div>
 
-                  <div className="bg-white rounded-xl shadow-xl p-3 border border-gray-100 min-w-[140px]" style={{ animationDelay: "0.4s" }}>
-                    <div className="text-xs font-bold text-gray-800 mb-1 text-left">Offert #3</div>
-                    <div className="text-base font-bold text-amber-600 mb-2 text-left">450 000 kr</div>
+                  <div className="bg-card rounded-xl shadow-xl p-3 border border-border min-w-[140px]" style={{ animationDelay: "0.4s" }}>
+                    <div className="text-xs font-bold text-foreground mb-1 text-left">Offert #3</div>
+                    <div className="text-base font-bold text-cta-orange mb-2 text-left">450 000 kr</div>
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
-                      <span className="text-xs text-gray-600 text-left">Partner Z</span>
+                      <div className="w-5 h-5 bg-cta-orange rounded-full flex items-center justify-center text-white text-xs font-bold">Z</div>
+                      <span className="text-xs text-muted-foreground text-left">Partner Z</span>
                     </div>
                   </div>
                 </div>
@@ -357,10 +357,10 @@ const HeroCarousel = () => {
                     />
                     {/* Text overlay for folder images */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                      <span className="text-emerald-600 font-bold text-sm sm:text-lg md:text-xl drop-shadow-sm">
+                      <span className="text-primary font-bold text-sm sm:text-lg md:text-xl drop-shadow-sm">
                         {slide.id === 2 ? "ERP" : "CRM"}
                       </span>
-                      <span className="text-gray-800 font-semibold text-xs sm:text-sm md:text-base drop-shadow-sm">
+                      <span className="text-foreground font-semibold text-xs sm:text-sm md:text-base drop-shadow-sm">
                         Behovsanalys
                       </span>
                     </div>

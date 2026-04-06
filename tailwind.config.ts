@@ -113,6 +113,18 @@ export default {
           DEFAULT: "hsl(var(--human-resources))",
           foreground: "hsl(var(--human-resources-foreground))",
         },
+        "cta-orange": {
+          DEFAULT: "hsl(var(--cta-orange))",
+          hover: "hsl(var(--cta-orange-hover))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
