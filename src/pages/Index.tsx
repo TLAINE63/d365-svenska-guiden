@@ -183,11 +183,13 @@ const Index = () => {
                     <p>• <strong>Customer Insights (Marketing):</strong> Prissätts per antal kontakter/sessions (tenant-prissättning), inte per användare – startar från ca 15 000 kr/mån.</p>
                     <p>• <strong>Projektkostnad:</strong> Implementeringen är ofta den stora posten. Räkna med allt från 50 000–150 000 kr för ett BC-startpaket till flera miljoner för ett enterprise Finance & SCM-projekt.</p>
                     <p>• <strong>Vad påverkar priset:</strong> Antal användare, grad av anpassning, integrationer mot befintliga system, utbildningsbehov och löpande support.</p>
+                    <Suspense fallback={null}>
                     <ContactFormDialog>
                       <Button variant="link" className="mt-2 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
                         Kontakta oss så får du snabbt en tydligare uppfattning av såväl licensavgifter som projektkostnader →
                       </Button>
                     </ContactFormDialog>
+                    </Suspense>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -447,7 +449,7 @@ const Index = () => {
       </section>
 
       {/* Common Mistakes Teaser */}
-      <CommonMistakesTeaser />
+      <Suspense fallback={null}><CommonMistakesTeaser /></Suspense>
 
       {/* Microsoft Agents Section - NEW! */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 relative overflow-hidden">
@@ -605,9 +607,10 @@ const Index = () => {
 
       {/* Lead Magnet Banner */}
       <div className="flex justify-center mb-4">
+      <Suspense fallback={null}>
         <UrgencyBadge variant="consultation" />
-      </div>
-      <LeadMagnetBanner sourcePage="index" />
+      </Suspense>
+      <Suspense fallback={null}><LeadMagnetBanner sourcePage="index" /></Suspense>
 
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
@@ -626,7 +629,7 @@ const Index = () => {
       </main>
 
       {/* Scroll-triggered CTA */}
-      <ScrollCTA />
+      <Suspense fallback={null}><ScrollCTA /></Suspense>
 
       <Footer />
     </div>;
