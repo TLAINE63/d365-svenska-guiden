@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle } from "lucide-react";
+import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 
 // Product icons
@@ -344,6 +344,36 @@ const KomIgang = () => {
                   <Button onClick={handleBack}>Ändra dina val</Button>
                 </div>
               )}
+
+              {/* Requirements Spec CTA */}
+              {(() => {
+                const specMap: Record<string, { path: string; label: string }> = {
+                  sales: { path: "/kravspecifikation-sales/", label: "Skapa kravspec för Försäljning" },
+                  marketing: { path: "/kravspecifikation-marketing/", label: "Skapa kravspec för Marketing" },
+                  service: { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
+                  "contact-center": { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
+                  erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
+                };
+                const spec = specMap[selectedGoal];
+                if (!spec) return null;
+                return (
+                  <div className="mt-8 rounded-xl border-2 border-primary/20 bg-primary/5 p-5 text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <FileText className="h-5 w-5 text-primary" />
+                      <h3 className="text-base font-semibold text-foreground">Vill du skapa en kravspecifikation baserat på dina svar?</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Definiera dina krav och få ett strukturerat underlag att skicka till partners.
+                    </p>
+                    <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
+                      <Link to={spec.path}>
+                        <FileText className="h-4 w-4 mr-2" />
+                        {spec.label}
+                      </Link>
+                    </Button>
+                  </div>
+                );
+              })()}
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
                 <Button variant="outline" onClick={handleBack}>
