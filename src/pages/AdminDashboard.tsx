@@ -232,6 +232,10 @@ const AdminDashboard = () => {
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
   const [sendingWelcome, setSendingWelcome] = useState(false);
   
+  // Bulk sales pitch email state
+  const [selectedForSalesPitch, setSelectedForSalesPitch] = useState<Set<string>>(new Set());
+  const [sendingSalesPitch, setSendingSalesPitch] = useState(false);
+  
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
