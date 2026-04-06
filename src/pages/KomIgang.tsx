@@ -531,87 +531,132 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 3: Goal */}
+              {/* Step 3: Goal (multi-select) */}
               {step === 3 && (
-                <div className="space-y-2">
-                  {goalOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setSelectedGoal(opt.value);
-                        setTimeout(() => setStep(4), 250);
-                      }}
-                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedGoal === opt.value
-                          ? "border-primary bg-primary/5 text-foreground"
-                          : "border-border bg-card text-foreground hover:border-primary/30"
-                      }`}
+                <div>
+                  <div className="space-y-2">
+                    {goalOptions.map((opt) => {
+                      const isSelected = selectedGoals.includes(opt.value);
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedGoals(prev =>
+                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
+                            );
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                          }`}>
+                            {isSelected && <Check className="h-3 w-3" />}
+                          </div>
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <Button
+                      onClick={() => setStep(4)}
+                      disabled={selectedGoals.length === 0}
+                      className="px-8"
                     >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        selectedGoal === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                      }`}>
-                        {selectedGoal === opt.value && <Check className="h-3 w-3" />}
-                      </div>
-                      <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                    </button>
-                  ))}
+                      Nästa
+                    </Button>
+                  </div>
                 </div>
               )}
 
-              {/* Step 4: Situation */}
+              {/* Step 4: Situation (multi-select) */}
               {step === 4 && (
-                <div className="space-y-2">
-                  {situationOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setSelectedSituation(opt.value);
-                        setTimeout(() => setStep(5), 250);
-                      }}
-                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedSituation === opt.value
-                          ? "border-primary bg-primary/5 text-foreground"
-                          : "border-border bg-card text-foreground hover:border-primary/30"
-                      }`}
+                <div>
+                  <div className="space-y-2">
+                    {situationOptions.map((opt) => {
+                      const isSelected = selectedSituations.includes(opt.value);
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedSituations(prev =>
+                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
+                            );
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                          }`}>
+                            {isSelected && <Check className="h-3 w-3" />}
+                          </div>
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <Button
+                      onClick={() => setStep(5)}
+                      disabled={selectedSituations.length === 0}
+                      className="px-8"
                     >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        selectedSituation === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                      }`}>
-                        {selectedSituation === opt.value && <Check className="h-3 w-3" />}
-                      </div>
-                      <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                    </button>
-                  ))}
+                      Nästa
+                    </Button>
+                  </div>
                 </div>
               )}
 
-              {/* Step 5: Complexity */}
+              {/* Step 5: Verksamhet (multi-select, two columns) */}
               {step === 5 && (
-                <div className="space-y-2">
-                  {complexityOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setSelectedComplexity(opt.value);
-                        setTimeout(() => findPartners(), 250);
-                      }}
-                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedComplexity === opt.value
-                          ? "border-primary bg-primary/5 text-foreground"
-                          : "border-border bg-card text-foreground hover:border-primary/30"
-                      }`}
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {complexityOptions.map((opt) => {
+                      const isSelected = selectedComplexities.includes(opt.value);
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedComplexities(prev =>
+                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
+                            );
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                          }`}>
+                            {isSelected && <Check className="h-3 w-3" />}
+                          </div>
+                          <div className="min-w-0">
+                            <span className="text-sm font-medium leading-tight block">{opt.label}</span>
+                            <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <Button
+                      onClick={() => findPartners()}
+                      disabled={selectedComplexities.length === 0}
+                      className="px-8"
                     >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        selectedComplexity === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                      }`}>
-                        {selectedComplexity === opt.value && <Check className="h-3 w-3" />}
-                      </div>
-                      <div>
-                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                        <p className="text-xs text-muted-foreground">{opt.desc}</p>
-                      </div>
-                    </button>
-                  ))}
+                      Visa partners
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
