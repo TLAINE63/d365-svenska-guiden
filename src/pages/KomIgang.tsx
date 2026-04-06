@@ -348,11 +348,11 @@ const KomIgang = () => {
         </section>
 
         {/* Wizard */}
-        <section className="flex-1 py-8 sm:py-12">
+        <section className="flex-1 py-4 sm:py-6">
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-3xl mx-auto">
               {/* Step indicator */}
-              <div className="flex items-center justify-center gap-2 mb-8">
+              <div className="flex items-center justify-center gap-2 mb-4">
                 <span className="text-sm font-semibold text-foreground">Steg {step}</span>
                 <span className="text-sm text-muted-foreground">av {TOTAL_STEPS}</span>
                 <div className="flex gap-1.5 ml-3">
@@ -368,11 +368,11 @@ const KomIgang = () => {
               </div>
 
               {/* Step heading */}
-              <div className="text-center mb-6">
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+              <div className="text-center mb-3">
+                <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
                   {stepLabels[step - 1]}
                 </h2>
-                <p className="text-sm text-muted-foreground">{stepSubtexts[step - 1]}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">{stepSubtexts[step - 1]}</p>
               </div>
 
               {/* Step 1: Industry */}
