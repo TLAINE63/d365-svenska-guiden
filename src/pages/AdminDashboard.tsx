@@ -228,12 +228,9 @@ const AdminDashboard = () => {
   const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
   const [everInvitedPartnerIds, setEverInvitedPartnerIds] = useState<Set<string>>(new Set());
   
-  // Bulk welcome email state
+  // Bulk email state (shared selection for welcome + sales pitch)
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
   const [sendingWelcome, setSendingWelcome] = useState(false);
-  
-  // Bulk sales pitch email state
-  const [selectedForSalesPitch, setSelectedForSalesPitch] = useState<Set<string>>(new Set());
   const [sendingSalesPitch, setSendingSalesPitch] = useState(false);
   
   // Section refs for navigation
