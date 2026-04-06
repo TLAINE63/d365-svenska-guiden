@@ -395,7 +395,10 @@ const KomIgang = () => {
                       return (
                         <button
                           key={ind}
-                          onClick={() => setSelectedIndustry(ind)}
+                          onClick={() => {
+                            setSelectedIndustry(ind);
+                            setTimeout(() => setStep(2), 250);
+                          }}
                           className={`relative group rounded-lg overflow-hidden border-2 transition-all aspect-[5/4] ${
                             isSelected
                               ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
