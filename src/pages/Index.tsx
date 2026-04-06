@@ -501,20 +501,6 @@ const Index = () => {
       </div>
       <Suspense fallback={null}><LeadMagnetBanner sourcePage="index" /></Suspense>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            Redo att komma igång?
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-primary-foreground/90">
-            Boka en gratis konsultation så hjälper vi dig hitta rätt lösning för din verksamhet
-          </p>
-          <Button asChild size="lg" variant="secondary" className="text-sm sm:text-base md:text-lg bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(190,85%,50%)] hover:shadow-[var(--shadow-accent)] text-white border-0">
-            <Link to="/kontakt/">Kontakta oss idag!</Link>
-          </Button>
-        </div>
-      </section>
       </main>
 
       {/* Scroll-triggered CTA */}
