@@ -144,148 +144,205 @@ const Index = () => {
       <main>
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 overflow-hidden">
-        {/* Subtle skyline background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-muted/60 to-transparent opacity-60" />
-        
-        <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-5 leading-tight">
-            Ska du välja Dynamics 365? Börja här.
+      <section className="py-16 sm:py-20 md:py-24">
+        <div className="container mx-auto px-4 sm:px-6 text-center max-w-4xl">
+          <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full mb-6">
+            <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+            Sveriges oberoende guide till Microsoft Dynamics 365
+          </span>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-semibold text-foreground leading-tight mb-4 tracking-tight">
+            Hitta rätt Dynamics 365-lösning<br className="hidden sm:block" />och partner — gratis och opartiskt
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
-            Förstå skillnaderna, undvik vanliga misstag och hitta rätt partner – baserat på din verksamhet.
+          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+            Jämför affärssystem och CRM baserat på din verksamhet. Vi hjälper svenska företag välja rätt system och rätt Microsoft-certifierad partner.
           </p>
-          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base sm:text-lg h-12 sm:h-14 px-10 sm:px-12 rounded-lg shadow-lg">
-            <Link to="/kom-igang/">Kom igång</Link>
-          </Button>
-          <p className="text-sm text-muted-foreground mt-3">
-            Tar ca 1 minut · inga förkunskaper krävs
-          </p>
+          <div className="flex flex-wrap gap-3 justify-center mb-4">
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm sm:text-base h-11 px-6 rounded-lg">
+              <Link to="/kom-igang/">Kom igång – kostnadsfri guide →</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="text-sm sm:text-base h-11 px-6 rounded-lg">
+              <Link to="/valj-partner/">Jämför partners</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* Känner du igen dig? */}
-      <section className="py-10 sm:py-14 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
-            Känner du igen dig?
-          </h2>
-          <div className="max-w-2xl mx-auto space-y-4">
-            {recognizeItems.map((item) => (
-              <div key={item} className="flex items-start gap-3 pb-4 border-b border-border last:border-b-0">
-                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-sm sm:text-base text-foreground">{item}</span>
+      {/* Selector – Vad vill du göra? */}
+      <section className="py-10 sm:py-12 bg-muted/50 border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vill du göra?</h2>
+          <p className="text-sm text-muted-foreground mb-6">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {selectorCards.map((card) => (
+              <Link
+                key={card.title}
+                to={card.link}
+                className="bg-card border border-border rounded-lg p-5 flex flex-col gap-2.5 hover:border-primary/40 transition-colors group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  {card.icon}
+                </div>
+                <div className="text-sm font-semibold text-foreground">{card.title}</div>
+                <div className="text-xs text-muted-foreground leading-relaxed flex-1">{card.desc}</div>
+                <div className="text-xs font-medium text-primary">{card.linkText}</div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Analysis CTA Banner */}
+      <section className="py-8 sm:py-10 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div>
+              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">Vet du inte vilket system du behöver?</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground max-w-lg leading-relaxed">
+                Vår kostnadsfria guide tar 1 minut. Du får en personlig rekommendation och vilken typ av partner som passar din verksamhet bäst.
+              </p>
+              <div className="flex flex-wrap gap-2 mt-3">
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">Gratis</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">Ingen registrering</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">1 minut</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">Opartisk rekommendation</span>
+              </div>
+            </div>
+            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 px-5 rounded-lg whitespace-nowrap flex-shrink-0">
+              <Link to="/kom-igang/">Kom igång →</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Proof – stats */}
+      <section className="py-10 sm:py-12 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-6">Därför använder företag d365.se</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {proofStats.map((stat) => (
+              <div key={stat.num} className="bg-muted/50 border border-border rounded-lg p-5">
+                <div className="text-2xl sm:text-3xl font-semibold text-primary tracking-tight mb-1">{stat.num}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground leading-snug">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Så guidar vi dig genom 3 steg */}
-      <section className="py-10 sm:py-14 md:py-16 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
-            Så guidar vi dig genom 3 steg
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-8">
-            {/* Step 1 */}
-            <div className="text-center">
-              <div className="flex justify-center mb-4">
-                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">1</div>
-              </div>
-              <h3 className="font-bold text-base sm:text-lg text-foreground mb-3">Beskriv din verksamhet</h3>
-              <div className="bg-card rounded-lg p-4 border border-border">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <FileText className="h-5 w-5 text-primary flex-shrink-0" />
-                  <span>Beskriv din verksamhet</span>
-                </div>
-              </div>
+      {/* Why + Popular Questions – two columns */}
+      <section className="py-10 sm:py-12 bg-muted/50 border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
+            {/* Left – what we help with */}
+            <div>
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
+              <p className="text-sm text-muted-foreground mb-4">Realistisk och konkret vägledning — anpassad för svenska företag.</p>
+              <ul className="space-y-2.5">
+                {whyItems.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <span className="w-5 h-5 rounded-full bg-primary/10 text-primary text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
-            {/* Step 2 */}
-            <div className="text-center">
-              <div className="flex justify-center mb-4">
-                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">2</div>
-              </div>
-              <h3 className="font-bold text-base sm:text-lg text-foreground mb-3">Förstå vilka lösningar som passar</h3>
-              <div className="bg-card rounded-lg p-4 border border-border">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckSquare className="h-5 w-5 text-primary flex-shrink-0" />
-                  <span>Få en snabb bild av vad som passar er</span>
-                </div>
-              </div>
-            </div>
-            {/* Step 3 */}
-            <div className="text-center">
-              <div className="flex justify-center mb-4">
-                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">3</div>
-              </div>
-              <h3 className="font-bold text-base sm:text-lg text-foreground mb-3">Vi föreslår passande partners</h3>
-              <div className="bg-card rounded-lg p-4 border border-border">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Users className="h-5 w-5 text-primary flex-shrink-0" />
-                  <span>Se vilka partners som matchar era behov</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="text-center">
-            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg">
-              <Link to="/kom-igang/">
-                Kom igång <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Därför använder företag d365.se – branschsök */}
-      <section className="py-10 sm:py-14 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
-            Därför använder företag d365.se
-          </h2>
-          
-          {/* Industry chips */}
-          <div className="max-w-3xl mx-auto mb-8">
-            <div className="bg-card border border-border rounded-xl p-5">
-              <div className="flex items-center gap-2 text-muted-foreground mb-4 border-b border-border pb-3">
-                <span className="text-sm">🔍</span>
-                <span className="text-sm">Skriv din bransch...</span>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-3">
-                {industryChips.map((chip) => (
+            {/* Right – popular questions */}
+            <div>
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vanliga frågor just nu</h2>
+              <p className="text-sm text-muted-foreground mb-4">De frågor svenska företag ställer oss mest.</p>
+              <div className="flex flex-col gap-2">
+                {popularQuestions.map((q) => (
                   <Link
-                    key={chip.label}
-                    to="/branschlosningar/"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-background text-sm text-foreground hover:border-primary/40 hover:shadow-sm transition-all"
+                    key={q.text}
+                    to={q.link}
+                    className="block bg-card border border-border rounded-lg px-4 py-3 text-sm font-medium text-foreground hover:border-primary/40 transition-colors"
                   >
-                    <span>{chip.emoji}</span>
-                    <span>{chip.label}</span>
+                    {q.text} →
                   </Link>
                 ))}
               </div>
-              <Link to="/branschlosningar/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Se alla branscher <ArrowRight className="h-3 w-3" />
-              </Link>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Why checklist */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 max-w-3xl mx-auto">
-            {whyItems.map((item) => (
-              <div key={item} className="flex items-center gap-3">
-                <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                <span className="text-sm sm:text-base text-foreground">{item}</span>
-              </div>
+      {/* Industry pills */}
+      <section className="py-10 sm:py-12 bg-background border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <div className="flex items-baseline justify-between mb-5">
+            <h2 className="text-lg sm:text-xl font-semibold text-foreground">Välj din bransch</h2>
+            <Link to="/branschlosningar/" className="text-sm font-medium text-primary hover:underline">Se alla branscher →</Link>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {industryPills.map((pill) => (
+              <Link
+                key={pill}
+                to="/branschlosningar/"
+                className="px-4 py-2 rounded-full border border-border text-sm text-muted-foreground bg-card hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all"
+              >
+                {pill}
+              </Link>
             ))}
           </div>
-          
-          <div className="text-center mt-8">
-            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg">
-              <Link to="/kom-igang/">Kom igång</Link>
-            </Button>
+        </div>
+      </section>
+
+      {/* Compare section */}
+      <section className="py-10 sm:py-12 bg-muted/50 border-t border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Dynamics 365 vs alternativa system</h2>
+          <p className="text-sm text-muted-foreground mb-6">Hur står sig Dynamics 365 mot de vanligaste alternativen på den svenska marknaden?</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {/* ERP compare */}
+            <div className="bg-card border border-border rounded-lg p-5">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <div className="text-sm font-semibold text-foreground">Business Central (ERP)</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">vs Fortnox, Visma, Monitor — och SAP</div>
+                </div>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 765 kr/mån</span>
+              </div>
+              <div className="h-px bg-border my-3" />
+              <ul className="space-y-1.5">
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Bättre skalbarhet än Fortnox för växande bolag</li>
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Djupare Microsoft 365-integration (Teams, Excel, Outlook)</li>
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Inbyggd AI via Microsoft Copilot utan extra kostnad</li>
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre TCO än SAP för medelstora nordiska bolag</li>
+              </ul>
+              <Link to="/erp/" className="inline-block mt-3 text-xs font-medium text-primary hover:underline">Jämför ERP-alternativ →</Link>
+            </div>
+            {/* CRM compare */}
+            <div className="bg-card border border-border rounded-lg p-5">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <div className="text-sm font-semibold text-foreground">D365 Sales & Customer Service</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">vs Salesforce, HubSpot</div>
+                </div>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 478 kr/mån</span>
+              </div>
+              <div className="h-px bg-border my-3" />
+              <ul className="space-y-1.5">
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Samma ekosystem som Office 365 och Teams</li>
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Copilot AI inbyggt i hela säljprocessen</li>
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Kombinera CRM och kundservice i ett system</li>
+                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre totalkostnad med befintlig Microsoft-infrastruktur</li>
+              </ul>
+              <Link to="/crm/" className="inline-block mt-3 text-xs font-medium text-primary hover:underline">Jämför CRM-alternativ →</Link>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Footer CTA band */}
+      <section className="py-10 sm:py-12 bg-gradient-to-r from-primary to-accent">
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-5">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-semibold text-primary-foreground mb-1">Redo att komma igång?</h2>
+            <p className="text-sm text-primary-foreground/70 max-w-md">Börja med att beskriva din situation — så guidar vi dig rätt. Kostnadsfritt och utan förpliktelser.</p>
+          </div>
+          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 text-sm font-semibold h-11 px-6 rounded-lg whitespace-nowrap flex-shrink-0">
+            <Link to="/kom-igang/">Kom igång →</Link>
+          </Button>
         </div>
       </section>
 
