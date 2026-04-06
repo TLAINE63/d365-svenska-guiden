@@ -775,6 +775,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <span className="font-medium">{sizeOptions.find(o => o.value === selectedSize)?.label || '–'}</span>
                 <span className="text-muted-foreground">Lokal närvaro:</span>
                 <span className="font-medium">{localPresenceOptions.find(o => o.value === selectedLocalPreference)?.label || '–'}</span>
+                <span className="text-muted-foreground">Plattformsbehov:</span>
+                <span className="font-medium">{selectedPlatformNeeds.length > 0 ? selectedPlatformNeeds.join(', ') : 'Inga valda'}</span>
                 <span className="text-muted-foreground">AI-fokus:</span>
                 <span className="font-medium">{aiInterestOptions.find(o => o.value === selectedAiInterest)?.label || '–'}</span>
               </div>
