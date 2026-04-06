@@ -245,9 +245,16 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
+  const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
+
+  // Auto-advance helper: set value and go to next step after a short delay
+  const autoAdvance = (setter: (v: string) => void, value: string) => {
+    setter(value);
+    setTimeout(() => setStep(prev => prev + 1), 250);
+  };
 
   const isCrmApp = crmApps.includes(selectedApp);
   // CRM apps get an extra workload step → 6 steps total, others 5
