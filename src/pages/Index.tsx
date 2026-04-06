@@ -5,8 +5,9 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { Monitor, Users, Phone, HelpCircle } from "lucide-react";
+import { Monitor, Users, Phone, HelpCircle, ArrowRight, Sparkles, Shield, BarChart3 } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroHomeBg from "@/assets/hero-home-bg.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -137,24 +138,28 @@ const Index = () => {
       
       <main>
       
-      {/* Hero Section */}
-      <section className="py-10 sm:py-12 md:py-16">
-        <div className="container mx-auto px-4 sm:px-6 text-center max-w-4xl">
-          <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full mb-6">
-            <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+      {/* Hero Section – dark with background image */}
+      <section className="relative py-14 sm:py-16 md:py-20 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src={heroHomeBg} alt="" className="w-full h-full object-cover" width={1920} height={800} />
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200,60%,8%)] via-[hsl(200,60%,8%)]/80 to-[hsl(200,60%,8%)]/95" />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 text-center max-w-4xl relative z-10">
+          <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/90 text-xs font-medium px-4 py-1.5 rounded-full mb-6 border border-white/10">
+            <Sparkles className="w-3.5 h-3.5 text-primary-foreground" />
             Sveriges oberoende guide till Microsoft Dynamics 365
           </span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] font-semibold text-foreground leading-tight mb-4 tracking-tight">
-            Hitta rätt Dynamics 365-lösning<br className="hidden sm:block" />och partner — gratis och opartiskt
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold text-primary-foreground leading-tight mb-4 tracking-tight">
+            Hitta rätt Dynamics 365-lösning<br className="hidden sm:block" />och partner — <span className="text-[hsl(180,85%,60%)]">gratis och opartiskt</span>
           </h1>
-          <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
             Jämför affärssystem och CRM baserat på din verksamhet. Vi hjälper svenska företag välja rätt system och rätt Microsoft-certifierad partner.
           </p>
-          <div className="flex flex-wrap gap-3 justify-center mb-4">
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm sm:text-base h-11 px-6 rounded-lg">
-              <Link to="/kom-igang/">Kom igång – kostnadsfri guide →</Link>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground text-sm sm:text-base h-12 px-7 rounded-lg shadow-lg shadow-[hsl(var(--cta-orange))]/25 transition-all hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5">
+              <Link to="/kom-igang/">Kom igång – kostnadsfri guide <ArrowRight className="w-4 h-4 ml-1" /></Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-sm sm:text-base h-11 px-6 rounded-lg">
+            <Button asChild variant="outline" size="lg" className="text-sm sm:text-base h-12 px-7 rounded-lg border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
               <Link to="/valj-partner/">Jämför partners</Link>
             </Button>
           </div>
@@ -162,7 +167,7 @@ const Index = () => {
       </section>
 
       {/* Selector – Vad vill du göra? */}
-      <section className="py-6 sm:py-8 bg-muted/50 border-t border-border">
+      <section className="py-8 sm:py-10 bg-background relative">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vill du göra?</h2>
           <p className="text-sm text-muted-foreground mb-6">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
@@ -171,14 +176,16 @@ const Index = () => {
               <Link
                 key={card.title}
                 to={card.link}
-                className="bg-card border border-border rounded-lg p-5 flex flex-col gap-2.5 hover:border-primary/40 transition-colors group"
+                className="group bg-card border border-border rounded-xl p-5 flex flex-col gap-2.5 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-0.5"
               >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center group-hover:from-primary/25 group-hover:to-accent/20 transition-all">
                   {card.icon}
                 </div>
                 <div className="text-sm font-semibold text-foreground">{card.title}</div>
                 <div className="text-xs text-muted-foreground leading-relaxed flex-1">{card.desc}</div>
-                <div className="text-xs font-medium text-primary">{card.linkText}</div>
+                <div className="text-xs font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
+                  {card.linkText} 
+                </div>
               </Link>
             ))}
           </div>
@@ -186,10 +193,11 @@ const Index = () => {
       </section>
 
       {/* Analysis CTA Banner */}
-      <section className="py-5 sm:py-6 bg-background border-t border-border">
+      <section className="py-5 sm:py-6 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-          <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-            <div>
+          <div className="relative overflow-hidden bg-gradient-to-r from-primary/8 via-accent/5 to-primary/8 border border-primary/15 rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="relative z-10">
               <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">Vet du inte vilket system du behöver?</h3>
               <p className="text-xs sm:text-sm text-muted-foreground max-w-lg leading-relaxed">
                 Vår kostnadsfria guide tar 1 minut. Du får en personlig rekommendation och vilken typ av partner som passar din verksamhet bäst.
@@ -201,32 +209,29 @@ const Index = () => {
                 <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">Opartisk rekommendation</span>
               </div>
             </div>
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 px-5 rounded-lg whitespace-nowrap flex-shrink-0">
+            <Button asChild className="relative z-10 bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 px-5 rounded-lg whitespace-nowrap flex-shrink-0 shadow-md shadow-primary/15 hover:shadow-lg transition-all">
               <Link to="/kom-igang/">Kom igång →</Link>
             </Button>
           </div>
         </div>
       </section>
 
-
       {/* Why + Popular Questions – two columns */}
-      <section className="py-6 sm:py-8 bg-muted/50 border-t border-border">
+      <section className="py-6 sm:py-8 bg-background">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
-            {/* Left – what we help with */}
             <div>
               <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
               <p className="text-sm text-muted-foreground mb-4">Realistisk och konkret vägledning — anpassad för svenska företag.</p>
               <ul className="space-y-2.5">
                 {whyItems.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                    <span className="w-5 h-5 rounded-full bg-primary/10 text-primary text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
+                    <span className="w-5 h-5 rounded-full bg-gradient-to-br from-primary/20 to-accent/10 text-primary text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            {/* Right – popular questions */}
             <div>
               <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vanliga frågor just nu</h2>
               <p className="text-sm text-muted-foreground mb-4">De frågor svenska företag ställer oss mest.</p>
@@ -235,9 +240,10 @@ const Index = () => {
                   <Link
                     key={q.text}
                     to={q.link}
-                    className="block bg-card border border-border rounded-lg px-4 py-3 text-sm font-medium text-foreground hover:border-primary/40 transition-colors"
+                    className="group block bg-card border border-border rounded-lg px-4 py-3 text-sm font-medium text-foreground hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all"
                   >
-                    {q.text} →
+                    <span className="group-hover:text-primary transition-colors">{q.text}</span>
+                    <span className="text-muted-foreground group-hover:text-primary ml-1 transition-colors">→</span>
                   </Link>
                 ))}
               </div>
@@ -247,7 +253,7 @@ const Index = () => {
       </section>
 
       {/* Industry pills */}
-      <section className="py-6 sm:py-8 bg-background border-t border-border">
+      <section className="py-6 sm:py-8 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <div className="flex items-baseline justify-between mb-5">
             <h2 className="text-lg sm:text-xl font-semibold text-foreground">Välj din bransch</h2>
@@ -258,7 +264,7 @@ const Index = () => {
               <Link
                 key={pill}
                 to="/branschlosningar/"
-                className="px-4 py-2 rounded-full border border-border text-sm text-muted-foreground bg-card hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all"
+                className="px-4 py-2 rounded-full border border-border text-sm text-muted-foreground bg-card hover:border-primary/40 hover:text-primary hover:bg-primary/5 hover:shadow-sm transition-all duration-200"
               >
                 {pill}
               </Link>
@@ -268,60 +274,68 @@ const Index = () => {
       </section>
 
       {/* Compare section */}
-      <section className="py-6 sm:py-8 bg-muted/50 border-t border-border">
+      <section className="py-6 sm:py-8 bg-background">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Dynamics 365 vs alternativa system</h2>
           <p className="text-sm text-muted-foreground mb-6">Hur står sig Dynamics 365 mot de vanligaste alternativen på den svenska marknaden?</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* ERP compare */}
-            <div className="bg-card border border-border rounded-lg p-5">
+            <div className="group bg-card border border-border rounded-xl p-5 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <div className="text-sm font-semibold text-foreground">Business Central (ERP)</div>
+                  <div className="text-sm font-semibold text-foreground flex items-center gap-2">
+                    <BarChart3 className="w-4 h-4 text-primary" />
+                    Business Central (ERP)
+                  </div>
                   <div className="text-xs text-muted-foreground mt-0.5">vs Fortnox, Visma, Monitor — och SAP</div>
                 </div>
                 <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 765 kr/mån</span>
               </div>
-              <div className="h-px bg-border my-3" />
+              <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-3" />
               <ul className="space-y-1.5">
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Bättre skalbarhet än Fortnox för växande bolag</li>
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Djupare Microsoft 365-integration (Teams, Excel, Outlook)</li>
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Inbyggd AI via Microsoft Copilot utan extra kostnad</li>
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre TCO än SAP för medelstora nordiska bolag</li>
               </ul>
-              <Link to="/erp/" className="inline-block mt-3 text-xs font-medium text-primary hover:underline">Jämför ERP-alternativ →</Link>
+              <Link to="/erp/" className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary hover:underline group-hover:gap-2 transition-all">Jämför ERP-alternativ →</Link>
             </div>
             {/* CRM compare */}
-            <div className="bg-card border border-border rounded-lg p-5">
+            <div className="group bg-card border border-border rounded-xl p-5 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <div className="text-sm font-semibold text-foreground">D365 Sales & Customer Service</div>
+                  <div className="text-sm font-semibold text-foreground flex items-center gap-2">
+                    <Shield className="w-4 h-4 text-primary" />
+                    D365 Sales & Customer Service
+                  </div>
                   <div className="text-xs text-muted-foreground mt-0.5">vs Salesforce, HubSpot</div>
                 </div>
                 <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 478 kr/mån</span>
               </div>
-              <div className="h-px bg-border my-3" />
+              <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-3" />
               <ul className="space-y-1.5">
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Samma ekosystem som Office 365 och Teams</li>
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Copilot AI inbyggt i hela säljprocessen</li>
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Kombinera CRM och kundservice i ett system</li>
                 <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre totalkostnad med befintlig Microsoft-infrastruktur</li>
               </ul>
-              <Link to="/crm/" className="inline-block mt-3 text-xs font-medium text-primary hover:underline">Jämför CRM-alternativ →</Link>
+              <Link to="/crm/" className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary hover:underline group-hover:gap-2 transition-all">Jämför CRM-alternativ →</Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer CTA band */}
-      <section className="py-6 sm:py-8 bg-gradient-to-r from-primary to-accent">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-5">
+      <section className="relative py-8 sm:py-10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[hsl(180,85%,18%)] via-[hsl(180,75%,25%)] to-[hsl(180,65%,30%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(180,80%,40%)_0%,_transparent_60%)] opacity-20" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-5 relative z-10">
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold text-primary-foreground mb-1">Redo att komma igång?</h2>
             <p className="text-sm text-primary-foreground/70 max-w-md">Börja med att beskriva din situation — så guidar vi dig rätt. Kostnadsfritt och utan förpliktelser.</p>
           </div>
-          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 text-sm font-semibold h-11 px-6 rounded-lg whitespace-nowrap flex-shrink-0">
-            <Link to="/kom-igang/">Kom igång →</Link>
+          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground text-sm font-semibold h-12 px-7 rounded-lg shadow-lg shadow-[hsl(var(--cta-orange))]/25 whitespace-nowrap flex-shrink-0 hover:-translate-y-0.5 transition-all">
+            <Link to="/kom-igang/">Kom igång <ArrowRight className="w-4 h-4 ml-1" /></Link>
           </Button>
         </div>
       </section>
