@@ -167,9 +167,6 @@ const Index = () => {
                   <Link to="/valj-partner/">Jämför partners</Link>
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground/70">
-                Business Central från <span className="font-medium text-muted-foreground">765 kr/mån</span> · D365 Sales från <span className="font-medium text-muted-foreground">550 kr/mån</span>
-              </p>
             </div>
 
             {/* Right column – step card */}
