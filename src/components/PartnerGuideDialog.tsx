@@ -113,6 +113,27 @@ const applicationOptions = [
 // CRM apps that trigger the workload step
 const crmApps = ["Sales", "Customer Insights (Marketing)", "Customer Service", "Field Service", "Contact Center"];
 
+// ERP apps
+const erpApps = ["Business Central", "Finance & SCM"];
+
+// Additional apps options depending on primary selection
+const crmAdditionalOptions = [
+  { value: "Sales", label: "Sales", icon: salesIcon },
+  { value: "Customer Insights (Marketing)", label: "Marketing", icon: marketingIcon },
+  { value: "Customer Service", label: "Customer Service", icon: csIcon },
+  { value: "Field Service", label: "Field Service", icon: fsIcon },
+  { value: "Contact Center", label: "Contact Center", icon: ccIcon },
+  { value: "Project Operations", label: "Project Operations", icon: poIcon },
+];
+
+const erpAdditionalOptions = [
+  { value: "Business Central", label: "Business Central", icon: bcIcon },
+  { value: "Finance & SCM", label: "Finance & SCM", icon: financeIcon },
+  { value: "Project Operations", label: "Project Operations", icon: poIcon },
+  { value: "Commerce", label: "Commerce", icon: commerceIcon },
+  { value: "Human Resources", label: "Human Resources", icon: hrIcon },
+];
+
 // Workload options per CRM application
 const workloadOptions: Record<string, { value: string; label: string; description: string }[]> = {
   "Sales": [
@@ -263,6 +284,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
   const [selectedLocalPreference, setSelectedLocalPreference] = useState<string>("");
   const [selectedPlatformNeeds, setSelectedPlatformNeeds] = useState<string[]>([]);
+  const [selectedAdditionalApps, setSelectedAdditionalApps] = useState<string[]>([]);
   const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
@@ -275,25 +297,28 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   };
 
   const isCrmApp = crmApps.includes(selectedApp);
-  // CRM apps get an extra workload step → total steps: app, [workload], industry, size, local, platform, ai
-  const totalSteps = isCrmApp ? 7 : 6;
+  const isErpApp = erpApps.includes(selectedApp);
+  // Steps: app, [workload], industry, additional, size, local, platform, ai
+  const totalSteps = isCrmApp ? 8 : 7;
 
   // Map logical step index to content
-  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'local' | 'platform' | 'ai' => {
+  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'additional' | 'size' | 'local' | 'platform' | 'ai' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
       if (s === 2) return 'workload';
       if (s === 3) return 'industry';
+      if (s === 4) return 'additional';
+      if (s === 5) return 'size';
+      if (s === 6) return 'local';
+      if (s === 7) return 'platform';
+      if (s === 8) return 'ai';
+    } else {
+      if (s === 2) return 'industry';
+      if (s === 3) return 'additional';
       if (s === 4) return 'size';
       if (s === 5) return 'local';
       if (s === 6) return 'platform';
       if (s === 7) return 'ai';
-    } else {
-      if (s === 2) return 'industry';
-      if (s === 3) return 'size';
-      if (s === 4) return 'local';
-      if (s === 5) return 'platform';
-      if (s === 6) return 'ai';
     }
     return 'ai';
   };
