@@ -674,8 +674,6 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <span className="font-medium">{selectedApp}{selectedWorkloadLabel ? ` – ${selectedWorkloadLabel}` : ''}</span>
                 <span className="text-muted-foreground">Bransch:</span>
                 <span className="font-medium">{selectedIndustry || '–'}</span>
-                <span className="text-muted-foreground">Marknad:</span>
-                <span className="font-medium">{selectedMarket || '–'}</span>
                 <span className="text-muted-foreground">Företagsstorlek:</span>
                 <span className="font-medium">{sizeOptions.find(o => o.value === selectedSize)?.label || '–'}</span>
                 <span className="text-muted-foreground">AI-fokus:</span>
