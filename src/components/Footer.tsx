@@ -60,7 +60,7 @@ const Footer = () => {
               <li><Link to="/ai-readiness/" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
               <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branschlosningar/" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>
-              <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Kunskapscenter</Link></li>
+              <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Kunskapscenter & Events</Link></li>
               <li><Link to="/events/" className="text-muted-foreground hover:text-foreground transition-colors">Events</Link></li>
               <li><Link to="/qa/" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
               <li><Link to="/kontakt/" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>

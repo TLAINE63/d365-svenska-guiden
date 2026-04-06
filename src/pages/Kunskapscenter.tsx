@@ -469,13 +469,13 @@ const Kunskapscenter = () => {
   return (
     <>
       <SEOHead
-        title="Kunskapscenter | d365.se – Guider, verktyg och events för Microsoft Dynamics 365"
+        title="Kunskapscenter & Events | d365.se – Guider, verktyg och events för Microsoft Dynamics 365"
         description="Utforska artiklar, videor, behovsanalyser, kravspecifikationer och kommande events – allt du behöver för att fatta rätt beslut om Microsoft Dynamics 365."
       />
       <BreadcrumbSchema
         items={[
           { name: "Hem", url: "https://d365.se/" },
-          { name: "Kunskapscenter", url: "https://d365.se/kunskapscenter" },
+          { name: "Kunskapscenter & Events", url: "https://d365.se/kunskapscenter" },
         ]}
       />
       <Navbar />
@@ -494,7 +494,7 @@ const Kunskapscenter = () => {
           </div>
           <div className="container mx-auto px-4 max-w-4xl relative z-10">
             <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 tracking-tight">
-              Kunskapscenter
+              Kunskapscenter & Events
             </h1>
             <p className="text-sm md:text-base text-white/80 leading-relaxed max-w-2xl">
               Allt vi vet om Microsoft Dynamics 365 – behovsanalyser, kravspecifikationer,
