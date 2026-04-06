@@ -153,7 +153,7 @@ const Index = () => {
             Hitta rätt Dynamics 365-lösning<br className="hidden sm:block" />och partner — <span className="text-[hsl(180,85%,60%)]">gratis och opartiskt</span>
           </h1>
           <p className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
-            Jämför affärssystem och CRM baserat på din verksamhet. Vi hjälper svenska företag välja rätt system och rätt Microsoft-certifierad partner.
+            Jämför och utvärdera CRM- och affärssystem (ERP) baserat på din verksamhet. Vi hjälper svenska företag välja rätt system och rätt Microsoft-certifierad partner.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground text-sm sm:text-base h-12 px-7 rounded-lg shadow-lg shadow-[hsl(var(--cta-orange))]/25 transition-all hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5">
