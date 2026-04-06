@@ -1,14 +1,8 @@
+import { lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import PricingCard from "@/components/PricingCard";
-import LeadMagnetBanner from "@/components/LeadMagnetBanner";
-import UrgencyBadge from "@/components/UrgencyBadge";
-import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ContactFormDialog from "@/components/ContactFormDialog";
 import HeroCarousel from "@/components/HeroCarousel";
-import CommonMistakesTeaser from "@/components/CommonMistakesTeaser";
-import ScrollCTA from "@/components/ScrollCTA";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
@@ -26,6 +20,13 @@ import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
+
+// Lazy load below-fold components
+const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
+const UrgencyBadge = lazy(() => import("@/components/UrgencyBadge"));
+const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
+const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
+const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 import BizAppsNetwork from "@/assets/biz-apps-network.png";
 
 const homeFaqs = [
@@ -180,11 +181,13 @@ const Index = () => {
                     <p>• <strong>Customer Insights (Marketing):</strong> Prissätts per antal kontakter/sessions (tenant-prissättning), inte per användare – startar från ca 15 000 kr/mån.</p>
                     <p>• <strong>Projektkostnad:</strong> Implementeringen är ofta den stora posten. Räkna med allt från 50 000–150 000 kr för ett BC-startpaket till flera miljoner för ett enterprise Finance & SCM-projekt.</p>
                     <p>• <strong>Vad påverkar priset:</strong> Antal användare, grad av anpassning, integrationer mot befintliga system, utbildningsbehov och löpande support.</p>
+                    <Suspense fallback={null}>
                     <ContactFormDialog>
                       <Button variant="link" className="mt-2 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
                         Kontakta oss så får du snabbt en tydligare uppfattning av såväl licensavgifter som projektkostnader →
                       </Button>
                     </ContactFormDialog>
+                    </Suspense>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -444,7 +447,7 @@ const Index = () => {
       </section>
 
       {/* Common Mistakes Teaser */}
-      <CommonMistakesTeaser />
+      <Suspense fallback={null}><CommonMistakesTeaser /></Suspense>
 
       {/* Microsoft Agents Section - NEW! */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 relative overflow-hidden">
@@ -602,9 +605,11 @@ const Index = () => {
 
       {/* Lead Magnet Banner */}
       <div className="flex justify-center mb-4">
-        <UrgencyBadge variant="consultation" />
+        <Suspense fallback={null}>
+          <UrgencyBadge variant="consultation" />
+        </Suspense>
       </div>
-      <LeadMagnetBanner sourcePage="index" />
+      <Suspense fallback={null}><LeadMagnetBanner sourcePage="index" /></Suspense>
 
       {/* CTA Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--accent))] text-primary-foreground">
@@ -623,7 +628,7 @@ const Index = () => {
       </main>
 
       {/* Scroll-triggered CTA */}
-      <ScrollCTA />
+      <Suspense fallback={null}><ScrollCTA /></Suspense>
 
       <Footer />
     </div>;
