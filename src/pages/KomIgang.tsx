@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, Star, ExternalLink, Mail } from "lucide-react";
+import { ArrowLeft, Check, Loader2, ExternalLink, Mail } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 
 // Industry images
