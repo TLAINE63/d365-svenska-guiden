@@ -342,8 +342,8 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/business-central/" aria-label="Läs mer om Business Central">
-                  Läs mer
+                <Link to="/business-central/">
+                  Läs mer om Business Central
                 </Link>
               </Button>
             </div>
@@ -373,8 +373,8 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/finance-supply-chain/" aria-label="Läs mer om Finance & Supply Chain Management">
-                  Läs mer
+                <Link to="/finance-supply-chain/">
+                  Läs mer om Finance & SCM
                 </Link>
               </Button>
             </div>
@@ -404,8 +404,8 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/crm/" aria-label="Läs mer om Dynamics 365 Marknad & Sälj">
-                  Läs mer
+                <Link to="/crm/">
+                  Läs mer om Marknad & Sälj
                 </Link>
               </Button>
             </div>
@@ -434,8 +434,8 @@ const Index = () => {
               </div>
               
               <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/d365-customer-service/" aria-label="Läs mer om Dynamics 365 Kundservice">
-                  Läs mer
+                <Link to="/d365-customer-service/">
+                  Läs mer om Kundservice
                 </Link>
               </Button>
             </div>
