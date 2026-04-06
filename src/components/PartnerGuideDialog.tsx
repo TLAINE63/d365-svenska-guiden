@@ -171,6 +171,12 @@ const aiInterestOptions = [
   { value: "none", label: "Nej, inte aktuellt just nu", description: "AI är inte prioriterat i vår implementering" },
 ];
 
+const localPresenceOptions = [
+  { value: "very", label: "Mycket viktigt", description: "Vi vill ha en partner med lokal närvaro i vår region – nära kontor och personliga möten" },
+  { value: "somewhat", label: "Ganska viktigt", description: "Lokal närvaro är en fördel men inte ett absolut krav" },
+  { value: "not", label: "Inte viktigt", description: "Vi är öppna för partners oavsett var de finns – kompetens väger tyngre" },
+];
+
 // Product key type matching database structure
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
@@ -245,6 +251,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
+  const [selectedLocalPreference, setSelectedLocalPreference] = useState<string>("");
   const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
@@ -257,21 +264,23 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   };
 
   const isCrmApp = crmApps.includes(selectedApp);
-  // CRM apps get an extra workload step → total steps (market removed)
-  const totalSteps = isCrmApp ? 5 : 4;
+  // CRM apps get an extra workload step → total steps: app, [workload], industry, size, local, ai
+  const totalSteps = isCrmApp ? 6 : 5;
 
-  // Map logical step index to content, skipping workload step for non-CRM and market step
-  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'ai' => {
+  // Map logical step index to content
+  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'local' | 'ai' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
       if (s === 2) return 'workload';
       if (s === 3) return 'industry';
       if (s === 4) return 'size';
-      if (s === 5) return 'ai';
+      if (s === 5) return 'local';
+      if (s === 6) return 'ai';
     } else {
       if (s === 2) return 'industry';
       if (s === 3) return 'size';
-      if (s === 4) return 'ai';
+      if (s === 4) return 'local';
+      if (s === 5) return 'ai';
     }
     return 'ai';
   };
@@ -380,6 +389,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             industries: p.industries || [],
             geography: p.geography || [],
             product_filters: p.product_filters || {},
+            office_cities: p.office_cities || [],
           }));
 
         if (partnerPayload.length === 0) {
@@ -397,9 +407,10 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               geography: selectedMarket,
               customCountries: selectedMarket === "Övriga världen" && customCountries ? customCountries : undefined,
               companySize: selectedSize,
-               workload: selectedWorkload || undefined,
+              workload: selectedWorkload || undefined,
               preferCrmOnly: isCrmSpecialistApp,
               aiInterest: aiInterest || undefined,
+              localPreference: selectedLocalPreference || undefined,
             },
           },
         });
@@ -477,6 +488,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     setSelectedMarket("");
     setCustomCountries("");
     setSelectedSize("");
+    setSelectedLocalPreference("");
     setSelectedAiInterest("");
     setSuggestedPartners([]);
     setAiMatches([]);
@@ -490,6 +502,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       case 'workload': return selectedWorkload !== "";
       case 'industry': return selectedIndustry !== "";
       case 'size': return selectedSize !== "";
+      case 'local': return selectedLocalPreference !== "";
       case 'ai': return selectedAiInterest !== "";
       default: return true;
     }
@@ -631,6 +644,35 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           </div>
         )}
 
+        {/* Local presence step */}
+        {getContentStep(step) === 'local' && !isResultStep && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Hur viktigt är det att partnern finns lokalt nära er?</h3>
+            <p className="text-sm text-muted-foreground">
+              En lokal partner kan innebära personliga möten och snabbare tillgänglighet, medan en rikstäckande partner kan ha bredare kompetens.
+            </p>
+            <div className="space-y-3">
+              {localPresenceOptions.map(option => (
+                <div
+                  key={option.value}
+                  className={`flex items-start space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
+                    selectedLocalPreference === option.value
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50"
+                  }`}
+                  onClick={() => autoAdvance(setSelectedLocalPreference, option.value)}
+                >
+                  <div className={`w-4 h-4 mt-0.5 rounded-full border-2 flex-shrink-0 ${selectedLocalPreference === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+                  <div>
+                    <span className="text-base font-medium">{option.label}</span>
+                    <p className="text-sm text-muted-foreground mt-0.5">{option.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* AI interest step – auto-submits on click */}
         {getContentStep(step) === 'ai' && !isResultStep && (
           <div className="space-y-4">
@@ -676,6 +718,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <span className="font-medium">{selectedIndustry || '–'}</span>
                 <span className="text-muted-foreground">Företagsstorlek:</span>
                 <span className="font-medium">{sizeOptions.find(o => o.value === selectedSize)?.label || '–'}</span>
+                <span className="text-muted-foreground">Lokal närvaro:</span>
+                <span className="font-medium">{localPresenceOptions.find(o => o.value === selectedLocalPreference)?.label || '–'}</span>
                 <span className="text-muted-foreground">AI-fokus:</span>
                 <span className="font-medium">{aiInterestOptions.find(o => o.value === selectedAiInterest)?.label || '–'}</span>
               </div>
