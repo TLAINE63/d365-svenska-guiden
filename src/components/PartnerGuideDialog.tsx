@@ -605,47 +605,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           </div>
         )}
 
-        {/* Market step */}
-        {getContentStep(step) === 'market' && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Vilken marknad gäller det?</h3>
-            <div className="space-y-3">
-              {marketOptions.map(option => (
-                <button
-                  key={option.value}
-                  type="button"
-                  className={`w-full flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors text-left ${
-                    selectedMarket === option.value
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                  onClick={() => {
-                    setSelectedMarket(option.value);
-                    if (option.value !== "Övriga världen") {
-                      setCustomCountries("");
-                      setTimeout(() => setStep(prev => prev + 1), 250);
-                    }
-                  }}
-                >
-                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${selectedMarket === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
-                  <span className="text-base font-medium">{option.label}</span>
-                </button>
-              ))}
-            </div>
-            {selectedMarket === "Övriga världen" && (
-              <div className="space-y-2 pl-7">
-                <label className="text-sm font-medium text-foreground">Vilka länder gäller det?</label>
-                <input
-                  type="text"
-                  value={customCountries}
-                  onChange={(e) => setCustomCountries(e.target.value)}
-                  placeholder="T.ex. USA, Indien, Brasilien"
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                />
-              </div>
-            )}
-          </div>
-        )}
+        {/* Market step – temporarily removed */}
 
         {/* Size step */}
         {getContentStep(step) === 'size' && (
