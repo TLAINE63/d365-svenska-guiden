@@ -650,7 +650,7 @@ const Branschlosningar = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-lg">
-              <Info className="h-5 w-5 text-amber-500" />
+              <Info className="h-5 w-5 text-warning" />
               Ingen partner listad
             </DialogTitle>
             <DialogDescription className="text-base pt-2 leading-relaxed">
