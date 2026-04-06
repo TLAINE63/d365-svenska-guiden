@@ -403,6 +403,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             geography: p.geography || [],
             product_filters: p.product_filters || {},
             office_cities: p.office_cities || [],
+            platform_capabilities: (p as any).platform_capabilities || [],
           }));
 
         if (partnerPayload.length === 0) {
