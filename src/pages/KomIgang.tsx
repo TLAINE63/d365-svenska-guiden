@@ -150,9 +150,9 @@ const KomIgang = () => {
   const [step, setStep] = useState(1);
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
-  const [selectedGoal, setSelectedGoal] = useState("");
-  const [selectedSituation, setSelectedSituation] = useState("");
-  const [selectedComplexity, setSelectedComplexity] = useState("");
+  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+  const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
+  const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
