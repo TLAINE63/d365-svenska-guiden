@@ -553,7 +553,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                         ? "border-primary bg-primary/10"
                         : "border-border hover:border-primary/50"
                     }`}
-                    onClick={() => setSelectedWorkload(option.value)}
+                    onClick={() => autoAdvance(setSelectedWorkload, option.value)}
                   >
                     <RadioGroupItem value={option.value} id={`workload-${option.value}`} className="mt-0.5" />
                     <div>
