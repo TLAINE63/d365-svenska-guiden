@@ -3430,6 +3430,48 @@ const AdminDashboard = () => {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+
+        {/* Email Send Dialog */}
+        <Dialog open={isEmailDialogOpen} onOpenChange={setIsEmailDialogOpen}>
+          <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {emailDialogType === 'welcome' ? 'Skicka välkomstmail' : 'Skicka införsäljningsmail'}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Ange eller bekräfta e-postadress för varje partner innan utskick.
+              </p>
+              {fullPartners.filter(p => selectedForWelcome.has(p.id)).map(p => (
+                <div key={p.id} className="flex flex-col gap-1">
+                  <Label className="text-sm font-medium">{p.name}</Label>
+                  <Input
+                    type="email"
+                    placeholder="namn@foretag.se"
+                    value={emailOverrides[p.id] || ""}
+                    onChange={(e) => setEmailOverrides(prev => ({ ...prev, [p.id]: e.target.value }))}
+                  />
+                </div>
+              ))}
+            </div>
+            <DialogFooter className="gap-2">
+              <Button variant="outline" onClick={() => setIsEmailDialogOpen(false)}>
+                Avbryt
+              </Button>
+              <Button
+                onClick={sendEmailsFromDialog}
+                disabled={sendingWelcome || sendingSalesPitch}
+                className={emailDialogType === 'sales_pitch' ? "bg-orange-500 hover:bg-orange-600 text-white" : ""}
+              >
+                {(sendingWelcome || sendingSalesPitch) ? "Skickar..." : (
+                  emailDialogType === 'welcome' ? 'Skicka välkomstmail' : 'Skicka införsäljningsmail'
+                )}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
       </main>
       <Footer />
     </div>
