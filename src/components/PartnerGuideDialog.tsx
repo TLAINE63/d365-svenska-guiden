@@ -325,7 +325,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
 
   // CRM apps where at least one result should be a CRM-only specialist (no ERP)
   const crmSpecialistApps = ["Customer Insights (Marketing)", "Customer Service", "Contact Center", "Sales", "Field Service"];
-  const erpApps = ["Business Central", "Finance & SCM"];
+  // erpApps already defined at module level
 
   const isCrmSpecialistApp = crmSpecialistApps.includes(selectedApp);
 
