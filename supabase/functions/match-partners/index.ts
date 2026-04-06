@@ -31,8 +31,9 @@ interface UserCriteria {
   geography: string;
   companySize: string;
   workload?: string; // CRM workload focus
-  preferCrmOnly?: boolean; // For CRM apps: prefer partners without ERP products
-  aiInterest?: 'high' | 'medium' | 'none'; // User's interest in AI capabilities
+  preferCrmOnly?: boolean;
+  aiInterest?: 'high' | 'medium' | 'none';
+  localPreference?: 'very' | 'somewhat' | 'not';
 }
 
 interface PartnerMatch {
@@ -91,12 +92,16 @@ Deno.serve(async (req) => {
         ? `\nAI-nivå: ${aiLevel} (${aiCaps.length} kapabiliteter${aiProjects ? `, ${aiProjects} projekt` : ''})${aiCase ? `\nAI-case: ${aiCase}` : ''}${aiImpact ? `\nAI-affärseffekt: ${aiImpact}` : ''}`
         : '\nAI-nivå: Ingen registrerad AI-kompetens';
 
+      // Office cities for local presence evaluation
+      const officeCities = (p as any).office_cities || [];
+
       return `ID: ${p.id}
 Namn: ${p.name}
 Beskrivning: ${(p.description || '').substring(0, 400)}
 Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
-Kundexempel: ${customerExamples}${aiSummary}`;
+Kundexempel: ${customerExamples}
+Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}${aiSummary}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner. 
@@ -109,17 +114,19 @@ KUNDPROFIL:
 - Applikation: ${criteria.application}
 - Bransch: ${criteria.industry || 'Ej specificerat'}
 - Geografi: ${criteria.geography || 'Ej specificerat'}
-- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.aiInterest && criteria.aiInterest !== 'none' ? `\n- AI-intresse: ${criteria.aiInterest === 'high' ? 'Högt – kunden vill ha en partner med stark kompetens inom Microsoft Copilot, AI-agenter, Copilot Studio och/eller Azure AI Foundry' : 'Medelhögt – kunden är intresserad men det är inte avgörande'}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
+- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.localPreference && criteria.localPreference !== 'not' ? `\n- Lokal närvaro: ${criteria.localPreference === 'very' ? 'Mycket viktigt – kunden vill ha en partner med kontor nära sin verksamhet' : 'Ganska viktigt – lokal närvaro är en fördel men inte avgörande'}` : ''}${criteria.aiInterest && criteria.aiInterest !== 'none' ? `\n- AI-intresse: ${criteria.aiInterest === 'high' ? 'Högt – kunden vill ha en partner med stark kompetens inom Microsoft Copilot, AI-agenter, Copilot Studio och/eller Azure AI Foundry' : 'Medelhögt – kunden är intresserad men det är inte avgörande'}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
 
 PARTNERS ATT UTVÄRDERA:
 ${partnerSummaries}
 
 INSTRUKTIONER:
 1. Ge varje partner ett matchningspoäng 0-100 baserat på:
-   - Hur väl deras beskrivning och erbjudande matchar den valda applikationen och workload (${criteria.aiInterest === 'high' ? '30%' : '40%'})
-   - Branscherfarenhet (${criteria.aiInterest === 'high' ? '25%' : '30%'})
-   - Geografi och storlek (${criteria.aiInterest === 'high' ? '15%' : '20%'})
-   - Kundexempel och referensers relevans (10%)${criteria.aiInterest === 'high' ? `
+   - Hur väl deras beskrivning och erbjudande matchar den valda applikationen och workload (${criteria.aiInterest === 'high' ? '25%' : criteria.localPreference === 'very' ? '30%' : '35%'})
+   - Branscherfarenhet (${criteria.aiInterest === 'high' ? '20%' : criteria.localPreference === 'very' ? '25%' : '30%'})
+   - Geografi och storlek (${criteria.localPreference === 'very' ? '10%' : '15%'})
+   - Kundexempel och referensers relevans (10%)${criteria.localPreference === 'very' ? `
+   - Lokal närvaro (15%): Partners med fler kontorsorter och kontor nära kundens geografi ska premieras. Bred rikstäckning är en fördel. Partners utan angiven kontorsort får lägre poäng.` : criteria.localPreference === 'somewhat' ? `
+   - Lokal närvaro (bonuspoäng, 5-10%): Partners med kontor i kundens region får bonus, men det är inte avgörande.` : ''}${criteria.aiInterest === 'high' ? `
     - AI-kompetens (20%): Använd den strukturerade AI-nivån och antalet kapabiliteter/projekt som anges för varje partner. Partners med nivån "Avancerad" ska premieras mest, följt av "Integration" och sedan "Enabled". Fler AI-projekt och tydliga AI-case-beskrivningar ger extra poäng.` : criteria.aiInterest === 'medium' ? `
     - AI-kompetens (bonuspoäng, ej obligatoriskt): Använd den strukturerade AI-nivån. Partners med registrerad AI-kompetens får upp till 10 bonus-poäng baserat på nivå och antal kapabiliteter.` : ''}
 ${criteria.preferCrmOnly ? `
