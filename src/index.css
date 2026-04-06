@@ -161,6 +161,9 @@ All colors MUST be HSL.
     
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 10%;
+    
+    --cta-orange: 25 90% 55%;
+    --cta-orange-hover: 25 90% 48%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 100%;
