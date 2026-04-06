@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Search, Check, Users, Loader2 } from "lucide-react";
+import { ArrowLeft, Check, Loader2, Star, ExternalLink, Mail } from "lucide-react";
 import { allIndustries } from "@/data/partners";
 
 // Industry images
@@ -50,34 +50,37 @@ const industryImages: Record<string, string> = {
   "Offentlig sektor": offentligSektorImg,
   "Uthyrningsverksamhet": uthyrningImg,
 };
+
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { supabase } from "@/integrations/supabase/client";
-import PartnerCard from "@/components/PartnerCard";
 
-// Step data
-const applicationOptions = [
-  { value: "Business Central", label: "Business Central", desc: "Komplett ERP för SMB (10–300 anställda)" },
-  { value: "Finance & SCM", label: "Finance & Supply Chain", desc: "Enterprise ERP för globala koncerner" },
-  { value: "Sales", label: "Sales (CRM)", desc: "Pipeline, leads och kundrelationer" },
-  { value: "Customer Insights (Marketing)", label: "Marketing / Customer Insights", desc: "Kampanjer, segmentering och kunddata" },
-  { value: "Customer Service", label: "Customer Service", desc: "Ärenden, SLA och supportflöden" },
-  { value: "Field Service", label: "Field Service", desc: "Fälttekniker och arbetsorder" },
+// Step 2: Goal options
+const goalOptions = [
+  { value: "erp", label: "Införa eller byta affärssystem (ERP)", app: "Business Central" },
+  { value: "sales", label: "Förbättra försäljningsprocessen", app: "Sales" },
+  { value: "marketing", label: "Införa marketing automation", app: "Customer Insights (Marketing)" },
+  { value: "service", label: "Effektivisera kundservice", app: "Customer Service" },
+  { value: "contact-center", label: "Utvärdera Contact Center-lösningar", app: "Contact Center" },
+  { value: "field-service", label: "Förbättra fältservice", app: "Field Service" },
+  { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras", app: "" },
 ];
 
-const geographyOptions = [
-  { value: "Sverige", label: "Sverige" },
-  { value: "Norden", label: "Norden" },
-  { value: "Europa", label: "Europa" },
-  { value: "Övriga världen", label: "Internationellt" },
+// Step 3: Situation options
+const situationOptions = [
+  { value: "new", label: "Utvärderar nytt system" },
+  { value: "evaluate-partners", label: "Vill utvärdera partners" },
+  { value: "improve", label: "Vill vidareutveckla befintlig lösning" },
+  { value: "unsure", label: "Osäker" },
 ];
 
-const sizeOptions = [
-  { value: "1-49", label: "1–49 anställda" },
-  { value: "50-99", label: "50–99 anställda" },
-  { value: "100-249", label: "100–249 anställda" },
-  { value: "250-999", label: "250–999 anställda" },
-  { value: "1.000-4.999", label: "1 000–4 999 anställda" },
-  { value: ">5.000", label: "Mer än 5 000 anställda" },
+// Step 4: Complexity options
+const complexityOptions = [
+  { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
+  { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
+  { value: "multi-entity", label: "Flera bolag eller verksamheter", desc: "Koncern, flera juridiska enheter eller länder" },
+  { value: "manufacturing", label: "Tillverkning eller avancerad logistik", desc: "Produktion, planering eller komplexa flöden" },
+  { value: "integrations", label: "Höga krav på integrationer", desc: "Många system som behöver hänga ihop" },
+  { value: "unsure", label: "Osäker – behöver vägledning", desc: "Vi hjälper dig välja rätt nivå" },
 ];
 
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
@@ -94,20 +97,10 @@ const matchesDbProductFilter = (
   partner: DatabasePartner,
   productKey: ProductKey,
   industry?: string,
-  companySize?: string,
-  geography?: string
 ): boolean => {
   const productFilter = partner.product_filters?.[productKey];
   if (!productFilter) return false;
   if (industry && !productFilter.industries?.includes(industry)) return false;
-  if (companySize && productFilter.companySize && !productFilter.companySize.includes(companySize)) return false;
-  if (geography) {
-    const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
-    const hierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
-    const selIdx = hierarchy.indexOf(geography);
-    const maxIdx = Math.max(...partnerGeo.map((g: string) => hierarchy.indexOf(g)));
-    if (maxIdx < selIdx) return false;
-  }
   return true;
 };
 
@@ -115,26 +108,25 @@ interface AiMatchResult {
   id: string;
   score: number;
   matchReason: string;
+  bullets?: string[];
 }
 
 const TOTAL_STEPS = 4;
 
 const KomIgang = () => {
   const navigate = useNavigate();
-  const { data: partners = [], isLoading: partnersLoading } = usePartners();
-  
+  const { data: partners = [] } = usePartners();
+
   const [step, setStep] = useState(1);
   const [selectedIndustry, setSelectedIndustry] = useState("");
-  const [selectedApp, setSelectedApp] = useState("");
-  const [selectedGeo, setSelectedGeo] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
-  const [industrySearch, setIndustrySearch] = useState("");
+  const [selectedGoal, setSelectedGoal] = useState("");
+  const [selectedSituation, setSelectedSituation] = useState("");
+  const [selectedComplexity, setSelectedComplexity] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
-  // Sort industries by number of partners (desc), then filter by search
   const sortedIndustries = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const ind of allIndustries) {
@@ -143,66 +135,48 @@ const KomIgang = () => {
     return [...allIndustries].sort((a, b) => counts[b] - counts[a]);
   }, [partners]);
 
-  const filteredIndustries = useMemo(() => {
-    if (!industrySearch) return sortedIndustries;
-    const q = industrySearch.toLowerCase();
-    return sortedIndustries.filter(i => i.toLowerCase().includes(q));
-  }, [industrySearch, sortedIndustries]);
-
-  const canProceed = () => {
-    if (step === 1) return !!selectedIndustry;
-    if (step === 2) return !!selectedApp;
-    if (step === 3) return !!selectedGeo;
-    if (step === 4) return !!selectedSize;
-    return false;
-  };
+  const selectedGoalObj = goalOptions.find(g => g.value === selectedGoal);
+  const selectedApp = selectedGoalObj?.app || "";
 
   const stepLabels = [
     "Vilken bransch är ni verksamma inom?",
-    "Vilken typ av lösning söker ni?",
-    "Var är ni verksamma?",
-    "Hur stort är ert företag?",
+    "Vad vill du förbättra?",
+    "Var befinner ni er idag?",
+    "Hur ser er verksamhet ut?",
   ];
 
   const stepSubtexts = [
     "Vi använder detta för att hitta relevanta partners",
-    "Vi matchar er med partners som är specialiserade på rätt applikation",
-    "Vi filtrerar partners med lokal närvaro i ert område",
-    "Vi föreslår partners som är vana vid er företagsstorlek",
+    "",
+    "",
+    "Detta hjälper oss avgöra vilken nivå av lösning och partner som passar",
   ];
 
   const findPartners = async () => {
-    const productKey = getProductKey(selectedApp);
+    const productKey = selectedApp ? getProductKey(selectedApp) : null;
+
+    let result: DatabasePartner[];
     if (!productKey) {
-      setMatchedPartners([]);
-      setShowResults(true);
-      return;
+      // "Osäker" - return all partners with any product filter, sorted by number of industries matched
+      result = partners.filter(p => p.product_filters && Object.keys(p.product_filters).length > 0);
+    } else {
+      const MIN = 3;
+      const filter = (relaxInd: boolean) =>
+        partners.filter(p =>
+          matchesDbProductFilter(p, productKey, relaxInd ? undefined : selectedIndustry || undefined)
+        );
+      result = filter(false);
+      if (result.length < MIN) result = filter(true);
     }
 
-    const MIN = 3;
-    const filter = (relaxInd: boolean, relaxGeo: boolean) =>
-      partners.filter(p =>
-        matchesDbProductFilter(
-          p,
-          productKey,
-          relaxInd ? undefined : selectedIndustry || undefined,
-          undefined,
-          relaxGeo ? undefined : selectedGeo || undefined
-        )
-      );
-
-    let result = filter(false, false);
-    if (result.length < MIN) result = filter(true, false);
-    if (result.length < MIN) result = filter(true, true);
-
-    setMatchedPartners(result);
+    // Limit to max 4
+    setMatchedPartners(result.slice(0, 4));
     setShowResults(true);
 
-    // AI ranking
     if (result.length > 0) {
       setIsAiLoading(true);
       try {
-        const payload = result.map(p => ({
+        const payload = result.slice(0, 8).map(p => ({
           id: p.id,
           name: p.name,
           description: p.description,
@@ -216,11 +190,10 @@ const KomIgang = () => {
           body: {
             partners: payload,
             criteria: {
-              application: selectedApp,
-              productKey,
+              application: selectedApp || "Alla",
               industry: selectedIndustry,
-              geography: selectedGeo,
-              companySize: selectedSize,
+              situation: situationOptions.find(s => s.value === selectedSituation)?.label || "",
+              complexity: complexityOptions.find(c => c.value === selectedComplexity)?.label || "",
             },
           },
         });
@@ -230,21 +203,13 @@ const KomIgang = () => {
           setAiMatches(matches);
           const scoreMap = new Map(matches.map(m => [m.id, m.score]));
           const sorted = [...result].sort((a, b) => (scoreMap.get(b.id) ?? 0) - (scoreMap.get(a.id) ?? 0));
-          setMatchedPartners(sorted);
+          setMatchedPartners(sorted.slice(0, 4));
         }
       } catch {
         // graceful degradation
       } finally {
         setIsAiLoading(false);
       }
-    }
-  };
-
-  const handleNext = () => {
-    if (step < TOTAL_STEPS) {
-      setStep(step + 1);
-    } else {
-      findPartners();
     }
   };
 
@@ -261,6 +226,7 @@ const KomIgang = () => {
 
   const getAiMatch = (id: string) => aiMatches.find(m => m.id === id);
 
+  // Results page
   if (showResults) {
     return (
       <div className="min-h-screen bg-background">
@@ -268,16 +234,14 @@ const KomIgang = () => {
         <Navbar />
         <main className="pt-16 pb-20">
           <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-10">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3">
-                  {matchedPartners.length > 0 ? "Här är partners som matchar er" : "Inga exakta träffar"}
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+                  {matchedPartners.length > 0 ? "Här är partners som borde passa din situation" : "Inga exakta träffar"}
                 </h1>
-                <p className="text-muted-foreground mb-2">
-                  {selectedApp} · {selectedIndustry} · {selectedGeo} · {selectedSize}
-                </p>
+                <p className="text-sm text-muted-foreground">Baserat på dina svar</p>
                 {isAiLoading && (
-                  <div className="flex items-center justify-center gap-2 text-sm text-primary mt-2">
+                  <div className="flex items-center justify-center gap-2 text-sm text-primary mt-3">
                     <Loader2 className="h-4 w-4 animate-spin" />
                     <span>AI rangordnar partners...</span>
                   </div>
@@ -288,17 +252,74 @@ const KomIgang = () => {
                 <div className="space-y-4">
                   {matchedPartners.map((partner, idx) => {
                     const aiMatch = getAiMatch(partner.id);
+                    const isBestMatch = idx === 0 && aiMatches.length > 0;
                     return (
-                      <div key={partner.id} className="relative">
-                        {aiMatch && aiMatch.score >= 50 && (
-                          <div className="absolute -top-2 right-4 z-10 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                            {aiMatch.score}% match
+                      <div
+                        key={partner.id}
+                        className={`relative rounded-xl border-2 p-5 transition-all ${
+                          isBestMatch
+                            ? "border-primary bg-primary/5 shadow-md"
+                            : "border-border bg-card"
+                        }`}
+                      >
+                        {isBestMatch && (
+                          <div className="absolute -top-3 left-4 flex items-center gap-1.5 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
+                            <Star className="h-3 w-3" />
+                            Bäst match
                           </div>
                         )}
-                        <PartnerCard partner={partner} profileUrl={`/partner/${partner.slug}`} highlightedProduct={selectedApp} highlightedIndustry={selectedIndustry} highlightedCompanySize={selectedSize} highlightedGeography={selectedGeo} />
-                        {aiMatch?.matchReason && (
-                          <p className="text-xs text-muted-foreground mt-1 ml-4 italic">{aiMatch.matchReason}</p>
-                        )}
+
+                        <div className="flex items-start gap-4">
+                          {partner.logo_url && (
+                            <img
+                              src={partner.logo_url}
+                              alt={partner.name || ""}
+                              className="w-14 h-14 object-contain rounded-lg bg-white border border-border p-1 flex-shrink-0"
+                            />
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-lg font-bold text-foreground">{partner.name}</h3>
+                            {aiMatch?.matchReason && (
+                              <p className="text-sm text-muted-foreground mt-1">{aiMatch.matchReason}</p>
+                            )}
+                            {aiMatch?.bullets && aiMatch.bullets.length > 0 ? (
+                              <ul className="mt-2 space-y-1">
+                                {aiMatch.bullets.map((b, i) => (
+                                  <li key={i} className="flex items-start gap-2 text-sm text-foreground">
+                                    <Check className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                                    <span>{b}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : partner.description ? (
+                              <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{partner.description}</p>
+                            ) : null}
+                          </div>
+                        </div>
+
+                        <div className="flex gap-2 mt-4">
+                          {partner.website && (
+                            <Button size="sm" variant="outline" asChild>
+                              <a href={partner.website} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
+                                Besök
+                              </a>
+                            </Button>
+                          )}
+                          {partner.email && (
+                            <Button size="sm" asChild>
+                              <a href={`mailto:${partner.email}`}>
+                                <Mail className="h-3.5 w-3.5 mr-1.5" />
+                                Kontakta
+                              </a>
+                            </Button>
+                          )}
+                          {partner.slug && (
+                            <Button size="sm" variant="ghost" asChild>
+                              <Link to={`/partner/${partner.slug}`}>Läs mer</Link>
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     );
                   })}
@@ -310,7 +331,7 @@ const KomIgang = () => {
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
                 <Button variant="outline" onClick={handleBack}>
                   <ArrowLeft className="mr-2 h-4 w-4" /> Ändra urval
                 </Button>
@@ -372,7 +393,9 @@ const KomIgang = () => {
                 <h2 className="text-lg sm:text-xl font-bold text-foreground mb-1">
                   {stepLabels[step - 1]}
                 </h2>
-                <p className="text-xs sm:text-sm text-muted-foreground">{stepSubtexts[step - 1]}</p>
+                {stepSubtexts[step - 1] && (
+                  <p className="text-xs sm:text-sm text-muted-foreground">{stepSubtexts[step - 1]}</p>
+                )}
               </div>
 
               {/* Step 1: Industry */}
@@ -421,85 +444,85 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 2: Application */}
+              {/* Step 2: Goal */}
               {step === 2 && (
                 <div className="space-y-2">
-                  {applicationOptions.map((app) => (
+                  {goalOptions.map((opt) => (
                     <button
-                      key={app.value}
+                      key={opt.value}
                       onClick={() => {
-                        setSelectedApp(app.value);
+                        setSelectedGoal(opt.value);
                         setTimeout(() => setStep(3), 250);
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedApp === app.value
+                        selectedGoal === opt.value
                           ? "border-primary bg-primary/5 text-foreground"
                           : "border-border bg-card text-foreground hover:border-primary/30"
                       }`}
                     >
-                      <div className={`w-6 h-6 rounded border flex items-center justify-center flex-shrink-0 ${
-                        selectedApp === app.value ? "border-primary bg-primary text-primary-foreground" : "border-border"
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        selectedGoal === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
                       }`}>
-                        {selectedApp === app.value && <Check className="h-4 w-4" />}
+                        {selectedGoal === opt.value && <Check className="h-3 w-3" />}
                       </div>
-                      <div>
-                        <span className="text-sm sm:text-base font-medium">{app.label}</span>
-                        <p className="text-xs text-muted-foreground">{app.desc}</p>
-                      </div>
+                      <span className="text-sm sm:text-base font-medium">{opt.label}</span>
                     </button>
                   ))}
                 </div>
               )}
 
-              {/* Step 3: Geography */}
+              {/* Step 3: Situation */}
               {step === 3 && (
                 <div className="space-y-2">
-                  {geographyOptions.map((geo) => (
+                  {situationOptions.map((opt) => (
                     <button
-                      key={geo.value}
+                      key={opt.value}
                       onClick={() => {
-                        setSelectedGeo(geo.value);
+                        setSelectedSituation(opt.value);
                         setTimeout(() => setStep(4), 250);
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedGeo === geo.value
+                        selectedSituation === opt.value
                           ? "border-primary bg-primary/5 text-foreground"
                           : "border-border bg-card text-foreground hover:border-primary/30"
                       }`}
                     >
-                      <div className={`w-6 h-6 rounded border flex items-center justify-center flex-shrink-0 ${
-                        selectedGeo === geo.value ? "border-primary bg-primary text-primary-foreground" : "border-border"
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        selectedSituation === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
                       }`}>
-                        {selectedGeo === geo.value && <Check className="h-4 w-4" />}
+                        {selectedSituation === opt.value && <Check className="h-3 w-3" />}
                       </div>
-                      <span className="text-sm sm:text-base">{geo.label}</span>
+                      <span className="text-sm sm:text-base font-medium">{opt.label}</span>
                     </button>
                   ))}
                 </div>
               )}
 
-              {/* Step 4: Company size */}
+              {/* Step 4: Complexity */}
               {step === 4 && (
                 <div className="space-y-2">
-                  {sizeOptions.map((size) => (
+                  {complexityOptions.map((opt) => (
                     <button
-                      key={size.value}
+                      key={opt.value}
                       onClick={() => {
-                        setSelectedSize(size.value);
+                        setSelectedComplexity(opt.value);
                         setTimeout(() => findPartners(), 250);
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedSize === size.value
+                        selectedComplexity === opt.value
                           ? "border-primary bg-primary/5 text-foreground"
                           : "border-border bg-card text-foreground hover:border-primary/30"
                       }`}
                     >
-                      <div className={`w-6 h-6 rounded border flex items-center justify-center flex-shrink-0 ${
-                        selectedSize === size.value ? "border-primary bg-primary text-primary-foreground" : "border-border"
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        selectedComplexity === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
                       }`}>
-                        {selectedSize === size.value && <Check className="h-4 w-4" />}
+                        {selectedComplexity === opt.value && <Check className="h-3 w-3" />}
                       </div>
-                      <span className="text-sm sm:text-base">{size.label}</span>
+                      <div>
+                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        <p className="text-xs text-muted-foreground">{opt.desc}</p>
+                      </div>
                     </button>
                   ))}
                 </div>
