@@ -118,7 +118,7 @@ const Index = () => {
             Förstå skillnaderna, undvik vanliga misstag och hitta rätt partner – baserat på din verksamhet.
           </p>
           <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base sm:text-lg h-12 sm:h-14 px-10 sm:px-12 rounded-lg shadow-lg">
-            <Link to="/behovsanalys/">Kom igång</Link>
+            <Link to="/kom-igang/">Kom igång</Link>
           </Button>
           <p className="text-sm text-muted-foreground mt-3">
             Tar ca 1 minut · inga förkunskaper krävs
@@ -244,7 +244,7 @@ const Index = () => {
           
           <div className="text-center mt-8">
             <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg">
-              <Link to="/behovsanalys/">Kom igång</Link>
+              <Link to="/kom-igang/">Kom igång</Link>
             </Button>
           </div>
         </div>
