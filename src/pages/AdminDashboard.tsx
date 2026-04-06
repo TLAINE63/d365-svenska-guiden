@@ -1555,6 +1555,17 @@ const AdminDashboard = () => {
                     {sendingWelcome ? "Skickar..." : `Skicka välkomstmail (${selectedForWelcome.size})`}
                   </Button>
                 )}
+                {selectedForSalesPitch.size > 0 && (
+                  <Button 
+                    variant="outline"
+                    onClick={sendBulkSalesPitchEmails} 
+                    disabled={sendingSalesPitch}
+                    className="border-orange-500 text-orange-600 hover:bg-orange-50"
+                  >
+                    <Send className={`mr-2 h-4 w-4 ${sendingSalesPitch ? "animate-pulse" : ""}`} />
+                    {sendingSalesPitch ? "Skickar..." : `Skicka införsäljningsmail (${selectedForSalesPitch.size})`}
+                  </Button>
+                )}
               </div>
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
