@@ -27,13 +27,10 @@ const Navbar = () => {
     { label: "🧠 AI Readiness Assessment", path: "/ai-readiness" },
   ];
 
-  const crmSalesItems = [
+  const crmItems = [
     { label: "CRM Översikt", path: "/crm" },
     { label: "Dynamics 365 Sales", path: "/d365-sales" },
     { label: "Dynamics 365 Customer Insights", path: "/d365-marketing" },
-  ];
-
-  const crmServiceItems = [
     { label: "Dynamics 365 Customer Service", path: "/d365-customer-service" },
     { label: "Dynamics 365 Field Service", path: "/d365-field-service" },
     { label: "Dynamics 365 Contact Center", path: "/d365-contact-center" },
@@ -140,29 +137,12 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  Marknad & Sälj
+                  Marknad, Sälj & Service
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50">
-                {crmSalesItems.map((item) => (
-                  <DropdownMenuItem key={item.path} asChild>
-                    <Link to={item.path} className="cursor-pointer">
-                      {item.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  Kundservice
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border z-50">
-                {crmServiceItems.map((item) => (
+                {crmItems.map((item) => (
                   <DropdownMenuItem key={item.path} asChild>
                     <Link to={item.path} className="cursor-pointer">
                       {item.label}
@@ -268,23 +248,9 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Marknad & Sälj</span>
+                  <span className="text-lg font-semibold text-foreground">Marknad, Sälj & Service</span>
                   <div className="flex flex-col gap-2 ml-4">
-                    {crmSalesItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Kundservice</span>
-                  <div className="flex flex-col gap-2 ml-4">
-                    {crmServiceItems.map((item) => (
+                    {crmItems.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
