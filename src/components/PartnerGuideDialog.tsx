@@ -842,6 +842,12 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <span className="font-medium">{selectedApp}{selectedWorkloadLabel ? ` – ${selectedWorkloadLabel}` : ''}</span>
                 <span className="text-muted-foreground">Bransch:</span>
                 <span className="font-medium">{selectedIndustry || '–'}</span>
+                {selectedAdditionalApps.length > 0 && (
+                  <>
+                    <span className="text-muted-foreground">Övriga applikationer:</span>
+                    <span className="font-medium">{selectedAdditionalApps.join(', ')}</span>
+                  </>
+                )}
                 <span className="text-muted-foreground">Företagsstorlek:</span>
                 <span className="font-medium">{sizeOptions.find(o => o.value === selectedSize)?.label || '–'}</span>
                 <span className="text-muted-foreground">Lokal närvaro:</span>
