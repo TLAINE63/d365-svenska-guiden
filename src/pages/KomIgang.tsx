@@ -518,44 +518,21 @@ const KomIgang = () => {
           </div>
         </section>
 
-        {/* Bottom navigation */}
-        <div className="border-t border-border bg-background py-4">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-2xl mx-auto flex items-center justify-between">
-              <button
-                onClick={handleBack}
-                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Tillbaka
-              </button>
-
-              {step < TOTAL_STEPS && (
-                <span className="text-sm text-primary">
-                  steg {step + 1} väntar... <ArrowRight className="inline h-3 w-3" />
-                </span>
-              )}
-            </div>
-            <div className="max-w-2xl mx-auto mt-4 text-center">
-              <Button
-                onClick={handleNext}
-                disabled={!canProceed() || partnersLoading}
-                size="lg"
-                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg disabled:opacity-50"
-              >
-                {step === TOTAL_STEPS ? (
-                  partnersLoading ? (
-                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Laddar...</>
-                  ) : (
-                    "Visa partners"
-                  )
-                ) : (
-                  <>Kom igång <ArrowRight className="ml-2 h-4 w-4" /></>
-                )}
-              </Button>
+        {step > 1 && (
+          <div className="border-t border-border bg-background py-3">
+            <div className="container mx-auto px-4 sm:px-6">
+              <div className="max-w-3xl mx-auto">
+                <button
+                  onClick={handleBack}
+                  className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Tillbaka
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
 
       <Footer />
