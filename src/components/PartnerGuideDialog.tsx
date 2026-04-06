@@ -509,24 +509,23 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Vilken applikation är du intresserad av?</h3>
             <p className="text-sm text-muted-foreground">Välj en</p>
-            <RadioGroup value={selectedApp} onValueChange={setSelectedApp}>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {applicationOptions.map(app => (
-                  <div
-                    key={app}
-                    className={`flex items-center space-x-2 p-3 rounded-lg border cursor-pointer transition-colors ${
-                      selectedApp === app
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:border-primary/50"
-                    }`}
-                    onClick={() => setSelectedApp(app)}
-                  >
-                    <RadioGroupItem value={app} id={`app-${app}`} />
-                    <Label htmlFor={`app-${app}`} className="cursor-pointer text-sm">{app}</Label>
-                  </div>
-                ))}
-              </div>
-            </RadioGroup>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {applicationOptions.map(app => (
+                <button
+                  key={app.value}
+                  type="button"
+                  className={`flex flex-col items-center gap-2 p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
+                    selectedApp === app.value
+                      ? "border-primary bg-primary/10 shadow-md"
+                      : "border-border hover:border-primary/50 hover:shadow-sm"
+                  }`}
+                  onClick={() => setSelectedApp(app.value)}
+                >
+                  <img src={app.icon} alt={app.label} className="w-10 h-10 object-contain" />
+                  <span className="text-xs font-medium text-foreground text-center leading-tight">{app.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
@@ -568,24 +567,34 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Vilken bransch tillhör du?</h3>
             <p className="text-sm text-muted-foreground">Välj en</p>
-            <RadioGroup value={selectedIndustry} onValueChange={setSelectedIndustry}>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {industryOptions.map(industry => (
-                  <div
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+              {industryOptions.map(industry => {
+                const img = industryImages[industry];
+                return (
+                  <button
                     key={industry}
-                    className={`flex items-center space-x-2 p-3 rounded-lg border cursor-pointer transition-colors ${
+                    type="button"
+                    className={`group relative flex flex-col items-center rounded-xl overflow-hidden border cursor-pointer transition-all duration-200 ${
                       selectedIndustry === industry
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:border-primary/50"
+                        ? "border-primary ring-2 ring-primary/30 shadow-md"
+                        : "border-border hover:border-primary/50 hover:shadow-sm"
                     }`}
                     onClick={() => setSelectedIndustry(industry)}
                   >
-                    <RadioGroupItem value={industry} id={`industry-${industry}`} />
-                    <Label htmlFor={`industry-${industry}`} className="cursor-pointer text-sm">{industry}</Label>
-                  </div>
-                ))}
-              </div>
-            </RadioGroup>
+                    <div className="w-full aspect-square overflow-hidden bg-muted">
+                      {img ? (
+                        <img src={img} alt={industry} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Building2 className="w-6 h-6 text-muted-foreground/40" />
+                        </div>
+                      )}
+                    </div>
+                    <span className="text-[10px] sm:text-xs font-medium text-foreground text-center leading-tight px-1 py-1.5 line-clamp-2">{industry}</span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
 
@@ -803,23 +812,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                                 )}
                               </div>
                               
-                              {/* AI Match Score */}
-                              {aiMatch && !isAiLoading && (
-                                <TooltipProvider delayDuration={100}>
-                                  <Tooltip>
-                                    <TooltipTrigger asChild>
-                                      <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold flex-shrink-0 cursor-help ${getScoreBg(aiMatch.score)}`}>
-                                        <Star className={`w-3 h-3 ${getScoreColor(aiMatch.score)}`} />
-                                        <span className={getScoreColor(aiMatch.score)}>{aiMatch.score}%</span>
-                                      </div>
-                                    </TooltipTrigger>
-                                    <TooltipContent side="top" className="text-xs max-w-48">
-                                      <p className="font-medium mb-1">AI-matchning</p>
-                                      <p>{aiMatch.matchReason}</p>
-                                    </TooltipContent>
-                                  </Tooltip>
-                                </TooltipProvider>
-                              )}
+                              
                             </div>
                             
                             {/* AI match reason inline */}
