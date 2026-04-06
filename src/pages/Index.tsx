@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, FileText, CheckSquare, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
   Accordion,
@@ -13,12 +13,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
-import SalesIcon from "@/assets/icons/Sales.svg";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import MarketingIcon from "@/assets/icons/Marketing.svg";
 
 // Lazy load below-fold components
 const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
@@ -58,20 +52,26 @@ const homeFaqs = [
   },
 ];
 
-const quickQuestions = [
-  { label: "Vad kostar Business Central?", link: "/business-central/" },
-  { label: "Hur väljer man rätt partner?", link: "/valj-partner/" },
-  { label: "CRM vs ERP – Vad behöver vi?", link: "/behovsanalys/" },
-  { label: "Är vi redo för AI?", link: "/ai-readiness/" },
+const recognizeItems = [
+  "Du har tittat på Dynamics 365 men det är svårt att förstå skillnaderna",
+  "Du är osäker på Business Central vs Finance & Supply Chain",
+  "Du vet inte vilka partners du kan lita på",
+  "Du har redan ett system men är inte nöjd",
 ];
 
-const whyD365Items = [
-  "Jämför partners utifrån bransch och behov",
-  "Realistisk bild av kostnad och tid",
-  "Undvik vanliga misstag i ERP & CRM",
-  "Kostnadsfria behovsanalyser",
-  "Opartisk guide – vi säljer inget system",
-  "Anpassat för svenska företag",
+const whyItems = [
+  "Jämför partners baserat på bransch och behov",
+  "Få en realistisk bild av pris och tidsåtgång",
+  "Undvik vanliga misstag i ERP- och CRM-projekt",
+  "Vi är opartiska och oberoende",
+];
+
+const industryChips = [
+  { label: "Tillverkning", emoji: "🏭" },
+  { label: "Grossist", emoji: "📦" },
+  { label: "Tjänster", emoji: "💼" },
+  { label: "Retail / E-handel", emoji: "🛒" },
+  { label: "Bygg", emoji: "🏗️" },
 ];
 
 const Index = () => {
@@ -91,13 +91,13 @@ const Index = () => {
         title="Dynamics 365 Sverige – Oberoende guide till ERP & CRM"
         description="d365.se är Sveriges oberoende guide till Microsoft Dynamics 365. Vi hjälper svenska företag att jämföra ERP- och CRM-lösningar, hitta rätt Microsoft-certifierad partner och göra kostnadsfria behovsanalyser. Business Central från 765 kr per användare och månad."
         sections={[
-          { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnbaserade plattform för affärssystem (ERP) och kundrelationshantering (CRM). Plattformen består av specialiserade affärsapplikationer: Business Central och Finance & Supply Chain Management för ERP, samt Sales, Customer Service, Field Service, Marketing och Customer Insights för CRM. Alla applikationer delar samma dataplattform (Dataverse), integreras sömlöst med Microsoft 365 – inklusive Outlook, Teams och Excel – och har inbyggd AI via Microsoft Copilot. Dynamics 365 faktureras per användare och månad utan behov av egna servrar." },
-          { heading: "Dynamics 365 Business Central – pris och licenser i Sverige", text: "Dynamics 365 Business Central kostar från 765 kr per användare och månad med Essentials-licens, eller 1 051 kr per månad med Premium-licens som inkluderar produktion och servicehantering. Teammedlemmar med begränsad åtkomst kostar från cirka 77 kr per månad. Utöver licenserna tillkommer implementeringskostnader – räkna med 300 000 till 1 500 000 kr för en fullständig implementation beroende på komplexitet, antal användare och anpassningsbehov. Business Central passar företag med cirka 10 till 300 anställda som behöver ett komplett affärssystem för ekonomi, order, lager, inköp, produktion och projekt." },
-          { heading: "Hitta rätt Dynamics 365-partner i Sverige", text: "Att välja rätt implementeringspartner är avgörande för ett lyckat Dynamics 365-projekt. En bra partner bör ha dokumenterad branschkunskap inom din sektor, referenskunder av liknande storlek och djupkompetens på den specifika applikation du ska implementera. De flesta partners specialiserar sig på antingen ERP (Business Central eller Finance & SCM) eller CRM (Sales och Customer Service). På d365.se kan du filtrera och jämföra Microsoft-certifierade partners utifrån bransch, produkt och geografi – helt kostnadsfritt. Valet av partner är ofta viktigare än valet av system." },
-          { heading: "Hur lång tid tar en Dynamics 365-implementation?", text: "Tidsramen varierar beroende på lösning och komplexitet. Business Central startpaket tar normalt 2 till 4 månader. En fullständig Business Central-implementation tar 4 till 9 månader. Finance & Supply Chain Management tar 9 till 18 månader, och internationella utrullningar 18 till 36 månader. Dynamics 365 Sales eller Customer Service tar 2 till 6 månader. Den interna resurstillgången med en engagerad projektledare och tillgängliga nyckelanvändare är ofta den mest kritiska framgångsfaktorn för att hålla tidplanen." },
-          { heading: "Dynamics 365 jämfört med SAP, Salesforce och Fortnox", text: "Dynamics 365 Business Central är ett starkt alternativ till Fortnox, Visma och Monitor för små och medelstora företag – med bättre skalbarhet och djupare Microsoft-integration. Finance & Supply Chain Management är ett modernt alternativ till SAP S/4HANA med lägre licenspriser och inbyggd Copilot AI. Dynamics 365 Sales och Customer Service konkurrerar direkt med Salesforce och HubSpot, med fördelen att allt ligger i samma Microsoft-ekosystem som Office 365. För svenska företag med befintlig Microsoft-infrastruktur är Dynamics 365 ofta det naturligaste valet." },
-          { heading: "Microsoft Copilot AI i Dynamics 365", text: "Microsoft Copilot är inbyggt i alla Dynamics 365-applikationer utan extra licensavgift. I Business Central hjälper Copilot med produktbeskrivningar, bankavstämning och kassaflödesprognoser. I Sales sammanfattar Copilot möten, skriver e-postutkast och prioriterar leads. I Customer Service föreslår Copilot svar baserat på kunskapsartiklar och sammanfattar ärenden. I Finance & Supply Chain varnar Copilot för leveransrisker och avvikelser. Enligt Forresters TEI-studie från oktober 2024 kan Copilot ge 353 procent potentiell ROI över tre år." },
-          { heading: "Kostnadsfri behovsanalys", text: "Gör vår kostnadsfria behovsanalys för att få en personlig rekommendation om vilken Dynamics 365-lösning som passar ditt företag bäst. Analysen tar cirka 5 minuter och ger dig en sammanfattning av lämplig lösningsinriktning, estimerad budgetram och vilken typ av partner som passar dina behov. Välj mellan behovsanalys för ERP och affärssystem, Sälj och Marknad (CRM), eller Kundservice." },
+          { heading: "Vad är Microsoft Dynamics 365?", text: "Microsoft Dynamics 365 är Microsofts molnbaserade plattform för affärssystem (ERP) och kundrelationshantering (CRM). Plattformen består av specialiserade affärsapplikationer: Business Central och Finance & Supply Chain Management för ERP, samt Sales, Customer Service, Field Service, Marketing och Customer Insights för CRM." },
+          { heading: "Dynamics 365 Business Central – pris och licenser i Sverige", text: "Dynamics 365 Business Central kostar från 765 kr per användare och månad med Essentials-licens, eller 1 051 kr per månad med Premium-licens som inkluderar produktion och servicehantering." },
+          { heading: "Hitta rätt Dynamics 365-partner i Sverige", text: "Att välja rätt implementeringspartner är avgörande för ett lyckat Dynamics 365-projekt. En bra partner bör ha dokumenterad branschkunskap inom din sektor, referenskunder av liknande storlek och djupkompetens på den specifika applikation du ska implementera." },
+          { heading: "Hur lång tid tar en Dynamics 365-implementation?", text: "Tidsramen varierar beroende på lösning och komplexitet. Business Central startpaket tar normalt 2 till 4 månader. En fullständig Business Central-implementation tar 4 till 9 månader." },
+          { heading: "Dynamics 365 jämfört med SAP, Salesforce och Fortnox", text: "Dynamics 365 Business Central är ett starkt alternativ till Fortnox, Visma och Monitor för små och medelstora företag – med bättre skalbarhet och djupare Microsoft-integration." },
+          { heading: "Microsoft Copilot AI i Dynamics 365", text: "Microsoft Copilot är inbyggt i alla Dynamics 365-applikationer utan extra licensavgift." },
+          { heading: "Kostnadsfri behovsanalys", text: "Gör vår kostnadsfria behovsanalys för att få en personlig rekommendation om vilken Dynamics 365-lösning som passar ditt företag bäst." },
         ]}
       />
       <Navbar />
@@ -105,82 +105,37 @@ const Index = () => {
       <main>
       
       {/* Hero Section */}
-      <section className="pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
-            Hitta rätt Dynamics 365‑lösning och partner
+      <section className="relative pt-20 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-24 overflow-hidden">
+        {/* Subtle skyline background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-muted/60 to-transparent opacity-60" />
+        
+        <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 sm:mb-5 leading-tight">
+            Ska du välja Dynamics 365? Börja här.
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 leading-relaxed">
-            Jämför affärssystem och CRM baserat på din verksamhet.
-            <br className="hidden sm:block" />
-            Opartiskt, konkret och anpassat för svenska företag.
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
+            Förstå skillnaderna, undvik vanliga misstag och hitta rätt partner – baserat på din verksamhet.
           </p>
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-base sm:text-lg h-12 sm:h-14 px-8 sm:px-10 rounded-xl shadow-lg mb-3">
+          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base sm:text-lg h-12 sm:h-14 px-10 sm:px-12 rounded-lg shadow-lg">
             <Link to="/behovsanalys/">Kom igång</Link>
           </Button>
-          <div>
-            <Link to="/valj-partner/" className="inline-flex items-center gap-1 text-sm sm:text-base text-muted-foreground hover:text-foreground transition-colors mt-2">
-              Jag vill bara jämföra alternativ <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+          <p className="text-sm text-muted-foreground mt-3">
+            Tar ca 1 minut · inga förkunskaper krävs
+          </p>
         </div>
       </section>
 
-      {/* Vad vill du göra? */}
+      {/* Känner du igen dig? */}
       <section className="py-10 sm:py-14 md:py-16 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8 sm:mb-10">
-            Vad vill du göra?
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
+            Känner du igen dig?
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
-            <Link to="/behovsanalys/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
-              <div className="flex justify-center mb-3">
-                <div className="flex gap-1">
-                  <img src={BusinessCentralIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
-                  <img src={FinanceIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
-                </div>
-              </div>
-              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Införa nytt affärssystem</h3>
-              <p className="text-xs sm:text-sm text-muted-foreground">Byta eller uppgradera ERP</p>
-            </Link>
-            <Link to="/salj-marknad-behovsanalys/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
-              <div className="flex justify-center mb-3">
-                <div className="flex gap-1">
-                  <img src={SalesIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
-                  <img src={MarketingIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
-                </div>
-              </div>
-              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Förbättra sälj och marknad</h3>
-              <p className="text-xs sm:text-sm text-muted-foreground">Optimera sälj & CRM</p>
-            </Link>
-            <Link to="/kundservice-behovsanalys/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
-              <div className="flex justify-center mb-3">
-                <img src={CustomerServiceIcon} alt="" className="h-10 w-10 sm:h-12 sm:w-12" />
-              </div>
-              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Utveckla kundservice</h3>
-              <p className="text-xs sm:text-sm text-muted-foreground">Effektivisera support</p>
-            </Link>
-            <Link to="/kontakt/" className="group bg-card rounded-xl p-5 sm:p-6 border border-border hover:shadow-[var(--shadow-hover)] transition-all text-center">
-              <div className="flex justify-center mb-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center text-2xl">🙋</div>
-              </div>
-              <h3 className="font-bold text-sm sm:text-base text-card-foreground mb-1">Jag är osäker – Hjälp mig</h3>
-              <p className="text-xs sm:text-sm text-muted-foreground">Få vägledning</p>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Därför använder företag d365.se */}
-      <section className="py-10 sm:py-14 md:py-16 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8 sm:mb-10">
-            Därför använder företag d365.se
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 max-w-3xl mx-auto">
-            {whyD365Items.map((item) => (
-              <div key={item} className="flex items-center gap-3">
-                <Check className="h-5 w-5 text-primary flex-shrink-0" />
+          <div className="max-w-2xl mx-auto space-y-4">
+            {recognizeItems.map((item) => (
+              <div key={item} className="flex items-start gap-3 pb-4 border-b border-border last:border-b-0">
+                <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <span className="text-sm sm:text-base text-foreground">{item}</span>
               </div>
             ))}
@@ -188,72 +143,114 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Vanliga frågor just nu */}
-      <section className="py-10 sm:py-14 md:py-16 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-6 sm:mb-8">
-            Vanliga frågor just nu
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
-            {quickQuestions.map((q) => (
-              <Link
-                key={q.label}
-                to={q.link}
-                className="px-4 sm:px-5 py-2.5 sm:py-3 rounded-full border border-border bg-card text-sm sm:text-base text-foreground hover:shadow-[var(--shadow-hover)] hover:border-primary/40 transition-all"
-              >
-                {q.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Two CTA Cards */}
+      {/* Så guidar vi dig genom 3 steg */}
       <section className="py-10 sm:py-14 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
-            <div className="bg-card rounded-xl p-6 sm:p-8 border border-border flex flex-col justify-between">
-              <div>
-                <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2">Hitta rätt partner</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Filtrera partners, branschanpassat och behovsbaserat för att hitta rätt Microsoft-partner
-                </p>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
+            Så guidar vi dig genom 3 steg
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-8">
+            {/* Step 1 */}
+            <div className="text-center">
+              <div className="flex justify-center mb-4">
+                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">1</div>
               </div>
-              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground w-fit">
-                <Link to="/valj-partner/">Till partnerguiden</Link>
-              </Button>
-            </div>
-            <div className="bg-card rounded-xl p-6 sm:p-8 border border-border flex flex-col justify-between">
-              <div>
-                <h3 className="text-lg sm:text-xl font-bold text-card-foreground mb-2">AI i Dynamics 365</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Första stödfunktioner, standard och partnerutvecklade AI-exempel
-                </p>
+              <h3 className="font-bold text-base sm:text-lg text-foreground mb-3">Beskriv din verksamhet</h3>
+              <div className="bg-card rounded-lg p-4 border border-border">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <FileText className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span>Beskriv din verksamhet</span>
+                </div>
               </div>
-              <Button asChild variant="outline" className="w-fit">
-                <Link to="/ai-readiness/">Se AI readiness</Link>
-              </Button>
             </div>
+            {/* Step 2 */}
+            <div className="text-center">
+              <div className="flex justify-center mb-4">
+                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">2</div>
+              </div>
+              <h3 className="font-bold text-base sm:text-lg text-foreground mb-3">Förstå vilka lösningar som passar</h3>
+              <div className="bg-card rounded-lg p-4 border border-border">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CheckSquare className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span>Få en snabb bild av vad som passar er</span>
+                </div>
+              </div>
+            </div>
+            {/* Step 3 */}
+            <div className="text-center">
+              <div className="flex justify-center mb-4">
+                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">3</div>
+              </div>
+              <h3 className="font-bold text-base sm:text-lg text-foreground mb-3">Vi föreslår passande partners</h3>
+              <div className="bg-card rounded-lg p-4 border border-border">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="h-5 w-5 text-primary flex-shrink-0" />
+                  <span>Se vilka partners som matchar era behov</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="text-center">
+            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg">
+              <Link to="/behovsanalys/">
+                Kom igång <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Vill du ha hjälp att komma vidare? */}
-      <section className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-            Vill du ha hjälp att komma vidare?
+      {/* Därför använder företag d365.se – branschsök */}
+      <section className="py-10 sm:py-14 md:py-16 bg-background">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-foreground mb-8">
+            Därför använder företag d365.se
           </h2>
-          <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-xl mx-auto">
-            Börja med att beskriva din situation – så guidar vi dig rätt.
-          </p>
-          <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-base sm:text-lg h-12 sm:h-14 px-8 sm:px-10 rounded-xl shadow-lg">
-            <Link to="/kontakt/">Kom igång</Link>
-          </Button>
+          
+          {/* Industry chips */}
+          <div className="max-w-3xl mx-auto mb-8">
+            <div className="bg-card border border-border rounded-xl p-5">
+              <div className="flex items-center gap-2 text-muted-foreground mb-4 border-b border-border pb-3">
+                <span className="text-sm">🔍</span>
+                <span className="text-sm">Skriv din bransch...</span>
+              </div>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {industryChips.map((chip) => (
+                  <Link
+                    key={chip.label}
+                    to="/branschlosningar/"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-border bg-background text-sm text-foreground hover:border-primary/40 hover:shadow-sm transition-all"
+                  >
+                    <span>{chip.emoji}</span>
+                    <span>{chip.label}</span>
+                  </Link>
+                ))}
+              </div>
+              <Link to="/branschlosningar/" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Se alla branscher <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Why checklist */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 max-w-3xl mx-auto">
+            {whyItems.map((item) => (
+              <div key={item} className="flex items-center gap-3">
+                <Check className="h-5 w-5 text-primary flex-shrink-0" />
+                <span className="text-sm sm:text-base text-foreground">{item}</span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-8">
+            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg">
+              <Link to="/behovsanalys/">Kom igång</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* Quick Links Section */}
+      {/* Vanliga frågor */}
       <section id="questions" className="py-12 sm:py-16 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
@@ -291,14 +288,13 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Det beror på om du primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda. Här är de vanligaste scenarierna:</p>
-                    <p>• <strong>Business Central</strong> passar dig om du är ett litet eller medelstort företag (ca 10–300 anställda) och behöver ett modernt allt-i-ett affärssystem för ekonomi, order, lager, inköp, produktion och projekt. Vanligt i branscher som tillverkning, distribution, bygg och konsulttjänster.</p>
-                    <p>• <strong>Finance & Supply Chain Management</strong> passar dig om du är en större koncern med komplexa globala flöden, flera juridiska enheter eller avancerade produktionskrav. Kräver mer av implementering och intern resurser.</p>
-                    <p>• <strong>Dynamics 365 Sales</strong> passar dig om du vill digitalisera och effektivisera din säljprocess – pipeline-hantering, offerthantering och kundrelationer.</p>
-                    <p>• <strong>Customer Service & Field Service</strong> passar dig om du hanterar ärenden, garantier, serviceavtal eller fälttekniker som behöver digital planering och support.</p>
-                    <p>• <strong>Customer Insights</strong> passar dig om du vill arbeta datadrivet med marknadsföring, kampanjer och personalisering mot kunder.</p>
+                    <p>Det beror på om du primärt behöver ett <strong>affärssystem (ERP)</strong> eller ett <strong>CRM-system</strong> – eller båda.</p>
+                    <p>• <strong>Business Central</strong> passar dig om du är ett litet eller medelstort företag (ca 10–300 anställda) och behöver ett modernt allt-i-ett affärssystem.</p>
+                    <p>• <strong>Finance & Supply Chain Management</strong> passar dig om du är en större koncern med komplexa globala flöden.</p>
+                    <p>• <strong>Dynamics 365 Sales</strong> passar dig om du vill digitalisera och effektivisera din säljprocess.</p>
+                    <p>• <strong>Customer Service & Field Service</strong> passar dig om du hanterar ärenden, garantier och fälttekniker.</p>
                     <p className="pt-1">
-                      → Gör gärna någon av våra kostnadsfria behovsanalyser för <Link to="/behovsanalys/" className="text-primary hover:underline font-semibold">ERP/Affärssystem</Link>, <Link to="/salj-marknad-behovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link> för en personlig rekommendation.
+                      → Gör gärna någon av våra kostnadsfria behovsanalyser för <Link to="/behovsanalys/" className="text-primary hover:underline font-semibold">ERP/Affärssystem</Link>, <Link to="/salj-marknad-behovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link>.
                     </p>
                   </div>
                 </AccordionContent>
@@ -314,17 +310,15 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Kostnaden för Dynamics 365 består av två delar: <strong>löpande licensavgifter</strong> och en engångs <strong>implementeringskostnad</strong>.</p>
-                    <p>• <strong>Business Central:</strong> Från ca 550 kr/mån (Essentials) till ca 780 kr/mån (Premium) per fullständig användare. Teammedlemmar med begränsad åtkomst kostar från ca 70 kr/mån.</p>
-                    <p>• <strong>Finance & Supply Chain:</strong> Från ca 3 500 kr/mån per aktiv användare, med aktivitetsbaserade licenser från ca 90 kr/mån för mer begränsad åtkomst.</p>
-                    <p>• <strong>Sales & Customer Service:</strong> Från ca 800–1 100 kr/mån per användare beroende på applikation och licensnivå.</p>
-                    <p>• <strong>Customer Insights (Marketing):</strong> Prissätts per antal kontakter/sessions (tenant-prissättning), inte per användare – startar från ca 15 000 kr/mån.</p>
-                    <p>• <strong>Projektkostnad:</strong> Implementeringen är ofta den stora posten. Räkna med allt från 50 000–150 000 kr för ett BC-startpaket till flera miljoner för ett enterprise Finance & SCM-projekt.</p>
-                    <p>• <strong>Vad påverkar priset:</strong> Antal användare, grad av anpassning, integrationer mot befintliga system, utbildningsbehov och löpande support.</p>
+                    <p>Kostnaden består av <strong>löpande licensavgifter</strong> och en engångs <strong>implementeringskostnad</strong>.</p>
+                    <p>• <strong>Business Central:</strong> Från ca 550 kr/mån (Essentials) till ca 780 kr/mån (Premium) per användare.</p>
+                    <p>• <strong>Finance & Supply Chain:</strong> Från ca 3 500 kr/mån per aktiv användare.</p>
+                    <p>• <strong>Sales & Customer Service:</strong> Från ca 800–1 100 kr/mån per användare.</p>
+                    <p>• <strong>Projektkostnad:</strong> Allt från 50 000–150 000 kr för ett BC-startpaket till flera miljoner för enterprise-projekt.</p>
                     <Suspense fallback={null}>
                     <ContactFormDialog>
                       <Button variant="link" className="mt-2 italic p-0 h-auto font-normal text-muted-foreground hover:text-primary">
-                        Kontakta oss så får du snabbt en tydligare uppfattning av såväl licensavgifter som projektkostnader →
+                        Kontakta oss så får du en tydligare uppfattning av kostnader →
                       </Button>
                     </ContactFormDialog>
                     </Suspense>
@@ -336,72 +330,27 @@ const Index = () => {
               <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
-                    <span>Hur lång tid tar det att implementera Dynamics 365?</span>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6">
-                  <div className="space-y-3 text-muted-foreground">
-                    <p>Implementationstiden varierar kraftigt beroende på applikation, verksamhetens komplexitet och ambitionsnivå. Här är typiska tidshorisonter:</p>
-                    <p>• <strong>Business Central (startpaket):</strong> 2–4 månader. Passar dig som vill upp och rulla snabbt med standardkonfiguration och minimal anpassning.</p>
-                    <p>• <strong>Business Central (fullständig implementation):</strong> 4–9 månader, ibland längre vid komplexa produktions- eller projektmiljöer.</p>
-                    <p>• <strong>Finance & Supply Chain Management:</strong> 9–18 månader är vanligt, och för internationella utrullningar med flera länder räkna med 18–36 månader.</p>
-                    <p>• <strong>Dynamics 365 Sales / Customer Service:</strong> 2–6 månader beroende på antal användare, integrationer och grad av processanpassning.</p>
-                    <p>• <strong>Customer Insights (Marketing Automation):</strong> 2–4 månader för grundupplägg, men datakvalitetsarbete och segmenteringslogik tar ofta extra tid.</p>
-                    <p>• <strong>Vad krävs internt:</strong> En engagerad projektledare, dedikerade nyckelanvändare och tid för workshops, test och utbildning. Interna resurser är ofta den mest kritiska framgångsfaktorn.</p>
-                    <p>• <strong>Första affärsnyttan</strong> syns ofta redan efter 2–3 månader. Full ROI uppnås vanligtvis inom 1–2 år.</p>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Fråga 5 */}
-              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
-                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
-                    <span>Hur fungerar Dynamics 365 med våra befintliga system och Microsoft 365?</span>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6">
-                  <div className="space-y-3 text-muted-foreground">
-                    <p>Integration är en av de starkaste egenskaperna i Dynamics 365, och ett av de viktigaste argumenten för att välja Microsoft-stacken:</p>
-                    <p>• <strong>Microsoft 365 (Outlook, Teams, Excel):</strong> Sömlös tvåvägsynkronisering – du kan hantera kunderbjudanden, ärenden och order direkt från Outlook eller Teams utan att byta system. Exportera och analysera data i Excel med ett klick.</p>
-                    <p>• <strong>Power Platform (Power Apps, Power Automate, Power BI):</strong> Bygg egna arbetsflöden, mobilappar och rapporter utan att koda. Power BI kopplar direkt mot Dynamics 365-data för realtidsdashboards.</p>
-                    <p>• <strong>Befintliga affärssystem:</strong> Via standard-API:er (REST/OData) och Microsoft Dataverse kan du integrera mot e-handel, lönesystem, tullsystem, WMS, BI-verktyg och andra affärssystem. Färdiga kopplingarna finns via Marketplace för hundratals populära system.</p>
-                    <p>• <strong>Azure och säkerhet:</strong> All data lagras i Microsoft Azure med enterprise-grade säkerhet, GDPR-efterlevnad och möjlighet att välja dataregion (t.ex. EU).</p>
-                    <p>• <strong>AI & Copilot:</strong> Microsoft Copilot är inbyggt i alla Dynamics 365-appar och kan hjälpa med att sammanfatta ärenden, föreslå svar, skapa offerter eller förutsäga lagerbehov – beroende på vilken app du använder.</p>
-                    <p>• <strong>Autonoma Agenter:</strong> Den senaste AI-innovationen låter dig sätta upp agenter som självständigt hanterar processer som leadkvalificering, ärenderouting eller leveransavvikelser utan manuell handpåläggning.</p>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-
-              {/* Fråga 6 */}
-              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
-                <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
-                  <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
                     <span className="text-xl sm:text-2xl flex-shrink-0">🤝</span>
-                    <span>Vilka Microsoftpartners borde passa vår verksamhet bäst?</span>
+                    <span>Hur hittar jag rätt Dynamics 365-partner?</span>
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Att välja rätt implementationspartner är minst lika viktigt som att välja rätt system. En felaktig partner är den vanligaste orsaken till att ERP- och CRM-projekt misslyckas eller överstiger budget.</p>
-                    <p>• <strong>Branschkunskap:</strong> Välj en partner som har referenskunder i din specifika bransch – inte bara generell Dynamics 365-erfarenhet. En partner som förstår tillverkningens processer är fundamentalt annorlunda mot en partner med fokus på konsultbranschen.</p>
-                    <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern verkligen är specialiserad på den app du implementerar. Många partners är starka på ERP men svaga på CRM – och tvärtom. En partner som "kan allt" har ofta djupkompetens på bara en del.</p>
-                    <p>• <strong>Storlek och kapacitet:</strong> En partner vars konsultkapacitet matchar ditt projekts storlek och tidplan. Risken med en för liten partner är resursbrist; med en för stor partner att du hamnar hos juniora konsulter.</p>
-                    <p>• <strong>Geografisk närvaro:</strong> Lokal närvaro underlättar workshops, utbildning och löpande support – men de flesta partners levererar idag hybridprojekt med en mix av digitalt och på plats.</p>
-                    <p>• <strong>Kundexempel och referenser:</strong> Be alltid om 2–3 referenskunder i liknande bransch och storlek. Hur lång tid tog projektet? Vad gick bra? Vad var utmanande?</p>
+                    <p>Att välja rätt partner är minst lika viktigt som att välja rätt system.</p>
+                    <p>• <strong>Branschkunskap:</strong> Välj en partner med referenskunder i din bransch.</p>
+                    <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern är specialiserad på rätt app.</p>
+                    <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med ditt projekts storlek.</p>
                     <p className="pt-2">
                       <Link to="/valj-partner/" className="text-primary hover:underline font-semibold">
-                        → Utforska partnerkatalogen och använd AI-guiden för att hitta rätt match
+                        → Utforska partnerkatalogen
                       </Link>
                     </p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
 
-              {/* Fråga 7 – SAP/Salesforce-jämförelse */}
-              <AccordionItem value="item-7" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+              {/* Fråga 5 */}
+              <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
                     <span className="text-xl sm:text-2xl flex-shrink-0">⚖️</span>
@@ -411,16 +360,15 @@ const Index = () => {
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
                     <p>Ja – Dynamics 365 är ett starkt alternativ i alla tre segmenten:</p>
-                    <p>• <strong>Vs Fortnox / Visma / Monitor (SMB ERP):</strong> Business Central erbjuder samma enkelhet men med bättre skalbarhet, djupare Microsoft-integration och inbyggd AI. Passar dig som har vuxit ur Fortnox men inte vill ta steget till SAP.</p>
-                    <p>• <strong>Vs SAP S/4HANA (Enterprise ERP):</strong> Finance & Supply Chain Management är ett modernt alternativ med lägre totalkostnad (TCO), snabbare implementation och inbyggd Copilot AI. För nordiska medelstora till stora företag väljer allt fler D365 framför SAP.</p>
-                    <p>• <strong>Vs Salesforce / HubSpot (CRM):</strong> Dynamics 365 Sales och Customer Service konkurrerar direkt – med fördelen att allt ingår i samma Microsoft-ekosystem som Office 365, Teams och Power BI. Ingen extra integration krävs.</p>
-                    <p>• <strong>Gemensam fördel:</strong> För företag med befintlig Microsoft 365-infrastruktur är Dynamics 365 ofta det naturligaste valet – du betalar inte för redundanta integrationer och data bor i ett och samma ekosystem.</p>
+                    <p>• <strong>Vs Fortnox / Visma:</strong> Business Central erbjuder bättre skalbarhet och djupare Microsoft-integration.</p>
+                    <p>• <strong>Vs SAP S/4HANA:</strong> Finance & SCM är ett modernt alternativ med lägre totalkostnad.</p>
+                    <p>• <strong>Vs Salesforce / HubSpot:</strong> Sales och Customer Service konkurrerar direkt – med fördelen att allt ligger i samma Microsoft-ekosystem.</p>
                   </div>
                 </AccordionContent>
               </AccordionItem>
 
-              {/* Fråga 8 – Microsoft Copilot AI */}
-              <AccordionItem value="item-8" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
+              {/* Fråga 6 */}
+              <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
                     <span className="text-xl sm:text-2xl flex-shrink-0">🤖</span>
@@ -429,12 +377,10 @@ const Index = () => {
                 </AccordionTrigger>
                 <AccordionContent className="pb-6">
                   <div className="space-y-3 text-muted-foreground">
-                    <p>Microsoft Copilot är inbyggt i alla Dynamics 365-appar <strong>utan extra licensavgift</strong> – det ingår i din befintliga licens.</p>
-                    <p>• <strong>Business Central:</strong> Copilot genererar produktbeskrivningar automatiskt, hjälper till med bankavstämning och skapar försäljningsrader från dokument.</p>
-                    <p>• <strong>Dynamics 365 Sales:</strong> Copilot sammanfattar möten, skriver e-postutkast och identifierar leads med hög sannolikhet att konvertera.</p>
-                    <p>• <strong>Customer Service:</strong> Copilot sammanfattar ärenden, föreslår svar och analyserar sentiment i kundinteraktioner – 25% snabbare ärendehantering.</p>
-                    <p>• <strong>Finance & Supply Chain:</strong> Copilot varnar för leveransrisker, identifierar ekonomiavvikelser och optimerar inköpsplaner i realtid.</p>
-                    <p>• <strong>Mätbar affärsnytta:</strong> Forrester TEI-studie (oktober 2024) visar 353% potentiell ROI över 3 år, 20% reducerade driftskostnader och 18% ökad medarbetarnöjdhet.</p>
+                    <p>Microsoft Copilot är inbyggt i alla Dynamics 365-appar <strong>utan extra licensavgift</strong>.</p>
+                    <p>• <strong>Business Central:</strong> Produktbeskrivningar, bankavstämning och försäljningsrader.</p>
+                    <p>• <strong>Sales:</strong> Mötessammanfattningar, e-postutkast och leadprioritering.</p>
+                    <p>• <strong>Customer Service:</strong> Ärendesammanfattningar och svarsförslag.</p>
                     <p className="pt-1">
                       <Link to="/copilot/" className="text-primary hover:underline font-semibold">
                         → Läs mer om Copilot i Dynamics 365
@@ -448,361 +394,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Solution Selector Section */}
-      <section id="solutions" className="py-12 sm:py-16 md:py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10 sm:mb-12 md:mb-16">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-              Välj din lösning
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
-              <span className="whitespace-nowrap">Microsoft Dynamics 365</span> erbjuder lösningar för både affärssystem och kundhantering
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
-            {/* Business Central Card */}
-            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-4 sm:mb-6">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <img src={BusinessCentralIcon} alt="Business Central" className="h-8 w-8 sm:h-10 sm:w-10" />
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Business Central</h3>
-                </div>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-                  Komplett affärssystem för mindre och medelstora företag
-                </p>
-              </div>
-              
-              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• Hantera ekonomi och redovisning</li>
-                  <li>• Order, Lager, Inköp</li>
-                  <li>• Projekthantering</li>
-                  <li>• Material- och Produktionsstyrning</li>
-                  <li>• Serviceorder</li>
-                  <li>• Inbyggd AI</li>
-                </ul>
-              </div>
-              
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/business-central/">
-                  Läs mer om Business Central
-                </Link>
-              </Button>
-            </div>
-
-            {/* Finance & Supply Chain Card */}
-            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-4 sm:mb-6">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
-                  <div className="flex gap-1">
-                    <img src={FinanceIcon} alt="Finance" className="h-8 w-8 sm:h-10 sm:w-10" />
-                    <img src={SupplyChainIcon} alt="Supply Chain" className="h-8 w-8 sm:h-10 sm:w-10" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Finance & SCM</h3>
-                </div>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-                  Passar för större internationella verksamheter och koncerner
-                </p>
-              </div>
-              
-              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• Global ekonomihantering</li>
-                  <li>• Avancerad tillverkning</li>
-                  <li>• Komplex leveranskedja</li>
-                  <li>• IoT och AI-integration</li>
-                </ul>
-              </div>
-              
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/finance-supply-chain/">
-                  Läs mer om Finance & SCM
-                </Link>
-              </Button>
-            </div>
-
-            {/* Marknad & Sälj Card */}
-            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-4 sm:mb-6">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
-                  <div className="flex gap-1">
-                    <img src={SalesIcon} alt="Sales" className="h-8 w-8 sm:h-10 sm:w-10" />
-                    <img src={MarketingIcon} alt="Customer Insights" className="h-8 w-8 sm:h-10 sm:w-10" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Marknad & Sälj</h3>
-                </div>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-                  Sales och Customer Insights
-                </p>
-              </div>
-              
-              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• Öka försäljning och hantera leads</li>
-                  <li>• Automatisera marknadsföring</li>
-                  <li>• AI-driven kundinsikt</li>
-                  <li>• Pipeline-hantering</li>
-                </ul>
-              </div>
-              
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/crm/">
-                  Läs mer om Marknad & Sälj
-                </Link>
-              </Button>
-            </div>
-
-            {/* Kundservice Card */}
-            <div className="bg-card rounded-lg p-4 sm:p-6 md:p-8 border border-border hover:shadow-[var(--shadow-hover)] transition-all duration-300">
-              <div className="mb-4 sm:mb-6">
-                <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
-                  <div className="flex gap-1">
-                    <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8 sm:h-10 sm:w-10" />
-                  </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-card-foreground">Kundservice</h3>
-                </div>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
-                  Customer Service, Field Service, Contact Center
-                </p>
-              </div>
-              
-              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
-                <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-muted-foreground">
-                  <li>• Förbättra kundservice och support</li>
-                  <li>• Fältservice och arbetsorder</li>
-                  <li>• Omnikanalskommunikation</li>
-                  <li>• AI-assisterad ärendehantering</li>
-                </ul>
-              </div>
-              
-              <Button asChild variant="outline" className="w-full hover:bg-accent hover:text-accent-foreground text-sm">
-                <Link to="/d365-customer-service/">
-                  Läs mer om Kundservice
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Common Mistakes Teaser */}
       <Suspense fallback={null}><CommonMistakesTeaser /></Suspense>
-
-      {/* Microsoft Agents Section - NEW! */}
-      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-primary rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent rounded-full filter blur-3xl"></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8 sm:mb-10">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4">
-                Microsoft Agenter
-              </h2>
-              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-2">
-                Nästa generation av AI-automation i Dynamics 365
-              </p>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
-                Autonoma AI-agenter som arbetar självständigt 24/7 för att lösa komplexa affärsuppgifter och koordinera mellan system
-              </p>
-            </div>
-
-            {/* Main Concept Card */}
-            <div className="bg-card rounded-2xl p-6 sm:p-8 border-2 border-primary/20 mb-8 hover:shadow-2xl transition-all">
-              <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                      <span className="text-xl">🤖</span>
-                    </div>
-                    <div>
-                    <h3 className="text-xl font-bold text-card-foreground mb-2">Vad är Agenter?</h3>
-                    <p className="text-sm sm:text-base text-muted-foreground">
-                      Medan <strong>Copilot</strong> fungerar som din AI-assistent som hjälper dig med uppgifter, 
-                      är <strong>Agenter</strong> autonoma AI-system som kan utföra komplexa arbetsflöden självständigt, 
-                      fatta beslut och koordinera med andra system - allt baserat på dina affärsregler.
-                    </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-card-foreground text-sm mb-3">Exempel på Agenter:</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary font-bold">💼</span>
-                      <div>
-                        <strong className="text-card-foreground">Sales Agent:</strong>
-                        <span className="text-muted-foreground"> Kvalificerar leads, skickar uppföljningar, föreslår priser</span>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary font-bold">🎧</span>
-                      <div>
-                        <strong className="text-card-foreground">Service Agent:</strong>
-                        <span className="text-muted-foreground"> Löser ärenden automatiskt, eskalerar vid behov</span>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary font-bold">📦</span>
-                      <div>
-                        <strong className="text-card-foreground">Supply Chain Agent:</strong>
-                        <span className="text-muted-foreground"> Optimerar lager, hanterar leverantörer, löser störningar</span>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-primary font-bold">💰</span>
-                      <div>
-                        <strong className="text-card-foreground">Finance Agent:</strong>
-                        <span className="text-muted-foreground"> Processar fakturor, utför avstämningar, skapar prognoser</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Comparison: Copilot vs Agents */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-secondary w-10 h-10 rounded-lg flex items-center justify-center">
-                    <span className="text-xl">👤</span>
-                  </div>
-                  <h4 className="text-lg font-bold text-card-foreground">Copilot</h4>
-                </div>
-                <p className="text-sm text-muted-foreground mb-3">
-                  AI-assistent som stödjer användaren
-                </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ Hjälper med uppgifter på begäran</li>
-                  <li>✓ Kräver användarinteraktion</li>
-                  <li>✓ Ger förslag och rekommendationer</li>
-                  <li>✓ Arbetar inom en applikation</li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 backdrop-blur-sm rounded-xl p-6 border-2 border-primary/30">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-gradient-to-br from-primary to-accent w-10 h-10 rounded-lg flex items-center justify-center">
-                    <span className="text-xl">⚡</span>
-                  </div>
-                  <h4 className="text-lg font-bold text-foreground">Agenter</h4>
-                </div>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Autonoma AI-system som arbetar självständigt
-                </p>
-                <ul className="space-y-2 text-sm text-foreground/90 font-medium">
-                  <li>✓ Utför hela arbetsflöden automatiskt</li>
-                  <li>✓ Arbetar självständigt 24/7</li>
-                  <li>✓ Fattar beslut baserat på affärsregler</li>
-                  <li>✓ Koordinerar mellan system och team</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="text-center">
-              <Button asChild size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground">
-                <Link to="/agents/">
-                  Upptäck Microsoft Agenter
-                  <span className="ml-2">→</span>
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partner Selection Section */}
-      <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <div className="flex justify-center mb-6">
-                <div className="bg-amber-500/20 w-16 h-16 rounded-full flex items-center justify-center">
-                  <span className="text-3xl">🤝</span>
-                </div>
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Vikten av rätt implementationspartner
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                Valet av implementationspartner är minst lika viktigt som valet av system. En bra partner kan vara skillnaden mellan ett projekt som levererar verkligt värde och ett som fastnar i onödiga komplikationer. Men hur hittar man rätt? Svaret ligger i att förstå vad som faktiskt spelar roll när man utvärderar potentiella partners.
-              </p>
-            </div>
-
-            <div className="text-left space-y-8 mb-10">
-              <div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Vad bör ni titta på?</h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  Det finns tre faktorer som ofta är avgörande när man väljer rätt Dynamics 365-partner:
-                </p>
-
-                <div className="space-y-4">
-                  <div className="bg-card rounded-lg p-5 border border-border">
-                    <h4 className="font-semibold text-foreground mb-1">Branscherfarenhet</h4>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      En partner som redan har genomfört implementeringar i er bransch förstår era utmaningar, era processer och de fallgropar som är vanliga just i er kontext. De behöver inte lära sig er verksamhet från grunden – de kan fokusera på att leverera värde från dag ett.
-                    </p>
-                  </div>
-                  <div className="bg-card rounded-lg p-5 border border-border">
-                    <h4 className="font-semibold text-foreground mb-1">Företagsstorlek och kapacitet</h4>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      En partner som primärt arbetar med stora globala enterprise-projekt kanske inte är rätt match för ett medelstort bolag med snabba beslutsvägar och begränsad intern IT-kapacitet – och vice versa. Välj en partner vars arbetssätt och skala matchar er organisation.
-                    </p>
-                  </div>
-                  <div className="bg-card rounded-lg p-5 border border-border">
-                    <h4 className="font-semibold text-foreground mb-1">Certifieringar för rätt applikationer</h4>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      Microsoft certifierar sina partners för specifika Dynamics 365-applikationer. Se till att den partner ni överväger har aktuella och relevanta certifieringar för just de applikationer ni planerar att implementera – det är ett kvitto på att de har den tekniska kompetens som krävs.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Använd vår partnerkatalog</h3>
-                <p className="text-muted-foreground mb-3 leading-relaxed">
-                  För att göra sökningen enklare har vi en partnerkatalog där ni kan filtrera på just de faktorer som spelar roll för er:
-                </p>
-                <ul className="space-y-2 text-muted-foreground text-sm leading-relaxed list-none">
-                  <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">•</span><span><strong className="text-foreground">Bransch</strong> – hitta partners med dokumenterad erfarenhet från er sektor.</span></li>
-                  <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">•</span><span><strong className="text-foreground">Företagsstorlek</strong> – filtrera fram partners som är vana att arbeta med organisationer av er storlek.</span></li>
-                  <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">•</span><span><strong className="text-foreground">Applikationer</strong> – se vilka partners som är certifierade för de specifika Dynamics 365-lösningar ni är intresserade av.</span></li>
-                </ul>
-                <p className="text-muted-foreground mt-3 leading-relaxed">
-                  Katalogen gör det möjligt att snabbt sålla fram ett urval av relevanta kandidater, snarare än att behöva leta brett på egen hand.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Få personliga partnerrekommendationer</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Föredrar ni ett mer väglett tillvägagångssätt? Via vårt rekommendationsverktyg kan ni besvara några frågor om er verksamhet, era behov och er situation – och få tillbaka ett urval av partners som matchar just era förutsättningar. Det är ett snabbt och enkelt sätt att komma igång, särskilt om ni känner er osäkra på vad ni ska titta efter eller vill ha ett mer neutralt utgångsperspektiv.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold text-foreground mb-3">Rätt partner är ett strategiskt val</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Kom ihåg att relationen med er Dynamics 365-partner inte slutar vid go-live. De bästa partnerskapen är långsiktiga – där partnern fortsätter att stötta er med förvaltning, vidareutveckling och strategisk rådgivning i takt med att er verksamhet förändras och växer. Ta er därför tid att utvärdera noggrant, ställ frågor och be gärna om referenser från liknande implementeringar. Det är en investering som betalar sig många gånger om.
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <Button asChild size="lg" className="bg-amber-700 hover:bg-amber-800 text-white">
-                <Link to="/valj-partner/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                  Hitta rätt partner
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Lead Magnet Banner */}
       <div className="flex justify-center mb-4">
