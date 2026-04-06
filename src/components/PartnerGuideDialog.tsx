@@ -497,7 +497,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-background">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-background">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-2xl">
             {!isResultStep ? `Steg ${step} av ${totalSteps}` : "Partnerförslag"}
