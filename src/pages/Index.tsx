@@ -22,10 +22,8 @@ import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 import MarketingIcon from "@/assets/icons/Marketing.svg";
 
 // Lazy load below-fold components
-const PricingCard = lazy(() => import("@/components/PricingCard"));
 const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
 const UrgencyBadge = lazy(() => import("@/components/UrgencyBadge"));
-const VideoCard = lazy(() => import("@/components/VideoCard"));
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
