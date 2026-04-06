@@ -245,9 +245,16 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
+  const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
+
+  // Auto-advance helper: set value and go to next step after a short delay
+  const autoAdvance = (setter: (v: string) => void, value: string) => {
+    setter(value);
+    setTimeout(() => setStep(prev => prev + 1), 250);
+  };
 
   const isCrmApp = crmApps.includes(selectedApp);
   // CRM apps get an extra workload step → 6 steps total, others 5
@@ -468,6 +475,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     setSelectedWorkload("");
     setSelectedIndustry("");
     setSelectedMarket("");
+    setCustomCountries("");
     setSelectedSize("");
     setSelectedAiInterest("");
     setSuggestedPartners([]);
@@ -519,7 +527,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                       ? "border-primary bg-primary/10 shadow-md"
                       : "border-border hover:border-primary/50 hover:shadow-sm"
                   }`}
-                  onClick={() => setSelectedApp(app.value)}
+                  onClick={() => autoAdvance(setSelectedApp, app.value)}
                 >
                   <img src={app.icon} alt={app.label} className="w-10 h-10 object-contain" />
                   <span className="text-xs font-medium text-foreground text-center leading-tight">{app.label}</span>
@@ -546,7 +554,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                         ? "border-primary bg-primary/10"
                         : "border-border hover:border-primary/50"
                     }`}
-                    onClick={() => setSelectedWorkload(option.value)}
+                    onClick={() => autoAdvance(setSelectedWorkload, option.value)}
                   >
                     <RadioGroupItem value={option.value} id={`workload-${option.value}`} className="mt-0.5" />
                     <div>
@@ -579,7 +587,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                         ? "border-primary ring-2 ring-primary/30 shadow-md"
                         : "border-border hover:border-primary/50 hover:shadow-sm"
                     }`}
-                    onClick={() => setSelectedIndustry(industry)}
+                    onClick={() => autoAdvance(setSelectedIndustry, industry)}
                   >
                     <div className="w-full aspect-square overflow-hidden bg-muted">
                       {img ? (
@@ -602,26 +610,41 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         {getContentStep(step) === 'market' && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Vilken marknad gäller det?</h3>
-            <RadioGroup value={selectedMarket} onValueChange={setSelectedMarket}>
-              <div className="space-y-3">
-                {marketOptions.map(option => (
-                  <div
-                    key={option.value}
-                    className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                      selectedMarket === option.value
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:border-primary/50"
-                    }`}
-                    onClick={() => setSelectedMarket(option.value)}
-                  >
-                    <RadioGroupItem value={option.value} id={option.value} />
-                    <Label htmlFor={option.value} className="cursor-pointer text-base">
-                      {option.label}
-                    </Label>
-                  </div>
-                ))}
+            <div className="space-y-3">
+              {marketOptions.map(option => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className={`w-full flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors text-left ${
+                    selectedMarket === option.value
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50"
+                  }`}
+                  onClick={() => {
+                    setSelectedMarket(option.value);
+                    if (option.value !== "Övriga världen") {
+                      setCustomCountries("");
+                      setTimeout(() => setStep(prev => prev + 1), 250);
+                    }
+                  }}
+                >
+                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${selectedMarket === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+                  <span className="text-base font-medium">{option.label}</span>
+                </button>
+              ))}
+            </div>
+            {selectedMarket === "Övriga världen" && (
+              <div className="space-y-2 pl-7">
+                <label className="text-sm font-medium text-foreground">Vilka länder gäller det?</label>
+                <input
+                  type="text"
+                  value={customCountries}
+                  onChange={(e) => setCustomCountries(e.target.value)}
+                  placeholder="T.ex. USA, Indien, Brasilien"
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                />
               </div>
-            </RadioGroup>
+            )}
           </div>
         )}
 
@@ -629,26 +652,23 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
         {getContentStep(step) === 'size' && (
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Storlek på er verksamhet?</h3>
-            <RadioGroup value={selectedSize} onValueChange={setSelectedSize}>
-              <div className="space-y-3">
-                {sizeOptions.map(option => (
-                  <div
-                    key={option.value}
-                    className={`flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors ${
-                      selectedSize === option.value
-                        ? "border-primary bg-primary/10"
-                        : "border-border hover:border-primary/50"
-                    }`}
-                    onClick={() => setSelectedSize(option.value)}
-                  >
-                    <RadioGroupItem value={option.value} id={option.value} />
-                    <Label htmlFor={option.value} className="cursor-pointer text-base">
-                      {option.label}
-                    </Label>
-                  </div>
-                ))}
-              </div>
-            </RadioGroup>
+            <div className="space-y-3">
+              {sizeOptions.map(option => (
+                <button
+                  key={option.value}
+                  type="button"
+                  className={`w-full flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors text-left ${
+                    selectedSize === option.value
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:border-primary/50"
+                  }`}
+                  onClick={() => autoAdvance(setSelectedSize, option.value)}
+                >
+                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${selectedSize === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
+                  <span className="text-base font-medium">{option.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
