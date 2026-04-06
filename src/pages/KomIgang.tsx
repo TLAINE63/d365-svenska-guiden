@@ -134,11 +134,20 @@ const KomIgang = () => {
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
   const [isAiLoading, setIsAiLoading] = useState(false);
 
+  // Sort industries by number of partners (desc), then filter by search
+  const sortedIndustries = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const ind of allIndustries) {
+      counts[ind] = partners.filter(p => p.industries?.includes(ind)).length;
+    }
+    return [...allIndustries].sort((a, b) => counts[b] - counts[a]);
+  }, [partners]);
+
   const filteredIndustries = useMemo(() => {
-    if (!industrySearch) return allIndustries;
+    if (!industrySearch) return sortedIndustries;
     const q = industrySearch.toLowerCase();
-    return allIndustries.filter(i => i.toLowerCase().includes(q));
-  }, [industrySearch]);
+    return sortedIndustries.filter(i => i.toLowerCase().includes(q));
+  }, [industrySearch, sortedIndustries]);
 
   const canProceed = () => {
     if (step === 1) return !!selectedIndustry;
