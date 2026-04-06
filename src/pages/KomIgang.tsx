@@ -378,17 +378,17 @@ const KomIgang = () => {
               {/* Step 1: Industry */}
               {step === 1 && (
                 <div>
-                  <div className="relative mb-5">
+                  <div className="relative mb-3">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <input
                       type="text"
                       placeholder="Sök bransch..."
                       value={industrySearch}
                       onChange={(e) => setIndustrySearch(e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-border bg-card text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                     />
                   </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
                     {filteredIndustries.map((ind) => {
                       const isSelected = selectedIndustry === ind;
                       const img = industryImages[ind];
@@ -396,10 +396,10 @@ const KomIgang = () => {
                         <button
                           key={ind}
                           onClick={() => setSelectedIndustry(ind)}
-                          className={`relative group rounded-xl overflow-hidden border-2 transition-all aspect-[4/3] ${
+                          className={`relative group rounded-lg overflow-hidden border-2 transition-all aspect-[5/4] ${
                             isSelected
                               ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
-                              : "border-border hover:border-primary/40 hover:scale-[1.01]"
+                              : "border-border hover:border-primary/40"
                           }`}
                         >
                           {img && (
