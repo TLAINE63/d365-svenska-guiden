@@ -597,6 +597,26 @@ const Kunskapscenter = () => {
           <section className="py-12">
             <div className="container mx-auto px-4">
               {(() => {
+                const productColor = (product: string) => {
+                  switch (product) {
+                    case "Business Central":
+                      return { bg: "bg-business-central/10", text: "text-business-central", border: "border-business-central/30", icon: "text-business-central" };
+                    case "Finance & Supply Chain":
+                      return { bg: "bg-finance-supply/10", text: "text-finance-supply", border: "border-finance-supply/30", icon: "text-finance-supply" };
+                    case "Sales":
+                      return { bg: "bg-sales/10", text: "text-sales", border: "border-sales/30", icon: "text-sales" };
+                    case "Customer Service":
+                      return { bg: "bg-customer-service/10", text: "text-customer-service", border: "border-customer-service/30", icon: "text-customer-service" };
+                    case "Field Service":
+                      return { bg: "bg-field-service/10", text: "text-field-service", border: "border-field-service/30", icon: "text-field-service" };
+                    case "Contact Center":
+                      return { bg: "bg-contact-center/10", text: "text-contact-center", border: "border-contact-center/30", icon: "text-contact-center" };
+                    case "Customer Insights":
+                      return { bg: "bg-marketing/10", text: "text-marketing", border: "border-marketing/30", icon: "text-marketing" };
+                    default:
+                      return { bg: "bg-primary/10", text: "text-primary", border: "border-primary/30", icon: "text-primary" };
+                  }
+                };
                 const allProducts = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
                 const productsToShow = deepDiveProduct ? [deepDiveProduct] : allProducts;
                 return productsToShow.map((product) => {
@@ -604,45 +624,27 @@ const Kunskapscenter = () => {
                   return (
                     <div key={product} className="mb-12">
                       <div className="flex items-center gap-3 mb-6">
-                        <BookOpen className="w-5 h-5 text-primary" />
+                        <BookOpen className={`w-5 h-5 ${productColor(product).icon}`} />
                         <h2 className="text-xl font-bold text-foreground">{product}</h2>
                         <span className="text-sm text-muted-foreground">({articles.length} artiklar)</span>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                         {articles.map((article) => (
                           <Link
                             key={article.slug}
                             to={`/kunskapscenter/${article.productSlug}/${article.slug}/`}
-                            className="group block"
+                            className={`group block rounded-xl border overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ${productColor(product).border}`}
                           >
-                            <Card className="h-full overflow-hidden border-border/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                              <div className="aspect-[2/1] overflow-hidden bg-gradient-to-br from-primary/10 to-secondary flex items-center justify-center">
-                                {article.image ? (
-                                  <img src={article.image} alt={article.title} className="w-full h-full object-contain p-4" />
-                                ) : (
-                                  <BookOpen className="w-12 h-12 text-primary/30" />
-                                )}
-                              </div>
-                              <CardContent className="p-5 flex flex-col gap-3">
-                                <Badge
-                                  variant="outline"
-                                  className="text-xs bg-emerald-600 text-white border-emerald-600 w-fit"
-                                >
-                                  Fördjupning – {article.product}
-                                </Badge>
-                                <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-base leading-snug">
-                                  {article.title}
-                                </h3>
-                                <p className="text-sm text-muted-foreground line-clamp-2">
-                                  {article.description}
-                                </p>
-                                <div className="flex items-center justify-end mt-auto pt-2">
-                                  <span className="text-xs text-primary font-medium flex items-center gap-1">
-                                    Läs mer <ArrowRight className="w-3 h-3" />
-                                  </span>
-                                </div>
-                              </CardContent>
-                            </Card>
+                            <div className={`px-4 py-3 ${productColor(product).bg}`}>
+                              <p className={`text-sm font-semibold leading-snug ${productColor(product).text}`}>
+                                {article.headerLabel || article.title}
+                              </p>
+                            </div>
+                            <div className="px-4 py-3 bg-card">
+                              <p className="text-xs text-muted-foreground line-clamp-2">
+                                {article.description}
+                              </p>
+                            </div>
                           </Link>
                         ))}
                       </div>
