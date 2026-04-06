@@ -425,7 +425,7 @@ const ValjPartner = () => {
               </p>
               <Button 
                 size="lg" 
-                className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl"
+                className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-lg sm:text-xl h-16 sm:h-20 px-8 sm:px-12 font-bold shadow-lg hover:shadow-xl transition-all rounded-xl"
                 onClick={() => setGuideOpen(true)}
               >
                 <span>Få hjälp att välja rätt partner</span>
@@ -659,7 +659,7 @@ const ValjPartner = () => {
                 >
                   Rensa alla filter
                 </Button>
-                <Button asChild className="bg-amber-500 hover:bg-amber-600 text-white">
+                <Button asChild className="bg-cta-orange hover:bg-cta-orange-hover text-white">
                   <Link to="/kontakt/">
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Kontakta oss för hjälp
@@ -706,7 +706,7 @@ const ValjPartner = () => {
             {/* Premium Contact CTA Card - same design as PartnerProfile */}
             <article className="relative rounded-3xl overflow-hidden shadow-2xl">
               {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[hsl(210_20%_12%)] via-[hsl(210_18%_16%)] to-[hsl(210_20%_12%)]" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/25 via-transparent to-transparent" />
               
@@ -732,7 +732,7 @@ const ValjPartner = () => {
                 {(selectedApplications.length > 0 || selectedIndustry || selectedCompanySize || selectedGeography) && (
                   <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
                     <p className="text-xs font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-cta-orange animate-pulse" />
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
