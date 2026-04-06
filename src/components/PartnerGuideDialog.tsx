@@ -475,6 +475,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     setSelectedWorkload("");
     setSelectedIndustry("");
     setSelectedMarket("");
+    setCustomCountries("");
     setSelectedSize("");
     setSelectedAiInterest("");
     setSuggestedPartners([]);
