@@ -142,56 +142,58 @@ const Index = () => {
       
       <main>
       
-      {/* Hero Section – clean white, two-column */}
-      <section className="bg-gradient-to-b from-card via-card to-secondary/20 border-b border-border relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.04),transparent_60%)]" />
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-10 sm:py-14 md:py-[72px] relative">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-[hsl(180_30%_12%)] via-[hsl(180_25%_16%)] to-[hsl(200_20%_18%)] border-b border-primary/20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-10 sm:pt-14 md:pt-[72px] pb-10 sm:pb-14 md:pb-16 relative">
+          {/* Full-width eyebrow heading */}
+          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold text-white/90 tracking-tight mb-8 md:mb-10">
+            Sveriges oberoende guide till Microsoft Dynamics 365
+          </h1>
+
           <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 md:gap-14 items-center">
             {/* Left column */}
             <div>
-              <span className="inline-flex items-center gap-2 text-xs font-medium text-primary bg-primary/8 border border-primary/12 rounded-full px-3 py-1 mb-5 md:mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Sveriges oberoende guide till Microsoft Dynamics 365
-              </span>
-              <h1 className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-foreground mb-4">
+              <p className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-4">
                 Hitta rätt lösning —<br className="hidden sm:block" />
-                och <em className="not-italic text-primary font-normal">rätt partner</em>
-              </h1>
-              <p className="text-base text-muted-foreground font-light leading-relaxed mb-8 max-w-[480px]">
+                och <em className="not-italic text-[hsl(180_75%_65%)] font-normal">rätt partner</em>
+              </p>
+              <p className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[480px]">
                 Jämför ERP- och CRM-system utifrån din verksamhet. Opartiskt, konkret och anpassat för svenska företag — helt gratis.
               </p>
               <div className="flex flex-wrap gap-2.5 mb-4">
-                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-11 px-5 rounded-lg">
+                <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 px-5 rounded-lg font-semibold">
                   <Link to="/kom-igang/">Gör kostnadsfri behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="text-sm h-11 px-5 rounded-lg text-muted-foreground border-border hover:bg-secondary hover:text-foreground">
+                <Button asChild variant="outline" size="lg" className="text-sm h-11 px-5 rounded-lg text-white/80 border-white/25 hover:bg-white/10 hover:text-white">
                   <Link to="/valj-partner/">Jämför partners</Link>
                 </Button>
               </div>
             </div>
 
             {/* Right column – step card */}
-            <div className="bg-secondary/50 border border-border rounded-xl p-5 sm:p-6">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-5 sm:p-6">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-4">
                 Behovsanalys — 5 minuter
               </div>
               <ul className="space-y-0">
                 {heroSteps.map((step, i) => (
-                  <li key={i} className={`flex gap-3 items-start py-3 ${i < heroSteps.length - 1 ? "border-b border-border" : ""}`}>
-                    <span className="w-[22px] h-[22px] rounded-full bg-primary/10 text-primary text-[11px] font-semibold flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <li key={i} className={`flex gap-3 items-start py-3 ${i < heroSteps.length - 1 ? "border-b border-white/10" : ""}`}>
+                    <span className="w-[22px] h-[22px] rounded-full bg-white/15 text-[hsl(180_75%_65%)] text-[11px] font-semibold flex items-center justify-center flex-shrink-0 mt-0.5">
                       {i + 1}
                     </span>
                     <div>
-                      <div className="text-[13px] font-medium text-foreground">{step.title}</div>
-                      <div className="text-xs text-muted-foreground">{step.sub}</div>
+                      <div className="text-[13px] font-medium text-white">{step.title}</div>
+                      <div className="text-xs text-white/60">{step.sub}</div>
                     </div>
                   </li>
                 ))}
               </ul>
-              <Button asChild className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 rounded-lg">
+              <Button asChild className="w-full mt-4 bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-10 rounded-lg font-semibold">
                 <Link to="/kom-igang/">Starta behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
               </Button>
-              <p className="text-center text-[11px] text-muted-foreground/70 mt-2">Gratis · Ingen registrering krävs</p>
+              <p className="text-center text-[11px] text-white/50 mt-2">Gratis · Ingen registrering krävs</p>
             </div>
           </div>
         </div>
