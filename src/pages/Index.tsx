@@ -5,9 +5,8 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { Monitor, Users, Phone, HelpCircle, ArrowRight, Sparkles, Shield, BarChart3 } from "lucide-react";
+import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroHomeBg from "@/assets/hero-home-bg.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -84,7 +83,6 @@ const selectorCards = [
   },
 ];
 
-
 const whyItems = [
   "Jämför partners utifrån bransch och behov",
   "Realistisk bild av kostnad och implementationstid",
@@ -108,8 +106,14 @@ const industryPills = [
   "Logistik & transport", "Offentlig sektor", "Non-profit",
 ];
 
+const heroSteps = [
+  { title: "Berätta om verksamheten", sub: "Bransch, storlek och nuvarande system" },
+  { title: "Välj vad du vill lösa", sub: "ERP, CRM, kundservice eller kombinerat" },
+  { title: "Få din rekommendation", sub: "Rätt lösning, budget och partnertyp" },
+];
+
 const Index = () => {
-  return <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
         title="Dynamics 365 Sverige – Priser, partners & behovsanalys | d365.se"
         description="Oberoende guide till Dynamics 365 i Sverige. Jämför ERP & CRM, hitta certifierade partners per bransch. Kostnadsfri behovsanalys."
@@ -138,37 +142,66 @@ const Index = () => {
       
       <main>
       
-      {/* Hero Section – dark with background image */}
-      <section className="relative py-14 sm:py-16 md:py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={heroHomeBg} alt="" className="w-full h-full object-cover" width={1920} height={800} />
-          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(200,60%,8%)] via-[hsl(200,60%,8%)]/80 to-[hsl(200,60%,8%)]/95" />
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 text-center max-w-4xl relative z-10">
-          <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/90 text-xs font-medium px-4 py-1.5 rounded-full mb-6 border border-white/10">
-            <Sparkles className="w-3.5 h-3.5 text-primary-foreground" />
-            Sveriges oberoende guide till Microsoft Dynamics 365
-          </span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold text-primary-foreground leading-tight mb-4 tracking-tight">
-            Hitta rätt Dynamics 365-lösning<br className="hidden sm:block" />och partner — <span className="text-[hsl(180,85%,60%)]">gratis och opartiskt</span>
-          </h1>
-          <p className="text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 leading-relaxed">
-            Jämför och utvärdera CRM- och affärssystem (ERP) baserat på din verksamhet. Vi hjälper svenska företag välja rätt system och rätt Microsoft-certifierad partner.
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground text-sm sm:text-base h-12 px-7 rounded-lg shadow-lg shadow-[hsl(var(--cta-orange))]/25 transition-all hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5">
-              <Link to="/kom-igang/">Kom igång – kostnadsfri guide <ArrowRight className="w-4 h-4 ml-1" /></Link>
-            </Button>
-            <Button asChild size="lg" className="text-sm sm:text-base h-12 px-7 rounded-lg border border-white/25 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm">
-              <Link to="/valj-partner/">Jämför partners</Link>
-            </Button>
+      {/* Hero Section – clean white, two-column */}
+      <section className="bg-card border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-10 sm:py-14 md:py-[72px]">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 md:gap-14 items-center">
+            {/* Left column */}
+            <div>
+              <span className="inline-flex items-center gap-2 text-xs font-medium text-primary bg-primary/8 border border-primary/12 rounded-full px-3 py-1 mb-5 md:mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                Sveriges oberoende guide till Microsoft Dynamics 365
+              </span>
+              <h1 className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-foreground mb-4">
+                Hitta rätt lösning —<br className="hidden sm:block" />
+                och <em className="not-italic text-primary font-normal">rätt partner</em>
+              </h1>
+              <p className="text-base text-muted-foreground font-light leading-relaxed mb-8 max-w-[480px]">
+                Jämför ERP- och CRM-system utifrån din verksamhet. Opartiskt, konkret och anpassat för svenska företag — helt gratis.
+              </p>
+              <div className="flex flex-wrap gap-2.5 mb-4">
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-11 px-5 rounded-lg">
+                  <Link to="/kom-igang/">Gör kostnadsfri behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="text-sm h-11 px-5 rounded-lg text-muted-foreground border-border hover:bg-secondary hover:text-foreground">
+                  <Link to="/valj-partner/">Jämför partners</Link>
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground/70">
+                Business Central från <span className="font-medium text-muted-foreground">765 kr/mån</span> · D365 Sales från <span className="font-medium text-muted-foreground">550 kr/mån</span>
+              </p>
+            </div>
+
+            {/* Right column – step card */}
+            <div className="bg-secondary/50 border border-border rounded-xl p-5 sm:p-6">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
+                Behovsanalys — 5 minuter
+              </div>
+              <ul className="space-y-0">
+                {heroSteps.map((step, i) => (
+                  <li key={i} className={`flex gap-3 items-start py-3 ${i < heroSteps.length - 1 ? "border-b border-border" : ""}`}>
+                    <span className="w-[22px] h-[22px] rounded-full bg-primary/10 text-primary text-[11px] font-semibold flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <div className="text-[13px] font-medium text-foreground">{step.title}</div>
+                      <div className="text-xs text-muted-foreground">{step.sub}</div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <Button asChild className="w-full mt-4 bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 rounded-lg">
+                <Link to="/kom-igang/">Starta behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
+              </Button>
+              <p className="text-center text-[11px] text-muted-foreground/70 mt-2">Gratis · Ingen registrering krävs</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Selector – Vad vill du göra? */}
-      <section className="py-8 sm:py-10 bg-background relative">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+      <section className="py-10 sm:py-12 bg-secondary/30">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vill du göra?</h2>
           <p className="text-sm text-muted-foreground mb-6">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -176,15 +209,15 @@ const Index = () => {
               <Link
                 key={card.title}
                 to={card.link}
-                className="group bg-card border border-border rounded-xl p-5 flex flex-col gap-2.5 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-0.5"
+                className="group bg-card border border-border rounded-[10px] p-5 flex flex-col gap-2.5 hover:border-primary/40 transition-all duration-200"
               >
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/15 to-accent/10 flex items-center justify-center group-hover:from-primary/25 group-hover:to-accent/20 transition-all">
+                <div className="w-10 h-10 rounded-[10px] bg-primary/8 flex items-center justify-center">
                   {card.icon}
                 </div>
                 <div className="text-sm font-semibold text-foreground">{card.title}</div>
-                <div className="text-xs text-muted-foreground leading-relaxed flex-1">{card.desc}</div>
-                <div className="text-xs font-medium text-primary flex items-center gap-1 group-hover:gap-2 transition-all">
-                  {card.linkText} 
+                <div className="text-[13px] text-muted-foreground leading-snug flex-1">{card.desc}</div>
+                <div className="text-xs font-medium text-primary">
+                  {card.linkText}
                 </div>
               </Link>
             ))}
@@ -193,40 +226,59 @@ const Index = () => {
       </section>
 
       {/* Analysis CTA Banner */}
-      <section className="py-5 sm:py-6 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-          <div className="relative overflow-hidden bg-gradient-to-r from-primary/8 via-accent/5 to-primary/8 border border-primary/15 rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-            <div className="relative z-10">
-              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1">Vet du inte vilket system du behöver?</h3>
-              <p className="text-xs sm:text-sm text-muted-foreground max-w-lg leading-relaxed">
-                Vår kostnadsfria guide tar 1 minut. Du får en personlig rekommendation och vilken typ av partner som passar din verksamhet bäst.
+      <section className="px-4 sm:px-6 pb-10 bg-secondary/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="bg-card border border-border border-l-[3px] border-l-primary rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div>
+              <h3 className="text-base sm:text-[17px] font-semibold text-foreground mb-1">Vet du inte vilket system du behöver?</h3>
+              <p className="text-[13px] text-muted-foreground max-w-[480px] leading-relaxed">
+                Vår kostnadsfria behovsanalys tar 5 minuter och ger dig en personlig rekommendation, estimerad budgetram och vilken typ av partner som passar din verksamhet.
               </p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">Gratis</span>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">Ingen registrering</span>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">1 minut</span>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-muted text-muted-foreground">Opartisk rekommendation</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">Ingen registrering</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">5 minuter</span>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">Opartisk rekommendation</span>
               </div>
             </div>
-            <Button asChild className="relative z-10 bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 px-5 rounded-lg whitespace-nowrap flex-shrink-0 shadow-md shadow-primary/15 hover:shadow-lg transition-all">
-              <Link to="/kom-igang/">Kom igång →</Link>
+            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 px-5 rounded-lg whitespace-nowrap flex-shrink-0">
+              <Link to="/kom-igang/">Starta behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
             </Button>
           </div>
         </div>
       </section>
 
+      {/* Proof / stats */}
+      <section className="py-10 sm:py-12 bg-card border-y border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-6">Därför använder företag d365.se</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              { num: "50+", label: "Certifierade Microsoft-partners att jämföra" },
+              { num: "100%", label: "Oberoende — vi säljer inget system" },
+              { num: "Gratis", label: "Behovsanalys och partnermatching" },
+              { num: "5 min", label: "Från besök till personlig rekommendation" },
+            ].map((item) => (
+              <div key={item.num} className="bg-secondary/50 border border-border rounded-[10px] p-5">
+                <div className="text-2xl sm:text-[28px] font-semibold text-primary tracking-tight mb-1">{item.num}</div>
+                <div className="text-[13px] text-muted-foreground leading-snug">{item.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Why + Popular Questions – two columns */}
-      <section className="py-6 sm:py-8 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
+      <section className="py-10 sm:py-12 bg-secondary/30">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
             <div>
               <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
-              <p className="text-sm text-muted-foreground mb-4">Realistisk och konkret vägledning — anpassad för svenska företag.</p>
+              <p className="text-sm text-muted-foreground mb-4">Realistisk vägledning — anpassad för svenska företag.</p>
               <ul className="space-y-2.5">
                 {whyItems.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                    <span className="w-5 h-5 rounded-full bg-gradient-to-br from-primary/20 to-accent/10 text-primary text-[10px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
+                    <span className="w-[18px] h-[18px] rounded-full bg-primary/10 text-primary text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
                     {item}
                   </li>
                 ))}
@@ -234,16 +286,15 @@ const Index = () => {
             </div>
             <div>
               <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vanliga frågor just nu</h2>
-              <p className="text-sm text-muted-foreground mb-4">De frågor svenska företag ställer oss mest.</p>
+              <p className="text-sm text-muted-foreground mb-4">Det svenska företag frågar oss mest.</p>
               <div className="flex flex-col gap-2">
                 {popularQuestions.map((q) => (
                   <Link
                     key={q.text}
                     to={q.link}
-                    className="group block bg-card border border-border rounded-lg px-4 py-3 text-sm font-medium text-foreground hover:border-primary/40 hover:shadow-md hover:shadow-primary/5 transition-all"
+                    className="group block bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/40 hover:text-primary transition-all"
                   >
-                    <span className="group-hover:text-primary transition-colors">{q.text}</span>
-                    <span className="text-muted-foreground group-hover:text-primary ml-1 transition-colors">→</span>
+                    {q.text} <span className="text-muted-foreground group-hover:text-primary ml-0.5 transition-colors">→</span>
                   </Link>
                 ))}
               </div>
@@ -253,8 +304,8 @@ const Index = () => {
       </section>
 
       {/* Industry pills */}
-      <section className="py-6 sm:py-8 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+      <section className="py-10 sm:py-12 bg-card border-y border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <div className="flex items-baseline justify-between mb-5">
             <h2 className="text-lg sm:text-xl font-semibold text-foreground">Välj din bransch</h2>
             <Link to="/branschlosningar/" className="text-sm font-medium text-primary hover:underline">Se alla branscher →</Link>
@@ -264,7 +315,7 @@ const Index = () => {
               <Link
                 key={pill}
                 to="/branschlosningar/"
-                className="px-4 py-2 rounded-full border border-border text-sm text-muted-foreground bg-card hover:border-primary/40 hover:text-primary hover:bg-primary/5 hover:shadow-sm transition-all duration-200"
+                className="px-4 py-2 rounded-full border border-border text-[13px] text-muted-foreground bg-card hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-200"
               >
                 {pill}
               </Link>
@@ -274,74 +325,66 @@ const Index = () => {
       </section>
 
       {/* Compare section */}
-      <section className="py-6 sm:py-8 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
+      <section className="py-10 sm:py-12 bg-secondary/30">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Dynamics 365 vs alternativa system</h2>
           <p className="text-sm text-muted-foreground mb-6">Hur står sig Dynamics 365 mot de vanligaste alternativen på den svenska marknaden?</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* ERP compare */}
-            <div className="group bg-card border border-border rounded-xl p-5 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300">
+            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/30 transition-all">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <div className="text-sm font-semibold text-foreground flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-primary" />
-                    Business Central (ERP)
-                  </div>
+                  <div className="text-[15px] font-semibold text-foreground">Business Central (ERP)</div>
                   <div className="text-xs text-muted-foreground mt-0.5">vs Fortnox, Visma, Monitor — och SAP</div>
                 </div>
                 <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 765 kr/mån</span>
               </div>
-              <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-3" />
+              <div className="h-px bg-border my-3" />
               <ul className="space-y-1.5">
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Bättre skalbarhet än Fortnox för växande bolag</li>
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Djupare Microsoft 365-integration (Teams, Excel, Outlook)</li>
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Inbyggd AI via Microsoft Copilot utan extra kostnad</li>
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre TCO än SAP för medelstora nordiska bolag</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Bättre skalbarhet än Fortnox för växande bolag</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Djupare Microsoft 365-integration (Teams, Excel, Outlook)</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Inbyggd AI via Microsoft Copilot utan extra kostnad</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre TCO än SAP för medelstora nordiska bolag</li>
               </ul>
-              <Link to="/erp/" className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary hover:underline group-hover:gap-2 transition-all">Jämför ERP-alternativ →</Link>
+              <Link to="/erp/" className="inline-block mt-3 text-[13px] font-medium text-primary hover:underline">Jämför ERP-alternativ →</Link>
             </div>
             {/* CRM compare */}
-            <div className="group bg-card border border-border rounded-xl p-5 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300">
+            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/30 transition-all">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <div className="text-sm font-semibold text-foreground flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-primary" />
-                    D365 Sales & Customer Service
-                  </div>
+                  <div className="text-[15px] font-semibold text-foreground">D365 Sales & Customer Service</div>
                   <div className="text-xs text-muted-foreground mt-0.5">vs Salesforce, HubSpot</div>
                 </div>
                 <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 478 kr/mån</span>
               </div>
-              <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-3" />
+              <div className="h-px bg-border my-3" />
               <ul className="space-y-1.5">
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Samma ekosystem som Office 365 och Teams</li>
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Copilot AI inbyggt i hela säljprocessen</li>
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Kombinera CRM och kundservice i ett system</li>
-                <li className="text-xs text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre totalkostnad med befintlig Microsoft-infrastruktur</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Samma ekosystem som Office 365 och Teams</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Copilot AI inbyggt i hela säljprocessen</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Kombinera CRM och kundservice i ett system</li>
+                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre totalkostnad med befintlig Microsoft-infrastruktur</li>
               </ul>
-              <Link to="/crm/" className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary hover:underline group-hover:gap-2 transition-all">Jämför CRM-alternativ →</Link>
+              <Link to="/crm/" className="inline-block mt-3 text-[13px] font-medium text-primary hover:underline">Jämför CRM-alternativ →</Link>
             </div>
           </div>
         </div>
       </section>
 
       {/* Footer CTA band */}
-      <section className="relative py-8 sm:py-10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[hsl(180,85%,18%)] via-[hsl(180,75%,25%)] to-[hsl(180,65%,30%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_hsl(180,80%,40%)_0%,_transparent_60%)] opacity-20" />
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-5 relative z-10">
+      <section className="bg-primary py-10 sm:py-12">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-5">
           <div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-primary-foreground mb-1">Redo att komma igång?</h2>
-            <p className="text-sm text-primary-foreground/70 max-w-md">Börja med att beskriva din situation — så guidar vi dig rätt. Kostnadsfritt och utan förpliktelser.</p>
+            <h2 className="text-xl sm:text-2xl font-semibold text-primary-foreground mb-1.5">Redo att komma igång?</h2>
+            <p className="text-sm text-primary-foreground/65 max-w-[400px]">Börja med att beskriva din situation — kostnadsfritt och utan förpliktelser.</p>
           </div>
-          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground text-sm font-semibold h-12 px-7 rounded-lg shadow-lg shadow-[hsl(var(--cta-orange))]/25 whitespace-nowrap flex-shrink-0 hover:-translate-y-0.5 transition-all">
-            <Link to="/kom-igang/">Kom igång <ArrowRight className="w-4 h-4 ml-1" /></Link>
+          <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 text-sm font-semibold h-12 px-7 rounded-lg whitespace-nowrap flex-shrink-0">
+            <Link to="/kom-igang/">Starta behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
           </Button>
         </div>
       </section>
 
       {/* Vanliga frågor */}
-      <section id="questions" className="py-8 sm:py-12 md:py-16 bg-muted/30">
+      <section id="questions" className="py-10 sm:py-14 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
             Vanliga frågor
