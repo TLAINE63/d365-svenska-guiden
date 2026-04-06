@@ -88,7 +88,7 @@ const goalOptions = [
   { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras" },
 ];
 
-// Step 3: Situation options
+// Step 4: Situation options
 const situationOptions = [
   { value: "new", label: "Utvärderar nytt system" },
   { value: "evaluate-partners", label: "Vill utvärdera partners" },
@@ -96,13 +96,20 @@ const situationOptions = [
   { value: "unsure", label: "Osäker" },
 ];
 
-// Step 4: Complexity options
+// Step 5: Complexity / verksamhet options (expanded)
 const complexityOptions = [
   { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
   { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
   { value: "multi-entity", label: "Flera bolag eller verksamheter", desc: "Koncern, flera juridiska enheter eller länder" },
   { value: "manufacturing", label: "Tillverkning eller avancerad logistik", desc: "Produktion, planering eller komplexa flöden" },
   { value: "integrations", label: "Höga krav på integrationer", desc: "Många system som behöver hänga ihop" },
+  { value: "consulting", label: "Konsultverksamhet", desc: "Projektbaserad verksamhet med resurs- och uppdragshantering" },
+  { value: "time-reporting", label: "Tidrapportering och debitering", desc: "Tid- och kostnadsuppföljning per projekt och kund" },
+  { value: "customer-service", label: "Kundservice och ärendehantering", desc: "Support, SLA:er och ärendeflöden" },
+  { value: "field-service", label: "Fältservice och arbetsorder", desc: "Mobila team, schemaläggning och arbetsorder" },
+  { value: "contact-center", label: "Contact Center", desc: "Omnikanal-kommunikation och köhantering" },
+  { value: "sales-crm", label: "Försäljning och CRM", desc: "Pipeline, offerter och kundhantering" },
+  { value: "marketing-automation", label: "Marketing och kampanjer", desc: "Automatiserade kundresor och segmentering" },
   { value: "unsure", label: "Osäker – behöver vägledning", desc: "Vi hjälper dig välja rätt nivå" },
 ];
 
@@ -143,9 +150,9 @@ const KomIgang = () => {
   const [step, setStep] = useState(1);
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
-  const [selectedGoal, setSelectedGoal] = useState("");
-  const [selectedSituation, setSelectedSituation] = useState("");
-  const [selectedComplexity, setSelectedComplexity] = useState("");
+  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+  const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
+  const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
@@ -217,8 +224,8 @@ const KomIgang = () => {
             criteria: {
               application: selectedApp || "Alla",
               industry: selectedIndustry,
-              situation: situationOptions.find(s => s.value === selectedSituation)?.label || "",
-              complexity: complexityOptions.find(c => c.value === selectedComplexity)?.label || "",
+              situation: selectedSituations.map(s => situationOptions.find(o => o.value === s)?.label).filter(Boolean).join(", ") || "",
+              complexity: selectedComplexities.map(c => complexityOptions.find(o => o.value === c)?.label).filter(Boolean).join(", ") || "",
             },
           },
         });
@@ -354,7 +361,7 @@ const KomIgang = () => {
                   "contact-center": { path: "/kravspecifikation-kundservice/", label: "Skapa kravspec för Kundservice" },
                   erp: { path: "/kravspecifikation/", label: "Skapa kravspec för ERP" },
                 };
-                const spec = specMap[selectedGoal];
+                const spec = selectedGoals.map(g => specMap[g]).find(Boolean);
                 if (!spec) return null;
                 return (
                   <div className="mt-8 rounded-xl border-2 border-primary/20 bg-primary/5 p-5 text-center">
@@ -524,87 +531,132 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 3: Goal */}
+              {/* Step 3: Goal (multi-select) */}
               {step === 3 && (
-                <div className="space-y-2">
-                  {goalOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setSelectedGoal(opt.value);
-                        setTimeout(() => setStep(4), 250);
-                      }}
-                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedGoal === opt.value
-                          ? "border-primary bg-primary/5 text-foreground"
-                          : "border-border bg-card text-foreground hover:border-primary/30"
-                      }`}
+                <div>
+                  <div className="space-y-2">
+                    {goalOptions.map((opt) => {
+                      const isSelected = selectedGoals.includes(opt.value);
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedGoals(prev =>
+                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
+                            );
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                          }`}>
+                            {isSelected && <Check className="h-3 w-3" />}
+                          </div>
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <Button
+                      onClick={() => setStep(4)}
+                      disabled={selectedGoals.length === 0}
+                      className="px-8"
                     >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        selectedGoal === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                      }`}>
-                        {selectedGoal === opt.value && <Check className="h-3 w-3" />}
-                      </div>
-                      <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                    </button>
-                  ))}
+                      Nästa
+                    </Button>
+                  </div>
                 </div>
               )}
 
-              {/* Step 4: Situation */}
+              {/* Step 4: Situation (multi-select) */}
               {step === 4 && (
-                <div className="space-y-2">
-                  {situationOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setSelectedSituation(opt.value);
-                        setTimeout(() => setStep(5), 250);
-                      }}
-                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedSituation === opt.value
-                          ? "border-primary bg-primary/5 text-foreground"
-                          : "border-border bg-card text-foreground hover:border-primary/30"
-                      }`}
+                <div>
+                  <div className="space-y-2">
+                    {situationOptions.map((opt) => {
+                      const isSelected = selectedSituations.includes(opt.value);
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedSituations(prev =>
+                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
+                            );
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                          }`}>
+                            {isSelected && <Check className="h-3 w-3" />}
+                          </div>
+                          <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <Button
+                      onClick={() => setStep(5)}
+                      disabled={selectedSituations.length === 0}
+                      className="px-8"
                     >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        selectedSituation === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                      }`}>
-                        {selectedSituation === opt.value && <Check className="h-3 w-3" />}
-                      </div>
-                      <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                    </button>
-                  ))}
+                      Nästa
+                    </Button>
+                  </div>
                 </div>
               )}
 
-              {/* Step 5: Complexity */}
+              {/* Step 5: Verksamhet (multi-select, two columns) */}
               {step === 5 && (
-                <div className="space-y-2">
-                  {complexityOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setSelectedComplexity(opt.value);
-                        setTimeout(() => findPartners(), 250);
-                      }}
-                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedComplexity === opt.value
-                          ? "border-primary bg-primary/5 text-foreground"
-                          : "border-border bg-card text-foreground hover:border-primary/30"
-                      }`}
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {complexityOptions.map((opt) => {
+                      const isSelected = selectedComplexities.includes(opt.value);
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedComplexities(prev =>
+                              prev.includes(opt.value) ? prev.filter(v => v !== opt.value) : [...prev, opt.value]
+                            );
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                          }`}>
+                            {isSelected && <Check className="h-3 w-3" />}
+                          </div>
+                          <div className="min-w-0">
+                            <span className="text-sm font-medium leading-tight block">{opt.label}</span>
+                            <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <Button
+                      onClick={() => findPartners()}
+                      disabled={selectedComplexities.length === 0}
+                      className="px-8"
                     >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        selectedComplexity === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                      }`}>
-                        {selectedComplexity === opt.value && <Check className="h-3 w-3" />}
-                      </div>
-                      <div>
-                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                        <p className="text-xs text-muted-foreground">{opt.desc}</p>
-                      </div>
-                    </button>
-                  ))}
+                      Visa partners
+                    </Button>
+                  </div>
                 </div>
               )}
             </div>
