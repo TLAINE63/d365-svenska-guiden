@@ -460,7 +460,7 @@ const KomIgang = () => {
 
               {/* Step 2: Product */}
               {step === 2 && (
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   {productOptions.map((opt) => {
                     const isSelected = selectedProduct === opt.value;
                     return (
