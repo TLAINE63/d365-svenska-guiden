@@ -181,7 +181,8 @@ const HeroCarousel = () => {
                 width={1600}
                 height={1067}
                 loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
+                fetchPriority={index === 0 ? "high" : "auto"}
+                decoding={index === 0 ? "sync" : "async"}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
               
