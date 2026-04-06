@@ -177,6 +177,16 @@ const localPresenceOptions = [
   { value: "not", label: "Inte viktigt", description: "Vi är öppna för partners oavsett var de finns – kompetens väger tyngre" },
 ];
 
+const platformOptions = [
+  { value: "Azure", label: "Azure", description: "Molninfrastruktur, Azure AI Foundry, Azure DevOps" },
+  { value: "Fabric", label: "Microsoft Fabric", description: "Dataanalys, datalakehouse och dataintegration" },
+  { value: "Power BI", label: "Power BI", description: "Rapportering, dashboards och datavisualisering" },
+  { value: "Microsoft 365", label: "Microsoft 365", description: "Teams, SharePoint, Office-integrationer" },
+  { value: "Copilot", label: "Copilot", description: "Microsoft 365 Copilot och Copilot Studio" },
+  { value: "Agents", label: "AI-agenter", description: "Autonoma agenter och AI-automation" },
+  { value: "Security", label: "Security", description: "Microsoft Security, Entra ID, Compliance" },
+];
+
 // Product key type matching database structure
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
@@ -252,6 +262,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedAiInterest, setSelectedAiInterest] = useState<string>(initialAiInterest || "");
   const [selectedLocalPreference, setSelectedLocalPreference] = useState<string>("");
+  const [selectedPlatformNeeds, setSelectedPlatformNeeds] = useState<string[]>([]);
   const [customCountries, setCustomCountries] = useState<string>("");
   const [suggestedPartners, setSuggestedPartners] = useState<PartnerData[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
@@ -264,23 +275,25 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   };
 
   const isCrmApp = crmApps.includes(selectedApp);
-  // CRM apps get an extra workload step → total steps: app, [workload], industry, size, local, ai
-  const totalSteps = isCrmApp ? 6 : 5;
+  // CRM apps get an extra workload step → total steps: app, [workload], industry, size, local, platform, ai
+  const totalSteps = isCrmApp ? 7 : 6;
 
   // Map logical step index to content
-  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'local' | 'ai' => {
+  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'local' | 'platform' | 'ai' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
       if (s === 2) return 'workload';
       if (s === 3) return 'industry';
       if (s === 4) return 'size';
       if (s === 5) return 'local';
-      if (s === 6) return 'ai';
+      if (s === 6) return 'platform';
+      if (s === 7) return 'ai';
     } else {
       if (s === 2) return 'industry';
       if (s === 3) return 'size';
       if (s === 4) return 'local';
-      if (s === 5) return 'ai';
+      if (s === 5) return 'platform';
+      if (s === 6) return 'ai';
     }
     return 'ai';
   };
@@ -411,6 +424,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               preferCrmOnly: isCrmSpecialistApp,
               aiInterest: aiInterest || undefined,
               localPreference: selectedLocalPreference || undefined,
+              platformNeeds: selectedPlatformNeeds.length > 0 ? selectedPlatformNeeds : undefined,
             },
           },
         });
@@ -489,6 +503,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     setCustomCountries("");
     setSelectedSize("");
     setSelectedLocalPreference("");
+    setSelectedPlatformNeeds([]);
     setSelectedAiInterest("");
     setSuggestedPartners([]);
     setAiMatches([]);
@@ -503,6 +518,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       case 'industry': return selectedIndustry !== "";
       case 'size': return selectedSize !== "";
       case 'local': return selectedLocalPreference !== "";
+      case 'platform': return true; // optional multi-select, always can proceed
       case 'ai': return selectedAiInterest !== "";
       default: return true;
     }
