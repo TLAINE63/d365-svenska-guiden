@@ -437,7 +437,10 @@ const KomIgang = () => {
                   {applicationOptions.map((app) => (
                     <button
                       key={app.value}
-                      onClick={() => setSelectedApp(app.value)}
+                      onClick={() => {
+                        setSelectedApp(app.value);
+                        setTimeout(() => setStep(3), 250);
+                      }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedApp === app.value
                           ? "border-primary bg-primary/5 text-foreground"
@@ -464,7 +467,10 @@ const KomIgang = () => {
                   {geographyOptions.map((geo) => (
                     <button
                       key={geo.value}
-                      onClick={() => setSelectedGeo(geo.value)}
+                      onClick={() => {
+                        setSelectedGeo(geo.value);
+                        setTimeout(() => setStep(4), 250);
+                      }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedGeo === geo.value
                           ? "border-primary bg-primary/5 text-foreground"
@@ -488,7 +494,10 @@ const KomIgang = () => {
                   {sizeOptions.map((size) => (
                     <button
                       key={size.value}
-                      onClick={() => setSelectedSize(size.value)}
+                      onClick={() => {
+                        setSelectedSize(size.value);
+                        setTimeout(() => findPartners(), 250);
+                      }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedSize === size.value
                           ? "border-primary bg-primary/5 text-foreground"
