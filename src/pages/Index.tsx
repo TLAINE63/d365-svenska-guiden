@@ -251,10 +251,10 @@ const Index = () => {
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-6">Därför använder företag d365.se</h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {[
-              { num: "50+", label: "Certifierade Microsoft-partners att jämföra" },
               { num: "100%", label: "Oberoende — vi säljer inget system" },
               { num: "Gratis", label: "Behovsanalys och partnermatching" },
               { num: "5 min", label: "Från besök till personlig rekommendation" },
+              { num: "Kravspec", label: "Skapa en kostnadsfri kravspecifikation" },
             ].map((item) => (
               <div key={item.num} className="bg-secondary/50 border border-border rounded-[10px] p-5">
                 <div className="text-2xl sm:text-[28px] font-semibold text-primary tracking-tight mb-1">{item.num}</div>
