@@ -52,26 +52,65 @@ const homeFaqs = [
   },
 ];
 
-const recognizeItems = [
-  "Du har tittat på Dynamics 365 men det är svårt att förstå skillnaderna",
-  "Du är osäker på Business Central vs Finance & Supply Chain",
-  "Du vet inte vilka partners du kan lita på",
-  "Du har redan ett system men är inte nöjd",
+const selectorCards = [
+  {
+    icon: <Monitor className="h-5 w-5 text-primary" />,
+    title: "Införa nytt affärssystem",
+    desc: "Byta eller uppgradera ERP — Business Central eller Finance & SCM",
+    link: "/erp/",
+    linkText: "Utforska ERP →",
+  },
+  {
+    icon: <Users className="h-5 w-5 text-primary" />,
+    title: "Förbättra sälj och marknad",
+    desc: "Optimera sälj & CRM — Dynamics 365 Sales och Customer Insights",
+    link: "/crm/",
+    linkText: "Utforska CRM →",
+  },
+  {
+    icon: <Phone className="h-5 w-5 text-primary" />,
+    title: "Utveckla kundservice",
+    desc: "Effektivisera support — Customer Service, Field Service, Contact Center",
+    link: "/d365-customer-service/",
+    linkText: "Utforska kundservice →",
+  },
+  {
+    icon: <HelpCircle className="h-5 w-5 text-primary" />,
+    title: "Jag är osäker — hjälp mig",
+    desc: "Få personlig vägledning via vår kostnadsfria guide på 1 min",
+    link: "/kom-igang/",
+    linkText: "Starta guide →",
+  },
+];
+
+const proofStats = [
+  { num: "50+", label: "Certifierade Microsoft-partners att jämföra" },
+  { num: "100%", label: "Oberoende — vi säljer inget system" },
+  { num: "Gratis", label: "Behovsanalys och partnermatching" },
+  { num: "5 min", label: "Från besök till personlig rekommendation" },
 ];
 
 const whyItems = [
-  "Jämför partners baserat på bransch och behov",
-  "Få en realistisk bild av pris och tidsåtgång",
+  "Jämför partners utifrån bransch och behov",
+  "Realistisk bild av kostnad och implementationstid",
   "Undvik vanliga misstag i ERP- och CRM-projekt",
-  "Vi är opartiska och oberoende",
+  "Kostnadsfria behovsanalyser för ERP, CRM och kundservice",
+  "Opartisk guide — vi tar inte betalt av partners",
+  "Anpassat för svenska företag och den svenska marknaden",
 ];
 
-const industryChips = [
-  { label: "Tillverkning", emoji: "🏭" },
-  { label: "Grossist", emoji: "📦" },
-  { label: "Tjänster", emoji: "💼" },
-  { label: "Retail / E-handel", emoji: "🛒" },
-  { label: "Bygg", emoji: "🏗️" },
+const popularQuestions = [
+  { text: "Vad kostar Business Central?", link: "/business-central/" },
+  { text: "Hur väljer man rätt partner?", link: "/valj-partner/" },
+  { text: "CRM vs ERP — vad behöver vi?", link: "/erp/" },
+  { text: "Är vi redo för AI och Copilot?", link: "/copilot/" },
+];
+
+const industryPills = [
+  "Tillverkning", "Grossist & distribution", "Konsulttjänster",
+  "Bygg & entreprenad", "Retail & e-handel", "Fastighet & förvaltning",
+  "Life Science & Medtech", "Finans & försäkring", "Energi & utilities",
+  "Logistik & transport", "Offentlig sektor", "Non-profit",
 ];
 
 const Index = () => {
