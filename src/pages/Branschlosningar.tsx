@@ -321,8 +321,8 @@ const Branschlosningar = () => {
           {/* Step indicator - only show before solution is selected */}
           {!selectedIndustry && !selectedFilter && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm border-amber-500 bg-amber-500/10 text-amber-600 font-medium">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-amber-500 text-white">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm border-cta-orange bg-cta-orange/10 text-cta-orange font-medium">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
                   1
                 </span>
                 <span>Börja med att välja Dynamics 365-lösning</span>
@@ -333,7 +333,7 @@ const Branschlosningar = () => {
           {/* Blinking arrow pointing to product selection */}
           {!selectedFilter && !selectedIndustry && (
             <div className="flex justify-center mb-2">
-              <ArrowDown className="h-6 w-6 text-amber-500 animate-bounce" />
+              <ArrowDown className="h-6 w-6 text-cta-orange animate-bounce" />
             </div>
           )}
           {/* Filter Buttons */}
@@ -396,8 +396,8 @@ const Branschlosningar = () => {
           {selectedFilter && !selectedIndustry && (
             <>
               <div className="flex justify-center mt-4">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-amber-500 bg-amber-500/10 text-amber-600 font-medium text-sm">
-                  <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-amber-500 text-white">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-cta-orange bg-cta-orange/10 text-cta-orange font-medium text-sm">
+                  <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
                     2
                   </span>
                   <span>Välj bransch nedan</span>
@@ -405,7 +405,7 @@ const Branschlosningar = () => {
               </div>
               {/* Arrow pointing to industry selection */}
               <div className="flex justify-center mt-2">
-                <ArrowDown className="h-6 w-6 text-amber-500 animate-bounce" />
+                <ArrowDown className="h-6 w-6 text-cta-orange animate-bounce" />
               </div>
             </>
           )}

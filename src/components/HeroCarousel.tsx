@@ -357,10 +357,10 @@ const HeroCarousel = () => {
                     />
                     {/* Text overlay for folder images */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                      <span className="text-emerald-600 font-bold text-sm sm:text-lg md:text-xl drop-shadow-sm">
+                      <span className="text-primary font-bold text-sm sm:text-lg md:text-xl drop-shadow-sm">
                         {slide.id === 2 ? "ERP" : "CRM"}
                       </span>
-                      <span className="text-gray-800 font-semibold text-xs sm:text-sm md:text-base drop-shadow-sm">
+                      <span className="text-foreground font-semibold text-xs sm:text-sm md:text-base drop-shadow-sm">
                         Behovsanalys
                       </span>
                     </div>
