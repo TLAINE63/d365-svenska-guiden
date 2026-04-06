@@ -672,14 +672,22 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Tab switcher */}
-            <div className="flex gap-2 border-b pb-2">
+            <div className="flex gap-2 border-b pb-2 flex-wrap">
               <Button
                 variant={activeTemplateTab === "welcome" ? "secondary" : "ghost"}
                 size="sm"
                 onClick={() => setActiveTemplateTab("welcome")}
               >
                 <Mail className="w-4 h-4 mr-2" />
-                Välkomstmail (nya partners)
+                Välkomstmail
+              </Button>
+              <Button
+                variant={activeTemplateTab === "sales_pitch" ? "secondary" : "ghost"}
+                size="sm"
+                onClick={() => setActiveTemplateTab("sales_pitch")}
+              >
+                <Send className="w-4 h-4 mr-2" />
+                Införsäljning
               </Button>
               <Button
                 variant={activeTemplateTab === "reminder" ? "secondary" : "ghost"}
@@ -709,7 +717,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 />
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-muted-foreground">
-                    Ämnesrad: &quot;Välkommen till D365.se – Profilera ditt partnerskap&quot;
+                    Ämnesrad: &quot;Välkommen till D365.se – Vilken Dynamics 365-partner passar kunden bäst?&quot;
                   </p>
                   <div className="flex gap-2">
                     {welcomeTemplate !== welcomeTemplateOriginal && (
@@ -726,6 +734,56 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                     >
                       <Save className="w-4 h-4 mr-2" />
                       {savingWelcomeTemplate ? "Sparar..." : "Spara välkomstmall"}
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : activeTemplateTab === "sales_pitch" ? (
+              <>
+                <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
+                  <strong>Införsäljningsmailet</strong> skickas till potentiella partners som ännu inte är kunder. 
+                  Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code> för mottagarens namn 
+                  och <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> för länken till profilsidan.
+                  Ämnesraden kan också innehålla <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code>.
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Ämnesrad</Label>
+                  <Input
+                    value={salesPitchSubject}
+                    onChange={(e) => setSalesPitchSubject(e.target.value)}
+                    className="font-mono text-sm"
+                    placeholder="Skriv ämnesrad här..."
+                  />
+                </div>
+                <Textarea
+                  value={salesPitchTemplate}
+                  onChange={(e) => setSalesPitchTemplate(e.target.value)}
+                  rows={20}
+                  className="font-mono text-sm"
+                  placeholder="Skriv införsäljningstexten här..."
+                />
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-muted-foreground">
+                    Platshållare: {"{{NAME}}"} = mottagarens namn, {"{{INVITATION_LINK}}"} = profilsidans länk
+                  </p>
+                  <div className="flex gap-2">
+                    {(salesPitchTemplate !== salesPitchTemplateOriginal || salesPitchSubject !== salesPitchSubjectOriginal) && (
+                      <Button 
+                        variant="outline" 
+                        onClick={() => {
+                          setSalesPitchTemplate(salesPitchTemplateOriginal);
+                          setSalesPitchSubject(salesPitchSubjectOriginal);
+                        }}
+                      >
+                        Ångra ändringar
+                      </Button>
+                    )}
+                    <Button 
+                      onClick={saveSalesPitchTemplate} 
+                      disabled={savingSalesPitchTemplate || (salesPitchTemplate === salesPitchTemplateOriginal && salesPitchSubject === salesPitchSubjectOriginal)}
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      {savingSalesPitchTemplate ? "Sparar..." : "Spara införsäljningsmall"}
                     </Button>
                   </div>
                 </div>
