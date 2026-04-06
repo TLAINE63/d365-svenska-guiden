@@ -146,7 +146,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 md:pb-16 relative">
           {/* Full-width eyebrow heading */}
-          <h1 className="text-xl sm:text-2xl md:text-[32px] font-semibold text-white/90 tracking-tight mb-8 md:mb-10 max-w-3xl">
+          <h1 className="text-xl sm:text-2xl md:text-[32px] font-semibold text-white tracking-tight mb-8 md:mb-10 max-w-3xl border border-white/25 bg-white/[0.07] backdrop-blur-sm rounded-xl px-5 py-3 inline-block">
             Sveriges oberoende guide till Microsoft Dynamics 365
           </h1>
 
@@ -162,7 +162,7 @@ const Index = () => {
               </p>
               <div className="flex flex-wrap gap-2.5 mb-4">
                 <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 px-5 rounded-lg font-semibold">
-                  <Link to="/kom-igang/">Gör kostnadsfri behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                  <Link to="/kom-igang/">Gör en kostnadsfri behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
                 <Button asChild variant="ghost" size="lg" className="text-sm h-11 px-5 rounded-lg text-white border border-white/40 bg-white/5 hover:bg-white/10 hover:text-white">
                   <Link to="/valj-partner/">Jämför partners</Link>
@@ -189,7 +189,7 @@ const Index = () => {
                 ))}
               </ul>
               <Button asChild className="w-full mt-4 bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-10 rounded-lg font-semibold">
-                <Link to="/kom-igang/">Starta behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                <Link to="/kom-igang/">Starta en behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
               </Button>
               <p className="text-center text-[11px] text-white/50 mt-2">Gratis · Ingen registrering krävs</p>
             </div>
