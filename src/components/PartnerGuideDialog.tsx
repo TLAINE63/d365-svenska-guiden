@@ -257,23 +257,21 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   };
 
   const isCrmApp = crmApps.includes(selectedApp);
-  // CRM apps get an extra workload step → 6 steps total, others 5
-  const totalSteps = isCrmApp ? 6 : 5;
+  // CRM apps get an extra workload step → total steps (market removed)
+  const totalSteps = isCrmApp ? 5 : 4;
 
-  // Map logical step index to content, skipping workload step for non-CRM
-  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'market' | 'size' | 'ai' => {
+  // Map logical step index to content, skipping workload step for non-CRM and market step
+  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'ai' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
       if (s === 2) return 'workload';
       if (s === 3) return 'industry';
-      if (s === 4) return 'market';
-      if (s === 5) return 'size';
-      if (s === 6) return 'ai';
-    } else {
-      if (s === 2) return 'industry';
-      if (s === 3) return 'market';
       if (s === 4) return 'size';
       if (s === 5) return 'ai';
+    } else {
+      if (s === 2) return 'industry';
+      if (s === 3) return 'size';
+      if (s === 4) return 'ai';
     }
     return 'ai';
   };
@@ -491,7 +489,6 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       case 'app': return selectedApp !== "";
       case 'workload': return selectedWorkload !== "";
       case 'industry': return selectedIndustry !== "";
-      case 'market': return selectedMarket !== "";
       case 'size': return selectedSize !== "";
       case 'ai': return selectedAiInterest !== "";
       default: return true;
@@ -608,47 +605,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           </div>
         )}
 
-        {/* Market step */}
-        {getContentStep(step) === 'market' && (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Vilken marknad gäller det?</h3>
-            <div className="space-y-3">
-              {marketOptions.map(option => (
-                <button
-                  key={option.value}
-                  type="button"
-                  className={`w-full flex items-center space-x-3 p-4 rounded-lg border cursor-pointer transition-colors text-left ${
-                    selectedMarket === option.value
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
-                  }`}
-                  onClick={() => {
-                    setSelectedMarket(option.value);
-                    if (option.value !== "Övriga världen") {
-                      setCustomCountries("");
-                      setTimeout(() => setStep(prev => prev + 1), 250);
-                    }
-                  }}
-                >
-                  <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${selectedMarket === option.value ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`} />
-                  <span className="text-base font-medium">{option.label}</span>
-                </button>
-              ))}
-            </div>
-            {selectedMarket === "Övriga världen" && (
-              <div className="space-y-2 pl-7">
-                <label className="text-sm font-medium text-foreground">Vilka länder gäller det?</label>
-                <input
-                  type="text"
-                  value={customCountries}
-                  onChange={(e) => setCustomCountries(e.target.value)}
-                  placeholder="T.ex. USA, Indien, Brasilien"
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                />
-              </div>
-            )}
-          </div>
-        )}
+        {/* Market step – temporarily removed */}
 
         {/* Size step */}
         {getContentStep(step) === 'size' && (
@@ -717,8 +674,6 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                 <span className="font-medium">{selectedApp}{selectedWorkloadLabel ? ` – ${selectedWorkloadLabel}` : ''}</span>
                 <span className="text-muted-foreground">Bransch:</span>
                 <span className="font-medium">{selectedIndustry || '–'}</span>
-                <span className="text-muted-foreground">Marknad:</span>
-                <span className="font-medium">{selectedMarket || '–'}</span>
                 <span className="text-muted-foreground">Företagsstorlek:</span>
                 <span className="font-medium">{sizeOptions.find(o => o.value === selectedSize)?.label || '–'}</span>
                 <span className="text-muted-foreground">AI-fokus:</span>
