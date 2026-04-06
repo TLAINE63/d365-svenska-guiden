@@ -524,6 +524,7 @@ const Index = () => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+            </Suspense>
           </div>
         </div>
       </section>
