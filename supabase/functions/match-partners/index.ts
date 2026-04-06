@@ -133,7 +133,8 @@ INSTRUKTIONER:
    - Lokal närvaro (bonuspoäng, 5-10%): Partners med kontor i kundens region får bonus, men det är inte avgörande.` : ''}${criteria.aiInterest === 'high' ? `
      - AI-kompetens (20%): Använd den strukturerade AI-nivån och antalet kapabiliteter/projekt som anges för varje partner. Partners med nivån "Avancerad" ska premieras mest, följt av "Integration" och sedan "Enabled". Fler AI-projekt och tydliga AI-case-beskrivningar ger extra poäng.` : criteria.aiInterest === 'medium' ? `
      - AI-kompetens (bonuspoäng, ej obligatoriskt): Använd den strukturerade AI-nivån. Partners med registrerad AI-kompetens får upp till 10 bonus-poäng baserat på nivå och antal kapabiliteter.` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `
-   - Plattformskompetens (10%): Kunden efterfrågar kompetens inom ${criteria.platformNeeds.join(', ')}. Jämför mot partnerns listade plattformskompetens. Partners som täcker fler av kundens önskade områden ska premieras. Partners utan angiven plattformskompetens får neutral poäng.` : ''}
+   - Plattformskompetens (10%): Kunden efterfrågar kompetens inom ${criteria.platformNeeds.join(', ')}. Jämför mot partnerns listade plattformskompetens. Partners som täcker fler av kundens önskade områden ska premieras. Partners utan angiven plattformskompetens får neutral poäng.` : ''}${criteria.additionalApps && criteria.additionalApps.length > 0 ? `
+   - Bred Dynamics 365-kompetens (bonuspoäng, 5-10%): Kunden är även intresserad av ${criteria.additionalApps.join(', ')}. Partners som har erfarenhet av dessa applikationer utöver den primära (${criteria.application}) ska premieras.` : ''}
 ${criteria.preferCrmOnly ? `
 2. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
 ` : ''}
