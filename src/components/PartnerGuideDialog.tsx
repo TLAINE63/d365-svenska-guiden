@@ -337,7 +337,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     }
 
     // Step 3: relax geography too if still < MIN_RESULTS
-    if (matchingPartners.length < MIN_RESULTS) {
+    // But for "Övriga världen" we skip relaxation since very few partners cover global markets
+    if (matchingPartners.length < MIN_RESULTS && selectedMarket !== "Övriga världen") {
       matchingPartners = filterPartners(true, true);
     }
 
@@ -396,6 +397,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
               productKey,
               industry: selectedIndustry,
               geography: selectedMarket,
+              customCountries: selectedMarket === "Övriga världen" && customCountries ? customCountries : undefined,
               companySize: selectedSize,
                workload: selectedWorkload || undefined,
               preferCrmOnly: isCrmSpecialistApp,
