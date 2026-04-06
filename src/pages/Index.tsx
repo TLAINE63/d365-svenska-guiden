@@ -29,20 +29,6 @@ const VideoCard = lazy(() => import("@/components/VideoCard"));
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
-import FinanceIcon from "@/assets/icons/Finance.svg";
-import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
-import SalesIcon from "@/assets/icons/Sales.svg";
-import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
-import MarketingIcon from "@/assets/icons/Marketing.svg";
 import BizAppsNetwork from "@/assets/biz-apps-network.png";
 
 const homeFaqs = [
