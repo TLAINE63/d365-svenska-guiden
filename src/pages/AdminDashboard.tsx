@@ -444,17 +444,44 @@ const AdminDashboard = () => {
     }
   };
 
-  const sendBulkWelcomeEmails = async () => {
+  const openEmailDialog = (type: 'welcome' | 'sales_pitch') => {
     const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
     if (selected.length === 0) return;
-    if (!confirm(`Skicka välkomstmail till ${selected.length} partner(s)?`)) return;
+    // Pre-fill with existing emails
+    const overrides: Record<string, string> = {};
+    selected.forEach(p => {
+      overrides[p.id] = p.admin_contact_email || p.email || "";
+    });
+    setEmailOverrides(overrides);
+    setEmailDialogType(type);
+    setIsEmailDialogOpen(true);
+  };
 
+  const sendEmailsFromDialog = async () => {
+    const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
+    // Validate all have emails
+    const missing = selected.filter(p => !emailOverrides[p.id]?.trim());
+    if (missing.length > 0) {
+      toast({ title: "Ange e-post för alla markerade partners", variant: "destructive" });
+      return;
+    }
+
+    if (emailDialogType === 'welcome') {
+      await sendBulkWelcomeEmailsWithOverrides(selected);
+    } else {
+      await sendBulkSalesPitchEmailsWithOverrides(selected);
+    }
+    setIsEmailDialogOpen(false);
+  };
+
+  const sendBulkWelcomeEmailsWithOverrides = async (selected: FullPartner[]) => {
+    if (!confirm(`Skicka välkomstmail till ${selected.length} partner(s)?`)) return;
     setSendingWelcome(true);
     try {
       const partnerList = selected.map(p => ({
         id: p.id,
         name: p.name,
-        email: p.admin_contact_email || p.email || "",
+        email: emailOverrides[p.id]?.trim() || "",
       }));
 
       const response = await fetch(
@@ -491,17 +518,14 @@ const AdminDashboard = () => {
     }
   };
 
-  const sendBulkSalesPitchEmails = async () => {
-    const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
-    if (selected.length === 0) return;
+  const sendBulkSalesPitchEmailsWithOverrides = async (selected: FullPartner[]) => {
     if (!confirm(`Skicka införsäljningsmail till ${selected.length} partner(s)?`)) return;
-
     setSendingSalesPitch(true);
     try {
       const partnerList = selected.map(p => ({
         id: p.id,
         name: p.name,
-        email: p.admin_contact_email || p.email || "",
+        email: emailOverrides[p.id]?.trim() || "",
         contact_name: p.admin_contact_name || (p as any).contact_person || p.name,
       }));
 
