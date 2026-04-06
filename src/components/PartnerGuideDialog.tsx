@@ -98,16 +98,16 @@ interface PartnerGuideDialogProps {
 }
 
 const applicationOptions = [
-  "Business Central",
-  "Finance & SCM",
-  "Sales",
-  "Customer Insights (Marketing)",
-  "Customer Service",
-  "Field Service",
-  "Contact Center",
-  "Project Operations",
-  "Commerce",
-  "Human Resources"
+  { value: "Business Central", label: "Business Central", icon: bcIcon },
+  { value: "Finance & SCM", label: "Finance & SCM", icon: financeIcon },
+  { value: "Sales", label: "Sales", icon: salesIcon },
+  { value: "Customer Insights (Marketing)", label: "Marketing", icon: marketingIcon },
+  { value: "Customer Service", label: "Customer Service", icon: csIcon },
+  { value: "Field Service", label: "Field Service", icon: fsIcon },
+  { value: "Contact Center", label: "Contact Center", icon: ccIcon },
+  { value: "Project Operations", label: "Project Operations", icon: poIcon },
+  { value: "Commerce", label: "Commerce", icon: commerceIcon },
+  { value: "Human Resources", label: "Human Resources", icon: hrIcon },
 ];
 
 // CRM apps that trigger the workload step
