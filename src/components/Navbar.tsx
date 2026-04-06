@@ -115,6 +115,15 @@ const Navbar = () => {
                     🤖 AI Readiness Assessment
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <div className="px-2 py-1.5">
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Guide</p>
+                </div>
+                <DropdownMenuItem asChild>
+                  <Link to="/valj-partner/#guide" className="cursor-pointer">
+                    📘 Så väljer du rätt Dynamics 365-partner
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu>
@@ -231,6 +240,10 @@ const Navbar = () => {
                   </Link>
                   <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🤖 AI Readiness Assessment
+                  </Link>
+                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
+                  <Link to="/valj-partner/#guide" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                    📘 Så väljer du rätt Dynamics 365-partner
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2">
