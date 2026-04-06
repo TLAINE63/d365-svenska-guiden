@@ -1,17 +1,34 @@
+import { lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
-import PricingCard from "@/components/PricingCard";
-import LeadMagnetBanner from "@/components/LeadMagnetBanner";
-import UrgencyBadge from "@/components/UrgencyBadge";
-import VideoCard from "@/components/VideoCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ContactFormDialog from "@/components/ContactFormDialog";
 import HeroCarousel from "@/components/HeroCarousel";
-import CommonMistakesTeaser from "@/components/CommonMistakesTeaser";
-import ScrollCTA from "@/components/ScrollCTA";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
+
+// Lazy load below-fold components
+const PricingCard = lazy(() => import("@/components/PricingCard"));
+const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
+const UrgencyBadge = lazy(() => import("@/components/UrgencyBadge"));
+const VideoCard = lazy(() => import("@/components/VideoCard"));
+const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
+const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
+const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import {
