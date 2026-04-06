@@ -593,7 +593,7 @@ const Index = () => {
               inte bara en leverantör. Fel val kan kosta tid, pengar och frustration, medan rätt partner kan vara 
               skillnaden mellan ett projekt som levererar verkligt affärsvärde och ett som aldrig når sin fulla potential.
             </p>
-            <Button asChild size="lg" className="bg-amber-600 hover:bg-amber-700 text-white">
+            <Button asChild size="lg" className="bg-amber-700 hover:bg-amber-800 text-white">
               <Link to="/valj-partner/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                 Hitta rätt partner
                 <ArrowRight className="ml-2 h-5 w-5" />
