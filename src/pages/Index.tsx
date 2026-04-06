@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+const Footer = lazy(() => import("@/components/Footer"));
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
