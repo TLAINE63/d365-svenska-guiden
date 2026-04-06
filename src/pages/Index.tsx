@@ -83,12 +83,6 @@ const selectorCards = [
   },
 ];
 
-const proofStats = [
-  { num: "50+", label: "Certifierade Microsoft-partners att jämföra" },
-  { num: "100%", label: "Oberoende — vi säljer inget system" },
-  { num: "Gratis", label: "Behovsanalys och partnermatching" },
-  { num: "5 min", label: "Från besök till personlig rekommendation" },
-];
 
 const whyItems = [
   "Jämför partners utifrån bransch och behov",
@@ -144,7 +138,7 @@ const Index = () => {
       <main>
       
       {/* Hero Section */}
-      <section className="py-16 sm:py-20 md:py-24">
+      <section className="py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 text-center max-w-4xl">
           <span className="inline-flex items-center gap-2 bg-primary/10 text-primary text-xs font-medium px-3 py-1 rounded-full mb-6">
             <span className="w-1.5 h-1.5 bg-primary rounded-full" />
@@ -168,7 +162,7 @@ const Index = () => {
       </section>
 
       {/* Selector – Vad vill du göra? */}
-      <section className="py-10 sm:py-12 bg-muted/50 border-t border-border">
+      <section className="py-8 sm:py-10 bg-muted/50 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vill du göra?</h2>
           <p className="text-sm text-muted-foreground mb-6">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
@@ -192,7 +186,7 @@ const Index = () => {
       </section>
 
       {/* Analysis CTA Banner */}
-      <section className="py-8 sm:py-10 bg-background border-t border-border">
+      <section className="py-6 sm:py-8 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
             <div>
@@ -214,23 +208,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Proof – stats */}
-      <section className="py-10 sm:py-12 bg-background border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
-          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-6">Därför använder företag d365.se</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {proofStats.map((stat) => (
-              <div key={stat.num} className="bg-muted/50 border border-border rounded-lg p-5">
-                <div className="text-2xl sm:text-3xl font-semibold text-primary tracking-tight mb-1">{stat.num}</div>
-                <div className="text-xs sm:text-sm text-muted-foreground leading-snug">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Why + Popular Questions – two columns */}
-      <section className="py-10 sm:py-12 bg-muted/50 border-t border-border">
+      <section className="py-8 sm:py-10 bg-muted/50 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
             {/* Left – what we help with */}
@@ -267,7 +247,7 @@ const Index = () => {
       </section>
 
       {/* Industry pills */}
-      <section className="py-10 sm:py-12 bg-background border-t border-border">
+      <section className="py-8 sm:py-10 bg-background border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <div className="flex items-baseline justify-between mb-5">
             <h2 className="text-lg sm:text-xl font-semibold text-foreground">Välj din bransch</h2>
@@ -288,7 +268,7 @@ const Index = () => {
       </section>
 
       {/* Compare section */}
-      <section className="py-10 sm:py-12 bg-muted/50 border-t border-border">
+      <section className="py-8 sm:py-10 bg-muted/50 border-t border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Dynamics 365 vs alternativa system</h2>
           <p className="text-sm text-muted-foreground mb-6">Hur står sig Dynamics 365 mot de vanligaste alternativen på den svenska marknaden?</p>
@@ -334,7 +314,7 @@ const Index = () => {
       </section>
 
       {/* Footer CTA band */}
-      <section className="py-10 sm:py-12 bg-gradient-to-r from-primary to-accent">
+      <section className="py-8 sm:py-10 bg-gradient-to-r from-primary to-accent">
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-5">
           <div>
             <h2 className="text-xl sm:text-2xl font-semibold text-primary-foreground mb-1">Redo att komma igång?</h2>
