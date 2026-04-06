@@ -81,17 +81,6 @@ const industryImages: Record<string, string> = {
   "Offentlig sektor": offentligSektorImg,
   "Uthyrningsverksamhet": uthyrningImg,
 };
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import LeadCTA from "@/components/LeadCTA";
-import { Partner } from "@/data/partners";
-import { DatabasePartner } from "@/hooks/usePartners";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
 
 // Union type to support both static and database partners
 type PartnerData = Partner | DatabasePartner;
