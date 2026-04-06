@@ -143,8 +143,9 @@ const Index = () => {
       <main>
       
       {/* Hero Section – clean white, two-column */}
-      <section className="bg-card border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-10 sm:py-14 md:py-[72px]">
+      <section className="bg-gradient-to-b from-card via-card to-secondary/20 border-b border-border relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.04),transparent_60%)]" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl py-10 sm:py-14 md:py-[72px] relative">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 md:gap-14 items-center">
             {/* Left column */}
             <div>
@@ -197,23 +198,25 @@ const Index = () => {
       </section>
 
       {/* Selector – Vad vill du göra? */}
-      <section className="py-10 sm:py-12 bg-secondary/30">
+      <section className="py-10 sm:py-14 bg-card border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vill du göra?</h2>
-          <p className="text-sm text-muted-foreground mb-6">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="text-center mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1.5">Vad vill du göra?</h2>
+            <p className="text-sm text-muted-foreground">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {selectorCards.map((card) => (
               <Link
                 key={card.title}
                 to={card.link}
-                className="group bg-card border border-border rounded-[10px] p-5 flex flex-col gap-2.5 hover:border-primary/40 transition-all duration-200"
+                className="group bg-card border border-border rounded-xl p-5 flex flex-col gap-2.5 hover:border-primary/40 hover:shadow-[var(--shadow-hover)] transition-all duration-200 shadow-[var(--shadow-card)]"
               >
-                <div className="w-10 h-10 rounded-[10px] bg-primary/8 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
                   {card.icon}
                 </div>
                 <div className="text-sm font-semibold text-foreground">{card.title}</div>
                 <div className="text-[13px] text-muted-foreground leading-snug flex-1">{card.desc}</div>
-                <div className="text-xs font-medium text-primary">
+                <div className="text-xs font-medium text-primary group-hover:translate-x-0.5 transition-transform">
                   {card.linkText}
                 </div>
               </Link>
