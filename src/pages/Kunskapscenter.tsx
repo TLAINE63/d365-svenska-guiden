@@ -597,6 +597,26 @@ const Kunskapscenter = () => {
           <section className="py-12">
             <div className="container mx-auto px-4">
               {(() => {
+                const productColor = (product: string) => {
+                  switch (product) {
+                    case "Business Central":
+                      return { bg: "bg-business-central/10", text: "text-business-central", border: "border-business-central/30", icon: "text-business-central" };
+                    case "Finance & Supply Chain":
+                      return { bg: "bg-finance-supply/10", text: "text-finance-supply", border: "border-finance-supply/30", icon: "text-finance-supply" };
+                    case "Sales":
+                      return { bg: "bg-sales/10", text: "text-sales", border: "border-sales/30", icon: "text-sales" };
+                    case "Customer Service":
+                      return { bg: "bg-customer-service/10", text: "text-customer-service", border: "border-customer-service/30", icon: "text-customer-service" };
+                    case "Field Service":
+                      return { bg: "bg-field-service/10", text: "text-field-service", border: "border-field-service/30", icon: "text-field-service" };
+                    case "Contact Center":
+                      return { bg: "bg-contact-center/10", text: "text-contact-center", border: "border-contact-center/30", icon: "text-contact-center" };
+                    case "Customer Insights":
+                      return { bg: "bg-marketing/10", text: "text-marketing", border: "border-marketing/30", icon: "text-marketing" };
+                    default:
+                      return { bg: "bg-primary/10", text: "text-primary", border: "border-primary/30", icon: "text-primary" };
+                  }
+                };
                 const allProducts = [...new Set(ALL_DEEP_DIVE_ARTICLES.map((a) => a.product))];
                 const productsToShow = deepDiveProduct ? [deepDiveProduct] : allProducts;
                 return productsToShow.map((product) => {
