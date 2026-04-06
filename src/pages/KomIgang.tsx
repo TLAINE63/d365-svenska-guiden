@@ -449,7 +449,38 @@ const KomIgang = () => {
                 )}
               </div>
 
-              {/* Step 1: Industry */}
+              {/* Navigation buttons above content */}
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  {step > 1 && (
+                    <button
+                      onClick={handleBack}
+                      className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                      Föregående
+                    </button>
+                  )}
+                </div>
+                <div>
+                  {step === 3 && (
+                    <Button onClick={() => setStep(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6">
+                      Nästa
+                    </Button>
+                  )}
+                  {step === 4 && (
+                    <Button onClick={() => setStep(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6">
+                      Nästa
+                    </Button>
+                  )}
+                  {step === 5 && (
+                    <Button onClick={() => findPartners()} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                      Visa partners
+                    </Button>
+                  )}
+                </div>
+              </div>
+
               {step === 1 && (
                 <div>
                   <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -561,15 +592,6 @@ const KomIgang = () => {
                       );
                     })}
                   </div>
-                  <div className="flex justify-end mt-4">
-                    <Button
-                      onClick={() => setStep(4)}
-                      disabled={selectedGoals.length === 0}
-                      className="px-8"
-                    >
-                      Nästa
-                    </Button>
-                  </div>
                 </div>
               )}
 
@@ -602,15 +624,6 @@ const KomIgang = () => {
                         </button>
                       );
                     })}
-                  </div>
-                  <div className="flex justify-end mt-4">
-                    <Button
-                      onClick={() => setStep(5)}
-                      disabled={selectedSituations.length === 0}
-                      className="px-8"
-                    >
-                      Nästa
-                    </Button>
                   </div>
                 </div>
               )}
@@ -648,36 +661,12 @@ const KomIgang = () => {
                       );
                     })}
                   </div>
-                  <div className="flex justify-end mt-4">
-                    <Button
-                      onClick={() => findPartners()}
-                      disabled={selectedComplexities.length === 0}
-                      className="px-8"
-                    >
-                      Visa partners
-                    </Button>
-                  </div>
                 </div>
               )}
             </div>
           </div>
         </section>
 
-        {step > 1 && (
-          <div className="border-t border-border bg-background py-3">
-            <div className="container mx-auto px-4 sm:px-6">
-              <div className="max-w-3xl mx-auto">
-                <button
-                  onClick={handleBack}
-                  className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  Tillbaka
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </main>
 
       <Footer />
