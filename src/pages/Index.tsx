@@ -192,7 +192,7 @@ const Index = () => {
           </div>
           <div className="text-center">
             <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg">
-              <Link to="/behovsanalys/">
+              <Link to="/kom-igang/">
                 Kom igång <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
