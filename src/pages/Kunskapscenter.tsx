@@ -15,6 +15,7 @@ import behovsErpImage from "@/assets/behovsanalys-erp-card.jpg";
 import behovsSaljImage from "@/assets/behovsanalys-salj-card.jpg";
 import behovsKundserviceImage from "@/assets/behovsanalys-kundservice-card.jpg";
 import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
+import guideValjPartnerImage from "@/assets/guide-valj-partner-card.jpg";
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
@@ -173,6 +174,16 @@ const STATIC_TOOLS: Array<{
     image_url: kravspecKundserviceImage,
     icon: FileText,
     products: ["Customer Service", "Field Service", "Contact Center"],
+  },
+  {
+    id: "tool-guide-valj-partner",
+    title: "Så väljer du rätt Dynamics 365-partner",
+    description: "En komplett guide med checklistor och tips för att utvärdera och välja rätt implementeringspartner.",
+    type: "guide",
+    url: "/valj-partner/#guide",
+    image_url: guideValjPartnerImage,
+    icon: BookOpen,
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
   },
 ];
 
