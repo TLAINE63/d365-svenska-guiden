@@ -337,14 +337,13 @@ const KomIgang = () => {
 
       <main className="flex-1 flex flex-col">
         {/* Hero */}
-        <section className="relative pt-16 pb-10 sm:pt-20 sm:pb-12 overflow-hidden">
+        <section className="relative pt-14 pb-4 sm:pt-16 sm:pb-6 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
           <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-3">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
               Kom igång
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground mb-1">Låt oss förstå din situation</p>
-            <p className="text-sm text-muted-foreground">Vi ställer några snabba frågor och visar vilka partners som passar dig.</p>
+            <p className="text-sm sm:text-base text-muted-foreground">Vi ställer några snabba frågor och visar vilka partners som passar dig.</p>
           </div>
         </section>
 
