@@ -48,6 +48,7 @@ const RequirementsSpecMarketing = lazy(() => import("./pages/RequirementsSpecMar
 const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsSpecCustomerService"));
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
 const DeepDiveArticle = lazy(() => import("./pages/DeepDiveArticle"));
+const KomIgang = lazy(() => import("./pages/KomIgang"));
 
 const queryClient = new QueryClient();
 
@@ -84,6 +85,7 @@ const App = () => (
             <Route path="/valj-partner" element={<ValjPartner />} />
             <Route path="/dataskydd" element={<PrivacyPolicy />} />
             <Route path="/behovsanalys" element={<NeedsAnalysis />} />
+            <Route path="/kom-igang" element={<KomIgang />} />
             
             <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
             <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
