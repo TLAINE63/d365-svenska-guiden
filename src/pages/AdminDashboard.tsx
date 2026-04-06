@@ -233,6 +233,11 @@ const AdminDashboard = () => {
   const [sendingWelcome, setSendingWelcome] = useState(false);
   const [sendingSalesPitch, setSendingSalesPitch] = useState(false);
   
+  // Email send dialog state
+  const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
+  const [emailDialogType, setEmailDialogType] = useState<'welcome' | 'sales_pitch'>('sales_pitch');
+  const [emailOverrides, setEmailOverrides] = useState<Record<string, string>>({});
+  
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
