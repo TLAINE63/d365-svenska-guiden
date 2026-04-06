@@ -72,7 +72,7 @@ import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
-  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock
+  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Send
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
@@ -1552,7 +1552,7 @@ const AdminDashboard = () => {
                     {sendingWelcome ? "Skickar..." : `Skicka välkomstmail (${selectedForWelcome.size})`}
                   </Button>
                 )}
-                {selectedForSalesPitch.size > 0 && (
+                {selectedForWelcome.size > 0 && (
                   <Button 
                     variant="outline"
                     onClick={sendBulkSalesPitchEmails} 
@@ -1560,7 +1560,7 @@ const AdminDashboard = () => {
                     className="border-orange-500 text-orange-600 hover:bg-orange-50"
                   >
                     <Send className={`mr-2 h-4 w-4 ${sendingSalesPitch ? "animate-pulse" : ""}`} />
-                    {sendingSalesPitch ? "Skickar..." : `Skicka införsäljningsmail (${selectedForSalesPitch.size})`}
+                    {sendingSalesPitch ? "Skickar..." : `Skicka införsäljningsmail (${selectedForWelcome.size})`}
                   </Button>
                 )}
               </div>
