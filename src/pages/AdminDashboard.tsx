@@ -487,7 +487,7 @@ const AdminDashboard = () => {
   };
 
   const sendBulkSalesPitchEmails = async () => {
-    const selected = fullPartners.filter(p => selectedForSalesPitch.has(p.id));
+    const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
     if (selected.length === 0) return;
     if (!confirm(`Skicka införsäljningsmail till ${selected.length} partner(s)?`)) return;
 
@@ -520,7 +520,7 @@ const AdminDashboard = () => {
       if (!response.ok) throw new Error("Kunde inte skicka införsäljningsmail");
       const data = await response.json();
       toast({ title: data.message || "Införsäljningsmail skickade!" });
-      setSelectedForSalesPitch(new Set());
+      setSelectedForWelcome(new Set());
       fetchOpenInvitations();
     } catch (error: any) {
       console.error("Send sales pitch error:", error);
