@@ -88,7 +88,7 @@ const goalOptions = [
   { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras" },
 ];
 
-// Step 3: Situation options
+// Step 4: Situation options
 const situationOptions = [
   { value: "new", label: "Utvärderar nytt system" },
   { value: "evaluate-partners", label: "Vill utvärdera partners" },
@@ -96,13 +96,20 @@ const situationOptions = [
   { value: "unsure", label: "Osäker" },
 ];
 
-// Step 4: Complexity options
+// Step 5: Complexity / verksamhet options (expanded)
 const complexityOptions = [
   { value: "standard", label: "Relativt standardiserad verksamhet", desc: "Enklare processer inom ekonomi, order och lager" },
   { value: "growing", label: "Växande bolag med ökande krav", desc: "Behöver bättre struktur, kontroll och uppföljning" },
   { value: "multi-entity", label: "Flera bolag eller verksamheter", desc: "Koncern, flera juridiska enheter eller länder" },
   { value: "manufacturing", label: "Tillverkning eller avancerad logistik", desc: "Produktion, planering eller komplexa flöden" },
   { value: "integrations", label: "Höga krav på integrationer", desc: "Många system som behöver hänga ihop" },
+  { value: "consulting", label: "Konsultverksamhet", desc: "Projektbaserad verksamhet med resurs- och uppdragshantering" },
+  { value: "time-reporting", label: "Tidrapportering och debitering", desc: "Tid- och kostnadsuppföljning per projekt och kund" },
+  { value: "customer-service", label: "Kundservice och ärendehantering", desc: "Support, SLA:er och ärendeflöden" },
+  { value: "field-service", label: "Fältservice och arbetsorder", desc: "Mobila team, schemaläggning och arbetsorder" },
+  { value: "contact-center", label: "Contact Center", desc: "Omnikanal-kommunikation och köhantering" },
+  { value: "sales-crm", label: "Försäljning och CRM", desc: "Pipeline, offerter och kundhantering" },
+  { value: "marketing-automation", label: "Marketing och kampanjer", desc: "Automatiserade kundresor och segmentering" },
   { value: "unsure", label: "Osäker – behöver vägledning", desc: "Vi hjälper dig välja rätt nivå" },
 ];
 
