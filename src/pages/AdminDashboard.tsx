@@ -1573,7 +1573,7 @@ const AdminDashboard = () => {
                 {selectedForWelcome.size > 0 && (
                   <Button 
                     variant="outline"
-                    onClick={sendBulkWelcomeEmails} 
+                    onClick={() => openEmailDialog('welcome')} 
                     disabled={sendingWelcome}
                     className="border-primary text-primary hover:bg-primary/10"
                   >
@@ -1584,7 +1584,7 @@ const AdminDashboard = () => {
                 {selectedForWelcome.size > 0 && (
                   <Button 
                     variant="outline"
-                    onClick={sendBulkSalesPitchEmails} 
+                    onClick={() => openEmailDialog('sales_pitch')} 
                     disabled={sendingSalesPitch}
                     className="border-orange-500 text-orange-600 hover:bg-orange-50"
                   >
@@ -1678,7 +1678,7 @@ const AdminDashboard = () => {
                     if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
                     return true;
                   });
-                  const selectable = filtered.filter(p => p.admin_contact_email || p.email);
+                  const selectable = filtered;
                   
                   if (selectable.length === 0) return null;
                   return (
@@ -1736,8 +1736,7 @@ const AdminDashboard = () => {
                               });
                             }}
                             className="mt-1"
-                            disabled={!(partner.admin_contact_email || partner.email)}
-                            title={!(partner.admin_contact_email || partner.email) ? "E-postadress saknas" : "Markera för välkomstmail"}
+                            title="Markera för utskick"
                           />
                           {partner.logo_url ? (
                             <img 
