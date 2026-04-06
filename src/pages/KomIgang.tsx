@@ -252,22 +252,11 @@ const KomIgang = () => {
                 <div className="space-y-4">
                   {matchedPartners.map((partner, idx) => {
                     const aiMatch = getAiMatch(partner.id);
-                    const isBestMatch = idx === 0 && aiMatches.length > 0;
                     return (
                       <div
                         key={partner.id}
-                        className={`relative rounded-xl border-2 p-5 transition-all ${
-                          isBestMatch
-                            ? "border-primary bg-primary/5 shadow-md"
-                            : "border-border bg-card"
-                        }`}
+                        className="relative rounded-xl border-2 p-5 transition-all border-border bg-card"
                       >
-                        {isBestMatch && (
-                          <div className="absolute -top-3 left-4 flex items-center gap-1.5 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                            <Star className="h-3 w-3" />
-                            Bäst match
-                          </div>
-                        )}
 
                         <div className="flex items-start gap-4">
                           {partner.logo_url && (
