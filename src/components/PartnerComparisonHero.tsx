@@ -1,4 +1,4 @@
-import partnersHeroImg from "@/assets/partners-comparison-hero.png";
+import partnersHeroImg from "@/assets/partners-comparison-hero.webp";
 
 const PartnerComparisonHero = () => {
   return (
