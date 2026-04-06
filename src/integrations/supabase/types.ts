@@ -389,6 +389,7 @@ export type Database = {
           office_cities: string[] | null
           partner_id: string | null
           phone: string | null
+          platform_capabilities: string[] | null
           product_filters: Json | null
           secondary_industries: string[] | null
           submitted_at: string
@@ -411,6 +412,7 @@ export type Database = {
           office_cities?: string[] | null
           partner_id?: string | null
           phone?: string | null
+          platform_capabilities?: string[] | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
           submitted_at?: string
@@ -433,6 +435,7 @@ export type Database = {
           office_cities?: string[] | null
           partner_id?: string | null
           phone?: string | null
+          platform_capabilities?: string[] | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
           submitted_at?: string
@@ -490,6 +493,7 @@ export type Database = {
           name: string
           office_cities: string[] | null
           phone: string | null
+          platform_capabilities: string[] | null
           product_filters: Json | null
           secondary_industries: string[] | null
           slug: string
@@ -523,6 +527,7 @@ export type Database = {
           name: string
           office_cities?: string[] | null
           phone?: string | null
+          platform_capabilities?: string[] | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
           slug: string
@@ -556,6 +561,7 @@ export type Database = {
           name?: string
           office_cities?: string[] | null
           phone?: string | null
+          platform_capabilities?: string[] | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
           slug?: string
