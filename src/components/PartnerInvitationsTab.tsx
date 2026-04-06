@@ -74,11 +74,16 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [emailTemplateOriginal, setEmailTemplateOriginal] = useState("");
   const [welcomeTemplate, setWelcomeTemplate] = useState("");
   const [welcomeTemplateOriginal, setWelcomeTemplateOriginal] = useState("");
+  const [salesPitchTemplate, setSalesPitchTemplate] = useState("");
+  const [salesPitchTemplateOriginal, setSalesPitchTemplateOriginal] = useState("");
+  const [salesPitchSubject, setSalesPitchSubject] = useState("");
+  const [salesPitchSubjectOriginal, setSalesPitchSubjectOriginal] = useState("");
   const [loadingTemplate, setLoadingTemplate] = useState(false);
   const [savingTemplate, setSavingTemplate] = useState(false);
   const [savingWelcomeTemplate, setSavingWelcomeTemplate] = useState(false);
+  const [savingSalesPitchTemplate, setSavingSalesPitchTemplate] = useState(false);
   const [showTemplateEditor, setShowTemplateEditor] = useState(false);
-  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder">("welcome");
+  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder" | "sales_pitch">("welcome");
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
@@ -127,7 +132,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const fetchEmailTemplate = async () => {
     setLoadingTemplate(true);
     try {
-      const [reminderRes, welcomeRes] = await Promise.all([
+      const [reminderRes, welcomeRes, salesPitchBodyRes, salesPitchSubjectRes] = await Promise.all([
         fetch(
           `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_email_body`,
           {
@@ -150,15 +155,45 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             },
           }
         ),
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=sales_pitch_email_body`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        ),
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=sales_pitch_email_subject`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+          }
+        ),
       ]);
       handleResponse(reminderRes);
       handleResponse(welcomeRes);
+      handleResponse(salesPitchBodyRes);
+      handleResponse(salesPitchSubjectRes);
       const reminderData = await reminderRes.json();
       const welcomeData = await welcomeRes.json();
+      const salesPitchBodyData = await salesPitchBodyRes.json();
+      const salesPitchSubjectData = await salesPitchSubjectRes.json();
       setEmailTemplate(reminderData.template || "");
       setEmailTemplateOriginal(reminderData.template || "");
       setWelcomeTemplate(welcomeData.template || "");
       setWelcomeTemplateOriginal(welcomeData.template || "");
+      setSalesPitchTemplate(salesPitchBodyData.template || "");
+      setSalesPitchTemplateOriginal(salesPitchBodyData.template || "");
+      setSalesPitchSubject(salesPitchSubjectData.template || "");
+      setSalesPitchSubjectOriginal(salesPitchSubjectData.template || "");
     } catch (err) {
       console.error("Fetch template error:", err);
       toast.error("Kunde inte hämta e-postmallar");
@@ -218,6 +253,49 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
       toast.error("Kunde inte spara välkomstmall");
     } finally {
       setSavingWelcomeTemplate(false);
+    }
+  };
+
+  const saveSalesPitchTemplate = async () => {
+    setSavingSalesPitchTemplate(true);
+    try {
+      const [bodyRes, subjectRes] = await Promise.all([
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({ template: salesPitchTemplate, template_key: "sales_pitch_email_body" }),
+          }
+        ),
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({ template: salesPitchSubject, template_key: "sales_pitch_email_subject" }),
+          }
+        ),
+      ]);
+      handleResponse(bodyRes);
+      handleResponse(subjectRes);
+      if (!bodyRes.ok || !subjectRes.ok) throw new Error("Kunde inte spara mall");
+      setSalesPitchTemplateOriginal(salesPitchTemplate);
+      setSalesPitchSubjectOriginal(salesPitchSubject);
+      toast.success("Införsäljningsmall sparad!");
+    } catch (err) {
+      console.error("Save sales pitch template error:", err);
+      toast.error("Kunde inte spara införsäljningsmall");
+    } finally {
+      setSavingSalesPitchTemplate(false);
     }
   };
 
@@ -594,14 +672,22 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Tab switcher */}
-            <div className="flex gap-2 border-b pb-2">
+            <div className="flex gap-2 border-b pb-2 flex-wrap">
               <Button
                 variant={activeTemplateTab === "welcome" ? "secondary" : "ghost"}
                 size="sm"
                 onClick={() => setActiveTemplateTab("welcome")}
               >
                 <Mail className="w-4 h-4 mr-2" />
-                Välkomstmail (nya partners)
+                Välkomstmail
+              </Button>
+              <Button
+                variant={activeTemplateTab === "sales_pitch" ? "secondary" : "ghost"}
+                size="sm"
+                onClick={() => setActiveTemplateTab("sales_pitch")}
+              >
+                <Send className="w-4 h-4 mr-2" />
+                Införsäljning
               </Button>
               <Button
                 variant={activeTemplateTab === "reminder" ? "secondary" : "ghost"}
@@ -631,7 +717,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 />
                 <div className="flex justify-between items-center">
                   <p className="text-xs text-muted-foreground">
-                    Ämnesrad: &quot;Välkommen till D365.se – Profilera ditt partnerskap&quot;
+                    Ämnesrad: &quot;Välkommen till D365.se – Vilken Dynamics 365-partner passar kunden bäst?&quot;
                   </p>
                   <div className="flex gap-2">
                     {welcomeTemplate !== welcomeTemplateOriginal && (
@@ -648,6 +734,56 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                     >
                       <Save className="w-4 h-4 mr-2" />
                       {savingWelcomeTemplate ? "Sparar..." : "Spara välkomstmall"}
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : activeTemplateTab === "sales_pitch" ? (
+              <>
+                <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
+                  <strong>Införsäljningsmailet</strong> skickas till potentiella partners som ännu inte är kunder. 
+                  Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code> för mottagarens namn 
+                  och <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> för länken till profilsidan.
+                  Ämnesraden kan också innehålla <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code>.
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Ämnesrad</Label>
+                  <Input
+                    value={salesPitchSubject}
+                    onChange={(e) => setSalesPitchSubject(e.target.value)}
+                    className="font-mono text-sm"
+                    placeholder="Skriv ämnesrad här..."
+                  />
+                </div>
+                <Textarea
+                  value={salesPitchTemplate}
+                  onChange={(e) => setSalesPitchTemplate(e.target.value)}
+                  rows={20}
+                  className="font-mono text-sm"
+                  placeholder="Skriv införsäljningstexten här..."
+                />
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-muted-foreground">
+                    Platshållare: {"{{NAME}}"} = mottagarens namn, {"{{INVITATION_LINK}}"} = profilsidans länk
+                  </p>
+                  <div className="flex gap-2">
+                    {(salesPitchTemplate !== salesPitchTemplateOriginal || salesPitchSubject !== salesPitchSubjectOriginal) && (
+                      <Button 
+                        variant="outline" 
+                        onClick={() => {
+                          setSalesPitchTemplate(salesPitchTemplateOriginal);
+                          setSalesPitchSubject(salesPitchSubjectOriginal);
+                        }}
+                      >
+                        Ångra ändringar
+                      </Button>
+                    )}
+                    <Button 
+                      onClick={saveSalesPitchTemplate} 
+                      disabled={savingSalesPitchTemplate || (salesPitchTemplate === salesPitchTemplateOriginal && salesPitchSubject === salesPitchSubjectOriginal)}
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      {savingSalesPitchTemplate ? "Sparar..." : "Spara införsäljningsmall"}
                     </Button>
                   </div>
                 </div>

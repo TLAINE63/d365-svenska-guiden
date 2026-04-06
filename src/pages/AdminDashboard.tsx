@@ -228,9 +228,10 @@ const AdminDashboard = () => {
   const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
   const [everInvitedPartnerIds, setEverInvitedPartnerIds] = useState<Set<string>>(new Set());
   
-  // Bulk welcome email state
+  // Bulk email state (shared selection for welcome + sales pitch)
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
   const [sendingWelcome, setSendingWelcome] = useState(false);
+  const [sendingSalesPitch, setSendingSalesPitch] = useState(false);
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -482,6 +483,54 @@ const AdminDashboard = () => {
       });
     } finally {
       setSendingWelcome(false);
+    }
+  };
+
+  const sendBulkSalesPitchEmails = async () => {
+    const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
+    if (selected.length === 0) return;
+    if (!confirm(`Skicka införsäljningsmail till ${selected.length} partner(s)?`)) return;
+
+    setSendingSalesPitch(true);
+    try {
+      const partnerList = selected.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: p.admin_contact_email || p.email || "",
+        contact_name: p.admin_contact_name || (p as any).contact_person || p.name,
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ partners: partnerList }),
+        }
+      );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut", variant: "destructive" });
+        logout();
+        return;
+      }
+      if (!response.ok) throw new Error("Kunde inte skicka införsäljningsmail");
+      const data = await response.json();
+      toast({ title: data.message || "Införsäljningsmail skickade!" });
+      setSelectedForWelcome(new Set());
+      fetchOpenInvitations();
+    } catch (error: any) {
+      console.error("Send sales pitch error:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte skicka införsäljningsmail",
+        variant: "destructive",
+      });
+    } finally {
+      setSendingSalesPitch(false);
     }
   };
 
@@ -1501,6 +1550,17 @@ const AdminDashboard = () => {
                   >
                     <Mail className={`mr-2 h-4 w-4 ${sendingWelcome ? "animate-pulse" : ""}`} />
                     {sendingWelcome ? "Skickar..." : `Skicka välkomstmail (${selectedForWelcome.size})`}
+                  </Button>
+                )}
+                {selectedForWelcome.size > 0 && (
+                  <Button 
+                    variant="outline"
+                    onClick={sendBulkSalesPitchEmails} 
+                    disabled={sendingSalesPitch}
+                    className="border-orange-500 text-orange-600 hover:bg-orange-50"
+                  >
+                    <Send className={`mr-2 h-4 w-4 ${sendingSalesPitch ? "animate-pulse" : ""}`} />
+                    {sendingSalesPitch ? "Skickar..." : `Skicka införsäljningsmail (${selectedForWelcome.size})`}
                   </Button>
                 )}
               </div>
