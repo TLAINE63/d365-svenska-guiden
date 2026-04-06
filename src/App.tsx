@@ -1,16 +1,18 @@
 import { lazy, Suspense } from "react";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
-import CookieBanner from "@/components/CookieBanner";
-import SnitcherTracking from "@/components/SnitcherTracking";
-import VisitorTracking from "@/components/VisitorTracking";
 import Index from "./pages/Index";
+
+// Lazy load non-critical UI shell components
+const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
+const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
+const CookieBanner = lazy(() => import("@/components/CookieBanner"));
+const SnitcherTracking = lazy(() => import("@/components/SnitcherTracking"));
+const VisitorTracking = lazy(() => import("@/components/VisitorTracking"));
 
 // Lazy load pages for code splitting
 const NotFound = lazy(() => import("./pages/NotFound"));
