@@ -159,7 +159,7 @@ const Index = () => {
             <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-primary-foreground text-sm sm:text-base h-12 px-7 rounded-lg shadow-lg shadow-[hsl(var(--cta-orange))]/25 transition-all hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5">
               <Link to="/kom-igang/">Kom igång – kostnadsfri guide <ArrowRight className="w-4 h-4 ml-1" /></Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-sm sm:text-base h-12 px-7 rounded-lg border-white/20 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+            <Button asChild size="lg" className="text-sm sm:text-base h-12 px-7 rounded-lg border border-white/25 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm">
               <Link to="/valj-partner/">Jämför partners</Link>
             </Button>
           </div>
