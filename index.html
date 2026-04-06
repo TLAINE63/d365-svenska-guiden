@@ -11,14 +11,26 @@
     <title>Dynamics 365 Sverige – ERP & CRM guide | d365.se</title>
     <meta name="description" content="Oberoende guide till Dynamics 365 i Sverige. Jämför ERP & CRM, hitta Microsoft-certifierade partners per bransch. Kostnadsfri behovsanalys." />
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BBC4N0F9W9"></script>
+    <!-- Google tag (gtag.js) - deferred for better TTI -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BBC4N0F9W9');
-      gtag('config', 'AW-17947547907');
+      // Defer GTM loading until after page is interactive
+      function loadGTM() {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-BBC4N0F9W9';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-BBC4N0F9W9');
+        gtag('config', 'AW-17947547907');
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGTM, { timeout: 3000 });
+      } else {
+        setTimeout(loadGTM, 2000);
+      }
     </script>
 
     <!-- Preconnect to external origins for faster loading -->
