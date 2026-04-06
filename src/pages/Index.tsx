@@ -607,9 +607,10 @@ const Index = () => {
 
       {/* Lead Magnet Banner */}
       <div className="flex justify-center mb-4">
-      <Suspense fallback={null}>
-        <UrgencyBadge variant="consultation" />
-      </Suspense>
+        <Suspense fallback={null}>
+          <UrgencyBadge variant="consultation" />
+        </Suspense>
+      </div>
       <Suspense fallback={null}><LeadMagnetBanner sourcePage="index" /></Suspense>
 
       {/* CTA Section */}
