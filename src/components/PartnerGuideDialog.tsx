@@ -529,6 +529,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
     setCustomCountries("");
     setSelectedSize("");
     setSelectedLocalPreference("");
+    setSelectedAdditionalApps([]);
+    setSelectedPlatformNeeds([]);
     setSelectedPlatformNeeds([]);
     setSelectedAiInterest("");
     setSuggestedPartners([]);
