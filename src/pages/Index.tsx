@@ -166,7 +166,7 @@ const Index = () => {
                 <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 px-5 rounded-lg font-semibold">
                   <Link to="/kom-igang/">Gör kostnadsfri behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="text-sm h-11 px-5 rounded-lg text-white/80 border-white/25 hover:bg-white/10 hover:text-white">
+                <Button asChild variant="outline" size="lg" className="text-sm h-11 px-5 rounded-lg text-white border-white/40 hover:bg-white/10">
                   <Link to="/valj-partner/">Jämför partners</Link>
                 </Button>
               </div>
