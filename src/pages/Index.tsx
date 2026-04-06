@@ -83,12 +83,6 @@ const selectorCards = [
   },
 ];
 
-const proofStats = [
-  { num: "50+", label: "Certifierade Microsoft-partners att jämföra" },
-  { num: "100%", label: "Oberoende — vi säljer inget system" },
-  { num: "Gratis", label: "Behovsanalys och partnermatching" },
-  { num: "5 min", label: "Från besök till personlig rekommendation" },
-];
 
 const whyItems = [
   "Jämför partners utifrån bransch och behov",
