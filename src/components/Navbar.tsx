@@ -248,23 +248,9 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Marknad & Sälj</span>
+                  <span className="text-lg font-semibold text-foreground">Marknad, Sälj & Service</span>
                   <div className="flex flex-col gap-2 ml-4">
-                    {crmSalesItems.map((item) => (
-                      <Link
-                        key={item.path}
-                        to={item.path}
-                        className="text-base font-medium text-muted-foreground hover:text-primary transition-colors"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <span className="text-lg font-semibold text-foreground">Kundservice</span>
-                  <div className="flex flex-col gap-2 ml-4">
-                    {crmServiceItems.map((item) => (
+                    {crmItems.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
