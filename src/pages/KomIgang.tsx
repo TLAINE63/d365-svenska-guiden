@@ -460,31 +460,37 @@ const KomIgang = () => {
 
               {/* Step 2: Product */}
               {step === 2 && (
-                <div className="space-y-2">
-                  {productOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      onClick={() => {
-                        setSelectedProduct(opt.value);
-                        setTimeout(() => setStep(3), 250);
-                      }}
-                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                        selectedProduct === opt.value
-                          ? "border-primary bg-primary/5 text-foreground"
-                          : "border-border bg-card text-foreground hover:border-primary/30"
-                      }`}
-                    >
-                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                        selectedProduct === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
-                      }`}>
-                        {selectedProduct === opt.value && <Check className="h-3 w-3" />}
-                      </div>
-                      <div>
-                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
-                        <p className="text-xs text-muted-foreground">{opt.desc}</p>
-                      </div>
-                    </button>
-                  ))}
+                <div className="grid grid-cols-2 gap-2">
+                  {productOptions.map((opt) => {
+                    const isSelected = selectedProduct === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        onClick={() => {
+                          setSelectedProduct(opt.value);
+                          setTimeout(() => setStep(3), 250);
+                        }}
+                        className={`flex flex-col items-center justify-center text-center px-3 py-4 rounded-lg border-2 transition-all ${
+                          isSelected
+                            ? "border-primary bg-primary/5 shadow-sm"
+                            : "border-border bg-card hover:border-primary/40"
+                        }`}
+                      >
+                        {opt.icon ? (
+                          <img src={opt.icon} alt={opt.label} className="w-10 h-10 object-contain mb-2" />
+                        ) : (
+                          <HelpCircle className="w-10 h-10 text-muted-foreground mb-2" />
+                        )}
+                        <span className="text-sm font-semibold text-foreground leading-tight">{opt.label}</span>
+                        <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{opt.desc}</span>
+                        {isSelected && (
+                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+                            <Check className="h-3 w-3 text-primary-foreground" />
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
