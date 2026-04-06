@@ -389,6 +389,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
             industries: p.industries || [],
             geography: p.geography || [],
             product_filters: p.product_filters || {},
+            office_cities: p.office_cities || [],
           }));
 
         if (partnerPayload.length === 0) {
