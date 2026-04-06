@@ -578,27 +578,88 @@ const Index = () => {
       {/* Partner Selection Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <div className="bg-amber-500/20 w-16 h-16 rounded-full flex items-center justify-center">
-                <span className="text-3xl">🤝</span>
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <div className="flex justify-center mb-6">
+                <div className="bg-amber-500/20 w-16 h-16 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">🤝</span>
+                </div>
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Vikten av rätt implementationspartner
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                Valet av implementationspartner är minst lika viktigt som valet av system. En bra partner kan vara skillnaden mellan ett projekt som levererar verkligt värde och ett som fastnar i onödiga komplikationer. Men hur hittar man rätt? Svaret ligger i att förstå vad som faktiskt spelar roll när man utvärderar potentiella partners.
+              </p>
+            </div>
+
+            <div className="text-left space-y-8 mb-10">
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-3">Vad bör ni titta på?</h3>
+                <p className="text-muted-foreground mb-4 leading-relaxed">
+                  Det finns tre faktorer som ofta är avgörande när man väljer rätt Dynamics 365-partner:
+                </p>
+
+                <div className="space-y-4">
+                  <div className="bg-card rounded-lg p-5 border border-border">
+                    <h4 className="font-semibold text-foreground mb-1">Branscherfarenhet</h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      En partner som redan har genomfört implementeringar i er bransch förstår era utmaningar, era processer och de fallgropar som är vanliga just i er kontext. De behöver inte lära sig er verksamhet från grunden – de kan fokusera på att leverera värde från dag ett.
+                    </p>
+                  </div>
+                  <div className="bg-card rounded-lg p-5 border border-border">
+                    <h4 className="font-semibold text-foreground mb-1">Företagsstorlek och kapacitet</h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      En partner som primärt arbetar med stora globala enterprise-projekt kanske inte är rätt match för ett medelstort bolag med snabba beslutsvägar och begränsad intern IT-kapacitet – och vice versa. Välj en partner vars arbetssätt och skala matchar er organisation.
+                    </p>
+                  </div>
+                  <div className="bg-card rounded-lg p-5 border border-border">
+                    <h4 className="font-semibold text-foreground mb-1">Certifieringar för rätt applikationer</h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      Microsoft certifierar sina partners för specifika Dynamics 365-applikationer. Se till att den partner ni överväger har aktuella och relevanta certifieringar för just de applikationer ni planerar att implementera – det är ett kvitto på att de har den tekniska kompetens som krävs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-3">Använd vår partnerkatalog</h3>
+                <p className="text-muted-foreground mb-3 leading-relaxed">
+                  För att göra sökningen enklare har vi en partnerkatalog där ni kan filtrera på just de faktorer som spelar roll för er:
+                </p>
+                <ul className="space-y-2 text-muted-foreground text-sm leading-relaxed list-none">
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">•</span><span><strong className="text-foreground">Bransch</strong> – hitta partners med dokumenterad erfarenhet från er sektor.</span></li>
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">•</span><span><strong className="text-foreground">Företagsstorlek</strong> – filtrera fram partners som är vana att arbeta med organisationer av er storlek.</span></li>
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold mt-0.5">•</span><span><strong className="text-foreground">Applikationer</strong> – se vilka partners som är certifierade för de specifika Dynamics 365-lösningar ni är intresserade av.</span></li>
+                </ul>
+                <p className="text-muted-foreground mt-3 leading-relaxed">
+                  Katalogen gör det möjligt att snabbt sålla fram ett urval av relevanta kandidater, snarare än att behöva leta brett på egen hand.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-3">Få personliga partnerrekommendationer</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Föredrar ni ett mer väglett tillvägagångssätt? Via vårt rekommendationsverktyg kan ni besvara några frågor om er verksamhet, era behov och er situation – och få tillbaka ett urval av partners som matchar just era förutsättningar. Det är ett snabbt och enkelt sätt att komma igång, särskilt om ni känner er osäkra på vad ni ska titta efter eller vill ha ett mer neutralt utgångsperspektiv.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-3">Rätt partner är ett strategiskt val</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Kom ihåg att relationen med er Dynamics 365-partner inte slutar vid go-live. De bästa partnerskapen är långsiktiga – där partnern fortsätter att stötta er med förvaltning, vidareutveckling och strategisk rådgivning i takt med att er verksamhet förändras och växer. Ta er därför tid att utvärdera noggrant, ställ frågor och be gärna om referenser från liknande implementeringar. Det är en investering som betalar sig många gånger om.
+                </p>
               </div>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Vikten av rätt implementationspartner
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-6 leading-relaxed">
-              Att välja rätt implementationspartner är ofta den viktigaste faktorn för en lyckad Dynamics 365-implementation. 
-              En bra partner förstår din bransch, har beprövad erfarenhet och blir en långsiktig samarbetspartner – 
-              inte bara en leverantör. Fel val kan kosta tid, pengar och frustration, medan rätt partner kan vara 
-              skillnaden mellan ett projekt som levererar verkligt affärsvärde och ett som aldrig når sin fulla potential.
-            </p>
-            <Button asChild size="lg" className="bg-amber-700 hover:bg-amber-800 text-white">
-              <Link to="/valj-partner/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                Hitta rätt partner
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+
+            <div className="text-center">
+              <Button asChild size="lg" className="bg-amber-700 hover:bg-amber-800 text-white">
+                <Link to="/valj-partner/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                  Hitta rätt partner
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
