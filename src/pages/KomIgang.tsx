@@ -54,15 +54,28 @@ const industryImages: Record<string, string> = {
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { supabase } from "@/integrations/supabase/client";
 
-// Step 2: Goal options
+// Step 2: Product options
+const productOptions = [
+  { value: "Business Central", label: "Business Central", desc: "ERP för små och medelstora företag" },
+  { value: "Finance & SCM", label: "Finance & Supply Chain Management", desc: "ERP för större och globala organisationer" },
+  { value: "Sales", label: "Sales", desc: "CRM för försäljning och pipeline" },
+  { value: "Customer Insights (Marketing)", label: "Customer Insights / Marketing", desc: "Marketing automation och kunddata" },
+  { value: "Customer Service", label: "Customer Service", desc: "Ärendehantering och support" },
+  { value: "Field Service", label: "Field Service", desc: "Fältservice och arbetsorder" },
+  { value: "Contact Center", label: "Contact Center", desc: "Omnikanal-kontaktcenter" },
+  { value: "Project Operations", label: "Project Operations", desc: "Projekthantering och resursplanering" },
+  { value: "", label: "Vi har inte bestämt oss ännu", desc: "Vi hjälper dig hitta rätt" },
+];
+
+// Step 3: Goal options
 const goalOptions = [
-  { value: "erp", label: "Införa eller byta affärssystem (ERP)", app: "Business Central" },
-  { value: "sales", label: "Förbättra försäljningsprocessen", app: "Sales" },
-  { value: "marketing", label: "Införa marketing automation", app: "Customer Insights (Marketing)" },
-  { value: "service", label: "Effektivisera kundservice", app: "Customer Service" },
-  { value: "contact-center", label: "Utvärdera Contact Center-lösningar", app: "Contact Center" },
-  { value: "field-service", label: "Förbättra fältservice", app: "Field Service" },
-  { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras", app: "" },
+  { value: "erp", label: "Införa eller byta affärssystem (ERP)" },
+  { value: "sales", label: "Förbättra försäljningsprocessen" },
+  { value: "marketing", label: "Införa marketing automation" },
+  { value: "service", label: "Effektivisera kundservice" },
+  { value: "contact-center", label: "Utvärdera Contact Center-lösningar" },
+  { value: "field-service", label: "Förbättra fältservice" },
+  { value: "unsure", label: "Jag är osäker – Lite av varje behöver förbättras" },
 ];
 
 // Step 3: Situation options
@@ -111,7 +124,7 @@ interface AiMatchResult {
   bullets?: string[];
 }
 
-const TOTAL_STEPS = 4;
+const TOTAL_STEPS = 5;
 
 const KomIgang = () => {
   const navigate = useNavigate();
@@ -119,6 +132,7 @@ const KomIgang = () => {
 
   const [step, setStep] = useState(1);
   const [selectedIndustry, setSelectedIndustry] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
   const [selectedGoal, setSelectedGoal] = useState("");
   const [selectedSituation, setSelectedSituation] = useState("");
   const [selectedComplexity, setSelectedComplexity] = useState("");
@@ -135,11 +149,11 @@ const KomIgang = () => {
     return [...allIndustries].sort((a, b) => counts[b] - counts[a]);
   }, [partners]);
 
-  const selectedGoalObj = goalOptions.find(g => g.value === selectedGoal);
-  const selectedApp = selectedGoalObj?.app || "";
+  const selectedApp = selectedProduct || "";
 
   const stepLabels = [
     "Vilken bransch är ni verksamma inom?",
+    "Vilken Dynamics 365-produkt är ni intresserade av?",
     "Vad vill du förbättra?",
     "Var befinner ni er idag?",
     "Hur ser er verksamhet ut?",
@@ -147,6 +161,7 @@ const KomIgang = () => {
 
   const stepSubtexts = [
     "Vi använder detta för att hitta relevanta partners",
+    "Välj den produkt som passar bäst eller hoppa över om ni inte vet",
     "",
     "",
     "Detta hjälper oss avgöra vilken nivå av lösning och partner som passar",
@@ -433,15 +448,45 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 2: Goal */}
+              {/* Step 2: Product */}
               {step === 2 && (
+                <div className="space-y-2">
+                  {productOptions.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => {
+                        setSelectedProduct(opt.value);
+                        setTimeout(() => setStep(3), 250);
+                      }}
+                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                        selectedProduct === opt.value
+                          ? "border-primary bg-primary/5 text-foreground"
+                          : "border-border bg-card text-foreground hover:border-primary/30"
+                      }`}
+                    >
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        selectedProduct === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                      }`}>
+                        {selectedProduct === opt.value && <Check className="h-3 w-3" />}
+                      </div>
+                      <div>
+                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        <p className="text-xs text-muted-foreground">{opt.desc}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Step 3: Goal */}
+              {step === 3 && (
                 <div className="space-y-2">
                   {goalOptions.map((opt) => (
                     <button
                       key={opt.value}
                       onClick={() => {
                         setSelectedGoal(opt.value);
-                        setTimeout(() => setStep(3), 250);
+                        setTimeout(() => setStep(4), 250);
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedGoal === opt.value
@@ -460,15 +505,15 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 3: Situation */}
-              {step === 3 && (
+              {/* Step 4: Situation */}
+              {step === 4 && (
                 <div className="space-y-2">
                   {situationOptions.map((opt) => (
                     <button
                       key={opt.value}
                       onClick={() => {
                         setSelectedSituation(opt.value);
-                        setTimeout(() => setStep(4), 250);
+                        setTimeout(() => setStep(5), 250);
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedSituation === opt.value
@@ -487,8 +532,8 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 4: Complexity */}
-              {step === 4 && (
+              {/* Step 5: Complexity */}
+              {step === 5 && (
                 <div className="space-y-2">
                   {complexityOptions.map((opt) => (
                     <button
