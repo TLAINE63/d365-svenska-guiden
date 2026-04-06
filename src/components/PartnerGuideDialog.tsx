@@ -257,23 +257,21 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
   };
 
   const isCrmApp = crmApps.includes(selectedApp);
-  // CRM apps get an extra workload step → 6 steps total, others 5
-  const totalSteps = isCrmApp ? 6 : 5;
+  // CRM apps get an extra workload step → total steps (market removed)
+  const totalSteps = isCrmApp ? 5 : 4;
 
-  // Map logical step index to content, skipping workload step for non-CRM
-  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'market' | 'size' | 'ai' => {
+  // Map logical step index to content, skipping workload step for non-CRM and market step
+  const getContentStep = (s: number): 'app' | 'workload' | 'industry' | 'size' | 'ai' => {
     if (s === 1) return 'app';
     if (isCrmApp) {
       if (s === 2) return 'workload';
       if (s === 3) return 'industry';
-      if (s === 4) return 'market';
-      if (s === 5) return 'size';
-      if (s === 6) return 'ai';
-    } else {
-      if (s === 2) return 'industry';
-      if (s === 3) return 'market';
       if (s === 4) return 'size';
       if (s === 5) return 'ai';
+    } else {
+      if (s === 2) return 'industry';
+      if (s === 3) return 'size';
+      if (s === 4) return 'ai';
     }
     return 'ai';
   };
