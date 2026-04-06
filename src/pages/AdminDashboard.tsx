@@ -72,7 +72,7 @@ import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
-  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Send
+  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
