@@ -489,7 +489,6 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       case 'app': return selectedApp !== "";
       case 'workload': return selectedWorkload !== "";
       case 'industry': return selectedIndustry !== "";
-      case 'market': return selectedMarket !== "";
       case 'size': return selectedSize !== "";
       case 'ai': return selectedAiInterest !== "";
       default: return true;
