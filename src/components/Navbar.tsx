@@ -20,8 +20,6 @@ const Navbar = () => {
     { label: "Business Central vs Finance & Supply Chain", path: "/erp" },
     { label: "Business Central", path: "/business-central" },
     { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
-    { label: "📊 Affärssystem (ERP) Behovsanalys", path: "/behovsanalys" },
-    { label: "📋 Kravspecifikation (ERP)", path: "/kravspecifikation" },
   ];
 
   const aiItems = [
@@ -33,17 +31,12 @@ const Navbar = () => {
     { label: "CRM Översikt", path: "/crm" },
     { label: "Dynamics 365 Sales", path: "/d365-sales" },
     { label: "Dynamics 365 Customer Insights", path: "/d365-marketing" },
-    { label: "📈 Behovsanalys Sälj & Marknad", path: "/salj-marknad-behovsanalys" },
-    { label: "📋 Kravspecifikation (Säljavdelningen)", path: "/kravspecifikation-sales" },
-    { label: "📋 Kravspecifikation (Marknad)", path: "/kravspecifikation-marketing" },
   ];
 
   const crmServiceItems = [
     { label: "Dynamics 365 Customer Service", path: "/d365-customer-service" },
     { label: "Dynamics 365 Field Service", path: "/d365-field-service" },
     { label: "Dynamics 365 Contact Center", path: "/d365-contact-center" },
-    { label: "🎧 Behovsanalys Kundservice", path: "/kundservice-behovsanalys" },
-    { label: "📋 Kravspecifikation (Kundservice)", path: "/kravspecifikation-kundservice" },
   ];
 
   const menuItems = [
