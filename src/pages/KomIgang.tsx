@@ -449,7 +449,38 @@ const KomIgang = () => {
                 )}
               </div>
 
-              {/* Step 1: Industry */}
+              {/* Navigation buttons above content */}
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  {step > 1 && (
+                    <button
+                      onClick={handleBack}
+                      className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                      Föregående
+                    </button>
+                  )}
+                </div>
+                <div>
+                  {step === 3 && (
+                    <Button onClick={() => setStep(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6">
+                      Nästa
+                    </Button>
+                  )}
+                  {step === 4 && (
+                    <Button onClick={() => setStep(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6">
+                      Nästa
+                    </Button>
+                  )}
+                  {step === 5 && (
+                    <Button onClick={() => findPartners()} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                      Visa partners
+                    </Button>
+                  )}
+                </div>
+              </div>
+
               {step === 1 && (
                 <div>
                   <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
