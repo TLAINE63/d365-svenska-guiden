@@ -689,6 +689,45 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
           </div>
         )}
 
+        {/* Platform capabilities step (multi-select, optional) */}
+        {getContentStep(step) === 'platform' && !isResultStep && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Behöver ni hjälp med fler delar av Microsofts plattform?</h3>
+            <p className="text-sm text-muted-foreground">
+              Välj de områden ni vill att partnern har kompetens inom. Ni kan välja flera eller hoppa vidare.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {platformOptions.map(option => {
+                const isSelected = selectedPlatformNeeds.includes(option.value);
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    className={`flex flex-col items-start gap-1 p-3 rounded-xl border cursor-pointer transition-all duration-200 text-left ${
+                      isSelected
+                        ? "border-primary bg-primary/10 shadow-md"
+                        : "border-border hover:border-primary/50 hover:shadow-sm"
+                    }`}
+                    onClick={() => {
+                      setSelectedPlatformNeeds(prev =>
+                        isSelected ? prev.filter(v => v !== option.value) : [...prev, option.value]
+                      );
+                    }}
+                  >
+                    <div className="flex items-center gap-2 w-full">
+                      <div className={`w-4 h-4 rounded border-2 flex-shrink-0 flex items-center justify-center ${isSelected ? 'border-primary bg-primary' : 'border-muted-foreground/40'}`}>
+                        {isSelected && <CheckCircle className="w-3 h-3 text-primary-foreground" />}
+                      </div>
+                      <span className="text-sm font-medium">{option.label}</span>
+                    </div>
+                    <span className="text-[10px] text-muted-foreground leading-tight pl-6">{option.description}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* AI interest step – auto-submits on click */}
         {getContentStep(step) === 'ai' && !isResultStep && (
           <div className="space-y-4">
