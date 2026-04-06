@@ -37,7 +37,7 @@ const Navbar = () => {
   ];
 
   const menuItems = [
-    { label: "Kunskapscenter", path: "/kunskapscenter", external: false },
+    { label: "Kunskapscenter & Events", path: "/kunskapscenter", external: false },
     { label: "Kontakt", path: "/kontakt", external: false },
   ];
 
