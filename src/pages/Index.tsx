@@ -5,8 +5,9 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { Monitor, Users, Phone, HelpCircle } from "lucide-react";
+import { Monitor, Users, Phone, HelpCircle, ArrowRight, Sparkles, Shield, BarChart3 } from "lucide-react";
 import { Link } from "react-router-dom";
+import heroHomeBg from "@/assets/hero-home-bg.jpg";
 import {
   Accordion,
   AccordionContent,
