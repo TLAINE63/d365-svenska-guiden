@@ -6,6 +6,50 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ArrowLeft, Search, Check, Users, Loader2 } from "lucide-react";
 import { allIndustries } from "@/data/partners";
+
+// Industry images
+import tillverkningImg from "@/assets/industries/tillverkning.webp";
+import livsmedelsImg from "@/assets/industries/livsmedel.webp";
+import handelDistributionImg from "@/assets/industries/handel-distribution.webp";
+import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
+import fastigheterImg from "@/assets/industries/fastigheter.webp";
+import energiImg from "@/assets/industries/energi.webp";
+import finansForsakringImg from "@/assets/industries/finans-forsakring.webp";
+import lakemedelLifeScienceImg from "@/assets/industries/lakemedel-life-science.webp";
+import itTechImg from "@/assets/industries/it-tech.webp";
+import transportLogistikImg from "@/assets/industries/transport-logistik.webp";
+import mediaPublishingImg from "@/assets/industries/media-publishing.webp";
+import jordbrukSkogsbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
+import halsaSjukvardImg from "@/assets/industries/halsa-sjukvard.webp";
+import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.webp";
+import utbildningImg from "@/assets/industries/utbildning.webp";
+import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
+import uthyrningImg from "@/assets/industries/uthyrning.webp";
+
+const industryImages: Record<string, string> = {
+  "Tillverkningsindustri": tillverkningImg,
+  "Livsmedel & Processindustri": livsmedelsImg,
+  "Grossist & Distribution": handelDistributionImg,
+  "Retail & E-handel": detaljhandelImg,
+  "Konsulttjänster": konsultforetagImg,
+  "Bygg & Entreprenad": byggEntreprenadImg,
+  "Fastighet & Förvaltning": fastigheterImg,
+  "Energi & Utilities": energiImg,
+  "Finans & Försäkring": finansForsakringImg,
+  "Life Science / Medtech": lakemedelLifeScienceImg,
+  "Telekom & IT-tjänster": itTechImg,
+  "Logistik & Transport": transportLogistikImg,
+  "Media & Publishing": mediaPublishingImg,
+  "Jordbruk & Skogsbruk": jordbrukSkogsbrukImg,
+  "Hälsa- & sjukvård": halsaSjukvardImg,
+  "Non-profit / Organisationer": medlemsorganisationerImg,
+  "Medlemsorganisationer": medlemsorganisationerImg,
+  "Utbildning": utbildningImg,
+  "Offentlig sektor": offentligSektorImg,
+  "Uthyrningsverksamhet": uthyrningImg,
+};
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { supabase } from "@/integrations/supabase/client";
 import PartnerCard from "@/components/PartnerCard";
