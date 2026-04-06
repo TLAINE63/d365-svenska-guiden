@@ -388,14 +388,17 @@ const KomIgang = () => {
                       className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-border bg-card text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                     />
                   </div>
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                     {filteredIndustries.map((ind) => {
                       const isSelected = selectedIndustry === ind;
                       const img = industryImages[ind];
                       return (
                         <button
                           key={ind}
-                          onClick={() => setSelectedIndustry(ind)}
+                          onClick={() => {
+                            setSelectedIndustry(ind);
+                            setTimeout(() => setStep(2), 250);
+                          }}
                           className={`relative group rounded-lg overflow-hidden border-2 transition-all aspect-[5/4] ${
                             isSelected
                               ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
@@ -434,7 +437,10 @@ const KomIgang = () => {
                   {applicationOptions.map((app) => (
                     <button
                       key={app.value}
-                      onClick={() => setSelectedApp(app.value)}
+                      onClick={() => {
+                        setSelectedApp(app.value);
+                        setTimeout(() => setStep(3), 250);
+                      }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedApp === app.value
                           ? "border-primary bg-primary/5 text-foreground"
@@ -461,7 +467,10 @@ const KomIgang = () => {
                   {geographyOptions.map((geo) => (
                     <button
                       key={geo.value}
-                      onClick={() => setSelectedGeo(geo.value)}
+                      onClick={() => {
+                        setSelectedGeo(geo.value);
+                        setTimeout(() => setStep(4), 250);
+                      }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedGeo === geo.value
                           ? "border-primary bg-primary/5 text-foreground"
@@ -485,7 +494,10 @@ const KomIgang = () => {
                   {sizeOptions.map((size) => (
                     <button
                       key={size.value}
-                      onClick={() => setSelectedSize(size.value)}
+                      onClick={() => {
+                        setSelectedSize(size.value);
+                        setTimeout(() => findPartners(), 250);
+                      }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedSize === size.value
                           ? "border-primary bg-primary/5 text-foreground"
@@ -506,44 +518,21 @@ const KomIgang = () => {
           </div>
         </section>
 
-        {/* Bottom navigation */}
-        <div className="border-t border-border bg-background py-4">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-2xl mx-auto flex items-center justify-between">
-              <button
-                onClick={handleBack}
-                className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Tillbaka
-              </button>
-
-              {step < TOTAL_STEPS && (
-                <span className="text-sm text-primary">
-                  steg {step + 1} väntar... <ArrowRight className="inline h-3 w-3" />
-                </span>
-              )}
-            </div>
-            <div className="max-w-2xl mx-auto mt-4 text-center">
-              <Button
-                onClick={handleNext}
-                disabled={!canProceed() || partnersLoading}
-                size="lg"
-                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white text-base h-12 px-10 rounded-lg shadow-lg disabled:opacity-50"
-              >
-                {step === TOTAL_STEPS ? (
-                  partnersLoading ? (
-                    <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Laddar...</>
-                  ) : (
-                    "Visa partners"
-                  )
-                ) : (
-                  <>Kom igång <ArrowRight className="ml-2 h-4 w-4" /></>
-                )}
-              </Button>
+        {step > 1 && (
+          <div className="border-t border-border bg-background py-3">
+            <div className="container mx-auto px-4 sm:px-6">
+              <div className="max-w-3xl mx-auto">
+                <button
+                  onClick={handleBack}
+                  className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  Tillbaka
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
 
       <Footer />
