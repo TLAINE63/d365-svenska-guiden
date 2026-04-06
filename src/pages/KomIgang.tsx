@@ -448,15 +448,45 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 2: Goal */}
+              {/* Step 2: Product */}
               {step === 2 && (
+                <div className="space-y-2">
+                  {productOptions.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => {
+                        setSelectedProduct(opt.value);
+                        setTimeout(() => setStep(3), 250);
+                      }}
+                      className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                        selectedProduct === opt.value
+                          ? "border-primary bg-primary/5 text-foreground"
+                          : "border-border bg-card text-foreground hover:border-primary/30"
+                      }`}
+                    >
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        selectedProduct === opt.value ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"
+                      }`}>
+                        {selectedProduct === opt.value && <Check className="h-3 w-3" />}
+                      </div>
+                      <div>
+                        <span className="text-sm sm:text-base font-medium">{opt.label}</span>
+                        <p className="text-xs text-muted-foreground">{opt.desc}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Step 3: Goal */}
+              {step === 3 && (
                 <div className="space-y-2">
                   {goalOptions.map((opt) => (
                     <button
                       key={opt.value}
                       onClick={() => {
                         setSelectedGoal(opt.value);
-                        setTimeout(() => setStep(3), 250);
+                        setTimeout(() => setStep(4), 250);
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedGoal === opt.value
@@ -475,15 +505,15 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 3: Situation */}
-              {step === 3 && (
+              {/* Step 4: Situation */}
+              {step === 4 && (
                 <div className="space-y-2">
                   {situationOptions.map((opt) => (
                     <button
                       key={opt.value}
                       onClick={() => {
                         setSelectedSituation(opt.value);
-                        setTimeout(() => setStep(4), 250);
+                        setTimeout(() => setStep(5), 250);
                       }}
                       className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
                         selectedSituation === opt.value
@@ -502,8 +532,8 @@ const KomIgang = () => {
                 </div>
               )}
 
-              {/* Step 4: Complexity */}
-              {step === 4 && (
+              {/* Step 5: Complexity */}
+              {step === 5 && (
                 <div className="space-y-2">
                   {complexityOptions.map((opt) => (
                     <button
