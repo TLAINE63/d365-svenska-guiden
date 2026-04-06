@@ -4,8 +4,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, ExternalLink, Mail } from "lucide-react";
+import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle } from "lucide-react";
 import { allIndustries } from "@/data/partners";
+
+// Product icons
+import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
+import financeIcon from "@/assets/icons/Finance.svg";
+import salesIcon from "@/assets/icons/Sales.svg";
+import marketingIcon from "@/assets/icons/Marketing.svg";
+import csIcon from "@/assets/icons/CustomerService.svg";
+import fsIcon from "@/assets/icons/FieldService.svg";
+import ccIcon from "@/assets/icons/ContactCenter.svg";
+import poIcon from "@/assets/icons/ProjectOperations.svg";
 
 // Industry images
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
@@ -56,15 +66,15 @@ import { supabase } from "@/integrations/supabase/client";
 
 // Step 2: Product options
 const productOptions = [
-  { value: "Business Central", label: "Business Central", desc: "ERP för små och medelstora företag" },
-  { value: "Finance & SCM", label: "Finance & Supply Chain Management", desc: "ERP för större och globala organisationer" },
-  { value: "Sales", label: "Sales", desc: "CRM för försäljning och pipeline" },
-  { value: "Customer Insights (Marketing)", label: "Customer Insights / Marketing", desc: "Marketing automation och kunddata" },
-  { value: "Customer Service", label: "Customer Service", desc: "Ärendehantering och support" },
-  { value: "Field Service", label: "Field Service", desc: "Fältservice och arbetsorder" },
-  { value: "Contact Center", label: "Contact Center", desc: "Omnikanal-kontaktcenter" },
-  { value: "Project Operations", label: "Project Operations", desc: "Projekthantering och resursplanering" },
-  { value: "", label: "Vi har inte bestämt oss ännu", desc: "Vi hjälper dig hitta rätt" },
+  { value: "Business Central", label: "Business Central", desc: "ERP för små och medelstora företag", icon: bcIcon },
+  { value: "Finance & SCM", label: "Finance & Supply Chain", desc: "ERP för större organisationer", icon: financeIcon },
+  { value: "Sales", label: "Sales", desc: "CRM för försäljning och pipeline", icon: salesIcon },
+  { value: "Customer Insights (Marketing)", label: "Marketing", desc: "Marketing automation och kunddata", icon: marketingIcon },
+  { value: "Customer Service", label: "Customer Service", desc: "Ärendehantering och support", icon: csIcon },
+  { value: "Field Service", label: "Field Service", desc: "Fältservice och arbetsorder", icon: fsIcon },
+  { value: "Contact Center", label: "Contact Center", desc: "Omnikanal-kontaktcenter", icon: ccIcon },
+  { value: "Project Operations", label: "Project Operations", desc: "Projekthantering och resursplanering", icon: poIcon },
+  { value: "", label: "Vet inte ännu", desc: "Vi hjälper dig hitta rätt", icon: null },
 ];
 
 // Step 3: Goal options
