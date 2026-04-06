@@ -370,35 +370,52 @@ const KomIgang = () => {
               {/* Step 1: Industry */}
               {step === 1 && (
                 <div>
-                  <div className="relative mb-4">
+                  <div className="relative mb-5">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <input
                       type="text"
-                      placeholder="Skriv din bransch..."
+                      placeholder="Sök bransch..."
                       value={industrySearch}
                       onChange={(e) => setIndustrySearch(e.target.value)}
                       className="w-full pl-10 pr-4 py-3 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                     />
                   </div>
-                  <div className="space-y-2">
-                    {filteredIndustries.map((ind) => (
-                      <button
-                        key={ind}
-                        onClick={() => setSelectedIndustry(ind)}
-                        className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
-                          selectedIndustry === ind
-                            ? "border-primary bg-primary/5 text-foreground"
-                            : "border-border bg-card text-foreground hover:border-primary/30"
-                        }`}
-                      >
-                        <div className={`w-6 h-6 rounded border flex items-center justify-center flex-shrink-0 ${
-                          selectedIndustry === ind ? "border-primary bg-primary text-primary-foreground" : "border-border"
-                        }`}>
-                          {selectedIndustry === ind && <Check className="h-4 w-4" />}
-                        </div>
-                        <span className="text-sm sm:text-base">{ind}</span>
-                      </button>
-                    ))}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {filteredIndustries.map((ind) => {
+                      const isSelected = selectedIndustry === ind;
+                      const img = industryImages[ind];
+                      return (
+                        <button
+                          key={ind}
+                          onClick={() => setSelectedIndustry(ind)}
+                          className={`relative group rounded-xl overflow-hidden border-2 transition-all aspect-[4/3] ${
+                            isSelected
+                              ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
+                              : "border-border hover:border-primary/40 hover:scale-[1.01]"
+                          }`}
+                        >
+                          {img && (
+                            <img
+                              src={img}
+                              alt={ind}
+                              className="absolute inset-0 w-full h-full object-cover"
+                              loading="lazy"
+                            />
+                          )}
+                          <div className={`absolute inset-0 transition-colors ${
+                            isSelected ? "bg-primary/40" : "bg-black/45 group-hover:bg-black/35"
+                          }`} />
+                          {isSelected && (
+                            <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                              <Check className="h-3.5 w-3.5 text-primary-foreground" />
+                            </div>
+                          )}
+                          <span className="absolute bottom-0 left-0 right-0 p-2 text-white text-xs sm:text-sm font-semibold text-center leading-tight">
+                            {ind}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}
