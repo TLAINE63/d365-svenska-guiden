@@ -242,7 +242,7 @@ const KomIgang = () => {
                             {aiMatch.score}% match
                           </div>
                         )}
-                        <PartnerCard partner={partner} />
+                        <PartnerCard partner={partner} profileUrl={`/partner/${partner.slug}`} highlightedProduct={selectedApp} highlightedIndustry={selectedIndustry} highlightedCompanySize={selectedSize} highlightedGeography={selectedGeo} />
                         {aiMatch?.matchReason && (
                           <p className="text-xs text-muted-foreground mt-1 ml-4 italic">{aiMatch.matchReason}</p>
                         )}
