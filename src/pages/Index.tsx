@@ -146,9 +146,11 @@ const Index = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 md:pb-16 relative">
           {/* Full-width eyebrow heading */}
-          <h1 className="text-xl sm:text-2xl md:text-[32px] font-semibold text-white tracking-tight mb-8 md:mb-10 max-w-3xl border border-white/25 bg-white/[0.07] backdrop-blur-sm rounded-xl px-5 py-3 inline-block">
-            Sveriges oberoende guide till Microsoft Dynamics 365
-          </h1>
+          <div className="text-center mb-8 md:mb-10">
+            <h1 className="text-xl sm:text-2xl md:text-[32px] font-semibold text-white tracking-tight border border-white/25 bg-white/[0.07] backdrop-blur-sm rounded-xl px-5 py-3 inline-block">
+              Sveriges oberoende guide till Microsoft Dynamics 365
+            </h1>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 md:gap-14 items-center">
             {/* Left column */}
