@@ -142,7 +142,7 @@ const Index = () => {
       <main>
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[hsl(180_30%_12%)] via-[hsl(180_25%_16%)] to-[hsl(200_20%_18%)] border-b border-primary/20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[hsl(180_30%_12%)] via-[hsl(180_25%_16%)] to-[hsl(200_20%_18%)] border-b border-primary/20 relative overflow-visible">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 md:pb-16 relative">
@@ -172,7 +172,7 @@ const Index = () => {
             </div>
 
             {/* Right column – step card */}
-            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-5 sm:p-6">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-5 sm:p-6 overflow-visible relative z-10">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-4">
                 Behovsanalys — 5 minuter
               </div>
