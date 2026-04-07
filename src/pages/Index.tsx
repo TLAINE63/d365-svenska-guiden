@@ -311,8 +311,9 @@ const Index = () => {
               {kravspecOpen && (
                 <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-background border border-border rounded-lg shadow-lg overflow-hidden">
                   {[
-                    { label: "Sälj – CRM", link: "/kravspecifikation-sales/" },
-                    { label: "Marknad", link: "/kravspecifikation-marketing/" },
+                    { label: "ERP / Affärssystem", link: "/kravspecifikation/" },
+                    { label: "Försäljning", link: "/kravspecifikation-sales/" },
+                    { label: "Marknadsföring", link: "/kravspecifikation-marketing/" },
                     { label: "Kundservice", link: "/kravspecifikation-kundservice/" },
                   ].map((spec) => (
                     <Link
