@@ -197,7 +197,7 @@ const Index = () => {
                   Starta en behovsanalys <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
                 {showAnalysisMenu && (
-                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-[hsl(180,30%,15%)] border border-white/20 rounded-lg overflow-hidden shadow-xl z-50">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-[hsl(180,25%,12%)] border border-white/25 rounded-lg overflow-hidden shadow-2xl z-50">
                     <Link 
                       to="/behovsanalys/" 
                       className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm"
