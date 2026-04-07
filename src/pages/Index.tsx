@@ -165,44 +165,9 @@ const Index = () => {
                 <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 rounded-lg font-semibold flex-1 min-w-[260px] justify-center">
                   <Link to="/valj-partner/">Jämför partners <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
-                <div className="relative flex-1 min-w-[260px]">
-                  <Button 
-                    variant="ghost" 
-                    size="lg" 
-                    className="text-sm h-11 rounded-lg text-white border border-white/40 bg-white/5 hover:bg-white/10 hover:text-white w-full justify-center"
-                    onClick={() => setShowAnalysisMenu(prev => !prev)}
-                  >
-                    Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" />
-                  </Button>
-                  {showAnalysisMenu && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-[hsl(180,30%,15%)] border border-white/20 rounded-lg overflow-hidden shadow-xl z-50">
-                      <Link 
-                        to="/behovsanalys/" 
-                        className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm"
-                        onClick={() => setShowAnalysisMenu(false)}
-                      >
-                        <Monitor className="w-4 h-4 text-[hsl(180,75%,65%)]" />
-                        ERP – Affärssystem
-                      </Link>
-                      <Link 
-                        to="/salj-marknad-behovsanalys/" 
-                        className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm border-t border-white/10"
-                        onClick={() => setShowAnalysisMenu(false)}
-                      >
-                        <Users className="w-4 h-4 text-[hsl(180,75%,65%)]" />
-                        Sälj & Marknad – CRM
-                      </Link>
-                      <Link 
-                        to="/kundservice-behovsanalys/" 
-                        className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm border-t border-white/10"
-                        onClick={() => setShowAnalysisMenu(false)}
-                      >
-                        <Phone className="w-4 h-4 text-[hsl(180,75%,65%)]" />
-                        Kundservice
-                      </Link>
-                    </div>
-                  )}
-                </div>
+                <Button asChild variant="ghost" size="lg" className="text-sm h-11 rounded-lg text-white border border-white/40 bg-white/5 hover:bg-white/10 hover:text-white flex-1 min-w-[260px] justify-center">
+                  <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                </Button>
               </div>
             </div>
 
@@ -224,9 +189,42 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <Button asChild className="w-full mt-4 bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-10 rounded-lg font-semibold">
-                <Link to="/kom-igang/">Starta en behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
-              </Button>
+              <div className="relative">
+                <Button 
+                  className="w-full mt-4 bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-10 rounded-lg font-semibold"
+                  onClick={() => setShowAnalysisMenu(prev => !prev)}
+                >
+                  Starta en behovsanalys <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+                {showAnalysisMenu && (
+                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-[hsl(180,30%,15%)] border border-white/20 rounded-lg overflow-hidden shadow-xl z-50">
+                    <Link 
+                      to="/behovsanalys/" 
+                      className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm"
+                      onClick={() => setShowAnalysisMenu(false)}
+                    >
+                      <Monitor className="w-4 h-4 text-[hsl(180,75%,65%)]" />
+                      ERP – Affärssystem
+                    </Link>
+                    <Link 
+                      to="/salj-marknad-behovsanalys/" 
+                      className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm border-t border-white/10"
+                      onClick={() => setShowAnalysisMenu(false)}
+                    >
+                      <Users className="w-4 h-4 text-[hsl(180,75%,65%)]" />
+                      Sälj & Marknad – CRM
+                    </Link>
+                    <Link 
+                      to="/kundservice-behovsanalys/" 
+                      className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm border-t border-white/10"
+                      onClick={() => setShowAnalysisMenu(false)}
+                    >
+                      <Phone className="w-4 h-4 text-[hsl(180,75%,65%)]" />
+                      Kundservice
+                    </Link>
+                  </div>
+                )}
+              </div>
               <p className="text-center text-[11px] text-white/50 mt-2">Gratis · Ingen registrering krävs</p>
             </div>
           </div>
