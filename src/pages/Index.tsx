@@ -161,10 +161,10 @@ const Index = () => {
                 Jämför ERP- och CRM-system utifrån din verksamhet. Opartiskt, konkret och anpassat för svenska företag — helt gratis.
               </p>
               <div className="flex flex-wrap gap-2.5 mb-4">
-                <Button asChild variant="ghost" size="lg" className="text-sm h-11 px-8 rounded-lg text-white border border-white/40 bg-white/5 hover:bg-white/10 hover:text-white min-w-[280px] justify-center">
+                <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 px-8 rounded-lg font-semibold min-w-[280px] justify-center">
                   <Link to="/valj-partner/">Jämför partners</Link>
                 </Button>
-                <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 px-8 rounded-lg font-semibold min-w-[280px] justify-center">
+                <Button asChild variant="ghost" size="lg" className="text-sm h-11 px-8 rounded-lg text-white border border-white/40 bg-white/5 hover:bg-white/10 hover:text-white min-w-[280px] justify-center">
                   <Link to="/kom-igang/">Gör en kostnadsfri behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
               </div>
