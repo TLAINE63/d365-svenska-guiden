@@ -248,7 +248,7 @@ const Index = () => {
                 </div>
                 <div className="text-sm font-semibold text-foreground">{card.title}</div>
                 <div className="text-[13px] text-muted-foreground leading-snug flex-1">{card.desc}</div>
-                <div className="text-sm font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
+                <div className="inline-flex items-center text-xs font-semibold text-primary-foreground bg-primary rounded-md px-3 py-1.5 group-hover:bg-primary/90 transition-colors">
                   {card.linkText}
                 </div>
               </Link>
