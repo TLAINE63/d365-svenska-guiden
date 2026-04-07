@@ -111,6 +111,7 @@ const heroSteps = [
 ];
 
 const Index = () => {
+  const [showAnalysisMenu, setShowAnalysisMenu] = useState(false);
   return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
         title="Dynamics 365 Sverige – Priser, partners & behovsanalys | d365.se"
