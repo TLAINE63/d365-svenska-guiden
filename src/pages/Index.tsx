@@ -75,9 +75,9 @@ const selectorCards = [
   {
     icon: <HelpCircle className="h-5 w-5 text-primary" />,
     title: "Jag är osäker — hjälp mig",
-    desc: "Få personlig vägledning via vår kostnadsfria guide på 1 min",
-    link: "/kom-igang/",
-    linkText: "Starta guide →",
+    desc: "Kontakta oss för en oberoende och kostnadsfri vägledning",
+    link: "/kontakta-oss/",
+    linkText: "Kontakta oss →",
   },
 ];
 
