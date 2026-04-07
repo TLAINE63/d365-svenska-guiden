@@ -262,7 +262,7 @@ const Index = () => {
         <div className="container mx-auto max-w-5xl">
           <div className="bg-card border border-border border-l-[3px] border-l-primary rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
             <div>
-              <h3 className="text-base sm:text-[17px] font-semibold text-foreground mb-1">Vet du inte vilket system du behöver?</h3>
+              <h3 className="text-base sm:text-[17px] font-semibold text-foreground mb-1">Vet du inte vilken partner du skall kontakta?</h3>
               <p className="text-[13px] text-muted-foreground max-w-[480px] leading-relaxed">
                 Vår kostnadsfria behovsanalys tar 5 minuter och ger dig en personlig rekommendation, estimerad budgetram och vilken typ av partner som passar din verksamhet.
               </p>
