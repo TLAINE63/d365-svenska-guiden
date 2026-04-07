@@ -274,7 +274,7 @@ const Index = () => {
               </div>
             </div>
             <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 px-5 rounded-lg whitespace-nowrap flex-shrink-0">
-              <Link to="/kom-igang/">Starta behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
+              <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
             </Button>
           </div>
         </div>
@@ -410,7 +410,7 @@ const Index = () => {
             <p className="text-sm text-primary-foreground/65 max-w-[400px]">Börja med att beskriva din situation — kostnadsfritt och utan förpliktelser.</p>
           </div>
           <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 text-sm font-semibold h-12 px-7 rounded-lg whitespace-nowrap flex-shrink-0">
-            <Link to="/kom-igang/">Starta behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
+            <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
           </Button>
         </div>
       </section>
