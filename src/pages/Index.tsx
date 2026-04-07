@@ -161,11 +161,8 @@ const Index = () => {
               <p className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[480px]">
                 Jämför ERP- och CRM-system utifrån din verksamhet. Opartiskt, konkret och anpassat för svenska företag — helt gratis.
               </p>
-              <div className="flex flex-wrap gap-2.5 mb-4">
-                <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 rounded-lg font-semibold flex-1 min-w-[260px] justify-center">
-                  <Link to="/valj-partner/">Jämför partners <ArrowRight className="w-4 h-4 ml-1" /></Link>
-                </Button>
-                <Button asChild variant="ghost" size="lg" className="text-sm h-11 rounded-lg text-white border border-white/40 bg-white/5 hover:bg-white/10 hover:text-white flex-1 min-w-[260px] justify-center">
+              <div className="mb-4">
+                <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 rounded-lg font-semibold w-full sm:w-auto sm:min-w-[280px] justify-center">
                   <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
               </div>
