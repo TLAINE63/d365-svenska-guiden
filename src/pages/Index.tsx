@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check } from "lucide-react";
+import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
@@ -112,6 +112,7 @@ const heroSteps = [
 
 const Index = () => {
   const [showAnalysisMenu, setShowAnalysisMenu] = useState(false);
+  const [kravspecOpen, setKravspecOpen] = useState(false);
   return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
         title="Dynamics 365 Sverige – Priser, partners & behovsanalys | d365.se"
