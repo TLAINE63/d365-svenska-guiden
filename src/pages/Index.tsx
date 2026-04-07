@@ -264,7 +264,7 @@ const Index = () => {
             <div>
               <h3 className="text-base sm:text-[17px] font-semibold text-foreground mb-1">Vet du inte vilken partner du skall kontakta?</h3>
               <p className="text-[13px] text-muted-foreground max-w-[480px] leading-relaxed">
-                Vår kostnadsfria behovsanalys tar 5 minuter och ger dig en personlig rekommendation, estimerad budgetram och vilken typ av partner som passar din verksamhet.
+                Vår kostnadsfria partnermatchning tar 2 minuter och ger dig lite mer insikt kring Dynamics 365 och en personlig rekommendation om vilken typ av partner som borde passa din verksamhet.
               </p>
               <div className="flex flex-wrap gap-2 mt-3">
                 <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">Gratis</span>
