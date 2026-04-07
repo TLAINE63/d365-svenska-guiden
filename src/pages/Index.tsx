@@ -289,13 +289,42 @@ const Index = () => {
               { num: "100%", label: "Oberoende — vi säljer inget system" },
               { num: "Gratis", label: "Behovsanalys och partnermatching" },
               { num: "5 min", label: "Från besök till personlig rekommendation" },
-              { num: "Kravspec", label: "Skapa en kostnadsfri kravspecifikation" },
             ].map((item) => (
               <div key={item.num} className="bg-secondary/50 border border-border rounded-[10px] p-5">
                 <div className="text-2xl sm:text-[28px] font-semibold text-primary tracking-tight mb-1">{item.num}</div>
                 <div className="text-[13px] text-muted-foreground leading-snug">{item.label}</div>
               </div>
             ))}
+            {/* Kravspec card with dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setKravspecOpen(!kravspecOpen)}
+                className="w-full text-left bg-secondary/50 border border-border rounded-[10px] p-5 hover:bg-secondary/80 transition-colors cursor-pointer"
+              >
+                <div className="text-2xl sm:text-[28px] font-semibold text-primary tracking-tight mb-1 flex items-center gap-2">
+                  Kravspec
+                  <ChevronDown className={`h-5 w-5 transition-transform ${kravspecOpen ? 'rotate-180' : ''}`} />
+                </div>
+                <div className="text-[13px] text-muted-foreground leading-snug">Skapa en kostnadsfri kravspecifikation</div>
+              </button>
+              {kravspecOpen && (
+                <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-background border border-border rounded-lg shadow-lg overflow-hidden">
+                  {[
+                    { label: "Sälj – CRM", link: "/kravspecifikation-sales/" },
+                    { label: "Marknad", link: "/kravspecifikation-marketing/" },
+                    { label: "Kundservice", link: "/kravspecifikation-kundservice/" },
+                  ].map((spec) => (
+                    <Link
+                      key={spec.link}
+                      to={spec.link}
+                      className="block px-4 py-3 text-sm text-foreground hover:bg-secondary/60 transition-colors border-b border-border last:border-b-0"
+                    >
+                      {spec.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
