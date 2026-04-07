@@ -165,7 +165,7 @@ const Index = () => {
                   <Link to="/valj-partner/">Jämför partners <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
                 <Button asChild variant="ghost" size="lg" className="text-sm h-11 rounded-lg text-white border border-white/40 bg-white/5 hover:bg-white/10 hover:text-white flex-1 min-w-[260px] justify-center">
-                  <Link to="/kom-igang/">Gör en kostnadsfri behovsanalys <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                  <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
                 </Button>
               </div>
             </div>
