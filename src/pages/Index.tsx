@@ -197,10 +197,11 @@ const Index = () => {
                   Starta en behovsanalys <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
                 {showAnalysisMenu && (
-                  <div className="absolute bottom-full left-0 right-0 mb-2 bg-[hsl(180,30%,15%)] border border-white/20 rounded-lg overflow-hidden shadow-xl z-50">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-[hsl(180,25%,12%)] border border-white/25 rounded-xl overflow-hidden shadow-2xl z-50 p-1">
+                    <p className="text-[11px] text-white/50 px-3 pt-2 pb-1 font-medium uppercase tracking-wider">Välj område</p>
                     <Link 
                       to="/behovsanalys/" 
-                      className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm"
+                      className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/15 transition-colors text-sm rounded-lg font-medium"
                       onClick={() => setShowAnalysisMenu(false)}
                     >
                       <Monitor className="w-4 h-4 text-[hsl(180,75%,65%)]" />
@@ -208,7 +209,7 @@ const Index = () => {
                     </Link>
                     <Link 
                       to="/salj-marknad-behovsanalys/" 
-                      className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm border-t border-white/10"
+                      className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/15 transition-colors text-sm rounded-lg font-medium"
                       onClick={() => setShowAnalysisMenu(false)}
                     >
                       <Users className="w-4 h-4 text-[hsl(180,75%,65%)]" />
@@ -216,7 +217,7 @@ const Index = () => {
                     </Link>
                     <Link 
                       to="/kundservice-behovsanalys/" 
-                      className="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 transition-colors text-sm border-t border-white/10"
+                      className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/15 transition-colors text-sm rounded-lg font-medium"
                       onClick={() => setShowAnalysisMenu(false)}
                     >
                       <Phone className="w-4 h-4 text-[hsl(180,75%,65%)]" />
