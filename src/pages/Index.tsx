@@ -172,7 +172,7 @@ const Index = () => {
             </div>
 
             {/* Right column – step card */}
-            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-5 sm:p-6">
+            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-5 sm:p-6 overflow-visible relative z-10">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-4">
                 Behovsanalys — 5 minuter
               </div>
