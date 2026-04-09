@@ -902,8 +902,19 @@ const AdminDashboard = () => {
     });
 
     try {
+      // Clean out empty product filters (no industries and no description)
+      const cleanedProductFilters: Record<string, any> = {};
+      if (partnerFormData.product_filters) {
+        Object.entries(partnerFormData.product_filters).forEach(([key, filter]) => {
+          if (filter && (filter.industries?.length > 0 || filter.productDescription?.trim())) {
+            cleanedProductFilters[key] = filter;
+          }
+        });
+      }
+
       const dataToSend = {
         ...partnerFormData,
+        product_filters: cleanedProductFilters,
         applications: [...new Set(applications)],
         slug: partnerFormData.slug || generateSlug(partnerFormData.name),
         industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
