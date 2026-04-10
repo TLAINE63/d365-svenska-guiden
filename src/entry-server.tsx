@@ -204,7 +204,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   };
 
   try {
-    console.log('  🧩 getDynamicRoutes v2 active');
+    console.log('  🧩 getDynamicRoutes v3 active');
 
     const [partnersRes, eventsRes] = await Promise.allSettled([
       fetchWithTimeout(
@@ -222,6 +222,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     const partnerRoutes: PrerenderRoute[] = [];
     if (partnersRes.status === 'fulfilled' && partnersRes.value.ok) {
       const partners = await readJsonArray<{ slug: string | null; name: string | null; description: string | null }>(partnersRes.value);
+      
 
       for (const p of partners) {
         if (!p?.slug || !p?.name) continue;
@@ -240,7 +241,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
       console.log(`  📦 Found ${partnerRoutes.length} dynamic partner routes`);
     } else {
-      const reason = partnersRes.status === 'rejected' ? partnersRes.reason?.message : `HTTP ${partnersRes.value.status}`;
+      const reason = partnersRes.status === 'rejected' ? partnersRes.reason?.message : 'rejected';
       console.warn(`  ⚠️  Partner routes failed: ${reason}`);
     }
 

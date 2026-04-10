@@ -170,7 +170,8 @@ export default function prerenderPlugin(): Plugin {
 
             // For dynamic routes with custom meta (e.g. partner profiles),
             // inject the meta directly if Helmet didn't produce useful tags
-            if (route.meta && (!head.title || head.title.includes('d365.se</title>') && !head.title.includes(route.meta.title))) {
+            const helmetHasUsefulTitle = head.title && !head.title.includes('></title>') && head.title.includes('</title>');
+            if (route.meta && (!helmetHasUsefulTitle || !head.title.includes(route.meta.title))) {
               const customHead = [
                 `<title>${route.meta.title}</title>`,
                 `<meta name="description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
@@ -310,6 +311,9 @@ export default function prerenderPlugin(): Plugin {
 function setupBrowserGlobals() {
   const g = globalThis as Record<string, any>;
   if (typeof g.window !== 'undefined' && g.window.__SSR_POLYFILLED) return;
+
+  // Preserve the real Node.js fetch before polyfills overwrite it
+  const realFetch = globalThis.fetch;
 
   const noop = () => {};
   const noopMediaQuery = {
@@ -528,7 +532,7 @@ function setupBrowserGlobals() {
   safeSet(g, 'requestAnimationFrame', g.window.requestAnimationFrame);
   safeSet(g, 'cancelAnimationFrame', g.window.cancelAnimationFrame);
   safeSet(g, 'getComputedStyle', g.window.getComputedStyle);
-  safeSet(g, 'fetch', g.window.fetch);
+  safeSet(g, 'fetch', realFetch);
   safeSet(g, 'Image', g.window.Image);
   safeSet(g, 'CustomEvent', g.window.CustomEvent);
   safeSet(g, 'HTMLElement', g.window.HTMLElement);
