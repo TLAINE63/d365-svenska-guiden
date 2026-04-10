@@ -208,7 +208,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
     const [partnersRes, eventsRes] = await Promise.allSettled([
       fetchWithTimeout(
-        `${supabaseUrl}/rest/v1/partners_public?select=slug,name,description&is_featured=eq.true&order=name`,
+        `${supabaseUrl}/rest/v1/partners_public?select=slug,name,description&order=name`,
         headers,
         12000
       ),
