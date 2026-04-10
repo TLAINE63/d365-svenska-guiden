@@ -531,7 +531,7 @@ function setupBrowserGlobals() {
   safeSet(g, 'requestAnimationFrame', g.window.requestAnimationFrame);
   safeSet(g, 'cancelAnimationFrame', g.window.cancelAnimationFrame);
   safeSet(g, 'getComputedStyle', g.window.getComputedStyle);
-  safeSet(g, 'fetch', g.window.fetch);
+  safeSet(g, 'fetch', realFetch);
   safeSet(g, 'Image', g.window.Image);
   safeSet(g, 'CustomEvent', g.window.CustomEvent);
   safeSet(g, 'HTMLElement', g.window.HTMLElement);
