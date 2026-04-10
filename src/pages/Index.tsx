@@ -412,7 +412,7 @@ const Index = () => {
               <Link to="/erp/" className="inline-block mt-3 text-[13px] font-medium text-primary hover:underline">Jämför ERP-alternativ →</Link>
             </div>
             {/* CRM compare */}
-            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/30 transition-all">
+            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <div className="text-[15px] font-semibold text-foreground">D365 Sales & Customer Service</div>
