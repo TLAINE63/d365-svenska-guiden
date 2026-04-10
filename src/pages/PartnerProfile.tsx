@@ -152,7 +152,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     });
     
     // Also check product_filters for categories with valid data
-    const productFilters = dbPartner?.product_filters as Record<string, unknown> | undefined;
+    const productFilters = partner?.product_filters as Record<string, unknown> | undefined;
     if (productFilters) {
       const filterCategories: ('bc' | 'fsc' | 'sales' | 'service')[] = ['bc', 'fsc', 'sales', 'service'];
       filterCategories.forEach(cat => {
@@ -167,7 +167,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
   // Get industries for a specific product
   const getIndustriesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { primary: string[] } => {
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { industries?: string[] }> | undefined;
+    const dbProductFilters = partner?.product_filters as Record<string, { industries?: string[] }> | undefined;
     
     // Try the direct key first (sales, service, bc, fsc)
     if (dbProductFilters?.[category]?.industries && dbProductFilters[category].industries.length > 0) {
@@ -206,15 +206,15 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     };
     
     // Check database partner's product_filters first
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { geography?: string | string[] }> | undefined;
+    const dbProductFilters = partner?.product_filters as Record<string, { geography?: string | string[] }> | undefined;
     const dbProductGeo = dbProductFilters?.[filterKey]?.geography;
     if (dbProductGeo) {
       const geoArray = Array.isArray(dbProductGeo) ? dbProductGeo : [dbProductGeo];
       return normalizeAndSortGeography(geoArray);
     }
     // Fall back to partner's geography array
-    if (dbPartner?.geography && dbPartner.geography.length > 0) {
-      return normalizeAndSortGeography(dbPartner.geography);
+    if (partner?.geography && partner.geography.length > 0) {
+      return normalizeAndSortGeography(partner.geography);
     }
     return [];
   };
@@ -223,7 +223,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const getCustomerExamplesForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
     // Check database partner's product_filters
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { customerExamples?: string[] }> | undefined;
+    const dbProductFilters = partner?.product_filters as Record<string, { customerExamples?: string[] }> | undefined;
     const dbCustomerExamples = dbProductFilters?.[filterKey]?.customerExamples;
     if (dbCustomerExamples && dbCustomerExamples.length > 0) return dbCustomerExamples;
     return [];
@@ -232,14 +232,14 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   // Get product description for a specific product
   const getProductDescriptionForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { productDescription?: string }> | undefined;
+    const dbProductFilters = partner?.product_filters as Record<string, { productDescription?: string }> | undefined;
     return dbProductFilters?.[filterKey]?.productDescription || null;
   };
 
   // Get per-product sales contact
   const getContactForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): { name?: string; email?: string; phone?: string } | null => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { contactName?: string; contactEmail?: string; contactPhone?: string }> | undefined;
+    const dbProductFilters = partner?.product_filters as Record<string, { contactName?: string; contactEmail?: string; contactPhone?: string }> | undefined;
     const pf = dbProductFilters?.[filterKey];
     // Also check direct key
     const directPf = dbProductFilters?.[category];
@@ -255,7 +255,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   // Get customer case links for a specific product
   const getCustomerCaseLinksForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string[] => {
     const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
-    const dbProductFilters = dbPartner?.product_filters as Record<string, { customerCaseLinks?: string[] }> | undefined;
+    const dbProductFilters = partner?.product_filters as Record<string, { customerCaseLinks?: string[] }> | undefined;
     return dbProductFilters?.[filterKey]?.customerCaseLinks || [];
   };
 
@@ -269,7 +269,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   }
 
   const getIndustryAppsForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): IndustryApp[] => {
-    const rawApps = dbPartner?.industry_apps;
+    const rawApps = partner?.industry_apps;
     if (!rawApps || !Array.isArray(rawApps)) return [];
     
     // Map category to matching application names
@@ -449,7 +449,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
             {/* Office cities */}
             {(() => {
-              const cities = dbPartner?.office_cities as string[] | undefined;
+              const cities = partner?.office_cities as string[] | undefined;
               return cities && cities.length > 0 ? (
                 <div className="flex flex-wrap justify-center items-center gap-2 mt-4">
                   <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm">
@@ -463,47 +463,47 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             })()}
 
             {/* Invoice contact */}
-            {(dbPartner?.invoice_contact || dbPartner?.invoice_email) && (
+            {(partner?.invoice_contact || partner?.invoice_email) && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
                 <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
                   <Mail className="w-4 h-4 text-amber-600" />
-                  <span className="font-semibold">Faktura: {dbPartner.invoice_contact || ''}</span>
+                  <span className="font-semibold">Faktura: {partner.invoice_contact || ''}</span>
                 </div>
-                {dbPartner?.invoice_email && (
+                {partner?.invoice_email && (
                   <a 
-                    href={`mailto:${dbPartner.invoice_email}`}
+                    href={`mailto:${partner.invoice_email}`}
                     className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm hover:bg-slate-200/80 transition-colors"
                   >
                     <Mail className="w-4 h-4 text-amber-600" />
-                    <span className="font-semibold">{dbPartner.invoice_email}</span>
+                    <span className="font-semibold">{partner.invoice_email}</span>
                   </a>
                 )}
               </div>
             )}
 
             {/* Sales contact - separate row */}
-            {dbPartner?.contactPerson && (
+            {partner?.contactPerson && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
                 <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-50 border border-emerald-200 text-sm text-slate-700 shadow-sm">
                   <User className="w-4 h-4 text-emerald-600" />
-                  <span className="font-semibold">Säljkontakt: {dbPartner.contactPerson}</span>
+                  <span className="font-semibold">Säljkontakt: {partner.contactPerson}</span>
                 </div>
-                {dbPartner?.email && (
+                {partner?.email && (
                   <a 
-                    href={`mailto:${dbPartner.email}`}
+                    href={`mailto:${partner.email}`}
                     className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm hover:bg-slate-200/80 transition-colors"
                   >
                     <Mail className="w-4 h-4 text-emerald-600" />
-                    <span className="font-semibold">{dbPartner.email}</span>
+                    <span className="font-semibold">{partner.email}</span>
                   </a>
                 )}
-                {dbPartner?.phone && (
+                {partner?.phone && (
                   <a 
-                    href={`tel:${dbPartner.phone}`}
+                    href={`tel:${partner.phone}`}
                     className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm hover:bg-slate-200/80 transition-colors"
                   >
                     <Phone className="w-4 h-4 text-emerald-600" />
-                    <span className="font-semibold">{dbPartner.phone}</span>
+                    <span className="font-semibold">{partner.phone}</span>
                   </a>
                 )}
               </div>
@@ -888,9 +888,9 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             })()}
 
             {/* Events Section */}
-            {dbPartner?.id && (
+            {partner?.id && (
               <PartnerEventsSection 
-                partnerId={dbPartner.id} 
+                partnerId={partner.id} 
                 partnerName={partner.name} 
               />
             )}
