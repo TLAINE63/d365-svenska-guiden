@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
-import { usePartner } from "@/hooks/usePartners";
+import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet-async";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
