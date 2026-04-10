@@ -242,9 +242,9 @@ const Index = () => {
               <Link
                 key={card.title}
                 to={card.link}
-                className="group bg-card border border-border rounded-xl p-5 flex flex-col gap-2.5 hover:border-primary/40 hover:shadow-[var(--shadow-hover)] transition-all duration-200 shadow-[var(--shadow-card)]"
+                className="group bg-card border border-border rounded-xl p-5 flex flex-col gap-2.5 hover:border-primary/60 hover:shadow-[var(--shadow-hover)] hover:-translate-y-1 hover:bg-primary/[0.03] transition-all duration-200 shadow-[var(--shadow-card)]"
               >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-200">
                   {card.icon}
                 </div>
                 <div className="text-sm font-semibold text-foreground">{card.title}</div>
@@ -300,7 +300,7 @@ const Index = () => {
             <div className="relative">
               <button
                 onClick={() => setKravspecOpen(!kravspecOpen)}
-                className="w-full text-left bg-secondary/50 border border-border rounded-[10px] p-5 hover:bg-secondary/80 transition-colors cursor-pointer"
+                className="w-full text-left bg-secondary/50 border border-border rounded-[10px] p-5 hover:bg-secondary/80 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer"
               >
                 <div className="text-2xl sm:text-[28px] font-semibold text-primary tracking-tight mb-1 flex items-center gap-2">
                   Kravspec
@@ -355,7 +355,7 @@ const Index = () => {
                   <Link
                     key={q.text}
                     to={q.link}
-                    className="group block bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/40 hover:text-primary transition-all"
+                    className="group block bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
                   >
                     {q.text} <span className="text-muted-foreground group-hover:text-primary ml-0.5 transition-colors">→</span>
                   </Link>
@@ -378,7 +378,7 @@ const Index = () => {
               <Link
                 key={pill}
                 to="/branschlosningar/"
-                className="px-4 py-2 rounded-full border border-border text-[13px] text-muted-foreground bg-card hover:border-primary/40 hover:text-primary hover:bg-primary/5 transition-all duration-200"
+                className="px-4 py-2 rounded-full border border-border text-[13px] text-muted-foreground bg-card hover:border-primary/50 hover:text-primary hover:bg-primary/10 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
               >
                 {pill}
               </Link>
@@ -394,7 +394,7 @@ const Index = () => {
           <p className="text-sm text-muted-foreground mb-6">Hur står sig Dynamics 365 mot de vanligaste alternativen på den svenska marknaden?</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* ERP compare */}
-            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/30 transition-all">
+            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <div className="text-[15px] font-semibold text-foreground">Business Central (ERP)</div>
