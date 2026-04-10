@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
-import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
+
 import Index from "./pages/Index";
 
 // Lazy load non-critical UI shell components
@@ -68,7 +68,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
-        <TrailingSlashRedirect />
+        
         <ChunkErrorBoundary>
         <Suspense fallback={<PageLoader />}>
           <Routes>
