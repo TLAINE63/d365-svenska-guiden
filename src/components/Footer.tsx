@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import linkedinLogo from "@/assets/linkedin-logo.jfif";
+import siteLogo from "@/assets/d365guide-logo-new.png";
 
 const Footer = () => {
   return (
