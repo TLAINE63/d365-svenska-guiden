@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import linkedinLogo from "@/assets/linkedin-logo.jfif";
+import siteLogo from "@/assets/d365guide-logo-new.png";
 
 const Footer = () => {
   return (
@@ -69,6 +70,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border pt-8 text-center text-muted-foreground">
+          <img src={siteLogo} alt="d365.se logotyp" className="h-10 mx-auto mb-4" />
           <p className="mb-2">© 2025 Dynamic Factory</p>
           <p className="text-sm mb-3">
             Microsoft Business Applications Evangelister
