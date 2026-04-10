@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
-import { usePartner } from "@/hooks/usePartners";
+import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet-async";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
@@ -120,7 +120,11 @@ const getDefaultApplicationsForCategory = (category: 'bc' | 'fsc' | 'sales' | 's
   }
 };
 
-const PartnerProfile = () => {
+interface PartnerProfileProps {
+  initialData?: DatabasePartner | null;
+}
+
+const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
   
@@ -131,8 +135,8 @@ const PartnerProfile = () => {
   const selectedGeography = searchParams.get("geography") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   
-  // Use database partner directly (no static fallback needed - all partners are in DB)
-  const partner = dbPartner ?? null;
+  // Use initialData for SSR, then hydrate with live data from DB
+  const partner = dbPartner ?? initialData ?? null;
 
   // Get product categories this partner supports
   // Get product categories this partner supports - check both applications array AND product_filters
@@ -281,7 +285,7 @@ const PartnerProfile = () => {
     );
   };
 
-  if (isLoading) {
+  if (isLoading && !initialData) {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />

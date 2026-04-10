@@ -36,7 +36,13 @@ import RequirementsSpec from './pages/RequirementsSpec';
 import DeepDiveArticle from './pages/DeepDiveArticle';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
+import partnerDataJson from './data/partnerData.json';
 
+// Build a slug→partner lookup for SSR
+const partnerDataBySlug: Record<string, typeof partnerDataJson[number]> = {};
+partnerDataJson.forEach((p) => {
+  if (p.slug) partnerDataBySlug[p.slug] = p;
+});
 export interface PrerenderRoute {
   path: string;
   priority: string;
@@ -91,6 +97,30 @@ export function render(url: string) {
 
   const helmetContext: { helmet?: any } = {};
 
+  // Extract partner slug from URL for SSR data injection
+  const partnerMatch = url.match(/^\/partner\/([^/?#]+)/);
+  const partnerSlug = partnerMatch ? partnerMatch[1].replace(/\/$/, '') : null;
+  const partnerInitialData = partnerSlug ? partnerDataBySlug[partnerSlug] || null : null;
+
+  // Map DB fields to the shape PartnerProfile expects (DatabasePartner)
+  const mappedPartnerData = partnerInitialData ? {
+    ...partnerInitialData,
+    contactPerson: partnerInitialData.contact_person,
+    address: null as string | null,
+    secondary_industries: partnerInitialData.secondary_industries || [],
+    geography: partnerInitialData.geography || ['Sverige'],
+    product_filters: (partnerInitialData.product_filters as any) || {},
+    industry_apps: (partnerInitialData.industry_apps as any) || [],
+    invoice_email: partnerInitialData.invoice_email || null,
+    invoice_contact: partnerInitialData.invoice_contact || null,
+    activation_date: null as string | null,
+    monthly_fee: null as number | null,
+    cancellation_date: null as string | null,
+    admin_notes: null as string | null,
+    admin_contact_name: null as string | null,
+    admin_contact_email: null as string | null,
+  } : null;
+
   const html = renderToString(
     <HelmetProvider context={helmetContext}>
       <QueryClientProvider client={queryClient}>
@@ -124,7 +154,7 @@ export function render(url: string) {
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />
-              <Route path="/partner/:slug" element={<PartnerProfile />} />
+              <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
             </Routes>
           </StaticRouter>
         </TooltipProvider>
