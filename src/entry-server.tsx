@@ -35,6 +35,7 @@ import Kunskapscenter from './pages/Kunskapscenter';
 import RequirementsSpec from './pages/RequirementsSpec';
 import DeepDiveArticle from './pages/DeepDiveArticle';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
+import partnerRoutesData from './data/partnerRoutes.json';
 
 export interface PrerenderRoute {
   path: string;
@@ -145,134 +146,24 @@ export function render(url: string) {
 }
 
 /**
- * Fetch dynamic partner routes from Supabase at build time.
- * Called by the prerender plugin to discover /partner/:slug pages.
+ * Build partner routes from local JSON data.
+ * No Supabase credentials needed at build time.
  */
-async function fetchWithTimeout(url: string, headers: Record<string, string>, timeoutMs = 10000) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
-
-  try {
-    return await fetch(url, {
-      headers,
-      signal: controller.signal,
-    });
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-async function readJsonArray<T>(response: Response): Promise<T[]> {
-  try {
-    const payload = await response.json();
-
-    if (Array.isArray(payload)) {
-      return payload as T[];
-    }
-
-    if (payload && typeof payload === 'object') {
-      const maybeData = (payload as { data?: unknown }).data;
-      if (Array.isArray(maybeData)) {
-        return maybeData as T[];
-      }
-
-      const keys = Object.keys(payload as Record<string, unknown>);
-      console.warn(`  ⚠️  Dynamic route payload was not an array (keys: ${keys.join(', ') || 'none'})`);
-      return [];
-    }
-
-    console.warn('  ⚠️  Dynamic route payload was not an array');
-    return [];
-  } catch (err: any) {
-    console.warn(`  ⚠️  Failed to parse dynamic route JSON: ${err?.message || 'unknown error'}`);
-    return [];
-  }
-}
-
 export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
-  const supabaseUrl = process.env.VITE_SUPABASE_URL;
-  const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+  const partnerRoutes: PrerenderRoute[] = partnerRoutesData
+    .filter((p) => p.slug && p.name)
+    .map((p) => ({
+      path: `/partner/${p.slug}`,
+      priority: '0.7',
+      changefreq: 'weekly' as const,
+      meta: {
+        title: `${p.name} – Dynamics 365 Partner | d365.se`,
+        description:
+          p.description?.slice(0, 155) ||
+          `${p.name} är en Microsoft Dynamics 365-partner i Sverige. Läs mer om deras kompetenser och branschfokus.`,
+      },
+    }));
 
-  if (!supabaseUrl || !supabaseKey) {
-    console.warn('⚠️  Supabase env vars missing – skipping dynamic partner routes');
-    return [];
-  }
-
-  const headers = {
-    apikey: supabaseKey,
-    Authorization: `Bearer ${supabaseKey}`,
-  };
-
-  try {
-    console.log('  🧩 getDynamicRoutes v3 active');
-
-    const [partnersRes, eventsRes] = await Promise.allSettled([
-      fetchWithTimeout(
-        `${supabaseUrl}/rest/v1/partners_public?select=slug,name,description&order=name`,
-        headers,
-        12000
-      ),
-      fetchWithTimeout(
-        `${supabaseUrl}/rest/v1/partner_events?select=id,title,description&status=eq.approved&order=event_date.desc`,
-        headers,
-        12000
-      ),
-    ]);
-
-    const partnerRoutes: PrerenderRoute[] = [];
-    if (partnersRes.status === 'fulfilled' && partnersRes.value.ok) {
-      const partners = await readJsonArray<{ slug: string | null; name: string | null; description: string | null }>(partnersRes.value);
-      
-
-      for (const p of partners) {
-        if (!p?.slug || !p?.name) continue;
-        partnerRoutes.push({
-          path: `/partner/${p.slug}`,
-          priority: '0.7',
-          changefreq: 'weekly' as const,
-          meta: {
-            title: `${p.name} – Dynamics 365 Partner | d365.se`,
-            description:
-              p.description?.slice(0, 155) ||
-              `${p.name} är en Microsoft Dynamics 365-partner i Sverige. Läs mer om deras kompetenser och branschfokus.`,
-          },
-        });
-      }
-
-      console.log(`  📦 Found ${partnerRoutes.length} dynamic partner routes`);
-    } else {
-      const reason = partnersRes.status === 'rejected' ? partnersRes.reason?.message : 'rejected';
-      console.warn(`  ⚠️  Partner routes failed: ${reason}`);
-    }
-
-    const eventRoutes: PrerenderRoute[] = [];
-    if (eventsRes.status === 'fulfilled' && eventsRes.value.ok) {
-      const events = await readJsonArray<{ id: string | null; title: string | null; description: string | null }>(eventsRes.value);
-
-      for (const e of events) {
-        if (!e?.id || !e?.title) continue;
-        eventRoutes.push({
-          path: `/events/${e.id}`,
-          priority: '0.6',
-          changefreq: 'weekly' as const,
-          meta: {
-            title: `${e.title} – Event | d365.se`,
-            description:
-              e.description?.slice(0, 155) ||
-              `${e.title} – ett Dynamics 365-event. Läs mer och anmäl dig på d365.se.`,
-          },
-        });
-      }
-
-      console.log(`  📦 Found ${eventRoutes.length} dynamic event routes`);
-    } else {
-      const reason = eventsRes.status === 'rejected' ? eventsRes.reason?.message : `HTTP ${eventsRes.value.status}`;
-      console.warn(`  ⚠️  Event routes failed: ${reason}`);
-    }
-
-    return [...partnerRoutes, ...eventRoutes];
-  } catch (err: any) {
-    console.warn(`⚠️  getDynamicRoutes error: ${err.message}`);
-    return [];
-  }
+  console.log(`  📦 Found ${partnerRoutes.length} partner routes from local JSON`);
+  return partnerRoutes;
 }
