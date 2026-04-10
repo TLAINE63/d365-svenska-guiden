@@ -240,7 +240,6 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
       }
 
       console.log(`  📦 Found ${partnerRoutes.length} dynamic partner routes`);
-      } // end if res.ok
     } else {
       const reason = partnersRes.status === 'rejected' ? partnersRes.reason?.message : 'rejected';
       console.warn(`  ⚠️  Partner routes failed: ${reason}`);
