@@ -54,7 +54,7 @@ const Navbar = () => {
             <img 
               src={companyLogo} 
               alt="d365.se - Oberoende guide till Microsoft Dynamics 365 i Sverige" 
-               className="h-[63px] w-auto object-contain mt-[5px]"
+               className="h-[79px] w-auto object-contain mt-[5px]"
               width="147"
               height="63"
               loading="eager"
