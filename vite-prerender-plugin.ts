@@ -311,6 +311,9 @@ function setupBrowserGlobals() {
   const g = globalThis as Record<string, any>;
   if (typeof g.window !== 'undefined' && g.window.__SSR_POLYFILLED) return;
 
+  // Preserve the real Node.js fetch before polyfills overwrite it
+  const realFetch = globalThis.fetch;
+
   const noop = () => {};
   const noopMediaQuery = {
     matches: false,
