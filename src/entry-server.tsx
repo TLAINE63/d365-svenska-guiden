@@ -222,7 +222,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     const partnerRoutes: PrerenderRoute[] = [];
     if (partnersRes.status === 'fulfilled' && partnersRes.value.ok) {
       const partners = await readJsonArray<{ slug: string | null; name: string | null; description: string | null }>(partnersRes.value);
-      const partners = await readJsonArray<{ slug: string | null; name: string | null; description: string | null }>(res);
+      
 
       for (const p of partners) {
         if (!p?.slug || !p?.name) continue;
