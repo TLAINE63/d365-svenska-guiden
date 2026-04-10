@@ -208,6 +208,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
   try {
     console.log('  🧩 getDynamicRoutes v2 active');
+    console.log(`    🔑 URL=${supabaseUrl?.slice(0, 30)}... KEY=${supabaseKey ? 'SET(' + supabaseKey.length + ')' : 'MISSING'}`);
 
     const [partnersRes, eventsRes] = await Promise.allSettled([
       fetchWithTimeout(
