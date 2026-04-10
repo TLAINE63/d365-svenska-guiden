@@ -1,30 +1,142 @@
 [
-  { "slug": "4ps-sweden", "name": "4PS Construction Software AB", "description": "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag." },
-  { "slug": "b3-consulting-group", "name": "B3 Elevate", "description": "B3 Elevate lyfter kundupplevelser med AI-baserade molnlösningar byggda på Dynamics 365 och Power BI." },
-  { "slug": "be-terna", "name": "BE-terna", "description": "BE-terna är en Microsoft Dynamics-partner med Dynamics 365 Finance & Supply Chain Management som kärnkompetens." },
-  { "slug": "bisqo", "name": "Bisqo AB", "description": "Bisqo kombinerar djup affärsförståelse med ett tydligt paketerat Business Central-erbjudande." },
-  { "slug": "exsitec", "name": "BrightCom", "description": "BrightCom är partner till Microsoft och Dynamics 365 Business Central med fokus på e-handel och retail." },
-  { "slug": "cegeka", "name": "Cegeka", "description": "Cegeka är en ledande Microsoft-partner inom Dynamics 365, data och AI." },
-  { "slug": "cepheo", "name": "Cepheo", "description": "Cepheo är en av Nordens största leverantörer av Microsoft Dynamics 365-lösningar." },
-  { "slug": "cosmo-consult", "name": "COSMO CONSULT", "description": "COSMO CONSULT är en av världens ledande Microsoft-partner för industri- och affärslösningar." },
-  { "slug": "dizparc", "name": "Dizparc", "description": "Dizparc har specialistkunskap och bred erfarenhet av Microsoft Business Central." },
-  { "slug": "ecit-sverige-ab", "name": "ECIT Sverige AB", "description": "ECIT kombinerar kunskap inom ekonomi, lön, IT och modern teknik för att förstå din verksamhet." },
-  { "slug": "enqore-ab", "name": "Enqore AB", "description": "Enqore hjälper företag att bli mer förutseende genom Microsofts affärsplattformar med analys och AI." },
-  { "slug": "navipro-ab", "name": "Evidi", "description": "Evidi är en Microsoft Dynamics 365-partner i Sverige." },
-  { "slug": "fellowmind", "name": "Fellowmind", "description": "Fellowmind är en ledande europeisk Microsoft-partner som stödjer över 2 500 kunder." },
-  { "slug": "goodfellows", "name": "Goodfellows", "description": "Goodfellows arbetar nära ditt team och tar ansvar för att affärssystemet fungerar i praktiken." },
-  { "slug": "hay-it", "name": "Hay IT", "description": "Hay IT erbjuder helhetslösningar för Microsoft Dynamics 365." },
-  { "slug": "implema", "name": "Implema AB", "description": "Implema hjälper företag att accelerera sin affär – snabbt, säkert och redo för framtiden." },
-  { "slug": "inbiz", "name": "InBiz", "description": "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005." },
-  { "slug": "knowit", "name": "Knowit", "description": "Knowit hjälper organisationer att utveckla och modernisera sina affärssystem med ERP som nav." },
-  { "slug": "nab-solutions", "name": "NAB Solutions", "description": "NAB Solutions digitaliserar företag med Microsofts produkter sedan 2001." },
-  { "slug": "navcite", "name": "Navcite", "description": "Navcite implementerar Microsoft Dynamics 365 Business Central med lång erfarenhet." },
-  { "slug": "navet-ab", "name": "Navet AB", "description": "Navet är ett affärskonsultbolag specialiserat på affärssystem och digital transformation." },
-  { "slug": "nemely", "name": "Nemely AB", "description": "Nemely är en ledande CRM-partner med djup expertis inom CRM-implementationer." },
-  { "slug": "nexer", "name": "Nexer", "description": "Nexer är ett globalt techbolag med rötter i svensk entreprenörsanda och innovationskraft." },
-  { "slug": "releye", "name": "Releye", "description": "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform." },
-  { "slug": "sirocco-group", "name": "Sirocco Group", "description": "Sirocco Group är en internationell konsult specialiserad på CRM och digital transformation." },
-  { "slug": "sopra-steria", "name": "Sopra Steria", "description": "Sopra Steria är en etablerad expertpartner inom hela Dynamics 365-plattformen." },
-  { "slug": "vivicta", "name": "Vivicta", "description": "Vivicta erbjuder helhetsåtagande inom Microsoft Dynamics 365 med djup branschkompetens." },
-  { "slug": "yellow-solution", "name": "Yellow Solution AB", "description": "Yellow Solution skapar konkurrenskraft med Dynamics 365 Business Central." }
+  {
+    "slug": "4ps-sweden",
+    "name": "4PS Construction Software AB",
+    "description": "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjud"
+  },
+  {
+    "slug": "b3-consulting-group",
+    "name": "B3 Elevate",
+    "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nä"
+  },
+  {
+    "slug": "be-terna",
+    "name": "BE-terna",
+    "description": "BE-terna SE är en Microsoft Dynamics-partner med Dynamics 365 Finance & Supply Chain Management som kärnkompetens och leverans över hela Dynamics 365-plattformen. Vi verkar inom retail, manufacturing "
+  },
+  {
+    "slug": "bisqo",
+    "name": "Bisqo AB",
+    "description": "Vi är experter på en kraftfull kombination av Dynamics 365 Business Central och CRM på Power Platform samt Power BI, där vi skapar smarta, skalbara och framtidssäkra lösningar. Vi hjälper företag att "
+  },
+  {
+    "slug": "exsitec",
+    "name": "BrightCom",
+    "description": "BrightCom är partner till Microsoft och affärssystemet Dynamics 365 Business Central med fokus på e-handels och retailbranschen. BrightCom har färdiga integrationer till de vanligaste e-handelsplattfo"
+  },
+  {
+    "slug": "cegeka",
+    "name": "Cegeka",
+    "description": "Cegeka är en ledande Microsoft partner inom Dynamics 365, data och AI. Microsoft utsåg oss 2025 till global vinnare av Microsoft Dynamics 365 Supply Chain Partner of the Year. Med stark branschkompete"
+  },
+  {
+    "slug": "cepheo",
+    "name": "Cepheo",
+    "description": "Cepheo är en av Nordens största och mest respekterade leverantörer av Microsoft Dynamics 365-lösningar. Vi levererar heltäckande molnlösningar som kombinerar ERP, CRM, AI, BI & analytics och low-code-"
+  },
+  {
+    "slug": "cosmo-consult",
+    "name": "COSMO CONSULT",
+    "description": "COSMO CONSULT är en av världens ledande Microsoft-partner som specialiserar sig på implementering och systemhantering av industri- och affärslösningar baserade på avancerad programvaruteknik. Med 1600"
+  },
+  {
+    "slug": "dizparc",
+    "name": "Dizparc",
+    "description": "Hos Dizparc hittar du ett stort gäng experter med specialistkunskap och både lång och bred erfarenhet av att arbeta med Microsoft Business Central. Oavsett om du står i startgroparna att implementera "
+  },
+  {
+    "slug": "ecit-sverige-ab",
+    "name": "ECIT Sverige AB",
+    "description": "På ECIT kombinerar vi vår kunskap inom ekonomi, lön, IT och modern teknik för att förstå hur ditt företags vardag faktiskt fungerar. Det gör att vi kan möta både dina processer, dina möjligheter och d"
+  },
+  {
+    "slug": "enqore-ab",
+    "name": "Enqore AB",
+    "description": "Från reaktiv till prediktiv\nMånga organisationer har i dag tillgång till stora mängder data, men får sina viktigaste insikter först när det redan är för sent. Systemen är ofta silobaserade, processern"
+  },
+  {
+    "slug": "navipro-ab",
+    "name": "Evidi",
+    "description": ""
+  },
+  {
+    "slug": "fellowmind",
+    "name": "Fellowmind",
+    "description": "Fellowmind är en ledande europeisk Microsoft-partner som verkar i fem länder och stödjer över 2 500 kunder. Vi kombinerar djup branschkunskap med spets inom molnbaserad teknologi, Data & AI och hela M"
+  },
+  {
+    "slug": "goodfellows",
+    "name": "Goodfellows",
+    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och tar tydligt ansvar för att affärssystemet fungerar i praktiken, inte bara på "
+  },
+  {
+    "slug": "hay-it",
+    "name": "Hay IT",
+    "description": "Varmt välkomna till Hay IT! Vi är företaget som hjälper er i er digitala resa genom att erbjuda helhetslösningar för bland annat  Microsoft Dynamics 365. Genom våra tjänster Projektledning, Webb- och "
+  },
+  {
+    "slug": "implema",
+    "name": "Implema AB",
+    "description": "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'. Affärsnyttan börjar med rätt partner."
+  },
+  {
+    "slug": "inbiz",
+    "name": "InBiz",
+    "description": "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005."
+  },
+  {
+    "slug": "knowit",
+    "name": "Knowit",
+    "description": "Våra experter hjälper organisationer att utveckla och modernisera sina affärssystem med ERP som nav för verksamhetens processer, data, AI och automatisering – byggt på Microsofts plattform. Genom att "
+  },
+  {
+    "slug": "nab-solutions",
+    "name": "NAB Solutions",
+    "description": "Vi är stolta nördar som brinner för hjärtat i din verksamhet! Vi har nördat ner oss i Microsofts produkter sedan 2001. I över 20 år har vi digitaliserat företag så att de kan ta klivet närmre sina drö"
+  },
+  {
+    "slug": "navcite",
+    "name": "Navcite",
+    "description": "Navcite implementerar Microsoft Dynamics 365 Business Central. Med lång erfarenhet av affärssystem hjälper vi företag inom projekt, tillverkning och distribution att effektivisera processer, integrera"
+  },
+  {
+    "slug": "navet-ab",
+    "name": "Navet AB",
+    "description": "Navet är ett affärskonsultbolag specialiserat på affärssystem och digital transformation, med fokus på att hjälpa företag att optimera sina affärsprocesser genom moderna lösningar. Navet kombinerar ve"
+  },
+  {
+    "slug": "nemely",
+    "name": "Nemely AB",
+    "description": "Nemely är en ledande CRM-partner med djup expertis inom CRM-implementationer – från strategi och design till införande och vidareutveckling. Vårt fokus är att säkerställa lyckade implementationer som "
+  },
+  {
+    "slug": "nexer",
+    "name": "Nexer",
+    "description": "Nexer är ett globalt techbolag med rötter i svensk entreprenörsanda och innovationskraft. Vi är stolta över att leda den digitala revolutionen och vara i teknikens framkant, alltid med ett agilt och f"
+  },
+  {
+    "slug": "releye",
+    "name": "Releye",
+    "description": "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform."
+  },
+  {
+    "slug": "sirocco-group",
+    "name": "Sirocco Group",
+    "description": "Sirocco Group är en internationell boutique-konsult och utvecklingsbyrå specialiserad på CRM och digital transformation."
+  },
+  {
+    "slug": "sopra-steria",
+    "name": "Sopra Steria",
+    "description": "Vår styrka ligger i vår förmåga att se hela kundens verksamhet ur ett process- och effektperspektiv. Vi arbetar metodiskt för att säkerställa att varje implementation ger maximal affärsnytta, oavsett "
+  },
+  {
+    "slug": "vivicta",
+    "name": "Vivicta",
+    "description": "Vårt Dynamics 365‑erbjudande\nVi erbjuder ett helhetsåtagande inom Microsoft Dynamics 365 – från rådgivning och lösningsdesign till implementering, vidareutveckling och förvaltning. Med djup verksamhet"
+  },
+  {
+    "slug": "yellow-solution",
+    "name": "Yellow Solution AB",
+    "description": "Vi på Yellow är ett konsultföretag som tillsammans med framgångsrika kunder skapar konkurrenskraft och driver tillväxt med Microsofts Affärssystem Dynamics 365 Business Central. Med vår långa erfarenh"
+  }
 ]
