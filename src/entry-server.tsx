@@ -204,8 +204,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   };
 
   try {
-    console.log('  🧩 getDynamicRoutes v2 active');
-    console.log(`    🔑 URL=${supabaseUrl?.slice(0, 30)}... KEY=${supabaseKey ? 'SET(' + supabaseKey.length + ')' : 'MISSING'}`);
+    console.log('  🧩 getDynamicRoutes v3 active');
 
     const [partnersRes, eventsRes] = await Promise.allSettled([
       fetchWithTimeout(
@@ -221,10 +220,8 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     ]);
 
     const partnerRoutes: PrerenderRoute[] = [];
-    if (partnersRes.status === 'fulfilled') {
-      const res = partnersRes.value;
-      console.log(`    📡 Partners response: status=${res.status} ok=${res.ok} content-type=${res.headers.get('content-type')}`);
-      if (res.ok) {
+    if (partnersRes.status === 'fulfilled' && partnersRes.value.ok) {
+      const partners = await readJsonArray<{ slug: string | null; name: string | null; description: string | null }>(partnersRes.value);
       const partners = await readJsonArray<{ slug: string | null; name: string | null; description: string | null }>(res);
 
       for (const p of partners) {
