@@ -164,10 +164,7 @@ async function fetchWithTimeout(url: string, headers: Record<string, string>, ti
 
 async function readJsonArray<T>(response: Response): Promise<T[]> {
   try {
-    const text = await response.text();
-    console.log(`    🔍 Response preview (${text.length} chars): ${text.slice(0, 200)}`);
-    
-    const payload = JSON.parse(text);
+    const payload = await response.json();
 
     if (Array.isArray(payload)) {
       return payload as T[];
