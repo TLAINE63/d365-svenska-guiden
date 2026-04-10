@@ -36,7 +36,13 @@ import RequirementsSpec from './pages/RequirementsSpec';
 import DeepDiveArticle from './pages/DeepDiveArticle';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
+import partnerDataJson from './data/partnerData.json';
 
+// Build a slug→partner lookup for SSR
+const partnerDataBySlug: Record<string, typeof partnerDataJson[number]> = {};
+partnerDataJson.forEach((p) => {
+  if (p.slug) partnerDataBySlug[p.slug] = p;
+});
 export interface PrerenderRoute {
   path: string;
   priority: string;
