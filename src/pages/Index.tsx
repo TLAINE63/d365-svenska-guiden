@@ -146,7 +146,7 @@ const Index = () => {
       <section className="bg-gradient-to-br from-[hsl(180_30%_12%)] via-[hsl(180_25%_16%)] to-[hsl(200_20%_18%)] border-b border-primary/20 relative overflow-visible">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 md:pb-16 relative">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-20 sm:pt-24 md:pt-26 pb-8 sm:pb-10 md:pb-12 relative">
           {/* Full-width eyebrow heading */}
           <h1 className="text-xl sm:text-2xl md:text-[32px] font-semibold text-white/90 tracking-tight mb-8 md:mb-10 max-w-3xl text-center mx-auto">
             Sveriges oberoende guide till Microsoft Dynamics 365
