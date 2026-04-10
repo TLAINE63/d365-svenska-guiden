@@ -170,7 +170,8 @@ export default function prerenderPlugin(): Plugin {
 
             // For dynamic routes with custom meta (e.g. partner profiles),
             // inject the meta directly if Helmet didn't produce useful tags
-            if (route.meta && (!head.title || head.title.includes('d365.se</title>') && !head.title.includes(route.meta.title))) {
+            const helmetHasUsefulTitle = head.title && !head.title.includes('></title>') && head.title.includes('</title>');
+            if (route.meta && (!helmetHasUsefulTitle || !head.title.includes(route.meta.title))) {
               const customHead = [
                 `<title>${route.meta.title}</title>`,
                 `<meta name="description" content="${route.meta.description.replace(/"/g, '&quot;')}" />`,
