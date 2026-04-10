@@ -1,0 +1,3080 @@
+[
+  {
+    "id": "87f98585-f1f6-48ed-bfab-34f8b7eb3bf8",
+    "name": "4PS Construction Software AB",
+    "description": "4PS är en ledande leverantör av branschspecifik ERP-programvara för bygg-, installations- och serviceföretag. Deras lösning 4PS Construct är byggd på Microsoft Dynamics 365 Business Central och erbjuder end-to-end-funktionalitet med 100% realtidsvisibilitet på projekt.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/4ps-construction-software-ab.png",
+    "website": "https://www.4ps.se/",
+    "email": "anders.ostby@4ps.se",
+    "phone": "+46 10 540 00 00",
+    "contact_person": "Anders Östby",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 1,
+        "geography": [
+          "Övriga världen"
+        ],
+        "industries": [
+          "Bygg & Entreprenad"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [
+          "AssemblinCaverionRemondisCertegoEnvac"
+        ],
+        "customerCaseLinks": [
+          "https://www.4ps.se/kunder/"
+        ],
+        "productDescription": "Med 4PS Construct får du en komplett lösning som ger dig total kontroll över dina projekt- och servicearbeten. Vårt ERP-system är baserad på Microsoft Dynamics 365 Business Central och stöder alla dina kärnprocesser för ett smidigt genomförande av dina byggprojekt.",
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-02-25T10:52:01.921302+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/TYPE.connect%7CPUBID.4psbv_ah%7CAID.4ps_construct%7CPAPPID.c4c07c94-073e-442a-8337-c362726014fa?tab=Overview",
+        "name": "4PS",
+        "industry": "Bygg & Entreprenad",
+        "application": "Business Central",
+        "description": "4PS Construct all-in-one cloud solution for Construction"
+      }
+    ],
+    "slug": "4ps-sweden",
+    "office_cities": [
+      "Norrköping",
+      "Göteborg"
+    ],
+    "map_url": "https://www.google.com/maps/d/edit?mid=1lqToksFfFiaeIdp1Hgub9PYB6WJk_xs&ll=59.13450631416728%2C16.462738500000004&z=5",
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "de93854a-6402-4f4a-8901-82bf355d0f0b",
+    "name": "B3 Elevate",
+    "description": "B3 Elevate är ett specialistföretag inom B3 Consulting Group som lyfter kundupplevelser till nya höjder genom kraftfulla AI-baserade molnlösningar byggda på Dynamics 365 och Power BI.\nTack vare ett nära samarbete mellan teknik- och affärsexperter levererar B3 Elevate kundlösningar - från strategi, via systemutveckling, till förvaltade tjänster. \nVi är ett konsultföretag med hög kompetens och moderna arbetssätt.\nSom långvarig Microsoftpartner förstärker vi organisationers förmåga att hantera digital transformation med stöd av Microsoft Dynamics 365.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/b3-elevate.png",
+    "website": "https://b3.se",
+    "email": "daniel.cato@b3.se",
+    "phone": "0734082702",
+    "contact_person": "Daniel Cato",
+    "applications": [
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "sales": {
+        "ranking": 999,
+        "geography": [
+          "Sverige"
+        ],
+        "industries": [
+          "Medlemsorganisationer"
+        ],
+        "companySize": [],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "Smartare sälj och datadriven marknadsföring med stöd av AI",
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [
+          "Sverige"
+        ],
+        "industries": [
+          "Medlemsorganisationer"
+        ],
+        "companySize": [],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "Specialister på intelligent kund- och medlemsservice med stöd av AI.",
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": true,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-03-10T17:29:18.418346+00:00",
+    "industry_apps": [],
+    "slug": "b3-consulting-group",
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Malmö",
+      "Gävle",
+      "Borlänge",
+      "Linköping",
+      "Sundsvall",
+      "Umeå",
+      "Uppsala",
+      "Västerås och Örebro"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "e97862ae-7d14-44da-9ea3-7e2de1140a10",
+    "name": "BE-terna",
+    "description": "BE-terna SE är en Microsoft Dynamics-partner med Dynamics 365 Finance & Supply Chain Management som kärnkompetens och leverans över hela Dynamics 365-plattformen. Vi verkar inom retail, manufacturing och professional services och kombinerar stark lokal närvaro i 10 länder i Europa med global leveransförmåga.\n\nVi tar end-to-end-ansvar för implementation, förvaltning och vidareutveckling med struktur, governance och metodik på storbolagsnivå – för långsiktig stabilitet och affärsnytta.vidareutveckling, med struktur, governance och metodik på storbolagsnivå – för långsiktig stabilitet och affärsnytta.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/be-terna.svg",
+    "website": "https://www.be-terna.com/sv",
+    "email": "fredrik.stenlund@be-terna.com",
+    "phone": "+46 70 565 86 40",
+    "contact_person": "Fredrik Stenlund",
+    "applications": [
+      "Finance",
+      "Supply Chain Management",
+      "Commerce"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "fsc": {
+        "ranking": 1,
+        "geography": [
+          "Europa",
+          "Övriga världen",
+          "Norden",
+          "Sverige"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Tillverkningsindustri",
+          "Retail & E-handel"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost"
+        ],
+        "customerExamples": [
+          "BabyBjörn",
+          "Nordiska Kompaniet",
+          "SAL Navigation",
+          "Nor:disk Clean Solutions"
+        ],
+        "customerCaseLinks": [
+          "https://www.be-terna.com/sv/insikter/babybjorn-effektiviserar-sin-globala-verksamhet-med-microsoft-dynamics-365",
+          "https://www.be-terna.com/sv/insikter/nordiska-kompaniet-en-ny-typ-av-e-handel",
+          "https://www.be-terna.com/sv/insikter/tillsammans-med-sal-navigation-ett-projekt-som-lagger-grunden-for-framtidens-affarsprocesser",
+          "https://eur04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.be-terna.com%2Fsv%2Finsikter%2Fnordisk-effektivare-arbete-med-microsoft-dynamics-365&data=05%7C02%7Cthomas.laine%40dynamicfactory.se%7C1a6bb4feb15843f7966408de626f3b8d%7C0f2b50333424406d95323eef86ce47f0%7C0%7C0%7C639056427060653709%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=dpcnQOW73v6oGWGc0AOQNYx%2Br73l4OJJK7XowsJ8zjg%3D&reserved=0"
+        ],
+        "productDescription": "",
+        "secondaryIndustries": [
+          "Livsmedel & Processindustri",
+          "Tillverkningsindustri"
+        ]
+      },
+      "sales": {
+        "ranking": 2,
+        "geography": [
+          "Europa"
+        ],
+        "industries": [],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 2,
+        "geography": [
+          "Europa"
+        ],
+        "industries": [],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-03T09:35:15.461387+00:00",
+    "industry_apps": [],
+    "slug": "be-terna",
+    "office_cities": [
+      "Halmstad",
+      "Helsingborg"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "d51765db-7ab6-4cb6-8c53-384f1ffee552",
+    "name": "Bisqo AB",
+    "description": "Vi är experter på en kraftfull kombination av Dynamics 365 Business Central och CRM på Power Platform samt Power BI, där vi skapar smarta, skalbara och framtidssäkra lösningar. Vi hjälper företag att effektivisera sina affärsprocesser med Microsofts lösningar. Genom standardiserade system, paketlösningar och serviceavtal får våra kunder snabb start, enkel användning och långsiktig utveckling i en digital värld.\nBisqo skiljer sig genom att kombinera djup affärsförståelse med ett tydligt paketerat Business Central-erbjudande. Med beprövade arbetssätt, hög senioritet och fullt fokus på kundens affär skapar Bisqo snabba, förutsägbara implementationer som ger verkligt affärsvärde – inte bara ett nytt affärssystem.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/bisqo.png",
+    "website": "https://www.bisqo.se/",
+    "email": "daniel.vesterberg@bisqo.se",
+    "phone": null,
+    "contact_person": "Daniel Vesterberg",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [
+      "Grossist & Distribution",
+      "Retail & E-handel"
+    ],
+    "secondary_industries": [
+      "Tillverkningsindustri",
+      "Konsulttjänster"
+    ],
+    "geography": [
+      "Sverige",
+      "Norden",
+      "Övriga världen",
+      "Europa"
+    ],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 1,
+        "geography": [
+          "Övriga världen",
+          "Sverige",
+          "Norden",
+          "Europa"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Tillverkningsindustri"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost"
+        ],
+        "customerExamples": [
+          "Strands Group AB",
+          "Svancare AB"
+        ],
+        "customerCaseLinks": [],
+        "productDescription": "Bisqo erbjuder ett standardiserat och paketerat Business Central-erbjudande som täcker implementering, konfiguration och rådgivning. Lösningen bygger på beprövade processer, snabb leverans och tydlig omfattning, med fokus på effektiv ekonomistyrning, skalbarhet och låg risk för kunden.",
+        "secondaryIndustries": [
+          "Tillverkningsindustri",
+          "Konsulttjänster"
+        ]
+      },
+      "sales": {
+        "ranking": 1,
+        "geography": "Sverige",
+        "industries": [],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "customerExamples": [
+          "Volvo",
+          "IKEA",
+          "Scana"
+        ],
+        "productDescription": "",
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 1,
+        "geography": [
+          "Norden",
+          "Sverige"
+        ],
+        "industries": [],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst"
+        ],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-02-25T10:59:39.091556+00:00",
+    "industry_apps": [],
+    "slug": "bisqo",
+    "office_cities": [
+      "Malmö",
+      "Helsingborg"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "6f7f47c4-37ae-4067-82d6-716f16585c10",
+    "name": "BrightCom",
+    "description": "BrightCom är partner till Microsoft och affärssystemet Dynamics 365 Business Central med fokus på e-handels och retailbranschen. BrightCom har färdiga integrationer till de vanligaste e-handelsplattformarna, 3PL med WMS, betalningslösningar, utökad drop-ship-funktionalitet, kemikalieskatt, avtalsfakturering, varianthantering och mycket mer.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/brightcom.png",
+    "website": "https://brightcom.se/",
+    "email": "mats@brightcom.se",
+    "phone": "+46706996561",
+    "contact_person": "Mats Gustafsson",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Retail & E-handel",
+          "Grossist & Distribution"
+        ],
+        "contactName": "Mats Gustafsson",
+        "contactEmail": "mats@brightcom.se",
+        "contactPhone": "+46706996561",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-standard",
+          "ai-partner",
+          "ai-advanced"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "6+",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "Minskade tidsåtgång för utveckling, implementering och test med över 65 %",
+        "customerExamples": [
+          "SwedishMatch",
+          "RoyalDesign",
+          "CAIA",
+          "EfvaAttling",
+          "Aimn",
+          "CareOfCarl",
+          "Edblad"
+        ],
+        "aiCaseDescription": "Utvecklat och implementerat kundspecifik integration till ett tredjeparts system inom personalhantering med hjälp av Copilot ",
+        "customerCaseLinks": [
+          "https://brightcom.se/care-of-carl-svidar-om-till-business-central-med-brightcom/"
+        ],
+        "productDescription": "BrightCom är fokuserade på e-handels & retailbranschen. Färdiga och certifierade integrationer till de vanligaste e-handelsplattformarna, 3PL med WMS, betalningslösningar, utökad drop-ship-funktionalitet, kemikalieskatt, varianthantering och mycket mer.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-04-05T17:20:33.808459+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.brclogistics%7CPAPPID.82205158-e9c5-466b-8f4a-ad4f6804e613?tab=Overview",
+        "name": "BRC Logi",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "BRC Logistics integrates with 20+ WMS, 3PL, and return platforms for fast, seamless warehouse automation."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.brcconnect%7CPAPPID.a8c23fb1-7a2b-475a-b7b4-38822848f521?tab=Overview",
+        "name": "BRC Connect",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "BRC Connect integrate your online webshops and POS systems to Business Central – fast and without custom code."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.brc_retail_extension%7CPAPPID.1615a8c9-24c3-434e-8482-f278027dcd1d?tab=Overview",
+        "name": "BRC Retail Extension",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "BRC Retail Extension easily manage retail items with variants in Business Central - from creation to pricing, purchasing, and reporting"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.brc_extended_ic%7CPAPPID.82abf7bc-76fd-4b07-bf87-d994e98f4edb?tab=Overview",
+        "name": "BRC Extended IC & Masterdata Management",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "Automate and streamline advanced intercompany transactions across multiple Business Central companies."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.madden_analytics_connect%7CPAPPID.95743c14-8615-4fbc-a5f6-bb64eb642df7?tab=Overview",
+        "name": "Madden Analytics Connect",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "Send inventory, sales, product and purchasing data to Madden Analytics - automatically, accurately, and in real time."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.ps_inkasso_connect%7CPAPPID.2eef8536-75c1-4c15-96a0-dcf0e87493ba?tab=Overview",
+        "name": "PS Inkasso Connect",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "PS Inkasso Connect enables a seamless, real-time integration between Microsoft Dynamics 365 Business Central and PS Inkasso’s services"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.postnord_freight_integration%7CPAPPID.226e7cbb-9bfd-4b86-8704-49e17af74327?tab=Overview",
+        "name": "PostNord freight integration",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "Create, track, and manage PostNord shipments directly in Business Central – with full automation and label printing"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.nshift%7CPAPPID.6afaa81d-bd13-447f-8f13-ed7f4553b20a?tab=Overview",
+        "name": "nShift Connect",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "BRC nShift Connect integrates Microsoft Dynamics 365 Business Central with nShift Online."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.brc_extended_finance_management%7CPAPPID.f9fe3ee4-171d-4948-bfb4-11f71edc64e0?tab=Overview",
+        "name": "BRC Extended Finance Management",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "BRC Extended Finance Management is a Microsoft Dynamics 365 Business Central app utilized to improve the area of finance. It provides extended solutions for tax and VAT, commission and bonus, Sales Contracts and more."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.brightcom_3111464%7CAID.brc_extended_order_management%7CPAPPID.97f8d32a-8e9f-4329-b1e9-269656d2a057?tab=Overview",
+        "name": "BRC Extended Order Management",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "Streamline sales and supply chain processes with smart tools for prepayments, dropshipping, stocktaking, and compliance - built directly into Business Central."
+      }
+    ],
+    "slug": "exsitec",
+    "office_cities": [
+      "Malmö",
+      "Göteborg",
+      "Stockholm",
+      "Göteborg",
+      "Borås",
+      "Jönköping",
+      "Norrköping",
+      "Örebro",
+      "Köpenhamn",
+      "Oslo"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "0fd74e92-cd23-4cfd-a60e-808e07c608f4",
+    "name": "Cegeka",
+    "description": "Cegeka är en ledande Microsoft partner inom Dynamics 365, data och AI. Microsoft utsåg oss 2025 till global vinnare av Microsoft Dynamics 365 Supply Chain Partner of the Year. Med stark branschkompetens inom bland annat Life Science, Pharma, MedTech och tillverkande industri hjälper vi kunder att effektivisera verksamheten, minska risk och skapa affärsvärde med moderna affärslösningar. Som en av de första i världen utvecklar vi Copilot AI-agenter i samarbete med Microsoft. Med förkonfigurerade industrilösningar, Cegeka-utvecklad industrifunktionalitet och +600 affärsprocesser (inkl. +200 GxP) minskas risken för budget- och projektöverdrag.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/cegeka.jpg",
+    "website": "https://cegeka.com",
+    "email": "ola.nilsson@cegeka.com",
+    "phone": "+46795592306",
+    "contact_person": "Ola Nilsson",
+    "applications": [
+      "Finance",
+      "Supply Chain Management",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center",
+      "Project Operations",
+      "Human Resources"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "fsc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Livsmedel & Processindustri",
+          "Tillverkningsindustri",
+          "Life Science / Medtech"
+        ],
+        "contactName": "Ola Nilsson ",
+        "contactEmail": "ola.nilsson@cegeka.com",
+        "contactPhone": "0795592306",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "fsc-std-analysis",
+          "fsc-std-forecast",
+          "fsc-std-planning",
+          "fsc-std-risk",
+          "fsc-partner-finance",
+          "fsc-partner-scm",
+          "fsc-partner-automation",
+          "fsc-adv-predictive",
+          "fsc-adv-optimization",
+          "fsc-adv-fraud"
+        ],
+        "aiOtherPartner": "Life Science - Quality Recall agent för reklamations hantering ",
+        "aiProjectCount": "6+",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "Inom produktion i genomsnitt 5 - 20% effektivitetsvinster bland Cegekas kunder. ",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan men inkluderar tex + 50 Life Science kunder i Europa"
+        ],
+        "aiCaseDescription": "Implementering av Agentic AI inom finans, produktion, inköp och kvalitetskontroll. ",
+        "customerCaseLinks": [
+          "https://www.cegeka.com/sv-se/case-studies/nyxoah"
+        ],
+        "productDescription": "Industri experter inom LifeScience/Pharma/Medtec och Food & Beverage",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Livsmedel & Processindustri",
+          "Life Science / Medtech"
+        ],
+        "contactName": "Ola Nilsson ",
+        "contactEmail": "ola.nilsson@cegeka.com",
+        "contactPhone": "0795592306",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "sales-std-copilot",
+          "sales-std-scoring",
+          "sales-std-forecast",
+          "sales-std-segmentation",
+          "sales-partner-agent",
+          "sales-partner-marketing",
+          "sales-partner-automation"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan men inkluderar tex + 100 kunder i Europa."
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.cegeka.com/en/case-studies/q8oils-microsoft-dynamics365-customer-engagement"
+        ],
+        "productDescription": "Cegeka utvecklar paketerade lösningar som Cegeka Field Sales App speciellt för FMCG verksamheter. ",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Livsmedel & Processindustri",
+          "Life Science / Medtech"
+        ],
+        "contactName": "Ola Nilsson ",
+        "contactEmail": "ola.nilsson@cegeka.com",
+        "contactPhone": "0795592306",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "svc-std-copilot",
+          "svc-std-routing",
+          "svc-std-fieldservice",
+          "svc-std-contactcenter",
+          "svc-partner-agent",
+          "svc-partner-fieldservice",
+          "svc-partner-automation"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "6+",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan men inkluderar tex + 100 kunder i Europa."
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.cegeka.com/en/case-studies/perfettivanmelle"
+        ],
+        "productDescription": "Cegeka utvecklar paketerade lösningar som Cegeka Field Sales App speciellt för FMCG verksamheter. ",
+        "aiPredictiveDetails": [
+          "iot-integrated",
+          "azure-ai-built",
+          "standard-function"
+        ],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-03-30T13:28:35.565075+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/cegeka.12073a86-f6fd-410d-a9c0-cfb76b97f3f9?tab=Overview",
+        "name": " Cegeka Food for Dynamics 365",
+        "industry": "Livsmedel & Processindustri",
+        "application": "Supply Chain Management",
+        "description": "egeka Food for Dynamics 365 är en utökad lösning som är särskilt utvecklad för livsmedels- och processindustrin ovanpå Microsoft Dynamics 365 Finance & Operations. Lösningen adresserar utmaningar inom bland annat lager- och materialhantering, koppling mellan operationsflöden och recept, lotspårbarhet, batchblandning, flexibel materialförsörjning till produktion, flexibel produktionsförbrukning (både via backflushing och faktisk förbrukning), kvalitetskontroll samt centraliserad kontraktshantering.  Med utgångspunkt i många års erfarenhet och best practice har vi vidareutvecklat standardlösningen i Microsoft Dynamics 365 Finance & Operations med ytterligare funktionalitet för Food & Process-industrin, och utökat lösningen för att stödja branschspecifika scenarier inom ERP, HR och BI. Lösningen används av internationella kunder inom Food & Beverage."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/cegeka.cegeka_dynamics_pharma_life_sciences?tab=Overview",
+        "name": "Cegeka Pharma & Life Sciences for Dynamics 365",
+        "industry": "Life Science / Medtech",
+        "application": "Supply Chain Management",
+        "description": "\tCegeka Pharma & Life Sciences är en industri lösning innehållande förkonfigurerad miljö, +660 processer inkl +200 GxP processer och extra funktionalitet som är särskilt utvecklad för läkemedels-, life science- och medicinteknikindustrin ovanpå Microsoft Dynamics 365 Supply Chain Management. Lösningen är utformad utifrån de unika behoven inom läkemedels- och life science-sektorn. Den gör det möjligt för organisationer att stärka sin verksamhetsmodell för att uppfylla branschstandarder, myndighetskrav och globala regulatoriska krav från internationella organ såsom US Food and Drug Administration (FDA) och European Medicines Agency (EMA). Den metodik och ansats som Cegeka har utvecklat hjälper också företag att effektivisera arbetet med Computer System Validation (CSV) i enlighet med GAMP5:s riskbaserade metodik för GxP-datoriserade system, 21 CFR Part 11, 21 CFR Part 820 samt EudraLex Volume 4 Annex 11 och Annex 15."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/cegeka.cegeka_quality_impact_recall_agent?tab=Overview",
+        "name": "Cegeka Quality Impact Recall Agent",
+        "industry": "Life Science / Medtech",
+        "application": "Supply Chain Management",
+        "description": "Quality Impact Recall Agent analyserar underkända kvalitetsordrar, reklamationer eller leverantörsrelaterade problem, identifierar nedströms påverkan och startar ett samordnat recall-flöde direkt i Dynamics 365. Detta vägleder team inom kvalitet, regulatory, supply chain och kundservice genom strukturerade och repeterbara steg som ligger i linje med både branschkrav och interna compliance-krav. Cegeka Quality Impact Recall Agent är utvecklad för reglerade och tillverkande industrier och hjälper team att agera snabbt, konsekvent och med full spårbarhet – vilket minskar operativa störningar och bidrar till att skydda kundernas förtroende."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/cegeka.cegeka_dynamics_agri_fresh_lot_evaluation?tab=Overview",
+        "name": "Cegeka Agri & Fresh For Dynamics 365",
+        "industry": "Livsmedel & Processindustri",
+        "application": "Supply Chain Management",
+        "description": "Cegeka Dynamics Agri & Fresh kombinerar särskilt utvecklade komponenter för agri- och färskvaruindustrin ovanpå Microsoft Dynamics 365 Finance & Operations och adresserar utmaningar såsom specifika kundkrav och provisionsbaserad handel (till exempel avräkning mot odlare eller utvärdering per parti). Med utgångspunkt i många års erfarenhet och best practice har vi vidareutvecklat standardlösningen i Microsoft Dynamics 365 Finance & Operations med funktionalitet för färskvarubranschen och utökat lösningen för att stödja branschspecifika scenarier inom ERP, CE (CRM), HR och BI. Lösningen används av internationellt verksamma kunder inom färskvarubranschen."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/cegeka.cegeka_discrete_manufactoring?tab=Overview",
+        "name": "Cegeka Discrete Manufacturing for Dynamics 365",
+        "industry": "Tillverkningsindustri",
+        "application": "Supply Chain Management",
+        "description": "Cegeka Discrete Manufacturing är en ändamålsbyggd lösning för diskreta tillverkare som vill utöka Microsoft Dynamics 365 Finance & Supply Chain Management med anpassade produktionsfunktioner – utan omfattande kundanpassningar. Lösningen är utformad för komplexa tillverkningsmiljöer med många varianter och hjälper organisationer att förbättra produktionseffektiviteten, få bättre kontroll över lager och säkerställa full spårbarhet över både enskilda anläggningar och verksamheter med flera siter."
+      }
+    ],
+    "slug": "cegeka",
+    "office_cities": [
+      "Stockholm",
+      "Malmö",
+      "Linköping",
+      "10 tal länder."
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "bba0846c-e5ed-4a84-951a-76e6ddd95e9e",
+    "name": "Cepheo",
+    "description": "Cepheo är en av Nordens största och mest respekterade leverantörer av Microsoft Dynamics 365-lösningar. Vi levererar heltäckande molnlösningar som kombinerar ERP, CRM, AI, BI & analytics och low-code-funktioner som bygger på Microsoft Business Applications ekosystem. Vi hjälper kunder att effektivisera verksamheten, fatta bättre beslut och samarbeta mer effektivt. För mer information besök cepheo.se.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/cepheo.png",
+    "website": "https://cepheo.com",
+    "email": "caroline.berg@cepheo.com",
+    "phone": "+46722370788",
+    "contact_person": "Caroline Berg",
+    "applications": [
+      "Business Central",
+      "Finance",
+      "Supply Chain Management",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Human Resources"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Retail & E-handel",
+          "Livsmedel & Processindustri"
+        ],
+        "contactName": "Caroline Berg",
+        "contactEmail": "caroline.berg@cepheo.com",
+        "contactPhone": "+46722370788",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "ProMeisterSolutions"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "Experter på Business Central för bättre kontroll, enklare processer och tillväxt",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "fsc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Retail & E-handel",
+          "Livsmedel & Processindustri"
+        ],
+        "contactName": "Caroline Berg",
+        "contactEmail": "caroline.berg@cepheo.com",
+        "contactPhone": "+46722370788",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "3–5",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "HMS",
+          "Blåkläder",
+          "EvaSolo",
+          "Comfort",
+          "SaferoadCitylife",
+          "Kährs"
+        ],
+        "aiCaseDescription": "Implementerade en AI-lösning med hjälp av Microsoft Copilot och Azure AI för att automatiskt läsa, bearbeta och strukturera inköpsordrar direkt i det befintliga ERP-systemet.",
+        "customerCaseLinks": [
+          "https://cepheo.se/vaara-kunder/modernt-erp-system-stoedjer-global-tillvaext-hos-hms-networks/"
+        ],
+        "productDescription": "Experter på att optimera produktion, supply chain och finans i Dynamics 365",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Livsmedel & Processindustri",
+          "Retail & E-handel"
+        ],
+        "contactName": "Caroline Berg",
+        "contactEmail": "caroline.berg@cepheo.com",
+        "contactPhone": "+46722370788",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Blåkläder"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://cepheo.se/vaara-kunder/aalborg-energie-technik-strukturerar-foersaeljningen-och-uppnaar-maetbara-resultat-med-microsoft-dynamics-365-sales/"
+        ],
+        "productDescription": "Specialister på Dynamics 365 för sälj, pipeline och datadrivna kundinsikter",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [],
+        "contactName": "Caroline Berg",
+        "contactEmail": "caroline.berg@cepheo.com",
+        "contactPhone": "+46722370788",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Lindab",
+          "Blåkläder",
+          "AntarosMedical",
+          "Pågen",
+          "HMS"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://cepheo.se/vaara-kunder/lindab-profil-staerker-och-effektiviserar-kundrelationerna-med-dynamics-365-customer-service/"
+        ],
+        "productDescription": "Vi skapar effektiva serviceprocesser och bättre kundupplevelser med Dynamics 365",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-04-01T15:44:55.887194+00:00",
+    "industry_apps": [],
+    "slug": "cepheo",
+    "office_cities": [
+      "Malmö",
+      "Stockholm och Göteborg"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "b40655ff-2373-4c9a-a00d-361ebaa7a386",
+    "name": "COSMO CONSULT",
+    "description": "COSMO CONSULT är en av världens ledande Microsoft-partner som specialiserar sig på implementering och systemhantering av industri- och affärslösningar baserade på avancerad programvaruteknik. Med 1600+ medarbetare i 21 länder levererar vi branschorienterade helhetslösningar för små och medelstora företag inom tillverknings-, life science samt service- och detaljhandelsbranschen genom att tillhandahålla ett omfattande utbud av branschspecifika och specialiserade lösningar baserade på Microsoft Dynamics. Våra 40 kollegor på 4 orter i Sverige har en stark Business Central kompetens. Kombinerad med våra egenutvecklade branschlösningar, branschstandarder som ExFlow, SweBase m. m. samt Microsofts lösnignar för Sälj, AI (Copilot, agenter) m.m. gör oss till rätt partner för ditt företag.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/cosmo-consult.svg",
+    "website": "https://cosmoconsult.com/se",
+    "email": "gustav.angermark@cosmoconsult.com",
+    "phone": "+46708933888",
+    "contact_person": "Gustav Ängermark",
+    "applications": [
+      "Business Central",
+      "Sales",
+      "Customer Insights (Marketing)"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Life Science / Medtech",
+          "Livsmedel & Processindustri"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [
+          "addsecure",
+          "group",
+          "Aitco",
+          "carglass",
+          "danielwellington",
+          "dedicare",
+          "fitnessbrands",
+          "erico",
+          "faunnordics",
+          "gruvaktiebolagetviscarria",
+          "hemsö",
+          "lajac",
+          "linksweden",
+          "mavenwireless",
+          "nordicseawinery",
+          "perimed",
+          "rideawake",
+          "seaflex",
+          "tempestsecurity"
+        ],
+        "customerCaseLinks": [
+          "https://www.cosmoconsult.com/se/insights/referenser-ett-urval/carglass"
+        ],
+        "productDescription": "erfaren BC-partner med unika branschlösningar för tillverkande företag"
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Life Science / Medtech",
+          "Livsmedel & Processindustri"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan"
+        ],
+        "customerCaseLinks": [],
+        "productDescription": "D365 Sales och Marketing som nästa logiska steg till din BC-miljö"
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-02-25T12:39:28.656209+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.cosmoconsultag%7CAID.advanced_manufacturing_suite_bc%7CPAPPID.90097a6a-e744-480d-97bc-0d7d2ef3cd37?tab=Overview",
+        "name": "COSMO Advanced Manufacturing Suite",
+        "industry": "Tillverkningsindustri",
+        "application": "Business Central",
+        "description": "COSMO Advanced Manufacturing Suite allows you to provide and manage quality testing requirements for your business. "
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.cosmoconsultag%7CAID.cc_text_module_business_central%7CPAPPID.ffa26420-b880-4d49-9b2c-c3e60c86b914?tab=Overview",
+        "name": "COSMO Text Module",
+        "industry": "Tillverkningsindustri",
+        "application": "Business Central",
+        "description": "COSMO Text Module is an extended text management for Dynamics 365 Business Central"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.cosmoconsultag%7CAID.udi_bc%7CPAPPID.10b61d24-435c-4612-b9d7-621a9b31ae92?tab=Overview",
+        "name": "COSMO Unique Device Identification",
+        "industry": "Life Science / Medtech",
+        "application": "Business Central",
+        "description": "COSMO Unique Device Identification enables Medical Device manufactures to cover the UDI requirements"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.cosmoconsultag%7CAID.cc_dms%7CPAPPID.a3130001-2c8b-4c6f-acbd-808b2f629ce2?tab=Overview",
+        "name": "COSMO Document Management System",
+        "industry": "",
+        "application": "Business Central",
+        "description": "Integrated DMS for Microsoft Dynamics 365 Business Central based on Microsoft SharePoint"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.cosmoconsultag%7CAID.quality_assurance_bc%7CPAPPID.63aa5c1b-6e26-4572-aa2d-8b333b3ff1a4?tab=Overview",
+        "name": "COSMO Quality Assurance",
+        "industry": "Life Science / Medtech",
+        "application": "Business Central",
+        "description": "Allows you to provide and manage quality testing requirements for your business"
+      }
+    ],
+    "slug": "cosmo-consult",
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Malmö",
+      "Umeå"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "a996ca97-8db0-4d7b-8df0-2e5f2dbd89c3",
+    "name": "Dizparc",
+    "description": "Hos Dizparc hittar du ett stort gäng experter med specialistkunskap och både lång och bred erfarenhet av att arbeta med Microsoft Business Central. Oavsett om du står i startgroparna att implementera ett helt nytt affärssystem eller utveckla det du redan har kan vi med vår goda verksamhetskunskap inom områden som ekonomi, försäljning, produktion, lager/logistik och inköp hjälpa dig att ro just ditt projekt i land med hög kvalitet och leveranssäkerhet.\n\nVår breda erfarenhet av närliggande och integrerade applikationer kommer väl till pass på resan mot en skräddarsydd lösning som matchar just din verksamhets behov - både på kort och lång sikt. Vi tror på långsiktiga relationer och många av våra kunder har vi arbetat med och följt på deras digitaliseringsresor under lång tid.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/dizparc.svg",
+    "website": "https://dizparc.se",
+    "email": "marcus.rindestig@dizparc.se",
+    "phone": "",
+    "contact_person": "Marcus Rindestig",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution",
+          "Retail & E-handel"
+        ],
+        "contactName": "Marcus Rindestig",
+        "contactEmail": "marcus.rindestig@dizparc.se",
+        "contactPhone": "",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "Vi hjälper organisationer att skapa ett stabilt och framtidssäkert affärssystem anpassat efter verksamhetens processer. Vårt fokus är att leverera lösningar som optimerar affärsflöden för att skapa affärsnytta, är enkla att vidareutveckla och fullt integrerade i Microsofts ekosystem.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-03-26T16:00:45.940704+00:00",
+    "updated_at": "2026-04-09T11:16:47.08183+00:00",
+    "industry_apps": [],
+    "slug": "dizparc",
+    "office_cities": [
+      "Umeå",
+      "Stockholm",
+      "Göteborg",
+      "Linköping",
+      "Jönköping",
+      "Karlstad",
+      "Halmstad",
+      "Växjö"
+    ],
+    "map_url": "https://dizparc.se",
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "30f1fc4c-bab6-41be-97b4-b038d30222e1",
+    "name": "ECIT Sverige AB",
+    "description": "På ECIT kombinerar vi vår kunskap inom ekonomi, lön, IT och modern teknik för att förstå hur ditt företags vardag faktiskt fungerar. Det gör att vi kan möta både dina processer, dina möjligheter och de utmaningar som uppstår när man väljer eller utvecklar sin affärsplattform.\n\nSom långsiktig partner vill vi vara ett stöd genom hela resan – från att reda ut vad som skapar värde i just din verksamhet till att hitta smarta sätt att förenkla och automatisera arbetsflöden. \n\n• Vilka processer kan effektiviseras?\n• Hur kan affärssystemet användas mer strategiskt?\n• Hur skapar man en trygg och hållbar lösning ur ett säkerhetsperspektiv?\n\nVårt fokus är att göra vardagen enklare för dig, dina kunder och dina medarbetare – och att vara en den du kan vända dig till för råd och vägledning.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/ecit-sverige-ab.png",
+    "website": "https://www.ecit.com/se/systemlosningar/",
+    "email": "helena.lustig@ecit.se",
+    "phone": "+46706417160",
+    "contact_person": "Helena Lustig",
+    "applications": [
+      "Business Central",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Konsulttjänster",
+          "Retail & E-handel"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [
+          "Konsulttjänster",
+          "Life Science / Medtech",
+          "Retail & E-handel"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [
+          "Tillverkningsindustri",
+          "Retail & E-handel",
+          "Konsulttjänster"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-03-03T09:35:15.461387+00:00",
+    "industry_apps": [],
+    "slug": "ecit-sverige-ab",
+    "office_cities": [
+      "Stockholm"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "51cdb23a-6f53-41a1-a23a-dd2b29b0a7b5",
+    "name": "Enqore AB",
+    "description": "Från reaktiv till prediktiv\nMånga organisationer har i dag tillgång till stora mängder data, men får sina viktigaste insikter först när det redan är för sent. Systemen är ofta silobaserade, processerna fragmenterade och besluten personberoende – vilket gör affären reaktiv. Enqore hjälper företag att ta steget vidare och bli mer förutseende.\n\nGenom att koppla ihop Microsofts affärsplattformar med analys och AI skapar vi lösningar som gör det möjligt att förutse, prioritera och agera i rätt tid med realtidsdata och tydliga insikter som stöd.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/enqore-ab.png",
+    "website": "https://enqore.se",
+    "email": "christian.safstrom@enqore.se",
+    "phone": "+46 70 570 50 37",
+    "contact_person": "Christian Säfström",
+    "applications": [
+      "Business Central",
+      "Finance",
+      "Supply Chain Management",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center",
+      "Project Operations"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Offentlig sektor",
+          "Tillverkningsindustri",
+          "Livsmedel & Processindustri"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      },
+      "fsc": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [
+          "Tillverkningsindustri",
+          "Offentlig sektor",
+          "Finans & Försäkring"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [
+          "Tillverkningsindustri",
+          "Offentlig sektor",
+          "Transport & Logistik"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [
+          "Tillverkningsindustri",
+          "Bygg & Entreprenad",
+          "Transport & Logistik"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-03-03T09:35:15.461387+00:00",
+    "industry_apps": [],
+    "slug": "enqore-ab",
+    "office_cities": [
+      "Göteborg",
+      "Malmö",
+      "Stockholm",
+      "Karlstad",
+      "Uppsala",
+      "Linköping"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "6b3ff1c8-7fd6-434c-b89b-3d34b0837fee",
+    "name": "Evidi",
+    "description": null,
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/evidi.png",
+    "website": "https://www.evidi.com/se",
+    "email": "johann.runemark@evidi.com",
+    "phone": "+46735190622",
+    "contact_person": "Johann Runemark",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Retail & E-handel",
+          "Grossist & Distribution",
+          "Tillverkningsindustri"
+        ],
+        "contactName": "Johann Runemark",
+        "contactEmail": "johann.runemark@evidi.com",
+        "contactPhone": "0735190622",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-standard",
+          "ai-partner"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.evidi.com/se/aktuellt/bubbleroom-investerar-i-ett-nytt-affarssystem-for-att-effektivisera-sina-affarsprocesser-och-underlatta-tillvaxt",
+          "https://www.evidi.com/se/aktuellt/urbanista-valjer-business-central-cloud-for-att-effektivisera-sin-verksamhet",
+          "https://www.evidi.com/se/aktuellt/busnel-investerar-i-modernt-affarssystem-for-att-driva-global-expansion-och-forbattra-effektiviteten"
+        ],
+        "productDescription": "Specialister inom retail, fashion och textil/konfektion.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-04-09T06:59:55.293603+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.navipro-1014774%7CAID.navipro-anywareretail%7CPAPPID.8d5849cc-8eb0-4cc6-8822-f4837ec99fea?tab=Overview",
+        "name": "Anyware Retail",
+        "industry": "Retail & E-handel",
+        "application": "Business Central",
+        "description": "Increase efficiency by improving your product management and purchasing process of seasonal poducts."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.navipro-1014774%7CAID.evidi-managed-business-central-monitoring%7CPAPPID.1f329db2-a24d-433f-a4f1-5502ee995384?tab=Overview",
+        "name": "Managed Business Central",
+        "industry": "",
+        "application": "Business Central",
+        "description": "Managed BC Monitoring is an extension for Business Central that exposes lightweight monitoring"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/TYPE.connect%7CPUBID.navipro-1014774%7CAID.navipro-wmscore%7CPAPPID.17a668c4-f9a0-44e5-ad9b-c97d15674ccf?tab=Overview",
+        "name": "WMS Core",
+        "industry": "",
+        "application": "Business Central",
+        "description": ""
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.navipro-1014774%7CAID.evidi-intercompany-logistix%7CPAPPID.b8af9bc5-d041-4c23-82ce-ccca4917b213?tab=Overview",
+        "name": "Intercompany Logistix",
+        "industry": "",
+        "application": "Business Central",
+        "description": ""
+      }
+    ],
+    "slug": "navipro-ab",
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Borås"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "42f8b63b-a4c9-480d-81e5-a322652b3af4",
+    "name": "Fellowmind",
+    "description": "Fellowmind är en ledande europeisk Microsoft-partner som verkar i fem länder och stödjer över 2 500 kunder. Vi kombinerar djup branschkunskap med spets inom molnbaserad teknologi, Data & AI och hela Microsoft‑plattformen – alltid med människor och långsiktiga partnerskap i centrum.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/fellowmind.png",
+    "website": "https://fellowmind.se",
+    "email": "katarina.parsson@fellowmind.se",
+    "phone": null,
+    "contact_person": "Katarina Pärsson",
+    "applications": [
+      "Finance",
+      "Supply Chain Management"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [
+      "Sverige",
+      "Europa",
+      "Norden",
+      "Övriga världen"
+    ],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 1,
+        "geography": "Övriga världen",
+        "industries": [],
+        "companySize": [],
+        "customerExamples": [
+          "3"
+        ],
+        "productDescription": "",
+        "secondaryIndustries": [
+          "Retail & E-handel",
+          "Konsulttjänster"
+        ]
+      },
+      "fsc": {
+        "ranking": 1,
+        "geography": [
+          "Övriga världen",
+          "Europa",
+          "Norden",
+          "Sverige"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution"
+        ],
+        "companySize": [],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige"
+        ],
+        "customerExamples": [
+          "3"
+        ],
+        "customerCaseLinks": [],
+        "productDescription": "Fellowmind levererar D365 Finance & Supply Chain‑lösningar med stark branschfokusering inom tillverkning, automotive, återvinning, handel och logistik. Vi hjälper organisationer effektivisera ekonomi och supply chain med automatisering, realtidsinsikter och sömlös integration i Microsoft‑ekosystemet – för en skalbar, datadriven och framtidssäkrad verksamhet.",
+        "secondaryIndustries": [
+          "Grossist & Distribution",
+          "Retail & E-handel"
+        ]
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": "Övriga världen",
+        "industries": [],
+        "companySize": [],
+        "customerExamples": [],
+        "productDescription": "",
+        "secondaryIndustries": [
+          "Konsulttjänster",
+          "Fastighet & Förvaltning"
+        ]
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [
+          "Övriga världen",
+          "Europa",
+          "Norden"
+        ],
+        "industries": [],
+        "companySize": [],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution"
+        ]
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T20:38:52.813808+00:00",
+    "updated_at": "2026-03-30T15:08:17.820638+00:00",
+    "industry_apps": [],
+    "slug": "fellowmind",
+    "office_cities": [],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "731f9c05-c293-4842-ac40-19fb610eaeac",
+    "name": "Goodfellows",
+    "description": "Full kontroll och trygg leverans av affärssystem – utan överraskningar längs vägen.\nGoodfellows arbetar nära ditt team och tar tydligt ansvar för att affärssystemet fungerar i praktiken, inte bara på pappret. Med lång erfarenhet från branscher som handel, produktion och distribution bidrar vi med djup affärsförståelse och säkerställer rätt vägval, smidigt samarbete och en lösning som skapar verklig affärsnytta – till ett förutsägbart pris.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/goodfellows.png",
+    "website": "https://goodfellows.se",
+    "email": "sebastian.birgersson@goodfellows.se",
+    "phone": "+46 705091444",
+    "contact_person": "Sebastian Birgersson",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution",
+          "Retail & E-handel"
+        ],
+        "contactName": "Sebastian Birgersson",
+        "contactEmail": "sebastian.birgersson@goodfellows.se",
+        "contactPhone": "+46 705091444",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-standard",
+          "ai-partner"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "3–5",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan"
+        ],
+        "aiCaseDescription": "AI-exempel kan ges på förfrågan",
+        "customerCaseLinks": [
+          "https://goodfellows.se/cases/"
+        ],
+        "productDescription": "Lång erfarenhet från branscher som handel, produktion och distribution. Höga betyg från kunder avseende support och förvaltning",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-04-09T07:29:52.455781+00:00",
+    "industry_apps": [],
+    "slug": "goodfellows",
+    "office_cities": [
+      "Göteborg"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "4ad7f9e6-d978-4c11-b5e0-ae58865da94c",
+    "name": "Hay IT",
+    "description": "Varmt välkomna till Hay IT! Vi är företaget som hjälper er i er digitala resa genom att erbjuda helhetslösningar för bland annat  Microsoft Dynamics 365. Genom våra tjänster Projektledning, Webb- och grafiskdesign, Affärsutveckling, Teknisk support, Stöd till befintlig IT-avdelning, Drift och Onlinebackup kan vi ge er helheten och att ni går från noll koll till full koll!\n\nVi har kunder i Sverige, Danmark och Tyskland och är glada och stolta att få hjälpa dem i 16 år!\n\nHör gärna av er så berättar vi mer!",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/hay-it.jpg",
+    "website": "https://hayit.se",
+    "email": "janna.ygreus@hayit.se",
+    "phone": "+46 346 555 10",
+    "contact_person": "Janna Ygreus",
+    "applications": [
+      "Project Operations",
+      "Commerce"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-03-03T09:35:15.461387+00:00",
+    "industry_apps": [],
+    "slug": "hay-it",
+    "office_cities": [
+      "Halmstad"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "fde2bcab-b069-4c99-80b6-ec2aeaab5765",
+    "name": "Implema AB",
+    "description": "Implema hjälper företag att accelerera sin affär med mottot 'Snabbt, säkert och redo för framtiden'. Affärsnyttan börjar med rätt partner.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/implema.svg",
+    "website": "https://implema.se/microsoft-dynamics/",
+    "email": "thomas.olofsson@implema.se",
+    "phone": "+46767699936",
+    "contact_person": "Thomas Olofsson",
+    "applications": [
+      "Finance",
+      "Supply Chain Management",
+      "Project Operations",
+      "Commerce",
+      "Human Resources"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "fsc": {
+        "ranking": 2,
+        "geography": [
+          "Norden",
+          "Europa",
+          "Övriga världen",
+          "Sverige"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Tillverkningsindustri",
+          "Life Science / Medtech"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [
+          "Vi berättar gärna mer om våra implementationer",
+          "hör av er till oss"
+        ],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": [
+          "Tillverkningsindustri",
+          "Livsmedel & Processindustri"
+        ]
+      },
+      "sales": {
+        "ranking": 6,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa"
+        ],
+        "industries": [],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": ""
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-02-25T11:13:40.583013+00:00",
+    "industry_apps": [],
+    "slug": "implema",
+    "office_cities": [
+      "Västerås",
+      "Umeå",
+      "Sundsvall",
+      "Malmö",
+      "Linköping",
+      "Karlstad",
+      "Jönköping",
+      "Göteborg",
+      "Stockholm"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "47db240f-0e3c-4ef7-8532-ddd914a990de",
+    "name": "InBiz",
+    "description": "InBiz är din trygga partner för Microsoft Dynamics 365 Business Central sedan 2005.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/inbiz.png",
+    "website": "https://www.inbiz.se/microsoft-partner/",
+    "email": "carsten@inbiz.se",
+    "phone": "+46 70-744 28 10",
+    "contact_person": "Carsten Heiter",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [
+      "Tillverkningsindustri",
+      "Grossist & Distribution"
+    ],
+    "secondary_industries": [
+      "Livsmedel & Processindustri",
+      "Konsulttjänster"
+    ],
+    "geography": [
+      "Sverige"
+    ],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 2,
+        "geography": "Sverige",
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution"
+        ],
+        "companySize": [
+          "1-49",
+          "50-99",
+          "250-999"
+        ],
+        "customerExamples": [
+          "KundX"
+        ],
+        "secondaryIndustries": [
+          "Livsmedel & Processindustri",
+          "Konsulttjänster"
+        ]
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-12T07:46:03.204971+00:00",
+    "industry_apps": [],
+    "slug": "inbiz",
+    "office_cities": [
+      "Uppsala"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "fe117b80-6acd-49c0-bab0-6fda75f25894",
+    "name": "Knowit",
+    "description": "Våra experter hjälper organisationer att utveckla och modernisera sina affärssystem med ERP som nav för verksamhetens processer, data, AI och automatisering – byggt på Microsofts plattform. Genom att knyta samman ERP, data och intelligenta arbetssätt skapar vi förutsättningar för bättre beslut, effektivare processer och hållbar verksamhetsutveckling.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/knowit-logo.png",
+    "website": "https://www.knowit.se/vart-erbjudande/solutions/",
+    "email": "Johan.Svenungsson@knowit.se",
+    "phone": "0704105749",
+    "contact_person": "Johan Svenungsson",
+    "applications": [
+      "Finance",
+      "Supply Chain Management"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "fsc": {
+        "ranking": 1,
+        "geography": [
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "contactName": "",
+        "contactEmail": "",
+        "contactPhone": "",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "fsc-std-analysis",
+          "fsc-std-forecast",
+          "fsc-std-planning",
+          "fsc-std-risk"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": false,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "ClampON AS"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.knowit.se/kunder/erp-partner-som-sakrar-fortsatt-tillvaxt-och-global-expansion/"
+        ],
+        "productDescription": "Ett ERP-baserat affärssystem är avgörande för hur verksamheten styrs, följs upp och utvecklas. Med Microsoft Dynamics 365 Finance & Supply Chain Management hjälper vi organisationer att bygga affärssystem som ger kontroll, transparens och bättre beslutsstöd – samtidigt som det stödjer effektivitet och långsiktig utveckling.  Genom att kombinera verksamhetsförståelse med djup ERP-kompetens säkerställer vi att affärsmål och strategi omsätts i fungerande processer och systemstöd. AI och automatisering integreras där de gör nytta, med syfte att förenkla arbetssätt, minska manuellt arbete och stärka beslutsfattandet.  På Knowit stöttar vi genom hela affärssystemets livscykel – från analys och design till implementation, förvaltning och kontinuerlig vidareutveckling. Vi arbetar nära verksamheten även efter driftsättning och tar ansvar för att lösningen fortsätter att skapa affärsvärde över tid.",
+        "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-24T13:52:53.500031+00:00",
+    "industry_apps": [],
+    "slug": "knowit",
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Malmö"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "4097cfef-2af6-4aaf-8fbe-69c388c16d8d",
+    "name": "NAB Solutions",
+    "description": "Vi är stolta nördar som brinner för hjärtat i din verksamhet! Vi har nördat ner oss i Microsofts produkter sedan 2001. I över 20 år har vi digitaliserat företag så att de kan ta klivet närmre sina drömmar. Vi ser hur våra lösningar är hjärtat i kundens verksamhet och hur rätt affärslösning är en stor del i deras framgång. Våra lösningar gör att företag växer.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/nab-solutions.svg",
+    "website": "https://nabsolutions.com/",
+    "email": "Gustav.stigenius@nabsolutions.se",
+    "phone": "+46 723 57 25 70",
+    "contact_person": "Gustav Stigenius",
+    "applications": [
+      "Business Central",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center"
+    ],
+    "industries": [
+      "Grossist & Distribution",
+      "Tillverkningsindustri"
+    ],
+    "secondary_industries": [
+      "Life Science / Medtech",
+      "Konsulttjänster"
+    ],
+    "geography": [
+      "Sverige",
+      "Norden",
+      "Internationellt",
+      "Övriga världen",
+      "Europa"
+    ],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 1,
+        "geography": [
+          "Övriga världen",
+          "Sverige",
+          "Norden",
+          "Europa"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Finans & Försäkring",
+          "Uthyrningsverksamhet"
+        ],
+        "companySize": [
+          "1-49",
+          "50-99",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "Kom igång snabbt med Business Central Start – en fastprislösning för dig som vill ha grunderna i redovisning och fakturering. Bygg ut systemet när verksamheten växer. Har du mer avancerade behov, som flera lager eller stora transaktionsvolymer? Vi anpassar Business Central efter dina krav.",
+        "secondaryIndustries": [
+          "Life Science / Medtech",
+          "Konsulttjänster"
+        ]
+      },
+      "sales": {
+        "ranking": 1,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Konsulttjänster"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [],
+        "customerCaseLinks": [
+          "https://nabsolutions.com/se/kundcase/sales/indukta/",
+          "https://nabsolutions.com/se/kundcase/sales/serit-nidaros/"
+        ],
+        "productDescription": "Lär känna kunderna bättre med Dynamics 365 Sales . Med hjälp av kund-, marknadsförings- och försäljningsdata får ni input för att skräddarsy aktiviteter till rätt kund. Rätt insats till rätt kund kommer öka er försäljning på sikt.",
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 1,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Konsulttjänster"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost"
+        ],
+        "customerExamples": [],
+        "customerCaseLinks": [
+          "https://nabsolutions.com/se/kundcase/sales/serit-nidaros/"
+        ],
+        "productDescription": "Customer Service hjälper ditt företag att leverera utmärkt kundservice. Hantera era kundärenden effektivt, använd AI för att förstå kundernas behov och ge support via telefon, e-post, chatt och sociala medier. Med denna plattform blir er kundservice snabbare och bättre, vilket gör dina kunder nöjdare.",
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-30T15:08:35.156642+00:00",
+    "industry_apps": [],
+    "slug": "nab-solutions",
+    "office_cities": [
+      "Växjö",
+      "Stockholm",
+      "Göteborg",
+      "Malmö",
+      "Umeå"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "f443c773-4c2e-4048-8f8f-fa313427ba84",
+    "name": "Navcite",
+    "description": "Navcite implementerar Microsoft Dynamics 365 Business Central. Med lång erfarenhet av affärssystem hjälper vi företag inom projekt, tillverkning och distribution att effektivisera processer, integrera mot Microsofts ekosystem och skapa skalbara, molnbaserade lösningar från implementation till vidareutveckling och support",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/navcite.jpg",
+    "website": "https://www.navcite.com/",
+    "email": "jessica.johansson@navcite.se",
+    "phone": "+46 72 371 32 53",
+    "contact_person": "Jessica Johansson",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [
+      "Grossist & Distribution",
+      "Tillverkningsindustri"
+    ],
+    "secondary_industries": [],
+    "geography": [
+      "Sverige"
+    ],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 1,
+        "geography": [
+          "Norden",
+          "Sverige"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Tillverkningsindustri",
+          "Bygg & Entreprenad"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Norr",
+          "Mellansverige",
+          "Sydost",
+          "Väst",
+          "Syd / Sydväst"
+        ],
+        "customerExamples": [
+          "Arla",
+          "Dahl",
+          "Elekta"
+        ],
+        "customerCaseLinks": [],
+        "productDescription": "Navcite implementerar Microsoft Dynamics 365 Business Central. Med lång erfarenhet av affärssystem hjälper vi företag inom projekt, tillverkning och distribution att effektivisera processer, integrera mot Microsofts ekosystem och skapa skalbara, molnbaserade lösningar från implementation till vidareutveckling och support",
+        "secondaryIndustries": [
+          "Jordbruk & Skogsbruk",
+          "Life Science / Medtech"
+        ]
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-02-25T11:05:51.019884+00:00",
+    "industry_apps": [],
+    "slug": "navcite",
+    "office_cities": [
+      "Luleå",
+      "Stockholm",
+      "Göteborg",
+      "Karlskrona",
+      "Linköping",
+      "Västerås",
+      "Borlänge"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "69df2961-8bf5-4e8f-9917-bde4e1d8454d",
+    "name": "Navet AB",
+    "description": "Navet är ett affärskonsultbolag specialiserat på affärssystem och digital transformation, med fokus på att hjälpa företag att optimera sina affärsprocesser genom moderna lösningar. Navet kombinerar verksamhetsförståelse med teknisk expertis och fungerar som en långsiktig partner i kundernas utveckling.\n\nNavet är en komplett Microsoft Partner inom Dynamics 365, med bred kompetens inom hela Microsofts affärsplattform – inklusive Business Central, Dynamics CE, Power Platform. Genom detta erbjuds helhetslösningar från rådgivning och implementation till integration, support och vidareutveckling.\n\nSedan 2023 är Navet en del av Aderian Group, vilket innebär att bolaget ingår i en större nordisk koncern med ett brett erbjudande inom IT, molntjänster och digitalisering. Detta skapar ytterligare möjligheter till samarbete, kompetensutbyte och att leverera komplett IT till kunderna.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/navet-ab.png",
+    "website": "https://navet.se",
+    "email": "johannes.lunner@navet.se",
+    "phone": "0733014545",
+    "contact_person": "Johannes Lunner",
+    "applications": [
+      "Business Central",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Life Science / Medtech",
+          "Uthyrningsverksamhet"
+        ],
+        "contactName": "Johannes Lunner",
+        "contactEmail": "johannes.lunner@navet.se",
+        "contactPhone": "0733014545",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-partner"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "6+",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://navet.se/project/ramirent/"
+        ],
+        "productDescription": "Bred kompetens i grunden – med tydlig spets inom rental och life science",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [
+          "Tillverkningsindustri",
+          "Life Science / Medtech",
+          "Uthyrningsverksamhet"
+        ],
+        "contactName": "Johannes Lunner",
+        "contactEmail": "johannes.lunner@navet.se",
+        "contactPhone": "0733014545",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "sales-partner-agent"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "6+",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "Fokus på tydlig integration till Business Central inom D365",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [],
+        "industries": [
+          "Tillverkningsindustri",
+          "Life Science / Medtech",
+          "Uthyrningsverksamhet"
+        ],
+        "contactName": "Johannes Lunner",
+        "contactEmail": "johannes.lunner@navet.se",
+        "contactPhone": "0733014545",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "svc-partner-agent"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "6+",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "Fokus på tydlig integration till Business Central inom D365",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-27T22:40:23.207254+00:00",
+    "updated_at": "2026-03-17T15:36:42.990318+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-gb/product/PUBID.armadadynamicsas1615984193301%7CAID.eqm365rental%7CPAPPID.18bf9581-1542-4df1-993a-e528edbb3997?tab=Overview",
+        "name": "EQM 365 Rental",
+        "industry": "Uthyrningsverksamhet",
+        "application": "Business Central",
+        "description": "EQM 365 Rental är en lösning byggd som ett tillägg till Microsoft Dynamics 365 Business Central som samlar hela uthyrningsverksamheten i ett system – från avtal och tillgänglighet till logistik, service och fakturering."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-gb/product/PUBID.yaveon%7CAID.pb365lotmgt%7CPAPPID.6767990e-845c-4f4c-aff3-ad0dcb2faa9a?tab=Overview",
+        "name": "Yaveon 365 Lot Management",
+        "industry": "Life Science / Medtech",
+        "application": "Business Central",
+        "description": "Yaveon 365 Lot Management är ett tillägg till Microsoft Dynamics 365 Business Central som samlar hela batch- och lot-hanteringen i ett och samma system. Det ger företag full kontroll över batchdata, inklusive spårbarhet, status, regler och lagerflöden – från produktion till leverans"
+      }
+    ],
+    "slug": "navet-ab",
+    "office_cities": [
+      "Helsingborg",
+      "Malmö",
+      "Göteborg och Stockholm"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "5ceef00e-a9a4-4e7e-941e-46618d777542",
+    "name": "Nemely AB",
+    "description": "Nemely är en ledande CRM-partner med djup expertis inom CRM-implementationer – från strategi och design till införande och vidareutveckling. Vårt fokus är att säkerställa lyckade implementationer som skapar verkligt affärsvärde, ökar användarproduktiviteten och ger organisationer en stabil plattform för att utveckla sina kundrelationer. Genom att arbeta med marknadens ledande plattformar och beprövade metoder levererar vi lösningar som fungerar i praktiken och ger effekt över tid.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/nemely-ab.png",
+    "website": "https://nemely.se/dynamics-365/",
+    "email": "massoud.anari@nemely.com",
+    "phone": "+46731451103",
+    "contact_person": "Massoud Anari",
+    "applications": [
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center",
+      "Project Operations"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "sales": {
+        "ranking": 3,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Logistik & Transport",
+          "Tillverkningsindustri",
+          "Uthyrningsverksamhet"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "sales-std-copilot",
+          "sales-std-scoring",
+          "sales-std-forecast",
+          "sales-std-segmentation",
+          "sales-partner-agent",
+          "sales-partner-automation",
+          "sales-adv-predictive",
+          "sales-adv-analytics"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "3–5",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "Förbättrat beslutsunderlag och proaktiva beslutsprocesser. ",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
+        "aiSegmentationDetails": [
+          "external-data",
+          "azure-ai",
+          "ci-platform"
+        ]
+      },
+      "service": {
+        "ranking": 3,
+        "geography": [
+          "Sverige"
+        ],
+        "industries": [
+          "Logistik & Transport",
+          "Telekom & IT-tjänster",
+          "Tillverkningsindustri"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "svc-std-copilot",
+          "svc-std-routing",
+          "svc-std-fieldservice",
+          "svc-partner-agent",
+          "svc-partner-fieldservice",
+          "svc-partner-automation"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "3–5",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Kundexempel kan ges på förfrågan"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-10T11:50:26.297179+00:00",
+    "industry_apps": [],
+    "slug": "nemely",
+    "office_cities": [
+      "Stockholm"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "674e19f3-b48c-4bf1-86ea-81c2170b178b",
+    "name": "Nexer",
+    "description": "Nexer är ett globalt techbolag med rötter i svensk entreprenörsanda och innovationskraft. Vi är stolta över att leda den digitala revolutionen och vara i teknikens framkant, alltid med ett agilt och framåtlutat förhållningssätt.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/nexer.png",
+    "website": "https://nexergroup.com/sv/tjanster/dynamics-365/",
+    "email": null,
+    "phone": null,
+    "contact_person": null,
+    "applications": [
+      "Finance",
+      "Supply Chain Management",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center"
+    ],
+    "industries": [
+      "Tillverkningsindustri",
+      "Grossist & Distribution"
+    ],
+    "secondary_industries": [],
+    "geography": [
+      "Norden",
+      "Europa",
+      "Övriga världen",
+      "Sverige"
+    ],
+    "customer_examples": [],
+    "product_filters": {
+      "fsc": {
+        "ranking": 2,
+        "geography": [
+          "Norden",
+          "Europa",
+          "Övriga världen",
+          "Sverige"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution",
+          "Livsmedel & Processindustri"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": []
+      },
+      "sales": {
+        "ranking": 3,
+        "geography": [
+          "Norden",
+          "Europa",
+          "Övriga världen",
+          "Sverige"
+        ],
+        "industries": [
+          "Konsulttjänster",
+          "Grossist & Distribution",
+          "Tillverkningsindustri"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 3,
+        "geography": [
+          "Norden",
+          "Sverige",
+          "Europa",
+          "Övriga världen"
+        ],
+        "industries": [
+          "Grossist & Distribution",
+          "Tillverkningsindustri",
+          "Energi & Utilities"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [
+          "Storstockholm / Mälardalen",
+          "Syd / Sydväst",
+          "Väst",
+          "Sydost",
+          "Mellansverige",
+          "Norr"
+        ],
+        "customerExamples": [],
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-03T09:35:15.461387+00:00",
+    "industry_apps": [],
+    "slug": "nexer",
+    "office_cities": [
+      "Alingsås",
+      "Borås",
+      "Eskilstuna",
+      "Göteborg",
+      "Helsingborg",
+      "Jönköping",
+      "Karlskrona",
+      "Karlstad",
+      "Lidköping",
+      "Linköping",
+      "Lund",
+      "Malmö",
+      "Skövde",
+      "Stockholm",
+      "Umeå",
+      "Västerås",
+      "Växjö"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "e6f73d8c-7c35-4dd5-8170-63cfb0fdd5c9",
+    "name": "Releye",
+    "description": "Releye är en Microsoft-partner med fokus på Dynamics 365 och Power Platform.",
+    "logo_url": "https://releye.se/wp-content/uploads/2022/01/releye-logo.svg",
+    "website": "https://releye.se/dynamics-365/",
+    "email": "andreas.johansson@releye.se",
+    "phone": null,
+    "contact_person": "Andreas Johansson",
+    "applications": [
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center"
+    ],
+    "industries": [
+      "Tillverkningsindustri",
+      "Konsulttjänster"
+    ],
+    "secondary_industries": [],
+    "geography": [
+      "Sverige"
+    ],
+    "customer_examples": [],
+    "product_filters": {
+      "sales": {
+        "ranking": 5,
+        "geography": "Sverige",
+        "industries": [
+          "Tillverkningsindustri",
+          "Konsulttjänster"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 5,
+        "geography": "Sverige",
+        "industries": [
+          "Tillverkningsindustri",
+          "Konsulttjänster"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "250-999"
+        ],
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-20T11:04:29.022742+00:00",
+    "industry_apps": [],
+    "slug": "releye",
+    "office_cities": [],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "14adea7a-3dcb-403e-8d8e-0d8481e0fec4",
+    "name": "Sirocco Group",
+    "description": "Sirocco Group är en internationell boutique-konsult och utvecklingsbyrå specialiserad på CRM och digital transformation.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/sirocco-group.jpg",
+    "website": "https://www.siroccogroup.com/microsoft-dynamics-365/",
+    "email": "laith.al-hashimi@siroccogroup.com",
+    "phone": "0709995950",
+    "contact_person": "Laith Al-Hashimi",
+    "applications": [
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center",
+      "Project Operations"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "sales": {
+        "ranking": 1,
+        "geography": "Norden",
+        "industries": [
+          "Livsmedel & Processindustri",
+          "Tillverkningsindustri"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "secondaryIndustries": []
+      },
+      "service": {
+        "ranking": 1,
+        "geography": "Norden",
+        "industries": [
+          "Livsmedel & Processindustri",
+          "Tillverkningsindustri"
+        ],
+        "companySize": [
+          "100-249",
+          "250-999",
+          "1.000-4.999"
+        ],
+        "secondaryIndustries": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": true,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-03T09:35:15.461387+00:00",
+    "industry_apps": [],
+    "slug": "sirocco-group",
+    "office_cities": [
+      "Stockholm"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "99ad3847-612b-4403-bd47-b745d8d09082",
+    "name": "Sopra Steria",
+    "description": "Vår styrka ligger i vår förmåga att se hela kundens verksamhet ur ett process- och effektperspektiv. Vi arbetar metodiskt för att säkerställa att varje implementation ger maximal affärsnytta, oavsett bransch eller komplexitet.\n\nSopra Steria är en etablerad och erfaren expertpartner inom hela Dynamics 365-plattformen. Vi levererar både Business Central och Finance & Supply Chain, i kombination med ett av Sveriges största CRM‑team – något som möjliggör smarta, innovativa och kundanpassade lösningar. Tack vare Sopra Sterias globala närvaro, med över 60 000 medarbetare, finns dessutom tillgång till ett brett spektrum av kompetenser – från förändringsledare till avancerade analysteam.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/sopra-steria.png",
+    "website": "https://www.soprasteria.se/erbjudande/business-platforms/",
+    "email": "christer.soderholm@soprasteria.com",
+    "phone": "+46708966073",
+    "contact_person": "Christer Söderholm",
+    "applications": [
+      "Business Central",
+      "Finance",
+      "Supply Chain Management"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Telekom & IT-tjänster",
+          "Konsulttjänster",
+          "Offentlig sektor"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-standard"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "0–2",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Telenor Connexion",
+          "DLA Piper",
+          "Inera",
+          "Net4Mobility"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "fsc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa"
+        ],
+        "industries": [
+          "Retail & E-handel",
+          "Energi & Utilities",
+          "Finans & Försäkring"
+        ],
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "IKEA",
+          "MER",
+          "Sparebank1"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-01-12T08:56:40.330682+00:00",
+    "updated_at": "2026-03-05T16:19:44.33923+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/sv-se/product/dynamics-365-business-central/pubid.signup-software-ab%7Caid.31407efc-8e13-4752-b577-5e992428aa29%7Cpappid.a53707ce-b9e1-4f4e-93be-ea3aae783cae?tab=overview",
+        "name": "Exflow",
+        "industry": "",
+        "application": "Business Central",
+        "description": "Autmatiserar fakturamotagning och matchning"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/sv-se/product/PUBID.progressussoftware%7CAID.progressuseu%7CPAPPID.131f85d1-48f2-481c-8d5a-849b16e388e6",
+        "name": "Progressus Advanced projects",
+        "industry": "Konsulttjänster",
+        "application": "Business Central",
+        "description": "Avancerat projekthantering"
+      }
+    ],
+    "slug": "sopra-steria",
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Malmö",
+      "Östersund"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "cfe135f8-b2bf-4740-9f26-389bca040715",
+    "name": "Vivicta",
+    "description": "Vårt Dynamics 365‑erbjudande\nVi erbjuder ett helhetsåtagande inom Microsoft Dynamics 365 – från rådgivning och lösningsdesign till implementering, vidareutveckling och förvaltning. Med djup verksamhetsförståelse och stark branschkompetens levererar vi standardnära, skalbara och framtidssäkra ERP‑ och CRM‑lösningar baserade på D365 Finance, Supply Chain Management, Customer Engagement och Business Central.\nVårt erbjudande riktar sig särskilt till industri och tillverkning, process‑ och skogsindustri, recycling och avfall, energi och utilities, offentlig sektor samt handel och service. Lösningarna kompletteras med Power Platform, Azure‑integrationer och licensrådgivning för att säkerställa snabb time‑to‑value, hög affärsnytta och kontinuerlig utveckling över hela systemets livscyke",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/vivicta.jpg",
+    "website": "https://www.vivicta.com/en/services/enterprise-applications/microsoft-dynamics-365/",
+    "email": "peter.b.andersson@vivicta.com",
+    "phone": "0731440076",
+    "contact_person": "Peter Andersson",
+    "applications": [
+      "Business Central",
+      "Finance",
+      "Supply Chain Management",
+      "Sales",
+      "Customer Insights (Marketing)",
+      "Customer Service",
+      "Field Service",
+      "Contact Center",
+      "Project Operations",
+      "Human Resources"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Logistik & Transport",
+          "Telekom & IT-tjänster",
+          "Tillverkningsindustri"
+        ],
+        "contactName": "Anton Perssson",
+        "contactEmail": "anton.a.persson@vivicta.com",
+        "contactPhone": "0706082121",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-standard",
+          "ai-partner"
+        ],
+        "aiOtherPartner": "Automatisk data hämtning, hantering av optimisering av lager, Digital passport, Automatisk hantering av avvikelse med lagerhantering och inköp/Sälj",
+        "aiProjectCount": "3–5",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Åtta45",
+          "Pointsharp",
+          "Kundexempelkangespåföfrågan"
+        ],
+        "aiCaseDescription": "Automatisk data hämtning, hantering av optimisering av lager, Digital passport, Automatisk hantering av avvikelse med lagerhantering och inköp/Sälj",
+        "customerCaseLinks": [
+          "https://www.vivicta.com/se/kundcase/2024/atta45-tar-nasta-steg-med-tietoevry-och-dynamics-365-business-central/"
+        ],
+        "productDescription": "Vi erbjuder ett paketerat och standardnära Business Central‑erbjudande anpassat för verksamheter inom print/grafisk design, tillverkning, transport samt IT‑konsultverksamhet. För print och grafisk design arbetar vi med PrintVis som bransch‑ISV, vilket ger ett komplett stöd för kalkylering, produktion, order‑ och uppföljningsprocesser direkt i Business Central. Inom transportindustrin erbjuder vi vår egen ISV‑lösning Transport Ekonomi, utvecklad för branschens specifika krav på ekonomi, uppföljning och integrationer.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "fsc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Jordbruk & Skogsbruk",
+          "Logistik & Transport"
+        ],
+        "contactName": "Peter Andersson",
+        "contactEmail": "peter.b.andersson@vivicta.com",
+        "contactPhone": "0731440076",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "fsc-std-analysis",
+          "fsc-std-forecast",
+          "fsc-std-planning",
+          "fsc-std-risk",
+          "fsc-partner-finance",
+          "fsc-partner-scm",
+          "fsc-partner-automation",
+          "fsc-adv-predictive",
+          "fsc-adv-optimization"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "3–5",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "Minskad tid lagt internt med cirka 30 000 timmar per år.  Minskat tid lagt på orderhantering med cirka 160 timmar per månad",
+        "customerExamples": [
+          "KomatsForest",
+          "Södraskogsägarna",
+          "Caljan",
+          "FläktGroup",
+          "Lyse",
+          "StoraEnso",
+          "Lindab",
+          "PMC"
+        ],
+        "aiCaseDescription": "Automatisk data hämtning, hantering av optimisering av lager, Digital passport, Automatisk hantering av avvikelse med lagerhantering och inköp/Sälj",
+        "customerCaseLinks": [
+          "https://www.vivicta.com/en/newsroom/all-news-and-releases/press-releases/2024/caljan-and-tietoevry-tech-services-partner-to-drive-digital-transformation-with-microsoft-dynamics-36/",
+          "er-stories/2023/powering-sustainable-business-expansion-optimizing-wibaxs-supply-chains-and-resilient-operations/",
+          "https://www.vivicta.com/se/nyhetsrum/alla-nyheter-och-pressmeddelanden/ovriga-nyheter/2023/sodra-valjer-tietoevry-som-strategisk-partner-for-affarssystemet-microsoft-dynamics-365/"
+        ],
+        "productDescription": "Experter inom globala utrullning med avancerade försörjningskedjor med kunder med bas inom norra europa med kostnads effektiva leveranser.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "sales": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Logistik & Transport",
+          "Offentlig sektor"
+        ],
+        "contactName": "Peter Andersson",
+        "contactEmail": "peter.b.andersson@vivicta.com",
+        "contactPhone": "0731440076",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "sales-std-copilot",
+          "sales-std-forecast",
+          "sales-partner-agent"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "0–2",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Wibax",
+          "KomatsuForest",
+          "Stockholmstad",
+          "Caljan",
+          "Luvata",
+          "StoraEnso"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.vivicta.com/en/customer-stories/2023/powering-sustainable-business-expansion-optimizing-wibaxs-supply-chains-and-resilient-operations/https://www.vivicta.com/en/newsroom/all-news-and-releases/other-news/2024/komatsu-forest-chooses-tietoevry-tech-services-as-strategic-partner-for-dynamics-365/https://www.vivicta.com/en/newsroom/all-news-and-releases/press-releases/2024/caljan-and-tietoevry-tech-services-partner-to-drive-digital-transformation-with-microsoft-dynamics-36/"
+        ],
+        "productDescription": "Experter inom globala utrullning med avancerade försörjningskedjor och inom offentlig sektor.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "service": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Jordbruk & Skogsbruk",
+          "Logistik & Transport"
+        ],
+        "contactName": "Peter Andersson",
+        "contactEmail": "peter.b.andersson@vivicta.com",
+        "contactPhone": "0731440076",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "svc-std-copilot",
+          "svc-std-routing",
+          "svc-partner-fieldservice"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "0–2",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Caljan",
+          "KomatsuForest",
+          "PiabGroup",
+          "Vivicta(Contactcenter)",
+          "L&T",
+          "Lyse"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.vivicta.com/en/newsroom/all-news-and-releases/press-releases/2026/vivicta-and-microsoft-elevate-customer-service-quality-and-efficiency-with-ai/https://www.vivicta.com/en/newsroom/all-news-and-releases/other-news/2024/komatsu-forest-chooses-tietoevry-tech-services-as-strategic-partner-for-dynamics-365/",
+          "https://www.vivicta.com/se/nyhetsrum/alla-nyheter-och-pressmeddelanden/ovriga-nyheter/2024/tietoevry-tech-services-utsedd-till-strategisk-partner-inom-microsoft-dynamics-365-finance-och-supply-chain-management-for-piab-group/"
+        ],
+        "productDescription": "Experter inom globala utrullning med avancerade försörjningskedjor med installerade \"baser\" eller fordon med tung fokus på eftermarknad",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-03-19T08:57:20.19097+00:00",
+    "updated_at": "2026-03-19T10:20:22.751324+00:00",
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.evryswedenab1667310970025%7CAID.transport-admin%7CPAPPID.bfb79ee4-4660-43a2-afd2-7c3128125887?tab=Overview",
+        "name": "Transport administration ",
+        "industry": "Logistik & Transport",
+        "application": "Business Central",
+        "description": "Transport Administration offers key features to streamline settlement and deduction processes for transportation and logistics companies.  With robust API integration multiple TMS can synchronize order information, ensuring data accuracy and reducing manual data entries."
+      },
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/PUBID.evryswedenab1667310970025%7CAID.contract-invoicing%7CPAPPID.20a68d59-47c5-4bef-a25f-07272c15c75e?tab=Overview",
+        "name": "Contract Invoicing",
+        "industry": "Grossist & Distribution",
+        "application": "Business Central",
+        "description": "https://marketplace.microsoft.com/en-us/product/PUBID.evryswedenab1667310970025%7CAID.contract-invoicing%7CPAPPID.20a68d59-47c5-4bef-a25f-07272c15c75e?tab=Overview"
+      }
+    ],
+    "slug": "vivicta",
+    "office_cities": [
+      "Stockholm",
+      "Göteborg",
+      "Malmö",
+      "Skellefteå",
+      "Jönköping"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  },
+  {
+    "id": "d863d43e-f5a7-461a-a289-ba285b905d9e",
+    "name": "Yellow Solution AB",
+    "description": "Vi på Yellow är ett konsultföretag som tillsammans med framgångsrika kunder skapar konkurrenskraft och driver tillväxt med Microsofts Affärssystem Dynamics 365 Business Central. Med vår långa erfarenhet och personliga engagemang stöttar vi er att skapa största möjliga effekter av era investeringar i affärssystemet.",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/yellow-solution-ab.png",
+    "website": "https://yellowsolution.se/",
+    "email": "Jonas.grunditz@yellowsolution.se",
+    "phone": "0730870088",
+    "contact_person": "Jonas Grunditz",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "customer_examples": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Grossist & Distribution",
+          "Bygg & Entreprenad"
+        ],
+        "contactName": "Jonas Grunditz",
+        "contactEmail": "jonas.grunditz@yellowsolution.se",
+        "contactPhone": "073-0870088",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "aiOtherAdvanced": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://yellowsolution.se/referenser/sekelskifte/",
+          "https://yellowsolution.se/referenser/bondtech/"
+        ],
+        "productDescription": "På Yellow har vi ett komplett Business Central erbjudande, från förstudie och implementation till fortsatt utveckling. Med våra modeller och tydligt definierade leveranser redan från start säkerställer vi effektiva projekt med hög kvalitet. Som kund får du en trygg och engagerad partner som hjälper dig att maximera värdet av din investering i Business Central, både idag och över tid.",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "is_featured": true,
+    "logo_dark_bg": false,
+    "created_at": "2026-03-25T10:51:24.706444+00:00",
+    "updated_at": "2026-04-09T16:13:08.516758+00:00",
+    "industry_apps": [],
+    "slug": "yellow-solution",
+    "office_cities": [
+      "Jönköping"
+    ],
+    "map_url": null,
+    "invoice_email": null,
+    "invoice_contact": null
+  }
+]
