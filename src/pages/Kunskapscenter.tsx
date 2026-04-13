@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import kravspecErpImage from "@/assets/kravspec-erp-card.jpg";
+import ebookCoverImage from "@/assets/ebook-partnervalet-cover.png";
 import eventCardBg from "@/assets/articles/event-card-bg.svg";
 import kravspecSalesImage from "@/assets/kravspec-sales-card.jpg";
 import kravspecMarketingImage from "@/assets/kravspec-marketing-card.jpg";
@@ -182,6 +183,16 @@ const STATIC_TOOLS: Array<{
     type: "guide",
     url: "/valj-partner/#guide",
     image_url: guideValjPartnerImage,
+    icon: BookOpen,
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
+  },
+  {
+    id: "tool-ebook-partnervalet",
+    title: "E-bok: Det viktiga partnervalet",
+    description: "20 sidor med statistik, insikter och en praktisk modell för att välja rätt Microsoftpartner.",
+    type: "guide",
+    url: "/ebooks/det-viktiga-partnervalet.pdf",
+    image_url: ebookCoverImage,
     icon: BookOpen,
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
   },
