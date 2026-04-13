@@ -259,6 +259,11 @@ const Index = () => {
         </div>
       </section>
 
+      {/* E-bok banner */}
+      <Suspense fallback={null}>
+        <EbookBanner sourcePage="homepage" />
+      </Suspense>
+
       {/* Analysis CTA Banner */}
       <section className="px-4 sm:px-6 pb-10 bg-secondary/30">
         <div className="container mx-auto max-w-5xl">
@@ -434,10 +439,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* E-bok banner */}
-      <Suspense fallback={null}>
-        <EbookBanner sourcePage="homepage" />
-      </Suspense>
+
+
 
       {/* Footer CTA band */}
       <section className="bg-primary py-10 sm:py-12">
