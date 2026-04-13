@@ -402,7 +402,7 @@ const Kunskapscenter = () => {
       partnerLogoUrl: null as string | null,
       date: null as string | null,
       partner: null as string | null,
-      isExternal: false,
+      isExternal: t.url.startsWith("http") || t.url.endsWith(".pdf"),
       icon: t.icon,
       products: t.products as string[],
     })),
