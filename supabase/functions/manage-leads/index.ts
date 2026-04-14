@@ -406,7 +406,7 @@ case "click-stats": {
       }
 
       case "visitor-stats": {
-        const { startDate } = data;
+        const { startDate, excludePartnerTraffic } = data;
 
         // Get admin IP from JWT for filtering
         const vsAdminIp = verification.payload?.ip as string || "";
@@ -424,14 +424,34 @@ case "click-stats": {
           }
         }
 
-        // Fetch published partners for slug-to-name mapping
+        // Fetch published partners for slug-to-name mapping AND domain extraction
         const { data: pubPartners } = await supabase
           .from("partners")
-          .select("name, slug")
+          .select("name, slug, website, email")
           .eq("is_featured", true);
         const slugToName: Record<string, string> = {};
+        const partnerDomains = new Set<string>();
+        const partnerNameKeywords: string[] = [];
         for (const p of pubPartners || []) {
           slugToName[p.slug] = p.name;
+          // Extract domain from website for org matching
+          if (p.website) {
+            try {
+              const domain = new URL(p.website).hostname.replace(/^www\./, "").toLowerCase();
+              partnerDomains.add(domain);
+              // Also add the main part (e.g., "nemely" from "nemely.se")
+              const mainPart = domain.split(".")[0];
+              if (mainPart && mainPart.length > 2) partnerNameKeywords.push(mainPart.toLowerCase());
+            } catch { /* ignore invalid URLs */ }
+          }
+          if (p.email) {
+            const emailDomain = p.email.split("@")[1]?.toLowerCase();
+            if (emailDomain) partnerDomains.add(emailDomain);
+          }
+          // Add partner name as keyword for org matching
+          if (p.name) {
+            partnerNameKeywords.push(p.name.toLowerCase());
+          }
         }
         
         // Fetch all visitor analytics from the specified date (paginated to avoid 1000-row limit)
@@ -453,6 +473,20 @@ case "click-stats": {
         }
         const visitors = allVisitors;
 
+        // Helper to check if visitor is from a partner organization
+        const isPartnerOrg = (geoOrg: string | null): boolean => {
+          if (!geoOrg || !excludePartnerTraffic) return false;
+          const orgLower = geoOrg.toLowerCase();
+          // Check if org contains any partner domain or name keyword
+          for (const keyword of partnerNameKeywords) {
+            if (orgLower.includes(keyword)) return true;
+          }
+          for (const domain of partnerDomains) {
+            if (orgLower.includes(domain.split(".")[0])) return true;
+          }
+          return false;
+        };
+
         // Helper to check if an IP should be excluded
         const isExcludedIp = (ipAnon: string | null): boolean => {
           if (!ipAnon || ipAnon === "unknown") return false;
@@ -469,15 +503,14 @@ case "click-stats": {
           "SI", "ES", "GB", "CH", "UA", "BY", "RS", "BA", "ME", "MK", "AL"
         ];
 
-        // Filter out preview/development traffic (lovableproject.com visits)
+        // Filter out preview/development traffic AND optionally partner traffic
         const filteredVisitors = (visitors || []).filter(v => {
-          // The referrer field may contain lovableproject.com URLs from dev previews
-          // But more importantly, we check the page_path doesn't come from preview
-          // Preview traffic is identified by referrers from lovableproject.com or lovable.dev
           if (v.referrer) {
             const ref = v.referrer.toLowerCase();
             if (ref.includes("lovableproject.com") || ref.includes("lovable.dev") || ref.includes("lovable.app")) return false;
           }
+          // Filter partner employee traffic by org
+          if (excludePartnerTraffic && isPartnerOrg(v.geo_org)) return false;
           return true;
         });
 
