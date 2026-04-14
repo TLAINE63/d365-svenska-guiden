@@ -49,11 +49,12 @@ interface GeoData {
   countryCode: string;
   region: string;
   city: string;
+  org: string | null;
 }
 
 async function getGeoData(ip: string): Promise<GeoData | null> {
   try {
-    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,countryCode,regionName,city`);
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,countryCode,regionName,city,org`);
     const data = await response.json();
     
     if (data.status === "success") {
@@ -62,6 +63,7 @@ async function getGeoData(ip: string): Promise<GeoData | null> {
         countryCode: data.countryCode || "XX",
         region: data.regionName || "Unknown",
         city: data.city || "Unknown",
+        org: data.org || null,
       };
     }
     return null;
