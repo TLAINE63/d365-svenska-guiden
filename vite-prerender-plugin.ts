@@ -35,6 +35,14 @@ export default function prerenderPlugin(): Plugin {
       isSsr = !!config.build.ssr;
     },
 
+    // Make CSS non-render-blocking in the generated index.html
+    transformIndexHtml(html) {
+      return html.replace(
+        /<link\s+rel="stylesheet"\s+crossorigin\s+href="([^"]+\.css)"\s*\/?>/g,
+        '<link rel="preload" href="$1" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" />\n    <noscript><link rel="stylesheet" href="$1" /></noscript>'
+      );
+    },
+
     async closeBundle() {
       // Guard: skip if this IS the SSR build or if env flag is set (prevents loops)
       if (isSsr || process.env.__VITE_PRERENDER === '1') return;
