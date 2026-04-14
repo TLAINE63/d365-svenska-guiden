@@ -65,6 +65,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
   const [dateRange, setDateRange] = useState("7");
   const [showAllCities, setShowAllCities] = useState(false);
   const [excludeSelf, setExcludeSelf] = useState(isExcludedFromTracking());
+  const [excludePartners, setExcludePartners] = useState(false);
 
   const handleExcludeToggle = (checked: boolean) => {
     setExcludeFromTracking(checked);
@@ -93,7 +94,8 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
           body: JSON.stringify({ 
             action: "visitor-stats",
             token: token,
-            startDate: startDate.toISOString() 
+            startDate: startDate.toISOString(),
+            excludePartnerTraffic: excludePartners,
           }),
         }
       );
@@ -122,7 +124,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
 
   useEffect(() => {
     fetchStats();
-  }, [dateRange, token]);
+  }, [dateRange, token, excludePartners]);
 
   if (isLoading) {
     return (
