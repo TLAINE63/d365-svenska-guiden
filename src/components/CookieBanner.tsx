@@ -13,7 +13,7 @@ const CookieBanner = () => {
     const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (consent === null) {
       // Small delay to avoid layout shift on initial load
-      const timer = setTimeout(() => setIsVisible(true), 3500);
+      const timer = setTimeout(() => setIsVisible(true), 4000);
       return () => clearTimeout(timer);
     }
 
@@ -40,9 +40,9 @@ const CookieBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 animate-in slide-in-from-bottom-5 duration-300">
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 animate-in slide-in-from-bottom-5 duration-300" data-nosnippet aria-live="polite" role="dialog" aria-label="Cookie-samtycke">
       <div className="container mx-auto max-w-4xl">
-        <div className="bg-card border border-border rounded-lg shadow-lg p-4 sm:p-6">
+        <div className="bg-card border border-border rounded-lg shadow-lg p-4 sm:p-6" style={{ contentVisibility: 'auto', containIntrinsicSize: '0 140px' }}>
           <div className="flex flex-col sm:flex-row gap-4 sm:items-start">
             <div className="flex-1">
               <h3 className="font-semibold text-foreground mb-2">
