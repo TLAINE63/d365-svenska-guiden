@@ -13,7 +13,7 @@ const CookieBanner = () => {
     const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
     if (consent === null) {
       // Small delay to avoid layout shift on initial load
-      const timer = setTimeout(() => setIsVisible(true), 1000);
+      const timer = setTimeout(() => setIsVisible(true), 3500);
       return () => clearTimeout(timer);
     }
 
