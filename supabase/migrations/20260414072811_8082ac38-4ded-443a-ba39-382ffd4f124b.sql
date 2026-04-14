@@ -1,0 +1,1 @@
+ALTER TABLE public.visitor_analytics ADD COLUMN geo_org text DEFAULT NULL;
