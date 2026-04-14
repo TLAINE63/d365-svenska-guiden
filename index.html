@@ -8,14 +8,30 @@
     <title>Dynamics 365 Sverige – ERP & CRM guide | d365.se</title>
     <meta name="description" content="Oberoende guide till Dynamics 365 i Sverige. Jämför ERP & CRM, hitta Microsoft-certifierade partners per bransch. Kostnadsfri behovsanalys." />
 
-    <!-- Inline critical CSS for instant hero paint from SSG HTML -->
+    <!-- Inline critical CSS for instant above-fold paint from SSG HTML -->
     <style>
-      body{margin:0;font-family:ui-sans-serif,system-ui,sans-serif}
+      *,*::before,*::after{box-sizing:border-box}
+      body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:hsl(0 0% 15%);background:hsl(0 0% 100%);-webkit-font-smoothing:antialiased}
       .min-h-screen{min-height:100vh}
       .bg-secondary\/30{background-color:hsl(0 0% 96%/.3)}
-      nav{display:block}
-      h1{margin:0}
-      .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border-width:0}
+      .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border-width:0;white-space:nowrap}
+      /* Navbar */
+      nav{display:block;position:fixed;top:0;left:0;right:0;z-index:50;background:hsla(0,0%,100%,.95);border-bottom:1px solid hsl(0 0% 90%);backdrop-filter:blur(8px)}
+      nav .container{max-width:80rem;margin:0 auto;padding:0 1rem}
+      nav .flex{display:flex;align-items:center}
+      nav .h-16{height:4rem}
+      nav .justify-between{justify-content:space-between}
+      nav img{height:79px;width:auto;object-fit:contain;margin-top:5px}
+      /* Hero section */
+      section{display:block}
+      .container{max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
+      h1{margin:0;font-weight:600;color:hsla(0,0%,100%,.9)}
+      .text-white{color:#fff}
+      .text-white\/70{color:hsla(0,0%,100%,.7)}
+      /* Grid basics for hero */
+      @media(min-width:768px){.md\:grid-cols-\[1fr_340px\]{display:grid;grid-template-columns:1fr 340px;gap:3.5rem}}
+      /* Button placeholder */
+      a[href="/kom-igang/"]{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:hsl(180 85% 20%);font-weight:600;font-size:.875rem;height:2.75rem;border-radius:.5rem;padding:0 1.5rem;text-decoration:none;min-width:280px}
     </style>
     
   </head>
