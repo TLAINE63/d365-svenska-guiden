@@ -153,12 +153,12 @@ export default function prerenderPlugin(): Plugin {
             page = page.replace(/<meta\s+name="twitter:[^"]*"[^>]*\/?>/g, '');
             page = page.replace(/<link\s+rel="canonical"[^>]*\/?>/g, '');
 
-            // Ensure all CSS files from the client build are linked
+            // Ensure all CSS files from the client build are linked (non-render-blocking)
             for (const cssFile of cssFiles) {
               if (!page.includes(cssFile)) {
                 page = page.replace(
                   '</head>',
-                  `    <link rel="stylesheet" href="${cssFile}" />\n  </head>`
+                  `    <link rel="preload" href="${cssFile}" as="style" onload="this.onload=null;this.rel='stylesheet'" />\n    <noscript><link rel="stylesheet" href="${cssFile}" /></noscript>\n  </head>`
                 );
               }
             }
