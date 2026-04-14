@@ -163,6 +163,7 @@ Deno.serve(async (req) => {
       geo_region: geoData?.region || null,
       geo_city: geoData?.city || null,
       ip_anonymized: anonymizedIp,
+      geo_org: geoData?.org || null,
     });
 
     if (error) {
