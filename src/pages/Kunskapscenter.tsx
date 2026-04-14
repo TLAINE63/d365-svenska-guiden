@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import kravspecErpImage from "@/assets/kravspec-erp-card.jpg";
-import ebookCoverImage from "@/assets/ebook-partnervalet-cover.png";
+import ebookCoverImage from "@/assets/ebook-partnervalet-cover.webp";
 import eventCardBg from "@/assets/articles/event-card-bg.svg";
 import kravspecSalesImage from "@/assets/kravspec-sales-card.jpg";
 import kravspecMarketingImage from "@/assets/kravspec-marketing-card.jpg";

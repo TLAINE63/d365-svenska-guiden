@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Download, BookOpen, CheckCircle } from "lucide-react";
-import ebookCover from "@/assets/ebook-partnervalet-cover.png";
+import ebookCover from "@/assets/ebook-partnervalet-cover.webp";
 
 interface EbookBannerProps {
   variant?: "full" | "compact";
