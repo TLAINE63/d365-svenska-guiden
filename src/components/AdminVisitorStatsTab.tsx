@@ -65,6 +65,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
   const [dateRange, setDateRange] = useState("7");
   const [showAllCities, setShowAllCities] = useState(false);
   const [excludeSelf, setExcludeSelf] = useState(isExcludedFromTracking());
+  const [excludePartners, setExcludePartners] = useState(false);
 
   const handleExcludeToggle = (checked: boolean) => {
     setExcludeFromTracking(checked);
@@ -93,7 +94,8 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
           body: JSON.stringify({ 
             action: "visitor-stats",
             token: token,
-            startDate: startDate.toISOString() 
+            startDate: startDate.toISOString(),
+            excludePartnerTraffic: excludePartners,
           }),
         }
       );
@@ -122,7 +124,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
 
   useEffect(() => {
     fetchStats();
-  }, [dateRange, token]);
+  }, [dateRange, token, excludePartners]);
 
   if (isLoading) {
     return (
@@ -185,6 +187,29 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
         </CardContent>
       </Card>
 
+      {/* Partner exclusion toggle */}
+      <Card className="border-blue-200 bg-blue-50/50 dark:bg-blue-950/20">
+        <CardContent className="py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Users className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              <div>
+                <Label htmlFor="exclude-partners" className="font-medium">
+                  Exkludera partnertrafik
+                </Label>
+                <p className="text-sm text-muted-foreground">
+                  Dölj besök från anställda hos publicerade partners (baserat på organisationsdata)
+                </p>
+              </div>
+            </div>
+            <Switch
+              id="exclude-partners"
+              checked={excludePartners}
+              onCheckedChange={setExcludePartners}
+            />
+          </div>
+        </CardContent>
+      </Card>
       {/* Date Range Selector */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold flex items-center gap-2">

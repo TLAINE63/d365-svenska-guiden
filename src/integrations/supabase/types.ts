@@ -593,6 +593,7 @@ export type Database = {
           geo_city: string | null
           geo_country: string | null
           geo_country_code: string | null
+          geo_org: string | null
           geo_region: string | null
           id: string
           ip_anonymized: string | null
@@ -608,6 +609,7 @@ export type Database = {
           geo_city?: string | null
           geo_country?: string | null
           geo_country_code?: string | null
+          geo_org?: string | null
           geo_region?: string | null
           id?: string
           ip_anonymized?: string | null
@@ -623,6 +625,7 @@ export type Database = {
           geo_city?: string | null
           geo_country?: string | null
           geo_country_code?: string | null
+          geo_org?: string | null
           geo_region?: string | null
           id?: string
           ip_anonymized?: string | null
