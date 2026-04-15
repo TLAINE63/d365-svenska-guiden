@@ -1743,6 +1743,22 @@ const AdminDashboard = () => {
                     </div>
                   );
                 })()}
+              {/* Monthly fee total for published partners */}
+              {(() => {
+                const publishedPartners = fullPartners.filter(p => p.is_featured);
+                const totalFee = publishedPartners.reduce((sum, p) => sum + calcMonthlyFee(p.product_filters), 0);
+                if (totalFee === 0) return null;
+                return (
+                  <div className="flex items-center justify-between p-3 mb-2 rounded-lg border bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800">
+                    <span className="text-sm font-medium text-emerald-800 dark:text-emerald-300">
+                      Total månadsintäkt ({publishedPartners.length} publicerade partners)
+                    </span>
+                    <span className="text-lg font-bold text-emerald-700 dark:text-emerald-400">
+                      {totalFee.toLocaleString('sv-SE')} kr/mån
+                    </span>
+                  </div>
+                );
+              })()}
               <div className="grid gap-4">
                 {[...fullPartners]
                   .filter(p => {
