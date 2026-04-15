@@ -2766,8 +2766,8 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 2: Contact Info */}
-              <div ref={el => sectionRefs.current[1] = el} className="space-y-4 scroll-mt-4">
+              {/* Section 3: Contact Info */}
+              <div ref={el => sectionRefs.current[2] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <User className="h-5 w-5 text-primary" />
                   Kontaktuppgifter (visas på Partnerprofilkortet)
@@ -2832,8 +2832,8 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 3: Geographic Coverage */}
-              <div ref={el => sectionRefs.current[2] = el} className="space-y-4 scroll-mt-4">
+              {/* Section 4: Geographic Coverage */}
+              <div ref={el => sectionRefs.current[3] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <Globe className="h-5 w-5 text-primary" />
                   Geografisk täckning (visas överst på Partnerprofilkortet)
@@ -2902,8 +2902,8 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 4: Product Sections */}
-              <div ref={el => sectionRefs.current[3] = el} className="space-y-4 scroll-mt-4">
+              {/* Section 5: Product Sections */}
+              <div ref={el => sectionRefs.current[4] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <FileText className="h-5 w-5 text-primary" />
                   Produktsektioner
