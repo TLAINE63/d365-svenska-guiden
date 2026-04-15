@@ -231,13 +231,8 @@ const IndustryComparisonWidget = () => {
                 {entry.bc.c.map((c, i) => <CardItem key={`bc${i}`} title={c.t} desc={c.d} type="limitation" />)}
                 {showApps && entry.apps.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-border">
-                    <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2">Certifierade BC-appar</div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {entry.apps.map(a => (
-                        <span key={a} className="text-xs px-2.5 py-1 rounded-lg bg-[hsl(210_60%_95%)] text-[hsl(210_60%_30%)] border border-[hsl(210_60%_85%)] font-medium dark:bg-[hsl(210_30%_18%)] dark:text-[hsl(210_60%_70%)] dark:border-[hsl(210_30%_35%)]">
-                          ✓ {a}
-                        </span>
-                      ))}
+                    <div className="text-xs text-muted-foreground leading-relaxed">
+                      <span className="font-semibold text-[hsl(210_60%_30%)] dark:text-[hsl(210_60%_70%)]">~{entry.apps.length} certifierade BC-appar</span> från Microsofts AppSource-marknadsplats krävs troligtvis för att täcka gapen i detta segment.
                     </div>
                   </div>
                 )}
