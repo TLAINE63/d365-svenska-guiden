@@ -277,6 +277,7 @@ const AdminDashboard = () => {
     admin_contact_email?: string;
     invoice_email?: string;
     invoice_contact?: string;
+    org_number?: string;
   }>({
     slug: "",
     name: "",
