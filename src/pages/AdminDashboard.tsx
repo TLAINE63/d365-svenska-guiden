@@ -1927,6 +1927,21 @@ const AdminDashboard = () => {
                                   </span>
                                 ) : null;
                               })()}
+                              {partner.org_number && (
+                                <span className="flex items-center gap-1">
+                                  Orgnr: {partner.org_number}
+                                </span>
+                              )}
+                              {partner.legal_name && (
+                                <span className="flex items-center gap-1">
+                                  {partner.legal_name}
+                                </span>
+                              )}
+                              {(!partner.org_number || !partner.legal_name) && (
+                                <span className="flex items-center gap-1 text-amber-500">
+                                  {!partner.org_number && !partner.legal_name ? "Orgnr & bolagsnamn saknas" : !partner.org_number ? "Orgnr saknas" : "Bolagsnamn saknas"}
+                                </span>
+                              )}
                               {partner.cancellation_date && (
                                 <span className="flex items-center gap-1 text-destructive">
                                   <CalendarX className="h-3 w-3" />
