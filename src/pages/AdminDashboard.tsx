@@ -965,6 +965,7 @@ const AdminDashboard = () => {
         toast({ title: "Partner skapad", description: `${partnerFormData.name} har lagts till.` });
       }
       setIsPartnerDialogOpen(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       resetPartnerForm();
       fetchFullPartners();
     } catch (error: any) {
