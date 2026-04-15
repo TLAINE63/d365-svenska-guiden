@@ -99,6 +99,7 @@ const partnerValidationSchema = z.object({
   invoice_email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
   invoice_contact: z.string().max(100, "Fakturakontakt får max vara 100 tecken").optional(),
   org_number: z.string().max(20, "Organisationsnummer får max vara 20 tecken").optional(),
+  legal_name: z.string().max(150, "Juridiskt namn får max vara 150 tecken").optional(),
 });
 
 type PartnerFormErrors = Partial<Record<keyof z.infer<typeof partnerValidationSchema>, string>>;
@@ -153,6 +154,7 @@ interface FullPartner extends DatabasePartner {
   invoice_email: string | null;
   invoice_contact: string | null;
   org_number: string | null;
+  legal_name: string | null;
 }
 
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
@@ -278,6 +280,7 @@ const AdminDashboard = () => {
     invoice_email?: string;
     invoice_contact?: string;
     org_number?: string;
+    legal_name?: string;
   }>({
     slug: "",
     name: "",
@@ -305,6 +308,7 @@ const AdminDashboard = () => {
     invoice_email: "",
     invoice_contact: "",
     org_number: "",
+    legal_name: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
@@ -776,6 +780,7 @@ const AdminDashboard = () => {
       invoice_email: "",
       invoice_contact: "",
       org_number: "",
+      legal_name: "",
     });
     setEditingPartner(null);
     setFormErrors({});
@@ -816,6 +821,7 @@ const AdminDashboard = () => {
       invoice_email: (partner as any).invoice_email || "",
       invoice_contact: (partner as any).invoice_contact || "",
       org_number: (partner as any).org_number || "",
+      legal_name: (partner as any).legal_name || "",
     });
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
@@ -1078,11 +1084,11 @@ const AdminDashboard = () => {
   };
 
   const formSections = [
+    { id: 'admin', label: 'Administrativt', icon: Lock },
     { id: 'basic', label: 'Grunduppgifter', icon: Building2 },
     { id: 'contact', label: 'Kontaktuppgifter', icon: User },
     { id: 'geography', label: 'Geografi', icon: Globe },
     { id: 'products', label: 'Produkter', icon: FileText },
-    { id: 'admin', label: 'Administrativt', icon: Lock },
   ];
 
   // Calculate form completion percentage
@@ -2374,8 +2380,246 @@ const AdminDashboard = () => {
             </div>
 
             <form onSubmit={handlePartnerSubmit} className="space-y-6 overflow-y-auto flex-1 pr-2">
-              {/* Section 1: Basic Info */}
+              {/* Section 1: Admin Info (moved to top for easy administration) */}
               <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">
+                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
+                  <Lock className="h-5 w-5 text-primary" />
+                  Administrativt
+                  {getSectionStatus('admin') === 'complete' && (
+                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
+                  )}
+                </h3>
+
+                {/* Org Number & Legal Name */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="org_number">Organisationsnummer</Label>
+                    <div className="relative">
+                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="org_number"
+                        value={partnerFormData.org_number || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, org_number: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="556xxx-xxxx"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="legal_name">Juridiskt bolagsnamn</Label>
+                    <div className="relative">
+                      <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="legal_name"
+                        value={partnerFormData.legal_name || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, legal_name: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="Företaget AB"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Admin Contact */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="admin_contact_name">Administrativ kontaktperson</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="admin_contact_name"
+                        value={partnerFormData.admin_contact_name || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, admin_contact_name: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="Namn på kontaktperson"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="admin_contact_email">Administrativ e-post</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="admin_contact_email"
+                        type="email"
+                        value={partnerFormData.admin_contact_email || ""}
+                        onChange={(e) => {
+                          setPartnerFormData({ ...partnerFormData, admin_contact_email: e.target.value });
+                          if (formErrors.admin_contact_email) setFormErrors({ ...formErrors, admin_contact_email: undefined });
+                        }}
+                        className={`pl-10 ${formErrors.admin_contact_email ? "border-destructive" : ""}`}
+                        placeholder="admin@example.com"
+                      />
+                    </div>
+                    {formErrors.admin_contact_email && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.admin_contact_email}
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Invoice Contact */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="invoice_contact">Fakturakontakt (namn)</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="invoice_contact"
+                        value={partnerFormData.invoice_contact || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, invoice_contact: e.target.value })
+                        }
+                        className="pl-10"
+                        placeholder="Namn på fakturamottagare"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="invoice_email">Faktura e-post</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="invoice_email"
+                        type="email"
+                        value={partnerFormData.invoice_email || ""}
+                        onChange={(e) => {
+                          setPartnerFormData({ ...partnerFormData, invoice_email: e.target.value });
+                          if (formErrors.invoice_email) setFormErrors({ ...formErrors, invoice_email: undefined });
+                        }}
+                        className={`pl-10 ${formErrors.invoice_email ? "border-destructive" : ""}`}
+                        placeholder="faktura@example.com"
+                      />
+                    </div>
+                    {formErrors.invoice_email && (
+                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {formErrors.invoice_email}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <Label htmlFor="activation_date">Första faktureringsdatum</Label>
+                    <div className="relative">
+                      <CalendarCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="activation_date"
+                        type="date"
+                        value={partnerFormData.activation_date || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, activation_date: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>
+                    <div className="relative">
+                      <CalendarX className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="cancellation_date"
+                        type="date"
+                        value={partnerFormData.cancellation_date || ""}
+                        onChange={(e) =>
+                          setPartnerFormData({ ...partnerFormData, cancellation_date: e.target.value })
+                        }
+                        className="pl-10"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Månadsavgift (beräknad)</Label>
+                    {(() => {
+                      let bcActive = false;
+                      let fscActive = false;
+                      let salesActive = false;
+                      let serviceActive = false;
+                      
+                      productSections.forEach(section => {
+                        const filter = partnerFormData.product_filters?.[section.key];
+                        const industries = filter?.industries || [];
+                        
+                        if (industries.length > 0) {
+                          if (section.key === 'bc') bcActive = true;
+                          else if (section.key === 'fsc') fscActive = true;
+                          else if (section.key === 'sales') salesActive = true;
+                          else if (section.key === 'service') serviceActive = true;
+                        }
+                      });
+                      
+                      let activeProducts = 0;
+                      if (bcActive) activeProducts++;
+                      if (fscActive) activeProducts++;
+                      if (salesActive || serviceActive) activeProducts++;
+                      
+                      const totalFee = activeProducts * 1990;
+                      const crmBundleBoth = salesActive && serviceActive;
+                      
+                      return (
+                        <div className="mt-1 p-3 bg-muted/50 rounded-md border">
+                          <p className="text-2xl font-bold text-foreground">
+                            {totalFee.toLocaleString('sv-SE')} kr/mån
+                          </p>
+                          <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
+                            <p>{activeProducts} produkt(er) × 1 990 kr = {totalFee.toLocaleString('sv-SE')} kr</p>
+                            {crmBundleBoth && (
+                              <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="admin_notes">Interna noteringar</Label>
+                  <Textarea
+                    id="admin_notes"
+                    value={partnerFormData.admin_notes || ""}
+                    onChange={(e) =>
+                      setPartnerFormData({ ...partnerFormData, admin_notes: e.target.value })
+                    }
+                    rows={3}
+                    placeholder="Interna anteckningar som inte visas publikt..."
+                  />
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    id="is_featured"
+                    checked={partnerFormData.is_featured}
+                    onCheckedChange={(checked) =>
+                      setPartnerFormData({ ...partnerFormData, is_featured: !!checked })
+                    }
+                  />
+                  <Label htmlFor="is_featured">Publicerad partner</Label>
+                </div>
+
+                <div className="mt-6 p-4 bg-muted/30 rounded-lg border">
+                  <h4 className="font-semibold text-sm mb-2">Pris- och betalningsvillkor</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Månadsavgiften faktureras löpande i förskott. Uppsägningstiden är 3 (tre) månader och skall meddelas i god tid före varje kvartals början.
+                  </p>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Section 2: Basic Info */}
+              <div ref={el => sectionRefs.current[1] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <Building2 className="h-5 w-5 text-primary" />
                   Grunduppgifter
@@ -2522,8 +2766,8 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 2: Contact Info */}
-              <div ref={el => sectionRefs.current[1] = el} className="space-y-4 scroll-mt-4">
+              {/* Section 3: Contact Info */}
+              <div ref={el => sectionRefs.current[2] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <User className="h-5 w-5 text-primary" />
                   Kontaktuppgifter (visas på Partnerprofilkortet)
@@ -2588,8 +2832,8 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 3: Geographic Coverage */}
-              <div ref={el => sectionRefs.current[2] = el} className="space-y-4 scroll-mt-4">
+              {/* Section 4: Geographic Coverage */}
+              <div ref={el => sectionRefs.current[3] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <Globe className="h-5 w-5 text-primary" />
                   Geografisk täckning (visas överst på Partnerprofilkortet)
@@ -2658,8 +2902,8 @@ const AdminDashboard = () => {
 
               <Separator />
 
-              {/* Section 4: Product Sections */}
-              <div ref={el => sectionRefs.current[3] = el} className="space-y-4 scroll-mt-4">
+              {/* Section 5: Product Sections */}
+              <div ref={el => sectionRefs.current[4] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
                   <FileText className="h-5 w-5 text-primary" />
                   Produktsektioner
@@ -3204,229 +3448,6 @@ const AdminDashboard = () => {
                 </CardContent>
               </Card>
 
-              <Separator />
-
-              {/* Section 5: Admin Info */}
-              <div ref={el => sectionRefs.current[4] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <Lock className="h-5 w-5 text-primary" />
-                  Administrativt
-                  {getSectionStatus('admin') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
-
-                {/* Admin Contact */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="admin_contact_name">Administrativ kontaktperson</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="admin_contact_name"
-                        value={partnerFormData.admin_contact_name || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, admin_contact_name: e.target.value })
-                        }
-                        className="pl-10"
-                        placeholder="Namn på kontaktperson"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="admin_contact_email">Administrativ e-post</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="admin_contact_email"
-                        type="email"
-                        value={partnerFormData.admin_contact_email || ""}
-                        onChange={(e) => {
-                          setPartnerFormData({ ...partnerFormData, admin_contact_email: e.target.value });
-                          if (formErrors.admin_contact_email) setFormErrors({ ...formErrors, admin_contact_email: undefined });
-                        }}
-                        className={`pl-10 ${formErrors.admin_contact_email ? "border-destructive" : ""}`}
-                        placeholder="admin@example.com"
-                      />
-                    </div>
-                    {formErrors.admin_contact_email && (
-                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
-                        <AlertCircle className="h-3 w-3" />
-                        {formErrors.admin_contact_email}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Invoice Contact */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="invoice_contact">Fakturakontakt (namn)</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="invoice_contact"
-                        value={partnerFormData.invoice_contact || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, invoice_contact: e.target.value })
-                        }
-                        className="pl-10"
-                        placeholder="Namn på fakturamottagare"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="invoice_email">Faktura e-post</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="invoice_email"
-                        type="email"
-                        value={partnerFormData.invoice_email || ""}
-                        onChange={(e) => {
-                          setPartnerFormData({ ...partnerFormData, invoice_email: e.target.value });
-                          if (formErrors.invoice_email) setFormErrors({ ...formErrors, invoice_email: undefined });
-                        }}
-                        className={`pl-10 ${formErrors.invoice_email ? "border-destructive" : ""}`}
-                        placeholder="faktura@example.com"
-                      />
-                    </div>
-                    {formErrors.invoice_email && (
-                      <p className="text-sm text-destructive flex items-center gap-1 mt-1">
-                        <AlertCircle className="h-3 w-3" />
-                        {formErrors.invoice_email}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="org_number">Organisationsnummer</Label>
-                  <div className="relative">
-                    <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="org_number"
-                      value={partnerFormData.org_number || ""}
-                      onChange={(e) =>
-                        setPartnerFormData({ ...partnerFormData, org_number: e.target.value })
-                      }
-                      className="pl-10"
-                      placeholder="556xxx-xxxx"
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <Label htmlFor="activation_date">Första faktureringsdatum</Label>
-                    <div className="relative">
-                      <CalendarCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="activation_date"
-                        type="date"
-                        value={partnerFormData.activation_date || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, activation_date: e.target.value })
-                        }
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>
-                    <div className="relative">
-                      <CalendarX className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="cancellation_date"
-                        type="date"
-                        value={partnerFormData.cancellation_date || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, cancellation_date: e.target.value })
-                        }
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label>Månadsavgift (beräknad)</Label>
-                    {(() => {
-                      // Count active products
-                      // Sales & Customer Insights and Customer Service count as ONE product together (CRM bundle)
-                      let bcActive = false;
-                      let fscActive = false;
-                      let salesActive = false;
-                      let serviceActive = false;
-                      
-                      productSections.forEach(section => {
-                        const filter = partnerFormData.product_filters?.[section.key];
-                        const industries = filter?.industries || [];
-                        
-                        if (industries.length > 0) {
-                          if (section.key === 'bc') bcActive = true;
-                          else if (section.key === 'fsc') fscActive = true;
-                          else if (section.key === 'sales') salesActive = true;
-                          else if (section.key === 'service') serviceActive = true;
-                        }
-                      });
-                      
-                      // Count products: BC=1, FSC=1, CRM (Sales OR Service)=1
-                      let activeProducts = 0;
-                      
-                      if (bcActive) activeProducts++;
-                      if (fscActive) activeProducts++;
-                      // CRM bundle: Sales and Service together count as ONE product
-                      if (salesActive || serviceActive) activeProducts++;
-                      
-                      const totalFee = activeProducts * 1990;
-                      const crmBundleBoth = salesActive && serviceActive;
-                      
-                      return (
-                        <div className="mt-1 p-3 bg-muted/50 rounded-md border">
-                          <p className="text-2xl font-bold text-foreground">
-                            {totalFee.toLocaleString('sv-SE')} kr/mån
-                          </p>
-                          <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
-                            <p>{activeProducts} produkt(er) × 1 990 kr = {totalFee.toLocaleString('sv-SE')} kr</p>
-                            {crmBundleBoth && (
-                              <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })()}
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="admin_notes">Interna noteringar</Label>
-                  <Textarea
-                    id="admin_notes"
-                    value={partnerFormData.admin_notes || ""}
-                    onChange={(e) =>
-                      setPartnerFormData({ ...partnerFormData, admin_notes: e.target.value })
-                    }
-                    rows={3}
-                    placeholder="Interna anteckningar som inte visas publikt..."
-                  />
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="is_featured"
-                    checked={partnerFormData.is_featured}
-                    onCheckedChange={(checked) =>
-                      setPartnerFormData({ ...partnerFormData, is_featured: !!checked })
-                    }
-                  />
-                  <Label htmlFor="is_featured">Publicerad partner</Label>
-                </div>
-
-                <div className="mt-6 p-4 bg-muted/30 rounded-lg border">
-                  <h4 className="font-semibold text-sm mb-2">Pris- och betalningsvillkor</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Månadsavgiften faktureras löpande i förskott. Uppsägningstiden är 3 (tre) månader och skall meddelas i god tid före varje kvartals början.
-                  </p>
-                </div>
-              </div>
 
 
               <DialogFooter>

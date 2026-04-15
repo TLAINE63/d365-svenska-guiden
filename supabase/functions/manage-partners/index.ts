@@ -145,6 +145,7 @@ interface PartnerData {
   invoice_email?: string;
   invoice_contact?: string;
   org_number?: string;
+  legal_name?: string;
   office_cities?: string[];
   map_url?: string;
 }
@@ -273,6 +274,7 @@ serve(async (req: Request): Promise<Response> => {
             invoice_email: partner.invoice_email?.trim() || null,
             invoice_contact: partner.invoice_contact?.trim() || null,
             org_number: partner.org_number?.trim() || null,
+            legal_name: partner.legal_name?.trim() || null,
             office_cities: partner.office_cities || [],
             map_url: partner.map_url?.trim() || null,
           })
@@ -331,6 +333,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.invoice_email !== undefined) updateData.invoice_email = partner.invoice_email?.trim() || null;
         if (partner?.invoice_contact !== undefined) updateData.invoice_contact = partner.invoice_contact?.trim() || null;
         if (partner?.org_number !== undefined) updateData.org_number = partner.org_number?.trim() || null;
+        if (partner?.legal_name !== undefined) updateData.legal_name = partner.legal_name?.trim() || null;
         if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
 
