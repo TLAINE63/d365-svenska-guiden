@@ -98,33 +98,40 @@ function leNote(rec: string, le: string) {
   return null;
 }
 
-const ToggleButtons = ({ options, value, onChange }: { options: { v: string; l: string }[]; value: string; onChange: (v: string) => void }) => (
-  <div className="flex flex-wrap gap-2">
-    {options.map(o => (
-      <button
-        key={o.v}
-        onClick={() => onChange(o.v)}
-        className={`px-4 py-2 text-sm rounded-lg border transition-all whitespace-nowrap ${
-          value === o.v
-            ? "bg-secondary text-foreground border-border font-medium"
-            : "bg-card text-muted-foreground border-border/50 hover:border-border hover:bg-secondary/50"
-        }`}
-      >
-        {o.l}
-      </button>
-    ))}
+const ToggleButtons = ({ options, value, onChange, label }: { options: { v: string; l: string }[]; value: string; onChange: (v: string) => void; label?: string }) => (
+  <div className="space-y-2">
+    {label && <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</div>}
+    <div className="flex flex-wrap gap-2">
+      {options.map(o => (
+        <button
+          key={o.v}
+          onClick={() => onChange(o.v)}
+          className={`px-5 py-2.5 text-sm rounded-xl border-2 transition-all whitespace-nowrap font-medium shadow-sm ${
+            value === o.v
+              ? "bg-primary text-primary-foreground border-primary shadow-md scale-[1.02]"
+              : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:bg-primary/5 hover:shadow"
+          }`}
+        >
+          {o.l}
+        </button>
+      ))}
+    </div>
   </div>
 );
 
 const CardItem = ({ title, desc, type }: { title: string; desc: string; type: "strength" | "limitation" }) => (
-  <div className="bg-card border border-border rounded-lg p-3 mb-2">
-    <div className="text-sm font-medium text-card-foreground mb-1">{title}</div>
-    <div className="text-xs text-muted-foreground leading-relaxed">{desc}</div>
-    <span className={`inline-block text-xs px-2 py-0.5 rounded-full mt-2 font-medium ${
-      type === "strength" ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
-    }`}>
-      {type === "strength" ? "Styrka" : "Begränsning"}
-    </span>
+  <div className="bg-card border border-border rounded-xl p-3.5 mb-2 hover:shadow-sm transition-shadow">
+    <div className="flex items-start gap-2">
+      <span className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+        type === "strength" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+      }`}>
+        {type === "strength" ? "+" : "−"}
+      </span>
+      <div>
+        <div className="text-sm font-semibold text-card-foreground">{title}</div>
+        <div className="text-xs text-muted-foreground leading-relaxed mt-0.5">{desc}</div>
+      </div>
+    </div>
   </div>
 );
 
@@ -148,14 +155,14 @@ const IndustryComparisonWidget = () => {
   const recColor = entry?.rec === "bc" ? "bg-[hsl(210_60%_90%)] text-[hsl(210_60%_30%)]" : entry?.rec === "fscm" ? "bg-[hsl(250_50%_92%)] text-[hsl(250_50%_30%)]" : "bg-secondary text-foreground";
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Sector select */}
-      <div className="flex items-center gap-3 flex-wrap">
-        <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">Välj bransch</span>
+      <div className="bg-secondary/30 rounded-xl p-5 border border-border space-y-1">
+        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Välj bransch</label>
         <select
           value={sec}
           onChange={e => setSec(e.target.value)}
-          className="h-9 px-3 text-sm border border-border rounded-lg bg-card text-card-foreground cursor-pointer min-w-[240px]"
+          className="h-11 w-full px-4 text-sm border-2 border-border rounded-xl bg-card text-card-foreground cursor-pointer font-medium focus:border-primary focus:outline-none transition-colors"
         >
           {SECTORS.map(g => (
             <optgroup key={g.group} label={g.group}>
@@ -165,107 +172,122 @@ const IndustryComparisonWidget = () => {
         </select>
       </div>
 
-      {/* Size */}
-      <ToggleButtons options={SZ_OPTS} value={sz} onChange={setSz} />
-
-      {/* Geo */}
-      <ToggleButtons options={GEO_OPTS} value={geo} onChange={setGeo} />
+      {/* Size & Geo */}
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div className="bg-secondary/30 rounded-xl p-5 border border-border">
+          <ToggleButtons options={SZ_OPTS} value={sz} onChange={setSz} label="Företagsstorlek" />
+        </div>
+        <div className="bg-secondary/30 rounded-xl p-5 border border-border">
+          <ToggleButtons options={GEO_OPTS} value={geo} onChange={setGeo} label="Geografisk räckvidd" />
+        </div>
+      </div>
 
       {/* Legal entities */}
-      <div className="bg-card border border-border rounded-lg p-4">
-        <div className="text-sm font-medium text-card-foreground mb-1">Hur många juridiska bolag behöver systemet hantera?</div>
-        <div className="text-xs text-muted-foreground mb-3">Inkluderar holdingbolag, dotterbolag och utländska enheter</div>
+      <div className="bg-secondary/30 rounded-xl p-5 border border-border space-y-3">
+        <div>
+          <div className="text-sm font-semibold text-card-foreground">Hur många juridiska bolag behöver systemet hantera?</div>
+          <div className="text-xs text-muted-foreground mt-0.5">Inkluderar holdingbolag, dotterbolag och utländska enheter</div>
+        </div>
         <ToggleButtons options={LE_OPTS} value={le} onChange={setLe} />
       </div>
 
       {/* BC apps toggle */}
-      <div className="flex items-center gap-3 p-3 bg-secondary/50 border border-border rounded-lg flex-wrap">
-        <span className="text-xs font-medium text-muted-foreground">BC-tillägg:</span>
+      <div className="flex items-center gap-3 p-4 bg-[hsl(210_60%_97%)] dark:bg-[hsl(210_30%_15%)] border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_30%)] rounded-xl flex-wrap">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">BC-tillägg:</span>
         <button
           onClick={() => setShowApps(!showApps)}
-          className={`px-3 py-1 text-xs rounded-full border font-medium transition-all ${
+          className={`px-4 py-2 text-xs rounded-xl border-2 font-semibold transition-all ${
             showApps
-              ? "bg-[hsl(210_60%_95%)] text-[hsl(210_60%_30%)] border-[hsl(210_60%_80%)]"
-              : "bg-card text-muted-foreground border-border hover:border-border"
+              ? "bg-[hsl(210_60%_50%)] text-white border-[hsl(210_60%_45%)] shadow-md"
+              : "bg-card text-muted-foreground border-border hover:border-[hsl(210_60%_60%)]"
           }`}
         >
-          Visa Microsofts certifierade appar för BC
+          {showApps ? "✓ " : ""}Visa certifierade appar för BC
         </button>
-        <span className="text-[11px] text-muted-foreground/70">Appar godkända av Microsoft för Dynamics 365 BC</span>
+        <span className="text-[11px] text-muted-foreground/70">Appar godkända av Microsoft</span>
       </div>
 
       {/* Result */}
       {entry && (
-        <div className="space-y-3">
-          <span className={`inline-block text-xs px-3 py-1 rounded-full font-medium ${recColor}`}>
-            {recLabel}
-          </span>
+        <div className="space-y-4 pt-2">
+          {/* Recommendation badge */}
+          <div className="flex justify-center">
+            <span className={`inline-flex items-center gap-2 text-sm px-5 py-2 rounded-full font-semibold shadow-sm ${recColor}`}>
+              <span className="w-2 h-2 rounded-full bg-current opacity-60" />
+              {recLabel}
+            </span>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-3">
+          {/* Comparison columns */}
+          <div className="grid md:grid-cols-2 gap-4">
             {/* BC column */}
-            <div>
-              <div className="p-3 rounded-lg mb-2 bg-[hsl(210_60%_95%)] text-[hsl(210_60%_30%)]">
-                <div className="text-sm font-medium">Business Central</div>
-                <div className="text-xs mt-0.5" style={{ color: "hsl(210 60% 40%)" }}>Dynamics 365 BC{showApps ? " + certifierade appar" : ""}</div>
+            <div className="rounded-xl border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_35%)] overflow-hidden">
+              <div className="p-4 bg-gradient-to-br from-[hsl(210_60%_95%)] to-[hsl(210_60%_90%)] dark:from-[hsl(210_30%_18%)] dark:to-[hsl(210_30%_14%)]">
+                <div className="text-base font-bold text-[hsl(210_60%_25%)] dark:text-[hsl(210_60%_80%)]">Business Central</div>
+                <div className="text-xs mt-0.5 text-[hsl(210_60%_40%)] dark:text-[hsl(210_60%_60%)]">Dynamics 365 BC{showApps ? " + certifierade appar" : ""}</div>
               </div>
-              {entry.bc.p.map((p, i) => <CardItem key={`bp${i}`} title={p.t} desc={p.d} type="strength" />)}
-              {entry.bc.c.map((c, i) => <CardItem key={`bc${i}`} title={c.t} desc={c.d} type="limitation" />)}
-              {showApps && entry.apps.length > 0 && (
-                <div className="mt-2 pt-2 border-t border-border">
-                  <div className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground mb-2">Certifierade BC-appar (Microsoft)</div>
-                  <div className="flex flex-wrap gap-1">
-                    {entry.apps.map(a => (
-                      <span key={a} className="text-xs px-2 py-0.5 rounded-full bg-[hsl(210_60%_95%)] text-[hsl(210_60%_30%)] border border-[hsl(210_60%_85%)] font-medium">
-                        ✓ {a}
-                      </span>
-                    ))}
+              <div className="p-3 space-y-2">
+                {entry.bc.p.map((p, i) => <CardItem key={`bp${i}`} title={p.t} desc={p.d} type="strength" />)}
+                {entry.bc.c.map((c, i) => <CardItem key={`bc${i}`} title={c.t} desc={c.d} type="limitation" />)}
+                {showApps && entry.apps.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-2">Certifierade BC-appar</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {entry.apps.map(a => (
+                        <span key={a} className="text-xs px-2.5 py-1 rounded-lg bg-[hsl(210_60%_95%)] text-[hsl(210_60%_30%)] border border-[hsl(210_60%_85%)] font-medium dark:bg-[hsl(210_30%_18%)] dark:text-[hsl(210_60%_70%)] dark:border-[hsl(210_30%_35%)]">
+                          ✓ {a}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             {/* F&SCM column */}
-            <div>
-              <div className="p-3 rounded-lg mb-2 bg-[hsl(250_50%_95%)] text-[hsl(250_50%_30%)]">
-                <div className="text-sm font-medium">Finance & SCM</div>
-                <div className="text-xs mt-0.5" style={{ color: "hsl(250 50% 40%)" }}>Dynamics 365 F&SCM</div>
+            <div className="rounded-xl border-2 border-[hsl(250_50%_85%)] dark:border-[hsl(250_30%_35%)] overflow-hidden">
+              <div className="p-4 bg-gradient-to-br from-[hsl(250_50%_95%)] to-[hsl(250_50%_90%)] dark:from-[hsl(250_30%_18%)] dark:to-[hsl(250_30%_14%)]">
+                <div className="text-base font-bold text-[hsl(250_50%_25%)] dark:text-[hsl(250_50%_80%)]">Finance & SCM</div>
+                <div className="text-xs mt-0.5 text-[hsl(250_50%_40%)] dark:text-[hsl(250_50%_60%)]">Dynamics 365 Finance & Supply Chain</div>
               </div>
-              {entry.fscm.p.map((p, i) => <CardItem key={`fp${i}`} title={p.t} desc={p.d} type="strength" />)}
-              {entry.fscm.c.map((c, i) => <CardItem key={`fc${i}`} title={c.t} desc={c.d} type="limitation" />)}
+              <div className="p-3 space-y-2">
+                {entry.fscm.p.map((p, i) => <CardItem key={`fp${i}`} title={p.t} desc={p.d} type="strength" />)}
+                {entry.fscm.c.map((c, i) => <CardItem key={`fc${i}`} title={c.t} desc={c.d} type="limitation" />)}
+              </div>
             </div>
           </div>
 
           {/* Summary */}
-          <div className="bg-card border border-border rounded-lg p-4">
-            <div className="text-sm font-medium text-card-foreground mb-1">{entry.h}</div>
+          <div className="bg-gradient-to-br from-secondary/60 to-secondary/30 border-2 border-border rounded-xl p-5">
+            <div className="text-sm font-bold text-card-foreground mb-1.5">{entry.h}</div>
             <div className="text-xs text-muted-foreground leading-relaxed">{entry.s}</div>
-            <div className="flex flex-wrap gap-1 mt-3">
+            <div className="flex flex-wrap gap-1.5 mt-4">
               {entry.pills.map(p => (
-                <span key={p} className="text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">{p}</span>
+                <span key={p} className="text-xs px-3 py-1 rounded-lg bg-card text-muted-foreground border border-border font-medium shadow-sm">{p}</span>
               ))}
             </div>
           </div>
 
           {/* LE Note */}
           {note && (
-            <div className={`rounded-lg p-4 text-xs leading-relaxed ${
-              note.type === "green" ? "bg-green-50 border border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300" :
-              note.type === "red" ? "bg-red-50 border border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-300" :
-              "bg-amber-50 border border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300"
+            <div className={`rounded-xl p-4 text-xs leading-relaxed border-2 ${
+              note.type === "green" ? "bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-300" :
+              note.type === "red" ? "bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-300" :
+              "bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-800 dark:text-amber-300"
             }`}>
               {note.text}
             </div>
           )}
 
           {/* CTA links */}
-          <div className="flex flex-wrap gap-2 justify-center pt-2">
-            <a href="/business-central/" className="px-4 py-2 text-sm border border-border rounded-lg bg-card text-card-foreground hover:bg-secondary transition-colors">
+          <div className="flex flex-wrap gap-3 justify-center pt-3">
+            <a href="/business-central/" className="px-5 py-2.5 text-sm border-2 border-[hsl(210_60%_80%)] rounded-xl bg-[hsl(210_60%_97%)] text-[hsl(210_60%_30%)] font-medium hover:bg-[hsl(210_60%_93%)] hover:shadow-md transition-all dark:bg-[hsl(210_30%_15%)] dark:text-[hsl(210_60%_70%)] dark:border-[hsl(210_30%_35%)] dark:hover:bg-[hsl(210_30%_20%)]">
               Mer om Business Central
             </a>
-            <a href="/finance-supply-chain/" className="px-4 py-2 text-sm border border-border rounded-lg bg-card text-card-foreground hover:bg-secondary transition-colors">
+            <a href="/finance-supply-chain/" className="px-5 py-2.5 text-sm border-2 border-[hsl(250_50%_80%)] rounded-xl bg-[hsl(250_50%_97%)] text-[hsl(250_50%_30%)] font-medium hover:bg-[hsl(250_50%_93%)] hover:shadow-md transition-all dark:bg-[hsl(250_30%_15%)] dark:text-[hsl(250_50%_70%)] dark:border-[hsl(250_30%_35%)] dark:hover:bg-[hsl(250_30%_20%)]">
               Mer om Finance & SCM
             </a>
-            <a href="/kontakta-oss/" className="px-4 py-2 text-sm border border-primary rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
+            <a href="/kontakta-oss/" className="px-5 py-2.5 text-sm border-2 border-primary rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 hover:shadow-md transition-all">
               Kontakta oss ↗
             </a>
           </div>
