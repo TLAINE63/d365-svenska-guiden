@@ -138,6 +138,16 @@ const STATIC_TOOLS: Array<{
     products: ["AI/Copilot/Agents", "Business Central", "Sales", "Customer Service"],
   },
   {
+    id: "tool-branschjamforelse",
+    title: "Branschjämförelse: BC vs Finance & SCM",
+    description: "Jämför Business Central och Finance & Supply Chain Management utifrån bransch, storlek och geografi.",
+    type: "guide",
+    url: "/erp/#branschjamforelse",
+    image_url: branschjamforelseImage,
+    icon: Wrench,
+    products: ["Business Central", "Finance & SCM"],
+  },
+  {
     id: "tool-kravspec-erp",
     title: "Kravspecifikation ERP",
     description: "Skapa en skräddarsydd kravspecifikation för ditt ERP-projekt.",
