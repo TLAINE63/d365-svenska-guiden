@@ -145,6 +145,7 @@ interface PartnerData {
   invoice_email?: string;
   invoice_contact?: string;
   org_number?: string;
+  legal_name?: string;
   office_cities?: string[];
   map_url?: string;
 }

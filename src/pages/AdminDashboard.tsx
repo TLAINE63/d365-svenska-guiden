@@ -99,6 +99,7 @@ const partnerValidationSchema = z.object({
   invoice_email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
   invoice_contact: z.string().max(100, "Fakturakontakt får max vara 100 tecken").optional(),
   org_number: z.string().max(20, "Organisationsnummer får max vara 20 tecken").optional(),
+  legal_name: z.string().max(150, "Juridiskt namn får max vara 150 tecken").optional(),
 });
 
 type PartnerFormErrors = Partial<Record<keyof z.infer<typeof partnerValidationSchema>, string>>;
