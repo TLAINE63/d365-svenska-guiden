@@ -1084,11 +1084,11 @@ const AdminDashboard = () => {
   };
 
   const formSections = [
+    { id: 'admin', label: 'Administrativt', icon: Lock },
     { id: 'basic', label: 'Grunduppgifter', icon: Building2 },
     { id: 'contact', label: 'Kontaktuppgifter', icon: User },
     { id: 'geography', label: 'Geografi', icon: Globe },
     { id: 'products', label: 'Produkter', icon: FileText },
-    { id: 'admin', label: 'Administrativt', icon: Lock },
   ];
 
   // Calculate form completion percentage
