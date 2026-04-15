@@ -5,6 +5,7 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import IndustryComparisonWidget from "@/components/IndustryComparisonWidget";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import kravspecErpImage from "@/assets/kravspec-erp-card.jpg";
 import ebookCoverImage from "@/assets/ebook-partnervalet-cover.webp";
@@ -678,6 +679,19 @@ const Kunskapscenter = () => {
           </section>
         ) : (
           <>
+            {/* Industry Comparison Widget – shown under Guider & Behovsanalyser or Alla */}
+            {(activeCategory === "alla" || activeCategory === "behovsanalys") && (
+              <section className="pt-10 pb-2">
+                <div className="container mx-auto px-4">
+                  <div className="bg-card rounded-xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)]">
+                    <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: Business Central vs Finance & Supply Chain Management</h3>
+                    <p className="text-sm text-muted-foreground text-center mb-6">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
+                    <IndustryComparisonWidget />
+                  </div>
+                </div>
+              </section>
+            )}
+
             {/* Content Grid */}
             <section className="py-12">
               <div className="container mx-auto px-4">
