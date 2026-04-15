@@ -98,6 +98,7 @@ const partnerValidationSchema = z.object({
   admin_contact_email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
   invoice_email: z.string().email("Ange en giltig e-postadress").optional().or(z.literal("")),
   invoice_contact: z.string().max(100, "Fakturakontakt får max vara 100 tecken").optional(),
+  org_number: z.string().max(20, "Organisationsnummer får max vara 20 tecken").optional(),
 });
 
 type PartnerFormErrors = Partial<Record<keyof z.infer<typeof partnerValidationSchema>, string>>;
@@ -151,6 +152,7 @@ interface FullPartner extends DatabasePartner {
   admin_contact_email: string | null;
   invoice_email: string | null;
   invoice_contact: string | null;
+  org_number: string | null;
 }
 
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
@@ -301,6 +303,7 @@ const AdminDashboard = () => {
     admin_contact_email: "",
     invoice_email: "",
     invoice_contact: "",
+    org_number: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
@@ -771,6 +774,7 @@ const AdminDashboard = () => {
       admin_contact_email: "",
       invoice_email: "",
       invoice_contact: "",
+      org_number: "",
     });
     setEditingPartner(null);
     setFormErrors({});
@@ -810,6 +814,7 @@ const AdminDashboard = () => {
       admin_contact_email: (partner as any).admin_contact_email || "",
       invoice_email: (partner as any).invoice_email || "",
       invoice_contact: (partner as any).invoice_contact || "",
+      org_number: (partner as any).org_number || "",
     });
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
