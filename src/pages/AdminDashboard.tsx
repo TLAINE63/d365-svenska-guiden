@@ -3299,6 +3299,21 @@ const AdminDashboard = () => {
                     )}
                   </div>
                 </div>
+                <div>
+                  <Label htmlFor="org_number">Organisationsnummer</Label>
+                  <div className="relative">
+                    <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="org_number"
+                      value={partnerFormData.org_number || ""}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, org_number: e.target.value })
+                      }
+                      className="pl-10"
+                      placeholder="556xxx-xxxx"
+                    />
+                  </div>
+                </div>
                 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
