@@ -780,6 +780,7 @@ const AdminDashboard = () => {
       invoice_email: "",
       invoice_contact: "",
       org_number: "",
+      legal_name: "",
     });
     setEditingPartner(null);
     setFormErrors({});
@@ -820,6 +821,7 @@ const AdminDashboard = () => {
       invoice_email: (partner as any).invoice_email || "",
       invoice_contact: (partner as any).invoice_contact || "",
       org_number: (partner as any).org_number || "",
+      legal_name: (partner as any).legal_name || "",
     });
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
