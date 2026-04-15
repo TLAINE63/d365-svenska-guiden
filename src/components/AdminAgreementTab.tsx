@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -136,11 +136,10 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                 <Calendar className="h-3.5 w-3.5" />
                 Startdatum (debitering)
               </Label>
-              <Input
+              <SwedishDatePicker
                 id="start-date"
-                type="date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+                onChange={setStartDate}
               />
             </div>
             <div>
@@ -148,11 +147,10 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                 <Calendar className="h-3.5 w-3.5" />
                 Deadline för bekräftelse
               </Label>
-              <Input
+              <SwedishDatePicker
                 id="deadline"
-                type="date"
                 value={deadline}
-                onChange={(e) => setDeadline(e.target.value)}
+                onChange={setDeadline}
               />
             </div>
             <div className="flex items-end">
