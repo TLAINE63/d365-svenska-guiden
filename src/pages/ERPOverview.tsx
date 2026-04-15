@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList } from "lucide-react";
 import { useEffect } from "react";
 import LeadCTA from "@/components/LeadCTA";
+import IndustryComparisonWidget from "@/components/IndustryComparisonWidget";
 import SEOHead from "@/components/SEOHead";
 import { ServiceSchema, BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 
@@ -126,6 +127,13 @@ const ERPOverview = () => {
               Nedan ser du en jämförelse som hjälper dig förstå skillnaderna.
             </p>
             
+            {/* Industry Comparison Widget */}
+            <div className="bg-card rounded-xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)] mb-8">
+              <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: BC vs Finance & SCM</h3>
+              <p className="text-sm text-muted-foreground text-center mb-6">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
+              <IndustryComparisonWidget />
+            </div>
+
             <div className="bg-primary/10 rounded-xl p-6 sm:p-8 border border-primary/20">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <ClipboardList className="h-6 w-6 text-primary" />
