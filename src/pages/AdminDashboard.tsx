@@ -187,6 +187,26 @@ const productSections: ProductSection[] = [
   { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
 ];
 
+// Helper to calculate monthly fee from product_filters
+function calcMonthlyFee(productFilters: Record<string, any> | undefined): number {
+  let bcActive = false, fscActive = false, salesActive = false, serviceActive = false;
+  productSections.forEach(section => {
+    const industries = productFilters?.[section.key]?.industries || [];
+    if (industries.length > 0) {
+      if (section.key === 'bc') bcActive = true;
+      else if (section.key === 'fsc') fscActive = true;
+      else if (section.key === 'sales') salesActive = true;
+      else if (section.key === 'service') serviceActive = true;
+    }
+  });
+  let activeProducts = 0;
+  if (bcActive) activeProducts++;
+  if (fscActive) activeProducts++;
+  if (salesActive || serviceActive) activeProducts++;
+  const priceTiers: Record<number, number> = { 0: 0, 1: 1990, 2: 3490, 3: 4490 };
+  return priceTiers[Math.min(activeProducts, 3)] ?? 4490;
+}
+
 // ==================== COMPONENT ====================
 
 const AdminDashboard = () => {
