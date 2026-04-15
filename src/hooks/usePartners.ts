@@ -79,6 +79,7 @@ export interface DatabasePartner {
   // Invoice fields
   invoice_email: string | null;
   invoice_contact: string | null;
+  org_number: string | null;
   // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
