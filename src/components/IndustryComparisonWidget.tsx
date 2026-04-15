@@ -151,14 +151,14 @@ const IndustryComparisonWidget = () => {
   const recColor = entry?.rec === "bc" ? "bg-[hsl(210_60%_90%)] text-[hsl(210_60%_30%)]" : entry?.rec === "fscm" ? "bg-[hsl(250_50%_92%)] text-[hsl(250_50%_30%)]" : "bg-secondary text-foreground";
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Sector select */}
-      <div className="flex items-center gap-3 flex-wrap">
-        <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">Välj bransch</span>
+      <div className="bg-secondary/30 rounded-xl p-5 border border-border space-y-1">
+        <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Välj bransch</label>
         <select
           value={sec}
           onChange={e => setSec(e.target.value)}
-          className="h-9 px-3 text-sm border border-border rounded-lg bg-card text-card-foreground cursor-pointer min-w-[240px]"
+          className="h-11 w-full px-4 text-sm border-2 border-border rounded-xl bg-card text-card-foreground cursor-pointer font-medium focus:border-primary focus:outline-none transition-colors"
         >
           {SECTORS.map(g => (
             <optgroup key={g.group} label={g.group}>
@@ -168,33 +168,39 @@ const IndustryComparisonWidget = () => {
         </select>
       </div>
 
-      {/* Size */}
-      <ToggleButtons options={SZ_OPTS} value={sz} onChange={setSz} />
-
-      {/* Geo */}
-      <ToggleButtons options={GEO_OPTS} value={geo} onChange={setGeo} />
+      {/* Size & Geo */}
+      <div className="grid sm:grid-cols-2 gap-5">
+        <div className="bg-secondary/30 rounded-xl p-5 border border-border">
+          <ToggleButtons options={SZ_OPTS} value={sz} onChange={setSz} label="Företagsstorlek" />
+        </div>
+        <div className="bg-secondary/30 rounded-xl p-5 border border-border">
+          <ToggleButtons options={GEO_OPTS} value={geo} onChange={setGeo} label="Geografisk räckvidd" />
+        </div>
+      </div>
 
       {/* Legal entities */}
-      <div className="bg-card border border-border rounded-lg p-4">
-        <div className="text-sm font-medium text-card-foreground mb-1">Hur många juridiska bolag behöver systemet hantera?</div>
-        <div className="text-xs text-muted-foreground mb-3">Inkluderar holdingbolag, dotterbolag och utländska enheter</div>
+      <div className="bg-secondary/30 rounded-xl p-5 border border-border space-y-3">
+        <div>
+          <div className="text-sm font-semibold text-card-foreground">Hur många juridiska bolag behöver systemet hantera?</div>
+          <div className="text-xs text-muted-foreground mt-0.5">Inkluderar holdingbolag, dotterbolag och utländska enheter</div>
+        </div>
         <ToggleButtons options={LE_OPTS} value={le} onChange={setLe} />
       </div>
 
       {/* BC apps toggle */}
-      <div className="flex items-center gap-3 p-3 bg-secondary/50 border border-border rounded-lg flex-wrap">
-        <span className="text-xs font-medium text-muted-foreground">BC-tillägg:</span>
+      <div className="flex items-center gap-3 p-4 bg-[hsl(210_60%_97%)] dark:bg-[hsl(210_30%_15%)] border-2 border-[hsl(210_60%_85%)] dark:border-[hsl(210_30%_30%)] rounded-xl flex-wrap">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">BC-tillägg:</span>
         <button
           onClick={() => setShowApps(!showApps)}
-          className={`px-3 py-1 text-xs rounded-full border font-medium transition-all ${
+          className={`px-4 py-2 text-xs rounded-xl border-2 font-semibold transition-all ${
             showApps
-              ? "bg-[hsl(210_60%_95%)] text-[hsl(210_60%_30%)] border-[hsl(210_60%_80%)]"
-              : "bg-card text-muted-foreground border-border hover:border-border"
+              ? "bg-[hsl(210_60%_50%)] text-white border-[hsl(210_60%_45%)] shadow-md"
+              : "bg-card text-muted-foreground border-border hover:border-[hsl(210_60%_60%)]"
           }`}
         >
-          Visa Microsofts certifierade appar för BC
+          {showApps ? "✓ " : ""}Visa certifierade appar för BC
         </button>
-        <span className="text-[11px] text-muted-foreground/70">Appar godkända av Microsoft för Dynamics 365 BC</span>
+        <span className="text-[11px] text-muted-foreground/70">Appar godkända av Microsoft</span>
       </div>
 
       {/* Result */}
