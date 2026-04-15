@@ -486,6 +486,7 @@ export type Database = {
           invoice_contact: string | null
           invoice_email: string | null
           is_featured: boolean | null
+          legal_name: string | null
           logo_dark_bg: boolean
           logo_url: string | null
           map_url: string | null
@@ -521,6 +522,7 @@ export type Database = {
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
+          legal_name?: string | null
           logo_dark_bg?: boolean
           logo_url?: string | null
           map_url?: string | null
@@ -556,6 +558,7 @@ export type Database = {
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
+          legal_name?: string | null
           logo_dark_bg?: boolean
           logo_url?: string | null
           map_url?: string | null
