@@ -98,21 +98,24 @@ function leNote(rec: string, le: string) {
   return null;
 }
 
-const ToggleButtons = ({ options, value, onChange }: { options: { v: string; l: string }[]; value: string; onChange: (v: string) => void }) => (
-  <div className="flex flex-wrap gap-2">
-    {options.map(o => (
-      <button
-        key={o.v}
-        onClick={() => onChange(o.v)}
-        className={`px-4 py-2 text-sm rounded-lg border transition-all whitespace-nowrap ${
-          value === o.v
-            ? "bg-secondary text-foreground border-border font-medium"
-            : "bg-card text-muted-foreground border-border/50 hover:border-border hover:bg-secondary/50"
-        }`}
-      >
-        {o.l}
-      </button>
-    ))}
+const ToggleButtons = ({ options, value, onChange, label }: { options: { v: string; l: string }[]; value: string; onChange: (v: string) => void; label?: string }) => (
+  <div className="space-y-2">
+    {label && <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</div>}
+    <div className="flex flex-wrap gap-2">
+      {options.map(o => (
+        <button
+          key={o.v}
+          onClick={() => onChange(o.v)}
+          className={`px-5 py-2.5 text-sm rounded-xl border-2 transition-all whitespace-nowrap font-medium shadow-sm ${
+            value === o.v
+              ? "bg-primary text-primary-foreground border-primary shadow-md scale-[1.02]"
+              : "bg-card text-muted-foreground border-border hover:border-primary/40 hover:bg-primary/5 hover:shadow"
+          }`}
+        >
+          {o.l}
+        </button>
+      ))}
+    </div>
   </div>
 );
 
