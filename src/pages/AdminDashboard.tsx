@@ -154,6 +154,7 @@ interface FullPartner extends DatabasePartner {
   invoice_email: string | null;
   invoice_contact: string | null;
   org_number: string | null;
+  legal_name: string | null;
 }
 
 const statusLabels: Record<string, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
@@ -279,6 +280,7 @@ const AdminDashboard = () => {
     invoice_email?: string;
     invoice_contact?: string;
     org_number?: string;
+    legal_name?: string;
   }>({
     slug: "",
     name: "",
@@ -306,6 +308,7 @@ const AdminDashboard = () => {
     invoice_email: "",
     invoice_contact: "",
     org_number: "",
+    legal_name: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
