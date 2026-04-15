@@ -120,14 +120,18 @@ const ToggleButtons = ({ options, value, onChange, label }: { options: { v: stri
 );
 
 const CardItem = ({ title, desc, type }: { title: string; desc: string; type: "strength" | "limitation" }) => (
-  <div className="bg-card border border-border rounded-lg p-3 mb-2">
-    <div className="text-sm font-medium text-card-foreground mb-1">{title}</div>
-    <div className="text-xs text-muted-foreground leading-relaxed">{desc}</div>
-    <span className={`inline-block text-xs px-2 py-0.5 rounded-full mt-2 font-medium ${
-      type === "strength" ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400"
-    }`}>
-      {type === "strength" ? "Styrka" : "Begränsning"}
-    </span>
+  <div className="bg-card border border-border rounded-xl p-3.5 mb-2 hover:shadow-sm transition-shadow">
+    <div className="flex items-start gap-2">
+      <span className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+        type === "strength" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+      }`}>
+        {type === "strength" ? "+" : "−"}
+      </span>
+      <div>
+        <div className="text-sm font-semibold text-card-foreground">{title}</div>
+        <div className="text-xs text-muted-foreground leading-relaxed mt-0.5">{desc}</div>
+      </div>
+    </div>
   </div>
 );
 
