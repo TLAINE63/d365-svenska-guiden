@@ -87,7 +87,7 @@ const D365Marketing = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2070" 
@@ -97,7 +97,7 @@ const D365Marketing = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>
         
-        <div className="relative h-full flex items-center">
+        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">

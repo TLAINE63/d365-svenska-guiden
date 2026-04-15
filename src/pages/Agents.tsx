@@ -81,7 +81,7 @@ const Agents = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[500px] md:h-[600px]">
+      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[500px] md:h-[600px]">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=2070" 
@@ -91,7 +91,7 @@ const Agents = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
         
-        <div className="relative h-full flex items-center">
+        <div className="relative min-h-[560px] sm:h-[500px] md:h-[600px] flex items-center pt-14 sm:pt-0">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
