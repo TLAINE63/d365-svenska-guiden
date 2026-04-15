@@ -26,6 +26,7 @@ export function useAdminPartners(token: string | null) {
         contactPerson: p.contact_person || null,
         invoice_email: p.invoice_email || null,
         invoice_contact: p.invoice_contact || null,
+        org_number: p.org_number || null,
       }));
     },
     enabled: !!token,

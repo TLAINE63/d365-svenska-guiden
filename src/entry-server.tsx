@@ -113,6 +113,7 @@ export function render(url: string) {
     industry_apps: (partnerInitialData.industry_apps as any) || [],
     invoice_email: partnerInitialData.invoice_email || null,
     invoice_contact: partnerInitialData.invoice_contact || null,
+    org_number: (partnerInitialData as any).org_number || null,
     activation_date: null as string | null,
     monthly_fee: null as number | null,
     cancellation_date: null as string | null,

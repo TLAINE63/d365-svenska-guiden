@@ -79,6 +79,7 @@ export interface DatabasePartner {
   // Invoice fields
   invoice_email: string | null;
   invoice_contact: string | null;
+  org_number: string | null;
   // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
@@ -144,6 +145,7 @@ export function usePartners() {
         industry_apps: (p.industry_apps as DatabasePartner['industry_apps']) || [],
         invoice_email: null,
         invoice_contact: null,
+        org_number: null,
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,
@@ -185,6 +187,7 @@ export function usePartner(slug: string | undefined) {
         industry_apps: (data.industry_apps as DatabasePartner['industry_apps']) || [],
         invoice_email: (data as any).invoice_email || null,
         invoice_contact: (data as any).invoice_contact || null,
+        org_number: (data as any).org_number || null,
         activation_date: null,
         monthly_fee: null,
         cancellation_date: null,

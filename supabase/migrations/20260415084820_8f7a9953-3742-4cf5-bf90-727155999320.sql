@@ -1,0 +1,1 @@
+ALTER TABLE public.partners ADD COLUMN org_number text DEFAULT NULL;

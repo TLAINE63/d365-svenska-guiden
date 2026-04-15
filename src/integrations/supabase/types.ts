@@ -492,6 +492,7 @@ export type Database = {
           monthly_fee: number | null
           name: string
           office_cities: string[] | null
+          org_number: string | null
           phone: string | null
           platform_capabilities: string[] | null
           product_filters: Json | null
@@ -526,6 +527,7 @@ export type Database = {
           monthly_fee?: number | null
           name: string
           office_cities?: string[] | null
+          org_number?: string | null
           phone?: string | null
           platform_capabilities?: string[] | null
           product_filters?: Json | null
@@ -560,6 +562,7 @@ export type Database = {
           monthly_fee?: number | null
           name?: string
           office_cities?: string[] | null
+          org_number?: string | null
           phone?: string | null
           platform_capabilities?: string[] | null
           product_filters?: Json | null

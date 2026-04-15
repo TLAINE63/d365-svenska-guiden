@@ -463,12 +463,20 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             })()}
 
             {/* Invoice contact */}
-            {(partner?.invoice_contact || partner?.invoice_email) && (
+            {(partner?.invoice_contact || partner?.invoice_email || partner?.org_number) && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
-                <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
-                  <Mail className="w-4 h-4 text-amber-600" />
-                  <span className="font-semibold">Faktura: {partner.invoice_contact || ''}</span>
-                </div>
+                {partner?.org_number && (
+                  <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
+                    <Building2 className="w-4 h-4 text-amber-600" />
+                    <span className="font-semibold">Org.nr: {partner.org_number}</span>
+                  </div>
+                )}
+                {partner?.invoice_contact && (
+                  <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
+                    <Mail className="w-4 h-4 text-amber-600" />
+                    <span className="font-semibold">Faktura: {partner.invoice_contact}</span>
+                  </div>
+                )}
                 {partner?.invoice_email && (
                   <a 
                     href={`mailto:${partner.invoice_email}`}
