@@ -5,6 +5,7 @@ import { BreadcrumbSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import IndustryComparisonWidget from "@/components/IndustryComparisonWidget";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import kravspecErpImage from "@/assets/kravspec-erp-card.jpg";
 import ebookCoverImage from "@/assets/ebook-partnervalet-cover.webp";
