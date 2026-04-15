@@ -130,7 +130,10 @@ const ERPOverview = () => {
             {/* Industry Comparison Widget */}
             <div className="bg-card rounded-xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)] mb-8">
               <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: Business Central vs Finance & Supply Chain Management</h3>
-              <p className="text-sm text-muted-foreground text-center mb-6">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
+              <p className="text-sm text-muted-foreground text-center mb-4">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-6 max-w-3xl mx-auto">
+                <strong className="text-foreground">En viktig reservation:</strong> Det är svårt att ge en helt rättvisande bild enbart utifrån dessa parametrar. Verkligheten är mer nyanserad – processernas komplexitet, befintliga systemlandskap, interna resurser och långsiktig tillväxtstrategi spelar alla in. Dessutom finns det ett brett ekosystem av tilläggsapplikationer till båda produkterna som tillför significant funktionalitet. Det gäller i synnerhet Business Central, där Microsofts AppSource-marknadsplats innehåller hundratals certifierade appar som täcker branschspecifika behov, avancerad WMS, APS, BI och mycket mer. Aktivera "Visa certifierade appar för BC" nedan för att se hur BC:s ekosystem täpper igen gapen mot F&SCM i det valda segmentet – och få en mer rättvisande helhetsbild.
+              </p>
               <IndustryComparisonWidget />
             </div>
 
