@@ -2380,6 +2380,13 @@ const AdminDashboard = () => {
             </div>
 
             <form onSubmit={handlePartnerSubmit} className="space-y-6 overflow-y-auto flex-1 pr-2">
+              {/* Top save button */}
+              <div className="flex justify-end">
+                <Button type="submit" disabled={createPartner.isPending || updatePartner.isPending}>
+                  {editingPartner ? "Spara ändringar" : "Skapa partner"}
+                </Button>
+              </div>
+
               {/* Section 1: Admin Info (moved to top for easy administration) */}
               <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
