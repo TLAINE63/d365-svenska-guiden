@@ -1903,11 +1903,14 @@ const AdminDashboard = () => {
                                   {format(new Date(partner.activation_date), "yyyy-MM-dd")}
                                 </span>
                               )}
-                              {partner.monthly_fee && (
-                                <span className="flex items-center gap-1">
-                                  {partner.monthly_fee} kr/mån
-                                </span>
-                              )}
+                              {(() => {
+                                const fee = calcMonthlyFee(partner.product_filters);
+                                return fee > 0 ? (
+                                  <span className="flex items-center gap-1 font-medium">
+                                    {fee.toLocaleString('sv-SE')} kr/mån
+                                  </span>
+                                ) : null;
+                              })()}
                               {partner.cancellation_date && (
                                 <span className="flex items-center gap-1 text-destructive">
                                   <CalendarX className="h-3 w-3" />
