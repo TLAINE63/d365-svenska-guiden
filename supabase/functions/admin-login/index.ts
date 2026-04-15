@@ -103,8 +103,8 @@ function base64UrlEncode(str: string): string {
   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-// JWT expiration time: 2 hours
-const JWT_EXPIRES_IN_MS = 2 * 60 * 60 * 1000;
+// JWT expiration time: 8 hours
+const JWT_EXPIRES_IN_MS = 8 * 60 * 60 * 1000;
 
 serve(async (req: Request): Promise<Response> => {
   const corsHeaders = getCorsHeaders(req);
