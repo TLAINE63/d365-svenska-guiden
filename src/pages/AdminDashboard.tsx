@@ -80,6 +80,7 @@ import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
+import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
 
 // ==================== VALIDATION SCHEMA ====================
@@ -2518,33 +2519,27 @@ const AdminDashboard = () => {
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                     <Label htmlFor="activation_date">Första faktureringsdatum</Label>
-                    <div className="relative">
-                      <CalendarCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="activation_date"
-                        type="date"
-                        value={partnerFormData.activation_date || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, activation_date: e.target.value })
-                        }
-                        className="pl-10"
-                      />
-                    </div>
+                    <SwedishDatePicker
+                      id="activation_date"
+                      value={partnerFormData.activation_date}
+                      onChange={(val) =>
+                        setPartnerFormData({ ...partnerFormData, activation_date: val })
+                      }
+                      icon={<CalendarCheck className="mr-2 h-4 w-4 text-muted-foreground" />}
+                      placeholder="Välj datum"
+                    />
                   </div>
                   <div>
                     <Label htmlFor="cancellation_date">Uppsägningsdatum</Label>
-                    <div className="relative">
-                      <CalendarX className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="cancellation_date"
-                        type="date"
-                        value={partnerFormData.cancellation_date || ""}
-                        onChange={(e) =>
-                          setPartnerFormData({ ...partnerFormData, cancellation_date: e.target.value })
-                        }
-                        className="pl-10"
-                      />
-                    </div>
+                    <SwedishDatePicker
+                      id="cancellation_date"
+                      value={partnerFormData.cancellation_date}
+                      onChange={(val) =>
+                        setPartnerFormData({ ...partnerFormData, cancellation_date: val })
+                      }
+                      icon={<CalendarX className="mr-2 h-4 w-4 text-muted-foreground" />}
+                      placeholder="Välj datum"
+                    />
                   </div>
                   <div>
                     <Label>Månadsavgift (beräknad)</Label>
