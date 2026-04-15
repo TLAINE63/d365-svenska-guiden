@@ -31,7 +31,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
   const [deadline, setDeadline] = useState("2026-04-30");
   const [startDate, setStartDate] = useState("2026-05-01");
 
-  const formatDateSv = (iso: string) => iso.replace(/-/g, "/");
+  const formatDateSv = (iso: string) => iso;
 
   const partnersWithEmail = partners.filter(
     (p) => p.admin_contact_email || p.email
