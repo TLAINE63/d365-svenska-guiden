@@ -129,7 +129,7 @@ const ERPOverview = () => {
             
             {/* Industry Comparison Widget */}
             <div className="bg-card rounded-xl p-6 sm:p-8 border border-border shadow-[var(--shadow-card)] mb-8">
-              <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: BC vs Finance & SCM</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2 text-center">Branschjämförelse: Business Central vs Finance & Supply Chain Management</h3>
               <p className="text-sm text-muted-foreground text-center mb-6">Välj din bransch, storlek och geografi för att få en skräddarsydd rekommendation</p>
               <IndustryComparisonWidget />
             </div>
