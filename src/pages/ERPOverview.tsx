@@ -93,7 +93,7 @@ const ERPOverview = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>
         
-        <div className="relative h-full flex items-center">
+        <div className="relative h-full flex items-end pb-10 sm:pb-12 md:items-center md:pb-0">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
