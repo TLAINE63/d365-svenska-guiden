@@ -2571,7 +2571,8 @@ const AdminDashboard = () => {
                       if (fscActive) activeProducts++;
                       if (salesActive || serviceActive) activeProducts++;
                       
-                      const totalFee = activeProducts * 1990;
+                      const priceTiers: Record<number, number> = { 0: 0, 1: 1990, 2: 3490, 3: 4490 };
+                      const totalFee = priceTiers[Math.min(activeProducts, 3)] ?? 4490;
                       const crmBundleBoth = salesActive && serviceActive;
                       
                       return (
@@ -2580,7 +2581,8 @@ const AdminDashboard = () => {
                             {totalFee.toLocaleString('sv-SE')} kr/mån
                           </p>
                           <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
-                            <p>{activeProducts} produkt(er) × 1 990 kr = {totalFee.toLocaleString('sv-SE')} kr</p>
+                            <p>{activeProducts} produkt(er) = {totalFee.toLocaleString('sv-SE')} kr/mån</p>
+                            <p className="text-muted-foreground/70">1 prod: 1 990 kr · 2 prod: 3 490 kr · 3 prod: 4 490 kr</p>
                             {crmBundleBoth && (
                               <p className="text-primary italic">Sales + Service räknas som 1 produkt</p>
                             )}
