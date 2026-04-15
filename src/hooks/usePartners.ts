@@ -80,6 +80,7 @@ export interface DatabasePartner {
   invoice_email: string | null;
   invoice_contact: string | null;
   org_number: string | null;
+  legal_name: string | null;
   // Admin fields
   activation_date: string | null;
   monthly_fee: number | null;
