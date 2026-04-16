@@ -215,13 +215,20 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     } catch { toast({ title: "Kunde inte spara mall", variant: "destructive" }); }
   };
 
-  const previewHtml = active.body
+  const escapeHtml = (s: string) =>
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  const previewHtml = escapeHtml(active.body)
     .replace(/\{\{PDF_LINK\}\}/g, '<span style="color:#1e40af;font-weight:bold;">[📄 Ladda ner partneravtal (PDF)]</span>')
     .replace(/\{\{INVITATION_LINK\}\}/g, '<span style="color:#2563eb;font-weight:bold;">[🔗 Skapa/uppdatera partnerprofil]</span>')
     .replace(/\{\{DEADLINE\}\}/g, "30 april 2026")
     .replace(/\{\{START_DATE\}\}/g, "1 maj 2026")
-    .split("\n\n")
-    .map((p) => `<p>${p.replace(/\n/g, "<br>")}</p>`)
+    // Normalize: collapse 3+ newlines to 2, then split on any newline so varje rad = eget stycke
+    .replace(/\n{2,}/g, "\n")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .map((line) => `<p style="margin:0 0 12px 0;">${line}</p>`)
     .join("");
 
   const sendEmails = async () => {
