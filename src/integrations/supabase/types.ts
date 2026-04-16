@@ -475,6 +475,7 @@ export type Database = {
           applications: string[] | null
           cancellation_date: string | null
           contact_person: string | null
+          contact_photo_url: string | null
           created_at: string
           customer_examples: string[] | null
           description: string | null
@@ -511,6 +512,7 @@ export type Database = {
           applications?: string[] | null
           cancellation_date?: string | null
           contact_person?: string | null
+          contact_photo_url?: string | null
           created_at?: string
           customer_examples?: string[] | null
           description?: string | null
@@ -547,6 +549,7 @@ export type Database = {
           applications?: string[] | null
           cancellation_date?: string | null
           contact_person?: string | null
+          contact_photo_url?: string | null
           created_at?: string
           customer_examples?: string[] | null
           description?: string | null
@@ -651,6 +654,7 @@ export type Database = {
         Row: {
           applications: string[] | null
           contact_person: string | null
+          contact_photo_url: string | null
           created_at: string | null
           customer_examples: string[] | null
           description: string | null
@@ -662,11 +666,13 @@ export type Database = {
           invoice_contact: string | null
           invoice_email: string | null
           is_featured: boolean | null
+          legal_name: string | null
           logo_dark_bg: boolean | null
           logo_url: string | null
           map_url: string | null
           name: string | null
           office_cities: string[] | null
+          org_number: string | null
           phone: string | null
           product_filters: Json | null
           secondary_industries: string[] | null
@@ -677,6 +683,7 @@ export type Database = {
         Insert: {
           applications?: string[] | null
           contact_person?: string | null
+          contact_photo_url?: string | null
           created_at?: string | null
           customer_examples?: string[] | null
           description?: string | null
@@ -688,11 +695,13 @@ export type Database = {
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
+          legal_name?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
           office_cities?: string[] | null
+          org_number?: string | null
           phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
@@ -703,6 +712,7 @@ export type Database = {
         Update: {
           applications?: string[] | null
           contact_person?: string | null
+          contact_photo_url?: string | null
           created_at?: string | null
           customer_examples?: string[] | null
           description?: string | null
@@ -714,11 +724,13 @@ export type Database = {
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
+          legal_name?: string | null
           logo_dark_bg?: boolean | null
           logo_url?: string | null
           map_url?: string | null
           name?: string | null
           office_cities?: string[] | null
+          org_number?: string | null
           phone?: string | null
           product_filters?: Json | null
           secondary_industries?: string[] | null
