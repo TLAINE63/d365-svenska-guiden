@@ -3275,6 +3275,21 @@ const AdminDashboard = () => {
                                 </p>
                               </div>
                             </div>
+
+                            {/* Per-product YouTube video */}
+                            <div className="pt-2 border-t border-border/60">
+                              <Label className="text-xs text-muted-foreground">YouTube-video för {section.label} (valfritt)</Label>
+                              <Input
+                                placeholder="https://youtu.be/... eller video-ID"
+                                defaultValue={filter.youtubeVideoId || ''}
+                                key={`${section.key}-youtubeVideoId-${editingPartner?.id || 'new'}`}
+                                onBlur={(e) => updateProductFilter(section.key, { youtubeVideoId: e.target.value.trim() })}
+                                className="mt-1"
+                              />
+                              <p className="text-xs text-muted-foreground mt-1">
+                                Lämna tomt för att använda partnerns huvudvideo (om någon).
+                              </p>
+                            </div>
                           </div>
                           <div>
                             <div className="flex items-center justify-between mb-2">
