@@ -108,6 +108,59 @@ Thomas Laine & Michael Uhman
 Moveahead AB / Dynamic Factory
 https://d365.se`;
 
+const COLD_PITCH_DEFAULT_SUBJECT = "d365.se växer – vill ni också finnas med?";
+
+const COLD_PITCH_DEFAULT_BODY = `Hej,
+
+Jag ville bara höra av mig kring d365.se.
+
+d365.se har fått ett väldigt positivt bemötande och utvecklats till en växande kundguide för organisationer som utvärderar Microsoft Dynamics 365 och söker rätt partner. Idag är 28 partners redan profilerade på sajten.
+
+Vi ser också ett tydligt intresse från marknaden. Hittills har d365.se haft cirka 3 000 unika besökare och 7 000 sidvisningar, med många genomförda analyser och kravspecifikationer samt redan hundratals partnerprofilbesök. De mest besökta delarna har varit Välj partner och Branschlösningar.
+
+Det bekräftar att besökarna inte bara söker information om Dynamics 365, utan också aktivt jämför partneralternativ och försöker hitta rätt väg framåt.
+
+Vi fortsätter nu att bygga innehåll, synlighet och efterfrågan kring plattformen, med ambitionen att d365.se ska bli den naturliga startpunkten för svenska organisationer som utvärderar Dynamics 365.
+
+För partner innebär det en möjlighet att vara synlig tidigt i kundens utvärderingsresa.
+
+Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
+
+**1 produktområde: 1.990 kr/månad**
+
+**2 produktområden: 3.490 kr/månad**
+
+**3 produktområden: 4.490 kr/månad**
+
+Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
+
+Som profilerad partner kan ni synas inom:
+
+Dynamics 365 Finance & Supply Chain Management
+
+Dynamics 365 Business Central
+
+Dynamics 365 CRM / Customer Engagement
+
+För varje produktområde väljer ni upp till tre branschinriktningar.
+
+Fullständiga villkor finns i bifogat partneravtal. Bekräftelse via e-post räcker som accept.
+
+{{PDF_LINK}}
+
+Om ni vill vara med, svara bara på detta mail med:
+
+**Ja, vi vill vara med.**
+
+Så tar vi nästa steg direkt kring profilering, produktområde(n) och fakturauppgifter.
+
+Hör gärna av er om ni vill att vi skickar profileringslänk direkt.
+
+Vänliga hälsningar,
+Thomas Laine & Michael Uhman
+Moveahead AB / Dynamic Factory
+d365.se`;
+
 type TemplateKind = "published" | "prospect";
 
 function useEmailTemplate(
