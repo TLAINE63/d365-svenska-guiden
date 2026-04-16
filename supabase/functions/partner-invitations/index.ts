@@ -1204,7 +1204,7 @@ D365.se`;
     // Admin: Send agreement email to selected partners
     if (action === "send-agreement" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList, deadline, start_date } = body;
+      const { partners: partnerList, deadline, start_date, subject: customSubject, email_body: customBody, cc } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
@@ -1222,96 +1222,26 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement.pdf`;
+      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
       const deadlineStr = deadline || "2026-04-30";
       const startDateStr = start_date || "2026-05-01";
+      const emailSubject = customSubject || "Fortsätt vara synliga på d365.se från 1 maj";
 
-      // Fetch custom template from site_settings (if exists)
+      // Use custom body from request, or fetch from site_settings, or use default
       let emailBody = "";
-      const { data: setting } = await supabase
-        .from("site_settings")
-        .select("value")
-        .eq("key", "agreement_email_body")
-        .single();
-
-      if (setting?.value) {
-        emailBody = setting.value;
+      if (customBody) {
+        emailBody = customBody;
       } else {
-        emailBody = `Hej,
-
-Stort tack för att ni har varit med i pilotperioden för d365.se och bidragit till att forma plattformen tillsammans med oss.
-
-Tillsammans har vi tagit viktiga steg – från idé till en levande plattform med guider, behovsanalyser och kravstöd för organisationer som utvärderar Microsoft Dynamics 365. Målet är tydligt: att skapa en oberoende plats där företag enklare kan förstå sina behov och hitta rätt partner.
-
-Det här är bara början.
-
-Vi ser redan nu ett växande intresse och flera Dynamics-partners har valt att fortsätta vara synliga när vi nu går in i nästa fas. Vår ambition framåt är att öka inflödet av relevanta kunddialoger genom fortsatt satsning på innehåll, funktionalitet och marknadsföring – med tydligt fokus på organisationer i aktiv utvärdering.
-
-Vi ser verkligen fram emot att fortsätta resan tillsammans med er och bygga vidare på något som kan skapa konkret affärsvärde för alla involverade.
-
-För de partners som vill fortsätta vara synliga på plattformen gäller följande villkor framåt:
-
-Partnerprofil
-
-Partnerprofilen gör det möjligt att synas inom följande produktområden:
-
-• Dynamics 365 Finance & Supply Chain
-• Dynamics 365 Business Central
-• Dynamics 365 Customer Engagement
-
-Inom varje produktområde väljer ni max tre (3) branschinriktningar. Välj noga.
-
-Pris
-
-Avgiften är 1.990 kr per månad och produktområde (exkl. moms).
-
-Debitering startar från {{START_DATE}}
-
-Avtalsvillkor
-
-• initial bindningstid: 6 månader
-• därefter 3 månaders uppsägningstid
-• fakturering sker månadsvis i förskott
-
-Fullständiga villkor finns i bifogad fil.
-
-{{PDF_LINK}}
-
-Bekräftelse
-
-Om ni vill fortsätta vara partner på d365.se, svara gärna på detta mail med:
-
-"Vi accepterar villkoren för partnerprofil på d365.se."
-
-och ange:
-
-Produktområden
-
-• Dynamics 365 Finance & Supply Chain
-• Dynamics 365 Business Central
-• Dynamics 365 Customer Engagement/CRM
-
-Fakturauppgifter
-
-• Företag
-• Organisationsnummer
-• Faktureringsadress
-• Fakturaemail (för e-faktura/PDF)
-• Referens eller märkning
-• Kontaktperson för fakturafrågor
-
-Partnern ansvarar för att tillhandahålla korrekta fakturauppgifter i samband med beställning av partnerprofil. Eventuella ändringar av fakturauppgifter ska meddelas skriftligen via email.
-
-Vi är tacksamma om ni kan bekräfta detta senast {{DEADLINE}}
-
-Vi ser fram emot att fortsätta utveckla plattformen tillsammans.
-
-Vänliga hälsningar
-
-Thomas Laine & Michael Uhman
-Moveahead AB (Dynamic Factory)
-https://d365.se`;
+        const { data: setting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "agreement_email_body")
+          .single();
+        emailBody = setting?.value || "Hej,\n\nVi vill gärna att ni fortsätter som partner på d365.se.\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
       }
+
+      // Build CC list
+      const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
 
       let sent = 0;
       let failed = 0;
@@ -1327,7 +1257,7 @@ https://d365.se`;
           }
 
           // Replace placeholders
-          let body = emailBody
+          let bodyText = emailBody
             .replace(/\{\{DEADLINE\}\}/g, deadlineStr)
             .replace(/\{\{START_DATE\}\}/g, startDateStr);
 
@@ -1337,7 +1267,7 @@ https://d365.se`;
           </div>`;
 
           // Convert plain text to HTML
-          const htmlBody = body
+          const htmlBody = bodyText
             .split("{{PDF_LINK}}")
             .map((part: string) => {
               return part
@@ -1373,22 +1303,26 @@ https://d365.se`;
             </body>
             </html>`;
 
-          await resend.emails.send({
+          const emailOptions: any = {
             from: "D365.se <info@d365.se>",
             to: [email],
-            bcc: ["thomas.laine@dynamicfactory.se"],
-            subject: "Partneravtal – d365.se – Villkor för fortsatt partnerskap",
+            subject: emailSubject,
             html: fullHtml,
-          });
+          };
+          if (ccList.length > 0) {
+            emailOptions.cc = ccList;
+          }
+
+          await resend.emails.send(emailOptions);
 
           sent++;
           console.log("Agreement email sent to:", email, partner.name);
           await supabase.from("email_send_log").insert({
             recipient_email: email,
             template_name: "partner_agreement",
-            subject: "Partneravtal – d365.se – Villkor för fortsatt partnerskap",
+            subject: emailSubject,
             status: "sent",
-            metadata: { partner_name: partner.name, deadline: deadlineStr, start_date: startDateStr },
+            metadata: { partner_name: partner.name, deadline: deadlineStr, start_date: startDateStr, cc: ccList },
           });
 
           // Update partner activation_date if provided
@@ -1405,7 +1339,7 @@ https://d365.se`;
           await supabase.from("email_send_log").insert({
             recipient_email: partner.email,
             template_name: "partner_agreement",
-            subject: "Partneravtal – d365.se – Villkor för fortsatt partnerskap",
+            subject: emailSubject,
             status: "failed",
             error_message: sendErr.message,
             metadata: { partner_name: partner.name },
