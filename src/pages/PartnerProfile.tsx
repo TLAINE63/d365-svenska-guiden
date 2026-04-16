@@ -898,6 +898,13 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               );
             })()}
 
+            {/* Events Section - shown after competencies */}
+            {partner?.id && (
+              <PartnerEventsSection 
+                partnerId={partner.id} 
+                partnerName={partner.name} 
+              />
+            )}
 
             <article className="relative rounded-3xl overflow-hidden shadow-2xl">
               {/* Gradient background */}
