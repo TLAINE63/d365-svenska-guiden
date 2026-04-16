@@ -385,7 +385,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             </p>
 
             {/* Website CTA - directly under description */}
-            <div className="flex justify-center mb-6">
+            <div className="flex flex-col items-center mb-6">
               <a 
                 href={partner.website} 
                 target="_blank" 
@@ -403,12 +403,19 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                     }
                   );
                 }}
-                className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-primary-foreground shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
+                className="group relative inline-flex items-center gap-3 px-7 py-4 rounded-full bg-gradient-to-r from-[hsl(var(--cta-orange))] via-[hsl(var(--cta-orange))] to-orange-500 text-white font-semibold text-base shadow-[0_10px_30px_-8px_hsl(var(--cta-orange)/0.6)] hover:shadow-[0_18px_40px_-8px_hsl(var(--cta-orange)/0.8)] hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 overflow-hidden ring-2 ring-[hsl(var(--cta-orange))]/20 hover:ring-[hsl(var(--cta-orange))]/40"
               >
-                <Globe className="w-4 h-4" />
-                <span className="font-medium">Besök {partner.name}</span>
-                <ExternalLink className="w-3 h-3 opacity-70 group-hover:opacity-100 transition-opacity" />
+                {/* Shimmer effect */}
+                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+                {/* Pulsing glow ring */}
+                <span className="absolute inset-0 rounded-full bg-[hsl(var(--cta-orange))] opacity-40 blur-xl animate-pulse pointer-events-none -z-10" />
+                <Globe className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">Besök {partner.name}</span>
+                <ExternalLink className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
               </a>
+              <span className="mt-2 text-xs text-slate-500 font-medium">
+                Öppnas i nytt fönster · Inga förpliktelser
+              </span>
             </div>
             
             {/* Overall AI Level Badge */}
