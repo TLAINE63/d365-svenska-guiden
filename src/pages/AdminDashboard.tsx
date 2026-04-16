@@ -72,12 +72,13 @@ import {
   Eye, Send, Trash2, RefreshCw, LogOut, BarChart3, MousePointerClick,
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe, 
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
-  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock
+  CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Award
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
+import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
@@ -1382,6 +1383,10 @@ const AdminDashboard = () => {
               <FileText className="h-4 w-4" />
               Partneravtal
             </TabsTrigger>
+            <TabsTrigger value="sales-overview" className="flex items-center gap-2">
+              <Award className="h-4 w-4" />
+              Totalöversikt
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2234,6 +2239,14 @@ const AdminDashboard = () => {
               token={token}
               onRefresh={fetchFullPartners}
               logout={logout}
+            />
+          </TabsContent>
+
+          {/* ==================== SALES OVERVIEW TAB ==================== */}
+          <TabsContent value="sales-overview">
+            <AdminSalesOverview
+              token={token || ""}
+              onSessionExpired={logout}
             />
           </TabsContent>
         </Tabs>
