@@ -285,6 +285,66 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
         </Card>
       </div>
 
+      {/* Daily Visitors Trend Chart */}
+      {stats.dailyVisitors && stats.dailyVisitors.length > 0 && (
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Unika besökare per dag
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer
+              config={{
+                visitors: { label: "Besökare", color: "hsl(var(--primary))" },
+              }}
+              className="h-[280px] w-full"
+            >
+              <AreaChart data={stats.dailyVisitors} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="visitorsGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis
+                  dataKey="date"
+                  tickFormatter={(val) => {
+                    try {
+                      return format(parseISO(val), "d MMM", { locale: sv });
+                    } catch { return val; }
+                  }}
+                  className="text-xs"
+                  tick={{ fontSize: 11 }}
+                  interval="preserveStartEnd"
+                />
+                <YAxis allowDecimals={false} tick={{ fontSize: 11 }} width={35} />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      labelFormatter={(val) => {
+                        try {
+                          return format(parseISO(val as string), "EEEE d MMMM", { locale: sv });
+                        } catch { return String(val); }
+                      }}
+                    />
+                  }
+                />
+                <Area
+                  type="monotone"
+                  dataKey="visitors"
+                  stroke="hsl(var(--primary))"
+                  strokeWidth={2}
+                  fill="url(#visitorsGradient)"
+                />
+              </AreaChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Geographic Distribution */}
       <Card>
         <CardHeader className="pb-3">
