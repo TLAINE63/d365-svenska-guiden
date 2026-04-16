@@ -496,7 +496,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                 {/* Contact info */}
                 <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
-                    Din kundkontakt
+                    Din kontaktperson hos {partner.name}
                   </span>
                   {partner.contactPerson && (
                     <span className="text-base font-semibold text-slate-900">
