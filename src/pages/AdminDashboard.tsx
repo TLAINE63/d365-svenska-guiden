@@ -78,6 +78,7 @@ import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
+import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
