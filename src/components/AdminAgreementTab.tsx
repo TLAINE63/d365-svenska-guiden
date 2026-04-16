@@ -295,6 +295,53 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     .join("");
 
   const sendEmails = async () => {
+    const ccList = active.cc.split(",").map((e) => e.trim()).filter(Boolean);
+
+    // === Cold pitch: free-form single recipient ===
+    if (templateKind === "cold-pitch") {
+      const emailTrimmed = coldEmail.trim();
+      if (!emailTrimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)) {
+        toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
+        return;
+      }
+      if (!confirm(`Skicka införsäljningsmail till ${emailTrimmed}${coldCompany ? ` (${coldCompany})` : ""}?`)) return;
+
+      setSending(true);
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=${action}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+              apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({
+              email: emailTrimmed,
+              company_name: coldCompany.trim() || null,
+              subject: active.subject,
+              email_body: active.body,
+              cc: ccList,
+            }),
+          }
+        );
+        if (response.status === 401) { toast({ title: "Sessionen har gått ut", variant: "destructive" }); logout(); return; }
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Kunde inte skicka");
+        toast({ title: data.message || "Skickat!" });
+        setColdEmail("");
+        setColdCompany("");
+        onRefresh();
+      } catch (error: any) {
+        toast({ title: "Fel", description: error.message, variant: "destructive" });
+      } finally {
+        setSending(false);
+      }
+      return;
+    }
+
+    // === Existing flow: published / prospect ===
     const selectedPartners = partners.filter((p) => selected.has(p.id));
     if (selectedPartners.length === 0) return;
 
@@ -309,7 +356,6 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         name: p.name,
         email: p.admin_contact_email || p.email || "",
       }));
-      const ccList = active.cc.split(",").map((e) => e.trim()).filter(Boolean);
 
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=${action}`,
