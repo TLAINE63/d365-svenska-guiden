@@ -1041,6 +1041,23 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       </section>
 
       <Footer />
+
+      <PartnerVideoModal
+        videoId={videoOpen ? (extractYouTubeId((() => {
+          const sp = searchParams.get('product') || '';
+          const v = sp.toLowerCase();
+          let key: 'bc' | 'fsc' | 'sales' | 'service' | null = null;
+          if (v.includes('business central')) key = 'bc';
+          else if (v.includes('finance') || v.includes('supply')) key = 'fsc';
+          else if (v.includes('sales') || v.includes('marketing') || v.includes('customer insights')) key = 'sales';
+          else if (v.includes('service') || v.includes('contact center') || v.includes('field')) key = 'service';
+          const pf = (partner as any)?.product_filters || {};
+          const productVid = key ? pf[key]?.youtubeVideoId : null;
+          return productVid || (partner as any)?.youtube_video_id;
+        })())) : null}
+        partnerName={partner.name}
+        onClose={() => setVideoOpen(false)}
+      />
     </div>
   );
 };
