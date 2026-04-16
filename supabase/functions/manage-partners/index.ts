@@ -341,6 +341,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.legal_name !== undefined) updateData.legal_name = partner.legal_name?.trim() || null;
         if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
+        if (partner?.youtube_video_id !== undefined) updateData.youtube_video_id = partner.youtube_video_id?.trim() || null;
 
         const { data, error } = await supabase
           .from("partners")
