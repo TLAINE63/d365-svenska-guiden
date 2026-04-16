@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useToast } from "@/hooks/use-toast";
 import { 
   isExcludedFromTracking, 
@@ -26,9 +27,10 @@ import {
 } from "@/hooks/useVisitorTracking";
 import { 
   Users, MapPin, Globe, TrendingUp, Clock, MousePointerClick,
-  ChevronDown, ChevronUp, EyeOff
+  ChevronDown, ChevronUp, EyeOff, BarChart3
 } from "lucide-react";
-import { format, subDays, startOfDay } from "date-fns";
+import { Area, AreaChart, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
+import { format, subDays, startOfDay, parseISO } from "date-fns";
 import { sv } from "date-fns/locale";
 
 interface VisitorStats {
