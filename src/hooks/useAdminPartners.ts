@@ -24,6 +24,7 @@ export function useAdminPartners(token: string | null) {
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
         contactPerson: p.contact_person || null,
+        contact_photo_url: p.contact_photo_url || null,
         invoice_email: p.invoice_email || null,
         invoice_contact: p.invoice_contact || null,
         org_number: p.org_number || null,

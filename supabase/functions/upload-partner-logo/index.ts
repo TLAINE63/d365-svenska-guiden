@@ -134,6 +134,7 @@ serve(async (req: Request): Promise<Response> => {
     const file = formData.get("file") as File;
     const token = formData.get("token") as string;
     const partnerSlug = formData.get("partnerSlug") as string;
+    const kind = (formData.get("kind") as string) || "logo"; // "logo" | "contact"
 
     if (!file || !token || !partnerSlug) {
       return new Response(
@@ -237,9 +238,9 @@ serve(async (req: Request): Promise<Response> => {
       }
     }
 
-    // Generate filename
+    // Generate filename - kind suffix prevents overwriting logo when uploading contact photo
     const ext = file.name.split('.').pop() || 'png';
-    const filename = `${partnerSlug}.${ext}`;
+    const filename = kind === "contact" ? `${partnerSlug}-contact.${ext}` : `${partnerSlug}.${ext}`;
     const { data, error } = await supabase.storage
       .from("partner-logos")
       .upload(filename, arrayBuffer, {
