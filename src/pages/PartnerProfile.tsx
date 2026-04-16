@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,8 +20,11 @@ import {
   User,
   Mail,
   Phone,
-  Package
+  Package,
+  Play
 } from "lucide-react";
+import PartnerVideoModal from "@/components/PartnerVideoModal";
+import { extractYouTubeId } from "@/lib/youtube";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
@@ -138,6 +142,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   
   // Use initialData for SSR, then hydrate with live data from DB
   const partner = dbPartner ?? initialData ?? null;
+
+  const [videoOpen, setVideoOpen] = useState(false);
 
   // Get product categories this partner supports
   // Get product categories this partner supports - check both applications array AND product_filters
