@@ -223,6 +223,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     .replace(/\{\{INVITATION_LINK\}\}/g, '<span style="color:#2563eb;font-weight:bold;">[🔗 Skapa/uppdatera partnerprofil]</span>')
     .replace(/\{\{DEADLINE\}\}/g, "30 april 2026")
     .replace(/\{\{START_DATE\}\}/g, "1 maj 2026")
+    // Markdown-style bold: **text** -> <strong>text</strong>
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     // Normalize: collapse 3+ newlines to 2, then split on any newline so varje rad = eget stycke
     .replace(/\n{2,}/g, "\n")
     .split("\n")
