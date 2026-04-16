@@ -35,6 +35,7 @@ export interface ProductFilterInput {
   contactName?: string;             // Sales contact name for this product area
   contactEmail?: string;            // Sales contact email for this product area
   contactPhone?: string;            // Sales contact phone for this product area
+  contactPhotoUrl?: string;         // Sales contact photo URL for this product area
 }
 
 // Updated product filters to include 4 product areas plus combined crm
