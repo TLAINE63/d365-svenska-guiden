@@ -931,6 +931,44 @@ const AdminDashboard = () => {
     }
   };
 
+  // Per-product contact photo upload (uses kind="contact-<productKey>")
+  const [uploadingProductPhoto, setUploadingProductPhoto] = useState<string | null>(null);
+  const handleProductContactPhotoUpload = async (
+    productKey: ProductKey,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file || !token) return;
+    setUploadingProductPhoto(productKey);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("token", token);
+      formData.append("partnerSlug", partnerFormData.slug || generateSlug(partnerFormData.name));
+      formData.append("kind", `contact-${productKey}`);
+
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const response = await fetch(`${supabaseUrl}/functions/v1/upload-partner-logo`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Uppladdning misslyckades");
+
+      const bustedUrl = `${data.url}?t=${Date.now()}`;
+      updateProductFilter(productKey, { contactPhotoUrl: bustedUrl });
+      toast({ title: "Foto uppladdat" });
+    } catch (error: any) {
+      toast({
+        title: "Fel vid uppladdning",
+        description: error.message || "Kunde inte ladda upp foto",
+        variant: "destructive",
+      });
+    } finally {
+      setUploadingProductPhoto(null);
+      e.target.value = "";
+    }
+  };
   const handlePartnerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!token) {
@@ -1081,6 +1119,7 @@ const AdminDashboard = () => {
       contactName: existing?.contactName || '',
       contactEmail: existing?.contactEmail || '',
       contactPhone: existing?.contactPhone || '',
+      contactPhotoUrl: existing?.contactPhotoUrl || '',
     };
   };
 
@@ -3163,8 +3202,59 @@ const AdminDashboard = () => {
                                 />
                               </div>
                             </div>
-                          </div>
 
+                            {/* Per-product contact photo */}
+                            <div className="flex items-center gap-3 pt-2 border-t border-border/60">
+                              {filter.contactPhotoUrl ? (
+                                <img
+                                  src={filter.contactPhotoUrl}
+                                  alt="Foto"
+                                  className="h-14 w-14 object-cover rounded-full border-2 border-border shadow-sm"
+                                />
+                              ) : (
+                                <div className="h-14 w-14 bg-muted rounded-full flex items-center justify-center border-2 border-dashed border-border">
+                                  <User className="h-5 w-5 text-muted-foreground" />
+                                </div>
+                              )}
+                              <div className="flex-1">
+                                <Label className="text-xs text-muted-foreground">Foto av säljkontakt (valfritt)</Label>
+                                <div className="flex gap-2 mt-1">
+                                  <input
+                                    type="file"
+                                    accept="image/jpeg,image/png,image/webp"
+                                    onChange={(e) => handleProductContactPhotoUpload(section.key, e)}
+                                    className="hidden"
+                                    id={`product-photo-${section.key}`}
+                                  />
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={uploadingProductPhoto === section.key}
+                                    onClick={() => document.getElementById(`product-photo-${section.key}`)?.click()}
+                                  >
+                                    <Upload className={`mr-2 h-3.5 w-3.5 ${uploadingProductPhoto === section.key ? "animate-spin" : ""}`} />
+                                    {uploadingProductPhoto === section.key
+                                      ? "Laddar upp..."
+                                      : (filter.contactPhotoUrl ? "Byt foto" : "Ladda upp foto")}
+                                  </Button>
+                                  {filter.contactPhotoUrl && (
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => updateProductFilter(section.key, { contactPhotoUrl: '' })}
+                                    >
+                                      Ta bort
+                                    </Button>
+                                  )}
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  Lämna tomt för att använda partnerns huvudkontakt.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                           <div>
                             <div className="flex items-center justify-between mb-2">
                               <Label className="text-sm">Branschfokus</Label>
