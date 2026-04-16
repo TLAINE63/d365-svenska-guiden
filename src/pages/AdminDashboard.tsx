@@ -305,6 +305,7 @@ const AdminDashboard = () => {
     invoice_contact?: string;
     org_number?: string;
     legal_name?: string;
+    youtube_video_id?: string;
   }>({
     slug: "",
     name: "",
@@ -334,6 +335,7 @@ const AdminDashboard = () => {
     invoice_contact: "",
     org_number: "",
     legal_name: "",
+    youtube_video_id: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
@@ -789,6 +791,7 @@ const AdminDashboard = () => {
       contact_photo_url: "",
       phone: "",
       address: "",
+      youtube_video_id: "",
       applications: [],
       industries: [],
       secondary_industries: [],
@@ -849,6 +852,7 @@ const AdminDashboard = () => {
       invoice_contact: (partner as any).invoice_contact || "",
       org_number: (partner as any).org_number || "",
       legal_name: (partner as any).legal_name || "",
+      youtube_video_id: (partner as any).youtube_video_id || "",
     });
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
@@ -1120,6 +1124,7 @@ const AdminDashboard = () => {
       contactEmail: existing?.contactEmail || '',
       contactPhone: existing?.contactPhone || '',
       contactPhotoUrl: existing?.contactPhotoUrl || '',
+      youtubeVideoId: existing?.youtubeVideoId || '',
     };
   };
 
