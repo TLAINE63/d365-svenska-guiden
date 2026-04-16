@@ -636,6 +636,18 @@ case "click-stats": {
           }
         }
 
+        // Daily unique visitors trend (by date, unique sessions)
+        const dailyVisitorMap: Record<string, Set<string>> = {};
+        for (const v of filteredVisitors) {
+          const day = v.visited_at ? v.visited_at.substring(0, 10) : null;
+          if (!day) continue;
+          if (!dailyVisitorMap[day]) dailyVisitorMap[day] = new Set();
+          dailyVisitorMap[day].add(v.session_id || v.id);
+        }
+        const dailyVisitors = Object.entries(dailyVisitorMap)
+          .map(([date, sessions]) => ({ date, visitors: sessions.size }))
+          .sort((a, b) => a.date.localeCompare(b.date));
+
         const stats = {
           totalVisitors: totalUniqueVisitors,
           totalPageViews: totalPageViews,
@@ -649,6 +661,7 @@ case "click-stats": {
           topCities,
           partnerProfileStats,
           partnerClickStats,
+          dailyVisitors,
         };
 
         return new Response(
