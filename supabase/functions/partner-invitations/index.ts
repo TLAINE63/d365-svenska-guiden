@@ -1530,6 +1530,107 @@ D365.se`;
       );
     }
 
+    // Admin: Send cold pitch email to a single free-form recipient (no partner record needed)
+    if (action === "send-cold-pitch" && req.method === "POST") {
+      const body = await req.json();
+      const { email, company_name, subject: customSubject, email_body: customBody, cc } = body;
+
+      if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return new Response(
+          JSON.stringify({ error: "Giltig e-postadress krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "RESEND_API_KEY ej konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resend = new Resend(resendApiKey);
+      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      const emailSubject = customSubject || "d365.se växer – vill ni också finnas med?";
+      const emailBody = customBody || "";
+      const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
+
+      try {
+        const pdfButton = `<div style="text-align: center; margin: 20px 0;">
+          <a href="${pdfUrl}" style="display: inline-block; background-color: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">📄 Ladda ner partneravtal (PDF)</a>
+        </div>`;
+
+        const htmlBody = emailBody
+          .split("{{PDF_LINK}}")
+          .map((part: string) => {
+            return part
+              .split("\n\n")
+              .map((paragraph: string) => {
+                const trimmed = paragraph.trim();
+                if (!trimmed) return "";
+                const withBr = trimmed.replace(/\n/g, "<br>");
+                const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
+                const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
+                const withBold = withEmails.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+                return `<p>${withBold}</p>`;
+              })
+              .filter(Boolean)
+              .join("\n");
+          })
+          .join(pdfButton);
+
+        const fullHtml = `<!DOCTYPE html>
+          <html>
+          <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+          <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="text-align: center; margin-bottom: 30px;">
+              <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+              <p style="color: #6b7280; margin: 5px 0 0 0;">Partnerprofilering</p>
+            </div>
+            ${htmlBody}
+          </body>
+          </html>`;
+
+        const emailOptions: any = {
+          from: "D365.se <info@d365.se>",
+          to: [email],
+          subject: emailSubject,
+          html: fullHtml,
+        };
+        if (ccList.length > 0) emailOptions.cc = ccList;
+
+        await resend.emails.send(emailOptions);
+
+        await supabase.from("email_send_log").insert({
+          recipient_email: email,
+          template_name: "partner_cold_pitch",
+          subject: emailSubject,
+          status: "sent",
+          metadata: { company_name: company_name || null, cc: ccList },
+        });
+
+        return new Response(
+          JSON.stringify({ success: true, message: `Införsäljningsmail skickat till ${email}.` }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      } catch (sendErr: any) {
+        console.error("Cold pitch send error:", email, sendErr);
+        await supabase.from("email_send_log").insert({
+          recipient_email: email,
+          template_name: "partner_cold_pitch",
+          subject: emailSubject,
+          status: "failed",
+          error_message: sendErr.message,
+          metadata: { company_name: company_name || null },
+        });
+        return new Response(
+          JSON.stringify({ error: sendErr.message || "Kunde inte skicka mail" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+    }
+
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
       const { partners: partnerList } = body;
