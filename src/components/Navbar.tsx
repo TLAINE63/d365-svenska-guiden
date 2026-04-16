@@ -17,9 +17,9 @@ import {
 
 const Navbar = () => {
   const erpItems = [
-    { label: "Business Central vs Finance & Supply Chain", path: "/erp" },
+    { label: "Business Central vs Finance & Supply Chain Management", path: "/erp" },
     { label: "Business Central", path: "/business-central" },
-    { label: "Finance & Supply Chain", path: "/finance-supply-chain" },
+    { label: "Finance & Supply Chain Management", path: "/finance-supply-chain" },
   ];
 
   const aiItems = [
