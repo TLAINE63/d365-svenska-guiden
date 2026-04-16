@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useToast } from "@/hooks/use-toast";
 import { 
   isExcludedFromTracking, 
@@ -26,9 +27,10 @@ import {
 } from "@/hooks/useVisitorTracking";
 import { 
   Users, MapPin, Globe, TrendingUp, Clock, MousePointerClick,
-  ChevronDown, ChevronUp, EyeOff
+  ChevronDown, ChevronUp, EyeOff, BarChart3
 } from "lucide-react";
-import { format, subDays, startOfDay } from "date-fns";
+import { Area, AreaChart, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
+import { format, subDays, startOfDay, parseISO } from "date-fns";
 import { sv } from "date-fns/locale";
 
 interface VisitorStats {
@@ -44,6 +46,7 @@ interface VisitorStats {
   topCities: { city: string; region: string; visits: number }[];
   partnerProfileStats: { name: string; visits: number }[];
   partnerClickStats: { name: string; clicks: number }[];
+  dailyVisitors: { date: string; visitors: number }[];
 }
 
 interface AdminVisitorStatsTabProps {
@@ -62,7 +65,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState<VisitorStats | null>(null);
-  const [dateRange, setDateRange] = useState("7");
+  const [dateRange, setDateRange] = useState("30");
   const [showAllCities, setShowAllCities] = useState(false);
   const [excludeSelf, setExcludeSelf] = useState(isExcludedFromTracking());
   const [excludePartners, setExcludePartners] = useState(false);
@@ -281,6 +284,66 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
           </CardContent>
         </Card>
       </div>
+
+      {/* Daily Visitors Trend Chart */}
+      {stats.dailyVisitors && stats.dailyVisitors.length > 0 && (
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Unika besökare per dag
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer
+              config={{
+                visitors: { label: "Besökare", color: "hsl(var(--primary))" },
+              }}
+              className="h-[280px] w-full"
+            >
+              <AreaChart data={stats.dailyVisitors} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="visitorsGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis
+                  dataKey="date"
+                  tickFormatter={(val) => {
+                    try {
+                      return format(parseISO(val), "d MMM", { locale: sv });
+                    } catch { return val; }
+                  }}
+                  className="text-xs"
+                  tick={{ fontSize: 11 }}
+                  interval="preserveStartEnd"
+                />
+                <YAxis allowDecimals={false} tick={{ fontSize: 11 }} width={35} />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      labelFormatter={(val) => {
+                        try {
+                          return format(parseISO(val as string), "EEEE d MMMM", { locale: sv });
+                        } catch { return String(val); }
+                      }}
+                    />
+                  }
+                />
+                <Area
+                  type="monotone"
+                  dataKey="visitors"
+                  stroke="hsl(var(--primary))"
+                  strokeWidth={2}
+                  fill="url(#visitorsGradient)"
+                />
+              </AreaChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Geographic Distribution */}
       <Card>
