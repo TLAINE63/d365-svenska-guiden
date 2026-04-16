@@ -462,8 +462,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               ) : null;
             })()}
 
-            {/* Invoice contact */}
-            {(partner?.invoice_contact || partner?.invoice_email || partner?.org_number || partner?.legal_name) && (
+            {/* Org/legal name (invoice contact & email hidden on public profile) */}
+            {(partner?.org_number || partner?.legal_name) && (
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
                 {partner?.org_number && (
                   <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
@@ -476,21 +476,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                     <Building2 className="w-4 h-4 text-amber-600" />
                     <span className="font-semibold">{partner.legal_name}</span>
                   </div>
-                )}
-                {partner?.invoice_contact && (
-                  <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
-                    <Mail className="w-4 h-4 text-amber-600" />
-                    <span className="font-semibold">Faktura: {partner.invoice_contact}</span>
-                  </div>
-                )}
-                {partner?.invoice_email && (
-                  <a 
-                    href={`mailto:${partner.invoice_email}`}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm hover:bg-slate-200/80 transition-colors"
-                  >
-                    <Mail className="w-4 h-4 text-amber-600" />
-                    <span className="font-semibold">{partner.invoice_email}</span>
-                  </a>
                 )}
               </div>
             )}
