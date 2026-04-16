@@ -486,31 +486,54 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               </div>
             )}
 
-            {/* Sales contact - separate row */}
-            {partner?.contactPerson && (
-              <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
-                <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-50 border border-emerald-200 text-sm text-slate-700 shadow-sm">
-                  <User className="w-4 h-4 text-emerald-600" />
-                  <span className="font-semibold">Kundkontakt: {partner.contactPerson}</span>
+            {/* Sales contact card with optional photo */}
+            {(partner?.contactPerson || partner?.email || partner?.phone) && (
+              <div className="mt-5 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded-2xl bg-white/80 border border-emerald-200 shadow-md backdrop-blur-sm max-w-2xl">
+                {/* Contact photo or fallback avatar */}
+                {(partner as any)?.contact_photo_url ? (
+                  <img
+                    src={(partner as any).contact_photo_url}
+                    alt={`Foto av ${partner.contactPerson || 'kundkontakt'}`}
+                    loading="lazy"
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-emerald-200 shadow-sm shrink-0"
+                  />
+                ) : (
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center shrink-0">
+                    <User className="w-8 h-8 text-emerald-600" />
+                  </div>
+                )}
+
+                {/* Contact info */}
+                <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+                    Din kundkontakt
+                  </span>
+                  {partner.contactPerson && (
+                    <span className="text-base font-semibold text-slate-900">
+                      {partner.contactPerson}
+                    </span>
+                  )}
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-1">
+                    {partner?.email && (
+                      <a
+                        href={`mailto:${partner.email}`}
+                        className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="font-medium">{partner.email}</span>
+                      </a>
+                    )}
+                    {partner?.phone && (
+                      <a
+                        href={`tel:${partner.phone}`}
+                        className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
+                      >
+                        <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="font-medium">{partner.phone}</span>
+                      </a>
+                    )}
+                  </div>
                 </div>
-                {partner?.email && (
-                  <a 
-                    href={`mailto:${partner.email}`}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm hover:bg-slate-200/80 transition-colors"
-                  >
-                    <Mail className="w-4 h-4 text-emerald-600" />
-                    <span className="font-semibold">{partner.email}</span>
-                  </a>
-                )}
-                {partner?.phone && (
-                  <a 
-                    href={`tel:${partner.phone}`}
-                    className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm hover:bg-slate-200/80 transition-colors"
-                  >
-                    <Phone className="w-4 h-4 text-emerald-600" />
-                    <span className="font-semibold">{partner.phone}</span>
-                  </a>
-                )}
               </div>
             )}
 
