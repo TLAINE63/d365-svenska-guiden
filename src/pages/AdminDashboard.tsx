@@ -1081,6 +1081,7 @@ const AdminDashboard = () => {
       contactName: existing?.contactName || '',
       contactEmail: existing?.contactEmail || '',
       contactPhone: existing?.contactPhone || '',
+      contactPhotoUrl: existing?.contactPhotoUrl || '',
     };
   };
 
