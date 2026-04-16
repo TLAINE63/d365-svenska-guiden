@@ -3202,8 +3202,59 @@ const AdminDashboard = () => {
                                 />
                               </div>
                             </div>
-                          </div>
 
+                            {/* Per-product contact photo */}
+                            <div className="flex items-center gap-3 pt-2 border-t border-border/60">
+                              {filter.contactPhotoUrl ? (
+                                <img
+                                  src={filter.contactPhotoUrl}
+                                  alt="Foto"
+                                  className="h-14 w-14 object-cover rounded-full border-2 border-border shadow-sm"
+                                />
+                              ) : (
+                                <div className="h-14 w-14 bg-muted rounded-full flex items-center justify-center border-2 border-dashed border-border">
+                                  <User className="h-5 w-5 text-muted-foreground" />
+                                </div>
+                              )}
+                              <div className="flex-1">
+                                <Label className="text-xs text-muted-foreground">Foto av säljkontakt (valfritt)</Label>
+                                <div className="flex gap-2 mt-1">
+                                  <input
+                                    type="file"
+                                    accept="image/jpeg,image/png,image/webp"
+                                    onChange={(e) => handleProductContactPhotoUpload(section.key, e)}
+                                    className="hidden"
+                                    id={`product-photo-${section.key}`}
+                                  />
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={uploadingProductPhoto === section.key}
+                                    onClick={() => document.getElementById(`product-photo-${section.key}`)?.click()}
+                                  >
+                                    <Upload className={`mr-2 h-3.5 w-3.5 ${uploadingProductPhoto === section.key ? "animate-spin" : ""}`} />
+                                    {uploadingProductPhoto === section.key
+                                      ? "Laddar upp..."
+                                      : (filter.contactPhotoUrl ? "Byt foto" : "Ladda upp foto")}
+                                  </Button>
+                                  {filter.contactPhotoUrl && (
+                                    <Button
+                                      type="button"
+                                      variant="ghost"
+                                      size="sm"
+                                      onClick={() => updateProductFilter(section.key, { contactPhotoUrl: '' })}
+                                    >
+                                      Ta bort
+                                    </Button>
+                                  )}
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  Lämna tomt för att använda partnerns huvudkontakt.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                           <div>
                             <div className="flex items-center justify-between mb-2">
                               <Label className="text-sm">Branschfokus</Label>
