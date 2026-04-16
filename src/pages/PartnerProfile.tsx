@@ -419,34 +419,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               );
             })()}
 
-            {/* Premium stats row - centered */}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              {/* Website link only - geography and competency count removed */}
-              <a 
-                href={partner.website} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackPartnerClick(
-                    partner.name,
-                    partner.website,
-                    `partner-profile-${partner.slug}`,
-                    {
-                      product: selectedProduct,
-                      industry: selectedIndustry,
-                      companySize: selectedCompanySize,
-                      geography: selectedGeography,
-                    }
-                  );
-                }}
-                className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-primary-foreground shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
-              >
-                <Globe className="w-4 h-4" />
-                <span className="font-medium">Besök {partner.name}</span>
-                <ExternalLink className="w-3 h-3 opacity-70 group-hover:opacity-100 transition-opacity" />
-              </a>
-            </div>
-
             {/* Office cities */}
             {(() => {
               const cities = partner?.office_cities as string[] | undefined;
