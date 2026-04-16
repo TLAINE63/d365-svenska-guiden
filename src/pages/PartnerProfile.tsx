@@ -922,10 +922,10 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                   </div>
                   <div>
                     <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
-                      Intresserad av {partner.name}?
+                      Vill du diskutera ditt partnerval förutsättningslöst?
                     </h3>
                     <p className="text-white/70 text-sm sm:text-base">
-                      Låt oss hjälpa dig helt kostnadsfritt att komma i kontakt med rätt person.
+                      Hör av dig till oss för ett kostnadsfritt och konfidentiellt samtal – du behöver inte berätta vilka partners du tittar på. Vi hjälper dig sortera dina tankar och tar kontakten vidare först när du själv är redo.
                     </p>
                   </div>
                 </div>
