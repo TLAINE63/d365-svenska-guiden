@@ -214,6 +214,7 @@ const AdminDashboard = () => {
   const { toast } = useToast();
   const { isAuthenticated, isLoading: authLoading, token, login, logout } = useAdminAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const contactPhotoInputRef = useRef<HTMLInputElement>(null);
   
   // Login state
   const [loginPassword, setLoginPassword] = useState("");
@@ -247,6 +248,7 @@ const AdminDashboard = () => {
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+  const [isUploadingContactPhoto, setIsUploadingContactPhoto] = useState(false);
   const [formErrors, setFormErrors] = useState<PartnerFormErrors>({});
   const [activeFormSection, setActiveFormSection] = useState(0);
   
@@ -311,6 +313,7 @@ const AdminDashboard = () => {
     website: "",
     email: "",
     contactPerson: "",
+    contact_photo_url: "",
     phone: "",
     address: "",
     applications: [],
@@ -783,6 +786,7 @@ const AdminDashboard = () => {
       website: "",
       email: "",
       contactPerson: "",
+      contact_photo_url: "",
       phone: "",
       address: "",
       applications: [],
@@ -824,6 +828,7 @@ const AdminDashboard = () => {
       website: partner.website,
       email: partner.email || "",
       contactPerson: (partner as any).contact_person || partner.contactPerson || "",
+      contact_photo_url: (partner as any).contact_photo_url || "",
       phone: partner.phone || "",
       address: partner.address || "",
       applications: partner.applications || [],
@@ -886,6 +891,43 @@ const AdminDashboard = () => {
     } finally {
       setIsUploadingLogo(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
+  const handleContactPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !token) return;
+
+    setIsUploadingContactPhoto(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("token", token);
+      formData.append("partnerSlug", partnerFormData.slug || generateSlug(partnerFormData.name));
+      formData.append("kind", "contact");
+
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const response = await fetch(`${supabaseUrl}/functions/v1/upload-partner-logo`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Uppladdning misslyckades");
+
+      // Cache-bust so the new photo shows immediately
+      const bustedUrl = `${data.url}?t=${Date.now()}`;
+      setPartnerFormData({ ...partnerFormData, contact_photo_url: bustedUrl });
+      toast({ title: "Foto på kundkontakt uppladdat" });
+    } catch (error: any) {
+      toast({
+        title: "Fel vid uppladdning",
+        description: error.message || "Kunde inte ladda upp foto",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingContactPhoto(false);
+      if (contactPhotoInputRef.current) contactPhotoInputRef.current.value = "";
     }
   };
 
