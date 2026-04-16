@@ -442,8 +442,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                 className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-primary-foreground shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
               >
                 <Globe className="w-4 h-4" />
-                <span className="font-medium">{partner.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
-                <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="font-medium">Besök {partner.name}</span>
+                <ExternalLink className="w-3 h-3 opacity-70 group-hover:opacity-100 transition-opacity" />
               </a>
             </div>
 
