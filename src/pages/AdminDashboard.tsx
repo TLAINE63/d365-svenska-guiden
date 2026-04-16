@@ -2942,6 +2942,58 @@ const AdminDashboard = () => {
                     )}
                   </div>
                 </div>
+
+                {/* Contact Photo Upload */}
+                <div className="space-y-2">
+                  <Label>Foto på kundkontakt (visas på partnerprofilen)</Label>
+                  <div className="flex items-center gap-4">
+                    {partnerFormData.contact_photo_url ? (
+                      <img
+                        src={partnerFormData.contact_photo_url}
+                        alt="Kundkontakt foto"
+                        className="h-20 w-20 object-cover rounded-full border-2 border-border shadow-sm"
+                      />
+                    ) : (
+                      <div className="h-20 w-20 bg-muted rounded-full flex items-center justify-center border-2 border-dashed border-border">
+                        <User className="h-8 w-8 text-muted-foreground" />
+                      </div>
+                    )}
+                    <div className="flex-1 space-y-2">
+                      <input
+                        ref={contactPhotoInputRef}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        onChange={handleContactPhotoUpload}
+                        className="hidden"
+                      />
+                      <div className="flex gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => contactPhotoInputRef.current?.click()}
+                          disabled={isUploadingContactPhoto}
+                        >
+                          <Upload className={`mr-2 h-4 w-4 ${isUploadingContactPhoto ? "animate-spin" : ""}`} />
+                          {isUploadingContactPhoto ? "Laddar upp..." : (partnerFormData.contact_photo_url ? "Byt foto" : "Ladda upp foto")}
+                        </Button>
+                        {partnerFormData.contact_photo_url && (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setPartnerFormData({ ...partnerFormData, contact_photo_url: "" })}
+                          >
+                            Ta bort
+                          </Button>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Porträttfoto av säljaren/kundkontakten. JPEG, PNG eller WebP. Max 5MB. Visas som rund profilbild på partnerprofilen.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <Separator />
