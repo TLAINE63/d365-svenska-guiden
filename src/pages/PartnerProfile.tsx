@@ -414,7 +414,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                 <ExternalLink className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
               </a>
               <span className="mt-2 text-xs text-slate-500 font-medium">
-                Öppnas i nytt fönster · Inga förpliktelser
+                Öppnas i nytt fönster
               </span>
             </div>
             
