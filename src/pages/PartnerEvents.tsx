@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
@@ -404,10 +405,10 @@ const EventForm = ({ event, onSave, onCancel, saving }: EventFormProps) => {
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label>Datum *</Label>
-          <Input
-            type="date"
+          <SwedishDatePicker
             value={formData.event_date}
-            onChange={(e) => handleChange("event_date", e.target.value)}
+            onChange={(val) => handleChange("event_date", val)}
+            placeholder="Välj datum"
           />
         </div>
 

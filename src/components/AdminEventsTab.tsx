@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -875,11 +876,11 @@ D365.se`;
               
               <div className="space-y-2">
                 <Label htmlFor="event_date">Datum *</Label>
-                <Input
+                <SwedishDatePicker
                   id="event_date"
-                  type="date"
                   value={formData.event_date}
-                  onChange={(e) => setFormData(prev => ({ ...prev, event_date: e.target.value }))}
+                  onChange={(val) => setFormData(prev => ({ ...prev, event_date: val }))}
+                  placeholder="Välj datum"
                 />
               </div>
             </div>
