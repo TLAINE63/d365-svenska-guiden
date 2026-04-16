@@ -56,6 +56,7 @@ export interface DatabasePartner {
   website: string;
   email: string | null;
   contactPerson: string | null;
+  contact_photo_url: string | null;
   phone: string | null;
   address: string | null;
   applications: string[];
@@ -98,6 +99,7 @@ export interface PartnerInput {
   website: string;
   email?: string;
   contactPerson?: string;
+  contact_photo_url?: string;
   phone?: string;
   address?: string;
   applications?: string[];
@@ -138,6 +140,7 @@ export function usePartners() {
         ...p,
         email: null,
         contactPerson: null,
+        contact_photo_url: null,
         phone: null,
         address: null,
         secondary_industries: p.secondary_industries || [],
@@ -182,6 +185,7 @@ export function usePartner(slug: string | undefined) {
       return {
         ...data,
         contactPerson: data.contact_person,
+        contact_photo_url: (data as any).contact_photo_url || null,
         address: null,
         secondary_industries: data.secondary_industries || [],
         geography: data.geography || ['Sverige'],
