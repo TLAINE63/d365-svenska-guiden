@@ -108,7 +108,60 @@ Thomas Laine & Michael Uhman
 Moveahead AB / Dynamic Factory
 https://d365.se`;
 
-type TemplateKind = "published" | "prospect";
+const COLD_PITCH_DEFAULT_SUBJECT = "d365.se växer – vill ni också finnas med?";
+
+const COLD_PITCH_DEFAULT_BODY = `Hej,
+
+Jag ville bara höra av mig kring d365.se.
+
+d365.se har fått ett väldigt positivt bemötande och utvecklats till en växande kundguide för organisationer som utvärderar Microsoft Dynamics 365 och söker rätt partner. Idag är 28 partners redan profilerade på sajten.
+
+Vi ser också ett tydligt intresse från marknaden. Hittills har d365.se haft cirka 3 000 unika besökare och 7 000 sidvisningar, med många genomförda analyser och kravspecifikationer samt redan hundratals partnerprofilbesök. De mest besökta delarna har varit Välj partner och Branschlösningar.
+
+Det bekräftar att besökarna inte bara söker information om Dynamics 365, utan också aktivt jämför partneralternativ och försöker hitta rätt väg framåt.
+
+Vi fortsätter nu att bygga innehåll, synlighet och efterfrågan kring plattformen, med ambitionen att d365.se ska bli den naturliga startpunkten för svenska organisationer som utvärderar Dynamics 365.
+
+För partner innebär det en möjlighet att vara synlig tidigt i kundens utvärderingsresa.
+
+Från och med **1 maj 2026** gäller ordinarie prismodell för partnerprofilering på d365.se:
+
+**1 produktområde: 1.990 kr/månad**
+
+**2 produktområden: 3.490 kr/månad**
+
+**3 produktområden: 4.490 kr/månad**
+
+Det finns även möjlighet till årsvis betalning – 12 månader till priset av 10.
+
+Som profilerad partner kan ni synas inom:
+
+Dynamics 365 Finance & Supply Chain Management
+
+Dynamics 365 Business Central
+
+Dynamics 365 CRM / Customer Engagement
+
+För varje produktområde väljer ni upp till tre branschinriktningar.
+
+Fullständiga villkor finns i bifogat partneravtal. Bekräftelse via e-post räcker som accept.
+
+{{PDF_LINK}}
+
+Om ni vill vara med, svara bara på detta mail med:
+
+**Ja, vi vill vara med.**
+
+Så tar vi nästa steg direkt kring profilering, produktområde(n) och fakturauppgifter.
+
+Hör gärna av er om ni vill att vi skickar profileringslänk direkt.
+
+Vänliga hälsningar,
+Thomas Laine & Michael Uhman
+Moveahead AB / Dynamic Factory
+d365.se`;
+
+type TemplateKind = "published" | "prospect" | "cold-pitch";
 
 function useEmailTemplate(
   subjectKey: string,
@@ -155,6 +208,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
   const [statusFilter, setStatusFilter] = useState<"all" | "published" | "unpublished">("all");
   const [showPreview, setShowPreview] = useState(false);
   const [sending, setSending] = useState(false);
+  const [coldEmail, setColdEmail] = useState("");
+  const [coldCompany, setColdCompany] = useState("");
 
   const published = useEmailTemplate(
     "agreement_email_subject", "agreement_email_body", "agreement_email_cc",
@@ -164,12 +219,18 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     "prospect_agreement_email_subject", "prospect_agreement_email_body", "prospect_agreement_email_cc",
     PROSPECT_DEFAULT_SUBJECT, PROSPECT_DEFAULT_BODY, DEFAULT_CC, token,
   );
+  const coldPitch = useEmailTemplate(
+    "cold_pitch_email_subject", "cold_pitch_email_body", "cold_pitch_email_cc",
+    COLD_PITCH_DEFAULT_SUBJECT, COLD_PITCH_DEFAULT_BODY, DEFAULT_CC, token,
+  );
 
-  const active = templateKind === "published" ? published : prospect;
-  const action = templateKind === "published" ? "send-agreement" : "send-prospect-agreement";
+  const active = templateKind === "published" ? published : templateKind === "prospect" ? prospect : coldPitch;
+  const action = templateKind === "published" ? "send-agreement" : templateKind === "prospect" ? "send-prospect-agreement" : "send-cold-pitch";
   const placeholderHelp = templateKind === "published"
     ? "Platshållare: {{PDF_LINK}}, {{DEADLINE}}, {{START_DATE}}"
-    : "Platshållare: {{INVITATION_LINK}}, {{PDF_LINK}}";
+    : templateKind === "prospect"
+      ? "Platshållare: {{INVITATION_LINK}}, {{PDF_LINK}}"
+      : "Platshållare: {{PDF_LINK}}";
 
   const pdfUrl = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
 
@@ -234,6 +295,53 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     .join("");
 
   const sendEmails = async () => {
+    const ccList = active.cc.split(",").map((e) => e.trim()).filter(Boolean);
+
+    // === Cold pitch: free-form single recipient ===
+    if (templateKind === "cold-pitch") {
+      const emailTrimmed = coldEmail.trim();
+      if (!emailTrimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrimmed)) {
+        toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
+        return;
+      }
+      if (!confirm(`Skicka införsäljningsmail till ${emailTrimmed}${coldCompany ? ` (${coldCompany})` : ""}?`)) return;
+
+      setSending(true);
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=${action}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+              apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({
+              email: emailTrimmed,
+              company_name: coldCompany.trim() || null,
+              subject: active.subject,
+              email_body: active.body,
+              cc: ccList,
+            }),
+          }
+        );
+        if (response.status === 401) { toast({ title: "Sessionen har gått ut", variant: "destructive" }); logout(); return; }
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || "Kunde inte skicka");
+        toast({ title: data.message || "Skickat!" });
+        setColdEmail("");
+        setColdCompany("");
+        onRefresh();
+      } catch (error: any) {
+        toast({ title: "Fel", description: error.message, variant: "destructive" });
+      } finally {
+        setSending(false);
+      }
+      return;
+    }
+
+    // === Existing flow: published / prospect ===
     const selectedPartners = partners.filter((p) => selected.has(p.id));
     if (selectedPartners.length === 0) return;
 
@@ -248,7 +356,6 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         name: p.name,
         email: p.admin_contact_email || p.email || "",
       }));
-      const ccList = active.cc.split(",").map((e) => e.trim()).filter(Boolean);
 
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=${action}`,
@@ -293,78 +400,110 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         </p>
       </div>
 
-      {/* ===== STEP 1: Select partners ===== */}
+      {/* ===== STEP 1: Select recipient(s) ===== */}
       <Card>
         <CardHeader>
           <CardTitle className="text-base">1. Välj mottagare</CardTitle>
-          <CardDescription>Sök, filtrera och markera partners. Du kan blanda publicerade och ej publicerade.</CardDescription>
+          <CardDescription>
+            {templateKind === "cold-pitch"
+              ? "Ange en e-postadress fritt – inget partnerkonto krävs. Skickas till en mottagare i taget."
+              : "Sök, filtrera och markera partners. Du kan blanda publicerade och ej publicerade."}
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="flex flex-col sm:flex-row gap-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Sök på namn eller e-post..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-8"
-              />
+          {templateKind === "cold-pitch" ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <Label htmlFor="cold-email">E-postadress *</Label>
+                <Input
+                  id="cold-email"
+                  type="email"
+                  placeholder="kontakt@partnerbolag.se"
+                  value={coldEmail}
+                  onChange={(e) => setColdEmail(e.target.value)}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="cold-company">Företagsnamn (valfritt)</Label>
+                <Input
+                  id="cold-company"
+                  placeholder="Partnerbolag AB"
+                  value={coldCompany}
+                  onChange={(e) => setColdCompany(e.target.value)}
+                  className="mt-1"
+                />
+              </div>
             </div>
-            <Select value={statusFilter} onValueChange={(v: any) => setStatusFilter(v)}>
-              <SelectTrigger className="w-full sm:w-[200px]">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Alla partners</SelectItem>
-                <SelectItem value="published">Endast publicerade</SelectItem>
-                <SelectItem value="unpublished">Endast ej publicerade</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          ) : (
+            <>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="relative flex-1">
+                  <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Sök på namn eller e-post..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="pl-8"
+                  />
+                </div>
+                <Select value={statusFilter} onValueChange={(v: any) => setStatusFilter(v)}>
+                  <SelectTrigger className="w-full sm:w-[200px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Alla partners</SelectItem>
+                    <SelectItem value="published">Endast publicerade</SelectItem>
+                    <SelectItem value="unpublished">Endast ej publicerade</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-          <div className="flex items-center justify-between">
-            <Label className="text-sm">
-              {selected.size} valda · visar {filtered.length} av {allWithEmail.length}
-            </Label>
-            <Button variant="outline" size="sm" onClick={toggleAll}>
-              {filtered.every((p) => selected.has(p.id)) && filtered.length > 0 ? "Avmarkera synliga" : "Markera alla synliga"}
-            </Button>
-          </div>
+              <div className="flex items-center justify-between">
+                <Label className="text-sm">
+                  {selected.size} valda · visar {filtered.length} av {allWithEmail.length}
+                </Label>
+                <Button variant="outline" size="sm" onClick={toggleAll}>
+                  {filtered.every((p) => selected.has(p.id)) && filtered.length > 0 ? "Avmarkera synliga" : "Markera alla synliga"}
+                </Button>
+              </div>
 
-          <div className="border rounded-lg divide-y max-h-[400px] overflow-y-auto">
-            {filtered.length === 0 ? (
-              <p className="p-4 text-sm text-muted-foreground">Inga partners matchar filtret.</p>
-            ) : (
-              filtered.map((partner) => {
-                const email = partner.admin_contact_email || partner.email || "";
-                return (
-                  <label key={partner.id} className="flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer">
-                    <Checkbox checked={selected.has(partner.id)} onCheckedChange={() => togglePartner(partner.id)} />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-medium text-sm truncate">{partner.name}</span>
-                        {partner.is_featured ? (
-                          <Badge variant="outline" className="text-xs shrink-0 bg-green-50 text-green-700 border-green-200">
-                            <CheckCircle2 className="h-3 w-3 mr-1" />Publicerad
-                          </Badge>
-                        ) : (
-                          <Badge variant="outline" className="text-xs shrink-0 bg-amber-50 text-amber-700 border-amber-200">
-                            Ej publicerad
-                          </Badge>
-                        )}
-                        {partner.activation_date && (
-                          <Badge variant="outline" className="text-xs shrink-0">
-                            Start: {partner.activation_date}
-                          </Badge>
-                        )}
-                      </div>
-                      <span className="text-xs text-muted-foreground truncate block">{email}</span>
-                    </div>
-                  </label>
-                );
-              })
-            )}
-          </div>
+              <div className="border rounded-lg divide-y max-h-[400px] overflow-y-auto">
+                {filtered.length === 0 ? (
+                  <p className="p-4 text-sm text-muted-foreground">Inga partners matchar filtret.</p>
+                ) : (
+                  filtered.map((partner) => {
+                    const email = partner.admin_contact_email || partner.email || "";
+                    return (
+                      <label key={partner.id} className="flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer">
+                        <Checkbox checked={selected.has(partner.id)} onCheckedChange={() => togglePartner(partner.id)} />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-medium text-sm truncate">{partner.name}</span>
+                            {partner.is_featured ? (
+                              <Badge variant="outline" className="text-xs shrink-0 bg-green-50 text-green-700 border-green-200">
+                                <CheckCircle2 className="h-3 w-3 mr-1" />Publicerad
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="text-xs shrink-0 bg-amber-50 text-amber-700 border-amber-200">
+                                Ej publicerad
+                              </Badge>
+                            )}
+                            {partner.activation_date && (
+                              <Badge variant="outline" className="text-xs shrink-0">
+                                Start: {partner.activation_date}
+                              </Badge>
+                            )}
+                          </div>
+                          <span className="text-xs text-muted-foreground truncate block">{email}</span>
+                        </div>
+                      </label>
+                    );
+                  })
+                )}
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
 
@@ -384,6 +523,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
             <SelectContent>
               <SelectItem value="published">Avtalsmail – för publicerade partners (fortsätt synlighet)</SelectItem>
               <SelectItem value="prospect">Prospektmail – för ej publicerade (med profileringslänk)</SelectItem>
+              <SelectItem value="cold-pitch">Införsäljningsmail – fri e-postadress, en åt gången</SelectItem>
             </SelectContent>
           </Select>
 
@@ -428,12 +568,29 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         <CardContent>
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div className="text-sm">
-              <span className="font-medium">{selected.size}</span> mottagare ·{" "}
-              <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Prospektmail"}</span>
+              {templateKind === "cold-pitch" ? (
+                <>
+                  <span className="font-medium">{coldEmail.trim() || "—"}</span> ·{" "}
+                  <span className="font-medium">Införsäljningsmail</span>
+                </>
+              ) : (
+                <>
+                  <span className="font-medium">{selected.size}</span> mottagare ·{" "}
+                  <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Prospektmail"}</span>
+                </>
+              )}
             </div>
-            <Button size="lg" disabled={selected.size === 0 || sending} onClick={sendEmails}>
+            <Button
+              size="lg"
+              disabled={sending || (templateKind === "cold-pitch" ? !coldEmail.trim() : selected.size === 0)}
+              onClick={sendEmails}
+            >
               <Send className="h-4 w-4 mr-2" />
-              {sending ? "Skickar..." : `Skicka till ${selected.size} mottagare`}
+              {sending
+                ? "Skickar..."
+                : templateKind === "cold-pitch"
+                  ? "Skicka införsäljningsmail"
+                  : `Skicka till ${selected.size} mottagare`}
             </Button>
           </div>
         </CardContent>
