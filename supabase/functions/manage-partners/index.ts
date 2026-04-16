@@ -116,6 +116,7 @@ interface PartnerData {
   website: string;
   email?: string;
   contact_person?: string;
+  contact_photo_url?: string;
   phone?: string;
   address?: string;
   applications?: string[];
@@ -256,6 +257,7 @@ serve(async (req: Request): Promise<Response> => {
             website: partner.website.trim(),
             email: partner.email?.trim() || null,
             contact_person: partner.contact_person?.trim() || null,
+            contact_photo_url: partner.contact_photo_url?.trim() || null,
             phone: partner.phone?.trim() || null,
             address: partner.address?.trim() || null,
             applications: partner.applications || [],
@@ -315,6 +317,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.website) updateData.website = partner.website.trim();
         if (partner?.email !== undefined) updateData.email = partner.email?.trim() || null;
         if (partner?.contact_person !== undefined) updateData.contact_person = partner.contact_person?.trim() || null;
+        if (partner?.contact_photo_url !== undefined) updateData.contact_photo_url = partner.contact_photo_url?.trim() || null;
         if (partner?.phone !== undefined) updateData.phone = partner.phone?.trim() || null;
         if (partner?.address !== undefined) updateData.address = partner.address?.trim() || null;
         if (partner?.applications !== undefined) updateData.applications = partner.applications;
