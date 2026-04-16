@@ -485,7 +485,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
                 <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-emerald-50 border border-emerald-200 text-sm text-slate-700 shadow-sm">
                   <User className="w-4 h-4 text-emerald-600" />
-                  <span className="font-semibold">Säljkontakt: {partner.contactPerson}</span>
+                  <span className="font-semibold">Kundkontakt: {partner.contactPerson}</span>
                 </div>
                 {partner?.email && (
                   <a 
@@ -813,7 +813,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                             <div className="space-y-2 pt-2 border-t border-border/50">
                               <p className="text-xs font-bold text-foreground/60 uppercase tracking-widest flex items-center gap-2">
                                 <User className="w-3.5 h-3.5 text-muted-foreground" />
-                                Säljkontakt
+                                Kundkontakt
                               </p>
                               <div className="flex flex-wrap items-center gap-2">
                                 {productContact.name && (
