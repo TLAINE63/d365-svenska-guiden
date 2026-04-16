@@ -149,6 +149,7 @@ interface PartnerData {
   legal_name?: string;
   office_cities?: string[];
   map_url?: string;
+  youtube_video_id?: string;
 }
 
 interface RequestBody {
@@ -279,6 +280,7 @@ serve(async (req: Request): Promise<Response> => {
             legal_name: partner.legal_name?.trim() || null,
             office_cities: partner.office_cities || [],
             map_url: partner.map_url?.trim() || null,
+            youtube_video_id: partner.youtube_video_id?.trim() || null,
           })
           .select()
           .single();

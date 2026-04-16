@@ -36,6 +36,7 @@ export interface ProductFilterInput {
   contactEmail?: string;            // Sales contact email for this product area
   contactPhone?: string;            // Sales contact phone for this product area
   contactPhotoUrl?: string;         // Sales contact photo URL for this product area
+  youtubeVideoId?: string;          // Optional YouTube video ID for this product area
 }
 
 // Updated product filters to include 4 product areas plus combined crm
@@ -90,6 +91,7 @@ export interface DatabasePartner {
   admin_notes: string | null;
   admin_contact_name: string | null;
   admin_contact_email: string | null;
+  youtube_video_id?: string | null;
 }
 
 export interface PartnerInput {
@@ -121,6 +123,7 @@ export interface PartnerInput {
   admin_contact_email?: string;
   office_cities?: string[];
   map_url?: string;
+  youtube_video_id?: string;
 }
 
 // Fetch all featured partners from database (public view - excludes sensitive contact info)
@@ -158,6 +161,7 @@ export function usePartners() {
         admin_notes: null,
         admin_contact_name: null,
         admin_contact_email: null,
+        youtube_video_id: (p as any).youtube_video_id || null,
       }));
     },
   });
@@ -202,6 +206,7 @@ export function usePartner(slug: string | undefined) {
         admin_notes: null,
         admin_contact_name: null,
         admin_contact_email: null,
+        youtube_video_id: (data as any).youtube_video_id || null,
       };
     },
     enabled: !!slug,
