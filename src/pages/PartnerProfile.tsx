@@ -468,24 +468,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               ) : null;
             })()}
 
-            {/* Org/legal name (invoice contact & email hidden on public profile) */}
-            {(partner?.org_number || partner?.legal_name) && (
-              <div className="flex flex-wrap justify-center items-center gap-3 mt-4">
-                {partner?.org_number && (
-                  <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
-                    <Building2 className="w-4 h-4 text-amber-600" />
-                    <span className="font-semibold">Org.nr: {partner.org_number}</span>
-                  </div>
-                )}
-                {partner?.legal_name && (
-                  <div className="flex items-center gap-2 px-5 py-3 rounded-full bg-amber-50 border border-amber-200 text-sm text-slate-700 shadow-sm">
-                    <Building2 className="w-4 h-4 text-amber-600" />
-                    <span className="font-semibold">{partner.legal_name}</span>
-                  </div>
-                )}
-              </div>
-            )}
-
             {/* Sales contact card with optional photo */}
             {(partner?.contactPerson || partner?.email || partner?.phone) && (
               <div className="mt-5 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded-2xl bg-white/80 border border-emerald-200 shadow-md backdrop-blur-sm max-w-2xl">
