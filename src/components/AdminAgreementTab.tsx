@@ -568,12 +568,29 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
         <CardContent>
           <div className="flex items-center justify-between flex-wrap gap-3">
             <div className="text-sm">
-              <span className="font-medium">{selected.size}</span> mottagare ·{" "}
-              <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Prospektmail"}</span>
+              {templateKind === "cold-pitch" ? (
+                <>
+                  <span className="font-medium">{coldEmail.trim() || "—"}</span> ·{" "}
+                  <span className="font-medium">Införsäljningsmail</span>
+                </>
+              ) : (
+                <>
+                  <span className="font-medium">{selected.size}</span> mottagare ·{" "}
+                  <span className="font-medium">{templateKind === "published" ? "Avtalsmail" : "Prospektmail"}</span>
+                </>
+              )}
             </div>
-            <Button size="lg" disabled={selected.size === 0 || sending} onClick={sendEmails}>
+            <Button
+              size="lg"
+              disabled={sending || (templateKind === "cold-pitch" ? !coldEmail.trim() : selected.size === 0)}
+              onClick={sendEmails}
+            >
               <Send className="h-4 w-4 mr-2" />
-              {sending ? "Skickar..." : `Skicka till ${selected.size} mottagare`}
+              {sending
+                ? "Skickar..."
+                : templateKind === "cold-pitch"
+                  ? "Skicka införsäljningsmail"
+                  : `Skicka till ${selected.size} mottagare`}
             </Button>
           </div>
         </CardContent>
