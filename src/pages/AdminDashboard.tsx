@@ -3038,6 +3038,22 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* YouTube intro video */}
+                <div className="space-y-2">
+                  <Label htmlFor="youtube_video_id">YouTube-video (kort introduktion, valfritt)</Label>
+                  <Input
+                    id="youtube_video_id"
+                    placeholder="https://youtu.be/dQw4w9WgXcQ eller bara video-ID"
+                    value={partnerFormData.youtube_video_id || ""}
+                    onChange={(e) =>
+                      setPartnerFormData({ ...partnerFormData, youtube_video_id: e.target.value })
+                    }
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Klistra in en YouTube-länk eller video-ID. Visas som play-knapp på kontaktfotot på partnerprofilen. Rekommenderad längd: 30–60 sekunder.
+                  </p>
+                </div>
               </div>
 
               <Separator />
