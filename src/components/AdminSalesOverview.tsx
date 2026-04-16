@@ -17,10 +17,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import {
   Users, TrendingUp, BarChart3, MousePointerClick, FileText,
-  Award, ClipboardCheck, Download, Building2, RefreshCw, Copy
+  Award, ClipboardCheck, Download, Building2, RefreshCw, Copy, ShieldCheck
 } from "lucide-react";
 import { Area, AreaChart, XAxis, YAxis, CartesianGrid, Bar, BarChart, Cell } from "recharts";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
@@ -87,159 +88,8 @@ const BAR_COLORS = [
   "hsl(15, 70%, 50%)",
 ];
 
-export default function AdminSalesOverview({ token, onSessionExpired }: AdminSalesOverviewProps) {
-  const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(true);
-  const [dateRange, setDateRange] = useState("30");
-  const [stats, setStats] = useState<any>(null);
-  const [clickStats, setClickStats] = useState<any[]>([]);
-
-  const fetchData = async () => {
-    setIsLoading(true);
-    try {
-      const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
-
-      const [visitorRes, clickRes] = await Promise.all([
-        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "visitor-stats",
-            token,
-            startDate: startDate.toISOString(),
-            excludePartnerTraffic: false,
-          }),
-        }),
-        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "click-stats", token }),
-        }),
-      ]);
-
-      const visitorData = await visitorRes.json();
-      const clickData = await clickRes.json();
-
-      if (!visitorRes.ok) {
-        if (visitorData.error?.includes("gått ut")) onSessionExpired();
-        throw new Error(visitorData.error || "Kunde inte hämta data");
-      }
-
-      setStats(visitorData.stats);
-      setClickStats(clickData?.stats || []);
-    } catch (error: any) {
-      console.error("Error fetching sales overview:", error);
-      toast({
-        title: "Fel",
-        description: error.message || "Kunde inte hämta översiktsdata",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [dateRange, token]);
-
-  const handleCopyText = async () => {
-    if (!stats) return;
-    const lines: string[] = [];
-    const periodLabel = dateRange === "7" ? "senaste 7 dagarna" : dateRange === "30" ? "senaste 30 dagarna" : "senaste 90 dagarna";
-    const today = format(new Date(), "d MMMM yyyy", { locale: sv });
-
-    lines.push(`📊 D365.se – Totalöversikt för införsäljning`);
-    lines.push(`Period: ${periodLabel} (t.o.m. ${today})`);
-    lines.push("");
-    lines.push(`🔢 Totalt antal unika besökare: ${stats.totalVisitors}`);
-    lines.push(`📄 Totalt antal sidvisningar: ${stats.totalPageViews}`);
-    lines.push(`🇸🇪 Varav svenska besökare: ${stats.swedishVisitors}`);
-    lines.push("");
-
-    // Top pages excluding start
-    const topPagesExclHome = (stats.topPages || []).filter((p: any) => p.path !== "/");
-    if (topPagesExclHome.length > 0) {
-      lines.push("─── MEST POPULÄRA SIDOR (exkl. startsidan) ───");
-      topPagesExclHome.slice(0, 10).forEach((p: any, i: number) => {
-        lines.push(`  ${i + 1}. ${PAGE_LABELS[p.path] || p.path} – ${p.visits} besök`);
-      });
-      lines.push("");
-    }
-
-    // Analysis tools
-    const analysisData = ANALYSIS_PAGES
-      .map(a => ({ ...a, visits: (stats.topPages || []).find((p: any) => p.path === a.path)?.visits || 0 }))
-      .filter(a => a.visits > 0)
-      .sort((a, b) => b.visits - a.visits);
-    if (analysisData.length > 0) {
-      lines.push("─── BEHOVSANALYSER & VERKTYG ───");
-      analysisData.forEach((a, i) => {
-        lines.push(`  ${i + 1}. ${a.label} – ${a.visits} besök`);
-      });
-      const totalAnalysis = analysisData.reduce((s, a) => s + a.visits, 0);
-      lines.push(`  Totalt: ${totalAnalysis} besök i analysverktyg`);
-      lines.push("");
-    }
-
-    // Partner pages
-    if (stats.partnerProfileStats?.length > 0) {
-      lines.push("─── BESÖK PER PARTNERPROFIL ───");
-      stats.partnerProfileStats.forEach((p: any, i: number) => {
-        lines.push(`  ${i + 1}. ${p.name} – ${p.visits} besök`);
-      });
-      lines.push("");
-    }
-
-    // Partner clicks
-    if (stats.partnerClickStats?.length > 0) {
-      lines.push("─── KLICK TILL PARTNERWEBBPLATSER ───");
-      const totalClicks = stats.partnerClickStats.reduce((s: number, p: any) => s + p.clicks, 0);
-      lines.push(`Totalt: ${totalClicks} klick`);
-      stats.partnerClickStats.forEach((p: any, i: number) => {
-        lines.push(`  ${i + 1}. ${p.name} – ${p.clicks} klick`);
-      });
-      lines.push("");
-    }
-
-    lines.push("───────────────");
-    lines.push("Källa: d365.se – Sveriges oberoende guide till Microsoft Dynamics 365");
-
-    try {
-      await navigator.clipboard.writeText(lines.join("\n"));
-      toast({ title: "Kopierat!", description: "Översikten har kopierats till urklipp." });
-    } catch {
-      toast({ title: "Kunde inte kopiera", variant: "destructive" });
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <Card>
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  if (!stats) {
-    return (
-      <Card>
-        <CardContent className="pt-6">
-          <div className="text-center py-12 text-muted-foreground">
-            <BarChart3 className="h-12 w-12 mx-auto mb-3 opacity-50" />
-            <p>Ingen data tillgänglig ännu.</p>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
-
+function deriveMetrics(stats: any) {
   const topPagesExclHome = (stats.topPages || []).filter((p: any) => p.path !== "/");
-  
   const analysisData = ANALYSIS_PAGES
     .map(a => ({
       ...a,
@@ -247,50 +97,86 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
     }))
     .filter(a => a.visits > 0)
     .sort((a, b) => b.visits - a.visits);
-
   const totalAnalysisVisits = analysisData.reduce((s, a) => s + a.visits, 0);
   const totalPartnerClicks = (stats.partnerClickStats || []).reduce((s: number, p: any) => s + p.clicks, 0);
   const totalPartnerProfileVisits = (stats.partnerProfileStats || []).reduce((s: number, p: any) => s + p.visits, 0);
+  return { topPagesExclHome, analysisData, totalAnalysisVisits, totalPartnerClicks, totalPartnerProfileVisits };
+}
 
-  const periodLabel = dateRange === "7" ? "7 dagar" : dateRange === "30" ? "30 dagar" : "90 dagar";
+function buildCopyText(stats: any, dateRange: string, excludePartners: boolean) {
+  const m = deriveMetrics(stats);
+  const periodLabel = dateRange === "7" ? "senaste 7 dagarna" : dateRange === "30" ? "senaste 30 dagarna" : "senaste 90 dagarna";
+  const today = format(new Date(), "d MMMM yyyy", { locale: sv });
+  const lines: string[] = [];
+  const suffix = excludePartners ? " (exkl. partnertrafik)" : "";
+
+  lines.push(`📊 D365.se – Totalöversikt${suffix}`);
+  lines.push(`Period: ${periodLabel} (t.o.m. ${today})`);
+  lines.push("");
+  lines.push(`🔢 Totalt antal unika besökare: ${stats.totalVisitors}`);
+  lines.push(`📄 Totalt antal sidvisningar: ${stats.totalPageViews}`);
+  lines.push(`🇸🇪 Varav svenska besökare: ${stats.swedishVisitors}`);
+  lines.push("");
+
+  if (m.topPagesExclHome.length > 0) {
+    lines.push("─── MEST POPULÄRA SIDOR (exkl. startsidan) ───");
+    m.topPagesExclHome.slice(0, 10).forEach((p: any, i: number) => {
+      lines.push(`  ${i + 1}. ${PAGE_LABELS[p.path] || p.path} – ${p.visits} besök`);
+    });
+    lines.push("");
+  }
+
+  if (m.analysisData.length > 0) {
+    lines.push("─── BEHOVSANALYSER & VERKTYG ───");
+    m.analysisData.forEach((a: any, i: number) => {
+      lines.push(`  ${i + 1}. ${a.label} – ${a.visits} besök`);
+    });
+    lines.push(`  Totalt: ${m.totalAnalysisVisits} besök i analysverktyg`);
+    lines.push("");
+  }
+
+  if (stats.partnerProfileStats?.length > 0) {
+    lines.push("─── BESÖK PER PARTNERPROFIL ───");
+    stats.partnerProfileStats.forEach((p: any, i: number) => {
+      lines.push(`  ${i + 1}. ${p.name} – ${p.visits} besök`);
+    });
+    lines.push("");
+  }
+
+  if (stats.partnerClickStats?.length > 0) {
+    lines.push("─── KLICK TILL PARTNERWEBBPLATSER ───");
+    lines.push(`Totalt: ${m.totalPartnerClicks} klick`);
+    stats.partnerClickStats.forEach((p: any, i: number) => {
+      lines.push(`  ${i + 1}. ${p.name} – ${p.clicks} klick`);
+    });
+    lines.push("");
+  }
+
+  lines.push("───────────────");
+  lines.push("Källa: d365.se – Sveriges oberoende guide till Microsoft Dynamics 365");
+  return lines.join("\n");
+}
+
+// ================ Reusable Overview Block ================
+
+interface OverviewBlockProps {
+  stats: any;
+  periodLabel: string;
+  title: string;
+  subtitle: string;
+  icon: React.ReactNode;
+  accentClass?: string;
+  gradientId: string;
+}
+
+function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass, gradientId }: OverviewBlockProps) {
+  const m = deriveMetrics(stats);
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h3 className="text-xl font-bold flex items-center gap-2">
-            <Award className="h-6 w-6 text-primary" />
-            Totalöversikt – Införsäljning
-          </h3>
-          <p className="text-sm text-muted-foreground mt-1">
-            Nyckeltal för att visa sajtens värde för partners
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <Select value={dateRange} onValueChange={setDateRange}>
-            <SelectTrigger className="w-40">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="7">Senaste 7 dagar</SelectItem>
-              <SelectItem value="30">Senaste 30 dagar</SelectItem>
-              <SelectItem value="90">Senaste 90 dagar</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button variant="outline" size="sm" onClick={fetchData} disabled={isLoading}>
-            <RefreshCw className="h-4 w-4" />
-          </Button>
-          <Button variant="outline" size="sm" onClick={handleCopyText}>
-            <Copy className="h-4 w-4 mr-1" />
-            Kopiera
-          </Button>
-        </div>
-      </div>
-
       {/* KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <Card className="border-primary/30 bg-primary/5">
+        <Card className={accentClass || "border-primary/30 bg-primary/5"}>
           <CardContent className="pt-4">
             <div className="flex items-center gap-2 text-primary mb-1">
               <Users className="h-4 w-4" />
@@ -316,7 +202,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
               <ClipboardCheck className="h-4 w-4" />
               <span className="text-xs font-medium">Analysverktyg</span>
             </div>
-            <p className="text-3xl font-bold">{totalAnalysisVisits.toLocaleString("sv-SE")}</p>
+            <p className="text-3xl font-bold">{m.totalAnalysisVisits.toLocaleString("sv-SE")}</p>
             <p className="text-xs text-muted-foreground mt-1">besök i analyser</p>
           </CardContent>
         </Card>
@@ -326,7 +212,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
               <Building2 className="h-4 w-4" />
               <span className="text-xs font-medium">Profilbesök</span>
             </div>
-            <p className="text-3xl font-bold">{totalPartnerProfileVisits.toLocaleString("sv-SE")}</p>
+            <p className="text-3xl font-bold">{m.totalPartnerProfileVisits.toLocaleString("sv-SE")}</p>
             <p className="text-xs text-muted-foreground mt-1">partnerprofiler</p>
           </CardContent>
         </Card>
@@ -336,7 +222,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
               <MousePointerClick className="h-4 w-4" />
               <span className="text-xs font-medium">Partnerklick</span>
             </div>
-            <p className="text-3xl font-bold">{totalPartnerClicks.toLocaleString("sv-SE")}</p>
+            <p className="text-3xl font-bold">{m.totalPartnerClicks.toLocaleString("sv-SE")}</p>
             <p className="text-xs text-muted-foreground mt-1">till partnerwebbplatser</p>
           </CardContent>
         </Card>
@@ -358,7 +244,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
             >
               <AreaChart data={stats.dailyVisitors} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="salesGradient" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
                     <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
                   </linearGradient>
@@ -389,7 +275,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                   dataKey="visitors"
                   stroke="hsl(var(--primary))"
                   strokeWidth={2}
-                  fill="url(#salesGradient)"
+                  fill={`url(#${gradientId})`}
                 />
               </AreaChart>
             </ChartContainer>
@@ -399,7 +285,6 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
 
       {/* Two-column: Top Pages + Analysis Tools */}
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Top Pages (excl. home) */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
@@ -409,7 +294,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
             <CardDescription>Exklusive startsidan</CardDescription>
           </CardHeader>
           <CardContent>
-            {topPagesExclHome.length === 0 ? (
+            {m.topPagesExclHome.length === 0 ? (
               <p className="text-muted-foreground text-sm py-4 text-center">Ingen data</p>
             ) : (
               <Table>
@@ -421,7 +306,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {topPagesExclHome.slice(0, 10).map((page: any, i: number) => (
+                  {m.topPagesExclHome.slice(0, 10).map((page: any, i: number) => (
                     <TableRow key={i}>
                       <TableCell className="text-muted-foreground w-8">{i + 1}</TableCell>
                       <TableCell className="font-medium text-sm">
@@ -436,7 +321,6 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
           </CardContent>
         </Card>
 
-        {/* Analysis Tools */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
@@ -446,7 +330,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
             <CardDescription>Besökare som aktivt utvärderar sina behov</CardDescription>
           </CardHeader>
           <CardContent>
-            {analysisData.length === 0 ? (
+            {m.analysisData.length === 0 ? (
               <p className="text-muted-foreground text-sm py-4 text-center">Ingen data</p>
             ) : (
               <>
@@ -458,7 +342,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {analysisData.map((a, i) => (
+                    {m.analysisData.map((a: any, i: number) => (
                       <TableRow key={i}>
                         <TableCell className="font-medium text-sm">{a.label}</TableCell>
                         <TableCell className="text-right font-semibold">{a.visits}</TableCell>
@@ -468,7 +352,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                 </Table>
                 <div className="mt-3 pt-3 border-t flex justify-between text-sm font-semibold">
                   <span>Totalt</span>
-                  <span>{totalAnalysisVisits}</span>
+                  <span>{m.totalAnalysisVisits}</span>
                 </div>
               </>
             )}
@@ -478,7 +362,6 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
 
       {/* Two-column: Partner Profiles + Partner Clicks */}
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Partner Profile Visits */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
@@ -503,12 +386,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                   >
                     <CartesianGrid strokeDasharray="3 3" className="stroke-muted" horizontal={false} />
                     <XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} />
-                    <YAxis
-                      dataKey="name"
-                      type="category"
-                      width={120}
-                      tick={{ fontSize: 11 }}
-                    />
+                    <YAxis dataKey="name" type="category" width={120} tick={{ fontSize: 11 }} />
                     <ChartTooltip content={<ChartTooltipContent />} />
                     <Bar dataKey="visits" radius={[0, 4, 4, 0]}>
                       {stats.partnerProfileStats.slice(0, 10).map((_: any, i: number) => (
@@ -519,14 +397,13 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                 </ChartContainer>
                 <div className="mt-3 pt-3 border-t flex justify-between text-sm font-semibold">
                   <span>Totalt profilbesök</span>
-                  <span>{totalPartnerProfileVisits}</span>
+                  <span>{m.totalPartnerProfileVisits}</span>
                 </div>
               </>
             )}
           </CardContent>
         </Card>
 
-        {/* Partner Clicks */}
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-base flex items-center gap-2">
@@ -551,12 +428,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                   >
                     <CartesianGrid strokeDasharray="3 3" className="stroke-muted" horizontal={false} />
                     <XAxis type="number" allowDecimals={false} tick={{ fontSize: 11 }} />
-                    <YAxis
-                      dataKey="name"
-                      type="category"
-                      width={120}
-                      tick={{ fontSize: 11 }}
-                    />
+                    <YAxis dataKey="name" type="category" width={120} tick={{ fontSize: 11 }} />
                     <ChartTooltip content={<ChartTooltipContent />} />
                     <Bar dataKey="clicks" radius={[0, 4, 4, 0]}>
                       {stats.partnerClickStats.slice(0, 10).map((_: any, i: number) => (
@@ -567,13 +439,230 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                 </ChartContainer>
                 <div className="mt-3 pt-3 border-t flex justify-between text-sm font-semibold">
                   <span>Totalt klick</span>
-                  <span>{totalPartnerClicks}</span>
+                  <span>{m.totalPartnerClicks}</span>
                 </div>
               </>
             )}
           </CardContent>
         </Card>
       </div>
+    </div>
+  );
+}
+
+// ================ Main Component ================
+
+export default function AdminSalesOverview({ token, onSessionExpired }: AdminSalesOverviewProps) {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
+  const [dateRange, setDateRange] = useState("30");
+  const [statsAll, setStatsAll] = useState<any>(null);
+  const [statsFiltered, setStatsFiltered] = useState<any>(null);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
+
+      const [allRes, filteredRes, clickRes] = await Promise.all([
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "visitor-stats",
+            token,
+            startDate: startDate.toISOString(),
+            excludePartnerTraffic: false,
+          }),
+        }),
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "visitor-stats",
+            token,
+            startDate: startDate.toISOString(),
+            excludePartnerTraffic: true,
+          }),
+        }),
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "click-stats", token }),
+        }),
+      ]);
+
+      const allData = await allRes.json();
+      const filteredData = await filteredRes.json();
+      const clickData = await clickRes.json();
+
+      if (!allRes.ok) {
+        if (allData.error?.includes("gått ut")) onSessionExpired();
+        throw new Error(allData.error || "Kunde inte hämta data");
+      }
+
+      setStatsAll(allData.stats);
+      setStatsFiltered(filteredData.stats || null);
+    } catch (error: any) {
+      console.error("Error fetching sales overview:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte hämta översiktsdata",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [dateRange, token]);
+
+  const handleCopy = async (stats: any, excludePartners: boolean) => {
+    const text = buildCopyText(stats, dateRange, excludePartners);
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({ title: "Kopierat!", description: "Översikten har kopierats till urklipp." });
+    } catch {
+      toast({ title: "Kunde inte kopiera", variant: "destructive" });
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!statsAll) {
+    return (
+      <Card>
+        <CardContent className="pt-6">
+          <div className="text-center py-12 text-muted-foreground">
+            <BarChart3 className="h-12 w-12 mx-auto mb-3 opacity-50" />
+            <p>Ingen data tillgänglig ännu.</p>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const periodLabel = dateRange === "7" ? "7 dagar" : dateRange === "30" ? "30 dagar" : "90 dagar";
+
+  return (
+    <div className="space-y-8">
+      {/* Shared Controls */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h3 className="text-xl font-bold flex items-center gap-2">
+            <Award className="h-6 w-6 text-primary" />
+            Totalöversikt – Införsäljning
+          </h3>
+          <p className="text-sm text-muted-foreground mt-1">
+            Nyckeltal för att visa sajtens värde för partners
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <Select value={dateRange} onValueChange={setDateRange}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="7">Senaste 7 dagar</SelectItem>
+              <SelectItem value="30">Senaste 30 dagar</SelectItem>
+              <SelectItem value="90">Senaste 90 dagar</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button variant="outline" size="sm" onClick={fetchData} disabled={isLoading}>
+            <RefreshCw className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* ===== SECTION 1: All traffic ===== */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-primary" />
+            <h4 className="text-lg font-semibold">Alla besökare</h4>
+            <Badge variant="outline" className="text-xs">Inkl. partnertrafik</Badge>
+          </div>
+          <Button variant="outline" size="sm" onClick={() => handleCopy(statsAll, false)}>
+            <Copy className="h-4 w-4 mr-1" />
+            Kopiera
+          </Button>
+        </div>
+        <OverviewBlock
+          stats={statsAll}
+          periodLabel={periodLabel}
+          title="Alla besökare"
+          subtitle="Inklusive partnertrafik"
+          icon={<Users className="h-6 w-6" />}
+          gradientId="salesGradientAll"
+        />
+      </div>
+
+      {/* Divider */}
+      <div className="relative py-4">
+        <Separator />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-4">
+          <Badge className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 border-emerald-200">
+            <ShieldCheck className="h-3 w-3 mr-1" />
+            Exkl. partnertrafik nedan
+          </Badge>
+        </div>
+      </div>
+
+      {/* ===== SECTION 2: Filtered traffic ===== */}
+      {statsFiltered ? (
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+              <h4 className="text-lg font-semibold">Enbart externa besökare</h4>
+              <Badge className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 border-emerald-200 text-xs">
+                Exkl. partners
+              </Badge>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => handleCopy(statsFiltered, true)}>
+              <Copy className="h-4 w-4 mr-1" />
+              Kopiera
+            </Button>
+          </div>
+          <Card className="border-emerald-200 bg-emerald-50/30 dark:bg-emerald-950/10">
+            <CardContent className="py-3">
+              <p className="text-sm text-emerald-700 dark:text-emerald-300">
+                Dessa siffror exkluderar besök från anställda hos publicerade partners, baserat på organisationsdata (ISP/företag).
+                Idealiskt för att visa det faktiska kundintresset på sajten.
+              </p>
+            </CardContent>
+          </Card>
+          <OverviewBlock
+            stats={statsFiltered}
+            periodLabel={periodLabel}
+            title="Externa besökare"
+            subtitle="Exklusive partnertrafik"
+            icon={<ShieldCheck className="h-6 w-6" />}
+            accentClass="border-emerald-300 bg-emerald-50/50 dark:bg-emerald-950/20"
+            gradientId="salesGradientFiltered"
+          />
+        </div>
+      ) : (
+        <Card>
+          <CardContent className="pt-6">
+            <p className="text-center text-muted-foreground py-8">
+              Kunde inte hämta filtrerad data.
+            </p>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
