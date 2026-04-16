@@ -46,6 +46,7 @@ interface VisitorStats {
   topCities: { city: string; region: string; visits: number }[];
   partnerProfileStats: { name: string; visits: number }[];
   partnerClickStats: { name: string; clicks: number }[];
+  dailyVisitors: { date: string; visitors: number }[];
 }
 
 interface AdminVisitorStatsTabProps {
@@ -64,7 +65,7 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState<VisitorStats | null>(null);
-  const [dateRange, setDateRange] = useState("7");
+  const [dateRange, setDateRange] = useState("30");
   const [showAllCities, setShowAllCities] = useState(false);
   const [excludeSelf, setExcludeSelf] = useState(isExcludedFromTracking());
   const [excludePartners, setExcludePartners] = useState(false);
