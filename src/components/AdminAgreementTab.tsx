@@ -208,6 +208,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
   const [statusFilter, setStatusFilter] = useState<"all" | "published" | "unpublished">("all");
   const [showPreview, setShowPreview] = useState(false);
   const [sending, setSending] = useState(false);
+  const [coldEmail, setColdEmail] = useState("");
+  const [coldCompany, setColdCompany] = useState("");
 
   const published = useEmailTemplate(
     "agreement_email_subject", "agreement_email_body", "agreement_email_cc",
@@ -217,12 +219,18 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     "prospect_agreement_email_subject", "prospect_agreement_email_body", "prospect_agreement_email_cc",
     PROSPECT_DEFAULT_SUBJECT, PROSPECT_DEFAULT_BODY, DEFAULT_CC, token,
   );
+  const coldPitch = useEmailTemplate(
+    "cold_pitch_email_subject", "cold_pitch_email_body", "cold_pitch_email_cc",
+    COLD_PITCH_DEFAULT_SUBJECT, COLD_PITCH_DEFAULT_BODY, DEFAULT_CC, token,
+  );
 
-  const active = templateKind === "published" ? published : prospect;
-  const action = templateKind === "published" ? "send-agreement" : "send-prospect-agreement";
+  const active = templateKind === "published" ? published : templateKind === "prospect" ? prospect : coldPitch;
+  const action = templateKind === "published" ? "send-agreement" : templateKind === "prospect" ? "send-prospect-agreement" : "send-cold-pitch";
   const placeholderHelp = templateKind === "published"
     ? "Platshållare: {{PDF_LINK}}, {{DEADLINE}}, {{START_DATE}}"
-    : "Platshållare: {{INVITATION_LINK}}, {{PDF_LINK}}";
+    : templateKind === "prospect"
+      ? "Platshållare: {{INVITATION_LINK}}, {{PDF_LINK}}"
+      : "Platshållare: {{PDF_LINK}}";
 
   const pdfUrl = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
 
