@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,8 +20,11 @@ import {
   User,
   Mail,
   Phone,
-  Package
+  Package,
+  Play
 } from "lucide-react";
+import PartnerVideoModal from "@/components/PartnerVideoModal";
+import { extractYouTubeId } from "@/lib/youtube";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
@@ -138,6 +142,8 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   
   // Use initialData for SSR, then hydrate with live data from DB
   const partner = dbPartner ?? initialData ?? null;
+
+  const [videoOpen, setVideoOpen] = useState(false);
 
   // Get product categories this partner supports
   // Get product categories this partner supports - check both applications array AND product_filters
@@ -500,22 +506,44 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                 ? productContact.contactPhotoUrl
                 : (partner as any)?.contact_photo_url;
 
-              if (!displayName && !displayEmail && !displayPhone) return null;
+              // Video: prefer per-product video, fall back to partner main video
+              const productVideoId = key ? extractYouTubeId(productContact?.youtubeVideoId) : null;
+              const mainVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
+              const displayVideoId = productVideoId || mainVideoId;
+
+              if (!displayName && !displayEmail && !displayPhone && !displayVideoId) return null;
 
               return (
                 <div className="mt-5 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded-2xl bg-white/80 border border-emerald-200 shadow-md backdrop-blur-sm max-w-2xl">
-                  {displayPhoto ? (
-                    <img
-                      src={displayPhoto}
-                      alt={`Foto av ${displayName || 'kontaktperson'}`}
-                      loading="lazy"
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-emerald-200 shadow-sm shrink-0"
-                    />
-                  ) : (
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center shrink-0">
-                      <User className="w-8 h-8 text-emerald-600" />
-                    </div>
-                  )}
+                  <div className="relative shrink-0">
+                    {displayPhoto ? (
+                      <img
+                        src={displayPhoto}
+                        alt={`Foto av ${displayName || 'kontaktperson'}`}
+                        loading="lazy"
+                        className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-emerald-200 shadow-sm"
+                      />
+                    ) : (
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center">
+                        <User className="w-8 h-8 text-emerald-600" />
+                      </div>
+                    )}
+                    {displayVideoId && (
+                      <button
+                        type="button"
+                        onClick={() => setVideoOpen(true)}
+                        aria-label={`Spela introduktionsvideo från ${partner.name}`}
+                        className="absolute inset-0 rounded-full bg-black/40 hover:bg-black/55 transition-colors flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                      >
+                        <span className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <Play className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 fill-emerald-700 ml-0.5" />
+                        </span>
+                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-md whitespace-nowrap">
+                          Video
+                        </span>
+                      </button>
+                    )}
+                  </div>
 
                   <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
                     <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
@@ -1013,6 +1041,23 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       </section>
 
       <Footer />
+
+      <PartnerVideoModal
+        videoId={videoOpen ? (extractYouTubeId((() => {
+          const sp = searchParams.get('product') || '';
+          const v = sp.toLowerCase();
+          let key: 'bc' | 'fsc' | 'sales' | 'service' | null = null;
+          if (v.includes('business central')) key = 'bc';
+          else if (v.includes('finance') || v.includes('supply')) key = 'fsc';
+          else if (v.includes('sales') || v.includes('marketing') || v.includes('customer insights')) key = 'sales';
+          else if (v.includes('service') || v.includes('contact center') || v.includes('field')) key = 'service';
+          const pf = (partner as any)?.product_filters || {};
+          const productVid = key ? pf[key]?.youtubeVideoId : null;
+          return productVid || (partner as any)?.youtube_video_id;
+        })())) : null}
+        partnerName={partner.name}
+        onClose={() => setVideoOpen(false)}
+      />
     </div>
   );
 };

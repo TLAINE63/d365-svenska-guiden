@@ -502,6 +502,7 @@ export type Database = {
           slug: string
           updated_at: string
           website: string
+          youtube_video_id: string | null
         }
         Insert: {
           activation_date?: string | null
@@ -539,6 +540,7 @@ export type Database = {
           slug: string
           updated_at?: string
           website: string
+          youtube_video_id?: string | null
         }
         Update: {
           activation_date?: string | null
@@ -576,6 +578,7 @@ export type Database = {
           slug?: string
           updated_at?: string
           website?: string
+          youtube_video_id?: string | null
         }
         Relationships: []
       }
@@ -679,6 +682,7 @@ export type Database = {
           slug: string | null
           updated_at: string | null
           website: string | null
+          youtube_video_id: string | null
         }
         Insert: {
           applications?: string[] | null
@@ -708,6 +712,7 @@ export type Database = {
           slug?: string | null
           updated_at?: string | null
           website?: string | null
+          youtube_video_id?: string | null
         }
         Update: {
           applications?: string[] | null
@@ -737,6 +742,7 @@ export type Database = {
           slug?: string | null
           updated_at?: string | null
           website?: string | null
+          youtube_video_id?: string | null
         }
         Relationships: []
       }

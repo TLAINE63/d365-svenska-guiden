@@ -305,6 +305,7 @@ const AdminDashboard = () => {
     invoice_contact?: string;
     org_number?: string;
     legal_name?: string;
+    youtube_video_id?: string;
   }>({
     slug: "",
     name: "",
@@ -334,6 +335,7 @@ const AdminDashboard = () => {
     invoice_contact: "",
     org_number: "",
     legal_name: "",
+    youtube_video_id: "",
   });
 
   // ==================== LEAD FUNCTIONS ====================
@@ -789,6 +791,7 @@ const AdminDashboard = () => {
       contact_photo_url: "",
       phone: "",
       address: "",
+      youtube_video_id: "",
       applications: [],
       industries: [],
       secondary_industries: [],
@@ -849,6 +852,7 @@ const AdminDashboard = () => {
       invoice_contact: (partner as any).invoice_contact || "",
       org_number: (partner as any).org_number || "",
       legal_name: (partner as any).legal_name || "",
+      youtube_video_id: (partner as any).youtube_video_id || "",
     });
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
@@ -1120,6 +1124,7 @@ const AdminDashboard = () => {
       contactEmail: existing?.contactEmail || '',
       contactPhone: existing?.contactPhone || '',
       contactPhotoUrl: existing?.contactPhotoUrl || '',
+      youtubeVideoId: existing?.youtubeVideoId || '',
     };
   };
 
@@ -3033,6 +3038,22 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* YouTube intro video */}
+                <div className="space-y-2">
+                  <Label htmlFor="youtube_video_id">YouTube-video (kort introduktion, valfritt)</Label>
+                  <Input
+                    id="youtube_video_id"
+                    placeholder="https://youtu.be/dQw4w9WgXcQ eller bara video-ID"
+                    value={partnerFormData.youtube_video_id || ""}
+                    onChange={(e) =>
+                      setPartnerFormData({ ...partnerFormData, youtube_video_id: e.target.value })
+                    }
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Klistra in en YouTube-länk eller video-ID. Visas som play-knapp på kontaktfotot på partnerprofilen. Rekommenderad längd: 30–60 sekunder.
+                  </p>
+                </div>
               </div>
 
               <Separator />
@@ -3253,6 +3274,21 @@ const AdminDashboard = () => {
                                   Lämna tomt för att använda partnerns huvudkontakt.
                                 </p>
                               </div>
+                            </div>
+
+                            {/* Per-product YouTube video */}
+                            <div className="pt-2 border-t border-border/60">
+                              <Label className="text-xs text-muted-foreground">YouTube-video för {section.label} (valfritt)</Label>
+                              <Input
+                                placeholder="https://youtu.be/... eller video-ID"
+                                defaultValue={filter.youtubeVideoId || ''}
+                                key={`${section.key}-youtubeVideoId-${editingPartner?.id || 'new'}`}
+                                onBlur={(e) => updateProductFilter(section.key, { youtubeVideoId: e.target.value.trim() })}
+                                className="mt-1"
+                              />
+                              <p className="text-xs text-muted-foreground mt-1">
+                                Lämna tomt för att använda partnerns huvudvideo (om någon).
+                              </p>
                             </div>
                           </div>
                           <div>
