@@ -1361,6 +1361,173 @@ D365.se`;
     }
 
     // Admin: Send sales pitch email to prospective partners
+    // Admin: Send prospect agreement email (non-published partners with invitations)
+    if (action === "send-prospect-agreement" && req.method === "POST") {
+      const body = await req.json();
+      const { partners: partnerList, subject: customSubject, email_body: customBody, cc } = body;
+
+      if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Partnerlista krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "RESEND_API_KEY ej konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resend = new Resend(resendApiKey);
+      const baseUrl = "https://d365-svenska-guiden.lovable.app";
+      const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
+      const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges oberoende guide till Dynamics 365";
+      const emailBody = customBody || "Hej,\n\nVi vill gärna ha med er som partner på d365.se.\n\n{{INVITATION_LINK}}\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
+      const ccList: string[] = Array.isArray(cc) ? cc : (cc ? [cc] : []);
+
+      let sent = 0;
+      let failed = 0;
+      const errors: string[] = [];
+
+      for (const partner of partnerList) {
+        try {
+          const email = partner.email;
+          if (!email) {
+            errors.push(`${partner.name}: Ingen e-postadress`);
+            failed++;
+            continue;
+          }
+
+          // Find or create invitation for this partner
+          let invitationLink = baseUrl;
+          
+          // Check for existing invitation
+          let query = supabase.from("partner_invitations").select("token").eq("email", email).order("created_at", { ascending: false }).limit(1);
+          if (partner.id) {
+            query = supabase.from("partner_invitations").select("token").eq("partner_id", partner.id).order("created_at", { ascending: false }).limit(1);
+          }
+          const { data: existingInv } = await query;
+          
+          if (existingInv && existingInv.length > 0) {
+            invitationLink = `${baseUrl}/partner-update/${existingInv[0].token}`;
+          } else {
+            // Create new invitation
+            const { data: newInv } = await supabase
+              .from("partner_invitations")
+              .insert({
+                email,
+                partner_name: partner.name,
+                partner_id: partner.id || null,
+              })
+              .select()
+              .single();
+            if (newInv) {
+              invitationLink = `${baseUrl}/partner-update/${newInv.token}`;
+            }
+          }
+
+          // Build invitation link button
+          const invitationButton = `<div style="text-align: center; margin: 30px 0;">
+            <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Skapa/uppdatera er partnerprofil</a>
+          </div>
+          <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk:</p>
+          <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
+
+          // Build PDF link button
+          const pdfButton = `<div style="text-align: center; margin: 20px 0;">
+            <a href="${pdfUrl}" style="display: inline-block; background-color: #1e40af; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 15px;">📄 Ladda ner partneravtal (PDF)</a>
+          </div>`;
+
+          // Convert plain text to HTML, handle both placeholders
+          let bodyText = emailBody;
+          
+          const htmlBody = bodyText
+            .split("{{INVITATION_LINK}}")
+            .map((segment: string) => {
+              return segment
+                .split("{{PDF_LINK}}")
+                .map((part: string) => {
+                  return part
+                    .split("\n\n")
+                    .map((paragraph: string) => {
+                      const trimmed = paragraph.trim();
+                      if (!trimmed) return "";
+                      const withBr = trimmed.replace(/\n/g, "<br>");
+                      const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
+                      const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
+                      return `<p>${withEmails}</p>`;
+                    })
+                    .filter(Boolean)
+                    .join("\n");
+                })
+                .join(pdfButton);
+            })
+            .join(invitationButton);
+
+          const fullHtml = `<!DOCTYPE html>
+            <html>
+            <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                <p style="color: #6b7280; margin: 5px 0 0 0;">Partnerprofilering</p>
+              </div>
+              ${htmlBody}
+            </body>
+            </html>`;
+
+          const emailOptions: any = {
+            from: "D365.se <info@d365.se>",
+            to: [email],
+            subject: emailSubject,
+            html: fullHtml,
+          };
+          if (ccList.length > 0) {
+            emailOptions.cc = ccList;
+          }
+
+          await resend.emails.send(emailOptions);
+
+          sent++;
+          console.log("Prospect agreement email sent to:", email, partner.name);
+          await supabase.from("email_send_log").insert({
+            recipient_email: email,
+            template_name: "partner_prospect_agreement",
+            subject: emailSubject,
+            status: "sent",
+            metadata: { partner_name: partner.name, cc: ccList },
+          });
+        } catch (sendErr: any) {
+          failed++;
+          errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
+          console.error("Prospect agreement send error:", partner.email, sendErr);
+          await supabase.from("email_send_log").insert({
+            recipient_email: partner.email,
+            template_name: "partner_prospect_agreement",
+            subject: emailSubject,
+            status: "failed",
+            error_message: sendErr.message,
+            metadata: { partner_name: partner.name },
+          });
+        }
+      }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          sent,
+          failed,
+          total: partnerList.length,
+          errors: errors.length > 0 ? errors : undefined,
+          message: `Prospektmail skickat till ${sent} av ${partnerList.length} partners.${failed > 0 ? ` ${failed} misslyckades.` : ''}`,
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
       const { partners: partnerList } = body;
@@ -1395,38 +1562,12 @@ D365.se`;
 
 Jag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.
 
-Sidan bygger på ett enkelt men kraftfullt koncept: potentiella kunder googlar intensivt och söker svar på sina frågor långt innan de är redo att prata med en partner eller säljare. Istället för att låta dem fastna på generiska sidor möter vi dem tidigt i beslutsprocessen – med kravspecifikationer, behovsanalyser, jämförelser och guider som hjälper dem att kvalificera sig själva.
-
-När de sedan väljer att klicka vidare till en partners sida, eller laddar ned ett dokument mot sin e-postadress, är de inte längre kalla leads. De har tagit ett aktivt steg med en tydlig avsikt.
-
-Så driver vi trafik till sidan:
-
-Vi arbetar med en professionell byrå och marknadsför d365.se via SEO och AIO (AI-optimerad sökning), Google Ads (SEM), LinkedIn-kampanjer, artiklar, inlägg samt videor i flödet och på YouTube. På kort tid har sidan nått ~4 000 besökare – och vi är bara i början.
-
-Skapa er partnerprofil – kostnadsfritt nu:
-
-Följ länken nedan för att profilera er på bästa möjliga sätt. Ni väljer upp till tre (3) branscher per produktområde – ju mer träffsäkert ni väljer, desto mer relevanta leads matchas mot er.
-
-Tillgängliga produktområden:
-
-• Business Central
-• Finance & Supply Chain
-• CRM-sviten
-
 {{INVITATION_LINK}}
-
-Prova på – utan risk:
-
-Deltagandet är helt kostnadsfritt under prova-på-perioden. Från och med maj tillkommer en avgift om 1 990 kr/månad per produktområde ni väljer att vara aktiva inom. Beslutet behöver ni inte ta förrän i slutet av april – ingen bindning, ingen faktura innan dess.
-
-Har du frågor eller vill se hur flödet fungerar i praktiken? Jag bokar gärna 20 minuter.
 
 Med vänlig hälsning,
 
 Thomas Laine & Michael Uhman
-d365.se
-+46 72 232 40 60
-thomas.laine@dynamicfactory.se`;
+d365.se`;
 
       // Fetch subject
       let emailSubject = "";
@@ -1451,8 +1592,7 @@ thomas.laine@dynamicfactory.se`;
             continue;
           }
 
-          // Create invitation for this partner (so they get a profile link)
-          // Remove existing pending invitations first
+          // Create invitation for this partner
           if (partner.id) {
             await supabase
               .from("partner_invitations")
@@ -1477,18 +1617,15 @@ thomas.laine@dynamicfactory.se`;
 
           const contactName = partner.contact_name || partner.name;
 
-          // Replace placeholders
           const personalizedBody = emailBody.replace(/\{\{NAME\}\}/g, contactName);
           const personalizedSubject = emailSubject.replace(/\{\{NAME\}\}/g, contactName);
 
-          // Build invitation link button
           const invitationButton = `<div style="text-align: center; margin: 30px 0;">
             <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Skapa er partnerprofil</a>
           </div>
           <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
           <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
 
-          // Convert plain text to HTML
           const htmlBody = personalizedBody
             .split("{{INVITATION_LINK}}")
             .map((part: string) => {
