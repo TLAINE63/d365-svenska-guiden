@@ -380,9 +380,36 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             </div>
             
             {/* Description */}
-            <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-light mb-6">
+            <p className="text-base sm:text-lg text-slate-600 max-w-3xl leading-relaxed font-light mb-4">
               {partner.description}
             </p>
+
+            {/* Website CTA - directly under description */}
+            <div className="flex justify-center mb-6">
+              <a 
+                href={partner.website} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => {
+                  trackPartnerClick(
+                    partner.name,
+                    partner.website,
+                    `partner-profile-${partner.slug}`,
+                    {
+                      product: selectedProduct,
+                      industry: selectedIndustry,
+                      companySize: selectedCompanySize,
+                      geography: selectedGeography,
+                    }
+                  );
+                }}
+                className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-primary/80 to-primary backdrop-blur-md border border-primary/50 text-sm text-primary-foreground shadow-lg hover:shadow-primary/30 hover:scale-105 transition-all duration-300"
+              >
+                <Globe className="w-4 h-4" />
+                <span className="font-medium">Besök {partner.name}</span>
+                <ExternalLink className="w-3 h-3 opacity-70 group-hover:opacity-100 transition-opacity" />
+              </a>
+            </div>
             
             {/* Overall AI Level Badge */}
             {(() => {
