@@ -2241,6 +2241,14 @@ const AdminDashboard = () => {
               logout={logout}
             />
           </TabsContent>
+
+          {/* ==================== SALES OVERVIEW TAB ==================== */}
+          <TabsContent value="sales-overview">
+            <AdminSalesOverview
+              token={token || ""}
+              onSessionExpired={logout}
+            />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
