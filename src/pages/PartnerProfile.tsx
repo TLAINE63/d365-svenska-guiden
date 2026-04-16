@@ -457,12 +457,20 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             {(() => {
               const cities = partner?.office_cities as string[] | undefined;
               return cities && cities.length > 0 ? (
-                <div className="flex flex-wrap justify-center items-center gap-2 mt-4">
-                  <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-slate-200/50 border border-slate-200 text-sm text-slate-700 shadow-sm">
-                    <MapPin className="w-4 h-4 text-teal-600 shrink-0" />
-                    <span className="font-medium">
-                      Vi har kontor i: {cities.join(', ')}
-                    </span>
+                <div className="mt-5 flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    <MapPin className="w-3.5 h-3.5 text-teal-600" />
+                    Kontor
+                  </span>
+                  <div className="flex flex-wrap justify-center gap-1.5">
+                    {cities.map((city) => (
+                      <span
+                        key={city}
+                        className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm hover:border-teal-300 hover:text-teal-700 transition-colors"
+                      >
+                        {city}
+                      </span>
+                    ))}
                   </div>
                 </div>
               ) : null;
