@@ -161,7 +161,7 @@ Thomas Laine & Michael Uhman
 Moveahead AB / Dynamic Factory
 d365.se`;
 
-type TemplateKind = "published" | "prospect";
+type TemplateKind = "published" | "prospect" | "cold-pitch";
 
 function useEmailTemplate(
   subjectKey: string,
