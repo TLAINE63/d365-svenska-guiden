@@ -531,14 +531,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto space-y-8">
             
-            {/* Events Section - shown above competencies if events exist */}
-            {partner?.id && (
-              <PartnerEventsSection 
-                partnerId={partner.id} 
-                partnerName={partner.name} 
-              />
-            )}
-
+            
             {/* Product Competencies */}
             <div className="space-y-6">
               <div className="flex items-center gap-4">
@@ -905,6 +898,13 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               );
             })()}
 
+            {/* Events Section - shown after competencies */}
+            {partner?.id && (
+              <PartnerEventsSection 
+                partnerId={partner.id} 
+                partnerName={partner.name} 
+              />
+            )}
 
             <article className="relative rounded-3xl overflow-hidden shadow-2xl">
               {/* Gradient background */}
