@@ -1383,6 +1383,10 @@ const AdminDashboard = () => {
               <FileText className="h-4 w-4" />
               Partneravtal
             </TabsTrigger>
+            <TabsTrigger value="sales-overview" className="flex items-center gap-2">
+              <Award className="h-4 w-4" />
+              Totalöversikt
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
