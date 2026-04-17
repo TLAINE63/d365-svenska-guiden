@@ -131,6 +131,7 @@ interface ExistingData {
   website: string;
   logo_url: string;
   contact_person: string;
+  contact_photo_url: string;
   email: string;
   phone: string;
   address: string;
@@ -280,6 +281,7 @@ const PartnerUpdate = () => {
             website: result.existingData.website || "",
             logo_url: result.existingData.logo_url || "",
             contact_person: result.existingData.contact_person || "",
+            contact_photo_url: result.existingData.contact_photo_url || "",
             email: result.existingData.email || result.invitation.email,
             phone: result.existingData.phone || "",
             address: result.existingData.address || "",
