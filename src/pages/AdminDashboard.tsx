@@ -2673,10 +2673,7 @@ const AdminDashboard = () => {
                 />
               )}
 
-              {/* Global site traffic (compact) */}
-              {editingPartner && (
-                <SiteTrafficStatsCard token={token} variant="compact" />
-              )}
+              {/* Global site traffic (compact) – dold tills vidare, visas i fliken Visitor Stats */}
 
               {/* Section 1: Admin Info (moved to top for easy administration) */}
               <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">
