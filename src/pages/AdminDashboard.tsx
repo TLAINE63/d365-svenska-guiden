@@ -289,6 +289,12 @@ const AdminDashboard = () => {
   const setSectionOpen = (id: string, open: boolean) =>
     setOpenSections((prev) => ({ ...prev, [id]: open }));
 
+  // Per-product collapsible state inside Produktsektioner
+  // Default: collapsed (false). Opens automatically for products that already have data when editing.
+  const [openProducts, setOpenProducts] = useState<Record<string, boolean>>({});
+  const toggleProduct = (key: string) =>
+    setOpenProducts((prev) => ({ ...prev, [key]: !prev[key] }));
+
   // Industry apps state
   const [industryApps, setIndustryApps] = useState<IndustryApp[]>([]);
 
