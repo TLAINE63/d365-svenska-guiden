@@ -157,7 +157,7 @@ const PartnerCard = ({
 
   // Track click into partner profile (card click)
   const handleCardClick = () => {
-    const slug = isDatabasePartner(partner) ? partner.slug : (partner as Partner).id;
+    const slug = isDatabasePartner(partner) ? partner.slug : (partner as any).id;
     if (!slug) return;
     const partnerId = isDatabasePartner(partner) ? partner.id : null;
     const pageSource = typeof window !== "undefined" ? window.location.pathname : "unknown";
