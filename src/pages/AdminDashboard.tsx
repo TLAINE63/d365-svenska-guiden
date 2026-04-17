@@ -3312,34 +3312,62 @@ const AdminDashboard = () => {
                 onOpenChange={(o) => setSectionOpen('products', o)}
                 sectionRef={(el) => (sectionRefs.current[4] = el)}
               >
-                <p className="text-sm text-muted-foreground">
-                  Välj max 3 fokusbranscher för varje produkt partnern erbjuder.
-                </p>
+                <div className="rounded-lg border-2 border-dashed border-primary/30 bg-primary/5 p-3 flex items-start gap-2">
+                  <ArrowRight className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <p className="text-sm text-foreground">
+                    <strong>Klicka på produktnamnet</strong> för att fälla ut och fylla i information för det produktområde partnern erbjuder. Hoppa över de produkter som inte är aktuella.
+                  </p>
+                </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {productSections.map((section) => {
                     const filter = getProductFilter(section.key);
                     const isActive = isProductActive(section.key);
-                    
+                    const isOpen = !!openProducts[section.key];
+
                     return (
-                      <Card key={section.key} className={`${isActive ? "ring-2 ring-offset-2" : ""}`} style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}>
-                        <CardHeader className={`pb-4 ${section.colorClass} text-white rounded-t-lg`}>
-                          <CardTitle className="text-xl font-bold flex items-center justify-between">
-                            <span className="flex items-center gap-3">
-                              <img src={section.icon} alt={section.label} className="h-8 w-8 object-contain" />
-                              {section.label}
-                            </span>
-                            {isActive && <Badge variant="secondary" className="text-xs">Aktiv</Badge>}
-                          </CardTitle>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            {section.apps.map((app) => (
-                              <Badge key={app} variant="secondary" className="text-xs font-normal bg-white/20 text-white border-white/30">
-                                Dynamics 365 {app}
-                              </Badge>
-                            ))}
+                      <Card
+                        key={section.key}
+                        className={`overflow-hidden transition-all ${isActive ? "ring-2 ring-offset-2 shadow-md" : "shadow-sm hover:shadow-md"}`}
+                        style={{ borderColor: `hsl(var(--${section.key === 'bc' ? 'business-central' : section.key === 'fsc' ? 'finance-supply' : section.key === 'sales' ? 'crm' : 'customer-service'}))` }}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => toggleProduct(section.key)}
+                          aria-expanded={isOpen}
+                          className={`w-full text-left ${section.colorClass} text-white ${isOpen ? '' : 'rounded-b-lg'} rounded-t-lg transition-opacity hover:opacity-95`}
+                        >
+                          <div className="px-6 py-4 flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-3 min-w-0">
+                              <img src={section.icon} alt={section.label} className="h-8 w-8 object-contain shrink-0" />
+                              <div className="min-w-0">
+                                <div className="text-lg sm:text-xl font-bold flex items-center gap-2 flex-wrap">
+                                  <span className="truncate">{section.label}</span>
+                                  {isActive ? (
+                                    <Badge variant="secondary" className="text-[10px] bg-white/25 text-white border-white/40">Ifylld</Badge>
+                                  ) : (
+                                    <Badge variant="secondary" className="text-[10px] bg-white/15 text-white/90 border-white/30">Ej ifylld</Badge>
+                                  )}
+                                </div>
+                                <p className="text-xs text-white/85 mt-0.5">
+                                  {isOpen ? 'Klicka för att fälla ihop' : (isActive ? 'Klicka för att redigera' : 'Klicka för att fylla i om partnern erbjuder detta')}
+                                </p>
+                              </div>
+                            </div>
+                            <ChevronDown className={`h-5 w-5 text-white shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                           </div>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
+                          {isOpen && (
+                            <div className="px-6 pb-4 flex flex-wrap gap-2">
+                              {section.apps.map((app) => (
+                                <Badge key={app} variant="secondary" className="text-xs font-normal bg-white/20 text-white border-white/30">
+                                  Dynamics 365 {app}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+                        </button>
+                        {isOpen && (
+                        <CardContent className="space-y-4 pt-5">
                           <div>
                             <Label className="text-sm">Kort beskrivning av erbjudande</Label>
                             <Input
