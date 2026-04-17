@@ -131,6 +131,7 @@ interface ExistingData {
   website: string;
   logo_url: string;
   contact_person: string;
+  contact_photo_url: string;
   email: string;
   phone: string;
   address: string;
@@ -188,6 +189,7 @@ const PartnerUpdate = () => {
     website: "",
     logo_url: "",
     contact_person: "",
+    contact_photo_url: "",
     email: "",
     phone: "",
     address: "",
@@ -196,6 +198,7 @@ const PartnerUpdate = () => {
     invoice_email: "",
     invoice_contact: "",
   });
+  const [uploadingMainContactPhoto, setUploadingMainContactPhoto] = useState(false);
 
   // Industry apps state
   interface IndustryApp {
@@ -278,6 +281,7 @@ const PartnerUpdate = () => {
             website: result.existingData.website || "",
             logo_url: result.existingData.logo_url || "",
             contact_person: result.existingData.contact_person || "",
+            contact_photo_url: result.existingData.contact_photo_url || "",
             email: result.existingData.email || result.invitation.email,
             phone: result.existingData.phone || "",
             address: result.existingData.address || "",
@@ -523,6 +527,48 @@ const PartnerUpdate = () => {
   const removeLogo = () => {
     setFormData(prev => ({ ...prev, logo_url: "" }));
     setLogoPreview(null);
+  };
+
+  const handleMainContactPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !invitation || !token) return;
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      toast.error("Endast JPEG, PNG eller WebP tillåtna");
+      e.target.value = "";
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Filen får max vara 5MB");
+      e.target.value = "";
+      return;
+    }
+
+    setUploadingMainContactPhoto(true);
+    try {
+      const slug = generateSlug(formData.name || invitation.partner_name || "partner");
+      const uploadFormData = new FormData();
+      uploadFormData.append("file", file);
+      uploadFormData.append("token", token);
+      uploadFormData.append("partnerSlug", slug);
+      uploadFormData.append("kind", "contact-main");
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-partner-logo`,
+        { method: "POST", body: uploadFormData }
+      );
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Uppladdning misslyckades");
+
+      const bustedUrl = `${data.url}?t=${Date.now()}`;
+      setFormData(prev => ({ ...prev, contact_photo_url: bustedUrl }));
+      toast.success("Foto uppladdat");
+    } catch (err: any) {
+      toast.error(err.message || "Kunde inte ladda upp foto");
+    } finally {
+      setUploadingMainContactPhoto(false);
+      e.target.value = "";
+    }
   };
 
   const toggleProduct = (key: ProductKey) => {
@@ -889,6 +935,66 @@ const PartnerUpdate = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                     />
+                  </div>
+                </div>
+
+                {/* Main Sales Contact Photo Upload */}
+                <div className="rounded-lg border border-border p-4 space-y-3 bg-muted/30">
+                  <div>
+                    <Label className="text-sm font-semibold">Foto på huvudsäljkontakten</Label>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Visas på er partnerprofil bredvid säljkontaktens namn. Rekommenderat: porträtt 400×400px (JPG/PNG/WebP, max 5MB).
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {formData.contact_photo_url ? (
+                      <img
+                        src={formData.contact_photo_url}
+                        alt="Säljkontakt foto"
+                        className="h-20 w-20 object-cover rounded-full border-2 border-border shadow-sm"
+                      />
+                    ) : (
+                      <div className="h-20 w-20 rounded-full border-2 border-dashed border-border bg-background flex items-center justify-center">
+                        <ImageIcon className="h-7 w-7 text-muted-foreground" />
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        id="main-contact-photo"
+                        className="hidden"
+                        onChange={handleMainContactPhotoUpload}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={uploadingMainContactPhoto}
+                        onClick={() => document.getElementById("main-contact-photo")?.click()}
+                      >
+                        {uploadingMainContactPhoto ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <Upload className="mr-2 h-4 w-4" />
+                        )}
+                        {uploadingMainContactPhoto
+                          ? "Laddar upp..."
+                          : (formData.contact_photo_url ? "Byt foto" : "Ladda upp foto")}
+                      </Button>
+                      {formData.contact_photo_url && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setFormData(prev => ({ ...prev, contact_photo_url: "" }))}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <X className="h-4 w-4 mr-1" />
+                          Ta bort
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
 
