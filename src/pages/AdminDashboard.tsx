@@ -82,6 +82,7 @@ import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
+import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
 
@@ -2387,6 +2388,9 @@ const AdminDashboard = () => {
 
           {/* ==================== VISITOR STATS TAB ==================== */}
           <TabsContent value="visitors">
+            <div className="mb-6">
+              <SiteTrafficStatsCard token={token} variant="full" />
+            </div>
             <Card>
               <CardContent className="pt-6">
                 <AdminVisitorStatsTab 
@@ -2667,6 +2671,11 @@ const AdminDashboard = () => {
                   partnerName={editingPartner.name}
                   variant="admin"
                 />
+              )}
+
+              {/* Global site traffic (compact) */}
+              {editingPartner && (
+                <SiteTrafficStatsCard token={token} variant="compact" />
               )}
 
               {/* Section 1: Admin Info (moved to top for easy administration) */}
