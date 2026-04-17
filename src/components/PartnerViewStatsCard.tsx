@@ -11,6 +11,11 @@ interface Props {
 }
 
 export default function PartnerViewStatsCard({ partnerSlug, partnerName, variant = "partner", adminToken }: Props) {
+  // Temporarily hidden from partners — only admins should see traffic stats while volumes are low.
+  if (variant === "partner") {
+    return null;
+  }
+
   const stats = usePartnerViewStats(partnerSlug, partnerName, adminToken);
 
   if (stats.loading) {
