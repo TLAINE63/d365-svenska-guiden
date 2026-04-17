@@ -2928,7 +2928,7 @@ const AdminDashboard = () => {
                     Månadsavgiften faktureras löpande i förskott. Uppsägningstiden är 3 (tre) månader och skall meddelas i god tid före varje kvartals början.
                   </p>
                 </div>
-              </div>
+              </PremiumCollapsibleSection>
 
               <Separator />
 
@@ -3078,11 +3078,7 @@ const AdminDashboard = () => {
                     </p>
                   )}
                 </div>
-              </div>
-
-              <Separator />
-
-              {/* Section 3: Contact Info */}
+              </PremiumCollapsibleSection>
               <PremiumCollapsibleSection
                 title="Kontaktuppgifter"
                 description="Visas på Partnerprofilkortet"
@@ -3214,11 +3210,7 @@ const AdminDashboard = () => {
                     Klistra in en YouTube-länk eller video-ID. Visas som play-knapp på kontaktfotot på partnerprofilen. Rekommenderad längd: 30–60 sekunder.
                   </p>
                 </div>
-              </div>
-
-              <Separator />
-
-              {/* Section 4: Geographic Coverage */}
+              </PremiumCollapsibleSection>
               <PremiumCollapsibleSection
                 title="Geografisk täckning"
                 description="Visas överst på Partnerprofilkortet"
@@ -3258,9 +3250,7 @@ const AdminDashboard = () => {
                     );
                   })}
                 </div>
-                </div>
-
-                {/* Office cities */}
+              </PremiumCollapsibleSection>
                 <div className="space-y-2 mt-4">
                   <Label htmlFor="office_cities" className="font-medium">Kontorsstäder (kommaseparerade)</Label>
                   <Input
