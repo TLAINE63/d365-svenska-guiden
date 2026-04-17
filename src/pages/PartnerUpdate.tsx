@@ -938,11 +938,66 @@ const PartnerUpdate = () => {
                   </div>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Telefon</Label>
-                    <Input
-                      id="phone"
+                {/* Main Sales Contact Photo Upload */}
+                <div className="rounded-lg border border-border p-4 space-y-3 bg-muted/30">
+                  <div>
+                    <Label className="text-sm font-semibold">Foto på huvudsäljkontakten</Label>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Visas på er partnerprofil bredvid säljkontaktens namn. Rekommenderat: porträtt 400×400px (JPG/PNG/WebP, max 5MB).
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {formData.contact_photo_url ? (
+                      <img
+                        src={formData.contact_photo_url}
+                        alt="Säljkontakt foto"
+                        className="h-20 w-20 object-cover rounded-full border-2 border-border shadow-sm"
+                      />
+                    ) : (
+                      <div className="h-20 w-20 rounded-full border-2 border-dashed border-border bg-background flex items-center justify-center">
+                        <ImageIcon className="h-7 w-7 text-muted-foreground" />
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp"
+                        id="main-contact-photo"
+                        className="hidden"
+                        onChange={handleMainContactPhotoUpload}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={uploadingMainContactPhoto}
+                        onClick={() => document.getElementById("main-contact-photo")?.click()}
+                      >
+                        {uploadingMainContactPhoto ? (
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        ) : (
+                          <Upload className="mr-2 h-4 w-4" />
+                        )}
+                        {uploadingMainContactPhoto
+                          ? "Laddar upp..."
+                          : (formData.contact_photo_url ? "Byt foto" : "Ladda upp foto")}
+                      </Button>
+                      {formData.contact_photo_url && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setFormData(prev => ({ ...prev, contact_photo_url: "" }))}
+                          className="text-destructive hover:text-destructive"
+                        >
+                          <X className="h-4 w-4 mr-1" />
+                          Ta bort
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
