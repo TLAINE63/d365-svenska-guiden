@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +9,19 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { FileText, Send, CheckCircle2, Mail, Eye, EyeOff, Search } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+// Maps template_name in email_send_log to the badge shown next to each partner
+const AGREEMENT_TEMPLATE_LABELS: Record<string, { label: string; className: string }> = {
+  partner_agreement: { label: "Avtal", className: "bg-blue-50 text-blue-700 border-blue-200" },
+  partner_prospect_agreement: { label: "Prospekt", className: "bg-purple-50 text-purple-700 border-purple-200" },
+  partner_sales_pitch: { label: "Införsälj", className: "bg-orange-50 text-orange-700 border-orange-200" },
+};
+
+const formatShortDate = (iso: string) => {
+  const d = new Date(iso);
+  return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
+};
 
 interface Partner {
   id: string;
@@ -210,6 +223,43 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
   const [sending, setSending] = useState(false);
   const [coldEmail, setColdEmail] = useState("");
   const [coldCompany, setColdCompany] = useState("");
+
+  // History of sent agreement-related emails, indexed by recipient_email (lowercase) → template_name → latest ISO date
+  const [emailHistory, setEmailHistory] = useState<Record<string, Record<string, string>>>({});
+
+  useEffect(() => {
+    if (!token) return;
+    const loadHistory = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("manage-leads", {
+          body: {
+            action: "email-logs",
+            token,
+            limit: 1000,
+            offset: 0,
+            statusFilter: "sent",
+          },
+        });
+        if (error) throw error;
+        const logs: Array<{ recipient_email: string; template_name: string; created_at: string }> = data?.logs || [];
+        const idx: Record<string, Record<string, string>> = {};
+        for (const log of logs) {
+          if (!AGREEMENT_TEMPLATE_LABELS[log.template_name]) continue;
+          const key = (log.recipient_email || "").toLowerCase();
+          if (!key) continue;
+          if (!idx[key]) idx[key] = {};
+          // logs come ordered by created_at DESC, so first hit per template = latest
+          if (!idx[key][log.template_name]) {
+            idx[key][log.template_name] = log.created_at;
+          }
+        }
+        setEmailHistory(idx);
+      } catch (e) {
+        console.error("Failed to load agreement email history:", e);
+      }
+    };
+    loadHistory();
+  }, [token]);
 
   const published = useEmailTemplate(
     "agreement_email_subject", "agreement_email_body", "agreement_email_cc",
@@ -474,6 +524,10 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                 ) : (
                   filtered.map((partner) => {
                     const email = partner.admin_contact_email || partner.email || "";
+                    const history = emailHistory[email.toLowerCase()] || {};
+                    const sentBadges = Object.entries(AGREEMENT_TEMPLATE_LABELS)
+                      .map(([key, meta]) => ({ key, meta, sentAt: history[key] }))
+                      .filter((b) => b.sentAt);
                     return (
                       <label key={partner.id} className="flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer">
                         <Checkbox checked={selected.has(partner.id)} onCheckedChange={() => togglePartner(partner.id)} />
@@ -494,6 +548,17 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                                 Start: {partner.activation_date}
                               </Badge>
                             )}
+                            {sentBadges.map((b) => (
+                              <Badge
+                                key={b.key}
+                                variant="outline"
+                                className={`text-xs shrink-0 ${b.meta.className}`}
+                                title={`${b.meta.label} skickat ${new Date(b.sentAt!).toLocaleString("sv-SE")}`}
+                              >
+                                <Mail className="h-3 w-3 mr-1" />
+                                {b.meta.label} {formatShortDate(b.sentAt!)}
+                              </Badge>
+                            ))}
                           </div>
                           <span className="text-xs text-muted-foreground truncate block">{email}</span>
                         </div>
