@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
+import { trackPartnerView } from "@/utils/trackPartnerView";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -153,6 +154,15 @@ const PartnerCard = ({
   };
 
   const colors = getColorClasses();
+
+  // Track click into partner profile (card click)
+  const handleCardClick = () => {
+    const slug = isDatabasePartner(partner) ? partner.slug : (partner as Partner).id;
+    if (!slug) return;
+    const partnerId = isDatabasePartner(partner) ? partner.id : null;
+    const pageSource = typeof window !== "undefined" ? window.location.pathname : "unknown";
+    void trackPartnerView(slug, "card_click", pageSource, partnerId);
+  };
 
   // Get product-specific data - handle both data types
   const getProductFilter = () => {
@@ -283,6 +293,7 @@ const PartnerCard = ({
           {/* Partner name */}
           <Link 
             to={profileUrl}
+            onClick={handleCardClick}
             className="group/link mb-3"
           >
             <h3 className="text-lg font-bold text-foreground group-hover/link:text-primary transition-colors duration-300 leading-tight truncate">
@@ -420,7 +431,7 @@ const PartnerCard = ({
               asChild 
               className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
             >
-              <Link to={profileUrl} className="flex items-center justify-center gap-2">
+              <Link to={profileUrl} onClick={handleCardClick} className="flex items-center justify-center gap-2">
                 <span className="relative z-10">Visa partnerprofil</span>
                 <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 {/* Button shimmer effect */}
