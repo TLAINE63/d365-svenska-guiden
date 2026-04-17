@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -31,6 +31,7 @@ import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet-async";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
+import { trackPartnerView } from "@/utils/trackPartnerView";
 import { calculateProductAiScore, calculateAiScore, getAiLevel } from "@/utils/aiScoring";
 import {
   Tooltip,
@@ -144,6 +145,14 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const partner = dbPartner ?? initialData ?? null;
 
   const [videoOpen, setVideoOpen] = useState(false);
+
+  // Track profile visit (one per slug per mount)
+  useEffect(() => {
+    if (!slug) return;
+    const partnerId = (dbPartner as DatabasePartner | undefined)?.id || null;
+    void trackPartnerView(slug, "profile_visit", `/partner/${slug}`, partnerId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
 
   // Get product categories this partner supports
   // Get product categories this partner supports - check both applications array AND product_filters

@@ -81,6 +81,7 @@ import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
+import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
 
@@ -2541,6 +2542,15 @@ const AdminDashboard = () => {
                   {editingPartner ? "Spara ändringar" : "Skapa partner"}
                 </Button>
               </div>
+
+              {/* View statistics (only when editing existing partner) */}
+              {editingPartner && (
+                <PartnerViewStatsCard
+                  partnerSlug={editingPartner.slug}
+                  partnerName={editingPartner.name}
+                  variant="admin"
+                />
+              )}
 
               {/* Section 1: Admin Info (moved to top for easy administration) */}
               <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">

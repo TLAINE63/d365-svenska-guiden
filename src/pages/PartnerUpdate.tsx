@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 
 // Import product icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -870,6 +871,17 @@ const PartnerUpdate = () => {
               Fyll i eller uppdatera era uppgifter för {invitation?.partner_name}
             </p>
           </div>
+
+          {/* View statistics for this partner */}
+          {invitation?.partner_name && (
+            <div className="mb-8">
+              <PartnerViewStatsCard
+                partnerSlug={generateSlug(formData.name || invitation.partner_name)}
+                partnerName={formData.name || invitation.partner_name}
+                variant="partner"
+              />
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
