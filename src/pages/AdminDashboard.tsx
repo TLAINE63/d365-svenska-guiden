@@ -3777,8 +3777,19 @@ const AdminDashboard = () => {
                       })}
                     </div>
                   </CardContent>
+                </Card>
               </PremiumCollapsibleSection>
-              <Card className="mt-6">
+
+              {/* Industry Apps Section */}
+              <PremiumCollapsibleSection
+                title="Branschapplikationer"
+                description="Certifierade tillägg från Microsoft Marketplace"
+                icon={Link}
+                accent="copilot"
+                status={industryApps.length > 0 ? 'complete' : 'empty'}
+                open={openSections.industryApps}
+                onOpenChange={(o) => setSectionOpen('industryApps', o)}
+              >
                 <CardHeader className="pb-4 bg-primary/10 rounded-t-lg">
                   <CardTitle className="text-xl font-bold flex items-center gap-3">
                     <Link className="h-6 w-6 text-primary" />
