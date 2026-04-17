@@ -3314,7 +3314,7 @@ const AdminDashboard = () => {
                           
 
                           <div>
-                            <Label className="text-sm">Kundexempel (Ange kundnamn med kommatecken mellan alternativt endast "Kundexempel kan ges på förfrågan")</Label>
+                            <Label className="text-sm">Kundexempel (Ange kundnamn med kommatecken. Lämnas detta fält tomt visas texten "Kundexempel kan ges på förfrågan")</Label>
                             <Input
                               placeholder="Volvo, IKEA, Scania..."
                               defaultValue={(filter.customerExamples || []).join(', ')}
