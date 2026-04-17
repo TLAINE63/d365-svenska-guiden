@@ -57,6 +57,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState("all");
+  const [templateFilter, setTemplateFilter] = useState("all");
   const [page, setPage] = useState(0);
   const pageSize = 50;
 
@@ -70,6 +71,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
           limit: pageSize,
           offset: page * pageSize,
           statusFilter,
+          templateFilter,
         },
       });
 
@@ -91,7 +93,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
 
   useEffect(() => {
     fetchLogs();
-  }, [statusFilter, page]);
+  }, [statusFilter, templateFilter, page]);
 
   const sentCount = logs.filter((l) => l.status === "sent").length;
   const failedCount = logs.filter((l) => l.status === "failed").length;
@@ -104,13 +106,24 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
             <Mail className="h-5 w-5" />
             E-postlogg ({total} totalt)
           </CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Select value={templateFilter} onValueChange={(v) => { setTemplateFilter(v); setPage(0); }}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Mailtyp" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Alla mailtyper</SelectItem>
+                {Object.entries(TEMPLATE_LABELS).map(([key, label]) => (
+                  <SelectItem key={key} value={key}>{label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Select value={statusFilter} onValueChange={(v) => { setStatusFilter(v); setPage(0); }}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Alla</SelectItem>
+                <SelectItem value="all">Alla statusar</SelectItem>
                 <SelectItem value="sent">Skickade</SelectItem>
                 <SelectItem value="failed">Misslyckade</SelectItem>
               </SelectContent>

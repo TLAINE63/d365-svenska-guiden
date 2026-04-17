@@ -671,7 +671,7 @@ case "click-stats": {
       }
 
       case "email-logs": {
-        const { limit: logLimit = 100, offset: logOffset = 0, statusFilter } = data;
+        const { limit: logLimit = 100, offset: logOffset = 0, statusFilter, templateFilter } = data;
         let query = supabase
           .from("email_send_log")
           .select("*")
@@ -680,6 +680,9 @@ case "click-stats": {
         
         if (statusFilter && statusFilter !== "all") {
           query = query.eq("status", statusFilter);
+        }
+        if (templateFilter && templateFilter !== "all") {
+          query = query.eq("template_name", templateFilter);
         }
 
         const { data: logs, error: logError } = await query;
@@ -691,6 +694,9 @@ case "click-stats": {
           .select("id", { count: "exact", head: true });
         if (statusFilter && statusFilter !== "all") {
           countQuery = countQuery.eq("status", statusFilter);
+        }
+        if (templateFilter && templateFilter !== "all") {
+          countQuery = countQuery.eq("template_name", templateFilter);
         }
         const { count } = await countQuery;
 
