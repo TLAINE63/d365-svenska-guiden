@@ -1312,10 +1312,15 @@ const AdminDashboard = () => {
     return { completed, total, percentage: Math.round((completed / total) * 100) };
   }, [partnerFormData]);
 
-  // Scroll to section
+  // Scroll to section (and ensure it's open)
   const scrollToSection = (index: number) => {
     setActiveFormSection(index);
-    sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const sectionId = formSections[index]?.id;
+    if (sectionId) setSectionOpen(sectionId, true);
+    // Wait a tick so the section expands before scrolling
+    setTimeout(() => {
+      sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   // Get section status
