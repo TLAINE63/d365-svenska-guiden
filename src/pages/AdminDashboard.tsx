@@ -81,6 +81,7 @@ import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
+import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
 
