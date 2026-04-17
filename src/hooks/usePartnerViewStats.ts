@@ -41,7 +41,8 @@ function aggregateSources(rows: { page_source: string | null }[]) {
 
 export function usePartnerViewStats(
   partnerSlug: string | undefined,
-  partnerName: string | undefined
+  partnerName: string | undefined,
+  adminToken?: string | null
 ) {
   const [stats, setStats] = useState<PartnerViewStats>(empty);
 
@@ -57,6 +58,29 @@ export function usePartnerViewStats(
     const since90 = new Date(now - 90 * 86400000).toISOString();
 
     (async () => {
+      if (adminToken) {
+        const { data, error } = await supabase.functions.invoke("manage-leads", {
+          body: {
+            action: "partner-view-stats",
+            token: adminToken,
+            partnerSlug,
+            partnerName,
+          },
+        });
+
+        if (cancelled) return;
+
+        if (error || data?.error || !data?.stats) {
+          throw new Error(error?.message || data?.error || "Kunde inte hämta partnerstatistik");
+        }
+
+        setStats({
+          ...data.stats,
+          loading: false,
+        });
+        return;
+      }
+
       // Fetch profile views (card_click + profile_visit) for last 90 days
       const viewsRes = await supabase
         .from("partner_profile_views")
@@ -108,7 +132,7 @@ export function usePartnerViewStats(
     return () => {
       cancelled = true;
     };
-  }, [partnerSlug, partnerName]);
+  }, [partnerSlug, partnerName, adminToken]);
 
   return stats;
 }
