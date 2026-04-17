@@ -611,7 +611,7 @@ serve(async (req: Request): Promise<Response> => {
               </head>
               <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
                 <div style="text-align: center; margin-bottom: 30px;">
-                  <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                  <h1 style="color: #1e40af; margin: 0;">D365 Guiden</h1>
                   <p style="color: #6b7280; margin: 5px 0 0 0;">Event-notifikation</p>
                 </div>
                 
@@ -830,7 +830,7 @@ serve(async (req: Request): Promise<Response> => {
               </head>
               <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
                 <div style="text-align: center; margin-bottom: 30px;">
-                  <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+                  <h1 style="color: #1e40af; margin: 0;">D365 Guiden</h1>
                   <p style="color: #6b7280; margin: 5px 0 0 0;">Event-notifikation</p>
                 </div>
                 
@@ -1088,7 +1088,7 @@ D365.se`;
           })
           .join(portalButton);
 
-        const emailHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="text-align: center; margin-bottom: 30px;"><h1 style="color: #1e40af; margin: 0;">D365.se</h1><p style="color: #6b7280; margin: 5px 0 0 0;">Event-portal</p></div>${htmlBody}</body></html>`;
+        const emailHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="text-align: center; margin-bottom: 30px;"><h1 style="color: #1e40af; margin: 0;">D365 Guiden</h1><p style="color: #6b7280; margin: 5px 0 0 0;">Event-portal</p></div>${htmlBody}</body></html>`;
 
         await resend.emails.send({
           from: "D365 Guiden <info@d365.se>",
@@ -1249,7 +1249,7 @@ D365.se`;
             })
             .join(portalButton);
 
-          const emailHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="text-align: center; margin-bottom: 30px;"><h1 style="color: #1e40af; margin: 0;">D365.se</h1><p style="color: #6b7280; margin: 5px 0 0 0;">Event-portal</p></div>${htmlBody}</body></html>`;
+          const emailHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;"><div style="text-align: center; margin-bottom: 30px;"><h1 style="color: #1e40af; margin: 0;">D365 Guiden</h1><p style="color: #6b7280; margin: 5px 0 0 0;">Event-portal</p></div>${htmlBody}</body></html>`;
 
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
