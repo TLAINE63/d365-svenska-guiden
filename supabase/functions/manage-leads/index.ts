@@ -405,6 +405,75 @@ case "click-stats": {
         );
       }
 
+      case "partner-view-stats": {
+        const { partnerSlug, partnerName } = data;
+
+        if (!partnerSlug || typeof partnerSlug !== "string") {
+          return new Response(
+            JSON.stringify({ error: "partnerSlug krävs" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const since30 = new Date(Date.now() - 30 * 86400000).toISOString();
+        const since90 = new Date(Date.now() - 90 * 86400000).toISOString();
+
+        const { data: views, error: viewsError } = await supabase
+          .from("partner_profile_views")
+          .select("view_type, page_source, viewed_at")
+          .eq("partner_slug", partnerSlug)
+          .gte("viewed_at", since90);
+
+        if (viewsError) throw viewsError;
+
+        let websiteClicks: Array<{ page_source: string | null; clicked_at: string }> = [];
+        if (partnerName && typeof partnerName === "string") {
+          const { data: clickRows, error: clicksError } = await supabase
+            .from("partner_clicks")
+            .select("page_source, clicked_at")
+            .eq("partner_name", partnerName)
+            .gte("clicked_at", since90);
+
+          if (clicksError) throw clicksError;
+          websiteClicks = clickRows || [];
+        }
+
+        const aggregateSources = (rows: Array<{ page_source: string | null }>) => {
+          const map = new Map<string, number>();
+          for (const r of rows) {
+            const key = r.page_source || "(okänd)";
+            map.set(key, (map.get(key) || 0) + 1);
+          }
+          return Array.from(map.entries())
+            .map(([source, count]) => ({ source, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 10);
+        };
+
+        const cardClicks = (views || []).filter((v) => v.view_type === "card_click");
+        const profileVisits = (views || []).filter((v) => v.view_type === "profile_visit");
+        const cardClicks30 = cardClicks.filter((v) => v.viewed_at >= since30);
+        const profileVisits30 = profileVisits.filter((v) => v.viewed_at >= since30);
+        const websiteClicks30 = websiteClicks.filter((v) => v.clicked_at >= since30);
+
+        return new Response(
+          JSON.stringify({
+            stats: {
+              cardClicks30d: cardClicks30.length,
+              cardClicks90d: cardClicks.length,
+              profileVisits30d: profileVisits30.length,
+              profileVisits90d: profileVisits.length,
+              websiteClicks30d: websiteClicks30.length,
+              websiteClicks90d: websiteClicks.length,
+              topSourcesCardClicks: aggregateSources(cardClicks),
+              topSourcesProfileVisits: aggregateSources(profileVisits),
+              topSourcesWebsiteClicks: aggregateSources(websiteClicks),
+            },
+          }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
       case "visitor-stats": {
         const { startDate, excludePartnerTraffic } = data;
 

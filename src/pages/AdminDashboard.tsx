@@ -2670,6 +2670,7 @@ const AdminDashboard = () => {
                   partnerSlug={editingPartner.slug}
                   partnerName={editingPartner.name}
                   variant="admin"
+                  adminToken={token}
                 />
               )}
 
