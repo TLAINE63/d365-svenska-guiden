@@ -822,6 +822,43 @@ const AdminDashboard = () => {
     setIsPartnerDialogOpen(true);
   };
 
+  // Get or create a permanent self-service link for a published partner and copy it to clipboard
+  const copyPermanentProfileLink = async (partnerId: string, partnerName: string) => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-permanent-link`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ partner_id: partnerId }),
+        }
+      );
+      const result = await response.json();
+      if (!response.ok || !result.token) {
+        throw new Error(result.error || "Kunde inte hämta länken");
+      }
+      const link = `${window.location.origin}/uppdatera-partner/${result.token}`;
+      await navigator.clipboard.writeText(link);
+      toast({
+        title: "Profileringslänk kopierad",
+        description: `Permanent länk för ${partnerName} kopierad till urklipp.`,
+      });
+      return link;
+    } catch (err: any) {
+      console.error("copyPermanentProfileLink error:", err);
+      toast({
+        title: "Fel",
+        description: err?.message || "Kunde inte hämta länken",
+        variant: "destructive",
+      });
+      return null;
+    }
+  };
+
   const openEditPartnerDialog = (partner: FullPartner) => {
     setEditingPartner(partner);
     setPartnerFormData({
@@ -2045,6 +2082,16 @@ const AdminDashboard = () => {
                           </div>
                         </div>
                         <div className="flex gap-2">
+                          {partner.is_featured && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => copyPermanentProfileLink(partner.id, partner.name)}
+                              title="Kopiera permanent profileringslänk"
+                            >
+                              <Link className="h-4 w-4" />
+                            </Button>
+                          )}
                           <Button
                             variant="outline"
                             size="sm"
