@@ -7,10 +7,11 @@ interface Props {
   partnerSlug: string | undefined;
   partnerName: string | undefined;
   variant?: "admin" | "partner";
+  adminToken?: string | null;
 }
 
-export default function PartnerViewStatsCard({ partnerSlug, partnerName, variant = "partner" }: Props) {
-  const stats = usePartnerViewStats(partnerSlug, partnerName);
+export default function PartnerViewStatsCard({ partnerSlug, partnerName, variant = "partner", adminToken }: Props) {
+  const stats = usePartnerViewStats(partnerSlug, partnerName, adminToken);
 
   if (stats.loading) {
     return (
