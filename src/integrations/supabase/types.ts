@@ -371,6 +371,57 @@ export type Database = {
           },
         ]
       }
+      partner_profile_views: {
+        Row: {
+          id: string
+          ip_address_anonymized: string | null
+          page_source: string | null
+          partner_id: string | null
+          partner_slug: string
+          referrer: string | null
+          user_agent: string | null
+          view_type: string
+          viewed_at: string
+        }
+        Insert: {
+          id?: string
+          ip_address_anonymized?: string | null
+          page_source?: string | null
+          partner_id?: string | null
+          partner_slug: string
+          referrer?: string | null
+          user_agent?: string | null
+          view_type: string
+          viewed_at?: string
+        }
+        Update: {
+          id?: string
+          ip_address_anonymized?: string | null
+          page_source?: string | null
+          partner_id?: string | null
+          partner_slug?: string
+          referrer?: string | null
+          user_agent?: string | null
+          view_type?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_profile_views_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "partner_profile_views_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partners_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       partner_submissions: {
         Row: {
           address: string | null
