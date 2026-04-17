@@ -2697,14 +2697,16 @@ const AdminDashboard = () => {
               {/* Global site traffic (compact) – dold tills vidare, visas i fliken Visitor Stats */}
 
               {/* Section 1: Admin Info (moved to top for easy administration) */}
-              <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <Lock className="h-5 w-5 text-primary" />
-                  Administrativt
-                  {getSectionStatus('admin') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Administrativt"
+                description="Organisation, fakturering, avtal och status"
+                icon={Lock}
+                accent="amber"
+                status={getSectionStatus('admin')}
+                open={openSections.admin}
+                onOpenChange={(o) => setSectionOpen('admin', o)}
+                sectionRef={(el) => (sectionRefs.current[0] = el)}
+              >
 
                 {/* Org Number & Legal Name */}
                 <div className="grid grid-cols-2 gap-4">
@@ -2931,14 +2933,16 @@ const AdminDashboard = () => {
               <Separator />
 
               {/* Section 2: Basic Info */}
-              <div ref={el => sectionRefs.current[1] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <Building2 className="h-5 w-5 text-primary" />
-                  Grunduppgifter
-                  {getSectionStatus('basic') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Grunduppgifter"
+                description="Företagsnamn, logotyp, beskrivning & video"
+                icon={Building2}
+                accent="business-central"
+                status={getSectionStatus('basic')}
+                open={openSections.basic}
+                onOpenChange={(o) => setSectionOpen('basic', o)}
+                sectionRef={(el) => (sectionRefs.current[1] = el)}
+              >
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -3079,14 +3083,16 @@ const AdminDashboard = () => {
               <Separator />
 
               {/* Section 3: Contact Info */}
-              <div ref={el => sectionRefs.current[2] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <User className="h-5 w-5 text-primary" />
-                  Kontaktuppgifter (visas på Partnerprofilkortet)
-                  {getSectionStatus('contact') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Kontaktuppgifter"
+                description="Visas på Partnerprofilkortet"
+                icon={User}
+                accent="crm"
+                status={getSectionStatus('contact')}
+                open={openSections.contact}
+                onOpenChange={(o) => setSectionOpen('contact', o)}
+                sectionRef={(el) => (sectionRefs.current[2] = el)}
+              >
                 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
@@ -3213,14 +3219,16 @@ const AdminDashboard = () => {
               <Separator />
 
               {/* Section 4: Geographic Coverage */}
-              <div ref={el => sectionRefs.current[3] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <Globe className="h-5 w-5 text-primary" />
-                  Geografisk täckning (visas överst på Partnerprofilkortet)
-                  {getSectionStatus('geography') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Geografisk täckning"
+                description="Visas överst på Partnerprofilkortet"
+                icon={Globe}
+                accent="finance-supply"
+                status={getSectionStatus('geography')}
+                open={openSections.geography}
+                onOpenChange={(o) => setSectionOpen('geography', o)}
+                sectionRef={(el) => (sectionRefs.current[3] = el)}
+              >
                 <p className="text-sm text-muted-foreground">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
                 <div className="flex flex-wrap gap-2">
                   {geographyOptions.map((geo) => {
@@ -3283,14 +3291,16 @@ const AdminDashboard = () => {
               <Separator />
 
               {/* Section 5: Product Sections */}
-              <div ref={el => sectionRefs.current[4] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <FileText className="h-5 w-5 text-primary" />
-                  Produktsektioner
-                  {getSectionStatus('products') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Produktsektioner"
+                description="Välj max 3 fokusbranscher per produkt"
+                icon={FileText}
+                accent="primary"
+                status={getSectionStatus('products')}
+                open={openSections.products}
+                onOpenChange={(o) => setSectionOpen('products', o)}
+                sectionRef={(el) => (sectionRefs.current[4] = el)}
+              >
                 <p className="text-sm text-muted-foreground">
                   Välj max 3 fokusbranscher för varje produkt partnern erbjuder.
                 </p>
