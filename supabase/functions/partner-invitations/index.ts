@@ -344,7 +344,7 @@ serve(async (req: Request): Promise<Response> => {
           const adminUrl = "https://d365-svenska-guiden.lovable.app/admin";
           
           await resend.emails.send({
-            from: "D365.se <info@d365.se>",
+            from: "D365 Guiden <info@d365.se>",
             to: ["info@d365.se", "thomas.laine@dynamicfactory.se"],
             subject: `Partner ${isUpdate ? "uppdaterad" : "skapad"}: ${submissionData.name}`,
             html: `
@@ -697,7 +697,7 @@ D365.se`;
               : "Vem är kundens mest lämpade Dynamics 365-partner?";
             
             const emailResponse = await resend.emails.send({
-              from: "D365.se <info@d365.se>",
+              from: "D365 Guiden <info@d365.se>",
               to: [email],
               bcc: ["thomas.laine@dynamicfactory.se"],
               subject: emailSubject,
@@ -1055,7 +1055,7 @@ D365.se`;
               </html>`;
 
           await resend.emails.send({
-            from: "D365.se <info@d365.se>",
+            from: "D365 Guiden <info@d365.se>",
             to: [inv.email],
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: `Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?`,
@@ -1233,7 +1233,7 @@ D365.se`;
               const fullHtml = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">${htmlBody}</body></html>`;
 
               await resend.emails.send({
-                from: "D365.se <info@d365.se>",
+                from: "D365 Guiden <info@d365.se>",
                 to: [inv.email],
                 bcc: ["thomas.laine@dynamicfactory.se"],
                 subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
@@ -1384,7 +1384,7 @@ D365.se`;
             </html>`;
 
           const emailOptions: any = {
-            from: "D365.se <info@d365.se>",
+            from: "D365 Guiden <info@d365.se>",
             to: [email],
             subject: emailSubject,
             html: fullHtml,
@@ -1561,7 +1561,7 @@ D365.se`;
             </html>`;
 
           const emailOptions: any = {
-            from: "D365.se <info@d365.se>",
+            from: "D365 Guiden <info@d365.se>",
             to: [email],
             subject: emailSubject,
             html: fullHtml,
@@ -1672,7 +1672,7 @@ D365.se`;
           </html>`;
 
         const emailOptions: any = {
-          from: "D365.se <info@d365.se>",
+          from: "D365 Guiden <info@d365.se>",
           to: [email],
           subject: emailSubject,
           html: fullHtml,
@@ -1838,7 +1838,7 @@ d365.se`;
             </html>`;
 
           await resend.emails.send({
-            from: "D365.se <info@d365.se>",
+            from: "D365 Guiden <info@d365.se>",
             to: [email],
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: personalizedSubject,
