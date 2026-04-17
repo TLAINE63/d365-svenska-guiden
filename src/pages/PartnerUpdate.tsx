@@ -583,6 +583,54 @@ const PartnerUpdate = () => {
     }));
   };
 
+  // Per-product sales contact photo upload (uses kind="contact-<productKey>")
+  const [uploadingProductPhoto, setUploadingProductPhoto] = useState<ProductKey | null>(null);
+  const handleProductContactPhotoUpload = async (
+    productKey: ProductKey,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file || !token) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Endast JPEG, PNG eller WebP tillåtna");
+      e.target.value = "";
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Filen får max vara 5MB");
+      e.target.value = "";
+      return;
+    }
+
+    setUploadingProductPhoto(productKey);
+    try {
+      const slug = generateSlug(formData.name || invitation?.partner_name || "partner");
+      const uploadFormData = new FormData();
+      uploadFormData.append("file", file);
+      uploadFormData.append("token", token);
+      uploadFormData.append("partnerSlug", slug);
+      uploadFormData.append("kind", `contact-${productKey}`);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-partner-logo`,
+        { method: "POST", body: uploadFormData }
+      );
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Uppladdning misslyckades");
+
+      const bustedUrl = `${data.url}?t=${Date.now()}`;
+      updateProductFilter(productKey, { contactPhotoUrl: bustedUrl });
+      toast.success("Foto uppladdat");
+    } catch (err: any) {
+      toast.error(err.message || "Kunde inte ladda upp foto");
+    } finally {
+      setUploadingProductPhoto(null);
+      e.target.value = "";
+    }
+  };
+
   const toggleProductIndustry = (productKey: ProductKey, industry: string) => {
     const filter = getProductFilter(productKey);
     const maxIndustries = 3;
