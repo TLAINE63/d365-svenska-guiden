@@ -998,6 +998,11 @@ const PartnerUpdate = () => {
                   </div>
                 </div>
 
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Telefon</Label>
+                    <Input
+                      id="phone"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
