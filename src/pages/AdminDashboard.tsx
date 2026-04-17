@@ -3250,7 +3250,7 @@ const AdminDashboard = () => {
                     );
                   })}
                 </div>
-              </PremiumCollapsibleSection>
+
                 <div className="space-y-2 mt-4">
                   <Label htmlFor="office_cities" className="font-medium">Kontorsstäder (kommaseparerade)</Label>
                   <Input
@@ -3277,6 +3277,7 @@ const AdminDashboard = () => {
                   />
                   <p className="text-xs text-muted-foreground">Länk till Google My Maps som bäddas in på partnerprofilen</p>
                 </div>
+              </PremiumCollapsibleSection>
 
               <Separator />
 
