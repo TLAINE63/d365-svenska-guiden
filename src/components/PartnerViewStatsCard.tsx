@@ -67,7 +67,7 @@ export default function PartnerViewStatsCard({ partnerSlug, partnerName, variant
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-base">
           <BarChart3 className="w-5 h-5" />
-          Exponering & trafik – senaste 30 dagar (90d inom parentes)
+          Exponering & trafik fr.o.m. 2026-04-20 för de senaste 30 dagar (90d inom parentes)
         </CardTitle>
         {variant === "partner" && (
           <p className="text-xs text-muted-foreground">
