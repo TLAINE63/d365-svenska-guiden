@@ -115,6 +115,8 @@ export function render(url: string) {
     invoice_contact: partnerInitialData.invoice_contact || null,
     org_number: (partnerInitialData as any).org_number || null,
     legal_name: (partnerInitialData as any).legal_name || null,
+    contact_photo_url: (partnerInitialData as any).contact_photo_url || null,
+    youtube_video_id: (partnerInitialData as any).youtube_video_id || null,
     activation_date: null as string | null,
     monthly_fee: null as number | null,
     cancellation_date: null as string | null,
