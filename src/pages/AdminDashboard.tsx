@@ -256,6 +256,9 @@ const AdminDashboard = () => {
   // Open invitations tracking (partner_id -> {status, email})
   const [openInvitations, setOpenInvitations] = useState<Record<string, { status: string; email: string }>>({});
   const [everInvitedPartnerIds, setEverInvitedPartnerIds] = useState<Set<string>>(new Set());
+
+  // Agreement emails sent tracking (lowercase partner_name -> {template, sent_at, recipient})
+  const [agreementEmails, setAgreementEmails] = useState<Record<string, { template: string; sent_at: string; recipient: string }>>({});
   
   // Bulk email state (shared selection for welcome + sales pitch)
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
@@ -599,12 +602,40 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchAgreementEmails = async () => {
+    if (!token) return;
+    try {
+      // Fetch sent agreement emails (both partner_agreement and partner_prospect_agreement)
+      const templates = ["partner_agreement", "partner_prospect_agreement"];
+      const map: Record<string, { template: string; sent_at: string; recipient: string }> = {};
+      for (const tpl of templates) {
+        const { data } = await supabase.functions.invoke("manage-leads", {
+          body: { action: "email-logs", token, limit: 500, offset: 0, statusFilter: "sent", templateFilter: tpl },
+        });
+        const logs = data?.logs || [];
+        for (const log of logs) {
+          const name = (log.metadata as any)?.partner_name;
+          if (!name) continue;
+          const key = name.toLowerCase().trim();
+          // Keep most recent (logs come ordered desc)
+          if (!map[key]) {
+            map[key] = { template: log.template_name, sent_at: log.created_at, recipient: log.recipient_email };
+          }
+        }
+      }
+      setAgreementEmails(map);
+    } catch {
+      // silently ignore
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated && token) {
       fetchLeads();
       fetchClickStats();
       fetchFullPartners();
       fetchOpenInvitations();
+      fetchAgreementEmails();
     }
   }, [isAuthenticated, token]);
 
@@ -1952,6 +1983,22 @@ const AdminDashboard = () => {
                                   <span className="ml-1 font-normal text-muted-foreground">({openInvitations[partner.id].email})</span>
                                 </Badge>
                               )}
+                              {agreementEmails[partner.name?.toLowerCase().trim()] && (() => {
+                                const ae = agreementEmails[partner.name.toLowerCase().trim()];
+                                const isProspect = ae.template === 'partner_prospect_agreement';
+                                const dateStr = new Date(ae.sent_at).toLocaleDateString('sv-SE').replace(/-/g, '/');
+                                return (
+                                  <Badge
+                                    variant="outline"
+                                    className="text-xs border-purple-500 text-purple-700 dark:text-purple-400"
+                                    title={`${ae.recipient} • ${new Date(ae.sent_at).toLocaleString('sv-SE')}`}
+                                  >
+                                    <Award className="h-3 w-3 mr-1" />
+                                    {isProspect ? 'Avtal (prospect)' : 'Avtal skickat'}
+                                    <span className="ml-1 font-normal text-muted-foreground">({dateStr})</span>
+                                  </Badge>
+                                );
+                              })()}
                             </h3>
                             <p className="text-sm text-muted-foreground line-clamp-1">
                               {partner.description || "Ingen beskrivning"}
