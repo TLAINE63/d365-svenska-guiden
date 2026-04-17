@@ -188,6 +188,7 @@ const PartnerUpdate = () => {
     website: "",
     logo_url: "",
     contact_person: "",
+    contact_photo_url: "",
     email: "",
     phone: "",
     address: "",
@@ -196,6 +197,7 @@ const PartnerUpdate = () => {
     invoice_email: "",
     invoice_contact: "",
   });
+  const [uploadingMainContactPhoto, setUploadingMainContactPhoto] = useState(false);
 
   // Industry apps state
   interface IndustryApp {
