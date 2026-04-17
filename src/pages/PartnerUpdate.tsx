@@ -872,6 +872,17 @@ const PartnerUpdate = () => {
             </p>
           </div>
 
+          {/* View statistics for this partner */}
+          {invitation?.partner_name && (
+            <div className="mb-8">
+              <PartnerViewStatsCard
+                partnerSlug={generateSlug(formData.name || invitation.partner_name)}
+                partnerName={formData.name || invitation.partner_name}
+                variant="partner"
+              />
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
             <Card>

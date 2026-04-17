@@ -2543,6 +2543,15 @@ const AdminDashboard = () => {
                 </Button>
               </div>
 
+              {/* View statistics (only when editing existing partner) */}
+              {editingPartner && (
+                <PartnerViewStatsCard
+                  partnerSlug={editingPartner.slug}
+                  partnerName={editingPartner.name}
+                  variant="admin"
+                />
+              )}
+
               {/* Section 1: Admin Info (moved to top for easy administration) */}
               <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
