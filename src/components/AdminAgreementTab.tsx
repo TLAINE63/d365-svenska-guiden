@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +9,19 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { FileText, Send, CheckCircle2, Mail, Eye, EyeOff, Search } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+// Maps template_name in email_send_log to the badge shown next to each partner
+const AGREEMENT_TEMPLATE_LABELS: Record<string, { label: string; className: string }> = {
+  partner_agreement: { label: "Avtal", className: "bg-blue-50 text-blue-700 border-blue-200" },
+  partner_prospect_agreement: { label: "Prospekt", className: "bg-purple-50 text-purple-700 border-purple-200" },
+  partner_sales_pitch: { label: "Införsälj", className: "bg-orange-50 text-orange-700 border-orange-200" },
+};
+
+const formatShortDate = (iso: string) => {
+  const d = new Date(iso);
+  return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}`;
+};
 
 interface Partner {
   id: string;
