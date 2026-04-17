@@ -948,6 +948,20 @@ const AdminDashboard = () => {
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
     );
+    // Auto-expand product sections that already have data
+    const initialOpen: Record<string, boolean> = {};
+    productSections.forEach((s) => {
+      const f = (partner.product_filters as any)?.[s.key];
+      const hasData = f && (
+        (f.industries?.length || 0) > 0 ||
+        (f.secondaryIndustries?.length || 0) > 0 ||
+        (f.companySize?.length || 0) > 0 ||
+        f.productDescription || f.contactName || f.contactEmail || f.contactPhone ||
+        (f.aiCapabilities?.length || 0) > 0
+      );
+      initialOpen[s.key] = !!hasData;
+    });
+    setOpenProducts(initialOpen);
     setIsPartnerDialogOpen(true);
   };
 
