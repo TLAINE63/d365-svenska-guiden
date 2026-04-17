@@ -224,6 +224,43 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
   const [coldEmail, setColdEmail] = useState("");
   const [coldCompany, setColdCompany] = useState("");
 
+  // History of sent agreement-related emails, indexed by recipient_email (lowercase) → template_name → latest ISO date
+  const [emailHistory, setEmailHistory] = useState<Record<string, Record<string, string>>>({});
+
+  useEffect(() => {
+    if (!token) return;
+    const loadHistory = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke("manage-leads", {
+          body: {
+            action: "email-logs",
+            token,
+            limit: 1000,
+            offset: 0,
+            statusFilter: "sent",
+          },
+        });
+        if (error) throw error;
+        const logs: Array<{ recipient_email: string; template_name: string; created_at: string }> = data?.logs || [];
+        const idx: Record<string, Record<string, string>> = {};
+        for (const log of logs) {
+          if (!AGREEMENT_TEMPLATE_LABELS[log.template_name]) continue;
+          const key = (log.recipient_email || "").toLowerCase();
+          if (!key) continue;
+          if (!idx[key]) idx[key] = {};
+          // logs come ordered by created_at DESC, so first hit per template = latest
+          if (!idx[key][log.template_name]) {
+            idx[key][log.template_name] = log.created_at;
+          }
+        }
+        setEmailHistory(idx);
+      } catch (e) {
+        console.error("Failed to load agreement email history:", e);
+      }
+    };
+    loadHistory();
+  }, [token]);
+
   const published = useEmailTemplate(
     "agreement_email_subject", "agreement_email_body", "agreement_email_cc",
     DEFAULT_SUBJECT, DEFAULT_BODY, DEFAULT_CC, token,
