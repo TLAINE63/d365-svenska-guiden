@@ -258,7 +258,7 @@ const handler = async (req: Request): Promise<Response> => {
       from: "D365 Guiden <info@d365.se>",
       to: ["info@d365.se"],
       reply_to: "info@d365.se",
-      subject: `Partnerklick: ${safePartnerName}${safeProduct ? ` (${safeProduct})` : ''}`,
+      subject: `Partnerklick: ${partnerName.trim()}${filterContext?.product ? ` (${filterContext.product})` : ''}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #0078d4;">Ny partnerklick registrerad</h2>
