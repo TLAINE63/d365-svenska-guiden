@@ -390,40 +390,140 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               {partner.description}
             </p>
 
-            {/* Website CTA - directly under description */}
-            <div className="flex flex-col items-center mb-6">
-              <a 
-                href={partner.website} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackPartnerClick(
-                    partner.name,
-                    partner.website,
-                    `partner-profile-${partner.slug}`,
-                    {
-                      product: selectedProduct,
-                      industry: selectedIndustry,
-                      companySize: selectedCompanySize,
-                      geography: selectedGeography,
-                    }
-                  );
-                }}
-                className="group relative inline-flex items-center gap-3 px-7 py-4 rounded-full bg-gradient-to-r from-[hsl(var(--cta-orange))] via-[hsl(var(--cta-orange))] to-orange-500 text-white font-semibold text-base shadow-[0_10px_30px_-8px_hsl(var(--cta-orange)/0.6)] hover:shadow-[0_18px_40px_-8px_hsl(var(--cta-orange)/0.8)] hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 overflow-hidden ring-2 ring-[hsl(var(--cta-orange))]/20 hover:ring-[hsl(var(--cta-orange))]/40"
-              >
-                {/* Shimmer effect */}
-                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
-                {/* Pulsing glow ring */}
-                <span className="absolute inset-0 rounded-full bg-[hsl(var(--cta-orange))] opacity-40 blur-xl animate-pulse pointer-events-none -z-10" />
-                <Globe className="w-5 h-5 relative z-10" />
-                <span className="relative z-10">Besök {partner.name}</span>
-                <ExternalLink className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-              </a>
-              <span className="mt-2 text-xs text-slate-500 font-medium">
-                Öppnas i nytt fönster
-              </span>
+            {/* Hero action row: Website CTA + Offices + Contact card side-by-side on lg+ */}
+            <div className="w-full mt-2 mb-6 flex flex-col lg:flex-row lg:items-center lg:justify-center lg:flex-wrap gap-6 lg:gap-8">
+              {/* Website CTA */}
+              <div className="flex flex-col items-center">
+                <a
+                  href={partner.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    trackPartnerClick(
+                      partner.name,
+                      partner.website,
+                      `partner-profile-${partner.slug}`,
+                      {
+                        product: selectedProduct,
+                        industry: selectedIndustry,
+                        companySize: selectedCompanySize,
+                        geography: selectedGeography,
+                      }
+                    );
+                  }}
+                  className="group relative inline-flex items-center gap-3 px-7 py-4 rounded-full bg-gradient-to-r from-[hsl(var(--cta-orange))] via-[hsl(var(--cta-orange))] to-orange-500 text-white font-semibold text-base shadow-[0_10px_30px_-8px_hsl(var(--cta-orange)/0.6)] hover:shadow-[0_18px_40px_-8px_hsl(var(--cta-orange)/0.8)] hover:scale-[1.04] active:scale-[0.98] transition-all duration-300 overflow-hidden ring-2 ring-[hsl(var(--cta-orange))]/20 hover:ring-[hsl(var(--cta-orange))]/40"
+                >
+                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full bg-[hsl(var(--cta-orange))] opacity-40 blur-xl animate-pulse pointer-events-none -z-10" />
+                  <Globe className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">Besök {partner.name}</span>
+                  <ExternalLink className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+                </a>
+                <span className="mt-2 text-xs text-slate-500 font-medium">
+                  Öppnas i nytt fönster
+                </span>
+              </div>
+
+              {/* Office cities */}
+              {(() => {
+                const cities = partner?.office_cities as string[] | undefined;
+                return cities && cities.length > 0 ? (
+                  <div className="flex flex-col items-center gap-2 max-w-md">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      <MapPin className="w-3.5 h-3.5 text-teal-600" />
+                      Kontor
+                    </span>
+                    <div className="flex flex-wrap justify-center gap-1.5">
+                      {cities.map((city) => (
+                        <span
+                          key={city}
+                          className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm hover:border-teal-300 hover:text-teal-700 transition-colors"
+                        >
+                          {city}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : null;
+              })()}
+
+              {/* Main contact card (always main contact, never product-specific) */}
+              {(() => {
+                const displayName = partner?.contactPerson;
+                const displayEmail = partner?.email;
+                const displayPhone = partner?.phone;
+                const displayPhoto = (partner as any)?.contact_photo_url;
+                const displayVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
+
+                if (!displayName && !displayEmail && !displayPhone && !displayVideoId) return null;
+
+                return (
+                  <div className="inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded-2xl bg-white/80 border border-emerald-200 shadow-md backdrop-blur-sm max-w-2xl">
+                    <div className="relative shrink-0">
+                      {displayPhoto ? (
+                        <img
+                          src={displayPhoto}
+                          alt={`Foto av ${displayName || 'kontaktperson'}`}
+                          loading="lazy"
+                          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-emerald-200 shadow-sm"
+                        />
+                      ) : (
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center">
+                          <User className="w-8 h-8 text-emerald-600" />
+                        </div>
+                      )}
+                      {displayVideoId && (
+                        <button
+                          type="button"
+                          onClick={() => setVideoOpen(true)}
+                          aria-label={`Spela introduktionsvideo från ${partner.name}`}
+                          className="absolute inset-0 rounded-full bg-black/40 hover:bg-black/55 transition-colors flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                        >
+                          <span className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Play className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 fill-emerald-700 ml-0.5" />
+                          </span>
+                          <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-md whitespace-nowrap">
+                            Video
+                          </span>
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+                        Din kontaktperson hos {partner.name}
+                      </span>
+                      {displayName && (
+                        <span className="text-base font-semibold text-slate-900">
+                          {displayName}
+                        </span>
+                      )}
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-1">
+                        {displayEmail && (
+                          <a
+                            href={`mailto:${displayEmail}`}
+                            className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
+                          >
+                            <Mail className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="font-medium">{displayEmail}</span>
+                          </a>
+                        )}
+                        {displayPhone && (
+                          <a
+                            href={`tel:${displayPhone}`}
+                            className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
+                          >
+                            <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                            <span className="font-medium">{displayPhone}</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
-            
+
             {/* Overall AI Level Badge */}
             {(() => {
               const score = calculateAiScore(partner.product_filters);
@@ -459,127 +559,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               );
             })()}
 
-            {/* Office cities */}
-            {(() => {
-              const cities = partner?.office_cities as string[] | undefined;
-              return cities && cities.length > 0 ? (
-                <div className="mt-5 flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                    <MapPin className="w-3.5 h-3.5 text-teal-600" />
-                    Kontor
-                  </span>
-                  <div className="flex flex-wrap justify-center gap-1.5">
-                    {cities.map((city) => (
-                      <span
-                        key={city}
-                        className="inline-flex items-center px-2.5 py-1 rounded-full bg-white border border-slate-200 text-xs font-semibold text-slate-700 shadow-sm hover:border-teal-300 hover:text-teal-700 transition-colors"
-                      >
-                        {city}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ) : null;
-            })()}
-
-            {/* Sales contact card with optional photo - per product if applicable */}
-            {(() => {
-              // Map URL ?product= value to product_filters key
-              const selectedProduct = searchParams.get('product') || '';
-              const productToKey = (p: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
-                const v = p.toLowerCase();
-                if (v.includes('business central')) return 'bc';
-                if (v.includes('finance') || v.includes('supply')) return 'fsc';
-                if (v.includes('sales') || v.includes('marketing') || v.includes('customer insights')) return 'sales';
-                if (v.includes('service') || v.includes('contact center') || v.includes('field')) return 'service';
-                return null;
-              };
-              const pf = (partner as any)?.product_filters || {};
-              const key = productToKey(selectedProduct);
-              const productContact = key ? pf[key] : null;
-              const hasProductContact = !!(productContact?.contactName || productContact?.contactEmail || productContact?.contactPhone);
-
-              const displayName = hasProductContact ? productContact.contactName : partner?.contactPerson;
-              const displayEmail = hasProductContact ? productContact.contactEmail : partner?.email;
-              const displayPhone = hasProductContact ? productContact.contactPhone : partner?.phone;
-              const displayPhoto = hasProductContact && productContact.contactPhotoUrl
-                ? productContact.contactPhotoUrl
-                : (partner as any)?.contact_photo_url;
-
-              // Video: prefer per-product video, fall back to partner main video
-              const productVideoId = key ? extractYouTubeId(productContact?.youtubeVideoId) : null;
-              const mainVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
-              const displayVideoId = productVideoId || mainVideoId;
-
-              if (!displayName && !displayEmail && !displayPhone && !displayVideoId) return null;
-
-              return (
-                <div className="mt-5 inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded-2xl bg-white/80 border border-emerald-200 shadow-md backdrop-blur-sm max-w-2xl">
-                  <div className="relative shrink-0">
-                    {displayPhoto ? (
-                      <img
-                        src={displayPhoto}
-                        alt={`Foto av ${displayName || 'kontaktperson'}`}
-                        loading="lazy"
-                        className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-emerald-200 shadow-sm"
-                      />
-                    ) : (
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center">
-                        <User className="w-8 h-8 text-emerald-600" />
-                      </div>
-                    )}
-                    {displayVideoId && (
-                      <button
-                        type="button"
-                        onClick={() => setVideoOpen(true)}
-                        aria-label={`Spela introduktionsvideo från ${partner.name}`}
-                        className="absolute inset-0 rounded-full bg-black/40 hover:bg-black/55 transition-colors flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-                      >
-                        <span className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                          <Play className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 fill-emerald-700 ml-0.5" />
-                        </span>
-                        <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-md whitespace-nowrap">
-                          Video
-                        </span>
-                      </button>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
-                      {hasProductContact && selectedProduct
-                        ? `Din kontaktperson för ${selectedProduct} hos ${partner.name}`
-                        : `Din kontaktperson hos ${partner.name}`}
-                    </span>
-                    {displayName && (
-                      <span className="text-base font-semibold text-slate-900">
-                        {displayName}
-                      </span>
-                    )}
-                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-1">
-                      {displayEmail && (
-                        <a
-                          href={`mailto:${displayEmail}`}
-                          className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
-                        >
-                          <Mail className="w-3.5 h-3.5 text-emerald-600" />
-                          <span className="font-medium">{displayEmail}</span>
-                        </a>
-                      )}
-                      {displayPhone && (
-                        <a
-                          href={`tel:${displayPhone}`}
-                          className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
-                        >
-                          <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                          <span className="font-medium">{displayPhone}</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
 
           </div>
         </div>
