@@ -3781,16 +3781,6 @@ const AdminDashboard = () => {
                 open={openSections.industryApps}
                 onOpenChange={(o) => setSectionOpen('industryApps', o)}
               >
-                <CardHeader className="pb-4 bg-primary/10 rounded-t-lg">
-                  <CardTitle className="text-xl font-bold flex items-center gap-3">
-                    <Link className="h-6 w-6 text-primary" />
-                    Branschapplikationer (Microsoft Marketplace)
-                  </CardTitle>
-                  <CardDescription>
-                    Certifierade branschspecifika tillägg från Microsoft Marketplace.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4 pt-4">
                   {industryApps.map((app, index) => (
                     <div key={index} className="relative p-4 rounded-lg border border-border bg-muted/30 space-y-3">
                       <button
@@ -3900,8 +3890,7 @@ const AdminDashboard = () => {
                       Inga branschappar tillagda ännu.
                     </p>
                   )}
-                </CardContent>
-              </Card>
+              </PremiumCollapsibleSection>
 
 
 
