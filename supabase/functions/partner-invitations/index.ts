@@ -423,6 +423,83 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
+    // Admin: Get or create a permanent self-service link for a published partner
+    // Re-uses an existing approved invitation token, or creates a new one with far-future expiry.
+    if (action === "get-permanent-link" && req.method === "POST") {
+      const body = await req.json();
+      const { partner_id } = body;
+
+      if (!partner_id) {
+        return new Response(
+          JSON.stringify({ error: "partner_id krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Look up partner
+      const { data: partner, error: partnerErr } = await supabase
+        .from("partners")
+        .select("id, name, admin_contact_email, email")
+        .eq("id", partner_id)
+        .maybeSingle();
+
+      if (partnerErr || !partner) {
+        return new Response(
+          JSON.stringify({ error: "Partnern hittades inte" }),
+          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      // Try to find an existing invitation tied to this partner (prefer approved/submitted)
+      const { data: existing } = await supabase
+        .from("partner_invitations")
+        .select("id, token, status, expires_at")
+        .eq("partner_id", partner_id)
+        .order("created_at", { ascending: false })
+        .limit(1);
+
+      const farFuture = new Date(Date.now() + 100 * 365 * 86400000).toISOString();
+
+      let token: string;
+      if (existing && existing.length > 0) {
+        const inv = existing[0];
+        token = inv.token;
+        // Mark as approved + extend expiry to far future
+        await supabase
+          .from("partner_invitations")
+          .update({ status: "approved", expires_at: farFuture })
+          .eq("id", inv.id);
+      } else {
+        // Create a fresh approved invitation linked to this partner
+        const inviteEmail = partner.admin_contact_email || partner.email || "noreply@d365.se";
+        const { data: created, error: createErr } = await supabase
+          .from("partner_invitations")
+          .insert({
+            email: inviteEmail,
+            partner_name: partner.name,
+            partner_id: partner_id,
+            status: "approved",
+            expires_at: farFuture,
+          })
+          .select("token")
+          .single();
+
+        if (createErr || !created) {
+          console.error("Failed to create permanent invitation:", createErr);
+          return new Response(
+            JSON.stringify({ error: "Kunde inte skapa länk" }),
+            { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          );
+        }
+        token = created.token;
+      }
+
+      return new Response(
+        JSON.stringify({ token }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     // Admin: Create invitation
     if (action === "create" && req.method === "POST") {
       const body = await req.json();
