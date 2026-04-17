@@ -529,6 +529,48 @@ const PartnerUpdate = () => {
     setLogoPreview(null);
   };
 
+  const handleMainContactPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !invitation || !token) return;
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      toast.error("Endast JPEG, PNG eller WebP tillåtna");
+      e.target.value = "";
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Filen får max vara 5MB");
+      e.target.value = "";
+      return;
+    }
+
+    setUploadingMainContactPhoto(true);
+    try {
+      const slug = generateSlug(formData.name || invitation.partner_name || "partner");
+      const uploadFormData = new FormData();
+      uploadFormData.append("file", file);
+      uploadFormData.append("token", token);
+      uploadFormData.append("partnerSlug", slug);
+      uploadFormData.append("kind", "contact-main");
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-partner-logo`,
+        { method: "POST", body: uploadFormData }
+      );
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Uppladdning misslyckades");
+
+      const bustedUrl = `${data.url}?t=${Date.now()}`;
+      setFormData(prev => ({ ...prev, contact_photo_url: bustedUrl }));
+      toast.success("Foto uppladdat");
+    } catch (err: any) {
+      toast.error(err.message || "Kunde inte ladda upp foto");
+    } finally {
+      setUploadingMainContactPhoto(false);
+      e.target.value = "";
+    }
+  };
+
   const toggleProduct = (key: ProductKey) => {
     setActiveProducts(prev => {
       if (prev.includes(key)) {
