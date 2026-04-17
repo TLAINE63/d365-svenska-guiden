@@ -524,6 +524,10 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                 ) : (
                   filtered.map((partner) => {
                     const email = partner.admin_contact_email || partner.email || "";
+                    const history = emailHistory[email.toLowerCase()] || {};
+                    const sentBadges = Object.entries(AGREEMENT_TEMPLATE_LABELS)
+                      .map(([key, meta]) => ({ key, meta, sentAt: history[key] }))
+                      .filter((b) => b.sentAt);
                     return (
                       <label key={partner.id} className="flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer">
                         <Checkbox checked={selected.has(partner.id)} onCheckedChange={() => togglePartner(partner.id)} />
@@ -544,6 +548,17 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                                 Start: {partner.activation_date}
                               </Badge>
                             )}
+                            {sentBadges.map((b) => (
+                              <Badge
+                                key={b.key}
+                                variant="outline"
+                                className={`text-xs shrink-0 ${b.meta.className}`}
+                                title={`${b.meta.label} skickat ${new Date(b.sentAt!).toLocaleString("sv-SE")}`}
+                              >
+                                <Mail className="h-3 w-3 mr-1" />
+                                {b.meta.label} {formatShortDate(b.sentAt!)}
+                              </Badge>
+                            ))}
                           </div>
                           <span className="text-xs text-muted-foreground truncate block">{email}</span>
                         </div>
