@@ -6,7 +6,7 @@ const PartnerOfficeMap = () => {
 
   useEffect(() => {
     let mounted = true;
-    import("./PartnerOfficeMapClient").then(mod => {
+    import("./PartnerOfficeMapClient.tsx").then(mod => {
       if (mounted) setMapImpl(() => mod.default);
     });
     return () => { mounted = false; };
