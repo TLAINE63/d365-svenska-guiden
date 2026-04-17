@@ -376,6 +376,7 @@ export type Database = {
           address: string | null
           applications: string[] | null
           contact_person: string | null
+          contact_photo_url: string | null
           description: string | null
           email: string | null
           geography: string[] | null
@@ -399,6 +400,7 @@ export type Database = {
           address?: string | null
           applications?: string[] | null
           contact_person?: string | null
+          contact_photo_url?: string | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
@@ -422,6 +424,7 @@ export type Database = {
           address?: string | null
           applications?: string[] | null
           contact_person?: string | null
+          contact_photo_url?: string | null
           description?: string | null
           email?: string | null
           geography?: string[] | null
