@@ -390,7 +390,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               {partner.description}
             </p>
 
-            {/* Hero action row: Website CTA + Offices + Contact card side-by-side on lg+ */}
+            {/* Hero action row: Website CTA + Offices */}
             <div className="w-full mt-2 mb-6 flex flex-col lg:flex-row lg:items-center lg:justify-center lg:flex-wrap gap-6 lg:gap-8">
               {/* Website CTA */}
               <div className="flex flex-col items-center">
@@ -445,82 +445,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                     </div>
                   </div>
                 ) : null;
-              })()}
-
-              {/* Main contact card (always main contact, never product-specific) */}
-              {(() => {
-                const displayName = partner?.contactPerson;
-                const displayEmail = partner?.email;
-                const displayPhone = partner?.phone;
-                const displayPhoto = (partner as any)?.contact_photo_url;
-                const displayVideoId = extractYouTubeId((partner as any)?.youtube_video_id);
-
-                if (!displayName && !displayEmail && !displayPhone && !displayVideoId) return null;
-
-                return (
-                  <div className="inline-flex flex-col sm:flex-row items-center gap-4 px-5 py-4 rounded-2xl bg-white/80 border border-emerald-200 shadow-md backdrop-blur-sm max-w-2xl">
-                    <div className="relative shrink-0">
-                      {displayPhoto ? (
-                        <img
-                          src={displayPhoto}
-                          alt={`Foto av ${displayName || 'kontaktperson'}`}
-                          loading="lazy"
-                          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-emerald-200 shadow-sm"
-                        />
-                      ) : (
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center">
-                          <User className="w-8 h-8 text-emerald-600" />
-                        </div>
-                      )}
-                      {displayVideoId && (
-                        <button
-                          type="button"
-                          onClick={() => setVideoOpen(true)}
-                          aria-label={`Spela introduktionsvideo från ${partner.name}`}
-                          className="absolute inset-0 rounded-full bg-black/40 hover:bg-black/55 transition-colors flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-                        >
-                          <span className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <Play className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-700 fill-emerald-700 ml-0.5" />
-                          </span>
-                          <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold uppercase tracking-wider shadow-md whitespace-nowrap">
-                            Video
-                          </span>
-                        </button>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-1">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
-                        Din kontaktperson hos {partner.name}
-                      </span>
-                      {displayName && (
-                        <span className="text-base font-semibold text-slate-900">
-                          {displayName}
-                        </span>
-                      )}
-                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-1">
-                        {displayEmail && (
-                          <a
-                            href={`mailto:${displayEmail}`}
-                            className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
-                          >
-                            <Mail className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="font-medium">{displayEmail}</span>
-                          </a>
-                        )}
-                        {displayPhone && (
-                          <a
-                            href={`tel:${displayPhone}`}
-                            className="inline-flex items-center gap-1.5 text-sm text-slate-700 hover:text-emerald-700 transition-colors"
-                          >
-                            <Phone className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="font-medium">{displayPhone}</span>
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
               })()}
             </div>
 
