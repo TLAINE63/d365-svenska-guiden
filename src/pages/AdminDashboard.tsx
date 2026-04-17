@@ -75,6 +75,7 @@ import {
   CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Award
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
+import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
@@ -273,6 +274,20 @@ const AdminDashboard = () => {
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Collapsible sections state in partner edit dialog (all open by default)
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    admin: true,
+    basic: true,
+    contact: true,
+    geography: true,
+    products: true,
+    industryApps: true,
+  });
+  const toggleSection = (id: string) =>
+    setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
+  const setSectionOpen = (id: string, open: boolean) =>
+    setOpenSections((prev) => ({ ...prev, [id]: open }));
 
   // Industry apps state
   const [industryApps, setIndustryApps] = useState<IndustryApp[]>([]);
@@ -1297,10 +1312,15 @@ const AdminDashboard = () => {
     return { completed, total, percentage: Math.round((completed / total) * 100) };
   }, [partnerFormData]);
 
-  // Scroll to section
+  // Scroll to section (and ensure it's open)
   const scrollToSection = (index: number) => {
     setActiveFormSection(index);
-    sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const sectionId = formSections[index]?.id;
+    if (sectionId) setSectionOpen(sectionId, true);
+    // Wait a tick so the section expands before scrolling
+    setTimeout(() => {
+      sectionRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
   };
 
   // Get section status
@@ -2677,14 +2697,16 @@ const AdminDashboard = () => {
               {/* Global site traffic (compact) – dold tills vidare, visas i fliken Visitor Stats */}
 
               {/* Section 1: Admin Info (moved to top for easy administration) */}
-              <div ref={el => sectionRefs.current[0] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <Lock className="h-5 w-5 text-primary" />
-                  Administrativt
-                  {getSectionStatus('admin') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Administrativt"
+                description="Organisation, fakturering, avtal och status"
+                icon={Lock}
+                accent="amber"
+                status={getSectionStatus('admin')}
+                open={openSections.admin}
+                onOpenChange={(o) => setSectionOpen('admin', o)}
+                sectionRef={(el) => (sectionRefs.current[0] = el)}
+              >
 
                 {/* Org Number & Legal Name */}
                 <div className="grid grid-cols-2 gap-4">
@@ -2906,19 +2928,21 @@ const AdminDashboard = () => {
                     Månadsavgiften faktureras löpande i förskott. Uppsägningstiden är 3 (tre) månader och skall meddelas i god tid före varje kvartals början.
                   </p>
                 </div>
-              </div>
+              </PremiumCollapsibleSection>
 
               <Separator />
 
               {/* Section 2: Basic Info */}
-              <div ref={el => sectionRefs.current[1] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <Building2 className="h-5 w-5 text-primary" />
-                  Grunduppgifter
-                  {getSectionStatus('basic') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Grunduppgifter"
+                description="Företagsnamn, logotyp, beskrivning & video"
+                icon={Building2}
+                accent="business-central"
+                status={getSectionStatus('basic')}
+                open={openSections.basic}
+                onOpenChange={(o) => setSectionOpen('basic', o)}
+                sectionRef={(el) => (sectionRefs.current[1] = el)}
+              >
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -3054,19 +3078,17 @@ const AdminDashboard = () => {
                     </p>
                   )}
                 </div>
-              </div>
-
-              <Separator />
-
-              {/* Section 3: Contact Info */}
-              <div ref={el => sectionRefs.current[2] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <User className="h-5 w-5 text-primary" />
-                  Kontaktuppgifter (visas på Partnerprofilkortet)
-                  {getSectionStatus('contact') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              </PremiumCollapsibleSection>
+              <PremiumCollapsibleSection
+                title="Kontaktuppgifter"
+                description="Visas på Partnerprofilkortet"
+                icon={User}
+                accent="crm"
+                status={getSectionStatus('contact')}
+                open={openSections.contact}
+                onOpenChange={(o) => setSectionOpen('contact', o)}
+                sectionRef={(el) => (sectionRefs.current[2] = el)}
+              >
                 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
@@ -3188,19 +3210,17 @@ const AdminDashboard = () => {
                     Klistra in en YouTube-länk eller video-ID. Visas som play-knapp på kontaktfotot på partnerprofilen. Rekommenderad längd: 30–60 sekunder.
                   </p>
                 </div>
-              </div>
-
-              <Separator />
-
-              {/* Section 4: Geographic Coverage */}
-              <div ref={el => sectionRefs.current[3] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <Globe className="h-5 w-5 text-primary" />
-                  Geografisk täckning (visas överst på Partnerprofilkortet)
-                  {getSectionStatus('geography') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              </PremiumCollapsibleSection>
+              <PremiumCollapsibleSection
+                title="Geografisk täckning"
+                description="Visas överst på Partnerprofilkortet"
+                icon={Globe}
+                accent="finance-supply"
+                status={getSectionStatus('geography')}
+                open={openSections.geography}
+                onOpenChange={(o) => setSectionOpen('geography', o)}
+                sectionRef={(el) => (sectionRefs.current[3] = el)}
+              >
                 <p className="text-sm text-muted-foreground">Inom vilka geografier har ni möjlighet att leverera projekt och support?</p>
                 <div className="flex flex-wrap gap-2">
                   {geographyOptions.map((geo) => {
@@ -3230,9 +3250,7 @@ const AdminDashboard = () => {
                     );
                   })}
                 </div>
-                </div>
 
-                {/* Office cities */}
                 <div className="space-y-2 mt-4">
                   <Label htmlFor="office_cities" className="font-medium">Kontorsstäder (kommaseparerade)</Label>
                   <Input
@@ -3259,18 +3277,21 @@ const AdminDashboard = () => {
                   />
                   <p className="text-xs text-muted-foreground">Länk till Google My Maps som bäddas in på partnerprofilen</p>
                 </div>
+              </PremiumCollapsibleSection>
 
               <Separator />
 
               {/* Section 5: Product Sections */}
-              <div ref={el => sectionRefs.current[4] = el} className="space-y-4 scroll-mt-4">
-                <h3 className="text-lg font-semibold flex items-center gap-2 sticky top-0 bg-background py-2 z-10 border-b">
-                  <FileText className="h-5 w-5 text-primary" />
-                  Produktsektioner
-                  {getSectionStatus('products') === 'complete' && (
-                    <CheckCircle2 className="h-4 w-4 text-green-500 ml-auto" />
-                  )}
-                </h3>
+              <PremiumCollapsibleSection
+                title="Produktsektioner"
+                description="Välj max 3 fokusbranscher per produkt"
+                icon={FileText}
+                accent="primary"
+                status={getSectionStatus('products')}
+                open={openSections.products}
+                onOpenChange={(o) => setSectionOpen('products', o)}
+                sectionRef={(el) => (sectionRefs.current[4] = el)}
+              >
                 <p className="text-sm text-muted-foreground">
                   Välj max 3 fokusbranscher för varje produkt partnern erbjuder.
                 </p>
@@ -3748,20 +3769,18 @@ const AdminDashboard = () => {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
+              </PremiumCollapsibleSection>
 
               {/* Industry Apps Section */}
-              <Card className="mt-6">
-                <CardHeader className="pb-4 bg-primary/10 rounded-t-lg">
-                  <CardTitle className="text-xl font-bold flex items-center gap-3">
-                    <Link className="h-6 w-6 text-primary" />
-                    Branschapplikationer (Microsoft Marketplace)
-                  </CardTitle>
-                  <CardDescription>
-                    Certifierade branschspecifika tillägg från Microsoft Marketplace.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4 pt-4">
+              <PremiumCollapsibleSection
+                title="Branschapplikationer"
+                description="Certifierade tillägg från Microsoft Marketplace"
+                icon={Link}
+                accent="copilot"
+                status={industryApps.length > 0 ? 'complete' : 'empty'}
+                open={openSections.industryApps}
+                onOpenChange={(o) => setSectionOpen('industryApps', o)}
+              >
                   {industryApps.map((app, index) => (
                     <div key={index} className="relative p-4 rounded-lg border border-border bg-muted/30 space-y-3">
                       <button
@@ -3871,8 +3890,7 @@ const AdminDashboard = () => {
                       Inga branschappar tillagda ännu.
                     </p>
                   )}
-                </CardContent>
-              </Card>
+              </PremiumCollapsibleSection>
 
 
 
