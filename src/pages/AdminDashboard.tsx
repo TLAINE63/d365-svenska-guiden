@@ -3777,10 +3777,7 @@ const AdminDashboard = () => {
                       })}
                     </div>
                   </CardContent>
-                </Card>
-              </div>
-
-              {/* Industry Apps Section */}
+              </PremiumCollapsibleSection>
               <Card className="mt-6">
                 <CardHeader className="pb-4 bg-primary/10 rounded-t-lg">
                   <CardTitle className="text-xl font-bold flex items-center gap-3">
