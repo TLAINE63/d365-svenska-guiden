@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import Navbar from "@/components/Navbar";
@@ -861,6 +861,11 @@ const AIReadiness = () => {
   const { toast } = useToast();
 
   const track = selectedRole ? roleTracks.find((t) => t.id === selectedRole)! : null;
+
+  // Scroll to top whenever the visible question/step changes so the question is always in view
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [step, foundationStep, roleQuestionIdx]);
 
   const foundationCount = foundationQuestions.length;
   // Flow: foundation(0-2) → role_select → foundation(3-6) → role_questions(5) → result
