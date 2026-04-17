@@ -75,6 +75,7 @@ import {
   CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Award
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
+import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
@@ -273,6 +274,20 @@ const AdminDashboard = () => {
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Collapsible sections state in partner edit dialog (all open by default)
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    admin: true,
+    basic: true,
+    contact: true,
+    geography: true,
+    products: true,
+    industryApps: true,
+  });
+  const toggleSection = (id: string) =>
+    setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
+  const setSectionOpen = (id: string, open: boolean) =>
+    setOpenSections((prev) => ({ ...prev, [id]: open }));
 
   // Industry apps state
   const [industryApps, setIndustryApps] = useState<IndustryApp[]>([]);
