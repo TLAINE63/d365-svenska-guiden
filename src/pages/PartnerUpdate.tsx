@@ -106,6 +106,7 @@ interface ProductFilter {
   contactName: string;
   contactEmail: string;
   contactPhone: string;
+  contactPhotoUrl: string;
 }
 
 interface ProductFilters {
@@ -161,6 +162,7 @@ const emptyProductFilter: ProductFilter = {
   contactName: "",
   contactEmail: "",
   contactPhone: "",
+  contactPhotoUrl: "",
 };
 
 const PartnerUpdate = () => {
@@ -579,6 +581,54 @@ const PartnerUpdate = () => {
       ...current,
       [key]: { ...getProductFilter(key), ...updates }
     }));
+  };
+
+  // Per-product sales contact photo upload (uses kind="contact-<productKey>")
+  const [uploadingProductPhoto, setUploadingProductPhoto] = useState<ProductKey | null>(null);
+  const handleProductContactPhotoUpload = async (
+    productKey: ProductKey,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file || !token) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Endast JPEG, PNG eller WebP tillåtna");
+      e.target.value = "";
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Filen får max vara 5MB");
+      e.target.value = "";
+      return;
+    }
+
+    setUploadingProductPhoto(productKey);
+    try {
+      const slug = generateSlug(formData.name || invitation?.partner_name || "partner");
+      const uploadFormData = new FormData();
+      uploadFormData.append("file", file);
+      uploadFormData.append("token", token);
+      uploadFormData.append("partnerSlug", slug);
+      uploadFormData.append("kind", `contact-${productKey}`);
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-partner-logo`,
+        { method: "POST", body: uploadFormData }
+      );
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Uppladdning misslyckades");
+
+      const bustedUrl = `${data.url}?t=${Date.now()}`;
+      updateProductFilter(productKey, { contactPhotoUrl: bustedUrl });
+      toast.success("Foto uppladdat");
+    } catch (err: any) {
+      toast.error(err.message || "Kunde inte ladda upp foto");
+    } finally {
+      setUploadingProductPhoto(null);
+      e.target.value = "";
+    }
   };
 
   const toggleProductIndustry = (productKey: ProductKey, industry: string) => {
@@ -1116,6 +1166,55 @@ const PartnerUpdate = () => {
                                 onChange={(e) => updateProductFilter(productKey, { contactPhone: e.target.value })}
                                 className="mt-1"
                               />
+                            </div>
+                          </div>
+
+                          {/* Contact photo upload */}
+                          <div className="flex items-center gap-3 pt-2 border-t border-border/60">
+                            {filter.contactPhotoUrl ? (
+                              <img
+                                src={filter.contactPhotoUrl}
+                                alt="Säljkontakt foto"
+                                className="h-14 w-14 object-cover rounded-full border-2 border-border shadow-sm"
+                              />
+                            ) : (
+                              <div className="h-14 w-14 rounded-full bg-muted flex items-center justify-center border-2 border-dashed border-border">
+                                <ImageIcon className="h-5 w-5 text-muted-foreground" />
+                              </div>
+                            )}
+                            <div className="flex flex-col gap-2">
+                              <Label className="text-xs text-muted-foreground">Foto på säljkontakten (visas på partnerprofilen)</Label>
+                              <div className="flex gap-2">
+                                <input
+                                  type="file"
+                                  accept="image/jpeg,image/png,image/webp"
+                                  id={`contact-photo-${productKey}`}
+                                  className="hidden"
+                                  onChange={(e) => handleProductContactPhotoUpload(productKey, e)}
+                                />
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  size="sm"
+                                  disabled={uploadingProductPhoto === productKey}
+                                  onClick={() => document.getElementById(`contact-photo-${productKey}`)?.click()}
+                                >
+                                  <Upload className={`mr-2 h-4 w-4 ${uploadingProductPhoto === productKey ? "animate-spin" : ""}`} />
+                                  {uploadingProductPhoto === productKey
+                                    ? "Laddar upp..."
+                                    : (filter.contactPhotoUrl ? "Byt foto" : "Ladda upp foto")}
+                                </Button>
+                                {filter.contactPhotoUrl && (
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => updateProductFilter(productKey, { contactPhotoUrl: '' })}
+                                  >
+                                    Ta bort
+                                  </Button>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
