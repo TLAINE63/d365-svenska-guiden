@@ -2590,6 +2590,29 @@ const AdminDashboard = () => {
                 </Button>
               </div>
 
+              {/* Permanent self-service link (only for published partners) */}
+              {editingPartner && editingPartner.is_featured && (
+                <div className="rounded-lg border bg-muted/40 p-4 flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Link className="w-4 h-4 text-primary" />
+                      <h4 className="text-sm font-semibold">Permanent profileringslänk</h4>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Partnern kan när som helst använda denna länk för att uppdatera sin profil — utan utgångsdatum.
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => copyPermanentProfileLink(editingPartner.id, editingPartner.name)}
+                  >
+                    Kopiera länk
+                  </Button>
+                </div>
+              )}
+
               {/* View statistics (only when editing existing partner) */}
               {editingPartner && (
                 <PartnerViewStatsCard
