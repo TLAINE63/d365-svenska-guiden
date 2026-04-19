@@ -75,11 +75,6 @@ export default function PartnerViewStatsCard({ partnerSlug, partnerName, variant
           <BarChart3 className="w-5 h-5" />
           Exponering & trafik fr.o.m. 2026-04-20 för de senaste 30 dagar (90d inom parentes)
         </CardTitle>
-        {variant === "partner" && (
-          <p className="text-xs text-muted-foreground">
-            Visar hur många som klickat på er partnerprofil i listor, besökt profilsidan direkt och klickat vidare till er hemsida. IP-adresser är anonymiserade.
-          </p>
-        )}
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
