@@ -3506,7 +3506,7 @@ const AdminDashboard = () => {
                                 className="mt-1"
                               />
                               <p className="text-xs text-muted-foreground mt-1">
-                                Visas som knappen "Besök landningssida" på partnerprofilen och i partnerlistor. Klick spåras.
+                                Visas som knappen "Läs mer om [produkten] på [partnernamn] hemsida" på partnerprofilen och i partnerlistor. Klick spåras.
                               </p>
                             </div>
                           </div>
