@@ -11,7 +11,8 @@ import {
   BrainCircuit,
   ChevronDown,
   ChevronUp,
-  Award
+  Award,
+  ExternalLink
 } from "lucide-react";
 import {
   calculateAiScore,
@@ -29,6 +30,7 @@ import {
 import { Partner, getCumulativeGeographyDisplay } from "@/data/partners";
 import { DatabasePartner } from "@/hooks/usePartners";
 import { trackPartnerView } from "@/utils/trackPartnerView";
+import { trackPartnerClick } from "@/utils/trackPartnerClick";
 
 // Dynamics 365 icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -177,6 +179,9 @@ const PartnerCard = ({
   
   // Get product-specific description
   const productDescription = productFilter?.productDescription || null;
+
+  // Get product-specific landing page URL
+  const productLandingPageUrl = (productFilter as { landingPageUrl?: string } | null | undefined)?.landingPageUrl?.trim() || null;
   
   // Get primary and secondary industries from productFilters if available
   const primaryIndustries = productFilter?.industries || (partner.industries || []).slice(0, 3);
@@ -426,7 +431,27 @@ const PartnerCard = ({
           })()}
 
 
-          <div className="mt-auto pt-3">
+          <div className="mt-auto pt-3 space-y-2">
+            {productLandingPageUrl && (
+              <a
+                href={productLandingPageUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  trackPartnerClick(
+                    partner.name || 'Partner',
+                    productLandingPageUrl,
+                    typeof window !== 'undefined' ? `${window.location.pathname}-landing-${productKey}` : `landing-${productKey}`,
+                    { product: productKey }
+                  );
+                }}
+                className="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-md border border-primary/40 bg-primary/5 text-primary text-sm font-semibold hover:bg-primary/10 hover:border-primary/60 transition-all"
+              >
+                <ExternalLink className="h-4 w-4" />
+                Besök landningssida
+              </a>
+            )}
             <Button 
               asChild 
               className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"

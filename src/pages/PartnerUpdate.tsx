@@ -108,6 +108,7 @@ interface ProductFilter {
   contactEmail: string;
   contactPhone: string;
   contactPhotoUrl: string;
+  landingPageUrl: string;
 }
 
 interface ProductFilters {
@@ -165,6 +166,7 @@ const emptyProductFilter: ProductFilter = {
   contactEmail: "",
   contactPhone: "",
   contactPhotoUrl: "",
+  landingPageUrl: "",
 };
 
 const PartnerUpdate = () => {
@@ -1242,6 +1244,21 @@ const PartnerUpdate = () => {
                             className="mt-2"
                           />
                           <p className="text-xs text-muted-foreground mt-1">Beskriv ert fokus och expertis för denna produkt (max ~100 tecken)</p>
+                        </div>
+
+                        {/* Landing page URL for this product */}
+                        <div>
+                          <Label className="text-sm">Länk till er landningssida för {section.label} (valfritt)</Label>
+                          <Input
+                            type="url"
+                            placeholder="https://erforetag.se/dynamics-365-business-central"
+                            value={filter.landingPageUrl || ''}
+                            onChange={(e) => updateProductFilter(productKey, { landingPageUrl: e.target.value })}
+                            className="mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Visas som knappen "Besök landningssida" på er partnerprofil och i partnerlistor.
+                          </p>
                         </div>
 
                         {/* Sales Contact for this product area */}

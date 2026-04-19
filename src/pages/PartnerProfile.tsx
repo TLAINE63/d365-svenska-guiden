@@ -274,6 +274,14 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
     return dbProductFilters?.[filterKey]?.customerCaseLinks || [];
   };
 
+  // Get landing page URL for a specific product
+  const getLandingPageUrlForProduct = (category: 'bc' | 'fsc' | 'sales' | 'service'): string | null => {
+    const filterKey = (category === 'sales' || category === 'service') ? 'crm' : category;
+    const dbProductFilters = partner?.product_filters as Record<string, { landingPageUrl?: string }> | undefined;
+    const url = dbProductFilters?.[filterKey]?.landingPageUrl || dbProductFilters?.[category]?.landingPageUrl;
+    return url && url.trim().length > 0 ? url.trim() : null;
+  };
+
   // Get industry apps for a specific product category
   interface IndustryApp {
     name: string;
@@ -629,6 +637,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                   const geography = getGeographyForProduct(category);
                   const industryAppsForProduct = getIndustryAppsForProduct(category);
                   const productContact = getContactForProduct(category);
+                  const landingPageUrl = getLandingPageUrlForProduct(category);
                   
                   return (
                     <article 
@@ -844,6 +853,34 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                               </p>
                             )}
                           </div>
+
+                          {/* Landing page CTA for this product */}
+                          {landingPageUrl && (
+                            <div className="pt-2">
+                              <a
+                                href={landingPageUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => {
+                                  trackPartnerClick(
+                                    partner.name,
+                                    landingPageUrl,
+                                    `partner-profile-${partner.slug}-landing-${category}`,
+                                    {
+                                      product: getProductDisplayName(category),
+                                      industry: selectedIndustry,
+                                      companySize: selectedCompanySize,
+                                      geography: selectedGeography,
+                                    }
+                                  );
+                                }}
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-md hover:shadow-lg hover:bg-primary/90 transition-all"
+                              >
+                                <ExternalLink className="w-4 h-4" />
+                                Besök landningssida
+                              </a>
+                            </div>
+                          )}
 
                           {/* Industry Apps / AppSource Extensions */}
                           {industryAppsForProduct.length > 0 && (

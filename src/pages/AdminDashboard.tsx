@@ -3493,6 +3493,22 @@ const AdminDashboard = () => {
                                 Lämna tomt för att använda partnerns huvudvideo (om någon).
                               </p>
                             </div>
+
+                            {/* Per-product landing page URL */}
+                            <div className="pt-2 border-t border-border/60">
+                              <Label className="text-xs text-muted-foreground">Landningssida för {section.label} (valfritt)</Label>
+                              <Input
+                                type="url"
+                                placeholder="https://partner.se/dynamics-365-..."
+                                defaultValue={filter.landingPageUrl || ''}
+                                key={`${section.key}-landingPageUrl-${editingPartner?.id || 'new'}`}
+                                onBlur={(e) => updateProductFilter(section.key, { landingPageUrl: e.target.value.trim() })}
+                                className="mt-1"
+                              />
+                              <p className="text-xs text-muted-foreground mt-1">
+                                Visas som knappen "Besök landningssida" på partnerprofilen och i partnerlistor. Klick spåras.
+                              </p>
+                            </div>
                           </div>
                           <div>
                             <div className="flex items-center justify-between mb-2">
