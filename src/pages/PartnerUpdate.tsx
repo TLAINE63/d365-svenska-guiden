@@ -1257,7 +1257,7 @@ const PartnerUpdate = () => {
                             className="mt-2"
                           />
                           <p className="text-xs text-muted-foreground mt-1">
-                            Visas som knappen "Besök landningssida" på er partnerprofil och i partnerlistor.
+                            Visas som knappen "Läs mer om [produkten] på [ert företagsnamn] hemsida" på er partnerprofil och i partnerlistor.
                           </p>
                         </div>
 

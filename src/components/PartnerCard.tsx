@@ -449,7 +449,7 @@ const PartnerCard = ({
                 className="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-md border border-primary/40 bg-primary/5 text-primary text-sm font-semibold hover:bg-primary/10 hover:border-primary/60 transition-all"
               >
                 <ExternalLink className="h-4 w-4" />
-                Besök landningssida
+                {productKey ? `Läs mer om ${productKeyToSwedish[productKey]} på ${partner.name || 'partnerns'} hemsida` : 'Besök landningssida'}
               </a>
             )}
             <Button 

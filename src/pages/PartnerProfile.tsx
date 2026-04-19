@@ -877,7 +877,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-md hover:shadow-lg hover:bg-primary/90 transition-all"
                               >
                                 <ExternalLink className="w-4 h-4" />
-                                Besök landningssida
+                                Läs mer om {getProductDisplayName(category)} på {partner.name} hemsida
                               </a>
                             </div>
                           )}
