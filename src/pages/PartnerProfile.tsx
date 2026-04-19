@@ -846,6 +846,12 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                                     Läs kundcase {customerCaseLinks.length > 1 ? idx + 1 : ''}
                                   </a>
                                 ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-muted-foreground italic">
+                                Kundexempel kan tillhandahållas på förfrågan
+                              </p>
+                            )}
                           </div>
 
                           {/* Landing page CTA for this product */}
@@ -875,12 +881,6 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                               </a>
                             </div>
                           )}
-                            ) : (
-                              <p className="text-sm text-muted-foreground italic">
-                                Kundexempel kan tillhandahållas på förfrågan
-                              </p>
-                            )}
-                          </div>
 
                           {/* Industry Apps / AppSource Extensions */}
                           {industryAppsForProduct.length > 0 && (
