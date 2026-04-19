@@ -108,6 +108,7 @@ interface ProductFilter {
   contactEmail: string;
   contactPhone: string;
   contactPhotoUrl: string;
+  landingPageUrl: string;
 }
 
 interface ProductFilters {
@@ -165,6 +166,7 @@ const emptyProductFilter: ProductFilter = {
   contactEmail: "",
   contactPhone: "",
   contactPhotoUrl: "",
+  landingPageUrl: "",
 };
 
 const PartnerUpdate = () => {

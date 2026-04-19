@@ -37,6 +37,7 @@ export interface ProductFilterInput {
   contactPhone?: string;            // Sales contact phone for this product area
   contactPhotoUrl?: string;         // Sales contact photo URL for this product area
   youtubeVideoId?: string;          // Optional YouTube video ID for this product area
+  landingPageUrl?: string;          // Optional partner landing page URL for this product area
 }
 
 // Updated product filters to include 4 product areas plus combined crm
