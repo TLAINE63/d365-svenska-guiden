@@ -637,6 +637,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                   const geography = getGeographyForProduct(category);
                   const industryAppsForProduct = getIndustryAppsForProduct(category);
                   const productContact = getContactForProduct(category);
+                  const landingPageUrl = getLandingPageUrlForProduct(category);
                   
                   return (
                     <article 
@@ -845,7 +846,35 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                                     Läs kundcase {customerCaseLinks.length > 1 ? idx + 1 : ''}
                                   </a>
                                 ))}
-                              </div>
+                          </div>
+
+                          {/* Landing page CTA for this product */}
+                          {landingPageUrl && (
+                            <div className="pt-2">
+                              <a
+                                href={landingPageUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => {
+                                  trackPartnerClick(
+                                    partner.name,
+                                    landingPageUrl,
+                                    `partner-profile-${partner.slug}-landing-${category}`,
+                                    {
+                                      product: getProductDisplayName(category),
+                                      industry: selectedIndustry,
+                                      companySize: selectedCompanySize,
+                                      geography: selectedGeography,
+                                    }
+                                  );
+                                }}
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold shadow-md hover:shadow-lg hover:bg-primary/90 transition-all"
+                              >
+                                <ExternalLink className="w-4 h-4" />
+                                Besök landningssida
+                              </a>
+                            </div>
+                          )}
                             ) : (
                               <p className="text-sm text-muted-foreground italic">
                                 Kundexempel kan tillhandahållas på förfrågan
