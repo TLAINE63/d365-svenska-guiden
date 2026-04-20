@@ -5,8 +5,8 @@ export const OrganizationSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Dynamic Factory",
-    "alternateName": "d365.se",
+    "name": "D365 Guiden",
+    "alternateName": ["d365.se", "Dynamic Factory"],
     "url": "https://d365.se",
     "logo": {
       "@type": "ImageObject",
@@ -58,7 +58,7 @@ export const LocalBusinessSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "name": "Dynamic Factory",
+    "name": "D365 Guiden",
     "description": "Senior rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot",
     "url": "https://d365.se",
     "telephone": "+46-72-232-40-60",
@@ -191,8 +191,8 @@ export const WebSiteSchema = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "d365.se – Microsoft Dynamics 365 Guide",
-    "alternateName": "Dynamic Factory Dynamics 365 Guide",
+    "name": "D365 Guiden",
+    "alternateName": ["d365.se", "Dynamics 365 Guiden Sverige"],
     "url": "https://d365.se",
     "description": "Oberoende guide till Microsoft Dynamics 365 ERP och CRM i Sverige – priser, implementering och partnerval",
     "inLanguage": "sv-SE",
