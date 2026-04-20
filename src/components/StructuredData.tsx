@@ -10,10 +10,12 @@ export const OrganizationSchema = () => {
     "url": "https://d365.se",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://d365.se/logo.png",
-      "width": 200,
-      "height": 60
+      "url": "https://www.d365.se/d365guide-logo.png",
+      "width": 2000,
+      "height": 1620,
+      "caption": "d365.se – Oberoende guide till Microsoft Dynamics 365"
     },
+    "image": "https://www.d365.se/d365guide-logo.png",
     "description": "Oberoende guide och rådgivning för Microsoft Dynamics 365 ERP och CRM i Sverige. Hjälper företag välja rätt affärssystem och Microsoft-partner.",
     "foundingDate": "2020",
     "areaServed": {
@@ -200,7 +202,9 @@ export const WebSiteSchema = () => {
       "url": "https://d365.se",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://d365.se/logo.png"
+        "url": "https://www.d365.se/d365guide-logo.png",
+        "width": 2000,
+        "height": 1620
       }
     },
     "potentialAction": {
