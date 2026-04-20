@@ -2726,20 +2726,22 @@ const SalesMarketingNeedsAnalysis = () => {
 
             <div className="border-t border-border pt-2" />
 
-            {/* Rekommenderad lösningsinriktning */}
+            {/* Sammanställning av era svar */}
             <div className="border rounded-xl p-5 space-y-4 bg-background shadow-sm">
               <h3 className="font-bold text-foreground flex items-center gap-2 text-base">
                 <span className="w-6 h-6 rounded-full bg-crm text-crm-foreground text-xs flex items-center justify-center font-bold">1</span>
-                Rekommenderad lösningsinriktning
+                Sammanställning av era svar
               </h3>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
-                <span className="text-3xl">💼</span>
+              <div className="flex items-start gap-3 p-3 rounded-lg bg-muted/50">
+                <span className="text-3xl">📊</span>
                 <div>
-                  <p className="text-lg font-bold text-crm">{product}</p>
-                  <p className="text-xs text-muted-foreground">Primär plattformsrekommendation baserat på era svar</p>
+                  <p className="text-sm font-semibold text-foreground">Vägledande Marknad &amp; Sälj-Analys</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Marknad och sälj är två sidor av samma kommersiella motor. I de flesta moderna affärsmodeller är båda lika viktiga – sälj utan marknadsföring tappar fart, och marknadsföring utan struktur i sälj ger sällan affär. Sammanställningen nedan beskriver var era svar pekar utan att förorda en specifik produkt.
+                  </p>
                 </div>
               </div>
-              <p className="text-sm font-medium text-foreground">Baserat på er kommersiella profil rekommenderas en plattform med fokus på:</p>
+              <p className="text-sm font-medium text-foreground">Era svar visar att ni framför allt behöver stöd för:</p>
               <div className="space-y-2">
                 {crmFocusItems.map(focus => (
                   <div key={focus.label} className="flex items-center gap-3 px-3 py-2 rounded-lg bg-crm/5 border border-crm/10">
@@ -2758,6 +2760,9 @@ const SalesMarketingNeedsAnalysis = () => {
                     <span>{product}</span>
                   </div>
                 </div>
+                <p className="text-xs text-muted-foreground mt-3 italic">
+                  Detta är en indikation – inte en rekommendation. Slutligt val av plattform och moduler bör göras tillsammans med en kvalificerad partner som kan väga in helheten.
+                </p>
                 {keyFactors[0] && (
                   <p className="text-xs text-muted-foreground mt-3 italic border-l-2 border-crm/30 pl-3">
                     "{keyFactors[0]}"
