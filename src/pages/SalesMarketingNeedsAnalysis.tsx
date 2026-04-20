@@ -494,7 +494,7 @@ const SalesMarketingNeedsAnalysis = () => {
     "Customer Insights",
     "Integrationer",
     "AI & framtid",
-    "Go-To-Market Profil",
+    "Vägledande CRM-Analys",
   ];
 
   const handleNext = () => {
