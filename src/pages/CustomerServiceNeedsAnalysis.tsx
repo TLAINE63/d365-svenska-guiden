@@ -285,7 +285,7 @@ const CustomerServiceNeedsAnalysis = () => {
     "Organisation",
     "Integration",
     "AI & Automation",
-    "Go-To-Market Profil",
+    "Vägledande Kundserviceanalys",
   ];
 
   const handleNext = () => {
