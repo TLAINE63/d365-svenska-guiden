@@ -924,14 +924,24 @@ const CustomerServiceNeedsAnalysis = () => {
       ["Antal anstallda", data.employees],
       ["Bransch", data.industry === "Annat" ? data.industryOther : data.industry],
       ["Serviceteam-storlek", data.serviceTeamSize],
+      ["Antal agenter", data.numberOfAgents],
       ["Nuvarande system", data.currentSystems.filter(s => s.product.trim()).map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ")],
+      ["Ovriga system (detaljer)", data.otherSystemsDetails || ""],
     ]);
 
     addAppendixSection("Steg 2 - Service-modell", [
+      ["Servicekanaler", (data.serviceChannels || []).join(", ")],
       ["Serviceupp lagg", data.serviceModel],
     ]);
 
+    const csChallengeStr = Object.entries(data.situationChallenges || {})
+      .filter(([, v]) => v)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join("; ");
+
     addAppendixSection("Steg 3 - Situation & komplexitet", [
+      ["Anledning till nulage", data.currentSituationReason || ""],
+      ["Utmaningar i nulaget", csChallengeStr],
       ["Arendevolym/man", data.ticketsPerMonth],
       ["SLA-krav", data.slaRequirements || data.serviceAgreements],
       ["Self-service portal", data.selfServicePortal],
@@ -949,6 +959,16 @@ const CustomerServiceNeedsAnalysis = () => {
       ["Produktlinjer", data.multipleProductLines],
     ]);
 
+    // Field Service section (only if relevant)
+    if (data.hasFieldService || (data.fieldServiceNeeds || []).length > 0 || data.fieldServiceNeedsOther) {
+      const fsNeeds = [...(data.fieldServiceNeeds || [])];
+      if (data.fieldServiceNeedsOther?.trim()) fsNeeds.push(`Ovriga: ${data.fieldServiceNeedsOther.trim()}`);
+      addAppendixSection("Steg 3b - Faltservice", [
+        ["Har ni faltservice?", data.hasFieldService || ""],
+        ["Faltservice-behov", fsNeeds.join(", ")],
+      ]);
+    }
+
     addAppendixSection("Steg 4 - Organisation & styrning", [
       ["Org-struktur", data.orgStructure],
       ["Gemensam rapportering", data.sharedReporting],
@@ -961,9 +981,22 @@ const CustomerServiceNeedsAnalysis = () => {
     ]);
 
     addAppendixSection("Steg 6 - AI & Automation", [
+      ["AI-intresse", data.aiInterest || ""],
       ["AI-anvandningsomraden", data.aiUseCases?.join(", ")],
+      ["AI - egna kommentarer", data.aiDetails || ""],
       ["AI-automationsfunktioner", data.aiAutomation?.join(", ")],
     ]);
+
+    // Övriga noteringar
+    const csHasOvrigt = data.wishlist?.trim() || data.decisionTimeline?.trim() || data.additionalInfo?.trim() || data.currentPartners?.trim();
+    if (csHasOvrigt) {
+      addAppendixSection("Ovriga noteringar", [
+        ["Onskelista", data.wishlist || ""],
+        ["Beslutstidpunkt", data.decisionTimeline || ""],
+        ["Nuvarande partners", data.currentPartners || ""],
+        ["Ovrig information", data.additionalInfo || ""],
+      ]);
+    }
 
     // Footer
     checkPage(40);
