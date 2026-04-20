@@ -1379,10 +1379,65 @@ const SalesMarketingNeedsAnalysis = () => {
       addSection("Övriga system att integrera med", data.integrationTypesCustom);
     }
 
+    // ── STEG 6b: Övriga system & nuläge ──────────────────────────────────
+    const filledCurrentSystems = (data.currentSystems || []).filter(s => s.product?.trim());
+    if (filledCurrentSystems.length > 0) {
+      const sysStr = filledCurrentSystems.map(s => s.year ? `${s.product} (${s.year})` : s.product).join(", ");
+      addSection("Befintliga system", sysStr);
+    }
+    if (data.otherSystemsDetails?.trim()) addSection("Övriga system (detaljer)", data.otherSystemsDetails);
+    if (data.currentSituationReason?.trim()) addSection("Anledning till nuvarande situation", data.currentSituationReason);
+    const sitChallenges = Object.entries(data.situationChallenges || {}).filter(([, v]) => v?.trim());
+    if (sitChallenges.length > 0) {
+      addBulletSection("Utmaningar i nuläget", sitChallenges.map(([k, v]) => `${k}: ${v}`));
+    }
+
+    // ── STEG 6c: Säljbehov & process ─────────────────────────────────────
+    if ((data.salesNeeds || []).length > 0) {
+      const sn = [...data.salesNeeds];
+      if (data.salesNeedsOther?.trim()) sn.push(`Övriga: ${data.salesNeedsOther.trim()}`);
+      addBulletSection("Viktigaste säljbehoven", sn);
+    }
+    if (data.salesProcessComplexity) addSection("Säljprocessens komplexitet", data.salesProcessComplexity);
+
+    // ── STEG 6d: Integrationer (specifika system) ────────────────────────
+    const filledIntSys = (data.integrationSystems || []).filter(s => s.system?.trim());
+    if (filledIntSys.length > 0) {
+      addBulletSection("Specifika integrationssystem", filledIntSys.map(s => s.importance ? `${s.system} (${s.importance})` : s.system));
+    }
+
+    // ── STEG 6e: KPI:er ──────────────────────────────────────────────────
+    if ((data.kpis || []).length > 0) {
+      const k = [...data.kpis];
+      if (data.kpisOther?.trim()) k.push(`Övriga: ${data.kpisOther.trim()}`);
+      addBulletSection("Viktigaste KPI:erna", k);
+    }
+
     // ── STEG 7: AI & Framtid ──────────────────────────────────────────────
     if (data.aiInterest) addSection("Steg 7 – Hur intresserade är ni av AI i CRM-systemet?", data.aiInterest);
     if ((data.aiUseCases || []).length > 0) addBulletSection("Vilka AI-användningsområden är mest intressanta?", data.aiUseCases);
+    if (data.aiDataMaturity) addSection("AI- och datamognad", data.aiDataMaturity);
     if (data.aiDetails) addSection("Beskriv hur AI skulle kunna hjälpa er verksamhet", data.aiDetails);
+
+    // ── ÖVRIGA NOTERINGAR ────────────────────────────────────────────────
+    const hasOvrigt = data.wishlist?.trim() || data.decisionTimeline?.trim() || data.additionalInfo?.trim() || data.currentPartners?.trim();
+    if (hasOvrigt) {
+      if (yPos > 230) { pdf.addPage(); yPos = margin; }
+      yPos += 6;
+      pdf.setFillColor(30, 58, 138);
+      pdf.rect(margin, yPos, contentWidth, 8, 'F');
+      pdf.setTextColor(255, 255, 255);
+      pdf.setFontSize(10);
+      pdf.setFont("helvetica", "bold");
+      pdf.text("Övriga noteringar", margin + 3, yPos + 6);
+      pdf.setTextColor(51, 51, 51);
+      pdf.setFont("helvetica", "normal");
+      yPos += 12;
+      if (data.wishlist?.trim()) addSection("Önskelista", data.wishlist);
+      if (data.decisionTimeline?.trim()) addSection("Beslutstidpunkt", data.decisionTimeline);
+      if (data.currentPartners?.trim()) addSection("Nuvarande partners", data.currentPartners);
+      if (data.additionalInfo?.trim()) addSection("Övrig information", data.additionalInfo);
+    }
 
     // Footer with contact info
     if (yPos > 230) {
