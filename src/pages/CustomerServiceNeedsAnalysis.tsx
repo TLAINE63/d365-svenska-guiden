@@ -423,7 +423,7 @@ const CustomerServiceNeedsAnalysis = () => {
       recommendations.contactCenter.score += 8;
       recommendations.customerService.reasons.push("Flerspråkigt stöd kräver avancerad routing och AI");
     }
-    if (data.slaContracts === "Ja, kontraktuella SLA med viten" || data.slaContracts === "Ja, komplexa SLA per kundsegment") {
+    if (data.slaContracts === "Ja, kontraktuella SLA eventuellt med viten" || data.slaContracts === "Ja, komplexa SLA per kundsegment") {
       recommendations.customerService.score += 10;
       recommendations.fieldService.score += 10;
       recommendations.customerService.reasons.push("Kontraktuella SLA kräver automatisk spårning och eskalering");
@@ -1149,7 +1149,7 @@ const CustomerServiceNeedsAnalysis = () => {
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Har ni SLA-kontrakt med kunder?</Label>
-              {makeRadioGroup("slaContracts", ["Nej, inga formella SLA", "Ja, informella mål", "Ja, kontraktuella SLA med viten", "Ja, komplexa SLA per kundsegment"])}
+              {makeRadioGroup("slaContracts", ["Nej, inga formella SLA", "Ja, informella mål", "Ja, kontraktuella SLA eventuellt med viten", "Ja, komplexa SLA per kundsegment"])}
             </div>
             <div>
               <Label className="text-base font-semibold mb-3 block">Prioriterar ni kunder olika beroende på kundtyp/avtal?</Label>
@@ -1323,7 +1323,7 @@ const CustomerServiceNeedsAnalysis = () => {
         else if (data.multiCountry === "Ja, Norden") complexityScore2 += 1;
         if (data.multiLanguage === "Ja, mer än 5 språk" || data.multiLanguage === "Ja, 3–5 språk") complexityScore2 += 2;
         else if (data.multiLanguage === "Ja, svenska + engelska") complexityScore2 += 1;
-        if (data.slaContracts === "Ja, komplexa SLA per kundsegment" || data.slaContracts === "Ja, kontraktuella SLA med viten") complexityScore2 += 2;
+        if (data.slaContracts === "Ja, komplexa SLA per kundsegment" || data.slaContracts === "Ja, kontraktuella SLA eventuellt med viten") complexityScore2 += 2;
         else if (data.slaContracts === "Ja, informella mål") complexityScore2 += 1;
         if (data.customerPrioritization === "Ja, vi har komplexa prioriteringsregler") complexityScore2 += 2;
         else if (data.customerPrioritization === "Ja, vi delar in kunder i 2–3 nivåer") complexityScore2 += 1;
