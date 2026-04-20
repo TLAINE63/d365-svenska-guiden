@@ -675,7 +675,19 @@ const CustomerServiceNeedsAnalysis = () => {
       "Kombination av flera": "Hybrid service",
     };
     const geoLabel = data.multiCountry === "Ja, globalt" ? "Global" : data.multiCountry === "Ja, Europa" ? "Europa" : data.multiCountry === "Ja, Norden" ? "Norden" : "Sverige";
-    const volLabel = (data.ticketsPerMonth === "2 000-10 000" || data.ticketsPerMonth === "Mer an 10 000") ? "Hog" : data.ticketsPerMonth === "500-2 000" ? "Medel" : data.ticketsPerMonth ? "Lag" : "Ej angivet";
+    const inboundHigh = ["500–2 000 kontakter/dag", "Mer än 2 000 kontakter/dag", "500-2 000 kontakter/dag", "Mer an 2 000 kontakter/dag"];
+    const inboundMedium = ["100–500 kontakter/dag", "100-500 kontakter/dag"];
+    const inboundLow = ["Färre än 100 kontakter/dag", "Farre an 100 kontakter/dag"];
+    let volLabel: string;
+    if (data.ticketsPerMonth === "2 000-10 000" || data.ticketsPerMonth === "Mer an 10 000" || inboundHigh.includes(data.inboundVolume)) {
+      volLabel = "Hog";
+    } else if (data.ticketsPerMonth === "500-2 000" || inboundMedium.includes(data.inboundVolume)) {
+      volLabel = "Medel";
+    } else if (data.ticketsPerMonth || inboundLow.includes(data.inboundVolume)) {
+      volLabel = "Lag";
+    } else {
+      volLabel = "Ej angivet";
+    }
     const sysIds: Record<string, string> = { erp: "ERP", iot: "IoT", product_register: "Produktregister", lager: "Lager", fakturering: "Fakturering", crm_sales: "CRM/Salj", field_service_ext: "Faltservice-system", telefoni: "Telefoni", e_handel: "E-handel", hr: "HR" };
     const integList = data.systemDependencies.map(id => sysIds[id] || id);
 
