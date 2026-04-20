@@ -784,7 +784,7 @@ const NeedsAnalysis = () => {
     "Situation",
     "Utmaningar",
     "AI & Framtid",
-    "Go-To-Market Profil",
+    "Vägledande ERP-Analys",
   ];
 
   const handleNext = () => {
