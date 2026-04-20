@@ -3166,6 +3166,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   setData(initialData);
                   setCurrentStep(1);
                   setIsComplete(false);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
