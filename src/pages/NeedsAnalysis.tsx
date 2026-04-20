@@ -138,7 +138,7 @@ const businessModelOptions = [
     label: "Produktion / Tillverkningsindustrin",
     subcategories: [
       "Lagerstyrd produktion",
-      "Orderstyrd leverans",
+      "Kundorderstyrd produktion",
       "Projekt- eller konstruktionsdriven leverans",
       "Reglerad eller receptbaserad produktion",
     ],
