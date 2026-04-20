@@ -629,7 +629,7 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.text("BEHOVSANALYS", pageWidth / 2, 120, { align: "center" });
     pdf.setFontSize(16);
     pdf.setFont("helvetica", "normal");
-    pdf.text("Dynamics 365 Customer Service", pageWidth / 2, 133, { align: "center" });
+    pdf.text("Kundservice", pageWidth / 2, 133, { align: "center" });
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(0.5);
     pdf.line(margin + 20, 142, pageWidth - margin - 20, 142);
