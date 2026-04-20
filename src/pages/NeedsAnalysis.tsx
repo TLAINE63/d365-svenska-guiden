@@ -1833,14 +1833,63 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       ["Bransch", data.industry === "Annat" ? data.industryOther : data.industry],
     ]);
 
-    addAppendixSection("Steg 4 - Komplexitet", [
-      ["Juridiska enheter", complexityStructureOptions.legalEntities.find(o => o.value === c.legalEntities)?.label || ""],
-      ["Antal lander", complexityStructureOptions.countries.find(o => o.value === c.countries)?.label || ""],
-      ["Internhandel", complexityStructureOptions.intercompany.find(o => o.value === c.intercompany)?.label || ""],
-      ["Konsolidering", complexityStructureOptions.consolidation.find(o => o.value === c.consolidation)?.label || ""],
-      ["IT-organisation", complexityMaturityOptions.itOrganization.find(o => o.value === c.itOrganization)?.label || ""],
-      ["Integrationer", complexityMaturityOptions.integrationPlatform.find(o => o.value === c.integrationPlatform)?.label || ""],
+    // Helper to look up label across all complexity option groups
+    const cxLabel = (key: keyof ComplexityData): string => {
+      const val = c[key];
+      if (!val) return "";
+      const groups: Record<string, { value: string; label: string }[]> = {
+        ...(complexityStructureOptions as any),
+        ...(complexityMaturityOptions as any),
+        ...(complexityConsultingOptions as any),
+        ...(complexityRetailOptions as any),
+      };
+      return groups[key as string]?.find(o => o.value === val)?.label || val;
+    };
+
+    addAppendixSection("Steg 4 - Komplexitet (struktur)", [
+      ["Juridiska enheter", cxLabel("legalEntities")],
+      ["Antal lander", cxLabel("countries")],
+      ["Internhandel", cxLabel("intercompany")],
+      ["Konsolidering", cxLabel("consolidation")],
     ]);
+
+    addAppendixSection("Steg 4 - Komplexitet (verksamhet)", [
+      ["Produktionstyp", cxLabel("productionType")],
+      ["Lagerstyrning", cxLabel("warehouseManagement")],
+      ["Antal lager", cxLabel("warehouseCount")],
+      ["MRP/APS-behov", cxLabel("mrpAps")],
+      ["Transaktionsvolym", cxLabel("transactionVolume")],
+    ]);
+
+    addAppendixSection("Steg 4 - Komplexitet (IT-mognad)", [
+      ["IT-organisation", cxLabel("itOrganization")],
+      ["Integrationsplattform", cxLabel("integrationPlatform")],
+      ["Governance-mognad", cxLabel("governance")],
+      ["Global standardisering", cxLabel("globalStandardization")],
+    ]);
+
+    // Consulting-specific (only if any value set)
+    const hasConsulting = c.simultaneousProjects || c.projectAccounting || c.globalDelivery || c.billingModels;
+    if (hasConsulting) {
+      addAppendixSection("Steg 4 - Komplexitet (konsult)", [
+        ["Samtidiga projekt", cxLabel("simultaneousProjects")],
+        ["Projektredovisning", cxLabel("projectAccounting")],
+        ["Global leverans", cxLabel("globalDelivery")],
+        ["Faktureringsmodeller", cxLabel("billingModels")],
+      ]);
+    }
+
+    // Retail-specific (only if any value set)
+    const hasRetail = c.storeCount || c.ecommercePlatform || c.posIntegration || c.realtimeInventory || c.campaignPricing;
+    if (hasRetail) {
+      addAppendixSection("Steg 4 - Komplexitet (retail)", [
+        ["Antal butiker", cxLabel("storeCount")],
+        ["E-handelsplattform", cxLabel("ecommercePlatform")],
+        ["POS-integration", cxLabel("posIntegration")],
+        ["Realtidslager", cxLabel("realtimeInventory")],
+        ["Kampanj-/prisstyrning", cxLabel("campaignPricing")],
+      ]);
+    }
 
     addAppendixSection("Steg 5 - Geografi", [
       ["Geografi", data.geography],
@@ -1865,7 +1914,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
 
     addAppendixSection("Steg 7 - Utmaningar & KPI:er", [
       ["Utmaningar", data.challenges.join(", ")],
+      ["Utmaningar (annat)", data.challengesOther || ""],
       ["KPI:er", data.kpis.join(", ")],
+      ["KPI:er (annat)", data.kpisOther || ""],
     ]);
 
     const filledIntegrations = data.integrationSystems.filter(s => s.system.trim());
@@ -1874,9 +1925,18 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     addAppendixSection("Steg 8 - AI & Framtid", [
       ["AI-intresse", data.aiInterest],
       ["AI-anvandningsomraden", data.aiUseCases.join(", ")],
+      ["AI - egna kommentarer", data.aiDetails || ""],
       ["Integrationer", integrationsStr],
-      ["Ovrig information", data.additionalInfo || ""],
     ]);
+
+    // Övriga noteringar (free-text fields)
+    const hasOvrigt = data.wishlist || data.additionalInfo;
+    if (hasOvrigt) {
+      addAppendixSection("Ovriga noteringar", [
+        ["Onskelista", data.wishlist || ""],
+        ["Ovrig information", data.additionalInfo || ""],
+      ]);
+    }
 
     // Footer
     checkPage(40);
