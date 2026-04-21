@@ -6,9 +6,9 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-6 items-start mb-8">
-          {/* Column 1: About */}
-          <div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-x-8 gap-y-8 items-start mb-8">
+          {/* Column 1: About (spans 2 on lg) */}
+          <div className="lg:col-span-2">
             <h3 className="font-semibold text-foreground mb-4">Om d365.se</h3>
             <p className="text-sm text-muted-foreground mb-3">
               Oberoende guide till Microsoft Dynamics 365 - hjälper företag välja rätt affärssystem och partner.
