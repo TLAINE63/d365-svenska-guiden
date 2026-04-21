@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-6 items-start mb-8">
           {/* Column 1: About */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Om d365.se</h3>
@@ -32,7 +32,7 @@ const Footer = () => {
           {/* Column 3: CRM / Marknad & Sälj + Kunskapscenter */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">CRM / Marknad & Sälj</h3>
-            <ul className="space-y-2 text-sm mb-5">
+            <ul className="space-y-2 text-sm mb-4">
               <li><Link to="/crm/" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365-sales/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365-marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
