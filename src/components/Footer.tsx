@@ -60,30 +60,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 5: Guider, Kravspec, AI & Partner */}
+          {/* Column 5: AI & Partner */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Guider & Behovsanalyser</h3>
-            <ul className="space-y-2 text-sm mb-5">
-              <li><Link to="/behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">ERP Behovsanalys</Link></li>
-              <li><Link to="/salj-marknad-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
-              <li><Link to="/kundservice-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Kundservice</Link></li>
-              <li><Link to="/ai-readiness/" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
-              <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Guide: Välj rätt partner</Link></li>
-            </ul>
-
-            <h3 className="font-semibold text-foreground mb-4">Kravspecifikationer</h3>
-            <ul className="space-y-2 text-sm mb-5">
-              <li><Link to="/kravspecifikation/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec ERP</Link></li>
-              <li><Link to="/kravspecifikation-sales/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec Sales</Link></li>
-              <li><Link to="/kravspecifikation-marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec Marketing</Link></li>
-              <li><Link to="/kravspecifikation-kundservice/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec Kundservice</Link></li>
-            </ul>
-
             <h3 className="font-semibold text-foreground mb-4">AI & Partner</h3>
             <ul className="space-y-2 text-sm">
               <li><Link to="/copilot/" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Copilot</Link></li>
               <li><Link to="/agents/" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Agenter</Link></li>
               <li><Link to="/ai-oversikt/" className="text-muted-foreground hover:text-foreground transition-colors">AI Översikt</Link></li>
+              <li><Link to="/ai-readiness/" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
+              <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branschlosningar/" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>
               <li><Link to="/kontakt/" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>
             </ul>
