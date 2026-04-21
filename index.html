@@ -38,7 +38,19 @@
       /* Hero section */
       section{display:block}
       .container{max-width:80rem;margin:0 auto;padding-left:1rem;padding-right:1rem}
-      h1{margin:0;font-weight:600;color:hsla(0,0%,100%,.9)}
+      .mx-auto{margin-left:auto;margin-right:auto}
+      .max-w-5xl{max-width:64rem}
+      .max-w-3xl{max-width:48rem}
+      .text-center{text-align:center}
+      .pt-28{padding-top:7rem}
+      .pb-8{padding-bottom:2rem}
+      .mb-8{margin-bottom:2rem}
+      .relative{position:relative}
+      .px-4{padding-left:1rem;padding-right:1rem}
+      /* Critical H1 styles to eliminate LCP render delay */
+      h1{margin:0;font-weight:600;color:hsla(0,0%,100%,.9);font-size:1.25rem;line-height:1.75rem;letter-spacing:-.025em}
+      @media(min-width:640px){h1{font-size:1.5rem;line-height:2rem}.sm\:pt-28{padding-top:7rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:pb-10{padding-bottom:2.5rem}}
+      @media(min-width:768px){h1{font-size:32px;line-height:1.2}.md\:pt-28{padding-top:7rem}.md\:pb-12{padding-bottom:3rem}.md\:mb-10{margin-bottom:2.5rem}}
       .text-white{color:#fff}
       .text-white\/70{color:hsla(0,0%,100%,.7)}
       /* Grid basics for hero */
