@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-6 items-start mb-8">
           {/* Column 1: About */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Om d365.se</h3>
