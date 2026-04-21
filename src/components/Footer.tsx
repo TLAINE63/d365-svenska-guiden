@@ -68,6 +68,17 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Om d365.se – fullbredd nederst */}
+        <div className="border-t border-border pt-6 mb-8">
+          <h3 className="font-semibold text-foreground mb-3">Om d365.se</h3>
+          <p className="text-sm text-muted-foreground mb-2 max-w-4xl">
+            Oberoende guide till Microsoft Dynamics 365 - hjälper företag välja rätt affärssystem och partner.
+          </p>
+          <p className="text-xs text-muted-foreground italic max-w-4xl">
+            Disclaimer: Information på denna hemsida har ambitionen att ge en neutral bild av marknaden, men utvecklingen går fort och därför är det alltid en god idé att kontrollera senaste nytt i detaljerna.
+          </p>
+        </div>
+
         <div className="border-t border-border pt-8 text-center text-muted-foreground">
           <img src={siteLogo} alt="d365.se logotyp" className="h-10 mx-auto mb-4" />
           <p className="mb-2">© 2025 Dynamic Factory</p>
