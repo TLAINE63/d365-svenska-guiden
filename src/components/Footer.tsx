@@ -40,7 +40,18 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 4: Kunskapscenter */}
+          {/* Column 4: Kundservice */}
+          <div>
+            <h3 className="font-semibold text-foreground mb-4">CRM / Kundservice</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/d365-customer-service/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Service</Link></li>
+              <li><Link to="/d365-field-service/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Field Service</Link></li>
+              <li><Link to="/d365-contact-center/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Contact Center</Link></li>
+              <li><Link to="/kundservice-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Kundservice</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 5: Kunskapscenter */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Kunskapscenter</h3>
             <ul className="space-y-2 text-sm">
@@ -49,17 +60,6 @@ const Footer = () => {
               <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Guider & Behovsanalyser</Link></li>
               <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspecifikationer</Link></li>
               <li><Link to="/qa/" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 4: Kundservice */}
-          <div>
-            <h3 className="font-semibold text-foreground mb-4">Kundservice</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/d365-customer-service/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Service</Link></li>
-              <li><Link to="/d365-field-service/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Field Service</Link></li>
-              <li><Link to="/d365-contact-center/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Contact Center</Link></li>
-              <li><Link to="/kundservice-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Kundservice</Link></li>
             </ul>
           </div>
 
