@@ -43,6 +43,8 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Produktfördjupningar (Q&A)</Link></li>
               <li><Link to="/events/" className="text-muted-foreground hover:text-foreground transition-colors">Events & Webinars</Link></li>
+              <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Guider & Behovsanalyser</Link></li>
+              <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspecifikationer</Link></li>
               <li><Link to="/qa/" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
             </ul>
           </div>
