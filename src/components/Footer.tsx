@@ -6,17 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-card border-t border-border py-12">
       <div className="container mx-auto px-4">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-x-8 gap-y-8 items-start mb-8">
-          {/* Column 1: About (spans 2 on lg) */}
-          <div className="lg:col-span-2">
-            <h3 className="font-semibold text-foreground mb-4">Om d365.se</h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              Oberoende guide till Microsoft Dynamics 365 - hjälper företag välja rätt affärssystem och partner.
-            </p>
-            <p className="text-xs text-muted-foreground italic">
-              Disclaimer: Information på denna hemsida har ambitionen att ge en neutral bild av marknaden, men utvecklingen går fort och därför är det alltid en god idé att kontrollera senaste nytt i detaljerna.
-            </p>
-          </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-8 items-start mb-8">
 
           {/* Column 2: ERP */}
           <div>
@@ -76,6 +66,17 @@ const Footer = () => {
               <li><Link to="/kontakt/" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>
             </ul>
           </div>
+        </div>
+
+        {/* Om d365.se – fullbredd nederst */}
+        <div className="border-t border-border pt-6 mb-8">
+          <h3 className="font-semibold text-foreground mb-3">Om d365.se</h3>
+          <p className="text-sm text-muted-foreground mb-2 max-w-4xl">
+            Oberoende guide till Microsoft Dynamics 365 - hjälper företag välja rätt affärssystem och partner.
+          </p>
+          <p className="text-xs text-muted-foreground italic max-w-4xl">
+            Disclaimer: Information på denna hemsida har ambitionen att ge en neutral bild av marknaden, men utvecklingen går fort och därför är det alltid en god idé att kontrollera senaste nytt i detaljerna.
+          </p>
         </div>
 
         <div className="border-t border-border pt-8 text-center text-muted-foreground">
