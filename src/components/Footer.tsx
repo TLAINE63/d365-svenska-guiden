@@ -29,14 +29,21 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: CRM / Marknad & Sälj */}
+          {/* Column 3: CRM / Marknad & Sälj + Kunskapscenter */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">CRM / Marknad & Sälj</h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 text-sm mb-5">
               <li><Link to="/crm/" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365-sales/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365-marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
               <li><Link to="/salj-marknad-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
+            </ul>
+
+            <h3 className="font-semibold text-foreground mb-4">Kunskapscenter</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Produktfördjupningar (Q&A)</Link></li>
+              <li><Link to="/events/" className="text-muted-foreground hover:text-foreground transition-colors">Events & Webinars</Link></li>
+              <li><Link to="/qa/" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
             </ul>
           </div>
 
@@ -51,26 +58,23 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 5: Kunskapscenter & AI */}
+          {/* Column 5: Guider, Kravspec, AI & Partner */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Kunskapscenter</h3>
+            <h3 className="font-semibold text-foreground mb-4">Guider & Behovsanalyser</h3>
             <ul className="space-y-2 text-sm mb-5">
-              <li>
-                <Link to="/kunskapscenter/" className="text-foreground font-medium hover:text-primary transition-colors">
-                  Kunskapscenter – översikt
-                </Link>
-              </li>
-              <li>
-                <Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Produktfördjupningar (Q&A)
-                </Link>
-              </li>
-              <li>
-                <Link to="/events/" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Events & Webinars
-                </Link>
-              </li>
-              <li><Link to="/qa/" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
+              <li><Link to="/behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">ERP Behovsanalys</Link></li>
+              <li><Link to="/salj-marknad-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
+              <li><Link to="/kundservice-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Kundservice</Link></li>
+              <li><Link to="/ai-readiness/" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
+              <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Guide: Välj rätt partner</Link></li>
+            </ul>
+
+            <h3 className="font-semibold text-foreground mb-4">Kravspecifikationer</h3>
+            <ul className="space-y-2 text-sm mb-5">
+              <li><Link to="/kravspecifikation/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec ERP</Link></li>
+              <li><Link to="/kravspecifikation-sales/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec Sales</Link></li>
+              <li><Link to="/kravspecifikation-marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec Marketing</Link></li>
+              <li><Link to="/kravspecifikation-kundservice/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspec Kundservice</Link></li>
             </ul>
 
             <h3 className="font-semibold text-foreground mb-4">AI & Partner</h3>
@@ -78,8 +82,6 @@ const Footer = () => {
               <li><Link to="/copilot/" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Copilot</Link></li>
               <li><Link to="/agents/" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Agenter</Link></li>
               <li><Link to="/ai-oversikt/" className="text-muted-foreground hover:text-foreground transition-colors">AI Översikt</Link></li>
-              <li><Link to="/ai-readiness/" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
-              <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branschlosningar/" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>
               <li><Link to="/kontakt/" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>
             </ul>
