@@ -29,16 +29,19 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3: CRM / Marknad & Sälj + Kunskapscenter */}
+          {/* Column 3: CRM / Marknad & Sälj */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">CRM / Marknad & Sälj</h3>
-            <ul className="space-y-2 text-sm mb-4">
+            <ul className="space-y-2 text-sm">
               <li><Link to="/crm/" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365-sales/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365-marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
               <li><Link to="/salj-marknad-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
             </ul>
+          </div>
 
+          {/* Column 4: Kunskapscenter */}
+          <div>
             <h3 className="font-semibold text-foreground mb-4">Kunskapscenter</h3>
             <ul className="space-y-2 text-sm">
               <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Produktfördjupningar (Q&A)</Link></li>
