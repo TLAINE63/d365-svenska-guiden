@@ -32,7 +32,7 @@ const Footer = () => {
           {/* Column 3: CRM / Marknad & Sälj + Kunskapscenter */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">CRM / Marknad & Sälj</h3>
-            <ul className="space-y-2 text-sm mb-5">
+            <ul className="space-y-2 text-sm mb-4">
               <li><Link to="/crm/" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365-sales/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365-marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
