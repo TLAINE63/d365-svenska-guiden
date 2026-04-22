@@ -35,6 +35,26 @@ interface Partner {
   agreement_notes?: string | null;
   monthly_fee?: number | null;
   cancellation_date?: string | null;
+  product_filters?: any;
+}
+
+// Same pricing logic as the AdminDashboard partner form
+const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 1990, 2: 3490, 3: 4490 };
+function computeMonthlyFee(p: Partner): number {
+  // Manual override wins
+  if (Number(p.monthly_fee) > 0) return Number(p.monthly_fee);
+  const pf = p.product_filters || {};
+  const hasIndustries = (key: string) =>
+    Array.isArray(pf?.[key]?.industries) && pf[key].industries.length > 0;
+  const bc = hasIndustries("bc");
+  const fsc = hasIndustries("fsc");
+  const sales = hasIndustries("sales");
+  const service = hasIndustries("service");
+  let active = 0;
+  if (bc) active++;
+  if (fsc) active++;
+  if (sales || service) active++; // Sales + Service bundle as 1
+  return PRICE_TIERS[Math.min(active, 3)] ?? 4490;
 }
 
 interface AdminAgreementTabProps {
@@ -449,10 +469,10 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     (p) => !p.cancellation_date || p.cancellation_date >= today
   );
   const totalMonthlyRevenue = activeSigned.reduce(
-    (sum, p) => sum + (Number(p.monthly_fee) || 0),
+    (sum, p) => sum + computeMonthlyFee(p),
     0
   );
-  const partnersWithoutFee = activeSigned.filter((p) => !(Number(p.monthly_fee) > 0));
+  const partnersWithoutFee = activeSigned.filter((p) => computeMonthlyFee(p) === 0);
   const partnersWithFee = activeSigned.length - partnersWithoutFee.length;
   const formatSEK = (n: number) =>
     new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(n);
@@ -509,7 +529,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                 ))}
               </ul>
               <p className="mt-2 text-amber-800/80">
-                Öppna partnern i listan och fyll i fältet "Månadsavgift (SEK)" för att inkludera den i intäktssummeringen.
+                Dessa partners saknar både produktområden och en manuellt satt månadsavgift. Lägg till produktområden eller fyll i "Månadsavgift (SEK)" på partnerns admin-formulär.
               </p>
             </div>
           )}
