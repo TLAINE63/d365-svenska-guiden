@@ -92,6 +92,8 @@ export interface DatabasePartner {
   admin_notes: string | null;
   admin_contact_name: string | null;
   admin_contact_email: string | null;
+  agreement_signed?: boolean | null;
+  agreement_notes?: string | null;
   youtube_video_id?: string | null;
 }
 
@@ -122,6 +124,8 @@ export interface PartnerInput {
   admin_notes?: string;
   admin_contact_name?: string;
   admin_contact_email?: string;
+  agreement_signed?: boolean;
+  agreement_notes?: string;
   office_cities?: string[];
   map_url?: string;
   youtube_video_id?: string;
