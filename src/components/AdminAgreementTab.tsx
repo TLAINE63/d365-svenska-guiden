@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, Send, CheckCircle2, Mail, Eye, EyeOff, Search } from "lucide-react";
+import { FileText, Send, CheckCircle2, Mail, Eye, EyeOff, Search, Award } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 // Maps template_name in email_send_log to the badge shown next to each partner
@@ -31,6 +31,8 @@ interface Partner {
   activation_date: string | null;
   applications: string[] | null;
   is_featured: boolean | null;
+  agreement_signed?: boolean | null;
+  agreement_notes?: string | null;
 }
 
 interface AdminAgreementTabProps {
@@ -546,6 +548,15 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                             {partner.activation_date && (
                               <Badge variant="outline" className="text-xs shrink-0">
                                 Start: {partner.activation_date}
+                              </Badge>
+                            )}
+                            {partner.agreement_signed && (
+                              <Badge
+                                className="text-xs shrink-0 bg-emerald-700 hover:bg-emerald-800 text-white"
+                                title={partner.agreement_notes || "Avtal tecknat"}
+                              >
+                                <Award className="h-3 w-3 mr-1" />
+                                Avtal tecknat
                               </Badge>
                             )}
                             {sentBadges.map((b) => (
