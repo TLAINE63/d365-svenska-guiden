@@ -33,6 +33,8 @@ interface Partner {
   is_featured: boolean | null;
   agreement_signed?: boolean | null;
   agreement_notes?: string | null;
+  monthly_fee?: number | null;
+  cancellation_date?: string | null;
 }
 
 interface AdminAgreementTabProps {
@@ -440,6 +442,20 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     }
   };
 
+  // Revenue summary: only partners with signed agreements (active = no past cancellation date)
+  const today = new Date().toISOString().slice(0, 10);
+  const signedPartners = partners.filter((p) => p.agreement_signed);
+  const activeSigned = signedPartners.filter(
+    (p) => !p.cancellation_date || p.cancellation_date >= today
+  );
+  const totalMonthlyRevenue = activeSigned.reduce(
+    (sum, p) => sum + (Number(p.monthly_fee) || 0),
+    0
+  );
+  const partnersWithFee = activeSigned.filter((p) => Number(p.monthly_fee) > 0).length;
+  const formatSEK = (n: number) =>
+    new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(n);
+
   return (
     <div className="space-y-6">
       <div>
@@ -451,6 +467,38 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
           Markera valfria partners (publicerade eller ej) och välj vilken mall som ska skickas.
         </p>
       </div>
+
+      {/* ===== Revenue summary (signed agreements only) ===== */}
+      <Card className="border-emerald-200 bg-emerald-50/40">
+        <CardContent className="pt-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="rounded-full bg-emerald-100 p-2.5">
+                <Award className="h-5 w-5 text-emerald-700" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-emerald-900">
+                  Total månadsintäkt – partners med tecknat avtal
+                </p>
+                <p className="text-xs text-emerald-700/80">
+                  {activeSigned.length} aktiva avtal
+                  {partnersWithFee < activeSigned.length && (
+                    <> · {activeSigned.length - partnersWithFee} utan satt månadsavgift</>
+                  )}
+                </p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-2xl font-bold text-emerald-900">
+                {formatSEK(totalMonthlyRevenue)} kr<span className="text-sm font-normal text-emerald-700/80">/mån</span>
+              </p>
+              <p className="text-xs text-emerald-700/80">
+                ≈ {formatSEK(totalMonthlyRevenue * 12)} kr/år
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* ===== STEP 1: Select recipient(s) ===== */}
       <Card>
