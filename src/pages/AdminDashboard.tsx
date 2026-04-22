@@ -156,6 +156,8 @@ interface FullPartner extends DatabasePartner {
   admin_notes: string | null;
   admin_contact_name: string | null;
   admin_contact_email: string | null;
+  agreement_signed?: boolean | null;
+  agreement_notes?: string | null;
   invoice_email: string | null;
   invoice_contact: string | null;
   org_number: string | null;
@@ -327,6 +329,8 @@ const AdminDashboard = () => {
     admin_notes?: string;
     admin_contact_name?: string;
     admin_contact_email?: string;
+    agreement_signed?: boolean;
+    agreement_notes?: string;
     invoice_email?: string;
     invoice_contact?: string;
     org_number?: string;
@@ -357,6 +361,8 @@ const AdminDashboard = () => {
     admin_notes: "",
     admin_contact_name: "",
     admin_contact_email: "",
+    agreement_signed: false,
+    agreement_notes: "",
     invoice_email: "",
     invoice_contact: "",
     org_number: "",
@@ -860,6 +866,8 @@ const AdminDashboard = () => {
       admin_notes: "",
       admin_contact_name: "",
       admin_contact_email: "",
+      agreement_signed: false,
+      agreement_notes: "",
       invoice_email: "",
       invoice_contact: "",
       org_number: "",
@@ -939,6 +947,8 @@ const AdminDashboard = () => {
       admin_notes: partner.admin_notes || "",
       admin_contact_name: (partner as any).admin_contact_name || "",
       admin_contact_email: (partner as any).admin_contact_email || "",
+      agreement_signed: (partner as any).agreement_signed || false,
+      agreement_notes: (partner as any).agreement_notes || "",
       invoice_email: (partner as any).invoice_email || "",
       invoice_contact: (partner as any).invoice_contact || "",
       org_number: (partner as any).org_number || "",
@@ -2017,6 +2027,15 @@ const AdminDashboard = () => {
                               {partner.is_featured && (
                                 <Badge className="text-xs bg-emerald-600 hover:bg-emerald-700 text-white">✓ Publicerad</Badge>
                               )}
+                              {(partner as any).agreement_signed && (
+                                <Badge
+                                  className="text-xs bg-emerald-700 hover:bg-emerald-800 text-white"
+                                  title={(partner as any).agreement_notes || "Avtal tecknat"}
+                                >
+                                  <Award className="h-3 w-3 mr-1" />
+                                  Avtal tecknat
+                                </Badge>
+                              )}
                               {openInvitations[partner.id] && (
                                 <Badge variant="outline" className="text-xs border-amber-500 text-amber-700 dark:text-amber-400" title={openInvitations[partner.id].email}>
                                   <MailPlus className="h-3 w-3 mr-1" />
@@ -2929,6 +2948,35 @@ const AdminDashboard = () => {
                     rows={3}
                     placeholder="Interna anteckningar som inte visas publikt..."
                   />
+                </div>
+
+                <div className="rounded-lg border border-emerald-200 dark:border-emerald-900 bg-emerald-50/50 dark:bg-emerald-950/20 p-4 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      id="agreement_signed"
+                      checked={!!partnerFormData.agreement_signed}
+                      onCheckedChange={(checked) =>
+                        setPartnerFormData({ ...partnerFormData, agreement_signed: !!checked })
+                      }
+                    />
+                    <Label htmlFor="agreement_signed" className="font-medium cursor-pointer flex items-center gap-2">
+                      <Award className="h-4 w-4 text-emerald-600" />
+                      Avtal tecknat med partner
+                    </Label>
+                  </div>
+                  <div>
+                    <Label htmlFor="agreement_notes" className="text-sm">Intern kommentar om avtalet</Label>
+                    <Textarea
+                      id="agreement_notes"
+                      value={partnerFormData.agreement_notes || ""}
+                      onChange={(e) =>
+                        setPartnerFormData({ ...partnerFormData, agreement_notes: e.target.value })
+                      }
+                      rows={2}
+                      placeholder="T.ex. Avtalet gäller i 6 månader, särskilda villkor, förlängningsdatum..."
+                      className="mt-1"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-2">

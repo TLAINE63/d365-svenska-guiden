@@ -141,6 +141,8 @@ interface PartnerData {
   monthly_fee?: number;
   cancellation_date?: string;
   admin_notes?: string;
+  agreement_signed?: boolean;
+  agreement_notes?: string;
   admin_contact_name?: string;
   admin_contact_email?: string;
   invoice_email?: string;
@@ -272,6 +274,8 @@ serve(async (req: Request): Promise<Response> => {
             monthly_fee: partner.monthly_fee || null,
             cancellation_date: partner.cancellation_date || null,
             admin_notes: partner.admin_notes?.trim() || null,
+            agreement_signed: partner.agreement_signed || false,
+            agreement_notes: partner.agreement_notes?.trim() || null,
             admin_contact_name: partner.admin_contact_name?.trim() || null,
             admin_contact_email: partner.admin_contact_email?.trim() || null,
             invoice_email: partner.invoice_email?.trim() || null,
@@ -333,6 +337,8 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.monthly_fee !== undefined) updateData.monthly_fee = partner.monthly_fee || null;
         if (partner?.cancellation_date !== undefined) updateData.cancellation_date = partner.cancellation_date || null;
         if (partner?.admin_notes !== undefined) updateData.admin_notes = partner.admin_notes?.trim() || null;
+        if (partner?.agreement_signed !== undefined) updateData.agreement_signed = partner.agreement_signed;
+        if (partner?.agreement_notes !== undefined) updateData.agreement_notes = partner.agreement_notes?.trim() || null;
         if (partner?.admin_contact_name !== undefined) updateData.admin_contact_name = partner.admin_contact_name?.trim() || null;
         if (partner?.admin_contact_email !== undefined) updateData.admin_contact_email = partner.admin_contact_email?.trim() || null;
         if (partner?.invoice_email !== undefined) updateData.invoice_email = partner.invoice_email?.trim() || null;
