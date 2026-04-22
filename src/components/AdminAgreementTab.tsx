@@ -33,6 +33,8 @@ interface Partner {
   is_featured: boolean | null;
   agreement_signed?: boolean | null;
   agreement_notes?: string | null;
+  monthly_fee?: number | null;
+  cancellation_date?: string | null;
 }
 
 interface AdminAgreementTabProps {
