@@ -498,6 +498,21 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
               </p>
             </div>
           </div>
+          {partnersWithoutFee.length > 0 && (
+            <div className="mt-4 rounded-md border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
+              <p className="font-medium mb-1">
+                Saknar månadsavgift ({partnersWithoutFee.length}) – ingår inte i summan:
+              </p>
+              <ul className="list-disc pl-5 space-y-0.5">
+                {partnersWithoutFee.map((p) => (
+                  <li key={p.id}>{p.name}</li>
+                ))}
+              </ul>
+              <p className="mt-2 text-amber-800/80">
+                Öppna partnern i listan och fyll i fältet "Månadsavgift (SEK)" för att inkludera den i intäktssummeringen.
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
 
