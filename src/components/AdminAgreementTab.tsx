@@ -469,10 +469,10 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     (p) => !p.cancellation_date || p.cancellation_date >= today
   );
   const totalMonthlyRevenue = activeSigned.reduce(
-    (sum, p) => sum + (Number(p.monthly_fee) || 0),
+    (sum, p) => sum + computeMonthlyFee(p),
     0
   );
-  const partnersWithoutFee = activeSigned.filter((p) => !(Number(p.monthly_fee) > 0));
+  const partnersWithoutFee = activeSigned.filter((p) => computeMonthlyFee(p) === 0);
   const partnersWithFee = activeSigned.length - partnersWithoutFee.length;
   const formatSEK = (n: number) =>
     new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(n);
