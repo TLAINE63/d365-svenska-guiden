@@ -245,7 +245,7 @@ const AdminDashboard = () => {
   const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
   const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
-  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited'>('all');
+  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed'>('all');
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
@@ -1882,6 +1882,15 @@ const AdminDashboard = () => {
                 >
                   Ej inbjudna ({fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length})
                 </Button>
+                <Button
+                  variant={partnerStatusFilter === 'agreement_signed' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('agreement_signed')}
+                  className={partnerStatusFilter === 'agreement_signed' ? 'bg-emerald-700 hover:bg-emerald-800 text-white' : ''}
+                >
+                  <Award className="h-3 w-3 mr-1" />
+                  Avtal tecknat ({fullPartners.filter(p => (p as any).agreement_signed).length})
+                </Button>
                 <Separator orientation="vertical" className="h-6 mx-1" />
                 <span className="text-xs text-muted-foreground">Sortera:</span>
                 <Button
@@ -1932,6 +1941,7 @@ const AdminDashboard = () => {
                     if (partnerStatusFilter === 'published') return p.is_featured;
                     if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
+                    if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
                     return true;
                   });
                   const selectable = filtered;
@@ -1978,6 +1988,7 @@ const AdminDashboard = () => {
                     if (partnerStatusFilter === 'published') return p.is_featured;
                     if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
+                    if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
                     return true;
                   })
                   .sort((a, b) => {
