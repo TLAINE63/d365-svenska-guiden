@@ -529,7 +529,7 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
                 ))}
               </ul>
               <p className="mt-2 text-amber-800/80">
-                Öppna partnern i listan och fyll i fältet "Månadsavgift (SEK)" för att inkludera den i intäktssummeringen.
+                Dessa partners saknar både produktområden och en manuellt satt månadsavgift. Lägg till produktområden eller fyll i "Månadsavgift (SEK)" på partnerns admin-formulär.
               </p>
             </div>
           )}
