@@ -452,7 +452,8 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     (sum, p) => sum + (Number(p.monthly_fee) || 0),
     0
   );
-  const partnersWithFee = activeSigned.filter((p) => Number(p.monthly_fee) > 0).length;
+  const partnersWithoutFee = activeSigned.filter((p) => !(Number(p.monthly_fee) > 0));
+  const partnersWithFee = activeSigned.length - partnersWithoutFee.length;
   const formatSEK = (n: number) =>
     new Intl.NumberFormat("sv-SE", { maximumFractionDigits: 0 }).format(n);
 
