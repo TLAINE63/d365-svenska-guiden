@@ -19,4 +19,5 @@ Implementeras i:
 ## Rangordning (mjuka vikter)
 1. **Bransch (40%)** – ALLTID högst.
 2. **Produkt (30% vald, 20% Alla)** – näst viktigast.
-3. Övrigt (geografi, kundexempel, storleksbonus max 10%, AI-kompetens, lokal närvaro, plattform) – endast tiebreakers mellan partners likvärdiga på bransch + produkt.
+3. **Nischfokus-bonus (+5-8p)** – Partners som listat ENDAST 1 bransch för produkten OCH den matchar kundens bransch får extra bonus i AI-rankingen (de är extremt specialiserade). 2-3 branscher = liten bonus, >5 = ingen bonus. Implementeras i `match-partners` edge function via `Branschfokus-bredd`-signal.
+4. Övrigt (geografi, kundexempel, storleksbonus max 10%, AI-kompetens, lokal närvaro, plattform) – endast tiebreakers mellan partners likvärdiga på bransch + produkt.
