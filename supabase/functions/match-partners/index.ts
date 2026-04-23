@@ -118,8 +118,12 @@ Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'
 Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${targetAudienceLine}${aiSummary}`;
     }).join('\n\n---\n\n');
 
-    const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner. 
-Du ska analysera partnerbeskrivningar och matcha dem mot kundens specifika behov.
+    const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.
+Du ska analysera partnerbeskrivningar och RANGORDNA dem mot kundens specifika behov.
+
+VIKTIGT – HÅRDA FILTER REDAN APPLICERADE:
+Alla partners som skickas till dig har REDAN passerat hårda filter på produkt och (om angiven) bransch och geografi. Du ska RANGORDNA samtliga partners som skickas – aldrig exkludera någon från resultatet och aldrig ge en partner score 0 enbart för att branschmatchen är svag. Alla partners i listan ska få ett ID i din "matches"-array.
+
 Svara ALLTID med giltig JSON i exakt det format som anges. Inga extra kommentarer.`;
 
     const userPrompt = `Analysera dessa ${partners.length} Dynamics 365-partners och ranka dem efter hur väl de matchar kundens behov.
