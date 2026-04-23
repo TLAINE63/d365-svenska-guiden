@@ -152,9 +152,9 @@ INSTRUKTIONER:
    - Bred Dynamics 365-kompetens (bonuspoäng, 5%): Kunden är även intresserad av ${criteria.additionalApps.join(', ')}.` : ''}${(criteria.companySize || criteria.revenue) ? `
    - Målgruppsmatch (bonuspoäng, upp till 10%): Varje partner har en "Målgrupp"-rad. Ge +5% bonus om partnerns målgrupp för anställda innehåller kundens "${criteria.companySize || ''}" och +5% bonus om målgruppen för omsättning innehåller kundens "${criteria.revenue || ''}". VIKTIGT: Om partnern angett FLER ÄN 3 värden i en dimension räknas det som "för generellt" – ge då bara 40% av bonusen för den dimensionen (≈2% istället för 5%). Saknar partnern angiven målgrupp eller matchar inte – 0 poäng (neutralt, inget avdrag). Detta är en mjuk signal, ALDRIG hård filtrering, och ALDRIG viktigare än bransch eller produkt.` : ''}
 ${criteria.preferCrmOnly ? `
-2. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
+3. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
 ` : ''}
-${criteria.preferCrmOnly ? '3.' : '2.'} Skriv en kort motivering på svenska (max 15 ord) per partner som förklarar varför de matchar eller inte.
+${criteria.preferCrmOnly ? '4.' : '3.'} Skriv en kort motivering på svenska (max 15 ord) per partner som förklarar varför de matchar eller inte.
 
 Svara med JSON i EXAKT detta format (inga andra fält):
 {
