@@ -79,7 +79,7 @@ Deno.serve(async (req) => {
       const pfIndustries = allPfIndustries.slice(0, 5).join(', ') || '';
       const industryFocusCount = allPfIndustries.length;
       const industryFocusLine = industryFocusCount > 0
-        ? `\nBranschfokus-bredd för ${criteria.application}: ${industryFocusCount} bransch${industryFocusCount === 1 ? ' (mycket nischad/fokuserad)' : industryFocusCount <= 3 ? 'er (fokuserad)' : 'er (bred)'}`
+        ? `\nBranschfokus-bredd för ${criteria.application}: ${industryFocusCount} bransch${industryFocusCount === 1 ? ' (extremt nischad — endast 1 bransch vald, max är 3)' : industryFocusCount === 2 ? 'er (fokuserad — 2 av max 3)' : 'er (bred profil — alla 3 möjliga branscher valda)'}`
         : '';
       
       // AI capability summary
@@ -146,7 +146,7 @@ INSTRUKTIONER:
 1. RANGORDNINGSPRIORITET (viktigast först — denna ordning är ALLTID giltig):
    a) BRANSCH är ALLTID den viktigaste faktorn. En partner med dokumenterad erfarenhet i kundens bransch ("${criteria.industry || 'Ej specificerat'}") ska ALLTID rankas högre än en partner utan branschfokus, även om den senare har starkare övrig profil. Branschmatch baseras på partnerns "Branschfokus för ${criteria.application}" och kundexempel.
    b) PRODUKT är näst viktigast${criteria.application && criteria.application !== 'Alla' ? ` (kunden har valt ${criteria.application})` : ' när kunden valt en specifik applikation'}. En partner med tydlig specialisering på den valda applikationen ska rankas högre än en partner med svagare/bredare produktfokus. Använd produktbeskrivning, AI-kompetens för produkten och kundexempel som signaler.
-   c) NISCHFOKUS-BONUS: Om en partner har angett ENDAST 1 bransch för ${criteria.application} (se "Branschfokus-bredd") OCH den branschen matchar kundens bransch ("${criteria.industry || 'Ej specificerat'}"), ge +5-8 extra poäng — de är extremt fokuserade och därmed en starkare match. Partners med 2-3 branscher som matchar får mindre nischbonus (+2-3). Partners med många branscher (>5) får ingen nischbonus.
+   c) NISCHFOKUS-BONUS (max 3 branscher per produkt är möjligt): Om en partner har angett ENDAST 1 bransch för ${criteria.application} (se "Branschfokus-bredd") OCH den branschen matchar kundens bransch ("${criteria.industry || 'Ej specificerat'}"), ge +6-10 extra poäng — de är extremt fokuserade och därmed en mycket starkare match. Partners med 2 matchande branscher får +3-5. Partners med 3 branscher (max) som matchar får +1-2 (bredare profil).
    d) Övriga faktorer (geografi, storlek, AI-intresse, plattform, lokal närvaro etc.) är mindre viktiga och används endast för att finjustera rankingen MELLAN partners som är likvärdiga på bransch och produkt.
 
 2. Ge varje partner ett matchningspoäng 0-100 enligt följande viktning:

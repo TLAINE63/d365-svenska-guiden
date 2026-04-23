@@ -1,6 +1,6 @@
 ---
 name: Partner ranking priority order
-description: Bransch ALLTID viktigaste rankingfaktorn (40%), Produkt näst viktigast (30% när vald). Övriga faktorer endast som tiebreakers. Produkt + bransch är dessutom HÅRDA filter över hela sajten – relaxas aldrig.
+description: Bransch ALLTID viktigaste rankingfaktorn (40%), Produkt näst viktigast (30% när vald). Övriga faktorer endast som tiebreakers. Produkt + bransch är dessutom HÅRDA filter över hela sajten – relaxas aldrig. Max 3 branscher per produkt.
 type: feature
 ---
 
@@ -19,5 +19,9 @@ Implementeras i:
 ## Rangordning (mjuka vikter)
 1. **Bransch (40%)** – ALLTID högst.
 2. **Produkt (30% vald, 20% Alla)** – näst viktigast.
-3. **Nischfokus-bonus (+5-8p)** – Partners som listat ENDAST 1 bransch för produkten OCH den matchar kundens bransch får extra bonus i AI-rankingen (de är extremt specialiserade). 2-3 branscher = liten bonus, >5 = ingen bonus. Implementeras i `match-partners` edge function via `Branschfokus-bredd`-signal.
+3. **Nischfokus-bonus** – Max 3 branscher per produkt kan väljas. Bonus i AI-rankingen om kundens bransch matchar:
+   - 1 bransch vald (extremt nischad): +6-10 poäng
+   - 2 branscher (fokuserad): +3-5 poäng
+   - 3 branscher (max/bred): +1-2 poäng
+   Implementeras i `match-partners` edge function via `Branschfokus-bredd`-signal.
 4. Övrigt (geografi, kundexempel, storleksbonus max 10%, AI-kompetens, lokal närvaro, plattform) – endast tiebreakers mellan partners likvärdiga på bransch + produkt.
