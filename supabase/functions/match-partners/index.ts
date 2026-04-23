@@ -75,7 +75,12 @@ Deno.serve(async (req) => {
       const productFilter = p.product_filters?.[criteria.productKey];
       const productDesc = productFilter?.productDescription || '';
       const customerExamples = productFilter?.customerExamples?.slice(0, 3).join(', ') || '';
-      const pfIndustries = productFilter?.industries?.slice(0, 5).join(', ') || '';
+      const allPfIndustries = productFilter?.industries || [];
+      const pfIndustries = allPfIndustries.slice(0, 5).join(', ') || '';
+      const industryFocusCount = allPfIndustries.length;
+      const industryFocusLine = industryFocusCount > 0
+        ? `\nBranschfokus-bredd för ${criteria.application}: ${industryFocusCount} bransch${industryFocusCount === 1 ? ' (mycket nischad/fokuserad)' : industryFocusCount <= 3 ? 'er (fokuserad)' : 'er (bred)'}`
+        : '';
       
       // AI capability summary
       const aiCaps = productFilter?.aiCapabilities || [];
@@ -115,7 +120,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${targetAudienceLine}${aiSummary}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${industryFocusLine}${targetAudienceLine}${aiSummary}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.
@@ -141,7 +146,8 @@ INSTRUKTIONER:
 1. RANGORDNINGSPRIORITET (viktigast först — denna ordning är ALLTID giltig):
    a) BRANSCH är ALLTID den viktigaste faktorn. En partner med dokumenterad erfarenhet i kundens bransch ("${criteria.industry || 'Ej specificerat'}") ska ALLTID rankas högre än en partner utan branschfokus, även om den senare har starkare övrig profil. Branschmatch baseras på partnerns "Branschfokus för ${criteria.application}" och kundexempel.
    b) PRODUKT är näst viktigast${criteria.application && criteria.application !== 'Alla' ? ` (kunden har valt ${criteria.application})` : ' när kunden valt en specifik applikation'}. En partner med tydlig specialisering på den valda applikationen ska rankas högre än en partner med svagare/bredare produktfokus. Använd produktbeskrivning, AI-kompetens för produkten och kundexempel som signaler.
-   c) Övriga faktorer (geografi, storlek, AI-intresse, plattform, lokal närvaro etc.) är mindre viktiga och används endast för att finjustera rankingen MELLAN partners som är likvärdiga på bransch och produkt.
+   c) NISCHFOKUS-BONUS: Om en partner har angett ENDAST 1 bransch för ${criteria.application} (se "Branschfokus-bredd") OCH den branschen matchar kundens bransch ("${criteria.industry || 'Ej specificerat'}"), ge +5-8 extra poäng — de är extremt fokuserade och därmed en starkare match. Partners med 2-3 branscher som matchar får mindre nischbonus (+2-3). Partners med många branscher (>5) får ingen nischbonus.
+   d) Övriga faktorer (geografi, storlek, AI-intresse, plattform, lokal närvaro etc.) är mindre viktiga och används endast för att finjustera rankingen MELLAN partners som är likvärdiga på bransch och produkt.
 
 2. Ge varje partner ett matchningspoäng 0-100 enligt följande viktning:
    - Branscherfarenhet (40%) — HÖGSTA PRIO. Stark match = +30-40, bred branschtäckning = +20-30, ingen branschmatch men relevant erfarenhet = +5-15, ingen matchning alls = 0-5.
