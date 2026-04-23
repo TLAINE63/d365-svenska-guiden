@@ -333,7 +333,7 @@ const Index = () => {
 
             <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-7">
               <div className="flex-1">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(var(--cta-orange))]/15 border border-[hsl(var(--cta-orange))]/30 text-[11px] font-semibold uppercase tracking-wider text-[hsl(var(--cta-orange))] mb-4">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))] text-[11px] font-bold uppercase tracking-wider text-white shadow-md mb-4">
                   <Sparkles className="w-3 h-3" />
                   Personlig partnermatchning
                 </div>
@@ -390,7 +390,7 @@ const Index = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.06),transparent_60%)] pointer-events-none" />
 
             <div className="relative">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 border border-primary/30 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))] text-[11px] font-bold uppercase tracking-wider text-white shadow-md mb-4">
                 <Check className="w-3 h-3" />
                 Kostnadsfri kravspecifikation
               </div>
