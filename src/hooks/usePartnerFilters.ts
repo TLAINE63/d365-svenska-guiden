@@ -187,13 +187,35 @@ export const filterAndSortPartners = (
     )
   );
   
+  // Two-tier ranking when size/revenue is specified: partners whose stated target
+  // audience matches the customer go first (slumpat inom gruppen), partners with no
+  // bonus go after. Partners with empty target audience get 0 bonus = neutral position.
+  const hasSizeSignal = !!selectedCompanySize || !!selectedRevenue;
+
   if (randomize) {
+    if (hasSizeSignal) {
+      const withBonus: DatabasePartner[] = [];
+      const withoutBonus: DatabasePartner[] = [];
+      result.forEach(p => {
+        const bonus = getSizeMatchBonus(p, product, selectedCompanySize, selectedRevenue);
+        if (bonus > 0) withBonus.push(p);
+        else withoutBonus.push(p);
+      });
+      const seed = getSessionSeed();
+      return [
+        ...seededShuffle(withBonus, seed),
+        ...seededShuffle(withoutBonus, seed + 1),
+      ];
+    }
     // Shuffle with session-stable seed for fair exposure
     return seededShuffle(result, getSessionSeed());
   }
   
-  // Fallback: Sort by product ranking, then alphabetically
+  // Fallback: Sort by size-bonus DESC, then product ranking, then alphabetically
   return result.sort((a, b) => {
+    const bonusA = getSizeMatchBonus(a, product, selectedCompanySize, selectedRevenue);
+    const bonusB = getSizeMatchBonus(b, product, selectedCompanySize, selectedRevenue);
+    if (bonusA !== bonusB) return bonusB - bonusA;
     const rankA = getDatabaseProductRanking(a, product);
     const rankB = getDatabaseProductRanking(b, product);
     if (rankA !== rankB) {
