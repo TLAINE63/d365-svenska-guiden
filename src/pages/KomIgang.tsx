@@ -215,6 +215,19 @@ const KomIgang = () => {
       if (result.length < MIN) result = filter(true);
     }
 
+    // Apply soft size bonus locally so partners matching the chosen size float up
+    // even before AI rerank. Falls back to neutral when no size selected.
+    const applyLocalSizeBonus = (list: DatabasePartner[]) => {
+      if (!selectedSize || !productKey) return list;
+      return [...list].sort((a, b) => {
+        const ba = getSizeMatchBonus(a, productKey, selectedSize, null);
+        const bb = getSizeMatchBonus(b, productKey, selectedSize, null);
+        return bb - ba;
+      });
+    };
+
+    result = applyLocalSizeBonus(result);
+
     // Limit to max 4
     setMatchedPartners(result.slice(0, 4));
     setShowResults(true);
@@ -238,6 +251,7 @@ const KomIgang = () => {
             criteria: {
               application: selectedApp || "Alla",
               industry: selectedIndustry,
+              companySize: selectedSize || "",
               situation: selectedSituations.map(s => situationOptions.find(o => o.value === s)?.label).filter(Boolean).join(", ") || "",
               complexity: selectedComplexities.map(c => complexityOptions.find(o => o.value === c)?.label).filter(Boolean).join(", ") || "",
             },
