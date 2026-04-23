@@ -35,7 +35,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { allIndustries, geographyOptions, getCumulativeGeographyDisplay } from "@/data/partners";
+import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   usePartners,
@@ -3589,7 +3589,64 @@ const AdminDashboard = () => {
                               ))}
                             </div>
                           </div>
-                          
+
+                          {/* Målgrupp – kundens storlek (frivilligt) */}
+                          <div className="rounded-lg border border-border p-3 space-y-3 bg-muted/30">
+                            <div>
+                              <Label className="text-sm font-semibold">Målgrupp – kundstorlek (frivilligt)</Label>
+                              <p className="text-xs text-muted-foreground mt-1">
+                                Markera vilka kundsegment ni typiskt vänder er till för {section.label}. Lämnas tomt = matchar alla storlekar.
+                              </p>
+                            </div>
+                            <div>
+                              <Label className="text-xs text-muted-foreground">Antal anställda</Label>
+                              <div className="flex flex-wrap gap-1.5 mt-1.5">
+                                {companySizes.map((size) => {
+                                  const isSelected = (filter.companySize || []).includes(size);
+                                  return (
+                                    <Badge
+                                      key={size}
+                                      variant={isSelected ? "default" : "outline"}
+                                      className="cursor-pointer text-xs"
+                                      onClick={() => {
+                                        const current = filter.companySize || [];
+                                        const next = isSelected
+                                          ? current.filter((s) => s !== size)
+                                          : [...current, size];
+                                        updateProductFilter(section.key, { companySize: next });
+                                      }}
+                                    >
+                                      {size}
+                                    </Badge>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                            <div>
+                              <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
+                              <div className="flex flex-wrap gap-1.5 mt-1.5">
+                                {revenueOptions.map((rev) => {
+                                  const isSelected = (filter.revenue || []).includes(rev);
+                                  return (
+                                    <Badge
+                                      key={rev}
+                                      variant={isSelected ? "default" : "outline"}
+                                      className="cursor-pointer text-xs"
+                                      onClick={() => {
+                                        const current = filter.revenue || [];
+                                        const next = isSelected
+                                          ? current.filter((r) => r !== rev)
+                                          : [...current, rev];
+                                        updateProductFilter(section.key, { revenue: next });
+                                      }}
+                                    >
+                                      {rev}
+                                    </Badge>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          </div>
 
                           <div>
                             <Label className="text-sm">Kundexempel (Ange kundnamn, separerade med kommatecken. Om fältet lämnas tomt visas "Kundexempel kan ges på förfrågan".)</Label>
