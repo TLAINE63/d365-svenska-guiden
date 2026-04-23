@@ -4,8 +4,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText } from "lucide-react";
+import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText, Users } from "lucide-react";
 import { allIndustries } from "@/data/partners";
+import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
 
 // Product icons
 import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -141,7 +142,17 @@ interface AiMatchResult {
   bullets?: string[];
 }
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
+
+// Step 6: Company size — short, friendly labels mapped to the canonical buckets
+const sizeOptions: { value: string; label: string; desc: string }[] = [
+  { value: "1-49", label: "1–49 anställda", desc: "Mindre bolag" },
+  { value: "50-99", label: "50–99 anställda", desc: "SMB" },
+  { value: "100-249", label: "100–249 anställda", desc: "Medelstora bolag" },
+  { value: "250-999", label: "250–999 anställda", desc: "Större bolag" },
+  { value: "1.000-4.999", label: "1 000–4 999 anställda", desc: "Stort företag / koncern" },
+  { value: ">5.000", label: "Fler än 5 000 anställda", desc: "Global koncern" },
+];
 
 const KomIgang = () => {
   const navigate = useNavigate();
@@ -153,6 +164,7 @@ const KomIgang = () => {
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
@@ -174,6 +186,7 @@ const KomIgang = () => {
     "Vad vill du förbättra?",
     "Var befinner ni er idag?",
     "Hur ser er verksamhet ut?",
+    "Hur stor är er organisation?",
   ];
 
   const stepSubtexts = [
@@ -182,6 +195,7 @@ const KomIgang = () => {
     "",
     "",
     "Detta hjälper oss avgöra vilken nivå av lösning och partner som passar",
+    "Vi prioriterar partners med erfarenhet av organisationer i er storlek — hoppa över om du är osäker",
   ];
 
   const findPartners = async () => {
@@ -200,6 +214,19 @@ const KomIgang = () => {
       result = filter(false);
       if (result.length < MIN) result = filter(true);
     }
+
+    // Apply soft size bonus locally so partners matching the chosen size float up
+    // even before AI rerank. Falls back to neutral when no size selected.
+    const applyLocalSizeBonus = (list: DatabasePartner[]) => {
+      if (!selectedSize || !productKey) return list;
+      return [...list].sort((a, b) => {
+        const ba = getSizeMatchBonus(a, productKey, selectedSize, null);
+        const bb = getSizeMatchBonus(b, productKey, selectedSize, null);
+        return bb - ba;
+      });
+    };
+
+    result = applyLocalSizeBonus(result);
 
     // Limit to max 4
     setMatchedPartners(result.slice(0, 4));
@@ -224,6 +251,7 @@ const KomIgang = () => {
             criteria: {
               application: selectedApp || "Alla",
               industry: selectedIndustry,
+              companySize: selectedSize || "",
               situation: selectedSituations.map(s => situationOptions.find(o => o.value === s)?.label).filter(Boolean).join(", ") || "",
               complexity: selectedComplexities.map(c => complexityOptions.find(o => o.value === c)?.label).filter(Boolean).join(", ") || "",
             },
@@ -474,7 +502,12 @@ const KomIgang = () => {
                     </Button>
                   )}
                   {step === 5 && (
-                    <Button onClick={() => findPartners()} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                      Nästa
+                    </Button>
+                  )}
+                  {step === 6 && (
+                    <Button onClick={() => findPartners()} size="sm" className="px-6">
                       Visa partners
                     </Button>
                   )}
@@ -661,6 +694,53 @@ const KomIgang = () => {
                       );
                     })}
                   </div>
+                </div>
+              )}
+
+              {/* Step 6: Company size (single-select with skip option) */}
+              {step === 6 && (
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {sizeOptions.map((opt) => {
+                      const isSelected = selectedSize === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedSize(opt.value);
+                            setTimeout(() => findPartners(), 250);
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "bg-primary/20" : ""
+                          }`}>
+                            <Users className="h-4 w-4 text-primary" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <span className="text-sm font-semibold leading-tight block">{opt.label}</span>
+                            <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
+                          </div>
+                          {isSelected && (
+                            <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSelectedSize(null);
+                      findPartners();
+                    }}
+                    className="mt-4 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                  >
+                    Hoppa över — visa alla relevanta partners
+                  </button>
                 </div>
               )}
             </div>
