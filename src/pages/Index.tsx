@@ -7,6 +7,10 @@ import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
 import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import selectorErp from "@/assets/selector/erp.jpg";
+import selectorCrm from "@/assets/selector/crm.jpg";
+import selectorService from "@/assets/selector/service.jpg";
+import selectorGuidance from "@/assets/selector/guidance.jpg";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
 const AccordionItem = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionItem })));
@@ -53,32 +57,48 @@ const homeFaqs = [
 
 const selectorCards = [
   {
-    icon: <Monitor className="h-5 w-5 text-primary" />,
+    icon: <Monitor className="h-5 w-5 text-white" />,
     title: "Införa nytt affärssystem",
     desc: "Byta eller uppgradera ERP — Business Central eller Finance & SCM",
     link: "/erp/",
-    linkText: "Utforska ERP →",
+    linkText: "Utforska ERP",
+    image: selectorErp,
+    accent: "from-blue-500/90 to-indigo-600/90",
+    glow: "rgba(59,130,246,0.35)",
+    eyebrow: "ERP",
   },
   {
-    icon: <Users className="h-5 w-5 text-primary" />,
+    icon: <Users className="h-5 w-5 text-white" />,
     title: "Förbättra sälj och marknad",
     desc: "Optimera sälj & CRM — Dynamics 365 Sales och Customer Insights",
     link: "/crm/",
-    linkText: "Utforska CRM →",
+    linkText: "Utforska CRM",
+    image: selectorCrm,
+    accent: "from-pink-500/90 to-rose-600/90",
+    glow: "rgba(236,72,153,0.35)",
+    eyebrow: "CRM",
   },
   {
-    icon: <Phone className="h-5 w-5 text-primary" />,
+    icon: <Phone className="h-5 w-5 text-white" />,
     title: "Utveckla kundservice",
     desc: "Effektivisera support — Customer Service, Field Service, Contact Center",
     link: "/d365-customer-service/",
-    linkText: "Utforska kundservice →",
+    linkText: "Utforska kundservice",
+    image: selectorService,
+    accent: "from-teal-500/90 to-emerald-600/90",
+    glow: "rgba(20,184,166,0.35)",
+    eyebrow: "Service",
   },
   {
-    icon: <HelpCircle className="h-5 w-5 text-primary" />,
+    icon: <HelpCircle className="h-5 w-5 text-white" />,
     title: "Jag är osäker — hjälp mig",
     desc: "Kontakta oss för en oberoende och kostnadsfri vägledning",
     link: "/kontakta-oss/",
-    linkText: "Kontakta oss →",
+    linkText: "Kontakta oss",
+    image: selectorGuidance,
+    accent: "from-amber-500/90 to-orange-600/90",
+    glow: "rgba(245,158,11,0.35)",
+    eyebrow: "Rådgivning",
   },
 ];
 
@@ -232,27 +252,69 @@ const Index = () => {
       </section>
 
       {/* Selector – Vad vill du göra? */}
-      <section className="py-10 sm:py-14 bg-card border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="text-center mb-8">
-            <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1.5">Vad vill du göra?</h2>
-            <p className="text-sm text-muted-foreground">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
+      <section className="py-12 sm:py-20 bg-gradient-to-b from-card via-card to-secondary/40 border-b border-border relative overflow-hidden">
+        {/* Decorative ambient background */}
+        <div className="absolute inset-0 pointer-events-none opacity-60">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
+          <div className="text-center mb-10 sm:mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              Välj din väg
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">Vad vill du göra?</h2>
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {selectorCards.map((card) => (
               <Link
                 key={card.title}
                 to={card.link}
-                className="group bg-card border border-border rounded-xl p-5 flex flex-col gap-2.5 hover:border-primary/60 hover:shadow-[var(--shadow-hover)] hover:-translate-y-1 hover:bg-primary/[0.03] transition-all duration-200 shadow-[var(--shadow-card)]"
+                className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-white/20 shadow-lg hover:shadow-2xl"
+                style={{ ['--card-glow' as string]: card.glow }}
               >
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-200">
-                  {card.icon}
+                {/* Visual top section with image */}
+                <div className="relative h-32 overflow-hidden">
+                  <img
+                    src={card.image}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    width={768}
+                    height={512}
+                    className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+                  />
+                  {/* Color accent overlay */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} mix-blend-multiply opacity-40 group-hover:opacity-30 transition-opacity duration-300`} />
+                  {/* Bottom fade into card */}
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-900 to-transparent" />
+                  {/* Eyebrow chip */}
+                  <div className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-white/90">
+                    {card.eyebrow}
+                  </div>
+                  {/* Icon badge */}
+                  <div className={`absolute -bottom-5 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-slate-900 group-hover:scale-110 transition-transform duration-300`}>
+                    {card.icon}
+                  </div>
                 </div>
-                <div className="text-sm font-semibold text-foreground">{card.title}</div>
-                <div className="text-[13px] text-muted-foreground leading-snug flex-1">{card.desc}</div>
-                <div className="inline-flex items-center text-xs font-semibold text-primary-foreground bg-primary rounded-md px-3 py-1.5 group-hover:bg-primary/90 transition-colors">
-                  {card.linkText}
+
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-5 pt-8 gap-2">
+                  <h3 className="text-[15px] font-semibold text-white leading-tight">{card.title}</h3>
+                  <p className="text-[13px] text-white/60 leading-relaxed flex-1">{card.desc}</p>
+                  <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white mt-2 group-hover:gap-2.5 transition-all">
+                    {card.linkText}
+                    <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </div>
                 </div>
+
+                {/* Hover glow */}
+                <div
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ boxShadow: `0 0 60px -10px var(--card-glow)` }}
+                />
               </Link>
             ))}
           </div>
