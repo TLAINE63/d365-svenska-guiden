@@ -6,7 +6,7 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText, Users } from "lucide-react";
 import { allIndustries } from "@/data/partners";
-import { getSizeMatchBonus, ProductKey } from "@/hooks/usePartnerFilters";
+import { getSizeMatchBonus } from "@/hooks/usePartnerFilters";
 
 // Product icons
 import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
