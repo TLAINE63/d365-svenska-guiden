@@ -101,6 +101,13 @@ Deno.serve(async (req) => {
       const officeCities = (p as any).office_cities || [];
       const platformCaps = (p as any).platform_capabilities || [];
 
+      // Target audience (soft signal – missing = neutral)
+      const targetSizes = productFilter?.companySize || [];
+      const targetRevenues = productFilter?.revenue || [];
+      const targetAudienceLine = (targetSizes.length > 0 || targetRevenues.length > 0)
+        ? `\nMålgrupp (${criteria.application}): ${targetSizes.length > 0 ? `anställda ${targetSizes.join(', ')}` : 'anställda ej angivet'}; ${targetRevenues.length > 0 ? `omsättning MSEK ${targetRevenues.join(', ')}` : 'omsättning ej angiven'}`
+        : `\nMålgrupp (${criteria.application}): ej angiven (neutral – varken bonus eller avdrag)`;
+
       return `ID: ${p.id}
 Namn: ${p.name}
 Beskrivning: ${(p.description || '').substring(0, 400)}
@@ -108,7 +115,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${aiSummary}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${targetAudienceLine}${aiSummary}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner. 
