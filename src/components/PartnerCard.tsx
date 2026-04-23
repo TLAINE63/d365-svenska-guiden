@@ -223,7 +223,7 @@ const PartnerCard = ({
 
   const displayApplications = getDisplayApplications();
 
-  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedCompanySize || highlightedRevenue || highlightedGeography;
+  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography;
 
   return (
     <article 
@@ -324,16 +324,6 @@ const PartnerCard = ({
                 {highlightedIndustry && (
                   <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-500 text-slate-600 dark:text-slate-300 bg-white/70 dark:bg-slate-700/50">
                     {highlightedIndustry}
-                  </Badge>
-                )}
-                {highlightedCompanySize && (
-                  <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-500 text-slate-600 dark:text-slate-300 bg-white/70 dark:bg-slate-700/50">
-                    {highlightedCompanySize} anställda
-                  </Badge>
-                )}
-                {highlightedRevenue && (
-                  <Badge variant="outline" className="text-xs border-slate-300 dark:border-slate-500 text-slate-600 dark:text-slate-300 bg-white/70 dark:bg-slate-700/50">
-                    {highlightedRevenue}
                   </Badge>
                 )}
                 {highlightedGeography && (
