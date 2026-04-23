@@ -223,7 +223,7 @@ const PartnerCard = ({
 
   const displayApplications = getDisplayApplications();
 
-  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedCompanySize || highlightedRevenue || highlightedGeography;
+  const hasHighlights = highlightedProduct || highlightedIndustry || highlightedGeography;
 
   return (
     <article 
