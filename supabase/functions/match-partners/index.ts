@@ -13,6 +13,7 @@ interface PartnerInput {
   product_filters: Record<string, {
     industries?: string[];
     companySize?: string[];
+    revenue?: string[];
     geography?: string | string[];
     ranking?: number;
     productDescription?: string;
@@ -22,6 +23,21 @@ interface PartnerInput {
     aiCaseDescription?: string;
     aiBusinessImpact?: string;
   }>;
+}
+
+interface UserCriteria {
+  application: string;
+  productKey: string; // 'bc' | 'fsc' | 'sales' | 'service'
+  industry: string;
+  geography: string;
+  companySize: string;
+  revenue?: string;
+  workload?: string; // CRM workload focus
+  preferCrmOnly?: boolean;
+  aiInterest?: 'high' | 'medium' | 'none';
+  localPreference?: 'very' | 'somewhat' | 'not';
+  platformNeeds?: string[];
+  additionalApps?: string[];
 }
 
 interface UserCriteria {
