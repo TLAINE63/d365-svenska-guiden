@@ -354,17 +354,16 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
 
     const MIN_RESULTS = 3;
 
-    // Helper: filter partners by criteria with optional relaxations
-    const filterPartners = (
-      relaxIndustry: boolean,
-      relaxGeography: boolean
-    ): PartnerData[] => {
+    // Helper: filter partners. PRODUKT och BRANSCH är ALLTID hårda filter och
+    // relaxas ALDRIG – partners utan profilering för vald produkt/bransch får
+    // aldrig visas. Endast geografi får relaxas som sista utväg.
+    const filterPartners = (relaxGeography: boolean): PartnerData[] => {
       return partners.filter(partner => {
         if (isDatabasePartner(partner)) {
           return matchesDbProductFilter(
             partner,
             productKey,
-            relaxIndustry ? undefined : (selectedIndustry || undefined),
+            selectedIndustry || undefined,
             undefined, // size always relaxed – AI scores it
             relaxGeography ? undefined : (selectedMarket || undefined)
           );
@@ -373,18 +372,13 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       });
     };
 
-    // Step 1: strict filter (industry + geography)
-    let matchingPartners = filterPartners(false, false);
+    // Step 1: strict filter (product + industry + geography all enforced)
+    let matchingPartners = filterPartners(false);
 
-    // Step 2: relax industry if < MIN_RESULTS
-    if (matchingPartners.length < MIN_RESULTS) {
-      matchingPartners = filterPartners(true, false);
-    }
-
-    // Step 3: relax geography too if still < MIN_RESULTS
-    // But for "Övriga världen" we skip relaxation since very few partners cover global markets
+    // Step 2: relax ONLY geography if < MIN_RESULTS (skip for "Övriga världen")
+    // Produkt och bransch förblir låsta även här.
     if (matchingPartners.length < MIN_RESULTS && selectedMarket !== "Övriga världen") {
-      matchingPartners = filterPartners(true, true);
+      matchingPartners = filterPartners(true);
     }
 
     // For CRM apps: ensure at least one CRM-only partner in the set

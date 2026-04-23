@@ -203,16 +203,15 @@ const KomIgang = () => {
 
     let result: DatabasePartner[];
     if (!productKey) {
-      // "Osäker" - return all partners with any product filter, sorted by number of industries matched
+      // "Osäker" - return all partners with any product filter
       result = partners.filter(p => p.product_filters && Object.keys(p.product_filters).length > 0);
     } else {
-      const MIN = 3;
-      const filter = (relaxInd: boolean) =>
-        partners.filter(p =>
-          matchesDbProductFilter(p, productKey, relaxInd ? undefined : selectedIndustry || undefined)
-        );
-      result = filter(false);
-      if (result.length < MIN) result = filter(true);
+      // HÅRDA filter: produkt är ALLTID låst. Om bransch är vald är även den låst.
+      // Vi relaxar ALDRIG dessa – partners utan profilering för vald produkt/bransch
+      // får aldrig visas i matchningen.
+      result = partners.filter(p =>
+        matchesDbProductFilter(p, productKey, selectedIndustry || undefined)
+      );
     }
 
     // Apply soft size bonus locally so partners matching the chosen size float up
