@@ -10,7 +10,8 @@ export const matchesDatabaseProductFilter = (
   selectedIndustry?: string,
   selectedCompanySize?: string,
   selectedGeography?: string,
-  selectedRegions?: SwedishRegion[]
+  selectedRegions?: SwedishRegion[],
+  selectedRevenue?: string
 ): boolean => {
   const productFilter = partner.product_filters?.[product];
   
@@ -22,9 +23,20 @@ export const matchesDatabaseProductFilter = (
     return false;
   }
   
-  // Check company size match
-  if (selectedCompanySize && !productFilter.companySize?.includes(selectedCompanySize)) {
-    return false;
+  // Check company size match (soft: empty target = matches all sizes)
+  if (selectedCompanySize) {
+    const targets = productFilter.companySize || [];
+    if (targets.length > 0 && !targets.includes(selectedCompanySize)) {
+      return false;
+    }
+  }
+
+  // Check revenue match (soft: empty target = matches all revenues)
+  if (selectedRevenue) {
+    const targets = productFilter.revenue || [];
+    if (targets.length > 0 && !targets.includes(selectedRevenue)) {
+      return false;
+    }
   }
   
   // Check geography match (hierarchical: Sverige < Norden < Europa < Övriga världen)
@@ -134,7 +146,8 @@ export const filterAndSortPartners = (
   selectedGeography?: string | null,
   selectedCompanySize?: string | null,
   selectedRegions?: SwedishRegion[] | null,
-  randomize: boolean = true
+  randomize: boolean = true,
+  selectedRevenue?: string | null
 ): DatabasePartner[] => {
   // Only show partners with the product filter defined
   let result = partners.filter(partner => hasProduct(partner, product));
@@ -147,7 +160,8 @@ export const filterAndSortPartners = (
       selectedIndustry || undefined,
       selectedCompanySize || undefined,
       selectedGeography || undefined,
-      selectedRegions && selectedRegions.length > 0 ? selectedRegions : undefined
+      selectedRegions && selectedRegions.length > 0 ? selectedRegions : undefined,
+      selectedRevenue || undefined
     )
   );
   

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
+import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
 import { Link } from "react-router-dom";
@@ -75,6 +76,8 @@ const CRM = () => {
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
   
   // Fetch partners from database (only featured partners)
   const { data: partners = [], isLoading } = usePartners();
@@ -117,9 +120,27 @@ const CRM = () => {
       });
     }
 
+    // Soft size filtering (across sales + service): empty target = match all
+    if (selectedCompanySize) {
+      filtered = filtered.filter(p => {
+        const salesSizes = p.product_filters?.sales?.companySize || [];
+        const serviceSizes = p.product_filters?.service?.companySize || [];
+        const merged = [...salesSizes, ...serviceSizes];
+        return merged.length === 0 || merged.includes(selectedCompanySize);
+      });
+    }
+
+    if (selectedRevenue) {
+      filtered = filtered.filter(p => {
+        const salesRev = p.product_filters?.sales?.revenue || [];
+        const serviceRev = p.product_filters?.service?.revenue || [];
+        const merged = [...salesRev, ...serviceRev];
+        return merged.length === 0 || merged.includes(selectedRevenue);
+      });
+    }
     
     return filtered.sort((a, b) => a.name.localeCompare(b.name, 'sv'));
-  }, [partners, selectedIndustry, selectedGeography]);
+  }, [partners, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue]);
 
   // Get available industries for CRM partners
   const crmIndustries = useMemo(() => {
@@ -403,8 +424,17 @@ const CRM = () => {
             colorScheme="crm"
           />
 
+          {/* Optional size filters */}
+          <SizeFilters
+            selectedCompanySize={selectedCompanySize}
+            selectedRevenue={selectedRevenue}
+            onCompanySizeChange={setSelectedCompanySize}
+            onRevenueChange={setSelectedRevenue}
+            colorScheme="crm"
+          />
+
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{crmPartners.length}</span> partners
@@ -412,6 +442,8 @@ const CRM = () => {
                 {selectedApplications.length > 0 && selectedIndustry && <>,</>}
                 {selectedIndustry && <> inom <span className="font-semibold text-crm">{selectedIndustry}</span></>}
                 {selectedGeography && <> i <span className="font-semibold text-crm">{selectedGeography}</span></>}
+                {selectedCompanySize && <> · storlek <span className="font-semibold text-crm">{selectedCompanySize}</span></>}
+                {selectedRevenue && <> · omsättning <span className="font-semibold text-crm">{selectedRevenue}</span></>}
               </p>
               <Button 
                 variant="ghost" 
@@ -420,6 +452,8 @@ const CRM = () => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
+                  setSelectedCompanySize(null);
+                  setSelectedRevenue(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -438,6 +472,9 @@ const CRM = () => {
                 productKey="crm"
                 highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(', ') : undefined}
                 highlightedIndustry={selectedIndustry || undefined}
+                highlightedCompanySize={selectedCompanySize || undefined}
+                highlightedRevenue={selectedRevenue || undefined}
+                highlightedGeography={selectedGeography || undefined}
                 showRandomIndicator={true}
               />
             ))}

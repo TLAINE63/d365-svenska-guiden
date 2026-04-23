@@ -138,6 +138,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const selectedProduct = searchParams.get("product") || undefined;
   const selectedIndustry = searchParams.get("industry") || undefined;
   const selectedCompanySize = searchParams.get("companySize") || undefined;
+  const selectedRevenue = searchParams.get("revenue") || undefined;
   const selectedGeography = searchParams.get("geography") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   
@@ -1060,7 +1061,12 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                     )}
                     {selectedCompanySize && (
                       <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
-                        {selectedCompanySize}
+                        {selectedCompanySize} anställda
+                      </Badge>
+                    )}
+                    {selectedRevenue && (
+                      <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
+                        {selectedRevenue}
                       </Badge>
                     )}
                     {selectedGeography && (

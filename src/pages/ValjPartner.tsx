@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link, useSearchParams } from "react-router-dom";
 import { Users, ArrowRight, Calendar, MessageSquare, Mail, Award, Target, Shield, ExternalLink, Star, Loader2 } from "lucide-react";
 import { FilterButtons, MultiFilterButtons } from "@/components/FilterButtons";
+import { SizeFilters } from "@/components/SizeFilters";
 import thomasLainePhoto from "@/assets/thomas-laine.jpg";
 import partnersComparisonImg from "@/assets/partners-comparison-proposals.jpg";
 import PartnerGuideDialog from "@/components/PartnerGuideDialog";
@@ -141,7 +142,9 @@ const matchesDbProductFilter = (
   productKey: ProductKey,
   industry?: string,
   companySize?: string,
-  geography?: string
+  geography?: string,
+  _regions?: unknown,
+  revenue?: string
 ): boolean => {
   const productFilter = partner.product_filters?.[productKey];
   if (!productFilter) return false;
@@ -151,14 +154,20 @@ const matchesDbProductFilter = (
     return false;
   }
   
-  // Check company size filter
-  if (companySize && productFilter.companySize && !productFilter.companySize.includes(companySize)) {
-    return false;
+  // Soft company size filter (empty target = match all)
+  if (companySize) {
+    const targets = productFilter.companySize || [];
+    if (targets.length > 0 && !targets.includes(companySize)) return false;
+  }
+
+  // Soft revenue filter (empty target = match all)
+  if (revenue) {
+    const targets = productFilter.revenue || [];
+    if (targets.length > 0 && !targets.includes(revenue)) return false;
   }
   
   // Check geography filter with hierarchy
   if (geography) {
-    // Geography is now an array - check if partner covers the selected geography
     const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
     const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
@@ -185,6 +194,7 @@ const ValjPartner = () => {
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
 
   // Filter to only show featured partners from database
@@ -299,22 +309,22 @@ const ValjPartner = () => {
         let matchesProductFilter = false;
         
         if (hasBCApp && partner.product_filters?.bc) {
-          if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
+          if (matchesDbProductFilter(partner, 'bc', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
             matchesProductFilter = true;
           }
         }
         if (hasFSCApp && partner.product_filters?.fsc) {
-          if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
+          if (matchesDbProductFilter(partner, 'fsc', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
             matchesProductFilter = true;
           }
         }
         if (hasSalesApp && partner.product_filters?.sales) {
-          if (matchesDbProductFilter(partner, 'sales', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
+          if (matchesDbProductFilter(partner, 'sales', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
             matchesProductFilter = true;
           }
         }
         if (hasServiceApp && partner.product_filters?.service) {
-          if (matchesDbProductFilter(partner, 'service', selectedIndustry || undefined, undefined, selectedGeography || undefined)) {
+          if (matchesDbProductFilter(partner, 'service', selectedIndustry || undefined, selectedCompanySize || undefined, selectedGeography || undefined, undefined, selectedRevenue || undefined)) {
             matchesProductFilter = true;
           }
         }
@@ -366,7 +376,7 @@ const ValjPartner = () => {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     return shuffled;
-  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedGeography]);
+  }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
 
   if (isLoading) {
     return (
@@ -615,14 +625,25 @@ const ValjPartner = () => {
             colorScheme="amber"
           />
 
+          {/* Optional size filters */}
+          <SizeFilters
+            selectedCompanySize={selectedCompanySize}
+            selectedRevenue={selectedRevenue}
+            onCompanySizeChange={setSelectedCompanySize}
+            onRevenueChange={setSelectedRevenue}
+            colorScheme="amber"
+          />
+
           {/* Filter Results Summary */}
-          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography) && (
+          {(selectedApplications.length > 0 || selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{filteredPartners.length}</span> partners
                 {selectedApplications.length > 0 && <> som levererar <span className="font-semibold text-primary">{selectedApplications.join(', ')}</span></>}
                 {selectedIndustry && <> inom <span className="font-semibold text-accent">{selectedIndustry}</span></>}
                 {selectedGeography && <> i <span className="font-semibold text-accent">{selectedGeography}</span></>}
+                {selectedCompanySize && <> · storlek <span className="font-semibold text-accent">{selectedCompanySize}</span></>}
+                {selectedRevenue && <> · omsättning <span className="font-semibold text-accent">{selectedRevenue}</span></>}
               </p>
               <Button 
                 variant="ghost" 
@@ -631,6 +652,8 @@ const ValjPartner = () => {
                   setSelectedApplications([]);
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
+                  setSelectedCompanySize(null);
+                  setSelectedRevenue(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -694,6 +717,9 @@ const ValjPartner = () => {
                     productKey={productKey}
                     highlightedProduct={selectedApplications.length > 0 ? selectedApplications.join(", ") : undefined}
                     highlightedIndustry={selectedIndustry || undefined}
+                    highlightedCompanySize={selectedCompanySize || undefined}
+                    highlightedRevenue={selectedRevenue || undefined}
+                    highlightedGeography={selectedGeography || undefined}
                     showRandomIndicator={true}
                   />
                 );

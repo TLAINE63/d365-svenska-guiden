@@ -13,7 +13,8 @@ export type SwedishRegion =
 export interface ProductFilterInput {
   industries: string[];         // Max 3 focus industries
   secondaryIndustries: string[]; // Legacy - hidden in UI
-  companySize: string[];
+  companySize: string[];        // Target customer size buckets (employees)
+  revenue?: string[];           // Target customer revenue buckets (MSEK)
   geography: string[];          // Multi-select geography
   swedenRegions?: SwedishRegion[]; // Which regions in Sweden the partner covers
   swedenCities?: string[];      // Specific cities in Sweden where they have consultants
