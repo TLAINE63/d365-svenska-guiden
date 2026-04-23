@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
+import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
 import { Link } from "react-router-dom";
@@ -58,6 +59,8 @@ const geographyFilters = [
 const FinanceSupplyChain = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
   
   // Fetch partners from database (only featured partners)
   const { data: partners = [], isLoading } = usePartners();
@@ -73,10 +76,12 @@ const FinanceSupplyChain = () => {
       'fsc', 
       selectedIndustry, 
       selectedGeography, 
-      null, // companySize
-      null // regions
+      selectedCompanySize,
+      null, // regions
+      true,
+      selectedRevenue
     );
-  }, [partners, selectedIndustry, selectedGeography]);
+  }, [partners, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue]);
 
   // Get available industries for FSC partners
   const fscIndustries = useMemo(() => {
@@ -632,14 +637,25 @@ const FinanceSupplyChain = () => {
             colorScheme="finance-supply"
           />
 
+          {/* Optional size filters */}
+          <SizeFilters
+            selectedCompanySize={selectedCompanySize}
+            selectedRevenue={selectedRevenue}
+            onCompanySizeChange={setSelectedCompanySize}
+            onRevenueChange={setSelectedRevenue}
+            colorScheme="finance-supply"
+          />
+
           {/* Filter Results Summary */}
-          {(selectedIndustry || selectedGeography) && (
+          {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{fscPartners.length}</span> partners
                 {selectedIndustry && <> inom <span className="font-semibold text-finance-supply">{selectedIndustry}</span></>}
                 {(selectedIndustry && selectedGeography) && <> och</>}
                 {selectedGeography && <> med täckning i <span className="font-semibold text-finance-supply">{selectedGeography}</span></>}
+                {selectedCompanySize && <> · storlek <span className="font-semibold text-finance-supply">{selectedCompanySize}</span></>}
+                {selectedRevenue && <> · omsättning <span className="font-semibold text-finance-supply">{selectedRevenue}</span></>}
               </p>
               <Button 
                 variant="ghost" 
@@ -647,6 +663,8 @@ const FinanceSupplyChain = () => {
                 onClick={() => {
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
+                  setSelectedCompanySize(null);
+                  setSelectedRevenue(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -669,12 +687,10 @@ const FinanceSupplyChain = () => {
                 const baseUrl = `/partner/${partner.slug}`;
                 const params = new URLSearchParams();
                 params.set("product", "Finance & SCM");
-                if (selectedIndustry) {
-                  params.set("industry", selectedIndustry);
-                }
-                if (selectedGeography) {
-                  params.set("geography", selectedGeography);
-                }
+                if (selectedIndustry) params.set("industry", selectedIndustry);
+                if (selectedGeography) params.set("geography", selectedGeography);
+                if (selectedCompanySize) params.set("companySize", selectedCompanySize);
+                if (selectedRevenue) params.set("revenue", selectedRevenue);
                 const profileUrl = `${baseUrl}?${params.toString()}`;
                 
                 return (
@@ -687,6 +703,8 @@ const FinanceSupplyChain = () => {
                     highlightedProduct="Finance & SCM"
                     highlightedIndustry={selectedIndustry || undefined}
                     highlightedGeography={selectedGeography || undefined}
+                    highlightedCompanySize={selectedCompanySize || undefined}
+                    highlightedRevenue={selectedRevenue || undefined}
                     showRandomIndicator={true}
                   />
                 );
