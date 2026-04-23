@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { FilterButtons } from "@/components/FilterButtons";
+import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
 import { Link } from "react-router-dom";
@@ -82,6 +83,8 @@ const geographyFilters = [
 const BusinessCentral = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedGeography, setSelectedGeography] = useState<string | null>(null);
+  const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
+  const [selectedRevenue, setSelectedRevenue] = useState<string | null>(null);
   
   // Fetch partners from database (only featured partners)
   const { data: partners = [], isLoading } = usePartners();
@@ -97,10 +100,12 @@ const BusinessCentral = () => {
       'bc', 
       selectedIndustry, 
       selectedGeography, 
-      null, // companySize
-      null // regions
+      selectedCompanySize,
+      null, // regions
+      true,
+      selectedRevenue
     );
-  }, [partners, selectedIndustry, selectedGeography]);
+  }, [partners, selectedIndustry, selectedGeography, selectedCompanySize, selectedRevenue]);
 
   // Get available industries for BC partners
   const bcIndustries = useMemo(() => {
@@ -661,14 +666,25 @@ const BusinessCentral = () => {
             colorScheme="business-central"
           />
 
+          {/* Optional size filters */}
+          <SizeFilters
+            selectedCompanySize={selectedCompanySize}
+            selectedRevenue={selectedRevenue}
+            onCompanySizeChange={setSelectedCompanySize}
+            onRevenueChange={setSelectedRevenue}
+            colorScheme="business-central"
+          />
+
           {/* Filter Results Summary */}
-          {(selectedIndustry || selectedGeography) && (
+          {(selectedIndustry || selectedGeography || selectedCompanySize || selectedRevenue) && (
             <div className="text-center mb-8">
               <p className="text-sm text-muted-foreground">
                 Visar <span className="font-semibold text-foreground">{bcPartners.length}</span> partners
                 {selectedIndustry && <> inom <span className="font-semibold text-business-central">{selectedIndustry}</span></>}
                 {(selectedIndustry && selectedGeography) && <> och</>}
                 {selectedGeography && <> med täckning i <span className="font-semibold text-business-central">{selectedGeography}</span></>}
+                {selectedCompanySize && <> · storlek <span className="font-semibold text-business-central">{selectedCompanySize}</span></>}
+                {selectedRevenue && <> · omsättning <span className="font-semibold text-business-central">{selectedRevenue}</span></>}
               </p>
               <Button 
                 variant="ghost"
@@ -676,6 +692,8 @@ const BusinessCentral = () => {
                 onClick={() => {
                   setSelectedIndustry(null);
                   setSelectedGeography(null);
+                  setSelectedCompanySize(null);
+                  setSelectedRevenue(null);
                 }}
                 className="mt-2 text-muted-foreground hover:text-foreground"
               >
@@ -698,9 +716,10 @@ const BusinessCentral = () => {
                 const baseUrl = `/partner/${partner.slug}`;
                 const params = new URLSearchParams();
                 params.set("product", "Business Central");
-                if (selectedIndustry) {
-                  params.set("industry", selectedIndustry);
-                }
+                if (selectedIndustry) params.set("industry", selectedIndustry);
+                if (selectedGeography) params.set("geography", selectedGeography);
+                if (selectedCompanySize) params.set("companySize", selectedCompanySize);
+                if (selectedRevenue) params.set("revenue", selectedRevenue);
                 const profileUrl = `${baseUrl}?${params.toString()}`;
                 
                 return (
@@ -712,6 +731,9 @@ const BusinessCentral = () => {
                     productKey="bc"
                     highlightedProduct="Business Central"
                     highlightedIndustry={selectedIndustry || undefined}
+                    highlightedGeography={selectedGeography || undefined}
+                    highlightedCompanySize={selectedCompanySize || undefined}
+                    highlightedRevenue={selectedRevenue || undefined}
                     showRandomIndicator={true}
                   />
                 );
