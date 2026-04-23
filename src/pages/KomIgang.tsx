@@ -4,8 +4,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText } from "lucide-react";
+import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText, Users } from "lucide-react";
 import { allIndustries } from "@/data/partners";
+import { getSizeMatchBonus, ProductKey } from "@/hooks/usePartnerFilters";
 
 // Product icons
 import bcIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -141,7 +142,17 @@ interface AiMatchResult {
   bullets?: string[];
 }
 
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
+
+// Step 6: Company size — short, friendly labels mapped to the canonical buckets
+const sizeOptions: { value: string; label: string; desc: string }[] = [
+  { value: "1-49", label: "1–49 anställda", desc: "Mindre bolag" },
+  { value: "50-99", label: "50–99 anställda", desc: "SMB" },
+  { value: "100-249", label: "100–249 anställda", desc: "Medelstora bolag" },
+  { value: "250-999", label: "250–999 anställda", desc: "Större bolag" },
+  { value: "1.000-4.999", label: "1 000–4 999 anställda", desc: "Stort företag / koncern" },
+  { value: ">5.000", label: "Fler än 5 000 anställda", desc: "Global koncern" },
+];
 
 const KomIgang = () => {
   const navigate = useNavigate();
@@ -153,6 +164,7 @@ const KomIgang = () => {
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [selectedSituations, setSelectedSituations] = useState<string[]>([]);
   const [selectedComplexities, setSelectedComplexities] = useState<string[]>([]);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [matchedPartners, setMatchedPartners] = useState<DatabasePartner[]>([]);
   const [aiMatches, setAiMatches] = useState<AiMatchResult[]>([]);
@@ -174,6 +186,7 @@ const KomIgang = () => {
     "Vad vill du förbättra?",
     "Var befinner ni er idag?",
     "Hur ser er verksamhet ut?",
+    "Hur stor är er organisation?",
   ];
 
   const stepSubtexts = [
@@ -182,6 +195,7 @@ const KomIgang = () => {
     "",
     "",
     "Detta hjälper oss avgöra vilken nivå av lösning och partner som passar",
+    "Vi prioriterar partners med erfarenhet av organisationer i er storlek — hoppa över om du är osäker",
   ];
 
   const findPartners = async () => {
