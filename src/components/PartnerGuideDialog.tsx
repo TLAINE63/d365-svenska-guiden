@@ -388,7 +388,8 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
       const hasCrmOnly = finalPartners.some(isCrmOnlyPartner);
       if (!hasCrmOnly) {
         // Find a CRM-only partner from the full pool (relaxed filters)
-        const allCrmOnlyPartners = filterPartners(true, true).filter(isCrmOnlyPartner);
+        // Söker bredare pool men produkt + bransch förblir hårda – endast geografi relaxas
+        const allCrmOnlyPartners = filterPartners(true).filter(isCrmOnlyPartner);
         if (allCrmOnlyPartners.length > 0) {
           // Add one CRM-only partner (shuffle picks random one)
           const crmOnlyCandidate = allCrmOnlyPartners[Math.floor(Math.random() * allCrmOnlyPartners.length)];
