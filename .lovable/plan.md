@@ -1,87 +1,64 @@
-# Internationalisering – d365.se + d365guide.com
 
-## Översikt
 
-Domänbaserad flerspråksstrategi med **separata Lovable-projekt per marknad**. Varje marknad har sin egen kodbas, databas och subdomän.
+## Frivillig storleksfiltrering vid partnermatchning
 
-| Domän | Språk | Projekt | Status |
-|-------|-------|---------|--------|
-| d365.se | Svenska | Nuvarande | ✅ Live |
-| no.d365guide.com | Norska | Norskt remix-projekt | 🚧 Under uppbyggnad |
-| dk.d365guide.com | Danska | Framtida | ⏳ Planerat |
-| d365guide.com | Engelska | Framtida (global fallback) | ⏳ Planerat |
+### Mål
+Låt kunder valfritt ange sin storlek (anställda och/eller omsättning) i matchningsflöden så att partners vars uttalade målgrupp matchar lyfts fram – generellt och per Dynamics 365-applikation. Liten partner → mindre kunder, stor partner → större kunder.
 
----
+### Status idag
+- Datamodellen har redan `product_filters[product].companySize: string[]` per applikation (BC, F&SCM, Sales, Service). Admin kan kryssa i målstorlekar.
+- `revenue` finns endast i en gammal legacy-typ, inte i `ProductFilterInput`. Saknas alltså för omsättning per produkt.
+- Filtreringslogiken i `usePartnerFilters.ts` stödjer redan `selectedCompanySize` per produkt – men ingen publik UI-vy exponerar valet idag (`BusinessCentral`, `FinanceSupplyChain`, `CRM` skickar `null`).
+- `ValjPartner` har state för `selectedCompanySize` men ingen filterknapp som sätter det.
+- `KomIgang`-wizarden frågar inte efter storlek.
 
-## Arkitekturbeslut
+### Förslag till lösning (frivilligt, icke-blockerande)
 
-- **Fas 1: Separata projekt** – Norge körs som eget Lovable-projekt med subdomän
-- **Fas 2 (framtida option):** Konsolidera alla marknader utom Sverige till ett gemensamt i18n-projekt på d365guide.com med subdirectories (/no, /dk, /uk)
-- **Sverige (d365.se) förblir alltid separat projekt**
-- **Subdomäner under d365guide.com** för nu (no.d365guide.com), kan migreras till subdirectories senare
-- **Separata databaser** – varje projekt har egna partners, events, leads
-- **hreflang-taggar** kopplar ihop sajterna för Google (✅ implementerat på d365.se)
-- **Språk per land** (norska för Norge, danska för Danmark etc.)
+**1. Utöka datamodellen med omsättning per produkt**
+- Lägg till `revenue?: string[]` i `ProductFilterInput` (analogt med `companySize`).
+- Standardalternativ (samma som befintliga `revenueOptions`): `1-24 / 25-99 / 100-499 / 500-999 / 1.000-4.999 / >5.000 MSEK`.
+- Ingen DB-migration behövs – sparas i samma `product_filters` JSONB.
 
-### Framtida migrering till subdirectories
-Om vi vill gå från `no.d365guide.com` → `d365guide.com/no`:
-1. Bygg i18n-stöd i ett nytt gemensamt projekt
-2. Flytta innehåll och partnerdata
-3. Uppdatera hreflang-taggar på d365.se
-4. 301-redirect från subdomän till subdirectory
-5. Uppdatera Google Search Console
+**2. Admin-UI: målgrupp per applikation**
+- I produktsektionen för varje applikation i `AdminDashboard.tsx`: visa två kompakta multi-select-grupper "Målgrupp – antal anställda" och "Målgrupp – omsättning (MSEK)".
+- Tom = ingen begränsning (partnern matchar alla storlekar för den produkten).
+- Sanitization: tom array tas bort vid spar (befintlig logik).
 
----
+**3. Filtrering – utökad logik**
+- Utöka `matchesDatabaseProductFilter` i `src/hooks/usePartnerFilters.ts` med valfri `selectedRevenue`-parameter; samma "tom = matchar allt"-semantik som idag för `companySize`.
+- "Mjuk" matchning: om varken anställda eller omsättning angetts av kund → ingen filtrering (allt visas). Om angetts och partnern saknar målgrupp → partnern visas (vi straffar inte tystnad).
 
-## Genomfört på d365.se
+**4. UI för kund – två integrationspunkter**
 
-- [x] hreflang-taggar i SEOHead.tsx (sv + no + x-default)
-- [x] og:locale:alternate för norska
+   **a) Produktsidor (`BusinessCentral`, `FinanceSupplyChain`, `CRM`, `D365Sales`, `D365CustomerService` m.fl.) + `ValjPartner`:**
+   Lägg till två nya `FilterButtons`-rader under befintliga filter:
+   - "Antal anställda" (icon: `employees`) – samma `companySizes`-lista som idag.
+   - "Omsättning" (icon: `revenue`) – `revenueOptions`.
+   Båda valfria, samma slate-stil som övriga filter, "Visa alla" rensar.
 
----
+   **b) `KomIgang`-wizarden:**
+   Lägg till ett nytt valfritt steg "Din storlek (frivilligt)" mellan nuvarande applikations- och bransch-stegen, med två SelectionCard-grupper (anställda + omsättning) och tydlig "Hoppa över"-knapp. Auto-advance kvar enligt befintlig wizard-pattern.
 
-## Att göra: Norskt projekt (no.d365guide.com)
+**5. Visuell återkoppling**
+- När storleksfilter är aktivt: visa valda värden som chips i den befintliga "Aktiva filter"-raden (samma mönster som industri/geografi).
+- I `PartnerCard`: när `highlightedCompanySize`/nya `highlightedRevenue` finns, visa dem som badges (komponenten har redan `highlightedCompanySize`-stöd; lägg till `highlightedRevenue`).
 
-### DNS & Domän
-- [ ] A-record: `no.d365guide.com` → `185.158.133.1`
-- [ ] TXT-record: `_lovable` → verifieringsvärde
-- [ ] Connect domain i norska projektets Settings → Domains
+**6. AI-guiden / partnerguide PDF**
+- Inkludera storleksval i scoringen som **bonus**, inte hård filter (vikt ~5 % vardera): partner vars målgrupp innehåller kundens storlek får +poäng. Saknad målgrupp → neutralt.
+- Lägg till raden "Målgrupp" i partnerprofilens kompetensblock (anställda + omsättning som pills) när definierat.
 
-### Kodändringar i norska projektet
-- [ ] `lang="sv"` → `lang="no"` i index.html
-- [ ] Canonical-URLs → `no.d365guide.com`
-- [ ] Sitemap.xml → `no.d365guide.com`-URLs
-- [ ] Robots.txt → peka på norsk sitemap
-- [ ] hreflang-taggar (spegla svenska sajtens, men med `no` som canonical)
-- [ ] Översätt Navbar & Footer
-- [ ] Översätt startsidan
-- [ ] Översätt produktsidor (CRM, ERP, Business Central etc.)
-- [ ] Översätt behovsanalys-sidor
-- [ ] Översätt övriga sidor (QA, Kontakt, Events)
+### Tekniska detaljer
+- Filer som ändras:
+  - `src/hooks/usePartners.ts` – utöka `ProductFilterInput` med `revenue?: string[]`.
+  - `src/hooks/usePartnerFilters.ts` – ny `selectedRevenue`-parameter i `matchesDatabaseProductFilter` och `filterAndSortPartners`.
+  - `src/pages/AdminDashboard.tsx` – två nya multi-select-grupper per produkt; sanitization.
+  - `src/pages/BusinessCentral.tsx`, `FinanceSupplyChain.tsx`, `CRM.tsx`, `D365Sales.tsx`, `D365CustomerService.tsx`, `D365Marketing.tsx`, `D365FieldService.tsx`, `D365ContactCenter.tsx`, `Branschlosningar.tsx`, `ValjPartner.tsx` – nya filterknappar + state.
+  - `src/pages/KomIgang.tsx` – nytt valfritt storlekssteg.
+  - `src/components/PartnerCard.tsx` – `highlightedRevenue`-prop.
+  - `src/pages/PartnerProfile.tsx` – läs `companySize`/`revenue` ur URL-params + visa pill för "Målgrupp".
+  - `src/utils/generatePartnerGuide.ts` (om AI-bonus läggs in) – lägg till poäng.
+- Inga DB-migrationer behövs (allt i `product_filters` JSONB).
+- Memory att uppdatera efteråt: `mem://features/partner-discovery-logic-v7-sv-final` (ny dimension i 4-stegs filter → 5-stegs), `mem://features/partner-guide-logic-v6-sv` (om vikten 5 % läggs till).
 
-### Partnerdata
-- [ ] Rekrytera norska Dynamics 365-partners
-- [ ] Mata in partnerdata i norska projektets databas
+### Att bekräfta före implementation
 
----
-
-## Framtida marknader
-
-### Danmark (dk.d365guide.com)
-- Remix av norskt projekt (liknande språk/struktur)
-- Danska översättningar
-- Danska partners
-
-### Global (d365guide.com)
-- Engelskspråkig version
-- Fungerar som x-default fallback
-- Internationella partners
-
----
-
-## SEO-strategi
-
-- Varje subdomän behandlas som separat sajt av Google
-- hreflang kopplar ihop alla versioner
-- Varje sajt har egen sitemap och robots.txt
-- Google Search Console: lägg till varje subdomän som separat property
