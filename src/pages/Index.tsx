@@ -70,7 +70,7 @@ const selectorCards = [
   {
     icon: <Users className="h-5 w-5 text-white" />,
     title: "Förbättra sälj och marknad",
-    desc: "Optimera sälj & CRM — Dynamics 365 Sales och Customer Insights",
+    desc: "Optimera sälj- och marknadsprocesserna — Dynamics 365 Sales och Customer Insights",
     link: "/crm/",
     linkText: "Utforska CRM",
     image: selectorCrm,
@@ -252,7 +252,7 @@ const Index = () => {
       </section>
 
       {/* Selector – Vad vill du göra? */}
-      <section className="py-12 sm:py-20 bg-gradient-to-b from-card via-card to-secondary/40 border-b border-border relative overflow-hidden">
+      <section className="pt-6 sm:pt-8 pb-12 sm:pb-20 bg-gradient-to-b from-card via-card to-secondary/40 border-b border-border relative overflow-hidden">
         {/* Decorative ambient background */}
         <div className="absolute inset-0 pointer-events-none opacity-60">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
@@ -260,10 +260,6 @@ const Index = () => {
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="text-center mb-10 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              Välj din väg
-            </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">Vad vill du göra?</h2>
             <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
           </div>
@@ -295,13 +291,13 @@ const Index = () => {
                     {card.eyebrow}
                   </div>
                   {/* Icon badge */}
-                  <div className={`absolute -bottom-5 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-slate-900 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-slate-900 group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="flex flex-col flex-1 p-5 pt-8 gap-2">
+                <div className="flex flex-col flex-1 p-5 gap-2">
                   <h3 className="text-[15px] font-semibold text-white leading-tight">{card.title}</h3>
                   <p className="text-[13px] text-white/60 leading-relaxed flex-1">{card.desc}</p>
                   <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white mt-2 group-hover:gap-2.5 transition-all">
