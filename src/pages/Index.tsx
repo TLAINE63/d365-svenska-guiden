@@ -323,24 +323,40 @@ const Index = () => {
       </Suspense>
 
       {/* Analysis CTA Banner */}
-      <section className="px-4 sm:px-6 pb-10 bg-secondary/30">
+      <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl">
-          <div className="bg-card border border-border border-l-[3px] border-l-primary rounded-xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-            <div>
-              <h3 className="text-base sm:text-[17px] font-semibold text-foreground mb-1">Vet du inte vilken partner du skall kontakta?</h3>
-              <p className="text-[13px] text-muted-foreground max-w-[480px] leading-relaxed">
-                Vår kostnadsfria partnermatchning tar 2 minuter och ger dig lite mer insikt kring Dynamics 365 och en personlig rekommendation om vilken typ av partner som borde passa din verksamhet.
-              </p>
-              <div className="flex flex-wrap gap-2 mt-3">
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">Gratis</span>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">Ingen registrering</span>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">5 minuter</span>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-secondary text-muted-foreground border border-border">Opartisk rekommendation</span>
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 border border-white/10 shadow-2xl p-7 sm:p-10">
+            {/* Decorative glows */}
+            <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[hsl(var(--cta-orange))]/20 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.06),transparent_60%)] pointer-events-none" />
+
+            <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-7">
+              <div className="flex-1">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(var(--cta-orange))]/15 border border-[hsl(var(--cta-orange))]/30 text-[11px] font-semibold uppercase tracking-wider text-[hsl(var(--cta-orange))] mb-4">
+                  <Sparkles className="w-3 h-3" />
+                  Personlig partnermatchning
+                </div>
+                <h3 className="text-xl sm:text-2xl md:text-[28px] font-bold text-white mb-2 leading-tight tracking-tight">
+                  Vet du inte vilken partner du skall kontakta?
+                </h3>
+                <p className="text-[14px] sm:text-[15px] text-white/70 max-w-[560px] leading-relaxed">
+                  Vår kostnadsfria partnermatchning tar 2 minuter och ger dig insikt kring Dynamics 365 — plus en personlig rekommendation om vilken typ av partner som passar just din verksamhet.
+                </p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[hsl(var(--cta-orange))]/20 text-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))]/30">Gratis</span>
+                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">Ingen registrering</span>
+                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">2 minuter</span>
+                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">Opartisk rekommendation</span>
+                </div>
               </div>
+              <Button
+                asChild
+                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl whitespace-nowrap flex-shrink-0 shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+              >
+                <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1.5" /></Link>
+              </Button>
             </div>
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground text-sm h-10 px-5 rounded-lg whitespace-nowrap flex-shrink-0">
-              <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
-            </Button>
           </div>
         </div>
       </section>
