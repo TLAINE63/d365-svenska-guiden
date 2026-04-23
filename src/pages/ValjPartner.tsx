@@ -142,7 +142,9 @@ const matchesDbProductFilter = (
   productKey: ProductKey,
   industry?: string,
   companySize?: string,
-  geography?: string
+  geography?: string,
+  _regions?: unknown,
+  revenue?: string
 ): boolean => {
   const productFilter = partner.product_filters?.[productKey];
   if (!productFilter) return false;
@@ -152,14 +154,20 @@ const matchesDbProductFilter = (
     return false;
   }
   
-  // Check company size filter
-  if (companySize && productFilter.companySize && !productFilter.companySize.includes(companySize)) {
-    return false;
+  // Soft company size filter (empty target = match all)
+  if (companySize) {
+    const targets = productFilter.companySize || [];
+    if (targets.length > 0 && !targets.includes(companySize)) return false;
+  }
+
+  // Soft revenue filter (empty target = match all)
+  if (revenue) {
+    const targets = productFilter.revenue || [];
+    if (targets.length > 0 && !targets.includes(revenue)) return false;
   }
   
   // Check geography filter with hierarchy
   if (geography) {
-    // Geography is now an array - check if partner covers the selected geography
     const partnerGeo = Array.isArray(productFilter.geography) ? productFilter.geography : (productFilter.geography ? [productFilter.geography] : ["Sverige"]);
     const geographyHierarchy = ["Sverige", "Norden", "Europa", "Övriga världen", "Internationellt"];
     const selectedGeoIndex = geographyHierarchy.indexOf(geography);
