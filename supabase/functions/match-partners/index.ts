@@ -134,18 +134,23 @@ PARTNERS ATT UTVÄRDERA:
 ${partnerSummaries}
 
 INSTRUKTIONER:
-1. Ge varje partner ett matchningspoäng 0-100 baserat på:
-   - Hur väl deras beskrivning och erbjudande matchar den valda applikationen och workload (${criteria.aiInterest === 'high' ? '25%' : criteria.localPreference === 'very' ? '30%' : '35%'})
-   - Branscherfarenhet (${criteria.aiInterest === 'high' ? '20%' : criteria.localPreference === 'very' ? '25%' : '30%'})
-   - Geografi och storlek (${criteria.localPreference === 'very' ? '10%' : '15%'})
-   - Kundexempel och referensers relevans (10%)${criteria.localPreference === 'very' ? `
-   - Lokal närvaro (15%): Partners med fler kontorsorter och kontor nära kundens geografi ska premieras. Bred rikstäckning är en fördel. Partners utan angiven kontorsort får lägre poäng.` : criteria.localPreference === 'somewhat' ? `
-   - Lokal närvaro (bonuspoäng, 5-10%): Partners med kontor i kundens region får bonus, men det är inte avgörande.` : ''}${criteria.aiInterest === 'high' ? `
-     - AI-kompetens (20%): Använd den strukturerade AI-nivån och antalet kapabiliteter/projekt som anges för varje partner. Partners med nivån "Avancerad" ska premieras mest, följt av "Integration" och sedan "Enabled". Fler AI-projekt och tydliga AI-case-beskrivningar ger extra poäng.` : criteria.aiInterest === 'medium' ? `
-     - AI-kompetens (bonuspoäng, ej obligatoriskt): Använd den strukturerade AI-nivån. Partners med registrerad AI-kompetens får upp till 10 bonus-poäng baserat på nivå och antal kapabiliteter.` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `
-   - Plattformskompetens (10%): Kunden efterfrågar kompetens inom ${criteria.platformNeeds.join(', ')}. Jämför mot partnerns listade plattformskompetens. Partners som täcker fler av kundens önskade områden ska premieras. Partners utan angiven plattformskompetens får neutral poäng.` : ''}${criteria.additionalApps && criteria.additionalApps.length > 0 ? `
-   - Bred Dynamics 365-kompetens (bonuspoäng, 5-10%): Kunden är även intresserad av ${criteria.additionalApps.join(', ')}. Partners som har erfarenhet av dessa applikationer utöver den primära (${criteria.application}) ska premieras.` : ''}${(criteria.companySize || criteria.revenue) ? `
-   - Målgruppsmatch (bonuspoäng, upp till 10%): Varje partner har en "Målgrupp"-rad. Ge +5% bonus om partnerns målgrupp för anställda innehåller kundens "${criteria.companySize || ''}" och +5% bonus om målgruppen för omsättning innehåller kundens "${criteria.revenue || ''}". VIKTIGT: Om partnern angett FLER ÄN 3 värden i en dimension (anställda eller omsättning) räknas det som "för generellt" – ge då bara 40% av bonusen för den dimensionen (≈2% istället för 5%), eftersom partnern då signalerar att de tar alla kunder snarare än har en uttalad målgrupp. Om partnern har angett "ej angiven" eller saknar matchning på en dimension – ge 0 poäng (neutralt, inget avdrag). Detta är ett mjukt signalvärde, inte hård filtrering.` : ''}
+1. RANGORDNINGSPRIORITET (viktigast först — denna ordning är ALLTID giltig):
+   a) BRANSCH är ALLTID den viktigaste faktorn. En partner med dokumenterad erfarenhet i kundens bransch ("${criteria.industry || 'Ej specificerat'}") ska ALLTID rankas högre än en partner utan branschfokus, även om den senare har starkare övrig profil. Branschmatch baseras på partnerns "Branschfokus för ${criteria.application}" och kundexempel.
+   b) PRODUKT är näst viktigast${criteria.application && criteria.application !== 'Alla' ? ` (kunden har valt ${criteria.application})` : ' när kunden valt en specifik applikation'}. En partner med tydlig specialisering på den valda applikationen ska rankas högre än en partner med svagare/bredare produktfokus. Använd produktbeskrivning, AI-kompetens för produkten och kundexempel som signaler.
+   c) Övriga faktorer (geografi, storlek, AI-intresse, plattform, lokal närvaro etc.) är mindre viktiga och används endast för att finjustera rankingen MELLAN partners som är likvärdiga på bransch och produkt.
+
+2. Ge varje partner ett matchningspoäng 0-100 enligt följande viktning:
+   - Branscherfarenhet (40%) — HÖGSTA PRIO. Stark match = +30-40, bred branschtäckning = +20-30, ingen branschmatch men relevant erfarenhet = +5-15, ingen matchning alls = 0-5.
+   - Produktspecialisering / workload-matchning (${criteria.application && criteria.application !== 'Alla' ? '30%' : '20%'}) — Hur väl partnern är specialiserad på ${criteria.application}.
+   - Kundexempel och referensers relevans (10%)
+   - Geografi och storlek (${criteria.localPreference === 'very' ? '5%' : '10%'})${criteria.localPreference === 'very' ? `
+   - Lokal närvaro (10%): Partners med fler kontorsorter och kontor nära kundens geografi ska premieras. Bred rikstäckning är en fördel. Partners utan angiven kontorsort får lägre poäng.` : criteria.localPreference === 'somewhat' ? `
+   - Lokal närvaro (bonuspoäng, 5%): Partners med kontor i kundens region får bonus, men det är inte avgörande.` : ''}${criteria.aiInterest === 'high' ? `
+     - AI-kompetens (15%): Använd den strukturerade AI-nivån och antalet kapabiliteter/projekt som anges för varje partner. Partners med nivån "Avancerad" ska premieras mest, följt av "Integration" och sedan "Enabled". Fler AI-projekt och tydliga AI-case-beskrivningar ger extra poäng.` : criteria.aiInterest === 'medium' ? `
+     - AI-kompetens (bonuspoäng, ej obligatoriskt): Partners med registrerad AI-kompetens får upp till 10 bonus-poäng baserat på nivå och antal kapabiliteter.` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `
+   - Plattformskompetens (5-10%): Kunden efterfrågar kompetens inom ${criteria.platformNeeds.join(', ')}. Jämför mot partnerns listade plattformskompetens.` : ''}${criteria.additionalApps && criteria.additionalApps.length > 0 ? `
+   - Bred Dynamics 365-kompetens (bonuspoäng, 5%): Kunden är även intresserad av ${criteria.additionalApps.join(', ')}.` : ''}${(criteria.companySize || criteria.revenue) ? `
+   - Målgruppsmatch (bonuspoäng, upp till 10%): Varje partner har en "Målgrupp"-rad. Ge +5% bonus om partnerns målgrupp för anställda innehåller kundens "${criteria.companySize || ''}" och +5% bonus om målgruppen för omsättning innehåller kundens "${criteria.revenue || ''}". VIKTIGT: Om partnern angett FLER ÄN 3 värden i en dimension räknas det som "för generellt" – ge då bara 40% av bonusen för den dimensionen (≈2% istället för 5%). Saknar partnern angiven målgrupp eller matchar inte – 0 poäng (neutralt, inget avdrag). Detta är en mjuk signal, ALDRIG hård filtrering, och ALDRIG viktigare än bransch eller produkt.` : ''}
 ${criteria.preferCrmOnly ? `
 2. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
 ` : ''}
