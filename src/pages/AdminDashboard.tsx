@@ -3595,8 +3595,19 @@ const AdminDashboard = () => {
                             <div>
                               <Label className="text-sm font-semibold">Målgrupp – kundstorlek (frivilligt)</Label>
                               <p className="text-xs text-muted-foreground mt-1">
-                                Markera vilka kundsegment ni typiskt vänder er till för {section.label}. Lämnas tomt = matchar alla storlekar.
+                                Markera vilka kundsegment ni typiskt vänder er till för {section.label}. Detta används som ett mjukt filter när kunder söker partner.
                               </p>
+                              <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
+                                <p>
+                                  <span className="font-medium text-foreground">Tomt fält = matchar alla.</span> Om ni inte markerar något visas ni för kunder oavsett storlek (vi straffar inte tystnad).
+                                </p>
+                                <p>
+                                  <span className="font-medium text-foreground">Markerade värden = era målsegment.</span> Ni visas tydligare för kunder som matchar något av era val. Kunder utanför era val kan fortfarande se er, men utan extra framhävning.
+                                </p>
+                                <p>
+                                  Tips: markera bara om ni har en uttalad målgrupp – annars är det bättre att lämna tomt.
+                                </p>
+                              </div>
                             </div>
                             <div>
                               <Label className="text-xs text-muted-foreground">Antal anställda</Label>
@@ -3621,6 +3632,9 @@ const AdminDashboard = () => {
                                   );
                                 })}
                               </div>
+                              <p className="text-[11px] text-muted-foreground mt-1.5">
+                                Inget val = ni matchar kunder av alla storlekar.
+                              </p>
                             </div>
                             <div>
                               <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
@@ -3645,6 +3659,9 @@ const AdminDashboard = () => {
                                   );
                                 })}
                               </div>
+                              <p className="text-[11px] text-muted-foreground mt-1.5">
+                                Inget val = ni matchar kunder oavsett omsättning.
+                              </p>
                             </div>
                           </div>
 
