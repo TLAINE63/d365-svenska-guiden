@@ -696,6 +696,53 @@ const KomIgang = () => {
                   </div>
                 </div>
               )}
+
+              {/* Step 6: Company size (single-select with skip option) */}
+              {step === 6 && (
+                <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {sizeOptions.map((opt) => {
+                      const isSelected = selectedSize === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          onClick={() => {
+                            setSelectedSize(opt.value);
+                            setTimeout(() => findPartners(), 250);
+                          }}
+                          className={`w-full text-left px-4 py-3 rounded-lg border transition-all flex items-center gap-3 ${
+                            isSelected
+                              ? "border-primary bg-primary/5 text-foreground"
+                              : "border-border bg-card text-foreground hover:border-primary/30"
+                          }`}
+                        >
+                          <div className={`w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 ${
+                            isSelected ? "bg-primary/20" : ""
+                          }`}>
+                            <Users className="h-4 w-4 text-primary" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <span className="text-sm font-semibold leading-tight block">{opt.label}</span>
+                            <p className="text-xs text-muted-foreground leading-tight">{opt.desc}</p>
+                          </div>
+                          {isSelected && (
+                            <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSelectedSize(null);
+                      findPartners();
+                    }}
+                    className="mt-4 mx-auto block text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors"
+                  >
+                    Hoppa över — visa alla relevanta partners
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </section>
