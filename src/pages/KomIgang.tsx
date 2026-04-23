@@ -502,7 +502,12 @@ const KomIgang = () => {
                     </Button>
                   )}
                   {step === 5 && (
-                    <Button onClick={() => findPartners()} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                      Nästa
+                    </Button>
+                  )}
+                  {step === 6 && (
+                    <Button onClick={() => findPartners()} size="sm" className="px-6">
                       Visa partners
                     </Button>
                   )}
