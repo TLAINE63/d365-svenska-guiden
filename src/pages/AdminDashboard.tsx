@@ -35,7 +35,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { allIndustries, geographyOptions, getCumulativeGeographyDisplay } from "@/data/partners";
+import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
   usePartners,
