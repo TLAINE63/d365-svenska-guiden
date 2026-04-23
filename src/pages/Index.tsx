@@ -81,7 +81,7 @@ const selectorCards = [
   {
     icon: <Phone className="h-5 w-5 text-white" />,
     title: "Utveckla kundservice",
-    desc: "Effektivisera support — Customer Service, Field Service, Contact Center",
+    desc: "Förbättra kundupplevelsen — Customer Service, Field Service, Contact Center",
     link: "/d365-customer-service/",
     linkText: "Utforska kundservice",
     image: selectorService,
