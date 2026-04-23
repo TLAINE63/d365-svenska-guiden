@@ -365,7 +365,7 @@ const Index = () => {
       <section className="py-10 sm:py-12 bg-card border-y border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-6">Därför använder företag d365.se</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
             {[
               { num: "100%", label: "Oberoende — vi säljer inget system" },
               { num: "Gratis", label: "Behovsanalys och partnermatching" },
@@ -376,36 +376,47 @@ const Index = () => {
                 <div className="text-[13px] text-muted-foreground leading-snug">{item.label}</div>
               </div>
             ))}
-            {/* Kravspec card with dropdown */}
+          </div>
+        </div>
+      </section>
+
+      {/* Kravspec CTA Banner */}
+      <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 bg-secondary/30">
+        <div className="container mx-auto max-w-5xl">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 border border-white/10 shadow-2xl p-7 sm:p-10">
+            {/* Decorative glows */}
+            <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-[hsl(var(--cta-orange))]/15 blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.06),transparent_60%)] pointer-events-none" />
+
             <div className="relative">
-              <button
-                onClick={() => setKravspecOpen(!kravspecOpen)}
-                className="w-full text-left bg-secondary/50 border border-border rounded-[10px] p-5 hover:bg-secondary/80 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 cursor-pointer"
-              >
-                <div className="text-2xl sm:text-[28px] font-semibold text-primary tracking-tight mb-1 flex items-center gap-2">
-                  Kravspec
-                  <ChevronDown className={`h-5 w-5 transition-transform ${kravspecOpen ? 'rotate-180' : ''}`} />
-                </div>
-                <div className="text-[13px] text-muted-foreground leading-snug">Skapa en kostnadsfri kravspecifikation</div>
-              </button>
-              {kravspecOpen && (
-                <div className="absolute top-full left-0 right-0 mt-1 z-20 bg-background border border-border rounded-lg shadow-lg overflow-hidden">
-                  {[
-                    { label: "ERP / Affärssystem", link: "/kravspecifikation/" },
-                    { label: "Försäljning", link: "/kravspecifikation-sales/" },
-                    { label: "Marknadsföring", link: "/kravspecifikation-marketing/" },
-                    { label: "Kundservice", link: "/kravspecifikation-kundservice/" },
-                  ].map((spec) => (
-                    <Link
-                      key={spec.link}
-                      to={spec.link}
-                      className="block px-4 py-3 text-sm text-foreground hover:bg-secondary/60 transition-colors border-b border-border last:border-b-0"
-                    >
-                      {spec.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 border border-primary/30 text-[11px] font-semibold uppercase tracking-wider text-primary mb-4">
+                <Check className="w-3 h-3" />
+                Kostnadsfri kravspecifikation
+              </div>
+              <h3 className="text-xl sm:text-2xl md:text-[28px] font-bold text-white mb-2 leading-tight tracking-tight">
+                Skapa din kravspecifikation på minuter
+              </h3>
+              <p className="text-[14px] sm:text-[15px] text-white/70 max-w-[620px] leading-relaxed mb-6">
+                Få en strukturerad kravspecifikation som hjälper dig prata samma språk som leverantörerna. Välj område nedan och kom igång direkt — helt gratis och utan registrering.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {[
+                  { label: "ERP / Affärssystem", link: "/kravspecifikation/" },
+                  { label: "Försäljning", link: "/kravspecifikation-sales/" },
+                  { label: "Marknadsföring", link: "/kravspecifikation-marketing/" },
+                  { label: "Kundservice", link: "/kravspecifikation-kundservice/" },
+                ].map((spec) => (
+                  <Link
+                    key={spec.link}
+                    to={spec.link}
+                    className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[hsl(var(--cta-orange))]/50 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                  >
+                    <span>{spec.label}</span>
+                    <ArrowRight className="w-4 h-4 text-white/60 group-hover:text-[hsl(var(--cta-orange))] group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
