@@ -13,6 +13,7 @@ interface PartnerInput {
   product_filters: Record<string, {
     industries?: string[];
     companySize?: string[];
+    revenue?: string[];
     geography?: string | string[];
     ranking?: number;
     productDescription?: string;
@@ -30,6 +31,7 @@ interface UserCriteria {
   industry: string;
   geography: string;
   companySize: string;
+  revenue?: string;
   workload?: string; // CRM workload focus
   preferCrmOnly?: boolean;
   aiInterest?: 'high' | 'medium' | 'none';
@@ -37,6 +39,7 @@ interface UserCriteria {
   platformNeeds?: string[];
   additionalApps?: string[];
 }
+
 
 interface PartnerMatch {
   id: string;
@@ -98,6 +101,13 @@ Deno.serve(async (req) => {
       const officeCities = (p as any).office_cities || [];
       const platformCaps = (p as any).platform_capabilities || [];
 
+      // Target audience (soft signal – missing = neutral)
+      const targetSizes = productFilter?.companySize || [];
+      const targetRevenues = productFilter?.revenue || [];
+      const targetAudienceLine = (targetSizes.length > 0 || targetRevenues.length > 0)
+        ? `\nMålgrupp (${criteria.application}): ${targetSizes.length > 0 ? `anställda ${targetSizes.join(', ')}` : 'anställda ej angivet'}; ${targetRevenues.length > 0 ? `omsättning MSEK ${targetRevenues.join(', ')}` : 'omsättning ej angiven'}`
+        : `\nMålgrupp (${criteria.application}): ej angiven (neutral – varken bonus eller avdrag)`;
+
       return `ID: ${p.id}
 Namn: ${p.name}
 Beskrivning: ${(p.description || '').substring(0, 400)}
@@ -105,7 +115,7 @@ Produktbeskrivning (${criteria.application}): ${productDesc}
 Branschfokus för ${criteria.application}: ${pfIndustries}
 Kundexempel: ${customerExamples}
 Kontorsorter: ${officeCities.length > 0 ? officeCities.join(', ') : 'Ej angivet'}
-Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${aiSummary}`;
+Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej angivet'}${targetAudienceLine}${aiSummary}`;
     }).join('\n\n---\n\n');
 
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner. 
@@ -118,7 +128,7 @@ KUNDPROFIL:
 - Applikation: ${criteria.application}
 - Bransch: ${criteria.industry || 'Ej specificerat'}
 - Geografi: ${criteria.geography || 'Ej specificerat'}
-- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.additionalApps && criteria.additionalApps.length > 0 ? `\n- Övriga applikationer av intresse: ${criteria.additionalApps.join(', ')} – kunden vill gärna att partnern även har kompetens inom dessa Dynamics 365-applikationer` : ''}${criteria.localPreference && criteria.localPreference !== 'not' ? `\n- Lokal närvaro: ${criteria.localPreference === 'very' ? 'Mycket viktigt – kunden vill ha en partner med kontor nära sin verksamhet' : 'Ganska viktigt – lokal närvaro är en fördel men inte avgörande'}` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `\n- Önskad plattformskompetens: ${criteria.platformNeeds.join(', ')} – kunden vill att partnern har erfarenhet av dessa delar av Microsofts plattform` : ''}${criteria.aiInterest && criteria.aiInterest !== 'none' ? `\n- AI-intresse: ${criteria.aiInterest === 'high' ? 'Högt – kunden vill ha en partner med stark kompetens inom Microsoft Copilot, AI-agenter, Copilot Studio och/eller Azure AI Foundry' : 'Medelhögt – kunden är intresserad men det är inte avgörande'}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
+- Antal anställda: ${criteria.companySize || 'Ej specificerat'}${criteria.revenue ? `\n- Omsättning: ${criteria.revenue} MSEK` : ''}${criteria.workload ? `\n- Workload-fokus: ${criteria.workload}` : ''}${criteria.additionalApps && criteria.additionalApps.length > 0 ? `\n- Övriga applikationer av intresse: ${criteria.additionalApps.join(', ')} – kunden vill gärna att partnern även har kompetens inom dessa Dynamics 365-applikationer` : ''}${criteria.localPreference && criteria.localPreference !== 'not' ? `\n- Lokal närvaro: ${criteria.localPreference === 'very' ? 'Mycket viktigt – kunden vill ha en partner med kontor nära sin verksamhet' : 'Ganska viktigt – lokal närvaro är en fördel men inte avgörande'}` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `\n- Önskad plattformskompetens: ${criteria.platformNeeds.join(', ')} – kunden vill att partnern har erfarenhet av dessa delar av Microsofts plattform` : ''}${criteria.aiInterest && criteria.aiInterest !== 'none' ? `\n- AI-intresse: ${criteria.aiInterest === 'high' ? 'Högt – kunden vill ha en partner med stark kompetens inom Microsoft Copilot, AI-agenter, Copilot Studio och/eller Azure AI Foundry' : 'Medelhögt – kunden är intresserad men det är inte avgörande'}` : ''}${criteria.preferCrmOnly ? '\n- OBS: Kunden implementerar CRM (inte ERP). En CRM-specialist utan ERP-bakgrund är oftast ett bättre val för ren CRM-implementation.' : ''}
 
 PARTNERS ATT UTVÄRDERA:
 ${partnerSummaries}
@@ -134,7 +144,8 @@ INSTRUKTIONER:
      - AI-kompetens (20%): Använd den strukturerade AI-nivån och antalet kapabiliteter/projekt som anges för varje partner. Partners med nivån "Avancerad" ska premieras mest, följt av "Integration" och sedan "Enabled". Fler AI-projekt och tydliga AI-case-beskrivningar ger extra poäng.` : criteria.aiInterest === 'medium' ? `
      - AI-kompetens (bonuspoäng, ej obligatoriskt): Använd den strukturerade AI-nivån. Partners med registrerad AI-kompetens får upp till 10 bonus-poäng baserat på nivå och antal kapabiliteter.` : ''}${criteria.platformNeeds && criteria.platformNeeds.length > 0 ? `
    - Plattformskompetens (10%): Kunden efterfrågar kompetens inom ${criteria.platformNeeds.join(', ')}. Jämför mot partnerns listade plattformskompetens. Partners som täcker fler av kundens önskade områden ska premieras. Partners utan angiven plattformskompetens får neutral poäng.` : ''}${criteria.additionalApps && criteria.additionalApps.length > 0 ? `
-   - Bred Dynamics 365-kompetens (bonuspoäng, 5-10%): Kunden är även intresserad av ${criteria.additionalApps.join(', ')}. Partners som har erfarenhet av dessa applikationer utöver den primära (${criteria.application}) ska premieras.` : ''}
+   - Bred Dynamics 365-kompetens (bonuspoäng, 5-10%): Kunden är även intresserad av ${criteria.additionalApps.join(', ')}. Partners som har erfarenhet av dessa applikationer utöver den primära (${criteria.application}) ska premieras.` : ''}${(criteria.companySize || criteria.revenue) ? `
+   - Målgruppsmatch (bonuspoäng, upp till 10%): Varje partner har en "Målgrupp"-rad. Ge +5% bonus om partnerns målgrupp för anställda innehåller kundens "${criteria.companySize || ''}" och +5% bonus om målgruppen för omsättning innehåller kundens "${criteria.revenue || ''}". Om partnern har angett "ej angiven" eller saknar matchning på en dimension – ge 0 poäng (neutralt, inget avdrag). Detta är ett mjukt signalvärde, inte hård filtrering.` : ''}
 ${criteria.preferCrmOnly ? `
 2. VIKTIGT för CRM-appar: Om en partner har bred ERP-kompetens (Business Central, Finance & SCM) men begränsad CRM-specialisering, sänk poängen med 10-15 enheter jämfört med en renodlad CRM-partner med liknande profil. En CRM-specialist som inte säljer ERP bör premieras.
 ` : ''}

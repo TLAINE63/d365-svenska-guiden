@@ -3,15 +3,53 @@ import { DatabasePartner, ProductFilters, SwedishRegion } from "./usePartners";
 // Product key types
 export type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 
-// Helper function to check if a database partner matches product-specific filters
+// Size match bonus weights (used for soft ranking, not hard filtering)
+export const SIZE_MATCH_WEIGHT = 5; // % bonus for matching company size
+export const REVENUE_MATCH_WEIGHT = 5; // % bonus for matching revenue
+
+// Returns a 0–10 bonus score for how well a partner matches the customer's size/revenue
+// for a given product. Soft matching: missing target on either side = neutral (0 points,
+// no penalty). Explicit match on each dimension grants the corresponding weight.
+export const getSizeMatchBonus = (
+  partner: DatabasePartner,
+  product: ProductKey,
+  selectedCompanySize?: string | null,
+  selectedRevenue?: string | null
+): number => {
+  const productFilter = partner.product_filters?.[product];
+  if (!productFilter) return 0;
+
+  let bonus = 0;
+
+  if (selectedCompanySize) {
+    const targets = productFilter.companySize || [];
+    if (targets.length > 0 && targets.includes(selectedCompanySize)) {
+      bonus += SIZE_MATCH_WEIGHT;
+    }
+  }
+
+  if (selectedRevenue) {
+    const targets = productFilter.revenue || [];
+    if (targets.length > 0 && targets.includes(selectedRevenue)) {
+      bonus += REVENUE_MATCH_WEIGHT;
+    }
+  }
+
+  return bonus;
+};
+
+// Helper function to check if a database partner matches product-specific filters.
+// NOTE: companySize and revenue are NOT used as hard filters here – they are soft
+// signals applied via getSizeMatchBonus() during ranking. We never hide a partner
+// because their stated target audience does not include the customer's size.
 export const matchesDatabaseProductFilter = (
   partner: DatabasePartner,
   product: ProductKey,
   selectedIndustry?: string,
-  selectedCompanySize?: string,
+  _selectedCompanySize?: string,
   selectedGeography?: string,
   selectedRegions?: SwedishRegion[],
-  selectedRevenue?: string
+  _selectedRevenue?: string
 ): boolean => {
   const productFilter = partner.product_filters?.[product];
   
@@ -21,22 +59,6 @@ export const matchesDatabaseProductFilter = (
   // Check industry match - ONLY uses primary industries, not secondaryIndustries
   if (selectedIndustry && !productFilter.industries?.includes(selectedIndustry)) {
     return false;
-  }
-  
-  // Check company size match (soft: empty target = matches all sizes)
-  if (selectedCompanySize) {
-    const targets = productFilter.companySize || [];
-    if (targets.length > 0 && !targets.includes(selectedCompanySize)) {
-      return false;
-    }
-  }
-
-  // Check revenue match (soft: empty target = matches all revenues)
-  if (selectedRevenue) {
-    const targets = productFilter.revenue || [];
-    if (targets.length > 0 && !targets.includes(selectedRevenue)) {
-      return false;
-    }
   }
   
   // Check geography match (hierarchical: Sverige < Norden < Europa < Övriga världen)
@@ -165,13 +187,35 @@ export const filterAndSortPartners = (
     )
   );
   
+  // Two-tier ranking when size/revenue is specified: partners whose stated target
+  // audience matches the customer go first (slumpat inom gruppen), partners with no
+  // bonus go after. Partners with empty target audience get 0 bonus = neutral position.
+  const hasSizeSignal = !!selectedCompanySize || !!selectedRevenue;
+
   if (randomize) {
+    if (hasSizeSignal) {
+      const withBonus: DatabasePartner[] = [];
+      const withoutBonus: DatabasePartner[] = [];
+      result.forEach(p => {
+        const bonus = getSizeMatchBonus(p, product, selectedCompanySize, selectedRevenue);
+        if (bonus > 0) withBonus.push(p);
+        else withoutBonus.push(p);
+      });
+      const seed = getSessionSeed();
+      return [
+        ...seededShuffle(withBonus, seed),
+        ...seededShuffle(withoutBonus, seed + 1),
+      ];
+    }
     // Shuffle with session-stable seed for fair exposure
     return seededShuffle(result, getSessionSeed());
   }
   
-  // Fallback: Sort by product ranking, then alphabetically
+  // Fallback: Sort by size-bonus DESC, then product ranking, then alphabetically
   return result.sort((a, b) => {
+    const bonusA = getSizeMatchBonus(a, product, selectedCompanySize, selectedRevenue);
+    const bonusB = getSizeMatchBonus(b, product, selectedCompanySize, selectedRevenue);
+    if (bonusA !== bonusB) return bonusB - bonusA;
     const rankA = getDatabaseProductRanking(a, product);
     const rankB = getDatabaseProductRanking(b, product);
     if (rankA !== rankB) {
