@@ -7,9 +7,16 @@ export type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
 export const SIZE_MATCH_WEIGHT = 5; // % bonus for matching company size
 export const REVENUE_MATCH_WEIGHT = 5; // % bonus for matching revenue
 
+// Threshold above which a partner's stated target audience is considered "too generic"
+// (likely a "we take everyone" claim) and the bonus is reduced.
+export const TARGET_AUDIENCE_GENERIC_THRESHOLD = 3;
+export const GENERIC_TARGET_BONUS_FACTOR = 0.4; // 40% of full bonus when partner picked >3 buckets
+
 // Returns a 0–10 bonus score for how well a partner matches the customer's size/revenue
 // for a given product. Soft matching: missing target on either side = neutral (0 points,
-// no penalty). Explicit match on each dimension grants the corresponding weight.
+// no penalty). Explicit match on each dimension grants the corresponding weight, but
+// partners that ticked >3 buckets in a dimension are considered "too generic" and only
+// get a fraction of the bonus (they get rewarded less than truly focused partners).
 export const getSizeMatchBonus = (
   partner: DatabasePartner,
   product: ProductKey,
@@ -24,14 +31,20 @@ export const getSizeMatchBonus = (
   if (selectedCompanySize) {
     const targets = productFilter.companySize || [];
     if (targets.length > 0 && targets.includes(selectedCompanySize)) {
-      bonus += SIZE_MATCH_WEIGHT;
+      const factor = targets.length > TARGET_AUDIENCE_GENERIC_THRESHOLD
+        ? GENERIC_TARGET_BONUS_FACTOR
+        : 1;
+      bonus += SIZE_MATCH_WEIGHT * factor;
     }
   }
 
   if (selectedRevenue) {
     const targets = productFilter.revenue || [];
     if (targets.length > 0 && targets.includes(selectedRevenue)) {
-      bonus += REVENUE_MATCH_WEIGHT;
+      const factor = targets.length > TARGET_AUDIENCE_GENERIC_THRESHOLD
+        ? GENERIC_TARGET_BONUS_FACTOR
+        : 1;
+      bonus += REVENUE_MATCH_WEIGHT * factor;
     }
   }
 
