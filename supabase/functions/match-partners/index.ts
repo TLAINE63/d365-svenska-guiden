@@ -40,19 +40,6 @@ interface UserCriteria {
   additionalApps?: string[];
 }
 
-interface UserCriteria {
-  application: string;
-  productKey: string; // 'bc' | 'fsc' | 'sales' | 'service'
-  industry: string;
-  geography: string;
-  companySize: string;
-  workload?: string; // CRM workload focus
-  preferCrmOnly?: boolean;
-  aiInterest?: 'high' | 'medium' | 'none';
-  localPreference?: 'very' | 'somewhat' | 'not';
-  platformNeeds?: string[];
-  additionalApps?: string[];
-}
 
 interface PartnerMatch {
   id: string;
