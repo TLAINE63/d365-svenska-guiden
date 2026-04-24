@@ -184,7 +184,6 @@ function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass,
               <span className="text-xs font-medium">Unika besökare</span>
             </div>
             <p className="text-3xl font-bold">{stats.totalVisitors.toLocaleString("sv-SE")}</p>
-            <p className="text-xs text-muted-foreground mt-1">senaste {periodLabel}</p>
           </CardContent>
         </Card>
         <Card>
@@ -194,7 +193,6 @@ function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass,
               <span className="text-xs font-medium">Sidvisningar</span>
             </div>
             <p className="text-3xl font-bold">{stats.totalPageViews.toLocaleString("sv-SE")}</p>
-            <p className="text-xs text-muted-foreground mt-1">senaste {periodLabel}</p>
           </CardContent>
         </Card>
         <Card>
