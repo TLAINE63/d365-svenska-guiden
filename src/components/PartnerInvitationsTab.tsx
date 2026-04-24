@@ -1280,6 +1280,135 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Profile refresh send dialog */}
+      <Dialog open={showProfileRefreshDialog} onOpenChange={setShowProfileRefreshDialog}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Send className="w-5 h-5" />
+              Skicka profileringslänk (90 dagar)
+            </DialogTitle>
+            <CardDescription>
+              Skickar en unik profileringslänk till valda partners. Mailet skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.
+            </CardDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Ämnesrad</Label>
+              <Input
+                value={profileRefreshSendSubject}
+                onChange={(e) => setProfileRefreshSendSubject(e.target.value)}
+                placeholder="Ämnesrad"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">
+                Brödtext <span className="text-xs text-muted-foreground">(måste innehålla {"{{INVITATION_LINK}}"})</span>
+              </Label>
+              <Textarea
+                value={profileRefreshSendBody}
+                onChange={(e) => setProfileRefreshSendBody(e.target.value)}
+                rows={14}
+                className="font-mono text-xs"
+              />
+            </div>
+
+            <div className="space-y-2 border-t pt-4">
+              <div className="flex justify-between items-center">
+                <Label className="text-sm font-medium">
+                  Välj mottagare ({profileRefreshSelected.size} valda)
+                </Label>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      const visible = partners.filter(p =>
+                        !profileRefreshSearch ||
+                        p.name.toLowerCase().includes(profileRefreshSearch.toLowerCase())
+                      );
+                      setProfileRefreshSelected(new Set(visible.map(p => p.id)));
+                    }}
+                  >
+                    Välj alla synliga
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setProfileRefreshSelected(new Set())}
+                  >
+                    Avmarkera alla
+                  </Button>
+                </div>
+              </div>
+              <Input
+                placeholder="Sök partner..."
+                value={profileRefreshSearch}
+                onChange={(e) => setProfileRefreshSearch(e.target.value)}
+              />
+              <div className="border rounded-md max-h-72 overflow-y-auto divide-y">
+                {partners
+                  .filter(p =>
+                    !profileRefreshSearch ||
+                    p.name.toLowerCase().includes(profileRefreshSearch.toLowerCase())
+                  )
+                  .sort((a, b) => a.name.localeCompare(b.name, "sv"))
+                  .map(p => {
+                    const checked = profileRefreshSelected.has(p.id);
+                    return (
+                      <div key={p.id} className="flex items-center gap-3 p-2 hover:bg-muted/50">
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={(c) => {
+                            const next = new Set(profileRefreshSelected);
+                            if (c === true) next.add(p.id);
+                            else next.delete(p.id);
+                            setProfileRefreshSelected(next);
+                          }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium truncate flex items-center gap-2">
+                            {p.name}
+                            {p.is_featured && (
+                              <Badge variant="secondary" className="text-[10px]">Publicerad</Badge>
+                            )}
+                          </div>
+                        </div>
+                        <Input
+                          type="email"
+                          value={profileRefreshEmails[p.id] || ""}
+                          onChange={(e) =>
+                            setProfileRefreshEmails(prev => ({ ...prev, [p.id]: e.target.value }))
+                          }
+                          placeholder="kontakt@partner.se"
+                          className="h-8 text-sm w-64"
+                          disabled={!checked}
+                        />
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowProfileRefreshDialog(false)}>
+              Avbryt
+            </Button>
+            <Button
+              onClick={sendProfileRefreshEmails}
+              disabled={sendingProfileRefresh || profileRefreshSelected.size === 0}
+            >
+              <Send className={`w-4 h-4 mr-2 ${sendingProfileRefresh ? "animate-pulse" : ""}`} />
+              {sendingProfileRefresh
+                ? "Skickar..."
+                : `Skicka till ${profileRefreshSelected.size} partner${profileRefreshSelected.size === 1 ? "" : "s"}`}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
