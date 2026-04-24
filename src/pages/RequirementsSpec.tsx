@@ -108,6 +108,9 @@ const RequirementsSpec = () => {
           contact_name: email.split("@")[0] || "Lead",
           source_page: "/kravspecifikation",
           source_type: "requirements_spec",
+          industry: result.industry,
+          company_size: result.companySize,
+          selected_product: "Dynamics 365 ERP",
           message: `Laddat ner kravspecifikation: ERP - ${result.industry}`,
         },
       });
