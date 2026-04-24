@@ -456,7 +456,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   };
 
-
+  const createInvitation = async () => {
     if (!newInvitation.email || !newInvitation.partner_name) {
       toast.error("E-post och partnernamn krävs");
       return;
