@@ -912,12 +912,20 @@ const PartnerUpdate = () => {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Grundläggande information</CardTitle>
-                <CardDescription>Företagets kontaktuppgifter</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <PremiumCollapsibleSection
+              title="Grundläggande information"
+              description="Företagets kontaktuppgifter, logotyp och beskrivning"
+              icon={Building2}
+              accent="primary"
+              status={
+                formData.name?.trim() && formData.website?.trim() && formData.description?.trim() && formData.contact_person?.trim() && formData.email?.trim()
+                  ? "complete"
+                  : (formData.name?.trim() || formData.website?.trim() ? "partial" : "empty")
+              }
+              open={openSections.basic}
+              onOpenChange={() => toggleSection("basic")}
+            >
+              <div className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Företagsnamn *</Label>
