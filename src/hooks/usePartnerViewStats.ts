@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 
 export interface PartnerViewStats {
   cardClicks30d: number;
@@ -59,13 +60,11 @@ export function usePartnerViewStats(
 
     (async () => {
       if (adminToken) {
-        const { data, error } = await supabase.functions.invoke("manage-leads", {
-          body: {
-            action: "partner-view-stats",
-            token: adminToken,
-            partnerSlug,
-            partnerName,
-          },
+        const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", {
+          action: "partner-view-stats",
+          token: adminToken,
+          partnerSlug,
+          partnerName,
         });
 
         if (cancelled) return;
