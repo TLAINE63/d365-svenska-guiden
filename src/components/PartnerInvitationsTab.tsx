@@ -961,7 +961,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   </div>
                 </div>
               </>
-            ) : (
+            ) : activeTemplateTab === "reminder" ? (
               <>
                 <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
                   <strong>Påminnelsemailet</strong> skickas till partners som redan har en profil och behöver uppdatera sina uppgifter.
