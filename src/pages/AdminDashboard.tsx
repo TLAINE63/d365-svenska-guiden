@@ -81,6 +81,7 @@ import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
+import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
