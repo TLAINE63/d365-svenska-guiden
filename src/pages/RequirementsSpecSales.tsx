@@ -108,6 +108,9 @@ const RequirementsSpecSales = () => {
           contact_name: email.split("@")[0] || "Lead",
           source_page: "/kravspecifikation-sales",
           source_type: "requirements_spec",
+          industry: result.industry,
+          company_size: result.companySize,
+          selected_product: "Dynamics 365 Sales",
           message: `Laddat ner kravspecifikation: Dynamics 365 Sales - ${result.industry}`,
         },
       });
