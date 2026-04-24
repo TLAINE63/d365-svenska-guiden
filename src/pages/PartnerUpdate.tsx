@@ -1724,18 +1724,17 @@ const PartnerUpdate = () => {
 
             {/* Industry Apps Section */}
             {activeProducts.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <ExternalLink className="w-5 h-5 text-primary" />
-                    Branschapplikationer (Microsoft Marketplace)
-                  </CardTitle>
-                  <CardDescription>
-                    Lägg till era certifierade branschspecifika tillägg från Microsoft Marketplace. 
-                    Dessa ska vara appar som tillför branschspecifik funktionalitet till en Dynamics 365-applikation.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+              <PremiumCollapsibleSection
+                title="Branschapplikationer (Microsoft Marketplace)"
+                description="Era certifierade branschspecifika tillägg från Microsoft Marketplace"
+                icon={ExternalLink}
+                accent="business-central"
+                status={industryApps.some((a) => a.name?.trim() && a.url?.trim()) ? "complete" : "empty"}
+                open={openSections.industryApps}
+                onOpenChange={() => toggleSection("industryApps")}
+                badge={industryApps.filter((a) => a.name?.trim()).length > 0 ? <Badge variant="outline">{industryApps.filter((a) => a.name?.trim()).length} appar</Badge> : undefined}
+              >
+                <div className="space-y-4">
                   {industryApps.map((app, index) => (
                     <div key={index} className="relative p-4 rounded-lg border border-border bg-muted/30 space-y-3">
                       <button
