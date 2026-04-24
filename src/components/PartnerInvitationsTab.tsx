@@ -997,6 +997,55 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   </div>
                 </div>
               </>
+            ) : (
+              <>
+                <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
+                  <strong>Profileringslänkmailet</strong> skickas till partners (publicerade eller inbjudna) för att de ska få en fräsch unik länk att uppdatera sin profil. Länken är giltig i 90 dagar.
+                  Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> där länken ska placeras och valfritt <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code> för partnerns namn.
+                  Mail skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Ämnesrad</Label>
+                  <Input
+                    value={profileRefreshSubject}
+                    onChange={(e) => setProfileRefreshSubject(e.target.value)}
+                    className="font-mono text-sm"
+                    placeholder="VIKTIGT! Uppdatera er partnerprofil på d365.se"
+                  />
+                </div>
+                <Textarea
+                  value={profileRefreshTemplate}
+                  onChange={(e) => setProfileRefreshTemplate(e.target.value)}
+                  rows={22}
+                  className="font-mono text-sm"
+                  placeholder="Skriv profileringslänkmailet här..."
+                />
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-muted-foreground">
+                    Platshållare: {"{{INVITATION_LINK}}"} = unik profileringslänk (90 dgr), {"{{NAME}}"} = partnerns namn
+                  </p>
+                  <div className="flex gap-2">
+                    {(profileRefreshTemplate !== profileRefreshTemplateOriginal || profileRefreshSubject !== profileRefreshSubjectOriginal) && (
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setProfileRefreshTemplate(profileRefreshTemplateOriginal || DEFAULT_PROFILE_REFRESH_BODY);
+                          setProfileRefreshSubject(profileRefreshSubjectOriginal || DEFAULT_PROFILE_REFRESH_SUBJECT);
+                        }}
+                      >
+                        Ångra ändringar
+                      </Button>
+                    )}
+                    <Button
+                      onClick={saveProfileRefreshTemplate}
+                      disabled={savingProfileRefreshTemplate || (profileRefreshTemplate === profileRefreshTemplateOriginal && profileRefreshSubject === profileRefreshSubjectOriginal)}
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      {savingProfileRefreshTemplate ? "Sparar..." : "Spara profileringslänkmall"}
+                    </Button>
+                  </div>
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
