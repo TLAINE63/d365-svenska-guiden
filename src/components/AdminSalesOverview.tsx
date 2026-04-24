@@ -478,6 +478,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
   const [statsAll, setStatsAll] = useState<any>(null);
   const [statsFiltered, setStatsFiltered] = useState<any>(null);
   const [stats90d, setStats90d] = useState<any>(null);
+  const [salesSummary90d, setSalesSummary90d] = useState<{ valjPartner: number; komIgang: number; analysisTotal: number } | null>(null);
 
   const postWithRetry = async (body: any, attempts = 3): Promise<Response> => {
     let lastErr: any;
