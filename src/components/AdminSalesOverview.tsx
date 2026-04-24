@@ -618,41 +618,96 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         </div>
       </div>
 
-      {/* ===== ONE-LINE 90-DAY SALES SUMMARY (copyable) ===== */}
-      {stats90d && (
-        <Card className="border-primary/40 bg-primary/5">
-          <CardContent className="py-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <FileText className="h-4 w-4 text-primary" />
-                  <span className="text-xs font-semibold uppercase tracking-wide text-primary">
-                    Säljunderlag – en rad (senaste 90 dagar, exkl. partnertrafik)
-                  </span>
+      {/* ===== 90-DAY SALES SUMMARY (boxes) ===== */}
+      {stats90d && statsAll && (() => {
+        const ext = stats90d;
+        const all = statsAll; // current dateRange — for partner traffic share
+        const extVisitors = ext.totalVisitors || 0;
+        const extPageViews = ext.totalPageViews || 0;
+        const extSwedish = ext.swedishVisitors || 0;
+        const extSwedishPct = extVisitors > 0 ? Math.round((extSwedish / extVisitors) * 100) : 0;
+        const allVisitors = all.totalVisitors || 0;
+        const partnerShare = allVisitors > 0 ? Math.max(0, allVisitors - extVisitors) : 0;
+        const partnerPct = allVisitors > 0 ? Math.round((partnerShare / allVisitors) * 100) : 0;
+        const findVisits = (path: string) => (ext.topPages || []).find((p: any) => p.path === path)?.visits || 0;
+        const valjPartner = findVisits("/valj-partner");
+        const komIgang = findVisits("/kom-igang");
+        const analysisTotal = ANALYSIS_PAGES.reduce((s, a) => s + findVisits(a.path), 0);
+        const avgSec = ext.avgTimeOnPage || 0;
+        const avgMin = Math.floor(avgSec / 60);
+        const avgRest = avgSec % 60;
+        const avgStr = avgMin > 0 ? `${avgMin}m ${avgRest}s` : `${avgRest}s`;
+        const partnerProfileVisits = (ext.partnerProfileStats || []).reduce((s: number, p: any) => s + p.visits, 0);
+        const partnerClicks = (ext.partnerClickStats || []).reduce((s: number, p: any) => s + p.clicks, 0);
+
+        const oneLine = `D365.se senaste 90 dagar: ${extVisitors.toLocaleString("sv-SE")} unika besökare · ${extPageViews.toLocaleString("sv-SE")} sidvisningar · ${extSwedishPct}% svensk trafik · ${partnerPct}% partnertrafik · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · Partnerprofiler ${partnerProfileVisits} besök · Partnerklick ${partnerClicks} · snitt-tid ${avgStr}`;
+
+        const boxes = [
+          { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "exkl. partnertrafik" },
+          { icon: TrendingUp, label: "Sidvisningar", value: extPageViews.toLocaleString("sv-SE"), hint: "exkl. partnertrafik" },
+          { icon: ShieldCheck, label: "Svensk trafik", value: `${extSwedishPct}%`, hint: `${extSwedish.toLocaleString("sv-SE")} besökare` },
+          { icon: Building2, label: "Partnertrafik", value: `${partnerPct}%`, hint: `${partnerShare.toLocaleString("sv-SE")} av totalt` },
+          { icon: Award, label: "Välj partner", value: valjPartner.toLocaleString("sv-SE"), hint: "besök på /valj-partner" },
+          { icon: ClipboardCheck, label: "Behovsanalyser", value: analysisTotal.toLocaleString("sv-SE"), hint: "alla analysverktyg" },
+          { icon: FileText, label: "Kom igång-guiden", value: komIgang.toLocaleString("sv-SE"), hint: "besök på /kom-igang" },
+          { icon: Building2, label: "Partnerprofiler", value: partnerProfileVisits.toLocaleString("sv-SE"), hint: "besök på partnerprofil" },
+          { icon: MousePointerClick, label: "Partnerklick", value: partnerClicks.toLocaleString("sv-SE"), hint: "vidare till partner" },
+          { icon: BarChart3, label: "Snitt-tid på sida", value: avgStr, hint: "engagemang" },
+        ];
+
+        return (
+          <Card className="border-primary/40 bg-gradient-to-br from-primary/5 via-background to-background">
+            <CardHeader className="pb-3">
+              <div className="flex items-start justify-between gap-3 flex-wrap">
+                <div>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <FileText className="h-4 w-4 text-primary" />
+                    Säljunderlag – senaste 90 dagar
+                  </CardTitle>
+                  <CardDescription>
+                    Exkl. partnertrafik (svensk %, partner-% och alla nyckeltal). Klicka för att kopiera som textrad.
+                  </CardDescription>
                 </div>
-                <p className="text-sm leading-relaxed font-medium text-foreground break-words">
-                  {buildOneLine90d(stats90d)}
-                </p>
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(oneLine);
+                      toast({ title: "Kopierat!", description: "Säljunderlaget finns i urklipp." });
+                    } catch {
+                      toast({ title: "Kunde inte kopiera", variant: "destructive" });
+                    }
+                  }}
+                >
+                  <Copy className="h-4 w-4 mr-1" />
+                  Kopiera som rad
+                </Button>
               </div>
-              <Button
-                variant="default"
-                size="sm"
-                onClick={async () => {
-                  try {
-                    await navigator.clipboard.writeText(buildOneLine90d(stats90d));
-                    toast({ title: "Kopierat!", description: "Säljunderlaget (en rad) finns i urklipp." });
-                  } catch {
-                    toast({ title: "Kunde inte kopiera", variant: "destructive" });
-                  }
-                }}
-              >
-                <Copy className="h-4 w-4 mr-1" />
-                Kopiera rad
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                {boxes.map((b, i) => {
+                  const Icon = b.icon;
+                  return (
+                    <div
+                      key={i}
+                      className="rounded-lg border bg-card p-3 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex items-center gap-2 text-primary mb-1">
+                        <Icon className="h-4 w-4" />
+                        <span className="text-xs font-medium text-muted-foreground">{b.label}</span>
+                      </div>
+                      <p className="text-2xl font-bold leading-tight">{b.value}</p>
+                      <p className="text-[11px] text-muted-foreground mt-1">{b.hint}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })()}
 
       {/* ===== SECTION 1: All traffic ===== */}
       <div className="space-y-4">
