@@ -243,6 +243,19 @@ const PartnerUpdate = () => {
   const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
   const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
 
+  type SectionKey = "basic" | "products" | "specialty" | "industryApps" | "events" | "notes";
+  const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
+    basic: true,
+    products: true,
+    specialty: false,
+    industryApps: false,
+    events: false,
+    notes: false,
+  });
+  const [autoExpandApplied, setAutoExpandApplied] = useState(false);
+  const toggleSection = (key: SectionKey) =>
+    setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
+
   useEffect(() => {
     const fetchInvitation = async () => {
       if (!token) {
