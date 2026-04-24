@@ -660,13 +660,13 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         const oneLine = `D365.se senaste 90 dagar: ${extVisitors.toLocaleString("sv-SE")} unika besökare · ${extPageViews.toLocaleString("sv-SE")} sidvisningar · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · Partnerprofiler ${partnerProfileVisits} besök · Partnerklick ${partnerClicks} · snitt-tid ${avgStr}`;
 
         const boxes = [
-          { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "senaste 90 dagar" },
-          { icon: TrendingUp, label: "Sidvisningar", value: extPageViews.toLocaleString("sv-SE"), hint: "senaste 90 dagar" },
+          { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "\n" },
+          { icon: TrendingUp, label: "Sidvisningar", value: extPageViews.toLocaleString("sv-SE"), hint: "\n" },
           { icon: Award, label: "Välj partner", value: valjPartner.toLocaleString("sv-SE"), hint: "besök på /valj-partner" },
-          { icon: ClipboardCheck, label: "Behovsanalyser", value: analysisTotal.toLocaleString("sv-SE"), hint: "alla analysverktyg" },
+          { icon: ClipboardCheck, label: "Behovsanalyser", value: analysisTotal.toLocaleString("sv-SE"), hint: "alla olika behovanalyser" },
           { icon: FileText, label: "Kom igång-guiden", value: komIgang.toLocaleString("sv-SE"), hint: "besök på /kom-igang" },
           { icon: Building2, label: "Partnerprofiler", value: partnerProfileVisits.toLocaleString("sv-SE"), hint: "besök på partnerprofil" },
-          { icon: MousePointerClick, label: "Partnerklick", value: partnerClicks.toLocaleString("sv-SE"), hint: "vidare till partner" },
+          { icon: MousePointerClick, label: "Partnerklick", value: partnerClicks.toLocaleString("sv-SE"), hint: "Klickat vidare till partner" },
           { icon: BarChart3, label: "Snitt-tid på sida", value: avgStr, hint: "engagemang" },
         ];
 
