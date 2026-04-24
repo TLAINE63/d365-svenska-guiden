@@ -1202,8 +1202,8 @@ const PartnerUpdate = () => {
                     Rekommenderat: SVG eller PNG med transparent bakgrund för bästa resultat
                   </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </PremiumCollapsibleSection>
 
             {/* Products Section */}
             <Card>
