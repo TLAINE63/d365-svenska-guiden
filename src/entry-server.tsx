@@ -34,7 +34,9 @@ import PartnerProfile from './pages/PartnerProfile';
 import Kunskapscenter from './pages/Kunskapscenter';
 import RequirementsSpec from './pages/RequirementsSpec';
 import DeepDiveArticle from './pages/DeepDiveArticle';
+import BlogArticle from './pages/BlogArticle';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
+import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
 import partnerDataJson from './data/partnerData.json';
 
@@ -84,6 +86,16 @@ export const routes: PrerenderRoute[] = [
     meta: {
       title: `${a.title} | d365.se`,
       description: a.description,
+    },
+  })),
+  // Blog article routes (generated from data)
+  ...BLOG_ARTICLES.map((a) => ({
+    path: `/artiklar/${a.slug}`,
+    priority: '0.7',
+    changefreq: 'monthly' as const,
+    meta: {
+      title: a.metaTitle,
+      description: a.metaDescription,
     },
   })),
 ];
@@ -157,6 +169,7 @@ export function render(url: string) {
               <Route path="/qa" element={<QA />} />
               <Route path="/kunskapscenter" element={<Kunskapscenter />} />
               <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
+              <Route path="/artiklar/:slug" element={<BlogArticle />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
             </Routes>

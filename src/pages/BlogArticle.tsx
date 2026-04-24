@@ -102,7 +102,7 @@ const BlogArticle = () => {
             </div>
 
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <Badge className="bg-slate-700 text-white border-slate-700 hover:bg-slate-700">
+              <Badge className="bg-secondary text-secondary-foreground border-border hover:bg-secondary">
                 Artikel
               </Badge>
               <Badge variant="outline" className="border-primary/40 text-primary">
