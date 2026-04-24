@@ -2519,6 +2519,11 @@ const AdminDashboard = () => {
           <TabsContent value="sales-pitch">
             <AdminSalesPitchTab />
           </TabsContent>
+
+          {/* ==================== SALES KPI TAB ==================== */}
+          <TabsContent value="sales-kpi">
+            <AdminSalesKpiTab token={token || ""} onSessionExpired={logout} />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
