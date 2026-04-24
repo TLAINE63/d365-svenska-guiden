@@ -80,6 +80,7 @@ import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
+import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -1593,6 +1594,10 @@ const AdminDashboard = () => {
               <Award className="h-4 w-4" />
               Totalöversikt
             </TabsTrigger>
+            <TabsTrigger value="sales-pitch" className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4" />
+              Säljunderlag
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2503,6 +2508,11 @@ const AdminDashboard = () => {
               token={token || ""}
               onSessionExpired={logout}
             />
+          </TabsContent>
+
+          {/* ==================== SALES PITCH TAB ==================== */}
+          <TabsContent value="sales-pitch">
+            <AdminSalesPitchTab />
           </TabsContent>
         </Tabs>
 
