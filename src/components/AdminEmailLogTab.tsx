@@ -20,7 +20,7 @@ import {
 import { RefreshCw, CheckCircle2, XCircle, Mail } from "lucide-react";
 import { format } from "date-fns";
 import { sv } from "date-fns/locale";
-import { supabase } from "@/integrations/supabase/client";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 
 interface EmailLog {
   id: string;
@@ -65,15 +65,13 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
   const fetchLogs = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: {
-          action: "email-logs",
-          token,
-          limit: pageSize,
-          offset: page * pageSize,
-          statusFilter,
-          templateFilter,
-        },
+      const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", {
+        action: "email-logs",
+        token,
+        limit: pageSize,
+        offset: page * pageSize,
+        statusFilter,
+        templateFilter,
       });
 
       if (error) throw error;
