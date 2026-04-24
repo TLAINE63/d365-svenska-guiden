@@ -1710,6 +1710,178 @@ D365.se`;
       }
     }
 
+    // Admin: Send "profile refresh" email — creates a fresh 90-day invitation per
+    // partner and sends an editable email with subject/body overrides.
+    if (action === "send-profile-refresh" && req.method === "POST") {
+      const body = await req.json();
+      const { partners: partnerList, subject: overrideSubject, body: overrideBody } = body;
+
+      if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
+        return new Response(
+          JSON.stringify({ error: "Partnerlista krävs" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (!resendApiKey) {
+        return new Response(
+          JSON.stringify({ error: "RESEND_API_KEY ej konfigurerad" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const resend = new Resend(resendApiKey);
+      const baseUrl = "https://www.d365.se";
+
+      // Resolve template body (override > saved > default)
+      let emailBody = "";
+      if (typeof overrideBody === "string" && overrideBody.trim().length > 0) {
+        emailBody = overrideBody;
+      } else {
+        const { data: bodySetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "profile_refresh_email_body")
+          .single();
+        emailBody = bodySetting?.value || "";
+      }
+
+      // Resolve subject (override > saved > default)
+      let emailSubject = "";
+      if (typeof overrideSubject === "string" && overrideSubject.trim().length > 0) {
+        emailSubject = overrideSubject;
+      } else {
+        const { data: subjectSetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "profile_refresh_email_subject")
+          .single();
+        emailSubject = subjectSetting?.value || "VIKTIGT! Uppdatera er partnerprofil på d365.se";
+      }
+
+      const ninetyDays = new Date(Date.now() + 90 * 86400000).toISOString();
+
+      let sent = 0;
+      let failed = 0;
+      const errors: string[] = [];
+
+      for (const partner of partnerList) {
+        try {
+          const email = partner.email;
+          if (!email) {
+            errors.push(`${partner.name}: Ingen e-postadress`);
+            failed++;
+            continue;
+          }
+
+          // Create a fresh invitation valid for 90 days
+          const { data: invitation, error: invErr } = await supabase
+            .from("partner_invitations")
+            .insert({
+              email,
+              partner_name: partner.name,
+              partner_id: partner.id || null,
+              status: "approved",
+              expires_at: ninetyDays,
+            })
+            .select()
+            .single();
+
+          if (invErr || !invitation) {
+            throw new Error(invErr?.message || "Kunde inte skapa profileringslänk");
+          }
+
+          const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
+          const contactName = partner.contact_name || partner.name || "";
+
+          const personalizedBody = emailBody
+            .replace(/\{\{NAME\}\}/g, contactName)
+            .replace(/\[PROFILERINGSLÄNK\]/g, "{{INVITATION_LINK}}");
+          const personalizedSubject = emailSubject.replace(/\{\{NAME\}\}/g, contactName);
+
+          const invitationButton = `<div style="text-align: center; margin: 30px 0;">
+            <a href="${invitationLink}" style="display: inline-block; background-color: #2563eb; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Uppdatera er partnerprofil</a>
+          </div>
+          <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
+          <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>
+          <p style="color: #9ca3af; font-size: 12px; margin-top: 8px;">Länken är giltig i 90 dagar.</p>`;
+
+          const htmlBody = personalizedBody
+            .split("{{INVITATION_LINK}}")
+            .map((part: string) => {
+              return part
+                .split("\n\n")
+                .map((paragraph: string) => {
+                  const trimmed = paragraph.trim();
+                  if (!trimmed) return "";
+                  const withBr = trimmed.replace(/\n/g, "<br>");
+                  const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
+                  const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
+                  return `<p>${withEmails}</p>`;
+                })
+                .filter(Boolean)
+                .join("\n");
+            })
+            .join(invitationButton);
+
+          const fullHtml = `<!DOCTYPE html>
+            <html>
+            <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+            <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
+              </div>
+              ${htmlBody}
+            </body>
+            </html>`;
+
+          await resend.emails.send({
+            from: "Thomas Laine <info@d365.se>",
+            to: [email],
+            reply_to: "thomas.laine@dynamicfactory.se",
+            bcc: ["thomas.laine@dynamicfactory.se"],
+            subject: personalizedSubject,
+            html: fullHtml,
+          });
+
+          sent++;
+          console.log("Profile refresh email sent to:", email, partner.name);
+          await supabase.from("email_send_log").insert({
+            recipient_email: email,
+            template_name: "partner_profile_refresh",
+            subject: personalizedSubject,
+            status: "sent",
+            metadata: { partner_name: partner.name, invitation_token: invitation.token, expires_at: ninetyDays },
+          });
+        } catch (sendErr: any) {
+          failed++;
+          errors.push(`${partner.name} (${partner.email}): ${sendErr.message}`);
+          console.error("Profile refresh send error:", partner.email, sendErr);
+          await supabase.from("email_send_log").insert({
+            recipient_email: partner.email,
+            template_name: "partner_profile_refresh",
+            subject: emailSubject,
+            status: "failed",
+            error_message: sendErr.message,
+            metadata: { partner_name: partner.name },
+          });
+        }
+      }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          sent,
+          failed,
+          total: partnerList.length,
+          errors: errors.length > 0 ? errors : undefined,
+          message: `Profileringslänkmail skickat till ${sent} av ${partnerList.length} partners.${failed > 0 ? ` ${failed} misslyckades.` : ''}`,
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
       const { partners: partnerList } = body;

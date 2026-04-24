@@ -44,6 +44,7 @@ const TEMPLATE_LABELS: Record<string, string> = {
   partner_reminder: "Påminnelse",
   partner_bulk_invitation: "Bulkinbjudan",
   partner_sales_pitch: "Införsäljning",
+  partner_profile_refresh: "Profileringslänk",
   partner_agreement: "Partneravtal",
   lead_forward: "Lead-vidarebefordring",
   event_approved: "Event godkänt",

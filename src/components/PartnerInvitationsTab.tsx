@@ -31,6 +31,44 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 
+const DEFAULT_PROFILE_REFRESH_SUBJECT = "VIKTIGT! Uppdatera er partnerprofil på d365.se";
+
+const DEFAULT_PROFILE_REFRESH_BODY = `Hej,
+
+Nu finns möjlighet att se över och uppdatera er partnerprofil på d365.se.
+
+Här är er unika profileringslänk:
+{{INVITATION_LINK}}
+
+Jag rekommenderar särskilt att ni ser över:
+
+• er generella beskrivning av bolaget
+• beskrivningarna per produktområde
+• bild/foto, både generellt och per område
+• kommande event, webinarier eller seminarier kopplade till Dynamics 365 och/eller AI
+• eventuell kort video om er som partner
+
+Syftet är inte bara att "fylla i en profil".
+
+Många kunder som besöker d365.se är i en tidig men aktiv fas där de försöker förstå vilka partners som verkar relevanta för deras behov, bransch och lösningsområde.
+
+En tydlig och aktuell profil hjälper er att:
+
+• framstå mer relevant i kundens urvalsprocess
+• visa vilka typer av kunder och branscher ni faktiskt passar bäst för
+• skapa förtroende innan kunden tar direkt kontakt
+• göra det enklare för kunden att förstå varför just ni bör finnas med på deras shortlist
+
+Det här är särskilt viktigt eftersom kundens köpresa sällan börjar med ett formulär eller ett direkt lead. Ofta börjar den med jämförelser, research och intern förankring långt innan kunden tar kontakt.
+
+Därför är profilen på d365.se mer än en kontaktväg. Den är en del av hur ni uppfattas när kunden börjar sortera marknaden.
+
+Uppdatera gärna profilen här:
+{{INVITATION_LINK}}
+
+Vänliga hälsningar,
+Thomas`;
+
 interface Invitation {
   id: string;
   partner_id: string | null;
@@ -78,12 +116,26 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [salesPitchTemplateOriginal, setSalesPitchTemplateOriginal] = useState("");
   const [salesPitchSubject, setSalesPitchSubject] = useState("");
   const [salesPitchSubjectOriginal, setSalesPitchSubjectOriginal] = useState("");
+  const [profileRefreshTemplate, setProfileRefreshTemplate] = useState("");
+  const [profileRefreshTemplateOriginal, setProfileRefreshTemplateOriginal] = useState("");
+  const [profileRefreshSubject, setProfileRefreshSubject] = useState("");
+  const [profileRefreshSubjectOriginal, setProfileRefreshSubjectOriginal] = useState("");
   const [loadingTemplate, setLoadingTemplate] = useState(false);
   const [savingTemplate, setSavingTemplate] = useState(false);
   const [savingWelcomeTemplate, setSavingWelcomeTemplate] = useState(false);
   const [savingSalesPitchTemplate, setSavingSalesPitchTemplate] = useState(false);
+  const [savingProfileRefreshTemplate, setSavingProfileRefreshTemplate] = useState(false);
   const [showTemplateEditor, setShowTemplateEditor] = useState(false);
-  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder" | "sales_pitch">("welcome");
+  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder" | "sales_pitch" | "profile_refresh">("profile_refresh");
+
+  // Profile refresh send dialog state
+  const [showProfileRefreshDialog, setShowProfileRefreshDialog] = useState(false);
+  const [profileRefreshSendSubject, setProfileRefreshSendSubject] = useState("");
+  const [profileRefreshSendBody, setProfileRefreshSendBody] = useState("");
+  const [profileRefreshSelected, setProfileRefreshSelected] = useState<Set<string>>(new Set());
+  const [profileRefreshEmails, setProfileRefreshEmails] = useState<Record<string, string>>({});
+  const [profileRefreshSearch, setProfileRefreshSearch] = useState("");
+  const [sendingProfileRefresh, setSendingProfileRefresh] = useState(false);
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
@@ -129,71 +181,49 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   }, [token]);
 
+  const fetchTemplateValue = async (template_key: string): Promise<string> => {
+    const res = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=${template_key}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+          "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+      }
+    );
+    handleResponse(res);
+    const data = await res.json();
+    return data.template || "";
+  };
+
   const fetchEmailTemplate = async () => {
     setLoadingTemplate(true);
     try {
-      const [reminderRes, welcomeRes, salesPitchBodyRes, salesPitchSubjectRes] = await Promise.all([
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_email_body`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_welcome_email_body`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=sales_pitch_email_body`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=sales_pitch_email_subject`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
+      const [reminder, welcome, salesBody, salesSubject, refreshBody, refreshSubject] = await Promise.all([
+        fetchTemplateValue("invitation_email_body"),
+        fetchTemplateValue("invitation_welcome_email_body"),
+        fetchTemplateValue("sales_pitch_email_body"),
+        fetchTemplateValue("sales_pitch_email_subject"),
+        fetchTemplateValue("profile_refresh_email_body"),
+        fetchTemplateValue("profile_refresh_email_subject"),
       ]);
-      handleResponse(reminderRes);
-      handleResponse(welcomeRes);
-      handleResponse(salesPitchBodyRes);
-      handleResponse(salesPitchSubjectRes);
-      const reminderData = await reminderRes.json();
-      const welcomeData = await welcomeRes.json();
-      const salesPitchBodyData = await salesPitchBodyRes.json();
-      const salesPitchSubjectData = await salesPitchSubjectRes.json();
-      setEmailTemplate(reminderData.template || "");
-      setEmailTemplateOriginal(reminderData.template || "");
-      setWelcomeTemplate(welcomeData.template || "");
-      setWelcomeTemplateOriginal(welcomeData.template || "");
-      setSalesPitchTemplate(salesPitchBodyData.template || "");
-      setSalesPitchTemplateOriginal(salesPitchBodyData.template || "");
-      setSalesPitchSubject(salesPitchSubjectData.template || "");
-      setSalesPitchSubjectOriginal(salesPitchSubjectData.template || "");
+      setEmailTemplate(reminder);
+      setEmailTemplateOriginal(reminder);
+      setWelcomeTemplate(welcome);
+      setWelcomeTemplateOriginal(welcome);
+      setSalesPitchTemplate(salesBody);
+      setSalesPitchTemplateOriginal(salesBody);
+      setSalesPitchSubject(salesSubject);
+      setSalesPitchSubjectOriginal(salesSubject);
+
+      const refreshBodyOrDefault = refreshBody || DEFAULT_PROFILE_REFRESH_BODY;
+      const refreshSubjectOrDefault = refreshSubject || DEFAULT_PROFILE_REFRESH_SUBJECT;
+      setProfileRefreshTemplate(refreshBodyOrDefault);
+      setProfileRefreshTemplateOriginal(refreshBody);
+      setProfileRefreshSubject(refreshSubjectOrDefault);
+      setProfileRefreshSubjectOriginal(refreshSubject);
     } catch (err) {
       console.error("Fetch template error:", err);
       toast.error("Kunde inte hämta e-postmallar");
@@ -299,7 +329,134 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   };
 
-  const createInvitation = async () => {
+  const saveProfileRefreshTemplate = async () => {
+    setSavingProfileRefreshTemplate(true);
+    try {
+      const [bodyRes, subjectRes] = await Promise.all([
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({ template: profileRefreshTemplate, template_key: "profile_refresh_email_body" }),
+          }
+        ),
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({ template: profileRefreshSubject, template_key: "profile_refresh_email_subject" }),
+          }
+        ),
+      ]);
+      handleResponse(bodyRes);
+      handleResponse(subjectRes);
+      if (!bodyRes.ok || !subjectRes.ok) throw new Error("Kunde inte spara mall");
+      setProfileRefreshTemplateOriginal(profileRefreshTemplate);
+      setProfileRefreshSubjectOriginal(profileRefreshSubject);
+      toast.success("Profileringslänkmall sparad!");
+    } catch (err) {
+      console.error("Save profile refresh template error:", err);
+      toast.error("Kunde inte spara mallen");
+    } finally {
+      setSavingProfileRefreshTemplate(false);
+    }
+  };
+
+  const openProfileRefreshDialog = async () => {
+    // Ensure templates are loaded
+    if (!profileRefreshTemplate && !loadingTemplate) {
+      await fetchEmailTemplate();
+    }
+    const subject = profileRefreshSubject || DEFAULT_PROFILE_REFRESH_SUBJECT;
+    const body = profileRefreshTemplate || DEFAULT_PROFILE_REFRESH_BODY;
+    setProfileRefreshSendSubject(subject);
+    setProfileRefreshSendBody(body);
+
+    // Pre-populate emails for partners that already have a contact email
+    const emails: Record<string, string> = {};
+    partners.forEach(p => {
+      emails[p.id] = p.admin_contact_email || p.email || "";
+    });
+    setProfileRefreshEmails(emails);
+    setProfileRefreshSelected(new Set());
+    setProfileRefreshSearch("");
+    setShowProfileRefreshDialog(true);
+  };
+
+  const sendProfileRefreshEmails = async () => {
+    const selectedPartners = partners.filter(p => profileRefreshSelected.has(p.id));
+    if (selectedPartners.length === 0) {
+      toast.error("Välj minst en partner");
+      return;
+    }
+    const missing = selectedPartners.filter(p => !profileRefreshEmails[p.id]?.trim());
+    if (missing.length > 0) {
+      toast.error(`Ange e-post för: ${missing.map(p => p.name).join(", ")}`);
+      return;
+    }
+    if (!profileRefreshSendSubject.trim()) {
+      toast.error("Ämnesrad krävs");
+      return;
+    }
+    if (!profileRefreshSendBody.includes("{{INVITATION_LINK}}")) {
+      toast.error("Brödtexten måste innehålla {{INVITATION_LINK}}");
+      return;
+    }
+    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig i 90 dagar.`)) return;
+
+    setSendingProfileRefresh(true);
+    try {
+      const partnerList = selectedPartners.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: profileRefreshEmails[p.id].trim(),
+        contact_name: p.contact_person || p.name,
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-profile-refresh`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            partners: partnerList,
+            subject: profileRefreshSendSubject,
+            body: profileRefreshSendBody,
+          }),
+        }
+      );
+      handleResponse(response);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Kunde inte skicka");
+      toast.success(data.message || "Mail skickade!");
+      if (data.errors?.length) console.warn("Profile refresh errors:", data.errors);
+      setShowProfileRefreshDialog(false);
+      setProfileRefreshSelected(new Set());
+      fetchData();
+    } catch (err: any) {
+      if (err.message !== "Session expired") {
+        toast.error(err.message || "Kunde inte skicka mail");
+      }
+    } finally {
+      setSendingProfileRefresh(false);
+    }
+  };
+
+
     if (!newInvitation.email || !newInvitation.partner_name) {
       toast.error("E-post och partnernamn krävs");
       return;
