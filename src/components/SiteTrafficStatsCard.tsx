@@ -23,7 +23,7 @@ export default function SiteTrafficStatsCard({ token, variant = "full" }: Props)
   const stats = useSiteTrafficStats(token, !!token);
 
   const totals = stats.totals[range];
-  const pages = stats.topPages[range];
+  const pages = stats.topPages[range].filter((p) => p.views > 0);
   const limit = variant === "compact" ? 10 : 20;
 
   return (
