@@ -2054,27 +2054,29 @@ const PartnerUpdate = () => {
                       )}
                     </>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </PremiumCollapsibleSection>
             )}
 
             {/* Notes */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Övriga kommentarer</CardTitle>
-                <CardDescription>Något mer ni vill meddela oss?</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Textarea
-                  id="notes"
-                  name="notes"
-                  rows={3}
-                  placeholder="Skriv eventuella kommentarer här..."
-                  value={formData.notes}
-                  onChange={handleInputChange}
-                />
-              </CardContent>
-            </Card>
+            <PremiumCollapsibleSection
+              title="Övriga kommentarer"
+              description="Något mer ni vill meddela oss?"
+              icon={MessageSquare}
+              accent="primary"
+              status={formData.notes?.trim() ? "complete" : "empty"}
+              open={openSections.notes}
+              onOpenChange={() => toggleSection("notes")}
+            >
+              <Textarea
+                id="notes"
+                name="notes"
+                rows={3}
+                placeholder="Skriv eventuella kommentarer här..."
+                value={formData.notes}
+                onChange={handleInputChange}
+              />
+            </PremiumCollapsibleSection>
 
             {/* Submit */}
             <div className="flex justify-end gap-4">
