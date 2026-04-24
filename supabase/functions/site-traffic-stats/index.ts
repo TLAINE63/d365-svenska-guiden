@@ -38,7 +38,7 @@ function base64UrlDecode(str: string): Uint8Array {
 async function verifyJWT(token: string, secret: string) {
   try {
     const parts = token.split(".");
-    if (parts.length !== 3) return { valid: false, error: "Invalid token format" };
+    if (parts.length !== 3) return { valid: false, error: "Invalid token format", payload: null as any };
     const [h, p, s] = parts;
     const enc = new TextEncoder();
     const key = await crypto.subtle.importKey(
@@ -54,15 +54,15 @@ async function verifyJWT(token: string, secret: string) {
       base64UrlDecode(s) as unknown as BufferSource,
       enc.encode(`${h}.${p}`)
     );
-    if (!valid) return { valid: false, error: "Invalid signature" };
+    if (!valid) return { valid: false, error: "Invalid signature", payload: null };
     const payload = JSON.parse(atob(base64UrlToBase64(p)));
     const now = Math.floor(Date.now() / 1000);
-    if (payload.exp && payload.exp < now) return { valid: false, error: "Token expired" };
-    if (payload.role !== "admin") return { valid: false, error: "Insufficient permissions" };
-    return { valid: true };
+    if (payload.exp && payload.exp < now) return { valid: false, error: "Token expired", payload: null };
+    if (payload.role !== "admin") return { valid: false, error: "Insufficient permissions", payload: null };
+    return { valid: true, payload };
   } catch (e) {
     console.error("JWT verify error", e);
-    return { valid: false, error: "Token verification failed" };
+    return { valid: false, error: "Token verification failed", payload: null };
   }
 }
 
@@ -99,13 +99,72 @@ Deno.serve(async (req) => {
     const since30 = new Date(now - 30 * 86400000).toISOString();
     const since7 = new Date(now - 7 * 86400000).toISOString();
 
-    // Pull last 90 days, paginated to bypass 1000-row default
-    const all: { page_path: string; session_id: string | null; visited_at: string }[] = [];
+    // ── Build exclusion sets (mirrors manage-leads visitor-stats) ──
+    const vsAdminIp = (v.payload?.ip as string) || "";
+    const vsAdminIpPrefix = vsAdminIp ? vsAdminIp.split(".").slice(0, 2).join(".") : "";
+
+    const partnerUpdateIpPrefixes = new Set<string>();
+    const { data: puVisits } = await supabase
+      .from("visitor_analytics")
+      .select("ip_anonymized")
+      .like("page_path", "%partner-uppdatering%");
+    for (const r of puVisits || []) {
+      if (r.ip_anonymized && r.ip_anonymized !== "unknown") {
+        partnerUpdateIpPrefixes.add(r.ip_anonymized.split(".").slice(0, 2).join("."));
+      }
+    }
+
+    const { data: pubPartners } = await supabase
+      .from("partners")
+      .select("name, website, email")
+      .eq("is_featured", true);
+    const partnerDomains = new Set<string>();
+    const partnerNameKeywords: string[] = [];
+    for (const p of pubPartners || []) {
+      if (p.website) {
+        try {
+          const domain = new URL(p.website).hostname.replace(/^www\./, "").toLowerCase();
+          partnerDomains.add(domain);
+          const mainPart = domain.split(".")[0];
+          if (mainPart && mainPart.length > 2) partnerNameKeywords.push(mainPart.toLowerCase());
+        } catch { /* ignore */ }
+      }
+      if (p.email) {
+        const emailDomain = p.email.split("@")[1]?.toLowerCase();
+        if (emailDomain) partnerDomains.add(emailDomain);
+      }
+      if (p.name) partnerNameKeywords.push(p.name.toLowerCase());
+    }
+
+    const isPartnerOrg = (geoOrg: string | null): boolean => {
+      if (!geoOrg) return false;
+      const orgLower = geoOrg.toLowerCase();
+      for (const k of partnerNameKeywords) if (orgLower.includes(k)) return true;
+      for (const d of partnerDomains) if (orgLower.includes(d.split(".")[0])) return true;
+      return false;
+    };
+    const isExcludedIp = (ipAnon: string | null): boolean => {
+      if (!ipAnon || ipAnon === "unknown") return false;
+      const prefix = ipAnon.split(".").slice(0, 2).join(".");
+      if (vsAdminIpPrefix && prefix === vsAdminIpPrefix) return true;
+      if (partnerUpdateIpPrefixes.has(prefix)) return true;
+      return false;
+    };
+
+    // Pull last 90 days, paginated
+    const all: {
+      page_path: string;
+      session_id: string | null;
+      visited_at: string;
+      referrer: string | null;
+      ip_anonymized: string | null;
+      geo_org: string | null;
+    }[] = [];
     const pageSize = 1000;
-    for (let from = 0; from < 100000; from += pageSize) {
+    for (let from = 0; from < 200000; from += pageSize) {
       const { data, error } = await supabase
         .from("visitor_analytics")
-        .select("page_path, session_id, visited_at")
+        .select("page_path, session_id, visited_at, referrer, ip_anonymized, geo_org")
         .gte("visited_at", since90)
         .order("visited_at", { ascending: false })
         .range(from, from + pageSize - 1);
@@ -121,12 +180,23 @@ Deno.serve(async (req) => {
       if (data.length < pageSize) break;
     }
 
-    function totals(rows: typeof all) {
+    // Apply same filters as Sales Overview
+    const filtered = all.filter((r) => {
+      if (r.referrer) {
+        const ref = r.referrer.toLowerCase();
+        if (ref.includes("lovableproject.com") || ref.includes("lovable.dev") || ref.includes("lovable.app")) return false;
+      }
+      if (isPartnerOrg(r.geo_org)) return false;
+      if (isExcludedIp(r.ip_anonymized)) return false;
+      return true;
+    });
+
+    function totals(rows: typeof filtered) {
       const s = new Set<string>();
       for (const r of rows) if (r.session_id) s.add(r.session_id);
       return { pageViews: rows.length, uniqueVisitors: s.size };
     }
-    function topPages(rows: typeof all, limit = 20) {
+    function topPages(rows: typeof filtered, limit = 20) {
       const map = new Map<string, { views: number; sessions: Set<string> }>();
       for (const r of rows) {
         const key = r.page_path || "(okänd)";
@@ -144,9 +214,9 @@ Deno.serve(async (req) => {
         .slice(0, limit);
     }
 
-    const r7 = all.filter((r) => r.visited_at >= since7);
-    const r30 = all.filter((r) => r.visited_at >= since30);
-    const r90 = all;
+    const r7 = filtered.filter((r) => r.visited_at >= since7);
+    const r30 = filtered.filter((r) => r.visited_at >= since30);
+    const r90 = filtered;
 
     return new Response(
       JSON.stringify({
