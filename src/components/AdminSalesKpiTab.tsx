@@ -83,7 +83,7 @@ function classifyProduct(selected: string | null): string {
 
 export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSalesKpiTabProps) {
   const { toast } = useToast();
-  const { partners: featuredPartners } = usePartners();
+  const { data: featuredPartners } = usePartners();
   const [loading, setLoading] = useState(true);
   const [range, setRange] = useState<RangeKey>("90");
   const [view, setView] = useState<"channel" | "product">("channel");
