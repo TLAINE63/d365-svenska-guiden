@@ -1844,8 +1844,8 @@ const PartnerUpdate = () => {
                       Inga branschappar tillagda ännu. Klicka ovan för att lägga till era certifierade Marketplace-tillägg.
                     </p>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </PremiumCollapsibleSection>
             )}
 
             {/* Events Section - only for existing partners */}
