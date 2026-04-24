@@ -1675,14 +1675,17 @@ const PartnerUpdate = () => {
             </PremiumCollapsibleSection>
 
             {/* Specialty Products */}
-            <Card>
-              <CardHeader className="pb-4 bg-slate-600 text-white rounded-t-lg">
-                <CardTitle className="text-xl font-bold">Övriga produkter</CardTitle>
-                <CardDescription className="text-white/80 text-sm">
-                  Markera de produkter som ni kan erbjuda (alla branscher är tillämpliga här)
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-4">
+            <PremiumCollapsibleSection
+              title="Övriga produkter"
+              description="Specialty-produkter (alla branscher är tillämpliga här)"
+              icon={Package}
+              accent="finance-supply"
+              status={selectedSpecialtyProducts.length === 0 ? "empty" : "complete"}
+              open={openSections.specialty}
+              onOpenChange={() => toggleSection("specialty")}
+              badge={selectedSpecialtyProducts.length > 0 ? <Badge variant="outline">{selectedSpecialtyProducts.length} valda</Badge> : undefined}
+            >
+              <div className="pt-1">
                 <div className="flex flex-wrap gap-3">
                   {specialtyProducts.map((product) => {
                     const isSelected = selectedSpecialtyProducts.includes(product);
