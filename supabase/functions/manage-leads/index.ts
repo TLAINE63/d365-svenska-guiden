@@ -524,13 +524,14 @@ case "click-stats": {
         }
         
         // Fetch all visitor analytics from the specified date (paginated to avoid 1000-row limit)
+        // Select only required columns to avoid response size truncation that can cut pagination short.
         let allVisitors: any[] = [];
         let from = 0;
         const pageSize = 1000;
         while (true) {
           const { data: batch, error: batchError } = await supabase
             .from("visitor_analytics")
-            .select("*")
+            .select("id, session_id, visited_at, page_path, referrer, ip_anonymized, geo_org, geo_country_code, geo_country, geo_region, geo_city, is_bounce, time_on_page_seconds")
             .gte("visited_at", startDate)
             .order("visited_at", { ascending: false })
             .range(from, from + pageSize - 1);
@@ -540,6 +541,7 @@ case "click-stats": {
           if (batch.length < pageSize) break;
           from += pageSize;
         }
+        console.log(`[visitor-stats] Fetched ${allVisitors.length} rows since ${startDate}`);
         const visitors = allVisitors;
 
         // Helper to check if visitor is from a partner organization
