@@ -329,7 +329,134 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   };
 
-  const createInvitation = async () => {
+  const saveProfileRefreshTemplate = async () => {
+    setSavingProfileRefreshTemplate(true);
+    try {
+      const [bodyRes, subjectRes] = await Promise.all([
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({ template: profileRefreshTemplate, template_key: "profile_refresh_email_body" }),
+          }
+        ),
+        fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({ template: profileRefreshSubject, template_key: "profile_refresh_email_subject" }),
+          }
+        ),
+      ]);
+      handleResponse(bodyRes);
+      handleResponse(subjectRes);
+      if (!bodyRes.ok || !subjectRes.ok) throw new Error("Kunde inte spara mall");
+      setProfileRefreshTemplateOriginal(profileRefreshTemplate);
+      setProfileRefreshSubjectOriginal(profileRefreshSubject);
+      toast.success("Profileringslänkmall sparad!");
+    } catch (err) {
+      console.error("Save profile refresh template error:", err);
+      toast.error("Kunde inte spara mallen");
+    } finally {
+      setSavingProfileRefreshTemplate(false);
+    }
+  };
+
+  const openProfileRefreshDialog = async () => {
+    // Ensure templates are loaded
+    if (!profileRefreshTemplate && !loadingTemplate) {
+      await fetchEmailTemplate();
+    }
+    const subject = profileRefreshSubject || DEFAULT_PROFILE_REFRESH_SUBJECT;
+    const body = profileRefreshTemplate || DEFAULT_PROFILE_REFRESH_BODY;
+    setProfileRefreshSendSubject(subject);
+    setProfileRefreshSendBody(body);
+
+    // Pre-populate emails for partners that already have a contact email
+    const emails: Record<string, string> = {};
+    partners.forEach(p => {
+      emails[p.id] = p.admin_contact_email || p.email || "";
+    });
+    setProfileRefreshEmails(emails);
+    setProfileRefreshSelected(new Set());
+    setProfileRefreshSearch("");
+    setShowProfileRefreshDialog(true);
+  };
+
+  const sendProfileRefreshEmails = async () => {
+    const selectedPartners = partners.filter(p => profileRefreshSelected.has(p.id));
+    if (selectedPartners.length === 0) {
+      toast.error("Välj minst en partner");
+      return;
+    }
+    const missing = selectedPartners.filter(p => !profileRefreshEmails[p.id]?.trim());
+    if (missing.length > 0) {
+      toast.error(`Ange e-post för: ${missing.map(p => p.name).join(", ")}`);
+      return;
+    }
+    if (!profileRefreshSendSubject.trim()) {
+      toast.error("Ämnesrad krävs");
+      return;
+    }
+    if (!profileRefreshSendBody.includes("{{INVITATION_LINK}}")) {
+      toast.error("Brödtexten måste innehålla {{INVITATION_LINK}}");
+      return;
+    }
+    if (!confirm(`Skicka profileringslänk till ${selectedPartners.length} partner(s)? Länken är giltig i 90 dagar.`)) return;
+
+    setSendingProfileRefresh(true);
+    try {
+      const partnerList = selectedPartners.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: profileRefreshEmails[p.id].trim(),
+        contact_name: p.contact_person || p.name,
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-profile-refresh`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            partners: partnerList,
+            subject: profileRefreshSendSubject,
+            body: profileRefreshSendBody,
+          }),
+        }
+      );
+      handleResponse(response);
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Kunde inte skicka");
+      toast.success(data.message || "Mail skickade!");
+      if (data.errors?.length) console.warn("Profile refresh errors:", data.errors);
+      setShowProfileRefreshDialog(false);
+      setProfileRefreshSelected(new Set());
+      fetchData();
+    } catch (err: any) {
+      if (err.message !== "Session expired") {
+        toast.error(err.message || "Kunde inte skicka mail");
+      }
+    } finally {
+      setSendingProfileRefresh(false);
+    }
+  };
+
+
     if (!newInvitation.email || !newInvitation.partner_name) {
       toast.error("E-post och partnernamn krävs");
       return;
