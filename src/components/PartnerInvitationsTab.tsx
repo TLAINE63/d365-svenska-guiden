@@ -862,6 +862,14 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Påminnelse / uppdatering
               </Button>
+              <Button
+                variant={activeTemplateTab === "profile_refresh" ? "secondary" : "ghost"}
+                size="sm"
+                onClick={() => setActiveTemplateTab("profile_refresh")}
+              >
+                <Send className="w-4 h-4 mr-2" />
+                Profileringslänk (90 dgr)
+              </Button>
             </div>
 
             {loadingTemplate ? (
