@@ -618,6 +618,42 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         </div>
       </div>
 
+      {/* ===== ONE-LINE 90-DAY SALES SUMMARY (copyable) ===== */}
+      {stats90d && (
+        <Card className="border-primary/40 bg-primary/5">
+          <CardContent className="py-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <FileText className="h-4 w-4 text-primary" />
+                  <span className="text-xs font-semibold uppercase tracking-wide text-primary">
+                    Säljunderlag – en rad (senaste 90 dagar, exkl. partnertrafik)
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed font-medium text-foreground break-words">
+                  {buildOneLine90d(stats90d)}
+                </p>
+              </div>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(buildOneLine90d(stats90d));
+                    toast({ title: "Kopierat!", description: "Säljunderlaget (en rad) finns i urklipp." });
+                  } catch {
+                    toast({ title: "Kunde inte kopiera", variant: "destructive" });
+                  }
+                }}
+              >
+                <Copy className="h-4 w-4 mr-1" />
+                Kopiera rad
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* ===== SECTION 1: All traffic ===== */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
