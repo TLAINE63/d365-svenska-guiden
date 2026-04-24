@@ -143,71 +143,49 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     }
   }, [token]);
 
+  const fetchTemplateValue = async (template_key: string): Promise<string> => {
+    const res = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=${template_key}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+          "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+      }
+    );
+    handleResponse(res);
+    const data = await res.json();
+    return data.template || "";
+  };
+
   const fetchEmailTemplate = async () => {
     setLoadingTemplate(true);
     try {
-      const [reminderRes, welcomeRes, salesPitchBodyRes, salesPitchSubjectRes] = await Promise.all([
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_email_body`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=invitation_welcome_email_body`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=sales_pitch_email_body`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
-        fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=sales_pitch_email_subject`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            },
-          }
-        ),
+      const [reminder, welcome, salesBody, salesSubject, refreshBody, refreshSubject] = await Promise.all([
+        fetchTemplateValue("invitation_email_body"),
+        fetchTemplateValue("invitation_welcome_email_body"),
+        fetchTemplateValue("sales_pitch_email_body"),
+        fetchTemplateValue("sales_pitch_email_subject"),
+        fetchTemplateValue("profile_refresh_email_body"),
+        fetchTemplateValue("profile_refresh_email_subject"),
       ]);
-      handleResponse(reminderRes);
-      handleResponse(welcomeRes);
-      handleResponse(salesPitchBodyRes);
-      handleResponse(salesPitchSubjectRes);
-      const reminderData = await reminderRes.json();
-      const welcomeData = await welcomeRes.json();
-      const salesPitchBodyData = await salesPitchBodyRes.json();
-      const salesPitchSubjectData = await salesPitchSubjectRes.json();
-      setEmailTemplate(reminderData.template || "");
-      setEmailTemplateOriginal(reminderData.template || "");
-      setWelcomeTemplate(welcomeData.template || "");
-      setWelcomeTemplateOriginal(welcomeData.template || "");
-      setSalesPitchTemplate(salesPitchBodyData.template || "");
-      setSalesPitchTemplateOriginal(salesPitchBodyData.template || "");
-      setSalesPitchSubject(salesPitchSubjectData.template || "");
-      setSalesPitchSubjectOriginal(salesPitchSubjectData.template || "");
+      setEmailTemplate(reminder);
+      setEmailTemplateOriginal(reminder);
+      setWelcomeTemplate(welcome);
+      setWelcomeTemplateOriginal(welcome);
+      setSalesPitchTemplate(salesBody);
+      setSalesPitchTemplateOriginal(salesBody);
+      setSalesPitchSubject(salesSubject);
+      setSalesPitchSubjectOriginal(salesSubject);
+
+      const refreshBodyOrDefault = refreshBody || DEFAULT_PROFILE_REFRESH_BODY;
+      const refreshSubjectOrDefault = refreshSubject || DEFAULT_PROFILE_REFRESH_SUBJECT;
+      setProfileRefreshTemplate(refreshBodyOrDefault);
+      setProfileRefreshTemplateOriginal(refreshBody);
+      setProfileRefreshSubject(refreshSubjectOrDefault);
+      setProfileRefreshSubjectOriginal(refreshSubject);
     } catch (err) {
       console.error("Fetch template error:", err);
       toast.error("Kunde inte hämta e-postmallar");
