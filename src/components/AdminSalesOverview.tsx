@@ -482,8 +482,9 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
     setIsLoading(true);
     try {
       const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
+      const startDate90 = startOfDay(subDays(new Date(), 90));
 
-      const [allRes, filteredRes, clickRes] = await Promise.all([
+      const [allRes, filteredRes, clickRes, ninetyRes] = await Promise.all([
         fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -509,11 +510,22 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action: "click-stats", token }),
         }),
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "visitor-stats",
+            token,
+            startDate: startDate90.toISOString(),
+            excludePartnerTraffic: true,
+          }),
+        }),
       ]);
 
       const allData = await allRes.json();
       const filteredData = await filteredRes.json();
       const clickData = await clickRes.json();
+      const ninetyData = await ninetyRes.json();
 
       if (!allRes.ok) {
         if (allData.error?.includes("gått ut")) onSessionExpired();
@@ -522,6 +534,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
 
       setStatsAll(allData.stats);
       setStatsFiltered(filteredData.stats || null);
+      setStats90d(ninetyData.stats || null);
     } catch (error: any) {
       console.error("Error fetching sales overview:", error);
       toast({
