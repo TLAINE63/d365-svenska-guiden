@@ -640,12 +640,11 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         const partnerProfileVisits = (ext.partnerProfileStats || []).reduce((s: number, p: any) => s + p.visits, 0);
         const partnerClicks = (ext.partnerClickStats || []).reduce((s: number, p: any) => s + p.clicks, 0);
 
-        const oneLine = `D365.se senaste 90 dagar: ${extVisitors.toLocaleString("sv-SE")} unika besökare · ${extPageViews.toLocaleString("sv-SE")} sidvisningar · ${partnerPct}% partnertrafik · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · Partnerprofiler ${partnerProfileVisits} besök · Partnerklick ${partnerClicks} · snitt-tid ${avgStr}`;
+        const oneLine = `D365.se senaste 90 dagar: ${extVisitors.toLocaleString("sv-SE")} unika besökare · ${extPageViews.toLocaleString("sv-SE")} sidvisningar · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · Partnerprofiler ${partnerProfileVisits} besök · Partnerklick ${partnerClicks} · snitt-tid ${avgStr}`;
 
         const boxes = [
           { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "exkl. partnertrafik" },
           { icon: TrendingUp, label: "Sidvisningar", value: extPageViews.toLocaleString("sv-SE"), hint: "exkl. partnertrafik" },
-          { icon: Building2, label: "Partnertrafik", value: `${partnerPct}%`, hint: `${partnerShare.toLocaleString("sv-SE")} av totalt` },
           { icon: Award, label: "Välj partner", value: valjPartner.toLocaleString("sv-SE"), hint: "besök på /valj-partner" },
           { icon: ClipboardCheck, label: "Behovsanalyser", value: analysisTotal.toLocaleString("sv-SE"), hint: "alla analysverktyg" },
           { icon: FileText, label: "Kom igång-guiden", value: komIgang.toLocaleString("sv-SE"), hint: "besök på /kom-igang" },
