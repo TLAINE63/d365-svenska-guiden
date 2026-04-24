@@ -81,6 +81,7 @@ import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
+import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -1598,6 +1599,10 @@ const AdminDashboard = () => {
               <TrendingUp className="h-4 w-4" />
               Säljunderlag
             </TabsTrigger>
+            <TabsTrigger value="sales-kpi" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Sälj-KPI
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2513,6 +2518,11 @@ const AdminDashboard = () => {
           {/* ==================== SALES PITCH TAB ==================== */}
           <TabsContent value="sales-pitch">
             <AdminSalesPitchTab />
+          </TabsContent>
+
+          {/* ==================== SALES KPI TAB ==================== */}
+          <TabsContent value="sales-kpi">
+            <AdminSalesKpiTab token={token || ""} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
