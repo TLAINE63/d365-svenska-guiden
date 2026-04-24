@@ -10,7 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare } from "lucide-react";
+import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -241,6 +242,39 @@ const PartnerUpdate = () => {
   const [productFilters, setProductFilters] = useState<ProductFilters>({});
   const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
   const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
+
+  type SectionKey = "basic" | "products" | "specialty" | "industryApps" | "events" | "notes";
+  const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
+    basic: true,
+    products: true,
+    specialty: false,
+    industryApps: false,
+    events: false,
+    notes: false,
+  });
+  const [autoExpandApplied, setAutoExpandApplied] = useState(false);
+  const toggleSection = (key: SectionKey) =>
+    setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  // Smart auto-expand: open empty/incomplete sections after data loads (runs once).
+  useEffect(() => {
+    if (loading || autoExpandApplied || !invitation) return;
+    const basicComplete = !!(formData.name?.trim() && formData.website?.trim() && formData.description?.trim() && formData.contact_person?.trim() && formData.email?.trim());
+    const productsComplete = activeProducts.length > 0;
+    const specialtyComplete = selectedSpecialtyProducts.length > 0;
+    const industryAppsComplete = industryApps.some((a) => a.name?.trim() && a.url?.trim());
+    const eventsComplete = partnerEvents.length > 0;
+    setOpenSections({
+      basic: !basicComplete,
+      products: !productsComplete,
+      specialty: !specialtyComplete && productsComplete,
+      industryApps: !industryAppsComplete && productsComplete,
+      events: !eventsComplete && !!invitation?.partner_id,
+      notes: false,
+    });
+    setAutoExpandApplied(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, invitation]);
 
   useEffect(() => {
     const fetchInvitation = async () => {
@@ -878,12 +912,20 @@ const PartnerUpdate = () => {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Grundläggande information</CardTitle>
-                <CardDescription>Företagets kontaktuppgifter</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
+            <PremiumCollapsibleSection
+              title="Grundläggande information"
+              description="Företagets kontaktuppgifter, logotyp och beskrivning"
+              icon={Building2}
+              accent="primary"
+              status={
+                formData.name?.trim() && formData.website?.trim() && formData.description?.trim() && formData.contact_person?.trim() && formData.email?.trim()
+                  ? "complete"
+                  : (formData.name?.trim() || formData.website?.trim() ? "partial" : "empty")
+              }
+              open={openSections.basic}
+              onOpenChange={() => toggleSection("basic")}
+            >
+              <div className="space-y-4">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Företagsnamn *</Label>
@@ -1160,18 +1202,21 @@ const PartnerUpdate = () => {
                     Rekommenderat: SVG eller PNG med transparent bakgrund för bästa resultat
                   </p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </PremiumCollapsibleSection>
 
             {/* Products Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Dynamics 365-produkter</CardTitle>
-                <CardDescription>
-                  Välj de produkter ni arbetar med och fyll i detaljer för varje produkt
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
+            <PremiumCollapsibleSection
+              title="Dynamics 365-produkter"
+              description="Välj produkter ni arbetar med och fyll i detaljer per produkt"
+              icon={Layers}
+              accent="crm"
+              status={activeProducts.length === 0 ? "empty" : (activeProducts.length >= 2 ? "complete" : "partial")}
+              open={openSections.products}
+              onOpenChange={() => toggleSection("products")}
+              badge={activeProducts.length > 0 ? <Badge variant="outline">{activeProducts.length} valda</Badge> : undefined}
+            >
+              <div className="space-y-6">
                 <div className="flex flex-wrap gap-2">
                   {productSections.map((section) => (
                     <button
@@ -1626,18 +1671,21 @@ const PartnerUpdate = () => {
                     </Card>
                   );
                 })}
-              </CardContent>
-            </Card>
+              </div>
+            </PremiumCollapsibleSection>
 
             {/* Specialty Products */}
-            <Card>
-              <CardHeader className="pb-4 bg-slate-600 text-white rounded-t-lg">
-                <CardTitle className="text-xl font-bold">Övriga produkter</CardTitle>
-                <CardDescription className="text-white/80 text-sm">
-                  Markera de produkter som ni kan erbjuda (alla branscher är tillämpliga här)
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="pt-4">
+            <PremiumCollapsibleSection
+              title="Övriga produkter"
+              description="Specialty-produkter (alla branscher är tillämpliga här)"
+              icon={Package}
+              accent="finance-supply"
+              status={selectedSpecialtyProducts.length === 0 ? "empty" : "complete"}
+              open={openSections.specialty}
+              onOpenChange={() => toggleSection("specialty")}
+              badge={selectedSpecialtyProducts.length > 0 ? <Badge variant="outline">{selectedSpecialtyProducts.length} valda</Badge> : undefined}
+            >
+              <div className="pt-1">
                 <div className="flex flex-wrap gap-3">
                   {specialtyProducts.map((product) => {
                     const isSelected = selectedSpecialtyProducts.includes(product);
@@ -1671,23 +1719,22 @@ const PartnerUpdate = () => {
                     );
                   })}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </PremiumCollapsibleSection>
 
             {/* Industry Apps Section */}
             {activeProducts.length > 0 && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <ExternalLink className="w-5 h-5 text-primary" />
-                    Branschapplikationer (Microsoft Marketplace)
-                  </CardTitle>
-                  <CardDescription>
-                    Lägg till era certifierade branschspecifika tillägg från Microsoft Marketplace. 
-                    Dessa ska vara appar som tillför branschspecifik funktionalitet till en Dynamics 365-applikation.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+              <PremiumCollapsibleSection
+                title="Branschapplikationer (Microsoft Marketplace)"
+                description="Era certifierade branschspecifika tillägg från Microsoft Marketplace"
+                icon={ExternalLink}
+                accent="business-central"
+                status={industryApps.some((a) => a.name?.trim() && a.url?.trim()) ? "complete" : "empty"}
+                open={openSections.industryApps}
+                onOpenChange={() => toggleSection("industryApps")}
+                badge={industryApps.filter((a) => a.name?.trim()).length > 0 ? <Badge variant="outline">{industryApps.filter((a) => a.name?.trim()).length} appar</Badge> : undefined}
+              >
+                <div className="space-y-4">
                   {industryApps.map((app, index) => (
                     <div key={index} className="relative p-4 rounded-lg border border-border bg-muted/30 space-y-3">
                       <button
@@ -1797,25 +1844,23 @@ const PartnerUpdate = () => {
                       Inga branschappar tillagda ännu. Klicka ovan för att lägga till era certifierade Marketplace-tillägg.
                     </p>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </PremiumCollapsibleSection>
             )}
 
             {/* Events Section - only for existing partners */}
             {invitation?.partner_id && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CalendarDays className="w-5 h-5 text-primary" />
-                    Kommande events
-                  </CardTitle>
-                  <CardDescription>
-                    Lägg till webinarier, workshops eller andra events kopplade till Dynamics 365. 
-                    Events granskas av admin innan publicering. Fokus bör vara på Microsoft Dynamics 365, 
-                    AI, Copilot, agenter, BI eller Power Platform.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+              <PremiumCollapsibleSection
+                title="Kommande events"
+                description="Webinarier, workshops eller demos – granskas av admin innan publicering"
+                icon={CalendarDays}
+                accent="agents"
+                status={partnerEvents.length === 0 ? "empty" : "complete"}
+                open={openSections.events}
+                onOpenChange={() => toggleSection("events")}
+                badge={partnerEvents.length > 0 ? <Badge variant="outline">{partnerEvents.length} events</Badge> : undefined}
+              >
+                <div className="space-y-4">
                   {loadingEvents ? (
                     <div className="flex items-center justify-center py-4">
                       <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
@@ -2009,27 +2054,29 @@ const PartnerUpdate = () => {
                       )}
                     </>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              </PremiumCollapsibleSection>
             )}
 
             {/* Notes */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Övriga kommentarer</CardTitle>
-                <CardDescription>Något mer ni vill meddela oss?</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Textarea
-                  id="notes"
-                  name="notes"
-                  rows={3}
-                  placeholder="Skriv eventuella kommentarer här..."
-                  value={formData.notes}
-                  onChange={handleInputChange}
-                />
-              </CardContent>
-            </Card>
+            <PremiumCollapsibleSection
+              title="Övriga kommentarer"
+              description="Något mer ni vill meddela oss?"
+              icon={MessageSquare}
+              accent="primary"
+              status={formData.notes?.trim() ? "complete" : "empty"}
+              open={openSections.notes}
+              onOpenChange={() => toggleSection("notes")}
+            >
+              <Textarea
+                id="notes"
+                name="notes"
+                rows={3}
+                placeholder="Skriv eventuella kommentarer här..."
+                value={formData.notes}
+                onChange={handleInputChange}
+              />
+            </PremiumCollapsibleSection>
 
             {/* Submit */}
             <div className="flex justify-end gap-4">
