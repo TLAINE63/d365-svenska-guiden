@@ -78,12 +78,26 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   const [salesPitchTemplateOriginal, setSalesPitchTemplateOriginal] = useState("");
   const [salesPitchSubject, setSalesPitchSubject] = useState("");
   const [salesPitchSubjectOriginal, setSalesPitchSubjectOriginal] = useState("");
+  const [profileRefreshTemplate, setProfileRefreshTemplate] = useState("");
+  const [profileRefreshTemplateOriginal, setProfileRefreshTemplateOriginal] = useState("");
+  const [profileRefreshSubject, setProfileRefreshSubject] = useState("");
+  const [profileRefreshSubjectOriginal, setProfileRefreshSubjectOriginal] = useState("");
   const [loadingTemplate, setLoadingTemplate] = useState(false);
   const [savingTemplate, setSavingTemplate] = useState(false);
   const [savingWelcomeTemplate, setSavingWelcomeTemplate] = useState(false);
   const [savingSalesPitchTemplate, setSavingSalesPitchTemplate] = useState(false);
+  const [savingProfileRefreshTemplate, setSavingProfileRefreshTemplate] = useState(false);
   const [showTemplateEditor, setShowTemplateEditor] = useState(false);
-  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder" | "sales_pitch">("welcome");
+  const [activeTemplateTab, setActiveTemplateTab] = useState<"welcome" | "reminder" | "sales_pitch" | "profile_refresh">("profile_refresh");
+
+  // Profile refresh send dialog state
+  const [showProfileRefreshDialog, setShowProfileRefreshDialog] = useState(false);
+  const [profileRefreshSendSubject, setProfileRefreshSendSubject] = useState("");
+  const [profileRefreshSendBody, setProfileRefreshSendBody] = useState("");
+  const [profileRefreshSelected, setProfileRefreshSelected] = useState<Set<string>>(new Set());
+  const [profileRefreshEmails, setProfileRefreshEmails] = useState<Record<string, string>>({});
+  const [profileRefreshSearch, setProfileRefreshSearch] = useState("");
+  const [sendingProfileRefresh, setSendingProfileRefresh] = useState(false);
   
   // Create form state
   const [newInvitation, setNewInvitation] = useState({
