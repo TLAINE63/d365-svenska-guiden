@@ -536,6 +536,31 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
       setStatsAll(allData.stats);
       setStatsFiltered(filteredData.stats || null);
       setStats90d(ninetyData.stats || null);
+
+      const startDate90Iso = startDate90.toISOString();
+      const [guide90, selector90, analysis90] = await Promise.all([
+        supabase
+          .from("visitor_analytics")
+          .select("id", { count: "exact", head: true })
+          .gte("visited_at", startDate90Iso)
+          .like("page_path", "/kom-igang%"),
+        supabase
+          .from("visitor_analytics")
+          .select("id", { count: "exact", head: true })
+          .gte("visited_at", startDate90Iso)
+          .like("page_path", "/valj-partner%"),
+        supabase
+          .from("visitor_analytics")
+          .select("id", { count: "exact", head: true })
+          .gte("visited_at", startDate90Iso)
+          .or("page_path.like.%behovsanalys%,page_path.like.%kravspec%,page_path.like.%ai-readiness%"),
+      ]);
+
+      setSalesSummary90d({
+        komIgang: guide90.count || 0,
+        valjPartner: selector90.count || 0,
+        analysisTotal: analysis90.count || 0,
+      });
     } catch (error: any) {
       console.error("Error fetching sales overview:", error);
       toast({
