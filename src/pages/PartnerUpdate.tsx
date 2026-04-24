@@ -256,6 +256,26 @@ const PartnerUpdate = () => {
   const toggleSection = (key: SectionKey) =>
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
 
+  // Smart auto-expand: open empty/incomplete sections after data loads (runs once).
+  useEffect(() => {
+    if (loading || autoExpandApplied || !invitation) return;
+    const basicComplete = !!(formData.name?.trim() && formData.website?.trim() && formData.description?.trim() && formData.contact_person?.trim() && formData.email?.trim());
+    const productsComplete = activeProducts.length > 0;
+    const specialtyComplete = selectedSpecialtyProducts.length > 0;
+    const industryAppsComplete = industryApps.some((a) => a.name?.trim() && a.url?.trim());
+    const eventsComplete = partnerEvents.length > 0;
+    setOpenSections({
+      basic: !basicComplete,
+      products: !productsComplete,
+      specialty: !specialtyComplete && productsComplete,
+      industryApps: !industryAppsComplete && productsComplete,
+      events: !eventsComplete && !!invitation?.partner_id,
+      notes: false,
+    });
+    setAutoExpandApplied(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, invitation]);
+
   useEffect(() => {
     const fetchInvitation = async () => {
       if (!token) {
