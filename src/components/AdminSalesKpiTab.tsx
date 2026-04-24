@@ -241,7 +241,7 @@ export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSales
   return (
     <div className="space-y-6">
       {/* Disclaimer */}
-      <Card className="border-amber-200 bg-amber-50/50 dark:bg-amber-950/20">
+      <Card className="border-warning/30 bg-warning/5">
         <CardContent className="pt-4 pb-4 text-sm text-muted-foreground">
           <strong className="text-foreground">Datakällor:</strong> Leads (alla CTA-formulär), partnerklick och tilldelningar. 
           Mötesbokningar och demo-förfrågningar är inte separata fält i databasen — för att spåra dessa krävs utökad lead-status. 
