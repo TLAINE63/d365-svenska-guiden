@@ -84,6 +84,27 @@ const GEOGRAPHY_OPTIONS = [
   "Övriga världen",
 ];
 
+  // Smart auto-expand: open sections that are empty/incomplete after data loads.
+  // Runs once after initial load.
+  useEffect(() => {
+    if (loading || autoExpandApplied || !invitation) return;
+    const basicComplete = !!(formData.name?.trim() && formData.website?.trim() && formData.description?.trim() && formData.contact_person?.trim() && formData.email?.trim());
+    const productsComplete = activeProducts.length > 0;
+    const specialtyComplete = selectedSpecialtyProducts.length > 0;
+    const industryAppsComplete = industryApps.some((a) => a.name?.trim() && a.url?.trim());
+    const eventsComplete = partnerEvents.length > 0;
+    setOpenSections({
+      basic: !basicComplete,
+      products: !productsComplete,
+      specialty: !specialtyComplete && productsComplete, // only nudge after products chosen
+      industryApps: !industryAppsComplete && productsComplete,
+      events: !eventsComplete && !!invitation?.partner_id,
+      notes: false,
+    });
+    setAutoExpandApplied(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, invitation]);
+
 
 interface ProductFilter {
   industries: string[];
