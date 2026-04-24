@@ -110,7 +110,7 @@ const BlogArticle = () => {
               </Badge>
             </div>
 
-            <h1 className="text-2xl md:text-4xl font-bold text-foreground leading-tight tracking-tight">
+            <h1 className="text-xl md:text-3xl font-bold text-foreground leading-tight tracking-tight text-balance">
               {article.title}
             </h1>
             <p className="text-muted-foreground mt-3 max-w-2xl text-base md:text-lg leading-relaxed">
@@ -159,8 +159,8 @@ const BlogArticle = () => {
                 article-body max-w-none
                 text-[1.0625rem] md:text-[1.125rem] leading-[1.75] text-foreground/90
                 [&_p]:mb-5 [&_p]:leading-[1.75]
-                [&_h2]:font-bold [&_h2]:text-[1.6rem] md:[&_h2]:text-[1.875rem] [&_h2]:tracking-tight [&_h2]:text-[#1F4E79] [&_h2]:mt-12 [&_h2]:mb-5
-                [&_h3]:font-semibold [&_h3]:text-[1.25rem] md:[&_h3]:text-[1.375rem] [&_h3]:text-[#1F4E79] [&_h3]:mt-9 [&_h3]:mb-3
+                [&_h2]:font-bold [&_h2]:text-[1.35rem] md:[&_h2]:text-[1.625rem] [&_h2]:tracking-tight [&_h2]:text-[#1F4E79] [&_h2]:mt-12 [&_h2]:mb-5 [&_h2]:text-balance
+                [&_h3]:font-semibold [&_h3]:text-[1.125rem] md:[&_h3]:text-[1.25rem] [&_h3]:text-[#1F4E79] [&_h3]:mt-9 [&_h3]:mb-3 [&_h3]:text-balance
                 [&_ul]:my-6 [&_ul]:pl-7 [&_ul]:space-y-2 [&_ul>li]:list-disc [&_ul>li]:marker:text-[#1F4E79] [&_ul>li]:pl-2
                 [&_ol]:my-6 [&_ol]:pl-7 [&_ol]:space-y-2 [&_ol>li]:list-decimal
                 [&_strong]:text-foreground [&_strong]:font-semibold
