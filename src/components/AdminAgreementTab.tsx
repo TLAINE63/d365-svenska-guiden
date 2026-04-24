@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { FileText, Send, CheckCircle2, Mail, Eye, EyeOff, Search, Award } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 
 // Maps template_name in email_send_log to the badge shown next to each partner
 const AGREEMENT_TEMPLATE_LABELS: Record<string, { label: string; className: string }> = {
@@ -255,14 +256,12 @@ const AdminAgreementTab = ({ partners, token, onRefresh, logout }: AdminAgreemen
     if (!token) return;
     const loadHistory = async () => {
       try {
-        const { data, error } = await supabase.functions.invoke("manage-leads", {
-          body: {
-            action: "email-logs",
-            token,
-            limit: 1000,
-            offset: 0,
-            statusFilter: "sent",
-          },
+        const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", {
+          action: "email-logs",
+          token,
+          limit: 1000,
+          offset: 0,
+          statusFilter: "sent",
         });
         if (error) throw error;
         const logs: Array<{ recipient_email: string; template_name: string; created_at: string }> = data?.logs || [];
