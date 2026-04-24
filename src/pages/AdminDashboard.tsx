@@ -2508,6 +2508,11 @@ const AdminDashboard = () => {
               onSessionExpired={logout}
             />
           </TabsContent>
+
+          {/* ==================== SALES PITCH TAB ==================== */}
+          <TabsContent value="sales-pitch">
+            <AdminSalesPitchTab />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
