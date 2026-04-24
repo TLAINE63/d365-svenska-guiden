@@ -1206,14 +1206,17 @@ const PartnerUpdate = () => {
             </PremiumCollapsibleSection>
 
             {/* Products Section */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Dynamics 365-produkter</CardTitle>
-                <CardDescription>
-                  Välj de produkter ni arbetar med och fyll i detaljer för varje produkt
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
+            <PremiumCollapsibleSection
+              title="Dynamics 365-produkter"
+              description="Välj produkter ni arbetar med och fyll i detaljer per produkt"
+              icon={Layers}
+              accent="crm"
+              status={activeProducts.length === 0 ? "empty" : (activeProducts.length >= 2 ? "complete" : "partial")}
+              open={openSections.products}
+              onOpenChange={() => toggleSection("products")}
+              badge={activeProducts.length > 0 ? <Badge variant="outline">{activeProducts.length} valda</Badge> : undefined}
+            >
+              <div className="space-y-6">
                 <div className="flex flex-wrap gap-2">
                   {productSections.map((section) => (
                     <button
