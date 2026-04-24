@@ -154,7 +154,20 @@ const BlogArticle = () => {
         {/* Article content */}
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-3xl">
-            <article className="prose prose-slate dark:prose-invert max-w-none prose-headings:text-foreground prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3 prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:mb-5 prose-li:text-muted-foreground prose-li:leading-relaxed prose-li:my-1 prose-ul:my-6 prose-strong:text-foreground prose-em:text-foreground">
+            <article
+              className="
+                article-body max-w-none
+                text-[1.0625rem] md:text-[1.125rem] leading-[1.75] text-foreground/90
+                [&_p]:mb-5 [&_p]:leading-[1.75]
+                [&_h2]:font-bold [&_h2]:text-[1.6rem] md:[&_h2]:text-[1.875rem] [&_h2]:tracking-tight [&_h2]:text-[#1F4E79] [&_h2]:mt-12 [&_h2]:mb-5
+                [&_h3]:font-semibold [&_h3]:text-[1.25rem] md:[&_h3]:text-[1.375rem] [&_h3]:text-[#1F4E79] [&_h3]:mt-9 [&_h3]:mb-3
+                [&_ul]:my-6 [&_ul]:pl-7 [&_ul]:space-y-2 [&_ul>li]:list-disc [&_ul>li]:marker:text-[#1F4E79] [&_ul>li]:pl-2
+                [&_ol]:my-6 [&_ol]:pl-7 [&_ol]:space-y-2 [&_ol>li]:list-decimal
+                [&_strong]:text-foreground [&_strong]:font-semibold
+                [&_em]:italic
+                [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-primary/80
+              "
+            >
               {article.content}
             </article>
 

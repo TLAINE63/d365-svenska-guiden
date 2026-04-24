@@ -60,18 +60,18 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     readingTimeMinutes: 6,
     content: (
       <>
-        <p className="lead">
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
           AI i affärssystem är på väg att byta karaktär — från att svara på
           frågor till att utföra uppgifter. I ERP är det inte bara en teknisk
           utveckling. Det är ett skifte i riskbild som förändrar vad god
           styrning måste omfatta.
         </p>
 
-        <aside className="not-prose my-8 rounded-xl border-l-4 border-primary bg-primary/5 p-6">
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">
+        <aside className="my-10 rounded-md border border-[#9CC2E5] bg-[#DEEBF7] px-7 py-6">
+          <p className="!text-[1.25rem] !font-bold !text-[#1F4E79] !mb-3 !mt-0">
             I korthet
           </p>
-          <ul className="space-y-2 text-foreground/90 list-disc pl-5">
+          <ul className="!my-0 !pl-7 !space-y-2 list-disc marker:text-[#1F4E79] !text-foreground/90">
             <li>AI i ERP går från assistans till att agera inom givna ramar.</li>
             <li>
               Felmarginalen i ERP är liten: misstag kan slå mot ekonomi, leverans
@@ -122,11 +122,11 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           mänskligt omdöme krävs.
         </p>
 
-        <aside className="not-prose my-8 rounded-xl border-l-4 border-accent bg-accent/10 p-6">
-          <p className="text-sm font-semibold uppercase tracking-wider text-accent-foreground mb-3">
+        <aside className="my-10 rounded-md border border-[#9CC2E5] bg-[#DEEBF7] px-7 py-6">
+          <p className="!text-[1.25rem] !font-bold !text-[#1F4E79] !mb-3 !mt-0">
             Exempel: agentbaserat beteende i ERP
           </p>
-          <p className="text-foreground/90 leading-relaxed">
+          <p className="!my-0 !text-foreground/90 leading-[1.75]">
             En agent kan övervaka avvikelser i order och leverans, föreslå
             korrigeringar, trigga en uppgift till rätt roll och — om ni tillåter
             det — skapa ett utkast till kreditnota, uppdatera leveransdatum eller
@@ -141,7 +141,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           att prata om funktionalitet. Då måste man också prata om kontroll.
         </p>
 
-        <h2>Varför ERP inte tål "AI på chans"</h2>
+        <h2>Varför ERP inte tål ”AI på chans”</h2>
         <p>
           Det är lätt att tala om AI generellt, som om samma logik gäller
           överallt. I ERP gör den inte det.
@@ -227,7 +227,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           Partnerfrågan är inte ett separat spår vid sidan av AI-diskussionen.
           Den är en del av den. I nästa artikel tittar vi på vad det konkret
           betyder: vilka frågor som avslöjar om partnern förstått skiftet,
-          varför partnervalet är en del av affärscaset och varför "vi väntar"
+          varför partnervalet är en del av affärscaset och varför ”vi väntar”
           kan bli en dyrare position än den låter.
         </p>
       </>
