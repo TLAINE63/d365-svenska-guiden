@@ -1593,6 +1593,10 @@ const AdminDashboard = () => {
               <Award className="h-4 w-4" />
               Totalöversikt
             </TabsTrigger>
+            <TabsTrigger value="sales-pitch" className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4" />
+              Säljunderlag
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
