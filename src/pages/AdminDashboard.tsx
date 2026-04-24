@@ -1599,6 +1599,10 @@ const AdminDashboard = () => {
               <TrendingUp className="h-4 w-4" />
               Säljunderlag
             </TabsTrigger>
+            <TabsTrigger value="sales-kpi" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Sälj-KPI
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
