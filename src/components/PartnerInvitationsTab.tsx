@@ -775,6 +775,14 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`} />
             Uppdatera
           </Button>
+          <Button
+            variant="outline"
+            onClick={openProfileRefreshDialog}
+            className="border-primary text-primary hover:bg-primary/10"
+          >
+            <Send className="w-4 h-4 mr-2" />
+            Skicka profileringslänk (90 dgr)
+          </Button>
           <Button onClick={() => setShowCreateDialog(true)}>
             <Plus className="w-4 h-4 mr-2" />
             Ny inbjudan
@@ -853,6 +861,14 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Påminnelse / uppdatering
+              </Button>
+              <Button
+                variant={activeTemplateTab === "profile_refresh" ? "secondary" : "ghost"}
+                size="sm"
+                onClick={() => setActiveTemplateTab("profile_refresh")}
+              >
+                <Send className="w-4 h-4 mr-2" />
+                Profileringslänk (90 dgr)
               </Button>
             </div>
 
@@ -945,7 +961,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                   </div>
                 </div>
               </>
-            ) : (
+            ) : activeTemplateTab === "reminder" ? (
               <>
                 <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
                   <strong>Påminnelsemailet</strong> skickas till partners som redan har en profil och behöver uppdatera sina uppgifter.
@@ -977,6 +993,55 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                     >
                       <Save className="w-4 h-4 mr-2" />
                       {savingTemplate ? "Sparar..." : "Spara påminnelsemall"}
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="bg-muted/50 rounded-lg p-3 text-sm text-muted-foreground">
+                  <strong>Profileringslänkmailet</strong> skickas till partners (publicerade eller inbjudna) för att de ska få en fräsch unik länk att uppdatera sin profil. Länken är giltig i 90 dagar.
+                  Använd <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{INVITATION_LINK}}"}</code> där länken ska placeras och valfritt <code className="bg-muted px-1 py-0.5 rounded text-xs font-mono">{"{{NAME}}"}</code> för partnerns namn.
+                  Mail skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Ämnesrad</Label>
+                  <Input
+                    value={profileRefreshSubject}
+                    onChange={(e) => setProfileRefreshSubject(e.target.value)}
+                    className="font-mono text-sm"
+                    placeholder="VIKTIGT! Uppdatera er partnerprofil på d365.se"
+                  />
+                </div>
+                <Textarea
+                  value={profileRefreshTemplate}
+                  onChange={(e) => setProfileRefreshTemplate(e.target.value)}
+                  rows={22}
+                  className="font-mono text-sm"
+                  placeholder="Skriv profileringslänkmailet här..."
+                />
+                <div className="flex justify-between items-center">
+                  <p className="text-xs text-muted-foreground">
+                    Platshållare: {"{{INVITATION_LINK}}"} = unik profileringslänk (90 dgr), {"{{NAME}}"} = partnerns namn
+                  </p>
+                  <div className="flex gap-2">
+                    {(profileRefreshTemplate !== profileRefreshTemplateOriginal || profileRefreshSubject !== profileRefreshSubjectOriginal) && (
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          setProfileRefreshTemplate(profileRefreshTemplateOriginal || DEFAULT_PROFILE_REFRESH_BODY);
+                          setProfileRefreshSubject(profileRefreshSubjectOriginal || DEFAULT_PROFILE_REFRESH_SUBJECT);
+                        }}
+                      >
+                        Ångra ändringar
+                      </Button>
+                    )}
+                    <Button
+                      onClick={saveProfileRefreshTemplate}
+                      disabled={savingProfileRefreshTemplate || (profileRefreshTemplate === profileRefreshTemplateOriginal && profileRefreshSubject === profileRefreshSubjectOriginal)}
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      {savingProfileRefreshTemplate ? "Sparar..." : "Spara profileringslänkmall"}
                     </Button>
                   </div>
                 </div>
@@ -1211,6 +1276,135 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
             </Button>
             <Button onClick={createInvitation} disabled={creating}>
               {creating ? "Skapar..." : "Skapa inbjudan"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Profile refresh send dialog */}
+      <Dialog open={showProfileRefreshDialog} onOpenChange={setShowProfileRefreshDialog}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Send className="w-5 h-5" />
+              Skicka profileringslänk (90 dagar)
+            </DialogTitle>
+            <CardDescription>
+              Skickar en unik profileringslänk till valda partners. Mailet skickas från <strong>info@d365.se</strong> med svar till <strong>thomas.laine@dynamicfactory.se</strong>.
+            </CardDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Ämnesrad</Label>
+              <Input
+                value={profileRefreshSendSubject}
+                onChange={(e) => setProfileRefreshSendSubject(e.target.value)}
+                placeholder="Ämnesrad"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">
+                Brödtext <span className="text-xs text-muted-foreground">(måste innehålla {"{{INVITATION_LINK}}"})</span>
+              </Label>
+              <Textarea
+                value={profileRefreshSendBody}
+                onChange={(e) => setProfileRefreshSendBody(e.target.value)}
+                rows={14}
+                className="font-mono text-xs"
+              />
+            </div>
+
+            <div className="space-y-2 border-t pt-4">
+              <div className="flex justify-between items-center">
+                <Label className="text-sm font-medium">
+                  Välj mottagare ({profileRefreshSelected.size} valda)
+                </Label>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      const visible = partners.filter(p =>
+                        !profileRefreshSearch ||
+                        p.name.toLowerCase().includes(profileRefreshSearch.toLowerCase())
+                      );
+                      setProfileRefreshSelected(new Set(visible.map(p => p.id)));
+                    }}
+                  >
+                    Välj alla synliga
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setProfileRefreshSelected(new Set())}
+                  >
+                    Avmarkera alla
+                  </Button>
+                </div>
+              </div>
+              <Input
+                placeholder="Sök partner..."
+                value={profileRefreshSearch}
+                onChange={(e) => setProfileRefreshSearch(e.target.value)}
+              />
+              <div className="border rounded-md max-h-72 overflow-y-auto divide-y">
+                {partners
+                  .filter(p =>
+                    !profileRefreshSearch ||
+                    p.name.toLowerCase().includes(profileRefreshSearch.toLowerCase())
+                  )
+                  .sort((a, b) => a.name.localeCompare(b.name, "sv"))
+                  .map(p => {
+                    const checked = profileRefreshSelected.has(p.id);
+                    return (
+                      <div key={p.id} className="flex items-center gap-3 p-2 hover:bg-muted/50">
+                        <Checkbox
+                          checked={checked}
+                          onCheckedChange={(c) => {
+                            const next = new Set(profileRefreshSelected);
+                            if (c === true) next.add(p.id);
+                            else next.delete(p.id);
+                            setProfileRefreshSelected(next);
+                          }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium truncate flex items-center gap-2">
+                            {p.name}
+                            {p.is_featured && (
+                              <Badge variant="secondary" className="text-[10px]">Publicerad</Badge>
+                            )}
+                          </div>
+                        </div>
+                        <Input
+                          type="email"
+                          value={profileRefreshEmails[p.id] || ""}
+                          onChange={(e) =>
+                            setProfileRefreshEmails(prev => ({ ...prev, [p.id]: e.target.value }))
+                          }
+                          placeholder="kontakt@partner.se"
+                          className="h-8 text-sm w-64"
+                          disabled={!checked}
+                        />
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowProfileRefreshDialog(false)}>
+              Avbryt
+            </Button>
+            <Button
+              onClick={sendProfileRefreshEmails}
+              disabled={sendingProfileRefresh || profileRefreshSelected.size === 0}
+            >
+              <Send className={`w-4 h-4 mr-2 ${sendingProfileRefresh ? "animate-pulse" : ""}`} />
+              {sendingProfileRefresh
+                ? "Skickar..."
+                : `Skicka till ${profileRefreshSelected.size} partner${profileRefreshSelected.size === 1 ? "" : "s"}`}
             </Button>
           </DialogFooter>
         </DialogContent>
