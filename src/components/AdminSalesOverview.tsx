@@ -628,7 +628,14 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         const allVisitors = all.totalVisitors || 0;
         const partnerShare = allVisitors > 0 ? Math.max(0, allVisitors - extVisitors) : 0;
         const partnerPct = allVisitors > 0 ? Math.round((partnerShare / allVisitors) * 100) : 0;
-        const findVisits = (path: string) => (ext.topPages || []).find((p: any) => p.path === path)?.visits || 0;
+        // Normalize trailing slashes — visitor_analytics contains both "/kom-igang" and "/kom-igang/"
+        const norm = (p: string) => (p === "/" ? "/" : p.replace(/\/+$/, ""));
+        const findVisits = (path: string) => {
+          const target = norm(path);
+          return (ext.topPages || [])
+            .filter((p: any) => norm(p.path || "") === target)
+            .reduce((s: number, p: any) => s + (p.visits || 0), 0);
+        };
         const valjPartner = findVisits("/valj-partner");
         const komIgang = findVisits("/kom-igang");
         const analysisTotal = ANALYSIS_PAGES.reduce((s, a) => s + findVisits(a.path), 0);
