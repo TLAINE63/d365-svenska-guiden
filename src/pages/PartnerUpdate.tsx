@@ -1850,19 +1850,17 @@ const PartnerUpdate = () => {
 
             {/* Events Section - only for existing partners */}
             {invitation?.partner_id && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <CalendarDays className="w-5 h-5 text-primary" />
-                    Kommande events
-                  </CardTitle>
-                  <CardDescription>
-                    Lägg till webinarier, workshops eller andra events kopplade till Dynamics 365. 
-                    Events granskas av admin innan publicering. Fokus bör vara på Microsoft Dynamics 365, 
-                    AI, Copilot, agenter, BI eller Power Platform.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
+              <PremiumCollapsibleSection
+                title="Kommande events"
+                description="Webinarier, workshops eller demos – granskas av admin innan publicering"
+                icon={CalendarDays}
+                accent="agents"
+                status={partnerEvents.length === 0 ? "empty" : "complete"}
+                open={openSections.events}
+                onOpenChange={() => toggleSection("events")}
+                badge={partnerEvents.length > 0 ? <Badge variant="outline">{partnerEvents.length} events</Badge> : undefined}
+              >
+                <div className="space-y-4">
                   {loadingEvents ? (
                     <div className="flex items-center justify-center py-4">
                       <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
