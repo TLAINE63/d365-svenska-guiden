@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
+import { BLOG_ARTICLES } from "@/data/blogArticles";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Calendar,
@@ -416,6 +417,21 @@ const Kunskapscenter = () => {
       isExternal: t.url.startsWith("http") || t.url.endsWith(".pdf"),
       icon: t.icon,
       products: t.products as string[],
+    })),
+    ...BLOG_ARTICLES.map((b) => ({
+      id: `blog-${b.slug}`,
+      type: "artikel" as const,
+      title: b.title,
+      description: b.summary,
+      url: `/artiklar/${b.slug}`,
+      image_url: b.heroImage,
+      isLogoImage: false,
+      partnerLogoUrl: null as string | null,
+      date: b.publishedAt,
+      partner: null as string | null,
+      isExternal: false,
+      icon: BookOpen,
+      products: b.products,
     })),
     ...articles.map((a) => ({
       id: a.id,
