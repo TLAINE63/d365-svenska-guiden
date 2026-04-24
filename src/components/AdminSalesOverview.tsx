@@ -478,6 +478,32 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
   const [statsFiltered, setStatsFiltered] = useState<any>(null);
   const [stats90d, setStats90d] = useState<any>(null);
 
+  const postWithRetry = async (body: any, attempts = 3): Promise<Response> => {
+    let lastErr: any;
+    for (let i = 0; i < attempts; i++) {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        // Retry on transient edge-runtime 5xx
+        if (res.status >= 500 && res.status < 600 && i < attempts - 1) {
+          await new Promise((r) => setTimeout(r, 600 * (i + 1)));
+          continue;
+        }
+        return res;
+      } catch (e) {
+        lastErr = e;
+        if (i < attempts - 1) {
+          await new Promise((r) => setTimeout(r, 600 * (i + 1)));
+          continue;
+        }
+      }
+    }
+    throw lastErr || new Error("Network error");
+  };
+
   const fetchData = async () => {
     setIsLoading(true);
     try {
@@ -485,47 +511,20 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
       const startDate90 = startOfDay(subDays(new Date(), 90));
 
       const [allRes, filteredRes, clickRes, ninetyRes] = await Promise.all([
-        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "visitor-stats",
-            token,
-            startDate: startDate.toISOString(),
-            excludePartnerTraffic: false,
-          }),
-        }),
-        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "visitor-stats",
-            token,
-            startDate: startDate.toISOString(),
-            excludePartnerTraffic: true,
-          }),
-        }),
-        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "click-stats", token }),
-        }),
-        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "visitor-stats",
-            token,
-            startDate: startDate90.toISOString(),
-            excludePartnerTraffic: true,
-          }),
-        }),
+        postWithRetry({ action: "visitor-stats", token, startDate: startDate.toISOString(), excludePartnerTraffic: false }),
+        postWithRetry({ action: "visitor-stats", token, startDate: startDate.toISOString(), excludePartnerTraffic: true }),
+        postWithRetry({ action: "click-stats", token }),
+        postWithRetry({ action: "visitor-stats", token, startDate: startDate90.toISOString(), excludePartnerTraffic: true }),
       ]);
 
-      const allData = await allRes.json();
-      const filteredData = await filteredRes.json();
-      const clickData = await clickRes.json();
-      const ninetyData = await ninetyRes.json();
+      if (allRes.status >= 500) {
+        throw new Error("Backend-tjänsten är tillfälligt otillgänglig. Försök igen om en stund.");
+      }
+
+      const allData = await allRes.json().catch(() => ({}));
+      const filteredData = await filteredRes.json().catch(() => ({}));
+      const clickData = await clickRes.json().catch(() => ({}));
+      const ninetyData = await ninetyRes.json().catch(() => ({}));
 
       if (!allRes.ok) {
         if (allData.error?.includes("gått ut")) onSessionExpired();
