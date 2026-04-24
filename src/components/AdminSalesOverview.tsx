@@ -452,19 +452,39 @@ function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass,
 
 // ================ Main Component ================
 
+function buildOneLine90d(stats: any): string {
+  if (!stats) return "";
+  const totalVisitors = stats.totalVisitors || 0;
+  const totalPageViews = stats.totalPageViews || 0;
+  const swedish = stats.swedishVisitors || 0;
+  const swedishPct = totalVisitors > 0 ? Math.round((swedish / totalVisitors) * 100) : 0;
+  const pages = stats.topPages || [];
+  const findVisits = (path: string) => pages.find((p: any) => p.path === path)?.visits || 0;
+  const valjPartner = findVisits("/valj-partner");
+  const komIgang = findVisits("/kom-igang");
+  const analysisTotal = ANALYSIS_PAGES.reduce((s, a) => s + findVisits(a.path), 0);
+  const avgSec = stats.avgTimeOnPage || 0;
+  const avgMin = Math.floor(avgSec / 60);
+  const avgRest = avgSec % 60;
+  const avgStr = avgMin > 0 ? `${avgMin}m ${avgRest}s` : `${avgRest}s`;
+  return `D365.se senaste 90 dagar: ${totalVisitors.toLocaleString("sv-SE")} unika besökare · ${totalPageViews.toLocaleString("sv-SE")} sidvisningar · ${swedishPct}% svensk trafik · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · snitt-tid ${avgStr}`;
+}
+
 export default function AdminSalesOverview({ token, onSessionExpired }: AdminSalesOverviewProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [dateRange, setDateRange] = useState("30");
   const [statsAll, setStatsAll] = useState<any>(null);
   const [statsFiltered, setStatsFiltered] = useState<any>(null);
+  const [stats90d, setStats90d] = useState<any>(null);
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
       const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
+      const startDate90 = startOfDay(subDays(new Date(), 90));
 
-      const [allRes, filteredRes, clickRes] = await Promise.all([
+      const [allRes, filteredRes, clickRes, ninetyRes] = await Promise.all([
         fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -490,11 +510,22 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action: "click-stats", token }),
         }),
+        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "visitor-stats",
+            token,
+            startDate: startDate90.toISOString(),
+            excludePartnerTraffic: true,
+          }),
+        }),
       ]);
 
       const allData = await allRes.json();
       const filteredData = await filteredRes.json();
       const clickData = await clickRes.json();
+      const ninetyData = await ninetyRes.json();
 
       if (!allRes.ok) {
         if (allData.error?.includes("gått ut")) onSessionExpired();
@@ -503,6 +534,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
 
       setStatsAll(allData.stats);
       setStatsFiltered(filteredData.stats || null);
+      setStats90d(ninetyData.stats || null);
     } catch (error: any) {
       console.error("Error fetching sales overview:", error);
       toast({
@@ -585,6 +617,42 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
           </Button>
         </div>
       </div>
+
+      {/* ===== ONE-LINE 90-DAY SALES SUMMARY (copyable) ===== */}
+      {stats90d && (
+        <Card className="border-primary/40 bg-primary/5">
+          <CardContent className="py-4">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <FileText className="h-4 w-4 text-primary" />
+                  <span className="text-xs font-semibold uppercase tracking-wide text-primary">
+                    Säljunderlag – en rad (senaste 90 dagar, exkl. partnertrafik)
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed font-medium text-foreground break-words">
+                  {buildOneLine90d(stats90d)}
+                </p>
+              </div>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(buildOneLine90d(stats90d));
+                    toast({ title: "Kopierat!", description: "Säljunderlaget (en rad) finns i urklipp." });
+                  } catch {
+                    toast({ title: "Kunde inte kopiera", variant: "destructive" });
+                  }
+                }}
+              >
+                <Copy className="h-4 w-4 mr-1" />
+                Kopiera rad
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* ===== SECTION 1: All traffic ===== */}
       <div className="space-y-4">
