@@ -1719,8 +1719,8 @@ const PartnerUpdate = () => {
                     );
                   })}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </PremiumCollapsibleSection>
 
             {/* Industry Apps Section */}
             {activeProducts.length > 0 && (
