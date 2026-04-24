@@ -645,27 +645,13 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
       </div>
 
       {/* ===== 90-DAY SALES SUMMARY (boxes) ===== */}
-      {stats90d && statsAll && (() => {
+      {stats90d && statsAll && salesSummary90d && (() => {
         const ext = stats90d;
-        const all = statsAll; // current dateRange — for partner traffic share
         const extVisitors = ext.totalVisitors || 0;
         const extPageViews = ext.totalPageViews || 0;
-        const extSwedish = ext.swedishVisitors || 0;
-        const extSwedishPct = extVisitors > 0 ? Math.round((extSwedish / extVisitors) * 100) : 0;
-        const allVisitors = all.totalVisitors || 0;
-        const partnerShare = allVisitors > 0 ? Math.max(0, allVisitors - extVisitors) : 0;
-        const partnerPct = allVisitors > 0 ? Math.round((partnerShare / allVisitors) * 100) : 0;
-        // Normalize trailing slashes — visitor_analytics contains both "/kom-igang" and "/kom-igang/"
-        const norm = (p: string) => (p === "/" ? "/" : p.replace(/\/+$/, ""));
-        const findVisits = (path: string) => {
-          const target = norm(path);
-          return (ext.topPages || [])
-            .filter((p: any) => norm(p.path || "") === target)
-            .reduce((s: number, p: any) => s + (p.visits || 0), 0);
-        };
-        const valjPartner = findVisits("/valj-partner");
-        const komIgang = findVisits("/kom-igang");
-        const analysisTotal = ANALYSIS_PAGES.reduce((s, a) => s + findVisits(a.path), 0);
+        const valjPartner = salesSummary90d.valjPartner || 0;
+        const komIgang = salesSummary90d.komIgang || 0;
+        const analysisTotal = salesSummary90d.analysisTotal || 0;
         const avgSec = ext.avgTimeOnPage || 0;
         const avgMin = Math.floor(avgSec / 60);
         const avgRest = avgSec % 60;
@@ -676,8 +662,8 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         const oneLine = `D365.se senaste 90 dagar: ${extVisitors.toLocaleString("sv-SE")} unika besökare · ${extPageViews.toLocaleString("sv-SE")} sidvisningar · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · Partnerprofiler ${partnerProfileVisits} besök · Partnerklick ${partnerClicks} · snitt-tid ${avgStr}`;
 
         const boxes = [
-          { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "exkl. partnertrafik" },
-          { icon: TrendingUp, label: "Sidvisningar", value: extPageViews.toLocaleString("sv-SE"), hint: "exkl. partnertrafik" },
+          { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "senaste 90 dagar" },
+          { icon: TrendingUp, label: "Sidvisningar", value: extPageViews.toLocaleString("sv-SE"), hint: "senaste 90 dagar" },
           { icon: Award, label: "Välj partner", value: valjPartner.toLocaleString("sv-SE"), hint: "besök på /valj-partner" },
           { icon: ClipboardCheck, label: "Behovsanalyser", value: analysisTotal.toLocaleString("sv-SE"), hint: "alla analysverktyg" },
           { icon: FileText, label: "Kom igång-guiden", value: komIgang.toLocaleString("sv-SE"), hint: "besök på /kom-igang" },
