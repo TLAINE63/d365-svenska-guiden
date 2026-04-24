@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { useToast } from "@/hooks/use-toast";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { 
   isExcludedFromTracking, 
   setExcludeFromTracking 
@@ -87,32 +88,23 @@ export default function AdminVisitorStatsTab({ token, onSessionExpired }: AdminV
       const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
       
       // Fetch visitor data using edge function with admin token
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ 
-            action: "visitor-stats",
-            token: token,
-            startDate: startDate.toISOString(),
-            excludePartnerTraffic: excludePartners,
-          }),
-        }
-      );
+      const { data, error } = await invokeAdminEdgeWithRetry<{ stats?: VisitorStats; error?: string }>("manage-leads", {
+        action: "visitor-stats",
+        token: token,
+        startDate: startDate.toISOString(),
+        excludePartnerTraffic: excludePartners,
+      });
 
-      const data = await response.json();
+      if (error) throw error;
 
-      if (!response.ok) {
-        if (data.error?.includes("gått ut") || data.error?.includes("session")) {
+      if (data?.error) {
+        if (data.error.includes("gått ut") || data.error.includes("session")) {
           onSessionExpired();
         }
         throw new Error(data.error || "Kunde inte hämta statistik");
       }
 
-      setStats(data.stats);
+      setStats(data?.stats || null);
     } catch (error: any) {
       console.error("Error fetching visitor stats:", error);
       toast({

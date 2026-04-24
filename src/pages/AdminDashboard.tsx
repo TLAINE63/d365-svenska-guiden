@@ -35,6 +35,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { allIndustries, geographyOptions, getCumulativeGeographyDisplay, companySizes, revenueOptions } from "@/data/partners";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import {
@@ -378,9 +379,7 @@ const AdminDashboard = () => {
     if (!token) return;
     setIsLoadingLeads(true);
     try {
-      const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "list", token },
-      });
+      const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", { action: "list", token });
 
       if (error) throw error;
       if (data.error) {
@@ -406,9 +405,7 @@ const AdminDashboard = () => {
     if (!token) return;
     setIsLoadingStats(true);
     try {
-      const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "click-stats", token },
-      });
+      const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", { action: "click-stats", token });
 
       if (error) throw error;
       if (data.error) {
@@ -639,8 +636,8 @@ const AdminDashboard = () => {
       const templates = ["partner_agreement", "partner_prospect_agreement"];
       const map: Record<string, { template: string; sent_at: string; recipient: string }> = {};
       for (const tpl of templates) {
-        const { data } = await supabase.functions.invoke("manage-leads", {
-          body: { action: "email-logs", token, limit: 500, offset: 0, statusFilter: "sent", templateFilter: tpl },
+        const { data } = await invokeAdminEdgeWithRetry("manage-leads", {
+          action: "email-logs", token, limit: 500, offset: 0, statusFilter: "sent", templateFilter: tpl,
         });
         const logs = data?.logs || [];
         for (const log of logs) {
@@ -708,9 +705,7 @@ const AdminDashboard = () => {
       return;
     }
     try {
-      const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "update", token, id: leadId, status },
-      });
+      const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", { action: "update", token, id: leadId, status });
 
       if (error) throw error;
       if (data.error) throw new Error(data.error);
@@ -739,9 +734,7 @@ const AdminDashboard = () => {
     }
     
     try {
-      const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "update", token, id: selectedLead.id, admin_notes: adminNotes },
-      });
+      const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", { action: "update", token, id: selectedLead.id, admin_notes: adminNotes });
 
       if (error) throw error;
       if (data.error) throw new Error(data.error);
@@ -774,14 +767,12 @@ const AdminDashboard = () => {
         return `kontakt@${name.toLowerCase().replace(/\s+/g, '').replace(/[åä]/g, 'a').replace(/ö/g, 'o')}.se`;
       });
 
-      const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: {
-          action: "forward",
-          token,
-          id: selectedLead.id,
-          partner_emails: partnerEmails,
-          partner_names: selectedPartnersForLead,
-        },
+      const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", {
+        action: "forward",
+        token,
+        id: selectedLead.id,
+        partner_emails: partnerEmails,
+        partner_names: selectedPartnersForLead,
       });
 
       if (error) throw error;
@@ -817,9 +808,7 @@ const AdminDashboard = () => {
     }
 
     try {
-      const { data, error } = await supabase.functions.invoke("manage-leads", {
-        body: { action: "delete", token, id: leadId },
-      });
+      const { data, error } = await invokeAdminEdgeWithRetry("manage-leads", { action: "delete", token, id: leadId });
 
       if (error) throw error;
       if (data.error) throw new Error(data.error);

@@ -16,6 +16,7 @@ import {
   Building2, Layers, Percent,
 } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 
 interface AdminSalesKpiTabProps {
   token: string;
@@ -94,20 +95,22 @@ export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSales
     if (!token) return;
     setLoading(true);
     try {
-      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`;
-      const headers = { "Content-Type": "application/json" };
       const [leadsRes, clicksRes] = await Promise.all([
-        fetch(url, { method: "POST", headers, body: JSON.stringify({ action: "list", token }) }),
-        fetch(url, { method: "POST", headers, body: JSON.stringify({ action: "click-stats", token }) }),
+        invokeAdminEdgeWithRetry<{ leads?: Lead[]; error?: string }>("manage-leads", { action: "list", token }),
+        invokeAdminEdgeWithRetry<{ stats?: ClickStat[]; error?: string }>("manage-leads", { action: "click-stats", token }),
       ]);
-      if (leadsRes.status === 401 || clicksRes.status === 401) {
+      if (leadsRes.error?.message?.includes("401") || clicksRes.error?.message?.includes("401")) {
         onSessionExpired();
         return;
       }
-      const leadsJson = await leadsRes.json();
-      const clicksJson = await clicksRes.json();
-      setLeads(leadsJson.leads || []);
-      setClickStats(clicksJson.stats || []);
+      if (leadsRes.error) throw leadsRes.error;
+      if (clicksRes.error) throw clicksRes.error;
+      if (leadsRes.data?.error?.includes("gått ut") || clicksRes.data?.error?.includes("gått ut")) {
+        onSessionExpired();
+        return;
+      }
+      setLeads(leadsRes.data?.leads || []);
+      setClickStats(clicksRes.data?.stats || []);
     } catch (err) {
       console.error(err);
       toast({ title: "Kunde inte läsa säljdata", variant: "destructive" });

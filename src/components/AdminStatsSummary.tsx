@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { Copy, FileText, RefreshCw } from "lucide-react";
 import { format, subDays, startOfDay } from "date-fns";
 import { sv } from "date-fns/locale";
@@ -95,39 +96,28 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
       const periodLabel = dateRange === "7" ? "senaste 7 dagarna" : dateRange === "30" ? "senaste 30 dagarna" : "senaste 90 dagarna";
 
       // Fetch visitor stats
-      const visitorRes = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "visitor-stats",
-            token,
-            startDate: startDate.toISOString(),
-          }),
-        }
-      );
-      const visitorData = await visitorRes.json();
-      if (!visitorRes.ok) {
-        if (visitorData.error?.includes("gått ut")) onSessionExpired();
+      const { data: visitorData, error: visitorError } = await invokeAdminEdgeWithRetry<{ stats?: any; error?: string }>("manage-leads", {
+        action: "visitor-stats",
+        token,
+        startDate: startDate.toISOString(),
+      });
+      if (visitorError) throw visitorError;
+      if (visitorData?.error) {
+        if (visitorData.error.includes("gått ut")) onSessionExpired();
         throw new Error(visitorData.error || "Kunde inte hämta besökardata");
       }
 
       // Fetch click stats and published partners in parallel
-      const [clickRes, partnersRes] = await Promise.all([
-        fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-leads`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "click-stats", token }),
-        }),
+      const [{ data: clickData, error: clickError }, partnersRes] = await Promise.all([
+        invokeAdminEdgeWithRetry<{ stats?: any[]; excludedClicks?: number; error?: string }>("manage-leads", { action: "click-stats", token }),
         fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/manage-partners`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action: "get-full", token }),
         }),
       ]);
-      const clickData = await clickRes.json();
-      if (!clickRes.ok) throw new Error(clickData.error || "Kunde inte hämta klickdata");
+      if (clickError) throw clickError;
+      if (clickData?.error) throw new Error(clickData.error || "Kunde inte hämta klickdata");
       const partnersData = await partnersRes.json();
       const publishedPartners: { name: string; slug: string }[] = (partnersData?.partners || [])
         .filter((p: any) => p.is_featured)
