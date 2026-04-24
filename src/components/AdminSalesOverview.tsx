@@ -452,12 +452,31 @@ function OverviewBlock({ stats, periodLabel, title, subtitle, icon, accentClass,
 
 // ================ Main Component ================
 
+function buildOneLine90d(stats: any): string {
+  if (!stats) return "";
+  const totalVisitors = stats.totalVisitors || 0;
+  const totalPageViews = stats.totalPageViews || 0;
+  const swedish = stats.swedishVisitors || 0;
+  const swedishPct = totalVisitors > 0 ? Math.round((swedish / totalVisitors) * 100) : 0;
+  const pages = stats.topPages || [];
+  const findVisits = (path: string) => pages.find((p: any) => p.path === path)?.visits || 0;
+  const valjPartner = findVisits("/valj-partner");
+  const komIgang = findVisits("/kom-igang");
+  const analysisTotal = ANALYSIS_PAGES.reduce((s, a) => s + findVisits(a.path), 0);
+  const avgSec = stats.avgTimeOnPage || 0;
+  const avgMin = Math.floor(avgSec / 60);
+  const avgRest = avgSec % 60;
+  const avgStr = avgMin > 0 ? `${avgMin}m ${avgRest}s` : `${avgRest}s`;
+  return `D365.se senaste 90 dagar: ${totalVisitors.toLocaleString("sv-SE")} unika besökare · ${totalPageViews.toLocaleString("sv-SE")} sidvisningar · ${swedishPct}% svensk trafik · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · snitt-tid ${avgStr}`;
+}
+
 export default function AdminSalesOverview({ token, onSessionExpired }: AdminSalesOverviewProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
   const [dateRange, setDateRange] = useState("30");
   const [statsAll, setStatsAll] = useState<any>(null);
   const [statsFiltered, setStatsFiltered] = useState<any>(null);
+  const [stats90d, setStats90d] = useState<any>(null);
 
   const fetchData = async () => {
     setIsLoading(true);
