@@ -1671,8 +1671,8 @@ const PartnerUpdate = () => {
                     </Card>
                   );
                 })}
-              </CardContent>
-            </Card>
+              </div>
+            </PremiumCollapsibleSection>
 
             {/* Specialty Products */}
             <Card>
