@@ -60,25 +60,29 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     readingTimeMinutes: 6,
     content: (
       <>
-        <p>
+        <p className="lead">
           AI i affärssystem är på väg att byta karaktär — från att svara på
           frågor till att utföra uppgifter. I ERP är det inte bara en teknisk
           utveckling. Det är ett skifte i riskbild som förändrar vad god
           styrning måste omfatta.
         </p>
 
-        <h2>I korthet</h2>
-        <ul>
-          <li>AI i ERP går från assistans till att agera inom givna ramar.</li>
-          <li>
-            Felmarginalen i ERP är liten: misstag kan slå mot ekonomi, leverans
-            och compliance.
-          </li>
-          <li>
-            Governance, datakvalitet och behörigheter blir avgörande långt innan
-            affärsvärdet.
-          </li>
-        </ul>
+        <aside className="not-prose my-8 rounded-xl border-l-4 border-primary bg-primary/5 p-6">
+          <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-3">
+            I korthet
+          </p>
+          <ul className="space-y-2 text-foreground/90 list-disc pl-5">
+            <li>AI i ERP går från assistans till att agera inom givna ramar.</li>
+            <li>
+              Felmarginalen i ERP är liten: misstag kan slå mot ekonomi, leverans
+              och compliance.
+            </li>
+            <li>
+              Governance, datakvalitet och behörigheter blir avgörande långt innan
+              affärsvärdet.
+            </li>
+          </ul>
+        </aside>
 
         <p>AI i affärssystem är på väg att byta karaktär.</p>
         <p>
@@ -118,14 +122,19 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           mänskligt omdöme krävs.
         </p>
 
-        <h3>Exempel: agentbaserat beteende i ERP</h3>
-        <p>
-          En agent kan övervaka avvikelser i order och leverans, föreslå
-          korrigeringar, trigga en uppgift till rätt roll och — om ni tillåter
-          det — skapa ett utkast till kreditnota, uppdatera leveransdatum eller
-          initiera en attestkedja. Poängen är inte att den <em>kan</em> göra
-          det, utan vad den <em>får</em> göra utan mänskligt beslut.
-        </p>
+        <aside className="not-prose my-8 rounded-xl border-l-4 border-accent bg-accent/10 p-6">
+          <p className="text-sm font-semibold uppercase tracking-wider text-accent-foreground mb-3">
+            Exempel: agentbaserat beteende i ERP
+          </p>
+          <p className="text-foreground/90 leading-relaxed">
+            En agent kan övervaka avvikelser i order och leverans, föreslå
+            korrigeringar, trigga en uppgift till rätt roll och — om ni tillåter
+            det — skapa ett utkast till kreditnota, uppdatera leveransdatum eller
+            initiera en attestkedja. Poängen är inte att den <em>kan</em> göra
+            det, utan vad den <em>får</em> göra utan mänskligt beslut.
+          </p>
+        </aside>
+
         <p>Det är där frågan blir mer intressant.</p>
         <p>
           För när AI flyttar närmare själva exekveringen räcker det inte längre
