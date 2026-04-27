@@ -89,6 +89,7 @@ import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
+import { getPublicBaseUrl } from "@/lib/publicUrl";
 
 // ==================== VALIDATION SCHEMA ====================
 
@@ -893,7 +894,7 @@ const AdminDashboard = () => {
       if (!response.ok || !result.token) {
         throw new Error(result.error || "Kunde inte hämta länken");
       }
-      const link = `${window.location.origin}/partner-update/${result.token}`;
+      const link = `${getPublicBaseUrl()}/partner-update/${result.token}`;
       await navigator.clipboard.writeText(link);
       toast({
         title: "Profileringslänk kopierad",

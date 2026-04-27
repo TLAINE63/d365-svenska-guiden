@@ -5,7 +5,7 @@ import { Resend } from "https://esm.sh/resend@4.0.0";
 const ALLOWED_ORIGINS = [
   "https://d365.se",
   "https://www.d365.se",
-  "https://d365-svenska-guiden.lovable.app",
+  "https://www.d365.se",
   "http://localhost:5173",
   "http://localhost:8080",
 ];
@@ -253,7 +253,7 @@ serve(async (req: Request): Promise<Response> => {
               <p><strong>Eventtitel:</strong> ${event.title}</p>
               <p><strong>Datum:</strong> ${event.event_date}</p>
               <p><strong>Källa:</strong> Partnerprofilering (inbjudningsformulär)</p>
-              <p><a href="https://d365-svenska-guiden.lovable.app/admin">Granska i Admin</a></p>
+              <p><a href="https://www.d365.se/admin">Granska i Admin</a></p>
             `,
           });
         } catch (emailError) {
@@ -596,7 +596,7 @@ serve(async (req: Request): Promise<Response> => {
       if (resendApiKey) {
         try {
           const resend = new Resend(resendApiKey);
-          const adminUrl = "https://d365-svenska-guiden.lovable.app/admin";
+          const adminUrl = "https://www.d365.se/admin";
           
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
@@ -812,7 +812,7 @@ serve(async (req: Request): Promise<Response> => {
           const resend = new Resend(resendApiKey);
           const isApproved = status === "approved";
           const eventUrl = isApproved 
-            ? `https://d365-svenska-guiden.lovable.app/events/${event_id}`
+            ? `https://www.d365.se/events/${event_id}`
             : null;
           
           await resend.emails.send({
@@ -960,7 +960,7 @@ serve(async (req: Request): Promise<Response> => {
         JSON.stringify({ 
           success: true, 
           token: token.token,
-          url: `https://d365-svenska-guiden.lovable.app/partner-events/${token.token}`
+          url: `https://www.d365.se/partner-events/${token.token}`
         }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );

@@ -5,7 +5,7 @@ import { Resend } from "https://esm.sh/resend@4.0.0";
 const ALLOWED_ORIGINS = [
   "https://d365.se",
   "https://www.d365.se",
-  "https://d365-svenska-guiden.lovable.app",
+  "https://www.d365.se",
   "http://localhost:5173",
   "http://localhost:8080",
 ];
@@ -341,7 +341,7 @@ serve(async (req: Request): Promise<Response> => {
         try {
           const resend = new Resend(resendApiKey);
           const isUpdate = !!invitation.partner_id;
-          const adminUrl = "https://d365-svenska-guiden.lovable.app/admin";
+          const adminUrl = "https://www.d365.se/admin";
           
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
@@ -550,7 +550,7 @@ serve(async (req: Request): Promise<Response> => {
         if (resendApiKey) {
           try {
             const resend = new Resend(resendApiKey);
-            const baseUrl = "https://d365-svenska-guiden.lovable.app";
+            const baseUrl = "https://www.d365.se";
             const invitationLink = `${baseUrl}/partner-update/${invitation.token}`;
             
             // New invitations always use the welcome template
@@ -1014,7 +1014,7 @@ D365.se`;
         emailBody = "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
       }
 
-      const baseUrl = "https://d365-svenska-guiden.lovable.app";
+      const baseUrl = "https://www.d365.se";
       let sent = 0;
       let failed = 0;
       const errors: string[] = [];
@@ -1201,7 +1201,7 @@ D365.se`;
         const resendApiKey = Deno.env.get("RESEND_API_KEY");
         if (resendApiKey) {
           const resend = new Resend(resendApiKey);
-          const baseUrl = "https://d365-svenska-guiden.lovable.app";
+          const baseUrl = "https://www.d365.se";
 
           // Fetch email template
           let emailBody = "";
@@ -1472,7 +1472,7 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://d365-svenska-guiden.lovable.app";
+      const baseUrl = "https://www.d365.se";
       const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
       const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges oberoende guide till Dynamics 365";
       const emailBody = customBody || "Hej,\n\nVi vill gärna ha med er som partner på d365.se.\n\n{{INVITATION_LINK}}\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
@@ -1912,7 +1912,7 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://d365-svenska-guiden.lovable.app";
+      const baseUrl = "https://www.d365.se";
 
       // Fetch email template body
       let emailBody = "";
