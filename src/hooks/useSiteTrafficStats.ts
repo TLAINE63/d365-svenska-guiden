@@ -70,7 +70,7 @@ export function useSiteTrafficStats(
     return () => {
       cancelled = true;
     };
-  }, [token, enabled]);
+  }, [token, enabled, mode]);
 
   return stats;
 }
