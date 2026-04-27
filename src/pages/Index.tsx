@@ -184,8 +184,8 @@ const Index = () => {
                 Jämför ERP- och CRM-system utifrån din verksamhet. Opartiskt, konkret och anpassat för svenska företag — helt gratis.
               </p>
               <div className="mb-4">
-                <Button asChild size="lg" className="bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-11 rounded-lg font-semibold w-full sm:w-auto sm:min-w-[280px] justify-center">
-                  <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
+                <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto sm:min-w-[320px] justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
+                  <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
                 </Button>
               </div>
             </div>
