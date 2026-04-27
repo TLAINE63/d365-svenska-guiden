@@ -2059,7 +2059,7 @@ const PartnerUpdate = () => {
                           <div className="space-y-2">
                             <Label className="text-sm">Beskrivning</Label>
                             <Textarea
-                              rows={2}
+                              rows={4}
                               placeholder="Kort beskrivning av eventet..."
                               value={newEvent.description}
                               onChange={(e) => setNewEvent(prev => ({ ...prev, description: e.target.value }))}
