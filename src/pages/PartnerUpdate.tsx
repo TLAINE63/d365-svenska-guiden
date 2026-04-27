@@ -2165,7 +2165,7 @@ const PartnerUpdate = () => {
               <Textarea
                 id="notes"
                 name="notes"
-                rows={3}
+                rows={6}
                 placeholder="Skriv eventuella kommentarer här..."
                 value={formData.notes}
                 onChange={handleInputChange}
