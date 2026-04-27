@@ -280,8 +280,11 @@ const AdminDashboard = () => {
   
   // Email send dialog state
   const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
-  const [emailDialogType, setEmailDialogType] = useState<'welcome' | 'sales_pitch'>('sales_pitch');
+  const [emailDialogType, setEmailDialogType] = useState<'welcome' | 'sales_pitch' | 'profile_refresh'>('sales_pitch');
   const [emailOverrides, setEmailOverrides] = useState<Record<string, string>>({});
+  const [emailCustomSubject, setEmailCustomSubject] = useState<string>("");
+  const [emailCustomBody, setEmailCustomBody] = useState<string>("");
+  const [sendingProfileRefresh, setSendingProfileRefresh] = useState(false);
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
