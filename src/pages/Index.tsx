@@ -418,10 +418,6 @@ const Index = () => {
                     <ArrowRight className="w-4 h-4 ml-1.5 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
-                <p className="text-[11px] text-white/55 mt-3 flex items-center gap-1.5">
-                  <Shield className="w-3 h-3" />
-                  Ingen kontakt delas med partner utan ditt godkännande
-                </p>
               </div>
             </div>
           </div>
