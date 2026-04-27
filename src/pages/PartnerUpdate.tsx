@@ -25,6 +25,7 @@ import ProjectOperationsIcon from "@/assets/icons/ProjectOperations.svg";
 import CommerceIcon from "@/assets/icons/Commerce.svg";
 import HumanResourcesIcon from "@/assets/icons/HumanResources.svg";
 import { getAiOptionsForProduct } from "@/utils/aiScoring";
+import { companySizes, revenueOptions } from "@/data/partners";
 
 // Product sections matching admin structure
 type ProductKey = 'bc' | 'fsc' | 'sales' | 'service';
