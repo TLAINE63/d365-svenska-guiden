@@ -20,6 +20,7 @@ export interface PartnerStatsConfig {
   showPageViews: boolean;
   showTopPages: boolean;
   showRangeTabs: boolean;
+  showSalesSummary: boolean;
   sections: PartnerStatsSection[];
 }
 
@@ -28,6 +29,7 @@ const DEFAULT_CONFIG: PartnerStatsConfig = {
   showPageViews: true,
   showTopPages: true,
   showRangeTabs: true,
+  showSalesSummary: true,
   sections: [],
 };
 
@@ -161,6 +163,7 @@ export default function AdminPartnerStatsTab({ token, onSessionExpired }: Props)
         <div className="space-y-3">
           <h3 className="text-sm font-semibold">Statistikblock</h3>
           {[
+            { key: "showSalesSummary", label: "Besökarstatistik – 90-dagars sammanfattning (8 boxar)" },
             { key: "showUniqueVisitors", label: "Unika besökare (totalsiffra)" },
             { key: "showPageViews", label: "Sidvisningar (totalsiffra)" },
             { key: "showTopPages", label: "Topplista populäraste sidor" },

@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Globe, Users, Eye, Info } from "lucide-react";
+import { Globe, Users, Eye, Info, TrendingUp, Award, ClipboardCheck, FileText, Building2, MousePointerClick, BarChart3 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Section { id: string; title: string; body: string; }
@@ -22,13 +22,25 @@ interface Config {
   showPageViews: boolean;
   showTopPages: boolean;
   showRangeTabs: boolean;
+  showSalesSummary: boolean;
   sections: Section[];
 }
 interface Window { pageViews: number; uniqueVisitors: number; }
 interface Page { path: string; views: number; uniqueVisitors: number; }
+interface SalesSummary {
+  totalVisitors: number;
+  totalPageViews: number;
+  valjPartner: number;
+  analysisTotal: number;
+  komIgang: number;
+  partnerProfileVisits: number;
+  partnerClicks: number;
+  avgTimeOnPage: number;
+}
 interface Data {
   totals: { d7: Window; d30: Window; d90: Window };
   topPages: { d7: Page[]; d30: Page[]; d90: Page[] };
+  salesSummary?: SalesSummary;
   config: Config;
 }
 
@@ -37,6 +49,7 @@ const DEFAULT_CONFIG: Config = {
   showPageViews: true,
   showTopPages: true,
   showRangeTabs: true,
+  showSalesSummary: true,
   sections: [],
 };
 
@@ -98,6 +111,53 @@ export default function PartnerStats() {
               <p>Bottar, intern trafik och partners egen trafik filtreras automatiskt bort.</p>
             </CardContent>
           </Card>
+
+          {config.showSalesSummary && data?.salesSummary && (() => {
+            const s = data.salesSummary;
+            const avgMin = Math.floor(s.avgTimeOnPage / 60);
+            const avgRest = s.avgTimeOnPage % 60;
+            const avgStr = avgMin > 0 ? `${avgMin}m ${avgRest}s` : `${avgRest}s`;
+            const boxes = [
+              { icon: Users, label: "Unika besökare", value: s.totalVisitors.toLocaleString("sv-SE"), hint: " " },
+              { icon: TrendingUp, label: "Sidvisningar", value: s.totalPageViews.toLocaleString("sv-SE"), hint: " " },
+              { icon: Award, label: "Välj partner", value: s.valjPartner.toLocaleString("sv-SE"), hint: "besök på /valj-partner" },
+              { icon: ClipboardCheck, label: "Behovsanalyser", value: s.analysisTotal.toLocaleString("sv-SE"), hint: "alla olika behovsanalyser" },
+              { icon: FileText, label: "Kom igång-guiden", value: s.komIgang.toLocaleString("sv-SE"), hint: "besök på /kom-igang" },
+              { icon: Building2, label: "Partnerprofiler", value: s.partnerProfileVisits.toLocaleString("sv-SE"), hint: "besök på partnerprofil" },
+              { icon: MousePointerClick, label: "Partnerklick", value: s.partnerClicks.toLocaleString("sv-SE"), hint: "klickat vidare till partner" },
+              { icon: BarChart3, label: "Snitt-tid på sida", value: avgStr, hint: "engagemang" },
+            ];
+            return (
+              <Card className="border-primary/40 bg-gradient-to-br from-primary/5 via-background to-background">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-primary" />
+                    Besökarstatistik – senaste 90 dagar
+                  </CardTitle>
+                  <p className="text-xs text-muted-foreground">
+                    Exkl. partnertrafik. Sammanställning av nyckeltal för sajtens räckvidd och engagemang.
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                    {boxes.map((b, i) => {
+                      const Icon = b.icon;
+                      return (
+                        <div key={i} className="rounded-lg border bg-card p-3 hover:shadow-md transition-shadow">
+                          <div className="flex items-center gap-2 text-primary mb-1">
+                            <Icon className="w-4 h-4" />
+                            <span className="text-xs font-medium text-muted-foreground">{b.label}</span>
+                          </div>
+                          <p className="text-2xl font-bold leading-tight">{b.value}</p>
+                          <p className="text-[11px] text-muted-foreground mt-1">{b.hint}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })()}
 
           <Card>
             <CardHeader>
