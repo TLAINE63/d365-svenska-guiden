@@ -36,6 +36,28 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
+    // Fetch page config (admin-editable)
+    let pageConfig: any = {
+      showUniqueVisitors: true,
+      showPageViews: true,
+      showTopPages: true,
+      showRangeTabs: true,
+      sections: [],
+    };
+    try {
+      const { data: cfg } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "partner_stats_page_config")
+        .maybeSingle();
+      if (cfg?.value) {
+        const parsed = JSON.parse(cfg.value);
+        pageConfig = { ...pageConfig, ...parsed };
+      }
+    } catch (e) {
+      console.error("config fetch error", e);
+    }
+
     const now = Date.now();
     const since90 = new Date(now - 90 * 86400000).toISOString();
     const since30 = new Date(now - 30 * 86400000).toISOString();
@@ -158,6 +180,7 @@ Deno.serve(async (req) => {
       JSON.stringify({
         totals: { d7: totals(r7), d30: totals(r30), d90: totals(r90) },
         topPages: { d7: topPages(r7), d30: topPages(r30), d90: topPages(r90) },
+        config: pageConfig,
       }),
       { headers: { ...cors, "Content-Type": "application/json" } }
     );
