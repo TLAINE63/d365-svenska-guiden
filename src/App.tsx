@@ -53,6 +53,8 @@ const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
 const DeepDiveArticle = lazy(() => import("./pages/DeepDiveArticle"));
 const BlogArticle = lazy(() => import("./pages/BlogArticle"));
 const KomIgang = lazy(() => import("./pages/KomIgang"));
+const PartnerStats = lazy(() => import("./pages/PartnerStats"));
+const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 
 const queryClient = new QueryClient();
 
@@ -137,6 +139,9 @@ const AppShell = () => {
           <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="/partner-events/:token" element={<PartnerEvents />} />
+          {/* Hidden partner pages – not in nav, not in sitemap, noindex */}
+          <Route path="/partner-statistik" element={<PartnerStats />} />
+          <Route path="/partner-avtal" element={<PartnerAgreement />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -28,11 +28,19 @@ const empty: SiteTrafficStats = {
   error: null,
 };
 
-export function useSiteTrafficStats(token: string | null, enabled: boolean = true) {
+export function useSiteTrafficStats(
+  token: string | null,
+  enabled: boolean = true,
+  mode: "admin" | "public" = "admin",
+) {
   const [stats, setStats] = useState<SiteTrafficStats>(empty);
 
   useEffect(() => {
-    if (!enabled || !token) {
+    if (!enabled) {
+      setStats({ ...empty, loading: false });
+      return;
+    }
+    if (mode === "admin" && !token) {
       setStats({ ...empty, loading: false });
       return;
     }
@@ -40,8 +48,9 @@ export function useSiteTrafficStats(token: string | null, enabled: boolean = tru
     setStats((s) => ({ ...s, loading: true, error: null }));
 
     (async () => {
-      const { data, error } = await supabase.functions.invoke("site-traffic-stats", {
-        body: { token },
+      const fnName = mode === "public" ? "partner-public-stats" : "site-traffic-stats";
+      const { data, error } = await supabase.functions.invoke(fnName, {
+        body: mode === "public" ? {} : { token },
       });
       if (cancelled) return;
       if (error || !data || data.error) {
@@ -61,7 +70,7 @@ export function useSiteTrafficStats(token: string | null, enabled: boolean = tru
     return () => {
       cancelled = true;
     };
-  }, [token, enabled]);
+  }, [token, enabled, mode]);
 
   return stats;
 }
