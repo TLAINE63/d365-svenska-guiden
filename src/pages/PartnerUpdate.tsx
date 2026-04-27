@@ -959,7 +959,7 @@ const PartnerUpdate = () => {
                   <Textarea
                     id="description"
                     name="description"
-                    rows={4}
+                    rows={8}
                     placeholder="Beskriv ert företag och era tjänster..."
                     value={formData.description}
                     onChange={handleInputChange}
