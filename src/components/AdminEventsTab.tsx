@@ -757,6 +757,7 @@ D365.se`;
             </div>
           ) : (
             <div className="border rounded-lg overflow-hidden">
+              <div className="admin-table-wrap">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -837,6 +838,7 @@ D365.se`;
                   ))}
                 </TableBody>
               </Table>
+              </div>
             </div>
           )}
         </div>

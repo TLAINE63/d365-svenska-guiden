@@ -1923,6 +1923,7 @@ Thomas`,
                     )}
                   </TableBody>
                 </Table>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -2002,6 +2003,7 @@ Thomas`,
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
+                          <div className="admin-table-wrap">
                           <Table>
                             <TableHeader>
                               <TableRow>
@@ -2020,6 +2022,7 @@ Thomas`,
                               ))}
                             </TableBody>
                           </Table>
+                          </div>
                         </CardContent>
                       </Card>
                     ))

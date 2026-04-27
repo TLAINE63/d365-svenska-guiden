@@ -1115,6 +1115,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
               Inga inbjudningar ännu. Skapa en ny för att komma igång.
             </div>
           ) : (
+            <div className="admin-table-wrap">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -1230,6 +1231,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                 })}
               </TableBody>
             </Table>
+            </div>
           )}
         </CardContent>
       </Card>
