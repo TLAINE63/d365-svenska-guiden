@@ -718,6 +718,7 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchAgreementEmails = async () => {
     if (!token) return;
     try {
       // Fetch ALL sent emails (paginated) to build per-partner history
