@@ -42,6 +42,7 @@ import {
   Calendar, ExternalLink, Plus, Trash2, Pencil, Check, ChevronsUpDown, Search, Building2, X, Link2, Copy, Loader2, Mail, FileEdit, Save, RotateCcw
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getPublicBaseUrl } from "@/lib/publicUrl";
 
 interface Partner {
   id: string;
