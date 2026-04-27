@@ -1628,96 +1628,114 @@ Thomas`,
   const currentMonthName = new Date().toLocaleDateString("sv-SE", { month: "long", year: "numeric" });
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8 mt-16">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-          <div className="flex gap-2">
-            <Button onClick={logout} variant="outline">
-              <LogOut className="mr-2 h-4 w-4" />
-              Logga ut
-            </Button>
-            <Button onClick={refreshAll} variant="outline" disabled={isLoadingLeads || isLoadingStats || isLoadingPartners}>
-              <RefreshCw className={`mr-2 h-4 w-4 ${(isLoadingLeads || isLoadingStats || isLoadingPartners) ? "animate-spin" : ""}`} />
-              Uppdatera
-            </Button>
+      <main className="flex-grow mt-16">
+        {/* Premium dark hero header */}
+        <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 border-b border-slate-700/50">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.15),_transparent_50%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(249,115,22,0.08),_transparent_50%)] pointer-events-none" />
+          <div className="container mx-auto px-4 py-8 relative">
+            <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
+              <div className="flex items-center gap-3">
+                <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-900/40 ring-1 ring-white/10">
+                  <Award className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-2xl font-bold text-white tracking-tight">Admin Dashboard</h1>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-blue-200 border border-white/10">
+                      Premium
+                    </span>
+                  </div>
+                  <p className="text-sm text-slate-400 mt-0.5">Översikt, partners, leads & utskick</p>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  onClick={refreshAll}
+                  variant="outline"
+                  disabled={isLoadingLeads || isLoadingStats || isLoadingPartners}
+                  className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white backdrop-blur"
+                >
+                  <RefreshCw className={`mr-2 h-4 w-4 ${(isLoadingLeads || isLoadingStats || isLoadingPartners) ? "animate-spin" : ""}`} />
+                  Uppdatera
+                </Button>
+                <Button
+                  onClick={logout}
+                  variant="outline"
+                  className="bg-white/5 border-white/15 text-white hover:bg-white/10 hover:text-white backdrop-blur"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logga ut
+                </Button>
+              </div>
+            </div>
+
+            {/* Summary Cards - premium glass */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Totalt antal leads</p>
+                    <p className="text-3xl font-bold text-white mt-1">{leads.length}</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
+                    <Inbox className="h-5 w-5 text-blue-300" />
+                  </div>
+                </div>
+                <p className="text-xs text-slate-500 mt-3">
+                  <span className="text-blue-300 font-semibold">{newLeadsCount}</span> nya · {forwardedLeadsCount} vidarebefordrade
+                </p>
+              </div>
+
+              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Klick denna månad</p>
+                    <p className="text-3xl font-bold text-white mt-1">{clicksThisMonth}</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
+                    <MousePointerClick className="h-5 w-5 text-emerald-300" />
+                  </div>
+                </div>
+                <p className="text-xs text-slate-500 mt-3 capitalize">{currentMonthName}</p>
+              </div>
+
+              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Totalt antal klick</p>
+                    <p className="text-3xl font-bold text-white mt-1">{totalClicks}</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
+                    <TrendingUp className="h-5 w-5 text-sky-300" />
+                  </div>
+                </div>
+                <p className="text-xs text-slate-500 mt-3">Sedan start</p>
+              </div>
+
+              <div className="group relative rounded-2xl bg-white/5 backdrop-blur border border-white/10 p-5 hover:bg-white/[0.07] hover:border-white/20 transition-all hover:-translate-y-0.5 shadow-xl shadow-black/20">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Partners i databasen</p>
+                    <p className="text-3xl font-bold text-white mt-1">{fullPartners.length}</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
+                    <Building2 className="h-5 w-5 text-amber-300" />
+                  </div>
+                </div>
+                <p className="text-xs text-slate-500 mt-3">
+                  <span className="text-amber-300 font-semibold">{fullPartners.filter(p => p.is_featured).length}</span> publicerade
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Summary Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Totalt antal leads</p>
-                  <p className="text-3xl font-bold">{leads.length}</p>
-                </div>
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <Inbox className="h-6 w-6 text-primary" />
-                </div>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                {newLeadsCount} nya, {forwardedLeadsCount} vidarebefordrade
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Klick denna månad</p>
-                  <p className="text-3xl font-bold">{clicksThisMonth}</p>
-                </div>
-                <div className="p-3 bg-green-500/10 rounded-full">
-                  <MousePointerClick className="h-6 w-6 text-green-600" />
-                </div>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2 capitalize">
-                {currentMonthName}
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Totalt antal klick</p>
-                  <p className="text-3xl font-bold">{totalClicks}</p>
-                </div>
-                <div className="p-3 bg-blue-500/10 rounded-full">
-                  <TrendingUp className="h-6 w-6 text-blue-600" />
-                </div>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                Sedan start
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="pt-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">Partners i databasen</p>
-                  <p className="text-3xl font-bold">{fullPartners.length}</p>
-                </div>
-                <div className="p-3 bg-amber-500/10 rounded-full">
-                  <Building2 className="h-6 w-6 text-amber-600" />
-                </div>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                {fullPartners.filter(p => p.is_featured).length} publicerade
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
+        <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="leads" className="space-y-4">
-          <TabsList className="flex-wrap h-auto gap-1">
+          <TabsList className="flex-wrap h-auto gap-1 bg-slate-900/95 p-1.5 rounded-xl border border-slate-700/50 shadow-lg [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&>button]:text-slate-300 [&>button]:rounded-lg [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
             <TabsTrigger value="leads" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Leads
@@ -4452,6 +4470,7 @@ Thomas`,
           </DialogContent>
         </Dialog>
 
+        </div>
       </main>
       <Footer />
     </div>
