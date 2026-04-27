@@ -26,6 +26,17 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
+const ANALYSIS_PATHS = [
+  "/behovsanalys",
+  "/behovsanalys-salj-marknad",
+  "/behovsanalys-kundservice",
+  "/kravspecifikation",
+  "/kravspecifikation-sales",
+  "/kravspecifikation-customer-service",
+  "/kravspecifikation-marketing",
+  "/ai-readiness",
+];
+
 Deno.serve(async (req) => {
   const cors = getCorsHeaders(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
@@ -42,6 +53,7 @@ Deno.serve(async (req) => {
       showPageViews: true,
       showTopPages: true,
       showRangeTabs: true,
+      showSalesSummary: true,
       sections: [],
     };
     try {
@@ -77,11 +89,13 @@ Deno.serve(async (req) => {
 
     const { data: pubPartners } = await supabase
       .from("partners")
-      .select("name, website, email")
+      .select("name, slug, website, email")
       .eq("is_featured", true);
     const partnerDomains = new Set<string>();
     const partnerNameKeywords: string[] = [];
+    const slugToName: Record<string, string> = {};
     for (const p of pubPartners || []) {
+      if (p.slug) slugToName[p.slug] = p.name;
       if (p.website) {
         try {
           const domain = new URL(p.website).hostname.replace(/^www\./, "").toLowerCase();
@@ -112,18 +126,20 @@ Deno.serve(async (req) => {
     };
 
     const all: {
+      id?: string;
       page_path: string;
       session_id: string | null;
       visited_at: string;
       referrer: string | null;
       ip_anonymized: string | null;
       geo_org: string | null;
+      time_on_page_seconds?: number | null;
     }[] = [];
     const pageSize = 1000;
     for (let from = 0; from < 200000; from += pageSize) {
       const { data, error } = await supabase
         .from("visitor_analytics")
-        .select("page_path, session_id, visited_at, referrer, ip_anonymized, geo_org")
+        .select("id, page_path, session_id, visited_at, referrer, ip_anonymized, geo_org, time_on_page_seconds")
         .gte("visited_at", since90)
         .order("visited_at", { ascending: false })
         .range(from, from + pageSize - 1);
@@ -176,10 +192,79 @@ Deno.serve(async (req) => {
     const r30 = filtered.filter((r) => r.visited_at >= since30);
     const r90 = filtered;
 
+    // ===== Säljunderlag (90 dagar) =====
+    const sessions90 = new Set<string>();
+    for (const r of r90) if (r.session_id) sessions90.add(r.session_id);
+    const totalVisitors90 = sessions90.size;
+    const totalPageViews90 = r90.length;
+
+    const countSessions = (predicate: (path: string) => boolean) => {
+      const s = new Set<string>();
+      for (const r of r90) {
+        if (r.page_path && predicate(r.page_path)) {
+          s.add(r.session_id || r.id || `${r.visited_at}-${r.page_path}`);
+        }
+      }
+      return s.size;
+    };
+
+    const valjPartner = countSessions((p) => p.startsWith("/valj-partner"));
+    const komIgang = countSessions((p) => p.startsWith("/kom-igang"));
+    const analysisTotal = countSessions((p) => ANALYSIS_PATHS.some((ap) => p === ap || p.startsWith(ap + "/")));
+
+    // Partner profile visits (unique sessions per partner)
+    const partnerProfileVisits: Record<string, Set<string>> = {};
+    for (const r of r90) {
+      if (r.page_path?.startsWith("/partner/")) {
+        const slug = r.page_path.replace("/partner/", "").replace(/\/$/, "");
+        const partnerName = slugToName[slug];
+        if (partnerName) {
+          if (!partnerProfileVisits[partnerName]) partnerProfileVisits[partnerName] = new Set();
+          partnerProfileVisits[partnerName].add(r.session_id || r.id || "");
+        }
+      }
+    }
+    const partnerProfileVisitsTotal = Object.values(partnerProfileVisits).reduce((s, set) => s + set.size, 0);
+
+    // Partner clicks (90 days, exkl. partner update IPs)
+    const { data: clickData } = await supabase
+      .from("partner_clicks")
+      .select("partner_name, clicked_at, ip_address_anonymized")
+      .gte("clicked_at", since90);
+    let partnerClicks = 0;
+    for (const c of clickData || []) {
+      const ipPrefix = c.ip_address_anonymized
+        ? c.ip_address_anonymized.split(".").slice(0, 2).join(".")
+        : "";
+      if (ipPrefix && partnerUpdateIpPrefixes.has(ipPrefix)) continue;
+      partnerClicks++;
+    }
+
+    // Average time on page (cap 600s)
+    const MAX_TIME = 600;
+    const validTimes = r90
+      .filter((r) => r.time_on_page_seconds && r.time_on_page_seconds > 0)
+      .map((r) => Math.min(r.time_on_page_seconds as number, MAX_TIME));
+    const avgTimeOnPage = validTimes.length > 0
+      ? Math.round(validTimes.reduce((s, t) => s + t, 0) / validTimes.length)
+      : 0;
+
+    const salesSummary = {
+      totalVisitors: totalVisitors90,
+      totalPageViews: totalPageViews90,
+      valjPartner,
+      analysisTotal,
+      komIgang,
+      partnerProfileVisits: partnerProfileVisitsTotal,
+      partnerClicks,
+      avgTimeOnPage,
+    };
+
     return new Response(
       JSON.stringify({
         totals: { d7: totals(r7), d30: totals(r30), d90: totals(r90) },
         topPages: { d7: topPages(r7), d30: topPages(r30), d90: topPages(r90) },
+        salesSummary,
         config: pageConfig,
       }),
       { headers: { ...cors, "Content-Type": "application/json" } }
