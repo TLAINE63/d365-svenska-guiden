@@ -1394,13 +1394,13 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                           </div>
                         </div>
                         <Input
-                          type="email"
+                          type="text"
                           value={profileRefreshEmails[p.id] || ""}
                           onChange={(e) =>
                             setProfileRefreshEmails(prev => ({ ...prev, [p.id]: e.target.value }))
                           }
-                          placeholder="kontakt@partner.se"
-                          className="h-8 text-sm w-64"
+                          placeholder="kontakt@partner.se (flera med ;)"
+                          className="h-8 text-sm w-72"
                           disabled={!checked}
                         />
                       </div>
