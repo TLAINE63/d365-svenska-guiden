@@ -16,11 +16,12 @@ import { useSiteTrafficStats } from "@/hooks/useSiteTrafficStats";
 interface Props {
   token: string | null;
   variant?: "full" | "compact";
+  mode?: "admin" | "public";
 }
 
-export default function SiteTrafficStatsCard({ token, variant = "full" }: Props) {
+export default function SiteTrafficStatsCard({ token, variant = "full", mode = "admin" }: Props) {
   const [range, setRange] = useState<"d7" | "d30" | "d90">("d30");
-  const stats = useSiteTrafficStats(token, !!token);
+  const stats = useSiteTrafficStats(token, true, mode);
 
   const totals = stats.totals[range];
   const pages = stats.topPages[range].filter((p) => p.views > 0);
