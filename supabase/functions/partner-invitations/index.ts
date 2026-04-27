@@ -711,7 +711,7 @@ D365.se`;
             
             const emailResponse = await resend.emails.send({
               from: "D365 Guiden <info@d365.se>",
-              to: [email],
+              to: parseRecipients(email),
               bcc: ["thomas.laine@dynamicfactory.se"],
               subject: emailSubject,
               html: fullHtml,
@@ -1079,7 +1079,7 @@ D365.se`;
 
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
-            to: [inv.email],
+            to: parseRecipients(inv.email),
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: `Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?`,
             html: fullHtml,
@@ -1257,7 +1257,7 @@ D365.se`;
 
               await resend.emails.send({
                 from: "D365 Guiden <info@d365.se>",
-                to: [inv.email],
+                to: parseRecipients(inv.email),
                 bcc: ["thomas.laine@dynamicfactory.se"],
                 subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
                 html: fullHtml,
@@ -1408,7 +1408,7 @@ D365.se`;
 
           const emailOptions: any = {
             from: "D365 Guiden <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             subject: emailSubject,
             html: fullHtml,
           };
@@ -1585,7 +1585,7 @@ D365.se`;
 
           const emailOptions: any = {
             from: "D365 Guiden <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             subject: emailSubject,
             html: fullHtml,
           };
@@ -1696,7 +1696,7 @@ D365.se`;
 
         const emailOptions: any = {
           from: "D365 Guiden <info@d365.se>",
-          to: [email],
+          to: parseRecipients(email),
           subject: emailSubject,
           html: fullHtml,
         };
@@ -1861,7 +1861,7 @@ D365.se`;
 
           await resend.emails.send({
             from: "Thomas Laine <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             replyTo: "thomas.laine@dynamicfactory.se",
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: personalizedSubject,
@@ -2034,7 +2034,7 @@ d365.se`;
 
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: personalizedSubject,
             html: fullHtml,
