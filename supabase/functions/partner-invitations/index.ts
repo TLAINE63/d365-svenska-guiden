@@ -29,6 +29,19 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
+/**
+ * Splits an email field into a list of addresses.
+ * Accepts ";" or "," as separators so admins can mail multiple
+ * contacts at the same partner in one send (both visible in To:).
+ */
+function parseRecipients(input: string | null | undefined): string[] {
+  if (!input) return [];
+  return String(input)
+    .split(/[;,]/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s));
+}
+
 // JWT verification for admin operations
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
   try {
