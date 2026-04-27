@@ -1484,9 +1484,9 @@ const PartnerUpdate = () => {
                         {/* Målgrupp – kundens storlek (frivilligt) */}
                         <div className="rounded-lg border border-border p-3 space-y-3 bg-muted/30">
                           <div>
-                            <Label className="text-sm font-semibold">Målgrupp – kundstorlek (frivilligt)</Label>
+                            <Label className="text-sm font-semibold">Målgrupp – kundstorlek</Label>
                             <p className="text-xs text-muted-foreground mt-1">
-                              Markera vilka kundsegment ni typiskt vänder er till för {section.label}. Detta används som ett mjukt filter när kunder söker partner.
+                              Markera vilka kundsegment ni typiskt vänder er till för {section.label}. Detta används som ett mjukt filter när kunder söker partner. Max 3 val per kategori.
                             </p>
                             <div className="mt-2 rounded-md bg-background/70 border border-border/60 p-2 text-xs text-muted-foreground space-y-1">
                               <p>
@@ -1498,17 +1498,27 @@ const PartnerUpdate = () => {
                             </div>
                           </div>
                           <div>
-                            <Label className="text-xs text-muted-foreground">Antal anställda</Label>
+                            <div className="flex items-center justify-between">
+                              <Label className="text-xs text-muted-foreground">Antal anställda</Label>
+                              <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.companySize?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                                {filter.companySize?.length || 0}/3
+                              </span>
+                            </div>
                             <div className="flex flex-wrap gap-1.5 mt-1.5">
                               {companySizes.map((size) => {
                                 const isSelected = (filter.companySize || []).includes(size);
+                                const atLimit = (filter.companySize?.length || 0) >= 3 && !isSelected;
                                 return (
                                   <Badge
                                     key={size}
                                     variant={isSelected ? "default" : "outline"}
-                                    className="cursor-pointer text-xs"
+                                    className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
                                     onClick={() => {
                                       const current = filter.companySize || [];
+                                      if (!isSelected && current.length >= 3) {
+                                        toast.error("Max 3 val för antal anställda");
+                                        return;
+                                      }
                                       const next = isSelected
                                         ? current.filter((s) => s !== size)
                                         : [...current, size];
@@ -1525,17 +1535,27 @@ const PartnerUpdate = () => {
                             </p>
                           </div>
                           <div>
-                            <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
+                            <div className="flex items-center justify-between">
+                              <Label className="text-xs text-muted-foreground">Omsättning (MSEK)</Label>
+                              <span className={`text-xs font-medium px-2 py-0.5 rounded ${(filter.revenue?.length || 0) > 0 ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                                {filter.revenue?.length || 0}/3
+                              </span>
+                            </div>
                             <div className="flex flex-wrap gap-1.5 mt-1.5">
                               {revenueOptions.map((rev) => {
                                 const isSelected = (filter.revenue || []).includes(rev);
+                                const atLimit = (filter.revenue?.length || 0) >= 3 && !isSelected;
                                 return (
                                   <Badge
                                     key={rev}
                                     variant={isSelected ? "default" : "outline"}
-                                    className="cursor-pointer text-xs"
+                                    className={`text-xs ${atLimit ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
                                     onClick={() => {
                                       const current = filter.revenue || [];
+                                      if (!isSelected && current.length >= 3) {
+                                        toast.error("Max 3 val för omsättning");
+                                        return;
+                                      }
                                       const next = isSelected
                                         ? current.filter((r) => r !== rev)
                                         : [...current, rev];
