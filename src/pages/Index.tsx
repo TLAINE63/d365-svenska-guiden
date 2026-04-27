@@ -92,7 +92,7 @@ const selectorCards = [
   {
     icon: <Sparkles className="h-5 w-5 text-white" />,
     title: "Utforska möjligheterna med AI",
-    desc: "Jämför Copilot och Agenter",
+    desc: "Jämför Copilot och Agenter · Gör ett AI Assessment",
     link: "/ai-oversikt/",
     linkText: "Utforska AI",
     image: selectorGuidance,
