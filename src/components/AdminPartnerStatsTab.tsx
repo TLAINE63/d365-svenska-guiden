@@ -143,12 +143,12 @@ export default function AdminPartnerStatsTab({ token, onSessionExpired }: Props)
             <CardDescription>
               Styr vad som visas på den dolda sidan{" "}
               <a
-                href="/partner-statistik"
+                href="/partnerstatistik"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary underline inline-flex items-center gap-1"
               >
-                /partner-statistik <ExternalLink className="w-3 h-3" />
+                /partnerstatistik <ExternalLink className="w-3 h-3" />
               </a>
               . Sidan är inte länkad från menyn och har noindex.
             </CardDescription>
