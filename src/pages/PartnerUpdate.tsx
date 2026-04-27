@@ -959,7 +959,7 @@ const PartnerUpdate = () => {
                   <Textarea
                     id="description"
                     name="description"
-                    rows={4}
+                    rows={8}
                     placeholder="Beskriv ert företag och era tjänster..."
                     value={formData.description}
                     onChange={handleInputChange}
@@ -2059,7 +2059,7 @@ const PartnerUpdate = () => {
                           <div className="space-y-2">
                             <Label className="text-sm">Beskrivning</Label>
                             <Textarea
-                              rows={2}
+                              rows={4}
                               placeholder="Kort beskrivning av eventet..."
                               value={newEvent.description}
                               onChange={(e) => setNewEvent(prev => ({ ...prev, description: e.target.value }))}
@@ -2165,7 +2165,7 @@ const PartnerUpdate = () => {
               <Textarea
                 id="notes"
                 name="notes"
-                rows={3}
+                rows={6}
                 placeholder="Skriv eventuella kommentarer här..."
                 value={formData.notes}
                 onChange={handleInputChange}
