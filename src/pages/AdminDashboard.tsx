@@ -1936,26 +1936,32 @@ const AdminDashboard = () => {
                   Exportera kontakter
                 </Button>
                 {selectedForWelcome.size > 0 && (
-                  <Button 
-                    variant="outline"
-                    onClick={() => openEmailDialog('welcome')} 
-                    disabled={sendingWelcome}
-                    className="border-primary text-primary hover:bg-primary/10"
-                  >
-                    <Mail className={`mr-2 h-4 w-4 ${sendingWelcome ? "animate-pulse" : ""}`} />
-                    {sendingWelcome ? "Skickar..." : `Skicka välkomstmail (${selectedForWelcome.size})`}
-                  </Button>
-                )}
-                {selectedForWelcome.size > 0 && (
-                  <Button 
-                    variant="outline"
-                    onClick={() => openEmailDialog('sales_pitch')} 
-                    disabled={sendingSalesPitch}
-                    className="border-orange-500 text-orange-600 hover:bg-orange-50"
-                  >
-                    <Send className={`mr-2 h-4 w-4 ${sendingSalesPitch ? "animate-pulse" : ""}`} />
-                    {sendingSalesPitch ? "Skickar..." : `Skicka införsäljningsmail (${selectedForWelcome.size})`}
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        disabled={sendingWelcome || sendingSalesPitch || sendingProfileRefresh}
+                        className="border-primary text-primary hover:bg-primary/10"
+                      >
+                        <Mail className={`mr-2 h-4 w-4 ${(sendingWelcome || sendingSalesPitch || sendingProfileRefresh) ? "animate-pulse" : ""}`} />
+                        {(sendingWelcome || sendingSalesPitch || sendingProfileRefresh) ? "Skickar..." : `Skicka mail (${selectedForWelcome.size})`}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-64 bg-background z-50">
+                      <DropdownMenuItem onClick={() => openEmailDialog('welcome')}>
+                        <Mail className="mr-2 h-4 w-4" />
+                        Välkomstmail (inbjudan)
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => openEmailDialog('profile_refresh')}>
+                        <Mail className="mr-2 h-4 w-4" />
+                        Profileringslänk (uppdatera profil)
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => openEmailDialog('sales_pitch')}>
+                        <Send className="mr-2 h-4 w-4" />
+                        Införsäljningsmail
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 )}
               </div>
               <p className="text-sm text-muted-foreground">
