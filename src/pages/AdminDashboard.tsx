@@ -2096,6 +2096,32 @@ const AdminDashboard = () => {
                                   </Badge>
                                 );
                               })()}
+                              {partnerEmailHistory[partner.name?.toLowerCase().trim()] && (() => {
+                                const eh = partnerEmailHistory[partner.name.toLowerCase().trim()];
+                                const labels: Record<string, string> = {
+                                  partner_welcome: "Välkomst",
+                                  partner_invitation: "Inbjudan",
+                                  partner_reminder: "Påminnelse",
+                                  partner_bulk_invitation: "Bulkinbjudan",
+                                  partner_sales_pitch: "Införsäljning",
+                                  partner_profile_refresh: "Profileringslänk",
+                                  partner_agreement: "Partneravtal",
+                                  partner_prospect_agreement: "Avtal (prospect)",
+                                  lead_forward: "Lead",
+                                };
+                                const dateStr = new Date(eh.lastSentAt).toLocaleDateString('sv-SE').replace(/-/g, '/');
+                                const tplList = Array.from(eh.templates).map(t => labels[t] || t).join(', ');
+                                return (
+                                  <Badge
+                                    variant="outline"
+                                    className="text-xs border-blue-500 text-blue-700 dark:text-blue-400"
+                                    title={`${eh.count} mail totalt till ${eh.lastRecipient}\nMailtyper: ${tplList}\nSenast: ${new Date(eh.lastSentAt).toLocaleString('sv-SE')}`}
+                                  >
+                                    <Mail className="h-3 w-3 mr-1" />
+                                    {eh.count} mail • {labels[eh.lastTemplate] || eh.lastTemplate} ({dateStr})
+                                  </Badge>
+                                );
+                              })()}
                             </h3>
                             <p className="text-sm text-muted-foreground line-clamp-1">
                               {partner.description || "Ingen beskrivning"}
