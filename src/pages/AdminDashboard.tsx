@@ -534,7 +534,41 @@ const AdminDashboard = () => {
     profile_refresh: {
       label: "Profileringslänk (90 dgr)",
       subject: "VIKTIGT! Uppdatera er partnerprofil på d365.se",
-      body: "Hej {{NAME}},\n\nVänligen uppdatera er partnerprofil på d365.se så att den speglar ert aktuella erbjudande och era referenser.\n\n{{INVITATION_LINK}}\n\nLänken är giltig i 90 dagar.\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
+      body: `Hej,
+
+Nu finns möjlighet att se över och uppdatera er partnerprofil på d365.se.
+
+Här är er unika profileringslänk:
+{{INVITATION_LINK}}
+
+Jag rekommenderar särskilt att ni ser över:
+
+• er generella beskrivning av bolaget
+• beskrivningarna per produktområde
+• bild/foto, både generellt och per område
+• kommande event, webinarier eller seminarier kopplade till Dynamics 365 och/eller AI
+• eventuell kort video om er som partner
+
+Syftet är inte bara att "fylla i en profil".
+
+Många kunder som besöker d365.se är i en tidig men aktiv fas där de försöker förstå vilka partners som verkar relevanta för deras behov, bransch och lösningsområde.
+
+En tydlig och aktuell profil hjälper er att:
+
+• framstå mer relevant i kundens urvalsprocess
+• visa vilka typer av kunder och branscher ni faktiskt passar bäst för
+• skapa förtroende innan kunden tar direkt kontakt
+• göra det enklare för kunden att förstå varför just ni bör finnas med på deras shortlist
+
+Det här är särskilt viktigt eftersom kundens köpresa sällan börjar med ett formulär eller ett direkt lead. Ofta börjar den med jämförelser, research och intern förankring långt innan kunden tar kontakt.
+
+Därför är profilen på d365.se mer än en kontaktväg. Den är en del av hur ni uppfattas när kunden börjar sortera marknaden.
+
+Uppdatera gärna profilen här:
+{{INVITATION_LINK}}
+
+Vänliga hälsningar,
+Thomas`,
     },
   };
 
