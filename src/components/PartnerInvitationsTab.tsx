@@ -374,12 +374,26 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   };
 
   const openProfileRefreshDialog = async () => {
-    // Ensure templates are loaded
-    if (!profileRefreshTemplate && !loadingTemplate) {
-      await fetchEmailTemplate();
+    // Always fetch the latest templates from DB so we don't send a stale cached version
+    let freshBody = "";
+    let freshSubject = "";
+    try {
+      [freshBody, freshSubject] = await Promise.all([
+        fetchTemplateValue("profile_refresh_email_body"),
+        fetchTemplateValue("profile_refresh_email_subject"),
+      ]);
+      // Sync editor state too so the template tab shows current DB content
+      const bodyOrDefault = freshBody || DEFAULT_PROFILE_REFRESH_BODY;
+      const subjectOrDefault = freshSubject || DEFAULT_PROFILE_REFRESH_SUBJECT;
+      setProfileRefreshTemplate(bodyOrDefault);
+      setProfileRefreshTemplateOriginal(freshBody);
+      setProfileRefreshSubject(subjectOrDefault);
+      setProfileRefreshSubjectOriginal(freshSubject);
+    } catch (err) {
+      console.error("Fetch profile refresh template error:", err);
     }
-    const subject = profileRefreshSubject || DEFAULT_PROFILE_REFRESH_SUBJECT;
-    const body = profileRefreshTemplate || DEFAULT_PROFILE_REFRESH_BODY;
+    const subject = freshSubject || profileRefreshSubject || DEFAULT_PROFILE_REFRESH_SUBJECT;
+    const body = freshBody || profileRefreshTemplate || DEFAULT_PROFILE_REFRESH_BODY;
     setProfileRefreshSendSubject(subject);
     setProfileRefreshSendBody(body);
 
