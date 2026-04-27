@@ -140,6 +140,7 @@ const AppShell = () => {
           <Route path="/events/:eventId" element={<EventDetail />} />
           <Route path="/partner-events/:token" element={<PartnerEvents />} />
           {/* Hidden partner pages – not in nav, not in sitemap, noindex */}
+          <Route path="/partnerstatistik" element={<PartnerStats />} />
           <Route path="/partner-statistik" element={<PartnerStats />} />
           <Route path="/partner-avtal" element={<PartnerAgreement />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
