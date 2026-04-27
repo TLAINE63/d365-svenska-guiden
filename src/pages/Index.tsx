@@ -251,24 +251,28 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Selector – Vad vill du göra? */}
-      <section className="pt-6 sm:pt-8 pb-12 sm:pb-20 bg-gradient-to-b from-card via-card to-secondary/40 border-b border-border relative overflow-hidden">
-        {/* Decorative ambient background */}
-        <div className="absolute inset-0 pointer-events-none opacity-60">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      {/* Selector – Hur kan vi hjälpa dig idag? */}
+      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-gradient-to-b from-[hsl(180_30%_12%)] via-[hsl(180_25%_14%)] to-[hsl(200_22%_16%)] border-b border-primary/20 relative overflow-hidden">
+        {/* Decorative ambient background — matching hero */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.18),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.10),transparent_55%)]" />
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="text-center mb-10 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 tracking-tight">Hur kan vi hjälpa dig idag?</h2>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-4 backdrop-blur-sm">
+              <Sparkles className="w-3 h-3" />
+              Snabbnavigering
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-3">Hur kan vi hjälpa dig idag?</h2>
+            <p className="text-sm sm:text-base text-white/70 font-light max-w-xl mx-auto leading-relaxed">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {selectorCards.map((card) => (
               <Link
                 key={card.title}
                 to={card.link}
-                className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-white/20 shadow-lg hover:shadow-2xl"
+                className="group relative rounded-2xl overflow-hidden bg-white/[0.04] backdrop-blur-sm border border-white/10 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-white/25 hover:bg-white/[0.06] shadow-lg hover:shadow-2xl"
                 style={{ ['--card-glow' as string]: card.glow }}
               >
                 {/* Visual top section with image */}
@@ -284,14 +288,14 @@ const Index = () => {
                   />
                   {/* Color accent overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} mix-blend-multiply opacity-40 group-hover:opacity-30 transition-opacity duration-300`} />
-                  {/* Bottom fade into card */}
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-900 to-transparent" />
+                  {/* Bottom fade into card — matches teal background */}
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[hsl(180_28%_13%)] to-transparent" />
                   {/* Eyebrow chip */}
                   <div className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-white/90">
                     {card.eyebrow}
                   </div>
                   {/* Icon badge */}
-                  <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-slate-900 group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-[hsl(180_28%_13%)] group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
                   </div>
                 </div>
@@ -300,7 +304,7 @@ const Index = () => {
                 <div className="flex flex-col flex-1 p-5 gap-2">
                   <h3 className="text-[15px] font-semibold text-white leading-tight">{card.title}</h3>
                   <p className="text-[13px] text-white/60 leading-relaxed flex-1">{card.desc}</p>
-                  <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-white mt-2 group-hover:gap-2.5 transition-all">
+                  <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[hsl(180_75%_65%)] mt-2 group-hover:gap-2.5 transition-all">
                     {card.linkText}
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
                   </div>
@@ -316,6 +320,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+
 
       {/* E-bok banner */}
       <Suspense fallback={null}>
