@@ -240,17 +240,79 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
         {/* PDF link */}
         <div className="space-y-3">
           <h3 className="text-sm font-semibold">Avtals-PDF (valfri)</h3>
+
+          <div className="rounded-md border bg-muted/30 p-3 space-y-3">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div className="flex items-center gap-2 text-sm">
+                <FileText className="w-4 h-4 text-primary" />
+                {config.pdfUrl ? (
+                  <a
+                    href={config.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline break-all"
+                  >
+                    {config.pdfUrl.split("/").pop()}
+                  </a>
+                ) : (
+                  <span className="text-muted-foreground">Ingen PDF uppladdad ännu</span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="application/pdf"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) handleUpload(f);
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="default"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                >
+                  {uploading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                      Laddar upp…
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-4 h-4 mr-1" />
+                      {config.pdfUrl ? "Ersätt PDF" : "Ladda upp PDF"}
+                    </>
+                  )}
+                </Button>
+                {config.pdfUrl && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setConfig((c) => ({ ...c, pdfUrl: "" }))}
+                  >
+                    Ta bort
+                  </Button>
+                )}
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Filen lagras i bucket <code>partner-documents</code>. URL:en fylls i automatiskt — glöm inte att klicka Spara.
+            </p>
+          </div>
+
           <div>
             <Label htmlFor="agr-pdf-url">PDF-länk (URL)</Label>
             <Input
               id="agr-pdf-url"
-              placeholder="https://…/avtal.pdf  – lämna tom för att dölja PDF-knappen"
+              placeholder="Fylls i automatiskt vid uppladdning – kan även klistras in manuellt"
               value={config.pdfUrl}
               onChange={(e) => setConfig((c) => ({ ...c, pdfUrl: e.target.value }))}
             />
-            <p className="text-xs text-muted-foreground mt-1">
-              Ladda upp PDF:en i lagring (partner-documents) och klistra in den publika URL:en här.
-            </p>
           </div>
           <div>
             <Label htmlFor="agr-pdf-label">Knapp-/etikettext</Label>
