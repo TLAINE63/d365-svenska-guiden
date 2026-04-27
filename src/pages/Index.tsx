@@ -366,7 +366,7 @@ const Index = () => {
               </div>
               <p className="text-[11px] text-muted-foreground mt-4 flex items-center gap-1.5">
                 <Check className="w-3 h-3 text-primary" />
-                Gratis · Ingen registrering · PDF du kan dela internt
+                Gratis · Ange e-post för PDF · Dokument du kan dela internt
               </p>
             </div>
           </div>
