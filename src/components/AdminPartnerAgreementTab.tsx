@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, ExternalLink, GripVertical, ArrowUp, ArrowDown } from "lucide-react";
+import { Plus, Trash2, ExternalLink, GripVertical, ArrowUp, ArrowDown, Upload, FileText, Loader2 } from "lucide-react";
 
 export interface AgreementSection {
   id: string;
