@@ -55,6 +55,8 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
   const [config, setConfig] = useState<PartnerAgreementConfig>(DEFAULT_CONFIG);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (!token) return;
