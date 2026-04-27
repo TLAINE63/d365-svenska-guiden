@@ -336,27 +336,30 @@ const Index = () => {
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))] text-[11px] font-bold uppercase tracking-wider text-white shadow-md mb-4">
                   <Sparkles className="w-3 h-3" />
-                  Personlig partnermatchning
+                  Oberoende partnermatchning
                 </div>
                 <h3 className="text-xl sm:text-2xl md:text-[28px] font-bold text-white mb-2 leading-tight tracking-tight">
-                  Vet du inte vilken partner du skall kontakta?
+                  Hitta rätt typ av Dynamics 365-partner
                 </h3>
                 <p className="text-[14px] sm:text-[15px] text-white/70 max-w-[560px] leading-relaxed">
-                  Vår kostnadsfria partnermatchning tar 2 minuter och ger dig insikt kring Dynamics 365 — plus en personlig rekommendation om vilken typ av partner som passar just din verksamhet.
+                  Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en oberoende rekommendation om vilken typ av partner som passar bäst.
                 </p>
                 <div className="flex flex-wrap gap-2 mt-4">
                   <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[hsl(var(--cta-orange))]/20 text-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))]/30">Gratis</span>
                   <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">Ingen registrering</span>
-                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">2 minuter</span>
-                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">Opartisk rekommendation</span>
+                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">Tar ca 2 minuter</span>
+                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 text-white/70 border border-white/10">Ingen kontakt delas utan ditt godkännande</span>
                 </div>
               </div>
-              <Button
-                asChild
-                className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl whitespace-nowrap flex-shrink-0 shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
-              >
-                <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1.5" /></Link>
-              </Button>
+              <div className="flex flex-col items-start lg:items-end gap-2 flex-shrink-0">
+                <Button
+                  asChild
+                  className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl whitespace-nowrap shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+                >
+                  <Link to="/kom-igang/">Starta partnermatchning <ArrowRight className="w-4 h-4 ml-1.5" /></Link>
+                </Button>
+                <span className="text-[11px] text-white/50 max-w-[260px] lg:text-right">Ingen kontakt delas med partner utan ditt godkännande.</span>
+              </div>
             </div>
           </div>
         </div>
@@ -374,13 +377,13 @@ const Index = () => {
             <div className="relative">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] border border-[hsl(var(--cta-orange))] text-[11px] font-bold uppercase tracking-wider text-white shadow-md mb-4">
                 <Check className="w-3 h-3" />
-                Kostnadsfri kravspecifikation
+                Kostnadsfritt kravunderlag
               </div>
               <h3 className="text-xl sm:text-2xl md:text-[28px] font-bold text-white mb-2 leading-tight tracking-tight">
-                Skapa din kravspecifikation på minuter
+                Kom igång med er kravspecifikation
               </h3>
               <p className="text-[14px] sm:text-[15px] text-white/70 max-w-[620px] leading-relaxed mb-6">
-                Få en strukturerad kravspecifikation som hjälper dig prata samma språk som leverantörerna. Välj område nedan och kom igång direkt — helt gratis och utan registrering.
+                Få ett strukturerat underlag som hjälper er att beskriva behov, processer och prioriteringar inför dialogen med Dynamics 365-partners. Välj område och börja direkt.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {[
