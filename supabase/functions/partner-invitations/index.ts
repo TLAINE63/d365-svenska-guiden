@@ -1216,15 +1216,21 @@ D365.se`;
           const resend = new Resend(resendApiKey);
           const baseUrl = "https://www.d365.se";
 
-          // Fetch email template
+          // Resolve template body (override > saved > default)
           let emailBody = "";
-          const { data: setting } = await supabase
-            .from("site_settings")
-            .select("value")
-            .eq("key", "invitation_email_body")
-            .single();
-          
-          emailBody = setting?.value || "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
+          if (typeof overrideBody === "string" && overrideBody.trim().length > 0) {
+            emailBody = overrideBody;
+          } else {
+            const { data: setting } = await supabase
+              .from("site_settings")
+              .select("value")
+              .eq("key", "invitation_email_body")
+              .single();
+            emailBody = setting?.value || "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
+          }
+          const bulkSubject = (typeof overrideSubject === "string" && overrideSubject.trim().length > 0)
+            ? overrideSubject
+            : "Vem är kundens mest lämpade Dynamics 365-partner?";
 
           for (const inv of createdInvitations) {
             try {
