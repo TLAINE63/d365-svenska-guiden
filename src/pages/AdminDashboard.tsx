@@ -519,7 +519,25 @@ const AdminDashboard = () => {
     }
   };
 
-  const openEmailDialog = (type: 'welcome' | 'sales_pitch') => {
+  const EMAIL_DEFAULTS: Record<'welcome' | 'sales_pitch' | 'profile_refresh', { subject: string; body: string; label: string }> = {
+    welcome: {
+      label: "Välkomstmail (inbjudan)",
+      subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+      body: "Hej {{NAME}},\n\nDu har blivit inbjuden att skapa eller uppdatera er partnerprofil på D365.se – Sveriges oberoende guide för Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
+    },
+    sales_pitch: {
+      label: "Införsäljningsmail",
+      subject: "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er",
+      body: "Hej {{NAME}},\n\nJag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nMed vänlig hälsning,\n\nThomas Laine & Michael Uhman\nd365.se",
+    },
+    profile_refresh: {
+      label: "Profileringslänk (uppdatera profil)",
+      subject: "VIKTIGT! Uppdatera er partnerprofil på d365.se",
+      body: "Hej {{NAME}},\n\nVänligen uppdatera er partnerprofil på d365.se så att den speglar ert aktuella erbjudande och era referenser.\n\n{{INVITATION_LINK}}\n\nLänken är giltig i 90 dagar.\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
+    },
+  };
+
+  const openEmailDialog = (type: 'welcome' | 'sales_pitch' | 'profile_refresh') => {
     const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
     if (selected.length === 0) return;
     // Pre-fill with existing emails
@@ -529,6 +547,8 @@ const AdminDashboard = () => {
     });
     setEmailOverrides(overrides);
     setEmailDialogType(type);
+    setEmailCustomSubject(EMAIL_DEFAULTS[type].subject);
+    setEmailCustomBody(EMAIL_DEFAULTS[type].body);
     setIsEmailDialogOpen(true);
   };
 
@@ -540,11 +560,25 @@ const AdminDashboard = () => {
       toast({ title: "Ange e-post för alla markerade partners", variant: "destructive" });
       return;
     }
+    if (!emailCustomSubject.trim()) {
+      toast({ title: "Ämne får inte vara tomt", variant: "destructive" });
+      return;
+    }
+    if (!emailCustomBody.trim()) {
+      toast({ title: "Innehåll får inte vara tomt", variant: "destructive" });
+      return;
+    }
+    if (!emailCustomBody.includes("{{INVITATION_LINK}}")) {
+      toast({ title: "Innehållet måste innehålla {{INVITATION_LINK}}", description: "Detta ersätts av personlig länk per partner.", variant: "destructive" });
+      return;
+    }
 
     if (emailDialogType === 'welcome') {
       await sendBulkWelcomeEmailsWithOverrides(selected);
-    } else {
+    } else if (emailDialogType === 'sales_pitch') {
       await sendBulkSalesPitchEmailsWithOverrides(selected);
+    } else {
+      await sendBulkProfileRefreshEmailsWithOverrides(selected);
     }
     setIsEmailDialogOpen(false);
   };
