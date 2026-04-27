@@ -4290,27 +4290,58 @@ const AdminDashboard = () => {
 
         {/* Email Send Dialog */}
         <Dialog open={isEmailDialogOpen} onOpenChange={setIsEmailDialogOpen}>
-          <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
-                {emailDialogType === 'welcome' ? 'Skicka välkomstmail' : 'Skicka införsäljningsmail'}
+                {emailDialogType === 'welcome' && 'Skicka välkomstmail'}
+                {emailDialogType === 'sales_pitch' && 'Skicka införsäljningsmail'}
+                {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk'}
+                {' '}({selectedForWelcome.size})
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Ange eller bekräfta e-postadress för varje partner innan utskick.
-              </p>
-              {fullPartners.filter(p => selectedForWelcome.has(p.id)).map(p => (
-                <div key={p.id} className="flex flex-col gap-1">
-                  <Label className="text-sm font-medium">{p.name}</Label>
-                  <Input
-                    type="email"
-                    placeholder="namn@foretag.se"
-                    value={emailOverrides[p.id] || ""}
-                    onChange={(e) => setEmailOverrides(prev => ({ ...prev, [p.id]: e.target.value }))}
-                  />
-                </div>
-              ))}
+              <div className="rounded-md border bg-muted/40 p-3 text-xs text-muted-foreground space-y-1">
+                <div><strong>Platshållare:</strong></div>
+                <div><code>{'{{NAME}}'}</code> – ersätts med partnerns namn</div>
+                <div><code>{'{{INVITATION_LINK}}'}</code> – ersätts med personlig länk + knapp (krävs)</div>
+              </div>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-medium">Ämne</Label>
+                <Input
+                  value={emailCustomSubject}
+                  onChange={(e) => setEmailCustomSubject(e.target.value)}
+                  placeholder="Ämnesrad"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-medium">Innehåll</Label>
+                <Textarea
+                  value={emailCustomBody}
+                  onChange={(e) => setEmailCustomBody(e.target.value)}
+                  rows={12}
+                  className="font-mono text-sm"
+                />
+              </div>
+
+              <Separator />
+
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Mottagaradresser ({selectedForWelcome.size})</p>
+                <p className="text-xs text-muted-foreground">Bekräfta eller justera e-post per partner.</p>
+                {fullPartners.filter(p => selectedForWelcome.has(p.id)).map(p => (
+                  <div key={p.id} className="flex flex-col gap-1">
+                    <Label className="text-xs">{p.name}</Label>
+                    <Input
+                      type="email"
+                      placeholder="namn@foretag.se"
+                      value={emailOverrides[p.id] || ""}
+                      onChange={(e) => setEmailOverrides(prev => ({ ...prev, [p.id]: e.target.value }))}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
             <DialogFooter className="gap-2">
               <Button variant="outline" onClick={() => setIsEmailDialogOpen(false)}>
@@ -4318,12 +4349,10 @@ const AdminDashboard = () => {
               </Button>
               <Button
                 onClick={sendEmailsFromDialog}
-                disabled={sendingWelcome || sendingSalesPitch}
+                disabled={sendingWelcome || sendingSalesPitch || sendingProfileRefresh}
                 className={emailDialogType === 'sales_pitch' ? "bg-orange-500 hover:bg-orange-600 text-white" : ""}
               >
-                {(sendingWelcome || sendingSalesPitch) ? "Skickar..." : (
-                  emailDialogType === 'welcome' ? 'Skicka välkomstmail' : 'Skicka införsäljningsmail'
-                )}
+                {(sendingWelcome || sendingSalesPitch || sendingProfileRefresh) ? "Skickar..." : `Skicka till ${selectedForWelcome.size}`}
               </Button>
             </DialogFooter>
           </DialogContent>
