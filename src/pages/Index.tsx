@@ -388,7 +388,7 @@ const Index = () => {
       {/* Kravspec CTA Banner */}
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl">
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 border border-white/10 shadow-2xl p-7 sm:p-10">
+          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(180_30%_12%)] via-[hsl(180_25%_15%)] to-[hsl(200_22%_17%)] border border-primary/20 shadow-2xl p-7 sm:p-10">
             {/* Decorative glows */}
             <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-[hsl(var(--cta-orange))]/15 blur-3xl pointer-events-none" />
