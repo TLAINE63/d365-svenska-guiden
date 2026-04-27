@@ -791,23 +791,33 @@ D365.se`;
     if (action === "list" && req.method === "GET") {
       const { data: invitations, error: invError } = await supabase
         .from("partner_invitations")
-        .select("*")
-        .order("created_at", { ascending: false });
+        .select("id, partner_id, partner_name, email, status, token, expires_at, created_at, submitted_at, reviewed_at, reviewed_by")
+        .order("created_at", { ascending: false })
+        .limit(500);
 
       const { data: submissions, error: subError } = await supabase
         .from("partner_submissions")
-        .select("*, partner_invitations(partner_name, email)")
-        .order("submitted_at", { ascending: false });
+        .select("id, invitation_id, partner_id, name, email, website, contact_person, submitted_at")
+        .order("submitted_at", { ascending: false })
+        .limit(500);
 
       if (invError || subError) {
+        console.error("List error:", invError, subError);
         return new Response(
           JSON.stringify({ error: "Kunde inte hämta data" }),
           { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
         );
       }
 
+      // Manually join partner_name/email from invitations onto submissions
+      const invMap = new Map((invitations || []).map((i: any) => [i.id, { partner_name: i.partner_name, email: i.email }]));
+      const enrichedSubmissions = (submissions || []).map((s: any) => ({
+        ...s,
+        partner_invitations: invMap.get(s.invitation_id) || null,
+      }));
+
       return new Response(
-        JSON.stringify({ invitations, submissions }),
+        JSON.stringify({ invitations, submissions: enrichedSubmissions }),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
       );
     }
