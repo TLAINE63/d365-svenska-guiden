@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import NoscriptSEO from "@/components/NoscriptSEO";
 import { OrganizationSchema, WebSiteSchema, FAQSchema, LocalBusinessSchema } from "@/components/StructuredData";
-import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown, Sparkles } from "lucide-react";
+import { Monitor, Users, Phone, HelpCircle, ArrowRight, BarChart3, Shield, Check, ChevronDown, Sparkles, BookOpen, Calendar, PlayCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
@@ -424,6 +424,81 @@ const Index = () => {
 
         </div>
       </section>
+
+      {/* Lär dig mer — Kunskapsresurser */}
+      <section className="py-14 sm:py-20 bg-white border-t border-border/60">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="max-w-2xl mb-10">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
+              Lär dig mer
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 tracking-tight">
+              Inte redo att välja partner än? Läs på först.
+            </h2>
+            <p className="text-[15px] text-muted-foreground leading-relaxed">
+              Fördjupa dig i Dynamics 365 i din egen takt — produktguider, branschevent och inspelade genomgångar.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {/* Produktfördjupningar */}
+            <Link
+              to="/kunskapscenter/"
+              className="group relative bg-card border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-primary/60" />
+              <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+                <BookOpen className="w-5 h-5 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Produktfördjupningar</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Detaljerade genomgångar av Business Central, F&amp;SCM, Sales, Customer Service och fler appar.
+              </p>
+              <span className="inline-flex items-center text-sm font-medium text-primary">
+                Utforska kunskapscentret
+                <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </Link>
+
+            {/* Events */}
+            <Link
+              to="/events/"
+              className="group relative bg-card border border-border rounded-2xl p-6 hover:border-[hsl(var(--cta-orange))]/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[hsl(var(--cta-orange))] to-[hsl(var(--cta-orange))]/60" />
+              <div className="w-11 h-11 rounded-xl bg-[hsl(var(--cta-orange))]/10 flex items-center justify-center mb-4 group-hover:bg-[hsl(var(--cta-orange))]/15 transition-colors">
+                <Calendar className="w-5 h-5 text-[hsl(var(--cta-orange))]" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Events &amp; webinars</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Kommande och tidigare event från Dynamics 365-partners — frukostseminarier, demos och fördjupningar.
+              </p>
+              <span className="inline-flex items-center text-sm font-medium text-[hsl(var(--cta-orange))]">
+                Se alla event
+                <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </Link>
+
+            {/* Videos — coming soon */}
+            <div className="group relative bg-muted/30 border border-dashed border-border rounded-2xl p-6 overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-muted-foreground/40 to-muted-foreground/20" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-11 h-11 rounded-xl bg-muted flex items-center justify-center">
+                  <PlayCircle className="w-5 h-5 text-muted-foreground" />
+                </div>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground bg-background border border-border rounded-full px-2.5 py-1">
+                  Kommer snart
+                </span>
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Videobibliotek</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Korta inspelade genomgångar och expertintervjuer om Dynamics 365 — publiceras löpande.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section className="py-10 sm:py-12 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
