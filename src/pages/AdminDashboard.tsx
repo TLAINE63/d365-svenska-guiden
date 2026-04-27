@@ -672,7 +672,52 @@ const AdminDashboard = () => {
     }
   };
 
-  const fetchAgreementEmails = async () => {
+  const sendBulkProfileRefreshEmailsWithOverrides = async (selected: FullPartner[]) => {
+    if (!confirm(`Skicka profileringslänk till ${selected.length} partner(s)?`)) return;
+    setSendingProfileRefresh(true);
+    try {
+      const partnerList = selected.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: emailOverrides[p.id]?.trim() || "",
+        contact_name: p.admin_contact_name || (p as any).contact_person || p.name,
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-profile-refresh`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ partners: partnerList, subject: emailCustomSubject, body: emailCustomBody }),
+        }
+      );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut", variant: "destructive" });
+        logout();
+        return;
+      }
+      if (!response.ok) throw new Error("Kunde inte skicka profileringslänk");
+      const data = await response.json();
+      toast({ title: data.message || "Profileringslänk skickad!" });
+      setSelectedForWelcome(new Set());
+      fetchOpenInvitations();
+      fetchAgreementEmails();
+    } catch (error: any) {
+      console.error("Send profile refresh error:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte skicka profileringslänk",
+        variant: "destructive",
+      });
+    } finally {
+      setSendingProfileRefresh(false);
+    }
+  };
+
     if (!token) return;
     try {
       // Fetch ALL sent emails (paginated) to build per-partner history
