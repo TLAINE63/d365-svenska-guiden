@@ -153,9 +153,62 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
         </div>
       </CardHeader>
       <CardContent>
-        {logs.length === 0 ? (
+        {/* Snabbfilterchips */}
+        <div className="flex flex-wrap items-center gap-1.5 p-2 mb-4 rounded-xl bg-slate-50 border border-slate-200">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 px-2">Snabbfilter</span>
+          {[
+            { key: 'all',   label: 'Alla',   count: logs.length, tone: 'slate' },
+            { key: 'today', label: 'Idag',   count: todayCount,  tone: 'blue' },
+            { key: '7d',    label: '7 dgr',  tone: 'sky' },
+            { key: '30d',   label: '30 dgr', tone: 'violet' },
+          ].map(({ key, label, count, tone }) => {
+            const active = dateRange === key;
+            const toneMap: Record<string, string> = {
+              slate:  active ? 'bg-slate-900 text-white border-slate-900'   : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400',
+              blue:   active ? 'bg-blue-600 text-white border-blue-600'     : 'bg-white text-slate-700 border-slate-200 hover:border-blue-400',
+              sky:    active ? 'bg-sky-600 text-white border-sky-600'       : 'bg-white text-slate-700 border-slate-200 hover:border-sky-400',
+              violet: active ? 'bg-violet-600 text-white border-violet-600' : 'bg-white text-slate-700 border-slate-200 hover:border-violet-400',
+            };
+            return (
+              <button key={key} type="button" onClick={() => setDateRange(key as typeof dateRange)}
+                className={`inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full border text-xs font-medium transition-all ${toneMap[tone]}`}>
+                {key === 'today' && <Clock className="h-3 w-3" />}
+                {label}
+                {typeof count === 'number' && (
+                  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded-full text-[10px] font-semibold ${active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>{count}</span>
+                )}
+              </button>
+            );
+          })}
+          <span className="w-px h-5 bg-slate-200 mx-1" />
+          {[
+            { key: 'all',    label: 'Alla statusar', tone: 'slate' as const },
+            { key: 'sent',   label: 'Skickade',      tone: 'emerald' as const, count: sentCount },
+            { key: 'failed', label: 'Misslyckade',   tone: 'rose' as const,    count: failedCount },
+          ].map(({ key, label, tone, count }) => {
+            const active = statusFilter === key;
+            const toneMap: Record<string, string> = {
+              slate:   active ? 'bg-slate-900 text-white border-slate-900'     : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400',
+              emerald: active ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-slate-700 border-slate-200 hover:border-emerald-400',
+              rose:    active ? 'bg-rose-600 text-white border-rose-600'       : 'bg-white text-slate-700 border-slate-200 hover:border-rose-400',
+            };
+            return (
+              <button key={key} type="button" onClick={() => { setStatusFilter(key); setPage(0); }}
+                className={`inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full border text-xs font-medium transition-all ${toneMap[tone]}`}>
+                {key === 'sent' && <CheckCircle2 className="h-3 w-3" />}
+                {key === 'failed' && <XCircle className="h-3 w-3" />}
+                {label}
+                {typeof count === 'number' && (
+                  <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded-full text-[10px] font-semibold ${active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'}`}>{count}</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {filteredLogs.length === 0 ? (
           <p className="text-muted-foreground text-center py-8">
-            {loading ? "Laddar..." : "Inga e-postloggar ännu. Loggar sparas från och med nu."}
+            {loading ? "Laddar..." : "Inga e-postloggar matchar filtret."}
           </p>
         ) : (
           <>
@@ -173,7 +226,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {logs.map((log) => (
+                {filteredLogs.map((log) => (
                   <TableRow key={log.id}>
                     <TableCell className="whitespace-nowrap text-sm">
                       {format(new Date(log.created_at), "d MMM HH:mm", { locale: sv })}
