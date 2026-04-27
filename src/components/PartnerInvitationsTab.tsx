@@ -568,11 +568,8 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
   };
 
   const copyInvitationLink = (invToken: string) => {
-    // Använd alltid publicerad domän — preview-domänen bryter POST/upload-requests för partners
-    const origin = window.location.origin;
-    const isPreview = origin.includes("lovableproject.com") || origin.includes("id-preview--");
-    const baseUrl = isPreview ? "https://www.d365.se" : origin;
-    const link = `${baseUrl}/partner-update/${invToken}`;
+    // Använd alltid publik produktionsdomän — preview-domänen bryter POST/upload för partners
+    const link = `${getPublicBaseUrl()}/partner-update/${invToken}`;
     navigator.clipboard.writeText(link);
     toast.success("Länk kopierad (publik domän)!");
   };
