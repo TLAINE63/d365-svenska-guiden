@@ -269,6 +269,9 @@ const AdminDashboard = () => {
 
   // Agreement emails sent tracking (lowercase partner_name -> {template, sent_at, recipient})
   const [agreementEmails, setAgreementEmails] = useState<Record<string, { template: string; sent_at: string; recipient: string }>>({});
+
+  // All emails sent per partner (lowercase partner_name -> {templates: [...], lastTemplate, lastSentAt, lastRecipient, count})
+  const [partnerEmailHistory, setPartnerEmailHistory] = useState<Record<string, { templates: Set<string>; lastTemplate: string; lastSentAt: string; lastRecipient: string; count: number }>>({});
   
   // Bulk email state (shared selection for welcome + sales pitch)
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
