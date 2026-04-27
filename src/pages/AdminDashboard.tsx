@@ -79,6 +79,7 @@ import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
+import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
@@ -1598,6 +1599,10 @@ const AdminDashboard = () => {
               <Globe className="h-4 w-4" />
               Partnersida
             </TabsTrigger>
+            <TabsTrigger value="partner-agreement-page" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Avtalssida
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2523,6 +2528,11 @@ const AdminDashboard = () => {
           {/* ==================== PARTNER STATS PAGE TAB ==================== */}
           <TabsContent value="partner-stats-page">
             <AdminPartnerStatsTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          {/* ==================== PARTNER AGREEMENT PAGE TAB ==================== */}
+          <TabsContent value="partner-agreement-page">
+            <AdminPartnerAgreementTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
