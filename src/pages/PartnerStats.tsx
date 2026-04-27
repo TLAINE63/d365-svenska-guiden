@@ -85,7 +85,7 @@ export default function PartnerStats() {
       <SEOHead
         title="Partnerstatistik"
         description="Sajtstatistik för d365.se – endast för partners."
-        canonicalPath="/partner-statistik"
+        canonicalPath="/partnerstatistik"
         noIndex
       />
       <Navbar />
