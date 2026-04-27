@@ -1833,6 +1833,7 @@ Thomas`,
           <TabsContent value="leads">
             <Card>
               <CardContent className="pt-6">
+                <div className="admin-table-wrap">
                 <Table>
                   <TableHeader>
                     <TableRow>
