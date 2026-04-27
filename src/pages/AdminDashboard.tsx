@@ -2096,60 +2096,43 @@ Thomas`,
               <p className="text-sm text-muted-foreground">
                 {fullPartners.length} partners i databasen
               </p>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs text-muted-foreground">Filter:</span>
-                <Button
-                  variant={partnerStatusFilter === 'all' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPartnerStatusFilter('all')}
-                >
-                  Alla ({fullPartners.length})
-                </Button>
-                <Button
-                  variant={partnerStatusFilter === 'published' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPartnerStatusFilter('published')}
-                >
-                  Publicerade ({fullPartners.filter(p => p.is_featured).length})
-                </Button>
-                <Button
-                  variant={partnerStatusFilter === 'invited_unpublished' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPartnerStatusFilter('invited_unpublished')}
-                >
-                  Inbjudna ej publicerade ({fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length})
-                </Button>
-                <Button
-                  variant={partnerStatusFilter === 'not_invited' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPartnerStatusFilter('not_invited')}
-                >
-                  Ej inbjudna ({fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length})
-                </Button>
-                <Button
-                  variant={partnerStatusFilter === 'agreement_signed' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPartnerStatusFilter('agreement_signed')}
-                  className={partnerStatusFilter === 'agreement_signed' ? 'bg-emerald-700 hover:bg-emerald-800 text-white' : ''}
-                >
-                  <Award className="h-3 w-3 mr-1" />
-                  Avtal tecknat ({fullPartners.filter(p => (p as any).agreement_signed).length})
-                </Button>
-                <Button
-                  variant={partnerStatusFilter === 'has_email' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPartnerStatusFilter('has_email')}
-                >
-                  Har e-post ({fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length})
-                </Button>
-                <Button
-                  variant={partnerStatusFilter === 'missing_email' ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setPartnerStatusFilter('missing_email')}
-                  className={partnerStatusFilter === 'missing_email' ? 'bg-destructive hover:bg-destructive/90 text-destructive-foreground' : ''}
-                >
-                  Saknar e-post ({fullPartners.filter(p => !(p.admin_contact_email || p.email)).length})
-                </Button>
+              <div className="flex flex-wrap items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 px-2">Snabbfilter</span>
+                {([
+                  { key: 'all', label: 'Alla', count: fullPartners.length, tone: 'slate' },
+                  { key: 'published', label: 'Publicerade', count: fullPartners.filter(p => p.is_featured).length, tone: 'blue' },
+                  { key: 'invited_unpublished', label: 'Inbjudna ej publ.', count: fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length, tone: 'violet' },
+                  { key: 'not_invited', label: 'Ej inbjudna', count: fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length, tone: 'amber' },
+                  { key: 'agreement_signed', label: 'Avtal tecknat', count: fullPartners.filter(p => (p as any).agreement_signed).length, tone: 'emerald', icon: Award },
+                  { key: 'has_email', label: 'Har e-post', count: fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length, tone: 'sky', icon: Mail },
+                  { key: 'missing_email', label: 'Saknar e-post', count: fullPartners.filter(p => !(p.admin_contact_email || p.email)).length, tone: 'rose', icon: AlertCircle },
+                ] as const).map(({ key, label, count, tone, icon: Icon }) => {
+                  const active = partnerStatusFilter === key;
+                  const toneMap: Record<string, { active: string; idle: string; badge: string }> = {
+                    slate:   { active: 'bg-slate-900 text-white border-slate-900',     idle: 'bg-white text-slate-700 border-slate-200 hover:border-slate-400',         badge: active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' },
+                    blue:    { active: 'bg-blue-600 text-white border-blue-600',       idle: 'bg-white text-slate-700 border-slate-200 hover:border-blue-400',         badge: active ? 'bg-white/20 text-white' : 'bg-blue-50 text-blue-700' },
+                    violet:  { active: 'bg-violet-600 text-white border-violet-600',   idle: 'bg-white text-slate-700 border-slate-200 hover:border-violet-400',       badge: active ? 'bg-white/20 text-white' : 'bg-violet-50 text-violet-700' },
+                    amber:   { active: 'bg-amber-500 text-white border-amber-500',     idle: 'bg-white text-slate-700 border-slate-200 hover:border-amber-400',        badge: active ? 'bg-white/20 text-white' : 'bg-amber-50 text-amber-700' },
+                    emerald: { active: 'bg-emerald-600 text-white border-emerald-600', idle: 'bg-white text-slate-700 border-slate-200 hover:border-emerald-400',      badge: active ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700' },
+                    sky:     { active: 'bg-sky-600 text-white border-sky-600',         idle: 'bg-white text-slate-700 border-slate-200 hover:border-sky-400',          badge: active ? 'bg-white/20 text-white' : 'bg-sky-50 text-sky-700' },
+                    rose:    { active: 'bg-rose-600 text-white border-rose-600',       idle: 'bg-white text-slate-700 border-slate-200 hover:border-rose-400',         badge: active ? 'bg-white/20 text-white' : 'bg-rose-50 text-rose-700' },
+                  };
+                  const tones = toneMap[tone];
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => setPartnerStatusFilter(key as typeof partnerStatusFilter)}
+                      className={`group inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full border text-xs font-medium transition-all ${active ? tones.active + ' shadow-sm' : tones.idle}`}
+                    >
+                      {Icon && <Icon className="h-3 w-3" strokeWidth={2} />}
+                      {label}
+                      <span className={`inline-flex items-center justify-center min-w-[1.25rem] h-4 px-1 rounded-full text-[10px] font-semibold ${tones.badge}`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
                 <Separator orientation="vertical" className="h-6 mx-1" />
                 <span className="text-xs text-muted-foreground">Sortera:</span>
                 <Button
