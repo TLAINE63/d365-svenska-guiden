@@ -1682,7 +1682,7 @@ Thomas`,
                     <p className="text-3xl font-bold text-white mt-1">{leads.length}</p>
                   </div>
                   <div className="p-2.5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
-                    <Inbox className="h-5 w-5 text-blue-300" />
+                    <Inbox className="h-5 w-5 text-blue-300" strokeWidth={1.75} />
                   </div>
                 </div>
                 <p className="text-xs text-slate-500 mt-3">
@@ -1697,7 +1697,7 @@ Thomas`,
                     <p className="text-3xl font-bold text-white mt-1">{clicksThisMonth}</p>
                   </div>
                   <div className="p-2.5 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
-                    <MousePointerClick className="h-5 w-5 text-emerald-300" />
+                    <MousePointerClick className="h-5 w-5 text-emerald-300" strokeWidth={1.75} />
                   </div>
                 </div>
                 <p className="text-xs text-slate-500 mt-3 capitalize">{currentMonthName}</p>
@@ -1710,7 +1710,7 @@ Thomas`,
                     <p className="text-3xl font-bold text-white mt-1">{totalClicks}</p>
                   </div>
                   <div className="p-2.5 rounded-xl bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
-                    <TrendingUp className="h-5 w-5 text-sky-300" />
+                    <TrendingUp className="h-5 w-5 text-sky-300" strokeWidth={1.75} />
                   </div>
                 </div>
                 <p className="text-xs text-slate-500 mt-3">Sedan start</p>
@@ -1723,7 +1723,7 @@ Thomas`,
                     <p className="text-3xl font-bold text-white mt-1">{fullPartners.length}</p>
                   </div>
                   <div className="p-2.5 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
-                    <Building2 className="h-5 w-5 text-amber-300" />
+                    <Building2 className="h-5 w-5 text-amber-300" strokeWidth={1.75} />
                   </div>
                 </div>
                 <p className="text-xs text-slate-500 mt-3">
