@@ -572,7 +572,31 @@ Thomas`,
     },
   };
 
-  const openEmailDialog = (type: 'welcome' | 'sales_pitch' | 'profile_refresh') => {
+  const fetchInvitationEmailTemplateValue = async (templateKey: string): Promise<string> => {
+    const response = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=${encodeURIComponent(templateKey)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+          "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+      }
+    );
+
+    if (response.status === 401) {
+      toast({ title: "Sessionen har gått ut", variant: "destructive" });
+      logout();
+      return "";
+    }
+    if (!response.ok) throw new Error("Kunde inte hämta e-postmall");
+
+    const data = await response.json();
+    return data.template || "";
+  };
+
+  const openEmailDialog = async (type: 'welcome' | 'sales_pitch' | 'profile_refresh') => {
     const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
     if (selected.length === 0) return;
     // Pre-fill with existing emails
@@ -582,8 +606,25 @@ Thomas`,
     });
     setEmailOverrides(overrides);
     setEmailDialogType(type);
-    setEmailCustomSubject(EMAIL_DEFAULTS[type].subject);
-    setEmailCustomBody(EMAIL_DEFAULTS[type].body);
+
+    let subject = EMAIL_DEFAULTS[type].subject;
+    let body = EMAIL_DEFAULTS[type].body;
+    if (type === 'profile_refresh') {
+      try {
+        const [savedBody, savedSubject] = await Promise.all([
+          fetchInvitationEmailTemplateValue("profile_refresh_email_body"),
+          fetchInvitationEmailTemplateValue("profile_refresh_email_subject"),
+        ]);
+        subject = savedSubject || subject;
+        body = savedBody || body;
+      } catch (error) {
+        console.error("Fetch profile refresh email template error:", error);
+        toast({ title: "Kunde inte hämta sparad profileringslänkmall", description: "Standardmallen visas istället.", variant: "destructive" });
+      }
+    }
+
+    setEmailCustomSubject(subject);
+    setEmailCustomBody(body);
     setIsEmailDialogOpen(true);
   };
 
