@@ -198,12 +198,12 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
             <CardDescription>
               Styr innehållet på den dolda sidan{" "}
               <a
-                href="/partner-avtal"
+                href="/avtalssida"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary underline inline-flex items-center gap-1"
               >
-                /partner-avtal <ExternalLink className="w-3 h-3" />
+                /avtalssida <ExternalLink className="w-3 h-3" />
               </a>
               . Sidan är inte länkad från menyn och har noindex.
             </CardDescription>

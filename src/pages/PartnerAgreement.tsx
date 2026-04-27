@@ -57,7 +57,7 @@ export default function PartnerAgreement() {
       <SEOHead
         title={config.heading}
         description="Avtalsvillkor för partners på d365.se."
-        canonicalPath="/partner-avtal"
+        canonicalPath="/avtalssida"
         noIndex
       />
       <Navbar />
