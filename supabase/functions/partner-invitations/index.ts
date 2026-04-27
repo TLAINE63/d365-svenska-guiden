@@ -1936,15 +1936,17 @@ D365.se`;
       const resend = new Resend(resendApiKey);
       const baseUrl = "https://www.d365.se";
 
-      // Fetch email template body
+      // Resolve template body (override > saved > default)
       let emailBody = "";
-      const { data: bodySetting } = await supabase
-        .from("site_settings")
-        .select("value")
-        .eq("key", "sales_pitch_email_body")
-        .single();
-
-      emailBody = bodySetting?.value || `Hej {{NAME}},
+      if (typeof overrideBody === "string" && overrideBody.trim().length > 0) {
+        emailBody = overrideBody;
+      } else {
+        const { data: bodySetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "sales_pitch_email_body")
+          .single();
+        emailBody = bodySetting?.value || `Hej {{NAME}},
 
 Jag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.
 
@@ -1954,16 +1956,20 @@ Med vänlig hälsning,
 
 Thomas Laine & Michael Uhman
 d365.se`;
+      }
 
-      // Fetch subject
+      // Resolve subject (override > saved > default)
       let emailSubject = "";
-      const { data: subjectSetting } = await supabase
-        .from("site_settings")
-        .select("value")
-        .eq("key", "sales_pitch_email_subject")
-        .single();
-
-      emailSubject = subjectSetting?.value || "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er";
+      if (typeof overrideSubject === "string" && overrideSubject.trim().length > 0) {
+        emailSubject = overrideSubject;
+      } else {
+        const { data: subjectSetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "sales_pitch_email_subject")
+          .single();
+        emailSubject = subjectSetting?.value || "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er";
+      }
 
       let sent = 0;
       let failed = 0;
