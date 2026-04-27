@@ -20,6 +20,7 @@ export interface PartnerStatsConfig {
   showPageViews: boolean;
   showTopPages: boolean;
   showRangeTabs: boolean;
+  showSalesSummary: boolean;
   sections: PartnerStatsSection[];
 }
 
@@ -28,6 +29,7 @@ const DEFAULT_CONFIG: PartnerStatsConfig = {
   showPageViews: true,
   showTopPages: true,
   showRangeTabs: true,
+  showSalesSummary: true,
   sections: [],
 };
 
