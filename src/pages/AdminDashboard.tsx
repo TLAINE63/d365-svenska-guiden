@@ -4470,6 +4470,7 @@ Thomas`,
           </DialogContent>
         </Dialog>
 
+        </div>
       </main>
       <Footer />
     </div>
