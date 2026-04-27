@@ -2106,7 +2106,7 @@ Thomas`,
                   { key: 'agreement_signed', label: 'Avtal tecknat', count: fullPartners.filter(p => (p as any).agreement_signed).length, tone: 'emerald', icon: Award },
                   { key: 'has_email', label: 'Har e-post', count: fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length, tone: 'sky', icon: Mail },
                   { key: 'missing_email', label: 'Saknar e-post', count: fullPartners.filter(p => !(p.admin_contact_email || p.email)).length, tone: 'rose', icon: AlertCircle },
-                ] as const).map(({ key, label, count, tone, icon: Icon }) => {
+                ] as Array<{ key: typeof partnerStatusFilter; label: string; count: number; tone: string; icon?: typeof Award }>).map(({ key, label, count, tone, icon: Icon }) => {
                   const active = partnerStatusFilter === key;
                   const toneMap: Record<string, { active: string; idle: string; badge: string }> = {
                     slate:   { active: 'bg-slate-900 text-white border-slate-900',     idle: 'bg-white text-slate-700 border-slate-200 hover:border-slate-400',         badge: active ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600' },
