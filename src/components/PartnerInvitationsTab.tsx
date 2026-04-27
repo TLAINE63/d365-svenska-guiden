@@ -1238,11 +1238,12 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
               <Label htmlFor="email">E-post *</Label>
               <Input
                 id="email"
-                type="email"
+                type="text"
                 value={newInvitation.email}
                 onChange={(e) => setNewInvitation(prev => ({ ...prev, email: e.target.value }))}
-                placeholder="kontakt@foretag.se"
+                placeholder="kontakt@foretag.se (flera adresser separeras med ;)"
               />
+              <p className="text-[11px] text-muted-foreground">Tips: ange flera adresser separerade med ; för att skicka till flera kontakter samtidigt.</p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="partner_id">Koppla till befintlig partner (valfritt)</Label>
@@ -1393,13 +1394,13 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
                           </div>
                         </div>
                         <Input
-                          type="email"
+                          type="text"
                           value={profileRefreshEmails[p.id] || ""}
                           onChange={(e) =>
                             setProfileRefreshEmails(prev => ({ ...prev, [p.id]: e.target.value }))
                           }
-                          placeholder="kontakt@partner.se"
-                          className="h-8 text-sm w-64"
+                          placeholder="kontakt@partner.se (flera med ;)"
+                          className="h-8 text-sm w-72"
                           disabled={!checked}
                         />
                       </div>

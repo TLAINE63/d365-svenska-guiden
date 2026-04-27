@@ -29,6 +29,19 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
+/**
+ * Splits an email field into a list of addresses.
+ * Accepts ";" or "," as separators so admins can mail multiple
+ * contacts at the same partner in one send (both visible in To:).
+ */
+function parseRecipients(input: string | null | undefined): string[] {
+  if (!input) return [];
+  return String(input)
+    .split(/[;,]/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s));
+}
+
 // JWT verification for admin operations
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
   try {
@@ -698,7 +711,7 @@ D365.se`;
             
             const emailResponse = await resend.emails.send({
               from: "D365 Guiden <info@d365.se>",
-              to: [email],
+              to: parseRecipients(email),
               bcc: ["thomas.laine@dynamicfactory.se"],
               subject: emailSubject,
               html: fullHtml,
@@ -1066,7 +1079,7 @@ D365.se`;
 
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
-            to: [inv.email],
+            to: parseRecipients(inv.email),
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: `Påminnelse: Vilken Dynamics 365-partner passar kunden bäst?`,
             html: fullHtml,
@@ -1244,7 +1257,7 @@ D365.se`;
 
               await resend.emails.send({
                 from: "D365 Guiden <info@d365.se>",
-                to: [inv.email],
+                to: parseRecipients(inv.email),
                 bcc: ["thomas.laine@dynamicfactory.se"],
                 subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
                 html: fullHtml,
@@ -1395,7 +1408,7 @@ D365.se`;
 
           const emailOptions: any = {
             from: "D365 Guiden <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             subject: emailSubject,
             html: fullHtml,
           };
@@ -1572,7 +1585,7 @@ D365.se`;
 
           const emailOptions: any = {
             from: "D365 Guiden <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             subject: emailSubject,
             html: fullHtml,
           };
@@ -1683,7 +1696,7 @@ D365.se`;
 
         const emailOptions: any = {
           from: "D365 Guiden <info@d365.se>",
-          to: [email],
+          to: parseRecipients(email),
           subject: emailSubject,
           html: fullHtml,
         };
@@ -1848,7 +1861,7 @@ D365.se`;
 
           await resend.emails.send({
             from: "Thomas Laine <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             replyTo: "thomas.laine@dynamicfactory.se",
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: personalizedSubject,
@@ -2021,7 +2034,7 @@ d365.se`;
 
           await resend.emails.send({
             from: "D365 Guiden <info@d365.se>",
-            to: [email],
+            to: parseRecipients(email),
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: personalizedSubject,
             html: fullHtml,
