@@ -893,7 +893,7 @@ const AdminDashboard = () => {
       if (!response.ok || !result.token) {
         throw new Error(result.error || "Kunde inte hämta länken");
       }
-      const link = `${window.location.origin}/partner-update/${result.token}`;
+      const link = `${getPublicBaseUrl()}/partner-update/${result.token}`;
       await navigator.clipboard.writeText(link);
       toast({
         title: "Profileringslänk kopierad",

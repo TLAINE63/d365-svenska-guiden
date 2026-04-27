@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { getPublicBaseUrl } from "@/lib/publicUrl";
 
 const DEFAULT_PROFILE_REFRESH_SUBJECT = "VIKTIGT! Uppdatera er partnerprofil på d365.se";
 

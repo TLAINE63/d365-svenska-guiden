@@ -399,7 +399,7 @@ D365.se`;
         }
         throw new Error(data.error || "Kunde inte skapa länk");
       }
-      const url = data.url || `${window.location.origin}/partner-events/${data.token}`;
+      const url = data.url || `${getPublicBaseUrl()}/partner-events/${data.token}`;
       setGeneratedLink(url);
       toast({ title: "Länk genererad", description: `Event-portallänk skapad för ${partner.name}` });
     } catch (error: any) {
