@@ -60,6 +60,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
   const [statusFilter, setStatusFilter] = useState("all");
   const [templateFilter, setTemplateFilter] = useState("all");
   const [page, setPage] = useState(0);
+  const [dateRange, setDateRange] = useState<'all' | 'today' | '7d' | '30d'>('all');
   const pageSize = 50;
 
   const fetchLogs = async () => {
