@@ -251,28 +251,28 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Selector – Hur kan vi hjälpa dig idag? */}
-      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-gradient-to-b from-[hsl(180_30%_12%)] via-[hsl(180_25%_14%)] to-[hsl(200_22%_16%)] border-b border-primary/20 relative overflow-hidden">
-        {/* Decorative ambient background — matching hero */}
+      {/* Selector – Var börjar ert Dynamics 365-beslut? */}
+      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
+        {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.18),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.10),transparent_55%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.06),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.04),transparent_55%)]" />
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="text-center mb-10 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-4 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wider text-primary mb-4">
               <Sparkles className="w-3 h-3" />
               Snabbnavigering
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-3">Gå från osäkerhet till kontroll.</h2>
-            <p className="text-sm sm:text-base text-white/70 font-light max-w-2xl mx-auto leading-relaxed">Välj det steg som matchar var ni står – behovsanalys, kravspecifikation, partnermatchning eller AI-prioritering.</p>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Var börjar ert Dynamics 365-beslut?</h2>
+            <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj område och få hjälp att förstå behov, alternativ, kravbild och vilken typ av partner som passar er situation.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {selectorCards.map((card) => (
               <Link
                 key={card.title}
                 to={card.link}
-                className="group relative rounded-2xl overflow-hidden bg-white/[0.04] backdrop-blur-sm border border-white/10 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-white/25 hover:bg-white/[0.06] shadow-lg hover:shadow-2xl"
+                className="group relative rounded-2xl overflow-hidden bg-card border border-border flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 shadow-md hover:shadow-2xl"
                 style={{ ['--card-glow' as string]: card.glow }}
               >
                 {/* Visual top section with image */}
@@ -288,23 +288,23 @@ const Index = () => {
                   />
                   {/* Color accent overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} mix-blend-multiply opacity-40 group-hover:opacity-30 transition-opacity duration-300`} />
-                  {/* Bottom fade into card — matches teal background */}
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[hsl(180_28%_13%)] to-transparent" />
+                  {/* Bottom fade into card — white */}
+                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
                   {/* Eyebrow chip */}
                   <div className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-white/90">
                     {card.eyebrow}
                   </div>
                   {/* Icon badge */}
-                  <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-[hsl(180_28%_13%)] group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-card group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-5 gap-2">
-                  <h3 className="text-[15px] font-semibold text-white leading-tight">{card.title}</h3>
-                  <p className="text-[13px] text-white/60 leading-relaxed flex-1">{card.desc}</p>
-                  <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[hsl(180_75%_65%)] mt-2 group-hover:gap-2.5 transition-all">
+                  <h3 className="text-[15px] font-semibold text-foreground leading-tight">{card.title}</h3>
+                  <p className="text-[13px] text-muted-foreground leading-relaxed flex-1">{card.desc}</p>
+                  <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary mt-2 group-hover:gap-2.5 transition-all">
                     {card.linkText}
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
                   </div>
