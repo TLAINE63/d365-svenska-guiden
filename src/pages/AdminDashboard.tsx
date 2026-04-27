@@ -78,6 +78,7 @@ import {
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
+import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
@@ -1593,6 +1594,10 @@ const AdminDashboard = () => {
               <BarChart3 className="h-4 w-4" />
               Sälj-KPI
             </TabsTrigger>
+            <TabsTrigger value="partner-stats-page" className="flex items-center gap-2">
+              <Globe className="h-4 w-4" />
+              Partnersida
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2513,6 +2518,11 @@ const AdminDashboard = () => {
           {/* ==================== SALES KPI TAB ==================== */}
           <TabsContent value="sales-kpi">
             <AdminSalesKpiTab token={token || ""} onSessionExpired={logout} />
+          </TabsContent>
+
+          {/* ==================== PARTNER STATS PAGE TAB ==================== */}
+          <TabsContent value="partner-stats-page">
+            <AdminPartnerStatsTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
