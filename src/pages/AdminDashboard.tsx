@@ -33,6 +33,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
@@ -280,8 +281,11 @@ const AdminDashboard = () => {
   
   // Email send dialog state
   const [isEmailDialogOpen, setIsEmailDialogOpen] = useState(false);
-  const [emailDialogType, setEmailDialogType] = useState<'welcome' | 'sales_pitch'>('sales_pitch');
+  const [emailDialogType, setEmailDialogType] = useState<'welcome' | 'sales_pitch' | 'profile_refresh'>('sales_pitch');
   const [emailOverrides, setEmailOverrides] = useState<Record<string, string>>({});
+  const [emailCustomSubject, setEmailCustomSubject] = useState<string>("");
+  const [emailCustomBody, setEmailCustomBody] = useState<string>("");
+  const [sendingProfileRefresh, setSendingProfileRefresh] = useState(false);
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -516,7 +520,25 @@ const AdminDashboard = () => {
     }
   };
 
-  const openEmailDialog = (type: 'welcome' | 'sales_pitch') => {
+  const EMAIL_DEFAULTS: Record<'welcome' | 'sales_pitch' | 'profile_refresh', { subject: string; body: string; label: string }> = {
+    welcome: {
+      label: "Välkomstmail (inbjudan)",
+      subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+      body: "Hej {{NAME}},\n\nDu har blivit inbjuden att skapa eller uppdatera er partnerprofil på D365.se – Sveriges oberoende guide för Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
+    },
+    sales_pitch: {
+      label: "Införsäljningsmail",
+      subject: "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er",
+      body: "Hej {{NAME}},\n\nJag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nMed vänlig hälsning,\n\nThomas Laine & Michael Uhman\nd365.se",
+    },
+    profile_refresh: {
+      label: "Profileringslänk (uppdatera profil)",
+      subject: "VIKTIGT! Uppdatera er partnerprofil på d365.se",
+      body: "Hej {{NAME}},\n\nVänligen uppdatera er partnerprofil på d365.se så att den speglar ert aktuella erbjudande och era referenser.\n\n{{INVITATION_LINK}}\n\nLänken är giltig i 90 dagar.\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
+    },
+  };
+
+  const openEmailDialog = (type: 'welcome' | 'sales_pitch' | 'profile_refresh') => {
     const selected = fullPartners.filter(p => selectedForWelcome.has(p.id));
     if (selected.length === 0) return;
     // Pre-fill with existing emails
@@ -526,6 +548,8 @@ const AdminDashboard = () => {
     });
     setEmailOverrides(overrides);
     setEmailDialogType(type);
+    setEmailCustomSubject(EMAIL_DEFAULTS[type].subject);
+    setEmailCustomBody(EMAIL_DEFAULTS[type].body);
     setIsEmailDialogOpen(true);
   };
 
@@ -537,11 +561,25 @@ const AdminDashboard = () => {
       toast({ title: "Ange e-post för alla markerade partners", variant: "destructive" });
       return;
     }
+    if (!emailCustomSubject.trim()) {
+      toast({ title: "Ämne får inte vara tomt", variant: "destructive" });
+      return;
+    }
+    if (!emailCustomBody.trim()) {
+      toast({ title: "Innehåll får inte vara tomt", variant: "destructive" });
+      return;
+    }
+    if (!emailCustomBody.includes("{{INVITATION_LINK}}")) {
+      toast({ title: "Innehållet måste innehålla {{INVITATION_LINK}}", description: "Detta ersätts av personlig länk per partner.", variant: "destructive" });
+      return;
+    }
 
     if (emailDialogType === 'welcome') {
       await sendBulkWelcomeEmailsWithOverrides(selected);
-    } else {
+    } else if (emailDialogType === 'sales_pitch') {
       await sendBulkSalesPitchEmailsWithOverrides(selected);
+    } else {
+      await sendBulkProfileRefreshEmailsWithOverrides(selected);
     }
     setIsEmailDialogOpen(false);
   };
@@ -565,7 +603,7 @@ const AdminDashboard = () => {
             "Authorization": `Bearer ${token}`,
             "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
-          body: JSON.stringify({ partners: partnerList, send_email: true }),
+          body: JSON.stringify({ partners: partnerList, send_email: true, subject: emailCustomSubject, body: emailCustomBody }),
         }
       );
       if (response.status === 401) {
@@ -610,7 +648,7 @@ const AdminDashboard = () => {
             "Authorization": `Bearer ${token}`,
             "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
-          body: JSON.stringify({ partners: partnerList }),
+          body: JSON.stringify({ partners: partnerList, subject: emailCustomSubject, body: emailCustomBody }),
         }
       );
       if (response.status === 401) {
@@ -632,6 +670,52 @@ const AdminDashboard = () => {
       });
     } finally {
       setSendingSalesPitch(false);
+    }
+  };
+
+  const sendBulkProfileRefreshEmailsWithOverrides = async (selected: FullPartner[]) => {
+    if (!confirm(`Skicka profileringslänk till ${selected.length} partner(s)?`)) return;
+    setSendingProfileRefresh(true);
+    try {
+      const partnerList = selected.map(p => ({
+        id: p.id,
+        name: p.name,
+        email: emailOverrides[p.id]?.trim() || "",
+        contact_name: p.admin_contact_name || (p as any).contact_person || p.name,
+      }));
+
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-profile-refresh`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({ partners: partnerList, subject: emailCustomSubject, body: emailCustomBody }),
+        }
+      );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut", variant: "destructive" });
+        logout();
+        return;
+      }
+      if (!response.ok) throw new Error("Kunde inte skicka profileringslänk");
+      const data = await response.json();
+      toast({ title: data.message || "Profileringslänk skickad!" });
+      setSelectedForWelcome(new Set());
+      fetchOpenInvitations();
+      fetchAgreementEmails();
+    } catch (error: any) {
+      console.error("Send profile refresh error:", error);
+      toast({
+        title: "Fel",
+        description: error.message || "Kunde inte skicka profileringslänk",
+        variant: "destructive",
+      });
+    } finally {
+      setSendingProfileRefresh(false);
     }
   };
 
@@ -1853,26 +1937,32 @@ const AdminDashboard = () => {
                   Exportera kontakter
                 </Button>
                 {selectedForWelcome.size > 0 && (
-                  <Button 
-                    variant="outline"
-                    onClick={() => openEmailDialog('welcome')} 
-                    disabled={sendingWelcome}
-                    className="border-primary text-primary hover:bg-primary/10"
-                  >
-                    <Mail className={`mr-2 h-4 w-4 ${sendingWelcome ? "animate-pulse" : ""}`} />
-                    {sendingWelcome ? "Skickar..." : `Skicka välkomstmail (${selectedForWelcome.size})`}
-                  </Button>
-                )}
-                {selectedForWelcome.size > 0 && (
-                  <Button 
-                    variant="outline"
-                    onClick={() => openEmailDialog('sales_pitch')} 
-                    disabled={sendingSalesPitch}
-                    className="border-orange-500 text-orange-600 hover:bg-orange-50"
-                  >
-                    <Send className={`mr-2 h-4 w-4 ${sendingSalesPitch ? "animate-pulse" : ""}`} />
-                    {sendingSalesPitch ? "Skickar..." : `Skicka införsäljningsmail (${selectedForWelcome.size})`}
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="outline"
+                        disabled={sendingWelcome || sendingSalesPitch || sendingProfileRefresh}
+                        className="border-primary text-primary hover:bg-primary/10"
+                      >
+                        <Mail className={`mr-2 h-4 w-4 ${(sendingWelcome || sendingSalesPitch || sendingProfileRefresh) ? "animate-pulse" : ""}`} />
+                        {(sendingWelcome || sendingSalesPitch || sendingProfileRefresh) ? "Skickar..." : `Skicka mail (${selectedForWelcome.size})`}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-64 bg-background z-50">
+                      <DropdownMenuItem onClick={() => openEmailDialog('welcome')}>
+                        <Mail className="mr-2 h-4 w-4" />
+                        Välkomstmail (inbjudan)
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => openEmailDialog('profile_refresh')}>
+                        <Mail className="mr-2 h-4 w-4" />
+                        Profileringslänk (uppdatera profil)
+                      </DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => openEmailDialog('sales_pitch')}>
+                        <Send className="mr-2 h-4 w-4" />
+                        Införsäljningsmail
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 )}
               </div>
               <p className="text-sm text-muted-foreground">
@@ -4200,27 +4290,58 @@ const AdminDashboard = () => {
 
         {/* Email Send Dialog */}
         <Dialog open={isEmailDialogOpen} onOpenChange={setIsEmailDialogOpen}>
-          <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>
-                {emailDialogType === 'welcome' ? 'Skicka välkomstmail' : 'Skicka införsäljningsmail'}
+                {emailDialogType === 'welcome' && 'Skicka välkomstmail'}
+                {emailDialogType === 'sales_pitch' && 'Skicka införsäljningsmail'}
+                {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk'}
+                {' '}({selectedForWelcome.size})
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Ange eller bekräfta e-postadress för varje partner innan utskick.
-              </p>
-              {fullPartners.filter(p => selectedForWelcome.has(p.id)).map(p => (
-                <div key={p.id} className="flex flex-col gap-1">
-                  <Label className="text-sm font-medium">{p.name}</Label>
-                  <Input
-                    type="email"
-                    placeholder="namn@foretag.se"
-                    value={emailOverrides[p.id] || ""}
-                    onChange={(e) => setEmailOverrides(prev => ({ ...prev, [p.id]: e.target.value }))}
-                  />
-                </div>
-              ))}
+              <div className="rounded-md border bg-muted/40 p-3 text-xs text-muted-foreground space-y-1">
+                <div><strong>Platshållare:</strong></div>
+                <div><code>{'{{NAME}}'}</code> – ersätts med partnerns namn</div>
+                <div><code>{'{{INVITATION_LINK}}'}</code> – ersätts med personlig länk + knapp (krävs)</div>
+              </div>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-medium">Ämne</Label>
+                <Input
+                  value={emailCustomSubject}
+                  onChange={(e) => setEmailCustomSubject(e.target.value)}
+                  placeholder="Ämnesrad"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <Label className="text-sm font-medium">Innehåll</Label>
+                <Textarea
+                  value={emailCustomBody}
+                  onChange={(e) => setEmailCustomBody(e.target.value)}
+                  rows={12}
+                  className="font-mono text-sm"
+                />
+              </div>
+
+              <Separator />
+
+              <div className="space-y-2">
+                <p className="text-sm font-medium">Mottagaradresser ({selectedForWelcome.size})</p>
+                <p className="text-xs text-muted-foreground">Bekräfta eller justera e-post per partner.</p>
+                {fullPartners.filter(p => selectedForWelcome.has(p.id)).map(p => (
+                  <div key={p.id} className="flex flex-col gap-1">
+                    <Label className="text-xs">{p.name}</Label>
+                    <Input
+                      type="email"
+                      placeholder="namn@foretag.se"
+                      value={emailOverrides[p.id] || ""}
+                      onChange={(e) => setEmailOverrides(prev => ({ ...prev, [p.id]: e.target.value }))}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
             <DialogFooter className="gap-2">
               <Button variant="outline" onClick={() => setIsEmailDialogOpen(false)}>
@@ -4228,12 +4349,10 @@ const AdminDashboard = () => {
               </Button>
               <Button
                 onClick={sendEmailsFromDialog}
-                disabled={sendingWelcome || sendingSalesPitch}
+                disabled={sendingWelcome || sendingSalesPitch || sendingProfileRefresh}
                 className={emailDialogType === 'sales_pitch' ? "bg-orange-500 hover:bg-orange-600 text-white" : ""}
               >
-                {(sendingWelcome || sendingSalesPitch) ? "Skickar..." : (
-                  emailDialogType === 'welcome' ? 'Skicka välkomstmail' : 'Skicka införsäljningsmail'
-                )}
+                {(sendingWelcome || sendingSalesPitch || sendingProfileRefresh) ? "Skickar..." : `Skicka till ${selectedForWelcome.size}`}
               </Button>
             </DialogFooter>
           </DialogContent>

@@ -1166,7 +1166,7 @@ D365.se`;
     // Admin: Bulk create invitations for multiple partners
     if (action === "bulk-create" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList, send_email } = body;
+      const { partners: partnerList, send_email, subject: overrideSubject, body: overrideBody } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
@@ -1216,15 +1216,21 @@ D365.se`;
           const resend = new Resend(resendApiKey);
           const baseUrl = "https://www.d365.se";
 
-          // Fetch email template
+          // Resolve template body (override > saved > default)
           let emailBody = "";
-          const { data: setting } = await supabase
-            .from("site_settings")
-            .select("value")
-            .eq("key", "invitation_email_body")
-            .single();
-          
-          emailBody = setting?.value || "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
+          if (typeof overrideBody === "string" && overrideBody.trim().length > 0) {
+            emailBody = overrideBody;
+          } else {
+            const { data: setting } = await supabase
+              .from("site_settings")
+              .select("value")
+              .eq("key", "invitation_email_body")
+              .single();
+            emailBody = setting?.value || "Hej,\n\nDu har blivit inbjuden att uppdatera din partnerprofil på D365.se.\n\n{{INVITATION_LINK}}\n\nAllt Gott!\nThomas Laine";
+          }
+          const bulkSubject = (typeof overrideSubject === "string" && overrideSubject.trim().length > 0)
+            ? overrideSubject
+            : "Vem är kundens mest lämpade Dynamics 365-partner?";
 
           for (const inv of createdInvitations) {
             try {
@@ -1235,7 +1241,10 @@ D365.se`;
               <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
               <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
 
-              const htmlBody = emailBody
+              const personalizedBody = emailBody.replace(/\{\{NAME\}\}/g, inv.partner_name || "");
+              const personalizedSubject = bulkSubject.replace(/\{\{NAME\}\}/g, inv.partner_name || "");
+
+              const htmlBody = personalizedBody
                 .split("{{INVITATION_LINK}}")
                 .map((part: string) => {
                   return part
@@ -1259,7 +1268,7 @@ D365.se`;
                 from: "D365 Guiden <info@d365.se>",
                 to: parseRecipients(inv.email),
                 bcc: ["thomas.laine@dynamicfactory.se"],
-                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                subject: personalizedSubject,
                 html: fullHtml,
               });
               sent++;
@@ -1267,7 +1276,7 @@ D365.se`;
               await supabase.from("email_send_log").insert({
                 recipient_email: inv.email,
                 template_name: "partner_bulk_invitation",
-                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                subject: personalizedSubject,
                 status: "sent",
                 metadata: { partner_name: inv.partner_name },
               });
@@ -1278,7 +1287,7 @@ D365.se`;
               await supabase.from("email_send_log").insert({
                 recipient_email: inv.email,
                 template_name: "partner_bulk_invitation",
-                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                subject: bulkSubject,
                 status: "failed",
                 error_message: sendErr.message,
                 metadata: { partner_name: inv.partner_name },
@@ -1907,7 +1916,7 @@ D365.se`;
 
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList } = body;
+      const { partners: partnerList, subject: overrideSubject, body: overrideBody } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
@@ -1927,15 +1936,17 @@ D365.se`;
       const resend = new Resend(resendApiKey);
       const baseUrl = "https://www.d365.se";
 
-      // Fetch email template body
+      // Resolve template body (override > saved > default)
       let emailBody = "";
-      const { data: bodySetting } = await supabase
-        .from("site_settings")
-        .select("value")
-        .eq("key", "sales_pitch_email_body")
-        .single();
-
-      emailBody = bodySetting?.value || `Hej {{NAME}},
+      if (typeof overrideBody === "string" && overrideBody.trim().length > 0) {
+        emailBody = overrideBody;
+      } else {
+        const { data: bodySetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "sales_pitch_email_body")
+          .single();
+        emailBody = bodySetting?.value || `Hej {{NAME}},
 
 Jag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.
 
@@ -1945,16 +1956,20 @@ Med vänlig hälsning,
 
 Thomas Laine & Michael Uhman
 d365.se`;
+      }
 
-      // Fetch subject
+      // Resolve subject (override > saved > default)
       let emailSubject = "";
-      const { data: subjectSetting } = await supabase
-        .from("site_settings")
-        .select("value")
-        .eq("key", "sales_pitch_email_subject")
-        .single();
-
-      emailSubject = subjectSetting?.value || "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er";
+      if (typeof overrideSubject === "string" && overrideSubject.trim().length > 0) {
+        emailSubject = overrideSubject;
+      } else {
+        const { data: subjectSetting } = await supabase
+          .from("site_settings")
+          .select("value")
+          .eq("key", "sales_pitch_email_subject")
+          .single();
+        emailSubject = subjectSetting?.value || "Prova d365.se kostnadsfritt – kvalificerade D365-leads direkt till er";
+      }
 
       let sent = 0;
       let failed = 0;
