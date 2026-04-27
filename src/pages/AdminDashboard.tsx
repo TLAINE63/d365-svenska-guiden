@@ -532,7 +532,7 @@ const AdminDashboard = () => {
       body: "Hej {{NAME}},\n\nJag vill presentera d365.se – en oberoende köpguide för företag som utvärderar Microsoft Dynamics 365.\n\n{{INVITATION_LINK}}\n\nMed vänlig hälsning,\n\nThomas Laine & Michael Uhman\nd365.se",
     },
     profile_refresh: {
-      label: "Profileringslänk (uppdatera profil)",
+      label: "Profileringslänk (90 dgr)",
       subject: "VIKTIGT! Uppdatera er partnerprofil på d365.se",
       body: "Hej {{NAME}},\n\nVänligen uppdatera er partnerprofil på d365.se så att den speglar ert aktuella erbjudande och era referenser.\n\n{{INVITATION_LINK}}\n\nLänken är giltig i 90 dagar.\n\nAllt Gott!\nThomas Laine & Michael Uhman\nd365.se",
     },
@@ -1955,7 +1955,7 @@ const AdminDashboard = () => {
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => openEmailDialog('profile_refresh')}>
                         <Mail className="mr-2 h-4 w-4" />
-                        Profileringslänk (uppdatera profil)
+                        Profileringslänk (90 dgr)
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => openEmailDialog('sales_pitch')}>
                         <Send className="mr-2 h-4 w-4" />
@@ -4295,7 +4295,7 @@ const AdminDashboard = () => {
               <DialogTitle>
                 {emailDialogType === 'welcome' && 'Skicka välkomstmail'}
                 {emailDialogType === 'sales_pitch' && 'Skicka införsäljningsmail'}
-                {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk'}
+                {emailDialogType === 'profile_refresh' && 'Skicka profileringslänk (90 dgr)'}
                 {' '}({selectedForWelcome.size})
               </DialogTitle>
             </DialogHeader>
