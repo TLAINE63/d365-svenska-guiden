@@ -339,7 +339,7 @@ const Index = () => {
             <div className="relative flex flex-col h-full">
               <div className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.12em] text-white shadow-lg shadow-[hsl(var(--cta-orange))]/40 mb-5">
                 <Sparkles className="w-3 h-3" />
-                Steg 1 · Vem ska ni prata med?
+                Steg 2 · Vem ska ni prata med?
               </div>
               <h3 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-white mb-3 leading-[1.15] tracking-tight">
                 Hitta rätt typ av <span className="text-[hsl(var(--cta-orange))]">Dynamics 365-partner</span>
@@ -393,7 +393,7 @@ const Index = () => {
             <div className="relative flex flex-col h-full">
               <div className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-[10.5px] font-bold uppercase tracking-[0.12em] text-primary mb-5">
                 <Check className="w-3 h-3" />
-                Steg 2 · Vad behöver ni?
+                Steg 1 · Vad behöver ni?
               </div>
               <h3 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-foreground mb-3 leading-[1.15] tracking-tight">
                 Kom igång med er <span className="text-primary">kravspecifikation</span>
