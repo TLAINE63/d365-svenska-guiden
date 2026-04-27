@@ -647,7 +647,7 @@ const AdminDashboard = () => {
             "Authorization": `Bearer ${token}`,
             "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
-          body: JSON.stringify({ partners: partnerList }),
+          body: JSON.stringify({ partners: partnerList, subject: emailCustomSubject, body: emailCustomBody }),
         }
       );
       if (response.status === 401) {
