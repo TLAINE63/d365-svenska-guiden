@@ -1241,7 +1241,10 @@ D365.se`;
               <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
               <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
 
-              const htmlBody = emailBody
+              const personalizedBody = emailBody.replace(/\{\{NAME\}\}/g, inv.partner_name || "");
+              const personalizedSubject = bulkSubject.replace(/\{\{NAME\}\}/g, inv.partner_name || "");
+
+              const htmlBody = personalizedBody
                 .split("{{INVITATION_LINK}}")
                 .map((part: string) => {
                   return part
@@ -1265,7 +1268,7 @@ D365.se`;
                 from: "D365 Guiden <info@d365.se>",
                 to: parseRecipients(inv.email),
                 bcc: ["thomas.laine@dynamicfactory.se"],
-                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                subject: personalizedSubject,
                 html: fullHtml,
               });
               sent++;
@@ -1273,7 +1276,7 @@ D365.se`;
               await supabase.from("email_send_log").insert({
                 recipient_email: inv.email,
                 template_name: "partner_bulk_invitation",
-                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                subject: personalizedSubject,
                 status: "sent",
                 metadata: { partner_name: inv.partner_name },
               });
@@ -1284,7 +1287,7 @@ D365.se`;
               await supabase.from("email_send_log").insert({
                 recipient_email: inv.email,
                 template_name: "partner_bulk_invitation",
-                subject: "Vem är kundens mest lämpade Dynamics 365-partner?",
+                subject: bulkSubject,
                 status: "failed",
                 error_message: sendErr.message,
                 metadata: { partner_name: inv.partner_name },
