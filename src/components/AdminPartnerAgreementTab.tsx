@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, ExternalLink, GripVertical, ArrowUp, ArrowDown } from "lucide-react";
+import { Plus, Trash2, ExternalLink, GripVertical, ArrowUp, ArrowDown, Upload, FileText, Loader2 } from "lucide-react";
 
 export interface AgreementSection {
   id: string;
@@ -55,6 +55,8 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
   const [config, setConfig] = useState<PartnerAgreementConfig>(DEFAULT_CONFIG);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (!token) return;
@@ -146,6 +148,45 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
     });
   };
 
+  const handleUpload = async (file: File) => {
+    if (!token) return;
+    if (file.type !== "application/pdf") {
+      toast({ title: "Endast PDF tillåten", variant: "destructive" });
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      toast({ title: "Filen får max vara 20MB", variant: "destructive" });
+      return;
+    }
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("token", token);
+      fd.append("filename", file.name);
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-partner-document`,
+        { method: "POST", body: fd },
+      );
+      if (res.status === 401) {
+        onSessionExpired();
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok || !data?.url) throw new Error(data?.error || "Uppladdning misslyckades");
+      setConfig((c) => ({ ...c, pdfUrl: data.url }));
+      toast({
+        title: "Uppladdad",
+        description: "URL:en är ifylld. Glöm inte att klicka Spara.",
+      });
+    } catch (e: any) {
+      toast({ title: "Kunde inte ladda upp", description: e?.message || "", variant: "destructive" });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
   if (loading) return <p className="text-sm text-muted-foreground p-6">Laddar…</p>;
 
   return (
@@ -199,17 +240,79 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
         {/* PDF link */}
         <div className="space-y-3">
           <h3 className="text-sm font-semibold">Avtals-PDF (valfri)</h3>
+
+          <div className="rounded-md border bg-muted/30 p-3 space-y-3">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div className="flex items-center gap-2 text-sm">
+                <FileText className="w-4 h-4 text-primary" />
+                {config.pdfUrl ? (
+                  <a
+                    href={config.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary underline break-all"
+                  >
+                    {config.pdfUrl.split("/").pop()}
+                  </a>
+                ) : (
+                  <span className="text-muted-foreground">Ingen PDF uppladdad ännu</span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="application/pdf"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) handleUpload(f);
+                  }}
+                />
+                <Button
+                  type="button"
+                  variant="default"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                >
+                  {uploading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                      Laddar upp…
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-4 h-4 mr-1" />
+                      {config.pdfUrl ? "Ersätt PDF" : "Ladda upp PDF"}
+                    </>
+                  )}
+                </Button>
+                {config.pdfUrl && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setConfig((c) => ({ ...c, pdfUrl: "" }))}
+                  >
+                    Ta bort
+                  </Button>
+                )}
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Filen lagras i bucket <code>partner-documents</code>. URL:en fylls i automatiskt — glöm inte att klicka Spara.
+            </p>
+          </div>
+
           <div>
             <Label htmlFor="agr-pdf-url">PDF-länk (URL)</Label>
             <Input
               id="agr-pdf-url"
-              placeholder="https://…/avtal.pdf  – lämna tom för att dölja PDF-knappen"
+              placeholder="Fylls i automatiskt vid uppladdning – kan även klistras in manuellt"
               value={config.pdfUrl}
               onChange={(e) => setConfig((c) => ({ ...c, pdfUrl: e.target.value }))}
             />
-            <p className="text-xs text-muted-foreground mt-1">
-              Ladda upp PDF:en i lagring (partner-documents) och klistra in den publika URL:en här.
-            </p>
           </div>
           <div>
             <Label htmlFor="agr-pdf-label">Knapp-/etikettext</Label>
