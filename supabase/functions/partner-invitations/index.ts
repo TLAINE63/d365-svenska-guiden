@@ -1916,7 +1916,7 @@ D365.se`;
 
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList } = body;
+      const { partners: partnerList, subject: overrideSubject, body: overrideBody } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
