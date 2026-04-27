@@ -95,8 +95,25 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
     fetchLogs();
   }, [statusFilter, templateFilter, page]);
 
-  const sentCount = logs.filter((l) => l.status === "sent").length;
-  const failedCount = logs.filter((l) => l.status === "failed").length;
+  const filteredLogs = logs.filter((l) => {
+    if (dateRange === 'all') return true;
+    const ts = new Date(l.created_at).getTime();
+    const now = Date.now();
+    if (dateRange === 'today') {
+      const startOfDay = new Date(); startOfDay.setHours(0, 0, 0, 0);
+      return ts >= startOfDay.getTime();
+    }
+    if (dateRange === '7d') return ts >= now - 7 * 86400000;
+    if (dateRange === '30d') return ts >= now - 30 * 86400000;
+    return true;
+  });
+
+  const sentCount = filteredLogs.filter((l) => l.status === "sent").length;
+  const failedCount = filteredLogs.filter((l) => l.status === "failed").length;
+  const todayCount = logs.filter((l) => {
+    const startOfDay = new Date(); startOfDay.setHours(0, 0, 0, 0);
+    return new Date(l.created_at).getTime() >= startOfDay.getTime();
+  }).length;
 
   return (
     <Card>
