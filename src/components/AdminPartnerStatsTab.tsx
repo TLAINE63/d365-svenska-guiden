@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
+import { supabase } from "@/integrations/supabase/client";
 import { Plus, Trash2, ExternalLink, GripVertical, ArrowUp, ArrowDown } from "lucide-react";
 
 export interface PartnerStatsSection {
@@ -48,14 +48,21 @@ export default function AdminPartnerStatsTab({ token, onSessionExpired }: Props)
     if (!token) return;
     (async () => {
       try {
-        const res = await invokeAdminEdgeWithRetry(
-          "manage-partners",
-          { action: "get_setting", key: SETTING_KEY, token },
-          onSessionExpired,
-        );
-        if (res?.value) {
+        const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-email-template&template_key=${SETTING_KEY}`;
+        const res = await fetch(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        });
+        if (res.status === 401) {
+          onSessionExpired();
+          return;
+        }
+        const data = await res.json();
+        if (data?.template) {
           try {
-            const parsed = JSON.parse(res.value);
+            const parsed = JSON.parse(data.template);
             setConfig({ ...DEFAULT_CONFIG, ...parsed, sections: Array.isArray(parsed.sections) ? parsed.sections : [] });
           } catch {
             // keep default
@@ -73,11 +80,21 @@ export default function AdminPartnerStatsTab({ token, onSessionExpired }: Props)
     if (!token) return;
     setSaving(true);
     try {
-      await invokeAdminEdgeWithRetry(
-        "manage-partners",
-        { action: "set_setting", key: SETTING_KEY, value: JSON.stringify(config), token },
-        onSessionExpired,
-      );
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=update-email-template`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+        body: JSON.stringify({ template: JSON.stringify(config), template_key: SETTING_KEY }),
+      });
+      if (res.status === 401) {
+        onSessionExpired();
+        return;
+      }
+      if (!res.ok) throw new Error("Kunde inte spara");
       toast({ title: "Sparat", description: "Partnerstatistiksidan uppdaterad." });
     } catch (e: any) {
       toast({ title: "Kunde inte spara", description: e?.message || "", variant: "destructive" });
