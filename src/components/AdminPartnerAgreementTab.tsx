@@ -148,6 +148,45 @@ export default function AdminPartnerAgreementTab({ token, onSessionExpired }: Pr
     });
   };
 
+  const handleUpload = async (file: File) => {
+    if (!token) return;
+    if (file.type !== "application/pdf") {
+      toast({ title: "Endast PDF tillåten", variant: "destructive" });
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      toast({ title: "Filen får max vara 20MB", variant: "destructive" });
+      return;
+    }
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("token", token);
+      fd.append("filename", file.name);
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/upload-partner-document`,
+        { method: "POST", body: fd },
+      );
+      if (res.status === 401) {
+        onSessionExpired();
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok || !data?.url) throw new Error(data?.error || "Uppladdning misslyckades");
+      setConfig((c) => ({ ...c, pdfUrl: data.url }));
+      toast({
+        title: "Uppladdad",
+        description: "URL:en är ifylld. Glöm inte att klicka Spara.",
+      });
+    } catch (e: any) {
+      toast({ title: "Kunde inte ladda upp", description: e?.message || "", variant: "destructive" });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
   if (loading) return <p className="text-sm text-muted-foreground p-6">Laddar…</p>;
 
   return (
