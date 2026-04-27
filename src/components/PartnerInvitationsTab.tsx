@@ -697,7 +697,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     }
     return sorted;
-  }, [invitations, sortOrder, latestInvitationByPartner]);
+  }, [dedupedInvitations, sortOrder, latestInvitationByPartner]);
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
