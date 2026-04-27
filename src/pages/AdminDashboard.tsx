@@ -269,6 +269,9 @@ const AdminDashboard = () => {
 
   // Agreement emails sent tracking (lowercase partner_name -> {template, sent_at, recipient})
   const [agreementEmails, setAgreementEmails] = useState<Record<string, { template: string; sent_at: string; recipient: string }>>({});
+
+  // All emails sent per partner (lowercase partner_name -> {templates: [...], lastTemplate, lastSentAt, lastRecipient, count})
+  const [partnerEmailHistory, setPartnerEmailHistory] = useState<Record<string, { templates: Set<string>; lastTemplate: string; lastSentAt: string; lastRecipient: string; count: number }>>({});
   
   // Bulk email state (shared selection for welcome + sales pitch)
   const [selectedForWelcome, setSelectedForWelcome] = useState<Set<string>>(new Set());
@@ -635,25 +638,38 @@ const AdminDashboard = () => {
   const fetchAgreementEmails = async () => {
     if (!token) return;
     try {
-      // Fetch sent agreement emails (both partner_agreement and partner_prospect_agreement)
-      const templates = ["partner_agreement", "partner_prospect_agreement"];
+      // Fetch ALL sent emails (paginated) to build per-partner history
       const map: Record<string, { template: string; sent_at: string; recipient: string }> = {};
-      for (const tpl of templates) {
+      const history: Record<string, { templates: Set<string>; lastTemplate: string; lastSentAt: string; lastRecipient: string; count: number }> = {};
+      const pageSize = 500;
+      let offset = 0;
+      let total = Infinity;
+      while (offset < total && offset < 5000) {
         const { data } = await invokeAdminEdgeWithRetry("manage-leads", {
-          action: "email-logs", token, limit: 500, offset: 0, statusFilter: "sent", templateFilter: tpl,
+          action: "email-logs", token, limit: pageSize, offset, statusFilter: "sent", templateFilter: "all",
         });
         const logs = data?.logs || [];
+        total = data?.total ?? logs.length;
         for (const log of logs) {
-          const name = (log.metadata as any)?.partner_name;
+          const name = (log.metadata as any)?.partner_name || (log.metadata as any)?.company_name;
           if (!name) continue;
-          const key = name.toLowerCase().trim();
-          // Keep most recent (logs come ordered desc)
-          if (!map[key]) {
+          const key = String(name).toLowerCase().trim();
+          // Agreement-specific map (legacy)
+          if ((log.template_name === 'partner_agreement' || log.template_name === 'partner_prospect_agreement') && !map[key]) {
             map[key] = { template: log.template_name, sent_at: log.created_at, recipient: log.recipient_email };
           }
+          // Full history (logs come ordered desc, so first occurrence is latest)
+          if (!history[key]) {
+            history[key] = { templates: new Set(), lastTemplate: log.template_name, lastSentAt: log.created_at, lastRecipient: log.recipient_email, count: 0 };
+          }
+          history[key].templates.add(log.template_name);
+          history[key].count += 1;
         }
+        if (logs.length < pageSize) break;
+        offset += pageSize;
       }
       setAgreementEmails(map);
+      setPartnerEmailHistory(history);
     } catch {
       // silently ignore
     }
@@ -2077,6 +2093,32 @@ const AdminDashboard = () => {
                                     <Award className="h-3 w-3 mr-1" />
                                     {isProspect ? 'Avtal (prospect)' : 'Avtal skickat'}
                                     <span className="ml-1 font-normal text-muted-foreground">({dateStr})</span>
+                                  </Badge>
+                                );
+                              })()}
+                              {partnerEmailHistory[partner.name?.toLowerCase().trim()] && (() => {
+                                const eh = partnerEmailHistory[partner.name.toLowerCase().trim()];
+                                const labels: Record<string, string> = {
+                                  partner_welcome: "Välkomst",
+                                  partner_invitation: "Inbjudan",
+                                  partner_reminder: "Påminnelse",
+                                  partner_bulk_invitation: "Bulkinbjudan",
+                                  partner_sales_pitch: "Införsäljning",
+                                  partner_profile_refresh: "Profileringslänk",
+                                  partner_agreement: "Partneravtal",
+                                  partner_prospect_agreement: "Avtal (prospect)",
+                                  lead_forward: "Lead",
+                                };
+                                const dateStr = new Date(eh.lastSentAt).toLocaleDateString('sv-SE').replace(/-/g, '/');
+                                const tplList = Array.from(eh.templates).map(t => labels[t] || t).join(', ');
+                                return (
+                                  <Badge
+                                    variant="outline"
+                                    className="text-xs border-blue-500 text-blue-700 dark:text-blue-400"
+                                    title={`${eh.count} mail totalt till ${eh.lastRecipient}\nMailtyper: ${tplList}\nSenast: ${new Date(eh.lastSentAt).toLocaleString('sv-SE')}`}
+                                  >
+                                    <Mail className="h-3 w-3 mr-1" />
+                                    {eh.count} mail • {labels[eh.lastTemplate] || eh.lastTemplate} ({dateStr})
                                   </Badge>
                                 );
                               })()}
