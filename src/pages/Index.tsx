@@ -260,10 +260,6 @@ const Index = () => {
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="text-center mb-10 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[10px] font-semibold uppercase tracking-wider text-primary mb-4">
-              <Sparkles className="w-3 h-3" />
-              Snabbnavigering
-            </div>
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Var börjar ert Dynamics 365-beslut?</h2>
             <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj område och få hjälp att förstå behov, alternativ, kravbild och vilken typ av partner som passar er situation.</p>
           </div>
