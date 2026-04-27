@@ -1166,7 +1166,7 @@ D365.se`;
     // Admin: Bulk create invitations for multiple partners
     if (action === "bulk-create" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList, send_email } = body;
+      const { partners: partnerList, send_email, subject: overrideSubject, body: overrideBody } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
