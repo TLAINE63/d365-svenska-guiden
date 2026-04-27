@@ -101,13 +101,13 @@ async function verifyInvitationToken(
       expires_at: string 
     };
 
-    // Check if expired
-    if (new Date(inv.expires_at) < new Date()) {
+    // Only pending invitations expire. Approved/submitted profile links stay open for re-editing.
+    if (new Date(inv.expires_at) < new Date() && inv.status === "pending") {
       return { valid: false, error: "Inbjudan har gått ut" };
     }
 
-    // Check status - allow 'pending' or 'submitted' (for updates)
-    if (inv.status !== 'pending' && inv.status !== 'submitted') {
+    // Allow the same statuses as partner-invitations: pending, submitted and approved.
+    if (inv.status !== "pending" && inv.status !== "submitted" && inv.status !== "approved") {
       return { valid: false, error: "Inbjudan är inte längre giltig" };
     }
 

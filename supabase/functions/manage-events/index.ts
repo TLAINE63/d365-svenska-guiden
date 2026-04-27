@@ -1181,6 +1181,7 @@ D365.se`;
         .single();
 
       for (const partner of eligiblePartners) {
+        const recipientEmail = partner.admin_contact_email || partner.email;
         try {
           // Upsert token for each partner
           const { data: tokenData, error: tokenError } = await supabase
@@ -1197,7 +1198,6 @@ D365.se`;
           }
 
           const portalUrl = `https://d365.se/partner-events/${tokenData.token}`;
-          const recipientEmail = partner.admin_contact_email || partner.email;
           const contactName = partner.contact_person || '';
 
           // Build email from template

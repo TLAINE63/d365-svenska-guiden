@@ -1849,7 +1849,7 @@ D365.se`;
           await resend.emails.send({
             from: "Thomas Laine <info@d365.se>",
             to: [email],
-            reply_to: "thomas.laine@dynamicfactory.se",
+            replyTo: "thomas.laine@dynamicfactory.se",
             bcc: ["thomas.laine@dynamicfactory.se"],
             subject: personalizedSubject,
             html: fullHtml,
