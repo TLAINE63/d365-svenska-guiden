@@ -252,7 +252,7 @@ const AdminDashboard = () => {
   const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
   const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
-  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed'>('all');
+  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed' | 'has_email' | 'missing_email'>('all');
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
@@ -2082,6 +2082,21 @@ Thomas`,
                   <Award className="h-3 w-3 mr-1" />
                   Avtal tecknat ({fullPartners.filter(p => (p as any).agreement_signed).length})
                 </Button>
+                <Button
+                  variant={partnerStatusFilter === 'has_email' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('has_email')}
+                >
+                  Har e-post ({fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length})
+                </Button>
+                <Button
+                  variant={partnerStatusFilter === 'missing_email' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setPartnerStatusFilter('missing_email')}
+                  className={partnerStatusFilter === 'missing_email' ? 'bg-destructive hover:bg-destructive/90 text-destructive-foreground' : ''}
+                >
+                  Saknar e-post ({fullPartners.filter(p => !(p.admin_contact_email || p.email)).length})
+                </Button>
                 <Separator orientation="vertical" className="h-6 mx-1" />
                 <span className="text-xs text-muted-foreground">Sortera:</span>
                 <Button
@@ -2133,6 +2148,8 @@ Thomas`,
                     if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
+                    if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
+                    if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
                     return true;
                   });
                   const selectable = filtered;
@@ -2180,6 +2197,8 @@ Thomas`,
                     if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
+                    if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
+                    if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
                     return true;
                   })
                   .sort((a, b) => {
