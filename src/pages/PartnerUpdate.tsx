@@ -91,6 +91,8 @@ interface ProductFilter {
   geography: string[];
   swedenRegions: string[];
   swedenCities: string[];
+  companySize?: string[];
+  revenue?: string[];
   ranking: number;
   customerExamples: string[];
   customerCaseLinks: string[];
