@@ -141,6 +141,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
           </p>
         ) : (
           <>
+            <div className="admin-table-wrap">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -191,6 +192,7 @@ const AdminEmailLogTab = ({ token, onSessionExpired }: AdminEmailLogTabProps) =>
                 ))}
               </TableBody>
             </Table>
+            </div>
 
             <div className="flex items-center justify-between mt-4">
               <p className="text-sm text-muted-foreground">
