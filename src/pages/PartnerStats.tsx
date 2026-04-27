@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Globe, Users, Eye, Info } from "lucide-react";
+import { Globe, Users, Eye, Info, TrendingUp, Award, ClipboardCheck, FileText, Building2, MousePointerClick, BarChart3 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Section { id: string; title: string; body: string; }
@@ -22,13 +22,25 @@ interface Config {
   showPageViews: boolean;
   showTopPages: boolean;
   showRangeTabs: boolean;
+  showSalesSummary: boolean;
   sections: Section[];
 }
 interface Window { pageViews: number; uniqueVisitors: number; }
 interface Page { path: string; views: number; uniqueVisitors: number; }
+interface SalesSummary {
+  totalVisitors: number;
+  totalPageViews: number;
+  valjPartner: number;
+  analysisTotal: number;
+  komIgang: number;
+  partnerProfileVisits: number;
+  partnerClicks: number;
+  avgTimeOnPage: number;
+}
 interface Data {
   totals: { d7: Window; d30: Window; d90: Window };
   topPages: { d7: Page[]; d30: Page[]; d90: Page[] };
+  salesSummary?: SalesSummary;
   config: Config;
 }
 
@@ -37,6 +49,7 @@ const DEFAULT_CONFIG: Config = {
   showPageViews: true,
   showTopPages: true,
   showRangeTabs: true,
+  showSalesSummary: true,
   sections: [],
 };
 
