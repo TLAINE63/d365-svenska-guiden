@@ -58,8 +58,8 @@ const homeFaqs = [
 const selectorCards = [
   {
     icon: <Monitor className="h-5 w-5 text-white" />,
-    title: "Införa nytt affärssystem",
-    desc: "Byta eller uppgradera ERP — Business Central eller Finance & SCM",
+    title: "Införa eller byta affärssystem",
+    desc: "För företag som utvärderar Business Central eller Finance & Supply Chain — och vill förstå vägval, omfattning och partnerval.",
     link: "/erp/",
     linkText: "Utforska ERP",
     image: selectorErp,
@@ -69,8 +69,8 @@ const selectorCards = [
   },
   {
     icon: <Users className="h-5 w-5 text-white" />,
-    title: "Förbättra sälj och marknad",
-    desc: "Optimera sälj- och marknadsprocesserna — Dynamics 365 Sales och Customer Insights",
+    title: "Stärka sälj och marknad",
+    desc: "För er som vill utveckla kundbearbetning, pipeline, marknadsprocesser och användning av Dynamics 365 Sales och Customer Insights.",
     link: "/crm/",
     linkText: "Utforska CRM",
     image: selectorCrm,
@@ -80,8 +80,8 @@ const selectorCards = [
   },
   {
     icon: <Phone className="h-5 w-5 text-white" />,
-    title: "Utveckla kundservice",
-    desc: "Förbättra kundupplevelsen — Customer Service, Field Service, Contact Center",
+    title: "Utveckla kundservice och fältservice",
+    desc: "För organisationer som vill förbättra ärendehantering, serviceprocesser, fältservice eller contact center med Dynamics 365.",
     link: "/d365-customer-service/",
     linkText: "Utforska kundservice",
     image: selectorService,
@@ -91,8 +91,8 @@ const selectorCards = [
   },
   {
     icon: <Sparkles className="h-5 w-5 text-white" />,
-    title: "Utforska möjligheterna med AI",
-    desc: "Jämför Copilot och Agenter · Gör ett AI Assessment",
+    title: "Förstå AI-möjligheterna i affärssystemet",
+    desc: "För er som vill bedöma var Copilot, agenter och AI faktiskt kan skapa nytta — och vad som krävs innan ni börjar.",
     link: "/ai-oversikt/",
     linkText: "Utforska AI",
     image: selectorGuidance,
