@@ -90,15 +90,15 @@ const selectorCards = [
     eyebrow: "Service",
   },
   {
-    icon: <HelpCircle className="h-5 w-5 text-white" />,
-    title: "Jag är osäker — hjälp mig",
-    desc: "Kontakta oss för en oberoende och kostnadsfri vägledning",
-    link: "/kontakta-oss/",
-    linkText: "Kontakta oss",
+    icon: <Sparkles className="h-5 w-5 text-white" />,
+    title: "Utforska möjligheterna med AI",
+    desc: "Jämför Copilot och Agenter",
+    link: "/ai-oversikt/",
+    linkText: "Utforska AI",
     image: selectorGuidance,
     accent: "from-amber-500/90 to-orange-600/90",
     glow: "rgba(245,158,11,0.35)",
-    eyebrow: "Rådgivning",
+    eyebrow: "AI",
   },
 ];
 
