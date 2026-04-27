@@ -656,8 +656,24 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
     return map;
   }, [invitations]);
 
+  // Deduplicate: keep only the most recent invitation per partner
+  // (grouped by partner_id when available, otherwise by lowercase email + name)
+  const dedupedInvitations = useMemo(() => {
+    const byKey = new Map<string, typeof invitations[number]>();
+    for (const inv of invitations) {
+      const key = inv.partner_id
+        ? `pid:${inv.partner_id}`
+        : `em:${(inv.email || "").toLowerCase()}|${inv.partner_name.toLowerCase()}`;
+      const existing = byKey.get(key);
+      if (!existing || new Date(inv.created_at) > new Date(existing.created_at)) {
+        byKey.set(key, inv);
+      }
+    }
+    return Array.from(byKey.values());
+  }, [invitations]);
+
   const sortedInvitations = useMemo(() => {
-    const sorted = [...invitations];
+    const sorted = [...dedupedInvitations];
     const statusOrder: Record<string, number> = { pending: 0, submitted: 1, approved: 2, expired: 3 };
     switch (sortOrder) {
       case "name_asc":
@@ -681,7 +697,7 @@ const PartnerInvitationsTab = ({ token, partners, onSessionExpired }: PartnerInv
         sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     }
     return sorted;
-  }, [invitations, sortOrder, latestInvitationByPartner]);
+  }, [dedupedInvitations, sortOrder, latestInvitationByPartner]);
 
   const toggleReminderSelection = (id: string) => {
     setSelectedForReminder(prev => {
