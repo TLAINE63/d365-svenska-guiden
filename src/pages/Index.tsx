@@ -264,8 +264,8 @@ const Index = () => {
               <Sparkles className="w-3 h-3" />
               Snabbnavigering
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-3">Hur kan vi hjälpa dig idag?</h2>
-            <p className="text-sm sm:text-base text-white/70 font-light max-w-xl mx-auto leading-relaxed">Välj ditt område — vi guidar dig direkt till rätt information och partners.</p>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-3">Gå från osäkerhet till kontroll.</h2>
+            <p className="text-sm sm:text-base text-white/70 font-light max-w-2xl mx-auto leading-relaxed">Välj det steg som matchar var ni står – behovsanalys, kravspecifikation, partnermatchning eller AI-prioritering.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {selectorCards.map((card) => (
