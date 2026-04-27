@@ -366,25 +366,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Proof / stats */}
-      <section className="py-10 sm:py-12 bg-card border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-6">Därför använder företag d365.se</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              { num: "100%", label: "Oberoende — vi säljer inget system" },
-              { num: "Gratis", label: "Behovsanalys och partnermatching" },
-              { num: "5 min", label: "Från besök till personlig rekommendation" },
-            ].map((item) => (
-              <div key={item.num} className="bg-secondary/50 border border-border rounded-[10px] p-5">
-                <div className="text-2xl sm:text-[28px] font-semibold text-primary tracking-tight mb-1">{item.num}</div>
-                <div className="text-[13px] text-muted-foreground leading-snug">{item.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Kravspec CTA Banner */}
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 bg-secondary/30">
         <div className="container mx-auto max-w-5xl">
