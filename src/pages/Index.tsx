@@ -385,21 +385,37 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {buyerSteps.map((s) => (
-              <Link
-                key={s.step}
-                to={s.link}
-                className="group flex flex-col rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
-              >
-                <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
-                <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
-                <div className="mt-auto pt-4 border-t border-border">
-                  <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
-                  <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
-                </div>
-              </Link>
-            ))}
+            {buyerSteps.map((s) => {
+              const cardClass = "group flex flex-col text-left rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl";
+              const inner = (
+                <>
+                  <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
+                  <div className="mt-auto pt-4 border-t border-border">
+                    <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
+                    <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
+                  </div>
+                </>
+              );
+              if (s.picker) {
+                return (
+                  <button
+                    key={s.step}
+                    type="button"
+                    onClick={() => setDirectionPicker(s.picker!)}
+                    className={cardClass}
+                  >
+                    {inner}
+                  </button>
+                );
+              }
+              return (
+                <Link key={s.step} to={s.link} className={cardClass}>
+                  {inner}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
