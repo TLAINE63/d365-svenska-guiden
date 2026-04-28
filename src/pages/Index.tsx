@@ -396,7 +396,8 @@ const Index = () => {
                   style={{ boxShadow: `0 0 60px -10px var(--card-glow)` }}
                 />
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
