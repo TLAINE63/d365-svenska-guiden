@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
+import TrailingSlashRedirect from "@/components/TrailingSlashRedirect";
 import { useDeferredLoad } from "@/hooks/useDeferredLoad";
 
 import Index from "./pages/Index";
@@ -72,6 +73,7 @@ const AppShell = () => {
   return (
     <>
       <ScrollToTop />
+      <TrailingSlashRedirect />
       
       <ChunkErrorBoundary>
       <Suspense fallback={<PageLoader />}>
