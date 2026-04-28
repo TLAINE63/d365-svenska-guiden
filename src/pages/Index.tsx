@@ -407,7 +407,7 @@ const Index = () => {
               <Link
                 key={path.step}
                 to={path.link}
-                className="group relative block h-full min-h-[260px] bg-card border border-border rounded-2xl p-6 sm:p-7 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group relative block h-full min-h-[260px] bg-card border border-border rounded-2xl p-6 sm:p-7 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
               >
                 <div className="flex h-full flex-col items-start">
                   <div className={`w-12 h-12 rounded-xl ${path.color} flex items-center justify-center text-white text-lg font-bold shadow-md mb-4 flex-shrink-0`}>
