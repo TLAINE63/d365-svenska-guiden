@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
-import selectorGuidance from "@/assets/selector/guidance.jpg";
+import selectorPartnerMatch from "@/assets/selector/partner-match.svg";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
@@ -96,7 +96,7 @@ const situationCards = [
     desc: "Ni har ringat in behovet och vill jämföra partners utifrån bransch, produktområde, storlek och geografi.",
     link: "/kom-igang/",
     linkText: "Starta partnermatchning",
-    image: selectorGuidance,
+    image: selectorPartnerMatch,
     accent: "from-orange-500/90 to-teal-700/90",
     glow: "hsl(var(--cta-orange) / 0.35)",
     eyebrow: "Partner",
