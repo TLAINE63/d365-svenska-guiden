@@ -399,7 +399,7 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
             <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Köpresan i tre steg</span>
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar — beroende på var ni står</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar framåt — beroende på var ni befinner er idag</h2>
             <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">De flesta D365-projekt går igenom samma faser. Identifiera er fas och börja där det gör mest nytta.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-stretch">
