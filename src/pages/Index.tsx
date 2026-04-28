@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
-import selectorPartnerMatch from "@/assets/selector/partner-match.svg";
+import selectorPartnerMatch from "@/assets/selector/partner-match.jpg";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
@@ -97,7 +97,7 @@ const situationCards = [
     link: "/kom-igang/",
     linkText: "Starta partnermatchning",
     image: selectorPartnerMatch,
-    accent: "from-orange-500/90 to-teal-700/90",
+    accent: "from-orange-500 to-teal-600",
     glow: "hsl(var(--cta-orange) / 0.35)",
     eyebrow: "Partner",
   },
