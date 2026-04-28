@@ -414,7 +414,7 @@ const Index = () => {
                 </div>
                 <h3 className="mb-3 min-h-[52px] w-full text-lg font-bold text-foreground leading-tight">{path.title}</h3>
                 <p className="mb-4 min-h-[92px] w-full text-sm text-muted-foreground leading-relaxed">{path.desc}</p>
-                <div className="mt-auto inline-flex h-6 items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                <div className="mt-auto inline-flex h-6 items-center self-start gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
                   {path.linkText}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
