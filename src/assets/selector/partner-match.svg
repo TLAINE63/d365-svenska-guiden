@@ -1,0 +1,50 @@
+<svg width="1024" height="576" viewBox="0 0 1024 576" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1024" height="576" fill="#062F32"/>
+  <rect width="1024" height="576" fill="url(#bg)"/>
+  <path d="M118 412C221 306 338 355 448 257C584 137 689 173 906 82" stroke="#F97316" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+  <path d="M118 182C249 241 337 156 460 256C579 353 706 283 906 408" stroke="#2DD4BF" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <circle cx="512" cy="288" r="98" fill="#0B4A4D" stroke="#F97316" stroke-width="8"/>
+  <circle cx="512" cy="288" r="54" fill="#0E7370" stroke="#F8FAFC" stroke-width="5" opacity="0.95"/>
+  <circle cx="512" cy="288" r="16" fill="#F97316"/>
+  <g stroke="#E2E8F0" stroke-width="5" stroke-linecap="round" opacity="0.95">
+    <path d="M482 287h60"/>
+    <path d="M512 257v60"/>
+  </g>
+  <g fill="#F97316" stroke="#F8FAFC" stroke-width="5">
+    <circle cx="243" cy="189" r="43"/>
+    <circle cx="785" cy="389" r="43"/>
+  </g>
+  <g fill="#0EA5A3" stroke="#F8FAFC" stroke-width="5">
+    <circle cx="238" cy="405" r="43"/>
+    <circle cx="784" cy="183" r="43"/>
+  </g>
+  <g fill="#F8FAFC" opacity="0.95">
+    <circle cx="243" cy="178" r="12"/>
+    <path d="M221 213c5-18 37-18 44 0" stroke="#F8FAFC" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <circle cx="238" cy="394" r="12"/>
+    <path d="M216 429c5-18 37-18 44 0" stroke="#F8FAFC" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <rect x="758" y="164" width="52" height="38" rx="8"/>
+    <rect x="770" y="204" width="28" height="8" rx="4"/>
+    <rect x="758" y="370" width="52" height="38" rx="8"/>
+    <rect x="770" y="410" width="28" height="8" rx="4"/>
+  </g>
+  <g fill="#F97316">
+    <circle cx="357" cy="235" r="11"/>
+    <circle cx="656" cy="227" r="11"/>
+    <circle cx="363" cy="341" r="11"/>
+    <circle cx="660" cy="345" r="11"/>
+  </g>
+  <g fill="#2DD4BF">
+    <circle cx="139" cy="296" r="9"/>
+    <circle cx="881" cy="286" r="9"/>
+    <circle cx="391" cy="142" r="9"/>
+    <circle cx="629" cy="434" r="9"/>
+  </g>
+  <defs>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 288) rotate(90) scale(330 520)">
+      <stop stop-color="#0F766E" stop-opacity="0.7"/>
+      <stop offset="0.56" stop-color="#0F3F46" stop-opacity="0.75"/>
+      <stop offset="1" stop-color="#061B24"/>
+    </radialGradient>
+  </defs>
+</svg>
