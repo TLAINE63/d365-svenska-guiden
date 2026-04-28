@@ -432,24 +432,40 @@ const Index = () => {
       <section className="px-4 sm:px-6 py-12 sm:py-16 bg-white border-b border-border">
         <div className="container mx-auto max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-8 lg:gap-12 items-center">
-            {/* Left: Thomas Laine */}
+            {/* Left: Thomas Laine & Michael Uhman */}
             <div className="flex flex-col items-start">
               <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Vem står bakom d365.se</span>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
-                Oberoende vägledning från någon som kan Dynamics 365-marknaden
+                Oberoende vägledning från personer som kan Dynamics 365 på riktigt
               </h2>
-              <div className="flex items-start gap-4 mb-4">
-                <img
-                  src={thomasLaine}
-                  alt="Thomas Laine, oberoende rådgivare inom Microsoft Dynamics 365"
-                  loading="lazy"
-                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shadow-lg flex-shrink-0"
-                />
-                <div className="pt-1">
-                  <p className="font-semibold text-foreground text-lg">Thomas Laine</p>
-                  <p className="text-sm text-muted-foreground leading-snug">
-                    Oberoende rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
-                  </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                <div className="flex items-start gap-3">
+                  <img
+                    src={thomasLaine}
+                    alt="Thomas Laine, oberoende rådgivare inom Microsoft Dynamics 365"
+                    loading="lazy"
+                    className="w-20 h-20 rounded-full object-cover shadow-lg flex-shrink-0"
+                  />
+                  <div className="pt-1">
+                    <p className="font-semibold text-foreground">Thomas Laine</p>
+                    <p className="text-xs text-muted-foreground leading-snug">
+                      Medgrundare, d365.se. Oberoende rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <img
+                    src={michaelUhman}
+                    alt="Michael Uhman, oberoende rådgivare inom Microsoft Dynamics 365"
+                    loading="lazy"
+                    className="w-20 h-20 rounded-full object-cover shadow-lg flex-shrink-0"
+                  />
+                  <div className="pt-1">
+                    <p className="font-semibold text-foreground">Michael Uhman</p>
+                    <p className="text-xs text-muted-foreground leading-snug">
+                      Medgrundare, d365.se. Oberoende rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling och Dynamics 365-relaterade beslut.
+                    </p>
+                  </div>
                 </div>
               </div>
               <p className="text-[15px] text-muted-foreground leading-relaxed">
