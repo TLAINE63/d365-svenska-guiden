@@ -61,6 +61,19 @@ const ContactUs = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
+            {/* Intro */}
+            <div className="mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto text-center space-y-4">
+              <p className="text-lg text-foreground font-medium">
+                Ett Dynamics 365-val avgörs sällan av funktioner ensam.
+              </p>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                Det avgörs av rätt vägval, rätt omfattning och rätt partner — utifrån er verksamhet, er komplexitet och det ansvar ni själva vill ta över tid.
+              </p>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                d365.se bygger på lång erfarenhet av Microsofts affärsapplikationer, partnerlandskapet och hur svenska företag faktiskt väljer, upphandlar och utvecklar ERP- och CRM-lösningar.
+              </p>
+            </div>
+
             {/* Contact Persons Section */}
             <div className="mb-8 sm:mb-10 md:mb-12">
               <div className="grid lg:grid-cols-2 gap-6">
