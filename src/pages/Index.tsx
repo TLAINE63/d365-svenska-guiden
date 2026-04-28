@@ -56,13 +56,13 @@ const homeFaqs = [
   },
 ];
 
-const selectorCards = [
+const situationCards = [
   {
     icon: <Monitor className="h-5 w-5 text-white" />,
-    title: "Införa eller byta affärssystem",
-    desc: "För företag som utvärderar Business Central eller Finance & Supply Chain — och vill förstå vägval, omfattning och partnerval.",
+    title: "Vi ska byta affärssystem",
+    desc: "Utvärderar ERP — Business Central eller Finance & Supply Chain. Vill förstå omfattning, vägval och kostnad.",
     link: "/erp/",
-    linkText: "Utforska ERP",
+    linkText: "Utforska ERP-vägen",
     image: selectorErp,
     accent: "from-blue-500/90 to-indigo-600/90",
     glow: "rgba(59,130,246,0.35)",
@@ -70,10 +70,10 @@ const selectorCards = [
   },
   {
     icon: <Users className="h-5 w-5 text-white" />,
-    title: "Stärka sälj och marknad",
-    desc: "För er som vill utveckla kundbearbetning, pipeline, marknadsprocesser och användning av Dynamics 365 Sales och Customer Insights.",
+    title: "Vi vill förbättra sälj & marknad",
+    desc: "Utveckla pipeline, kundbearbetning och marknadsprocesser med Dynamics 365 Sales och Customer Insights.",
     link: "/crm/",
-    linkText: "Utforska CRM",
+    linkText: "Utforska CRM-vägen",
     image: selectorCrm,
     accent: "from-pink-500/90 to-rose-600/90",
     glow: "rgba(236,72,153,0.35)",
@@ -81,27 +81,55 @@ const selectorCards = [
   },
   {
     icon: <Phone className="h-5 w-5 text-white" />,
-    title: "Utveckla kundservice och fältservice",
-    desc: "För organisationer som vill förbättra ärendehantering, serviceprocesser, fältservice eller contact center med Dynamics 365.",
+    title: "Vi vill förbättra kundservice",
+    desc: "Förbättra ärendehantering, fältservice eller contact center med Dynamics 365 Customer Service.",
     link: "/d365-customer-service/",
-    linkText: "Utforska kundservice",
+    linkText: "Utforska Service-vägen",
     image: selectorService,
     accent: "from-teal-500/90 to-emerald-600/90",
     glow: "rgba(20,184,166,0.35)",
     eyebrow: "Service",
   },
   {
-    icon: <Sparkles className="h-5 w-5 text-white" />,
-    title: "Förstå AI-möjligheterna i affärssystemet",
-    desc: "För er som vill bedöma var Copilot, agenter och AI faktiskt kan skapa nytta — och vad som krävs innan ni börjar.",
-    link: "/ai-oversikt/",
-    linkText: "Utforska AI",
+    icon: <HelpCircle className="h-5 w-5 text-white" />,
+    title: "Vi vet vad vi vill — vi behöver partner",
+    desc: "Hoppa över utvärderingen och få direkt en oberoende rekommendation på vilka partners som matchar er.",
+    link: "/kom-igang/",
+    linkText: "Starta partnermatchning",
     image: selectorGuidance,
     accent: "from-amber-500/90 to-orange-600/90",
     glow: "rgba(245,158,11,0.35)",
-    eyebrow: "AI",
+    eyebrow: "Partner",
   },
 ];
+
+const buyerPaths = [
+  {
+    step: "1",
+    title: "Orientera er",
+    desc: "Förstå skillnaden mellan applikationerna, vad Copilot gör, och hur Dynamics 365 ligger jämfört med alternativen.",
+    link: "/kunskapscenter/",
+    linkText: "Utforska kunskapscentret",
+    color: "from-sky-500 to-blue-600",
+  },
+  {
+    step: "2",
+    title: "Bygg er kravbild",
+    desc: "Gör en behovsanalys eller skapa en kravspecifikation. Få ett strukturerat underlag att ta in i partnerdialoger.",
+    link: "/behovsanalys/",
+    linkText: "Gör en behovsanalys",
+    color: "from-primary to-cyan-600",
+  },
+  {
+    step: "3",
+    title: "Välj rätt partner",
+    desc: "Få oberoende rekommendation på partners som matchar er bransch, storlek, geografi och valt produktområde.",
+    link: "/kom-igang/",
+    linkText: "Starta partnermatchning",
+    color: "from-[hsl(var(--cta-orange))] to-orange-600",
+  },
+];
+
 
 const whyItems = [
   "Jämför partners utifrån bransch och behov",
