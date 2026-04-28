@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
+
+// Standard fallback image used by all situation cards when card.image is missing
+const DEFAULT_CARD_IMAGE = selectorService;
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 import michaelUhman from "@/assets/michael-uhman.jpg";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
@@ -347,7 +350,9 @@ const Index = () => {
             <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj situation — så guidar vi er till rätt verktyg, kunskap och partnerförslag utifrån var ni faktiskt befinner er.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-stretch">
-            {situationCards.map((card) => (
+            {situationCards.map((card) => {
+              const cardImage = card.image || DEFAULT_CARD_IMAGE;
+              return (
               <Link
                 key={card.title}
                 to={card.link}
@@ -356,10 +361,10 @@ const Index = () => {
               >
                 <div
                   className="relative h-24 min-h-24 overflow-hidden flex-shrink-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${card.image || selectorService})` }}
+                  style={{ backgroundImage: `url(${cardImage})` }}
                 >
                   <img
-                    src={card.image || selectorService}
+                    src={cardImage}
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
@@ -391,7 +396,8 @@ const Index = () => {
                   style={{ boxShadow: `0 0 60px -10px var(--card-glow)` }}
                 />
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
