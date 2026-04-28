@@ -43,7 +43,7 @@ vi.mock("@/components/StructuredData", () => ({
 vi.mock("@/components/Navbar", () => ({ default: () => null }));
 vi.mock("@/components/Footer", () => ({ default: () => null }));
 
-const INDEX_PATH = path.resolve(__dirname, "../pages/Index.tsx");
+const INDEX_PATH = path.resolve(process.cwd(), "src/pages/Index.tsx");
 
 describe("Index – situationskort renderar bild + bakgrundsbild", () => {
   describe("källkodsanalys", () => {
