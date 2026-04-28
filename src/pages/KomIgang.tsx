@@ -374,7 +374,7 @@ const KomIgang = () => {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground mb-6">Vi hittade inga partners som matchar exakt. Prova att bredda sökningen.</p>
+                  <p className="text-muted-foreground mb-6">Vi hittade inga partners som matchar exakt. Oftast beror detta på en kombination av valet för bransch och produkt. Prova att bredda sökningen.</p>
                   <Button onClick={handleBack}>Ändra dina val</Button>
                 </div>
               )}
