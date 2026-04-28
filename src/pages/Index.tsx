@@ -255,7 +255,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 md:gap-14 items-center">
             {/* Left column */}
             <div>
-              <p className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-4">
+              <p className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-6">
                 Det här beslutet följer er i tio år.<br className="hidden sm:block" />
                 <span className="block mt-3 sm:mt-4">Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.</span>
               </p>
