@@ -224,8 +224,8 @@ const Index = () => {
       desc: "Välj område — så får ni rätt frågor och en rekommendation som faktiskt passar er situation.",
       options: [
         { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/behovsanalys/" },
-        { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights & Marketing", link: "/salj-marknad-behovsanalys/" },
-        { label: "Kundservice & Fältservice", sub: "Customer Service & Field Service", link: "/kundservice-behovsanalys/" },
+        { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights (Marketing)", link: "/salj-marknad-behovsanalys/" },
+        { label: "Kundservice", sub: "Customer Service, Field Service, Contact Center", link: "/kundservice-behovsanalys/" },
       ],
     },
     kravspec: {
