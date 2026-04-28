@@ -141,7 +141,7 @@ const situationCards = [
     icon: <Users className="h-5 w-5 text-white" />,
     title: "Vi vet vad vi vill - Nu behöver vi en matchande partner",
     desc: "Ni har ringat in behovet och vill jämföra partners utifrån bransch, produktområde, storlek och geografi.",
-    link: "/kom-igang/",
+    link: "/valj-partner/",
     linkText: "Starta partnermatchning",
     image: selectorService,
     accent: "from-orange-500/90 to-teal-600/90",
@@ -171,7 +171,7 @@ const buyerPaths = [
     step: "3",
     title: "Matchas med en partner",
     desc: "När kravbilden är tydligare kan ni matchas med Dynamics 365-partners utifrån bransch, produktområde, storlek och geografi.",
-    link: "/kom-igang/",
+    link: "/valj-partner/",
     linkText: "Starta partnermatchning",
     color: "bg-gradient-to-br from-orange-500 to-orange-600",
   },
@@ -264,7 +264,7 @@ const Index = () => {
               </p>
               <div className="mb-4 flex flex-col sm:flex-row gap-3">
                 <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
-                  <Link to="/kom-igang">Hitta rätt Dynamics 365-partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
+                  <Link to="/valj-partner/">Hitta rätt Dynamics 365-partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="bg-white/5 text-white border-white/30 hover:bg-white/15 hover:text-white text-base h-14 sm:h-16 px-6 rounded-xl font-semibold w-full sm:w-auto justify-center">
                   <Link to="/behovsanalys">Gör en behovsanalys först</Link>
@@ -620,7 +620,7 @@ const Index = () => {
                   asChild
                   className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/40 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/50 hover:-translate-y-0.5 transition-all group/btn"
                 >
-                  <Link to="/kom-igang/">
+                  <Link to="/valj-partner/">
                     Starta partnermatchning
                     <ArrowRight className="w-4 h-4 ml-1.5 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
@@ -825,7 +825,7 @@ const Index = () => {
             <p className="text-sm text-primary-foreground/65 max-w-[400px]">Börja med att beskriva din situation — kostnadsfritt och utan förpliktelser.</p>
           </div>
           <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 text-sm font-semibold h-12 px-7 rounded-lg whitespace-nowrap flex-shrink-0">
-            <Link to="/kom-igang/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
+            <Link to="/valj-partner/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
           </Button>
         </div>
       </section>
