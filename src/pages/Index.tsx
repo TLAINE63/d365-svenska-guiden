@@ -92,7 +92,7 @@ const situationCards = [
   },
   {
     icon: <Users className="h-5 w-5 text-white" />,
-    title: "Vi söker rätt Dynamics 365-partner",
+    title: "Vi vet vad vi vill - Nu behöver vi en matchande partner",
     desc: "Ni har ringat in behovet och vill jämföra partners utifrån bransch, produktområde, storlek och geografi.",
     link: "/kom-igang/",
     linkText: "Starta partnermatchning",
