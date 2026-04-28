@@ -649,16 +649,17 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vanliga frågor just nu</h2>
-              <p className="text-sm text-muted-foreground mb-4">Det svenska företag frågar oss mest.</p>
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
+              <p className="text-sm text-muted-foreground mb-4">Frågorna svenska företag söker svar på.</p>
               <div className="flex flex-col gap-2">
-                {popularQuestions.map((q) => (
+                {popularGuides.map((g) => (
                   <Link
-                    key={q.text}
-                    to={q.link}
-                    className="group block bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
+                    key={g.text}
+                    to={g.link}
+                    className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
                   >
-                    {q.text} <span className="text-muted-foreground group-hover:text-primary ml-0.5 transition-colors">→</span>
+                    <span className="flex-1">{g.text}</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">{g.tag}</span>
                   </Link>
                 ))}
               </div>
