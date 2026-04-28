@@ -400,7 +400,7 @@ const KomIgang = () => {
                       Definiera dina krav och få ett strukturerat underlag att skicka till partners.
                     </p>
                     <Button asChild className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
-                      <Link to={spec.path}>
+                      <Link to={spec.path} state={{ industry: selectedIndustry || undefined }}>
                         <FileText className="h-4 w-4 mr-2" />
                         {spec.label}
                       </Link>
