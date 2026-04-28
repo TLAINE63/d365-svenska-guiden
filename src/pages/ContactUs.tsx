@@ -90,7 +90,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Thomas Laine</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot</p>
+                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Oberoende rådgivare med lång erfarenhet av Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
