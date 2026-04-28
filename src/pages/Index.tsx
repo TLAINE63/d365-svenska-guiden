@@ -395,11 +395,11 @@ const Index = () => {
       </section>
 
       {/* Tre vägar beroende på köpläge */}
-      <section className="py-14 sm:py-20 bg-secondary/30 border-b border-border">
+      <section className="py-10 sm:py-14 bg-secondary/30 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-          <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Köpresan i tre steg</span>
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar framåt — beroende på var ni befinner er idag</h2>
+          <div className="text-center mb-7 sm:mb-8 max-w-2xl mx-auto">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Köpresan i tre steg</span>
+            <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight mb-2">Tre vägar framåt — beroende på var ni befinner er idag</h2>
             <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">Identifiera var ni står och börja där det gör mest nytta.</p>
           </div>
           <div className="mx-auto max-w-4xl">
@@ -411,18 +411,18 @@ const Index = () => {
                   </div>
                   <Link
                     to={path.link}
-                    className="group flex min-h-[128px] flex-col items-start rounded-2xl bg-card border border-border p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl sm:p-5"
+                    className="group flex min-h-[112px] flex-col items-start rounded-2xl bg-card border border-border p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl sm:p-4"
                   >
-                    <h3 className="mb-2 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
-                    <p className="mb-3 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
-                    <div className="mt-1 inline-flex h-6 self-start items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                    <h3 className="mb-1.5 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
+                    <p className="mb-2 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
+                    <div className="inline-flex h-6 self-start items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
                       {path.linkText}
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </Link>
                 </div>
                 {index < buyerPaths.length - 1 && (
-                  <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 py-2" aria-hidden="true">
+                  <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 py-1.5" aria-hidden="true">
                     <div className="flex h-8 w-12 items-center justify-center sm:w-14">
                       <div className="flex h-8 w-6 items-center justify-center rounded-full border border-primary/25 bg-primary/10 text-primary shadow-sm">
                         <ChevronDown className="h-5 w-5 stroke-[3]" />
