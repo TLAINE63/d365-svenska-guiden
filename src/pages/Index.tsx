@@ -15,6 +15,7 @@ import selectorService from "@/assets/selector/service.jpg";
 const DEFAULT_CARD_IMAGE = selectorService;
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 import michaelUhman from "@/assets/michael-uhman.jpg";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
 const AccordionItem = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionItem })));
