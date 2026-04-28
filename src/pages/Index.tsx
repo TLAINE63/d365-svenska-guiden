@@ -56,13 +56,13 @@ const homeFaqs = [
   },
 ];
 
-const selectorCards = [
+const situationCards = [
   {
     icon: <Monitor className="h-5 w-5 text-white" />,
-    title: "Införa eller byta affärssystem",
-    desc: "För företag som utvärderar Business Central eller Finance & Supply Chain — och vill förstå vägval, omfattning och partnerval.",
+    title: "Vi ska byta affärssystem",
+    desc: "Utvärderar ERP — Business Central eller Finance & Supply Chain. Vill förstå omfattning, vägval och kostnad.",
     link: "/erp/",
-    linkText: "Utforska ERP",
+    linkText: "Utforska ERP-vägen",
     image: selectorErp,
     accent: "from-blue-500/90 to-indigo-600/90",
     glow: "rgba(59,130,246,0.35)",
@@ -70,10 +70,10 @@ const selectorCards = [
   },
   {
     icon: <Users className="h-5 w-5 text-white" />,
-    title: "Stärka sälj och marknad",
-    desc: "För er som vill utveckla kundbearbetning, pipeline, marknadsprocesser och användning av Dynamics 365 Sales och Customer Insights.",
+    title: "Vi vill förbättra sälj & marknad",
+    desc: "Utveckla pipeline, kundbearbetning och marknadsprocesser med Dynamics 365 Sales och Customer Insights.",
     link: "/crm/",
-    linkText: "Utforska CRM",
+    linkText: "Utforska CRM-vägen",
     image: selectorCrm,
     accent: "from-pink-500/90 to-rose-600/90",
     glow: "rgba(236,72,153,0.35)",
@@ -81,27 +81,55 @@ const selectorCards = [
   },
   {
     icon: <Phone className="h-5 w-5 text-white" />,
-    title: "Utveckla kundservice och fältservice",
-    desc: "För organisationer som vill förbättra ärendehantering, serviceprocesser, fältservice eller contact center med Dynamics 365.",
+    title: "Vi vill förbättra kundservice",
+    desc: "Förbättra ärendehantering, fältservice eller contact center med Dynamics 365 Customer Service.",
     link: "/d365-customer-service/",
-    linkText: "Utforska kundservice",
+    linkText: "Utforska Service-vägen",
     image: selectorService,
     accent: "from-teal-500/90 to-emerald-600/90",
     glow: "rgba(20,184,166,0.35)",
     eyebrow: "Service",
   },
   {
-    icon: <Sparkles className="h-5 w-5 text-white" />,
-    title: "Förstå AI-möjligheterna i affärssystemet",
-    desc: "För er som vill bedöma var Copilot, agenter och AI faktiskt kan skapa nytta — och vad som krävs innan ni börjar.",
-    link: "/ai-oversikt/",
-    linkText: "Utforska AI",
+    icon: <HelpCircle className="h-5 w-5 text-white" />,
+    title: "Vi vet vad vi vill — vi behöver partner",
+    desc: "Hoppa över utvärderingen och få direkt en oberoende rekommendation på vilka partners som matchar er.",
+    link: "/kom-igang/",
+    linkText: "Starta partnermatchning",
     image: selectorGuidance,
     accent: "from-amber-500/90 to-orange-600/90",
     glow: "rgba(245,158,11,0.35)",
-    eyebrow: "AI",
+    eyebrow: "Partner",
   },
 ];
+
+const buyerPaths = [
+  {
+    step: "1",
+    title: "Orientera er",
+    desc: "Förstå skillnaden mellan applikationerna, vad Copilot gör, och hur Dynamics 365 ligger jämfört med alternativen.",
+    link: "/kunskapscenter/",
+    linkText: "Utforska kunskapscentret",
+    color: "from-sky-500 to-blue-600",
+  },
+  {
+    step: "2",
+    title: "Bygg er kravbild",
+    desc: "Gör en behovsanalys eller skapa en kravspecifikation. Få ett strukturerat underlag att ta in i partnerdialoger.",
+    link: "/behovsanalys/",
+    linkText: "Gör en behovsanalys",
+    color: "from-primary to-cyan-600",
+  },
+  {
+    step: "3",
+    title: "Välj rätt partner",
+    desc: "Få oberoende rekommendation på partners som matchar er bransch, storlek, geografi och valt produktområde.",
+    link: "/kom-igang/",
+    linkText: "Starta partnermatchning",
+    color: "from-[hsl(var(--cta-orange))] to-orange-600",
+  },
+];
+
 
 const whyItems = [
   "Jämför partners utifrån bransch och behov",
@@ -111,11 +139,12 @@ const whyItems = [
   "Anpassat för svenska företag och den svenska marknaden",
 ];
 
-const popularQuestions = [
-  { text: "Vad kostar Business Central?", link: "/business-central/" },
-  { text: "Hur väljer man rätt partner?", link: "/valj-partner/" },
-  { text: "CRM vs ERP — vad behöver vi?", link: "/erp/" },
-  { text: "Är vi redo för AI och Copilot?", link: "/copilot/" },
+const popularGuides = [
+  { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
+  { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valj-partner/", tag: "Partner" },
+  { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/business-central/", tag: "Kostnad" },
+  { text: "Hur lång tid tar en D365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
+  { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", link: "/ai-readiness/", tag: "AI" },
 ];
 
 const industryPills = [
@@ -260,7 +289,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Selector – Var börjar ert Dynamics 365-beslut? */}
+      {/* Situationspicker — Vad stämmer bäst på er? */}
       <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
         {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
@@ -269,18 +298,18 @@ const Index = () => {
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="text-center mb-10 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Var börjar ert Dynamics 365-beslut?</h2>
-            <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj område och få hjälp att förstå behov, alternativ, kravbild och vilken typ av partner som passar er situation.</p>
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Hitta er ingång</span>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Vad stämmer bäst på er just nu?</h2>
+            <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj situation — så guidar vi er till rätt verktyg, kunskap och partnerförslag utifrån var ni faktiskt befinner er.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {selectorCards.map((card) => (
+            {situationCards.map((card) => (
               <Link
                 key={card.title}
                 to={card.link}
                 className="group relative rounded-2xl overflow-hidden bg-card border border-border flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 shadow-md hover:shadow-2xl"
                 style={{ ['--card-glow' as string]: card.glow }}
               >
-                {/* Visual top section with image */}
                 <div className="relative h-32 overflow-hidden">
                   <img
                     src={card.image}
@@ -291,21 +320,16 @@ const Index = () => {
                     height={512}
                     className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
                   />
-                  {/* Color accent overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} mix-blend-multiply opacity-40 group-hover:opacity-30 transition-opacity duration-300`} />
-                  {/* Bottom fade into card — white */}
                   <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
-                  {/* Eyebrow chip */}
                   <div className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-white/90">
                     {card.eyebrow}
                   </div>
-                  {/* Icon badge */}
                   <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-card group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="flex flex-col flex-1 p-5 gap-2">
                   <h3 className="text-[15px] font-semibold text-foreground leading-tight">{card.title}</h3>
                   <p className="text-[13px] text-muted-foreground leading-relaxed flex-1">{card.desc}</p>
@@ -315,7 +339,6 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Hover glow */}
                 <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{ boxShadow: `0 0 60px -10px var(--card-glow)` }}
@@ -326,38 +349,110 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Tre vägar beroende på köpläge */}
+      <section className="py-14 sm:py-20 bg-secondary/30 border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Köpresan i tre steg</span>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar — beroende på var ni står</h2>
+            <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">De flesta D365-projekt går igenom samma faser. Identifiera er fas och börja där det gör mest nytta.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+            {buyerPaths.map((path, i) => (
+              <Link
+                key={path.step}
+                to={path.link}
+                className="group relative bg-card border border-border rounded-2xl p-6 sm:p-7 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+              >
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${path.color} flex items-center justify-center text-white text-lg font-bold shadow-md mb-4`}>
+                  {path.step}
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-tight">{path.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{path.desc}</p>
+                <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                  {path.linkText}
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </div>
+                {i < buyerPaths.length - 1 && (
+                  <div className="hidden md:block absolute top-1/2 -right-3 lg:-right-3.5 w-6 h-6 -translate-y-1/2 z-10 pointer-events-none">
+                    <div className="w-full h-full rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground">
+                      <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </div>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* Oberoende rådgivare + E-bok banner */}
-      <section className="px-4 sm:px-6 py-12 sm:py-16">
-        <div className="container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-8 lg:gap-12 items-center">
-          {/* Left: Thomas Laine */}
-          <div className="flex flex-col items-start">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
-              Oberoende vägledning från någon som kan Dynamics 365-marknaden
-            </h2>
-            <div className="flex items-start gap-4 mb-4">
-              <img
-                src={thomasLaine}
-                alt="Thomas Laine, oberoende rådgivare inom Microsoft Dynamics 365"
-                loading="lazy"
-                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shadow-lg flex-shrink-0"
-              />
-              <div className="pt-1">
-                <p className="font-semibold text-foreground text-lg">Thomas Laine</p>
-                <p className="text-sm text-muted-foreground leading-snug">
-                  Oberoende rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
-                </p>
+
+
+      {/* Förtroendesektion: Oberoende rådgivare + E-bok + 3 pillars */}
+      <section className="px-4 sm:px-6 py-12 sm:py-16 bg-white border-b border-border">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-8 lg:gap-12 items-center">
+            {/* Left: Thomas Laine */}
+            <div className="flex flex-col items-start">
+              <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Vem står bakom d365.se</span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
+                Oberoende vägledning från någon som kan Dynamics 365-marknaden
+              </h2>
+              <div className="flex items-start gap-4 mb-4">
+                <img
+                  src={thomasLaine}
+                  alt="Thomas Laine, oberoende rådgivare inom Microsoft Dynamics 365"
+                  loading="lazy"
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shadow-lg flex-shrink-0"
+                />
+                <div className="pt-1">
+                  <p className="font-semibold text-foreground text-lg">Thomas Laine</p>
+                  <p className="text-sm text-muted-foreground leading-snug">
+                    Oberoende rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
+                  </p>
+                </div>
               </div>
+              <p className="text-[15px] text-muted-foreground leading-relaxed">
+                Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
+              </p>
             </div>
-            <p className="text-[15px] text-muted-foreground leading-relaxed">
-              Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
-            </p>
+
+            {/* Right: E-bok banner */}
+            <Suspense fallback={null}>
+              <EbookBanner sourcePage="homepage" />
+            </Suspense>
           </div>
 
-          {/* Right: E-bok banner */}
-          <Suspense fallback={null}>
-            <EbookBanner sourcePage="homepage" />
-          </Suspense>
+          {/* Tre pillars: Vem / Oberoende / Metod */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12 pt-10 border-t border-border">
+            <div className="flex flex-col">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-3">
+                <Users className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-2">Drivs av oberoende rådgivare</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Bakom d365.se står Thomas Laine och Michael Uhman — båda med lång erfarenhet av Microsoft Dynamics 365, ERP- och CRM-projekt och det svenska partnerlandskapet.
+              </p>
+            </div>
+            <div className="flex flex-col">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-3">
+                <Shield className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-2">Så fungerar oberoendet</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Vi tar inget arvode för att rekommendera en specifik partner. Du som företagare betalar ingenting. Partners syns på samma villkor utifrån bransch, app, geografi och er situation.
+              </p>
+            </div>
+            <div className="flex flex-col">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-3">
+                <BarChart3 className="w-5 h-5" />
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-2">Så görs matchningen</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Bransch och produktområde väger tyngst, sedan storlek och geografi. Ni får alltid flera alternativ — aldrig bara ett "bästa val" — så att ni själva kan jämföra.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -554,16 +649,17 @@ const Index = () => {
               </ul>
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vanliga frågor just nu</h2>
-              <p className="text-sm text-muted-foreground mb-4">Det svenska företag frågar oss mest.</p>
+              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
+              <p className="text-sm text-muted-foreground mb-4">Frågorna svenska företag söker svar på.</p>
               <div className="flex flex-col gap-2">
-                {popularQuestions.map((q) => (
+                {popularGuides.map((g) => (
                   <Link
-                    key={q.text}
-                    to={q.link}
-                    className="group block bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
+                    key={g.text}
+                    to={g.link}
+                    className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
                   >
-                    {q.text} <span className="text-muted-foreground group-hover:text-primary ml-0.5 transition-colors">→</span>
+                    <span className="flex-1">{g.text}</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">{g.tag}</span>
                   </Link>
                 ))}
               </div>
@@ -572,21 +668,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Industry pills */}
-      <section className="py-10 sm:py-12 bg-card border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="flex items-baseline justify-between mb-5">
-            <h2 className="text-lg sm:text-xl font-semibold text-foreground">Välj din bransch</h2>
-            <Link to="/branschlosningar/" className="text-sm font-medium text-primary hover:underline">Se alla branscher →</Link>
+      {/* Branschvägar */}
+      <section className="py-12 sm:py-16 bg-card border-y border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+            <div>
+              <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Branschvägar</span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">Vägledning per bransch</h2>
+              <p className="text-sm text-muted-foreground mt-2 max-w-xl">Olika branscher har olika krav på Dynamics 365 — välj er och se relevant innehåll och partners.</p>
+            </div>
+            <Link to="/branschlosningar/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {industryPills.map((pill) => (
               <Link
                 key={pill}
                 to="/branschlosningar/"
-                className="px-4 py-2 rounded-full border border-border text-[13px] text-muted-foreground bg-card hover:border-primary/50 hover:text-primary hover:bg-primary/10 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
+                className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
               >
-                {pill}
+                <span className="text-[14px] font-medium text-foreground">{pill}</span>
+                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
               </Link>
             ))}
           </div>
