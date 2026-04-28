@@ -217,6 +217,28 @@ const heroSteps = [
 const Index = () => {
   const [showAnalysisMenu, setShowAnalysisMenu] = useState(false);
   const [kravspecOpen, setKravspecOpen] = useState(false);
+  const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
+  const directionOptions = {
+    behovsanalys: {
+      title: "Vilken behovsanalys vill ni göra?",
+      desc: "Välj område — så får ni rätt frågor och en rekommendation som faktiskt passar er situation.",
+      options: [
+        { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/behovsanalys/" },
+        { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights & Marketing", link: "/salj-marknad-behovsanalys/" },
+        { label: "Kundservice & Fältservice", sub: "Customer Service & Field Service", link: "/kundservice-behovsanalys/" },
+      ],
+    },
+    kravspec: {
+      title: "Vilken kravspec vill ni bygga?",
+      desc: "Välj område — så genererar vi ett underlag som matchar rätt Dynamics 365-applikation.",
+      options: [
+        { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/kravspecifikation/" },
+        { label: "Försäljning (Sales)", sub: "Dynamics 365 Sales", link: "/kravspecifikation-sales/" },
+        { label: "Marknadsföring", sub: "Customer Insights – Journeys", link: "/kravspecifikation-marketing/" },
+        { label: "Kundservice", sub: "Customer Service & Field Service", link: "/kravspecifikation-kundservice/" },
+      ],
+    },
+  } as const;
   return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
         title="Dynamics 365 Sverige – Priser, partners & behovsanalys | d365.se"
