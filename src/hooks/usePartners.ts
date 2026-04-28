@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 
 // Swedish regions for granular geography filtering
 export type SwedishRegion = 
@@ -235,13 +236,13 @@ export function useCreatePartner() {
   return useMutation({
     mutationFn: async ({ partner, token }: { partner: PartnerInput; token: string }) => {
       const mappedPartner = mapPartnerToDbFormat(partner);
-      const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "create", partner: mappedPartner, token },
+      const { data, error } = await invokeAdminEdgeWithRetry<any>("manage-partners", {
+        action: "create", partner: mappedPartner, token,
       });
 
       if (error) throw error;
-      if (data.error) throw new Error(data.error);
-      return data.partner;
+      if (data?.error) throw new Error(data.error);
+      return data?.partner;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["partners"] });
@@ -256,13 +257,13 @@ export function useUpdatePartner() {
   return useMutation({
     mutationFn: async ({ id, partner, token }: { id: string; partner: Partial<PartnerInput>; token: string }) => {
       const mappedPartner = mapPartnerToDbFormat(partner);
-      const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "update", id, partner: mappedPartner, token },
+      const { data, error } = await invokeAdminEdgeWithRetry<any>("manage-partners", {
+        action: "update", id, partner: mappedPartner, token,
       });
 
       if (error) throw error;
-      if (data.error) throw new Error(data.error);
-      return data.partner;
+      if (data?.error) throw new Error(data.error);
+      return data?.partner;
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["partners"] });
@@ -277,12 +278,12 @@ export function useDeletePartner() {
 
   return useMutation({
     mutationFn: async ({ id, token }: { id: string; token: string }) => {
-      const { data, error } = await supabase.functions.invoke("manage-partners", {
-        body: { action: "delete", id, token },
+      const { data, error } = await invokeAdminEdgeWithRetry<any>("manage-partners", {
+        action: "delete", id, token,
       });
 
       if (error) throw error;
-      if (data.error) throw new Error(data.error);
+      if (data?.error) throw new Error(data.error);
       return data;
     },
     onSuccess: () => {
