@@ -439,7 +439,41 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Situationspicker — Vad stämmer bäst på er? */}
+      </section>
+
+      {/* Direction picker dialog for Behovsanalys / Kravspec */}
+      <Dialog open={directionPicker !== null} onOpenChange={(open) => !open && setDirectionPicker(null)}>
+        <DialogContent className="sm:max-w-lg">
+          {directionPicker && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-xl sm:text-2xl">{directionOptions[directionPicker].title}</DialogTitle>
+                <DialogDescription className="text-sm leading-relaxed">
+                  {directionOptions[directionPicker].desc}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-2.5 mt-2">
+                {directionOptions[directionPicker].options.map((opt) => (
+                  <Link
+                    key={opt.link}
+                    to={opt.link}
+                    onClick={() => setDirectionPicker(null)}
+                    className="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-card hover:bg-primary/5 border border-border hover:border-primary/40 transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-[14.5px] font-semibold text-foreground">{opt.label}</span>
+                      <span className="text-[12.5px] text-muted-foreground">{opt.sub}</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+
       <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
         {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
