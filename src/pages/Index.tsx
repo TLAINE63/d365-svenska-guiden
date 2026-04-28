@@ -409,7 +409,7 @@ const Index = () => {
                 to={path.link}
                 className="group relative flex h-full min-h-[288px] flex-col items-start self-stretch bg-card border border-border rounded-2xl p-5 sm:p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
               >
-                <div className={`mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
+                <div className={`mb-4 ml-0 flex h-11 w-11 shrink-0 self-start items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
                   {path.step}
                 </div>
                 <h3 className="mb-3 min-h-[52px] w-full text-lg font-bold text-foreground leading-tight">{path.title}</h3>
