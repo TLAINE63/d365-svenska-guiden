@@ -152,7 +152,7 @@ const buyerPaths = [
   {
     step: "1",
     title: "Orientera er",
-    desc: "Förstå skillnaden mellan applikationerna, vad Copilot gör, och hur Dynamics 365 ligger jämfört med alternativen.",
+    desc: "Läs bloggartiklar, förstå skillnaden mellan Dynamics 365-applikationer, fördjupningar och få insikt i möjligheterna med AI, Copilot och agenter.",
     link: "/kunskapscenter/",
     linkText: "Utforska kunskapscentret",
     color: "bg-gradient-to-br from-sky-500 to-blue-600",
