@@ -151,7 +151,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Michael Uhman</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot</p>
+                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Oberoende rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut.</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
