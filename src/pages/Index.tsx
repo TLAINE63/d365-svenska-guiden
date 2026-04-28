@@ -428,9 +428,13 @@ const Index = () => {
                 <ArrowRight className="w-4 h-4 ml-1.5" />
               </Link>
             </Button>
-            <Link to="/behovsanalys/" className="text-sm font-semibold text-primary hover:underline underline-offset-4">
+            <button
+              type="button"
+              onClick={() => setDirectionPicker("behovsanalys")}
+              className="text-sm font-semibold text-primary hover:underline underline-offset-4"
+            >
               Eller hoppa direkt till behovsanalysen →
-            </Link>
+            </button>
           </div>
         </div>
       </section>
