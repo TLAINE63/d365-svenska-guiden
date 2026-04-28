@@ -165,14 +165,6 @@ const buyerPaths = [
     linkText: "Gör en behovsanalys",
     color: "bg-gradient-to-br from-primary to-cyan-600",
   },
-  {
-    step: "3",
-    title: "Välj rätt partner",
-    desc: "Få oberoende rekommendation på partners som matchar er bransch, storlek, geografi och valt produktområde.",
-    link: "/kom-igang/",
-    linkText: "Starta partnermatchning",
-    color: "bg-gradient-to-br from-orange-500 to-orange-600",
-  },
 ];
 
 
@@ -398,11 +390,11 @@ const Index = () => {
       <section className="py-14 sm:py-20 bg-secondary/30 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Köpresan i tre steg</span>
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar framåt — beroende på var ni befinner er idag</h2>
-            <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">De flesta D365-projekt går igenom samma faser. Identifiera er fas och börja där det gör mest nytta.</p>
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Köpresan i två steg</span>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Två vägar framåt — beroende på var ni befinner er idag</h2>
+            <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">Identifiera var ni står och börja där det gör mest nytta.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6 items-stretch max-w-4xl mx-auto">
             {buyerPaths.map((path, i) => (
               <Link
                 key={path.step}
