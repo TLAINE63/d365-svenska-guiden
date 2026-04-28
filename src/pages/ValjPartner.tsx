@@ -586,11 +586,28 @@ const ValjPartner = () => {
 
             <div className="text-center md:text-left flex-1">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
-                Vem är din mest lämpade Dynamics 365-partner?
+                Så hittar ni 2–4 relevanta partners att kontakta
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground">
-                Nedan följer ett urval av partners som arbetar med Microsoft Dynamics 365 i Sverige och som även har kontor på platserna som kartan visar. Ännu viktigare vid partnerval, är vilken kompetens partner besitter, dels inom respektive applikationsområde, men framförallt att de förstår din verksamhet - din bransch. Välj de applikationer som du är mest intresserad av, vilken bransch du tillhör, så filtreras listan på de Microsoftpartners som sannolikt passar dig bäst
+                Använd filtreringen nedan för att ta fram en första shortlist av Microsoft Dynamics 365-partners som arbetar i Sverige och som har kontor på platserna kartan visar. Tänk på att rätt partner handlar om mer än bara filter – kompetens inom applikationsområdet, branschförståelse, metodik, team och kemi väger minst lika tungt.
               </p>
+            </div>
+          </div>
+
+          {/* Advisory Box - How to use the matchmaking */}
+          <div className="mb-8 sm:mb-10 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-6 md:p-7 shadow-sm">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="shrink-0 p-2.5 rounded-xl bg-primary/10 text-primary">
+                <Target className="h-5 w-5" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">
+                  Så bör ni använda partnermatchningen
+                </h3>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                  Välj produktområde, bransch och ungefärlig storlek. Använd resultatet som en <span className="font-semibold text-foreground">första shortlist</span> – inte som ett facit. Ett bra val handlar både om erfarenhet, metodik, team, kemi och hur väl partnern förstår er verksamhet.
+                </p>
+              </div>
             </div>
           </div>
 
