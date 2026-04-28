@@ -407,14 +407,14 @@ const Index = () => {
               <Link
                 key={path.step}
                 to={path.link}
-                className="group relative grid h-[288px] grid-rows-[44px_52px_92px_24px] items-start gap-y-4 self-stretch bg-card border border-border rounded-2xl p-5 text-left sm:p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
+                className="group relative block h-[300px] overflow-hidden bg-card border border-border rounded-2xl text-left hover:border-primary/40 hover:shadow-xl transition-all duration-300"
               >
-                <div className={`flex h-11 w-11 items-center justify-center justify-self-start rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
+                <div className={`absolute left-5 top-5 sm:left-6 sm:top-6 flex h-11 w-11 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
                   {path.step}
                 </div>
-                <h3 className="w-full justify-self-start text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
-                <p className="w-full justify-self-start text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
-                <div className="inline-flex h-6 items-center justify-start justify-self-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                <h3 className="absolute left-5 right-5 top-[88px] sm:left-6 sm:right-6 sm:top-[92px] text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
+                <p className="absolute left-5 right-5 top-[146px] sm:left-6 sm:right-6 sm:top-[150px] text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
+                <div className="absolute left-5 bottom-5 sm:left-6 sm:bottom-6 inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
                   {path.linkText}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
