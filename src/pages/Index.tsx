@@ -260,7 +260,7 @@ const Index = () => {
                 <span className="block mt-3 sm:mt-4">Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.</span>
               </p>
               <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
-                Affärssystem · Sälj · Marknad · Kundservice
+                Affärssystem · Försäljning · Marknad · Kundservice
               </p>
               <div className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px] space-y-3">
                 <p>
