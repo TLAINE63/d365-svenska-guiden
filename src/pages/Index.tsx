@@ -165,6 +165,7 @@ const buyerSteps = [
     desc: "En kort, strukturerad genomgång där ni svarar på frågor om bolag, bransch, nuvarande system och ambition. Tar runt 10 minuter.",
     outcome: "En tydligare bild av vilken Dynamics 365-applikation som passar er situation.",
     link: "/behovsanalys/",
+    picker: "behovsanalys" as const,
   },
   {
     step: "03",
@@ -172,6 +173,7 @@ const buyerSteps = [
     desc: "Bygg ett underlag ni kan dela med partners. Vi gör det enkelt — inte ett 80-sidigt dokument utan det partners faktiskt behöver för att lämna ett seriöst förslag.",
     outcome: "En kravspec ni äger. Den fungerar även om ni stannar här.",
     link: "/kravspecifikation/",
+    picker: "kravspec" as const,
   },
   {
     step: "04",
