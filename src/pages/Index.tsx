@@ -768,51 +768,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Compare section */}
-      <section className="py-10 sm:py-12 bg-secondary/30">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Dynamics 365 vs alternativa system</h2>
-          <p className="text-sm text-muted-foreground mb-6">Hur står sig Dynamics 365 mot de vanligaste alternativen på den svenska marknaden?</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {/* ERP compare */}
-            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <div className="text-[15px] font-semibold text-foreground">Business Central (ERP)</div>
-                  <div className="text-xs text-muted-foreground mt-0.5">vs Fortnox, Visma, Monitor — och SAP</div>
-                </div>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 765 kr/mån</span>
-              </div>
-              <div className="h-px bg-border my-3" />
-              <ul className="space-y-1.5">
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Bättre skalbarhet än Fortnox för växande bolag</li>
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Djupare Microsoft 365-integration (Teams, Excel, Outlook)</li>
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Inbyggd AI via Microsoft Copilot utan extra kostnad</li>
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre TCO än SAP för medelstora nordiska bolag</li>
-              </ul>
-              <Link to="/erp/" className="inline-block mt-3 text-[13px] font-medium text-primary hover:underline">Jämför ERP-alternativ →</Link>
-            </div>
-            {/* CRM compare */}
-            <div className="bg-card border border-border rounded-[10px] p-5 sm:p-6 hover:border-primary/40 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <div className="text-[15px] font-semibold text-foreground">D365 Sales & Customer Service</div>
-                  <div className="text-xs text-muted-foreground mt-0.5">vs Salesforce, HubSpot</div>
-                </div>
-                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-[hsl(var(--success))]/10 text-[hsl(var(--success))] whitespace-nowrap">från 478 kr/mån</span>
-              </div>
-              <div className="h-px bg-border my-3" />
-              <ul className="space-y-1.5">
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Samma ekosystem som Office 365 och Teams</li>
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Copilot AI inbyggt i hela säljprocessen</li>
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Kombinera CRM och kundservice i ett system</li>
-                <li className="text-[13px] text-muted-foreground flex items-baseline gap-2"><span className="text-primary font-semibold text-[11px]">✓</span>Lägre totalkostnad med befintlig Microsoft-infrastruktur</li>
-              </ul>
-              <Link to="/crm/" className="inline-block mt-3 text-[13px] font-medium text-primary hover:underline">Jämför CRM-alternativ →</Link>
-            </div>
-          </div>
-        </div>
-      </section>
 
 
 
