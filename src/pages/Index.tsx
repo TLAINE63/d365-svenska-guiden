@@ -407,14 +407,14 @@ const Index = () => {
               <Link
                 key={path.step}
                 to={path.link}
-                className="group relative flex h-full min-h-[288px] flex-col items-start self-stretch bg-card border border-border rounded-2xl p-5 sm:p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
+                className="group relative flex h-full min-h-[288px] flex-col items-start justify-start self-stretch bg-card border border-border rounded-2xl p-5 text-left sm:p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
               >
-                <div className={`mb-4 ml-0 flex h-11 w-11 shrink-0 self-start items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
+                <div className={`mb-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
                   {path.step}
                 </div>
-                <h3 className="mb-3 min-h-[52px] w-full text-lg font-bold text-foreground leading-tight">{path.title}</h3>
-                <p className="mb-4 min-h-[92px] w-full text-sm text-muted-foreground leading-relaxed">{path.desc}</p>
-                <div className="mt-auto inline-flex h-6 items-center self-start gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                <h3 className="mb-3 min-h-[52px] w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
+                <p className="mb-4 min-h-[92px] w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
+                <div className="mt-auto inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
                   {path.linkText}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
