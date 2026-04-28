@@ -257,7 +257,7 @@ const Index = () => {
             <div>
               <p className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-4">
                 Det här beslutet följer er i tio år.<br className="hidden sm:block" />
-                Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.
+                <span className="block mt-3 sm:mt-4">Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.</span>
               </p>
               <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
                 Affärssystem · Sälj · Marknad · Kundservice
