@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
 import Navbar from "@/components/Navbar";
 import RequirementsDisclaimer from "@/components/RequirementsDisclaimer";
@@ -43,10 +44,13 @@ const areaOptions = [
 
 const RequirementsSpec = () => {
   const { toast } = useToast();
-  const [step, setStep] = useState(1);
+  const location = useLocation();
+  const prefilledIndustry = (location.state as { industry?: string } | null)?.industry;
+  const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
+  const [step, setStep] = useState(isValidPrefill ? 2 : 1);
   const totalSteps = 4;
 
-  const [industry, setIndustry] = useState<string>("");
+  const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>("");
   const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
 
