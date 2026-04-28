@@ -47,7 +47,7 @@ const ContactUs = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Innan du bestämmer dig
+                Oberoende vägledning från personer som kan Dynamics 365 på riktigt
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95">
                 Låt oss guida dig i valet av Dynamics 365 lösning och implementationspartner
@@ -61,6 +61,19 @@ const ContactUs = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
+            {/* Intro */}
+            <div className="mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto text-center space-y-4">
+              <p className="text-lg text-foreground font-medium">
+                Ett Dynamics 365-val avgörs sällan av funktioner ensam.
+              </p>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                Det avgörs av rätt vägval, rätt omfattning och rätt partner — utifrån er verksamhet, er komplexitet och det ansvar ni själva vill ta över tid.
+              </p>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                d365.se bygger på lång erfarenhet av Microsofts affärsapplikationer, partnerlandskapet och hur svenska företag faktiskt väljer, upphandlar och utvecklar ERP- och CRM-lösningar.
+              </p>
+            </div>
+
             {/* Contact Persons Section */}
             <div className="mb-8 sm:mb-10 md:mb-12">
               <div className="grid lg:grid-cols-2 gap-6">
@@ -77,7 +90,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Thomas Laine</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot</p>
+                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Oberoende rådgivare med lång erfarenhet av Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
@@ -138,7 +151,7 @@ const ContactUs = () => {
                     
                     <div className="flex-grow">
                       <h3 className="text-xl font-bold text-card-foreground mb-1">Michael Uhman</h3>
-                      <p className="text-sm text-muted-foreground mb-4">Senior Rådgivare inom Microsoft affärslösningar Dynamics 365, Power Platform och Copilot</p>
+                      <p className="text-sm text-muted-foreground mb-4">Medgrundare, d365.se<br />Oberoende rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut.</p>
                       
                       <div className="space-y-2">
                         <div className="flex items-center justify-center gap-2">
