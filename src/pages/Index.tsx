@@ -348,6 +348,52 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Så här arbetar vi — fyra steg */}
+      <section className="py-12 sm:py-16 bg-secondary/30 border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="mb-10 sm:mb-12 max-w-3xl">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Så här arbetar vi</span>
+            <h2 className="text-3xl sm:text-4xl md:text-[42px] font-semibold text-foreground tracking-tight mb-4 leading-[1.1]">Fyra steg fram till rätt partner.</h2>
+            <p className="text-base sm:text-lg text-muted-foreground font-light leading-relaxed">
+              Vi är en förmedlingstjänst, inte ett konsultbolag. Vårt jobb är att hjälpa er ställa rätt frågor och hitta partners som faktiskt matchar — inte att ta över ert projekt. Allt vi erbjuder besökaren är kostnadsfritt.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            {buyerSteps.map((s) => (
+              <Link
+                key={s.step}
+                to={s.link}
+                className="group flex flex-col rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
+              >
+                <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
+                <div className="mt-auto pt-4 border-t border-border">
+                  <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
+                  <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <Button
+              asChild
+              className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5 transition-all"
+            >
+              <Link to="/kunskapscenter/">
+                Starta i steg 1 — orientering
+                <ArrowRight className="w-4 h-4 ml-1.5" />
+              </Link>
+            </Button>
+            <Link to="/behovsanalys/" className="text-sm font-semibold text-primary hover:underline underline-offset-4">
+              Eller hoppa direkt till behovsanalysen →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Situationspicker — Vad stämmer bäst på er? */}
       <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
         {/* Subtle ambient background */}
@@ -410,52 +456,6 @@ const Index = () => {
               </Link>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      {/* Så här arbetar vi — fyra steg */}
-      <section className="py-12 sm:py-16 bg-secondary/30 border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-          <div className="mb-10 sm:mb-12 max-w-3xl">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Så här arbetar vi</span>
-            <h2 className="text-3xl sm:text-4xl md:text-[42px] font-semibold text-foreground tracking-tight mb-4 leading-[1.1]">Fyra steg fram till rätt partner.</h2>
-            <p className="text-base sm:text-lg text-muted-foreground font-light leading-relaxed">
-              Vi är en förmedlingstjänst, inte ett konsultbolag. Vårt jobb är att hjälpa er ställa rätt frågor och hitta partners som faktiskt matchar — inte att ta över ert projekt. Allt vi erbjuder besökaren är kostnadsfritt.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {buyerSteps.map((s) => (
-              <Link
-                key={s.step}
-                to={s.link}
-                className="group flex flex-col rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
-              >
-                <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
-                <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
-                <div className="mt-auto pt-4 border-t border-border">
-                  <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
-                  <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <Button
-              asChild
-              className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5 transition-all"
-            >
-              <Link to="/kunskapscenter/">
-                Starta i steg 1 — orientering
-                <ArrowRight className="w-4 h-4 ml-1.5" />
-              </Link>
-            </Button>
-            <Link to="/behovsanalys/" className="text-sm font-semibold text-primary hover:underline underline-offset-4">
-              Eller hoppa direkt till behovsanalysen →
-            </Link>
           </div>
         </div>
       </section>
