@@ -415,7 +415,7 @@ const Index = () => {
                   >
                     <h3 className="mb-2 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
                     <p className="mb-3 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
-                    <div className="mt-auto inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                    <div className="mt-1 inline-flex h-6 self-start items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
                       {path.linkText}
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                     </div>
@@ -423,9 +423,9 @@ const Index = () => {
                 </div>
                 {index < buyerPaths.length - 1 && (
                   <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 py-2" aria-hidden="true">
-                    <div className="flex w-12 justify-center sm:w-14">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md">
-                        <ChevronDown className="h-6 w-6 stroke-[3]" />
+                    <div className="flex h-8 w-12 items-center justify-center sm:w-14">
+                      <div className="flex h-8 w-6 items-center justify-center rounded-full border border-primary/25 bg-primary/10 text-primary shadow-sm">
+                        <ChevronDown className="h-5 w-5 stroke-[3]" />
                       </div>
                     </div>
                   </div>
