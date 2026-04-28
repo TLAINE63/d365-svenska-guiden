@@ -15,6 +15,7 @@ import selectorService from "@/assets/selector/service.jpg";
 const DEFAULT_CARD_IMAGE = selectorService;
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 import michaelUhman from "@/assets/michael-uhman.jpg";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
 const AccordionItem = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionItem })));
@@ -164,6 +165,7 @@ const buyerSteps = [
     desc: "En kort, strukturerad genomgång där ni svarar på frågor om bolag, bransch, nuvarande system och ambition. Tar runt 10 minuter.",
     outcome: "En tydligare bild av vilken Dynamics 365-applikation som passar er situation.",
     link: "/behovsanalys/",
+    picker: "behovsanalys" as const,
   },
   {
     step: "03",
@@ -171,6 +173,7 @@ const buyerSteps = [
     desc: "Bygg ett underlag ni kan dela med partners. Vi gör det enkelt — inte ett 80-sidigt dokument utan det partners faktiskt behöver för att lämna ett seriöst förslag.",
     outcome: "En kravspec ni äger. Den fungerar även om ni stannar här.",
     link: "/kravspecifikation/",
+    picker: "kravspec" as const,
   },
   {
     step: "04",
@@ -214,6 +217,28 @@ const heroSteps = [
 const Index = () => {
   const [showAnalysisMenu, setShowAnalysisMenu] = useState(false);
   const [kravspecOpen, setKravspecOpen] = useState(false);
+  const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
+  const directionOptions = {
+    behovsanalys: {
+      title: "Vilken behovsanalys vill ni göra?",
+      desc: "Välj område — så får ni rätt frågor och en rekommendation som faktiskt passar er situation.",
+      options: [
+        { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/behovsanalys/" },
+        { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights & Marketing", link: "/salj-marknad-behovsanalys/" },
+        { label: "Kundservice & Fältservice", sub: "Customer Service & Field Service", link: "/kundservice-behovsanalys/" },
+      ],
+    },
+    kravspec: {
+      title: "Vilken kravspec vill ni bygga?",
+      desc: "Välj område — så genererar vi ett underlag som matchar rätt Dynamics 365-applikation.",
+      options: [
+        { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/kravspecifikation/" },
+        { label: "Försäljning (Sales)", sub: "Dynamics 365 Sales", link: "/kravspecifikation-sales/" },
+        { label: "Marknadsföring", sub: "Customer Insights – Journeys", link: "/kravspecifikation-marketing/" },
+        { label: "Kundservice", sub: "Customer Service & Field Service", link: "/kravspecifikation-kundservice/" },
+      ],
+    },
+  } as const;
   return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
         title="Dynamics 365 Sverige – Priser, partners & behovsanalys | d365.se"
@@ -360,21 +385,37 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {buyerSteps.map((s) => (
-              <Link
-                key={s.step}
-                to={s.link}
-                className="group flex flex-col rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
-              >
-                <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
-                <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
-                <div className="mt-auto pt-4 border-t border-border">
-                  <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
-                  <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
-                </div>
-              </Link>
-            ))}
+            {buyerSteps.map((s) => {
+              const cardClass = "group flex flex-col text-left rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl";
+              const inner = (
+                <>
+                  <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
+                  <div className="mt-auto pt-4 border-t border-border">
+                    <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
+                    <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
+                  </div>
+                </>
+              );
+              if (s.picker) {
+                return (
+                  <button
+                    key={s.step}
+                    type="button"
+                    onClick={() => setDirectionPicker(s.picker!)}
+                    className={cardClass}
+                  >
+                    {inner}
+                  </button>
+                );
+              }
+              return (
+                <Link key={s.step} to={s.link} className={cardClass}>
+                  {inner}
+                </Link>
+              );
+            })}
           </div>
 
           <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -387,14 +428,50 @@ const Index = () => {
                 <ArrowRight className="w-4 h-4 ml-1.5" />
               </Link>
             </Button>
-            <Link to="/behovsanalys/" className="text-sm font-semibold text-primary hover:underline underline-offset-4">
+            <button
+              type="button"
+              onClick={() => setDirectionPicker("behovsanalys")}
+              className="text-sm font-semibold text-primary hover:underline underline-offset-4"
+            >
               Eller hoppa direkt till behovsanalysen →
-            </Link>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Situationspicker — Vad stämmer bäst på er? */}
+      {/* Direction picker dialog for Behovsanalys / Kravspec */}
+      <Dialog open={directionPicker !== null} onOpenChange={(open) => !open && setDirectionPicker(null)}>
+        <DialogContent className="sm:max-w-lg">
+          {directionPicker && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-xl sm:text-2xl">{directionOptions[directionPicker].title}</DialogTitle>
+                <DialogDescription className="text-sm leading-relaxed">
+                  {directionOptions[directionPicker].desc}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-2.5 mt-2">
+                {directionOptions[directionPicker].options.map((opt) => (
+                  <Link
+                    key={opt.link}
+                    to={opt.link}
+                    onClick={() => setDirectionPicker(null)}
+                    className="group flex items-center justify-between gap-3 px-4 py-3.5 rounded-xl bg-card hover:bg-primary/5 border border-border hover:border-primary/40 transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-[14.5px] font-semibold text-foreground">{opt.label}</span>
+                      <span className="text-[12.5px] text-muted-foreground">{opt.sub}</span>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+
       <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
         {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
