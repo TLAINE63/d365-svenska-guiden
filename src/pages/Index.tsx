@@ -256,11 +256,14 @@ const Index = () => {
             {/* Left column */}
             <div>
               <p className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-4">
-                Hitta rätt lösning —<br className="hidden sm:block" />
-                och <em className="not-italic text-[hsl(180_75%_65%)] font-normal">rätt partner</em>
+                Det här beslutet följer er i tio år.<br className="hidden sm:block" />
+                Vi hjälper er välja <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.
               </p>
-              <p className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[480px]">
-                Förstå skillnaden mellan Dynamics 365-lösningarna, skapa en tydligare kravbild och hitta partners som matchar er verksamhet. Oberoende, konkret och kostnadsfritt.
+              <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
+                Affärssystem · Sälj · Marknad · Kundservice
+              </p>
+              <p className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px]">
+                Oavsett om ni utvärderar affärssystem, CRM eller kundservice — det största hotet är inte fel funktion. Det är fel partner. Vi är inte konsulter. Vi säljer ingenting. Vi strukturerar valet, jämför partners objektivt — och gör beslutet hållbart inför styrelse och organisation.
               </p>
               <div className="mb-4 flex flex-col sm:flex-row gap-3">
                 <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
