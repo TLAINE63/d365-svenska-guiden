@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
-import selectorPartnerMatch from "@/assets/selector/partner-match.svg";
+import selectorPartnerMatch from "@/assets/selector/partner-match.jpg";
 import thomasLaine from "@/assets/thomas-laine.jpeg";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
