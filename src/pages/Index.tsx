@@ -373,13 +373,6 @@ const Index = () => {
                   {path.linkText}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
-                {i < buyerPaths.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 lg:-right-3.5 w-6 h-6 -translate-y-1/2 z-10 pointer-events-none">
-                    <div className="w-full h-full rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground">
-                      <ArrowRight className="w-3 h-3" />
-                    </div>
-                  </div>
-                )}
               </Link>
             ))}
           </div>
