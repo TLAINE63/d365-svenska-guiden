@@ -288,7 +288,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Selector – Var börjar ert Dynamics 365-beslut? */}
+      {/* Situationspicker — Vad stämmer bäst på er? */}
       <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
         {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
@@ -297,18 +297,18 @@ const Index = () => {
         </div>
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
           <div className="text-center mb-10 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Var börjar ert Dynamics 365-beslut?</h2>
-            <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj område och få hjälp att förstå behov, alternativ, kravbild och vilken typ av partner som passar er situation.</p>
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Hitta er ingång</span>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Vad stämmer bäst på er just nu?</h2>
+            <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj situation — så guidar vi er till rätt verktyg, kunskap och partnerförslag utifrån var ni faktiskt befinner er.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {selectorCards.map((card) => (
+            {situationCards.map((card) => (
               <Link
                 key={card.title}
                 to={card.link}
                 className="group relative rounded-2xl overflow-hidden bg-card border border-border flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 shadow-md hover:shadow-2xl"
                 style={{ ['--card-glow' as string]: card.glow }}
               >
-                {/* Visual top section with image */}
                 <div className="relative h-32 overflow-hidden">
                   <img
                     src={card.image}
@@ -319,21 +319,16 @@ const Index = () => {
                     height={512}
                     className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
                   />
-                  {/* Color accent overlay */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${card.accent} mix-blend-multiply opacity-40 group-hover:opacity-30 transition-opacity duration-300`} />
-                  {/* Bottom fade into card — white */}
                   <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
-                  {/* Eyebrow chip */}
                   <div className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-white/90">
                     {card.eyebrow}
                   </div>
-                  {/* Icon badge */}
                   <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-card group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="flex flex-col flex-1 p-5 gap-2">
                   <h3 className="text-[15px] font-semibold text-foreground leading-tight">{card.title}</h3>
                   <p className="text-[13px] text-muted-foreground leading-relaxed flex-1">{card.desc}</p>
@@ -343,7 +338,6 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* Hover glow */}
                 <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{ boxShadow: `0 0 60px -10px var(--card-glow)` }}
@@ -353,6 +347,44 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Tre vägar beroende på köpläge */}
+      <section className="py-14 sm:py-20 bg-secondary/30 border-b border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="text-center mb-10 sm:mb-12 max-w-2xl mx-auto">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Köpresan i tre steg</span>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar — beroende på var ni står</h2>
+            <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">De flesta D365-projekt går igenom samma faser. Identifiera er fas och börja där det gör mest nytta.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+            {buyerPaths.map((path, i) => (
+              <Link
+                key={path.step}
+                to={path.link}
+                className="group relative bg-card border border-border rounded-2xl p-6 sm:p-7 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+              >
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${path.color} flex items-center justify-center text-white text-lg font-bold shadow-md mb-4`}>
+                  {path.step}
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-tight">{path.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{path.desc}</p>
+                <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                  {path.linkText}
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </div>
+                {i < buyerPaths.length - 1 && (
+                  <div className="hidden md:block absolute top-1/2 -right-3 lg:-right-3.5 w-6 h-6 -translate-y-1/2 z-10 pointer-events-none">
+                    <div className="w-full h-full rounded-full bg-card border border-border flex items-center justify-center text-muted-foreground">
+                      <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </div>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
 
       {/* Oberoende rådgivare + E-bok banner */}
