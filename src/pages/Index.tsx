@@ -184,7 +184,7 @@ const Index = () => {
                 och <em className="not-italic text-[hsl(180_75%_65%)] font-normal">rätt partner</em>
               </p>
               <p className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[480px]">
-                Jämför ERP- och CRM-system utifrån din verksamhet. Opartiskt, konkret och anpassat för svenska företag — helt gratis.
+                Förstå skillnaden mellan Dynamics 365-lösningarna, skapa en tydligare kravbild och hitta partners som matchar er verksamhet. Oberoende, konkret och kostnadsfritt.
               </p>
               <div className="mb-4">
                 <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto sm:min-w-[320px] justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
