@@ -357,21 +357,23 @@ const Index = () => {
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar — beroende på var ni står</h2>
             <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">De flesta D365-projekt går igenom samma faser. Identifiera er fas och börja där det gör mest nytta.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-stretch">
             {buyerPaths.map((path, i) => (
               <Link
                 key={path.step}
                 to={path.link}
-                className="group relative bg-card border border-border rounded-2xl p-6 sm:p-7 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                className="group relative block h-full min-h-[260px] bg-card border border-border rounded-2xl p-6 sm:p-7 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className={`w-12 h-12 rounded-xl ${path.color} flex items-center justify-center text-white text-lg font-bold shadow-md mb-4`}>
-                  {path.step}
-                </div>
-                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-tight">{path.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{path.desc}</p>
-                <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
-                  {path.linkText}
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                <div className="flex h-full flex-col items-start">
+                  <div className={`w-12 h-12 rounded-xl ${path.color} flex items-center justify-center text-white text-lg font-bold shadow-md mb-4 flex-shrink-0`}>
+                    {path.step}
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-tight">{path.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">{path.desc}</p>
+                  <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary group-hover:gap-2.5 transition-all mt-auto">
+                    {path.linkText}
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                  </div>
                 </div>
               </Link>
             ))}
