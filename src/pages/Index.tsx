@@ -302,15 +302,15 @@ const Index = () => {
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Vad stämmer bäst på er just nu?</h2>
             <p className="text-sm sm:text-base text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">Välj situation — så guidar vi er till rätt verktyg, kunskap och partnerförslag utifrån var ni faktiskt befinner er.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
             {situationCards.map((card) => (
               <Link
                 key={card.title}
                 to={card.link}
-                className="group relative h-full min-h-[368px] rounded-2xl overflow-hidden bg-card border border-border flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 shadow-md hover:shadow-2xl"
+                className="group relative h-full min-h-[300px] rounded-2xl overflow-hidden bg-card border border-border flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 shadow-md hover:shadow-2xl"
                 style={{ ['--card-glow' as string]: card.glow }}
               >
-                <div className="relative h-32 min-h-32 overflow-hidden flex-shrink-0">
+                <div className="relative h-24 min-h-24 overflow-hidden flex-shrink-0">
                   <img
                     src={card.image}
                     alt=""
@@ -325,14 +325,14 @@ const Index = () => {
                   <div className="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 text-[10px] font-semibold uppercase tracking-wider text-white/90">
                     {card.eyebrow}
                   </div>
-                  <div className={`absolute bottom-3 left-5 w-12 h-12 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-card group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`absolute bottom-3 left-4 w-10 h-10 rounded-xl bg-gradient-to-br ${card.accent} flex items-center justify-center shadow-lg ring-2 ring-card group-hover:scale-110 transition-transform duration-300`}>
                     {card.icon}
                   </div>
                 </div>
 
-                <div className="flex min-h-0 flex-1 flex-col p-5 gap-2">
-                  <h3 className="text-[15px] font-semibold text-foreground leading-tight">{card.title}</h3>
-                  <p className="text-[13px] text-muted-foreground leading-relaxed flex-1">{card.desc}</p>
+                <div className="flex min-h-0 flex-1 flex-col p-4 gap-2">
+                  <h3 className="text-[14px] font-semibold text-foreground leading-tight">{card.title}</h3>
+                  <p className="text-[12.5px] text-muted-foreground leading-relaxed flex-1">{card.desc}</p>
                   <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary mt-auto pt-2 group-hover:gap-2.5 transition-all">
                     {card.linkText}
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
