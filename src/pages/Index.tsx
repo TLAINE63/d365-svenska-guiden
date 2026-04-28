@@ -107,7 +107,6 @@ const whyItems = [
   "Realistisk bild av kostnad och implementationstid",
   "Undvik vanliga misstag i ERP- och CRM-projekt",
   "Kostnadsfria behovsanalyser för ERP, CRM och kundservice",
-  "Opartisk guide — vi tar inte betalt av partners",
   "Anpassat för svenska företag och den svenska marknaden",
 ];
 
