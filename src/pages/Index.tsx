@@ -265,12 +265,9 @@ const Index = () => {
               <p className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px]">
                 Oavsett om ni utvärderar affärssystem, CRM eller kundservice — det största hotet är inte fel funktion. Det är fel partner. Vi är inte konsulter. Vi säljer ingenting. Vi strukturerar valet, jämför partners objektivt — och gör beslutet hållbart inför styrelse och organisation.
               </p>
-              <div className="mb-4 flex flex-col sm:flex-row gap-3">
+              <div className="mb-4">
                 <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
                   <Link to="/valj-partner/">Hitta rätt Dynamics 365-partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="bg-white/5 text-white border-white/30 hover:bg-white/15 hover:text-white text-base h-14 sm:h-16 px-6 rounded-xl font-semibold w-full sm:w-auto justify-center">
-                  <Link to="/behovsanalys">Gör en behovsanalys först</Link>
                 </Button>
               </div>
               <p className="text-xs sm:text-[13px] text-white/60 leading-relaxed max-w-[520px]">
