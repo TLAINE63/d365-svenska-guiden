@@ -235,7 +235,7 @@ const Index = () => {
         { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/kravspecifikation/" },
         { label: "Försäljning (Sales)", sub: "Dynamics 365 Sales", link: "/kravspecifikation-sales/" },
         { label: "Marknadsföring", sub: "Customer Insights – Journeys", link: "/kravspecifikation-marketing/" },
-        { label: "Kundservice", sub: "Customer Service & Field Service", link: "/kravspecifikation-kundservice/" },
+        { label: "Kundservice", sub: "Customer Service, Field Service & Contact Center", link: "/kravspecifikation-kundservice/" },
       ],
     },
   } as const;
