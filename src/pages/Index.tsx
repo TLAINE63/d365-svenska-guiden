@@ -81,8 +81,8 @@ const situationCards = [
   },
   {
     icon: <Phone className="h-5 w-5 text-white" />,
-    title: "Vi vill förbättra kundservice",
-    desc: "Förbättra ärendehantering, fältservice eller contact center med Dynamics 365 Customer Service.",
+    title: "Vi vill skapa en bättre kundupplevelse",
+    desc: "Förbättra kundservice, fältservice eller skapa ett omfattande Contact Center med hjälp av Dynamics 365",
     link: "/d365-customer-service/",
     linkText: "Utforska Service-vägen",
     image: selectorService,
