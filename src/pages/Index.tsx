@@ -110,7 +110,7 @@ const buyerPaths = [
     desc: "Förstå skillnaden mellan applikationerna, vad Copilot gör, och hur Dynamics 365 ligger jämfört med alternativen.",
     link: "/kunskapscenter/",
     linkText: "Utforska kunskapscentret",
-    color: "from-sky-500 to-blue-600",
+    color: "bg-gradient-to-br from-sky-500 to-blue-600",
   },
   {
     step: "2",
@@ -118,7 +118,7 @@ const buyerPaths = [
     desc: "Gör en behovsanalys eller skapa en kravspecifikation. Få ett strukturerat underlag att ta in i partnerdialoger.",
     link: "/behovsanalys/",
     linkText: "Gör en behovsanalys",
-    color: "from-primary to-cyan-600",
+    color: "bg-gradient-to-br from-primary to-cyan-600",
   },
   {
     step: "3",
@@ -126,7 +126,7 @@ const buyerPaths = [
     desc: "Få oberoende rekommendation på partners som matchar er bransch, storlek, geografi och valt produktområde.",
     link: "/kom-igang/",
     linkText: "Starta partnermatchning",
-    color: "from-[hsl(var(--cta-orange))] to-orange-600",
+    color: "bg-gradient-to-br from-orange-500 to-orange-600",
   },
 ];
 
@@ -364,7 +364,7 @@ const Index = () => {
                 to={path.link}
                 className="group relative bg-card border border-border rounded-2xl p-6 sm:p-7 hover:border-primary/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
               >
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${path.color} flex items-center justify-center text-white text-lg font-bold shadow-md mb-4`}>
+                <div className={`w-12 h-12 rounded-xl ${path.color} flex items-center justify-center text-white text-lg font-bold shadow-md mb-4`}>
                   {path.step}
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 leading-tight">{path.title}</h3>
