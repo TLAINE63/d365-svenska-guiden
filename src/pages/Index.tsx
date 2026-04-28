@@ -11,6 +11,7 @@ import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
 import selectorGuidance from "@/assets/selector/guidance.jpg";
+import thomasLaine from "@/assets/thomas-laine.jpeg";
 const Accordion = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.Accordion })));
 const AccordionContent = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionContent })));
 const AccordionItem = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionItem })));
@@ -326,10 +327,39 @@ const Index = () => {
       </section>
 
 
-      {/* E-bok banner */}
-      <Suspense fallback={null}>
-        <EbookBanner sourcePage="homepage" />
-      </Suspense>
+      {/* Oberoende rådgivare + E-bok banner */}
+      <section className="px-4 sm:px-6 py-12 sm:py-16">
+        <div className="container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-8 lg:gap-12 items-center">
+          {/* Left: Thomas Laine */}
+          <div className="flex flex-col items-start">
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
+              Oberoende vägledning från någon som kan Dynamics 365-marknaden
+            </h2>
+            <div className="flex items-start gap-4 mb-4">
+              <img
+                src={thomasLaine}
+                alt="Thomas Laine, oberoende rådgivare inom Microsoft Dynamics 365"
+                loading="lazy"
+                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shadow-lg flex-shrink-0"
+              />
+              <div className="pt-1">
+                <p className="font-semibold text-foreground text-lg">Thomas Laine</p>
+                <p className="text-sm text-muted-foreground leading-snug">
+                  Oberoende rådgivare inom Microsoft Dynamics 365, ERP, CRM och partnerlandskapet.
+                </p>
+              </div>
+            </div>
+            <p className="text-[15px] text-muted-foreground leading-relaxed">
+              Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
+            </p>
+          </div>
+
+          {/* Right: E-bok banner */}
+          <Suspense fallback={null}>
+            <EbookBanner sourcePage="homepage" />
+          </Suspense>
+        </div>
+      </section>
 
       {/* Dual CTA Banners — differentiated: dark/match vs light/document */}
       <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 bg-secondary/30">
