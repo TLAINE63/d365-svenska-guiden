@@ -97,7 +97,7 @@ const situationCards = [
     link: "/kom-igang/",
     linkText: "Starta partnermatchning",
     image: selectorPartnerMatch,
-    accent: "from-orange-500/90 to-teal-700/90",
+    accent: "from-orange-500 to-teal-600",
     glow: "hsl(var(--cta-orange) / 0.35)",
     eyebrow: "Partner",
   },
