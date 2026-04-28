@@ -139,11 +139,12 @@ const whyItems = [
   "Anpassat för svenska företag och den svenska marknaden",
 ];
 
-const popularQuestions = [
-  { text: "Vad kostar Business Central?", link: "/business-central/" },
-  { text: "Hur väljer man rätt partner?", link: "/valj-partner/" },
-  { text: "CRM vs ERP — vad behöver vi?", link: "/erp/" },
-  { text: "Är vi redo för AI och Copilot?", link: "/copilot/" },
+const popularGuides = [
+  { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
+  { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valj-partner/", tag: "Partner" },
+  { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/business-central/", tag: "Kostnad" },
+  { text: "Hur lång tid tar en D365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
+  { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", link: "/ai-readiness/", tag: "AI" },
 ];
 
 const industryPills = [
