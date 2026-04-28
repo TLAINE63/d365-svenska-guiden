@@ -77,7 +77,7 @@ const situationCards = [
     image: selectorCrm,
     accent: "from-pink-500/90 to-rose-600/90",
     glow: "rgba(236,72,153,0.35)",
-    eyebrow: "Sälj",
+    eyebrow: "Försäljning",
   },
   {
     icon: <BarChart3 className="h-5 w-5 text-white" />,
