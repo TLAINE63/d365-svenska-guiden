@@ -666,21 +666,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Industry pills */}
-      <section className="py-10 sm:py-12 bg-card border-y border-border">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="flex items-baseline justify-between mb-5">
-            <h2 className="text-lg sm:text-xl font-semibold text-foreground">Välj din bransch</h2>
-            <Link to="/branschlosningar/" className="text-sm font-medium text-primary hover:underline">Se alla branscher →</Link>
+      {/* Branschvägar */}
+      <section className="py-12 sm:py-16 bg-card border-y border-border">
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+            <div>
+              <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Branschvägar</span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">Vägledning per bransch</h2>
+              <p className="text-sm text-muted-foreground mt-2 max-w-xl">Olika branscher har olika krav på Dynamics 365 — välj er och se relevant innehåll och partners.</p>
+            </div>
+            <Link to="/branschlosningar/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {industryPills.map((pill) => (
               <Link
                 key={pill}
                 to="/branschlosningar/"
-                className="px-4 py-2 rounded-full border border-border text-[13px] text-muted-foreground bg-card hover:border-primary/50 hover:text-primary hover:bg-primary/10 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
+                className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
               >
-                {pill}
+                <span className="text-[14px] font-medium text-foreground">{pill}</span>
+                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
               </Link>
             ))}
           </div>
