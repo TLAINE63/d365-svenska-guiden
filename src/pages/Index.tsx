@@ -439,8 +439,6 @@ const Index = () => {
         </div>
       </section>
 
-      </section>
-
       {/* Direction picker dialog for Behovsanalys / Kravspec */}
       <Dialog open={directionPicker !== null} onOpenChange={(open) => !open && setDirectionPicker(null)}>
         <DialogContent className="sm:max-w-lg">
