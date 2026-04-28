@@ -402,7 +402,7 @@ const Index = () => {
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar framåt — beroende på var ni befinner er idag</h2>
             <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">Identifiera var ni står och börja där det gör mest nytta.</p>
           </div>
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-4xl">
             {buyerPaths.map((path, index) => (
               <div key={path.step}>
                 <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 items-start">
@@ -411,10 +411,10 @@ const Index = () => {
                   </div>
                   <Link
                     to={path.link}
-                    className="group flex min-h-[160px] flex-col items-start rounded-2xl bg-card border border-border p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl sm:p-6"
+                    className="group flex min-h-[128px] flex-col items-start rounded-2xl bg-card border border-border p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl sm:p-5"
                   >
-                    <h3 className="mb-3 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
-                    <p className="mb-5 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
+                    <h3 className="mb-2 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
+                    <p className="mb-3 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
                     <div className="mt-auto inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
                       {path.linkText}
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
@@ -422,9 +422,11 @@ const Index = () => {
                   </Link>
                 </div>
                 {index < buyerPaths.length - 1 && (
-                  <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 py-4" aria-hidden="true">
+                  <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 py-2" aria-hidden="true">
                     <div className="flex w-12 justify-center sm:w-14">
-                      <ChevronDown className="h-6 w-6 text-primary/70" />
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md">
+                        <ChevronDown className="h-6 w-6 stroke-[3]" />
+                      </div>
                     </div>
                   </div>
                 )}
