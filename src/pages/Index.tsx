@@ -407,14 +407,14 @@ const Index = () => {
               <Link
                 key={path.step}
                 to={path.link}
-                className="group relative block h-[300px] overflow-hidden bg-card border border-border rounded-2xl text-left hover:border-primary/40 hover:shadow-xl transition-all duration-300"
+                className="group flex h-full min-h-[300px] flex-col items-start bg-card border border-border rounded-2xl p-5 text-left sm:p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
               >
-                <div className={`absolute left-5 top-5 sm:left-6 sm:top-6 flex h-11 w-11 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
+                <div className={`mb-7 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
                   {path.step}
                 </div>
-                <h3 className="absolute left-5 right-5 top-[88px] sm:left-6 sm:right-6 sm:top-[92px] text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
-                <p className="absolute left-5 right-5 top-[146px] sm:left-6 sm:right-6 sm:top-[150px] text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
-                <div className="absolute left-5 bottom-5 sm:left-6 sm:bottom-6 inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                <h3 className="mb-9 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
+                <p className="mb-6 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
+                <div className="mt-auto inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
                   {path.linkText}
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                 </div>
