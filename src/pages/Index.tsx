@@ -150,30 +150,34 @@ const situationCards = [
   },
 ];
 
-const buyerPaths = [
+const buyerSteps = [
   {
-    step: "1",
-    title: "Orientera er",
-    desc: "Läs bloggartiklar, förstå skillnaden mellan Dynamics 365-applikationer, fördjupningar och få insikt i möjligheterna med AI.",
+    step: "01",
+    title: "Insikter & orientering",
+    desc: "Läs er in. Förstå skillnaden mellan Business Central och Finance & SCM, hur Sales skiljer sig från Customer Insights, vad ett ERP-projekt verkligen innebär.",
+    outcome: "Artiklar, jämförelser och guider — utan att fylla i något formulär.",
     link: "/kunskapscenter/",
-    linkText: "Utforska kunskapscentret",
-    color: "bg-gradient-to-br from-sky-500 to-blue-600",
   },
   {
-    step: "2",
-    title: "Bygg er kravbild",
-    desc: "Gör en behovsanalys eller skapa en kravspecifikation. Få ett strukturerat underlag att ta in i partnerdialoger.",
+    step: "02",
+    title: "Behovsanalys",
+    desc: "En kort, strukturerad genomgång där ni svarar på frågor om bolag, bransch, nuvarande system och ambition. Tar runt 10 minuter.",
+    outcome: "En tydligare bild av vilken Dynamics 365-applikation som passar er situation.",
     link: "/behovsanalys/",
-    linkText: "Gör en behovsanalys",
-    color: "bg-gradient-to-br from-primary to-cyan-600",
   },
   {
-    step: "3",
-    title: "Matchas med en partner",
-    desc: "När kravbilden är tydligare kan ni matchas med Dynamics 365-partners utifrån bransch, produktområde, storlek och geografi.",
+    step: "03",
+    title: "Lättviktig kravspec",
+    desc: "Bygg ett underlag ni kan dela med partners. Vi gör det enkelt — inte ett 80-sidigt dokument utan det partners faktiskt behöver för att lämna ett seriöst förslag.",
+    outcome: "En kravspec ni äger. Den fungerar även om ni stannar här.",
+    link: "/kravspecifikation/",
+  },
+  {
+    step: "04",
+    title: "Matchning mot partners",
+    desc: "Vi förmedlar er till en eller flera partners som matchar bransch, storlek och ambition. Ni väljer själva vem ni vill prata med.",
+    outcome: "Direkt kontakt med relevanta partners — utan att ringas runt.",
     link: "/valj-partner/",
-    linkText: "Starta partnermatchning",
-    color: "bg-gradient-to-br from-orange-500 to-orange-600",
   },
 ];
 
