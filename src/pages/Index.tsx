@@ -414,48 +414,51 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Tre vägar beroende på köpläge */}
-      <section className="py-10 sm:py-14 bg-secondary/30 border-b border-border">
+      {/* Så här arbetar vi — fyra steg */}
+      <section className="py-12 sm:py-16 bg-secondary/30 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
-          <div className="text-center mb-7 sm:mb-8 max-w-2xl mx-auto">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-2">Köpresan i tre steg</span>
-            <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight mb-2">Tre vägar framåt — beroende på var ni befinner er idag</h2>
-            <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">Identifiera var ni står och börja där det gör mest nytta.</p>
+          <div className="mb-10 sm:mb-12 max-w-3xl">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Så här arbetar vi</span>
+            <h2 className="text-3xl sm:text-4xl md:text-[42px] font-semibold text-foreground tracking-tight mb-4 leading-[1.1]">Fyra steg fram till rätt partner.</h2>
+            <p className="text-base sm:text-lg text-muted-foreground font-light leading-relaxed">
+              Vi är en förmedlingstjänst, inte ett konsultbolag. Vårt jobb är att hjälpa er ställa rätt frågor och hitta partners som faktiskt matchar — inte att ta över ert projekt. Allt vi erbjuder besökaren är kostnadsfritt.
+            </p>
           </div>
-          <div className="mx-auto max-w-4xl">
-            {buyerPaths.map((path, index) => (
-              <div key={path.step}>
-                <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 items-start">
-                  <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md sm:h-14 sm:w-14`}>
-                    {path.step}
-                  </div>
-                  <Link
-                    to={path.link}
-                    className="group flex min-h-[112px] flex-col items-start rounded-2xl bg-card border border-border p-4 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl sm:p-4"
-                  >
-                    <h3 className="mb-1.5 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
-                    <p className="mb-2 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
-                    <div className="inline-flex h-6 self-start items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
-                      {path.linkText}
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                    </div>
-                  </Link>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+            {buyerSteps.map((s) => (
+              <Link
+                key={s.step}
+                to={s.link}
+                className="group flex flex-col rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
+              >
+                <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
+                <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
+                <div className="mt-auto pt-4 border-t border-border">
+                  <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
+                  <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
                 </div>
-                {index < buyerPaths.length - 1 && (
-                  <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 py-1.5" aria-hidden="true">
-                    <div className="flex h-8 w-12 items-center justify-center sm:w-14">
-                      <div className="flex h-8 w-6 items-center justify-center rounded-full border border-primary/25 bg-primary/10 text-primary shadow-sm">
-                        <ChevronDown className="h-5 w-5 stroke-[3]" />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+              </Link>
             ))}
+          </div>
+
+          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <Button
+              asChild
+              className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5 transition-all"
+            >
+              <Link to="/kunskapscenter/">
+                Starta i steg 1 — orientering
+                <ArrowRight className="w-4 h-4 ml-1.5" />
+              </Link>
+            </Button>
+            <Link to="/behovsanalys/" className="text-sm font-semibold text-primary hover:underline underline-offset-4">
+              Eller hoppa direkt till behovsanalysen →
+            </Link>
           </div>
         </div>
       </section>
-
 
 
       {/* Förtroendesektion: Oberoende rådgivare + E-bok + 3 pillars */}
