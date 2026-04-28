@@ -402,23 +402,33 @@ const Index = () => {
             <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-foreground tracking-tight mb-3">Tre vägar framåt — beroende på var ni befinner er idag</h2>
             <p className="text-sm sm:text-base text-muted-foreground font-light leading-relaxed">Identifiera var ni står och börja där det gör mest nytta.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 items-stretch">
-            {buyerPaths.map((path, i) => (
-              <Link
-                key={path.step}
-                to={path.link}
-                className="group flex h-full min-h-[300px] flex-col items-start bg-card border border-border rounded-2xl p-5 text-left sm:p-6 hover:border-primary/40 hover:shadow-xl transition-all duration-300"
-              >
-                <div className={`mb-7 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md`}>
-                  {path.step}
+          <div className="mx-auto max-w-3xl">
+            {buyerPaths.map((path, index) => (
+              <div key={path.step}>
+                <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 items-start">
+                  <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${path.color} text-base font-bold text-white shadow-md sm:h-14 sm:w-14`}>
+                    {path.step}
+                  </div>
+                  <Link
+                    to={path.link}
+                    className="group flex min-h-[160px] flex-col items-start rounded-2xl bg-card border border-border p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl sm:p-6"
+                  >
+                    <h3 className="mb-3 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
+                    <p className="mb-5 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
+                    <div className="mt-auto inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
+                      {path.linkText}
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                  </Link>
                 </div>
-                <h3 className="mb-9 w-full text-left text-lg font-bold leading-tight text-foreground">{path.title}</h3>
-                <p className="mb-6 w-full text-left text-sm leading-relaxed text-muted-foreground">{path.desc}</p>
-                <div className="mt-auto inline-flex h-6 items-center justify-start gap-1.5 whitespace-nowrap text-left text-sm font-semibold text-primary group-hover:gap-2.5 transition-all">
-                  {path.linkText}
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </div>
-              </Link>
+                {index < buyerPaths.length - 1 && (
+                  <div className="grid grid-cols-[3rem_minmax(0,1fr)] gap-4 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6 py-4" aria-hidden="true">
+                    <div className="flex w-12 justify-center sm:w-14">
+                      <ChevronDown className="h-6 w-6 text-primary/70" />
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
