@@ -257,14 +257,22 @@ const Index = () => {
             <div>
               <p className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-4">
                 Det här beslutet följer er i tio år.<br className="hidden sm:block" />
-                Vi hjälper er välja <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.
+                Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.
               </p>
               <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
                 Affärssystem · Sälj · Marknad · Kundservice
               </p>
-              <p className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px]">
-                Oavsett om ni utvärderar affärssystem, CRM eller kundservice — det största hotet är inte fel funktion. Det är fel partner. Vi är inte konsulter. Vi säljer ingenting. Vi strukturerar valet, jämför partners objektivt — och gör beslutet hållbart inför styrelse och organisation.
-              </p>
+              <div className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px] space-y-3">
+                <p>
+                  Oavsett om ni utvärderar affärssystem, CRM eller kundservice är den största risken sällan att en funktion saknas.
+                </p>
+                <p>
+                  Den största risken är att välja fel partner, fel omfattning eller fel väg framåt.
+                </p>
+                <p>
+                  d365.se hjälper er att strukturera valet, jämföra relevanta Dynamics 365-partners och fatta ett beslut som håller — inför ledning, styrelse och organisation.
+                </p>
+              </div>
               <div className="mb-4">
                 <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
                   <Link to="/valj-partner/">Hitta rätt Dynamics 365-partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
