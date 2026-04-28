@@ -354,9 +354,12 @@ const Index = () => {
                 className="group relative h-full min-h-[300px] rounded-2xl overflow-hidden bg-card border border-border flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/30 shadow-md hover:shadow-2xl"
                 style={{ ['--card-glow' as string]: card.glow }}
               >
-                <div className="relative h-24 min-h-24 overflow-hidden flex-shrink-0">
+                <div
+                  className="relative h-24 min-h-24 overflow-hidden flex-shrink-0 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${card.image || selectorService})` }}
+                >
                   <img
-                    src={card.image}
+                    src={card.image || selectorService}
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
