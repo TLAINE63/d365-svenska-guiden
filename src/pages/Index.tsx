@@ -193,6 +193,9 @@ const Index = () => {
                   <Link to="/behovsanalys">Gör en behovsanalys först</Link>
                 </Button>
               </div>
+              <p className="text-xs sm:text-[13px] text-white/60 leading-relaxed max-w-[520px]">
+                Kostnadsfritt för företag som utvärderar Dynamics 365 · Ingen registrering krävs för första rekommendationen · Byggt för den svenska marknaden
+              </p>
             </div>
 
             {/* Right column – step card */}
