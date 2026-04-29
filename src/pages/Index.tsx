@@ -308,13 +308,10 @@ const Index = () => {
                 </p>
                 <div className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px] space-y-3">
                   <p>
-                    Oavsett om ni utvärderar affärssystem, CRM eller kundservice är den största risken sällan att en funktion saknas.
+                    Den största risken i ett Dynamics 365-projekt är sällan att en funktion saknas. Det är att ni väljer fel partner, fel omfattning eller fel väg framåt.
                   </p>
                   <p>
-                    Den största risken är att välja fel partner, fel omfattning eller fel väg framåt.
-                  </p>
-                  <p>
-                    d365.se hjälper er att strukturera valet, jämföra relevanta Dynamics 365-partners och fatta ett beslut som håller — inför ledning, styrelse och organisation.
+                    d365.se hjälper er att strukturera valet, jämföra relevanta partners och fatta ett beslut som håller — inför ledning, styrelse och organisation.
                   </p>
                 </div>
               </div>
