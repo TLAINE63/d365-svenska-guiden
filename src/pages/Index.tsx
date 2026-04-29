@@ -274,10 +274,10 @@ const Index = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl pt-28 sm:pt-28 md:pt-28 pb-8 sm:pb-10 md:pb-12 relative">
           {/* Full-width eyebrow heading */}
-          <h1 className="text-xl sm:text-2xl md:text-[32px] font-semibold text-white/90 tracking-tight mb-4 md:mb-5 max-w-3xl text-center mx-auto">
+          <h1 className="hidden sm:block text-xl sm:text-2xl md:text-[32px] font-semibold text-white/90 tracking-tight mb-4 md:mb-5 max-w-3xl text-center mx-auto">
             Sveriges oberoende guide till Microsoft Dynamics 365
           </h1>
-          <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed text-center mx-auto max-w-2xl mb-8 md:mb-10">
+          <p className="hidden sm:block text-base sm:text-lg text-white/70 font-light leading-relaxed text-center mx-auto max-w-2xl mb-8 md:mb-10">
             För dig som vill förstå skillnaden mellan lösningarna, skapa en tydligare kravbild och hitta rätt partner för ert Dynamics 365-projekt.
           </p>
 
