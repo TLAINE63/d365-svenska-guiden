@@ -292,9 +292,14 @@ const Index = () => {
                 <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
                   Affärssystem · CRM · Kundservice
                 </p>
-                <p className="text-base text-white/70 font-light leading-relaxed mb-8">
-                  d365.se hjälper svenska företag att förstå alternativen, strukturera kravbilden och jämföra relevanta Dynamics 365-partners.
-                </p>
+                <div className="text-base text-white/70 font-light leading-relaxed mb-8 space-y-3">
+                  <p>
+                    Den största risken är inte att en funktion saknas — det är att ni väljer fel partner.
+                  </p>
+                  <p>
+                    Vi hjälper er att fatta ett beslut som håller inför ledning, styrelse och organisation.
+                  </p>
+                </div>
               </div>
 
               {/* Desktop / tablet hero (sm and up) */}
