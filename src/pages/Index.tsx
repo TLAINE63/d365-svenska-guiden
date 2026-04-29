@@ -326,7 +326,7 @@ const Index = () => {
                 </Button>
               </div>
               <p className="text-xs sm:text-[13px] text-white/60 leading-relaxed max-w-[520px]">
-                Kostnadsfritt för företag som utvärderar Dynamics 365 · Ingen registrering krävs för första rekommendationen · Byggt för den svenska marknaden
+                Sveriges oberoende guide till Microsoft Dynamics 365 · Kostnadsfritt · Byggt för den svenska marknaden
               </p>
             </div>
 
