@@ -284,23 +284,39 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 md:gap-14 items-center">
             {/* Left column */}
             <div>
-              <p className="text-2xl sm:text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-6">
-                Ni ska leva med beslutet i tio år.<br className="hidden sm:block" />
-                <span className="block mt-3 sm:mt-4">Vi hjälper er välja en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.</span>
-              </p>
-              <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
-                Affärssystem · CRM · Kundservice
-              </p>
-              <div className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px] space-y-3">
-                <p>
-                  Oavsett om ni utvärderar affärssystem, CRM eller kundservice är den största risken sällan att en funktion saknas.
+              {/* Mobile hero (under sm) */}
+              <div className="sm:hidden">
+                <p className="text-2xl font-semibold leading-[1.2] tracking-tight text-white mb-4">
+                  Det här beslutet följer er i tio år. Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.
                 </p>
-                <p>
-                  Den största risken är att välja fel partner, fel omfattning eller fel väg framåt.
+                <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
+                  Affärssystem · CRM · Kundservice
                 </p>
-                <p>
-                  d365.se hjälper er att strukturera valet, jämföra relevanta Dynamics 365-partners och fatta ett beslut som håller — inför ledning, styrelse och organisation.
+                <p className="text-base text-white/70 font-light leading-relaxed mb-8">
+                  d365.se hjälper svenska företag att förstå alternativen, strukturera kravbilden och jämföra relevanta Dynamics 365-partners.
                 </p>
+              </div>
+
+              {/* Desktop / tablet hero (sm and up) */}
+              <div className="hidden sm:block">
+                <p className="text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-6">
+                  Ni ska leva med beslutet i tio år.<br />
+                  <span className="block mt-4">Vi hjälper er välja en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.</span>
+                </p>
+                <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
+                  Affärssystem · CRM · Kundservice
+                </p>
+                <div className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px] space-y-3">
+                  <p>
+                    Oavsett om ni utvärderar affärssystem, CRM eller kundservice är den största risken sällan att en funktion saknas.
+                  </p>
+                  <p>
+                    Den största risken är att välja fel partner, fel omfattning eller fel väg framåt.
+                  </p>
+                  <p>
+                    d365.se hjälper er att strukturera valet, jämföra relevanta Dynamics 365-partners och fatta ett beslut som håller — inför ledning, styrelse och organisation.
+                  </p>
+                </div>
               </div>
               <div className="mb-4">
                 <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
