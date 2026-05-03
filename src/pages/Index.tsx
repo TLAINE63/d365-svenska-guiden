@@ -305,7 +305,7 @@ const Index = () => {
                 </p>
                 <div className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px] space-y-3">
                   <p>
-                    Fel partner, fel omfattning eller fel startpunkt kostar ofta mer än en saknad funktion.
+                    Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
                   </p>
                   <p>
                     d365.se hjälper er att jämföra relevanta Dynamics 365-partners utifrån lösning, bransch och behov — innan ni går vidare i dialogen.
