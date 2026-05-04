@@ -40,7 +40,7 @@ interface Partner {
 }
 
 // Same pricing logic as the AdminDashboard partner form
-const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 1990, 2: 3490, 3: 4490 };
+const PRICE_TIERS: Record<number, number> = { 0: 0, 1: 995, 2: 1595, 3: 1995 };
 function computeMonthlyFee(p: Partner): number {
   // Manual override wins
   if (Number(p.monthly_fee) > 0) return Number(p.monthly_fee);
@@ -55,7 +55,7 @@ function computeMonthlyFee(p: Partner): number {
   if (bc) active++;
   if (fsc) active++;
   if (sales || service) active++; // Sales + Service bundle as 1
-  return PRICE_TIERS[Math.min(active, 3)] ?? 4490;
+  return PRICE_TIERS[Math.min(active, 3)] ?? 1995;
 }
 
 interface AdminAgreementTabProps {
