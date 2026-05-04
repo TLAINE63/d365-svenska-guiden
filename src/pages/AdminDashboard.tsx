@@ -86,6 +86,7 @@ import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
+import AdminSalesPitchV2Tab from "@/components/AdminSalesPitchV2Tab";
 import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
@@ -1809,6 +1810,12 @@ Thomas`,
               </span>
               Säljunderlag
             </TabsTrigger>
+            <TabsTrigger value="sales-pitch-v2" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/10 ring-1 ring-rose-400/20">
+                <Mail className="h-3.5 w-3.5 text-rose-300" strokeWidth={1.75} />
+              </span>
+              Införsäljning v2
+            </TabsTrigger>
             <TabsTrigger value="sales-kpi" className="flex items-center gap-2">
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-lime-500/20 to-lime-600/10 ring-1 ring-lime-400/20">
                 <Gauge className="h-3.5 w-3.5 text-lime-300" strokeWidth={1.75} />
@@ -2780,6 +2787,11 @@ Thomas`,
           {/* ==================== SALES PITCH TAB ==================== */}
           <TabsContent value="sales-pitch">
             <AdminSalesPitchTab />
+          </TabsContent>
+
+          {/* ==================== SALES PITCH V2 TAB ==================== */}
+          <TabsContent value="sales-pitch-v2">
+            <AdminSalesPitchV2Tab token={token || ""} onSessionExpired={logout} />
           </TabsContent>
 
           {/* ==================== SALES KPI TAB ==================== */}
