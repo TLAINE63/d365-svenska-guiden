@@ -41,7 +41,7 @@ Plattformen är där svenska företag aktivt jämför partners innan de tar kont
 • {{PROFILE_VIEWS_90D}} profilvisningar och {{PARTNER_CLICKS_90D}} klick mot partners senaste 90 dagarna
 • 140+ statiskt prerendrade sidor – varje partnerprofil indexeras direkt av Google
 
-Vill ni synas där köparen jämför? Avgiften är 1 990 kr/månad per produktområde och vi tar er online inom en vecka.
+Vill ni synas där köparen jämför? Avgiften är 995 kr/mån för 1 produktområde, 1 595 kr för 2 och 1 995 kr för 3 – och vi tar er online inom en vecka.
 
 Vänliga hälsningar,
 Thomas Laine
