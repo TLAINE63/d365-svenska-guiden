@@ -407,13 +407,22 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
         if (response.ok) okCount++;
         else console.error("Test send failed for", seg, await response.text());
       }
-      toast({ title: `Testmail skickade: ${okCount}/3`, description: `Mottagare: ${addr}` });
+      toast({ title: `Testmail skickade: ${okCount}/${segs.length}`, description: `Mottagare: ${addr}` });
     } catch (err: any) {
       toast({ title: "Fel vid testutskick", description: err.message, variant: "destructive" });
     } finally {
       setSendingTest(false);
     }
   };
+
+  const sendTestAll = () =>
+    sendTest(
+      ["published", "in_progress", "profile_only"],
+      `Skicka testmail av alla 3 mallar till ${testEmail.trim()}?`
+    );
+
+  const sendTestEmail2 = () =>
+    sendTest(["in_progress"], `Skicka testmail av Email 2 till ${testEmail.trim()}?`);
 
   if (loading) {
     return (
