@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BLOG_ARTICLES, getBlogArticleBySlug } from "@/data/blogArticles";
+import { buildMetaDescription } from "@/lib/metaDescription";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
@@ -27,13 +28,14 @@ const BlogArticle = () => {
   const canonicalPath = `/artiklar/${article.slug}`;
   const canonicalUrl = `https://d365.se${canonicalPath}/`;
   const ogImage = `https://d365.se${article.heroImage.startsWith("/") ? article.heroImage : "/og-erp.png"}`;
+  const metaDescription = buildMetaDescription([article.metaDescription, article.summary]);
 
   // Schema.org Article with author
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
-    description: article.metaDescription,
+    description: metaDescription,
     image: ogImage,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
@@ -64,7 +66,7 @@ const BlogArticle = () => {
     <>
       <SEOHead
         title={article.metaTitle}
-        description={article.metaDescription}
+        description={metaDescription}
         canonicalPath={canonicalPath}
         keywords={article.tags.join(", ")}
         ogImage={ogImage}
