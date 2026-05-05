@@ -103,7 +103,7 @@ const BlogArticle = () => {
   return (
     <>
       <SEOHead
-        title={article.metaTitle}
+        title={metaTitle}
         description={metaDescription}
         canonicalPath={canonicalPath}
         keywords={article.tags.join(", ")}
@@ -122,10 +122,17 @@ const BlogArticle = () => {
         {article.tags.map((tag) => (
           <meta key={tag} property="article:tag" content={tag} />
         ))}
+        {isFromKcBanner && (
+          <>
+            <meta property="og:title" content={bannerTitle} />
+            <meta name="twitter:title" content={bannerTitle} />
+            <meta property="og:section" content="Nytt i Kunskapscentret" />
+          </>
+        )}
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
       <SeoPreviewPanel
-        title={article.metaTitle.includes("d365.se") ? article.metaTitle : `${article.metaTitle} | d365.se`}
+        title={metaTitle.includes("d365.se") ? metaTitle : `${metaTitle} | d365.se`}
         description={metaDescription}
         canonicalUrl={canonicalUrl}
         ogImage={ogImage}
