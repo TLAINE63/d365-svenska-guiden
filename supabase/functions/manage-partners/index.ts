@@ -224,6 +224,35 @@ serve(async (req: Request): Promise<Response> => {
         );
       }
 
+      case "get-sales-pitch-segments": {
+        const [partnersRes, subsRes, refreshRes] = await Promise.all([
+          supabase
+            .from("partners")
+            .select("id, name, email, admin_contact_email, admin_contact_name, contact_person, is_featured")
+            .order("name"),
+          supabase.from("partner_submissions").select("partner_id"),
+          supabase
+            .from("email_send_log")
+            .select("recipient_email")
+            .eq("template_name", "partner_profile_refresh")
+            .eq("status", "sent")
+            .gte("created_at", "2026-04-27T00:00:00Z")
+            .lt("created_at", "2026-04-28T00:00:00Z"),
+        ]);
+        if (partnersRes.error) throw partnersRes.error;
+        if (subsRes.error) throw subsRes.error;
+        if (refreshRes.error) throw refreshRes.error;
+        return new Response(
+          JSON.stringify({
+            success: true,
+            partners: partnersRes.data || [],
+            submission_partner_ids: (subsRes.data || []).map((s: any) => s.partner_id).filter(Boolean),
+            april27_emails: (refreshRes.data || []).map((r: any) => r.recipient_email).filter(Boolean),
+          }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
       case "get-full": {
         // Get full partner data including admin fields (not from public view)
         const { data, error } = await supabase
