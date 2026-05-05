@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
