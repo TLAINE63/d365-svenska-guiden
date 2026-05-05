@@ -35,7 +35,7 @@ const BlogArticle = () => {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
-    description: article.metaDescription,
+    description: metaDescription,
     image: ogImage,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
@@ -66,7 +66,7 @@ const BlogArticle = () => {
     <>
       <SEOHead
         title={article.metaTitle}
-        description={article.metaDescription}
+        description={metaDescription}
         canonicalPath={canonicalPath}
         keywords={article.tags.join(", ")}
         ogImage={ogImage}
