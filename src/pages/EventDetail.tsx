@@ -183,30 +183,77 @@ const EventDetail = () => {
     event.description,
     `${event.title} – ett ${event.is_online ? "online-event" : "event"} från ${event.partners?.name || "d365.se"} om Microsoft Dynamics 365.`,
   ]);
-  const isoDate = new Date(event.event_date).toISOString();
+  // Build ISO startDate (combine date + optional time)
+  const buildIso = (date: string, time: string | null): string => {
+    try {
+      if (time) {
+        // Treat as Europe/Stockholm wall-time → output with offset
+        // Simpler: use local-naive ISO (without Z) which Google accepts
+        return `${date}T${time.length === 5 ? `${time}:00` : time}`;
+      }
+      return new Date(date).toISOString();
+    } catch {
+      return new Date(date).toISOString();
+    }
+  };
+  const startDate = buildIso(event.event_date, event.event_time);
+  const endDate = event.end_time ? buildIso(event.event_date, event.end_time) : undefined;
+  const eventUrl = `https://d365.se/events/${event.id}/`;
+  const partnerUrl = event.partners?.slug
+    ? `https://d365.se/partner/${event.partners.slug}/`
+    : "https://d365.se/";
+  const organizerName = event.partners?.name || "d365.se";
+  const registrationUrl = event.registration_link || event.event_link || eventUrl;
 
-  const eventSchema = {
+  const eventSchema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Event",
     name: event.title,
     description: seoDescription,
-    startDate: isoDate,
+    startDate,
+    ...(endDate ? { endDate } : {}),
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: event.is_online
       ? "https://schema.org/OnlineEventAttendanceMode"
       : "https://schema.org/OfflineEventAttendanceMode",
-    ...(event.image_url ? { image: event.image_url } : {}),
-    ...(event.partners?.name
-      ? {
-          organizer: {
-            "@type": "Organization",
-            name: event.partners.name,
-          },
-        }
-      : {}),
+    inLanguage: "sv-SE",
+    isAccessibleForFree: true,
+    url: eventUrl,
+    ...(event.image_url ? { image: [event.image_url] } : {}),
+    organizer: {
+      "@type": "Organization",
+      name: organizerName,
+      url: partnerUrl,
+    },
+    performer: {
+      "@type": "Organization",
+      name: organizerName,
+    },
     location: event.is_online
-      ? { "@type": "VirtualLocation", url: `https://d365.se/events/${event.id}/` }
-      : { "@type": "Place", name: event.partners?.name || "d365.se", address: "Sverige" },
+      ? {
+          "@type": "VirtualLocation",
+          url: event.event_link || eventUrl,
+        }
+      : {
+          "@type": "Place",
+          name: event.location || organizerName,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: event.location || "Sverige",
+            addressCountry: "SE",
+          },
+        },
+    offers: {
+      "@type": "Offer",
+      url: registrationUrl,
+      price: "0",
+      priceCurrency: "SEK",
+      availability: "https://schema.org/InStock",
+      validFrom: new Date().toISOString().split("T")[0],
+      ...(event.registration_deadline
+        ? { validThrough: event.registration_deadline }
+        : {}),
+    },
   };
 
   return (
