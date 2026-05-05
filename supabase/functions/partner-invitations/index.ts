@@ -410,7 +410,27 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // Admin actions (require auth)
+    // Public: read whitelisted site_settings keys (no auth)
+    if (action === "get-public-setting" && req.method === "GET") {
+      const key = url.searchParams.get("key") || "";
+      const PUBLIC_KEYS = new Set(["featured_article_slug"]);
+      if (!PUBLIC_KEYS.has(key)) {
+        return new Response(
+          JSON.stringify({ error: "Okänd inställning" }),
+          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+      const { data: setting } = await supabase
+        .from("site_settings")
+        .select("value, updated_at")
+        .eq("key", key)
+        .maybeSingle();
+      return new Response(
+        JSON.stringify({ value: setting?.value ?? null, updated_at: setting?.updated_at ?? null }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     const authHeader = req.headers.get("authorization");
     if (!authHeader?.startsWith("Bearer ")) {
       return new Response(
