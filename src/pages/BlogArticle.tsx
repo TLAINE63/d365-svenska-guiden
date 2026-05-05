@@ -143,10 +143,12 @@ const BlogArticle = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
       <SeoPreviewPanel
-        title={metaTitle.includes("d365.se") ? metaTitle : `${metaTitle} | d365.se`}
+        title={metaTitle}
         description={metaDescription}
         canonicalUrl={canonicalUrl}
         ogImage={ogImage}
+        titleStatus={titleResult.status}
+        titleWarnings={titleResult.warnings}
         descriptionStatus={descriptionResult.status}
         descriptionWarnings={descriptionResult.warnings}
       />
