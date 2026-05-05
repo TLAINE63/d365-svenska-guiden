@@ -160,7 +160,14 @@ const SeoPreviewPanel = ({
                 </span>
               )}
             </div>
-            {descriptionWarnings && descriptionWarnings.length > 0 && (
+            {((titleWarnings && titleWarnings.length > 0) ||
+              (descriptionWarnings && descriptionWarnings.length > 0)) && (
+              <ul className="mt-1.5 space-y-0.5 text-[10px] text-amber-700 list-disc pl-4">
+                {titleWarnings?.map((w, i) => <li key={`t-${i}`}>{w}</li>)}
+                {descriptionWarnings?.map((w, i) => <li key={`d-${i}`}>{w}</li>)}
+              </ul>
+            )}
+            {false && descriptionWarnings && descriptionWarnings.length > 0 && (
               <ul className="mt-1.5 space-y-0.5 text-[10px] text-amber-700 list-disc pl-4">
                 {descriptionWarnings.map((w, i) => (
                   <li key={i}>{w}</li>
