@@ -195,6 +195,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
       setPartners((data.partners || []) as PartnerRow[]);
       setSubmissionPartnerIds(new Set<string>((data.submission_partner_ids || []) as string[]));
+      setInvitedPartnerIds(new Set<string>((data.invited_partner_ids || []) as string[]));
       const emails = new Set<string>();
       ((data.april27_emails || []) as string[]).forEach((e) => {
         if (e) emails.add(String(e).toLowerCase().trim());
@@ -221,18 +222,19 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       const recipientEmail = (p.admin_contact_email || p.email || "").toLowerCase().trim();
       const gotApril27 = recipientEmail && profileRefreshEmails.has(recipientEmail);
       const hasSubmission = submissionPartnerIds.has(p.id);
+      const wasInvited = invitedPartnerIds.has(p.id);
 
       if (p.is_featured) {
         published.push(p);
-      } else if (hasSubmission) {
+      } else if (hasSubmission || wasInvited) {
         inProgress.push(p);
       } else if (gotApril27) {
         profileOnly.push(p);
       }
     }
 
-    return { published, in_progress: inProgress, profile_only: profileOnly };
-  }, [partners, submissionPartnerIds, profileRefreshEmails]);
+    return { published, in_progress: inProgress, profile_only: profileOnly, manual: partners };
+  }, [partners, submissionPartnerIds, invitedPartnerIds, profileRefreshEmails]);
 
   const currentList = segmentPartners[activeTab];
 
