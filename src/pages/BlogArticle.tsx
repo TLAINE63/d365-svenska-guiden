@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BLOG_ARTICLES, getBlogArticleBySlug } from "@/data/blogArticles";
 import { buildMetaDescriptionDetailed } from "@/lib/metaDescription";
+import { buildMetaTitle } from "@/lib/metaTitle";
 import { resolveOgImage } from "@/lib/ogImage";
 import SeoPreviewPanel from "@/components/SeoPreviewPanel";
 import { getRelatedArticles } from "@/lib/relatedArticles";
@@ -38,10 +39,16 @@ const BlogArticle = () => {
   const canonicalPath = `/artiklar/${article.slug}`;
   const canonicalUrl = `https://d365.se${canonicalPath}/`;
 
-  // Banner-specifik metadata: tydlig "Nytt i Kunskapscentret"-prefix för
-  // titel/OG samt en kortare, social-vänlig beskrivning.
+  // Banner-specifik metadata: dynamisk titel inom 50–60 tecken med
+  // primärt sökord (kategori) och brand-suffix när det får plats.
+  const primaryKeyword = article.category || article.tags[0];
+  const titleResult = buildMetaTitle({
+    baseTitle: article.metaTitle || article.title,
+    primaryKeyword,
+    fromKcBanner: isFromKcBanner,
+  });
+  const metaTitle = titleResult.value;
   const bannerTitle = `Nytt i Kunskapscentret: ${article.title}`;
-  const metaTitle = isFromKcBanner ? bannerTitle : article.metaTitle;
 
   const ogImage = resolveOgImage({
     src: article.heroImage,
@@ -136,10 +143,12 @@ const BlogArticle = () => {
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
       <SeoPreviewPanel
-        title={metaTitle.includes("d365.se") ? metaTitle : `${metaTitle} | d365.se`}
+        title={metaTitle}
         description={metaDescription}
         canonicalUrl={canonicalUrl}
         ogImage={ogImage}
+        titleStatus={titleResult.status}
+        titleWarnings={titleResult.warnings}
         descriptionStatus={descriptionResult.status}
         descriptionWarnings={descriptionResult.warnings}
       />
