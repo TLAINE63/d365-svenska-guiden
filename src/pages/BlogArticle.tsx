@@ -28,14 +28,34 @@ const BlogArticle = () => {
     return <Navigate to="/kunskapscenter/" replace />;
   }
 
+  // Detect referral source (e.g. "Nytt i Kunskapscentret"-bannern på startsidan)
+  const refSource =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("ref")
+      : null;
+  const isFromKcBanner = refSource === "kc-banner";
+
   const canonicalPath = `/artiklar/${article.slug}`;
   const canonicalUrl = `https://d365.se${canonicalPath}/`;
+
+  // Banner-specifik metadata: tydlig "Nytt i Kunskapscentret"-prefix för
+  // titel/OG samt en kortare, social-vänlig beskrivning.
+  const bannerTitle = `Nytt i Kunskapscentret: ${article.title}`;
+  const metaTitle = isFromKcBanner ? bannerTitle : article.metaTitle;
+
   const ogImage = resolveOgImage({
     src: article.heroImage,
-    alt: article.title,
+    alt: isFromKcBanner ? `Nytt i Kunskapscentret – ${article.title}` : article.title,
     fallbackAlt: `${article.category} – ${article.title}`,
   });
-  const metaDescription = buildMetaDescription([article.metaDescription, article.summary]);
+
+  const baseDescription = buildMetaDescription([article.metaDescription, article.summary]);
+  const metaDescription = isFromKcBanner
+    ? buildMetaDescription([
+        `Nytt i Kunskapscentret: ${article.summary ?? article.metaDescription ?? article.title}`,
+        baseDescription,
+      ])
+    : baseDescription;
 
   // Schema.org Article with author
   const articleSchema = {
