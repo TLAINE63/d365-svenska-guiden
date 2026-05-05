@@ -49,13 +49,17 @@ const BlogArticle = () => {
     fallbackAlt: `${article.category} – ${article.title}`,
   });
 
-  const baseDescription = buildMetaDescription([article.metaDescription, article.summary]);
-  const metaDescription = isFromKcBanner
-    ? buildMetaDescription([
+  const baseDescriptionResult = buildMetaDescriptionDetailed([
+    article.metaDescription,
+    article.summary,
+  ]);
+  const descriptionResult = isFromKcBanner
+    ? buildMetaDescriptionDetailed([
         `Nytt i Kunskapscentret: ${article.summary ?? article.metaDescription ?? article.title}`,
-        baseDescription,
+        baseDescriptionResult.value,
       ])
-    : baseDescription;
+    : baseDescriptionResult;
+  const metaDescription = descriptionResult.value;
 
   // Schema.org Article with author
   const articleSchema = {
