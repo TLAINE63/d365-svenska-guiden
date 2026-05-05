@@ -1635,6 +1635,7 @@ Thomas`,
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
+      <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />
       <Navbar />
       <main className="flex-grow mt-16">
         {/* Premium dark hero header */}
