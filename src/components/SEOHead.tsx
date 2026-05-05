@@ -46,15 +46,19 @@ const SEOHead = ({
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content={String(ogImageWidth)} />
+      <meta property="og:image:height" content={String(ogImageHeight)} />
+      {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
       <meta property="og:site_name" content="d365.se" />
       <meta property="og:locale" content="sv_SE" />
       <meta property="og:locale:alternate" content="nb_NO" />
-      
+
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
+      {ogImageAlt && <meta name="twitter:image:alt" content={ogImageAlt} />}
     </Helmet>
   );
 };
