@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/SEOHead";
+import { buildMetaTitle } from "@/lib/metaTitle";
+import { buildMetaDescription } from "@/lib/metaDescription";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -170,14 +173,54 @@ const EventDetail = () => {
     );
   }
 
+  const seoTitle = buildMetaTitle({
+    baseTitle: event.partners?.name
+      ? `${event.title} – ${event.partners.name}`
+      : event.title,
+    primaryKeyword: "Dynamics 365",
+  }).value;
+  const seoDescription = buildMetaDescription([
+    event.description,
+    `${event.title} – ett ${event.is_online ? "online-event" : "event"} från ${event.partners?.name || "d365.se"} om Microsoft Dynamics 365.`,
+  ]);
+  const isoDate = new Date(event.event_date).toISOString();
+
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.title,
+    description: seoDescription,
+    startDate: isoDate,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: event.is_online
+      ? "https://schema.org/OnlineEventAttendanceMode"
+      : "https://schema.org/OfflineEventAttendanceMode",
+    ...(event.image_url ? { image: event.image_url } : {}),
+    ...(event.partners?.name
+      ? {
+          organizer: {
+            "@type": "Organization",
+            name: event.partners.name,
+          },
+        }
+      : {}),
+    location: event.is_online
+      ? { "@type": "VirtualLocation", url: `https://d365.se/events/${event.id}/` }
+      : { "@type": "Place", name: event.partners?.name || "d365.se", address: "Sverige" },
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath={`/events/${event.id}`}
+        ogImage={event.image_url || undefined}
+        ogImageAlt={event.title}
+        ogType="article"
+      />
       <Helmet>
-        <title>{event.title} | {event.partners?.name || "d365.se"} | d365.se</title>
-        <meta
-          name="description"
-          content={event.description || `${event.title} - ett event från ${event.partners?.name || "d365.se"}`}
-        />
+        <script type="application/ld+json">{JSON.stringify(eventSchema)}</script>
       </Helmet>
 
       <Navbar />

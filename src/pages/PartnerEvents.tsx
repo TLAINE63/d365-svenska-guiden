@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -215,11 +216,12 @@ const PartnerEvents = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Hantera events | {partner?.name} | d365.se</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
-      
+      <SEOHead
+        title={`Hantera events – ${partner?.name ?? "Partner"}`}
+        description={`Adminvy för ${partner?.name ?? "partnern"} att lägga till och uppdatera kommande Microsoft Dynamics 365-events och webinarier på d365.se.`}
+        noIndex
+      />
+
       <Navbar />
       
       <div className="container mx-auto px-4 py-8 mt-16">

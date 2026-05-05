@@ -30,6 +30,9 @@ import PartnerEventsSection from "@/components/PartnerEventsSection";
 import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/SEOHead";
+import { buildMetaTitle } from "@/lib/metaTitle";
+import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
 import { trackPartnerView } from "@/utils/trackPartnerView";
 import { calculateProductAiScore, calculateAiScore, getAiLevel } from "@/utils/aiScoring";
@@ -346,15 +349,31 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const productCategories = getProductCategories();
   const hasFilters = selectedProduct || selectedIndustry || selectedCompanySize || selectedGeography;
 
+  const seoApps = (partner.applications || []).slice(0, 3).join(", ");
+  const seoTitle = buildMetaTitle({
+    baseTitle: `${partner.name} – Microsoft Dynamics 365 Partner`,
+    primaryKeyword: "Dynamics 365",
+  }).value;
+  const seoDescription = buildMetaDescription([
+    partner.description,
+    seoApps
+      ? `${partner.name} är en Microsoft Dynamics 365-partner med fokus på ${seoApps}. Se kompetenser, referenser och kontakta dem via d365.se.`
+      : undefined,
+    `${partner.name} är en Microsoft Dynamics 365-partner som hjälper svenska företag med implementation, support och utveckling.`,
+  ]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30">
-      <Helmet>
-        <title>{partner.name} - Dynamics 365 Partner | Svenska D365-guiden</title>
-        <meta
-          name="description"
-          content={partner.description?.slice(0, 160) || `${partner.name} är en Microsoft Dynamics 365-partner som hjälper företag med implementationer.`}
-        />
-      </Helmet>
+      <SEOHead
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath={`/partner/${partner.slug}`}
+        keywords={[partner.name, "Dynamics 365", "Microsoft partner", ...(partner.applications || [])].join(", ")}
+        ogImage={partner.logo_url || undefined}
+        ogImageAlt={`${partner.name} – Microsoft Dynamics 365 Partner`}
+        ogType="website"
+      />
+
 
       <Navbar />
 
