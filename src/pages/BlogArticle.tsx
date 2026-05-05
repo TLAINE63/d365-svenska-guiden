@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BLOG_ARTICLES, getBlogArticleBySlug } from "@/data/blogArticles";
 import { buildMetaDescription } from "@/lib/metaDescription";
+import { resolveOgImage } from "@/lib/ogImage";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
