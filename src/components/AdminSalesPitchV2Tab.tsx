@@ -405,7 +405,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       </Card>
 
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SegmentKey)}>
-        <TabsList className="grid grid-cols-3 w-full">
+        <TabsList className="grid grid-cols-4 w-full">
           {(Object.keys(DEFAULT_TEMPLATES) as SegmentKey[]).map(k => (
             <TabsTrigger key={k} value={k} className="flex items-center gap-2">
               {DEFAULT_TEMPLATES[k].label}
