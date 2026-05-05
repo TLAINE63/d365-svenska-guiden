@@ -84,6 +84,15 @@ const BlogArticle = () => {
     },
     keywords: article.tags.join(", "),
     articleSection: article.category,
+    ...(isFromKcBanner
+      ? {
+          isPartOf: {
+            "@type": "CreativeWorkSeries",
+            name: "Nytt i Kunskapscentret",
+            url: "https://d365.se/kunskapscenter/",
+          },
+        }
+      : {}),
   };
 
   // Tag-based related articles for stronger internal linking / SEO
