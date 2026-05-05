@@ -140,6 +140,8 @@ const BlogArticle = () => {
         description={metaDescription}
         canonicalUrl={canonicalUrl}
         ogImage={ogImage}
+        descriptionStatus={descriptionResult.status}
+        descriptionWarnings={descriptionResult.warnings}
       />
       <BreadcrumbSchema
         items={[
