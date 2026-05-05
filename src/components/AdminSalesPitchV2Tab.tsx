@@ -62,7 +62,7 @@ Detta gäller:
 
 ${PRICING_BLOCK}
 
-Detta ersätter tidigare modell i denna fas.
+Detta ersätter tidigare modell i denna fas. Ingångspriset är nu 995 kr/mån (tidigare 1 995 kr).
 
 Ni ligger redan bra till – och är en del av den grupp som sätter strukturen framåt.
 
@@ -88,7 +88,7 @@ Thomas & Michael`,
 
 Ni har redan, sedan tidigare, fått inbjudan eller kanske redan påbörjat er profil på d365.se – vilket är helt rätt i detta läge.
 
-Vi har nu justerat upplägget för att snabbare få upp bredden i plattformen.
+Vi har nu justerat upplägget för att snabbare få upp bredden i plattformen. Ingångspriset är nu 995 kr/mån (tidigare 1 995 kr).
 
 Det innebär:
 
@@ -121,7 +121,7 @@ Sedan vi skickade ut informationen i slutet av april har vi haft dialog med ett 
 
 En tydlig slutsats är att vi nu behöver bygga upp en bredare partnerbas, så att kunder faktiskt kan jämföra alternativ på riktigt.
 
-Därför justerar vi upplägget i denna fas.
+Därför justerar vi upplägget i denna fas. Ingångspriset är nu 995 kr/mån (tidigare 1 995 kr).
 
 Detta gäller:
 
