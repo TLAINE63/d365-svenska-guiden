@@ -370,17 +370,16 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     }
   };
 
-  const sendTestAll = async () => {
+  const sendTest = async (segs: SegmentKey[], confirmMsg: string) => {
     const addr = testEmail.trim();
     if (!/\S+@\S+\.\S+/.test(addr)) {
       toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
       return;
     }
-    if (!confirm(`Skicka testmail av alla 3 mallar (Publicerade, Inbjudna ej publ., Endast 27/4) till ${addr}?`)) return;
+    if (!confirm(confirmMsg)) return;
 
     setSendingTest(true);
     try {
-      const segs: SegmentKey[] = ["published", "in_progress", "profile_only"];
       let okCount = 0;
       for (const seg of segs) {
         const tpl = templates[seg];
