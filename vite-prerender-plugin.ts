@@ -309,6 +309,28 @@ export default function prerenderPlugin(): Plugin {
         writeFileSync(resolve(root, outDir, 'CNAME'), 'd365.se', 'utf-8');
         console.log('  ✅ CNAME (d365.se)');
 
+        // ── 11. SEO lint report ─────────────────────────────────────────
+        if (seoLintResults.length > 0) {
+          const totalErrors = seoLintResults.reduce((n, r) => n + r.errors.length, 0);
+          const totalWarnings = seoLintResults.reduce((n, r) => n + r.warnings.length, 0);
+          console.log(`\n🔍 SEO lint: ${totalErrors} errors, ${totalWarnings} warnings across ${seoLintResults.length} pages`);
+          for (const r of seoLintResults) {
+            for (const e of r.errors) console.error(`  ❌ ${r.path}: ${e}`);
+            for (const w of r.warnings) console.warn(`  ⚠️  ${r.path}: ${w}`);
+          }
+          // Write JSON report for CI/inspection
+          try {
+            writeFileSync(
+              resolve(root, outDir, 'seo-lint-report.json'),
+              JSON.stringify({ generatedAt: new Date().toISOString(), totalErrors, totalWarnings, results: seoLintResults }, null, 2),
+              'utf-8'
+            );
+            console.log('  📝 seo-lint-report.json');
+          } catch {/* ignore */}
+        } else {
+          console.log('\n🔍 SEO lint: ✅ all pages passed');
+        }
+
         console.log(`\n✅ Prerendering complete – ${successCount}/${allRoutes.length} routes\n`);
       } catch (err: any) {
         console.error('❌ Prerender failed:', err.message || err);
