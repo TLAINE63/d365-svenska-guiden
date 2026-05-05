@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2 } from "lucide-react";
 
-type SegmentKey = "published" | "in_progress" | "profile_only";
+type SegmentKey = "published" | "in_progress" | "profile_only" | "manual";
 
 interface PartnerRow {
   id: string;
@@ -73,8 +73,8 @@ Thomas & Michael`,
   },
   in_progress: {
     key: "in_progress",
-    label: "2. Påbörjad profil",
-    description: "Partners som har en partner_submission men inte är publicerade ännu.",
+    label: "2. Inbjudna men ej publicerade",
+    description: "Partners som fått inbjudan eller påbörjat sin profil men ännu inte är publicerade.",
     subject: "d365.se – ni är nästan klara",
     body: `Hej [NAMN],
 
@@ -119,6 +119,18 @@ Vill ni vara med, svara bara "ok" så aktiverar vi er.
 Allt gott,
 Thomas & Michael`,
   },
+  manual: {
+    key: "manual",
+    label: "4. Alla partners (manuellt val)",
+    description: "Visa alla partners i databasen — välj fritt vilka som ska få mailet och redigera ämne/text.",
+    subject: "d365.se",
+    body: `Hej [NAMN],
+
+[Skriv ditt eget meddelande här.]
+
+Allt gott,
+Thomas & Michael`,
+  },
 };
 
 const STORAGE_KEY = "admin_sales_pitch_v2_templates";
@@ -134,6 +146,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   const [sending, setSending] = useState(false);
   const [partners, setPartners] = useState<PartnerRow[]>([]);
   const [submissionPartnerIds, setSubmissionPartnerIds] = useState<Set<string>>(new Set());
+  const [invitedPartnerIds, setInvitedPartnerIds] = useState<Set<string>>(new Set());
   const [profileRefreshEmails, setProfileRefreshEmails] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState<SegmentKey>("published");
   const [search, setSearch] = useState("");
@@ -142,6 +155,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     published: new Set(),
     in_progress: new Set(),
     profile_only: new Set(),
+    manual: new Set(),
   });
 
   const [templates, setTemplates] = useState<Record<SegmentKey, Template>>(() => {
@@ -154,6 +168,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
         published: { ...DEFAULT_TEMPLATES.published, ...stored.published },
         in_progress: { ...DEFAULT_TEMPLATES.in_progress, ...stored.in_progress },
         profile_only: { ...DEFAULT_TEMPLATES.profile_only, ...stored.profile_only },
+        manual: { ...DEFAULT_TEMPLATES.manual, ...(stored.manual || {}) },
       };
     } catch {
       return DEFAULT_TEMPLATES;
@@ -180,6 +195,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
       setPartners((data.partners || []) as PartnerRow[]);
       setSubmissionPartnerIds(new Set<string>((data.submission_partner_ids || []) as string[]));
+      setInvitedPartnerIds(new Set<string>((data.invited_partner_ids || []) as string[]));
       const emails = new Set<string>();
       ((data.april27_emails || []) as string[]).forEach((e) => {
         if (e) emails.add(String(e).toLowerCase().trim());
@@ -206,18 +222,19 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       const recipientEmail = (p.admin_contact_email || p.email || "").toLowerCase().trim();
       const gotApril27 = recipientEmail && profileRefreshEmails.has(recipientEmail);
       const hasSubmission = submissionPartnerIds.has(p.id);
+      const wasInvited = invitedPartnerIds.has(p.id);
 
       if (p.is_featured) {
         published.push(p);
-      } else if (hasSubmission) {
+      } else if (hasSubmission || wasInvited) {
         inProgress.push(p);
       } else if (gotApril27) {
         profileOnly.push(p);
       }
     }
 
-    return { published, in_progress: inProgress, profile_only: profileOnly };
-  }, [partners, submissionPartnerIds, profileRefreshEmails]);
+    return { published, in_progress: inProgress, profile_only: profileOnly, manual: partners };
+  }, [partners, submissionPartnerIds, invitedPartnerIds, profileRefreshEmails]);
 
   const currentList = segmentPartners[activeTab];
 
@@ -380,14 +397,15 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           </div>
           <div className="mt-4 flex flex-wrap gap-2 text-xs">
             <Badge variant="secondary">Publicerade: {segmentPartners.published.length}</Badge>
-            <Badge variant="secondary">Påbörjad profil: {segmentPartners.in_progress.length}</Badge>
+            <Badge variant="secondary">Inbjudna ej publ.: {segmentPartners.in_progress.length}</Badge>
             <Badge variant="secondary">Endast 27/4-mail: {segmentPartners.profile_only.length}</Badge>
+            <Badge variant="secondary">Alla (manuellt): {segmentPartners.manual.length}</Badge>
           </div>
         </CardContent>
       </Card>
 
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SegmentKey)}>
-        <TabsList className="grid grid-cols-3 w-full">
+        <TabsList className="grid grid-cols-4 w-full">
           {(Object.keys(DEFAULT_TEMPLATES) as SegmentKey[]).map(k => (
             <TabsTrigger key={k} value={k} className="flex items-center gap-2">
               {DEFAULT_TEMPLATES[k].label}
@@ -504,7 +522,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                       <div className="min-w-0">
                         <div className="font-medium truncate">{p.name}</div>
                         <div className="text-xs text-muted-foreground">
-                          {p.is_featured ? "Publicerad" : submissionPartnerIds.has(p.id) ? "Påbörjad profil" : "Ej publicerad"}
+                          {p.is_featured ? "Publicerad" : submissionPartnerIds.has(p.id) ? "Påbörjad profil" : invitedPartnerIds.has(p.id) ? "Inbjuden" : "Ej publicerad"}
                         </div>
                       </div>
                       <div>
