@@ -96,6 +96,7 @@ import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
 import { getPublicBaseUrl } from "@/lib/publicUrl";
+import SEOHead from "@/components/SEOHead";
 
 // ==================== VALIDATION SCHEMA ====================
 
@@ -1559,6 +1560,7 @@ Thomas`,
   if (authLoading) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />
         <Navbar />
         <main className="flex-grow flex items-center justify-center p-4">
           <p className="text-muted-foreground">Laddar...</p>
@@ -1571,6 +1573,7 @@ Thomas`,
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />
         <Navbar />
         <main className="flex-grow flex items-center justify-center p-4">
           <Card className="w-full max-w-md">
@@ -1632,6 +1635,7 @@ Thomas`,
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
+      <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />
       <Navbar />
       <main className="flex-grow mt-16">
         {/* Premium dark hero header */}
