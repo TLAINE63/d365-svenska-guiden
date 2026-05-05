@@ -35,6 +35,8 @@ export interface BlogArticle {
   readingTimeMinutes: number;
   /** Article body (JSX) */
   content: ReactNode;
+  /** If true, lyfts som "Nytt i Kunskapscentret"-banner på startsidan */
+  featured?: boolean;
 }
 
 const THOMAS_LAINE: BlogArticleAuthor = {
