@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2 } from "lucide-react";
 
-type SegmentKey = "published" | "in_progress" | "profile_only";
+type SegmentKey = "published" | "in_progress" | "profile_only" | "manual";
 
 interface PartnerRow {
   id: string;
