@@ -137,6 +137,7 @@ export default function prerenderPlugin(): Plugin {
         const baseUrl = 'https://d365.se';
         const today = new Date().toISOString().split('T')[0];
         const sitemapEntries: string[] = [];
+        const seoLintResults: Array<{ path: string; errors: string[]; warnings: string[] }> = [];
         let successCount = 0;
 
         // ── 6. Render each route ─────────────────────────────────────────
@@ -252,6 +253,12 @@ export default function prerenderPlugin(): Plugin {
             successCount++;
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 
+            // ── SEO lint on the rendered HTML ─────────────────────────────
+            const seoIssues = lintSeo(page, route.path);
+            if (seoIssues.errors.length || seoIssues.warnings.length) {
+              seoLintResults.push({ path: route.path, ...seoIssues });
+            }
+
             // Collect sitemap entry
             const trailingPath = route.path === '/' ? '/' : (route.path.endsWith('/') ? route.path : `${route.path}/`);
             const lastmod = (route as any).lastmod || today;
@@ -301,6 +308,28 @@ export default function prerenderPlugin(): Plugin {
         // ── 10. Generate CNAME for custom domain ─────────────────────────
         writeFileSync(resolve(root, outDir, 'CNAME'), 'd365.se', 'utf-8');
         console.log('  ✅ CNAME (d365.se)');
+
+        // ── 11. SEO lint report ─────────────────────────────────────────
+        if (seoLintResults.length > 0) {
+          const totalErrors = seoLintResults.reduce((n, r) => n + r.errors.length, 0);
+          const totalWarnings = seoLintResults.reduce((n, r) => n + r.warnings.length, 0);
+          console.log(`\n🔍 SEO lint: ${totalErrors} errors, ${totalWarnings} warnings across ${seoLintResults.length} pages`);
+          for (const r of seoLintResults) {
+            for (const e of r.errors) console.error(`  ❌ ${r.path}: ${e}`);
+            for (const w of r.warnings) console.warn(`  ⚠️  ${r.path}: ${w}`);
+          }
+          // Write JSON report for CI/inspection
+          try {
+            writeFileSync(
+              resolve(root, outDir, 'seo-lint-report.json'),
+              JSON.stringify({ generatedAt: new Date().toISOString(), totalErrors, totalWarnings, results: seoLintResults }, null, 2),
+              'utf-8'
+            );
+            console.log('  📝 seo-lint-report.json');
+          } catch {/* ignore */}
+        } else {
+          console.log('\n🔍 SEO lint: ✅ all pages passed');
+        }
 
         console.log(`\n✅ Prerendering complete – ${successCount}/${allRoutes.length} routes\n`);
       } catch (err: any) {
@@ -559,4 +588,74 @@ function setupBrowserGlobals() {
   safeSet(g, 'screen', g.window.screen);
   safeSet(g, 'innerWidth', g.window.innerWidth);
   safeSet(g, 'innerHeight', g.window.innerHeight);
+}
+
+// ─── SEO lint for prerendered HTML ──────────────────────────────────────────
+interface SeoLint { errors: string[]; warnings: string[]; }
+
+function lintSeo(html: string, path: string): SeoLint {
+  const errors: string[] = [];
+  const warnings: string[] = [];
+
+  const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
+  const head = headMatch ? headMatch[1] : '';
+
+  const isNoIndex = /<meta\s+name=["']robots["']\s+content=["'][^"']*noindex/i.test(head);
+
+  // <title>
+  const titleMatch = head.match(/<title>([^<]*)<\/title>/i);
+  const title = titleMatch ? titleMatch[1].trim() : '';
+  if (!title) errors.push('Missing <title>');
+  else {
+    if (title.length < 30) warnings.push(`Title too short (${title.length} chars): "${title}"`);
+    if (title.length > 65) warnings.push(`Title too long (${title.length} chars): "${title}"`);
+  }
+
+  // meta description
+  const descMatch = head.match(/<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i);
+  const desc = descMatch ? descMatch[1].trim() : '';
+  if (!desc) errors.push('Missing meta description');
+  else {
+    if (desc.length < 70) warnings.push(`Description too short (${desc.length} chars)`);
+    if (desc.length > 160) warnings.push(`Description too long (${desc.length} chars)`);
+  }
+
+  // canonical (skip on noindex)
+  if (!isNoIndex) {
+    const canonMatch = head.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+    if (!canonMatch) errors.push('Missing canonical link');
+    else if (!canonMatch[1].startsWith('https://d365.se')) {
+      errors.push(`Canonical not absolute https://d365.se: ${canonMatch[1]}`);
+    }
+  }
+
+  // Open Graph
+  const ogRequired = ['og:title', 'og:description', 'og:url', 'og:type', 'og:image'];
+  for (const prop of ogRequired) {
+    const re = new RegExp(`<meta\\s+property=["']${prop}["']\\s+content=["']([^"']*)["']`, 'i');
+    const m = head.match(re);
+    if (!m || !m[1].trim()) warnings.push(`Missing/empty ${prop}`);
+  }
+
+  // Twitter card
+  if (!/<meta\s+name=["']twitter:card["']/i.test(head)) {
+    warnings.push('Missing twitter:card');
+  }
+
+  // JSON-LD: validate parseability if present
+  const ldMatches = [...head.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  for (const m of ldMatches) {
+    try {
+      const parsed = JSON.parse(m[1].trim());
+      const items = Array.isArray(parsed) ? parsed : [parsed];
+      for (const item of items) {
+        if (!item['@context']) warnings.push('JSON-LD missing @context');
+        if (!item['@type']) warnings.push('JSON-LD missing @type');
+      }
+    } catch (e: any) {
+      errors.push(`Invalid JSON-LD: ${e.message}`);
+    }
+  }
+
+  return { errors, warnings };
 }
