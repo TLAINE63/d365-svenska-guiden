@@ -1559,6 +1559,7 @@ Thomas`,
   if (authLoading) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />
         <Navbar />
         <main className="flex-grow flex items-center justify-center p-4">
           <p className="text-muted-foreground">Laddar...</p>
@@ -1571,6 +1572,7 @@ Thomas`,
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEOHead title="Admin – d365.se" description="Adminpanel för d365.se." canonicalPath="/admin" noIndex />
         <Navbar />
         <main className="flex-grow flex items-center justify-center p-4">
           <Card className="w-full max-w-md">
