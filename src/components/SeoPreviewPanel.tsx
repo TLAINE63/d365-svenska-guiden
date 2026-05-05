@@ -22,6 +22,8 @@ const SeoPreviewPanel = ({
   canonicalUrl,
   ogImage,
   siteName = "d365.se",
+  descriptionStatus,
+  descriptionWarnings,
 }: Props) => {
   const [enabled, setEnabled] = useState(false);
   const [open, setOpen] = useState(true);
