@@ -370,17 +370,16 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     }
   };
 
-  const sendTestAll = async () => {
+  const sendTest = async (segs: SegmentKey[], confirmMsg: string) => {
     const addr = testEmail.trim();
     if (!/\S+@\S+\.\S+/.test(addr)) {
       toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
       return;
     }
-    if (!confirm(`Skicka testmail av alla 3 mallar (Publicerade, Inbjudna ej publ., Endast 27/4) till ${addr}?`)) return;
+    if (!confirm(confirmMsg)) return;
 
     setSendingTest(true);
     try {
-      const segs: SegmentKey[] = ["published", "in_progress", "profile_only"];
       let okCount = 0;
       for (const seg of segs) {
         const tpl = templates[seg];
@@ -408,13 +407,22 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
         if (response.ok) okCount++;
         else console.error("Test send failed for", seg, await response.text());
       }
-      toast({ title: `Testmail skickade: ${okCount}/3`, description: `Mottagare: ${addr}` });
+      toast({ title: `Testmail skickade: ${okCount}/${segs.length}`, description: `Mottagare: ${addr}` });
     } catch (err: any) {
       toast({ title: "Fel vid testutskick", description: err.message, variant: "destructive" });
     } finally {
       setSendingTest(false);
     }
   };
+
+  const sendTestAll = () =>
+    sendTest(
+      ["published", "in_progress", "profile_only"],
+      `Skicka testmail av alla 3 mallar till ${testEmail.trim()}?`
+    );
+
+  const sendTestEmail2 = () =>
+    sendTest(["in_progress"], `Skicka testmail av Email 2 till ${testEmail.trim()}?`);
 
   if (loading) {
     return (
@@ -465,6 +473,15 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             >
               <Send className="h-3.5 w-3.5 mr-1.5" />
               {sendingTest ? "Skickar test…" : "Skicka testmail (3 st)"}
+            </Button>
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={sendingTest}
+              onClick={sendTestEmail2}
+            >
+              <Send className="h-3.5 w-3.5 mr-1.5" />
+              {sendingTest ? "Skickar…" : "Skicka endast Email 2"}
             </Button>
           </div>
         </CardContent>
