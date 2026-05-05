@@ -522,7 +522,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                       <div className="min-w-0">
                         <div className="font-medium truncate">{p.name}</div>
                         <div className="text-xs text-muted-foreground">
-                          {p.is_featured ? "Publicerad" : submissionPartnerIds.has(p.id) ? "Påbörjad profil" : "Ej publicerad"}
+                          {p.is_featured ? "Publicerad" : submissionPartnerIds.has(p.id) ? "Påbörjad profil" : invitedPartnerIds.has(p.id) ? "Inbjuden" : "Ej publicerad"}
                         </div>
                       </div>
                       <div>
