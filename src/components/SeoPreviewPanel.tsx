@@ -25,6 +25,8 @@ const SeoPreviewPanel = ({
   canonicalUrl,
   ogImage,
   siteName = "d365.se",
+  titleStatus,
+  titleWarnings,
   descriptionStatus,
   descriptionWarnings,
 }: Props) => {
