@@ -118,7 +118,7 @@ Thomas & Michael`,
   },
 };
 
-const STORAGE_KEY = "admin_sales_pitch_v2_templates_v3";
+const STORAGE_KEY = "admin_sales_pitch_v2_templates_v4";
 
 interface Props {
   token: string;
