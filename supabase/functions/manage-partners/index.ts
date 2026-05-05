@@ -155,7 +155,7 @@ interface PartnerData {
 }
 
 interface RequestBody {
-  action: "create" | "update" | "delete" | "get-full" | "get-one";
+  action: "create" | "update" | "delete" | "get-full" | "get-one" | "get-sales-pitch-segments";
   partner?: PartnerData;
   id?: string;
   token: string;
