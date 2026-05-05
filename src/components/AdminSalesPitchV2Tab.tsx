@@ -474,6 +474,15 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
               <Send className="h-3.5 w-3.5 mr-1.5" />
               {sendingTest ? "Skickar test…" : "Skicka testmail (3 st)"}
             </Button>
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={sendingTest}
+              onClick={sendTestEmail2}
+            >
+              <Send className="h-3.5 w-3.5 mr-1.5" />
+              {sendingTest ? "Skickar…" : "Skicka endast Email 2"}
+            </Button>
           </div>
         </CardContent>
       </Card>
