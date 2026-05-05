@@ -397,8 +397,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           </div>
           <div className="mt-4 flex flex-wrap gap-2 text-xs">
             <Badge variant="secondary">Publicerade: {segmentPartners.published.length}</Badge>
-            <Badge variant="secondary">Påbörjad profil: {segmentPartners.in_progress.length}</Badge>
+            <Badge variant="secondary">Inbjudna ej publ.: {segmentPartners.in_progress.length}</Badge>
             <Badge variant="secondary">Endast 27/4-mail: {segmentPartners.profile_only.length}</Badge>
+            <Badge variant="secondary">Alla (manuellt): {segmentPartners.manual.length}</Badge>
           </div>
         </CardContent>
       </Card>
