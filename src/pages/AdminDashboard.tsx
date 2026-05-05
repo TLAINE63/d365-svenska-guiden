@@ -2809,6 +2809,11 @@ Thomas`,
           <TabsContent value="partner-agreement-page">
             <AdminPartnerAgreementTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
+
+          {/* ==================== FEATURED ARTICLE TAB ==================== */}
+          <TabsContent value="featured-article">
+            <AdminFeaturedArticleTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
