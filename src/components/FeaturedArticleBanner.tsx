@@ -44,7 +44,7 @@ const FeaturedArticleBanner = () => {
   if (!article) return null;
 
   return (
-    <div className="mb-10 sm:mb-12">
+    <div className="mb-6 sm:mb-8">
       <FeaturedArticleBannerView article={article} />
     </div>
   );
