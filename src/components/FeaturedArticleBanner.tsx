@@ -18,7 +18,10 @@ const FeaturedArticleBanner = () => {
       try {
         const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-public-setting&key=featured_article_slug`;
         const res = await fetch(url, {
-          headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+          headers: {
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
         });
         if (!res.ok) return;
         const data = await res.json();
