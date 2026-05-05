@@ -4,6 +4,10 @@ import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
+import { buildStockholmIso } from "@/lib/eventDateIso";
+
+const TIME_OK = (t: string | null | undefined): t is string =>
+  !!t && /^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/.test(t);
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
