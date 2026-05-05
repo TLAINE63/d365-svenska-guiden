@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN } from "@/lib/metaDescription";
 
 interface Props {
   title: string;
@@ -6,6 +7,8 @@ interface Props {
   canonicalUrl: string;
   ogImage: { url: string; alt: string; width: number; height: number };
   siteName?: string;
+  descriptionStatus?: "ok" | "truncated" | "too-short" | "fallback";
+  descriptionWarnings?: string[];
 }
 
 /**
