@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BLOG_ARTICLES, getBlogArticleBySlug } from "@/data/blogArticles";
 import { buildMetaDescription } from "@/lib/metaDescription";
+import { resolveOgImage } from "@/lib/ogImage";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
@@ -27,7 +28,11 @@ const BlogArticle = () => {
 
   const canonicalPath = `/artiklar/${article.slug}`;
   const canonicalUrl = `https://d365.se${canonicalPath}/`;
-  const ogImage = `https://d365.se${article.heroImage.startsWith("/") ? article.heroImage : "/og-erp.png"}`;
+  const ogImage = resolveOgImage({
+    src: article.heroImage,
+    alt: article.title,
+    fallbackAlt: `${article.category} – ${article.title}`,
+  });
   const metaDescription = buildMetaDescription([article.metaDescription, article.summary]);
 
   // Schema.org Article with author
@@ -36,7 +41,7 @@ const BlogArticle = () => {
     "@type": "Article",
     headline: article.title,
     description: metaDescription,
-    image: ogImage,
+    image: ogImage.url,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     inLanguage: "sv-SE",
@@ -69,8 +74,10 @@ const BlogArticle = () => {
         description={metaDescription}
         canonicalPath={canonicalPath}
         keywords={article.tags.join(", ")}
-        ogImage={ogImage}
-        ogImageAlt={article.title}
+        ogImage={ogImage.url}
+        ogImageAlt={ogImage.alt}
+        ogImageWidth={ogImage.width}
+        ogImageHeight={ogImage.height}
         ogType="article"
       />
       <Helmet>
