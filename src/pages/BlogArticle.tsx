@@ -92,6 +92,12 @@ const BlogArticle = () => {
         ))}
         <script type="application/ld+json">{JSON.stringify(articleSchema)}</script>
       </Helmet>
+      <SeoPreviewPanel
+        title={article.metaTitle.includes("d365.se") ? article.metaTitle : `${article.metaTitle} | d365.se`}
+        description={metaDescription}
+        canonicalUrl={canonicalUrl}
+        ogImage={ogImage}
+      />
       <BreadcrumbSchema
         items={[
           { name: "Hem", url: "https://d365.se/" },
