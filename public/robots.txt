@@ -16,8 +16,13 @@ Allow: /
 # Sitemap
 Sitemap: https://d365.se/sitemap.xml
 
-# Disallow admin pages
+# Disallow admin and private/token-protected pages
 Disallow: /admin
 Disallow: /partner-admin
 Disallow: /lead-admin
 Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
