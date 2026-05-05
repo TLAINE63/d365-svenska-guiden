@@ -158,6 +158,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     manual: new Set(),
   });
 
+  const [testEmail, setTestEmail] = useState("thomas.laine@dynamicfactory.se");
+  const [sendingTest, setSendingTest] = useState(false);
+
   const [templates, setTemplates] = useState<Record<SegmentKey, Template>>(() => {
     if (typeof window === "undefined") return DEFAULT_TEMPLATES;
     try {
