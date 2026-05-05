@@ -387,6 +387,8 @@ const Index = () => {
       {/* Så här arbetar vi — fyra steg */}
       <section className="py-12 sm:py-16 bg-secondary/30 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+          <FeaturedArticleBanner />
+
           <div className="mb-10 sm:mb-12 max-w-3xl">
             <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Så här arbetar vi</span>
             <h2 className="text-3xl sm:text-4xl md:text-[42px] font-semibold text-foreground tracking-tight mb-4 leading-[1.1]">Fyra steg fram till rätt partner.</h2>
@@ -394,8 +396,6 @@ const Index = () => {
               Vi är en förmedlingstjänst, inte ett konsultbolag. Vårt jobb är att hjälpa er ställa rätt frågor och hitta partners som faktiskt matchar — inte att ta över ert projekt. Allt vi erbjuder besökaren är kostnadsfritt.
             </p>
           </div>
-
-          <FeaturedArticleBanner />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {buyerSteps.map((s) => {
