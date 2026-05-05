@@ -1,25 +1,58 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
-import { BLOG_ARTICLES } from "@/data/blogArticles";
+import { BLOG_ARTICLES, type BlogArticle } from "@/data/blogArticles";
 
 const formatDate = (iso: string) => iso.replace(/-/g, "/");
 
-const FeaturedArticleBanner = () => {
-  const featured =
-    BLOG_ARTICLES.find((a) => a.featured) ??
-    [...BLOG_ARTICLES].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
+const pickDefault = (): BlogArticle | undefined =>
+  BLOG_ARTICLES.find((a) => a.featured) ??
+  [...BLOG_ARTICLES].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
 
-  if (!featured) return null;
+const FeaturedArticleBanner = () => {
+  const [article, setArticle] = useState<BlogArticle | undefined>(pickDefault);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-public-setting&key=featured_article_slug`;
+        const res = await fetch(url, {
+          headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY },
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        const slug = (data?.value ?? "").trim();
+        if (cancelled) return;
+        if (slug) {
+          const found = BLOG_ARTICLES.find((a) => a.slug === slug);
+          if (found) setArticle(found);
+        } else {
+          // explicit "auto" — newest by date
+          setArticle(
+            [...BLOG_ARTICLES].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0]
+          );
+        }
+      } catch {
+        // keep default
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!article) return null;
 
   return (
     <Link
-      to={`/artiklar/${featured.slug}/`}
+      to={`/artiklar/${article.slug}/`}
       className="group block mb-10 sm:mb-12 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"
     >
       <div className="flex flex-col sm:flex-row items-stretch">
         <div
           className="w-full sm:w-48 md:w-56 h-32 sm:h-auto bg-cover bg-center shrink-0"
-          style={{ backgroundImage: `url(${featured.heroImage})` }}
+          style={{ backgroundImage: `url(${article.heroImage})` }}
           aria-hidden="true"
         />
         <div className="flex-1 p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4">
@@ -30,14 +63,14 @@ const FeaturedArticleBanner = () => {
                 Nytt i Kunskapscentret
               </span>
               <span className="text-[11px] text-muted-foreground">
-                {formatDate(featured.publishedAt)}
+                {formatDate(article.publishedAt)}
               </span>
             </div>
             <h3 className="text-base sm:text-lg font-semibold text-foreground leading-snug mb-1.5 group-hover:text-primary transition-colors">
-              {featured.title}
+              {article.title}
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-              {featured.summary}
+              {article.summary}
             </p>
           </div>
           <div className="flex items-center gap-1.5 text-sm font-semibold text-primary shrink-0 sm:pl-2">
