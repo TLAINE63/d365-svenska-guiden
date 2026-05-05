@@ -49,6 +49,7 @@ export interface PrerenderRoute {
   path: string;
   priority: string;
   changefreq: string;
+  lastmod?: string; // ISO date YYYY-MM-DD
   meta?: { title: string; description: string };
 }
 
@@ -93,6 +94,7 @@ export const routes: PrerenderRoute[] = [
     path: `/artiklar/${a.slug}`,
     priority: '0.7',
     changefreq: 'monthly' as const,
+    lastmod: a.publishedAt, // YYYY-MM-DD from blog data
     meta: {
       title: a.metaTitle,
       description: a.metaDescription,
@@ -193,8 +195,8 @@ export function render(url: string) {
 }
 
 /**
- * Build partner routes from local JSON data.
- * No Supabase credentials needed at build time.
+ * Build dynamic routes (partners + events) for sitemap and prerendering.
+ * Partners come from local JSON; events fetched live from Supabase REST.
  */
 export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
   const partnerRoutes: PrerenderRoute[] = partnerRoutesData
@@ -212,5 +214,50 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
     }));
 
   console.log(`  📦 Found ${partnerRoutes.length} partner routes from local JSON`);
-  return partnerRoutes;
+
+  // ── Events: fetch published/upcoming events from Supabase REST ──────
+  const eventRoutes: PrerenderRoute[] = [];
+  try {
+    const supaUrl = process.env.VITE_SUPABASE_URL;
+    const supaKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+    if (supaUrl && supaKey) {
+      const today = new Date().toISOString().split('T')[0];
+      const url = `${supaUrl}/rest/v1/partner_events?select=id,title,description,event_date,updated_at,status&status=eq.approved&event_date=gte.${today}&order=event_date.asc`;
+      const res = await fetch(url, {
+        headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
+      });
+      if (res.ok) {
+        const events = (await res.json()) as Array<{
+          id: string;
+          title: string;
+          description: string | null;
+          event_date: string;
+          updated_at: string;
+        }>;
+        for (const ev of events) {
+          eventRoutes.push({
+            path: `/events/${ev.id}`,
+            priority: '0.6',
+            changefreq: 'weekly',
+            lastmod: (ev.updated_at || ev.event_date || '').slice(0, 10) || undefined,
+            meta: {
+              title: `${ev.title} | Event – d365.se`,
+              description:
+                (ev.description || '').slice(0, 155) ||
+                `${ev.title} – Microsoft Dynamics 365-event. Läs mer och anmäl dig på d365.se.`,
+            },
+          });
+        }
+        console.log(`  📦 Found ${eventRoutes.length} event routes from Supabase`);
+      } else {
+        console.warn(`  ⚠️  Events fetch failed: ${res.status}`);
+      }
+    } else {
+      console.warn('  ⚠️  Skipping events: missing VITE_SUPABASE_URL/KEY');
+    }
+  } catch (err: any) {
+    console.warn(`  ⚠️  Events fetch error: ${err.message}`);
+  }
+
+  return [...partnerRoutes, ...eventRoutes];
 }
