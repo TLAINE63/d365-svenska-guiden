@@ -1817,7 +1817,7 @@ const AIReadiness = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title={`AI Impact Assessment: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" />
+      <SEOHead title={`AI Impact Assessment: ${pd.title} | d365.se`} description={pd.description.slice(0, 150)} canonicalPath="/ai-readiness" noIndex />
       <Navbar />
       <main className="container mx-auto px-4 pt-28 pb-16">
         <div className="max-w-3xl mx-auto">
