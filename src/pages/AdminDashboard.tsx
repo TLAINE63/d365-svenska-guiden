@@ -96,6 +96,7 @@ import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
 import { z } from "zod";
 import { getPublicBaseUrl } from "@/lib/publicUrl";
+import SEOHead from "@/components/SEOHead";
 
 // ==================== VALIDATION SCHEMA ====================
 
