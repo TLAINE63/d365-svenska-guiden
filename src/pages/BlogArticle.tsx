@@ -41,7 +41,7 @@ const BlogArticle = () => {
     "@type": "Article",
     headline: article.title,
     description: metaDescription,
-    image: ogImage,
+    image: ogImage.url,
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     inLanguage: "sv-SE",
