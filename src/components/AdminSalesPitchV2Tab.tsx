@@ -68,6 +68,14 @@ Ni ligger redan bra till – och är en del av den grupp som sätter strukturen 
 
 Vill ni fortsätta vara med enligt detta upplägg, svara bara "ok" så löser vi resten.
 
+Pris, villkor och nedladdningsbart avtal finns här: https://d365.se/avtalssida
+
+Aktuell sajtstatistik finns tillgänglig för partners, så att ni kan följa hur d365.se används och få en bild av trafiken: https://www.d365.se/partnerstatistik
+
+Glöm inte att uppdatera er partnerprofil här:
+
+{{INVITATION_LINK}}
+
 Allt gott,
 Thomas & Michael`,
   },
@@ -89,6 +97,14 @@ ${PRICING_BLOCK}
 Ni är i praktiken bara ett steg från att vara live.
 
 Säg till om ni vill att vi hjälper er färdigställa profilen, eller svara "ok" så aktiverar vi er.
+
+Pris, villkor och nedladdningsbart avtal finns här: https://d365.se/avtalssida
+
+Aktuell sajtstatistik finns tillgänglig för partners, så att ni kan följa hur d365.se används och få en bild av trafiken: https://www.d365.se/partnerstatistik
+
+Glöm inte att uppdatera er partnerprofil här:
+
+{{INVITATION_LINK}}
 
 Allt gott,
 
@@ -114,6 +130,14 @@ ${PRICING_BLOCK}
 Fokus nu är att få med rätt partners i denna fas, innan vi skalar upp innehåll och synlighet ytterligare.
 
 Vill ni vara med, svara bara "ok" så aktiverar vi er.
+
+Pris, villkor och nedladdningsbart avtal finns här: https://d365.se/avtalssida
+
+Aktuell sajtstatistik finns tillgänglig för partners, så att ni kan följa hur d365.se används och få en bild av trafiken: https://www.d365.se/partnerstatistik
+
+Glöm inte att uppdatera er partnerprofil här:
+
+{{INVITATION_LINK}}
 
 Allt gott,
 Thomas & Michael`,
