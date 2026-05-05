@@ -74,8 +74,10 @@ const BlogArticle = () => {
         description={metaDescription}
         canonicalPath={canonicalPath}
         keywords={article.tags.join(", ")}
-        ogImage={ogImage}
-        ogImageAlt={article.title}
+        ogImage={ogImage.url}
+        ogImageAlt={ogImage.alt}
+        ogImageWidth={ogImage.width}
+        ogImageHeight={ogImage.height}
         ogType="article"
       />
       <Helmet>
