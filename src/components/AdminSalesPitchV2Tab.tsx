@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2 } from "lucide-react";
 
-type SegmentKey = "published" | "in_progress" | "profile_only" | "manual";
+type SegmentKey = "published" | "not_published";
 
 interface PartnerRow {
   id: string;
@@ -32,45 +32,41 @@ interface Template {
   body: string;
 }
 
-const PRICING_BLOCK = ` 1 produktområde: 995 kr/mån
-
- 2 produktområden: 1 595 kr/mån
-
- 3 produktområden: 1 995 kr/mån
-
- Priset ligger fast under 2026
-
- 3 månaders uppsägningstid`;
-
 const DEFAULT_TEMPLATES: Record<SegmentKey, Template> = {
   published: {
     key: "published",
-    label: "1. Redan publicerade",
-    description: "Partners som är live på d365.se (is_featured = true).",
-    subject: "d365.se – nästa steg",
+    label: "1. Publicerade partners",
+    description: "Partners som är live på d365.se (is_featured = true). Profileringslänk inkluderas automatiskt.",
+    subject: "Uppdaterad partnermodell på d365.se",
     body: `Hej [NAMN],
 
-Tack för att ni redan är live på d365.se.
+Tack för att ni redan är live på d365.se. Det gör stor skillnad i den här fasen.
 
-Det gör stor skillnad i den här fasen.
+Vi går nu vidare och öppnar upp plattformen bredare. Målet är att få in tillräcklig bredd av relevanta partners så att kunder kan göra meningsfulla jämförelser.
 
-Vi går nu vidare och öppnar upp plattformen bredare, med fokus på att få in tillräckligt många relevanta partners så att kunder faktiskt kan jämföra alternativ på riktigt.
-
-I samband med detta introducerar vi ett enklare upplägg:
+I samband med detta inför vi ett enklare upplägg.
 
 Detta gäller:
 
-${PRICING_BLOCK}
+• 1 produktområde: 995 kr/mån
 
-Detta ersätter tidigare modell i denna fas. Ingångspriset är nu 995 kr/mån (tidigare 1 995 kr).
+• 2 produktområden: 1 595 kr/mån
+
+• 3 produktområden: 1 995 kr/mån
+
+Priset ligger fast under 2026
+
+3 månaders uppsägningstid
+
+Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 kr/mån (tidigare 1 990 kr).
 
 Ni ligger redan bra till – och är en del av den grupp som sätter strukturen framåt.
 
 Vill ni fortsätta vara med enligt detta upplägg, svara bara "ok" så löser vi resten.
 
-Pris, villkor och nedladdningsbart avtal finns här: https://d365.se/avtalssida
+Pris, villkor och nedladdningsbart avtal: https://d365.se/avtalssida
 
-Aktuell sajtstatistik finns tillgänglig för partners, så att ni kan följa hur d365.se används och få en bild av trafiken: https://www.d365.se/partnerstatistik
+Aktuell sajtstatistik för partners: https://www.d365.se/partnerstatistik
 
 Glöm inte att uppdatera er partnerprofil här:
 
@@ -79,84 +75,50 @@ Glöm inte att uppdatera er partnerprofil här:
 Allt gott,
 Thomas & Michael`,
   },
-  in_progress: {
-    key: "in_progress",
-    label: "2. Inbjudna men ej publicerade",
-    description: "Partners som fått inbjudan eller påbörjat sin profil men ännu inte är publicerade.",
-    subject: "d365.se – ni är nästan klara",
+  not_published: {
+    key: "not_published",
+    label: "2. Ej publicerade partners",
+    description: "Alla partners som inte är publicerade ännu (inkl. inbjudna, påbörjade profiler och tidigare 27/4-mottagare).",
+    subject: "Uppföljning – uppdaterad partnermodell på d365.se",
     body: `Hej [NAMN],
 
-Ni har redan, sedan tidigare, fått inbjudan eller kanske redan påbörjat er profil på d365.se – vilket är helt rätt i detta läge.
+En kort uppföljning på vårt utskick 27 april.
 
-Vi har nu justerat upplägget för att snabbare få upp bredden i plattformen. Ingångspriset är nu 995 kr/mån (tidigare 1 995 kr).
+Sedan dess har vi haft dialog med flera partners om hur d365.se bäst etableras i marknaden. En återkommande reflektion har blivit tydlig: för att plattformen ska bli värdefull – både för kunder och partners – behöver vi tillräcklig bredd av relevanta partners så att kunder kan göra meningsfulla jämförelser.
 
-Det innebär:
-
-${PRICING_BLOCK}
-
-Ni är i praktiken bara ett steg från att vara live.
-
-Säg till om ni vill att vi hjälper er färdigställa profilen, eller svara "ok" så aktiverar vi er.
-
-Pris, villkor och nedladdningsbart avtal finns här: https://d365.se/avtalssida
-
-Aktuell sajtstatistik finns tillgänglig för partners, så att ni kan följa hur d365.se används och få en bild av trafiken: https://www.d365.se/partnerstatistik
-
-Glöm inte att uppdatera er partnerprofil här:
-
-{{INVITATION_LINK}}
-
-Allt gott,
-
-Thomas & Michael`,
-  },
-  profile_only: {
-    key: "profile_only",
-    label: "3. Endast profileringsmail (27 april)",
-    description: "Partners som fått profileringsmailet 27 april men inte har submission eller är publicerade.",
-    subject: "Nästa steg för d365.se",
-    body: `Hej [NAMN],
-
-Sedan vi skickade ut informationen i slutet av april har vi haft dialog med ett antal partners kring d365.se.
-
-En tydlig slutsats är att vi nu behöver bygga upp en bredare partnerbas, så att kunder faktiskt kan jämföra alternativ på riktigt.
-
-Därför justerar vi upplägget i denna fas. Ingångspriset är nu 995 kr/mån (tidigare 1 995 kr).
+Vi har därför kalibrerat om upplägget för att göra det enklare att haka på i den här fasen.
 
 Detta gäller:
 
-${PRICING_BLOCK}
+• 1 produktområde: 995 kr/mån
 
-Fokus nu är att få med rätt partners i denna fas, innan vi skalar upp innehåll och synlighet ytterligare.
+• 2 produktområden: 1 595 kr/mån
 
-Vill ni vara med, svara bara "ok" så aktiverar vi er.
+• 3 produktområden: 1 995 kr/mån
 
-Pris, villkor och nedladdningsbart avtal finns här: https://d365.se/avtalssida
+Priset ligger fast under 2026
 
-Aktuell sajtstatistik finns tillgänglig för partners, så att ni kan följa hur d365.se används och få en bild av trafiken: https://www.d365.se/partnerstatistik
+3 månaders uppsägningstid
 
-Glöm inte att uppdatera er partnerprofil här:
+Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 kr/mån (tidigare 1 990 kr).
 
-{{INVITATION_LINK}}
+Vill ni vara med enligt detta upplägg, svara bara "ok" så lägger vi in er och skickar profileringslänken.
 
-Allt gott,
-Thomas & Michael`,
-  },
-  manual: {
-    key: "manual",
-    label: "4. Alla partners (manuellt val)",
-    description: "Visa alla partners i databasen — välj fritt vilka som ska få mailet och redigera ämne/text.",
-    subject: "d365.se",
-    body: `Hej [NAMN],
+Pris, villkor och nedladdningsbart avtal:
 
-[Skriv ditt eget meddelande här.]
+https://d365.se/avtalssida
+
+Aktuell sajtstatistik för partners:
+
+https://www.d365.se/partnerstatistik
 
 Allt gott,
+
 Thomas & Michael`,
   },
 };
 
-const STORAGE_KEY = "admin_sales_pitch_v2_templates";
+const STORAGE_KEY = "admin_sales_pitch_v2_templates_v3";
 
 interface Props {
   token: string;
@@ -176,9 +138,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   const [emailOverrides, setEmailOverrides] = useState<Record<string, string>>({});
   const [selected, setSelected] = useState<Record<SegmentKey, Set<string>>>({
     published: new Set(),
-    in_progress: new Set(),
-    profile_only: new Set(),
-    manual: new Set(),
+    not_published: new Set(),
   });
 
   const [testEmail, setTestEmail] = useState("thomas.laine@dynamicfactory.se");
@@ -191,10 +151,8 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       if (!raw) return DEFAULT_TEMPLATES;
       const stored = JSON.parse(raw);
       return {
-        published: { ...DEFAULT_TEMPLATES.published, ...stored.published },
-        in_progress: { ...DEFAULT_TEMPLATES.in_progress, ...stored.in_progress },
-        profile_only: { ...DEFAULT_TEMPLATES.profile_only, ...stored.profile_only },
-        manual: { ...DEFAULT_TEMPLATES.manual, ...(stored.manual || {}) },
+        published: { ...DEFAULT_TEMPLATES.published, ...(stored.published || {}) },
+        not_published: { ...DEFAULT_TEMPLATES.not_published, ...(stored.not_published || {}) },
       };
     } catch {
       return DEFAULT_TEMPLATES;
@@ -241,26 +199,18 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   const segmentPartners = useMemo(() => {
     const published: PartnerRow[] = [];
-    const inProgress: PartnerRow[] = [];
-    const profileOnly: PartnerRow[] = [];
+    const notPublished: PartnerRow[] = [];
 
     for (const p of partners) {
-      const recipientEmail = (p.admin_contact_email || p.email || "").toLowerCase().trim();
-      const gotApril27 = recipientEmail && profileRefreshEmails.has(recipientEmail);
-      const hasSubmission = submissionPartnerIds.has(p.id);
-      const wasInvited = invitedPartnerIds.has(p.id);
-
       if (p.is_featured) {
         published.push(p);
-      } else if (hasSubmission || wasInvited) {
-        inProgress.push(p);
-      } else if (gotApril27) {
-        profileOnly.push(p);
+      } else {
+        notPublished.push(p);
       }
     }
 
-    return { published, in_progress: inProgress, profile_only: profileOnly, manual: partners };
-  }, [partners, submissionPartnerIds, invitedPartnerIds, profileRefreshEmails]);
+    return { published, not_published: notPublished };
+  }, [partners]);
 
   const currentList = segmentPartners[activeTab];
 
@@ -285,6 +235,14 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     });
   };
 
+  const resolveEmail = (p: PartnerRow): string => {
+    return (emailOverrides[p.id]?.trim() || p.admin_contact_email?.trim() || p.email?.trim() || "").trim();
+  };
+
+  const resolveContactName = (p: PartnerRow): string => {
+    return p.admin_contact_name || p.contact_person || p.name;
+  };
+
   const toggleAllVisible = () => {
     const allSelected = filteredList.every(p => currentSelected.has(p.id));
     setSelected(prev => {
@@ -298,14 +256,6 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       }
       return { ...prev, [activeTab]: next };
     });
-  };
-
-  const resolveEmail = (p: PartnerRow): string => {
-    return (emailOverrides[p.id]?.trim() || p.admin_contact_email?.trim() || p.email?.trim() || "").trim();
-  };
-
-  const resolveContactName = (p: PartnerRow): string => {
-    return p.admin_contact_name || p.contact_person || p.name;
   };
 
   const updateTemplateField = (field: "subject" | "body", value: string) => {
@@ -439,14 +389,8 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     }
   };
 
-  const sendTestAll = () =>
-    sendTest(
-      ["published", "in_progress", "profile_only"],
-      `Skicka testmail av alla 3 mallar till ${testEmail.trim()}?`
-    );
-
-  const sendTestEmail2 = () =>
-    sendTest(["in_progress"], `Skicka testmail av Email 2 till ${testEmail.trim()}?`);
+  const sendTestBoth = () =>
+    sendTest(["published", "not_published"], `Skicka testmail av båda mallarna till ${testEmail.trim()}?`);
 
   if (loading) {
     return (
@@ -468,7 +412,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                 <h2 className="text-xl font-bold">Införsäljning v2 — segmenterade utskick</h2>
               </div>
               <p className="text-slate-300 text-sm max-w-2xl">
-                Tre olika mallar för tre partnersegment. Redigera ämne &amp; brödtext, välj exakt vilka som ska få mailet, och skicka i bulk. Mallar sparas lokalt i din webbläsare. Mottagaradress: <code className="text-xs">admin_contact_email</code> i första hand, annars publik e-post.
+                Två mallar: en till publicerade partners (med profileringslänk) och en till alla ej publicerade. Redigera ämne &amp; brödtext, välj exakt vilka som ska få mailet, och skicka i bulk. Mallar sparas lokalt i din webbläsare. Mottagaradress: <code className="text-xs">admin_contact_email</code> i första hand, annars publik e-post.
               </p>
             </div>
             <Button variant="secondary" size="sm" onClick={fetchData}>
@@ -477,12 +421,10 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           </div>
           <div className="mt-4 flex flex-wrap gap-2 text-xs">
             <Badge variant="secondary">Publicerade: {segmentPartners.published.length}</Badge>
-            <Badge variant="secondary">Inbjudna ej publ.: {segmentPartners.in_progress.length}</Badge>
-            <Badge variant="secondary">Endast 27/4-mail: {segmentPartners.profile_only.length}</Badge>
-            <Badge variant="secondary">Alla (manuellt): {segmentPartners.manual.length}</Badge>
+            <Badge variant="secondary">Ej publicerade: {segmentPartners.not_published.length}</Badge>
           </div>
           <div className="mt-4 flex flex-wrap gap-2 items-center border-t border-slate-700 pt-4">
-            <span className="text-xs text-slate-300 font-medium">Testutskick (alla 3 mallar):</span>
+            <span className="text-xs text-slate-300 font-medium">Testutskick (båda mallar):</span>
             <Input
               value={testEmail}
               onChange={(e) => setTestEmail(e.target.value)}
@@ -493,26 +435,17 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
               size="sm"
               variant="secondary"
               disabled={sendingTest}
-              onClick={sendTestAll}
+              onClick={sendTestBoth}
             >
               <Send className="h-3.5 w-3.5 mr-1.5" />
-              {sendingTest ? "Skickar test…" : "Skicka testmail (3 st)"}
-            </Button>
-            <Button
-              size="sm"
-              variant="secondary"
-              disabled={sendingTest}
-              onClick={sendTestEmail2}
-            >
-              <Send className="h-3.5 w-3.5 mr-1.5" />
-              {sendingTest ? "Skickar…" : "Skicka endast Email 2"}
+              {sendingTest ? "Skickar test…" : "Skicka testmail (2 st)"}
             </Button>
           </div>
         </CardContent>
       </Card>
 
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SegmentKey)}>
-        <TabsList className="grid grid-cols-4 w-full">
+        <TabsList className="grid grid-cols-2 w-full">
           {(Object.keys(DEFAULT_TEMPLATES) as SegmentKey[]).map(k => (
             <TabsTrigger key={k} value={k} className="flex items-center gap-2">
               {DEFAULT_TEMPLATES[k].label}
@@ -541,7 +474,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                 </div>
                 <div>
                   <Label htmlFor={`body-${k}`}>
-                    Brödtext (använd <code className="text-xs">[NAMN]</code> för mottagarens kontaktnamn)
+                    Brödtext (använd <code className="text-xs">[NAMN]</code> för mottagarens kontaktnamn{k === "published" ? <>, <code className="text-xs">{"{{INVITATION_LINK}}"}</code> för profileringslänk</> : null})
                   </Label>
                   <Textarea
                     id={`body-${k}`}
@@ -614,6 +547,16 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                   const overrideEmail = emailOverrides[p.id];
                   const effectiveEmail = (overrideEmail?.trim() || fallbackEmail).trim();
                   const valid = /\S+@\S+\.\S+/.test(effectiveEmail);
+                  const gotApril27 = profileRefreshEmails.has((p.admin_contact_email || p.email || "").toLowerCase().trim());
+                  const statusLabel = p.is_featured
+                    ? "Publicerad"
+                    : submissionPartnerIds.has(p.id)
+                      ? "Påbörjad profil"
+                      : invitedPartnerIds.has(p.id)
+                        ? "Inbjuden"
+                        : gotApril27
+                          ? "Fick 27/4-mail"
+                          : "Ej publicerad";
                   return (
                     <div
                       key={p.id}
@@ -628,9 +571,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                       />
                       <div className="min-w-0">
                         <div className="font-medium truncate">{p.name}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {p.is_featured ? "Publicerad" : submissionPartnerIds.has(p.id) ? "Påbörjad profil" : invitedPartnerIds.has(p.id) ? "Inbjuden" : "Ej publicerad"}
-                        </div>
+                        <div className="text-xs text-muted-foreground">{statusLabel}</div>
                       </div>
                       <div>
                         <Input
