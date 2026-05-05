@@ -10,6 +10,7 @@ import { BLOG_ARTICLES, getBlogArticleBySlug } from "@/data/blogArticles";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { resolveOgImage } from "@/lib/ogImage";
 import SeoPreviewPanel from "@/components/SeoPreviewPanel";
+import { getRelatedArticles } from "@/lib/relatedArticles";
 
 const formatDateSv = (iso: string) => {
   const d = new Date(iso);
