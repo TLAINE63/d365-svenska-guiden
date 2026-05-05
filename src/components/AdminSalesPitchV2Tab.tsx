@@ -146,6 +146,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   const [sending, setSending] = useState(false);
   const [partners, setPartners] = useState<PartnerRow[]>([]);
   const [submissionPartnerIds, setSubmissionPartnerIds] = useState<Set<string>>(new Set());
+  const [invitedPartnerIds, setInvitedPartnerIds] = useState<Set<string>>(new Set());
   const [profileRefreshEmails, setProfileRefreshEmails] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState<SegmentKey>("published");
   const [search, setSearch] = useState("");
@@ -154,6 +155,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     published: new Set(),
     in_progress: new Set(),
     profile_only: new Set(),
+    manual: new Set(),
   });
 
   const [templates, setTemplates] = useState<Record<SegmentKey, Template>>(() => {
@@ -166,6 +168,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
         published: { ...DEFAULT_TEMPLATES.published, ...stored.published },
         in_progress: { ...DEFAULT_TEMPLATES.in_progress, ...stored.in_progress },
         profile_only: { ...DEFAULT_TEMPLATES.profile_only, ...stored.profile_only },
+        manual: { ...DEFAULT_TEMPLATES.manual, ...(stored.manual || {}) },
       };
     } catch {
       return DEFAULT_TEMPLATES;
