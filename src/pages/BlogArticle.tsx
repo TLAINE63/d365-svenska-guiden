@@ -66,8 +66,10 @@ const BlogArticle = () => {
     articleSection: article.category,
   };
 
-  // Find related articles (other than current)
-  const related = BLOG_ARTICLES.filter((a) => a.slug !== article.slug).slice(0, 3);
+  // Tag-based related articles for stronger internal linking / SEO
+  const related = getRelatedArticles(article, BLOG_ARTICLES, 3);
+  const sharedTags = (a: typeof article) =>
+    a.tags.filter((t) => article.tags.map((x) => x.toLowerCase()).includes(t.toLowerCase())).slice(0, 2);
 
   return (
     <>
