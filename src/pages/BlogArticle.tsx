@@ -28,7 +28,11 @@ const BlogArticle = () => {
 
   const canonicalPath = `/artiklar/${article.slug}`;
   const canonicalUrl = `https://d365.se${canonicalPath}/`;
-  const ogImage = `https://d365.se${article.heroImage.startsWith("/") ? article.heroImage : "/og-erp.png"}`;
+  const ogImage = resolveOgImage({
+    src: article.heroImage,
+    alt: article.title,
+    fallbackAlt: `${article.category} – ${article.title}`,
+  });
   const metaDescription = buildMetaDescription([article.metaDescription, article.summary]);
 
   // Schema.org Article with author
