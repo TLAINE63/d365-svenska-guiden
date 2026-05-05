@@ -252,6 +252,12 @@ export default function prerenderPlugin(): Plugin {
             successCount++;
             console.log(`  ✅ ${route.path} → ${routePath || '/'}/index.html`);
 
+            // ── SEO lint on the rendered HTML ─────────────────────────────
+            const seoIssues = lintSeo(page, route.path);
+            if (seoIssues.errors.length || seoIssues.warnings.length) {
+              seoLintResults.push({ path: route.path, ...seoIssues });
+            }
+
             // Collect sitemap entry
             const trailingPath = route.path === '/' ? '/' : (route.path.endsWith('/') ? route.path : `${route.path}/`);
             const lastmod = (route as any).lastmod || today;
