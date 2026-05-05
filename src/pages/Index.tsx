@@ -385,7 +385,7 @@ const Index = () => {
       </section>
 
       {/* Så här arbetar vi — fyra steg */}
-      <section className="py-12 sm:py-16 bg-secondary/30 border-b border-border">
+      <section className="pt-6 sm:pt-8 pb-12 sm:pb-16 bg-secondary/30 border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <FeaturedArticleBanner />
 
