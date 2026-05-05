@@ -73,8 +73,8 @@ Thomas & Michael`,
   },
   in_progress: {
     key: "in_progress",
-    label: "2. Påbörjad profil",
-    description: "Partners som har en partner_submission men inte är publicerade ännu.",
+    label: "2. Inbjudna men ej publicerade",
+    description: "Partners som fått inbjudan eller påbörjat sin profil men ännu inte är publicerade.",
     subject: "d365.se – ni är nästan klara",
     body: `Hej [NAMN],
 
