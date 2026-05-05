@@ -144,9 +144,60 @@ export default function AdminFeaturedArticleTab({ token, onSessionExpired }: Pro
                 <span className="text-xs text-muted-foreground">Osparade ändringar</span>
               )}
             </div>
+
+            <ResponsivePreview slug={selectedSlug} />
           </>
         )}
       </CardContent>
     </Card>
   );
 }
+
+const VIEWPORTS = [
+  { id: "mobile", label: "Mobil", icon: Smartphone, width: 375, hint: "375 px" },
+  { id: "tablet", label: "Surfplatta", icon: Tablet, width: 768, hint: "768 px" },
+  { id: "desktop", label: "Desktop", icon: Monitor, width: 1200, hint: "1200 px" },
+] as const;
+
+function ResponsivePreview({ slug }: { slug: string }) {
+  const article = useMemo(() => {
+    if (slug) return BLOG_ARTICLES.find((a) => a.slug === slug);
+    return [...BLOG_ARTICLES].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))[0];
+  }, [slug]);
+
+  if (!article) return null;
+
+  return (
+    <div className="pt-6 border-t space-y-4">
+      <div>
+        <h3 className="text-sm font-semibold text-foreground">Förhandsvisning</h3>
+        <p className="text-xs text-muted-foreground mt-0.5">
+          Så här ser bannern ut på mobil, surfplatta och desktop. Länkar är inaktiverade i förhandsvisningen.
+        </p>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        {VIEWPORTS.map((vp) => {
+          const Icon = vp.icon;
+          return (
+            <div key={vp.id} className="space-y-2">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span className="inline-flex items-center gap-1.5 font-medium text-foreground">
+                  <Icon className="w-3.5 h-3.5" />
+                  {vp.label}
+                </span>
+                <span>{vp.hint}</span>
+              </div>
+              <div className="rounded-lg border border-dashed border-border bg-muted/30 p-3 overflow-x-auto">
+                <div className="mx-auto" style={{ width: vp.width, maxWidth: "100%" }}>
+                  <FeaturedArticleBannerView article={article} preview />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
