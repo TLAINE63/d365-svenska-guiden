@@ -39,10 +39,16 @@ const BlogArticle = () => {
   const canonicalPath = `/artiklar/${article.slug}`;
   const canonicalUrl = `https://d365.se${canonicalPath}/`;
 
-  // Banner-specifik metadata: tydlig "Nytt i Kunskapscentret"-prefix för
-  // titel/OG samt en kortare, social-vänlig beskrivning.
+  // Banner-specifik metadata: dynamisk titel inom 50–60 tecken med
+  // primärt sökord (kategori) och brand-suffix när det får plats.
+  const primaryKeyword = article.category || article.tags[0];
+  const titleResult = buildMetaTitle({
+    baseTitle: article.metaTitle || article.title,
+    primaryKeyword,
+    fromKcBanner: isFromKcBanner,
+  });
+  const metaTitle = titleResult.value;
   const bannerTitle = `Nytt i Kunskapscentret: ${article.title}`;
-  const metaTitle = isFromKcBanner ? bannerTitle : article.metaTitle;
 
   const ogImage = resolveOgImage({
     src: article.heroImage,
