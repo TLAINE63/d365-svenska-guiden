@@ -158,6 +158,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     manual: new Set(),
   });
 
+  const [testEmail, setTestEmail] = useState("thomas.laine@dynamicfactory.se");
+  const [sendingTest, setSendingTest] = useState(false);
+
   const [templates, setTemplates] = useState<Record<SegmentKey, Template>>(() => {
     if (typeof window === "undefined") return DEFAULT_TEMPLATES;
     try {
@@ -368,6 +371,52 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     }
   };
 
+  const sendTestAll = async () => {
+    const addr = testEmail.trim();
+    if (!/\S+@\S+\.\S+/.test(addr)) {
+      toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
+      return;
+    }
+    if (!confirm(`Skicka testmail av alla 3 mallar (Publicerade, Inbjudna ej publ., Endast 27/4) till ${addr}?`)) return;
+
+    setSendingTest(true);
+    try {
+      const segs: SegmentKey[] = ["published", "in_progress", "profile_only"];
+      let okCount = 0;
+      for (const seg of segs) {
+        const tpl = templates[seg];
+        const response = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+              "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            },
+            body: JSON.stringify({
+              partners: [{ id: null, name: `TEST – ${tpl.label}`, email: addr, contact_name: "Thomas" }],
+              subject: `[TEST ${tpl.label}] ${tpl.subject}`,
+              body: tpl.body,
+            }),
+          }
+        );
+        if (response.status === 401) {
+          toast({ title: "Sessionen har gått ut", variant: "destructive" });
+          onSessionExpired();
+          return;
+        }
+        if (response.ok) okCount++;
+        else console.error("Test send failed for", seg, await response.text());
+      }
+      toast({ title: `Testmail skickade: ${okCount}/3`, description: `Mottagare: ${addr}` });
+    } catch (err: any) {
+      toast({ title: "Fel vid testutskick", description: err.message, variant: "destructive" });
+    } finally {
+      setSendingTest(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="space-y-4">
@@ -400,6 +449,24 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             <Badge variant="secondary">Inbjudna ej publ.: {segmentPartners.in_progress.length}</Badge>
             <Badge variant="secondary">Endast 27/4-mail: {segmentPartners.profile_only.length}</Badge>
             <Badge variant="secondary">Alla (manuellt): {segmentPartners.manual.length}</Badge>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-2 items-center border-t border-slate-700 pt-4">
+            <span className="text-xs text-slate-300 font-medium">Testutskick (alla 3 mallar):</span>
+            <Input
+              value={testEmail}
+              onChange={(e) => setTestEmail(e.target.value)}
+              placeholder="testmottagare@exempel.se"
+              className="h-8 w-72 text-xs bg-slate-800 border-slate-600 text-white placeholder:text-slate-500"
+            />
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={sendingTest}
+              onClick={sendTestAll}
+            >
+              <Send className="h-3.5 w-3.5 mr-1.5" />
+              {sendingTest ? "Skickar test…" : "Skicka testmail (3 st)"}
+            </Button>
           </div>
         </CardContent>
       </Card>
