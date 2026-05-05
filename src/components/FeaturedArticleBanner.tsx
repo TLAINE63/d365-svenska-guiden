@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
 
-const formatDate = (iso: string) => iso.replaceAll("-", "/");
+const formatDate = (iso: string) => iso.replace(/-/g, "/");
 
 const FeaturedArticleBanner = () => {
   const featured =
