@@ -119,6 +119,18 @@ Vill ni vara med, svara bara "ok" så aktiverar vi er.
 Allt gott,
 Thomas & Michael`,
   },
+  manual: {
+    key: "manual",
+    label: "4. Alla partners (manuellt val)",
+    description: "Visa alla partners i databasen — välj fritt vilka som ska få mailet och redigera ämne/text.",
+    subject: "d365.se",
+    body: `Hej [NAMN],
+
+[Skriv ditt eget meddelande här.]
+
+Allt gott,
+Thomas & Michael`,
+  },
 };
 
 const STORAGE_KEY = "admin_sales_pitch_v2_templates";
