@@ -97,7 +97,36 @@ const SeoPreviewPanel = ({
               </p>
             </div>
             <div className="mt-1.5 flex items-center gap-3 text-[10.5px]">
-              <span>Title <Stat n={titleLen} warn={55} max={60} /></span>
+              <span>
+                Title{" "}
+                <span
+                  className={`font-mono ${
+                    titleLen > META_TITLE_MAX
+                      ? "text-red-600"
+                      : titleLen < META_TITLE_MIN
+                        ? "text-amber-600"
+                        : "text-emerald-600"
+                  }`}
+                  title={`Mål: ${META_TITLE_MIN}–${META_TITLE_MAX} tecken`}
+                >
+                  {titleLen}/{META_TITLE_MAX}
+                </span>
+                {titleStatus && titleStatus !== "ok" && (
+                  <span
+                    className={`ml-1.5 px-1.5 py-0.5 rounded text-[10px] font-semibold ${
+                      titleStatus === "missing-keyword"
+                        ? "bg-red-100 text-red-800"
+                        : "bg-amber-100 text-amber-800"
+                    }`}
+                  >
+                    {titleStatus === "missing-keyword"
+                      ? "saknar sökord"
+                      : titleStatus === "truncated"
+                        ? "trunkerad"
+                        : "för kort"}
+                  </span>
+                )}
+              </span>
               <span>
                 Desc{" "}
                 <span
