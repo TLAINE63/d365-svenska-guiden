@@ -78,13 +78,11 @@ Thomas & Michael`,
     subject: "d365.se – ni är nästan klara",
     body: `Hej [NAMN],
 
-Ni har redan, sedan tidigare, påbörjat er profil på d365.se – vilket är helt rätt i detta läge.
+Ni har redan, sedan tidigare, fått inbjudan eller kanske redan påbörjat er profil på d365.se – vilket är helt rätt i detta läge.
 
 Vi har nu justerat upplägget för att snabbare få upp bredden i plattformen.
 
 Det innebär:
-
-Detta gäller:
 
 ${PRICING_BLOCK}
 
@@ -93,6 +91,7 @@ Ni är i praktiken bara ett steg från att vara live.
 Säg till om ni vill att vi hjälper er färdigställa profilen, eller svara "ok" så aktiverar vi er.
 
 Allt gott,
+
 Thomas & Michael`,
   },
   profile_only: {
