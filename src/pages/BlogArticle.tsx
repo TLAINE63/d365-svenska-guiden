@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { ArrowLeft, Calendar, Clock, Tag, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { BLOG_ARTICLES, getBlogArticleBySlug } from "@/data/blogArticles";
-import { buildMetaDescription } from "@/lib/metaDescription";
+import { buildMetaDescriptionDetailed } from "@/lib/metaDescription";
 import { resolveOgImage } from "@/lib/ogImage";
 import SeoPreviewPanel from "@/components/SeoPreviewPanel";
 import { getRelatedArticles } from "@/lib/relatedArticles";
@@ -49,13 +49,17 @@ const BlogArticle = () => {
     fallbackAlt: `${article.category} – ${article.title}`,
   });
 
-  const baseDescription = buildMetaDescription([article.metaDescription, article.summary]);
-  const metaDescription = isFromKcBanner
-    ? buildMetaDescription([
+  const baseDescriptionResult = buildMetaDescriptionDetailed([
+    article.metaDescription,
+    article.summary,
+  ]);
+  const descriptionResult = isFromKcBanner
+    ? buildMetaDescriptionDetailed([
         `Nytt i Kunskapscentret: ${article.summary ?? article.metaDescription ?? article.title}`,
-        baseDescription,
+        baseDescriptionResult.value,
       ])
-    : baseDescription;
+    : baseDescriptionResult;
+  const metaDescription = descriptionResult.value;
 
   // Schema.org Article with author
   const articleSchema = {
@@ -136,6 +140,8 @@ const BlogArticle = () => {
         description={metaDescription}
         canonicalUrl={canonicalUrl}
         ogImage={ogImage}
+        descriptionStatus={descriptionResult.status}
+        descriptionWarnings={descriptionResult.warnings}
       />
       <BreadcrumbSchema
         items={[

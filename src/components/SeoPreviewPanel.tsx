@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { META_DESCRIPTION_MAX, META_DESCRIPTION_MIN } from "@/lib/metaDescription";
 
 interface Props {
   title: string;
@@ -6,6 +7,8 @@ interface Props {
   canonicalUrl: string;
   ogImage: { url: string; alt: string; width: number; height: number };
   siteName?: string;
+  descriptionStatus?: "ok" | "truncated" | "too-short" | "fallback";
+  descriptionWarnings?: string[];
 }
 
 /**
@@ -19,6 +22,8 @@ const SeoPreviewPanel = ({
   canonicalUrl,
   ogImage,
   siteName = "d365.se",
+  descriptionStatus,
+  descriptionWarnings,
 }: Props) => {
   const [enabled, setEnabled] = useState(false);
   const [open, setOpen] = useState(true);
@@ -88,8 +93,46 @@ const SeoPreviewPanel = ({
             </div>
             <div className="mt-1.5 flex items-center gap-3 text-[10.5px]">
               <span>Title <Stat n={titleLen} warn={55} max={60} /></span>
-              <span>Desc <Stat n={descLen} warn={150} max={160} /></span>
+              <span>
+                Desc{" "}
+                <span
+                  className={`font-mono ${
+                    descLen > META_DESCRIPTION_MAX
+                      ? "text-red-600"
+                      : descLen < META_DESCRIPTION_MIN
+                        ? "text-amber-600"
+                        : "text-emerald-600"
+                  }`}
+                  title={`Mål: ${META_DESCRIPTION_MIN}–${META_DESCRIPTION_MAX} tecken`}
+                >
+                  {descLen}/{META_DESCRIPTION_MAX}
+                </span>
+              </span>
+              {descriptionStatus && descriptionStatus !== "ok" && (
+                <span
+                  className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
+                    descriptionStatus === "truncated"
+                      ? "bg-amber-100 text-amber-800"
+                      : descriptionStatus === "too-short"
+                        ? "bg-amber-100 text-amber-800"
+                        : "bg-red-100 text-red-800"
+                  }`}
+                >
+                  {descriptionStatus === "truncated"
+                    ? "trunkerad"
+                    : descriptionStatus === "too-short"
+                      ? "för kort"
+                      : "fallback"}
+                </span>
+              )}
             </div>
+            {descriptionWarnings && descriptionWarnings.length > 0 && (
+              <ul className="mt-1.5 space-y-0.5 text-[10px] text-amber-700 list-disc pl-4">
+                {descriptionWarnings.map((w, i) => (
+                  <li key={i}>{w}</li>
+                ))}
+              </ul>
+            )}
           </div>
 
           {/* Open Graph / social */}
