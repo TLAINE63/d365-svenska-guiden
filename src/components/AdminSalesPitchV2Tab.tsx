@@ -38,7 +38,7 @@ const DEFAULT_TEMPLATES: Record<SegmentKey, Template> = {
     label: "1. Publicerade partners",
     description: "Partners som är live på d365.se (is_featured = true). Profileringslänk inkluderas automatiskt.",
     subject: "Uppdaterad partnermodell på d365.se",
-    body: `Hej [NAMN],
+    body: `Hej,
 
 Tack för att ni redan är live på d365.se. Det gör stor skillnad i den här fasen.
 
@@ -80,7 +80,7 @@ Thomas & Michael`,
     label: "2. Ej publicerade partners",
     description: "Alla partners som inte är publicerade ännu (inkl. inbjudna, påbörjade profiler och tidigare 27/4-mottagare).",
     subject: "Uppföljning – uppdaterad partnermodell på d365.se",
-    body: `Hej [NAMN],
+    body: `Hej,
 
 En kort uppföljning på vårt utskick 27 april.
 
