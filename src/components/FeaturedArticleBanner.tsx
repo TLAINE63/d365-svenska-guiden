@@ -49,7 +49,7 @@ const FeaturedArticleBanner = () => {
 
   return (
     <Link
-      to={`/artiklar/${article.slug}/`}
+      to={`/artiklar/${article.slug}/?ref=kc-banner`}
       aria-label={`Nytt i Kunskapscentret: ${article.title} – läs artikeln`}
       title={article.title}
       className="group block mb-10 sm:mb-12 rounded-2xl border border-border bg-card hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 overflow-hidden"
