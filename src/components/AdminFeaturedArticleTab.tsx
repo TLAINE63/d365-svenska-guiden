@@ -6,7 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useToast } from "@/hooks/use-toast";
 import { Sparkles, Save, Smartphone, Tablet, Monitor } from "lucide-react";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
-import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
+import FeaturedArticleBannerView from "@/components/FeaturedArticleBannerView";
 
 const SETTING_KEY = "featured_article_slug";
 
