@@ -450,6 +450,24 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             <Badge variant="secondary">Endast 27/4-mail: {segmentPartners.profile_only.length}</Badge>
             <Badge variant="secondary">Alla (manuellt): {segmentPartners.manual.length}</Badge>
           </div>
+          <div className="mt-4 flex flex-wrap gap-2 items-center border-t border-slate-700 pt-4">
+            <span className="text-xs text-slate-300 font-medium">Testutskick (alla 3 mallar):</span>
+            <Input
+              value={testEmail}
+              onChange={(e) => setTestEmail(e.target.value)}
+              placeholder="testmottagare@exempel.se"
+              className="h-8 w-72 text-xs bg-slate-800 border-slate-600 text-white placeholder:text-slate-500"
+            />
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={sendingTest}
+              onClick={sendTestAll}
+            >
+              <Send className="h-3.5 w-3.5 mr-1.5" />
+              {sendingTest ? "Skickar test…" : "Skicka testmail (3 st)"}
+            </Button>
+          </div>
         </CardContent>
       </Card>
 
