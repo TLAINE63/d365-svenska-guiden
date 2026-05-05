@@ -28,6 +28,7 @@ const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
+import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 const homeFaqs = [
   {
