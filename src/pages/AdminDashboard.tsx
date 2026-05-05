@@ -90,6 +90,7 @@ import AdminSalesPitchV2Tab from "@/components/AdminSalesPitchV2Tab";
 import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
+import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
