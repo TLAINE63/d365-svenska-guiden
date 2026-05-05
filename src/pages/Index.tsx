@@ -28,6 +28,7 @@ const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
+import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 const homeFaqs = [
   {
@@ -393,6 +394,8 @@ const Index = () => {
               Vi är en förmedlingstjänst, inte ett konsultbolag. Vårt jobb är att hjälpa er ställa rätt frågor och hitta partners som faktiskt matchar — inte att ta över ert projekt. Allt vi erbjuder besökaren är kostnadsfritt.
             </p>
           </div>
+
+          <FeaturedArticleBanner />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {buyerSteps.map((s) => {
