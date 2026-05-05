@@ -6,6 +6,9 @@ interface SEOHeadProps {
   canonicalPath?: string;
   keywords?: string;
   ogImage?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   ogType?: "website" | "article";
   noIndex?: boolean;
 }
@@ -16,6 +19,9 @@ const SEOHead = ({
   canonicalPath = "",
   keywords,
   ogImage = "https://d365.se/og-erp.png",
+  ogImageAlt,
+  ogImageWidth = 1200,
+  ogImageHeight = 630,
   ogType = "website",
   noIndex = false,
 }: SEOHeadProps) => {
