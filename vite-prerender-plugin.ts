@@ -137,6 +137,7 @@ export default function prerenderPlugin(): Plugin {
         const baseUrl = 'https://d365.se';
         const today = new Date().toISOString().split('T')[0];
         const sitemapEntries: string[] = [];
+        const seoLintResults: Array<{ path: string; errors: string[]; warnings: string[] }> = [];
         let successCount = 0;
 
         // ── 6. Render each route ─────────────────────────────────────────
