@@ -183,21 +183,29 @@ const EventDetail = () => {
     event.description,
     `${event.title} – ett ${event.is_online ? "online-event" : "event"} från ${event.partners?.name || "d365.se"} om Microsoft Dynamics 365.`,
   ]);
-  // Build ISO startDate (combine date + optional time)
-  const buildIso = (date: string, time: string | null): string => {
-    try {
-      if (time) {
-        // Treat as Europe/Stockholm wall-time → output with offset
-        // Simpler: use local-naive ISO (without Z) which Google accepts
-        return `${date}T${time.length === 5 ? `${time}:00` : time}`;
-      }
-      return new Date(date).toISOString();
-    } catch {
-      return new Date(date).toISOString();
+  // Build ISO startDate/endDate in Europe/Stockholm with correct offset
+  const startResult = buildStockholmIso(event.event_date, event.event_time);
+  const endResult = event.end_time
+    ? buildStockholmIso(event.event_date, event.end_time)
+    : null;
+
+  // Validate end > start (when both have times)
+  const dateIssues: string[] = [...startResult.issues, ...(endResult?.issues || [])];
+  if (event.event_time && event.end_time && TIME_OK(event.event_time) && TIME_OK(event.end_time)) {
+    if (event.end_time <= event.event_time) {
+      dateIssues.push(`end_time (${event.end_time}) must be after event_time (${event.event_time})`);
     }
-  };
-  const startDate = buildIso(event.event_date, event.event_time);
-  const endDate = event.end_time ? buildIso(event.event_date, event.end_time) : undefined;
+  }
+
+  if (dateIssues.length > 0 && import.meta.env.DEV) {
+    console.warn(
+      `[EventDetail] Event ${event.id} (${event.title}) date issues:`,
+      dateIssues
+    );
+  }
+
+  const startDate = startResult.value;
+  const endDate = endResult?.value;
   const eventUrl = `https://d365.se/events/${event.id}/`;
   const partnerUrl = event.partners?.slug
     ? `https://d365.se/partner/${event.partners.slug}/`
