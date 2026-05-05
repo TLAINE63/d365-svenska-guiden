@@ -2059,17 +2059,22 @@ Thomas`,
                   Lägg till partner
                 </Button>
                 <Button variant="outline" onClick={() => {
-                  const header = "Partnernamn\tKontaktperson\tE-post\tTelefon\tAdmin-kontakt\tAdmin-e-post";
-                  const rows = fullPartners.map(p => 
-                    [
+                  const header = "Partnernamn\tKontaktperson\tE-post\tTelefon\tAdmin-kontakt\tAdmin-e-post\tPublicerad\tInbjuden via mail\tInbjuden men ej profilerad";
+                  const rows = fullPartners.map(p => {
+                    const invited = everInvitedPartnerIds.has(p.id);
+                    const published = !!p.is_featured;
+                    return [
                       p.name,
                       p.contactPerson || (p as any).contact_person || '',
                       p.email || '',
                       p.phone || '',
                       p.admin_contact_name || '',
                       p.admin_contact_email || '',
-                    ].join('\t')
-                  );
+                      published ? 'Ja' : 'Nej',
+                      invited ? 'Ja' : 'Nej',
+                      invited && !published ? 'Ja' : 'Nej',
+                    ].join('\t');
+                  });
                   const tsv = [header, ...rows].join('\n');
                   const blob = new Blob(['\uFEFF' + tsv], { type: 'text/tab-separated-values;charset=utf-8' });
                   const url = URL.createObjectURL(blob);
