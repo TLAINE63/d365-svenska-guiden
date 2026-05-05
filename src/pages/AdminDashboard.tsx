@@ -75,7 +75,7 @@ import {
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe,
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
   CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Award, ChevronDown,
-  MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature
+  MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature, Sparkles
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
@@ -90,6 +90,7 @@ import AdminSalesPitchV2Tab from "@/components/AdminSalesPitchV2Tab";
 import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
+import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
@@ -1834,6 +1835,12 @@ Thomas`,
               </span>
               Avtalssida
             </TabsTrigger>
+            <TabsTrigger value="featured-article" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+                <Sparkles className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+              </span>
+              Nytt i KC
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2807,6 +2814,11 @@ Thomas`,
           {/* ==================== PARTNER AGREEMENT PAGE TAB ==================== */}
           <TabsContent value="partner-agreement-page">
             <AdminPartnerAgreementTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          {/* ==================== FEATURED ARTICLE TAB ==================== */}
+          <TabsContent value="featured-article">
+            <AdminFeaturedArticleTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
