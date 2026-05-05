@@ -395,6 +395,8 @@ const Index = () => {
             </p>
           </div>
 
+          <FeaturedArticleBanner />
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {buyerSteps.map((s) => {
               const cardClass = "group flex flex-col text-left rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl";
