@@ -49,6 +49,7 @@ export interface PrerenderRoute {
   path: string;
   priority: string;
   changefreq: string;
+  lastmod?: string; // ISO date YYYY-MM-DD
   meta?: { title: string; description: string };
 }
 
@@ -93,6 +94,7 @@ export const routes: PrerenderRoute[] = [
     path: `/artiklar/${a.slug}`,
     priority: '0.7',
     changefreq: 'monthly' as const,
+    lastmod: a.publishedAt, // YYYY-MM-DD from blog data
     meta: {
       title: a.metaTitle,
       description: a.metaDescription,
