@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
+import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -229,6 +230,261 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           betyder: vilka frågor som avslöjar om partnern förstått skiftet,
           varför partnervalet är en del av affärscaset och varför ”vi väntar”
           kan bli en dyrare position än den låter.
+        </p>
+      </>
+    ),
+  },
+  {
+    slug: "partnervalet-avgor-erp-crm-projekt",
+    title: "Den största risken sitter sällan i systemet. Den sitter i partnern.",
+    metaTitle: "Partnervalet avgör ERP- och CRM-projekt | d365.se",
+    metaDescription:
+      "I ERP- och CRM-projekt ligger den största risken sällan i produkten – utan i partnern. Så strukturerar du partnervalet för att skydda budget, adoption och beslut.",
+    summary:
+      "Produktvalet får mest tid i upphandlingen. Men det är partnern som avgör om Dynamics 365-projektet håller budget, får adoption och blir möjligt att försvara i efterhand.",
+    category: "Partnerval",
+    tags: ["partnerval", "upphandling", "erp", "crm", "dynamics365", "governance"],
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Service"],
+    publishedAt: "2026-05-05",
+    author: THOMAS_LAINE,
+    heroImage: partnervaletAvgorHero,
+    readingTimeMinutes: 7,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
+          I många upphandlingar läggs den största delen av tiden på produktvalet.
+          Men när ERP- eller CRM-projekt inte levererar som tänkt handlar det
+          oftast mindre om produkten — och mer om genomförandet. Och
+          genomförandet avgörs i hög grad av partnern.
+        </p>
+
+        <aside className="my-10 rounded-md border border-[#9CC2E5] bg-[#DEEBF7] px-7 py-6">
+          <p className="!text-[1.25rem] !font-bold !text-[#1F4E79] !mb-3 !mt-0">
+            I korthet
+          </p>
+          <ul className="!my-0 !pl-7 !space-y-2 list-disc marker:text-[#1F4E79] !text-foreground/90">
+            <li>Partnervalet görs ofta för sent och för grunt i upphandlingen.</li>
+            <li>
+              Tre risker dominerar: kostnaden drar iväg, systemet används inte
+              som tänkt, beslutet blir svårt att försvara.
+            </li>
+            <li>
+              Oberoende vägledning, rätt frågor i säljprocessen och en
+              strukturerad utvärdering minskar risken markant.
+            </li>
+          </ul>
+        </aside>
+
+        <p>
+          Vilket affärssystem passar bäst? Hur står sig Dynamics 365 mot
+          alternativen? Vilka moduler behövs? Vilka funktioner är kritiska — och
+          vilka är egentligen bara nice-to-have?
+        </p>
+        <p>
+          Demos bokas. Jämförelsematriser fylls i. Referensbesök genomförs. Det
+          är inte fel arbete. Men det är sällan där den största risken ligger.
+        </p>
+        <p>
+          Två organisationer kan välja exakt samma plattform och ändå få helt
+          olika utfall. Skillnaden ligger i genomförandet: vem som ställer rätt
+          frågor tidigt, vem som vågar säga ifrån när scope växer av fel skäl —
+          och vem som faktiskt har gjort den här typen av projekt i den här
+          typen av verksamhet förut.
+        </p>
+        <p>
+          Partnerjämförelse görs förstås. Men ofta för sent. Och ofta för grunt.
+          När produkten väl är vald jämförs ofta två eller tre partners, främst
+          på pris, säljpresentation och känslan i rummet. Det är en jämförelse —
+          men inte alltid en utvärdering som gör partners verkligt jämförbara.
+        </p>
+        <p>Och det är där risken börjar.</p>
+
+        <h2>1. Kostnaden drar iväg</h2>
+        <p>
+          I större ERP- och CRM-projekt är budget- och tidsavvikelser sällan
+          marginella när scope, integrationer, datamigrering och kundanpassningar
+          börjar växa.
+        </p>
+        <p>Drivkrafterna är välkända:</p>
+        <ul>
+          <li>krav som inte var tillräckligt tydliga vid avtalsskrivning</li>
+          <li>ett anbud som bygger på underskattat scope</li>
+          <li>svag förändringshantering hos beställaren</li>
+          <li>
+            en partnerorganisation som inte bemannar projektet som man uppfattade
+            i säljfasen
+          </li>
+          <li>
+            för många anpassningar som smyger sig in innan standardprocesserna
+            ens har prövats
+          </li>
+        </ul>
+        <p>
+          Här blir prisjämförelsen i upphandlingen lätt missvisande. Ett lågt
+          anbud kan se attraktivt ut i beslutsunderlaget, men bli dyrt när
+          projektet väl rullar. Ett högre anbud kan i praktiken vara billigare
+          om det bygger på bättre förståelse för omfattning, risker och
+          nödvändig bemanning.
+        </p>
+        <p>
+          Engagemang i säljfasen säger heller inte alltid särskilt mycket om
+          leveransförmågan. Det viktiga är inte bara vad partnern lovar. Det är
+          hur partnern arbetar när verkligheten börjar störa planen.
+        </p>
+        <p>
+          Det finns sätt att skydda sig redan innan projektet startar. Tydligt
+          definierat scope. Fasade leveranser med beslutspunkter. En
+          förändringsprocess där båda parter har incitament att hålla ramen. Och
+          en partner som vågar säga nej till önskemål som inte hör hemma i
+          första leveransen.
+        </p>
+        <p>
+          Avtalet sätter ramen. Men det är partnerns arbetssätt som avgör om
+          ramen håller.
+        </p>
+
+        <h2>2. Systemet införs – men används inte som tänkt</h2>
+        <p>
+          Det dyraste systemet är inte alltid det med högst licenskostnad. Det
+          är systemet som köps in, implementeras — och sedan inte används som
+          det var tänkt.
+        </p>
+        <p>
+          Det syns inte alltid direkt. Säljteamet fortsätter föra egna
+          anteckningar vid sidan av CRM. Ekonomi kör fortfarande rapporter
+          manuellt. Kundservice bygger egna undantag utanför processen. Operativ
+          data blir fragmenterad. Ledningen får inte den överblick som
+          investeringen skulle skapa.
+        </p>
+        <p>
+          Adoption är sällan ett tekniskt problem i första hand. Det är en följd
+          av hur projektet har drivits från start.
+        </p>
+        <p>
+          Har partnern förstått hur verksamheten faktiskt arbetar? Har
+          processerna utmanats — eller bara ritats av? Har slutanvändarna
+          involverats tidigt nog? Har utbildningen kopplats till verkliga
+          arbetsflöden, eller bara till funktioner i systemet?
+        </p>
+        <p>
+          En partner som behandlar adoption som en aktivitet i slutet av
+          projektet har redan tappat för mycket. Adoption byggs inte vid
+          go-live. Den byggs i varje beslut som tas långt innan dess.
+        </p>
+
+        <h2>3. Beslutet blir svårt att försvara</h2>
+        <p>
+          Det här är den dimension som sällan syns i en business case-mall. Men
+          den finns alltid i rummet.
+        </p>
+        <p>
+          CFO:n som godkände investeringen. CIO:n som rekommenderade
+          arkitekturen. VD:n som drev igenom beslutet. Projektägaren som stod
+          bakom partnerrekommendationen.
+        </p>
+        <p>
+          När ett ERP- eller CRM-projekt inte levererar ska det förklaras. I
+          ledningen. I styrelsen. Ibland även inför ägare. Då handlar frågan
+          inte bara om vad som gick fel. Den handlar också om hur beslutet togs.
+        </p>
+        <p>
+          Fanns en strukturerad utvärdering? Fanns relevanta referenser? Fanns
+          en tydlig koppling mellan partnerns erfarenhet och verksamhetens
+          behov? Fanns oberoende underlag — eller byggde valet mest på pris,
+          relationer och presentationer?
+        </p>
+        <p>
+          Ett genomarbetat val som ändå går snett kan förklaras. Ett val som i
+          praktiken byggde på lägsta pris och bäst säljmöte är betydligt svårare
+          att försvara.
+        </p>
+        <p>
+          Det är därför partnervalet inte bara är en inköpsfråga. Det är en
+          ledningsfråga.
+        </p>
+
+        <h2>Hur risken minskar</h2>
+        <p>
+          Poängen är inte att välja "rätt" partner på känsla – utan att göra
+          partnervalet jämförbart tidigt. Risken i ett ERP- eller CRM-val går
+          inte att eliminera. Men den går att hantera. Tre saker gör störst
+          skillnad.
+        </p>
+
+        <h3>Oberoende vägledning tidigt i processen</h3>
+        <p>
+          Partnerlandskapet är svårt att överblicka för den som bara gör den här
+          typen av val vart tionde eller femtonde år.
+        </p>
+        <p>
+          Vilka partners är starka inom Business Central? Vilka kan Finance &
+          Supply Chain på riktigt? Vilka har erfarenhet från tillverkning,
+          distribution, retail, tjänstebolag eller offentlig verksamhet? Vilka
+          är starka på CRM, kundservice, fältservice eller contact center?
+        </p>
+        <p>
+          När kartläggningen görs av någon som inte själv vill vinna
+          implementationen blir bilden ofta klarare. Inte perfekt. Men mindre
+          färgad.
+        </p>
+
+        <h3>Rätt frågor i säljprocessen</h3>
+        <p>
+          Det räcker inte att fråga efter pris, tidplan och referenser. Man
+          behöver förstå hur partnern faktiskt arbetar.
+        </p>
+        <p>
+          Hur ser metodiken ut? Vilka personer sätts på projektet? Vilken
+          erfarenhet har de av liknande verksamheter? Det säger något om
+          leveransförmågan.
+        </p>
+        <p>
+          Hur hanteras scopeförändringar? Vad ingår inte i offerten? När
+          rekommenderar partnern att kunden inte ska anpassa? Det säger något om
+          hur partnern arbetar när verkligheten möter planen.
+        </p>
+        <p>
+          Det är ofta i svaren på de frågorna som skillnaden mellan partners
+          blir synlig. Inte i standardpresentationen.
+        </p>
+
+        <h3>Strukturerad utvärdering</h3>
+        <p>
+          En bra utvärdering handlar inte om poängmatriser för poängmatrisens
+          skull. Den handlar om att tvinga fram jämförbarhet. Mellan partners.
+          Mellan arbetssätt. Mellan erfarenhet. Mellan faktisk leveransförmåga
+          och säljlöften.
+        </p>
+        <p>
+          Utan struktur glider besluten lätt mot det som känns enklast att
+          motivera i stunden: lägst pris, starkast relation eller mest
+          övertygande presentation. Men ERP- och CRM-projekt avgörs inte i
+          presentationen. De avgörs i genomförandet.
+        </p>
+
+        <h2>Produktvalet är viktigt. Men partnervalet avgör vad det blir av det.</h2>
+        <p>
+          Dynamics 365, Business Central, Finance & Supply Chain, Sales,
+          Customer Service och andra moderna affärsplattformar kan skapa stort
+          värde. Men plattformen realiserar inte värdet av sig själv.
+        </p>
+        <p>
+          Det görs genom rätt avgränsningar, rätt metodik, rätt bemanning, rätt
+          förändringsledning och rätt förståelse för verksamheten.
+        </p>
+        <p>
+          Därför bör partnervalet inte behandlas som nästa steg efter
+          systemvalet. Det bör vara en central del av beslutet från början.
+        </p>
+        <p>
+          På d365.se erbjuder vi oberoende stöd för att strukturera valet av
+          Dynamics 365-partner – utifrån lösningsområde, bransch, erfarenhet och
+          faktiskt leveransupplägg.
+        </p>
+        <p>
+          Målet är att beslutet inte bara ska kännas rätt i upphandlingen — utan
+          också vara möjligt att förklara och försvara när projektet möter
+          verkligheten.
         </p>
       </>
     ),
