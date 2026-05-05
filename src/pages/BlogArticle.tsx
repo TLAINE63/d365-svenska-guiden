@@ -68,12 +68,14 @@ const BlogArticle = () => {
         canonicalPath={canonicalPath}
         keywords={article.tags.join(", ")}
         ogImage={ogImage}
+        ogImageAlt={article.title}
         ogType="article"
       />
       <Helmet>
         <meta name="author" content={article.author.name} />
         <meta property="article:author" content={article.author.name} />
         <meta property="article:published_time" content={article.publishedAt} />
+        <meta property="article:modified_time" content={article.publishedAt} />
         <meta property="article:section" content={article.category} />
         {article.tags.map((tag) => (
           <meta key={tag} property="article:tag" content={tag} />
