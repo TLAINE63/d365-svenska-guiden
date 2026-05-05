@@ -236,22 +236,41 @@ const BlogArticle = () => {
         {related.length > 0 && (
           <section className="border-t border-border bg-secondary/20 py-10">
             <div className="container mx-auto px-4 max-w-4xl">
-              <h2 className="text-lg font-semibold text-foreground mb-4">Fler artiklar</h2>
+              <h2 className="text-lg font-semibold text-foreground mb-1">Rekommenderat utifrån denna artikel</h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                Liknande ämnen och taggar — för att fördjupa dig vidare.
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {related.map((r) => (
-                  <Link
-                    key={r.slug}
-                    to={`/artiklar/${r.slug}/`}
-                    className="group block p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
-                  >
-                    <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">
-                      {r.category}
-                    </p>
-                    <p className="text-sm font-semibold text-foreground group-hover:text-primary line-clamp-3">
-                      {r.title}
-                    </p>
-                  </Link>
-                ))}
+                {related.map((r) => {
+                  const tags = sharedTags(r);
+                  return (
+                    <Link
+                      key={r.slug}
+                      to={`/artiklar/${r.slug}/`}
+                      title={r.title}
+                      className="group flex flex-col p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
+                    >
+                      <p className="text-xs text-primary font-semibold uppercase tracking-wider mb-2">
+                        {r.category}
+                      </p>
+                      <p className="text-sm font-semibold text-foreground group-hover:text-primary line-clamp-3">
+                        {r.title}
+                      </p>
+                      {tags.length > 0 && (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {tags.map((t) => (
+                            <span
+                              key={t}
+                              className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border"
+                            >
+                              #{t}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </Link>
+                  );
+                })}
               </div>
               <div className="mt-8 flex justify-center">
                 <Link
