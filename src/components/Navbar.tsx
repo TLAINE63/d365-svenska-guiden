@@ -198,6 +198,20 @@ const Navbar = () => {
                 </Link>
               )
             ))}
+            <Link
+              to="/sok"
+              aria-label="AI-sök"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors px-2 py-1 rounded-md hover:bg-primary/5"
+            >
+              <Sparkles className="h-4 w-4" />
+              AI-sök
+            </Link>
+            <Link
+              to="/fraga-ai"
+              className="text-sm font-medium text-primary hover:text-primary/80 transition-colors px-2 py-1 rounded-md hover:bg-primary/5"
+            >
+              Fråga AI
+            </Link>
           </div>
 
           {/* Mobile Menu */}
@@ -211,6 +225,9 @@ const Navbar = () => {
               <div className="flex flex-col gap-4 mt-8 pb-8">
                 <Link to="/sok" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-primary/80 transition-colors">
                   <Sparkles className="h-4 w-4" /> AI-sök
+                </Link>
+                <Link to="/fraga-ai" className="text-lg font-medium text-primary hover:text-primary/80 transition-colors">
+                  Fråga AI
                 </Link>
                 <Link
                   to="/branschlosningar/"
