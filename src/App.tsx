@@ -57,6 +57,8 @@ const KomIgang = lazy(() => import("./pages/KomIgang"));
 const PartnerStats = lazy(() => import("./pages/PartnerStats"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 const SmartSearch = lazy(() => import("./pages/SmartSearch"));
+const AskAi = lazy(() => import("./pages/AskAi"));
+const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
 
@@ -131,6 +133,7 @@ const AppShell = () => {
           <Route path="/aktuellt/*" element={<Navigate to="/events/" replace />} />
           <Route path="/projektpaket" element={<Navigate to="/" replace />} />
           <Route path="/sok" element={<SmartSearch />} />
+          <Route path="/fraga-ai" element={<AskAi />} />
           <Route path="/search" element={<Navigate to="/sok" replace />} />
           <Route path="/våratjänster" element={<Navigate to="/" replace />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
@@ -160,6 +163,7 @@ const AppShell = () => {
           <CookieBanner />
           <SnitcherTracking />
           <VisitorTracking />
+          <AiChatBubble />
         </Suspense>
       )}
     </>
