@@ -86,7 +86,28 @@ export const PRODUCT_QA_DATA: ProductQACategory[] = [
   {
     product: "Customer Service",
     description: "Fördjupning i Dynamics 365 Customer Service – ärendehantering, kunskapsbas och licensmodeller.",
-    items: [],
+    items: [
+      {
+        question: "Vad är Microsoft Dynamics 365 Customer Service?",
+        answer: `Dynamics 365 Customer Service är Microsofts plattform för kundtjänst och ärendehantering. Systemet hjälper supportorganisationer hantera ärenden över flera kanaler — telefon, e-post, chatt, sociala medier och självbetjäning — i ett samlat gränssnitt med inbyggd AI och kunskapsbas.\n\nKärnfunktioner: Ärendehantering med automatisk routing, SLA-styrning, kunskapsartiklar, omnikanal (chatt, sociala medier, WhatsApp), självbetjäningsportaler, kundenkäter och rapportering.\n\nMålgrupp: Allt från små supportteam (5–15 agenter) upp till stora kundtjänstcenter med hundratals agenter och miljoner ärenden per år.\n\nIntegration: Sömlös koppling till Teams (samarbete mellan agenter), Power Virtual Agents (chatbottar), Sales (360-graders kundvy), Field Service (eskalera till tekniker) och Power BI (analyser).`,
+      },
+      {
+        question: "Vad kostar Dynamics 365 Customer Service – pris per användare?",
+        answer: `Customer Service finns i två huvudsakliga licensnivåer:\n\nCustomer Service Professional: ca 540 kr/användare/månad — grundläggande ärendehantering, kunskapsbas och e-postärenden. Passar mindre supportteam med en eller två kanaler.\n\nCustomer Service Enterprise: ca 1 020 kr/användare/månad — full omnikanal med chatt, sociala medier, samtal, AI-routing, Copilot, anpassade processer och avancerad analys.\n\nDigital Messaging tilläggslicens: ca 770 kr/användare/månad — lägger till SMS, WhatsApp, Facebook Messenger och Apple Messages för Business.\n\nVoice Channel: ca 770 kr/användare/månad — inbyggd telefoni via Microsoft för helt integrerat callcenter utan separat växellösning.\n\nUtöver licens tillkommer implementeringskostnad — räkna med 250 000–1 000 000 kr beroende på omfattning av kanaler, integrationer och anpassningar.`,
+      },
+      {
+        question: "Hur fungerar Copilot AI i Dynamics 365 Customer Service?",
+        answer: `Copilot är inbyggt i Customer Service Enterprise utan extra licensavgift och påverkar både agenter och kunder.\n\nÄrendesammanfattning: Copilot sammanfattar långa ärendetrådar och e-postkonversationer på sekunder så agenten snabbt får kontext.\n\nSvarsförslag: AI föreslår svar baserade på kunskapsartiklar och tidigare lösta ärenden — agenten godkänner eller redigerar innan utskick.\n\nKunskapsartiklar: Copilot kan generera utkast till nya kunskapsartiklar baserade på lösta ärenden, så kunskapsbasen växer kontinuerligt.\n\nSjälvbetjäning: AI-driven chattbot via Copilot Studio (tidigare Power Virtual Agents) löser standardfrågor utan agentinblandning — frigör tid för komplexa ärenden.\n\nÄrenderoutering: AI klassificerar och dirigerar inkommande ärenden till rätt agent eller kö baserat på ämne, prioritet och kompetensbehov.\n\nSentimentanalys: Copilot identifierar missnöjda kunder i realtid och eskalerar till mer erfarna agenter eller chefer.`,
+      },
+      {
+        question: "Vad är skillnaden mellan Customer Service och Contact Center?",
+        answer: `Microsoft erbjuder två produkter som ibland förväxlas — här är skillnaderna:\n\nCustomer Service: Heltäckande CRM-plattform för kundtjänst. Inkluderar ärendehantering, kunskapsbas, kundregister, SLA-styrning och omnikanal. Passar organisationer som behöver full kundtjänstlösning med långsiktig kundhistorik.\n\nContact Center: Fristående AI-driven contact center-lösning utan CRM-bas. Fokus på röst, digitala kanaler, IVR, agentassistent och Copilot. Kan användas tillsammans med valfritt befintligt CRM (Salesforce, ServiceNow eller Customer Service).\n\nNär välja vad? Customer Service passar när ni vill ha CRM och kundtjänst i samma plattform. Contact Center passar när ni har befintligt CRM men vill modernisera kontaktcentret med AI och omnikanal.\n\nLicensmodell: Customer Service kostar per agent/månad. Contact Center kostar per agent/månad plus per minut för röstsamtal — ger flexibilitet vid varierande volym.`,
+      },
+      {
+        question: "Hur lång tid tar en implementation av Dynamics 365 Customer Service?",
+        answer: `Tidsåtgången styrs av antal kanaler och integrationsbehov:\n\nStartpaket (5–15 agenter, e-post + chatt): 6–10 veckor för grundläggande ärendehantering, kunskapsbas, integration mot Outlook och utbildning. Pris ca 250 000–500 000 kr.\n\nMedelstor implementation (15–50 agenter, omnikanal): 3–5 månader med flera kanaler (chatt, sociala medier, telefoni), kunskapsbasstrategi, AI-routing och Copilot. Pris ca 500 000–1 000 000 kr.\n\nStor implementation (50+ agenter, callcenter): 6–12 månader med Voice Channel, IVR, integration mot telefonisystem, prognosmodeller och Copilot Premium. Pris från 1 000 000 kr.\n\nFramgångsfaktorer: Tydlig kanal- och routingstrategi, en strukturerad kunskapsbas från start, en stark intern projektledare och realistisk plan för migration av historiska ärenden. Välj en partner med erfarenhet av omnikanal och AI-driven kundtjänst.`,
+      },
+    ],
   },
   {
     product: "Field Service",
