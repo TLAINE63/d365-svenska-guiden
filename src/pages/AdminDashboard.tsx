@@ -91,6 +91,7 @@ import AdminSalesKpiTab from "@/components/AdminSalesKpiTab";
 import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
+import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
@@ -1845,6 +1846,12 @@ Thomas`,
               </span>
               Nytt i KC
             </TabsTrigger>
+            <TabsTrigger value="partner-dashboard" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 ring-1 ring-cyan-400/20">
+                <LayoutDashboard className="h-3.5 w-3.5 text-cyan-300" strokeWidth={1.75} />
+              </span>
+              Partner-dashboard
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2828,6 +2835,10 @@ Thomas`,
           {/* ==================== FEATURED ARTICLE TAB ==================== */}
           <TabsContent value="featured-article">
             <AdminFeaturedArticleTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="partner-dashboard">
+            <AdminPartnerDashboardTab token={token || null} />
           </TabsContent>
         </Tabs>
 
