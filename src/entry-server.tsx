@@ -217,6 +217,7 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
 
   // ── Events: fetch published/upcoming events from Supabase REST ──────
   const eventRoutes: PrerenderRoute[] = [];
+  const articleRoutes: PrerenderRoute[] = [];
   try {
     const supaUrl = process.env.VITE_SUPABASE_URL;
     const supaKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -252,12 +253,45 @@ export async function getDynamicRoutes(): Promise<PrerenderRoute[]> {
       } else {
         console.warn(`  ⚠️  Events fetch failed: ${res.status}`);
       }
+
+      // ── Knowledge articles: published, internal urls only ──
+      const kaUrl = `${supaUrl}/rest/v1/knowledge_articles?select=title,description,url,updated_at,published_at&is_published=eq.true&url=like.%2F%25`;
+      const kaRes = await fetch(kaUrl, {
+        headers: { apikey: supaKey, Authorization: `Bearer ${supaKey}` },
+      });
+      if (kaRes.ok) {
+        const articles = (await kaRes.json()) as Array<{
+          title: string;
+          description: string | null;
+          url: string;
+          updated_at: string;
+          published_at: string | null;
+        }>;
+        for (const a of articles) {
+          if (!a.url || !a.url.startsWith('/')) continue;
+          articleRoutes.push({
+            path: a.url,
+            priority: '0.7',
+            changefreq: 'monthly',
+            lastmod: (a.updated_at || a.published_at || '').slice(0, 10) || undefined,
+            meta: {
+              title: `${a.title} | d365.se`,
+              description:
+                (a.description || '').slice(0, 155) ||
+                `${a.title} – Läs mer i Kunskapscentret på d365.se.`,
+            },
+          });
+        }
+        console.log(`  📦 Found ${articleRoutes.length} knowledge article routes from Supabase`);
+      } else {
+        console.warn(`  ⚠️  Knowledge articles fetch failed: ${kaRes.status}`);
+      }
     } else {
-      console.warn('  ⚠️  Skipping events: missing VITE_SUPABASE_URL/KEY');
+      console.warn('  ⚠️  Skipping dynamic routes: missing VITE_SUPABASE_URL/KEY');
     }
   } catch (err: any) {
-    console.warn(`  ⚠️  Events fetch error: ${err.message}`);
+    console.warn(`  ⚠️  Dynamic routes fetch error: ${err.message}`);
   }
 
-  return [...partnerRoutes, ...eventRoutes];
+  return [...partnerRoutes, ...eventRoutes, ...articleRoutes];
 }

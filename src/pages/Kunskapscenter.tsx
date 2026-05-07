@@ -433,7 +433,9 @@ const Kunskapscenter = () => {
       icon: BookOpen,
       products: b.products,
     })),
-    ...articles.map((a) => ({
+    ...articles
+      .filter((a) => a.title?.trim() && a.url?.trim())
+      .map((a) => ({
       id: a.id,
       type: (a.format || a.category) as FormatValue,
       title: a.title,
