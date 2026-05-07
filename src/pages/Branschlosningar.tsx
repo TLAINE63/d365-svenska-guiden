@@ -376,7 +376,7 @@ const Branschlosningar = () => {
                         ? "bg-finance-supply/10 group-hover:bg-finance-supply/20"
                         : "bg-crm/10 group-hover:bg-crm/20"
                 }`}>
-                  <img src={option.icon} alt="" className="h-5 w-5" />
+                  <img src={option.icon} alt="" aria-hidden="true" className="h-5 w-5" />
                 </div>
                 <span className={selectedFilter !== option.value 
                   ? option.value === "bc" 

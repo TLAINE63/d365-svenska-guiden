@@ -618,7 +618,7 @@ const BusinessCentral = () => {
                 className="group flex items-start gap-3 p-4 rounded-lg border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all"
               >
                 {article.image && (
-                  <img src={article.image} alt="" className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
+                  <img src={article.image} alt={article.title} className="w-16 h-16 rounded object-contain flex-shrink-0 bg-secondary/50 p-1" />
                 )}
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">

@@ -2487,7 +2487,7 @@ Thomas`,
                                 if (!filter || (filter.industries?.length === 0 && filter.secondaryIndustries?.length === 0)) return null;
                                 return (
                                   <Badge key={section.key} variant="outline" className="text-xs">
-                                    <img src={section.icon} alt="" className="h-3 w-3 mr-1 inline-block" />
+                                    <img src={section.icon} alt="" aria-hidden="true" className="h-3 w-3 mr-1 inline-block" />
                                     {section.label}
                                   </Badge>
                                 );
@@ -2685,7 +2685,7 @@ Thomas`,
                   <Card key={product.key}>
                     <CardHeader className={`${product.colorClass} text-white rounded-t-lg`}>
                       <CardTitle className="flex items-center gap-3">
-                        <img src={product.icon} alt="" className="h-6 w-6 brightness-0 invert" />
+                        <img src={product.icon} alt="" aria-hidden="true" className="h-6 w-6 brightness-0 invert" />
                         {product.label}
                       </CardTitle>
                       <CardDescription className="text-white/80">

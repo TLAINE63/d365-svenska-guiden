@@ -123,7 +123,7 @@ export function FilterButtons({
             >
               <span className="flex items-center gap-2">
                 {appIcon && (
-                  <img src={appIcon} alt="" className="w-5 h-5" />
+                  <img src={appIcon} alt="" aria-hidden="true" className="w-5 h-5" />
                 )}
                 {option.label}
                 {isSelected && (
@@ -177,7 +177,7 @@ export function MultiFilterButtons({
             >
               <span className="flex items-center gap-2">
                 {appIcon && (
-                  <img src={appIcon} alt="" className="w-5 h-5" />
+                  <img src={appIcon} alt="" aria-hidden="true" className="w-5 h-5" />
                 )}
                 {option.label}
                 {isSelected && (

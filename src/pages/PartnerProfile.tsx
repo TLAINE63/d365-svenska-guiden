@@ -700,7 +700,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                                 ? getApplicationIcon("Sales")
                                 : getApplicationIcon("Customer Service");
                               return categoryIcon && (
-                                <img src={categoryIcon} alt="" className="w-6 h-6" />
+                                <img src={categoryIcon} alt="" aria-hidden="true" className="w-6 h-6" />
                               );
                             })()}
                             {getProductDisplayName(category)}
@@ -715,7 +715,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                                     className="text-[10px] sm:text-xs bg-accent text-accent-foreground border-0 py-0.5 sm:py-1 px-1.5 sm:px-2.5 font-medium shadow-sm justify-end text-right"
                                   >
                                     {appIcon && (
-                                      <img src={appIcon} alt="" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
+                                      <img src={appIcon} alt="" aria-hidden="true" className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                                     )}
                                     {app}
                                   </Badge>
@@ -1025,7 +1025,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                           <div className="relative p-4 flex items-center gap-3">
                             {icon && (
                               <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-muted/50 flex items-center justify-center">
-                                <img src={icon} alt="" className="w-7 h-7" />
+                                <img src={icon} alt="" aria-hidden="true" className="w-7 h-7" />
                               </div>
                             )}
                             <div>
