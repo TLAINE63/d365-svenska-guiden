@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
@@ -529,6 +529,17 @@ const Kunskapscenter = () => {
           { name: "Hem", url: "https://d365.se/" },
           { name: "Kunskapscenter & Events", url: "https://d365.se/kunskapscenter" },
         ]}
+      />
+      <FAQSchema
+        faqs={PRODUCT_QA_DATA.flatMap((cat) =>
+          cat.items.slice(0, 4).map((item) => ({
+            question: `${item.question} (${cat.product})`,
+            answer:
+              typeof item.answer === "string"
+                ? item.answer.replace(/\s+/g, " ").trim().substring(0, 500)
+                : "",
+          }))
+        ).filter((f) => f.answer.length > 0)}
       />
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
