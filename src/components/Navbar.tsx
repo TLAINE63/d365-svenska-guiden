@@ -206,12 +206,6 @@ const Navbar = () => {
               <Sparkles className="h-4 w-4" />
               AI-sök
             </Link>
-            <Link
-              to="/fraga-ai"
-              className="text-sm font-medium text-primary hover:text-primary/80 transition-colors px-2 py-1 rounded-md hover:bg-primary/5"
-            >
-              Fråga AI
-            </Link>
           </div>
 
           {/* Mobile Menu */}
