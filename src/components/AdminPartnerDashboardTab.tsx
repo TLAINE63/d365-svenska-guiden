@@ -83,7 +83,7 @@ function StatCard({
 }
 
 export default function AdminPartnerDashboardTab({ token }: Props) {
-  const { partners } = useAdminPartners();
+  const { data: partners } = useAdminPartners(token);
   const [partnerId, setPartnerId] = useState<string>("");
   const [days, setDays] = useState<7 | 30 | 90>(30);
   const [data, setData] = useState<DashboardData | null>(null);
