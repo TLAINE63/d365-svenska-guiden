@@ -268,33 +268,73 @@ export default function prerenderPlugin(): Plugin {
             // Collect sitemap entry
             const trailingPath = route.path === '/' ? '/' : (route.path.endsWith('/') ? route.path : `${route.path}/`);
             const lastmod = (route as any).lastmod || today;
-            sitemapEntries.push(
-              [
-                '  <url>',
-                `    <loc>${baseUrl}${trailingPath}</loc>`,
-                `    <lastmod>${lastmod}</lastmod>`,
-                `    <changefreq>${route.changefreq}</changefreq>`,
-                `    <priority>${route.priority}</priority>`,
-                '  </url>',
-              ].join('\n')
-            );
+            const entry = [
+              '  <url>',
+              `    <loc>${baseUrl}${trailingPath}</loc>`,
+              `    <lastmod>${lastmod}</lastmod>`,
+              `    <changefreq>${route.changefreq}</changefreq>`,
+              `    <priority>${route.priority}</priority>`,
+              '  </url>',
+            ].join('\n');
+            sitemapEntries.push(entry);
+
+            let bucket = 'pages';
+            if (route.path.startsWith('/partner/')) bucket = 'partners';
+            else if (route.path.startsWith('/events/')) bucket = 'events';
+            else if (route.path.startsWith('/kunskapscenter/') || route.path.startsWith('/artikel/') || route.path.startsWith('/guide/')) bucket = 'articles';
+            sitemapBuckets[bucket].push(entry);
           } catch (err: any) {
             console.warn(`  ⚠️  Skipped ${route.path}: ${err.message}`);
           }
         }
 
-        // ── 7. Generate sitemap.xml ──────────────────────────────────────
-        if (sitemapEntries.length > 0) {
-          const sitemap = [
+        // ── 7. Generate split sitemaps + sitemap index ───────────────────
+        const MAX_PER_FILE = 40000; // safely under 50k limit
+        const writtenSitemaps: string[] = [];
+        const wrap = (entries: string[]) => [
+          '<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+          ...entries,
+          '</urlset>',
+          '',
+        ].join('\n');
+
+        for (const [name, entries] of Object.entries(sitemapBuckets)) {
+          if (!entries.length) continue;
+          if (entries.length <= MAX_PER_FILE) {
+            const file = `sitemap-${name}.xml`;
+            writeFileSync(resolve(root, outDir, file), wrap(entries), 'utf-8');
+            writtenSitemaps.push(file);
+            console.log(`  ✅ ${file} (${entries.length} urls)`);
+          } else {
+            for (let i = 0; i < entries.length; i += MAX_PER_FILE) {
+              const chunk = entries.slice(i, i + MAX_PER_FILE);
+              const idx = Math.floor(i / MAX_PER_FILE) + 1;
+              const file = `sitemap-${name}-${idx}.xml`;
+              writeFileSync(resolve(root, outDir, file), wrap(chunk), 'utf-8');
+              writtenSitemaps.push(file);
+              console.log(`  ✅ ${file} (${chunk.length} urls)`);
+            }
+          }
+        }
+
+        if (writtenSitemaps.length > 0) {
+          const indexXml = [
             '<?xml version="1.0" encoding="UTF-8"?>',
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-            ...sitemapEntries,
-            '</urlset>',
+            '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+            ...writtenSitemaps.map((f) => [
+              '  <sitemap>',
+              `    <loc>${baseUrl}/${f}</loc>`,
+              `    <lastmod>${today}</lastmod>`,
+              '  </sitemap>',
+            ].join('\n')),
+            '</sitemapindex>',
             '',
           ].join('\n');
-
-          writeFileSync(resolve(root, outDir, 'sitemap.xml'), sitemap, 'utf-8');
-          console.log('  ✅ sitemap.xml');
+          writeFileSync(resolve(root, outDir, 'sitemap_index.xml'), indexXml, 'utf-8');
+          writeFileSync(resolve(root, outDir, 'sitemap.xml'), indexXml, 'utf-8');
+          console.log(`  ✅ sitemap_index.xml (${writtenSitemaps.length} sitemaps)`);
+          console.log('  ✅ sitemap.xml (mirrors index for backwards compatibility)');
         }
 
         // ── 8. Generate 404.html for GitHub Pages SPA fallback ─────────
