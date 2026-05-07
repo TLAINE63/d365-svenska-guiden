@@ -14,7 +14,29 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import { useEffect, useState } from "react";
+
 const QA = () => {
+  const [openItem, setOpenItem] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (!hash) return;
+      setOpenItem(hash);
+      // Wait for accordion to expand before scrolling
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 120);
+      });
+    };
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
   const faqs = [
     {
       id: "fordelar",
