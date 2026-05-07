@@ -304,9 +304,9 @@ const Index = () => {
             <div>
               {/* Mobile hero (under sm) */}
               <div className="sm:hidden">
-                <p className="text-2xl font-semibold leading-[1.2] tracking-tight text-white mb-4">
+                <h1 className="text-2xl font-semibold leading-[1.2] tracking-tight text-white mb-4">
                   Det här beslutet följer er i tio år. Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.
-                </p>
+                </h1>
                 <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
                   Affärssystem · CRM · Kundservice
                 </p>
