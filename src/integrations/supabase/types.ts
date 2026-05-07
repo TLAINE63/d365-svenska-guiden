@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_usage_log: {
+        Row: {
+          created_at: string
+          endpoint: string
+          id: string
+          ip_hash: string
+          usage_day: string
+        }
+        Insert: {
+          created_at?: string
+          endpoint: string
+          id?: string
+          ip_hash: string
+          usage_day?: string
+        }
+        Update: {
+          created_at?: string
+          endpoint?: string
+          id?: string
+          ip_hash?: string
+          usage_day?: string
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string

@@ -1,8 +1,12 @@
 // Streaming AI chat for d365.se – neutral D365 advisor
+import { checkAndLogQuota } from '../_shared/ai-quota.ts';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+const DAILY_LIMIT = 50;
 
 const SYSTEM_PROMPT = `Du är AI-assistenten på d365.se – en oberoende svensk guide till Microsoft Dynamics 365.
 
@@ -38,6 +42,14 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: 'Ogiltig konversation' }), {
         status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
+    }
+
+    const quota = await checkAndLogQuota(req, 'ai-chat', DAILY_LIMIT);
+    if (!quota.allowed) {
+      return new Response(
+        JSON.stringify({ error: `Daglig gräns nådd (${quota.limit} meddelanden/dag). Försök igen imorgon eller kontakta oss via /kontakt.` }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
+      );
     }
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');

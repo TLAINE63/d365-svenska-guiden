@@ -1,8 +1,12 @@
 // Smart AI search: tolkar fri text och returnerar bästa rutt + förklaring
+import { checkAndLogQuota } from '../_shared/ai-quota.ts';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+const DAILY_LIMIT = 30;
 
 const ROUTES = [
   { path: '/', label: 'Startsida – översikt över Dynamics 365' },
@@ -44,6 +48,14 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ error: 'Ogiltig fråga' }), {
         status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
+    }
+
+    const quota = await checkAndLogQuota(req, 'smart-search', DAILY_LIMIT);
+    if (!quota.allowed) {
+      return new Response(
+        JSON.stringify({ error: `Daglig gräns nådd (${quota.limit} sökningar/dag). Försök igen imorgon eller använd menyn.` }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
+      );
     }
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
