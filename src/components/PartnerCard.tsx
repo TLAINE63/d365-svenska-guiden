@@ -364,7 +364,7 @@ const PartnerCard = ({
                     className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
                   >
                     {appIcon && (
-                      <img src={appIcon} alt="" className="w-4 h-4 mr-1.5" />
+                      <img src={appIcon} alt="" aria-hidden="true" className="w-4 h-4 mr-1.5" />
                     )}
                     {app}
                   </Badge>
