@@ -45,3 +45,8 @@ jobs:
 
       - id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Ping IndexNow (Bing, Yandex)
+        if: success()
+        run: node scripts/ping-indexnow.mjs
+        continue-on-error: true
