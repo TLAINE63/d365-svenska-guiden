@@ -296,6 +296,52 @@ const AdminDashboard = () => {
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // AI summary generation state
+  const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
+  const [generatingAllSummaries, setGeneratingAllSummaries] = useState(false);
+
+  const handleGenerateSummary = async (partnerId: string, partnerName: string) => {
+    setGeneratingSummaryId(partnerId);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-summary", { token, partnerId });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      toast({ title: "AI-summering klar", description: `Sammanfattning genererad för ${partnerName}.` });
+      refetchPartners();
+    } catch (e: any) {
+      const msg = e?.message || "Okänt fel";
+      toast({
+        title: "Kunde inte generera",
+        description: msg === "RATE_LIMIT" ? "AI-tjänsten är överbelastad – försök igen om en stund."
+          : msg === "PAYMENT_REQUIRED" ? "AI-krediter slut. Lägg till krediter under Settings → Workspace → Usage."
+          : msg,
+        variant: "destructive",
+      });
+    } finally {
+      setGeneratingSummaryId(null);
+    }
+  };
+
+  const handleGenerateAllMissingSummaries = async () => {
+    setGeneratingAllSummaries(true);
+    try {
+      const { data, error } = await invokeAdminEdgeWithRetry("generate-partner-summary", { token, all: true });
+      if (error) throw error;
+      const results = (data as any)?.results || [];
+      const ok = results.filter((r: any) => r.ok).length;
+      const failed = results.length - ok;
+      toast({
+        title: "Bulk-generering klar",
+        description: `${ok} lyckades${failed > 0 ? `, ${failed} misslyckades` : ""}.`,
+      });
+      refetchPartners();
+    } catch (e: any) {
+      toast({ title: "Bulk-generering misslyckades", description: e?.message || "Okänt fel", variant: "destructive" });
+    } finally {
+      setGeneratingAllSummaries(false);
+    }
+  };
+
   // Collapsible sections state in partner edit dialog (all open by default)
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     admin: true,
