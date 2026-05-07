@@ -43,6 +43,33 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border md:bg-background/95 md:backdrop-blur md:supports-[backdrop-filter]:bg-background/60">
+      {/* Top utility bar (desktop only) */}
+      <div className="hidden lg:block border-b border-border/60 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="flex h-9 items-center justify-end gap-5 text-xs">
+            <Link
+              to="/sok"
+              className="inline-flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              AI-sök
+            </Link>
+            <Link
+              to="/kunskapscenter"
+              className="font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Kunskapscenter & Events
+            </Link>
+            <Link
+              to="/kontakt"
+              className="font-medium text-muted-foreground hover:text-primary transition-colors"
+            >
+              Kontakt
+            </Link>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
