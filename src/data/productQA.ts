@@ -55,7 +55,28 @@ export const PRODUCT_QA_DATA: ProductQACategory[] = [
   {
     product: "Sales",
     description: "Vanliga frågor om Dynamics 365 Sales – CRM-funktionalitet, licenser och integrationer.",
-    items: [],
+    items: [
+      {
+        question: "Vad är Microsoft Dynamics 365 Sales?",
+        answer: `Dynamics 365 Sales är Microsofts CRM-lösning för säljorganisationer. Systemet hjälper säljteam att hantera leads, affärsmöjligheter, kontakter, konton och pipeline i ett samlat gränssnitt — med djup integration mot Outlook, Teams, Excel och LinkedIn Sales Navigator.\n\nKärnfunktioner: Lead- och opportunityhantering, pipeline-styrning, prognoser, offert- och orderhantering, aktivitetsuppföljning, kund- och kontaktregister samt rapportering via inbyggda dashboards och Power BI.\n\nMålgrupp: Allt från små säljteam (5–10 säljare) upp till globala säljorganisationer med tusentals användare. Konfigurerbart utan kod via Power Platform.\n\nIntegration: Sömlös koppling till Microsoft 365, Teams (mötesinsikter), LinkedIn Sales Navigator (för social selling) och Business Central eller Finance & SCM för helhetsflöde från lead till faktura.`,
+      },
+      {
+        question: "Vad kostar Dynamics 365 Sales – pris per användare?",
+        answer: `Dynamics 365 Sales finns i tre licensnivåer:\n\nSales Professional: ca 615 kr/användare/månad — grundläggande CRM med kontakter, konton, leads, opportunities och offerthantering. Passar mindre säljteam som behöver standardfunktionalitet.\n\nSales Enterprise: ca 1 020 kr/användare/månad — full CRM med avancerad pipeline-styrning, prognoser, anpassningsbara processer, säljspel och Copilot AI inkluderat.\n\nSales Premium: ca 1 450 kr/användare/månad — Sales Enterprise plus avancerade AI-funktioner som relationsinsikter, förutsägande lead- och opportunityscoring samt samtalsanalys.\n\nUtöver licens tillkommer implementeringskostnad — räkna med 200 000–800 000 kr för en standardimplementation beroende på integrationsbehov och anpassningar.`,
+      },
+      {
+        question: "Hur fungerar Copilot AI i Dynamics 365 Sales?",
+        answer: `Microsoft Copilot är inbyggt i Sales Enterprise och Premium utan extra licensavgift och förändrar säljarens vardag på flera sätt.\n\nMötessammanfattningar: Copilot lyssnar på Teams-möten, sammanfattar diskussionen, identifierar action items och uppdaterar CRM automatiskt med nästa steg.\n\nE-postutkast: Generera personliga uppföljningsmejl baserade på opportunityns kontext — Copilot drar in relevant information om kund, produkt och tidigare kommunikation.\n\nLeadprioritering: AI-driven scoring rankar leads och opportunities efter sannolikhet att stänga, så säljaren fokuserar på rätt affärer.\n\nKontoinsikter: Copilot sammanfattar kundens hela historik — möten, mejl, ärenden, ordrar — på sekunder inför ett kundmöte.\n\nSamtalsanalys: Premium-licensen analyserar säljsamtal, identifierar lyckade beteenden och ger coaching till hela teamet.`,
+      },
+      {
+        question: "Hur skiljer sig Dynamics 365 Sales från Salesforce och HubSpot?",
+        answer: `Båda är ledande CRM-plattformar, men det finns viktiga skillnader att överväga.\n\nMicrosoft-integration: Dynamics 365 Sales är djupt integrerat med Microsoft 365 — Outlook, Teams, Excel och SharePoint fungerar nativt. Salesforce kräver tilläggslicenser och tredjepartskonnektorer.\n\nLicenspris: Sales Enterprise (ca 1 020 kr/mån) är ofta 30–40 % billigare än Salesforce Sales Cloud Enterprise (motsvarande nivå). HubSpot Sales Hub Professional ligger i samma prisklass men har mindre djup för komplexa B2B-processer.\n\nAI-funktioner: Copilot ingår i Sales Enterprise utan extra kostnad. Salesforce Einstein och HubSpot Breeze är ofta tilläggslicenser.\n\nERP-koppling: D365 Sales integreras sömlöst med Business Central och Finance & SCM för komplett lead-till-cash-flöde — något varken Salesforce eller HubSpot kan leverera utan komplexa integrationer.\n\nFlexibilitet: Power Platform gör det enklare och billigare att anpassa D365 utan kod jämfört med Apex/Lightning på Salesforce.`,
+      },
+      {
+        question: "Hur lång tid tar en implementation av Dynamics 365 Sales?",
+        answer: `Tidsåtgången beror på komplexitet, men följande riktvärden gäller för svenska implementationer:\n\nStartpaket (5–15 säljare): 6–10 veckor för standardprocesser, datamigration från befintligt system, integration mot Outlook och utbildning. Pris ca 200 000–400 000 kr.\n\nMedelstor implementation (15–50 säljare): 3–5 månader med anpassade säljprocesser, integration mot ERP eller marketingsystem, dashboards och rapporter. Pris ca 400 000–800 000 kr.\n\nStor implementation (50+ säljare, flera länder): 6–12 månader med globala säljprocesser, flera språk, komplexa integrationer, prognosmodeller och Copilot Premium-funktioner. Pris från 800 000 kr.\n\nFramgångsfaktorer: Engagerad sponsor i ledningen, en stark intern projektledare, tydligt definierade säljprocesser från början och realistisk plan för datamigration. Välj en partner med dokumenterad CRM-erfarenhet.`,
+      },
+    ],
   },
   {
     product: "Customer Insights",
