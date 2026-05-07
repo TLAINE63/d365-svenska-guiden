@@ -531,6 +531,8 @@ export type Database = {
           admin_notes: string | null
           agreement_notes: string | null
           agreement_signed: boolean
+          ai_summary: string | null
+          ai_summary_generated_at: string | null
           applications: string[] | null
           cancellation_date: string | null
           contact_person: string | null
@@ -571,6 +573,8 @@ export type Database = {
           admin_notes?: string | null
           agreement_notes?: string | null
           agreement_signed?: boolean
+          ai_summary?: string | null
+          ai_summary_generated_at?: string | null
           applications?: string[] | null
           cancellation_date?: string | null
           contact_person?: string | null
@@ -611,6 +615,8 @@ export type Database = {
           admin_notes?: string | null
           agreement_notes?: string | null
           agreement_signed?: boolean
+          ai_summary?: string | null
+          ai_summary_generated_at?: string | null
           applications?: string[] | null
           cancellation_date?: string | null
           contact_person?: string | null
