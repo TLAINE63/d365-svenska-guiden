@@ -427,6 +427,22 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
               {partner.description}
             </p>
 
+            {/* AI-generated neutral summary */}
+            {(partner as any).ai_summary && (
+              <div className="max-w-3xl mb-6 rounded-xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-4 sm:p-5 shadow-sm">
+                <div className="flex items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  <Sparkles className="w-3.5 h-3.5 text-[hsl(var(--cta-orange))]" />
+                  Neutral sammanfattning
+                </div>
+                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
+                  {(partner as any).ai_summary}
+                </p>
+                <p className="mt-2 text-[11px] text-slate-400">
+                  Genererad av d365.se utifrån partnerdata. Uppdateras löpande.
+                </p>
+              </div>
+            )}
+
             {/* Website CTA - directly under description */}
             <div className="flex flex-col items-center mb-6">
               <a 
