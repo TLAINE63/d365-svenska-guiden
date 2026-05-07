@@ -204,36 +204,8 @@ const Navbar = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            {menuItems.map((item) => (
-              item.external ? (
-                <a
-                  key={item.path}
-                  href={item.path}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className="text-sm font-medium text-foreground hover:text-primary transition-colors"
-                >
-                  {item.label}
-                </Link>
-              )
-            ))}
-            <Link
-              to="/sok"
-              aria-label="AI-sök"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors px-2 py-1 rounded-md hover:bg-primary/5"
-            >
-              <Sparkles className="h-4 w-4" />
-              AI-sök
-            </Link>
           </div>
+
 
           {/* Mobile Menu */}
           <Sheet>
