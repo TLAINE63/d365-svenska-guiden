@@ -137,6 +137,12 @@ export default function prerenderPlugin(): Plugin {
         const baseUrl = 'https://d365.se';
         const today = new Date().toISOString().split('T')[0];
         const sitemapEntries: string[] = [];
+        const sitemapBuckets: Record<string, string[]> = {
+          pages: [],
+          partners: [],
+          events: [],
+          articles: [],
+        };
         const seoLintResults: Array<{ path: string; errors: string[]; warnings: string[] }> = [];
         let successCount = 0;
 
