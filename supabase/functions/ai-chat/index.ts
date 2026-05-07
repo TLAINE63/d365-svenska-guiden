@@ -1,8 +1,12 @@
 // Streaming AI chat for d365.se – neutral D365 advisor
+import { checkAndLogQuota } from '../_shared/ai-quota.ts';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+const DAILY_LIMIT = 50;
 
 const SYSTEM_PROMPT = `Du är AI-assistenten på d365.se – en oberoende svensk guide till Microsoft Dynamics 365.
 
