@@ -50,6 +50,14 @@ Deno.serve(async (req) => {
       });
     }
 
+    const quota = await checkAndLogQuota(req, 'smart-search', DAILY_LIMIT);
+    if (!quota.allowed) {
+      return new Response(
+        JSON.stringify({ error: `Daglig gräns nådd (${quota.limit} sökningar/dag). Försök igen imorgon eller använd menyn.` }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
+      );
+    }
+
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
       return new Response(JSON.stringify({ error: 'AI gateway not configured' }), {
