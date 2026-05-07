@@ -55,7 +55,28 @@ export const PRODUCT_QA_DATA: ProductQACategory[] = [
   {
     product: "Sales",
     description: "Vanliga frågor om Dynamics 365 Sales – CRM-funktionalitet, licenser och integrationer.",
-    items: [],
+    items: [
+      {
+        question: "Vad är Microsoft Dynamics 365 Sales?",
+        answer: `Dynamics 365 Sales är Microsofts CRM-lösning för säljorganisationer. Systemet hjälper säljteam att hantera leads, affärsmöjligheter, kontakter, konton och pipeline i ett samlat gränssnitt — med djup integration mot Outlook, Teams, Excel och LinkedIn Sales Navigator.\n\nKärnfunktioner: Lead- och opportunityhantering, pipeline-styrning, prognoser, offert- och orderhantering, aktivitetsuppföljning, kund- och kontaktregister samt rapportering via inbyggda dashboards och Power BI.\n\nMålgrupp: Allt från små säljteam (5–10 säljare) upp till globala säljorganisationer med tusentals användare. Konfigurerbart utan kod via Power Platform.\n\nIntegration: Sömlös koppling till Microsoft 365, Teams (mötesinsikter), LinkedIn Sales Navigator (för social selling) och Business Central eller Finance & SCM för helhetsflöde från lead till faktura.`,
+      },
+      {
+        question: "Vad kostar Dynamics 365 Sales – pris per användare?",
+        answer: `Dynamics 365 Sales finns i tre licensnivåer:\n\nSales Professional: ca 615 kr/användare/månad — grundläggande CRM med kontakter, konton, leads, opportunities och offerthantering. Passar mindre säljteam som behöver standardfunktionalitet.\n\nSales Enterprise: ca 1 020 kr/användare/månad — full CRM med avancerad pipeline-styrning, prognoser, anpassningsbara processer, säljspel och Copilot AI inkluderat.\n\nSales Premium: ca 1 450 kr/användare/månad — Sales Enterprise plus avancerade AI-funktioner som relationsinsikter, förutsägande lead- och opportunityscoring samt samtalsanalys.\n\nUtöver licens tillkommer implementeringskostnad — räkna med 200 000–800 000 kr för en standardimplementation beroende på integrationsbehov och anpassningar.`,
+      },
+      {
+        question: "Hur fungerar Copilot AI i Dynamics 365 Sales?",
+        answer: `Microsoft Copilot är inbyggt i Sales Enterprise och Premium utan extra licensavgift och förändrar säljarens vardag på flera sätt.\n\nMötessammanfattningar: Copilot lyssnar på Teams-möten, sammanfattar diskussionen, identifierar action items och uppdaterar CRM automatiskt med nästa steg.\n\nE-postutkast: Generera personliga uppföljningsmejl baserade på opportunityns kontext — Copilot drar in relevant information om kund, produkt och tidigare kommunikation.\n\nLeadprioritering: AI-driven scoring rankar leads och opportunities efter sannolikhet att stänga, så säljaren fokuserar på rätt affärer.\n\nKontoinsikter: Copilot sammanfattar kundens hela historik — möten, mejl, ärenden, ordrar — på sekunder inför ett kundmöte.\n\nSamtalsanalys: Premium-licensen analyserar säljsamtal, identifierar lyckade beteenden och ger coaching till hela teamet.`,
+      },
+      {
+        question: "Hur skiljer sig Dynamics 365 Sales från Salesforce och HubSpot?",
+        answer: `Båda är ledande CRM-plattformar, men det finns viktiga skillnader att överväga.\n\nMicrosoft-integration: Dynamics 365 Sales är djupt integrerat med Microsoft 365 — Outlook, Teams, Excel och SharePoint fungerar nativt. Salesforce kräver tilläggslicenser och tredjepartskonnektorer.\n\nLicenspris: Sales Enterprise (ca 1 020 kr/mån) är ofta 30–40 % billigare än Salesforce Sales Cloud Enterprise (motsvarande nivå). HubSpot Sales Hub Professional ligger i samma prisklass men har mindre djup för komplexa B2B-processer.\n\nAI-funktioner: Copilot ingår i Sales Enterprise utan extra kostnad. Salesforce Einstein och HubSpot Breeze är ofta tilläggslicenser.\n\nERP-koppling: D365 Sales integreras sömlöst med Business Central och Finance & SCM för komplett lead-till-cash-flöde — något varken Salesforce eller HubSpot kan leverera utan komplexa integrationer.\n\nFlexibilitet: Power Platform gör det enklare och billigare att anpassa D365 utan kod jämfört med Apex/Lightning på Salesforce.`,
+      },
+      {
+        question: "Hur lång tid tar en implementation av Dynamics 365 Sales?",
+        answer: `Tidsåtgången beror på komplexitet, men följande riktvärden gäller för svenska implementationer:\n\nStartpaket (5–15 säljare): 6–10 veckor för standardprocesser, datamigration från befintligt system, integration mot Outlook och utbildning. Pris ca 200 000–400 000 kr.\n\nMedelstor implementation (15–50 säljare): 3–5 månader med anpassade säljprocesser, integration mot ERP eller marketingsystem, dashboards och rapporter. Pris ca 400 000–800 000 kr.\n\nStor implementation (50+ säljare, flera länder): 6–12 månader med globala säljprocesser, flera språk, komplexa integrationer, prognosmodeller och Copilot Premium-funktioner. Pris från 800 000 kr.\n\nFramgångsfaktorer: Engagerad sponsor i ledningen, en stark intern projektledare, tydligt definierade säljprocesser från början och realistisk plan för datamigration. Välj en partner med dokumenterad CRM-erfarenhet.`,
+      },
+    ],
   },
   {
     product: "Customer Insights",
@@ -65,7 +86,28 @@ export const PRODUCT_QA_DATA: ProductQACategory[] = [
   {
     product: "Customer Service",
     description: "Fördjupning i Dynamics 365 Customer Service – ärendehantering, kunskapsbas och licensmodeller.",
-    items: [],
+    items: [
+      {
+        question: "Vad är Microsoft Dynamics 365 Customer Service?",
+        answer: `Dynamics 365 Customer Service är Microsofts plattform för kundtjänst och ärendehantering. Systemet hjälper supportorganisationer hantera ärenden över flera kanaler — telefon, e-post, chatt, sociala medier och självbetjäning — i ett samlat gränssnitt med inbyggd AI och kunskapsbas.\n\nKärnfunktioner: Ärendehantering med automatisk routing, SLA-styrning, kunskapsartiklar, omnikanal (chatt, sociala medier, WhatsApp), självbetjäningsportaler, kundenkäter och rapportering.\n\nMålgrupp: Allt från små supportteam (5–15 agenter) upp till stora kundtjänstcenter med hundratals agenter och miljoner ärenden per år.\n\nIntegration: Sömlös koppling till Teams (samarbete mellan agenter), Power Virtual Agents (chatbottar), Sales (360-graders kundvy), Field Service (eskalera till tekniker) och Power BI (analyser).`,
+      },
+      {
+        question: "Vad kostar Dynamics 365 Customer Service – pris per användare?",
+        answer: `Customer Service finns i två huvudsakliga licensnivåer:\n\nCustomer Service Professional: ca 540 kr/användare/månad — grundläggande ärendehantering, kunskapsbas och e-postärenden. Passar mindre supportteam med en eller två kanaler.\n\nCustomer Service Enterprise: ca 1 020 kr/användare/månad — full omnikanal med chatt, sociala medier, samtal, AI-routing, Copilot, anpassade processer och avancerad analys.\n\nDigital Messaging tilläggslicens: ca 770 kr/användare/månad — lägger till SMS, WhatsApp, Facebook Messenger och Apple Messages för Business.\n\nVoice Channel: ca 770 kr/användare/månad — inbyggd telefoni via Microsoft för helt integrerat callcenter utan separat växellösning.\n\nUtöver licens tillkommer implementeringskostnad — räkna med 250 000–1 000 000 kr beroende på omfattning av kanaler, integrationer och anpassningar.`,
+      },
+      {
+        question: "Hur fungerar Copilot AI i Dynamics 365 Customer Service?",
+        answer: `Copilot är inbyggt i Customer Service Enterprise utan extra licensavgift och påverkar både agenter och kunder.\n\nÄrendesammanfattning: Copilot sammanfattar långa ärendetrådar och e-postkonversationer på sekunder så agenten snabbt får kontext.\n\nSvarsförslag: AI föreslår svar baserade på kunskapsartiklar och tidigare lösta ärenden — agenten godkänner eller redigerar innan utskick.\n\nKunskapsartiklar: Copilot kan generera utkast till nya kunskapsartiklar baserade på lösta ärenden, så kunskapsbasen växer kontinuerligt.\n\nSjälvbetjäning: AI-driven chattbot via Copilot Studio (tidigare Power Virtual Agents) löser standardfrågor utan agentinblandning — frigör tid för komplexa ärenden.\n\nÄrenderoutering: AI klassificerar och dirigerar inkommande ärenden till rätt agent eller kö baserat på ämne, prioritet och kompetensbehov.\n\nSentimentanalys: Copilot identifierar missnöjda kunder i realtid och eskalerar till mer erfarna agenter eller chefer.`,
+      },
+      {
+        question: "Vad är skillnaden mellan Customer Service och Contact Center?",
+        answer: `Microsoft erbjuder två produkter som ibland förväxlas — här är skillnaderna:\n\nCustomer Service: Heltäckande CRM-plattform för kundtjänst. Inkluderar ärendehantering, kunskapsbas, kundregister, SLA-styrning och omnikanal. Passar organisationer som behöver full kundtjänstlösning med långsiktig kundhistorik.\n\nContact Center: Fristående AI-driven contact center-lösning utan CRM-bas. Fokus på röst, digitala kanaler, IVR, agentassistent och Copilot. Kan användas tillsammans med valfritt befintligt CRM (Salesforce, ServiceNow eller Customer Service).\n\nNär välja vad? Customer Service passar när ni vill ha CRM och kundtjänst i samma plattform. Contact Center passar när ni har befintligt CRM men vill modernisera kontaktcentret med AI och omnikanal.\n\nLicensmodell: Customer Service kostar per agent/månad. Contact Center kostar per agent/månad plus per minut för röstsamtal — ger flexibilitet vid varierande volym.`,
+      },
+      {
+        question: "Hur lång tid tar en implementation av Dynamics 365 Customer Service?",
+        answer: `Tidsåtgången styrs av antal kanaler och integrationsbehov:\n\nStartpaket (5–15 agenter, e-post + chatt): 6–10 veckor för grundläggande ärendehantering, kunskapsbas, integration mot Outlook och utbildning. Pris ca 250 000–500 000 kr.\n\nMedelstor implementation (15–50 agenter, omnikanal): 3–5 månader med flera kanaler (chatt, sociala medier, telefoni), kunskapsbasstrategi, AI-routing och Copilot. Pris ca 500 000–1 000 000 kr.\n\nStor implementation (50+ agenter, callcenter): 6–12 månader med Voice Channel, IVR, integration mot telefonisystem, prognosmodeller och Copilot Premium. Pris från 1 000 000 kr.\n\nFramgångsfaktorer: Tydlig kanal- och routingstrategi, en strukturerad kunskapsbas från start, en stark intern projektledare och realistisk plan för migration av historiska ärenden. Välj en partner med erfarenhet av omnikanal och AI-driven kundtjänst.`,
+      },
+    ],
   },
   {
     product: "Field Service",
