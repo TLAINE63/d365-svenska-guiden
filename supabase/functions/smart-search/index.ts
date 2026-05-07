@@ -128,6 +128,43 @@ Returnera JSON:
       parsed = { primary: { path: '/', label: 'Startsida', reason: 'Kunde inte tolka frågan' }, alternatives: [], answer: content };
     }
 
+    // Validera & korrigera paths så AI:n inte hittar på 404-länkar
+    const validRoutes = new Set(ROUTES.map(r => r.path));
+    const partnerSlugs = new Set((partners || []).map((p: any) => p.slug));
+    const partnerNameToSlug = new Map((partners || []).map((p: any) => [String(p.name).toLowerCase(), p.slug]));
+
+    const fixPath = (path: string, label?: string): string | null => {
+      if (!path || typeof path !== 'string') return null;
+      if (validRoutes.has(path)) return path;
+      if (path.startsWith('/partner/')) {
+        const slug = path.split('/')[2];
+        if (partnerSlugs.has(slug)) return path;
+      }
+      // AI gav t.ex. "/norteam" – mappa mot partner-slug
+      const maybeSlug = path.replace(/^\//, '').split('/')[0];
+      if (partnerSlugs.has(maybeSlug)) return `/partner/${maybeSlug}`;
+      // Eller mappa via label
+      if (label) {
+        const slug = partnerNameToSlug.get(label.toLowerCase());
+        if (slug) return `/partner/${slug}`;
+      }
+      return null;
+    };
+
+    if (parsed.primary) {
+      const fixed = fixPath(parsed.primary.path, parsed.primary.label);
+      if (fixed) parsed.primary.path = fixed;
+      else parsed.primary = { path: '/valj-partner', label: 'Hitta partner', reason: 'Vi kunde inte hitta exakt sida – börja här' };
+    }
+    if (Array.isArray(parsed.alternatives)) {
+      parsed.alternatives = parsed.alternatives
+        .map((a: any) => {
+          const f = fixPath(a.path, a.label);
+          return f ? { ...a, path: f } : null;
+        })
+        .filter(Boolean);
+    }
+
     return new Response(JSON.stringify(parsed), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
