@@ -2836,6 +2836,10 @@ Thomas`,
           <TabsContent value="featured-article">
             <AdminFeaturedArticleTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
+
+          <TabsContent value="partner-dashboard">
+            <AdminPartnerDashboardTab token={token || null} />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
