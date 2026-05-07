@@ -1,0 +1,77 @@
+// Streaming AI chat for d365.se – neutral D365 advisor
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+const SYSTEM_PROMPT = `Du är AI-assistenten på d365.se – en oberoende svensk guide till Microsoft Dynamics 365.
+
+DIN ROLL:
+- Hjälp besökare förstå Dynamics 365 (Business Central, Finance & SCM, Sales, Customer Insights, Customer Service, Field Service, Contact Center, Copilot, AI-agenter).
+- Ge neutrala, transparenta råd. Rekommendera ALDRIG en specifik partner – hänvisa istället till partnerguiden /valj-partner eller wizarden /kom-igang.
+- Svara på SVENSKA, kort och konkret (max 4-6 meningar normalt). Använd punktlistor när det hjälper.
+- När någon söker partner, behovsanalys eller kravspec – länka till rätt sida på sajten med markdown-länkar.
+
+VIKTIGA SIDOR du kan länka till:
+- Partnerguide: [/valj-partner](/valj-partner)
+- Kom igång-wizard: [/kom-igang](/kom-igang)
+- AI-sök: [/sok](/sok)
+- Behovsanalys ERP: [/behovsanalys](/behovsanalys)
+- Behovsanalys Sälj/Marknad: [/salj-marknad-behovsanalys](/salj-marknad-behovsanalys)
+- Behovsanalys Kundservice: [/kundservice-behovsanalys](/kundservice-behovsanalys)
+- AI Readiness: [/ai-readiness](/ai-readiness)
+- Kunskapscenter: [/kunskapscenter](/kunskapscenter)
+- Kontakt: [/kontakt](/kontakt)
+- Produkter: /business-central, /finance-supply-chain, /erp, /crm, /d365-sales, /d365-marketing, /d365-customer-service, /d365-field-service, /d365-contact-center, /ai-oversikt
+
+REGLER:
+- Nämn ALDRIG Power Platform som en separat produkt vi täcker.
+- Lova inga priser utan att hänvisa till /kunskapscenter eller /kontakt.
+- Om frågan ligger utanför Dynamics 365 – säg det vänligt och föreslå /kontakt.`;
+
+Deno.serve(async (req) => {
+  if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
+
+  try {
+    const { messages } = await req.json();
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 30) {
+      return new Response(JSON.stringify({ error: 'Ogiltig konversation' }), {
+        status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    if (!LOVABLE_API_KEY) {
+      return new Response(JSON.stringify({ error: 'AI gateway not configured' }), {
+        status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'google/gemini-2.5-flash',
+        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+        stream: true,
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 429) return new Response(JSON.stringify({ error: 'För många förfrågningar, försök igen om en stund.' }), { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      if (response.status === 402) return new Response(JSON.stringify({ error: 'AI-krediter slut.' }), { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      const t = await response.text();
+      console.error('AI gateway error', response.status, t);
+      return new Response(JSON.stringify({ error: 'AI-fel' }), { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+
+    return new Response(response.body, {
+      headers: { ...corsHeaders, 'Content-Type': 'text/event-stream' },
+    });
+  } catch (e) {
+    console.error('ai-chat error', e);
+    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : 'Okänt fel' }), {
+      status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+  }
+});
