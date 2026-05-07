@@ -202,12 +202,37 @@ const popularGuides = [
   { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", link: "/ai-readiness/", tag: "AI" },
 ];
 
-const industryPills = [
+import partnerDataJson from "@/data/partnerData.json";
+
+const ALL_INDUSTRY_PILLS = [
   "Tillverkning", "Grossist & distribution", "Konsulttjänster",
   "Bygg & entreprenad", "Retail & e-handel", "Fastighet & förvaltning",
   "Life Science & Medtech", "Finans & försäkring", "Energi & utilities",
   "Logistik & transport", "Offentlig sektor", "Non-profit",
 ];
+
+// Only show industries where at least one partner exists (loose match).
+const normalizeIndustry = (s: string) =>
+  s.toLowerCase()
+    .replace(/industri$/, "")
+    .replace(/[\s&/-]+/g, " ")
+    .trim();
+
+const partnerIndustrySet = new Set<string>();
+for (const p of partnerDataJson as Array<{ industries?: string[]; secondary_industries?: string[] }>) {
+  for (const i of [...(p.industries || []), ...(p.secondary_industries || [])]) {
+    const n = normalizeIndustry(i);
+    partnerIndustrySet.add(n);
+    // also add tokens to enable matches like "tillverkning" vs "tillverkningsindustri"
+    n.split(" ").forEach((tok) => tok.length > 3 && partnerIndustrySet.add(tok));
+  }
+}
+
+const industryPills = ALL_INDUSTRY_PILLS.filter((pill) => {
+  const n = normalizeIndustry(pill);
+  if (partnerIndustrySet.has(n)) return true;
+  return n.split(" ").some((tok) => tok.length > 3 && partnerIndustrySet.has(tok));
+});
 
 const heroSteps = [
   { title: "Berätta om verksamheten", sub: "Bransch, storlek och nuvarande system" },
