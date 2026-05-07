@@ -226,6 +226,19 @@ const BlogArticle = () => {
         {/* Article content */}
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-3xl">
+            {article.summary && (
+              <aside
+                aria-label="Sammanfattning"
+                className="mb-8 p-5 rounded-xl border-l-4 border-primary bg-primary/5"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+                  Sammanfattning
+                </p>
+                <p className="text-base md:text-lg leading-relaxed text-foreground/90">
+                  {article.summary}
+                </p>
+              </aside>
+            )}
             <article
               className="
                 article-body max-w-none
