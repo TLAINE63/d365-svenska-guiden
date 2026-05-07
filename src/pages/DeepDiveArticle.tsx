@@ -95,6 +95,19 @@ const DeepDiveArticle = () => {
         {/* Article content */}
         <section className="py-10">
           <div className="container mx-auto px-4 max-w-4xl">
+            {article.description && (
+              <aside
+                aria-label="Sammanfattning"
+                className="mb-8 p-5 rounded-xl border-l-4 border-primary bg-primary/5"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+                  Sammanfattning
+                </p>
+                <p className="text-base md:text-lg leading-relaxed text-foreground/90">
+                  {article.description}
+                </p>
+              </aside>
+            )}
             <article className="prose prose-slate dark:prose-invert max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-li:leading-relaxed prose-strong:text-foreground prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4 prose-p:mb-5 prose-ul:my-6 prose-li:my-1">
               {article.content}
             </article>
