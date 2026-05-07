@@ -2574,6 +2574,18 @@ Thomas`,
                               <Link className="h-4 w-4" />
                             </Button>
                           )}
+                          {partner.is_featured && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleGenerateSummary(partner.id, partner.name)}
+                              disabled={generatingSummaryId === partner.id}
+                              title={(partner as any).ai_summary ? "Regenerera AI-summering" : "Generera AI-summering"}
+                              className={(partner as any).ai_summary ? "" : "border-amber-400 text-amber-700"}
+                            >
+                              <Sparkles className={`h-4 w-4 ${generatingSummaryId === partner.id ? "animate-pulse" : ""}`} />
+                            </Button>
+                          )}
                           <Button
                             variant="outline"
                             size="sm"
