@@ -182,7 +182,7 @@ const QA = () => {
       <section className="py-12 sm:py-16 md:py-20 bg-background">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4" value={openItem} onValueChange={setOpenItem}>
               {faqs.map((faq, index) => (
                 <AccordionItem 
                   key={index} 
