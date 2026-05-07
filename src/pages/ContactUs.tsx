@@ -29,6 +29,7 @@ const ContactUs = () => {
         ogImage="https://d365.se/og-kontakt.png"
       />
       <LocalBusinessSchema />
+      <AdvisorsSchema />
       <BreadcrumbSchema items={contactBreadcrumbs} />
       <Navbar />
       
