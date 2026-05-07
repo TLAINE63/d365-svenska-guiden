@@ -2147,6 +2147,15 @@ Thomas`,
                   <Download className="mr-2 h-4 w-4" />
                   Exportera kontakter
                 </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleGenerateAllMissingSummaries}
+                  disabled={generatingAllSummaries}
+                  title="Generera AI-summeringar för alla publicerade partners"
+                >
+                  <Sparkles className={`mr-2 h-4 w-4 ${generatingAllSummaries ? "animate-pulse" : ""}`} />
+                  {generatingAllSummaries ? "Genererar..." : "AI-summera alla"}
+                </Button>
                 {selectedForWelcome.size > 0 && (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
