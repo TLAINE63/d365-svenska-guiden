@@ -71,9 +71,25 @@ const ProductQASection = ({ categories }: ProductQASectionProps) => {
               </p>
             )}
             {activeCategory.items.length === 0 ? (
-              <div className="text-center py-12 text-muted-foreground">
-                <BookOpen className="w-10 h-10 mx-auto mb-3 opacity-40" />
-                <p>Innehåll kommer snart.</p>
+              <div className="text-center py-12 px-6 border border-dashed border-border rounded-lg bg-card/50">
+                <BookOpen className="w-10 h-10 mx-auto mb-3 text-primary/60" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  Fördjupningen för {activeCategory.product} är på väg
+                </h3>
+                <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">
+                  Vi bygger upp svaren kring de fem stora temana – licenspriser, utmaningar,
+                  jämförelser, recensioner och varför produkten är bäst i klassen. Under tiden
+                  hittar du generella svar i vår Q&A-sektion.
+                </p>
+                <div className="flex flex-wrap justify-center gap-2 text-sm">
+                  <a href="/qa" className="text-primary hover:underline font-medium">
+                    Se alla vanliga frågor →
+                  </a>
+                  <span className="text-muted-foreground/50">·</span>
+                  <a href="/kontakt" className="text-primary hover:underline font-medium">
+                    Ställ en egen fråga →
+                  </a>
+                </div>
               </div>
             ) : (
               <Accordion type="single" collapsible className="space-y-3">
