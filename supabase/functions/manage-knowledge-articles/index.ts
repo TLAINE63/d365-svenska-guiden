@@ -67,7 +67,7 @@ serve(async (req) => {
   try {
     const auth = req.headers.get("authorization") || "";
     const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
-    const secret = Deno.env.get("PARTNER_ADMIN_PASSWORD") || "";
+    const secret = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
     if (!token || !(await verifyJWT(token, secret))) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" }
