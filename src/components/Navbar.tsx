@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import companyLogo from "@/assets/d365guide-logo-new.webp";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -209,6 +209,9 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent className="overflow-y-auto">
               <div className="flex flex-col gap-4 mt-8 pb-8">
+                <Link to="/sok" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-primary/80 transition-colors">
+                  <Sparkles className="h-4 w-4" /> AI-sök
+                </Link>
                 <Link
                   to="/branschlosningar/"
                   onClick={(e) => {
