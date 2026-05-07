@@ -33,7 +33,9 @@ export const OrganizationSchema = () => {
       "CRM-system"
     ],
     "sameAs": [
-      "https://www.linkedin.com/showcase/d365se/"
+      "https://www.linkedin.com/showcase/d365se/",
+      "https://www.linkedin.com/company/dynamic-factory-ab/",
+      "https://dynamicfactory.se"
     ],
     "contactPoint": {
       "@type": "ContactPoint",
@@ -223,5 +225,96 @@ export const WebSiteSchema = () => {
         {JSON.stringify(schema)}
       </script>
     </Helmet>
+  );
+};
+
+// Person Schema – for E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)
+interface PersonSchemaProps {
+  name: string;
+  jobTitle: string;
+  description: string;
+  image: string;
+  email?: string;
+  telephone?: string;
+  sameAs?: string[];
+  knowsAbout?: string[];
+}
+
+export const PersonSchema = ({
+  name,
+  jobTitle,
+  description,
+  image,
+  email,
+  telephone,
+  sameAs = [],
+  knowsAbout = [],
+}: PersonSchemaProps) => {
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": name,
+    "jobTitle": jobTitle,
+    "description": description,
+    "image": image.startsWith("http") ? image : `https://d365.se${image}`,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "D365 Guiden",
+      "url": "https://d365.se"
+    },
+    "nationality": "Swedish",
+    "knowsLanguage": ["sv-SE", "en"],
+  };
+  if (email) schema.email = email;
+  if (telephone) schema.telephone = telephone;
+  if (sameAs.length) schema.sameAs = sameAs;
+  if (knowsAbout.length) schema.knowsAbout = knowsAbout;
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Helmet>
+  );
+};
+
+// Combined Advisors Schema – pre-configured for Thomas & Michael
+export const AdvisorsSchema = () => {
+  const knowsAbout = [
+    "Microsoft Dynamics 365",
+    "Dynamics 365 Business Central",
+    "Dynamics 365 Finance",
+    "Dynamics 365 Supply Chain Management",
+    "Dynamics 365 Sales",
+    "Dynamics 365 Customer Service",
+    "ERP-implementering",
+    "CRM-strategi",
+    "Microsoft Copilot",
+    "AI-agenter",
+  ];
+  return (
+    <>
+      <PersonSchema
+        name="Thomas Laine"
+        jobTitle="Senior rådgivare och medgrundare, d365.se"
+        description="Oberoende rådgivare med över 25 års erfarenhet av Microsoft Dynamics 365 ERP, CRM, partnerlandskap och affärssystemsbeslut i Sverige."
+        image="/src/assets/thomas-laine-real.jpg"
+        email="thomas.laine@dynamicfactory.se"
+        telephone="+46-72-232-40-60"
+        sameAs={["https://linkedin.com/in/thomaslaine"]}
+        knowsAbout={knowsAbout}
+      />
+      <PersonSchema
+        name="Michael Uhman"
+        jobTitle="Senior rådgivare och medgrundare, d365.se"
+        description="Oberoende rådgivare med lång erfarenhet av affärssystem, verksamhetsutveckling, partnerlandskapet och Dynamics 365-relaterade beslut."
+        image="/src/assets/michael-uhman.jpg"
+        email="michael.uhman@dynamicfactory.se"
+        telephone="+46-70-574-88-50"
+        sameAs={["https://www.linkedin.com/in/michael-uhman-60a69b17/"]}
+        knowsAbout={knowsAbout}
+      />
+    </>
   );
 };

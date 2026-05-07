@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactFormDialog from "@/components/ContactFormDialog";
 import SEOHead from "@/components/SEOHead";
-import { LocalBusinessSchema, BreadcrumbSchema } from "@/components/StructuredData";
+import { LocalBusinessSchema, BreadcrumbSchema, AdvisorsSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
 const contactBreadcrumbs = [
@@ -29,6 +29,7 @@ const ContactUs = () => {
         ogImage="https://d365.se/og-kontakt.png"
       />
       <LocalBusinessSchema />
+      <AdvisorsSchema />
       <BreadcrumbSchema items={contactBreadcrumbs} />
       <Navbar />
       
