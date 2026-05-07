@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import companyLogo from "@/assets/d365guide-logo-new.webp";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
