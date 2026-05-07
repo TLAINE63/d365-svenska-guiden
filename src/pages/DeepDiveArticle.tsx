@@ -111,6 +111,72 @@ const DeepDiveArticle = () => {
             <article className="prose prose-slate dark:prose-invert max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-relaxed prose-li:text-muted-foreground prose-li:leading-relaxed prose-strong:text-foreground prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-4 prose-p:mb-5 prose-ul:my-6 prose-li:my-1">
               {article.content}
             </article>
+
+            {/* Authoritative external sources (Microsoft Learn) */}
+            {(() => {
+              const learnLinks: Record<string, { label: string; url: string }[]> = {
+                "business-central": [
+                  { label: "Microsoft Learn: Dynamics 365 Business Central", url: "https://learn.microsoft.com/dynamics365/business-central/" },
+                  { label: "Microsoft Docs: BC produktöversikt", url: "https://learn.microsoft.com/dynamics365/business-central/across-business-functionality" },
+                ],
+                "finance": [
+                  { label: "Microsoft Learn: Dynamics 365 Finance", url: "https://learn.microsoft.com/dynamics365/finance/" },
+                ],
+                "supply-chain": [
+                  { label: "Microsoft Learn: Dynamics 365 Supply Chain Management", url: "https://learn.microsoft.com/dynamics365/supply-chain/" },
+                ],
+                "d365-sales": [
+                  { label: "Microsoft Learn: Dynamics 365 Sales", url: "https://learn.microsoft.com/dynamics365/sales/" },
+                ],
+                "d365-customer-service": [
+                  { label: "Microsoft Learn: Dynamics 365 Customer Service", url: "https://learn.microsoft.com/dynamics365/customer-service/" },
+                ],
+                "d365-field-service": [
+                  { label: "Microsoft Learn: Dynamics 365 Field Service", url: "https://learn.microsoft.com/dynamics365/field-service/" },
+                ],
+                "d365-contact-center": [
+                  { label: "Microsoft Learn: Dynamics 365 Contact Center", url: "https://learn.microsoft.com/dynamics365/contact-center/" },
+                ],
+                "customer-insights": [
+                  { label: "Microsoft Learn: Dynamics 365 Customer Insights", url: "https://learn.microsoft.com/dynamics365/customer-insights/" },
+                ],
+                "copilot": [
+                  { label: "Microsoft Learn: Copilot för Dynamics 365", url: "https://learn.microsoft.com/dynamics365/guidance/develop/copilot-overview" },
+                ],
+                "agents": [
+                  { label: "Microsoft Learn: Copilot Studio agents", url: "https://learn.microsoft.com/microsoft-copilot-studio/" },
+                ],
+              };
+              const links = learnLinks[article.productSlug];
+              if (!links?.length) return null;
+              return (
+                <aside
+                  aria-label="Officiella källor"
+                  className="mt-10 p-5 rounded-xl border border-border bg-secondary/30"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+                    Officiella källor från Microsoft
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    {links.map((l) => (
+                      <li key={l.url}>
+                        <a
+                          href={l.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                        >
+                          {l.label} →
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    Innehållet här är en oberoende sammanfattning. För fullständig och alltid uppdaterad dokumentation, se Microsofts officiella resurser ovan.
+                  </p>
+                </aside>
+              );
+            })()}
           </div>
         </section>
 
