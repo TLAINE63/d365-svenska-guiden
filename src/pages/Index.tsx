@@ -322,10 +322,10 @@ const Index = () => {
 
               {/* Desktop / tablet hero (sm and up) */}
               <div className="hidden sm:block">
-                <p className="text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-6">
+                <h1 className="text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-6">
                   Ni väljer inte bara Dynamics 365.<br />
                   <span className="block mt-4">Ni väljer <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partnern som ska få det att fungera</em>.</span>
-                </p>
+                </h1>
                 <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
                   Affärssystem · CRM · Kundservice
                 </p>
