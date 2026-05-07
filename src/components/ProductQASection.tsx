@@ -77,17 +77,29 @@ const ProductQASection = ({ categories }: ProductQASectionProps) => {
                   Fördjupningen för {activeCategory.product} är på väg
                 </h3>
                 <p className="text-sm text-muted-foreground max-w-md mx-auto mb-4">
-                  Vi bygger upp svaren kring de fem stora temana – licenspriser, utmaningar,
-                  jämförelser, recensioner och varför produkten är bäst i klassen. Under tiden
-                  hittar du generella svar i vår Q&A-sektion.
+                  Vi bygger upp svaren kring de fem stora temana för {activeCategory.product}.
+                  Under tiden hittar du generella svar direkt under rätt rubrik i vår Q&A-sektion.
                 </p>
-                <div className="flex flex-wrap justify-center gap-2 text-sm">
-                  <a href="/qa" className="text-primary hover:underline font-medium">
-                    Se alla vanliga frågor →
-                  </a>
-                  <span className="text-muted-foreground/50">·</span>
+                <div className="flex flex-wrap justify-center gap-2 text-sm mb-4">
+                  {[
+                    { label: "Licenspriser", anchor: "priser" },
+                    { label: "Utmaningar & risker", anchor: "risker" },
+                    { label: "Jämförelser", anchor: "jamforelser" },
+                    { label: "Recensioner", anchor: "recensioner" },
+                    { label: "Bäst i klassen", anchor: "bast" },
+                  ].map((t) => (
+                    <a
+                      key={t.anchor}
+                      href={`/qa#${t.anchor}`}
+                      className="px-3 py-1.5 rounded-full border border-border bg-background hover:border-primary hover:text-primary transition-colors text-foreground font-medium"
+                    >
+                      {t.label} →
+                    </a>
+                  ))}
+                </div>
+                <div className="text-sm">
                   <a href="/kontakt" className="text-primary hover:underline font-medium">
-                    Ställ en egen fråga →
+                    Saknar du något? Ställ en egen fråga →
                   </a>
                 </div>
               </div>
