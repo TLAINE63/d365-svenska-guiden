@@ -1,8 +1,12 @@
 // Smart AI search: tolkar fri text och returnerar bästa rutt + förklaring
+import { checkAndLogQuota } from '../_shared/ai-quota.ts';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+const DAILY_LIMIT = 30;
 
 const ROUTES = [
   { path: '/', label: 'Startsida – översikt över Dynamics 365' },
