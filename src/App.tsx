@@ -57,6 +57,8 @@ const KomIgang = lazy(() => import("./pages/KomIgang"));
 const PartnerStats = lazy(() => import("./pages/PartnerStats"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 const SmartSearch = lazy(() => import("./pages/SmartSearch"));
+const AskAi = lazy(() => import("./pages/AskAi"));
+const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
 
