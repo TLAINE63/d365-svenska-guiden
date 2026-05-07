@@ -530,6 +530,17 @@ const Kunskapscenter = () => {
           { name: "Kunskapscenter & Events", url: "https://d365.se/kunskapscenter" },
         ]}
       />
+      <FAQSchema
+        faqs={PRODUCT_QA_DATA.flatMap((cat) =>
+          cat.items.slice(0, 4).map((item) => ({
+            question: `${item.question} (${cat.product})`,
+            answer:
+              typeof item.answer === "string"
+                ? item.answer.replace(/\s+/g, " ").trim().substring(0, 500)
+                : "",
+          }))
+        ).filter((f) => f.answer.length > 0)}
+      />
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero */}
