@@ -63,12 +63,34 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Hämta partnerlista så AI:n kan svara på namngivna partnerfrågor
+    let partnerBlock = '';
+    try {
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+      const partnersRes = await fetch(
+        `${supabaseUrl}/rest/v1/partners?select=slug,name,description,applications&is_featured=eq.true`,
+        { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
+      );
+      if (partnersRes.ok) {
+        const partners = await partnersRes.json();
+        partnerBlock = '\n\nPARTNERLISTA (använd ENDAST dessa när användaren frågar efter en namngiven partner):\n' +
+          (partners || []).map((p: any) =>
+            `- ${p.name} → /partner/${p.slug} | apps: ${(p.applications || []).join(', ')} | ${(p.description || '').substring(0, 120)}`
+          ).join('\n');
+      }
+    } catch (e) {
+      console.error('Failed to load partners for ai-chat', e);
+    }
+
+    const systemPrompt = SYSTEM_PROMPT_BASE + partnerBlock;
+
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: { Authorization: `Bearer ${LOVABLE_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'google/gemini-2.5-flash',
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+        messages: [{ role: 'system', content: systemPrompt }, ...messages],
         stream: true,
       }),
     });
