@@ -235,7 +235,7 @@ const BuyerJourneyStages = () => {
         {/* Header */}
         <header className="mb-10 md:mb-14 max-w-2xl">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-3">
-            Var i systemcykeln står ni?
+            Var i systemlivscykeln står ni?
           </h2>
           <p className="text-sm text-[#5A5A66] mb-3">
             Gäller både ERP (Business Central, Finance &amp; Supply Chain) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center).
