@@ -141,12 +141,13 @@ async function generateDrafts(supabase: any, opts: { period_start?: string; peri
     .eq("is_featured", true);
   if (pErr) throw pErr;
 
-  // Fetch all visits in period (one query)
+  // Fetch all visits active in period (use session_ended_at = Snitcher last_seen,
+  // since pages_visited is cumulative per organisation).
   const { data: visits, error: vErr } = await supabase
     .from("snitcher_visits")
-    .select("organisation_uuid, company_name, company_domain, company_industry, company_size, company_country, session_uuid, session_started_at, visited_urls, partner_slugs")
-    .gte("session_started_at", `${start}T00:00:00Z`)
-    .lte("session_started_at", `${end}T23:59:59Z`);
+    .select("organisation_uuid, company_name, company_domain, company_industry, company_size, company_country, session_uuid, session_started_at, session_ended_at, visited_urls, partner_slugs")
+    .gte("session_ended_at", `${start}T00:00:00Z`)
+    .lte("session_ended_at", `${end}T23:59:59Z`);
   if (vErr) throw vErr;
 
   const visitsBySlug = new Map<string, any[]>();
