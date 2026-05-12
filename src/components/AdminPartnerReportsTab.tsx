@@ -402,3 +402,95 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
     </div>
   );
 }
+
+function MonthlyStatsReportCard() {
+  const { toast } = useToast();
+  const [busy, setBusy] = useState<"dry" | "send" | null>(null);
+  const [partnerSlug, setPartnerSlug] = useState("");
+  const [days, setDays] = useState(30);
+  const [adminPassword, setAdminPassword] = useState("");
+  const [lastSummary, setLastSummary] = useState<any>(null);
+  const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+
+  const run = async (dryRun: boolean) => {
+    if (!adminPassword) {
+      toast({ title: "Lösenord krävs", description: "Ange admin-lösenord för att köra.", variant: "destructive" });
+      return;
+    }
+    setBusy(dryRun ? "dry" : "send");
+    setLastSummary(null);
+    setPreviewHtml(null);
+    const { data, error } = await supabase.functions.invoke("send-partner-monthly-report", {
+      body: {
+        adminPassword,
+        dryRun,
+        days,
+        partnerSlug: partnerSlug.trim() || undefined,
+      },
+    });
+    setBusy(null);
+    if (error || data?.error) {
+      toast({ title: "Fel", description: data?.error || error?.message, variant: "destructive" });
+      return;
+    }
+    setLastSummary(data.summary);
+    if (dryRun && data.results?.[0]?.html) {
+      setPreviewHtml(data.results[0].html);
+    }
+    toast({
+      title: dryRun ? "Förhandsgranskning klar" : "Rapport skickad",
+      description: `${data.summary.sent} skickade · ${data.summary.skipped} hoppades över · ${data.summary.failed} misslyckades`,
+    });
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Månadsrapport per partner (statistik)</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p className="text-sm text-muted-foreground">
+          Skickar en automatisk månadsöversikt med profilbesök, kortklick, klick till partnerns sajt
+          och topp-5 produktsidor som besökarna kom från. Schemaläggs månadsvis – men du kan trigga
+          manuellt eller förhandsgranska för en specifik partner här.
+        </p>
+        <div className="flex flex-wrap items-end gap-3">
+          <div>
+            <label className="text-xs font-medium block mb-1">Period (dagar)</label>
+            <Input type="number" min={1} max={365} value={days} onChange={e => setDays(parseInt(e.target.value) || 30)} className="w-28" />
+          </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Partner-slug (valfritt)</label>
+            <Input value={partnerSlug} onChange={e => setPartnerSlug(e.target.value)} placeholder="lämna tomt = alla featured" className="w-72" />
+          </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Admin-lösenord</label>
+            <Input type="password" value={adminPassword} onChange={e => setAdminPassword(e.target.value)} className="w-56" />
+          </div>
+          <Button onClick={() => run(true)} disabled={!!busy} variant="outline" size="sm">
+            {busy === "dry" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Eye className="h-4 w-4 mr-2" />}
+            Förhandsgranska (skickar inte)
+          </Button>
+          <Button onClick={() => run(false)} disabled={!!busy} size="sm">
+            {busy === "send" ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
+            Skicka nu
+          </Button>
+        </div>
+        {lastSummary && (
+          <div className="flex flex-wrap gap-2 pt-2">
+            <Badge variant="default">Skickade: {lastSummary.sent}</Badge>
+            <Badge variant="secondary">Hoppades över: {lastSummary.skipped}</Badge>
+            {lastSummary.failed > 0 && <Badge variant="destructive">Misslyckades: {lastSummary.failed}</Badge>}
+            {lastSummary.preview > 0 && <Badge variant="outline">Förhandsgranskningar: {lastSummary.preview}</Badge>}
+          </div>
+        )}
+        {previewHtml && (
+          <div className="border rounded-md overflow-hidden">
+            <div className="px-3 py-2 bg-muted text-xs font-medium">Förhandsgranskning</div>
+            <iframe srcDoc={previewHtml} className="w-full h-[600px] bg-white" title="Förhandsgranskning rapport" />
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
