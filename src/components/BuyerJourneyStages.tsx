@@ -166,7 +166,7 @@ const STEP1_OPTIONS = [
   { label: "Allt fungerar — vi vill bara hålla oss orienterade", result: 1 as const },
   { label: "Det skaver i vardagen, men inget är akut", result: 2 as const },
   { label: "En specifik händelse har gjort frågan akut", result: 3 as const },
-  { label: "Vi har redan mandat och har börjat arbeta", result: "next" as const },
+  { label: "Vi har redan mandat och har påbörjat en upphandling", result: "next" as const },
 ];
 
 const STEP2_OPTIONS = [
@@ -235,7 +235,7 @@ const BuyerJourneyStages = () => {
         {/* Header */}
         <header className="mb-10 md:mb-14 max-w-2xl">
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-3">
-            Var i köpresan står ni?
+            Var i systemcykeln står ni?
           </h2>
           <p className="text-sm text-[#5A5A66] mb-3">
             Gäller både ERP (Business Central, Finance &amp; Supply Chain) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center).
