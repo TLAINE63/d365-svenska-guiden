@@ -20,6 +20,7 @@ type Stage = {
   paragraphs: [string, string];
   recommendation: string;
   recommendationHref: string;
+  nextStep: { label: string; href: string; helper: string };
   Icon: LucideIcon;
 };
 
@@ -34,6 +35,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Orienterande artiklar och löpande bevakning av branschen",
     recommendationHref: "#",
+    nextStep: {
+      label: "Bevaka marknaden i Kunskapscentret",
+      href: "/kunskapscenter",
+      helper: "Läs orienterande artiklar och håll er uppdaterade utan att binda upp er.",
+    },
     Icon: Lightbulb,
   },
   {
@@ -46,6 +52,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Fördjupningar om hur ni skiljer processproblem från systembegränsningar",
     recommendationHref: "#",
+    nextStep: {
+      label: "Gör en behovsanalys",
+      href: "/behovsanalys",
+      helper: "Kartlägg vad som faktiskt skaver innan ni går vidare till partnerdialog.",
+    },
     Icon: Search,
   },
   {
@@ -58,6 +69,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Tematiska guider per triggertyp och mall för intern nulägesanalys",
     recommendationHref: "#",
+    nextStep: {
+      label: "Starta er nulägesanalys",
+      href: "/kom-igang",
+      helper: "Strukturera triggern internt innan ni öppnar dialogen med partners.",
+    },
     Icon: Zap,
   },
   {
@@ -70,6 +86,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Strukturmall för intern behovsanalys och workshop-underlag",
     recommendationHref: "#",
+    nextStep: {
+      label: "Bygg en kravspecifikation",
+      href: "/kravspecifikation",
+      helper: "Samla kraven från alla funktioner i ett gemensamt underlag.",
+    },
     Icon: ClipboardList,
   },
   {
@@ -82,6 +103,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Översikt över de olika vägarna och hur valet brukar landa",
     recommendationHref: "#",
+    nextStep: {
+      label: "Jämför ERP- och CRM-vägarna",
+      href: "/ai-readiness",
+      helper: "Se hur olika spår skiljer sig i risk, tid och förvaltning.",
+    },
     Icon: GitBranch,
   },
   {
@@ -94,6 +120,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Oberoende matchning mot partners som passar er bransch och era förutsättningar",
     recommendationHref: "#",
+    nextStep: {
+      label: "Hitta matchande partners",
+      href: "/valj-partner",
+      helper: "Få en oberoende kortlista som matchar bransch, storlek och fokusområde.",
+    },
     Icon: Users,
   },
   {
@@ -106,6 +137,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Valideringschecklista och frågor att ställa innan kontraktet skrivs under",
     recommendationHref: "#",
+    nextStep: {
+      label: "Stresstesta beslutet",
+      href: "/valj-partner",
+      helper: "Validera metodik, scope och leveransmodell innan kontraktet skrivs under.",
+    },
     Icon: CheckCircle,
   },
 ];
@@ -266,7 +302,22 @@ const BuyerJourneyStages = () => {
 
               <hr className="my-6 border-[#E5E5E8]" />
 
-              <div>
+              <div className="rounded-xl bg-[#FFF0F6] border border-[#E5006D]/30 p-5 sm:p-6">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#E5006D] mb-2">
+                  Nästa steg
+                </div>
+                <p className="text-[15px] text-[#0B0B0F] leading-relaxed mb-4">
+                  {resultStage.nextStep.helper}
+                </p>
+                <a
+                  href={resultStage.nextStep.href}
+                  className={`inline-flex items-center gap-2 rounded-lg bg-[#E5006D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                >
+                  {resultStage.nextStep.label} →
+                </a>
+              </div>
+
+              <div className="mt-6">
                 <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
                   Användbart hos oss
                 </div>
@@ -335,8 +386,20 @@ const BuyerJourneyStages = () => {
                         </p>
 
                         {isOpen && (
-                          <div className="mb-4 space-y-3 text-sm text-[#5A5A66] leading-relaxed border-t border-[#E5E5E8] pt-4">
+                          <div className="mb-4 space-y-4 text-sm text-[#5A5A66] leading-relaxed border-t border-[#E5E5E8] pt-4">
                             <p>{stage.paragraphs[1]}</p>
+                            <div className="rounded-lg bg-[#FFF0F6] border border-[#E5006D]/30 p-4">
+                              <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#E5006D] mb-1.5">
+                                Nästa steg
+                              </div>
+                              <p className="text-sm text-[#0B0B0F] mb-3">{stage.nextStep.helper}</p>
+                              <a
+                                href={stage.nextStep.href}
+                                className={`inline-flex items-center gap-1.5 rounded-md bg-[#E5006D] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                              >
+                                {stage.nextStep.label} →
+                              </a>
+                            </div>
                             <div>
                               <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-1.5">
                                 Användbart hos oss
