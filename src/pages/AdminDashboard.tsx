@@ -1906,6 +1906,12 @@ Thomas`,
               </span>
               Partner-dashboard
             </TabsTrigger>
+            <TabsTrigger value="partner-reports" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
+                <Mail className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
+              </span>
+              Månadsrapporter
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2918,6 +2924,11 @@ Thomas`,
 
           <TabsContent value="partner-dashboard">
             <AdminPartnerDashboardTab token={token || null} />
+          </TabsContent>
+
+          {/* ==================== PARTNER REPORTS TAB ==================== */}
+          <TabsContent value="partner-reports">
+            <AdminPartnerReportsTab token={token || null} />
           </TabsContent>
         </Tabs>
 
