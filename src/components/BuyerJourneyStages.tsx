@@ -423,12 +423,26 @@ const BuyerJourneyStages = () => {
                                 Nästa steg
                               </div>
                               <p className="text-sm text-[#0B0B0F] mb-3">{stage.nextStep.helper}</p>
-                              <a
-                                href={stage.nextStep.href}
-                                className={`inline-flex items-center gap-1.5 rounded-md bg-[#E5006D] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
-                              >
-                                {stage.nextStep.label} →
-                              </a>
+                              {stage.nextStep.options ? (
+                                <div className="flex flex-wrap gap-1.5">
+                                  {stage.nextStep.options.map((opt) => (
+                                    <a
+                                      key={opt.href}
+                                      href={opt.href}
+                                      className={`inline-flex items-center gap-1 rounded-md bg-[#E5006D] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                                    >
+                                      {opt.label} →
+                                    </a>
+                                  ))}
+                                </div>
+                              ) : (
+                                <a
+                                  href={stage.nextStep.href}
+                                  className={`inline-flex items-center gap-1.5 rounded-md bg-[#E5006D] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                                >
+                                  {stage.nextStep.label} →
+                                </a>
+                              )}
                             </div>
                             <div>
                               <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-1.5">
