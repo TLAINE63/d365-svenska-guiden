@@ -1,69 +1,53 @@
-## Plan: Ersätt "Så här arbetar vi" med köpresa-självskattning
 
-### Vad som ska ändras
+# Månatlig "vem har besökt din profil"-rapport till partners
 
-Ersätt sektionen på `src/pages/Index.tsx` rad 412–478 (rubriken "Så här arbetar vi" + 4-stegs grid + CTA-rad) med en ny sektion `<BuyerJourneyStages />`.
+En automatisk månadsrapport som mejlas till varje publicerad partner med en lista över identifierade företag (via Snitcher) som besökt deras profil – inklusive vilka andra sidor besökarna kollade i samma session. Du som admin måste godkänna varje utskick innan det går ut.
 
-`FeaturedArticleBanner` (rad 415) flyttas ut ur sektionen och behålls precis ovanför den nya komponenten så att inget innehåll försvinner. Resten av sidan (Direction picker dialog och övriga sektioner) lämnas orörda.
+## Vad som byggs
 
-### Ny komponent
+### 1. Snitcher-integration
+- Ny edge function `sync-snitcher-visits` hämtar identifierade företagsbesök från Snitchers API (kräver API-nyckel som du anger via secret).
+- Ny tabell `snitcher_visits` lagrar: företagsnamn, domän, bransch, storlek, land, sessions-ID, besökta sidor (array), tidpunkt, koppling till partner-slug om profilen besöktes.
+- Funktionen körs schemalagt (pg_cron, dagligen) så datat byggs upp under månaden.
 
-Skapas i `src/components/BuyerJourneyStages.tsx` — fristående, ingen routing, ingen backend, all state via `useState`. Tailwind + `lucide-react` (redan i projektet).
+### 2. Rapport-generering
+- Ny edge function `generate-partner-monthly-reports` körs första vardagen i månaden.
+- För varje publicerad partner aggregeras föregående månads Snitcher-besök på deras `/partner/<slug>`.
+- Per identifierat företag visas: företagsnamn, bransch/storlek, antal besök, datum, vilka andra sidor de besökte i samma session (t.ex. produktsidor, andra delar av guiden – inte konkurrentprofiler).
+- Skapar en draft-rad per partner i ny tabell `partner_report_drafts` med status `pending_review`. Innehåller pre-renderad HTML, ämne, och rådata som JSON.
 
-### Komponentens uppbyggnad
+### 3. Admin-vy: Godkänn rapporter
+- Ny flik "Månadsrapporter" i `/admin`.
+- Listar alla drafts för aktuell månad: partnernamn, mottagaremejl, antal identifierade företag, status.
+- Klick öppnar förhandsvisning (samma vy som mottagaren ser) med möjlighet att:
+  - Redigera ämne/intro-text
+  - Exkludera enskilda företag från listan
+  - Markera som godkänd (eller hoppa över)
+- Knapp "Skicka alla godkända" som triggar utskick. Drafts utan tillräckligt med data (0 identifierade företag) kan filtreras bort.
 
-1. **Sektionshuvud**
-   - H2: "Var i köpresan står ni?"
-   - Underrad: "Två korta frågor leder er till det avsnitt som passar bäst. Inga uppgifter samlas in."
-   - Inline-länk: "Eller hoppa direkt till översikten över de sju stadierna →" (smooth scroll till overview-griden via `ref` + `scrollIntoView`).
+### 4. Utskick
+- Använder Lovable Emails (befintlig infrastruktur, transaktionell – ett mejl per partner, triggad av din godkännandeknapp).
+- Mejlet skickas till partnerns `admin_contact_email` (fallback: `email`).
+- Mall i React Email matchar sajtens visuella stil (mörka gradienter, --cta-orange CTA till profilen).
+- BCC till advisor-mejl för transparens (samma mönster som befintliga utskick).
+- Status uppdateras till `sent` med tidsstämpel; loggas i `email_send_log`.
 
-2. **Quiz (state: `step` 1|2, `result` 1–7|null)**
-   - Progresslabel "Fråga X av 2".
-   - Steg 1: 4 svarskort. Alternativ 1–3 sätter result direkt (stadie 1/2/3); alternativ 4 går till steg 2.
-   - Steg 2: 4 svarskort → result 4/5/6/7. "← Tillbaka"-länk till steg 1.
-   - Kort: stora klickbara knappar, hover ger ljus rosa bakgrund (`#FFF0F6`) och rosa border (`#E5006D`). Stack på mobil, 2 kolumner på desktop.
-   - Övergångar: `transition-opacity duration-200` när steg byts.
+### 5. Manuell trigger
+- Knapp i admin "Generera draft nu" om du vill köra rapporten utanför schema (t.ex. extra utskick varannan vecka).
 
-3. **Resultatvy** (ersätter quizen i samma position när `result !== null`)
-   - Fas-tag uppe: TIDIGA SIGNALER / BEHOVET AKTIVERAS / PARTNERVAL.
-   - "Stadie X av 7" i accent-rosa.
-   - H3 med stadietitel + två stycken situationstext (verbatim).
-   - Divider + "Användbart hos oss" som diskret textlänk med `→` (placeholder `#`-anchors).
-   - Footerlänkar: "Visa alla stadier" (scroll till overview) och "Gör om självskattningen" (resettar state).
+## Tekniska detaljer
 
-4. **Overview av alla 7 stadier** (alltid synlig under quiz/resultat, samma sektion)
-   - H3 "De sju stadierna i en ERP-köpresa" + underrad.
-   - Tre kluster grupperade med små versala fas-labels:
-     - TIDIGA SIGNALER → 1, 2
-     - BEHOVET AKTIVERAS → 3, 4, 5
-     - PARTNERVAL → 6, 7
-   - Responsive grid: 3 kol desktop / 2 tablet / 1 mobil.
-   - Varje kort: "Stadie X" label, H4 titel, första stycket av situationstexten, "Läs mer →" som expanderar inline (accordion via `useState<Record<number, boolean>>`) med fullt innehåll + "Användbart hos oss"-länk. Toggle-text: "Visa mindre".
+- **Databas**: 2 nya tabeller (`snitcher_visits`, `partner_report_drafts`), RLS service-role only.
+- **Snitcher API**: REST (`https://api.snitcher.com/...`). Behöver `SNITCHER_API_KEY` som secret. Vi använder polling, inte webhook (enkare att komma igång).
+- **Sessionskoppling**: Snitcher levererar sessions-ID; vi joinar mot vår `visitor_analytics.session_id` för att få "andra sidor i samma session".
+- **Email-infra**: Använder befintlig Lovable Cloud-stack (Resend via SES).
+- **Schemaläggning**: pg_cron för både daglig sync och månatlig draft-generering.
 
-### Innehåll
+## Beslut som krävs av dig innan jag startar
 
-Alla 7 stadier (titel, situationstext, "Användbart hos oss"-mening) läggs in **verbatim** enligt prompten i en konstant `STAGES` array i komponenten. Inga emojis, inga utropstecken.
+1. **Snitcher API-nyckel**: Behöver läggas till som secret. Du hittar den i Snitcher-dashboarden under Settings → API.
+2. **Avsändaradress**: Ska mejlet skickas från `noreply@d365.se` eller `rapporter@d365.se` (eller annan)?
+3. **BCC-mottagare**: Ska du och/eller Thomas/Michael BCC:as på alla utskick?
+4. **Tom-rapport-policy**: Om en partner har 0 identifierade företag den månaden – skippa helt eller skicka ändå med "0 identifierade besök denna period"?
 
-### Design / tokens
-
-Komponenten använder tailwind-klasser med arbiträra värden för det specificerade färgschemat (`bg-[#FFF0F6]`, `border-[#E5006D]`, `text-[#E5006D]`, `text-[#0B0B0F]`, `text-[#5A5A66]`, `border-[#E5E5E8]`) eftersom prompten kräver exakta hex-värden som avviker från projektets befintliga semantiska tokens. Sektionsbakgrund `#FAFAFA` (mjuk separation från ovanstående hero), `py-12 md:py-20`, kort `rounded-xl border p-6 md:p-8`, hover-skugga.
-
-Små `lucide-react`-ikoner (Lightbulb, Search, Zap, ClipboardList, GitBranch, Users, CheckCircle) i neutral grå (16–20px) bredvid stadietitlar.
-
-### Tillgänglighet
-
-- Semantiska `<section>`, `<h2>`, `<h3>`, `<h4>`, `<button>`-element.
-- `aria-current` / `aria-expanded` på accordion.
-- Synliga `focus-visible:ring-2 ring-[#E5006D]` på alla interaktiva element.
-- Tab-bar keyboard-navigation.
-
-### Filer som ändras
-
-- **Ny**: `src/components/BuyerJourneyStages.tsx`
-- **Ändrad**: `src/pages/Index.tsx` — ersätt rad 412–478 med `<FeaturedArticleBanner />` + `<BuyerJourneyStages />`. Ta bort `buyerSteps`-data om den inte används någon annanstans (verifieras innan radering).
-
-### Avgränsningar
-
-- Inga ändringar i routing, backend, edge functions, analytics eller tracking.
-- "Användbart hos oss"-länkar lämnas som `#`-placeholders enligt prompten — kan ersättas senare.
-- Ingen påverkan på Direction picker-dialogen eller efterföljande sektioner.
+När planen är godkänd ber jag dig om Snitcher-nyckeln och bygger steg för steg: tabeller → Snitcher-sync → draft-generering → admin-UI → utskick.
