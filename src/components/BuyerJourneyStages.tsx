@@ -20,7 +20,12 @@ type Stage = {
   paragraphs: [string, string];
   recommendation: string;
   recommendationHref: string;
-  nextStep: { label: string; href: string; helper: string };
+  nextStep: {
+    label: string;
+    href: string;
+    helper: string;
+    options?: { label: string; href: string }[];
+  };
   Icon: LucideIcon;
 };
 
@@ -55,7 +60,12 @@ const STAGES: Stage[] = [
     nextStep: {
       label: "Gör en behovsanalys",
       href: "/behovsanalys",
-      helper: "Kartlägg vad som faktiskt skaver innan ni går vidare till partnerdialog.",
+      helper: "Välj vilket område som skaver mest — analysen anpassas efter det.",
+      options: [
+        { label: "ERP (ekonomi, operations)", href: "/behovsanalys" },
+        { label: "Sälj & Marknad", href: "/salj-marknad-behovsanalys" },
+        { label: "Kundservice", href: "/kundservice-behovsanalys" },
+      ],
     },
     Icon: Search,
   },
@@ -89,7 +99,13 @@ const STAGES: Stage[] = [
     nextStep: {
       label: "Bygg en kravspecifikation",
       href: "/kravspecifikation",
-      helper: "Samla kraven från alla funktioner i ett gemensamt underlag.",
+      helper: "Välj område — varje kravspec är anpassad efter sin verksamhet.",
+      options: [
+        { label: "ERP (Business Central, F&SCM)", href: "/kravspecifikation" },
+        { label: "Sales", href: "/kravspecifikation-sales" },
+        { label: "Marketing", href: "/kravspecifikation-marketing" },
+        { label: "Kundservice", href: "/kravspecifikation-kundservice" },
+      ],
     },
     Icon: ClipboardList,
   },
