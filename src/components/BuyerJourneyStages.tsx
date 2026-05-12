@@ -166,7 +166,7 @@ const STEP1_OPTIONS = [
   { label: "Allt fungerar — vi vill bara hålla oss orienterade", result: 1 as const },
   { label: "Det skaver i vardagen, men inget är akut", result: 2 as const },
   { label: "En specifik händelse har gjort frågan akut", result: 3 as const },
-  { label: "Vi har redan mandat och har börjat arbeta", result: "next" as const },
+  { label: "Vi har redan mandat och har påbörjat en upphandling", result: "next" as const },
 ];
 
 const STEP2_OPTIONS = [
