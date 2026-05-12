@@ -29,7 +29,7 @@ const STAGES: Stage[] = [
     phase: "TIDIGA SIGNALER",
     title: "Allt fungerar, men ni vill hålla er orienterade",
     paragraphs: [
-      "Verksamheten rullar. Driften är stabil. Inget tvingar fram en utvärdering just nu. Men ni vill förstå hur ERP- och CRM-marknaden rör sig, vad andra organisationer ser i ett tidigt skede, och vilka signaler som brukar gå före en faktisk förändring.",
+      "Verksamheten rullar. Driften är stabil. Inget tvingar fram en utvärdering just nu. Men ni vill förstå hur marknaden för affärssystem och kundnära system (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center) rör sig, vad andra organisationer ser i ett tidigt skede, och vilka signaler som brukar gå före en faktisk förändring.",
       "Poängen i det här läget är inte att förbereda ett beslut. Det är att inte stå oförberedd den dagen frågan blir aktuell.",
     ],
     recommendation: "Orienterande artiklar och löpande bevakning av branschen",
@@ -41,7 +41,7 @@ const STAGES: Stage[] = [
     phase: "TIDIGA SIGNALER",
     title: "Det skaver i vardagen, men ni vet inte var problemet ligger",
     paragraphs: [
-      "Rapporteringen tar för lång tid. Manuellt arbete växer. Excel kringgår systemet i fler avdelningar än ni trodde. Något bromsar — frågan är om det är systemet, processen, datakvaliteten eller en kombination.",
+      "Rapporteringen tar för lång tid. Manuellt arbete växer. Säljarna jobbar i Excel vid sidan av CRM, marknad saknar koll på leads, kundservice tappar ärenden mellan kanaler, eller fältteknikerna kör på egna listor. Något bromsar — frågan är om det är ERP, CRM, kundserviceplattformen, processen, datakvaliteten eller en kombination.",
       "Det är ett vanligt och underskattat läge. Att gå direkt till partnerdialog här leder ofta till ett systembyte som inte löser grundproblemet.",
     ],
     recommendation: "Fördjupningar om hur ni skiljer processproblem från systembegränsningar",
@@ -53,7 +53,7 @@ const STAGES: Stage[] = [
     phase: "BEHOVET AKTIVERAS",
     title: "Något har hänt som tvingar fram en utvärdering",
     paragraphs: [
-      "Ett förvärv, en ny ägare, en version som tas ur stöd, ett regelkrav, en koncernkonsolidering. Frågan är inte längre om — utan när och hur. Tidsfönstret är oftast snävare än beslutsgruppen först inser.",
+      "Ett förvärv, en ny ägare, en version som tas ur stöd, ett regelkrav, en koncernkonsolidering, en ny kommersiell strategi eller ett uttalat mål om bättre kundupplevelse. Det kan handla om ERP lika mycket som om Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center. Frågan är inte längre om — utan när och hur. Tidsfönstret är oftast snävare än beslutsgruppen först inser.",
       "Största risken här är att hoppa direkt till partnerdialog innan en intern nulägesanalys är gjord. Ordningen avgör hur försvarbart beslutet blir senare.",
     ],
     recommendation: "Tematiska guider per triggertyp och mall för intern nulägesanalys",
@@ -65,7 +65,7 @@ const STAGES: Stage[] = [
     phase: "BEHOVET AKTIVERAS",
     title: "Vi behöver strukturera vad vi faktiskt behöver",
     paragraphs: [
-      "Mandatet finns. Men kraven är spridda. Ekonomi ser ett problem. IT ser ett annat. Operations, sälj och kundservice har egna prioriteringar. Risken är att gå ut till marknaden med en kravbild som inte representerar hela verksamheten.",
+      "Mandatet finns. Men kraven är spridda. Ekonomi ser ett problem. IT ser ett annat. Operations, sälj, marknad, kundservice och fältservice har egna prioriteringar — och kraven på ERP, CRM och kundserviceplattformarna hänger ofta ihop mer än man tror. Risken är att gå ut till marknaden med en kravbild som inte representerar hela verksamheten.",
       "Det här arbetet sker bäst internt, innan partners blandas in. När alla funktioner är representerade i underlaget blir partnerdialogen helt annorlunda.",
     ],
     recommendation: "Strukturmall för intern behovsanalys och workshop-underlag",
@@ -77,7 +77,7 @@ const STAGES: Stage[] = [
     phase: "BEHOVET AKTIVERAS",
     title: "Vi väger olika vägar framåt",
     paragraphs: [
-      "Uppgradera befintligt? Byta system? Konsolidera flera system till en plattform? Varje väg har olika riskprofil, olika kompetenskrav hos partnern, och olika konsekvenser för verksamheten under själva genomförandet.",
+      "Uppgradera befintligt? Byta system? Konsolidera flera system till en plattform? Ta ERP och CRM i samma program eller i olika spår? Lägga till Customer Insights, Field Service eller Contact Center på det ni redan har? Varje väg har olika riskprofil, olika kompetenskrav hos partnern, och olika konsekvenser för verksamheten under själva genomförandet.",
       "Det är sällan en ren teknisk fråga. Den hänger ihop med verksamhetens komplexitet, tillväxttakt och vilken förvaltningsmodell ni klarar av att bära långsiktigt.",
     ],
     recommendation: "Översikt över de olika vägarna och hur valet brukar landa",
@@ -89,7 +89,7 @@ const STAGES: Stage[] = [
     phase: "PARTNERVAL",
     title: "Vi jämför partners, eller är på väg att göra det",
     paragraphs: [
-      "Partnerdialogen är igång. Eller också är ni på väg att sätta en kortlista. Frågan är vilka som faktiskt passar er bransch, er storlek och er metodik — och hur ni jämför dem på rättvisa grunder.",
+      "Partnerdialogen är igång. Eller också är ni på väg att sätta en kortlista. Frågan är vilka som faktiskt passar er bransch, er storlek, det område ni prioriterar (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center) och er metodik — och hur ni jämför dem på rättvisa grunder.",
       "Det är här d365.se gör störst skillnad. Den traditionella RFP-processen jämför ofta fel saker, och kortlistan formas tidigare än de flesta tror.",
     ],
     recommendation: "Oberoende matchning mot partners som passar er bransch och era förutsättningar",
@@ -185,6 +185,9 @@ const BuyerJourneyStages = () => {
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-3">
             Var i köpresan står ni?
           </h2>
+          <p className="text-sm text-[#5A5A66] mb-3">
+            Gäller både ERP (Business Central, Finance &amp; Supply Chain) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center).
+          </p>
           <p className="text-base sm:text-lg text-[#5A5A66] leading-relaxed mb-4">
             Två korta frågor leder er till det avsnitt som passar bäst. Inga uppgifter samlas in.
           </p>
@@ -299,7 +302,7 @@ const BuyerJourneyStages = () => {
         <div ref={overviewRef} className="scroll-mt-24">
           <header className="mb-8 md:mb-10 max-w-2xl">
             <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0B0B0F] mb-2">
-              De sju stadierna i en ERP-köpresa
+              De sju stadierna i en köpresa för ERP och CRM
             </h3>
             <p className="text-base text-[#5A5A66] leading-relaxed">
               Klicka på det stadie som känns mest likt er situation just nu.
