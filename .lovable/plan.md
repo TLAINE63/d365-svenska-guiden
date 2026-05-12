@@ -1,64 +1,69 @@
+## Plan: Ersätt "Så här arbetar vi" med köpresa-självskattning
 
+### Vad som ska ändras
 
-## Frivillig storleksfiltrering vid partnermatchning
+Ersätt sektionen på `src/pages/Index.tsx` rad 412–478 (rubriken "Så här arbetar vi" + 4-stegs grid + CTA-rad) med en ny sektion `<BuyerJourneyStages />`.
 
-### Mål
-Låt kunder valfritt ange sin storlek (anställda och/eller omsättning) i matchningsflöden så att partners vars uttalade målgrupp matchar lyfts fram – generellt och per Dynamics 365-applikation. Liten partner → mindre kunder, stor partner → större kunder.
+`FeaturedArticleBanner` (rad 415) flyttas ut ur sektionen och behålls precis ovanför den nya komponenten så att inget innehåll försvinner. Resten av sidan (Direction picker dialog och övriga sektioner) lämnas orörda.
 
-### Status idag
-- Datamodellen har redan `product_filters[product].companySize: string[]` per applikation (BC, F&SCM, Sales, Service). Admin kan kryssa i målstorlekar.
-- `revenue` finns endast i en gammal legacy-typ, inte i `ProductFilterInput`. Saknas alltså för omsättning per produkt.
-- Filtreringslogiken i `usePartnerFilters.ts` stödjer redan `selectedCompanySize` per produkt – men ingen publik UI-vy exponerar valet idag (`BusinessCentral`, `FinanceSupplyChain`, `CRM` skickar `null`).
-- `ValjPartner` har state för `selectedCompanySize` men ingen filterknapp som sätter det.
-- `KomIgang`-wizarden frågar inte efter storlek.
+### Ny komponent
 
-### Förslag till lösning (frivilligt, icke-blockerande)
+Skapas i `src/components/BuyerJourneyStages.tsx` — fristående, ingen routing, ingen backend, all state via `useState`. Tailwind + `lucide-react` (redan i projektet).
 
-**1. Utöka datamodellen med omsättning per produkt**
-- Lägg till `revenue?: string[]` i `ProductFilterInput` (analogt med `companySize`).
-- Standardalternativ (samma som befintliga `revenueOptions`): `1-24 / 25-99 / 100-499 / 500-999 / 1.000-4.999 / >5.000 MSEK`.
-- Ingen DB-migration behövs – sparas i samma `product_filters` JSONB.
+### Komponentens uppbyggnad
 
-**2. Admin-UI: målgrupp per applikation**
-- I produktsektionen för varje applikation i `AdminDashboard.tsx`: visa två kompakta multi-select-grupper "Målgrupp – antal anställda" och "Målgrupp – omsättning (MSEK)".
-- Tom = ingen begränsning (partnern matchar alla storlekar för den produkten).
-- Sanitization: tom array tas bort vid spar (befintlig logik).
+1. **Sektionshuvud**
+   - H2: "Var i köpresan står ni?"
+   - Underrad: "Två korta frågor leder er till det avsnitt som passar bäst. Inga uppgifter samlas in."
+   - Inline-länk: "Eller hoppa direkt till översikten över de sju stadierna →" (smooth scroll till overview-griden via `ref` + `scrollIntoView`).
 
-**3. Filtrering – utökad logik**
-- Utöka `matchesDatabaseProductFilter` i `src/hooks/usePartnerFilters.ts` med valfri `selectedRevenue`-parameter; samma "tom = matchar allt"-semantik som idag för `companySize`.
-- "Mjuk" matchning: om varken anställda eller omsättning angetts av kund → ingen filtrering (allt visas). Om angetts och partnern saknar målgrupp → partnern visas (vi straffar inte tystnad).
+2. **Quiz (state: `step` 1|2, `result` 1–7|null)**
+   - Progresslabel "Fråga X av 2".
+   - Steg 1: 4 svarskort. Alternativ 1–3 sätter result direkt (stadie 1/2/3); alternativ 4 går till steg 2.
+   - Steg 2: 4 svarskort → result 4/5/6/7. "← Tillbaka"-länk till steg 1.
+   - Kort: stora klickbara knappar, hover ger ljus rosa bakgrund (`#FFF0F6`) och rosa border (`#E5006D`). Stack på mobil, 2 kolumner på desktop.
+   - Övergångar: `transition-opacity duration-200` när steg byts.
 
-**4. UI för kund – två integrationspunkter**
+3. **Resultatvy** (ersätter quizen i samma position när `result !== null`)
+   - Fas-tag uppe: TIDIGA SIGNALER / BEHOVET AKTIVERAS / PARTNERVAL.
+   - "Stadie X av 7" i accent-rosa.
+   - H3 med stadietitel + två stycken situationstext (verbatim).
+   - Divider + "Användbart hos oss" som diskret textlänk med `→` (placeholder `#`-anchors).
+   - Footerlänkar: "Visa alla stadier" (scroll till overview) och "Gör om självskattningen" (resettar state).
 
-   **a) Produktsidor (`BusinessCentral`, `FinanceSupplyChain`, `CRM`, `D365Sales`, `D365CustomerService` m.fl.) + `ValjPartner`:**
-   Lägg till två nya `FilterButtons`-rader under befintliga filter:
-   - "Antal anställda" (icon: `employees`) – samma `companySizes`-lista som idag.
-   - "Omsättning" (icon: `revenue`) – `revenueOptions`.
-   Båda valfria, samma slate-stil som övriga filter, "Visa alla" rensar.
+4. **Overview av alla 7 stadier** (alltid synlig under quiz/resultat, samma sektion)
+   - H3 "De sju stadierna i en ERP-köpresa" + underrad.
+   - Tre kluster grupperade med små versala fas-labels:
+     - TIDIGA SIGNALER → 1, 2
+     - BEHOVET AKTIVERAS → 3, 4, 5
+     - PARTNERVAL → 6, 7
+   - Responsive grid: 3 kol desktop / 2 tablet / 1 mobil.
+   - Varje kort: "Stadie X" label, H4 titel, första stycket av situationstexten, "Läs mer →" som expanderar inline (accordion via `useState<Record<number, boolean>>`) med fullt innehåll + "Användbart hos oss"-länk. Toggle-text: "Visa mindre".
 
-   **b) `KomIgang`-wizarden:**
-   Lägg till ett nytt valfritt steg "Din storlek (frivilligt)" mellan nuvarande applikations- och bransch-stegen, med två SelectionCard-grupper (anställda + omsättning) och tydlig "Hoppa över"-knapp. Auto-advance kvar enligt befintlig wizard-pattern.
+### Innehåll
 
-**5. Visuell återkoppling**
-- När storleksfilter är aktivt: visa valda värden som chips i den befintliga "Aktiva filter"-raden (samma mönster som industri/geografi).
-- I `PartnerCard`: när `highlightedCompanySize`/nya `highlightedRevenue` finns, visa dem som badges (komponenten har redan `highlightedCompanySize`-stöd; lägg till `highlightedRevenue`).
+Alla 7 stadier (titel, situationstext, "Användbart hos oss"-mening) läggs in **verbatim** enligt prompten i en konstant `STAGES` array i komponenten. Inga emojis, inga utropstecken.
 
-**6. AI-guiden / partnerguide PDF**
-- Inkludera storleksval i scoringen som **bonus**, inte hård filter (vikt ~5 % vardera): partner vars målgrupp innehåller kundens storlek får +poäng. Saknad målgrupp → neutralt.
-- Lägg till raden "Målgrupp" i partnerprofilens kompetensblock (anställda + omsättning som pills) när definierat.
+### Design / tokens
 
-### Tekniska detaljer
-- Filer som ändras:
-  - `src/hooks/usePartners.ts` – utöka `ProductFilterInput` med `revenue?: string[]`.
-  - `src/hooks/usePartnerFilters.ts` – ny `selectedRevenue`-parameter i `matchesDatabaseProductFilter` och `filterAndSortPartners`.
-  - `src/pages/AdminDashboard.tsx` – två nya multi-select-grupper per produkt; sanitization.
-  - `src/pages/BusinessCentral.tsx`, `FinanceSupplyChain.tsx`, `CRM.tsx`, `D365Sales.tsx`, `D365CustomerService.tsx`, `D365Marketing.tsx`, `D365FieldService.tsx`, `D365ContactCenter.tsx`, `Branschlosningar.tsx`, `ValjPartner.tsx` – nya filterknappar + state.
-  - `src/pages/KomIgang.tsx` – nytt valfritt storlekssteg.
-  - `src/components/PartnerCard.tsx` – `highlightedRevenue`-prop.
-  - `src/pages/PartnerProfile.tsx` – läs `companySize`/`revenue` ur URL-params + visa pill för "Målgrupp".
-  - `src/utils/generatePartnerGuide.ts` (om AI-bonus läggs in) – lägg till poäng.
-- Inga DB-migrationer behövs (allt i `product_filters` JSONB).
-- Memory att uppdatera efteråt: `mem://features/partner-discovery-logic-v7-sv-final` (ny dimension i 4-stegs filter → 5-stegs), `mem://features/partner-guide-logic-v6-sv` (om vikten 5 % läggs till).
+Komponenten använder tailwind-klasser med arbiträra värden för det specificerade färgschemat (`bg-[#FFF0F6]`, `border-[#E5006D]`, `text-[#E5006D]`, `text-[#0B0B0F]`, `text-[#5A5A66]`, `border-[#E5E5E8]`) eftersom prompten kräver exakta hex-värden som avviker från projektets befintliga semantiska tokens. Sektionsbakgrund `#FAFAFA` (mjuk separation från ovanstående hero), `py-12 md:py-20`, kort `rounded-xl border p-6 md:p-8`, hover-skugga.
 
-### Att bekräfta före implementation
+Små `lucide-react`-ikoner (Lightbulb, Search, Zap, ClipboardList, GitBranch, Users, CheckCircle) i neutral grå (16–20px) bredvid stadietitlar.
 
+### Tillgänglighet
+
+- Semantiska `<section>`, `<h2>`, `<h3>`, `<h4>`, `<button>`-element.
+- `aria-current` / `aria-expanded` på accordion.
+- Synliga `focus-visible:ring-2 ring-[#E5006D]` på alla interaktiva element.
+- Tab-bar keyboard-navigation.
+
+### Filer som ändras
+
+- **Ny**: `src/components/BuyerJourneyStages.tsx`
+- **Ändrad**: `src/pages/Index.tsx` — ersätt rad 412–478 med `<FeaturedArticleBanner />` + `<BuyerJourneyStages />`. Ta bort `buyerSteps`-data om den inte används någon annanstans (verifieras innan radering).
+
+### Avgränsningar
+
+- Inga ändringar i routing, backend, edge functions, analytics eller tracking.
+- "Användbart hos oss"-länkar lämnas som `#`-placeholders enligt prompten — kan ersättas senare.
+- Ingen påverkan på Direction picker-dialogen eller efterföljande sektioner.

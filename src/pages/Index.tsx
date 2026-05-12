@@ -29,6 +29,7 @@ const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTease
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
+import BuyerJourneyStages from "@/components/BuyerJourneyStages";
 
 const homeFaqs = [
   {
@@ -152,38 +153,6 @@ const situationCards = [
   },
 ];
 
-const buyerSteps = [
-  {
-    step: "01",
-    title: "Insikter & orientering",
-    desc: "Läs er in. Förstå skillnaden mellan Business Central och Finance & SCM, hur Sales skiljer sig från Customer Insights, vad ett ERP-projekt verkligen innebär.",
-    outcome: "Artiklar, jämförelser och guider — utan att fylla i något formulär.",
-    link: "/kunskapscenter/",
-  },
-  {
-    step: "02",
-    title: "Behovsanalys",
-    desc: "En kort, strukturerad genomgång där ni svarar på frågor om bolag, bransch, nuvarande system och ambition. Tar runt 10 minuter.",
-    outcome: "En tydligare bild av vilken Dynamics 365-applikation som passar er situation.",
-    link: "/behovsanalys/",
-    picker: "behovsanalys" as const,
-  },
-  {
-    step: "03",
-    title: "Lättviktig kravspec",
-    desc: "Bygg ett underlag ni kan dela med partners. Vi gör det enkelt — inte ett 80-sidigt dokument utan det partners faktiskt behöver för att lämna ett seriöst förslag.",
-    outcome: "En kravspec ni äger. Den fungerar även om ni stannar här.",
-    link: "/kravspecifikation/",
-    picker: "kravspec" as const,
-  },
-  {
-    step: "04",
-    title: "Matchning mot partners",
-    desc: "Vi förmedlar er till en eller flera partners som matchar bransch, storlek och ambition. Ni väljer själva vem ni vill prata med.",
-    outcome: "Direkt kontakt med relevanta partners — utan att ringas runt.",
-    link: "/valj-partner/",
-  },
-];
 
 
 const whyItems = [
@@ -409,73 +378,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Så här arbetar vi — fyra steg */}
-      <section className="pt-6 sm:pt-8 pb-12 sm:pb-16 bg-secondary/30 border-b border-border">
+      {/* Featured article banner */}
+      <section className="pt-6 sm:pt-8 bg-secondary/30">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <FeaturedArticleBanner />
-
-          <div className="mb-10 sm:mb-12 max-w-3xl">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Så här arbetar vi</span>
-            <h2 className="text-3xl sm:text-4xl md:text-[42px] font-semibold text-foreground tracking-tight mb-4 leading-[1.1]">Fyra steg fram till rätt partner.</h2>
-            <p className="text-base sm:text-lg text-muted-foreground font-light leading-relaxed">
-              Vi är en förmedlingstjänst, inte ett konsultbolag. Vårt jobb är att hjälpa er ställa rätt frågor och hitta partners som faktiskt matchar — inte att ta över ert projekt. Allt vi erbjuder besökaren är kostnadsfritt.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-            {buyerSteps.map((s) => {
-              const cardClass = "group flex flex-col text-left rounded-2xl bg-card border border-border p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl";
-              const inner = (
-                <>
-                  <div className="text-[11px] font-bold tracking-[0.14em] text-primary mb-4">{s.step}</div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-tight mb-3">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{s.desc}</p>
-                  <div className="mt-auto pt-4 border-t border-border">
-                    <div className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">Ni får</div>
-                    <p className="text-[13.5px] font-medium text-foreground leading-snug">{s.outcome}</p>
-                  </div>
-                </>
-              );
-              if (s.picker) {
-                return (
-                  <button
-                    key={s.step}
-                    type="button"
-                    onClick={() => setDirectionPicker(s.picker!)}
-                    className={cardClass}
-                  >
-                    {inner}
-                  </button>
-                );
-              }
-              return (
-                <Link key={s.step} to={s.link} className={cardClass}>
-                  {inner}
-                </Link>
-              );
-            })}
-          </div>
-
-          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <Button
-              asChild
-              className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:-translate-y-0.5 transition-all"
-            >
-              <Link to="/kunskapscenter/">
-                Starta i steg 1 — orientering
-                <ArrowRight className="w-4 h-4 ml-1.5" />
-              </Link>
-            </Button>
-            <button
-              type="button"
-              onClick={() => setDirectionPicker("behovsanalys")}
-              className="text-sm font-semibold text-primary hover:underline underline-offset-4"
-            >
-              Eller hoppa direkt till behovsanalysen →
-            </button>
-          </div>
         </div>
       </section>
+
+      {/* Var i köpresan står ni? — självskattning */}
+      <BuyerJourneyStages />
 
       {/* Direction picker dialog for Behovsanalys / Kravspec */}
       <Dialog open={directionPicker !== null} onOpenChange={(open) => !open && setDirectionPicker(null)}>
