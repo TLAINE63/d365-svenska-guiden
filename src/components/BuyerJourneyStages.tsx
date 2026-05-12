@@ -39,7 +39,7 @@ const STAGES: Stage[] = [
       "Poängen i det här läget är inte att förbereda ett beslut. Det är att inte stå oförberedd den dagen frågan blir aktuell.",
     ],
     recommendation: "Orienterande artiklar och löpande bevakning av branschen",
-    recommendationHref: "#",
+    recommendationHref: "/kunskapscenter",
     nextStep: {
       label: "Bevaka marknaden i Kunskapscentret",
       href: "/kunskapscenter",
@@ -56,7 +56,7 @@ const STAGES: Stage[] = [
       "Det är ett vanligt och underskattat läge. Att gå direkt till partnerdialog här leder ofta till ett systembyte som inte löser grundproblemet.",
     ],
     recommendation: "Fördjupningar om hur ni skiljer processproblem från systembegränsningar",
-    recommendationHref: "#",
+    recommendationHref: "/kunskapscenter",
     nextStep: {
       label: "Gör en behovsanalys",
       href: "/behovsanalys",
@@ -78,7 +78,7 @@ const STAGES: Stage[] = [
       "Största risken här är att hoppa direkt till partnerdialog innan en intern nulägesanalys är gjord. Ordningen avgör hur försvarbart beslutet blir senare.",
     ],
     recommendation: "Tematiska guider per triggertyp och mall för intern nulägesanalys",
-    recommendationHref: "#",
+    recommendationHref: "/kom-igang",
     nextStep: {
       label: "Starta er nulägesanalys",
       href: "/kom-igang",
@@ -95,7 +95,7 @@ const STAGES: Stage[] = [
       "Det här arbetet sker bäst internt, innan partners blandas in. När alla funktioner är representerade i underlaget blir partnerdialogen helt annorlunda.",
     ],
     recommendation: "Strukturmall för intern behovsanalys och workshop-underlag",
-    recommendationHref: "#",
+    recommendationHref: "/kravspecifikation",
     nextStep: {
       label: "Bygg en kravspecifikation",
       href: "/kravspecifikation",
@@ -118,7 +118,7 @@ const STAGES: Stage[] = [
       "Det är sällan en ren teknisk fråga. Den hänger ihop med verksamhetens komplexitet, tillväxttakt och vilken förvaltningsmodell ni klarar av att bära långsiktigt.",
     ],
     recommendation: "Översikt över de olika vägarna och hur valet brukar landa",
-    recommendationHref: "#",
+    recommendationHref: "/ai-oversikt",
     nextStep: {
       label: "Jämför ERP- och CRM-vägarna",
       href: "/ai-readiness",
@@ -135,7 +135,7 @@ const STAGES: Stage[] = [
       "Det är här d365.se gör störst skillnad. Den traditionella RFP-processen jämför ofta fel saker, och kortlistan formas tidigare än de flesta tror.",
     ],
     recommendation: "Oberoende matchning mot partners som passar er bransch och era förutsättningar",
-    recommendationHref: "#",
+    recommendationHref: "/valj-partner",
     nextStep: {
       label: "Hitta matchande partners",
       href: "/valj-partner",
@@ -152,7 +152,7 @@ const STAGES: Stage[] = [
       "Det är nu valet kan stresstestas — metodiken, scope, leveransmodellen, och hur partnern hanterar avvikelser. Det är också nu det är billigast att justera.",
     ],
     recommendation: "Valideringschecklista och frågor att ställa innan kontraktet skrivs under",
-    recommendationHref: "#",
+    recommendationHref: "/valj-partner",
     nextStep: {
       label: "Stresstesta beslutet",
       href: "/valj-partner",
