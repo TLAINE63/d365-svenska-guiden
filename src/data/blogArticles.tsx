@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
+import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
+import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 
 export interface BlogArticleAuthor {
   name: string;
