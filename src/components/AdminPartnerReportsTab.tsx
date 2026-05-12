@@ -189,7 +189,28 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
         {exploreLoading ? (
           <div className="py-8 text-center text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin inline mr-2" />Laddar…</div>
         ) : filteredExplore.length === 0 ? (
-          <div className="py-8 text-center text-muted-foreground text-sm">Inga identifierade besök för perioden. Kör <strong>Synka Snitcher</strong> först.</div>
+          <div className="py-8 px-4 text-center text-muted-foreground text-sm space-y-2 border border-dashed rounded-lg">
+            <p className="font-medium text-foreground">Inga Snitcher-data hittades för perioden {exploreStart} → {exploreEnd}.</p>
+            <p>Möjliga orsaker:</p>
+            <ul className="text-left max-w-md mx-auto list-disc pl-5 space-y-1">
+              <li>Inga identifierade företagsbesök på partnerprofiler under perioden.</li>
+              <li>Snitcher-synken har inte körts ännu — klicka <strong>Synka Snitcher</strong> i sektionen nedan.</li>
+              <li>Slutdatumet ligger före senaste synkade session.</li>
+            </ul>
+            <p className="pt-2">Tips: prova en <strong>längre period</strong> (t.ex. senaste 6 månaderna) eller flytta fram slutdatumet till idag.</p>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-2"
+              onClick={() => {
+                const t = new Date();
+                setExploreStart(new Date(t.getFullYear(), t.getMonth() - 6, 1).toISOString().slice(0, 10));
+                setExploreEnd(t.toISOString().slice(0, 10));
+              }}
+            >
+              Sätt period till senaste 6 månaderna
+            </Button>
+          </div>
         ) : (
           <div className="space-y-2">
             {filteredExplore.map(p => {
