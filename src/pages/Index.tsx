@@ -153,38 +153,6 @@ const situationCards = [
   },
 ];
 
-const buyerSteps = [
-  {
-    step: "01",
-    title: "Insikter & orientering",
-    desc: "Läs er in. Förstå skillnaden mellan Business Central och Finance & SCM, hur Sales skiljer sig från Customer Insights, vad ett ERP-projekt verkligen innebär.",
-    outcome: "Artiklar, jämförelser och guider — utan att fylla i något formulär.",
-    link: "/kunskapscenter/",
-  },
-  {
-    step: "02",
-    title: "Behovsanalys",
-    desc: "En kort, strukturerad genomgång där ni svarar på frågor om bolag, bransch, nuvarande system och ambition. Tar runt 10 minuter.",
-    outcome: "En tydligare bild av vilken Dynamics 365-applikation som passar er situation.",
-    link: "/behovsanalys/",
-    picker: "behovsanalys" as const,
-  },
-  {
-    step: "03",
-    title: "Lättviktig kravspec",
-    desc: "Bygg ett underlag ni kan dela med partners. Vi gör det enkelt — inte ett 80-sidigt dokument utan det partners faktiskt behöver för att lämna ett seriöst förslag.",
-    outcome: "En kravspec ni äger. Den fungerar även om ni stannar här.",
-    link: "/kravspecifikation/",
-    picker: "kravspec" as const,
-  },
-  {
-    step: "04",
-    title: "Matchning mot partners",
-    desc: "Vi förmedlar er till en eller flera partners som matchar bransch, storlek och ambition. Ni väljer själva vem ni vill prata med.",
-    outcome: "Direkt kontakt med relevanta partners — utan att ringas runt.",
-    link: "/valj-partner/",
-  },
-];
 
 
 const whyItems = [
