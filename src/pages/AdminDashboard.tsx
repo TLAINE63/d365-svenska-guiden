@@ -93,6 +93,7 @@ import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
+import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";

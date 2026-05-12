@@ -44,3 +44,9 @@ verify_jwt = false
 
 [functions.manage-knowledge-articles]
 verify_jwt = false
+
+[functions.sync-snitcher-visits]
+verify_jwt = false
+
+[functions.manage-partner-reports]
+verify_jwt = false
