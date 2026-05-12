@@ -43,10 +43,10 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   const [viewing, setViewing] = useState<Draft | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string>("");
 
-  // Explore (besök per partner)
+  // Explore (besök per partner) – default: senaste 90 dagarna t.o.m. idag
   const today = new Date();
-  const defaultStart = new Date(today.getFullYear(), today.getMonth() - 1, 1).toISOString().slice(0, 10);
-  const defaultEnd = new Date(today.getFullYear(), today.getMonth(), 0).toISOString().slice(0, 10);
+  const defaultStart = new Date(today.getTime() - 90 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const defaultEnd = today.toISOString().slice(0, 10);
   const [exploreStart, setExploreStart] = useState(defaultStart);
   const [exploreEnd, setExploreEnd] = useState(defaultEnd);
   const [exploreLoading, setExploreLoading] = useState(false);
