@@ -282,16 +282,24 @@ serve(async (req) => {
       siteOrigin = "https://www.d365.se",
     } = body || {};
 
-    // Auth: either admin password (manual trigger from admin UI) or cron secret (scheduled)
+    const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
+
+    // Auth: either admin password (manual trigger) or cron secret stored in site_settings
     const isAdmin = ADMIN_PASSWORD && adminPassword === ADMIN_PASSWORD;
-    const isCron = cronSecret && cronSecret === SERVICE_ROLE;
+    let isCron = false;
+    if (!isAdmin && cronSecret) {
+      const { data: secretRow } = await supabase
+        .from("site_settings")
+        .select("value")
+        .eq("key", "monthly_report_cron_secret")
+        .maybeSingle();
+      isCron = !!secretRow?.value && secretRow.value === cronSecret;
+    }
     if (!isAdmin && !isCron) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
-
-    const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
     const startDate = new Date(Date.now() - days * 86400000);
     const startIso = startDate.toISOString();
