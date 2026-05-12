@@ -393,6 +393,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     ),
   },
   {
+    slug: "ai-i-erp-riskbild",
     title: "När AI gör jobbet i ERP: ett skifte i riskbild",
     metaTitle: "AI i ERP: när automatisering blir en affärsrisk | d365.se",
     metaDescription:
