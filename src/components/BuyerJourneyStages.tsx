@@ -386,8 +386,20 @@ const BuyerJourneyStages = () => {
                         </p>
 
                         {isOpen && (
-                          <div className="mb-4 space-y-3 text-sm text-[#5A5A66] leading-relaxed border-t border-[#E5E5E8] pt-4">
+                          <div className="mb-4 space-y-4 text-sm text-[#5A5A66] leading-relaxed border-t border-[#E5E5E8] pt-4">
                             <p>{stage.paragraphs[1]}</p>
+                            <div className="rounded-lg bg-[#FFF0F6] border border-[#E5006D]/30 p-4">
+                              <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#E5006D] mb-1.5">
+                                Nästa steg
+                              </div>
+                              <p className="text-sm text-[#0B0B0F] mb-3">{stage.nextStep.helper}</p>
+                              <a
+                                href={stage.nextStep.href}
+                                className={`inline-flex items-center gap-1.5 rounded-md bg-[#E5006D] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                              >
+                                {stage.nextStep.label} →
+                              </a>
+                            </div>
                             <div>
                               <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-1.5">
                                 Användbart hos oss
