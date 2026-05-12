@@ -302,7 +302,22 @@ const BuyerJourneyStages = () => {
 
               <hr className="my-6 border-[#E5E5E8]" />
 
-              <div>
+              <div className="rounded-xl bg-[#FFF0F6] border border-[#E5006D]/30 p-5 sm:p-6">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#E5006D] mb-2">
+                  Nästa steg
+                </div>
+                <p className="text-[15px] text-[#0B0B0F] leading-relaxed mb-4">
+                  {resultStage.nextStep.helper}
+                </p>
+                <a
+                  href={resultStage.nextStep.href}
+                  className={`inline-flex items-center gap-2 rounded-lg bg-[#E5006D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                >
+                  {resultStage.nextStep.label} →
+                </a>
+              </div>
+
+              <div className="mt-6">
                 <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
                   Användbart hos oss
                 </div>
