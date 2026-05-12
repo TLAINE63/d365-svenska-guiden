@@ -449,6 +449,63 @@ export type Database = {
           },
         ]
       }
+      partner_report_drafts: {
+        Row: {
+          companies: Json
+          created_at: string
+          error_message: string | null
+          excluded_organisation_uuids: string[]
+          id: string
+          intro_text: string | null
+          partner_id: string | null
+          partner_name: string
+          partner_slug: string
+          period_end: string
+          period_start: string
+          recipient_email: string | null
+          sent_at: string | null
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          companies?: Json
+          created_at?: string
+          error_message?: string | null
+          excluded_organisation_uuids?: string[]
+          id?: string
+          intro_text?: string | null
+          partner_id?: string | null
+          partner_name: string
+          partner_slug: string
+          period_end: string
+          period_start: string
+          recipient_email?: string | null
+          sent_at?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          companies?: Json
+          created_at?: string
+          error_message?: string | null
+          excluded_organisation_uuids?: string[]
+          id?: string
+          intro_text?: string | null
+          partner_id?: string | null
+          partner_name?: string
+          partner_slug?: string
+          period_end?: string
+          period_start?: string
+          recipient_email?: string | null
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       partner_submissions: {
         Row: {
           address: string | null
@@ -690,6 +747,63 @@ export type Database = {
           key?: string
           updated_at?: string
           value?: string
+        }
+        Relationships: []
+      }
+      snitcher_visits: {
+        Row: {
+          company_country: string | null
+          company_domain: string | null
+          company_industry: string | null
+          company_logo_url: string | null
+          company_name: string | null
+          company_size: string | null
+          id: string
+          organisation_uuid: string
+          partner_slugs: string[]
+          raw_data: Json | null
+          session_ended_at: string | null
+          session_started_at: string | null
+          session_uuid: string
+          synced_at: string
+          visited_urls: Json
+          workspace_uuid: string
+        }
+        Insert: {
+          company_country?: string | null
+          company_domain?: string | null
+          company_industry?: string | null
+          company_logo_url?: string | null
+          company_name?: string | null
+          company_size?: string | null
+          id?: string
+          organisation_uuid: string
+          partner_slugs?: string[]
+          raw_data?: Json | null
+          session_ended_at?: string | null
+          session_started_at?: string | null
+          session_uuid: string
+          synced_at?: string
+          visited_urls?: Json
+          workspace_uuid: string
+        }
+        Update: {
+          company_country?: string | null
+          company_domain?: string | null
+          company_industry?: string | null
+          company_logo_url?: string | null
+          company_name?: string | null
+          company_size?: string | null
+          id?: string
+          organisation_uuid?: string
+          partner_slugs?: string[]
+          raw_data?: Json | null
+          session_ended_at?: string | null
+          session_started_at?: string | null
+          session_uuid?: string
+          synced_at?: string
+          visited_urls?: Json
+          workspace_uuid?: string
         }
         Relationships: []
       }
