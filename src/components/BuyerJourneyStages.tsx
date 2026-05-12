@@ -20,7 +20,12 @@ type Stage = {
   paragraphs: [string, string];
   recommendation: string;
   recommendationHref: string;
-  nextStep: { label: string; href: string; helper: string };
+  nextStep: {
+    label: string;
+    href: string;
+    helper: string;
+    options?: { label: string; href: string }[];
+  };
   Icon: LucideIcon;
 };
 
@@ -55,7 +60,12 @@ const STAGES: Stage[] = [
     nextStep: {
       label: "Gör en behovsanalys",
       href: "/behovsanalys",
-      helper: "Kartlägg vad som faktiskt skaver innan ni går vidare till partnerdialog.",
+      helper: "Välj vilket område som skaver mest — analysen anpassas efter det.",
+      options: [
+        { label: "ERP (ekonomi, operations)", href: "/behovsanalys" },
+        { label: "Sälj & Marknad", href: "/salj-marknad-behovsanalys" },
+        { label: "Kundservice", href: "/kundservice-behovsanalys" },
+      ],
     },
     Icon: Search,
   },
@@ -89,7 +99,13 @@ const STAGES: Stage[] = [
     nextStep: {
       label: "Bygg en kravspecifikation",
       href: "/kravspecifikation",
-      helper: "Samla kraven från alla funktioner i ett gemensamt underlag.",
+      helper: "Välj område — varje kravspec är anpassad efter sin verksamhet.",
+      options: [
+        { label: "ERP (Business Central, F&SCM)", href: "/kravspecifikation" },
+        { label: "Sales", href: "/kravspecifikation-sales" },
+        { label: "Marketing", href: "/kravspecifikation-marketing" },
+        { label: "Kundservice", href: "/kravspecifikation-kundservice" },
+      ],
     },
     Icon: ClipboardList,
   },
@@ -309,12 +325,26 @@ const BuyerJourneyStages = () => {
                 <p className="text-[15px] text-[#0B0B0F] leading-relaxed mb-4">
                   {resultStage.nextStep.helper}
                 </p>
-                <a
-                  href={resultStage.nextStep.href}
-                  className={`inline-flex items-center gap-2 rounded-lg bg-[#E5006D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
-                >
-                  {resultStage.nextStep.label} →
-                </a>
+                {resultStage.nextStep.options ? (
+                  <div className="flex flex-wrap gap-2">
+                    {resultStage.nextStep.options.map((opt) => (
+                      <a
+                        key={opt.href}
+                        href={opt.href}
+                        className={`inline-flex items-center gap-1.5 rounded-lg bg-[#E5006D] px-4 py-2 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                      >
+                        {opt.label} →
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <a
+                    href={resultStage.nextStep.href}
+                    className={`inline-flex items-center gap-2 rounded-lg bg-[#E5006D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                  >
+                    {resultStage.nextStep.label} →
+                  </a>
+                )}
               </div>
 
               <div className="mt-6">
@@ -393,12 +423,26 @@ const BuyerJourneyStages = () => {
                                 Nästa steg
                               </div>
                               <p className="text-sm text-[#0B0B0F] mb-3">{stage.nextStep.helper}</p>
-                              <a
-                                href={stage.nextStep.href}
-                                className={`inline-flex items-center gap-1.5 rounded-md bg-[#E5006D] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
-                              >
-                                {stage.nextStep.label} →
-                              </a>
+                              {stage.nextStep.options ? (
+                                <div className="flex flex-wrap gap-1.5">
+                                  {stage.nextStep.options.map((opt) => (
+                                    <a
+                                      key={opt.href}
+                                      href={opt.href}
+                                      className={`inline-flex items-center gap-1 rounded-md bg-[#E5006D] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                                    >
+                                      {opt.label} →
+                                    </a>
+                                  ))}
+                                </div>
+                              ) : (
+                                <a
+                                  href={stage.nextStep.href}
+                                  className={`inline-flex items-center gap-1.5 rounded-md bg-[#E5006D] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                                >
+                                  {stage.nextStep.label} →
+                                </a>
+                              )}
                             </div>
                             <div>
                               <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-1.5">
