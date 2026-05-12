@@ -325,12 +325,26 @@ const BuyerJourneyStages = () => {
                 <p className="text-[15px] text-[#0B0B0F] leading-relaxed mb-4">
                   {resultStage.nextStep.helper}
                 </p>
-                <a
-                  href={resultStage.nextStep.href}
-                  className={`inline-flex items-center gap-2 rounded-lg bg-[#E5006D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
-                >
-                  {resultStage.nextStep.label} →
-                </a>
+                {resultStage.nextStep.options ? (
+                  <div className="flex flex-wrap gap-2">
+                    {resultStage.nextStep.options.map((opt) => (
+                      <a
+                        key={opt.href}
+                        href={opt.href}
+                        className={`inline-flex items-center gap-1.5 rounded-lg bg-[#E5006D] px-4 py-2 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                      >
+                        {opt.label} →
+                      </a>
+                    ))}
+                  </div>
+                ) : (
+                  <a
+                    href={resultStage.nextStep.href}
+                    className={`inline-flex items-center gap-2 rounded-lg bg-[#E5006D] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#c9005f] transition-colors ${focusRing}`}
+                  >
+                    {resultStage.nextStep.label} →
+                  </a>
+                )}
               </div>
 
               <div className="mt-6">
