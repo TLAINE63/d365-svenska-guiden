@@ -1,0 +1,374 @@
+import { useRef, useState } from "react";
+import {
+  Lightbulb,
+  Search,
+  Zap,
+  ClipboardList,
+  GitBranch,
+  Users,
+  CheckCircle,
+  ArrowLeft,
+  type LucideIcon,
+} from "lucide-react";
+
+type Phase = "TIDIGA SIGNALER" | "BEHOVET AKTIVERAS" | "PARTNERVAL";
+
+type Stage = {
+  id: number;
+  phase: Phase;
+  title: string;
+  paragraphs: [string, string];
+  recommendation: string;
+  recommendationHref: string;
+  Icon: LucideIcon;
+};
+
+const STAGES: Stage[] = [
+  {
+    id: 1,
+    phase: "TIDIGA SIGNALER",
+    title: "Allt fungerar, men ni vill hålla er orienterade",
+    paragraphs: [
+      "Verksamheten rullar. Driften är stabil. Inget tvingar fram en utvärdering just nu. Men ni vill förstå hur ERP- och CRM-marknaden rör sig, vad andra organisationer ser i ett tidigt skede, och vilka signaler som brukar gå före en faktisk förändring.",
+      "Poängen i det här läget är inte att förbereda ett beslut. Det är att inte stå oförberedd den dagen frågan blir aktuell.",
+    ],
+    recommendation: "Orienterande artiklar och löpande bevakning av branschen",
+    recommendationHref: "#",
+    Icon: Lightbulb,
+  },
+  {
+    id: 2,
+    phase: "TIDIGA SIGNALER",
+    title: "Det skaver i vardagen, men ni vet inte var problemet ligger",
+    paragraphs: [
+      "Rapporteringen tar för lång tid. Manuellt arbete växer. Excel kringgår systemet i fler avdelningar än ni trodde. Något bromsar — frågan är om det är systemet, processen, datakvaliteten eller en kombination.",
+      "Det är ett vanligt och underskattat läge. Att gå direkt till partnerdialog här leder ofta till ett systembyte som inte löser grundproblemet.",
+    ],
+    recommendation: "Fördjupningar om hur ni skiljer processproblem från systembegränsningar",
+    recommendationHref: "#",
+    Icon: Search,
+  },
+  {
+    id: 3,
+    phase: "BEHOVET AKTIVERAS",
+    title: "Något har hänt som tvingar fram en utvärdering",
+    paragraphs: [
+      "Ett förvärv, en ny ägare, en version som tas ur stöd, ett regelkrav, en koncernkonsolidering. Frågan är inte längre om — utan när och hur. Tidsfönstret är oftast snävare än beslutsgruppen först inser.",
+      "Största risken här är att hoppa direkt till partnerdialog innan en intern nulägesanalys är gjord. Ordningen avgör hur försvarbart beslutet blir senare.",
+    ],
+    recommendation: "Tematiska guider per triggertyp och mall för intern nulägesanalys",
+    recommendationHref: "#",
+    Icon: Zap,
+  },
+  {
+    id: 4,
+    phase: "BEHOVET AKTIVERAS",
+    title: "Vi behöver strukturera vad vi faktiskt behöver",
+    paragraphs: [
+      "Mandatet finns. Men kraven är spridda. Ekonomi ser ett problem. IT ser ett annat. Operations, sälj och kundservice har egna prioriteringar. Risken är att gå ut till marknaden med en kravbild som inte representerar hela verksamheten.",
+      "Det här arbetet sker bäst internt, innan partners blandas in. När alla funktioner är representerade i underlaget blir partnerdialogen helt annorlunda.",
+    ],
+    recommendation: "Strukturmall för intern behovsanalys och workshop-underlag",
+    recommendationHref: "#",
+    Icon: ClipboardList,
+  },
+  {
+    id: 5,
+    phase: "BEHOVET AKTIVERAS",
+    title: "Vi väger olika vägar framåt",
+    paragraphs: [
+      "Uppgradera befintligt? Byta system? Konsolidera flera system till en plattform? Varje väg har olika riskprofil, olika kompetenskrav hos partnern, och olika konsekvenser för verksamheten under själva genomförandet.",
+      "Det är sällan en ren teknisk fråga. Den hänger ihop med verksamhetens komplexitet, tillväxttakt och vilken förvaltningsmodell ni klarar av att bära långsiktigt.",
+    ],
+    recommendation: "Översikt över de olika vägarna och hur valet brukar landa",
+    recommendationHref: "#",
+    Icon: GitBranch,
+  },
+  {
+    id: 6,
+    phase: "PARTNERVAL",
+    title: "Vi jämför partners, eller är på väg att göra det",
+    paragraphs: [
+      "Partnerdialogen är igång. Eller också är ni på väg att sätta en kortlista. Frågan är vilka som faktiskt passar er bransch, er storlek och er metodik — och hur ni jämför dem på rättvisa grunder.",
+      "Det är här d365.se gör störst skillnad. Den traditionella RFP-processen jämför ofta fel saker, och kortlistan formas tidigare än de flesta tror.",
+    ],
+    recommendation: "Oberoende matchning mot partners som passar er bransch och era förutsättningar",
+    recommendationHref: "#",
+    Icon: Users,
+  },
+  {
+    id: 7,
+    phase: "PARTNERVAL",
+    title: "Vi är nära ett beslut, men det måste hålla över tid",
+    paragraphs: [
+      "Samsynen finns. Budget och inriktning är klara. En partner ligger främst. Men beslutet ska försvaras både i styrelsen och under tre till fem år framåt.",
+      "Det är nu valet kan stresstestas — metodiken, scope, leveransmodellen, och hur partnern hanterar avvikelser. Det är också nu det är billigast att justera.",
+    ],
+    recommendation: "Valideringschecklista och frågor att ställa innan kontraktet skrivs under",
+    recommendationHref: "#",
+    Icon: CheckCircle,
+  },
+];
+
+const STEP1_OPTIONS = [
+  { label: "Allt fungerar — vi vill bara hålla oss orienterade", result: 1 as const },
+  { label: "Det skaver i vardagen, men inget är akut", result: 2 as const },
+  { label: "En specifik händelse har gjort frågan akut", result: 3 as const },
+  { label: "Vi har redan mandat och har börjat arbeta", result: "next" as const },
+];
+
+const STEP2_OPTIONS = [
+  { label: "Vi behöver strukturera vad vi faktiskt behöver", result: 4 as const },
+  { label: "Vi väger olika vägar framåt (uppgradera, byta, bygga om)", result: 5 as const },
+  { label: "Vi jämför eller är på väg att jämföra partners", result: 6 as const },
+  { label: "Vi är nära ett beslut och vill säkra det", result: 7 as const },
+];
+
+const focusRing =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E5006D] focus-visible:ring-offset-2";
+
+const PhaseTag = ({ phase }: { phase: Phase }) => (
+  <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+    {phase}
+  </span>
+);
+
+const OptionCard = ({
+  label,
+  onClick,
+}: {
+  label: string;
+  onClick: () => void;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`group w-full text-left rounded-xl border border-[#E5E5E8] bg-white p-5 sm:p-6 transition-all duration-200 hover:bg-[#FFF0F6] hover:border-[#E5006D] hover:shadow-md ${focusRing}`}
+  >
+    <span className="block text-[15px] sm:text-base font-medium text-[#0B0B0F] leading-snug">
+      {label}
+    </span>
+  </button>
+);
+
+const phaseFor = (id: number): Phase =>
+  id <= 2 ? "TIDIGA SIGNALER" : id <= 5 ? "BEHOVET AKTIVERAS" : "PARTNERVAL";
+
+const BuyerJourneyStages = () => {
+  const [step, setStep] = useState<1 | 2>(1);
+  const [result, setResult] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<Record<number, boolean>>({});
+  const overviewRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToOverview = () => {
+    overviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const reset = () => {
+    setResult(null);
+    setStep(1);
+  };
+
+  const resultStage = result ? STAGES.find((s) => s.id === result) : null;
+
+  const grouped: Record<Phase, Stage[]> = {
+    "TIDIGA SIGNALER": STAGES.filter((s) => s.phase === "TIDIGA SIGNALER"),
+    "BEHOVET AKTIVERAS": STAGES.filter((s) => s.phase === "BEHOVET AKTIVERAS"),
+    PARTNERVAL: STAGES.filter((s) => s.phase === "PARTNERVAL"),
+  };
+
+  return (
+    <section className="bg-[#FAFAFA] py-12 md:py-20 border-b border-[#E5E5E8]">
+      <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+        {/* Header */}
+        <header className="mb-10 md:mb-14 max-w-2xl">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-3">
+            Var i köpresan står ni?
+          </h2>
+          <p className="text-base sm:text-lg text-[#5A5A66] leading-relaxed mb-4">
+            Två korta frågor leder er till det avsnitt som passar bäst. Inga uppgifter samlas in.
+          </p>
+          <button
+            type="button"
+            onClick={scrollToOverview}
+            className={`text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+          >
+            Eller hoppa direkt till översikten över de sju stadierna →
+          </button>
+        </header>
+
+        {/* Quiz / Result */}
+        <div className="mb-16 md:mb-20">
+          {!resultStage && (
+            <div
+              key={`step-${step}`}
+              className="rounded-xl border border-[#E5E5E8] bg-white p-6 md:p-8 transition-opacity duration-200"
+            >
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+                  Fråga {step} av 2
+                </span>
+                {step === 2 && (
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className={`inline-flex items-center gap-1 text-sm text-[#5A5A66] hover:text-[#0B0B0F] ${focusRing} rounded`}
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" />
+                    Tillbaka
+                  </button>
+                )}
+              </div>
+
+              <h3 className="text-xl sm:text-2xl font-semibold text-[#0B0B0F] mb-6 leading-snug">
+                {step === 1
+                  ? "Vad beskriver bäst er nuvarande situation?"
+                  : "Var i arbetet befinner ni er?"}
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                {(step === 1 ? STEP1_OPTIONS : STEP2_OPTIONS).map((opt) => (
+                  <OptionCard
+                    key={opt.label}
+                    label={opt.label}
+                    onClick={() => {
+                      if (opt.result === "next") setStep(2);
+                      else setResult(opt.result as number);
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {resultStage && (
+            <div
+              key={`result-${resultStage.id}`}
+              className="rounded-xl border border-[#E5E5E8] bg-white p-6 md:p-8 transition-opacity duration-200"
+            >
+              <PhaseTag phase={resultStage.phase} />
+              <div className="mt-2 mb-3 text-sm font-semibold text-[#E5006D]">
+                Stadie {resultStage.id} av 7
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-semibold text-[#0B0B0F] tracking-tight leading-tight mb-5 flex items-start gap-3">
+                <resultStage.Icon className="w-5 h-5 mt-1.5 text-[#5A5A66] flex-shrink-0" />
+                <span>{resultStage.title}</span>
+              </h3>
+
+              <div className="space-y-4 text-[15px] sm:text-base text-[#5A5A66] leading-relaxed">
+                {resultStage.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+
+              <hr className="my-6 border-[#E5E5E8]" />
+
+              <div>
+                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
+                  Användbart hos oss
+                </div>
+                <a
+                  href={resultStage.recommendationHref}
+                  className={`text-[15px] font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+                >
+                  {resultStage.recommendation} →
+                </a>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-[#E5E5E8] flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <button
+                  type="button"
+                  onClick={scrollToOverview}
+                  className={`text-sm font-medium text-[#0B0B0F] hover:text-[#E5006D] ${focusRing} rounded`}
+                >
+                  Visa alla stadier
+                </button>
+                <button
+                  type="button"
+                  onClick={reset}
+                  className={`text-sm font-medium text-[#5A5A66] hover:text-[#0B0B0F] ${focusRing} rounded`}
+                >
+                  Gör om självskattningen
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Overview */}
+        <div ref={overviewRef} className="scroll-mt-24">
+          <header className="mb-8 md:mb-10 max-w-2xl">
+            <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0B0B0F] mb-2">
+              De sju stadierna i en ERP-köpresa
+            </h3>
+            <p className="text-base text-[#5A5A66] leading-relaxed">
+              Klicka på det stadie som känns mest likt er situation just nu.
+            </p>
+          </header>
+
+          <div className="space-y-10">
+            {(Object.keys(grouped) as Phase[]).map((phase) => (
+              <div key={phase}>
+                <div className="mb-4">
+                  <PhaseTag phase={phase} />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                  {grouped[phase].map((stage) => {
+                    const isOpen = !!expanded[stage.id];
+                    return (
+                      <article
+                        key={stage.id}
+                        className="rounded-xl border border-[#E5E5E8] bg-white p-6 transition-shadow duration-200 hover:shadow-md flex flex-col"
+                      >
+                        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
+                          Stadie {stage.id}
+                        </div>
+                        <h4 className="text-lg font-semibold text-[#0B0B0F] leading-snug mb-3 flex items-start gap-2">
+                          <stage.Icon className="w-4 h-4 mt-1 text-[#5A5A66] flex-shrink-0" />
+                          <span>{stage.title}</span>
+                        </h4>
+                        <p className="text-sm text-[#5A5A66] leading-relaxed mb-4">
+                          {stage.paragraphs[0]}
+                        </p>
+
+                        {isOpen && (
+                          <div className="mb-4 space-y-3 text-sm text-[#5A5A66] leading-relaxed border-t border-[#E5E5E8] pt-4">
+                            <p>{stage.paragraphs[1]}</p>
+                            <div>
+                              <div className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-1.5">
+                                Användbart hos oss
+                              </div>
+                              <a
+                                href={stage.recommendationHref}
+                                className={`text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+                              >
+                                {stage.recommendation} →
+                              </a>
+                            </div>
+                          </div>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setExpanded((prev) => ({ ...prev, [stage.id]: !prev[stage.id] }))
+                          }
+                          aria-expanded={isOpen}
+                          className={`mt-auto self-start text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+                        >
+                          {isOpen ? "Visa mindre" : "Läs mer →"}
+                        </button>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default BuyerJourneyStages;
