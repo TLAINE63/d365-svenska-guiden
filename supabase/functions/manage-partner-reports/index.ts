@@ -250,6 +250,89 @@ serve(async (req) => {
         return new Response(JSON.stringify({ drafts }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "explore": {
+        // Returns per-partner aggregation of identified companies + URLs for a date range.
+        const { period_start, period_end } = data as { period_start?: string; period_end?: string };
+        const range = period_start && period_end
+          ? { start: period_start, end: period_end }
+          : previousMonthRange();
+
+        const { data: visits, error: vErr } = await supabase
+          .from("snitcher_visits")
+          .select("organisation_uuid, company_name, company_domain, company_industry, company_size, company_country, session_started_at, session_ended_at, visited_urls, partner_slugs")
+          .gte("session_ended_at", `${range.start}T00:00:00Z`)
+          .lte("session_ended_at", `${range.end}T23:59:59Z`);
+        if (vErr) throw vErr;
+
+        const { data: partners, error: pErr } = await supabase
+          .from("partners")
+          .select("id, slug, name, is_featured");
+        if (pErr) throw pErr;
+        const partnerBySlug = new Map<string, any>();
+        for (const p of partners || []) partnerBySlug.set(p.slug, p);
+
+        const bySlug = new Map<string, { partner_slug: string; partner_name: string; is_featured: boolean; companies: Map<string, any> }>();
+
+        for (const v of visits || []) {
+          const urls: { url: string }[] = (v.visited_urls || []) as any;
+          for (const slug of v.partner_slugs || []) {
+            const partner = partnerBySlug.get(slug);
+            let bucket = bySlug.get(slug);
+            if (!bucket) {
+              bucket = {
+                partner_slug: slug,
+                partner_name: partner?.name || slug,
+                is_featured: !!partner?.is_featured,
+                companies: new Map(),
+              };
+              bySlug.set(slug, bucket);
+            }
+            const profileRe = new RegExp(`/partner/${slug}(?:/|$|\\?)`, "i");
+            const profile_urls = urls.map(u => u.url).filter(u => profileRe.test(u));
+            const other_urls = urls.map(u => u.url).filter(u => !profileRe.test(u));
+
+            let entry = bucket.companies.get(v.organisation_uuid);
+            if (!entry) {
+              entry = {
+                organisation_uuid: v.organisation_uuid,
+                company_name: v.company_name,
+                company_domain: v.company_domain,
+                company_industry: v.company_industry,
+                company_size: v.company_size,
+                company_country: v.company_country,
+                first_seen: v.session_started_at,
+                last_seen: v.session_ended_at,
+                profile_urls: new Set<string>(),
+                other_urls: new Set<string>(),
+              };
+              bucket.companies.set(v.organisation_uuid, entry);
+            }
+            profile_urls.forEach((u: string) => entry.profile_urls.add(u));
+            other_urls.forEach((u: string) => entry.other_urls.add(u));
+            if (v.session_ended_at && (!entry.last_seen || v.session_ended_at > entry.last_seen)) entry.last_seen = v.session_ended_at;
+          }
+        }
+
+        const partners_out = Array.from(bySlug.values())
+          .map(b => ({
+            partner_slug: b.partner_slug,
+            partner_name: b.partner_name,
+            is_featured: b.is_featured,
+            companies: Array.from(b.companies.values()).map((c: any) => ({
+              ...c,
+              profile_urls: Array.from(c.profile_urls),
+              other_urls: Array.from(c.other_urls),
+            })).sort((a: any, b: any) => b.profile_urls.length - a.profile_urls.length),
+          }))
+          .sort((a, b) => b.companies.length - a.companies.length);
+
+        return new Response(JSON.stringify({
+          period_start: range.start,
+          period_end: range.end,
+          partners: partners_out,
+        }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
       case "generate": {
         const result = await generateDrafts(supabase, data);
         return new Response(JSON.stringify({ success: true, ...result }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });

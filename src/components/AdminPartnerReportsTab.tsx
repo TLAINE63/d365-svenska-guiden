@@ -43,6 +43,17 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   const [viewing, setViewing] = useState<Draft | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string>("");
 
+  // Explore (besök per partner)
+  const today = new Date();
+  const defaultStart = new Date(today.getFullYear(), today.getMonth() - 1, 1).toISOString().slice(0, 10);
+  const defaultEnd = new Date(today.getFullYear(), today.getMonth(), 0).toISOString().slice(0, 10);
+  const [exploreStart, setExploreStart] = useState(defaultStart);
+  const [exploreEnd, setExploreEnd] = useState(defaultEnd);
+  const [exploreLoading, setExploreLoading] = useState(false);
+  const [explorePartners, setExplorePartners] = useState<any[]>([]);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
+
   const load = async () => {
     if (!token) return;
     setLoading(true);
@@ -85,6 +96,28 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
     }
   };
 
+  const loadExplore = async () => {
+    if (!token) return;
+    setExploreLoading(true);
+    const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
+      body: { action: "explore", token, period_start: exploreStart, period_end: exploreEnd },
+    });
+    setExploreLoading(false);
+    if (error || data?.error) {
+      toast({ title: "Kunde inte hämta besök", description: data?.error || error?.message, variant: "destructive" });
+      return;
+    }
+    setExplorePartners(data.partners || []);
+  };
+
+  useEffect(() => { loadExplore(); /* eslint-disable-next-line */ }, [token]);
+
+  const toggleExpanded = (slug: string) => {
+    const next = new Set(expanded);
+    next.has(slug) ? next.delete(slug) : next.add(slug);
+    setExpanded(next);
+  };
+
   const openPreview = async (d: Draft) => {
     setViewing(d);
     setPreviewHtml("");
@@ -121,7 +154,107 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
     await openPreview({ ...viewing, excluded_organisation_uuids: Array.from(set) });
   };
 
+  const filteredExplore = showFeaturedOnly ? explorePartners.filter(p => p.is_featured) : explorePartners;
+  const totalCompanies = filteredExplore.reduce((s, p) => s + p.companies.length, 0);
+
   return (
+    <div className="space-y-6">
+    <Card>
+      <CardHeader>
+        <CardTitle>Företag som besökt partnerprofiler</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex flex-wrap items-end gap-3">
+          <div>
+            <label className="text-xs font-medium block mb-1">Från</label>
+            <Input type="date" value={exploreStart} onChange={e => setExploreStart(e.target.value)} className="w-40" />
+          </div>
+          <div>
+            <label className="text-xs font-medium block mb-1">Till</label>
+            <Input type="date" value={exploreEnd} onChange={e => setExploreEnd(e.target.value)} className="w-40" />
+          </div>
+          <Button onClick={loadExplore} disabled={exploreLoading} size="sm">
+            {exploreLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
+            <span className="ml-2">Uppdatera</span>
+          </Button>
+          <label className="flex items-center gap-2 text-sm ml-2">
+            <Checkbox checked={showFeaturedOnly} onCheckedChange={(v) => setShowFeaturedOnly(!!v)} />
+            Endast publicerade partners
+          </label>
+          <div className="ml-auto text-sm text-muted-foreground">
+            {filteredExplore.length} partners • {totalCompanies} företag totalt
+          </div>
+        </div>
+
+        {exploreLoading ? (
+          <div className="py-8 text-center text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin inline mr-2" />Laddar…</div>
+        ) : filteredExplore.length === 0 ? (
+          <div className="py-8 text-center text-muted-foreground text-sm">Inga identifierade besök för perioden. Kör <strong>Synka Snitcher</strong> först.</div>
+        ) : (
+          <div className="space-y-2">
+            {filteredExplore.map(p => {
+              const isOpen = expanded.has(p.partner_slug);
+              return (
+                <div key={p.partner_slug} className="border rounded-lg">
+                  <button
+                    className="w-full flex items-center justify-between p-3 hover:bg-muted/30 text-left"
+                    onClick={() => toggleExpanded(p.partner_slug)}
+                  >
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-medium">{p.partner_name}</span>
+                      {!p.is_featured && <Badge variant="outline" className="text-xs">ej publicerad</Badge>}
+                      <span className="text-xs text-muted-foreground">/partner/{p.partner_slug}</span>
+                    </div>
+                    <Badge>{p.companies.length} företag</Badge>
+                  </button>
+                  {isOpen && (
+                    <div className="border-t divide-y">
+                      {p.companies.map((c: any) => (
+                        <div key={c.organisation_uuid} className="p-3 space-y-2">
+                          <div className="flex items-start justify-between gap-3 flex-wrap">
+                            <div>
+                              <div className="font-medium text-sm">{c.company_name || "Okänt"}</div>
+                              <div className="text-xs text-muted-foreground">
+                                {[c.company_domain, c.company_industry, c.company_size, c.company_country].filter(Boolean).join(" • ")}
+                              </div>
+                            </div>
+                            <div className="text-xs text-muted-foreground text-right">
+                              {c.last_seen && <div>Senast: {new Date(c.last_seen).toLocaleDateString("sv-SE")}</div>}
+                              <div>{c.profile_urls.length} profilbesök • {c.other_urls.length} andra</div>
+                            </div>
+                          </div>
+                          {c.profile_urls.length > 0 && (
+                            <div>
+                              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Profil-URL:er</div>
+                              <ul className="text-xs space-y-0.5">
+                                {c.profile_urls.map((u: string) => (
+                                  <li key={u}><a href={u} target="_blank" rel="noreferrer" className="text-primary hover:underline break-all">{u}</a></li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {c.other_urls.length > 0 && (
+                            <div>
+                              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">Andra sidor i samma session</div>
+                              <ul className="text-xs space-y-0.5 max-h-48 overflow-y-auto">
+                                {c.other_urls.map((u: string) => (
+                                  <li key={u}><a href={u} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary hover:underline break-all">{u}</a></li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+
     <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-4 flex-wrap">
         <CardTitle>Månadsrapporter till partners</CardTitle>
@@ -244,5 +377,6 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
         </DialogContent>
       </Dialog>
     </Card>
+    </div>
   );
 }
