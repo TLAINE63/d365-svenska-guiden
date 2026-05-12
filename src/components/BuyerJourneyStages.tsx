@@ -20,6 +20,7 @@ type Stage = {
   paragraphs: [string, string];
   recommendation: string;
   recommendationHref: string;
+  nextStep: { label: string; href: string; helper: string };
   Icon: LucideIcon;
 };
 
