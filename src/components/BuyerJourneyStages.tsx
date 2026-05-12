@@ -35,6 +35,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Orienterande artiklar och löpande bevakning av branschen",
     recommendationHref: "#",
+    nextStep: {
+      label: "Bevaka marknaden i Kunskapscentret",
+      href: "/kunskapscenter",
+      helper: "Läs orienterande artiklar och håll er uppdaterade utan att binda upp er.",
+    },
     Icon: Lightbulb,
   },
   {
@@ -47,6 +52,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Fördjupningar om hur ni skiljer processproblem från systembegränsningar",
     recommendationHref: "#",
+    nextStep: {
+      label: "Gör en behovsanalys",
+      href: "/behovsanalys",
+      helper: "Kartlägg vad som faktiskt skaver innan ni går vidare till partnerdialog.",
+    },
     Icon: Search,
   },
   {
@@ -59,6 +69,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Tematiska guider per triggertyp och mall för intern nulägesanalys",
     recommendationHref: "#",
+    nextStep: {
+      label: "Starta er nulägesanalys",
+      href: "/kom-igang",
+      helper: "Strukturera triggern internt innan ni öppnar dialogen med partners.",
+    },
     Icon: Zap,
   },
   {
@@ -71,6 +86,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Strukturmall för intern behovsanalys och workshop-underlag",
     recommendationHref: "#",
+    nextStep: {
+      label: "Bygg en kravspecifikation",
+      href: "/kravspecifikation",
+      helper: "Samla kraven från alla funktioner i ett gemensamt underlag.",
+    },
     Icon: ClipboardList,
   },
   {
@@ -83,6 +103,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Översikt över de olika vägarna och hur valet brukar landa",
     recommendationHref: "#",
+    nextStep: {
+      label: "Jämför ERP- och CRM-vägarna",
+      href: "/ai-readiness",
+      helper: "Se hur olika spår skiljer sig i risk, tid och förvaltning.",
+    },
     Icon: GitBranch,
   },
   {
@@ -95,6 +120,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Oberoende matchning mot partners som passar er bransch och era förutsättningar",
     recommendationHref: "#",
+    nextStep: {
+      label: "Hitta matchande partners",
+      href: "/valj-partner",
+      helper: "Få en oberoende kortlista som matchar bransch, storlek och fokusområde.",
+    },
     Icon: Users,
   },
   {
@@ -107,6 +137,11 @@ const STAGES: Stage[] = [
     ],
     recommendation: "Valideringschecklista och frågor att ställa innan kontraktet skrivs under",
     recommendationHref: "#",
+    nextStep: {
+      label: "Stresstesta beslutet",
+      href: "/valj-partner",
+      helper: "Validera metodik, scope och leveransmodell innan kontraktet skrivs under.",
+    },
     Icon: CheckCircle,
   },
 ];
