@@ -377,5 +377,6 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
         </DialogContent>
       </Dialog>
     </Card>
+    </div>
   );
 }
