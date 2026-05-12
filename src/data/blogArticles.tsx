@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
+import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
+import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -46,6 +48,350 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 };
 
 export const BLOG_ARTICLES: BlogArticle[] = [
+  {
+    slug: "owned-intelligence-dynamics-365",
+    title: "Owned Intelligence — vad Microsofts senaste rapport säger till Dynamics 365-köpare",
+    metaTitle: "Owned Intelligence: Microsofts rapport och Dynamics 365 | d365.se",
+    metaDescription:
+      "Microsofts Work Trend Index 2026 lyfter Owned Intelligence som den verkliga konkurrensfördelen. Vad innebär det för dig som står inför ett Dynamics 365-val?",
+    summary:
+      "Microsofts Work Trend Index 2026 introducerar begreppet Owned Intelligence — den institutionella kunskap som inte kan kopieras. Här är vad det betyder för Dynamics 365-köpare när agenter tar över mer av exekveringen.",
+    category: "Strategi",
+    tags: ["dynamics365", "ai", "agenter", "copilot", "upphandling", "owned intelligence"],
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Service", "AI/Copilot/Agents"],
+    publishedAt: "2026-05-12",
+    author: THOMAS_LAINE,
+    heroImage: ownedIntelligenceHero,
+    readingTimeMinutes: 8,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
+          I maj släppte Microsoft sin Work Trend Index 2026 — en omfattande
+          rapport baserad på 20 000 enkätsvar i tio länder och biljoner
+          anonymiserade signaler från Microsoft 365. Ett begrepp sticker ut och
+          är värt att stanna upp vid: <strong>Owned Intelligence</strong>.
+        </p>
+
+        <aside className="my-10 rounded-md border border-[#9CC2E5] bg-[#DEEBF7] px-7 py-6">
+          <p className="!text-[1.25rem] !font-bold !text-[#1F4E79] !mb-3 !mt-0">
+            I korthet
+          </p>
+          <ul className="!my-0 !pl-7 !space-y-2 list-disc marker:text-[#1F4E79] !text-foreground/90">
+            <li>
+              Owned Intelligence är den institutionella kunskap som byggs över
+              tid, är unik för bolaget och svår att kopiera.
+            </li>
+            <li>
+              Frågan är inte "bygga själv eller köpa färdigt" — utan var
+              skiljelinjen mellan standardkapacitet och egen utveckling ska gå.
+            </li>
+            <li>
+              Två extremfall är båda riskabla: eget bygge som blir personberoende,
+              eller total partnerlutning som tappar fart.
+            </li>
+          </ul>
+        </aside>
+
+        <p>
+          Microsoft beskriver Owned Intelligence som institutionell kunskap som
+          byggs upp över tid, är unik för bolaget och svår att kopiera. Det är
+          där, enligt rapporten, den långsiktiga konkurrensfördelen ligger när
+          agenter tar över allt mer av exekveringen.
+        </p>
+        <p>
+          För Dynamics 365-köpare är det här mer relevant än det låter — och det
+          rör vid en fråga som de flesta upphandlingsprocesser idag inte är
+          riktigt byggda för att hantera.
+        </p>
+
+        <h2>Var marknaden står just nu</h2>
+        <p>
+          Dynamics 365 är inne i en intressant fas. Copilot är inbäddat i hela
+          produktportföljen. Agenter kan skapas direkt i applikationerna eller
+          via Copilot Studio. Microsoft släpper nya AI-funktioner i en takt som
+          många kunder har svårt att hänga med i.
+        </p>
+        <p>
+          Samtidigt visar Microsofts egen rapport en obekväm sak: bara{" "}
+          <strong>19 procent</strong> av AI-användarna befinner sig i det
+          Microsoft kallar "Frontier-zonen" — där både individuell förmåga och
+          organisatorisk beredskap är på plats. 65 procent är oroliga för att
+          hamna efter, men 45 procent tycker det känns säkrare att fokusera på
+          nuvarande mål än att designa om arbetet. Endast 13 procent säger att
+          de belönas för att förändra hur arbetet utförs.
+        </p>
+        <p>
+          Det är denna spänning rapporten kallar <em>Transformationsparadoxen</em>.
+          Det är inte ett tekniskt problem. Det är ett organisatoriskt problem.
+          Och det syns extra tydligt i ERP- och CRM-projekt.
+        </p>
+        <p>
+          Microsofts bild kompletteras intressant av oberoende analytiker.
+          Gartner konstaterar i sin 2026 Hype Cycle att endast 17 procent av
+          organisationer faktiskt har deployat AI-agenter, även om över 60
+          procent säger sig planera det inom två år. Än mer påtagligt: Gartner
+          förutspår att <strong>över 40 procent av alla agentic AI-projekt
+          kommer avbrytas till slutet av 2027</strong> — ofta för att kostnader
+          skenar, affärsvärdet inte blir tillräckligt tydligt eller för att
+          governance och riskkontroller inte hinner byggas i samma takt som
+          tekniken.
+        </p>
+        <p>
+          McKinseys State of AI-rapport pekar i samma riktning: 88 procent av
+          organisationer använder AI i någon funktion, men bara 6 procent
+          kvalificerar som "AI high performers" med mätbar EBIT-effekt. Resten
+          har piloter, demos och initiativ — men inte transformation.
+        </p>
+        <p>
+          Det här är samma fenomen sett från olika håll. Microsoft kallar det
+          Transformationsparadoxen, Gartner talar om gapet mellan ambition och
+          leverans, McKinsey beskriver "pilot purgatory". Alla pekar på samma
+          sak: organisationer har tillgång till verktygen, men har inte byggt
+          om det runt omkring — och då stannar värdet ute.
+        </p>
+
+        <h3>Utvärderingsdialogen idag</h3>
+        <p>
+          I de upphandlingar jag följer hamnar diskussionen snabbt i ett
+          välbekant spår. Funktionalitet, användargränssnitt, integrationer.
+          Det är där upphandlingsmallarna landar, och det är där både partner
+          och köpare har gemensam terräng att stå på. Det är ett bra, beprövat
+          sätt att jämföra alternativ.
+        </p>
+        <p>
+          När Copilot eller agenter kommer upp visas möjligheten — att man kan
+          bygga egna agenter, att Copilot kan kopplas in i flöden, att Power
+          Platform står redo för utveckling. Men diskussionen blir lätt "light"
+          och glider tillbaka till grundfunktionaliteten i systemet. Det är
+          inte konstigt. Det är där värdet är konkret, mätbart och
+          presenterbart. Det är där en demo känns trygg.
+        </p>
+        <p>
+          Det är ingen kritik mot någon part. Det är så samtalet ser ut idag.
+          Men det är inte där den ägda intelligensen byggs upp.
+        </p>
+
+        <h2>Det är inte en fråga om att bygga själv eller köpa färdigt</h2>
+        <p>
+          Här ligger en vanlig missuppfattning. "Owned Intelligence" tolkas
+          lätt som att man måste bygga allt själv — egna agenter, egna
+          integrationer, eget AI-team. Det är inte vad det handlar om.
+        </p>
+        <p>Den verkliga frågan är förmåga.</p>
+        <p>
+          Har bolaget en intern kapacitet att förstå vad som byggs, varför, och
+          hur det ska utvecklas vidare? Eller står man utanför i takt med att
+          lösningen växer? Kan organisationen själv identifiera nya områden där
+          agenter och Copilot skulle göra skillnad, eller måste den frågan
+          alltid komma från partnern?
+        </p>
+        <p>
+          En lösning som är fullt utvecklad av partnern kan vara teknisk
+          excellent. Men om förståelsen för hur den fungerar och hur den ska
+          vidareutvecklas i praktiken uteslutande sitter externt, är det
+          svårare att bygga den långsiktiga intelligensen i bolaget. Här vill
+          jag vara tydlig: många partners är duktiga på kompetensöverföring och
+          vill att kunden ska bli starkare — men det behöver göras till en
+          uttalad del av upplägget, inte något man hoppas ska "hända av sig
+          själv".
+        </p>
+        <p>
+          Det här ligger nära en av rapportens starkaste statistiska
+          observationer: organisatoriska faktorer som kultur, chefsstöd och
+          kompetensutveckling står för ungefär <strong>67 procent</strong> av
+          AI:s reella påverkan, medan individuell mindset och beteende står för
+          cirka 32 procent. Med andra ord — det är inte i första hand de
+          enskilda medarbetarnas AI-kunskaper som avgör utfallet. Det är hur
+          organisationen som helhet är riggad för att fånga upp och bygga
+          vidare på det som agenter producerar.
+        </p>
+        <p>
+          McKinsey publicerade i januari 2026 en analys specifikt om AI-agenter
+          och ERP som kommer till en näraliggande slutsats. Deras rekommendation
+          är att köparen tydligt skiljer på två saker: standardiserade
+          kapaciteter som kan köpas in färdigt — och egen utveckling som
+          reserveras för de områden där bolagets domänspecifika logik eller
+          egna processer faktiskt skapar en konkurrensfördel. Det är samma
+          princip som ligger bakom Owned Intelligence, formulerad från
+          ERP-perspektivet. Värdet ligger inte i att bygga allt själv, och inte
+          i att köpa allt färdigt — utan i att veta var skiljelinjen ska gå.
+        </p>
+
+        <figure className="my-10">
+          <img
+            src={ownedIntelligenceSkiljelinje}
+            alt="Diagram som visar lager av eget, delvis eget och standard med etiketter Owned Intelligence, Implementation och Plattform"
+            className="w-full rounded-lg shadow-md"
+            loading="lazy"
+          />
+          <figcaption className="text-sm text-muted-foreground italic mt-3 text-center">
+            Skiljelinjen mellan standardiserade kapaciteter och Owned
+            Intelligence i en Dynamics 365-lösning.
+          </figcaption>
+        </figure>
+
+        <h2>Två risker som ofta missas</h2>
+        <p>
+          När jag pratar med kunder som står inför ett större Dynamics 365-val
+          finns det två obekväma observationer värda att lyfta.
+        </p>
+
+        <h3>Risk 1: Eget bygge som blir personberoende</h3>
+        <p>
+          Bolag som väljer att bygga mycket själva — egna agenter, egna
+          automationsflöden i Power Automate, egna integrationer — kan snabbt
+          få fram värde. Men risken finns att kapaciteten samlas hos ett par
+          nyckelpersoner internt. När en av dem byter jobb försvinner stora
+          delar av förståelsen med dem. Dokumentationen halkar efter,
+          lösningarna blir svåra att underhålla, och bolaget hamnar i en
+          obekväm position. Det är en reell sårbarhet, särskilt i bolag där
+          IT-organisationen redan är slimmad.
+        </p>
+
+        <h3>Risk 2: Total partnerlutning som tappar fart</h3>
+        <p>
+          Lutar man sig helt mot partnern kan utvecklingstakten ändå bli lägre
+          än man tror — inte för att partnern saknar vilja, utan för att
+          köparens interna prioriteringar lätt fylls av vardagsbehov som
+          uppgraderingar, säkerhet och support. Om det saknas en gemensam
+          roadmap, tydliga produktägare på köparsidan och en finansierad
+          utvecklingsrytm (oavsett om den drivs av partnern, internt eller
+          tillsammans), stannar Copilot- och agentarbetet ofta av. När
+          initiativet ligger utanför den egna organisationen är det också lätt
+          att insikterna om processer, data och beslutspunkter inte landar
+          internt på samma sätt. Bolaget har lösningen, men riskerar att inte
+          bygga den växande förståelsen av den.
+        </p>
+        <p>
+          Inget av extremfallen är hållbart över tid. Verkligheten är en
+          kombination, och frågan är hur den balansen designas redan från
+          start.
+        </p>
+
+        <h2>Vad karaktäriserar de köpare som lyckas</h2>
+        <p>
+          I min erfarenhet återkommer tre saker hos de bolag som hanterar det
+          här bra.
+        </p>
+
+        <h3>Bredd i engagemanget</h3>
+        <p>
+          Det räcker inte att en eller två eldsjälar driver frågan internt.
+          Flera delar av organisationen behöver vara med — IT, verksamheten,
+          ledningen. Annars blir den ägda intelligensen i praktiken ett par
+          personers projekt, inte bolagets. Microsofts rapport bekräftar detta
+          indirekt: bara 26 procent av AI-användarna säger att deras ledning är
+          tydligt och konsekvent samkörda kring AI. Det är en av de starkaste
+          indikatorerna i hela materialet på var organisationer fastnar.
+        </p>
+
+        <h3>Intern projektstruktur som speglar partnerns</h3>
+        <p>
+          Partnern arbetar i en projektstruktur med tydliga roller, leveranser
+          och ansvarspunkter. Den strukturen behöver speglas på köparens sida.
+          En motpart med tydliga roller, mandat och rutiner. Inte en ad
+          hoc-grupp som möts när det brinner. När bägge sidor jobbar i
+          parallella strukturer blir överlämningar tydligare, beslut tas
+          snabbare, och kunskapen får en plats att landa i på köparens sida.
+        </p>
+
+        <h3>Insikt i den befintliga miljön</h3>
+        <p>
+          Här finns intern IT:s verkliga värde — insikten i den befintliga
+          miljön, i historiska beslut, i hur verksamheten faktiskt fungerar i
+          praktiken. Den kunskapen är inte något en partner kan ta med sig in i
+          projektet. Den måste bäras av köparen, oavsett hur kompetent partnern
+          är. Det är också där köparen alltid har ett strukturellt övertag som
+          ofta underskattas i ett projekts tidiga fas.
+        </p>
+        <p>
+          När dessa tre delar finns på plats blir det som byggs något bolaget
+          faktiskt äger. Inte bara en lösning man har, utan en kapacitet man
+          kan utveckla över tid.
+        </p>
+
+        <h2>Frågan köparen behöver ställa själv</h2>
+        <p>
+          I en typisk upphandling presenteras lösningar och utvärderingen
+          handlar om funktion, ekonomi och leveransförmåga. Det är en bra och
+          beprövad struktur, men frågan om var den långsiktiga intelligensen
+          ska byggas upp ställer sig inte själv i den ramen. Den behöver komma
+          från köparsidan — och tidigt nog för att påverka hur projektet
+          faktiskt sätts upp.
+        </p>
+        <p>
+          Några konkreta frågor som är värda att ta med in i diskussionen:
+        </p>
+        <ul>
+          <li>
+            Vilka delar av lösningen ska byggas av partnern, och vilka delar
+            ska byggas tillsammans?
+          </li>
+          <li>
+            Hur dokumenteras agenter, flöden och anpassningar så att kunskapen
+            finns kvar hos oss?
+          </li>
+          <li>
+            Hur ser vår egen organisation ut under och efter projektet — vilka
+            roller behöver vi, och vilken mandatstruktur?
+          </li>
+          <li>
+            Vilken plan finns för att intern IT och verksamhet ska kunna
+            fortsätta utveckla lösningen efter go-live, även utan partnerns
+            dagliga närvaro?
+          </li>
+          <li>
+            Vilken kompetensöverföring är inplanerad — inte som en bisak i
+            slutet, utan som en löpande del av projektet?
+          </li>
+        </ul>
+        <p>
+          Frågorna är inte tänkta att misstro partnern. De är tänkta att
+          tydliggöra ansvar och kunskapsflöde tidigt — något som gynnar både
+          köpare och partner.
+        </p>
+        <p>
+          För köparen är detta i grunden den fråga som avgör vad upphandlingen
+          faktiskt resulterar i på fem års sikt. Ett system, eller en förmåga.
+        </p>
+        <p>
+          Microsofts rapport ger en bra anledning att lyfta in den frågan
+          tidigt — innan funktioner och integrationer har lagt sig som ramen
+          för hela diskussionen.
+        </p>
+
+        <aside
+          aria-label="Källor"
+          className="mt-12 p-6 rounded-xl border border-border bg-secondary/30"
+        >
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">
+            Källor
+          </p>
+          <ul className="!my-0 !pl-5 !space-y-2 text-sm text-muted-foreground list-disc">
+            <li>
+              Microsoft Work Trend Index 2026 — <em>Agents, human agency, and
+              the opportunity for every organization</em> (maj 2026).
+            </li>
+            <li>
+              Gartner — Hype Cycle for Artificial Intelligence, 2026
+              (agent-adoption samt prognos om avbrutna agentic AI-projekt till
+              slutet av 2027).
+            </li>
+            <li>
+              McKinsey — The State of AI in 2026 (Global Survey) (andel "AI
+              high performers" och koppling till mätbar EBIT-effekt).
+            </li>
+            <li>
+              McKinsey — analys om AI-agenter och ERP (januari 2026)
+              (rekommendationen att skilja på standardkapacitet vs.
+              domänspecifik utveckling).
+            </li>
+          </ul>
+        </aside>
+      </>
+    ),
+  },
   {
     slug: "ai-i-erp-riskbild",
     title: "När AI gör jobbet i ERP: ett skifte i riskbild",
@@ -251,7 +597,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     author: THOMAS_LAINE,
     heroImage: partnervaletAvgorHero,
     readingTimeMinutes: 7,
-    featured: true,
+
     content: (
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
