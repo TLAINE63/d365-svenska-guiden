@@ -96,6 +96,28 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
     }
   };
 
+  const loadExplore = async () => {
+    if (!token) return;
+    setExploreLoading(true);
+    const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
+      body: { action: "explore", token, period_start: exploreStart, period_end: exploreEnd },
+    });
+    setExploreLoading(false);
+    if (error || data?.error) {
+      toast({ title: "Kunde inte hämta besök", description: data?.error || error?.message, variant: "destructive" });
+      return;
+    }
+    setExplorePartners(data.partners || []);
+  };
+
+  useEffect(() => { loadExplore(); /* eslint-disable-next-line */ }, [token]);
+
+  const toggleExpanded = (slug: string) => {
+    const next = new Set(expanded);
+    next.has(slug) ? next.delete(slug) : next.add(slug);
+    setExpanded(next);
+  };
+
   const openPreview = async (d: Draft) => {
     setViewing(d);
     setPreviewHtml("");
