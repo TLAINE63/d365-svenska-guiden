@@ -2925,6 +2925,11 @@ Thomas`,
           <TabsContent value="partner-dashboard">
             <AdminPartnerDashboardTab token={token || null} />
           </TabsContent>
+
+          {/* ==================== PARTNER REPORTS TAB ==================== */}
+          <TabsContent value="partner-reports">
+            <AdminPartnerReportsTab token={token || null} />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
