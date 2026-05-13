@@ -413,8 +413,13 @@ const BuyerJourneyStages = () => {
                     </ul>
                   </div>
                 </button>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Quiz / Result */}
+
         <div ref={quizRef} className="mb-16 md:mb-20 scroll-mt-24">
           {!resultStage && null}
 
