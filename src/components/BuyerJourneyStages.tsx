@@ -206,14 +206,48 @@ const OptionCard = ({
 const phaseFor = (id: number): Phase =>
   id <= 2 ? "TIDIGA SIGNALER" : id <= 5 ? "BEHOVET AKTIVERAS" : "PARTNERVAL";
 
+const SHORT_TITLES: Record<number, string> = {
+  1: "Ser inget akut problem",
+  2: "Känner friktion",
+  3: "Trigger event",
+  4: "Vill förstå behovet",
+  5: "Utforskar alternativ",
+  6: "Jämför partners",
+  7: "Redo att välja",
+};
+
+const STAGE_BULLETS: Record<number, string[]> = {
+  1: ["Verksamheten rullar stabilt", "Inga budgetsamtal om systemstöd", "Söker inspiration i webinar"],
+  2: ["Manuellt arbete växer", "Excel kringgår systemet", "Kundbilden är spridd"],
+  3: ["Förvärv eller ny ägare", "Version eller licensändring", "Compliance driver beslut", "Tidsfönstret är ofta snävt"],
+  4: ["System, process eller data?", "Vad behöver förändras?", "Vilka funktioner berörs?"],
+  5: ["Uppgradera eller byta?", "En plattform eller flera?", "Balans mellan risk och tempo"],
+  6: ["Vilka kan vår bransch?", "Vilka referenser väger?", "Hur jämför vi rättvist?"],
+  7: ["Samsyn finns internt", "Budget och riktning klar", "Beslutet ska hålla över tid"],
+};
+
+const PHASE_LABEL_SHORT: Record<Phase, string> = {
+  "TIDIGA SIGNALER": "TIDIGA SIGNALER",
+  "BEHOVET AKTIVERAS": "BEHOVET AKTIVERAS",
+  PARTNERVAL: "PRODUKT & PARTNERVAL",
+};
+
 const BuyerJourneyStages = () => {
   const [step, setStep] = useState<1 | 2>(1);
   const [result, setResult] = useState<number | null>(null);
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
   const overviewRef = useRef<HTMLDivElement | null>(null);
+  const quizRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToOverview = () => {
     overviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const selectStageFromMap = (id: number) => {
+    setResult(id);
+    setTimeout(() => {
+      quizRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
   };
 
   const reset = () => {
