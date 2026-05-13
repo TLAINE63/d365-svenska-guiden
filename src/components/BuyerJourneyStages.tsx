@@ -217,13 +217,62 @@ const SHORT_TITLES: Record<number, string> = {
 };
 
 const STAGE_BULLETS: Record<number, string[]> = {
-  1: ["Verksamheten rullar stabilt", "Inga budgetsamtal om systemstöd", "Söker inspiration i webinar"],
-  2: ["Manuellt arbete växer", "Excel kringgår systemet", "Kundbilden är spridd"],
-  3: ["Förvärv eller ny ägare", "Version eller licensändring", "Compliance driver beslut", "Tidsfönstret är ofta snävt"],
-  4: ["System, process eller data?", "Vad behöver förändras?", "Vilka funktioner berörs?"],
-  5: ["Uppgradera eller byta?", "En plattform eller flera?", "Balans mellan risk och tempo"],
-  6: ["Vilka kan vår bransch?", "Vilka referenser väger?", "Hur jämför vi rättvist?"],
-  7: ["Samsyn finns internt", "Budget och riktning klar", "Beslutet ska hålla över tid"],
+  1: [
+    "Verksamheten rullar stabilt",
+    "Andra frågor prioriteras högre",
+    "Inga budgetsamtal om systemstöd",
+    "Söker inspiration i webinar",
+    "Läser guider och bevakning",
+    "Står långt ner på agendan",
+  ],
+  2: [
+    "Manuellt arbete växer",
+    "Rapportering tar för lång tid",
+    "Excel kringgår systemet",
+    "Kundbilden är spridd",
+    "Säljpipen svår att överblicka",
+    "System eller process — oklart",
+  ],
+  3: [
+    "Förvärv eller ny ägare",
+    "Tillväxt kräver bättre kontroll",
+    "Version eller licensändring",
+    "Compliance driver beslut",
+    "Koncernkonsolidering",
+    "Tidsfönstret är ofta snävt",
+  ],
+  4: [
+    "System, process eller data?",
+    "Vad behöver förändras?",
+    "Vad händer om vi väntar?",
+    "Hur stor blir förändringen?",
+    "Vilka funktioner berörs?",
+    "Var står vi mot branschen?",
+  ],
+  5: [
+    "Uppgradera eller byta?",
+    "En plattform eller flera?",
+    "Balans mellan risk och tempo",
+    "Samma eller ny leverantör?",
+    "Konsekvenser för drift",
+    "Vilken förändring klarar vi?",
+  ],
+  6: [
+    "Vilka kan vår bransch?",
+    "Vem känns mest trovärdig?",
+    "Hur skilja liknande val?",
+    "Vilka referenser väger?",
+    "Vilken leveransmodell?",
+    "Hur jämför vi rättvist?",
+  ],
+  7: [
+    "Samsyn finns internt",
+    "Budget och riktning klar",
+    "Beslutet ska hålla över tid",
+    "Förvaltningsmodellen klar",
+    "Avtal och risker balanserade",
+    "Internt stöd för förändringen",
+  ],
 };
 
 const PHASE_LABEL_SHORT: Record<Phase, string> = {
