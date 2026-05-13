@@ -380,13 +380,13 @@ const BuyerJourneyStages = () => {
                   type="button"
                   onClick={() => selectStageFromMap(stage.id)}
                   aria-pressed={isActive}
-                  className={`group relative rounded-xl border bg-white p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
+                  className={`group relative flex flex-col rounded-xl border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
                     isActive
                       ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
                       : "border-[#E5E5E8] hover:border-[#E5006D]"
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex justify-center mb-2">
                     <span
                       className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-xs font-bold ${
                         isActive
@@ -396,23 +396,23 @@ const BuyerJourneyStages = () => {
                     >
                       {stage.id}
                     </span>
+                  </div>
+                  <div className="flex justify-center mb-2">
                     <stage.Icon
-                      className={`w-4 h-4 ${isActive ? "text-[#E5006D]" : "text-[#5A5A66]"}`}
+                      className={`w-5 h-5 ${isActive ? "text-[#E5006D]" : "text-[#5A5A66]"}`}
                     />
                   </div>
-                  <div className="text-[13px] sm:text-sm font-semibold text-[#0B0B0F] leading-snug mb-2">
+                  <div className="text-center text-[13px] sm:text-sm font-semibold text-[#0B0B0F] leading-snug mb-3 min-h-[2.5rem] flex items-center justify-center">
                     {SHORT_TITLES[stage.id]}
                   </div>
-                  <ul className="space-y-1 text-[11.5px] sm:text-xs text-[#5A5A66] leading-snug">
-                    {STAGE_BULLETS[stage.id].slice(0, 3).map((b) => (
-                      <li key={b}>• {b}</li>
-                    ))}
-                  </ul>
+                  <div className="border-t border-[#E5E5E8] pt-3">
+                    <ul className="space-y-1.5 text-[11.5px] sm:text-xs text-[#5A5A66] leading-snug">
+                      {STAGE_BULLETS[stage.id].map((b) => (
+                        <li key={b}>• {b}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </button>
-              );
-            })}
-          </div>
-        </div>
 
         {/* Quiz / Result */}
         <div ref={quizRef} className="mb-16 md:mb-20 scroll-mt-24">
