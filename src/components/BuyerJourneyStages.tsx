@@ -368,47 +368,7 @@ const BuyerJourneyStages = () => {
 
         {/* Quiz / Result */}
         <div ref={quizRef} className="mb-16 md:mb-20 scroll-mt-24">
-          {!resultStage && (
-            <div
-              key={`step-${step}`}
-              className="rounded-xl border border-[#E5E5E8] bg-white p-6 md:p-8 transition-opacity duration-200"
-            >
-              <div className="flex items-center justify-between mb-5">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
-                  Fråga {step} av 2
-                </span>
-                {step === 2 && (
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className={`inline-flex items-center gap-1 text-sm text-[#5A5A66] hover:text-[#0B0B0F] ${focusRing} rounded`}
-                  >
-                    <ArrowLeft className="w-3.5 h-3.5" />
-                    Tillbaka
-                  </button>
-                )}
-              </div>
-
-              <h3 className="text-xl sm:text-2xl font-semibold text-[#0B0B0F] mb-6 leading-snug">
-                {step === 1
-                  ? "Vad beskriver bäst er nuvarande situation?"
-                  : "Var i arbetet befinner ni er?"}
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                {(step === 1 ? STEP1_OPTIONS : STEP2_OPTIONS).map((opt) => (
-                  <OptionCard
-                    key={opt.label}
-                    label={opt.label}
-                    onClick={() => {
-                      if (opt.result === "next") setStep(2);
-                      else setResult(opt.result as number);
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
+          {!resultStage && null}
 
           {resultStage && (
             <div
