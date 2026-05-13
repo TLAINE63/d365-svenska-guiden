@@ -297,9 +297,8 @@ const BuyerJourneyStages = () => {
                 Klicka på det stadie ni känner igen er i — så öppnas detaljerna och nästa steg.
               </p>
             </div>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
-              Eller svara på två frågor nedan ↓
-            </span>
+            
+
           </div>
 
           <div className="hidden md:grid grid-cols-7 gap-3 mb-2 px-1">
