@@ -217,13 +217,62 @@ const SHORT_TITLES: Record<number, string> = {
 };
 
 const STAGE_BULLETS: Record<number, string[]> = {
-  1: ["Verksamheten rullar stabilt", "Inga budgetsamtal om systemstöd", "Söker inspiration i webinar"],
-  2: ["Manuellt arbete växer", "Excel kringgår systemet", "Kundbilden är spridd"],
-  3: ["Förvärv eller ny ägare", "Version eller licensändring", "Compliance driver beslut", "Tidsfönstret är ofta snävt"],
-  4: ["System, process eller data?", "Vad behöver förändras?", "Vilka funktioner berörs?"],
-  5: ["Uppgradera eller byta?", "En plattform eller flera?", "Balans mellan risk och tempo"],
-  6: ["Vilka kan vår bransch?", "Vilka referenser väger?", "Hur jämför vi rättvist?"],
-  7: ["Samsyn finns internt", "Budget och riktning klar", "Beslutet ska hålla över tid"],
+  1: [
+    "Verksamheten rullar stabilt",
+    "Andra frågor prioriteras högre",
+    "Inga budgetsamtal om systemstöd",
+    "Söker inspiration i webinar",
+    "Läser guider och bevakning",
+    "Står långt ner på agendan",
+  ],
+  2: [
+    "Manuellt arbete växer",
+    "Rapportering tar för lång tid",
+    "Excel kringgår systemet",
+    "Kundbilden är spridd",
+    "Säljpipen svår att överblicka",
+    "System eller process — oklart",
+  ],
+  3: [
+    "Förvärv eller ny ägare",
+    "Tillväxt kräver bättre kontroll",
+    "Version eller licensändring",
+    "Compliance driver beslut",
+    "Koncernkonsolidering",
+    "Tidsfönstret är ofta snävt",
+  ],
+  4: [
+    "System, process eller data?",
+    "Vad behöver förändras?",
+    "Vad händer om vi väntar?",
+    "Hur stor blir förändringen?",
+    "Vilka funktioner berörs?",
+    "Var står vi mot branschen?",
+  ],
+  5: [
+    "Uppgradera eller byta?",
+    "En plattform eller flera?",
+    "Balans mellan risk och tempo",
+    "Samma eller ny leverantör?",
+    "Konsekvenser för drift",
+    "Vilken förändring klarar vi?",
+  ],
+  6: [
+    "Vilka kan vår bransch?",
+    "Vem känns mest trovärdig?",
+    "Hur skilja liknande val?",
+    "Vilka referenser väger?",
+    "Vilken leveransmodell?",
+    "Hur jämför vi rättvist?",
+  ],
+  7: [
+    "Samsyn finns internt",
+    "Budget och riktning klar",
+    "Beslutet ska hålla över tid",
+    "Förvaltningsmodellen klar",
+    "Avtal och risker balanserade",
+    "Internt stöd för förändringen",
+  ],
 };
 
 const PHASE_LABEL_SHORT: Record<Phase, string> = {
@@ -331,13 +380,13 @@ const BuyerJourneyStages = () => {
                   type="button"
                   onClick={() => selectStageFromMap(stage.id)}
                   aria-pressed={isActive}
-                  className={`group relative rounded-xl border bg-white p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
+                  className={`group relative flex flex-col rounded-xl border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
                     isActive
                       ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
                       : "border-[#E5E5E8] hover:border-[#E5006D]"
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-3">
+                  <div className="flex justify-center mb-2">
                     <span
                       className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-xs font-bold ${
                         isActive
@@ -347,18 +396,22 @@ const BuyerJourneyStages = () => {
                     >
                       {stage.id}
                     </span>
+                  </div>
+                  <div className="flex justify-center mb-2">
                     <stage.Icon
-                      className={`w-4 h-4 ${isActive ? "text-[#E5006D]" : "text-[#5A5A66]"}`}
+                      className={`w-5 h-5 ${isActive ? "text-[#E5006D]" : "text-[#5A5A66]"}`}
                     />
                   </div>
-                  <div className="text-[13px] sm:text-sm font-semibold text-[#0B0B0F] leading-snug mb-2">
+                  <div className="text-center text-[13px] sm:text-sm font-semibold text-[#0B0B0F] leading-snug mb-3 min-h-[2.5rem] flex items-center justify-center">
                     {SHORT_TITLES[stage.id]}
                   </div>
-                  <ul className="space-y-1 text-[11.5px] sm:text-xs text-[#5A5A66] leading-snug">
-                    {STAGE_BULLETS[stage.id].slice(0, 3).map((b) => (
-                      <li key={b}>• {b}</li>
-                    ))}
-                  </ul>
+                  <div className="border-t border-[#E5E5E8] pt-3">
+                    <ul className="space-y-1.5 text-[11.5px] sm:text-xs text-[#5A5A66] leading-snug">
+                      {STAGE_BULLETS[stage.id].map((b) => (
+                        <li key={b}>• {b}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </button>
               );
             })}
@@ -366,6 +419,7 @@ const BuyerJourneyStages = () => {
         </div>
 
         {/* Quiz / Result */}
+
         <div ref={quizRef} className="mb-16 md:mb-20 scroll-mt-24">
           {!resultStage && null}
 
