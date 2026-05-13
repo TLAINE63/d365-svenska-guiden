@@ -206,14 +206,48 @@ const OptionCard = ({
 const phaseFor = (id: number): Phase =>
   id <= 2 ? "TIDIGA SIGNALER" : id <= 5 ? "BEHOVET AKTIVERAS" : "PARTNERVAL";
 
+const SHORT_TITLES: Record<number, string> = {
+  1: "Ser inget akut problem",
+  2: "Känner friktion",
+  3: "Trigger event",
+  4: "Vill förstå behovet",
+  5: "Utforskar alternativ",
+  6: "Jämför partners",
+  7: "Redo att välja",
+};
+
+const STAGE_BULLETS: Record<number, string[]> = {
+  1: ["Verksamheten rullar stabilt", "Inga budgetsamtal om systemstöd", "Söker inspiration i webinar"],
+  2: ["Manuellt arbete växer", "Excel kringgår systemet", "Kundbilden är spridd"],
+  3: ["Förvärv eller ny ägare", "Version eller licensändring", "Compliance driver beslut", "Tidsfönstret är ofta snävt"],
+  4: ["System, process eller data?", "Vad behöver förändras?", "Vilka funktioner berörs?"],
+  5: ["Uppgradera eller byta?", "En plattform eller flera?", "Balans mellan risk och tempo"],
+  6: ["Vilka kan vår bransch?", "Vilka referenser väger?", "Hur jämför vi rättvist?"],
+  7: ["Samsyn finns internt", "Budget och riktning klar", "Beslutet ska hålla över tid"],
+};
+
+const PHASE_LABEL_SHORT: Record<Phase, string> = {
+  "TIDIGA SIGNALER": "TIDIGA SIGNALER",
+  "BEHOVET AKTIVERAS": "BEHOVET AKTIVERAS",
+  PARTNERVAL: "PRODUKT & PARTNERVAL",
+};
+
 const BuyerJourneyStages = () => {
   const [step, setStep] = useState<1 | 2>(1);
   const [result, setResult] = useState<number | null>(null);
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
   const overviewRef = useRef<HTMLDivElement | null>(null);
+  const quizRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToOverview = () => {
     overviewRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const selectStageFromMap = (id: number) => {
+    setResult(id);
+    setTimeout(() => {
+      quizRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
   };
 
   const reset = () => {
@@ -252,8 +286,88 @@ const BuyerJourneyStages = () => {
           </button>
         </header>
 
+        {/* Klickbar köpresekarta */}
+        <div className="mb-12 md:mb-16">
+          <div className="mb-5 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+            <div>
+              <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#0B0B0F] mb-1">
+                Den typiska upphandlingsresan
+              </h3>
+              <p className="text-sm text-[#5A5A66]">
+                Klicka på det stadie ni känner igen er i — så öppnas detaljerna och nästa steg.
+              </p>
+            </div>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+              Eller svara på två frågor nedan ↓
+            </span>
+          </div>
+
+          <div className="hidden md:grid grid-cols-7 gap-3 mb-2 px-1">
+            <div className="col-span-2 text-center">
+              <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+                {PHASE_LABEL_SHORT["TIDIGA SIGNALER"]}
+              </span>
+              <div className="mt-1 h-px bg-[#E5E5E8]" />
+            </div>
+            <div className="col-span-3 text-center">
+              <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+                {PHASE_LABEL_SHORT["BEHOVET AKTIVERAS"]}
+              </span>
+              <div className="mt-1 h-px bg-[#E5E5E8]" />
+            </div>
+            <div className="col-span-2 text-center">
+              <span className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66]">
+                {PHASE_LABEL_SHORT["PARTNERVAL"]}
+              </span>
+              <div className="mt-1 h-px bg-[#E5E5E8]" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
+            {STAGES.map((stage) => {
+              const isActive = result === stage.id;
+              return (
+                <button
+                  key={stage.id}
+                  type="button"
+                  onClick={() => selectStageFromMap(stage.id)}
+                  aria-pressed={isActive}
+                  className={`group relative rounded-xl border bg-white p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
+                    isActive
+                      ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
+                      : "border-[#E5E5E8] hover:border-[#E5006D]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <span
+                      className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-xs font-bold ${
+                        isActive
+                          ? "border-[#E5006D] bg-[#E5006D] text-white"
+                          : "border-[#E5006D] text-[#E5006D] group-hover:bg-[#E5006D] group-hover:text-white"
+                      }`}
+                    >
+                      {stage.id}
+                    </span>
+                    <stage.Icon
+                      className={`w-4 h-4 ${isActive ? "text-[#E5006D]" : "text-[#5A5A66]"}`}
+                    />
+                  </div>
+                  <div className="text-[13px] sm:text-sm font-semibold text-[#0B0B0F] leading-snug mb-2">
+                    {SHORT_TITLES[stage.id]}
+                  </div>
+                  <ul className="space-y-1 text-[11.5px] sm:text-xs text-[#5A5A66] leading-snug">
+                    {STAGE_BULLETS[stage.id].slice(0, 3).map((b) => (
+                      <li key={b}>• {b}</li>
+                    ))}
+                  </ul>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Quiz / Result */}
-        <div className="mb-16 md:mb-20">
+        <div ref={quizRef} className="mb-16 md:mb-20 scroll-mt-24">
           {!resultStage && (
             <div
               key={`step-${step}`}
