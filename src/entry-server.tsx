@@ -60,6 +60,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/valj-partner', priority: '1.0', changefreq: 'weekly' },
   { path: '/erp', priority: '0.9', changefreq: 'monthly' },
   { path: '/affarssystem', priority: '0.9', changefreq: 'monthly' },
+  { path: '/affarssystem/partners', priority: '0.9', changefreq: 'weekly' },
   { path: '/business-central', priority: '0.9', changefreq: 'monthly' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
