@@ -23,6 +23,7 @@ const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
 const Affarssystem = lazy(() => import("./pages/Affarssystem"));
+const AffarssystemPartners = lazy(() => import("./pages/AffarssystemPartners"));
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Agents = lazy(() => import("./pages/Agents"));
 const AIOverview = lazy(() => import("./pages/AIOverview"));
