@@ -737,6 +737,7 @@ export type Database = {
           authority_score: number | null
           backlinks: number | null
           created_at: string
+          domain: string
           id: string
           month: string
           notes: string | null
@@ -751,6 +752,7 @@ export type Database = {
           authority_score?: number | null
           backlinks?: number | null
           created_at?: string
+          domain?: string
           id?: string
           month: string
           notes?: string | null
@@ -765,6 +767,7 @@ export type Database = {
           authority_score?: number | null
           backlinks?: number | null
           created_at?: string
+          domain?: string
           id?: string
           month?: string
           notes?: string | null
