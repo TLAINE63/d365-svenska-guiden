@@ -515,9 +515,11 @@ const Branschlosningar = () => {
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
-                        {primaryFilter === "bc" ? "Business Central" : primaryFilter === "fsc" ? "Finance & SCM" : primaryFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
-                      </Badge>
+                      {selectedFilters.map((f) => (
+                        <Badge key={f} className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
+                          {productShortLabelFor(f)}
+                        </Badge>
+                      ))}
                       {selectedIndustry && (
                         <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
                           {selectedIndustry.name}
