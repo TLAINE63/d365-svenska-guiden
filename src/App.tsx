@@ -22,6 +22,7 @@ const CRM = lazy(() => import("./pages/CRM"));
 const BusinessCentral = lazy(() => import("./pages/BusinessCentral"));
 const FinanceSupplyChain = lazy(() => import("./pages/FinanceSupplyChain"));
 const ERPOverview = lazy(() => import("./pages/ERPOverview"));
+const Affarssystem = lazy(() => import("./pages/Affarssystem"));
 const Copilot = lazy(() => import("./pages/Copilot"));
 const Agents = lazy(() => import("./pages/Agents"));
 const AIOverview = lazy(() => import("./pages/AIOverview"));
@@ -86,6 +87,7 @@ const AppShell = () => {
           <Route path="/business-central" element={<BusinessCentral />} />
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/erp" element={<ERPOverview />} />
+          <Route path="/affarssystem" element={<Affarssystem />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/ai-oversikt" element={<AIOverview />} />
