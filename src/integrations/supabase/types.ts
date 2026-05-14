@@ -732,6 +732,51 @@ export type Database = {
         }
         Relationships: []
       }
+      semrush_monthly_stats: {
+        Row: {
+          authority_score: number | null
+          backlinks: number | null
+          created_at: string
+          id: string
+          month: string
+          notes: string | null
+          organic_keywords: number | null
+          organic_traffic: number | null
+          referring_domains: number | null
+          top_keywords: Json | null
+          top_pages: Json | null
+          updated_at: string
+        }
+        Insert: {
+          authority_score?: number | null
+          backlinks?: number | null
+          created_at?: string
+          id?: string
+          month: string
+          notes?: string | null
+          organic_keywords?: number | null
+          organic_traffic?: number | null
+          referring_domains?: number | null
+          top_keywords?: Json | null
+          top_pages?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          authority_score?: number | null
+          backlinks?: number | null
+          created_at?: string
+          id?: string
+          month?: string
+          notes?: string | null
+          organic_keywords?: number | null
+          organic_traffic?: number | null
+          referring_domains?: number | null
+          top_keywords?: Json | null
+          top_pages?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       seo_keyword_rankings: {
         Row: {
           clicks: number | null
