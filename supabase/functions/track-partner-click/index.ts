@@ -103,6 +103,10 @@ interface PartnerClickRequest {
   filterContext?: FilterContext;
 }
 
+function isProductionOrigin(origin: string): boolean {
+  return origin === "https://d365.se" || origin === "https://www.d365.se";
+}
+
 const handler = async (req: Request): Promise<Response> => {
   const corsHeaders = getCorsHeaders(req);
   
@@ -112,6 +116,17 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Only count partner clicks from the public production site (d365.se).
+    // Preview/staging clicks are dropped so admin statistics and lead
+    // notifications always reflect real activity on d365.se.
+    const reqOrigin = req.headers.get("origin") || "";
+    if (!isProductionOrigin(reqOrigin)) {
+      return new Response(
+        JSON.stringify({ success: true, filtered: "non_production_origin" }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
 // Get client IP for rate limiting and anonymized tracking
     const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
                      req.headers.get("cf-connecting-ip") || 

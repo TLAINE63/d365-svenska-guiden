@@ -1792,6 +1792,10 @@ Thomas`,
         </div>
 
         <div className="container mx-auto px-4 py-8">
+        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-sm text-amber-100">
+          <span className="font-medium">All statistik utgår från d365.se</span>
+          <span className="text-amber-200/70">– trafik från preview/staging spåras inte och syns inte i siffrorna.</span>
+        </div>
         <Tabs defaultValue="leads" className="space-y-4">
           <TabsList className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded-2xl border border-slate-700/50 shadow-lg [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
             <TabsTrigger value="leads" className="flex items-center gap-2">

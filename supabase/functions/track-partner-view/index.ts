@@ -42,6 +42,10 @@ function anonymizeIp(ip: string): string {
   return "unknown";
 }
 
+function isProductionOrigin(origin: string | null): boolean {
+  return origin === "https://d365.se" || origin === "https://www.d365.se";
+}
+
 Deno.serve(async (req) => {
   const corsHeaders = getCorsHeaders(req);
 
@@ -50,6 +54,15 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Only count traffic from production (d365.se). Preview/staging is ignored
+    // so that admin statistics always reflect the public site.
+    if (!isProductionOrigin(req.headers.get("origin"))) {
+      return new Response(
+        JSON.stringify({ success: true, filtered: "non_production_origin" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const userAgent = req.headers.get("user-agent");
     if (isBot(userAgent)) {
       return new Response(JSON.stringify({ success: true, filtered: "bot" }), {
