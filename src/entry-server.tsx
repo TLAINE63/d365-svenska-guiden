@@ -11,6 +11,7 @@ import CRM from './pages/CRM';
 import BusinessCentral from './pages/BusinessCentral';
 import FinanceSupplyChain from './pages/FinanceSupplyChain';
 import ERPOverview from './pages/ERPOverview';
+import Affarssystem from './pages/Affarssystem';
 import Copilot from './pages/Copilot';
 import Agents from './pages/Agents';
 import AIOverview from './pages/AIOverview';
@@ -57,6 +58,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/', priority: '1.0', changefreq: 'weekly' },
   { path: '/valj-partner', priority: '1.0', changefreq: 'weekly' },
   { path: '/erp', priority: '0.9', changefreq: 'monthly' },
+  { path: '/affarssystem', priority: '0.9', changefreq: 'monthly' },
   { path: '/business-central', priority: '0.9', changefreq: 'monthly' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
@@ -150,6 +152,7 @@ export function render(url: string) {
               <Route path="/business-central" element={<BusinessCentral />} />
               <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
               <Route path="/erp" element={<ERPOverview />} />
+              <Route path="/affarssystem" element={<Affarssystem />} />
               <Route path="/copilot" element={<Copilot />} />
               <Route path="/agents" element={<Agents />} />
               <Route path="/ai-oversikt" element={<AIOverview />} />
