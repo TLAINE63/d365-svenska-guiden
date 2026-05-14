@@ -128,7 +128,7 @@ const AffarssystemPartners = () => {
             options={systemOptions.map((s) => ({ label: s.label, value: s.value }))}
             selectedValue={selectedSystem}
             onSelect={(v) => setSelectedSystem((v as SystemKey) || "all")}
-            colorScheme="erp"
+            REPLACEME
           />
 
           <FilterButtons
@@ -137,7 +137,7 @@ const AffarssystemPartners = () => {
             options={allIndustries.map((i) => ({ label: i, value: i }))}
             selectedValue={selectedIndustry}
             onSelect={setSelectedIndustry}
-            colorScheme="erp"
+            REPLACEME
           />
 
           <FilterButtons
@@ -146,7 +146,7 @@ const AffarssystemPartners = () => {
             options={companySizes.map((s) => ({ label: s, value: s }))}
             selectedValue={selectedSize}
             onSelect={setSelectedSize}
-            colorScheme="erp"
+            REPLACEME
           />
 
           <FilterButtons
@@ -157,7 +157,7 @@ const AffarssystemPartners = () => {
               .map((g) => ({ label: g, value: g }))}
             selectedValue={selectedGeography}
             onSelect={setSelectedGeography}
-            colorScheme="erp"
+            REPLACEME
           />
 
           {hasActiveFilter && (
@@ -207,7 +207,7 @@ const AffarssystemPartners = () => {
                       key={partner.id}
                       partner={partner}
                       profileUrl={profileUrl}
-                      colorScheme="erp"
+                      REPLACEME
                       productKey={pk}
                       highlightedProduct={productLabel(pk)}
                       highlightedIndustry={selectedIndustry || undefined}
