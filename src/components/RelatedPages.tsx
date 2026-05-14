@@ -76,7 +76,7 @@ export const erpRelatedPages: RelatedPage[] = [
 ];
 
 export const crmRelatedPages: RelatedPage[] = [
-  { title: "Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365-sales/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365-sales/" },
   { title: "Customer Service", description: "Helpdesk och ärendehantering med omnikanalstöd", href: "/d365-customer-service/" },
   { title: "Field Service", description: "Fältservicehantering med schemaläggning och mobilapp", href: "/d365-field-service/" },
   { title: "Marketing", description: "Customer Insights och marketing automation", href: "/d365-marketing/" },
@@ -113,7 +113,7 @@ export const fieldServiceRelatedPages: RelatedPage[] = [
 
 export const marketingRelatedPages: RelatedPage[] = [
   { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
-  { title: "Dynamics 365 Sales", description: "CRM för säljteam med Copilot AI", href: "/d365-sales/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam med Copilot AI", href: "/d365-sales/" },
   { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365-customer-service/" },
   { title: "Copilot AI", description: "AI-driven marketing automation med Copilot", href: "/copilot/" },
   { title: "Behovsanalys Sälj & Marknad", description: "Kostnadsfri behovsanalys", href: "/salj-marknad-behovsanalys/" },
@@ -131,7 +131,7 @@ export const contactCenterRelatedPages: RelatedPage[] = [
 
 export const copilotRelatedPages: RelatedPage[] = [
   { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/business-central/" },
-  { title: "Dynamics 365 Sales", description: "Copilot för säljare – mötessammanfattningar och e-post", href: "/d365-sales/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare – mötessammanfattningar och e-post", href: "/d365-sales/" },
   { title: "Customer Service", description: "Copilot för kundservice – ärendehantering och svar", href: "/d365-customer-service/" },
   { title: "AI-agenter", description: "Autonoma AI-agenter i Dynamics 365", href: "/agents/" },
   { title: "AI-översikt", description: "AI med Copilot och Agenter – strategisk guide", href: "/ai-oversikt/" },
@@ -151,5 +151,17 @@ export const aiOverviewRelatedPages: RelatedPage[] = [
   { title: "AI-agenter", description: "Autonoma AI-agenter för automatiserade arbetsflöden", href: "/agents/" },
   { title: "AI Readiness", description: "Bedöm din organisations AI-mognad", href: "/ai-readiness/" },
   { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/business-central/" },
-  { title: "Dynamics 365 Sales", description: "Copilot för säljare", href: "/d365-sales/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare", href: "/d365-sales/" },
+];
+
+// Homepage hub: strengthens "Microsoft Dynamics 365" / "MS Dynamics 365" topical authority
+export const indexRelatedPages: RelatedPage[] = [
+  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365-sales/" },
+  { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/business-central/" },
+  { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365-customer-service/" },
+  { title: "Microsoft Dynamics 365 Finance & SCM", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
+  { title: "MS Dynamics 365 CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
+  { title: "MS Dynamics 365 ERP-översikt", description: "Jämför Business Central och Finance & SCM", href: "/erp/" },
+  { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
+  { title: "Branschlösningar för Dynamics 365", description: "Tillverkning, handel, service och fler branscher", href: "/branschlosningar/" },
 ];
