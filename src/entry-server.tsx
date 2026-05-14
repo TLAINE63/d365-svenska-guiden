@@ -60,7 +60,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/valj-partner', priority: '1.0', changefreq: 'weekly' },
   { path: '/erp', priority: '0.9', changefreq: 'monthly' },
   { path: '/affarssystem', priority: '0.9', changefreq: 'monthly' },
-  { path: '/affarssystem/partners', priority: '0.9', changefreq: 'weekly' },
+  
   { path: '/business-central', priority: '0.9', changefreq: 'monthly' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
@@ -155,7 +155,7 @@ export function render(url: string) {
               <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
               <Route path="/erp" element={<ERPOverview />} />
               <Route path="/affarssystem" element={<Affarssystem />} />
-              <Route path="/affarssystem/partners" element={<AffarssystemPartners />} />
+              
               <Route path="/copilot" element={<Copilot />} />
               <Route path="/agents" element={<Agents />} />
               <Route path="/ai-oversikt" element={<AIOverview />} />
