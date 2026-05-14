@@ -93,6 +93,7 @@ import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
+import AdminSemrushTab from "@/components/AdminSemrushTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
