@@ -154,15 +154,39 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
   }
 };
 
+type ProductKey = Exclude<ProductFilter, null>;
+
 const Branschlosningar = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { data: dbPartners, isLoading } = usePartners();
-  const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
+  const [selectedFilters, setSelectedFilters] = useState<ProductKey[]>([]);
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
   const [noPartnerDialogOpen, setNoPartnerDialogOpen] = useState(false);
   const [clickedIndustryName, setClickedIndustryName] = useState<string>("");
+
+  const hasFilter = selectedFilters.length > 0;
+  const primaryFilter: ProductKey | null = selectedFilters[0] ?? null;
+
+  const toggleFilter = (value: ProductKey) => {
+    setSelectedFilters((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+    setSelectedIndustry(null);
+  };
+
+  const productLabelFor = (value: ProductKey): string =>
+    filterOptions.find((o) => o.value === value)?.label || "";
+
+  const productShortLabelFor = (value: ProductKey): string => {
+    switch (value) {
+      case "bc": return "Business Central";
+      case "fsc": return "Finance & SCM";
+      case "crm-sales": return "CRM Sales";
+      case "crm-service": return "CRM Service";
+    }
+  };
 
   // Filter to only show featured partners
   const partners = useMemo(() => {
@@ -173,101 +197,83 @@ const Branschlosningar = () => {
   const buildPartnerProfileUrl = (partnerSlug: string) => {
     const baseUrl = `/partner/${partnerSlug}`;
     const params = new URLSearchParams();
-    
-    // Pass the selected product
-    if (selectedFilter) {
-      const appName = selectedFilter === "bc" ? "Business Central" : 
-                      selectedFilter === "fsc" ? "Finance & SCM" : 
-                      selectedFilter === "crm-sales" ? "CRM Sales" : 
-                      selectedFilter === "crm-service" ? "CRM Service" : "";
-      if (appName) params.set("product", appName);
+    if (primaryFilter) {
+      params.set("product", productShortLabelFor(primaryFilter));
     }
-    // Pass the selected industry
     if (selectedIndustry) {
       params.set("industry", selectedIndustry.name);
     }
-    
     return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
   };
 
   // Helper to get product key from filter
-  const getProductKey = (filter: ProductFilter): 'bc' | 'fsc' | 'sales' | 'service' | null => {
+  const getProductKey = (filter: ProductKey): 'bc' | 'fsc' | 'sales' | 'service' => {
     switch (filter) {
       case "bc": return 'bc';
       case "fsc": return 'fsc';
       case "crm-sales": return 'sales';
       case "crm-service": return 'service';
-      default: return null;
     }
   };
 
-  // Calculate which industries have partners for the selected product
+  // Calculate which industries have partners across ALL selected products (union)
   const industriesWithPartners = useMemo(() => {
-    if (!selectedFilter) return new Set<string>();
-    
-    const productKey = getProductKey(selectedFilter);
-    if (!productKey) return new Set<string>();
-    
+    if (!hasFilter) return new Set<string>();
     const industriesSet = new Set<string>();
+    const keys = selectedFilters.map(getProductKey);
     partners.forEach(partner => {
-      const productFilter = partner.product_filters?.[productKey];
-      if (productFilter?.industries) {
-        productFilter.industries.forEach((ind: string) => industriesSet.add(ind));
-      }
+      keys.forEach(productKey => {
+        const productFilter = partner.product_filters?.[productKey];
+        productFilter?.industries?.forEach((ind: string) => industriesSet.add(ind));
+      });
     });
     return industriesSet;
-  }, [selectedFilter, partners]);
+  }, [selectedFilters, partners, hasFilter]);
 
   // Show all industries regardless of selected filter
   const displayedIndustries = industries;
 
-  // Filter partners based on selected product and industry - only show featured partners
+  // Filter partners – match if partner has ANY of the selected products in this industry
   const filteredPartners = useMemo(() => {
-    if (!selectedIndustry) return [];
-    
-    const productKey = getProductKey(selectedFilter);
-    if (!productKey) return [];
-    
-    // Get selected industry name
+    if (!selectedIndustry || !hasFilter) return [];
     const industryName = selectedIndustry.partnerIndustries[0];
-    
-    // Filter to only show featured partners with matching product_filters
+    const keys = selectedFilters.map(getProductKey);
+
     return partners
-      .filter(partner => {
-        const productFilter = partner.product_filters?.[productKey];
-        if (!productFilter) return false;
-        return productFilter.industries?.includes(industryName);
-      })
+      .filter(partner =>
+        keys.some(productKey => {
+          const pf = partner.product_filters?.[productKey];
+          return pf?.industries?.includes(industryName);
+        })
+      )
       .sort((a, b) => {
-        const rankA = a.product_filters?.[productKey]?.ranking ?? 999;
-        const rankB = b.product_filters?.[productKey]?.ranking ?? 999;
+        const rankA = Math.min(
+          ...keys.map(k => a.product_filters?.[k]?.ranking ?? 999)
+        );
+        const rankB = Math.min(
+          ...keys.map(k => b.product_filters?.[k]?.ranking ?? 999)
+        );
         if (rankA !== rankB) return rankA - rankB;
         return (a.name || '').localeCompare(b.name || '', 'sv');
       });
-  }, [selectedFilter, selectedIndustry, partners]);
+  }, [selectedFilters, selectedIndustry, partners, hasFilter]);
 
   const handleIndustryClick = (industry: Industry) => {
-    if (!selectedFilter) {
-      // Show helpful message when user clicks industry without selecting product first
+    if (!hasFilter) {
       toast({
         title: "Välj lösning först",
-        description: "Klicka på en av Dynamics 365-lösningarna ovan för att se partners med rätt kompetens inom din bransch.",
+        description: "Klicka på en eller flera Dynamics 365-lösningar ovan för att se partners med rätt kompetens inom din bransch.",
         duration: 5000,
       });
-      // Scroll to top to make product buttons visible
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    
-    // Check if this industry has partners for the selected product
     const industryName = industry.partnerIndustries[0];
     if (!industriesWithPartners.has(industryName)) {
-      // Show dialog when no partners for this industry/product combination
       setClickedIndustryName(industry.name);
       setNoPartnerDialogOpen(true);
       return;
     }
-    
     setSelectedIndustry(industry);
   };
 
@@ -276,9 +282,11 @@ const Branschlosningar = () => {
   };
 
   const getProductLabel = () => {
-    const option = filterOptions.find(o => o.value === selectedFilter);
-    return option?.label || "";
+    if (selectedFilters.length === 0) return "";
+    if (selectedFilters.length === 1) return productLabelFor(selectedFilters[0]);
+    return selectedFilters.map(productShortLabelFor).join(" + ");
   };
+
 
   if (isLoading) {
     return (
@@ -319,19 +327,19 @@ const Branschlosningar = () => {
           </p>
 
           {/* Step indicator - only show before solution is selected */}
-          {!selectedIndustry && !selectedFilter && (
+          {!selectedIndustry && !hasFilter && (
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mb-4">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 text-sm border-cta-orange bg-cta-orange/10 text-cta-orange font-medium">
                 <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
                   1
                 </span>
-                <span>Börja med att välja Dynamics 365-lösning</span>
+                <span>Börja med att välja en eller flera Dynamics 365-lösningar</span>
               </div>
             </div>
           )}
 
           {/* Blinking arrow pointing to product selection */}
-          {!selectedFilter && !selectedIndustry && (
+          {!hasFilter && !selectedIndustry && (
             <div className="flex justify-center mb-2">
               <ArrowDown className="h-6 w-6 text-cta-orange animate-bounce" />
             </div>
@@ -342,11 +350,11 @@ const Branschlosningar = () => {
               <button
                 key={option.value}
                 onClick={() => {
-                  setSelectedFilter(option.value);
+                  toggleFilter(option.value);
                   setSelectedIndustry(null);
                 }}
                 className={`group w-full text-xs sm:text-sm font-semibold px-3 sm:px-4 py-3 sm:py-4 min-h-[56px] rounded-xl transition-all duration-300 flex items-center justify-center gap-2 ${
-                  selectedFilter === option.value 
+                  selectedFilters.includes(option.value) 
                     ? option.value === "bc" 
                       ? "bg-gradient-to-br from-business-central to-business-central/80 text-white shadow-lg shadow-business-central/25 scale-[1.02]"
                       : option.value === "fsc"
@@ -354,21 +362,21 @@ const Branschlosningar = () => {
                         : "bg-gradient-to-br from-crm to-crm/80 text-white shadow-lg shadow-crm/25 scale-[1.02]"
                     : "bg-card border border-border/50 hover:border-border shadow-sm hover:shadow-md"
                 } ${
-                  option.value === "bc" && selectedFilter !== option.value 
+                  option.value === "bc" && !selectedFilters.includes(option.value) 
                     ? "hover:bg-business-central/5 hover:border-business-central/30" 
                     : ""
                 } ${
-                  option.value === "fsc" && selectedFilter !== option.value 
+                  option.value === "fsc" && !selectedFilters.includes(option.value) 
                     ? "hover:bg-finance-supply/5 hover:border-finance-supply/30" 
                     : ""
                 } ${
-                  (option.value === "crm-sales" || option.value === "crm-service") && selectedFilter !== option.value 
+                  (option.value === "crm-sales" || option.value === "crm-service") && !selectedFilters.includes(option.value) 
                     ? "hover:bg-crm/5 hover:border-crm/30" 
                     : ""
                 }`}
               >
                 <div className={`flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-300 ${
-                  selectedFilter === option.value 
+                  selectedFilters.includes(option.value) 
                     ? "bg-white/20" 
                     : option.value === "bc" 
                       ? "bg-business-central/10 group-hover:bg-business-central/20"
@@ -378,7 +386,7 @@ const Branschlosningar = () => {
                 }`}>
                   <img src={option.icon} alt="" aria-hidden="true" className="h-5 w-5" />
                 </div>
-                <span className={selectedFilter !== option.value 
+                <span className={!selectedFilters.includes(option.value) 
                   ? option.value === "bc" 
                     ? "text-business-central" 
                     : option.value === "fsc" 
@@ -393,7 +401,7 @@ const Branschlosningar = () => {
           </div>
 
           {/* Step 2 indicator - shown after solution is selected */}
-          {selectedFilter && !selectedIndustry && (
+          {hasFilter && !selectedIndustry && (
             <>
               <div className="flex justify-center mt-4">
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-cta-orange bg-cta-orange/10 text-cta-orange font-medium text-sm">
@@ -445,16 +453,16 @@ const Branschlosningar = () => {
                 {filteredPartners.map((partner) => {
                   // Determine product key for PartnerCard
                   const productKey: 'bc' | 'fsc' | 'crm' | null = 
-                    selectedFilter === 'bc' ? 'bc' : 
-                    selectedFilter === 'fsc' ? 'fsc' : 
-                    (selectedFilter === 'crm-sales' || selectedFilter === 'crm-service') ? 'crm' : null;
+                    primaryFilter === 'bc' ? 'bc' : 
+                    primaryFilter === 'fsc' ? 'fsc' : 
+                    (primaryFilter === 'crm-sales' || primaryFilter === 'crm-service') ? 'crm' : null;
                   
                   return (
                     <PartnerCard
                       key={partner.slug}
                       partner={partner}
                       profileUrl={buildPartnerProfileUrl(partner.slug)}
-                      colorScheme={selectedFilter === 'bc' ? 'primary' : selectedFilter === 'fsc' ? 'primary' : 'crm'}
+                      colorScheme={primaryFilter === 'bc' ? 'primary' : primaryFilter === 'fsc' ? 'primary' : 'crm'}
                       productKey={productKey}
                       highlightedProduct={getProductLabel()}
                       highlightedIndustry={selectedIndustry?.name}
@@ -507,9 +515,11 @@ const Branschlosningar = () => {
                       Din sökning
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      <Badge className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
-                        {selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
-                      </Badge>
+                      {selectedFilters.map((f) => (
+                        <Badge key={f} className="bg-primary/40 text-white border-primary/50 py-1.5 px-3 backdrop-blur-sm">
+                          {productShortLabelFor(f)}
+                        </Badge>
+                      ))}
                       {selectedIndustry && (
                         <Badge className="bg-white/15 text-white border-white/25 py-1.5 px-3 backdrop-blur-sm">
                           {selectedIndustry.name}
@@ -522,7 +532,7 @@ const Branschlosningar = () => {
                     sourcePage="branschlosningar"
                     variant="inline" 
                     selectedIndustry={selectedIndustry?.name}
-                    selectedProduct={selectedFilter === "bc" ? "Business Central" : selectedFilter === "fsc" ? "Finance & SCM" : selectedFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
+                    selectedProduct={primaryFilter === "bc" ? "Business Central" : primaryFilter === "fsc" ? "Finance & SCM" : primaryFilter === "crm-sales" ? "CRM Sales" : "CRM Service"}
                   />
                 </div>
               </article>
@@ -536,15 +546,15 @@ const Branschlosningar = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
               {displayedIndustries.map((industry) => {
                 const industryName = industry.partnerIndustries[0];
-                const hasPartners = !selectedFilter || industriesWithPartners.has(industryName);
-                const isClickable = !selectedFilter || hasPartners;
+                const hasPartners = !hasFilter || industriesWithPartners.has(industryName);
+                const isClickable = !hasFilter || hasPartners;
                 
                   return (
                     <button
                       key={industry.slug}
                       onClick={() => handleIndustryClick(industry)}
                       className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
-                        !selectedFilter 
+                        !hasFilter 
                           ? "cursor-pointer opacity-70 hover:opacity-90"
                           : hasPartners
                             ? "cursor-pointer hover:scale-105 hover:shadow-xl ring-2 ring-primary/50"
@@ -563,7 +573,7 @@ const Branschlosningar = () => {
                         {industry.name}
                       </h3>
                     </div>
-                    {selectedFilter && hasPartners && (
+                    {hasFilter && hasPartners && (
                       <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300" />
                     )}
                   </button>
