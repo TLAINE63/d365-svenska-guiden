@@ -553,7 +553,7 @@ const Branschlosningar = () => {
                     <button
                       key={industry.slug}
                       onClick={() => handleIndustryClick(industry)}
-                      className={`group relative overflow-hidden rounded-xl aspect-square transition-all duration-300 ${
+                      className={`group relative overflow-hidden rounded-lg aspect-[4/3] transition-all duration-300 ${
                         !hasFilter 
                           ? "cursor-pointer opacity-70 hover:opacity-90"
                           : hasPartners
@@ -568,8 +568,8 @@ const Branschlosningar = () => {
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3">
-                      <h3 className="text-white font-semibold text-xs sm:text-sm leading-tight">
+                    <div className="absolute bottom-0 left-0 right-0 p-1.5 sm:p-2">
+                      <h3 className="text-white font-semibold text-[11px] sm:text-xs leading-tight">
                         {industry.name}
                       </h3>
                     </div>
