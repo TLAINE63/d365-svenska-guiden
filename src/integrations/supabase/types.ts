@@ -732,6 +732,51 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_keyword_rankings: {
+        Row: {
+          clicks: number | null
+          created_at: string
+          ctr: number | null
+          id: string
+          impressions: number | null
+          index_status: string
+          keyword: string
+          month: string
+          notes: string | null
+          position: number | null
+          target_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          clicks?: number | null
+          created_at?: string
+          ctr?: number | null
+          id?: string
+          impressions?: number | null
+          index_status?: string
+          keyword: string
+          month: string
+          notes?: string | null
+          position?: number | null
+          target_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          clicks?: number | null
+          created_at?: string
+          ctr?: number | null
+          id?: string
+          impressions?: number | null
+          index_status?: string
+          keyword?: string
+          month?: string
+          notes?: string | null
+          position?: number | null
+          target_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string
