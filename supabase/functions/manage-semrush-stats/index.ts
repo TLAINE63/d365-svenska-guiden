@@ -84,12 +84,59 @@ serve(async (req) => {
     const action = url.searchParams.get("action") || "list";
 
     if (action === "list" && req.method === "GET") {
-      const { data, error } = await supabase
+      const domainFilter = url.searchParams.get("domain");
+      let query = supabase
         .from("semrush_monthly_stats")
         .select("*")
         .order("month", { ascending: false });
+      if (domainFilter) query = query.eq("domain", domainFilter);
+      const { data, error } = await query;
       if (error) throw error;
       return json({ stats: data || [] }, 200, corsHeaders);
+    }
+
+    if (action === "compare" && req.method === "GET") {
+      // Returnera tidsserier för en eller flera domäner (kronologiskt).
+      const domainsParam = url.searchParams.get("domains") || "d365.se,businesswith.se";
+      const months = Math.max(1, Math.min(36, Number(url.searchParams.get("months") || "12")));
+      const domains = domainsParam.split(",").map((d) => d.trim()).filter(Boolean);
+
+      const since = new Date();
+      since.setUTCDate(1);
+      since.setUTCMonth(since.getUTCMonth() - (months - 1));
+      since.setUTCHours(0, 0, 0, 0);
+
+      const { data, error } = await supabase
+        .from("semrush_monthly_stats")
+        .select("domain, month, organic_traffic, organic_keywords, authority_score, backlinks, referring_domains")
+        .in("domain", domains)
+        .gte("month", since.toISOString().slice(0, 10))
+        .order("month", { ascending: true });
+      if (error) throw error;
+
+      // Bygg månadslista
+      const monthsList: string[] = [];
+      const cursor = new Date(since);
+      for (let i = 0; i < months; i++) {
+        monthsList.push(cursor.toISOString().slice(0, 7));
+        cursor.setUTCMonth(cursor.getUTCMonth() + 1);
+      }
+
+      // Map: month-key -> { month, [domain]_metric }
+      const byMonth: Record<string, Record<string, unknown>> = {};
+      for (const m of monthsList) byMonth[m] = { month: m };
+      for (const row of data || []) {
+        const m = (row.month as string).slice(0, 7);
+        if (!byMonth[m]) continue;
+        const d = row.domain as string;
+        byMonth[m][`${d}__traffic`] = row.organic_traffic;
+        byMonth[m][`${d}__keywords`] = row.organic_keywords;
+        byMonth[m][`${d}__authority`] = row.authority_score;
+        byMonth[m][`${d}__backlinks`] = row.backlinks;
+        byMonth[m][`${d}__refdomains`] = row.referring_domains;
+      }
+
+      return json({ domains, months: monthsList, series: monthsList.map((m) => byMonth[m]) }, 200, corsHeaders);
     }
 
     if (action === "save" && req.method === "POST") {
@@ -97,6 +144,7 @@ serve(async (req) => {
       const { id, ...fields } = body;
       const month = normaliseMonth(fields.month || "");
       if (!month) return json({ error: "Månad krävs (YYYY-MM)" }, 400, corsHeaders);
+      const domain = (fields.domain || "d365.se").toString().toLowerCase().trim();
 
       const toNum = (v: unknown) => (v === "" || v === null || v === undefined ? null : Number(v));
       const toJson = (v: unknown) => {
@@ -108,6 +156,7 @@ serve(async (req) => {
       };
 
       const payload: Record<string, unknown> = {
+        domain,
         month,
         organic_traffic: toNum(fields.organic_traffic),
         organic_keywords: toNum(fields.organic_keywords),
@@ -128,7 +177,7 @@ serve(async (req) => {
       } else {
         const { data, error } = await supabase
           .from("semrush_monthly_stats")
-          .upsert(payload, { onConflict: "month" })
+          .upsert(payload, { onConflict: "domain,month" })
           .select().single();
         if (error) return json({ error: error.message }, 400, corsHeaders);
         result = data;

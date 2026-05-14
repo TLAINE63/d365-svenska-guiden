@@ -94,6 +94,7 @@ import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
+import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -1930,6 +1931,12 @@ Thomas`,
               </span>
               Semrush
             </TabsTrigger>
+            <TabsTrigger value="competitor" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/10 ring-1 ring-rose-400/20">
+                <TrendingUp className="h-3.5 w-3.5 text-rose-300" strokeWidth={1.75} />
+              </span>
+              Konkurrent
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2957,6 +2964,10 @@ Thomas`,
           {/* ==================== SEMRUSH TAB ==================== */}
           <TabsContent value="semrush">
             <AdminSemrushTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="competitor">
+            <AdminCompetitorTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
