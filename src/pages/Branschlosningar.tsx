@@ -154,15 +154,39 @@ const getApplicationsForProduct = (product: ProductFilter): string[] => {
   }
 };
 
+type ProductKey = Exclude<ProductFilter, null>;
+
 const Branschlosningar = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { data: dbPartners, isLoading } = usePartners();
-  const [selectedFilter, setSelectedFilter] = useState<ProductFilter>(null);
+  const [selectedFilters, setSelectedFilters] = useState<ProductKey[]>([]);
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [selectedIndustry, setSelectedIndustry] = useState<Industry | null>(null);
   const [noPartnerDialogOpen, setNoPartnerDialogOpen] = useState(false);
   const [clickedIndustryName, setClickedIndustryName] = useState<string>("");
+
+  const hasFilter = selectedFilters.length > 0;
+  const primaryFilter: ProductKey | null = selectedFilters[0] ?? null;
+
+  const toggleFilter = (value: ProductKey) => {
+    setSelectedFilters((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+    setSelectedIndustry(null);
+  };
+
+  const productLabelFor = (value: ProductKey): string =>
+    filterOptions.find((o) => o.value === value)?.label || "";
+
+  const productShortLabelFor = (value: ProductKey): string => {
+    switch (value) {
+      case "bc": return "Business Central";
+      case "fsc": return "Finance & SCM";
+      case "crm-sales": return "CRM Sales";
+      case "crm-service": return "CRM Service";
+    }
+  };
 
   // Filter to only show featured partners
   const partners = useMemo(() => {
@@ -173,101 +197,83 @@ const Branschlosningar = () => {
   const buildPartnerProfileUrl = (partnerSlug: string) => {
     const baseUrl = `/partner/${partnerSlug}`;
     const params = new URLSearchParams();
-    
-    // Pass the selected product
-    if (selectedFilter) {
-      const appName = selectedFilter === "bc" ? "Business Central" : 
-                      selectedFilter === "fsc" ? "Finance & SCM" : 
-                      selectedFilter === "crm-sales" ? "CRM Sales" : 
-                      selectedFilter === "crm-service" ? "CRM Service" : "";
-      if (appName) params.set("product", appName);
+    if (primaryFilter) {
+      params.set("product", productShortLabelFor(primaryFilter));
     }
-    // Pass the selected industry
     if (selectedIndustry) {
       params.set("industry", selectedIndustry.name);
     }
-    
     return params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
   };
 
   // Helper to get product key from filter
-  const getProductKey = (filter: ProductFilter): 'bc' | 'fsc' | 'sales' | 'service' | null => {
+  const getProductKey = (filter: ProductKey): 'bc' | 'fsc' | 'sales' | 'service' => {
     switch (filter) {
       case "bc": return 'bc';
       case "fsc": return 'fsc';
       case "crm-sales": return 'sales';
       case "crm-service": return 'service';
-      default: return null;
     }
   };
 
-  // Calculate which industries have partners for the selected product
+  // Calculate which industries have partners across ALL selected products (union)
   const industriesWithPartners = useMemo(() => {
-    if (!selectedFilter) return new Set<string>();
-    
-    const productKey = getProductKey(selectedFilter);
-    if (!productKey) return new Set<string>();
-    
+    if (!hasFilter) return new Set<string>();
     const industriesSet = new Set<string>();
+    const keys = selectedFilters.map(getProductKey);
     partners.forEach(partner => {
-      const productFilter = partner.product_filters?.[productKey];
-      if (productFilter?.industries) {
-        productFilter.industries.forEach((ind: string) => industriesSet.add(ind));
-      }
+      keys.forEach(productKey => {
+        const productFilter = partner.product_filters?.[productKey];
+        productFilter?.industries?.forEach((ind: string) => industriesSet.add(ind));
+      });
     });
     return industriesSet;
-  }, [selectedFilter, partners]);
+  }, [selectedFilters, partners, hasFilter]);
 
   // Show all industries regardless of selected filter
   const displayedIndustries = industries;
 
-  // Filter partners based on selected product and industry - only show featured partners
+  // Filter partners – match if partner has ANY of the selected products in this industry
   const filteredPartners = useMemo(() => {
-    if (!selectedIndustry) return [];
-    
-    const productKey = getProductKey(selectedFilter);
-    if (!productKey) return [];
-    
-    // Get selected industry name
+    if (!selectedIndustry || !hasFilter) return [];
     const industryName = selectedIndustry.partnerIndustries[0];
-    
-    // Filter to only show featured partners with matching product_filters
+    const keys = selectedFilters.map(getProductKey);
+
     return partners
-      .filter(partner => {
-        const productFilter = partner.product_filters?.[productKey];
-        if (!productFilter) return false;
-        return productFilter.industries?.includes(industryName);
-      })
+      .filter(partner =>
+        keys.some(productKey => {
+          const pf = partner.product_filters?.[productKey];
+          return pf?.industries?.includes(industryName);
+        })
+      )
       .sort((a, b) => {
-        const rankA = a.product_filters?.[productKey]?.ranking ?? 999;
-        const rankB = b.product_filters?.[productKey]?.ranking ?? 999;
+        const rankA = Math.min(
+          ...keys.map(k => a.product_filters?.[k]?.ranking ?? 999)
+        );
+        const rankB = Math.min(
+          ...keys.map(k => b.product_filters?.[k]?.ranking ?? 999)
+        );
         if (rankA !== rankB) return rankA - rankB;
         return (a.name || '').localeCompare(b.name || '', 'sv');
       });
-  }, [selectedFilter, selectedIndustry, partners]);
+  }, [selectedFilters, selectedIndustry, partners, hasFilter]);
 
   const handleIndustryClick = (industry: Industry) => {
-    if (!selectedFilter) {
-      // Show helpful message when user clicks industry without selecting product first
+    if (!hasFilter) {
       toast({
         title: "Välj lösning först",
-        description: "Klicka på en av Dynamics 365-lösningarna ovan för att se partners med rätt kompetens inom din bransch.",
+        description: "Klicka på en eller flera Dynamics 365-lösningar ovan för att se partners med rätt kompetens inom din bransch.",
         duration: 5000,
       });
-      // Scroll to top to make product buttons visible
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
-    
-    // Check if this industry has partners for the selected product
     const industryName = industry.partnerIndustries[0];
     if (!industriesWithPartners.has(industryName)) {
-      // Show dialog when no partners for this industry/product combination
       setClickedIndustryName(industry.name);
       setNoPartnerDialogOpen(true);
       return;
     }
-    
     setSelectedIndustry(industry);
   };
 
@@ -276,9 +282,11 @@ const Branschlosningar = () => {
   };
 
   const getProductLabel = () => {
-    const option = filterOptions.find(o => o.value === selectedFilter);
-    return option?.label || "";
+    if (selectedFilters.length === 0) return "";
+    if (selectedFilters.length === 1) return productLabelFor(selectedFilters[0]);
+    return selectedFilters.map(productShortLabelFor).join(" + ");
   };
+
 
   if (isLoading) {
     return (
