@@ -93,7 +93,7 @@ const AffarssystemPartners = () => {
       <SEOHead
         title="Affärssystem-partners – jämför certifierade Microsoft-partners | d365.se"
         description="Hitta rätt Business Central- eller Finance & SCM-partner. Filtrera på bransch, företagsstorlek och geografi. Neutralt och kostnadsfritt."
-        canonicalUrl="https://d365.se/affarssystem/partners/"
+        canonicalPath="/affarssystem/partners"
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <Navbar />
