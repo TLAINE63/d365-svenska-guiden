@@ -93,6 +93,7 @@ import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
+import AdminSemrushTab from "@/components/AdminSemrushTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -1919,6 +1920,12 @@ Thomas`,
               </span>
               SEO-rankning
             </TabsTrigger>
+            <TabsTrigger value="semrush" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+                <TrendingUp className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+              </span>
+              Semrush
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2941,6 +2948,11 @@ Thomas`,
           {/* ==================== SEO RANKINGS TAB ==================== */}
           <TabsContent value="seo-rankings">
             <AdminSeoRankingsTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          {/* ==================== SEMRUSH TAB ==================== */}
+          <TabsContent value="semrush">
+            <AdminSemrushTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
