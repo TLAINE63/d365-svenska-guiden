@@ -2949,6 +2949,11 @@ Thomas`,
           <TabsContent value="seo-rankings">
             <AdminSeoRankingsTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
+
+          {/* ==================== SEMRUSH TAB ==================== */}
+          <TabsContent value="semrush">
+            <AdminSemrushTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
