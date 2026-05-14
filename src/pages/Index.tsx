@@ -30,6 +30,7 @@ const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 import BuyerJourneyStages from "@/components/BuyerJourneyStages";
+import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 
 const homeFaqs = [
   {
@@ -982,6 +983,8 @@ const Index = () => {
         </Suspense>
       </div>
       <Suspense fallback={null}><LeadMagnetBanner sourcePage="index" /></Suspense>
+
+      <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
 
       </main>
 
