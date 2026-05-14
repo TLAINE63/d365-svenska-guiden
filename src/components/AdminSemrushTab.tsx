@@ -90,7 +90,7 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
     setLoading(true);
     try {
       const [r1, r2] = await Promise.all([
-        fetch(`${baseUrl}?action=list`, { headers: headers() }),
+        fetch(`${baseUrl}?action=list&domain=d365.se`, { headers: headers() }),
         fetch(`${baseUrl}?action=partner-views&months=${monthsRange}`, { headers: headers() }),
       ]);
       if (r1.status === 401 || r2.status === 401) return onSessionExpired();
@@ -130,7 +130,7 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
       const res = await fetch(`${baseUrl}?action=save`, {
         method: "POST",
         headers: headers(),
-        body: JSON.stringify({ ...editing, top_keywords: topKeywords, top_pages: topPages }),
+        body: JSON.stringify({ ...editing, domain: 'd365.se', top_keywords: topKeywords, top_pages: topPages }),
       });
       if (res.status === 401) return onSessionExpired();
       const data = await res.json();
