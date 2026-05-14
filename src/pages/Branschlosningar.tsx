@@ -333,7 +333,7 @@ const Branschlosningar = () => {
                 <span className="flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold bg-cta-orange text-white">
                   1
                 </span>
-                <span>Börja med att välja Dynamics 365-lösning</span>
+                <span>Börja med att välja en eller flera Dynamics 365-lösningar</span>
               </div>
             </div>
           )}
