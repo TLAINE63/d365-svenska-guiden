@@ -92,6 +92,7 @@ import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
+import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -1912,6 +1913,12 @@ Thomas`,
               </span>
               Månadsrapporter
             </TabsTrigger>
+            <TabsTrigger value="seo-rankings" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
+                <LineChart className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
+              </span>
+              SEO-rankning
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -2929,6 +2936,11 @@ Thomas`,
           {/* ==================== PARTNER REPORTS TAB ==================== */}
           <TabsContent value="partner-reports">
             <AdminPartnerReportsTab token={token || null} />
+          </TabsContent>
+
+          {/* ==================== SEO RANKINGS TAB ==================== */}
+          <TabsContent value="seo-rankings">
+            <AdminSeoRankingsTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
