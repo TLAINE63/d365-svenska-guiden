@@ -370,7 +370,7 @@ const Affarssystem = () => {
                   Starta behovsanalysen
                 </Button>
               </Link>
-              <Link to="/affarssystem/partners/">
+              <Link to="/branschlosningar/?product=Business+Central">
                 <Button size="lg" variant="outline" className="text-base sm:text-lg h-14 rounded-xl px-8">
                   Jämför affärssystem-partners
                   <ArrowRight className="ml-2 h-5 w-5" />
