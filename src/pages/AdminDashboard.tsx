@@ -1920,6 +1920,12 @@ Thomas`,
               </span>
               SEO-rankning
             </TabsTrigger>
+            <TabsTrigger value="semrush" className="flex items-center gap-2">
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
+                <TrendingUp className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
+              </span>
+              Semrush
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
