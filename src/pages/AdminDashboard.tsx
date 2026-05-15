@@ -248,7 +248,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
     id: "innehall",
     label: "Innehåll & Events",
     icon: CalendarDays,
-    tabs: ["events", "featured-article", "knowledge-articles"],
+    tabs: ["events", "featured-article", "knowledge-articles", "industry-pages"],
   },
   {
     id: "salj",
