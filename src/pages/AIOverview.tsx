@@ -199,6 +199,15 @@ const AIOverview = () => {
         description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
         canonicalPath="/ai-oversikt"
       />
+      <WebPageSchema
+        name="AI i Dynamics 365 – Copilot & Agenter"
+        description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
+        url="https://d365.se/ai-oversikt/"
+        breadcrumb={[
+          { name: "Hem", url: "https://d365.se/" },
+          { name: "AI-översikt", url: "https://d365.se/ai-oversikt/" },
+        ]}
+      />
       <Navbar />
       <main className="pb-16">
         {/* Hero */}
