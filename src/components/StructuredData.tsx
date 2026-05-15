@@ -279,6 +279,176 @@ export const PersonSchema = ({
   );
 };
 
+// WebPage Schema – generic page-level schema
+interface WebPageSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  inLanguage?: string;
+  primaryImageOfPage?: string;
+  datePublished?: string;
+  dateModified?: string;
+  breadcrumb?: { name: string; url: string }[];
+}
+
+export const WebPageSchema = ({
+  name,
+  description,
+  url,
+  inLanguage = "sv-SE",
+  primaryImageOfPage,
+  datePublished,
+  dateModified,
+  breadcrumb,
+}: WebPageSchemaProps) => {
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url,
+    inLanguage,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "D365 Guiden",
+      url: "https://d365.se",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Dynamic Factory",
+      url: "https://d365.se",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.d365.se/d365guide-logo.png",
+      },
+    },
+  };
+  if (primaryImageOfPage) {
+    schema.primaryImageOfPage = {
+      "@type": "ImageObject",
+      url: primaryImageOfPage.startsWith("http") ? primaryImageOfPage : `https://d365.se${primaryImageOfPage}`,
+    };
+  }
+  if (datePublished) schema.datePublished = datePublished;
+  if (dateModified) schema.dateModified = dateModified;
+  if (breadcrumb && breadcrumb.length) {
+    schema.breadcrumb = {
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumb.map((b, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: b.name,
+        item: b.url,
+      })),
+    };
+  }
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+
+// Article Schema – generic article schema
+interface ArticleSchemaProps {
+  headline: string;
+  description: string;
+  url: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  authorName?: string;
+  section?: string;
+}
+
+export const ArticleSchema = ({
+  headline,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified,
+  authorName = "D365 Guiden",
+  section,
+}: ArticleSchemaProps) => {
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    inLanguage: "sv-SE",
+    author: {
+      "@type": "Organization",
+      name: authorName,
+      url: "https://d365.se",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Dynamic Factory",
+      url: "https://d365.se",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.d365.se/d365guide-logo.png",
+      },
+    },
+  };
+  if (image) schema.image = image.startsWith("http") ? image : `https://d365.se${image}`;
+  if (datePublished) schema.datePublished = datePublished;
+  if (dateModified) schema.dateModified = dateModified;
+  else if (datePublished) schema.dateModified = datePublished;
+  if (section) schema.articleSection = section;
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+
+// Partner Organization Schema – for partner profile pages
+interface PartnerOrganizationSchemaProps {
+  name: string;
+  description?: string;
+  slug: string;
+  website?: string;
+  logoUrl?: string;
+  applications?: string[];
+}
+
+export const PartnerOrganizationSchema = ({
+  name,
+  description,
+  slug,
+  website,
+  logoUrl,
+  applications,
+}: PartnerOrganizationSchemaProps) => {
+  const profileUrl = `https://d365.se/partner/${slug}`;
+  const schema: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name,
+    url: website || profileUrl,
+    mainEntityOfPage: profileUrl,
+    areaServed: { "@type": "Country", name: "Sweden" },
+  };
+  if (description) schema.description = description;
+  if (logoUrl) schema.logo = { "@type": "ImageObject", url: logoUrl };
+  if (applications && applications.length) {
+    schema.knowsAbout = ["Microsoft Dynamics 365", ...applications];
+  }
+  if (website) schema.sameAs = [website];
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+};
+
 // Combined Advisors Schema – pre-configured for Thomas & Michael
 export const AdvisorsSchema = () => {
   const knowsAbout = [

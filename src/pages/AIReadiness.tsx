@@ -4,6 +4,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { WebPageSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -1564,6 +1565,15 @@ const AIReadiness = () => {
           title="AI Readiness Assessment – Mät AI-effekt | d365.se"
           description="Rollbaserad AI-analys: mät automation, prediktion och beslutsstöd. Få uppskattat ROI i kronor och rollspecifik roadmap."
           canonicalPath="/ai-readiness"
+        />
+        <WebPageSchema
+          name="AI Readiness Assessment – Mät AI-effekt"
+          description="Rollbaserad AI-analys: mät automation, prediktion och beslutsstöd. Få uppskattat ROI i kronor och rollspecifik roadmap."
+          url="https://d365.se/ai-readiness/"
+          breadcrumb={[
+            { name: "Hem", url: "https://d365.se/" },
+            { name: "AI Readiness", url: "https://d365.se/ai-readiness/" },
+          ]}
         />
         <Navbar />
         <main className="pb-16">

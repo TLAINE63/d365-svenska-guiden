@@ -4,6 +4,7 @@ import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { WebPageSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { COPILOT_ARTICLES } from "@/data/copilotArticles";
@@ -197,6 +198,15 @@ const AIOverview = () => {
         title="AI i Dynamics 365 – Copilot & Agenter | d365.se"
         description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
         canonicalPath="/ai-oversikt"
+      />
+      <WebPageSchema
+        name="AI i Dynamics 365 – Copilot & Agenter"
+        description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
+        url="https://d365.se/ai-oversikt/"
+        breadcrumb={[
+          { name: "Hem", url: "https://d365.se/" },
+          { name: "AI-översikt", url: "https://d365.se/ai-oversikt/" },
+        ]}
       />
       <Navbar />
       <main className="pb-16">

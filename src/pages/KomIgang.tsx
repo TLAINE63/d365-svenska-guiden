@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { WebPageSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText, Users } from "lucide-react";
 import { allIndustries } from "@/data/partners";
@@ -431,6 +432,15 @@ const KomIgang = () => {
         title="Kom igång – Hitta rätt Dynamics 365-partner | d365.se"
         description="Besvara fyra snabba frågor och få matchade partnerrekommendationer för din Dynamics 365-implementation."
         canonicalPath="/kom-igang"
+      />
+      <WebPageSchema
+        name="Kom igång – Hitta rätt Dynamics 365-partner"
+        description="Besvara fyra snabba frågor och få matchade partnerrekommendationer för din Dynamics 365-implementation."
+        url="https://d365.se/kom-igang/"
+        breadcrumb={[
+          { name: "Hem", url: "https://d365.se/" },
+          { name: "Kom igång", url: "https://d365.se/kom-igang/" },
+        ]}
       />
       <Navbar />
 

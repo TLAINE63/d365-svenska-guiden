@@ -31,6 +31,7 @@ import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
+import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
@@ -372,6 +373,21 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
         ogImage={partner.logo_url || undefined}
         ogImageAlt={`${partner.name} – Microsoft Dynamics 365 Partner`}
         ogType="website"
+      />
+      <PartnerOrganizationSchema
+        name={partner.name}
+        description={partner.description}
+        slug={partner.slug}
+        website={partner.website}
+        logoUrl={partner.logo_url || undefined}
+        applications={partner.applications || []}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Hem", url: "https://d365.se/" },
+          { name: "Välj partner", url: "https://d365.se/valj-partner/" },
+          { name: partner.name, url: `https://d365.se/partner/${partner.slug}/` },
+        ]}
       />
 
 

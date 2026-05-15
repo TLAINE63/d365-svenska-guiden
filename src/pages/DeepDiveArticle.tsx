@@ -1,6 +1,6 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, ArticleSchema } from "@/components/StructuredData";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
@@ -38,6 +38,12 @@ const DeepDiveArticle = () => {
           { name: article.product, url: `https://d365.se/kunskapscenter/${article.productSlug}/` },
           { name: article.title, url: `https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/` },
         ]}
+      />
+      <ArticleSchema
+        headline={article.title}
+        description={article.description}
+        url={`https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/`}
+        section={article.product}
       />
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
