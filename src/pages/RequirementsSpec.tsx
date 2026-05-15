@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { useLocation } from "react-router-dom";
 import heroKravspecErp from "@/assets/hero-kravspec-erp.jpg";
 import Navbar from "@/components/Navbar";
@@ -49,6 +50,17 @@ const RequirementsSpec = () => {
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
   const [step, setStep] = useState(isValidPrefill ? 2 : 1);
   const totalSteps = 4;
+
+  useEffect(() => {
+    trackFunnelEvent({ event_type: "analysis_start", event_name: "kravspec_erp" });
+  }, []);
+
+  useEffect(() => {
+    if (step === totalSteps) {
+      trackFunnelEvent({ event_type: "analysis_complete", event_name: "kravspec_erp" });
+    }
+  }, [step]);
+
 
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>("");

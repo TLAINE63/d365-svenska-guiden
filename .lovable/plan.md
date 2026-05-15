@@ -1,67 +1,91 @@
-## Mål
-Per-partner försäljningsunderlag i Admin, redo att klistras in i införsäljningsmail eller mailas till dig direkt. Endast synligt för admin.
+# Funnel-vy i Admin
 
-## Vad som byggs
+Ny flik **"Funnel"** under gruppen *Statistik* som visar var besökare faller av i konverteringskedjan, så vi kan rikta optimeringsinsatser exakt där läckaget är störst.
 
-### 1. Ny tracking: Filtreringsvisningar
-Idag loggar vi bara klick på partnerkort, profilbesök och hemsidesklick. Vi loggar INTE när en partner visas i filterresultat (på `/valj-partner`, `/branschlosningar/*`, produktsidor m.fl.). Det bygger jag nu.
+## Funnel-stegen
 
-- Ny tabell `partner_filter_exposures`: `partner_slug`, `partner_id`, `page_path`, `filter_context` (jsonb: vald produkt/bransch/storlek/geografi), `session_id`, `viewed_at`, `ip_anonymized`.
-- Ny edge function `track-filter-exposure` (service role insert, IP-mask, samma cookie-consent-regel som visitor tracking).
-- Hook `useTrackFilterExposure(visiblePartners, context)` som anropas från `ValjPartner.tsx` och andra ställen där partners listas. Debouncing: max 1 rad per session+partner+page per 24h (kollas client-side via sessionStorage först, server-side via unique constraint).
-- Exkluderar admin-trafik och partner-trafik (samma logik som befintlig visitor tracking).
+```text
+1. Besök sida              (visitor_analytics)
+2. Visat CTA/banner        (NY tracking)
+3. Klickat CTA             (NY tracking)
+4. Startat behovsanalys    (NY tracking)
+5. Slutfört behovsanalys   (NY tracking)
+6. Laddat ner PDF          (NY tracking)
+7. Skickat lead            (leads)
+8. Klickat partnerprofil   (partner_profile_views)
+9. Klickat partnerwebb     (partner_clicks)
+```
 
-### 2. Ny edge function: `partner-sales-summary`
-Tar `partnerSlug` + `adminToken`, returnerar JSON med:
-- **Sajttotaler** (30d/90d): unika besökare, sidvisningar (från `visitor_analytics`).
-- **Per-partner exponering** (30d/90d):
-  - Filtreringsvisningar (antal + topp 10 page_paths + topp filter-kontext)
-  - Klick på partnerkort (`partner_profile_views.view_type = 'card_click'`)
-  - Profilbesök (`partner_profile_views.view_type = 'profile_visit'`)
-  - Klick till partnerns hemsida (`partner_clicks`)
-- **Identifierade företag** (Snitcher, 90d): företagsnamn, bransch, storlek, antal sessioner som rört partnerns profil ELLER relaterade produkt-/branschsidor (matchas mot partnerns `applications` + `industries`).
-- **Färdig text-sammanställning** (rendrad server-side) som är klar att klistras in.
+För varje steg: antal, % av föregående steg, % av topp. Färgkodning grön/gul/röd när drop-off > tröskel.
 
-### 3. Admin UI – ny sektion på partnerredigering
-I `AdminPartnerDashboardTab` (när admin klickar upp en partner), under befintliga statistik-kortet, ny utfällbar sektion **"Försäljningsunderlag"**:
-- Visar all data ovan i läsbar layout (siffror + tabell över identifierade företag).
-- Två knappar:
-  - **Kopiera som text** (kopierar färdig formaterad text till urklipp)
-  - **Maila till mig** (skickar HTML-version till thomas.laine@dynamicfactory.se)
-- Synligt endast för admin – ingen ändring i partnerns publika profil.
+## Vyer
 
-### 4. Ny edge function: `send-sales-summary-email`
-Skickar HTML-mail med alla siffror + företagslista. Använder befintlig SES/Resend-infra. Loggar i `email_send_log`.
+- **Översikt (default)**: Sammanslagen funnel för valt datumintervall (7d / 30d / 90d / custom).
+- **Per sida-typ**: Filter för hemsida, produktsidor (BC, CRM, F&SCM…), artiklar, partner-listor. Visar att t.ex. CRM-sidan har 4% klick → analys medan BC har 12%.
+- **Per analys-verktyg**: Behovsanalys, AI-readiness, kravspec (sales/marketing/customer service) – completion rate per verktyg och per steg i wizarden.
+- **Tidsserie**: Linjediagram med konverteringsgrad steg-för-steg över tid.
+
+## Datainsamling – ny tracking som behövs
+
+Idag finns sidvisningar, partner-klick, profil-views och leads. **Det som saknas** är CTA-interaktion och analys-progression. Ny tabell `funnel_events`:
+
+```sql
+funnel_events (
+  id uuid pk,
+  session_id text,
+  event_type text,    -- 'cta_view' | 'cta_click' | 'analysis_start'
+                      -- | 'analysis_step' | 'analysis_complete'
+                      -- | 'pdf_download'
+  event_name text,    -- t.ex. 'lead_magnet_banner', 'needs_analysis', 'kravspec_sales'
+  page_path text,
+  step_number int,    -- för analysis_step
+  metadata jsonb,
+  ip_anonymized text,
+  occurred_at timestamptz
+)
+```
+
+Edge function `track-funnel-event` (service-role insert, samma mönster som `track-visitor`). Anropas via `navigator.sendBeacon` från:
+
+- `LeadMagnetBanner`, `LeadCTA`, `ScrollCTA`, `EbookBanner` – view (IntersectionObserver) + click
+- `NeedsAnalysis`, `AIReadiness`, `RequirementsSpec*` – start, varje steg, complete
+- `generatePartnerGuide`, `generateRequirementsSpec` – pdf_download
+
+## UI
+
+Ny komponent `src/components/AdminFunnelTab.tsx`:
+
+- Datumväljare + sida-typ-filter överst
+- **Funnel-stapeldiagram** (horisontell, krympande staplar) med antal + drop-off% mellan steg
+- **KPI-rad**: total konvertering, största läckage-steg, bästa sida, sämsta sida
+- **Tabell per sida**: lista alla sidor sorterade efter konverteringsgrad, klickbara för drill-down
+- Använder Recharts (finns redan) och semantiska tokens
+
+Edge function `funnel-stats` (service-role) som aggregerar från `visitor_analytics`, `funnel_events`, `partner_clicks`, `partner_profile_views`, `leads` baserat på `session_id` och datumintervall.
+
+## Integration
+
+- Registrera `funnel` som ny `TabsTrigger` + `TabsContent` i `AdminDashboard.tsx` under gruppen *Statistik*
+- Inga ändringar i publika sidor utöver tunna tracking-anrop (fire-and-forget, blockar aldrig UI)
 
 ## Tekniska detaljer
 
-- **Tabeller**: 1 ny (`partner_filter_exposures`).
-- **Edge functions**: 3 nya (`track-filter-exposure`, `partner-sales-summary`, `send-sales-summary-email`).
-- **Kod**: Hook + 1 ny komponent `PartnerSalesSummaryCard` i admin.
-- **Snitcher-koppling**: Använder befintlig `snitcher_visits.visited_urls` + `partner_slugs`. Joinar mot partnerns `applications`/`industries` för att hitta relaterade produkt-/branschsidor.
-- **Säkerhet**: All data hämtas via admin-token-validerad edge function. Inget exponeras publikt.
-- **Bygg-ordning**: (1) Tabell + tracking först → (2) summary-edge → (3) admin-UI → (4) mail-funktion.
+- **Migration**: skapa `funnel_events` med RLS (service role only), index på `(occurred_at, event_type)` och `(session_id)`
+- **Edge functions**: `track-funnel-event` (verify_jwt=false, beacon-vänlig), `funnel-stats` (admin auth via `PARTNER_ADMIN_PASSWORD`-mönster som övriga admin-funktioner)
+- **Session-koppling**: använd existerande `session_id` från `useVisitorTracking` (sessionStorage) så funnel-events kan joinas mot `visitor_analytics`
+- **Ingen ändring** i bef. tracking (`track-visitor`, `track-partner-click`, `track-partner-view`) – återanvänds via session_id-join
 
-## Datapunkter du får i mailet/texten (exempel)
+## Filer som skapas/ändras
 
-```text
-Försäljningsunderlag – Acme Consulting
-Period: 30 dagar (90d inom parentes)
+**Nya:**
+- `supabase/migrations/<ts>_funnel_events.sql`
+- `supabase/functions/track-funnel-event/index.ts`
+- `supabase/functions/funnel-stats/index.ts`
+- `src/components/AdminFunnelTab.tsx`
+- `src/utils/trackFunnelEvent.ts`
 
-Sajten totalt:
-- Unika besökare: 1 240 (3 850)
-- Sidvisningar:   3 410 (10 200)
-
-Acme Consultings exponering:
-- Visad i filterresultat: 87 ggr (240) – topp: /valj-partner, /d365-sales
-- Klick på partnerkort:   12 (38)
-- Besök på profilsida:    8 (24)
-- Klick till acme.se:     3 (9)
-
-Identifierade företag (Snitcher, 90d):
-- Volvo Group       (Tillverkning, 10 000+) – 4 sessioner, besökt /partner/acme + /d365-sales
-- IKEA              (Retail, 10 000+)       – 2 sessioner, besökt /branschlosningar/retail
-- ...
-```
-
-Säg till om du vill justera något, annars startar jag med tabell + tracking.
+**Ändras:**
+- `src/pages/AdminDashboard.tsx` (ny flik)
+- `src/components/LeadMagnetBanner.tsx`, `LeadCTA.tsx`, `ScrollCTA.tsx`, `EbookBanner.tsx` (view + click tracking)
+- `src/pages/NeedsAnalysis.tsx`, `AIReadiness.tsx`, `SalesMarketingNeedsAnalysis.tsx`, `CustomerServiceNeedsAnalysis.tsx`, `RequirementsSpec*.tsx` (start/step/complete)
+- `src/utils/generatePartnerGuide.ts`, `generateRequirementsSpec.ts` (pdf_download)

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { useLocation } from "react-router-dom";
 import heroKravspecKundservice from "@/assets/hero-kravspec-kundservice.jpg";
 import Navbar from "@/components/Navbar";
@@ -52,6 +53,17 @@ const RequirementsSpecCustomerService = () => {
   const isValidPrefill = !!prefilledIndustry && allIndustries.includes(prefilledIndustry);
   const [step, setStep] = useState(isValidPrefill ? 2 : 1);
   const totalSteps = 4;
+
+  useEffect(() => {
+    trackFunnelEvent({ event_type: "analysis_start", event_name: "kravspec_customer_service" });
+  }, []);
+
+  useEffect(() => {
+    if (step === totalSteps) {
+      trackFunnelEvent({ event_type: "analysis_complete", event_name: "kravspec_customer_service" });
+    }
+  }, [step]);
+
 
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
   const [companySize, setCompanySize] = useState<string>("");

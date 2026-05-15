@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import Navbar from "@/components/Navbar";
@@ -879,6 +880,16 @@ const AIReadiness = () => {
     : step === "result" ? totalSteps
     : 0;
   const progressPct = (currentProgress / totalSteps) * 100;
+
+  useEffect(() => {
+    trackFunnelEvent({ event_type: "analysis_start", event_name: "ai_readiness" });
+  }, []);
+
+  useEffect(() => {
+    if (step === "result") {
+      trackFunnelEvent({ event_type: "analysis_complete", event_name: "ai_readiness" });
+    }
+  }, [step]);
 
   // ─── Foundation handlers ─────────────────────────────
   const handleFoundationAnswer = (label: string) => {

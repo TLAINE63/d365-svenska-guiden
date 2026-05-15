@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { Link } from "react-router-dom";
 import heroBehovsanalysSalj from "@/assets/hero-behovsanalys-salj.jpg";
 import { z } from "zod";
@@ -483,6 +484,17 @@ const SalesMarketingNeedsAnalysis = () => {
   const { toast } = useToast();
 
   const totalSteps = 8;
+
+  useEffect(() => {
+    trackFunnelEvent({ event_type: "analysis_start", event_name: "needs_analysis_sales_marketing" });
+  }, []);
+
+  useEffect(() => {
+    if (currentStep === totalSteps) {
+      trackFunnelEvent({ event_type: "analysis_complete", event_name: "needs_analysis_sales_marketing" });
+    }
+  }, [currentStep]);
+
   const progress = (currentStep / totalSteps) * 100;
 
   const stepIcons = [Target, Building2, Target, Target, Megaphone, Target, Sparkles, FileText];

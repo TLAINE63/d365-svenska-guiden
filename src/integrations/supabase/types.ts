@@ -71,6 +71,45 @@ export type Database = {
         }
         Relationships: []
       }
+      funnel_events: {
+        Row: {
+          event_name: string
+          event_type: string
+          id: string
+          ip_anonymized: string | null
+          metadata: Json
+          occurred_at: string
+          page_path: string | null
+          session_id: string | null
+          step_number: number | null
+          user_agent: string | null
+        }
+        Insert: {
+          event_name: string
+          event_type: string
+          id?: string
+          ip_anonymized?: string | null
+          metadata?: Json
+          occurred_at?: string
+          page_path?: string | null
+          session_id?: string | null
+          step_number?: number | null
+          user_agent?: string | null
+        }
+        Update: {
+          event_name?: string
+          event_type?: string
+          id?: string
+          ip_anonymized?: string | null
+          metadata?: Json
+          occurred_at?: string
+          page_path?: string | null
+          session_id?: string | null
+          step_number?: number | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       knowledge_articles: {
         Row: {
           category: string

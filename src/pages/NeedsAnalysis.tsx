@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import heroBehovsanalysErp from "@/assets/hero-behovsanalys-erp.jpg";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
@@ -770,6 +771,16 @@ const NeedsAnalysis = () => {
 
   const totalSteps = 9;
   const progress = (currentStep / totalSteps) * 100;
+
+  useEffect(() => {
+    trackFunnelEvent({ event_type: "analysis_start", event_name: "needs_analysis_erp" });
+  }, []);
+
+  useEffect(() => {
+    if (currentStep === totalSteps) {
+      trackFunnelEvent({ event_type: "analysis_complete", event_name: "needs_analysis_erp" });
+    }
+  }, [currentStep, totalSteps]);
 
   const stepIcons = [
     BarChart3, Building2, Globe, Layers, Globe, Server, AlertTriangle, Boxes, Sparkles, FileText

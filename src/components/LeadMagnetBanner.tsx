@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Download, FileText, CheckCircle, X } from "lucide-react";
 import { generatePartnerGuide } from "@/utils/generatePartnerGuide";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 interface LeadMagnetBannerProps {
   sourcePage: string;
@@ -18,10 +19,39 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
   const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const hasViewedRef = useRef(false);
+
+  useEffect(() => {
+    if (!cardRef.current || hasViewedRef.current) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && !hasViewedRef.current) {
+            hasViewedRef.current = true;
+            trackFunnelEvent({
+              event_type: "cta_view",
+              event_name: "lead_magnet_banner",
+              metadata: { source_page: sourcePage },
+            });
+            obs.disconnect();
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    obs.observe(cardRef.current);
+    return () => obs.disconnect();
+  }, [sourcePage]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    trackFunnelEvent({
+      event_type: "cta_click",
+      event_name: "lead_magnet_banner",
+      metadata: { source_page: sourcePage },
+    });
+
     if (!email) {
       toast({
         title: "Ange din e-postadress",
@@ -119,7 +149,7 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
   }
 
   return (
-    <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-4 sm:p-6 relative overflow-hidden rounded-2xl shadow-lg shadow-primary/10">
+    <Card ref={cardRef} className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/10 border-primary/30 p-4 sm:p-6 relative overflow-hidden rounded-2xl shadow-lg shadow-primary/10">
       {onClose && (
         <button onClick={onClose} className="absolute top-2 right-2 text-muted-foreground hover:text-foreground z-10">
           <X className="h-4 w-4" />
