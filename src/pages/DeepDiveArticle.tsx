@@ -39,6 +39,12 @@ const DeepDiveArticle = () => {
           { name: article.title, url: `https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/` },
         ]}
       />
+      <ArticleSchema
+        headline={article.title}
+        description={article.description}
+        url={`https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/`}
+        section={article.product}
+      />
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Header */}
