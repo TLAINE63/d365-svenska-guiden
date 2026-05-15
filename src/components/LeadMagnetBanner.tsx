@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Download, FileText, CheckCircle, X } from "lucide-react";
 import { generatePartnerGuide } from "@/utils/generatePartnerGuide";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 interface LeadMagnetBannerProps {
   sourcePage: string;
