@@ -861,9 +861,9 @@ const Kunskapscenter = () => {
                 )}
               </div>
             </section>
+            {activeCategory === "behovsanalys" && <BuyerJourneyStages />}
           </>
         )}
-        <BuyerJourneyStages />
       </main>
       <Footer />
     </>
