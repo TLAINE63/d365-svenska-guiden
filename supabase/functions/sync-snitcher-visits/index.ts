@@ -129,8 +129,7 @@ serve(async (req) => {
         orgsScanned++;
         const pages: string[] = org.pages_visited || [];
         const partnerSlugs = extractPartnerSlugs(pages);
-        if (partnerSlugs.length === 0) continue;
-        orgsWithPartnerVisit++;
+        if (partnerSlugs.length > 0) orgsWithPartnerVisit++;
 
         const visitedUrls = pages.map((url) => ({ url }));
 
