@@ -58,6 +58,67 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
     toast({ title: "Mejlat!", description: `Skickat till ${data?.sentTo}` });
   };
 
+  const downloadCsv = () => {
+    if (!summary) return;
+    const esc = (v: any) => {
+      if (v === null || v === undefined) return "";
+      const s = String(v).replace(/"/g, '""');
+      return /[",;\n]/.test(s) ? `"${s}"` : s;
+    };
+    const rows: string[][] = [];
+    rows.push(["Försäljningsunderlag", partnerName || ""]);
+    rows.push(["Genererat", new Date().toISOString()]);
+    rows.push([]);
+    rows.push(["Partnerstatistik", "30 dagar", "90 dagar"]);
+    const p30 = summary.partner30 || {};
+    const p90 = summary.partner90 || {};
+    const partnerKeys: [string, string][] = [
+      ["Filtervisningar", "filterExposures"],
+      ["Kortklick", "cardClicks"],
+      ["Profilbesök", "profileVisits"],
+      ["Hemsidesklick", "websiteClicks"],
+    ];
+    partnerKeys.forEach(([label, k]) => rows.push([label, p30[k] ?? "", p90[k] ?? ""]));
+    rows.push([]);
+    if (summary.site30 || summary.site90) {
+      rows.push(["Sajttotaler", "30 dagar", "90 dagar"]);
+      const s30 = summary.site30 || {};
+      const s90 = summary.site90 || {};
+      const siteKeys: [string, string][] = [
+        ["Behovsanalyser startade", "analysesStarted"],
+        ["Behovsanalyser slutförda (lead)", "analysesCompleted"],
+        ["Profilvisningar (globalt)", "profileViews"],
+        ["Klick till partnersajter (globalt)", "partnerClicks"],
+      ];
+      siteKeys.forEach(([label, k]) => rows.push([label, s30[k] ?? "", s90[k] ?? ""]));
+      rows.push([]);
+    }
+    rows.push(["Identifierade företag (90d)"]);
+    rows.push(["Namn", "Bransch", "Storlek", "Land", "Sessioner", "Matchning", "Besökta sidor"]);
+    (summary.identifiedCompanies || []).forEach((c: any) => {
+      rows.push([
+        c.name,
+        c.industry,
+        c.size,
+        c.country,
+        c.sessions,
+        c.matchedProfile ? "Profil" : "Relaterad",
+        (c.visitedPaths || []).join(" | "),
+      ]);
+    });
+    const csv = "\uFEFF" + rows.map((r) => r.map(esc).join(";")).join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    const today = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `forsaljningsunderlag-${partnerSlug}-${today}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast({ title: "CSV nedladdad", description: "Öppna filen i Excel." });
+
   return (
     <Card className="border-cta-orange/30 bg-gradient-to-br from-cta-orange/5 via-background to-background">
       <CardHeader>
