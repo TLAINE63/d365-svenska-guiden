@@ -311,6 +311,21 @@ async function buildSummary(
     })
     .slice(0, 50);
 
+  // ── Nyhetsuppdateringar (publicerade artiklar senaste 30 dagar) ─────
+  const { data: newsRows } = await supabase
+    .from("knowledge_articles")
+    .select("title, category, content_type, format, url, published_at")
+    .eq("is_published", true)
+    .gte("published_at", since30)
+    .order("published_at", { ascending: false })
+    .limit(30);
+  const recentNews = (newsRows || []).map((n: any) => ({
+    title: n.title || "",
+    label: [n.format, n.category].filter(Boolean).join(" · ") || n.content_type || "",
+    url: n.url || "",
+    published_at: n.published_at || "",
+  }));
+
   // ── Bygg text-sammanställning ───────────────────────────────────────
   const lines: string[] = [];
   lines.push(`Försäljningsunderlag – ${partner.name}`);
@@ -354,9 +369,15 @@ async function buildSummary(
     lines.push("IDENTIFIERADE FÖRETAG: Inga identifierade företag i Snitcher-data för denna partner senaste 90 dagarna.");
   }
 
-  if (!partner.agreement_signed) {
+  if (recentNews.length) {
     lines.push("");
-    lines.push("STATUS: Icke-betalande partner (inget avtal registrerat).");
+    lines.push(`NYHETSUPPDATERINGAR PÅ SAJTEN (senaste 30 dagarna) – ${recentNews.length} st`);
+    for (const n of recentNews) {
+      const date = n.published_at ? n.published_at.slice(0, 10).replace(/-/g, "/") : "";
+      const label = n.label ? ` [${n.label}]` : "";
+      lines.push(`  • ${date} – ${n.title}${label}`);
+      if (n.url) lines.push(`      ${n.url}`);
+    }
   }
 
   const text = lines.join("\n");
@@ -367,9 +388,7 @@ async function buildSummary(
 <body style="margin:0;padding:24px;background:#f1f5f9;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
 <div style="max-width:720px;margin:0 auto;background:#fff;padding:24px;border-radius:12px">
 <h1 style="margin:0 0 4px;font-size:22px">Försäljningsunderlag – ${esc(partner.name)}</h1>
-<div style="color:#64748b;font-size:13px;margin-bottom:18px">Period: 30 dagar (90 dagar inom parentes)${
-    partner.agreement_signed ? "" : ' · <span style="color:#b45309;font-weight:600">Icke-betalande</span>'
-  }</div>
+<div style="color:#64748b;font-size:13px;margin-bottom:18px">Period: 30 dagar (90 dagar inom parentes)</div>
 
 <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:18px 0 8px">Sajten totalt</h2>
 <table style="width:100%;border-collapse:collapse;font-size:14px">
@@ -417,6 +436,19 @@ ${identifiedCompanies.map((c) => `
 </tbody></table>
 ` : `<p style="color:#94a3b8;font-size:13px">Inga identifierade företag senaste 90 dagarna.</p>`}
 
+${recentNews.length ? `
+<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">Nyhetsuppdateringar på sajten (senaste 30 dagarna)</h2>
+<ul style="margin:0;padding-left:20px;font-size:13px;color:#334155">
+${recentNews.map((n) => {
+  const date = n.published_at ? n.published_at.slice(0, 10).replace(/-/g, "/") : "";
+  const label = n.label ? ` <span style="color:#94a3b8;font-size:11px">[${esc(n.label)}]</span>` : "";
+  const titleHtml = n.url
+    ? `<a href="${esc(n.url)}" style="color:#0f172a;text-decoration:underline">${esc(n.title)}</a>`
+    : esc(n.title);
+  return `<li>${esc(date)} – ${titleHtml}${label}</li>`;
+}).join("")}
+</ul>` : ""}
+
 <p style="margin-top:24px;color:#94a3b8;font-size:11px">Genererat ${new Date().toISOString().slice(0, 16).replace("T", " ")} · D365.se</p>
 </div></body></html>`;
 
@@ -429,6 +461,7 @@ ${identifiedCompanies.map((c) => `
     topFilterContexts,
     topFilterPages,
     identifiedCompanies,
+    recentNews,
     text,
     html,
   };
