@@ -108,6 +108,8 @@ const AppShell = () => {
           <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
           <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
           <Route path="/branschlosningar" element={<Branschlosningar />} />
+          <Route path="/branscher" element={<Branscher />} />
+          <Route path="/branscher/:slug" element={<IndustryPage />} />
           <Route path="/d365-sales" element={<D365Sales />} />
           <Route path="/d365-marketing" element={<D365Marketing />} />
           <Route path="/d365-customer-service" element={<D365CustomerService />} />
