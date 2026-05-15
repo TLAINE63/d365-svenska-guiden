@@ -29,7 +29,7 @@ const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTease
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
-import BuyerJourneyStages from "@/components/BuyerJourneyStages";
+
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 
 const homeFaqs = [
