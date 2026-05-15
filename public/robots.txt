@@ -1,5 +1,5 @@
 # robots.txt for d365.se
-# Canonical host: https://www.d365.se
+# Canonical host: https://d365.se (www.d365.se 301-redirects to non-www)
 
 User-agent: Googlebot
 Allow: /
