@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import heroAiReadiness from "@/assets/hero-ai-readiness.jpg";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import Navbar from "@/components/Navbar";
