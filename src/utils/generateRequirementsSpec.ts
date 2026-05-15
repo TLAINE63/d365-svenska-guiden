@@ -1,4 +1,5 @@
 import logoImage from "@/assets/dynamic-factory-logo-new.jpg";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 const getBase64FromUrl = async (url: string): Promise<string> => {
   const response = await fetch(url);
