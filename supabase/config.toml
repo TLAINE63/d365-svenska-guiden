@@ -48,5 +48,8 @@ verify_jwt = false
 [functions.sync-snitcher-visits]
 verify_jwt = false
 
+[functions.manage-partner-reports]
+verify_jwt = false
+
 [functions.gsc-stats]
 verify_jwt = false
