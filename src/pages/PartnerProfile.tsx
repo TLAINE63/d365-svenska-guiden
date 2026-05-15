@@ -31,6 +31,7 @@ import { usePartner, DatabasePartner } from "@/hooks/usePartners";
 import { getCumulativeGeographyDisplay } from "@/data/partners";
 import { Helmet } from "react-helmet-async";
 import SEOHead from "@/components/SEOHead";
+import { PartnerOrganizationSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { buildMetaTitle } from "@/lib/metaTitle";
 import { buildMetaDescription } from "@/lib/metaDescription";
 import { trackPartnerClick } from "@/utils/trackPartnerClick";
