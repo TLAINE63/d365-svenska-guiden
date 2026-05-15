@@ -279,17 +279,17 @@ async function buildSummary(
     .sort((a, b) => b.count - a.count)
     .slice(0, 8);
 
-  // ── Snitcher identifierade företag (90d) ───────────────────────────
+  // ── Identifierade besökande företag (90d) ───────────────────────────
   const relatedPaths = relatedPathsFor(partner);
   const profilePath = `/partner/${partner.slug}`;
-  const { data: snitcherRows } = await supabase
+  const { data: companyRows } = await supabase
     .from("snitcher_visits")
     .select("company_name, company_industry, company_size, company_country, visited_urls, partner_slugs, session_started_at")
     .gte("session_started_at", since90)
     .limit(2000);
 
   const companyAgg = new Map<string, CompanyHit>();
-  for (const r of snitcherRows || []) {
+  for (const r of companyRows || []) {
     const visitedUrls: string[] = Array.isArray(r.visited_urls)
       ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
       : [];
@@ -328,13 +328,23 @@ async function buildSummary(
     }
   }
 
-  const identifiedCompanies = Array.from(companyAgg.values())
+  let identifiedCompanies = Array.from(companyAgg.values())
     .sort((a, b) => {
-      // Prioritize profile-matchers, then sessions
       if (a.matchedProfile !== b.matchedProfile) return a.matchedProfile ? -1 : 1;
       return b.sessions - a.sessions;
     })
     .slice(0, 50);
+
+  // För ej publicerade partners: maska företagsnamn (visa att det är ett företag, men inte vilket)
+  const maskCompanyNames = !partner.is_featured;
+  if (maskCompanyNames) {
+    identifiedCompanies = identifiedCompanies.map((c, i) => ({
+      ...c,
+      name: `Företag #${i + 1}`,
+      country: null,
+      visitedPaths: [],
+    }));
+  }
 
   // ── Nyhetsuppdateringar (publicerade artiklar senaste 30 dagar) ─────
   const { data: newsRows } = await supabase
@@ -384,7 +394,7 @@ async function buildSummary(
 
   if (identifiedCompanies.length) {
     lines.push("");
-    lines.push(`IDENTIFIERADE FÖRETAG (Snitcher, 90d) – ${identifiedCompanies.length} st`);
+    lines.push(`IDENTIFIERADE FÖRETAG (90d) – ${identifiedCompanies.length} st${maskCompanyNames ? " (företagsnamn maskerade)" : ""}`);
     for (const c of identifiedCompanies) {
       const meta = [c.industry, c.size, c.country].filter(Boolean).join(", ");
       const hit = c.matchedProfile ? "[profil]" : "[relaterad sida]";
@@ -395,7 +405,7 @@ async function buildSummary(
     }
   } else {
     lines.push("");
-    lines.push("IDENTIFIERADE FÖRETAG: Inga identifierade företag i Snitcher-data för denna partner senaste 90 dagarna.");
+    lines.push("IDENTIFIERADE FÖRETAG: Inga identifierade besökande företag för denna partner senaste 90 dagarna.");
   }
 
   if (recentNews.length) {
@@ -449,7 +459,7 @@ ${topFilterContexts.length ? `
 ${topFilterContexts.map((c) => `<li>${esc(c.label)} – ${c.count}</li>`).join("")}
 </ul>` : ""}
 
-<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">Identifierade företag (Snitcher, 90d)</h2>
+<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">Identifierade besökande företag (90d)${maskCompanyNames ? ' <span style="color:#94a3b8;font-size:11px;font-weight:400;text-transform:none;letter-spacing:0">(företagsnamn maskerade)</span>' : ""}</h2>
 ${identifiedCompanies.length ? `
 <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
 <thead><tr style="background:#f8fafc">

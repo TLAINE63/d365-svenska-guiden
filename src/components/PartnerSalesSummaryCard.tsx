@@ -99,7 +99,7 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
 
             <details className="rounded-lg border bg-card p-3">
               <summary className="cursor-pointer text-sm font-medium">
-                Identifierade företag (Snitcher, 90d) – {summary.identifiedCompanies?.length || 0} st
+                Identifierade besökande företag (90d) – {summary.identifiedCompanies?.length || 0} st
               </summary>
               <div className="mt-3 space-y-2 max-h-80 overflow-y-auto">
                 {(summary.identifiedCompanies || []).map((c: any, i: number) => (
