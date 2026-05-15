@@ -436,6 +436,19 @@ ${identifiedCompanies.map((c) => `
 </tbody></table>
 ` : `<p style="color:#94a3b8;font-size:13px">Inga identifierade företag senaste 90 dagarna.</p>`}
 
+${recentNews.length ? `
+<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">Nyhetsuppdateringar på sajten (senaste 30 dagarna)</h2>
+<ul style="margin:0;padding-left:20px;font-size:13px;color:#334155">
+${recentNews.map((n) => {
+  const date = n.published_at ? n.published_at.slice(0, 10).replace(/-/g, "/") : "";
+  const label = n.label ? ` <span style="color:#94a3b8;font-size:11px">[${esc(n.label)}]</span>` : "";
+  const titleHtml = n.url
+    ? `<a href="${esc(n.url)}" style="color:#0f172a;text-decoration:underline">${esc(n.title)}</a>`
+    : esc(n.title);
+  return `<li>${esc(date)} – ${titleHtml}${label}</li>`;
+}).join("")}
+</ul>` : ""}
+
 <p style="margin-top:24px;color:#94a3b8;font-size:11px">Genererat ${new Date().toISOString().slice(0, 16).replace("T", " ")} · D365.se</p>
 </div></body></html>`;
 
@@ -448,6 +461,7 @@ ${identifiedCompanies.map((c) => `
     topFilterContexts,
     topFilterPages,
     identifiedCompanies,
+    recentNews,
     text,
     html,
   };
