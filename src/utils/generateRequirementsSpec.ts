@@ -107,6 +107,12 @@ export const generateRequirementsSpec = async (
   data: RequirementsData,
   returnBase64: boolean = false
 ): Promise<string | void> => {
+  if (!returnBase64) {
+    trackFunnelEvent({
+      event_type: "pdf_download",
+      event_name: `kravspec_${(data.product || "unknown").toLowerCase().replace(/\s+/g, "_")}`,
+    });
+  }
   const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
