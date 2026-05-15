@@ -1220,7 +1220,7 @@ const AIReadiness = () => {
     doc.setFontSize(10);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(emerald.r, emerald.g, emerald.b);
-    doc.text("www.d365.se", lm, ph - 25);
+    doc.text("d365.se", lm, ph - 25);
     doc.setFontSize(8);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(slate400.r, slate400.g, slate400.b);

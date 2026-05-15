@@ -66,7 +66,7 @@ Vill ni fortsätta vara med enligt detta upplägg, svara bara "ok" så löser vi
 
 Pris, villkor och nedladdningsbart avtal: https://d365.se/avtalssida
 
-Aktuell sajtstatistik för partners: https://www.d365.se/partnerstatistik
+Aktuell sajtstatistik för partners: https://d365.se/partnerstatistik
 
 Glöm inte att uppdatera er partnerprofil här:
 
@@ -110,7 +110,7 @@ https://d365.se/avtalssida
 
 Aktuell sajtstatistik för partners:
 
-https://www.d365.se/partnerstatistik
+https://d365.se/partnerstatistik
 
 Allt gott,
 

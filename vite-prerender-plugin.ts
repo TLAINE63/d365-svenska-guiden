@@ -265,6 +265,10 @@ export default function prerenderPlugin(): Plugin {
               seoLintResults.push({ path: route.path, ...seoIssues });
             }
 
+            if (route.sitemap === false) {
+              continue;
+            }
+
             // Collect sitemap entry
             const trailingPath = route.path === '/' ? '/' : (route.path.endsWith('/') ? route.path : `${route.path}/`);
             const lastmod = (route as any).lastmod || today;

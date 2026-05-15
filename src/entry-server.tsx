@@ -23,6 +23,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import NeedsAnalysis from './pages/NeedsAnalysis';
 import SalesMarketingNeedsAnalysis from './pages/SalesMarketingNeedsAnalysis';
 import CustomerServiceNeedsAnalysis from './pages/CustomerServiceNeedsAnalysis';
+import KomIgang from './pages/KomIgang';
 import Branschlosningar from './pages/Branschlosningar';
 import D365Sales from './pages/D365Sales';
 import D365Marketing from './pages/D365Marketing';
@@ -35,6 +36,9 @@ import QA from './pages/QA';
 import PartnerProfile from './pages/PartnerProfile';
 import Kunskapscenter from './pages/Kunskapscenter';
 import RequirementsSpec from './pages/RequirementsSpec';
+import RequirementsSpecSales from './pages/RequirementsSpecSales';
+import RequirementsSpecMarketing from './pages/RequirementsSpecMarketing';
+import RequirementsSpecCustomerService from './pages/RequirementsSpecCustomerService';
 import DeepDiveArticle from './pages/DeepDiveArticle';
 import BlogArticle from './pages/BlogArticle';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
@@ -53,6 +57,7 @@ export interface PrerenderRoute {
   changefreq: string;
   lastmod?: string; // ISO date YYYY-MM-DD
   meta?: { title: string; description: string };
+  sitemap?: boolean;
 }
 
 export const routes: PrerenderRoute[] = [
@@ -80,9 +85,13 @@ export const routes: PrerenderRoute[] = [
   { path: '/events', priority: '0.8', changefreq: 'weekly' },
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
-  { path: '/dataskydd', priority: '0.3', changefreq: 'yearly' },
+  { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
+  { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
+  { path: '/kravspecifikation-sales', priority: '0.7', changefreq: 'monthly' },
+  { path: '/kravspecifikation-marketing', priority: '0.7', changefreq: 'monthly' },
+  { path: '/kravspecifikation-kundservice', priority: '0.7', changefreq: 'monthly' },
   // Deep-dive article routes (generated from data)
   ...ALL_DEEP_DIVE_ARTICLES.map((a) => ({
     path: `/kunskapscenter/${a.productSlug}/${a.slug}`,
@@ -164,6 +173,7 @@ export function render(url: string) {
               <Route path="/valj-partner" element={<ValjPartner />} />
               <Route path="/dataskydd" element={<PrivacyPolicy />} />
               <Route path="/behovsanalys" element={<NeedsAnalysis />} />
+              <Route path="/kom-igang" element={<KomIgang />} />
               <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
               <Route path="/branschlosningar" element={<Branschlosningar />} />
@@ -179,6 +189,9 @@ export function render(url: string) {
               <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
               <Route path="/artiklar/:slug" element={<BlogArticle />} />
               <Route path="/kravspecifikation" element={<RequirementsSpec />} />
+              <Route path="/kravspecifikation-sales" element={<RequirementsSpecSales />} />
+              <Route path="/kravspecifikation-marketing" element={<RequirementsSpecMarketing />} />
+              <Route path="/kravspecifikation-kundservice" element={<RequirementsSpecCustomerService />} />
               <Route path="/partner/:slug" element={<PartnerProfile initialData={mappedPartnerData as any} />} />
             </Routes>
           </StaticRouter>

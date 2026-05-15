@@ -12,7 +12,6 @@ Disallow: /partnerstatistik
 Disallow: /partner-statistik
 Disallow: /avtalssida
 Disallow: /partner-avtal
-Disallow: /dataskydd
 
 User-agent: Bingbot
 Allow: /
@@ -25,7 +24,6 @@ Disallow: /partnerstatistik
 Disallow: /partner-statistik
 Disallow: /avtalssida
 Disallow: /partner-avtal
-Disallow: /dataskydd
 
 User-agent: Twitterbot
 Allow: /
@@ -44,7 +42,6 @@ Disallow: /partnerstatistik
 Disallow: /partner-statistik
 Disallow: /avtalssida
 Disallow: /partner-avtal
-Disallow: /dataskydd
 
 # Sitemaps (canonical non-www host – matches sitemap entries and what GSC actually fetches without redirect)
 Sitemap: https://d365.se/sitemap_index.xml

@@ -90,7 +90,7 @@ const BlogArticle = () => {
       name: "d365.se",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.d365.se/d365guide-logo.png",
+        url: "https://d365.se/d365guide-logo.png",
       },
     },
     keywords: article.tags.join(", "),

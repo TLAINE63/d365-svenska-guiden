@@ -44,7 +44,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
     // Website in header
     doc.setFontSize(8);
     doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
-    doc.text("www.d365.se", pageWidth - margin, 10, { align: "right" });
+    doc.text("d365.se", pageWidth - margin, 10, { align: "right" });
   };
 
   const addFooter = (pageNum: number) => {
@@ -181,7 +181,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   doc.setFontSize(11);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(primaryColor.r, primaryColor.g, primaryColor.b);
-  doc.text("www.d365.se", margin, pageHeight - 30);
+  doc.text("d365.se", margin, pageHeight - 30);
   
   doc.setFont("helvetica", "normal");
   doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
@@ -394,7 +394,7 @@ export const generatePartnerGuide = async (returnBase64: boolean = false): Promi
   
   doc.setFont("helvetica", "bold");
   doc.setTextColor(primaryColor.r, primaryColor.g, primaryColor.b);
-  doc.text("Besök www.d365.se", margin + 5, y + 30);
+  doc.text("Besök d365.se", margin + 5, y + 30);
 
   addFooter(currentPage);
 
