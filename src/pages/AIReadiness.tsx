@@ -1566,6 +1566,15 @@ const AIReadiness = () => {
           description="Rollbaserad AI-analys: mät automation, prediktion och beslutsstöd. Få uppskattat ROI i kronor och rollspecifik roadmap."
           canonicalPath="/ai-readiness"
         />
+        <WebPageSchema
+          name="AI Readiness Assessment – Mät AI-effekt"
+          description="Rollbaserad AI-analys: mät automation, prediktion och beslutsstöd. Få uppskattat ROI i kronor och rollspecifik roadmap."
+          url="https://d365.se/ai-readiness/"
+          breadcrumb={[
+            { name: "Hem", url: "https://d365.se/" },
+            { name: "AI Readiness", url: "https://d365.se/ai-readiness/" },
+          ]}
+        />
         <Navbar />
         <main className="pb-16">
           <div className="relative bg-cover bg-center pt-28 pb-10 mb-8" style={{ backgroundImage: `url(${heroAiReadiness})` }}>
