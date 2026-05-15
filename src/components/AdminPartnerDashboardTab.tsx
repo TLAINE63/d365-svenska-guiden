@@ -32,6 +32,7 @@ import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
+import PartnerSalesSummaryCard from "./PartnerSalesSummaryCard";
 
 interface Props {
   token: string | null;
@@ -198,6 +199,14 @@ export default function AdminPartnerDashboardTab({ token }: Props) {
       )}
       {error && (
         <p className="text-sm text-destructive">Kunde inte hämta data: {error}</p>
+      )}
+
+      {selectedPartner && (
+        <PartnerSalesSummaryCard
+          token={token}
+          partnerSlug={(selectedPartner as any).slug}
+          partnerName={selectedPartner.name}
+        />
       )}
 
       {data && (
