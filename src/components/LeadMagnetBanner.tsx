@@ -19,10 +19,39 @@ export const LeadMagnetBanner = ({ sourcePage, onClose }: LeadMagnetBannerProps)
   const [honeypot, setHoneypot] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const hasViewedRef = useRef(false);
+
+  useEffect(() => {
+    if (!cardRef.current || hasViewedRef.current) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && !hasViewedRef.current) {
+            hasViewedRef.current = true;
+            trackFunnelEvent({
+              event_type: "cta_view",
+              event_name: "lead_magnet_banner",
+              metadata: { source_page: sourcePage },
+            });
+            obs.disconnect();
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+    obs.observe(cardRef.current);
+    return () => obs.disconnect();
+  }, [sourcePage]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    trackFunnelEvent({
+      event_type: "cta_click",
+      event_name: "lead_magnet_banner",
+      metadata: { source_page: sourcePage },
+    });
+
     if (!email) {
       toast({
         title: "Ange din e-postadress",
