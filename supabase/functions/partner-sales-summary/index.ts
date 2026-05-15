@@ -160,6 +160,7 @@ async function buildSummary(
   topFilterContexts: { label: string; count: number }[];
   topFilterPages: { path: string; count: number }[];
   identifiedCompanies: CompanyHit[];
+  analysisTrend30: { date: string; started: number; completed: number }[];
   text: string;
   html: string;
 }> {
