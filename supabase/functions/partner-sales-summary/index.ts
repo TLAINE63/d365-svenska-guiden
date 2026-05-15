@@ -187,10 +187,16 @@ async function buildSummary(
   ]);
   const sessions30 = new Set<string>();
   const analysisSessions30 = new Set<string>();
+  const startedByDay = new Map<string, Set<string>>();
   for (const r of v30.data || []) {
     if (r.session_id) sessions30.add(r.session_id);
     if (r.session_id && (r.page_path?.includes("behovsanalys") || r.page_path?.includes("ai-readiness"))) {
       analysisSessions30.add(r.session_id);
+      const day = (r.visited_at || "").slice(0, 10);
+      if (day) {
+        if (!startedByDay.has(day)) startedByDay.set(day, new Set());
+        startedByDay.get(day)!.add(r.session_id);
+      }
     }
   }
   const sessions90 = new Set<string>();
@@ -205,6 +211,22 @@ async function buildSummary(
     (l.source_page || "").includes("behovsanalys") || (l.source_type || "").includes("analys");
   const completed30 = (leads90Res.data || []).filter((l) => isAnalysisLead(l) && (l.created_at || "") >= since30).length;
   const completed90 = (leads90Res.data || []).filter(isAnalysisLead).length;
+  const completedByDay = new Map<string, number>();
+  for (const l of leads90Res.data || []) {
+    if (!isAnalysisLead(l)) continue;
+    if ((l.created_at || "") < since30) continue;
+    const day = (l.created_at || "").slice(0, 10);
+    if (day) completedByDay.set(day, (completedByDay.get(day) || 0) + 1);
+  }
+  const analysisTrend30: { date: string; started: number; completed: number }[] = [];
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now - i * 86400000).toISOString().slice(0, 10);
+    analysisTrend30.push({
+      date: d,
+      started: startedByDay.get(d)?.size || 0,
+      completed: completedByDay.get(d) || 0,
+    });
+  }
   const globalProfileViews30 = gpv30.count || 0;
   const globalProfileViews90 = gpv90.count || 0;
   const globalClicks30 = gc30.count || 0;
