@@ -230,6 +230,48 @@ function calcMonthlyFee(productFilters: Record<string, any> | undefined): number
   return priceTiers[Math.min(activeProducts, 3)] ?? 1995;
 }
 
+// ==================== TAB GROUPS ====================
+import type { LucideIcon } from "lucide-react";
+
+const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }[] = [
+  {
+    id: "leads-partners",
+    label: "Leads & Partners",
+    icon: Building2,
+    tabs: ["leads", "partners", "invitations", "agreement"],
+  },
+  {
+    id: "innehall",
+    label: "Innehåll & Events",
+    icon: CalendarDays,
+    tabs: ["events", "featured-article", "knowledge-articles"],
+  },
+  {
+    id: "salj",
+    label: "Sälj",
+    icon: Megaphone,
+    tabs: ["sales-overview", "sales-pitch", "sales-pitch-v2", "sales-kpi"],
+  },
+  {
+    id: "statistik",
+    label: "Statistik",
+    icon: BarChart3,
+    tabs: ["clicks", "stats", "visitors", "summary", "email-log"],
+  },
+  {
+    id: "seo",
+    label: "SEO & Konkurrens",
+    icon: TrendingUp,
+    tabs: ["seo-rankings", "semrush", "competitor"],
+  },
+  {
+    id: "partnerportal",
+    label: "Partnerportal",
+    icon: LayoutDashboard,
+    tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports"],
+  },
+];
+
 // ==================== COMPONENT ====================
 
 const AdminDashboard = () => {
