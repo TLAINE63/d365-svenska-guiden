@@ -32,6 +32,7 @@ import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { useAdminPartners } from "@/hooks/useAdminPartners";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
+import PartnerSalesSummaryCard from "./PartnerSalesSummaryCard";
 
 interface Props {
   token: string | null;
