@@ -1925,6 +1925,12 @@ Thomas`,
               </span>
               Besökare
             </TabsTrigger>
+            <TabsTrigger value="all-visitors" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-indigo-500/20 to-indigo-600/10 ring-1 ring-indigo-400/20">
+                <Globe className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.75} />
+              </span>
+              Alla besökare
+            </TabsTrigger>
             <TabsTrigger value="summary" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-teal-500/20 to-teal-600/10 ring-1 ring-teal-400/20">
                 <LayoutDashboard className="h-3.5 w-3.5 text-teal-300" strokeWidth={1.75} />
