@@ -18,9 +18,9 @@ import behovsKundserviceImage from "@/assets/behovsanalys-kundservice-card.jpg";
 import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import guideValjPartnerImage from "@/assets/guide-valj-partner-card.jpg";
 import branschjamforelseImage from "@/assets/branschjamforelse-card.jpg";
+import upphandlingsresanImage from "@/assets/upphandlingsresan-card.jpg";
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
-import BuyerJourneyStages from "@/components/BuyerJourneyStages";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
@@ -208,6 +208,16 @@ const STATIC_TOOLS: Array<{
     image_url: ebookCoverImage,
     icon: BookOpen,
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
+  },
+  {
+    id: "tool-upphandlingsresan",
+    title: "Den typiska upphandlingsresan – 7 stadier",
+    description: "Var i systemlivscykeln står ni? Två korta frågor leder er till rätt stadie för ERP och CRM – inga uppgifter samlas in.",
+    type: "guide",
+    url: "/kunskapscenter/upphandlingsresan",
+    image_url: upphandlingsresanImage,
+    icon: BookOpen,
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center"],
   },
 ];
 
@@ -861,7 +871,6 @@ const Kunskapscenter = () => {
                 )}
               </div>
             </section>
-            {activeCategory === "behovsanalys" && <BuyerJourneyStages />}
           </>
         )}
       </main>
