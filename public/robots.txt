@@ -1,23 +1,8 @@
+# robots.txt for d365.se
+# Canonical host: https://www.d365.se
+
 User-agent: Googlebot
 Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: https://d365.se/sitemap_index.xml
-Sitemap: https://d365.se/sitemap.xml
-
-# Disallow admin and private/token-protected pages
 Disallow: /admin
 Disallow: /partner-admin
 Disallow: /lead-admin
@@ -27,3 +12,40 @@ Disallow: /partnerstatistik
 Disallow: /partner-statistik
 Disallow: /avtalssida
 Disallow: /partner-avtal
+Disallow: /dataskydd
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+Disallow: /dataskydd
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /partner-admin
+Disallow: /lead-admin
+Disallow: /partner-update/
+Disallow: /partner-events/
+Disallow: /partnerstatistik
+Disallow: /partner-statistik
+Disallow: /avtalssida
+Disallow: /partner-avtal
+Disallow: /dataskydd
+
+# Sitemaps (canonical www host – matches Search Console property and prerendered output)
+Sitemap: https://www.d365.se/sitemap_index.xml
+Sitemap: https://www.d365.se/sitemap.xml
