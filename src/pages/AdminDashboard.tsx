@@ -1797,8 +1797,32 @@ Thomas`,
           <span className="font-medium">All statistik utgår från d365.se</span>
           <span className="text-amber-200/70">– trafik från preview/staging spåras inte och syns inte i siffrorna.</span>
         </div>
-        <Tabs defaultValue="leads" className="space-y-4">
-          <TabsList className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded-2xl border border-slate-700/50 shadow-lg [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          {/* Group selector */}
+          <div className="flex flex-wrap gap-2 p-2 rounded-2xl bg-slate-100 dark:bg-slate-800/50 border border-border">
+            {tabGroups.map((g) => {
+              const isActive = activeGroup === g.id;
+              return (
+                <button
+                  key={g.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveGroup(g.id);
+                    setActiveTab(g.tabs[0]);
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                    isActive
+                      ? "bg-slate-900 text-white shadow-md"
+                      : "text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60"
+                  }`}
+                >
+                  <g.icon className="h-4 w-4" />
+                  {g.label}
+                </button>
+              );
+            })}
+          </div>
+          <TabsList data-active-group={activeGroup} className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded-2xl border border-slate-700/50 shadow-lg [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
             <TabsTrigger value="leads" className="flex items-center gap-2">
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
                 <Inbox className="h-3.5 w-3.5 text-blue-300" strokeWidth={1.75} />
