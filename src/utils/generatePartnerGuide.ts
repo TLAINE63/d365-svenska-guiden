@@ -1,4 +1,5 @@
 import logoImage from "@/assets/dynamic-factory-logo-new.jpg";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 
 // Convert image to base64
 const getBase64FromUrl = async (url: string): Promise<string> => {
