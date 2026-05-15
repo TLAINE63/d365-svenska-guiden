@@ -459,7 +459,7 @@ ${topFilterContexts.length ? `
 ${topFilterContexts.map((c) => `<li>${esc(c.label)} – ${c.count}</li>`).join("")}
 </ul>` : ""}
 
-<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">Identifierade företag (Snitcher, 90d)</h2>
+<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">Identifierade besökande företag (90d)${maskCompanyNames ? ' <span style="color:#94a3b8;font-size:11px;font-weight:400;text-transform:none;letter-spacing:0">(företagsnamn maskerade)</span>' : ""}</h2>
 ${identifiedCompanies.length ? `
 <table style="width:100%;border-collapse:collapse;font-size:13px;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
 <thead><tr style="background:#f8fafc">
