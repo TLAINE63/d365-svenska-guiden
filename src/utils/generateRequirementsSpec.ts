@@ -157,7 +157,7 @@ export const generateRequirementsSpec = async (
     doc.line(margin, 12, pageWidth - margin, 12);
     doc.setFontSize(8);
     doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
-    doc.text("www.d365.se", pageWidth - margin, 10, { align: "right" });
+    doc.text("d365.se", pageWidth - margin, 10, { align: "right" });
   };
 
   const addFooter = (pageNum: number) => {
