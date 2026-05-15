@@ -4,6 +4,7 @@ import { useState } from "react"; // kept for selectedGoal
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { WebPageSchema, BreadcrumbSchema } from "@/components/StructuredData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { COPILOT_ARTICLES } from "@/data/copilotArticles";
