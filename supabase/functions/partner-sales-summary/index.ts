@@ -527,6 +527,7 @@ ${recentNews.map((n) => {
     topFilterContexts,
     topFilterPages,
     identifiedCompanies,
+    analysisTrend30,
     recentNews,
     text,
     html,
