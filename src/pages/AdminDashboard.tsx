@@ -2975,6 +2975,11 @@ Thomas`,
             </Card>
           </TabsContent>
 
+          {/* ==================== ALL VISITORS (SNITCHER) TAB ==================== */}
+          <TabsContent value="all-visitors">
+            <AdminAllVisitorsTab token={token || null} />
+          </TabsContent>
+
           {/* ==================== EMAIL SUMMARY TAB ==================== */}
           <TabsContent value="summary">
             <AdminStatsSummary
