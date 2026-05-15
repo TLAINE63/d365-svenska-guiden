@@ -155,6 +155,8 @@ async function buildSummary(
   partner: any;
   sajt30: { uniqueVisitors: number; pageViews: number };
   sajt90: { uniqueVisitors: number; pageViews: number };
+  site30: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
+  site90: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   partner30: SummaryWindow;
   partner90: SummaryWindow;
   topFilterContexts: { label: string; count: number }[];
@@ -557,6 +559,18 @@ ${recentNews.map((n) => {
     partner,
     sajt30: { uniqueVisitors: sessions30.size, pageViews: v30.count || 0 },
     sajt90: { uniqueVisitors: sessions90.size, pageViews: v90.count || 0 },
+    site30: {
+      analysesStarted: analysisSessions30.size,
+      analysesCompleted: completed30,
+      profileViews: globalProfileViews30,
+      partnerClicks: globalClicks30,
+    },
+    site90: {
+      analysesStarted: analysisSessions90.size,
+      analysesCompleted: completed90,
+      profileViews: globalProfileViews90,
+      partnerClicks: globalClicks90,
+    },
     partner30,
     partner90,
     topFilterContexts,
