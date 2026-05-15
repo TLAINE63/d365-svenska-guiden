@@ -300,6 +300,22 @@ const AdminDashboard = () => {
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Tab grouping
+  const [activeGroup, setActiveGroup] = useState<string>(() => {
+    if (typeof window === "undefined") return "leads-partners";
+    return localStorage.getItem("admin-active-group") || "leads-partners";
+  });
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (typeof window === "undefined") return "leads";
+    return localStorage.getItem("admin-active-tab") || "leads";
+  });
+  useEffect(() => {
+    try { localStorage.setItem("admin-active-group", activeGroup); } catch {}
+  }, [activeGroup]);
+  useEffect(() => {
+    try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
+  }, [activeTab]);
+
   // AI summary generation state
   const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
   const [generatingAllSummaries, setGeneratingAllSummaries] = useState(false);
