@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { trackFunnelEvent } from "@/utils/trackFunnelEvent";
 import { Link } from "react-router-dom";
 import heroBehovsanalysKundservice from "@/assets/hero-behovsanalys-kundservice.jpg";
 import { z } from "zod";
@@ -273,6 +274,17 @@ const CustomerServiceNeedsAnalysis = () => {
   const { toast } = useToast();
 
   const totalSteps = 8;
+
+  useEffect(() => {
+    trackFunnelEvent({ event_type: "analysis_start", event_name: "needs_analysis_customer_service" });
+  }, []);
+
+  useEffect(() => {
+    if (currentStep === totalSteps) {
+      trackFunnelEvent({ event_type: "analysis_complete", event_name: "needs_analysis_customer_service" });
+    }
+  }, [currentStep]);
+
   const needsFieldServiceStep = data.serviceModel === "Fältservice med tekniker" || data.serviceModel === "Kombination av flera";
   const progress = (currentStep / totalSteps) * 100;
 
