@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import { WebPageSchema } from "@/components/StructuredData";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Check, Loader2, ExternalLink, Mail, HelpCircle, FileText, Users } from "lucide-react";
 import { allIndustries } from "@/data/partners";
