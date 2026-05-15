@@ -266,30 +266,33 @@ serve(async (req: Request): Promise<Response> => {
         
         for (const event of submissionData.events) {
           if (event._deleted && event.id) {
-            // Delete existing event
+            // Delete existing event — must belong to this partner
             await supabase
               .from("partner_events")
               .delete()
-              .eq("id", event.id);
+              .eq("id", event.id)
+              .eq("partner_id", partnerId);
           } else if (event.id) {
-            // Update existing event
-            const { id, _deleted, ...eventData } = event;
+            // Update existing event — must belong to this partner; never allow status escalation
+            const { id, _deleted, status: _ignoredStatus, partner_id: _ignoredPid, ...eventData } = event;
             await supabase
               .from("partner_events")
               .update({
                 ...eventData,
                 updated_at: new Date().toISOString(),
               })
-              .eq("id", id);
+              .eq("id", id)
+              .eq("partner_id", partnerId);
           } else if (event.title && event.event_date) {
-            // Create new event
-            const { _deleted, ...eventData } = event;
+            // Create new event — force pending status, ignore client-supplied partner_id/status
+            const { _deleted, status: _ignoredStatus, partner_id: _ignoredPid, id: _ignoredId, ...eventData } = event;
             await supabase
               .from("partner_events")
               .insert({
                 ...eventData,
                 partner_id: partnerId,
                 invitation_token: token,
+                status: "pending",
               });
           }
         }
