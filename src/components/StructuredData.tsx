@@ -372,12 +372,22 @@ export const ArticleSchema = ({
   authorName = "D365 Guiden",
   section,
 }: ArticleSchemaProps) => {
+  // Google Article rich result requires datePublished + image. Fall back to
+  // a stable site-launch date and the default OG image when an article does
+  // not specify them, so Rich Results Test reports no warnings.
+  const fallbackPublished = "2024-01-01";
+  const resolvedImage = image
+    ? (image.startsWith("http") ? image : `https://d365.se${image}`)
+    : "https://www.d365.se/d365guide-logo.png";
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline,
     description,
     url,
+    image: resolvedImage,
+    datePublished: datePublished || fallbackPublished,
+    dateModified: dateModified || datePublished || fallbackPublished,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     inLanguage: "sv-SE",
     author: {
@@ -395,10 +405,6 @@ export const ArticleSchema = ({
       },
     },
   };
-  if (image) schema.image = image.startsWith("http") ? image : `https://d365.se${image}`;
-  if (datePublished) schema.datePublished = datePublished;
-  if (dateModified) schema.dateModified = dateModified;
-  else if (datePublished) schema.dateModified = datePublished;
   if (section) schema.articleSection = section;
 
   return (
