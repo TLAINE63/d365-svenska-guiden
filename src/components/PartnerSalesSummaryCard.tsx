@@ -155,11 +155,40 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
 
         {summary && (
           <>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-              <Stat label="Filtervisningar (30/90d)" v={`${summary.partner30.filterExposures} / ${summary.partner90.filterExposures}`} />
-              <Stat label="Kortklick (30/90d)" v={`${summary.partner30.cardClicks} / ${summary.partner90.cardClicks}`} />
-              <Stat label="Profilbesök (30/90d)" v={`${summary.partner30.profileVisits} / ${summary.partner90.profileVisits}`} />
-              <Stat label="Hemsidesklick (30/90d)" v={`${summary.partner30.websiteClicks} / ${summary.partner90.websiteClicks}`} />
+            {(summary.site30 || summary.sajt30) && (
+              <div className="rounded-lg border bg-muted/20 p-3 space-y-2">
+                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  Sajten totalt (30d / 90d)
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                  {summary.sajt30 && (
+                    <>
+                      <Stat label="Unika besökare" v={`${summary.sajt30.uniqueVisitors} / ${summary.sajt90?.uniqueVisitors ?? "–"}`} />
+                      <Stat label="Sidvisningar" v={`${summary.sajt30.pageViews} / ${summary.sajt90?.pageViews ?? "–"}`} />
+                    </>
+                  )}
+                  {summary.site30 && (
+                    <>
+                      <Stat label="Behovsanalyser startade" v={`${summary.site30.analysesStarted} / ${summary.site90?.analysesStarted ?? "–"}`} />
+                      <Stat label="Behovsanalyser slutförda" v={`${summary.site30.analysesCompleted} / ${summary.site90?.analysesCompleted ?? "–"}`} />
+                      <Stat label="Profilvisningar (globalt)" v={`${summary.site30.profileViews} / ${summary.site90?.profileViews ?? "–"}`} />
+                      <Stat label="Klick till partnersajter" v={`${summary.site30.partnerClicks} / ${summary.site90?.partnerClicks ?? "–"}`} />
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className="rounded-lg border bg-card p-3 space-y-2">
+              <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                Partnerns exponering (30d / 90d)
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                <Stat label="Filtervisningar" v={`${summary.partner30.filterExposures} / ${summary.partner90.filterExposures}`} />
+                <Stat label="Kortklick" v={`${summary.partner30.cardClicks} / ${summary.partner90.cardClicks}`} />
+                <Stat label="Profilbesök" v={`${summary.partner30.profileVisits} / ${summary.partner90.profileVisits}`} />
+                <Stat label="Hemsidesklick" v={`${summary.partner30.websiteClicks} / ${summary.partner90.websiteClicks}`} />
+              </div>
             </div>
 
             {Array.isArray(summary.analysisTrend30) && summary.analysisTrend30.length > 0 && (
