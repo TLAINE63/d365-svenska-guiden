@@ -1957,7 +1957,7 @@ Thomas`,
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/10 ring-1 ring-rose-400/20">
                 <Mail className="h-3.5 w-3.5 text-rose-300" strokeWidth={1.75} />
               </span>
-              Införsäljning v2
+              Införsäljningsmail
             </TabsTrigger>
             <TabsTrigger value="sales-kpi" className={`flex items-center gap-2 ${activeGroup === "salj" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-lime-500/20 to-lime-600/10 ring-1 ring-lime-400/20">
