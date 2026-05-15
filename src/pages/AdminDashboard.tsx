@@ -2987,6 +2987,11 @@ Thomas`,
             <AdminAllVisitorsTab token={token || null} />
           </TabsContent>
 
+          {/* ==================== FUNNEL TAB ==================== */}
+          <TabsContent value="funnel">
+            <AdminFunnelTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
           {/* ==================== EMAIL SUMMARY TAB ==================== */}
           <TabsContent value="summary">
             <AdminStatsSummary
