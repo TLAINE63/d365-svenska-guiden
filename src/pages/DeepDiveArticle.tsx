@@ -43,6 +43,7 @@ const DeepDiveArticle = () => {
         headline={article.title}
         description={article.description}
         url={`https://d365.se/kunskapscenter/${article.productSlug}/${article.slug}/`}
+        image={article.bannerImage || article.image}
         section={article.product}
       />
       <Navbar />
