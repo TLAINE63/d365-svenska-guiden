@@ -338,7 +338,7 @@ async function buildSummary(
   lines.push("");
   lines.push(`${partner.name.toUpperCase()} – EXPONERING`);
   lines.push(`  Visad i filterresultat: ${fmt(partner30.filterExposures)} (${fmt(partner90.filterExposures)})`);
-  lines.push(`  Klick på partnerkort:   ${fmt(partner30.cardClicks)} (${fmt(partner30.cardClicks)})`.replace(/cardClicks\)\}\)$/, `cardClicks)} (${fmt(partner90.cardClicks)})`));
+  lines.push(`  Klick på partnerkort:   ${fmt(partner30.cardClicks)} (${fmt(partner90.cardClicks)})`);
   lines.push(`  Besök på profilsida:    ${fmt(partner30.profileVisits)} (${fmt(partner90.profileVisits)})`);
   lines.push(`  Klick till hemsida:     ${fmt(partner30.websiteClicks)} (${fmt(partner90.websiteClicks)})`);
 
