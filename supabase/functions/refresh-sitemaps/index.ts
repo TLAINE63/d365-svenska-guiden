@@ -14,8 +14,8 @@ import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 const HOST = "d365.se";
 const SITE_PROPERTY = "sc-domain:d365.se";
 const SITEMAP_URLS = [
-  `https://www.${HOST}/sitemap_index.xml`,
-  `https://www.${HOST}/sitemap.xml`,
+  `https://${HOST}/sitemap_index.xml`,
+  `https://${HOST}/sitemap.xml`,
 ];
 const INDEXNOW_KEY = "1ee300110a6717b5dec524f828e978f2";
 
@@ -51,7 +51,7 @@ async function submitSitemap(sitemapUrl: string, lovableKey: string, gscKey: str
 
 async function fetchSitemapUrls(): Promise<string[]> {
   // Fetch the sitemap index, then each child sitemap, and extract <loc>s.
-  const indexRes = await fetch(`https://www.${HOST}/sitemap_index.xml`);
+  const indexRes = await fetch(`https://${HOST}/sitemap_index.xml`);
   if (!indexRes.ok) return [];
   const indexXml = await indexRes.text();
   const childSitemaps = [...indexXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
@@ -80,9 +80,9 @@ async function pingIndexNow(urls: string[]) {
     method: "POST",
     headers: { "Content-Type": "application/json; charset=utf-8" },
     body: JSON.stringify({
-      host: `www.${HOST}`,
+      host: HOST,
       key: INDEXNOW_KEY,
-      keyLocation: `https://www.${HOST}/${INDEXNOW_KEY}.txt`,
+      keyLocation: `https://${HOST}/${INDEXNOW_KEY}.txt`,
       urlList: urls.slice(0, 10000),
     }),
   });
