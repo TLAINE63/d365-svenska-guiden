@@ -14,6 +14,9 @@ const getBase64FromUrl = async (url: string): Promise<string> => {
 };
 
 export const generatePartnerGuide = async (returnBase64: boolean = false): Promise<string | void> => {
+  if (!returnBase64) {
+    trackFunnelEvent({ event_type: "pdf_download", event_name: "partner_guide" });
+  }
   // Dynamic import to reduce initial bundle size
   const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF();
