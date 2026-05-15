@@ -279,17 +279,17 @@ async function buildSummary(
     .sort((a, b) => b.count - a.count)
     .slice(0, 8);
 
-  // ── Snitcher identifierade företag (90d) ───────────────────────────
+  // ── Identifierade besökande företag (90d) ───────────────────────────
   const relatedPaths = relatedPathsFor(partner);
   const profilePath = `/partner/${partner.slug}`;
-  const { data: snitcherRows } = await supabase
+  const { data: companyRows } = await supabase
     .from("snitcher_visits")
     .select("company_name, company_industry, company_size, company_country, visited_urls, partner_slugs, session_started_at")
     .gte("session_started_at", since90)
     .limit(2000);
 
   const companyAgg = new Map<string, CompanyHit>();
-  for (const r of snitcherRows || []) {
+  for (const r of companyRows || []) {
     const visitedUrls: string[] = Array.isArray(r.visited_urls)
       ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
       : [];
@@ -328,13 +328,23 @@ async function buildSummary(
     }
   }
 
-  const identifiedCompanies = Array.from(companyAgg.values())
+  let identifiedCompanies = Array.from(companyAgg.values())
     .sort((a, b) => {
-      // Prioritize profile-matchers, then sessions
       if (a.matchedProfile !== b.matchedProfile) return a.matchedProfile ? -1 : 1;
       return b.sessions - a.sessions;
     })
     .slice(0, 50);
+
+  // För ej publicerade partners: maska företagsnamn (visa att det är ett företag, men inte vilket)
+  const maskCompanyNames = !partner.is_featured;
+  if (maskCompanyNames) {
+    identifiedCompanies = identifiedCompanies.map((c, i) => ({
+      ...c,
+      name: `Företag #${i + 1}`,
+      country: null,
+      visitedPaths: [],
+    }));
+  }
 
   // ── Nyhetsuppdateringar (publicerade artiklar senaste 30 dagar) ─────
   const { data: newsRows } = await supabase
