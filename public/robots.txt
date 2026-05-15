@@ -46,6 +46,6 @@ Disallow: /avtalssida
 Disallow: /partner-avtal
 Disallow: /dataskydd
 
-# Sitemaps (canonical www host – matches Search Console property and prerendered output)
-Sitemap: https://www.d365.se/sitemap_index.xml
-Sitemap: https://www.d365.se/sitemap.xml
+# Sitemaps (canonical non-www host – matches sitemap entries and what GSC actually fetches without redirect)
+Sitemap: https://d365.se/sitemap_index.xml
+Sitemap: https://d365.se/sitemap.xml
