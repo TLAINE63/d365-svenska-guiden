@@ -25,6 +25,7 @@ const partnerBreadcrumbs = [
 ];
 import { allIndustries } from "@/data/partners";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
 
 // Partner FAQs for schema
@@ -385,6 +386,19 @@ const ValjPartner = () => {
       </div>
     );
   }
+
+  // Track which partners get shown in filter results (admin sales summary)
+  useTrackFilterExposure({
+    partners: filteredPartners.map((p) => ({ slug: p.slug, id: p.id })),
+    pagePath: "/valj-partner",
+    filterContext: {
+      product: selectedApplications.join(", ") || null,
+      industry: selectedIndustry,
+      size: selectedCompanySize,
+      geography: selectedGeography,
+    },
+    enabled: !isLoading,
+  });
 
   return (
     <div className="min-h-screen bg-background">

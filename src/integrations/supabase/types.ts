@@ -341,6 +341,42 @@ export type Database = {
           },
         ]
       }
+      partner_filter_exposures: {
+        Row: {
+          filter_context: Json
+          id: string
+          ip_anonymized: string | null
+          page_path: string
+          partner_id: string | null
+          partner_slug: string
+          session_id: string | null
+          user_agent: string | null
+          viewed_at: string
+        }
+        Insert: {
+          filter_context?: Json
+          id?: string
+          ip_anonymized?: string | null
+          page_path: string
+          partner_id?: string | null
+          partner_slug: string
+          session_id?: string | null
+          user_agent?: string | null
+          viewed_at?: string
+        }
+        Update: {
+          filter_context?: Json
+          id?: string
+          ip_anonymized?: string | null
+          page_path?: string
+          partner_id?: string | null
+          partner_slug?: string
+          session_id?: string | null
+          user_agent?: string | null
+          viewed_at?: string
+        }
+        Relationships: []
+      }
       partner_invitations: {
         Row: {
           created_at: string
