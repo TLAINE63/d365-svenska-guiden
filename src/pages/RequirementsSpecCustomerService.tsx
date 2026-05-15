@@ -59,10 +59,10 @@ const RequirementsSpecCustomerService = () => {
   }, []);
 
   useEffect(() => {
-    if (currentStep === totalSteps) {
+    if (step === totalSteps) {
       trackFunnelEvent({ event_type: "analysis_complete", event_name: "kravspec_customer_service" });
     }
-  }, [currentStep]);
+  }, [step]);
 
 
   const [industry, setIndustry] = useState<string>(isValidPrefill ? prefilledIndustry! : "");
