@@ -358,8 +358,12 @@ async function buildSummary(
   lines.push(`Genererat: ${new Date().toISOString().slice(0, 10).replace(/-/g, "/")}`);
   lines.push("");
   lines.push("SAJTEN TOTALT");
-  lines.push(`  Unika besökare: ${fmt(sessions30.size)} (${fmt(sessions90.size)})`);
-  lines.push(`  Sidvisningar:   ${fmt(v30.count || 0)} (${fmt(v90.count || 0)})`);
+  lines.push(`  Unika besökare:                  ${fmt(sessions30.size)} (${fmt(sessions90.size)})`);
+  lines.push(`  Sidvisningar:                    ${fmt(v30.count || 0)} (${fmt(v90.count || 0)})`);
+  lines.push(`  Behovsanalyser startade:         ${fmt(analysisSessions30.size)} (${fmt(analysisSessions90.size)})`);
+  lines.push(`  Behovsanalyser slutförda (lead): ${fmt(completed30)} (${fmt(completed90)})`);
+  lines.push(`  Profilvisningar (globalt):       ${fmt(globalProfileViews30)} (${fmt(globalProfileViews90)})`);
+  lines.push(`  Klick till partnersajter (glob): ${fmt(globalClicks30)} (${fmt(globalClicks90)})`);
   lines.push("");
   lines.push(`${partner.name.toUpperCase()} – EXPONERING`);
   lines.push(`  Visad i filterresultat: ${fmt(partner30.filterExposures)} (${fmt(partner90.filterExposures)})`);
