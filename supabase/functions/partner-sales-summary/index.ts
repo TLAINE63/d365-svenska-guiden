@@ -167,23 +167,48 @@ async function buildSummary(
   const since30 = new Date(now - 30 * 86400000).toISOString();
   const since90 = new Date(now - 90 * 86400000).toISOString();
 
-  // ── Sajttotaler ─────────────────────────────────────────────────────
-  const [v30, v90] = await Promise.all([
+  // ── Sajttotaler + globala partner-tot + behovsanalyser ──────────────
+  const [v30, v90, gpv30, gpv90, gc30, gc90, leads90Res] = await Promise.all([
     supabase
       .from("visitor_analytics")
-      .select("session_id", { count: "exact" })
+      .select("session_id, page_path", { count: "exact" })
       .gte("visited_at", since30)
       .limit(50000),
     supabase
       .from("visitor_analytics")
-      .select("session_id", { count: "exact" })
+      .select("session_id, page_path", { count: "exact" })
       .gte("visited_at", since90)
       .limit(50000),
+    supabase.from("partner_profile_views").select("*", { count: "exact", head: true }).gte("viewed_at", since30),
+    supabase.from("partner_profile_views").select("*", { count: "exact", head: true }).gte("viewed_at", since90),
+    supabase.from("partner_clicks").select("*", { count: "exact", head: true }).gte("clicked_at", since30),
+    supabase.from("partner_clicks").select("*", { count: "exact", head: true }).gte("clicked_at", since90),
+    supabase.from("leads").select("source_page, source_type, created_at").gte("created_at", since90),
   ]);
   const sessions30 = new Set<string>();
-  for (const r of v30.data || []) if (r.session_id) sessions30.add(r.session_id);
+  const analysisSessions30 = new Set<string>();
+  for (const r of v30.data || []) {
+    if (r.session_id) sessions30.add(r.session_id);
+    if (r.session_id && (r.page_path?.includes("behovsanalys") || r.page_path?.includes("ai-readiness"))) {
+      analysisSessions30.add(r.session_id);
+    }
+  }
   const sessions90 = new Set<string>();
-  for (const r of v90.data || []) if (r.session_id) sessions90.add(r.session_id);
+  const analysisSessions90 = new Set<string>();
+  for (const r of v90.data || []) {
+    if (r.session_id) sessions90.add(r.session_id);
+    if (r.session_id && (r.page_path?.includes("behovsanalys") || r.page_path?.includes("ai-readiness"))) {
+      analysisSessions90.add(r.session_id);
+    }
+  }
+  const isAnalysisLead = (l: any) =>
+    (l.source_page || "").includes("behovsanalys") || (l.source_type || "").includes("analys");
+  const completed30 = (leads90Res.data || []).filter((l) => isAnalysisLead(l) && (l.created_at || "") >= since30).length;
+  const completed90 = (leads90Res.data || []).filter(isAnalysisLead).length;
+  const globalProfileViews30 = gpv30.count || 0;
+  const globalProfileViews90 = gpv90.count || 0;
+  const globalClicks30 = gc30.count || 0;
+  const globalClicks90 = gc90.count || 0;
 
   // ── Per-partner exponering ──────────────────────────────────────────
   const [
@@ -333,8 +358,12 @@ async function buildSummary(
   lines.push(`Genererat: ${new Date().toISOString().slice(0, 10).replace(/-/g, "/")}`);
   lines.push("");
   lines.push("SAJTEN TOTALT");
-  lines.push(`  Unika besökare: ${fmt(sessions30.size)} (${fmt(sessions90.size)})`);
-  lines.push(`  Sidvisningar:   ${fmt(v30.count || 0)} (${fmt(v90.count || 0)})`);
+  lines.push(`  Unika besökare:                  ${fmt(sessions30.size)} (${fmt(sessions90.size)})`);
+  lines.push(`  Sidvisningar:                    ${fmt(v30.count || 0)} (${fmt(v90.count || 0)})`);
+  lines.push(`  Behovsanalyser startade:         ${fmt(analysisSessions30.size)} (${fmt(analysisSessions90.size)})`);
+  lines.push(`  Behovsanalyser slutförda (lead): ${fmt(completed30)} (${fmt(completed90)})`);
+  lines.push(`  Profilvisningar (globalt):       ${fmt(globalProfileViews30)} (${fmt(globalProfileViews90)})`);
+  lines.push(`  Klick till partnersajter (glob): ${fmt(globalClicks30)} (${fmt(globalClicks90)})`);
   lines.push("");
   lines.push(`${partner.name.toUpperCase()} – EXPONERING`);
   lines.push(`  Visad i filterresultat: ${fmt(partner30.filterExposures)} (${fmt(partner90.filterExposures)})`);
@@ -394,6 +423,10 @@ async function buildSummary(
 <table style="width:100%;border-collapse:collapse;font-size:14px">
 <tr><td style="padding:6px 0">Unika besökare</td><td style="text-align:right;font-weight:600">${fmt(sessions30.size)} <span style="color:#94a3b8;font-weight:400">(${fmt(sessions90.size)})</span></td></tr>
 <tr><td style="padding:6px 0">Sidvisningar</td><td style="text-align:right;font-weight:600">${fmt(v30.count || 0)} <span style="color:#94a3b8;font-weight:400">(${fmt(v90.count || 0)})</span></td></tr>
+<tr><td style="padding:6px 0">Behovsanalyser startade</td><td style="text-align:right;font-weight:600">${fmt(analysisSessions30.size)} <span style="color:#94a3b8;font-weight:400">(${fmt(analysisSessions90.size)})</span></td></tr>
+<tr><td style="padding:6px 0">Behovsanalyser slutförda (lead)</td><td style="text-align:right;font-weight:600">${fmt(completed30)} <span style="color:#94a3b8;font-weight:400">(${fmt(completed90)})</span></td></tr>
+<tr><td style="padding:6px 0">Profilvisningar (globalt)</td><td style="text-align:right;font-weight:600">${fmt(globalProfileViews30)} <span style="color:#94a3b8;font-weight:400">(${fmt(globalProfileViews90)})</span></td></tr>
+<tr><td style="padding:6px 0">Klick till partnersajter (globalt)</td><td style="text-align:right;font-weight:600">${fmt(globalClicks30)} <span style="color:#94a3b8;font-weight:400">(${fmt(globalClicks90)})</span></td></tr>
 </table>
 
 <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">${esc(partner.name)} – exponering</h2>
