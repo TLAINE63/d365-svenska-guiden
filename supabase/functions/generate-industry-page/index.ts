@@ -22,10 +22,13 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
-function b64ToBytes(s: string) {
+function b64UrlToB64(s: string) {
   let b = s.replace(/-/g, "+").replace(/_/g, "/");
   while (b.length % 4) b += "=";
-  const bin = atob(b);
+  return b;
+}
+function b64ToBytes(s: string) {
+  const bin = atob(b64UrlToB64(s));
   const bytes = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
   return bytes;
@@ -49,7 +52,7 @@ async function verifyJWT(token: string, secret: string) {
       enc.encode(`${h}.${p}`),
     );
     if (!ok) return false;
-    const payload = JSON.parse(atob(b64ToBytes(p).reduce((a, c) => a + String.fromCharCode(c), "")));
+    const payload = JSON.parse(atob(b64UrlToB64(p)));
     if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
     if (payload.role !== "admin") return false;
     return true;
