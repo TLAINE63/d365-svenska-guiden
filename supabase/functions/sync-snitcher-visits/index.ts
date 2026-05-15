@@ -1,10 +1,56 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+function isAllowedOrigin(origin: string): boolean {
+  if (!origin) return false;
+  const allowed = [
+    "https://d365.se",
+    "https://www.d365.se",
+    "https://d365-svenska-guiden.lovable.app",
+    "http://localhost:5173",
+    "http://localhost:8080",
+  ];
+  if (allowed.includes(origin)) return true;
+  if (origin.match(/^https:\/\/[a-z0-9-]+\.lovableproject\.com$/)) return true;
+  if (origin.match(/^https:\/\/[a-z0-9-]+\.lovable\.app$/)) return true;
+  return false;
+}
+function getCorsHeaders(req: Request): Record<string, string> {
+  const origin = req.headers.get("origin") || "";
+  return {
+    "Access-Control-Allow-Origin": isAllowedOrigin(origin) ? origin : "https://d365.se",
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Credentials": "true",
+  };
+}
+
+function base64UrlToBase64(s: string): string {
+  let b = s.replace(/-/g, "+").replace(/_/g, "/");
+  while (b.length % 4) b += "=";
+  return b;
+}
+function base64UrlDecode(s: string): Uint8Array {
+  const bin = atob(base64UrlToBase64(s));
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+async function verifyAdminJWT(token: string, secret: string): Promise<boolean> {
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 3) return false;
+    const [h, p, s] = parts;
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey("raw", enc.encode(secret), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
+    const ok = await crypto.subtle.verify("HMAC", key, base64UrlDecode(s) as unknown as BufferSource, enc.encode(`${h}.${p}`));
+    if (!ok) return false;
+    const payload = JSON.parse(atob(base64UrlToBase64(p)));
+    if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) return false;
+    return payload.role === "admin";
+  } catch {
+    return false;
+  }
+}
 
 const SNITCHER_BASE = "https://api.snitcher.com/v1";
 
@@ -30,19 +76,34 @@ function extractPartnerSlugs(urls: string[]): string[] {
 }
 
 serve(async (req) => {
+  const corsHeaders = getCorsHeaders(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
     const SNITCHER_API_KEY = Deno.env.get("SNITCHER_API_KEY");
+    const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!SNITCHER_API_KEY) throw new Error("SNITCHER_API_KEY saknas");
+    if (!JWT_SECRET) throw new Error("JWT secret saknas");
+
+    let body: any = {};
+    try { body = await req.json(); } catch { /* */ }
+
+    // Require admin JWT (from request body or Authorization header)
+    const authHeader = req.headers.get("authorization") || "";
+    const headerToken = authHeader.toLowerCase().startsWith("bearer ") ? authHeader.slice(7) : "";
+    const token = body?.token || headerToken;
+    const isAdmin = token ? await verifyAdminJWT(token, JWT_SECRET) : false;
+    if (!isAdmin) {
+      return new Response(JSON.stringify({ error: "Ogiltig session" }), {
+        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
-    let body: any = {};
-    try { body = await req.json(); } catch { /* */ }
 
     const wsResp = await snitcherFetch("/workspaces", SNITCHER_API_KEY);
     const workspaces: any[] = wsResp.data || [];
