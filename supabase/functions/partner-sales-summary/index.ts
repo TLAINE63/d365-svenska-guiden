@@ -405,7 +405,7 @@ async function buildSummary(
     }
   } else {
     lines.push("");
-    lines.push("IDENTIFIERADE FÖRETAG: Inga identifierade företag i Snitcher-data för denna partner senaste 90 dagarna.");
+    lines.push("IDENTIFIERADE FÖRETAG: Inga identifierade besökande företag för denna partner senaste 90 dagarna.");
   }
 
   if (recentNews.length) {
