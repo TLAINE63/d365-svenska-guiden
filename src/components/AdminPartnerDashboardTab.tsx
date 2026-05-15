@@ -91,12 +91,15 @@ export default function AdminPartnerDashboardTab({ token }: Props) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Featured partners only (the ones we have a dialog with)
+  // All partners (publicerade + ej publicerade) – sorterade: publicerade först
   const featuredPartners = useMemo(
     () =>
       (partners || [])
-        .filter((p: any) => p.is_featured)
-        .sort((a: any, b: any) => a.name.localeCompare(b.name, "sv")),
+        .slice()
+        .sort((a: any, b: any) => {
+          if (!!b.is_featured !== !!a.is_featured) return b.is_featured ? 1 : -1;
+          return a.name.localeCompare(b.name, "sv");
+        }),
     [partners],
   );
 
