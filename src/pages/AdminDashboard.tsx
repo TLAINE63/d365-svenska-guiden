@@ -3067,6 +3067,10 @@ Thomas`,
             <AdminKnowledgeArticlesTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
+          <TabsContent value="industry-pages">
+            <AdminIndustryPagesTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
           <TabsContent value="partner-dashboard">
             <AdminPartnerDashboardTab token={token || null} />
           </TabsContent>
