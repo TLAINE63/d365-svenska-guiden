@@ -387,6 +387,19 @@ const ValjPartner = () => {
     );
   }
 
+  // Track which partners get shown in filter results (admin sales summary)
+  useTrackFilterExposure({
+    partners: filteredPartners.map((p) => ({ slug: p.slug, id: p.id })),
+    pagePath: "/valj-partner",
+    filterContext: {
+      product: selectedApplications.join(", ") || null,
+      industry: selectedIndustry,
+      size: selectedCompanySize,
+      geography: selectedGeography,
+    },
+    enabled: !isLoading,
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead 
