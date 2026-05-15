@@ -423,6 +423,10 @@ async function buildSummary(
 <table style="width:100%;border-collapse:collapse;font-size:14px">
 <tr><td style="padding:6px 0">Unika besökare</td><td style="text-align:right;font-weight:600">${fmt(sessions30.size)} <span style="color:#94a3b8;font-weight:400">(${fmt(sessions90.size)})</span></td></tr>
 <tr><td style="padding:6px 0">Sidvisningar</td><td style="text-align:right;font-weight:600">${fmt(v30.count || 0)} <span style="color:#94a3b8;font-weight:400">(${fmt(v90.count || 0)})</span></td></tr>
+<tr><td style="padding:6px 0">Behovsanalyser startade</td><td style="text-align:right;font-weight:600">${fmt(analysisSessions30.size)} <span style="color:#94a3b8;font-weight:400">(${fmt(analysisSessions90.size)})</span></td></tr>
+<tr><td style="padding:6px 0">Behovsanalyser slutförda (lead)</td><td style="text-align:right;font-weight:600">${fmt(completed30)} <span style="color:#94a3b8;font-weight:400">(${fmt(completed90)})</span></td></tr>
+<tr><td style="padding:6px 0">Profilvisningar (globalt)</td><td style="text-align:right;font-weight:600">${fmt(globalProfileViews30)} <span style="color:#94a3b8;font-weight:400">(${fmt(globalProfileViews90)})</span></td></tr>
+<tr><td style="padding:6px 0">Klick till partnersajter (globalt)</td><td style="text-align:right;font-weight:600">${fmt(globalClicks30)} <span style="color:#94a3b8;font-weight:400">(${fmt(globalClicks90)})</span></td></tr>
 </table>
 
 <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">${esc(partner.name)} – exponering</h2>
