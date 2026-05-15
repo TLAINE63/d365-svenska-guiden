@@ -333,7 +333,70 @@ serve(async (req) => {
         }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
-      case "generate": {
+      case "list_all_visitors": {
+        // Returns all identified companies (Snitcher) for a date range, regardless of partner visit.
+        const { period_start, period_end } = data as { period_start?: string; period_end?: string };
+        const range = period_start && period_end
+          ? { start: period_start, end: period_end }
+          : previousMonthRange();
+
+        const { data: visits, error: vErr } = await supabase
+          .from("snitcher_visits")
+          .select("organisation_uuid, company_name, company_domain, company_industry, company_size, company_country, company_logo_url, session_started_at, session_ended_at, visited_urls, partner_slugs, synced_at")
+          .gte("session_ended_at", `${range.start}T00:00:00Z`)
+          .lte("session_ended_at", `${range.end}T23:59:59Z`)
+          .order("session_ended_at", { ascending: false })
+          .limit(2000);
+        if (vErr) throw vErr;
+
+        // Aggregate per organisation_uuid (one row per company in the range)
+        const byOrg = new Map<string, any>();
+        for (const v of visits || []) {
+          const urls: { url: string }[] = (v.visited_urls || []) as any;
+          const urlList = urls.map(u => u.url).filter(Boolean);
+          let entry = byOrg.get(v.organisation_uuid);
+          if (!entry) {
+            entry = {
+              organisation_uuid: v.organisation_uuid,
+              company_name: v.company_name,
+              company_domain: v.company_domain,
+              company_industry: v.company_industry,
+              company_size: v.company_size,
+              company_country: v.company_country,
+              company_logo_url: v.company_logo_url,
+              first_seen: v.session_started_at,
+              last_seen: v.session_ended_at,
+              partner_slugs: new Set<string>(),
+              urls: new Set<string>(),
+              session_count: 0,
+            };
+            byOrg.set(v.organisation_uuid, entry);
+          }
+          for (const s of v.partner_slugs || []) entry.partner_slugs.add(s);
+          urlList.forEach(u => entry.urls.add(u));
+          entry.session_count += 1;
+          if (v.session_started_at && (!entry.first_seen || v.session_started_at < entry.first_seen)) entry.first_seen = v.session_started_at;
+          if (v.session_ended_at && (!entry.last_seen || v.session_ended_at > entry.last_seen)) entry.last_seen = v.session_ended_at;
+        }
+
+        const companies = Array.from(byOrg.values())
+          .map(c => ({
+            ...c,
+            partner_slugs: Array.from(c.partner_slugs),
+            urls: Array.from(c.urls),
+            url_count: c.urls.size,
+            visited_partner: c.partner_slugs.size > 0,
+          }))
+          .sort((a, b) => (b.last_seen || "").localeCompare(a.last_seen || ""));
+
+        return new Response(JSON.stringify({
+          period_start: range.start,
+          period_end: range.end,
+          total: companies.length,
+          companies,
+        }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
         const result = await generateDrafts(supabase, data);
         return new Response(JSON.stringify({ success: true, ...result }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
