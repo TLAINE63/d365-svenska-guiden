@@ -433,6 +433,15 @@ const KomIgang = () => {
         description="Besvara fyra snabba frågor och få matchade partnerrekommendationer för din Dynamics 365-implementation."
         canonicalPath="/kom-igang"
       />
+      <WebPageSchema
+        name="Kom igång – Hitta rätt Dynamics 365-partner"
+        description="Besvara fyra snabba frågor och få matchade partnerrekommendationer för din Dynamics 365-implementation."
+        url="https://d365.se/kom-igang/"
+        breadcrumb={[
+          { name: "Hem", url: "https://d365.se/" },
+          { name: "Kom igång", url: "https://d365.se/kom-igang/" },
+        ]}
+      />
       <Navbar />
 
       <main className="flex-1 flex flex-col">
