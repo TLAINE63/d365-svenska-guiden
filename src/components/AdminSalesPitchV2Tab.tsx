@@ -409,7 +409,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Mail className="h-5 w-5 text-pink-300" />
-                <h2 className="text-xl font-bold">Införsäljning v2 — segmenterade utskick</h2>
+                <h2 className="text-xl font-bold">Införsäljningsmail</h2>
               </div>
               <p className="text-slate-300 text-sm max-w-2xl">
                 Två mallar: en till publicerade partners (med profileringslänk) och en till alla ej publicerade. Redigera ämne &amp; brödtext, välj exakt vilka som ska få mailet, och skicka i bulk. Mallar sparas lokalt i din webbläsare. Mottagaradress: <code className="text-xs">admin_contact_email</code> i första hand, annars publik e-post.
