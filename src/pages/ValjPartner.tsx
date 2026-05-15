@@ -25,6 +25,7 @@ const partnerBreadcrumbs = [
 ];
 import { allIndustries } from "@/data/partners";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
+import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
 
 // Partner FAQs for schema
