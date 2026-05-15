@@ -10,12 +10,12 @@ export const OrganizationSchema = () => {
     "url": "https://d365.se",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.d365.se/d365guide-logo.png",
+      "url": "https://d365.se/d365guide-logo.png",
       "width": 2000,
       "height": 1620,
       "caption": "d365.se – Oberoende guide till Microsoft Dynamics 365"
     },
-    "image": "https://www.d365.se/d365guide-logo.png",
+    "image": "https://d365.se/d365guide-logo.png",
     "description": "Oberoende guide och rådgivning för Microsoft Dynamics 365 ERP och CRM i Sverige. Hjälper företag välja rätt affärssystem och Microsoft-partner.",
     "foundingDate": "2020",
     "areaServed": {
@@ -204,7 +204,7 @@ export const WebSiteSchema = () => {
       "url": "https://d365.se",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://www.d365.se/d365guide-logo.png",
+        "url": "https://d365.se/d365guide-logo.png",
         "width": 2000,
         "height": 1620
       }
@@ -319,7 +319,7 @@ export const WebPageSchema = ({
       url: "https://d365.se",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.d365.se/d365guide-logo.png",
+        url: "https://d365.se/d365guide-logo.png",
       },
     },
   };
@@ -378,7 +378,7 @@ export const ArticleSchema = ({
   const fallbackPublished = "2024-01-01";
   const resolvedImage = image
     ? (image.startsWith("http") ? image : `https://d365.se${image}`)
-    : "https://www.d365.se/d365guide-logo.png";
+    : "https://d365.se/d365guide-logo.png";
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -401,7 +401,7 @@ export const ArticleSchema = ({
       url: "https://d365.se",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.d365.se/d365guide-logo.png",
+        url: "https://d365.se/d365guide-logo.png",
       },
     },
   };
