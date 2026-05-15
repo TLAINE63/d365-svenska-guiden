@@ -118,6 +118,7 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     toast({ title: "CSV nedladdad", description: "Öppna filen i Excel." });
+  };
 
   return (
     <Card className="border-cta-orange/30 bg-gradient-to-br from-cta-orange/5 via-background to-background">
