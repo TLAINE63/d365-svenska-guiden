@@ -1012,7 +1012,7 @@ const CustomerServiceNeedsAnalysis = () => {
     pdf.text("Din oberoende guide till ratt Dynamics 365-losning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
-    pdf.text("www.d365.se", pageWidth - margin - 55, yPos + 26);
+    pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
 
     const pdfFilename = `Behovsanalys_Kundservice_${data.companyName || 'Analys'}_${new Date().toISOString().split('T')[0]}`;
     const pdfBase64 = pdf.output('datauristring').split(',')[1];
