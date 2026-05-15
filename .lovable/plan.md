@@ -1,91 +1,115 @@
-# Funnel-vy i Admin
+## Branschsidor – proffsiga sidor per bransch
 
-Ny flik **"Funnel"** under gruppen *Statistik* som visar var besökare faller av i konverteringskedjan, så vi kan rikta optimeringsinsatser exakt där läckaget är störst.
+En sida per standardbransch på `/branscher/<slug>` med komplett innehåll (processer, utmaningar, roller, funktioner, applikationer, partners, FAQ). Innehållet AI-genereras och kan redigeras i admin.
 
-## Funnel-stegen
+### URL & navigering
 
-```text
-1. Besök sida              (visitor_analytics)
-2. Visat CTA/banner        (NY tracking)
-3. Klickat CTA             (NY tracking)
-4. Startat behovsanalys    (NY tracking)
-5. Slutfört behovsanalys   (NY tracking)
-6. Laddat ner PDF          (NY tracking)
-7. Skickat lead            (leads)
-8. Klickat partnerprofil   (partner_profile_views)
-9. Klickat partnerwebb     (partner_clicks)
-```
+- `/branscher/` – översiktssida som listar alla 20 branscher
+- `/branscher/tillverkning`, `/branscher/handel`, ... – en sida per bransch
+- Befintlig `/branschlosningar/` står kvar (bredare ingång) – branschsidorna länkas från den
+- Navbar: ingen ändring nu; vi länkar in från Footer + `/branschlosningar` + `/valj-partner`
 
-För varje steg: antal, % av föregående steg, % av topp. Färgkodning grön/gul/röd när drop-off > tröskel.
+### Sidsektioner (per branschsida)
 
-## Vyer
+1. **Hero** – branschnamn, lead-text, hero-bild, breadcrumb
+2. **Intro** – kort om branschen i Sverige (storlek, drivkrafter, marknadsläge)
+3. **Affärsprocesser** – 5–7 typiska processer (t.ex. produktion, lager, order, projekt) med kort beskrivning
+4. **Utmaningar** – 4–6 typiska smärtpunkter, formulerade neutralt
+5. **Roller & funktioner** – nyckelroller (CFO, produktionschef, säljchef, …) och vad de behöver
+6. **D365-applikationer som passar** – visar BC, F&SCM, Sales, CS, FS, CC, CI med relevans-text per app
+7. **Branschspecifika industry apps** – från befintlig `partners.industry_apps` JSONB (MS Marketplace-certifierade), aggregerade
+8. **Partners** – lista över partners med branschen i `industries` eller `secondary_industries`. Filterknappar för produktområde (BC, F&SCM, Sales, CS, FS, CC, CI). Standard sortering: seeded shuffle (per minne)
+9. **FAQ** – 5–7 vanliga frågor med JSON-LD `FAQPage`
+10. **CTA-sektion** – behovsanalys + partnerguide + kontakt
+11. **RelatedPages** – närliggande branscher + översikter
 
-- **Översikt (default)**: Sammanslagen funnel för valt datumintervall (7d / 30d / 90d / custom).
-- **Per sida-typ**: Filter för hemsida, produktsidor (BC, CRM, F&SCM…), artiklar, partner-listor. Visar att t.ex. CRM-sidan har 4% klick → analys medan BC har 12%.
-- **Per analys-verktyg**: Behovsanalys, AI-readiness, kravspec (sales/marketing/customer service) – completion rate per verktyg och per steg i wizarden.
-- **Tidsserie**: Linjediagram med konverteringsgrad steg-för-steg över tid.
+### Datamodell
 
-## Datainsamling – ny tracking som behövs
+Ny tabell `industry_pages`:
 
-Idag finns sidvisningar, partner-klick, profil-views och leads. **Det som saknas** är CTA-interaktion och analys-progression. Ny tabell `funnel_events`:
+- `slug` (text, unik) – t.ex. `tillverkning`
+- `name` (text) – visningsnamn, t.ex. "Tillverkning"
+- `meta_title`, `meta_description` (text)
+- `hero_image_url` (text, valfri)
+- `intro` (text – markdown-paragraf)
+- `processes` (jsonb – `[{title, description}]`)
+- `challenges` (jsonb – `[{title, description}]`)
+- `roles` (jsonb – `[{role, needs}]`)
+- `applications` (jsonb – `[{app: "Business Central", relevance: "..."}]`)
+- `faq` (jsonb – `[{q, a}]`)
+- `related_industries` (text[])
+- `is_published` (boolean, default false)
+- `ai_generated_at` (timestamptz)
+- standard `created_at`, `updated_at`
 
-```sql
-funnel_events (
-  id uuid pk,
-  session_id text,
-  event_type text,    -- 'cta_view' | 'cta_click' | 'analysis_start'
-                      -- | 'analysis_step' | 'analysis_complete'
-                      -- | 'pdf_download'
-  event_name text,    -- t.ex. 'lead_magnet_banner', 'needs_analysis', 'kravspec_sales'
-  page_path text,
-  step_number int,    -- för analysis_step
-  metadata jsonb,
-  ip_anonymized text,
-  occurred_at timestamptz
-)
-```
+RLS:
+- `SELECT` för anon endast där `is_published = true`
+- `ALL` för service_role (admin via edge function)
 
-Edge function `track-funnel-event` (service-role insert, samma mönster som `track-visitor`). Anropas via `navigator.sendBeacon` från:
+Validation-trigger: kräver `slug` + `name`.
 
-- `LeadMagnetBanner`, `LeadCTA`, `ScrollCTA`, `EbookBanner` – view (IntersectionObserver) + click
-- `NeedsAnalysis`, `AIReadiness`, `RequirementsSpec*` – start, varje steg, complete
-- `generatePartnerGuide`, `generateRequirementsSpec` – pdf_download
+### Innehållsgenerering (AI)
 
-## UI
+Ny edge function `generate-industry-page` (admin-skyddad via `PARTNER_ADMIN_PASSWORD`):
+- Input: `industry_slug`, `industry_name`
+- Anropar Lovable AI Gateway (`google/gemini-3-flash-preview`) med structured output (`Output.object`) → JSON med alla sektioner
+- Sparar/uppdaterar raden i `industry_pages` med `is_published = false` så du granskar innan publicering
 
-Ny komponent `src/components/AdminFunnelTab.tsx`:
+System-prompt: TAYA-tonalitet, neutral, ingen försäljningsretorik, fokus på svensk marknad, D365-applikationer (ingen Power Platform).
 
-- Datumväljare + sida-typ-filter överst
-- **Funnel-stapeldiagram** (horisontell, krympande staplar) med antal + drop-off% mellan steg
-- **KPI-rad**: total konvertering, största läckage-steg, bästa sida, sämsta sida
-- **Tabell per sida**: lista alla sidor sorterade efter konverteringsgrad, klickbara för drill-down
-- Använder Recharts (finns redan) och semantiska tokens
+### Admin
 
-Edge function `funnel-stats` (service-role) som aggregerar från `visitor_analytics`, `funnel_events`, `partner_clicks`, `partner_profile_views`, `leads` baserat på `session_id` och datumintervall.
+Ny flik **Branschsidor** i `AdminDashboard.tsx`:
+- Lista alla 20 standardbranscher (från `INDUSTRIES`-konstanten)
+- Per rad: status (publicerad/utkast/saknas), knappar **Generera med AI**, **Redigera**, **Publicera/avpublicera**
+- Redigeringsdialog (PremiumCollapsibleSection) med fält per sektion (textarea + JSON-arrays via repeatable rows)
+- Sparas via ny edge function `manage-industry-pages` (CRUD, admin-skyddad)
 
-## Integration
+### Publik sida
 
-- Registrera `funnel` som ny `TabsTrigger` + `TabsContent` i `AdminDashboard.tsx` under gruppen *Statistik*
-- Inga ändringar i publika sidor utöver tunna tracking-anrop (fire-and-forget, blockar aldrig UI)
+Ny route `src/pages/IndustryPage.tsx`:
+- `useParams` → slug → fetch `industry_pages` via supabase client (anon, RLS filtrerar)
+- 404 om saknas/opublicerad
+- Hämtar matchande partners via befintlig `usePartners()`-hook + filtrera på industries inkl secondary
+- Produktfilter-knappar (BC/F&SCM/Sales/CS/FS/CC/CI) – multi-select
+- Använder `PartnerCard` för konsistens
+- SEO: `SEOHead` med per-bransch title/desc/canonical, `BreadcrumbSchema`, `FAQSchema`
 
-## Tekniska detaljer
+Ny route `src/pages/Branscher.tsx` – översikt med 20 kort.
 
-- **Migration**: skapa `funnel_events` med RLS (service role only), index på `(occurred_at, event_type)` och `(session_id)`
-- **Edge functions**: `track-funnel-event` (verify_jwt=false, beacon-vänlig), `funnel-stats` (admin auth via `PARTNER_ADMIN_PASSWORD`-mönster som övriga admin-funktioner)
-- **Session-koppling**: använd existerande `session_id` från `useVisitorTracking` (sessionStorage) så funnel-events kan joinas mot `visitor_analytics`
-- **Ingen ändring** i bef. tracking (`track-visitor`, `track-partner-click`, `track-partner-view`) – återanvänds via session_id-join
+App.tsx: `/branscher` + `/branscher/:slug` (lazy).
 
-## Filer som skapas/ändras
+### SSG / sitemap
 
-**Nya:**
-- `supabase/migrations/<ts>_funnel_events.sql`
-- `supabase/functions/track-funnel-event/index.ts`
-- `supabase/functions/funnel-stats/index.ts`
-- `src/components/AdminFunnelTab.tsx`
-- `src/utils/trackFunnelEvent.ts`
+- Lägg `/branscher` och `/branscher/<slug>` (för publicerade) i `partnerRoutes.json`-genereringen → uppdatera `vite-prerender-plugin.ts` eller motsvarande JSON-källa
+- Inkludera i sitemap via `refresh-sitemaps` edge function
 
-**Ändras:**
-- `src/pages/AdminDashboard.tsx` (ny flik)
-- `src/components/LeadMagnetBanner.tsx`, `LeadCTA.tsx`, `ScrollCTA.tsx`, `EbookBanner.tsx` (view + click tracking)
-- `src/pages/NeedsAnalysis.tsx`, `AIReadiness.tsx`, `SalesMarketingNeedsAnalysis.tsx`, `CustomerServiceNeedsAnalysis.tsx`, `RequirementsSpec*.tsx` (start/step/complete)
-- `src/utils/generatePartnerGuide.ts`, `generateRequirementsSpec.ts` (pdf_download)
+### Filer
+
+**Skapa:**
+- `supabase/migrations/<ts>_industry_pages.sql`
+- `supabase/functions/generate-industry-page/index.ts`
+- `supabase/functions/manage-industry-pages/index.ts`
+- `supabase/functions/_shared/ai-gateway.ts` (om saknas; provider-helper)
+- `src/pages/IndustryPage.tsx`
+- `src/pages/Branscher.tsx`
+- `src/components/AdminIndustryPagesTab.tsx`
+- `src/hooks/useIndustryPage.ts`
+- `src/data/standardIndustries.ts` (lista över 20 branscher + slug + ikon/färg)
+
+**Ändra:**
+- `src/App.tsx` – lazy + routes
+- `src/pages/AdminDashboard.tsx` – ny flik
+- `src/components/Footer.tsx` – sub-rubrik "Branscher" (top 8) + länk till `/branscher`
+- `src/pages/Branschlosningar.tsx` – länka till nya branschsidorna
+- `vite-prerender-plugin.ts` (eller routes-källa) – lägg in branschrutter
+- `supabase/functions/refresh-sitemaps/index.ts` – inkludera nya rutter
+
+### Leverans i etapper
+
+1. Migration + edge functions + admin-flik (du kan generera & redigera)
+2. Publik IndustryPage + Branscher-översikt + routes
+3. Footer-länkar + Branschlösningar-länkar
+4. SSG-rutter + sitemap
+
+Klart att starta? Migrationen är första steget och kräver ditt godkännande.

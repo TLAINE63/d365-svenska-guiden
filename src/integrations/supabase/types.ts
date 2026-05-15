@@ -110,6 +110,66 @@ export type Database = {
         }
         Relationships: []
       }
+      industry_pages: {
+        Row: {
+          ai_generated_at: string | null
+          applications: Json
+          challenges: Json
+          created_at: string
+          faq: Json
+          hero_image_url: string | null
+          id: string
+          intro: string | null
+          is_published: boolean
+          meta_description: string | null
+          meta_title: string | null
+          name: string
+          processes: Json
+          related_industries: string[]
+          roles: Json
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          ai_generated_at?: string | null
+          applications?: Json
+          challenges?: Json
+          created_at?: string
+          faq?: Json
+          hero_image_url?: string | null
+          id?: string
+          intro?: string | null
+          is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
+          name: string
+          processes?: Json
+          related_industries?: string[]
+          roles?: Json
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          ai_generated_at?: string | null
+          applications?: Json
+          challenges?: Json
+          created_at?: string
+          faq?: Json
+          hero_image_url?: string | null
+          id?: string
+          intro?: string | null
+          is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
+          name?: string
+          processes?: Json
+          related_industries?: string[]
+          roles?: Json
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       knowledge_articles: {
         Row: {
           category: string
