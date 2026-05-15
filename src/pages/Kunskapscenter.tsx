@@ -20,6 +20,7 @@ import guideValjPartnerImage from "@/assets/guide-valj-partner-card.jpg";
 import branschjamforelseImage from "@/assets/branschjamforelse-card.jpg";
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
+import BuyerJourneyStages from "@/components/BuyerJourneyStages";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
 import { ALL_DEEP_DIVE_ARTICLES } from "@/data/bcArticles";
 import { BLOG_ARTICLES } from "@/data/blogArticles";
@@ -862,6 +863,7 @@ const Kunskapscenter = () => {
             </section>
           </>
         )}
+        <BuyerJourneyStages />
       </main>
       <Footer />
     </>
