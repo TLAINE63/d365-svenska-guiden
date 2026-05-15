@@ -3058,6 +3058,10 @@ Thomas`,
           <TabsContent value="competitor">
             <AdminCompetitorTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
+
+          <TabsContent value="gsc">
+            <AdminGscTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
