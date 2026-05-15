@@ -84,6 +84,7 @@ import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
 import AdminEventsTab from "@/components/AdminEventsTab";
 import AdminVisitorStatsTab from "@/components/AdminVisitorStatsTab";
+import AdminAllVisitorsTab from "@/components/AdminAllVisitorsTab";
 import AdminSalesOverview from "@/components/AdminSalesOverview";
 import AdminSalesPitchTab from "@/components/AdminSalesPitchTab";
 import AdminSalesPitchV2Tab from "@/components/AdminSalesPitchV2Tab";
@@ -257,7 +258,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
     id: "statistik",
     label: "Statistik",
     icon: BarChart3,
-    tabs: ["clicks", "stats", "visitors", "summary", "email-log"],
+    tabs: ["clicks", "stats", "visitors", "all-visitors", "summary", "email-log"],
   },
   {
     id: "seo",
@@ -1924,6 +1925,12 @@ Thomas`,
               </span>
               Besökare
             </TabsTrigger>
+            <TabsTrigger value="all-visitors" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-indigo-500/20 to-indigo-600/10 ring-1 ring-indigo-400/20">
+                <Globe className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.75} />
+              </span>
+              Alla besökare
+            </TabsTrigger>
             <TabsTrigger value="summary" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-teal-500/20 to-teal-600/10 ring-1 ring-teal-400/20">
                 <LayoutDashboard className="h-3.5 w-3.5 text-teal-300" strokeWidth={1.75} />
@@ -2966,6 +2973,11 @@ Thomas`,
                 />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* ==================== ALL VISITORS (SNITCHER) TAB ==================== */}
+          <TabsContent value="all-visitors">
+            <AdminAllVisitorsTab token={token || null} />
           </TabsContent>
 
           {/* ==================== EMAIL SUMMARY TAB ==================== */}
