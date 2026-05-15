@@ -142,6 +142,9 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
               <Button onClick={copyText} variant="outline">
                 <Copy className="w-4 h-4 mr-2" /> Kopiera som text
               </Button>
+              <Button onClick={downloadCsv} variant="outline">
+                <Download className="w-4 h-4 mr-2" /> Ladda ner CSV
+              </Button>
               <Button onClick={sendEmail} disabled={sending} className="bg-cta-orange hover:bg-cta-orange-hover text-white">
                 {sending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Mail className="w-4 h-4 mr-2" />}
                 Maila till mig
