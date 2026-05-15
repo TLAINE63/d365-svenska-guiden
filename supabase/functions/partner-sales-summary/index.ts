@@ -171,7 +171,7 @@ async function buildSummary(
   const [v30, v90, gpv30, gpv90, gc30, gc90, leads90Res] = await Promise.all([
     supabase
       .from("visitor_analytics")
-      .select("session_id, page_path", { count: "exact" })
+      .select("session_id, page_path, visited_at", { count: "exact" })
       .gte("visited_at", since30)
       .limit(50000),
     supabase
