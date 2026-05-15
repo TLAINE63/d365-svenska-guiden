@@ -862,6 +862,7 @@ const Kunskapscenter = () => {
             </section>
           </>
         )}
+        <BuyerJourneyStages />
       </main>
       <Footer />
     </>
