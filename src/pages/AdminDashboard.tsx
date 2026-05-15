@@ -2005,6 +2005,12 @@ Thomas`,
               </span>
               Kunskapsartiklar
             </TabsTrigger>
+            <TabsTrigger value="industry-pages" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
+                <FileText className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
+              </span>
+              Branschsidor
+            </TabsTrigger>
             <TabsTrigger value="partner-dashboard" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 ring-1 ring-cyan-400/20">
                 <LayoutDashboard className="h-3.5 w-3.5 text-cyan-300" strokeWidth={1.75} />
