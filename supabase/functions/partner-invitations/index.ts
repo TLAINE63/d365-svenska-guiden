@@ -1723,11 +1723,7 @@ D365.se`;
               .map((paragraph: string) => {
                 const trimmed = paragraph.trim();
                 if (!trimmed) return "";
-                const withBr = trimmed.replace(/\n/g, "<br>");
-                const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
-                const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
-                const withBold = withEmails.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-                return `<p>${withBold}</p>`;
+                return renderParagraph(trimmed);
               })
               .filter(Boolean)
               .join("\n");
