@@ -394,7 +394,7 @@ async function buildSummary(
 
   if (identifiedCompanies.length) {
     lines.push("");
-    lines.push(`IDENTIFIERADE FÖRETAG (Snitcher, 90d) – ${identifiedCompanies.length} st`);
+    lines.push(`IDENTIFIERADE FÖRETAG (90d) – ${identifiedCompanies.length} st${maskCompanyNames ? " (företagsnamn maskerade)" : ""}`);
     for (const c of identifiedCompanies) {
       const meta = [c.industry, c.size, c.country].filter(Boolean).join(", ");
       const hit = c.matchedProfile ? "[profil]" : "[relaterad sida]";
