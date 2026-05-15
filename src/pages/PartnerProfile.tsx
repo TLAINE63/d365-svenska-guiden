@@ -373,6 +373,21 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
         ogImageAlt={`${partner.name} – Microsoft Dynamics 365 Partner`}
         ogType="website"
       />
+      <PartnerOrganizationSchema
+        name={partner.name}
+        description={partner.description}
+        slug={partner.slug}
+        website={partner.website}
+        logoUrl={partner.logo_url || undefined}
+        applications={partner.applications || []}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Hem", url: "https://d365.se/" },
+          { name: "Välj partner", url: "https://d365.se/valj-partner/" },
+          { name: partner.name, url: `https://d365.se/partner/${partner.slug}/` },
+        ]}
+      />
 
 
       <Navbar />
