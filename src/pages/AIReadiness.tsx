@@ -881,6 +881,16 @@ const AIReadiness = () => {
     : 0;
   const progressPct = (currentProgress / totalSteps) * 100;
 
+  useEffect(() => {
+    trackFunnelEvent({ event_type: "analysis_start", event_name: "ai_readiness" });
+  }, []);
+
+  useEffect(() => {
+    if (step === "result") {
+      trackFunnelEvent({ event_type: "analysis_complete", event_name: "ai_readiness" });
+    }
+  }, [step]);
+
   // ─── Foundation handlers ─────────────────────────────
   const handleFoundationAnswer = (label: string) => {
     const fq = foundationQuestions[foundationStep];
