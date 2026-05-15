@@ -57,6 +57,7 @@ export interface PrerenderRoute {
   changefreq: string;
   lastmod?: string; // ISO date YYYY-MM-DD
   meta?: { title: string; description: string };
+  sitemap?: boolean;
 }
 
 export const routes: PrerenderRoute[] = [
@@ -84,6 +85,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/events', priority: '0.8', changefreq: 'weekly' },
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
   { path: '/kontakt', priority: '0.7', changefreq: 'monthly' },
+  { path: '/dataskydd', priority: '0.3', changefreq: 'yearly', sitemap: false },
   { path: '/kom-igang', priority: '0.8', changefreq: 'monthly' },
   { path: '/kunskapscenter', priority: '0.7', changefreq: 'weekly' },
   { path: '/kravspecifikation', priority: '0.7', changefreq: 'monthly' },
