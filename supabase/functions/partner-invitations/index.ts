@@ -29,6 +29,29 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
+// Renderar ett textstycke som HTML och framhäver prisrader (995/1 595/1 995 kr/mån)
+// samt prisuppdateringar ("Ingångspriset är nu ... (tidigare ...)") med stor fetstil + callout box.
+function renderParagraph(trimmed: string): string {
+  const withBr = trimmed.replace(/\n/g, "<br>");
+  const withLinks = withBr.replace(/(https?:\/\/[^\s<,]+)/g, '<a href="$1" style="color: #2563eb;">$1</a>');
+  const withEmails = withLinks.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" style="color: #2563eb;">$1</a>');
+  const withBold = withEmails.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+  // Prisbullet: "• N produktområde(n): X XXX kr/mån"
+  if (/^•\s*\d+\s*produktomr[åa]d.*\d[\d\s]*\s*kr\s*\/\s*m[åa]n/i.test(trimmed)) {
+    return `<p style="margin:6px 0;padding:12px 16px;background:#fef3c7;border-left:4px solid #f59e0b;border-radius:6px;font-size:18px;font-weight:700;color:#78350f">${withBold}</p>`;
+  }
+  // Prisuppdatering: "Ingångspriset är nu ... (tidigare ...)"
+  if (/ing[åa]ngspris(et)?\s+är\s+nu/i.test(trimmed) && /tidigare/i.test(trimmed)) {
+    const struck = withBold.replace(
+      /\(tidigare\s+([^)]+)\)/i,
+      '(<span style="text-decoration:line-through;color:#9ca3af;font-weight:500">tidigare $1</span>)',
+    );
+    return `<p style="margin:14px 0;padding:14px 16px;background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;font-size:17px;font-weight:700;color:#7c2d12;line-height:1.5">${struck}</p>`;
+  }
+  return `<p>${withBold}</p>`;
+}
+
 /**
  * Splits an email field into a list of addresses.
  * Accepts ";" or "," as separators so admins can mail multiple
