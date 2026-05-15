@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Copy, Mail, FileText, Loader2 } from "lucide-react";
+import { Copy, Mail, FileText, Loader2, Download } from "lucide-react";
 import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
 import { useToast } from "@/hooks/use-toast";
 
