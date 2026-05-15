@@ -162,6 +162,10 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
               <Stat label="Hemsidesklick (30/90d)" v={`${summary.partner30.websiteClicks} / ${summary.partner90.websiteClicks}`} />
             </div>
 
+            {Array.isArray(summary.analysisTrend30) && summary.analysisTrend30.length > 0 && (
+              <AnalysisTrendChart data={summary.analysisTrend30} />
+            )}
+
             <details className="rounded-lg border bg-card p-3">
               <summary className="cursor-pointer text-sm font-medium">
                 Identifierade besökande företag (90d) – {summary.identifiedCompanies?.length || 0} st
