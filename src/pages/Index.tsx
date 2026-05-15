@@ -386,8 +386,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Var i köpresan står ni? — självskattning */}
-      <BuyerJourneyStages />
 
       {/* Direction picker dialog for Behovsanalys / Kravspec */}
       <Dialog open={directionPicker !== null} onOpenChange={(open) => !open && setDirectionPicker(null)}>
