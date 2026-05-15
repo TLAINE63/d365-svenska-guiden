@@ -7,7 +7,7 @@
  * partners får "Failed to fetch" och "ogiltig länk"-fel om vi skickar dem
  * preview-URL:er. Tvinga därför alltid produktionsdomän.
  */
-export const PUBLIC_SITE_URL = "https://www.d365.se";
+export const PUBLIC_SITE_URL = "https://d365.se";
 
 export function getPublicBaseUrl(): string {
   if (typeof window === "undefined") return PUBLIC_SITE_URL;
