@@ -173,7 +173,7 @@ export default function AdminPartnerDashboardTab({ token }: Props) {
                   <SelectItem value="__none__">– Ingen vald (endast global) –</SelectItem>
                   {featuredPartners.map((p: any) => (
                     <SelectItem key={p.id} value={p.id}>
-                      {p.name}
+                      {p.name}{p.is_featured ? "" : " (ej publicerad)"}
                     </SelectItem>
                   ))}
                 </SelectContent>
