@@ -230,6 +230,48 @@ function calcMonthlyFee(productFilters: Record<string, any> | undefined): number
   return priceTiers[Math.min(activeProducts, 3)] ?? 1995;
 }
 
+// ==================== TAB GROUPS ====================
+import type { LucideIcon } from "lucide-react";
+
+const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }[] = [
+  {
+    id: "leads-partners",
+    label: "Leads & Partners",
+    icon: Building2,
+    tabs: ["leads", "partners", "invitations", "agreement"],
+  },
+  {
+    id: "innehall",
+    label: "Innehåll & Events",
+    icon: CalendarDays,
+    tabs: ["events", "featured-article", "knowledge-articles"],
+  },
+  {
+    id: "salj",
+    label: "Sälj",
+    icon: Megaphone,
+    tabs: ["sales-overview", "sales-pitch", "sales-pitch-v2", "sales-kpi"],
+  },
+  {
+    id: "statistik",
+    label: "Statistik",
+    icon: BarChart3,
+    tabs: ["clicks", "stats", "visitors", "summary", "email-log"],
+  },
+  {
+    id: "seo",
+    label: "SEO & Konkurrens",
+    icon: TrendingUp,
+    tabs: ["seo-rankings", "semrush", "competitor"],
+  },
+  {
+    id: "partnerportal",
+    label: "Partnerportal",
+    icon: LayoutDashboard,
+    tabs: ["partner-stats-page", "partner-agreement-page", "partner-dashboard", "partner-reports"],
+  },
+];
+
 // ==================== COMPONENT ====================
 
 const AdminDashboard = () => {
@@ -299,6 +341,22 @@ const AdminDashboard = () => {
   
   // Section refs for navigation
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Tab grouping
+  const [activeGroup, setActiveGroup] = useState<string>(() => {
+    if (typeof window === "undefined") return "leads-partners";
+    return localStorage.getItem("admin-active-group") || "leads-partners";
+  });
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    if (typeof window === "undefined") return "leads";
+    return localStorage.getItem("admin-active-tab") || "leads";
+  });
+  useEffect(() => {
+    try { localStorage.setItem("admin-active-group", activeGroup); } catch {}
+  }, [activeGroup]);
+  useEffect(() => {
+    try { localStorage.setItem("admin-active-tab", activeTab); } catch {}
+  }, [activeTab]);
 
   // AI summary generation state
   const [generatingSummaryId, setGeneratingSummaryId] = useState<string | null>(null);
@@ -1797,141 +1855,165 @@ Thomas`,
           <span className="font-medium">All statistik utgår från d365.se</span>
           <span className="text-amber-200/70">– trafik från preview/staging spåras inte och syns inte i siffrorna.</span>
         </div>
-        <Tabs defaultValue="leads" className="space-y-4">
-          <TabsList className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded-2xl border border-slate-700/50 shadow-lg [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
-            <TabsTrigger value="leads" className="flex items-center gap-2">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          {/* Group selector */}
+          <div className="flex flex-wrap gap-2 p-2 rounded-2xl bg-slate-100 dark:bg-slate-800/50 border border-border">
+            {tabGroups.map((g) => {
+              const isActive = activeGroup === g.id;
+              return (
+                <button
+                  key={g.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveGroup(g.id);
+                    setActiveTab(g.tabs[0]);
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+                    isActive
+                      ? "bg-slate-900 text-white shadow-md"
+                      : "text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-700/60"
+                  }`}
+                >
+                  <g.icon className="h-4 w-4" />
+                  {g.label}
+                </button>
+              );
+            })}
+          </div>
+          <TabsList data-active-group={activeGroup} className="flex-wrap h-auto gap-1.5 bg-slate-900/95 p-2 rounded-2xl border border-slate-700/50 shadow-lg [&_[data-state=active]]:bg-white [&_[data-state=active]]:text-slate-900 [&_[data-state=active]]:shadow-md [&_[data-state=active]_.tab-icon]:bg-slate-900/10 [&_[data-state=active]_.tab-icon]:ring-slate-900/10 [&_[data-state=active]_.tab-icon_svg]:text-slate-900 [&>button]:text-slate-300 [&>button]:rounded-xl [&>button]:px-3 [&>button]:py-2 [&>button]:transition-all [&>button:hover]:text-white [&>button:hover]:bg-white/5">
+            <TabsTrigger value="leads" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/10 ring-1 ring-blue-400/20">
                 <Inbox className="h-3.5 w-3.5 text-blue-300" strokeWidth={1.75} />
               </span>
               Leads
             </TabsTrigger>
-            <TabsTrigger value="clicks" className="flex items-center gap-2">
+            <TabsTrigger value="clicks" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
                 <MousePointerClick className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
               </span>
               Partnerklick
             </TabsTrigger>
-            <TabsTrigger value="partners" className="flex items-center gap-2">
+            <TabsTrigger value="partners" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
                 <Building2 className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
               </span>
               Partners
             </TabsTrigger>
-            <TabsTrigger value="invitations" className="flex items-center gap-2">
+            <TabsTrigger value="invitations" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
                 <MailPlus className="h-3.5 w-3.5 text-violet-300" strokeWidth={1.75} />
               </span>
               Inbjudningar
             </TabsTrigger>
-            <TabsTrigger value="events" className="flex items-center gap-2">
+            <TabsTrigger value="events" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/10 ring-1 ring-rose-400/20">
                 <CalendarDays className="h-3.5 w-3.5 text-rose-300" strokeWidth={1.75} />
               </span>
               Events
             </TabsTrigger>
-            <TabsTrigger value="stats" className="flex items-center gap-2">
+            <TabsTrigger value="stats" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 ring-1 ring-cyan-400/20">
                 <BarChart3 className="h-3.5 w-3.5 text-cyan-300" strokeWidth={1.75} />
               </span>
               Partnerstatistik
             </TabsTrigger>
-            <TabsTrigger value="visitors" className="flex items-center gap-2">
+            <TabsTrigger value="visitors" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
                 <LineChart className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
               </span>
               Besökare
             </TabsTrigger>
-            <TabsTrigger value="summary" className="flex items-center gap-2">
+            <TabsTrigger value="summary" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-teal-500/20 to-teal-600/10 ring-1 ring-teal-400/20">
                 <LayoutDashboard className="h-3.5 w-3.5 text-teal-300" strokeWidth={1.75} />
               </span>
               Emailsammanfattning
             </TabsTrigger>
-            <TabsTrigger value="email-log" className="flex items-center gap-2">
+            <TabsTrigger value="email-log" className={`flex items-center gap-2 ${activeGroup === "statistik" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-indigo-500/20 to-indigo-600/10 ring-1 ring-indigo-400/20">
                 <MailCheck className="h-3.5 w-3.5 text-indigo-300" strokeWidth={1.75} />
               </span>
               E-postlogg
             </TabsTrigger>
-            <TabsTrigger value="agreement" className="flex items-center gap-2">
+            <TabsTrigger value="agreement" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-stone-500/20 to-stone-600/10 ring-1 ring-stone-400/20">
                 <ScrollText className="h-3.5 w-3.5 text-stone-200" strokeWidth={1.75} />
               </span>
               Partneravtal
             </TabsTrigger>
-            <TabsTrigger value="sales-overview" className="flex items-center gap-2">
+            <TabsTrigger value="sales-overview" className={`flex items-center gap-2 ${activeGroup === "salj" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
                 <Award className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
               </span>
               Totalöversikt
             </TabsTrigger>
-            <TabsTrigger value="sales-pitch" className="flex items-center gap-2">
+            <TabsTrigger value="sales-pitch" className={`flex items-center gap-2 ${activeGroup === "salj" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-pink-500/20 to-pink-600/10 ring-1 ring-pink-400/20">
                 <Megaphone className="h-3.5 w-3.5 text-pink-300" strokeWidth={1.75} />
               </span>
               Säljunderlag
             </TabsTrigger>
-            <TabsTrigger value="sales-pitch-v2" className="flex items-center gap-2">
+            <TabsTrigger value="sales-pitch-v2" className={`flex items-center gap-2 ${activeGroup === "salj" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/10 ring-1 ring-rose-400/20">
                 <Mail className="h-3.5 w-3.5 text-rose-300" strokeWidth={1.75} />
               </span>
               Införsäljning v2
             </TabsTrigger>
-            <TabsTrigger value="sales-kpi" className="flex items-center gap-2">
+            <TabsTrigger value="sales-kpi" className={`flex items-center gap-2 ${activeGroup === "salj" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-lime-500/20 to-lime-600/10 ring-1 ring-lime-400/20">
                 <Gauge className="h-3.5 w-3.5 text-lime-300" strokeWidth={1.75} />
               </span>
               Sälj-KPI
             </TabsTrigger>
-            <TabsTrigger value="partner-stats-page" className="flex items-center gap-2">
+            <TabsTrigger value="partner-stats-page" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-fuchsia-600/10 ring-1 ring-fuchsia-400/20">
                 <Globe className="h-3.5 w-3.5 text-fuchsia-300" strokeWidth={1.75} />
               </span>
               Partnersida
             </TabsTrigger>
-            <TabsTrigger value="partner-agreement-page" className="flex items-center gap-2">
+            <TabsTrigger value="partner-agreement-page" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-zinc-500/20 to-zinc-600/10 ring-1 ring-zinc-400/20">
                 <FileSignature className="h-3.5 w-3.5 text-zinc-200" strokeWidth={1.75} />
               </span>
               Avtalssida
             </TabsTrigger>
-            <TabsTrigger value="featured-article" className="flex items-center gap-2">
+            <TabsTrigger value="featured-article" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
                 <Sparkles className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
               </span>
               Nytt i KC
             </TabsTrigger>
-            <TabsTrigger value="knowledge-articles" className="flex items-center gap-2">
+            <TabsTrigger value="knowledge-articles" className={`flex items-center gap-2 ${activeGroup === "innehall" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
                 <FileText className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
               </span>
               Kunskapsartiklar
             </TabsTrigger>
-            <TabsTrigger value="partner-dashboard" className="flex items-center gap-2">
+            <TabsTrigger value="partner-dashboard" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 ring-1 ring-cyan-400/20">
                 <LayoutDashboard className="h-3.5 w-3.5 text-cyan-300" strokeWidth={1.75} />
               </span>
               Partner-dashboard
             </TabsTrigger>
-            <TabsTrigger value="partner-reports" className="flex items-center gap-2">
+            <TabsTrigger value="partner-reports" className={`flex items-center gap-2 ${activeGroup === "partnerportal" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
                 <Mail className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
               </span>
               Månadsrapporter
             </TabsTrigger>
-            <TabsTrigger value="seo-rankings" className="flex items-center gap-2">
+            <TabsTrigger value="seo-rankings" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
                 <LineChart className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
               </span>
               SEO-rankning
             </TabsTrigger>
-            <TabsTrigger value="semrush" className="flex items-center gap-2">
+            <TabsTrigger value="semrush" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/10 ring-1 ring-orange-400/20">
                 <TrendingUp className="h-3.5 w-3.5 text-orange-300" strokeWidth={1.75} />
               </span>
               Semrush
             </TabsTrigger>
-            <TabsTrigger value="competitor" className="flex items-center gap-2">
+            <TabsTrigger value="competitor" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-rose-500/20 to-rose-600/10 ring-1 ring-rose-400/20">
                 <TrendingUp className="h-3.5 w-3.5 text-rose-300" strokeWidth={1.75} />
               </span>
