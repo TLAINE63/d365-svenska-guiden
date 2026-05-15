@@ -397,9 +397,11 @@ serve(async (req) => {
         }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "generate": {
         const result = await generateDrafts(supabase, data);
         return new Response(JSON.stringify({ success: true, ...result }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
+
 
       case "update": {
         const { id, subject, intro_text, recipient_email, excluded_organisation_uuids, status } = data;
