@@ -160,6 +160,7 @@ async function buildSummary(
   topFilterContexts: { label: string; count: number }[];
   topFilterPages: { path: string; count: number }[];
   identifiedCompanies: CompanyHit[];
+  analysisTrend30: { date: string; started: number; completed: number }[];
   text: string;
   html: string;
 }> {
@@ -171,7 +172,7 @@ async function buildSummary(
   const [v30, v90, gpv30, gpv90, gc30, gc90, leads90Res] = await Promise.all([
     supabase
       .from("visitor_analytics")
-      .select("session_id, page_path", { count: "exact" })
+      .select("session_id, page_path, visited_at", { count: "exact" })
       .gte("visited_at", since30)
       .limit(50000),
     supabase
@@ -187,10 +188,16 @@ async function buildSummary(
   ]);
   const sessions30 = new Set<string>();
   const analysisSessions30 = new Set<string>();
+  const startedByDay = new Map<string, Set<string>>();
   for (const r of v30.data || []) {
     if (r.session_id) sessions30.add(r.session_id);
     if (r.session_id && (r.page_path?.includes("behovsanalys") || r.page_path?.includes("ai-readiness"))) {
       analysisSessions30.add(r.session_id);
+      const day = (r.visited_at || "").slice(0, 10);
+      if (day) {
+        if (!startedByDay.has(day)) startedByDay.set(day, new Set());
+        startedByDay.get(day)!.add(r.session_id);
+      }
     }
   }
   const sessions90 = new Set<string>();
@@ -205,6 +212,22 @@ async function buildSummary(
     (l.source_page || "").includes("behovsanalys") || (l.source_type || "").includes("analys");
   const completed30 = (leads90Res.data || []).filter((l) => isAnalysisLead(l) && (l.created_at || "") >= since30).length;
   const completed90 = (leads90Res.data || []).filter(isAnalysisLead).length;
+  const completedByDay = new Map<string, number>();
+  for (const l of leads90Res.data || []) {
+    if (!isAnalysisLead(l)) continue;
+    if ((l.created_at || "") < since30) continue;
+    const day = (l.created_at || "").slice(0, 10);
+    if (day) completedByDay.set(day, (completedByDay.get(day) || 0) + 1);
+  }
+  const analysisTrend30: { date: string; started: number; completed: number }[] = [];
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now - i * 86400000).toISOString().slice(0, 10);
+    analysisTrend30.push({
+      date: d,
+      started: startedByDay.get(d)?.size || 0,
+      completed: completedByDay.get(d) || 0,
+    });
+  }
   const globalProfileViews30 = gpv30.count || 0;
   const globalProfileViews90 = gpv90.count || 0;
   const globalClicks30 = gc30.count || 0;
@@ -437,9 +460,44 @@ async function buildSummary(
 <tr><td style="padding:6px 0">Behovsanalyser slutförda (lead)</td><td style="text-align:right;font-weight:600">${fmt(completed30)} <span style="color:#94a3b8;font-weight:400">(${fmt(completed90)})</span></td></tr>
 <tr><td style="padding:6px 0">Profilvisningar (globalt)</td><td style="text-align:right;font-weight:600">${fmt(globalProfileViews30)} <span style="color:#94a3b8;font-weight:400">(${fmt(globalProfileViews90)})</span></td></tr>
 <tr><td style="padding:6px 0">Klick till partnersajter (globalt)</td><td style="text-align:right;font-weight:600">${fmt(globalClicks30)} <span style="color:#94a3b8;font-weight:400">(${fmt(globalClicks90)})</span></td></tr>
-</table>
+  </table>
 
-<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">${esc(partner.name)} – exponering</h2>
+  ${(() => {
+    const W = 640, H = 110, padL = 28, padR = 8, padT = 8, padB = 22;
+    const innerW = W - padL - padR;
+    const innerH = H - padT - padB;
+    const n = analysisTrend30.length;
+    const max = Math.max(1, ...analysisTrend30.map((d) => Math.max(d.started, d.completed)));
+    const groupW = innerW / n;
+    const barW = Math.max(2, (groupW - 2) / 2);
+    const y = (v: number) => padT + innerH - (v / max) * innerH;
+    const bars = analysisTrend30.map((d, i) => {
+      const gx = padL + i * groupW + 1;
+      const xs = gx;
+      const xc = gx + barW + 1;
+      const hs = (d.started / max) * innerH;
+      const hc = (d.completed / max) * innerH;
+      return `<rect x="${xs.toFixed(1)}" y="${y(d.started).toFixed(1)}" width="${barW.toFixed(1)}" height="${hs.toFixed(1)}" fill="#3b82f6"/><rect x="${xc.toFixed(1)}" y="${y(d.completed).toFixed(1)}" width="${barW.toFixed(1)}" height="${hc.toFixed(1)}" fill="#16a34a"/>`;
+    }).join("");
+    const yTicks = [0, Math.ceil(max / 2), max];
+    const yLabels = yTicks.map((t) => `<text x="${padL - 4}" y="${y(t) + 3}" text-anchor="end" font-size="9" fill="#94a3b8">${t}</text><line x1="${padL}" y1="${y(t)}" x2="${W - padR}" y2="${y(t)}" stroke="#e2e8f0" stroke-width="0.5"/>`).join("");
+    const firstDate = analysisTrend30[0]?.date.slice(5).replace("-", "/") || "";
+    const lastDate = analysisTrend30[n - 1]?.date.slice(5).replace("-", "/") || "";
+    return `
+<h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">Behovsanalyser senaste 30 dagar</h2>
+<div style="font-size:11px;color:#64748b;margin-bottom:6px">
+  <span style="display:inline-block;width:9px;height:9px;background:#3b82f6;margin-right:4px;vertical-align:middle"></span>Startade
+  <span style="display:inline-block;width:9px;height:9px;background:#16a34a;margin:0 4px 0 12px;vertical-align:middle"></span>Slutförda (lead)
+</div>
+<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px;display:block;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px">
+  ${yLabels}
+  ${bars}
+  <text x="${padL}" y="${H - 6}" font-size="9" fill="#94a3b8">${firstDate}</text>
+  <text x="${W - padR}" y="${H - 6}" text-anchor="end" font-size="9" fill="#94a3b8">${lastDate}</text>
+</svg>`;
+  })()}
+
+  <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:0.5px;color:#475569;margin:22px 0 8px">${esc(partner.name)} – exponering</h2>
 <table style="width:100%;border-collapse:collapse;font-size:14px">
 <tr><td style="padding:6px 0">Visad i filterresultat</td><td style="text-align:right;font-weight:600">${fmt(partner30.filterExposures)} <span style="color:#94a3b8;font-weight:400">(${fmt(partner90.filterExposures)})</span></td></tr>
 <tr><td style="padding:6px 0">Klick på partnerkort</td><td style="text-align:right;font-weight:600">${fmt(partner30.cardClicks)} <span style="color:#94a3b8;font-weight:400">(${fmt(partner90.cardClicks)})</span></td></tr>
@@ -504,6 +562,7 @@ ${recentNews.map((n) => {
     topFilterContexts,
     topFilterPages,
     identifiedCompanies,
+    analysisTrend30,
     recentNews,
     text,
     html,

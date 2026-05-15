@@ -162,6 +162,10 @@ export default function PartnerSalesSummaryCard({ token, partnerSlug, partnerNam
               <Stat label="Hemsidesklick (30/90d)" v={`${summary.partner30.websiteClicks} / ${summary.partner90.websiteClicks}`} />
             </div>
 
+            {Array.isArray(summary.analysisTrend30) && summary.analysisTrend30.length > 0 && (
+              <AnalysisTrendChart data={summary.analysisTrend30} />
+            )}
+
             <details className="rounded-lg border bg-card p-3">
               <summary className="cursor-pointer text-sm font-medium">
                 Identifierade besökande företag (90d) – {summary.identifiedCompanies?.length || 0} st
@@ -207,6 +211,66 @@ function Stat({ label, v }: { label: string; v: string }) {
     <div className="rounded-md border bg-card p-2">
       <div className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</div>
       <div className="text-lg font-bold">{v}</div>
+    </div>
+  );
+}
+
+function AnalysisTrendChart({ data }: { data: { date: string; started: number; completed: number }[] }) {
+  const W = 640, H = 120, padL = 28, padR = 8, padT = 8, padB = 24;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const n = data.length;
+  const max = Math.max(1, ...data.map((d) => Math.max(d.started, d.completed)));
+  const groupW = innerW / n;
+  const barW = Math.max(2, (groupW - 2) / 2);
+  const y = (v: number) => padT + innerH - (v / max) * innerH;
+  const totalStarted = data.reduce((s, d) => s + d.started, 0);
+  const totalCompleted = data.reduce((s, d) => s + d.completed, 0);
+  const yTicks = Array.from(new Set([0, Math.ceil(max / 2), max]));
+  return (
+    <div className="rounded-lg border bg-card p-3">
+      <div className="flex items-center justify-between mb-2">
+        <div className="text-sm font-medium">Behovsanalyser senaste 30 dagar</div>
+        <div className="flex items-center gap-3 text-[11px] text-muted-foreground">
+          <span className="flex items-center gap-1">
+            <span className="inline-block w-2.5 h-2.5 rounded-sm" style={{ background: "#3b82f6" }} />
+            Startade ({totalStarted})
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="inline-block w-2.5 h-2.5 rounded-sm" style={{ background: "#16a34a" }} />
+            Slutförda ({totalCompleted})
+          </span>
+        </div>
+      </div>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto block">
+        {yTicks.map((t) => (
+          <g key={t}>
+            <line x1={padL} y1={y(t)} x2={W - padR} y2={y(t)} stroke="hsl(var(--border))" strokeWidth={0.5} />
+            <text x={padL - 4} y={y(t) + 3} textAnchor="end" fontSize={9} fill="hsl(var(--muted-foreground))">
+              {t}
+            </text>
+          </g>
+        ))}
+        {data.map((d, i) => {
+          const gx = padL + i * groupW + 1;
+          return (
+            <g key={d.date}>
+              <rect x={gx} y={y(d.started)} width={barW} height={padT + innerH - y(d.started)} fill="#3b82f6">
+                <title>{`${d.date}: ${d.started} startade, ${d.completed} slutförda`}</title>
+              </rect>
+              <rect x={gx + barW + 1} y={y(d.completed)} width={barW} height={padT + innerH - y(d.completed)} fill="#16a34a">
+                <title>{`${d.date}: ${d.started} startade, ${d.completed} slutförda`}</title>
+              </rect>
+            </g>
+          );
+        })}
+        <text x={padL} y={H - 6} fontSize={9} fill="hsl(var(--muted-foreground))">
+          {data[0]?.date.slice(5).replace("-", "/")}
+        </text>
+        <text x={W - padR} y={H - 6} textAnchor="end" fontSize={9} fill="hsl(var(--muted-foreground))">
+          {data[n - 1]?.date.slice(5).replace("-", "/")}
+        </text>
+      </svg>
     </div>
   );
 }
