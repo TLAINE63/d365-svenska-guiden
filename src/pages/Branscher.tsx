@@ -67,12 +67,8 @@ const Branscher = () => {
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-1.5">
               Branschöversikt
             </h1>
-            <p className="text-xs md:text-sm text-muted-foreground max-w-2xl mb-1">
-              Hur Microsoft Dynamics 365 används i din bransch – affärsprocesser,
-              utmaningar, roller och rätt partners.
-            </p>
-            <p className="text-[11px] md:text-xs text-muted-foreground max-w-2xl">
-              Klicka på en bransch för djupare insikter, utmaningar och rätt Dynamics 365-applikationer.
+            <p className="text-xs md:text-sm text-muted-foreground max-w-2xl">
+              Upptäck hur Microsoft Dynamics 365 kan förändra din bransch – från smidigare affärsprocesser och tydligare roller till lösningar på de utmaningar som verkligen betyder något. Välj din bransch nedan för konkreta insikter, vägledning och rätt applikationer för att driva din verksamhet framåt.
             </p>
           </div>
         </section>
