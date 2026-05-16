@@ -211,7 +211,7 @@ const heroSteps = [
 ];
 
 const Index = () => {
-  const [showAnalysisMenu, setShowAnalysisMenu] = useState(false);
+  
   const [kravspecOpen, setKravspecOpen] = useState(false);
   const [directionPicker, setDirectionPicker] = useState<null | "behovsanalys" | "kravspec">(null);
   const directionOptions = {
