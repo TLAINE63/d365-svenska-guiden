@@ -9,6 +9,7 @@ import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
 import { findIndustryBySlug } from "@/data/standardIndustries";
 import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2 } from "lucide-react";
 
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
