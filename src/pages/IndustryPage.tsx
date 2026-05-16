@@ -61,11 +61,11 @@ const INDUSTRY_IMAGES: Record<string, string> = {
 };
 
 // Product filters mapped to product_filters keys in the database
-const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string }[] = [
-  { key: "bc", label: "Business Central" },
-  { key: "fsc", label: "Finance & Supply Chain" },
-  { key: "sales", label: "Sales / Customer Insights" },
-  { key: "service", label: "Customer Service / Field Service" },
+const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string; short: string; icon: string }[] = [
+  { key: "bc", label: "Business Central", short: "BC", icon: BusinessCentralIcon },
+  { key: "fsc", label: "Finance & Supply Chain", short: "F&SCM", icon: FinanceIcon },
+  { key: "sales", label: "Sales / Customer Insights", short: "Sales", icon: SalesIcon },
+  { key: "service", label: "Customer Service / Field Service", short: "Service", icon: CustomerServiceIcon },
 ];
 
 // Simple seeded shuffle for stable random order per session+industry
