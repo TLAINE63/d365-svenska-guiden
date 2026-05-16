@@ -93,6 +93,12 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             <Link
+              to="/branscher/"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+            >
+              Branscher
+            </Link>
+            <Link
               to="/branschlosningar/"
               onClick={(e) => {
                 if (window.location.pathname === '/branschlosningar') {
@@ -218,6 +224,12 @@ const Navbar = () => {
               <div className="flex flex-col gap-4 mt-8 pb-8">
                 <Link to="/sok" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-primary/80 transition-colors">
                   <Sparkles className="h-4 w-4" /> AI-sök
+                </Link>
+                <Link
+                  to="/branscher/"
+                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  Branscher
                 </Link>
                 <Link
                   to="/branschlosningar/"
