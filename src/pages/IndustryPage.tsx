@@ -173,20 +173,21 @@ const IndustryPage = () => {
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero med bakgrundsbild */}
-        <section className="relative border-b border-border overflow-hidden">
+        <section className="relative border-b border-border overflow-hidden min-h-[360px] md:min-h-[440px] flex items-center">
           {heroImage ? (
             <>
               <div
-                className="absolute inset-0 bg-cover bg-center"
+                className="absolute inset-0 bg-cover bg-center scale-105"
                 style={{ backgroundImage: `url(${heroImage})` }}
                 aria-hidden
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" aria-hidden />
+              <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/20" aria-hidden />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" aria-hidden />
             </>
           ) : (
             <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-background" aria-hidden />
           )}
-          <div className="relative container mx-auto px-4 max-w-5xl py-14 md:py-20">
+          <div className="relative container mx-auto px-4 max-w-5xl py-16 md:py-24">
             <nav className="text-xs text-muted-foreground mb-3">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
