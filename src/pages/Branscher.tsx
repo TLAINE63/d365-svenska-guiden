@@ -6,6 +6,50 @@ import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ArrowRight } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 
+// Industry images (same as /branschlosningar)
+import tillverkningImg from "@/assets/industries/tillverkning.webp";
+import livsmedelsImg from "@/assets/industries/livsmedel.webp";
+import handelDistributionImg from "@/assets/industries/handel-distribution.webp";
+import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
+import fastigheterImg from "@/assets/industries/fastigheter.webp";
+import energiImg from "@/assets/industries/energi.webp";
+import finansForsakringImg from "@/assets/industries/finans-forsakring.webp";
+import lakemedelImg from "@/assets/industries/lakemedel-life-science.webp";
+import itTechImg from "@/assets/industries/it-tech.webp";
+import transportLogistikImg from "@/assets/industries/transport-logistik.webp";
+import mediaPublishingImg from "@/assets/industries/media-publishing.webp";
+import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
+import halsaImg from "@/assets/industries/halsa-sjukvard.webp";
+import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.webp";
+import utbildningImg from "@/assets/industries/utbildning.webp";
+import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
+import uthyrningImg from "@/assets/industries/uthyrning.webp";
+
+const INDUSTRY_IMAGES: Record<string, string> = {
+  "tillverkning": tillverkningImg,
+  "livsmedel-processindustri": livsmedelsImg,
+  "grossist-distribution": handelDistributionImg,
+  "retail-ehandel": detaljhandelImg,
+  "konsulttjanster": konsultforetagImg,
+  "bygg-entreprenad": byggEntreprenadImg,
+  "fastighet-forvaltning": fastigheterImg,
+  "energi-utilities": energiImg,
+  "finans-forsakring": finansForsakringImg,
+  "life-science-medtech": lakemedelImg,
+  "telekom-it-tjanster": itTechImg,
+  "logistik-transport": transportLogistikImg,
+  "media-publishing": mediaPublishingImg,
+  "jordbruk-skogsbruk": jordbrukImg,
+  "halsa-sjukvard": halsaImg,
+  "nonprofit-organisationer": medlemsorganisationerImg,
+  "medlemsorganisationer": medlemsorganisationerImg,
+  "utbildning": utbildningImg,
+  "offentlig-sektor": offentligSektorImg,
+  "uthyrning": uthyrningImg,
+};
+
 const Branscher = () => {
   const { covered } = useCoveredIndustries();
   const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
@@ -33,23 +77,38 @@ const Branscher = () => {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {visibleIndustries.map((ind) => (
-                <Link
-                  key={ind.slug}
-                  to={`/branscher/${ind.slug}`}
-                  className="group flex flex-col gap-2 rounded-xl border border-border bg-card p-5 hover:border-primary/40 hover:shadow-md transition-all"
-                >
-                  <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                    {ind.name}
-                  </span>
-                  <span className="text-sm text-muted-foreground">
-                    Processer, utmaningar, roller och partners.
-                  </span>
-                  <span className="mt-auto pt-2 flex items-center gap-1 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                    Öppna <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                </Link>
-              ))}
+              {visibleIndustries.map((ind) => {
+                const img = INDUSTRY_IMAGES[ind.slug];
+                return (
+                  <Link
+                    key={ind.slug}
+                    to={`/branscher/${ind.slug}`}
+                    className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
+                  >
+                    {img && (
+                      <div className="aspect-[16/9] overflow-hidden bg-muted">
+                        <img
+                          src={img}
+                          alt={ind.name}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-1.5 p-4">
+                      <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                        {ind.name}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        Processer, utmaningar, roller och partners.
+                      </span>
+                      <span className="mt-1 flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                        Öppna <ArrowRight className="h-3 w-3" />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
