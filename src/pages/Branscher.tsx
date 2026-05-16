@@ -57,7 +57,7 @@ const Branscher = () => {
     <>
       <SEOHead
         title="Branschöversikt – Microsoft Dynamics 365 i Sverige"
-        description="Branschguider för Microsoft Dynamics 365: affärsprocesser, utmaningar, roller och vilka D365-applikationer som passar din bransch."
+        description="Branschguider för Microsoft Dynamics 365: affärsprocesser, utmaningar, roller och vilka Dynamics 365-applikationer som passar din bransch."
         canonicalPath="/branscher"
       />
       <Navbar />
@@ -72,7 +72,7 @@ const Branscher = () => {
               utmaningar, roller och rätt partners.
             </p>
             <p className="text-[11px] md:text-xs text-muted-foreground max-w-2xl">
-              Klicka på en bransch för djupare insikter, utmaningar och rätt D365-applikationer.
+              Klicka på en bransch för djupare insikter, utmaningar och rätt Dynamics 365-applikationer.
             </p>
           </div>
         </section>
