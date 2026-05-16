@@ -219,25 +219,30 @@ const IndustryPage = () => {
         {/* Innehåll – full bredd */}
         <section className="py-10 border-b border-border">
           <div className="container mx-auto px-4 max-w-5xl space-y-10">
-            {page?.processes && page.processes.length > 0 && (
-              <div>
-                <div className="flex items-center gap-2 mb-5">
-                  <Briefcase className="w-5 h-5 text-primary" />
-                  <h2 className="text-2xl font-bold">Typiska affärsprocesser</h2>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {page.processes.map((p, i) => (
-                    <div key={i} className="rounded-lg border border-border bg-card p-5">
-                      <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
-                      <p className="text-sm text-muted-foreground">{p.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Collapsible sektioner – endast rubriker visas tills man klickar */}
             <Accordion type="multiple" className="space-y-3">
+              {page?.processes && page.processes.length > 0 && (
+                <AccordionItem value="processes" className="border border-border rounded-lg bg-card px-5">
+                  <AccordionTrigger className="hover:no-underline py-4">
+                    <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
+                      <Briefcase className="w-5 h-5 text-primary" />
+                      Typiska affärsprocesser
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 pb-4">
+                      {page.processes.map((p, i) => (
+                        <div key={i} className="rounded-lg border border-border bg-background p-5">
+                          <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
+                          <p className="text-sm text-muted-foreground">{p.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              )}
+
+
               {page?.challenges && page.challenges.length > 0 && (
                 <AccordionItem value="challenges" className="border border-border rounded-lg bg-card px-5">
                   <AccordionTrigger className="hover:no-underline py-4">
