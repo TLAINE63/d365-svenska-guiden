@@ -342,10 +342,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Buyer journey – De sju stadierna i en köpresa */}
-      <Suspense fallback={null}>
-        <BuyerJourneyStages />
-      </Suspense>
 
 
       {/* Direction picker dialog for Behovsanalys / Kravspec */}
