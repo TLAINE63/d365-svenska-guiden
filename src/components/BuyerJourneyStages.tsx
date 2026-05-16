@@ -532,8 +532,10 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
             </div>
           )}
         </div>
+        )}
 
         {/* Overview */}
+        {!compact && (
         <div ref={overviewRef} className="scroll-mt-24">
           <header className="mb-8 md:mb-10 max-w-2xl">
             <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0B0B0F] mb-2">
