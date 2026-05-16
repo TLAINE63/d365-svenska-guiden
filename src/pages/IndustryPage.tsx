@@ -15,7 +15,10 @@ import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SalesIcon from "@/assets/icons/Sales.svg";
+import MarketingIcon from "@/assets/icons/Marketing.svg";
 import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
+import FieldServiceIcon from "@/assets/icons/FieldService.svg";
+import ContactCenterIcon from "@/assets/icons/ContactCenter.svg";
 
 // Industry hero images (webp). Falls back to a default gradient if missing.
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
@@ -61,13 +64,28 @@ const INDUSTRY_IMAGES: Record<string, string> = {
   "uthyrning": uthyrningImg,
 };
 
-// Product filters mapped to product_filters keys in the database
-// Labels matchar /branschlosningar för konsistens.
-const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string; icon: string }[] = [
+// Product filters mapped to product_filters keys in the database.
+// Visningen är granulär (Sales / Customer Insights / Customer Service / Field Service / Contact Center)
+// men matchningen sker mot de fyra underliggande nycklarna i product_filters.
+type UnderlyingKey = "bc" | "fsc" | "sales" | "service";
+type FilterKey = "bc" | "fsc" | "sales" | "ci" | "cs" | "fs" | "cc";
+const FILTER_TO_UNDERLYING: Record<FilterKey, UnderlyingKey> = {
+  bc: "bc",
+  fsc: "fsc",
+  sales: "sales",
+  ci: "sales",
+  cs: "service",
+  fs: "service",
+  cc: "service",
+};
+const PRODUCT_FILTERS: { key: FilterKey; label: string; icon: string }[] = [
   { key: "bc", label: "Business Central", icon: BusinessCentralIcon },
   { key: "fsc", label: "Finance & Supply Chain", icon: FinanceIcon },
-  { key: "sales", label: "Sales & Customer Insights (Marketing Automation)", icon: SalesIcon },
-  { key: "service", label: "Customer Service & Field Service & Contact Center", icon: CustomerServiceIcon },
+  { key: "sales", label: "Sales", icon: SalesIcon },
+  { key: "ci", label: "Customer Insights (Marketing Automation)", icon: MarketingIcon },
+  { key: "cs", label: "Customer Service", icon: CustomerServiceIcon },
+  { key: "fs", label: "Field Service", icon: FieldServiceIcon },
+  { key: "cc", label: "Contact Center", icon: ContactCenterIcon },
 ];
 
 // Simple seeded shuffle for stable random order per session+industry
@@ -93,7 +111,7 @@ const IndustryPage = () => {
   const meta = slug ? findIndustryBySlug(slug) : undefined;
   const { page, loading } = useIndustryPage(slug);
   const { data: partners } = usePartners();
-  const [selected, setSelected] = useState<("bc" | "fsc" | "sales" | "service")[]>([]);
+  const [selected, setSelected] = useState<FilterKey[]>([]);
 
   const industryName = page?.name || meta?.name || "Bransch";
   const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;
@@ -102,22 +120,20 @@ const IndustryPage = () => {
     if (!partners || !meta) return [];
     const industryName = meta.name;
 
-    // Use product_filters[product].industries (radikal partnerprofilering)
-    // Partner matches industry if ANY product they offer lists this industry.
-    // If product filters are selected, partner must list industry under at
-    // least one of the selected products.
+    const underlyingSelected = Array.from(
+      new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])),
+    );
     const filtered = partners.filter((p) => {
       const pf = p.product_filters || {};
-      const productsToCheck = selected.length > 0
-        ? selected
-        : (["bc", "fsc", "sales", "service"] as const);
+      const productsToCheck: UnderlyingKey[] = underlyingSelected.length > 0
+        ? underlyingSelected
+        : (["bc", "fsc", "sales", "service"] as UnderlyingKey[]);
       return productsToCheck.some((k) => {
         const inds = pf[k]?.industries || [];
         return inds.includes(industryName);
       });
     });
 
-    // Seeded shuffle so list is random but stable per session/industry
     const seed = hashString(`${slug}-${selected.join(",")}`);
     return seededShuffle(filtered, seed);
   }, [partners, meta, selected, slug]);
