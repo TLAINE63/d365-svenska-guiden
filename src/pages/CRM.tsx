@@ -196,14 +196,13 @@ const CRM = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <ContactFormDialog>
-                  <Button 
-                    size="lg"
+                <Link to="/branscher/">
+                  <Button size="lg"
                     className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
                     Hitta din bransch och rätt partner
                   </Button>
-                </ContactFormDialog>
+                </Link>
                 <Button 
                   size="lg"
                   className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"

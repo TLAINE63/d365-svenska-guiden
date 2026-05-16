@@ -125,14 +125,13 @@ const D365Sales = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <ContactFormDialog>
-                  <Button 
-                    size="lg"
+                <Link to="/branscher/">
+                  <Button size="lg"
                     className="bg-sales hover:bg-sales/90 text-sales-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
                     Hitta din bransch och rätt partner
                   </Button>
-                </ContactFormDialog>
+                </Link>
                 <Button 
                   size="lg"
                   className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
@@ -351,14 +350,13 @@ const D365Sales = () => {
           <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
             Hitta din bransch och rätt partner med oss så hjälper vi dig hitta rätt CRM-lösning för ditt företag.
           </p>
-          <ContactFormDialog>
-            <Button 
-              size="lg"
+          <Link to="/branscher/">
+            <Button size="lg"
               className="bg-white text-sales hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
-              Hitta din bransch och rätt partner
-            </Button>
-          </ContactFormDialog>
+                    Hitta din bransch och rätt partner
+                  </Button>
+                </Link>
         </div>
       </section>
 

@@ -191,7 +191,7 @@ const IndustryPage = () => {
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero med bakgrundsbild */}
-        <section className="relative border-b border-border overflow-hidden min-h-[360px] md:min-h-[440px] flex items-center">
+        <section className="relative border-b border-border overflow-hidden min-h-[240px] md:min-h-[300px] flex items-center">
           {heroImage ? (
             <>
               <div
@@ -205,19 +205,19 @@ const IndustryPage = () => {
           ) : (
             <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-background" aria-hidden />
           )}
-          <div className="relative container mx-auto px-4 max-w-5xl py-16 md:py-24">
-            <nav className="text-xs text-muted-foreground mb-3">
+          <div className="relative container mx-auto px-4 max-w-5xl py-8 md:py-12">
+            <nav className="text-xs text-muted-foreground mb-2">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
               <Link to="/branscher" className="hover:text-foreground">Branscher</Link>
               <span className="mx-2">/</span>
               <span className="text-foreground">{industryName}</span>
             </nav>
-            <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4 drop-shadow-sm">
+            <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-shadow-sm">
               {industryName}
             </h1>
             {page?.intro && (
-              <p className="text-base md:text-lg text-foreground/90 leading-relaxed max-w-3xl whitespace-pre-line">
+              <p className="text-xs md:text-sm text-foreground/90 leading-relaxed max-w-3xl whitespace-pre-line">
                 {page.intro}
               </p>
             )}
