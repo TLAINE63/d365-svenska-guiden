@@ -64,14 +64,14 @@ const Branscher = () => {
       <main className="min-h-screen bg-background pt-16">
         <section className="py-8 md:py-10 bg-gradient-to-b from-muted/30 to-background border-b border-border">
           <div className="container mx-auto px-4 max-w-5xl">
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+            <h1 className="text-xl md:text-2xl font-bold text-foreground mb-1.5">
               Branschöversikt
             </h1>
-            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mb-1">
+            <p className="text-xs md:text-sm text-muted-foreground max-w-2xl mb-1">
               Hur Microsoft Dynamics 365 används i din bransch – affärsprocesser,
               utmaningar, roller och rätt partners.
             </p>
-            <p className="text-xs md:text-sm text-muted-foreground max-w-2xl">
+            <p className="text-[11px] md:text-xs text-muted-foreground max-w-2xl">
               Klicka på en bransch för djupare insikter, utmaningar och rätt D365-applikationer.
             </p>
           </div>
