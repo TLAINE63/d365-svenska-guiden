@@ -4,8 +4,11 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ArrowRight } from "lucide-react";
+import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 
 const Branscher = () => {
+  const { covered } = useCoveredIndustries();
+  const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
   return (
     <>
       <SEOHead
@@ -30,7 +33,7 @@ const Branscher = () => {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {STANDARD_INDUSTRIES.map((ind) => (
+              {visibleIndustries.map((ind) => (
                 <Link
                   key={ind.slug}
                   to={`/branscher/${ind.slug}`}

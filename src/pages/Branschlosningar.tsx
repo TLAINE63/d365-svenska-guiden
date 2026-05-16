@@ -230,8 +230,22 @@ const Branschlosningar = () => {
     return industriesSet;
   }, [selectedFilters, partners, hasFilter]);
 
-  // Show all industries regardless of selected filter
-  const displayedIndustries = industries;
+  // Hide industries with zero featured-partner coverage entirely.
+  // They remain selectable for partners in admin and reappear automatically.
+  const allCoveredIndustries = useMemo(() => {
+    const set = new Set<string>();
+    partners.forEach((p) => {
+      (["bc", "fsc", "sales", "service"] as const).forEach((k) => {
+        p.product_filters?.[k]?.industries?.forEach((i: string) => set.add(i));
+      });
+    });
+    return set;
+  }, [partners]);
+
+  const displayedIndustries = useMemo(
+    () => industries.filter((i) => allCoveredIndustries.has(i.partnerIndustries[0])),
+    [allCoveredIndustries],
+  );
 
   // Filter partners – match if partner has ANY of the selected products in this industry
   const filteredPartners = useMemo(() => {
