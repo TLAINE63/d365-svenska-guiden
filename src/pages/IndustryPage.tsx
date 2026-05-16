@@ -11,45 +11,109 @@ import { findIndustryBySlug } from "@/data/standardIndustries";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle } from "lucide-react";
 
-const APP_TO_KEY: Record<string, string> = {
-  "Business Central": "bc",
-  "Finance & Supply Chain": "fsc",
-  "Sales": "sales",
-  "Customer Service": "service",
-  "Field Service": "field_service",
-  "Contact Center": "contact_center",
-  "Customer Insights": "customer_insights",
+// Industry hero images (webp). Falls back to a default gradient if missing.
+import tillverkningImg from "@/assets/industries/tillverkning.webp";
+import livsmedelsImg from "@/assets/industries/livsmedel.webp";
+import handelDistributionImg from "@/assets/industries/handel-distribution.webp";
+import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
+import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
+import fastigheterImg from "@/assets/industries/fastigheter.webp";
+import energiImg from "@/assets/industries/energi.webp";
+import finansForsakringImg from "@/assets/industries/finans-forsakring.webp";
+import lakemedelImg from "@/assets/industries/lakemedel-life-science.webp";
+import itTechImg from "@/assets/industries/it-tech.webp";
+import transportLogistikImg from "@/assets/industries/transport-logistik.webp";
+import mediaPublishingImg from "@/assets/industries/media-publishing.webp";
+import jordbrukImg from "@/assets/industries/jordbruk-skogsbruk.webp";
+import halsaImg from "@/assets/industries/halsa-sjukvard.webp";
+import medlemsorganisationerImg from "@/assets/industries/medlemsorganisationer.webp";
+import utbildningImg from "@/assets/industries/utbildning.webp";
+import offentligSektorImg from "@/assets/industries/offentlig-sektor.webp";
+import uthyrningImg from "@/assets/industries/uthyrning.webp";
+
+const INDUSTRY_IMAGES: Record<string, string> = {
+  "tillverkning": tillverkningImg,
+  "livsmedel-processindustri": livsmedelsImg,
+  "grossist-distribution": handelDistributionImg,
+  "retail-ehandel": detaljhandelImg,
+  "konsulttjanster": konsultforetagImg,
+  "bygg-entreprenad": byggEntreprenadImg,
+  "fastighet-forvaltning": fastigheterImg,
+  "energi-utilities": energiImg,
+  "finans-forsakring": finansForsakringImg,
+  "life-science-medtech": lakemedelImg,
+  "telekom-it-tjanster": itTechImg,
+  "logistik-transport": transportLogistikImg,
+  "media-publishing": mediaPublishingImg,
+  "jordbruk-skogsbruk": jordbrukImg,
+  "halsa-sjukvard": halsaImg,
+  "nonprofit-organisationer": medlemsorganisationerImg,
+  "medlemsorganisationer": medlemsorganisationerImg,
+  "utbildning": utbildningImg,
+  "offentlig-sektor": offentligSektorImg,
+  "uthyrning": uthyrningImg,
 };
 
-const PRODUCT_FILTERS: { key: string; label: string }[] = [
+// Product filters mapped to product_filters keys in the database
+const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string }[] = [
   { key: "bc", label: "Business Central" },
   { key: "fsc", label: "Finance & Supply Chain" },
-  { key: "sales", label: "Sales" },
-  { key: "service", label: "Customer Service" },
-  { key: "field_service", label: "Field Service" },
-  { key: "contact_center", label: "Contact Center" },
-  { key: "customer_insights", label: "Customer Insights" },
+  { key: "sales", label: "Sales / Customer Insights" },
+  { key: "service", label: "Customer Service / Field Service" },
 ];
+
+// Simple seeded shuffle for stable random order per session+industry
+const seededShuffle = <T,>(arr: T[], seed: number): T[] => {
+  const out = [...arr];
+  let s = seed || 1;
+  for (let i = out.length - 1; i > 0; i--) {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    const j = Math.floor((s / 0x7fffffff) * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+};
+
+const hashString = (s: string): number => {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+};
 
 const IndustryPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const meta = slug ? findIndustryBySlug(slug) : undefined;
   const { page, loading } = useIndustryPage(slug);
   const { data: partners } = usePartners();
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<("bc" | "fsc" | "sales" | "service")[]>([]);
 
   const industryName = page?.name || meta?.name || "Bransch";
+  const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;
 
   const matchingPartners = useMemo(() => {
     if (!partners || !meta) return [];
-    return partners.filter((p) => {
-      const inds = [...(p.industries || []), ...(p.secondary_industries || [])];
-      const matches = inds.includes(meta.name);
-      if (!matches) return false;
-      if (selected.length === 0) return true;
-      return selected.some((k) => (p.applications || []).includes(k));
+    const industryName = meta.name;
+
+    // Use product_filters[product].industries (radikal partnerprofilering)
+    // Partner matches industry if ANY product they offer lists this industry.
+    // If product filters are selected, partner must list industry under at
+    // least one of the selected products.
+    const filtered = partners.filter((p) => {
+      const pf = p.product_filters || {};
+      const productsToCheck = selected.length > 0
+        ? selected
+        : (["bc", "fsc", "sales", "service"] as const);
+      return productsToCheck.some((k) => {
+        const inds = pf[k]?.industries || [];
+        return inds.includes(industryName);
+      });
     });
-  }, [partners, meta, selected]);
+
+    // Seeded shuffle so list is random but stable per session/industry
+    const seed = hashString(`${slug}-${selected.join(",")}`);
+    return seededShuffle(filtered, seed);
+  }, [partners, meta, selected, slug]);
 
   if (!loading && !page) {
     return (
@@ -88,6 +152,7 @@ const IndustryPage = () => {
           `Microsoft Dynamics 365 för ${industryName.toLowerCase()}: affärsprocesser, utmaningar, roller och partners.`
         }
         canonicalPath={`/branscher/${slug}`}
+        ogImage={heroImage}
       />
       <BreadcrumbSchema
         items={[
@@ -102,9 +167,21 @@ const IndustryPage = () => {
 
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
-        {/* Hero */}
-        <section className="relative py-10 md:py-14 bg-gradient-to-b from-muted/40 to-background border-b border-border">
-          <div className="container mx-auto px-4 max-w-5xl">
+        {/* Hero med bakgrundsbild */}
+        <section className="relative border-b border-border overflow-hidden">
+          {heroImage ? (
+            <>
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${heroImage})` }}
+                aria-hidden
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" aria-hidden />
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-background" aria-hidden />
+          )}
+          <div className="relative container mx-auto px-4 max-w-5xl py-14 md:py-20">
             <nav className="text-xs text-muted-foreground mb-3">
               <Link to="/" className="hover:text-foreground">Hem</Link>
               <span className="mx-2">/</span>
@@ -112,11 +189,11 @@ const IndustryPage = () => {
               <span className="mx-2">/</span>
               <span className="text-foreground">{industryName}</span>
             </nav>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4 drop-shadow-sm">
               {industryName}
             </h1>
             {page?.intro && (
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl whitespace-pre-line">
+              <p className="text-base md:text-lg text-foreground/90 leading-relaxed max-w-3xl whitespace-pre-line">
                 {page.intro}
               </p>
             )}
@@ -208,7 +285,7 @@ const IndustryPage = () => {
           <div className="container mx-auto px-4 max-w-6xl">
             <h2 className="text-2xl font-bold mb-2">Partners inom {industryName}</h2>
             <p className="text-sm text-muted-foreground mb-5">
-              Filtrera på produktområde för att hitta rätt kompetens.
+              Visar partners som själva har profilerat sig mot {industryName.toLowerCase()} för minst ett produktområde. Slumpmässig ordning för rättvis exponering.
             </p>
             <div className="flex flex-wrap gap-2 mb-6">
               {PRODUCT_FILTERS.map((f) => {
