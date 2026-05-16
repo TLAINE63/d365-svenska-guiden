@@ -281,7 +281,7 @@ const PHASE_LABEL_SHORT: Record<Phase, string> = {
   PARTNERVAL: "PRODUKT & PARTNERVAL",
 };
 
-const BuyerJourneyStages = () => {
+const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => {
   const [step, setStep] = useState<1 | 2>(1);
   const [result, setResult] = useState<number | null>(null);
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
@@ -323,16 +323,28 @@ const BuyerJourneyStages = () => {
           <p className="text-sm text-[#5A5A66] mb-3">
             Gäller både ERP (Business Central, Finance &amp; Supply Chain) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center).
           </p>
-          <p className="text-base sm:text-lg text-[#5A5A66] leading-relaxed mb-4">
-            Två korta frågor leder er till det avsnitt som passar bäst. Inga uppgifter samlas in.
-          </p>
-          <button
-            type="button"
-            onClick={scrollToOverview}
-            className={`text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
-          >
-            Eller hoppa direkt till översikten över de sju stadierna →
-          </button>
+          {!compact && (
+            <>
+              <p className="text-base sm:text-lg text-[#5A5A66] leading-relaxed mb-4">
+                Två korta frågor leder er till det avsnitt som passar bäst. Inga uppgifter samlas in.
+              </p>
+              <button
+                type="button"
+                onClick={scrollToOverview}
+                className={`text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+              >
+                Eller hoppa direkt till översikten över de sju stadierna →
+              </button>
+            </>
+          )}
+          {compact && (
+            <a
+              href="/kunskapscenter/upphandlingsresan/"
+              className={`inline-block text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+            >
+              Se fördjupning och självskattning →
+            </a>
+          )}
         </header>
 
         {/* Klickbar köpresekarta */}
@@ -374,18 +386,13 @@ const BuyerJourneyStages = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
             {STAGES.map((stage) => {
               const isActive = result === stage.id;
-              return (
-                <button
-                  key={stage.id}
-                  type="button"
-                  onClick={() => selectStageFromMap(stage.id)}
-                  aria-pressed={isActive}
-                  className={`group relative flex flex-col rounded-xl border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
-                    isActive
-                      ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
-                      : "border-[#E5E5E8] hover:border-[#E5006D]"
-                  }`}
-                >
+              const cardClass = `group relative flex flex-col rounded-xl border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
+                isActive
+                  ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
+                  : "border-[#E5E5E8] hover:border-[#E5006D]"
+              }`;
+              const cardInner = (
+                <>
                   <div className="flex justify-center mb-2">
                     <span
                       className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-xs font-bold ${
@@ -412,6 +419,25 @@ const BuyerJourneyStages = () => {
                       ))}
                     </ul>
                   </div>
+                </>
+              );
+              return compact ? (
+                <a
+                  key={stage.id}
+                  href={`/kunskapscenter/upphandlingsresan/#stage-${stage.id}`}
+                  className={cardClass}
+                >
+                  {cardInner}
+                </a>
+              ) : (
+                <button
+                  key={stage.id}
+                  type="button"
+                  onClick={() => selectStageFromMap(stage.id)}
+                  aria-pressed={isActive}
+                  className={cardClass}
+                >
+                  {cardInner}
                 </button>
               );
             })}
@@ -419,9 +445,10 @@ const BuyerJourneyStages = () => {
         </div>
 
         {/* Quiz / Result */}
-
+        {!compact && (
         <div ref={quizRef} className="mb-16 md:mb-20 scroll-mt-24">
           {!resultStage && null}
+
 
           {resultStage && (
             <div
@@ -505,8 +532,10 @@ const BuyerJourneyStages = () => {
             </div>
           )}
         </div>
+        )}
 
         {/* Overview */}
+        {!compact && (
         <div ref={overviewRef} className="scroll-mt-24">
           <header className="mb-8 md:mb-10 max-w-2xl">
             <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#0B0B0F] mb-2">
@@ -603,6 +632,7 @@ const BuyerJourneyStages = () => {
             ))}
           </div>
         </div>
+        )}
       </div>
     </section>
   );
