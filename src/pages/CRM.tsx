@@ -40,7 +40,7 @@ const crmFaqs = [
   },
   {
     question: "Dynamics 365 CRM vs Salesforce – vilket ska jag välja?",
-    answer: "Dynamics 365 vs Salesforce: D365 sticker ut genom djup inbyggd integration med Microsoft 365 (Outlook, Teams, Excel), kraftfull AI via Copilot utan extra kostnad, och möjligheten att kombinera CRM med Microsoft ERP (Business Central, Finance). Salesforce har bredare tredjepartsekosystem men kräver fler integrationer mot Microsoft-verktyg du redan betalar för. För företag med Microsoft 365-infrastruktur är TCO ofta lägre med Dynamics 365."
+    answer: "Dynamics 365 vs Salesforce: Dynamics 365 sticker ut genom djup inbyggd integration med Microsoft 365 (Outlook, Teams, Excel), kraftfull AI via Copilot utan extra kostnad, och möjligheten att kombinera CRM med Microsoft ERP (Business Central, Finance). Salesforce har bredare tredjepartsekosystem men kräver fler integrationer mot Microsoft-verktyg du redan betalar för. För företag med Microsoft 365-infrastruktur är TCO ofta lägre med Dynamics 365."
   },
   {
     question: "Vad är Microsoft Dynamics 365 CRM?",
