@@ -281,7 +281,7 @@ const PHASE_LABEL_SHORT: Record<Phase, string> = {
   PARTNERVAL: "PRODUKT & PARTNERVAL",
 };
 
-const BuyerJourneyStages = () => {
+const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => {
   const [step, setStep] = useState<1 | 2>(1);
   const [result, setResult] = useState<number | null>(null);
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
