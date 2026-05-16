@@ -373,24 +373,6 @@ const PartnerCard = ({
             </div>
           </div>
 
-          {/* Primary Industries - Branschfokus */}
-          <div className="mb-3">
-            <p className="text-xs font-semibold text-foreground/80 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-              <span className="w-1 h-1 rounded-full bg-primary" />
-              Branschfokus
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {primaryIndustries.map((industry, i) => (
-                <Badge 
-                  key={i} 
-                  className="text-xs bg-primary text-primary-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-primary/90 transition-all"
-                >
-                  <CheckCircle2 className="w-3 h-3 mr-1" />
-                  {industry}
-                </Badge>
-              ))}
-            </div>
-          </div>
 
           {/* AI Level Badge with hover tooltip */}
           {isDatabasePartner(partner) && (() => {
