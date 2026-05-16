@@ -106,7 +106,7 @@ const D365ContactCenter = () => {
                     size="lg"
                     className="bg-contact-center hover:bg-contact-center/90 text-contact-center-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka en kostnadsfri rådgivning
+                    Hitta din bransch och rätt partner
                   </Button>
                 </ContactFormDialog>
                 <Button 
@@ -322,14 +322,14 @@ const D365ContactCenter = () => {
             Redo att modernisera ditt kontaktcenter?
           </h2>
           <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Boka en kostnadsfri rådgivning med oss så hjälper vi dig bygga ett framtidssäkert kontaktcenter.
+            Hitta din bransch och rätt partner med oss så hjälper vi dig bygga ett framtidssäkert kontaktcenter.
           </p>
           <ContactFormDialog>
             <Button 
               size="lg"
               className="bg-white text-contact-center hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
-              Boka en kostnadsfri rådgivning
+              Hitta din bransch och rätt partner
             </Button>
           </ContactFormDialog>
         </div>

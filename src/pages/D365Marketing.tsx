@@ -116,7 +116,7 @@ const D365Marketing = () => {
                     size="lg"
                     className="bg-marketing hover:bg-marketing/90 text-marketing-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka en kostnadsfri rådgivning
+                    Hitta din bransch och rätt partner
                   </Button>
                 </ContactFormDialog>
                 <Button 
@@ -333,14 +333,14 @@ const D365Marketing = () => {
             Redo att revolutionera din marknadsföring?
           </h2>
           <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Boka en kostnadsfri rådgivning med oss så hjälper vi dig skapa personliga kundresor som konverterar.
+            Hitta din bransch och rätt partner med oss så hjälper vi dig skapa personliga kundresor som konverterar.
           </p>
           <ContactFormDialog>
             <Button 
               size="lg"
               className="bg-white text-marketing hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
-              Boka en kostnadsfri rådgivning
+              Hitta din bransch och rätt partner
             </Button>
           </ContactFormDialog>
         </div>

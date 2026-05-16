@@ -106,7 +106,7 @@ const D365FieldService = () => {
                     size="lg"
                     className="bg-field-service hover:bg-field-service/90 text-field-service-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka en kostnadsfri rådgivning
+                    Hitta din bransch och rätt partner
                   </Button>
                 </ContactFormDialog>
                 <Button 
@@ -327,14 +327,14 @@ const D365FieldService = () => {
             Redo att optimera din fältservice?
           </h2>
           <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Boka en kostnadsfri rådgivning med oss så hjälper vi dig effektivisera din fältserviceverksamhet.
+            Hitta din bransch och rätt partner med oss så hjälper vi dig effektivisera din fältserviceverksamhet.
           </p>
           <ContactFormDialog>
             <Button 
               size="lg"
               className="bg-white text-field-service hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
-              Boka en kostnadsfri rådgivning
+              Hitta din bransch och rätt partner
             </Button>
           </ContactFormDialog>
         </div>

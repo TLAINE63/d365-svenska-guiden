@@ -130,7 +130,7 @@ const D365Sales = () => {
                     size="lg"
                     className="bg-sales hover:bg-sales/90 text-sales-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka en kostnadsfri rådgivning
+                    Hitta din bransch och rätt partner
                   </Button>
                 </ContactFormDialog>
                 <Button 
@@ -349,14 +349,14 @@ const D365Sales = () => {
             Redo att ta din försäljning till nästa nivå?
           </h2>
           <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Boka en kostnadsfri rådgivning med oss så hjälper vi dig hitta rätt CRM-lösning för ditt företag.
+            Hitta din bransch och rätt partner med oss så hjälper vi dig hitta rätt CRM-lösning för ditt företag.
           </p>
           <ContactFormDialog>
             <Button 
               size="lg"
               className="bg-white text-sales hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
-              Boka en kostnadsfri rådgivning
+              Hitta din bransch och rätt partner
             </Button>
           </ContactFormDialog>
         </div>
