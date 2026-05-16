@@ -9,7 +9,12 @@ import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
 import { findIndustryBySlug } from "@/data/standardIndustries";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle } from "lucide-react";
+import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2 } from "lucide-react";
+
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 
 // Industry hero images (webp). Falls back to a default gradient if missing.
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
@@ -56,11 +61,11 @@ const INDUSTRY_IMAGES: Record<string, string> = {
 };
 
 // Product filters mapped to product_filters keys in the database
-const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string }[] = [
-  { key: "bc", label: "Business Central" },
-  { key: "fsc", label: "Finance & Supply Chain" },
-  { key: "sales", label: "Sales / Customer Insights" },
-  { key: "service", label: "Customer Service / Field Service" },
+const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string; short: string; icon: string }[] = [
+  { key: "bc", label: "Business Central", short: "BC", icon: BusinessCentralIcon },
+  { key: "fsc", label: "Finance & Supply Chain", short: "F&SCM", icon: FinanceIcon },
+  { key: "sales", label: "Sales / Customer Insights", short: "Sales", icon: SalesIcon },
+  { key: "service", label: "Customer Service / Field Service", short: "Service", icon: CustomerServiceIcon },
 ];
 
 // Simple seeded shuffle for stable random order per session+industry
@@ -197,148 +202,174 @@ const IndustryPage = () => {
                 {page.intro}
               </p>
             )}
+            <a
+              href="#partners"
+              className="lg:hidden mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+            >
+              <Building2 className="w-4 h-4" />
+              Se {matchingPartners.length} partners inom {industryName.toLowerCase()}
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </section>
 
-        {/* Affärsprocesser */}
-        {page?.processes && page.processes.length > 0 && (
-          <section className="py-12 border-b border-border">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <div className="flex items-center gap-2 mb-6">
-                <Briefcase className="w-5 h-5 text-primary" />
-                <h2 className="text-2xl font-bold">Typiska affärsprocesser</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {page.processes.map((p, i) => (
-                  <div key={i} className="rounded-lg border border-border bg-card p-5">
-                    <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
-                    <p className="text-sm text-muted-foreground">{p.description}</p>
+        {/* Två-kolumns layout: innehåll vänster, sticky partners höger */}
+        <section className="py-10 border-b border-border">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Vänster: innehåll */}
+              <div className="lg:col-span-2 space-y-10">
+                {page?.processes && page.processes.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-5">
+                      <Briefcase className="w-5 h-5 text-primary" />
+                      <h2 className="text-2xl font-bold">Typiska affärsprocesser</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {page.processes.map((p, i) => (
+                        <div key={i} className="rounded-lg border border-border bg-card p-5">
+                          <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
+                          <p className="text-sm text-muted-foreground">{p.description}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+                )}
 
-        {/* Utmaningar */}
-        {page?.challenges && page.challenges.length > 0 && (
-          <section className="py-12 border-b border-border bg-muted/20">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <div className="flex items-center gap-2 mb-6">
-                <AlertTriangle className="w-5 h-5 text-primary" />
-                <h2 className="text-2xl font-bold">Vanliga utmaningar</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {page.challenges.map((c, i) => (
-                  <div key={i} className="rounded-lg border border-border bg-card p-5">
-                    <h3 className="font-semibold text-foreground mb-2">{c.title}</h3>
-                    <p className="text-sm text-muted-foreground">{c.description}</p>
+                {page?.challenges && page.challenges.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-5">
+                      <AlertTriangle className="w-5 h-5 text-primary" />
+                      <h2 className="text-2xl font-bold">Vanliga utmaningar</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {page.challenges.map((c, i) => (
+                        <div key={i} className="rounded-lg border border-border bg-card p-5">
+                          <h3 className="font-semibold text-foreground mb-2">{c.title}</h3>
+                          <p className="text-sm text-muted-foreground">{c.description}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+                )}
 
-        {/* Roller */}
-        {page?.roles && page.roles.length > 0 && (
-          <section className="py-12 border-b border-border">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <div className="flex items-center gap-2 mb-6">
-                <Users className="w-5 h-5 text-primary" />
-                <h2 className="text-2xl font-bold">Roller & funktioner</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {page.roles.map((r, i) => (
-                  <div key={i} className="rounded-lg border border-border bg-card p-5">
-                    <h3 className="font-semibold text-foreground mb-2">{r.role}</h3>
-                    <p className="text-sm text-muted-foreground">{r.needs}</p>
+                {page?.roles && page.roles.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-5">
+                      <Users className="w-5 h-5 text-primary" />
+                      <h2 className="text-2xl font-bold">Roller & funktioner</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {page.roles.map((r, i) => (
+                        <div key={i} className="rounded-lg border border-border bg-card p-5">
+                          <h3 className="font-semibold text-foreground mb-2">{r.role}</h3>
+                          <p className="text-sm text-muted-foreground">{r.needs}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+                )}
 
-        {/* Applikationer */}
-        {page?.applications && page.applications.length > 0 && (
-          <section className="py-12 border-b border-border bg-muted/20">
-            <div className="container mx-auto px-4 max-w-5xl">
-              <div className="flex items-center gap-2 mb-6">
-                <Layers className="w-5 h-5 text-primary" />
-                <h2 className="text-2xl font-bold">D365-applikationer som passar</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {page.applications.map((a, i) => (
-                  <div key={i} className="rounded-lg border border-border bg-card p-5">
-                    <Badge variant="outline" className="mb-2">{a.app}</Badge>
-                    <p className="text-sm text-muted-foreground">{a.relevance}</p>
+                {page?.applications && page.applications.length > 0 && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-5">
+                      <Layers className="w-5 h-5 text-primary" />
+                      <h2 className="text-2xl font-bold">D365-applikationer som passar</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {page.applications.map((a, i) => (
+                        <div key={i} className="rounded-lg border border-border bg-card p-5">
+                          <Badge variant="outline" className="mb-2">{a.app}</Badge>
+                          <p className="text-sm text-muted-foreground">{a.relevance}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          </section>
-        )}
 
-        {/* Partners */}
-        <section className="py-12 border-b border-border">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <h2 className="text-2xl font-bold mb-2">Partners inom {industryName}</h2>
-            <p className="text-sm text-muted-foreground mb-5">
-              Visar partners som själva har profilerat sig mot {industryName.toLowerCase()} för minst ett produktområde. Slumpmässig ordning för rättvis exponering.
-            </p>
-            <div className="flex flex-wrap gap-2 mb-6">
-              {PRODUCT_FILTERS.map((f) => {
-                const active = selected.includes(f.key);
-                return (
-                  <button
-                    key={f.key}
-                    onClick={() =>
-                      setSelected((prev) =>
-                        active ? prev.filter((k) => k !== f.key) : [...prev, f.key],
-                      )
-                    }
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                      active
-                        ? "bg-primary text-primary-foreground border-primary"
-                        : "bg-card text-foreground border-border hover:border-primary/50"
-                    }`}
-                  >
-                    {f.label}
-                  </button>
-                );
-              })}
-              {selected.length > 0 && (
-                <button
-                  onClick={() => setSelected([])}
-                  className="text-xs text-primary hover:underline ml-2"
-                >
-                  Rensa
-                </button>
-              )}
-            </div>
+              {/* Höger: sticky partnerpanel */}
+              <aside id="partners" className="lg:col-span-1">
+                <div className="lg:sticky lg:top-24">
+                  <div className="rounded-xl border border-border bg-card overflow-hidden">
+                    <div className="px-5 py-4 border-b border-border bg-muted/30">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Building2 className="w-4 h-4 text-primary" />
+                        <h2 className="text-base font-bold">
+                          {matchingPartners.length} partners inom {industryName}
+                        </h2>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Profilerade mot {industryName.toLowerCase()}. Slumpmässig ordning.
+                      </p>
+                    </div>
 
-            {matchingPartners.length === 0 ? (
-              <div className="text-center py-12 text-muted-foreground">
-                <p className="mb-4">
-                  Vi har inte hittat matchande partners just nu. Hör av dig så hjälper vi dig vidare.
-                </p>
-                <Link to="/kontakt" className="text-primary hover:underline">
-                  Kontakta oss →
-                </Link>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {matchingPartners.map((p) => (
-                  <PartnerCard
-                    key={p.id}
-                    partner={p as any}
-                    profileUrl={`/partner/${(p as any).slug}`}
-                    highlightedIndustry={meta?.name}
-                  />
-                ))}
-              </div>
-            )}
+                    <div className="px-5 py-4 border-b border-border">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground uppercase tracking-wide">
+                          <Filter className="w-3.5 h-3.5" />
+                          Filtrera per produktområde
+                        </div>
+                        {selected.length > 0 && (
+                          <button
+                            onClick={() => setSelected([])}
+                            className="text-xs text-primary hover:underline"
+                          >
+                            Rensa
+                          </button>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {PRODUCT_FILTERS.map((f) => {
+                          const active = selected.includes(f.key);
+                          return (
+                            <button
+                              key={f.key}
+                              onClick={() =>
+                                setSelected((prev) =>
+                                  active ? prev.filter((k) => k !== f.key) : [...prev, f.key],
+                                )
+                              }
+                              className={`flex items-center gap-2 px-3 py-2 rounded-md text-xs font-medium border transition-all text-left ${
+                                active
+                                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                                  : "bg-background text-foreground border-border hover:border-primary/50 hover:bg-muted/40"
+                              }`}
+                              title={f.label}
+                            >
+                              <img src={f.icon} alt="" className="w-4 h-4 flex-shrink-0" />
+                              <span className="truncate">{f.short}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="p-4 max-h-[calc(100vh-16rem)] overflow-y-auto">
+                      {matchingPartners.length === 0 ? (
+                        <div className="text-center py-8 text-muted-foreground text-sm">
+                          <p className="mb-3">Inga matchande partners just nu.</p>
+                          <Link to="/kontakt" className="text-primary hover:underline">
+                            Kontakta oss →
+                          </Link>
+                        </div>
+                      ) : (
+                        <div className="space-y-4">
+                          {matchingPartners.map((p) => (
+                            <PartnerCard
+                              key={p.id}
+                              partner={p as any}
+                              profileUrl={`/partner/${(p as any).slug}`}
+                              highlightedIndustry={meta?.name}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
           </div>
         </section>
 
