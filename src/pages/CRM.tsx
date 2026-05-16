@@ -201,7 +201,7 @@ const CRM = () => {
                     size="lg"
                     className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka en kostnadsfri rådgivning
+                    Hitta din bransch och rätt partner
                   </Button>
                 </ContactFormDialog>
                 <Button 

@@ -120,7 +120,7 @@ const D365CustomerService = () => {
                     size="lg"
                     className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
                   >
-                    Boka en kostnadsfri rådgivning
+                    Hitta din bransch och rätt partner
                   </Button>
                 </ContactFormDialog>
                 <Button 
@@ -380,14 +380,14 @@ const D365CustomerService = () => {
             Redo att förbättra din kundservice?
           </h2>
           <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Boka en kostnadsfri rådgivning med oss så hjälper vi dig skapa en kundservicetlösning som överträffar förväntningar.
+            Hitta din bransch och rätt partner med oss så hjälper vi dig skapa en kundservicetlösning som överträffar förväntningar.
           </p>
           <ContactFormDialog>
             <Button 
               size="lg"
               className="bg-white text-customer-service hover:bg-white/90 text-base sm:text-lg h-14 sm:h-16 rounded-xl"
             >
-              Boka en kostnadsfri rådgivning
+              Hitta din bransch och rätt partner
             </Button>
           </ContactFormDialog>
         </div>
