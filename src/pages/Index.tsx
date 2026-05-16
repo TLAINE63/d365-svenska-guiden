@@ -343,6 +343,10 @@ const Index = () => {
         </div>
       </section>
 
+      <Suspense fallback={null}>
+        <BuyerJourneyStages compact />
+      </Suspense>
+
 
 
       {/* Direction picker dialog for Behovsanalys / Kravspec */}
