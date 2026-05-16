@@ -99,7 +99,7 @@ const Branscher = () => {
                       </div>
                     )}
                     <div className="flex flex-col gap-1 p-2.5">
-                      <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
+                      <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
                         {ind.name}
                       </span>
                       <span className="flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
