@@ -193,32 +193,45 @@ serve(async (req) => {
       return json({ error: "industry_slug och industry_name krävs" }, 400, corsHeaders);
     }
 
-    const aiResp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-pro",
-        messages: [
-          {
-            role: "system",
-            content:
-              "Du är en oberoende svensk branschexpert på affärssystem och Microsoft Dynamics 365. Du skriver neutralt, faktabaserat och rådgivande. Använd alltid det angivna verktyget för att returnera strukturerad data.",
-          },
-          { role: "user", content: buildPrompt(industry_name) },
-        ],
-        tools: [{ type: "function", function: SCHEMA }],
-        tool_choice: { type: "function", function: { name: SCHEMA.name } },
-      }),
-    });
+    const callAi = async (model: string) =>
+      await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            {
+              role: "system",
+              content:
+                "Du är en oberoende svensk branschexpert på affärssystem och Microsoft Dynamics 365. Du skriver neutralt, faktabaserat och rådgivande. Använd alltid det angivna verktyget för att returnera strukturerad data.",
+            },
+            { role: "user", content: buildPrompt(industry_name) },
+          ],
+          tools: [{ type: "function", function: SCHEMA }],
+          tool_choice: { type: "function", function: { name: SCHEMA.name } },
+        }),
+      });
 
-    if (aiResp.status === 429) return json({ error: "RATE_LIMIT" }, 429, corsHeaders);
-    if (aiResp.status === 402) return json({ error: "PAYMENT_REQUIRED" }, 402, corsHeaders);
-    if (!aiResp.ok) {
-      const t = await aiResp.text();
-      console.error("AI gateway error", aiResp.status, t);
+    // Try primary, then fall back through alternates on transient gateway errors (502/503/504).
+    const models = ["google/gemini-2.5-flash", "google/gemini-2.5-pro", "google/gemini-3-flash-preview"];
+    let aiResp: Response | null = null;
+    let lastErrText = "";
+    for (const m of models) {
+      const r = await callAi(m);
+      if (r.status === 429) return json({ error: "RATE_LIMIT" }, 429, corsHeaders);
+      if (r.status === 402) return json({ error: "PAYMENT_REQUIRED" }, 402, corsHeaders);
+      if (r.ok) { aiResp = r; break; }
+      lastErrText = await r.text();
+      console.error("AI gateway error", m, r.status, lastErrText.slice(0, 300));
+      if (![502, 503, 504].includes(r.status)) {
+        return json({ error: "AI_GATEWAY_ERROR" }, 502, corsHeaders);
+      }
+      await new Promise((res) => setTimeout(res, 800));
+    }
+    if (!aiResp) {
       return json({ error: "AI_GATEWAY_ERROR" }, 502, corsHeaders);
     }
 
