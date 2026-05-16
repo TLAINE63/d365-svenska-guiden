@@ -204,11 +204,6 @@ const industryPills = ALL_INDUSTRY_PILLS.filter((pill) => {
   return n.split(" ").some((tok) => tok.length > 3 && partnerIndustrySet.has(tok));
 });
 
-const heroSteps = [
-  { title: "Berätta om verksamheten", sub: "Bransch, storlek och nuvarande system" },
-  { title: "Välj vad du vill lösa", sub: "ERP, CRM, kundservice eller kombinerat" },
-  { title: "Få din rekommendation", sub: "Rätt lösning och partnertyp" },
-];
 
 const Index = () => {
   
