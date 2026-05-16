@@ -98,18 +98,7 @@ const Navbar = () => {
             >
               Branscher
             </Link>
-            <Link
-              to="/branschlosningar/"
-              onClick={(e) => {
-                if (window.location.pathname === '/branschlosningar') {
-                  e.preventDefault();
-                  window.location.reload();
-                }
-              }}
-              className="text-xs font-medium text-foreground hover:text-primary transition-colors"
-            >
-              Branschlösningar
-            </Link>
+            {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-xs font-medium text-foreground hover:text-primary transition-colors px-0">
@@ -231,18 +220,7 @@ const Navbar = () => {
                 >
                   Branscher
                 </Link>
-                <Link
-                  to="/branschlosningar/"
-                  onClick={(e) => {
-                    if (window.location.pathname === '/branschlosningar') {
-                      e.preventDefault();
-                      window.location.reload();
-                    }
-                  }}
-                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
-                >
-                  Branschlösningar
-                </Link>
+                {/* Branschlösningar – dold tills vidare */}
                 <Link
                   to="/valj-partner/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
