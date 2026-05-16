@@ -56,37 +56,40 @@ const Branscher = () => {
   return (
     <>
       <SEOHead
-        title="Branscher – Microsoft Dynamics 365 i Sverige"
+        title="Branschöversikt – Microsoft Dynamics 365 i Sverige"
         description="Branschguider för Microsoft Dynamics 365: affärsprocesser, utmaningar, roller och vilka D365-applikationer som passar din bransch."
         canonicalPath="/branscher"
       />
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
-        <section className="py-12 md:py-16 bg-gradient-to-b from-muted/30 to-background border-b border-border">
+        <section className="py-8 md:py-10 bg-gradient-to-b from-muted/30 to-background border-b border-border">
           <div className="container mx-auto px-4 max-w-5xl">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-              Branscher
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+              Branschöversikt
             </h1>
-            <p className="text-base md:text-lg text-muted-foreground max-w-2xl">
+            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mb-1">
               Hur Microsoft Dynamics 365 används i din bransch – affärsprocesser,
               utmaningar, roller och rätt partners.
+            </p>
+            <p className="text-xs md:text-sm text-muted-foreground max-w-2xl">
+              Klicka på en bransch för djupare insikter, utmaningar och rätt D365-applikationer.
             </p>
           </div>
         </section>
 
-        <section className="py-12">
+        <section className="py-6">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
               {visibleIndustries.map((ind) => {
                 const img = INDUSTRY_IMAGES[ind.slug];
                 return (
                   <Link
                     key={ind.slug}
                     to={`/branscher/${ind.slug}`}
-                    className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
+                    className="group flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
                   >
                     {img && (
-                      <div className="aspect-[16/9] overflow-hidden bg-muted">
+                      <div className="aspect-[4/3] overflow-hidden bg-muted">
                         <img
                           src={img}
                           alt={ind.name}
@@ -95,14 +98,11 @@ const Branscher = () => {
                         />
                       </div>
                     )}
-                    <div className="flex flex-col gap-1.5 p-4">
-                      <span className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                    <div className="flex flex-col gap-1 p-2.5">
+                      <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
                         {ind.name}
                       </span>
-                      <span className="text-xs text-muted-foreground">
-                        Processer, utmaningar, roller och partners.
-                      </span>
-                      <span className="mt-1 flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      <span className="flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                         Öppna <ArrowRight className="h-3 w-3" />
                       </span>
                     </div>
