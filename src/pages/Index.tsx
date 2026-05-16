@@ -313,62 +313,21 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Right column – step card */}
+            {/* Right column – industry entry card */}
             <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-5 sm:p-6 overflow-visible relative z-10">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-4">
-                Behovsanalys — 5 minuter
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-3">
+                Börja här
               </div>
-              <ul className="space-y-0">
-                {heroSteps.map((step, i) => (
-                  <li key={i} className={`flex gap-3 items-start py-3 ${i < heroSteps.length - 1 ? "border-b border-white/10" : ""}`}>
-                    <span className="w-[22px] h-[22px] rounded-full bg-white/15 text-[hsl(180_75%_65%)] text-[11px] font-semibold flex items-center justify-center flex-shrink-0 mt-0.5">
-                      {i + 1}
-                    </span>
-                    <div>
-                      <div className="text-[13px] font-medium text-white">{step.title}</div>
-                      <div className="text-xs text-white/60">{step.sub}</div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div className="relative">
-                <Button 
-                  className="w-full mt-4 bg-white text-[hsl(180_85%_20%)] hover:bg-white/90 text-sm h-10 rounded-lg font-semibold"
-                  onClick={() => setShowAnalysisMenu(prev => !prev)}
-                >
-                  Starta en behovsanalys <ArrowRight className="w-4 h-4 ml-1" />
-                </Button>
-                {showAnalysisMenu && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-[hsl(180,25%,12%)] border border-white/25 rounded-xl overflow-hidden shadow-2xl z-50 p-1">
-                    <p className="text-[11px] text-white/50 px-3 pt-2 pb-1 font-medium uppercase tracking-wider">Välj område</p>
-                    <Link 
-                      to="/behovsanalys/" 
-                      className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/15 transition-colors text-sm rounded-lg font-medium"
-                      onClick={() => setShowAnalysisMenu(false)}
-                    >
-                      <Monitor className="w-4 h-4 text-[hsl(180,75%,65%)]" />
-                      ERP – Affärssystem
-                    </Link>
-                    <Link 
-                      to="/salj-marknad-behovsanalys/" 
-                      className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/15 transition-colors text-sm rounded-lg font-medium"
-                      onClick={() => setShowAnalysisMenu(false)}
-                    >
-                      <Users className="w-4 h-4 text-[hsl(180,75%,65%)]" />
-                      Sälj & Marknad – CRM
-                    </Link>
-                    <Link 
-                      to="/kundservice-behovsanalys/" 
-                      className="flex items-center gap-3 px-3 py-2.5 text-white hover:bg-white/15 transition-colors text-sm rounded-lg font-medium"
-                      onClick={() => setShowAnalysisMenu(false)}
-                    >
-                      <Phone className="w-4 h-4 text-[hsl(180,75%,65%)]" />
-                      Kundservice
-                    </Link>
-                  </div>
-                )}
-              </div>
-              <p className="text-center text-[11px] text-white/50 mt-2">Gratis · Ingen registrering krävs</p>
+              <h3 className="text-lg font-semibold text-white mb-2 leading-tight">
+                Välj den bransch du tillhör
+              </h3>
+              <p className="text-sm text-white/70 leading-relaxed mb-5">
+                Få vägledning om vilken Dynamics 365-lösning och partner som passar just din bransch — innan du går vidare i dialogen.
+              </p>
+              <Button asChild className="w-full bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-sm h-11 rounded-lg font-semibold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
+                <Link to="/branscher/">Se alla branscher <ArrowRight className="w-4 h-4 ml-1.5" /></Link>
+              </Button>
+              <p className="text-center text-[11px] text-white/50 mt-2">Oberoende vägledning · Kostnadsfritt</p>
             </div>
           </div>
         </div>
