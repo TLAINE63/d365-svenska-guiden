@@ -990,7 +990,7 @@ const PartnerGuideDialog = ({ open, onOpenChange, partners, initialAiInterest }:
                             
                             <Button asChild size="sm" className="w-full sm:w-auto">
                               <Link to={profileUrl} onClick={() => onOpenChange(false)}>
-                                Visa partnerprofil
+                                Läs mer om denna partner
                                 <ArrowRight className="ml-2 h-4 w-4" />
                               </Link>
                             </Button>
