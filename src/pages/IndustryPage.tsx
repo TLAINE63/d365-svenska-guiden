@@ -61,11 +61,12 @@ const INDUSTRY_IMAGES: Record<string, string> = {
 };
 
 // Product filters mapped to product_filters keys in the database
-const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string; short: string; icon: string }[] = [
-  { key: "bc", label: "Business Central", short: "Business Central", icon: BusinessCentralIcon },
-  { key: "fsc", label: "Finance & Supply Chain", short: "Finance & SCM", icon: FinanceIcon },
-  { key: "sales", label: "Sales & Customer Insights (Marketing Automation)", short: "CRM Sales", icon: SalesIcon },
-  { key: "service", label: "Customer Service & Field Service & Contact Center", short: "CRM Service", icon: CustomerServiceIcon },
+// Labels matchar /branschlosningar för konsistens.
+const PRODUCT_FILTERS: { key: "bc" | "fsc" | "sales" | "service"; label: string; icon: string }[] = [
+  { key: "bc", label: "Business Central", icon: BusinessCentralIcon },
+  { key: "fsc", label: "Finance & Supply Chain", icon: FinanceIcon },
+  { key: "sales", label: "Sales & Customer Insights (Marketing Automation)", icon: SalesIcon },
+  { key: "service", label: "Customer Service & Field Service & Contact Center", icon: CustomerServiceIcon },
 ];
 
 // Simple seeded shuffle for stable random order per session+industry
