@@ -436,7 +436,7 @@ const PartnerCard = ({
               className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
             >
               <Link to={profileUrl} onClick={handleCardClick} className="flex items-center justify-center gap-2">
-                <span className="relative z-10">Visa partnerprofil</span>
+                <span className="relative z-10">Läs mer om denna partner</span>
                 <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 {/* Button shimmer effect */}
                 <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/20 to-transparent" />
