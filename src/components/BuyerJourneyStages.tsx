@@ -386,18 +386,13 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3">
             {STAGES.map((stage) => {
               const isActive = result === stage.id;
-              return (
-                <button
-                  key={stage.id}
-                  type="button"
-                  onClick={() => selectStageFromMap(stage.id)}
-                  aria-pressed={isActive}
-                  className={`group relative flex flex-col rounded-xl border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
-                    isActive
-                      ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
-                      : "border-[#E5E5E8] hover:border-[#E5006D]"
-                  }`}
-                >
+              const cardClass = `group relative flex flex-col rounded-xl border bg-white p-4 pt-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${focusRing} ${
+                isActive
+                  ? "border-[#E5006D] ring-2 ring-[#E5006D]/30 bg-[#FFF0F6]"
+                  : "border-[#E5E5E8] hover:border-[#E5006D]"
+              }`;
+              const cardInner = (
+                <>
                   <div className="flex justify-center mb-2">
                     <span
                       className={`inline-flex h-7 w-7 items-center justify-center rounded-full border text-xs font-bold ${
@@ -424,6 +419,25 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
                       ))}
                     </ul>
                   </div>
+                </>
+              );
+              return compact ? (
+                <a
+                  key={stage.id}
+                  href={`/kunskapscenter/upphandlingsresan/#stage-${stage.id}`}
+                  className={cardClass}
+                >
+                  {cardInner}
+                </a>
+              ) : (
+                <button
+                  key={stage.id}
+                  type="button"
+                  onClick={() => selectStageFromMap(stage.id)}
+                  aria-pressed={isActive}
+                  className={cardClass}
+                >
+                  {cardInner}
                 </button>
               );
             })}
@@ -431,9 +445,10 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
         </div>
 
         {/* Quiz / Result */}
-
+        {!compact && (
         <div ref={quizRef} className="mb-16 md:mb-20 scroll-mt-24">
           {!resultStage && null}
+
 
           {resultStage && (
             <div
