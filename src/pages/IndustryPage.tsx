@@ -9,7 +9,12 @@ import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
 import { findIndustryBySlug } from "@/data/standardIndustries";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle } from "lucide-react";
+import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2 } from "lucide-react";
+
+import BusinessCentralIcon from "@/assets/icons/BusinessCentral.svg";
+import FinanceIcon from "@/assets/icons/Finance.svg";
+import SalesIcon from "@/assets/icons/Sales.svg";
+import CustomerServiceIcon from "@/assets/icons/CustomerService.svg";
 
 // Industry hero images (webp). Falls back to a default gradient if missing.
 import tillverkningImg from "@/assets/industries/tillverkning.webp";
