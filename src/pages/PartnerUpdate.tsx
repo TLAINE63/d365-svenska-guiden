@@ -367,6 +367,11 @@ const PartnerUpdate = () => {
           if (result.existingData.industry_apps && Array.isArray(result.existingData.industry_apps)) {
             setIndustryApps(result.existingData.industry_apps);
           }
+
+          // Pre-fill industry pitches if available
+          if (result.existingData.industry_pitches && Array.isArray(result.existingData.industry_pitches)) {
+            setIndustryPitches(result.existingData.industry_pitches);
+          }
         } else {
           setFormData(prev => ({
             ...prev,
@@ -806,6 +811,7 @@ const PartnerUpdate = () => {
         geography: [],
         product_filters: productFilters,
         industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
+        industry_pitches: industryPitches.filter(p => p.text?.trim()),
         office_cities: officeCities,
       };
 
