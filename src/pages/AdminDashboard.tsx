@@ -75,13 +75,13 @@ import {
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe,
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
   CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Award, ChevronDown,
-  MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature, Sparkles
+  MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature, Sparkles, AlertTriangle
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
 import PartnerIndustryPitchPreview from "@/components/PartnerIndustryPitchPreview";
-import { assertPitchLabelsConsistency } from "@/data/pitchProductMapping";
+import { assertPitchLabelsConsistency, getPitchLabelMismatches } from "@/data/pitchProductMapping";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
@@ -4603,6 +4603,39 @@ Thomas`,
                     badge={pitchCount > 0 ? <Badge variant="outline">{pitchCount} pitchar</Badge> : undefined}
                   >
                     <div className="space-y-6">
+                      {(() => {
+                        const mismatches = getPitchLabelMismatches(productSections);
+                        if (mismatches.length === 0) return null;
+                        return (
+                          <div
+                            role="alert"
+                            className="flex gap-3 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive"
+                          >
+                            <AlertTriangle className="h-5 w-5 shrink-0 mt-0.5" />
+                            <div className="space-y-1">
+                              <p className="font-semibold">
+                                Konsistensvarning: produktetiketter matchar inte mappningsfilen
+                              </p>
+                              <p className="text-xs text-destructive/90">
+                                Publika partnerkortet hittar inte produktspecifika pitchar förrän
+                                <code className="mx-1 px-1 py-0.5 rounded bg-destructive/15">
+                                  src/data/pitchProductMapping.ts
+                                </code>
+                                uppdateras. Avvikelser:
+                              </p>
+                              <ul className="list-disc pl-5 text-xs space-y-0.5">
+                                {mismatches.map((m) => (
+                                  <li key={m.key}>
+                                    Nyckel <code className="px-1 rounded bg-destructive/15">{m.key}</code>:
+                                    editorn lagrar <strong>"{m.actual}"</strong> men renderaren förväntar sig{" "}
+                                    <strong>"{m.expected}"</strong>.
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        );
+                      })()}
                       <PartnerIndustryPitchesEditor
                         industries={industriesList}
                         productsPerIndustry={productsPerIndustry}

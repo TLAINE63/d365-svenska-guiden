@@ -49,32 +49,48 @@ export function getPitchLabelForKey(key: string | null | undefined): string | nu
   return (PRODUCT_KEY_TO_PITCH_LABEL as Record<string, string>)[key] ?? null;
 }
 
+export type PitchLabelMismatch = {
+  key: string;
+  expected: string;
+  actual: string;
+};
+
 /**
- * Dev-time guard. Call from any module that defines `productSections`
- * (AdminDashboard, PartnerUpdate) with `[{ key, label }, ...]` to make
- * sure the labels stored by the editor still match the labels the public
- * renderer expects.
- *
- * Logs a console.warn (does not throw) if a mismatch is found, so the
- * app keeps running but the drift is visible in dev / preview builds.
+ * Return any productSections entries whose label doesn't match the
+ * canonical mapping. Empty array means everything is in sync.
+ */
+export function getPitchLabelMismatches(
+  sections: ReadonlyArray<{ key: string; label: string }>,
+): PitchLabelMismatch[] {
+  const mismatches: PitchLabelMismatch[] = [];
+  for (const section of sections) {
+    const expected = (PRODUCT_KEY_TO_PITCH_LABEL as Record<string, string>)[section.key];
+    if (!expected) continue;
+    if (expected !== section.label) {
+      mismatches.push({ key: section.key, expected, actual: section.label });
+    }
+  }
+  return mismatches;
+}
+
+/**
+ * Dev-time guard. Logs a console.warn (does not throw) if a mismatch is
+ * found, so the app keeps running but the drift is visible in dev /
+ * preview builds.
  */
 export function assertPitchLabelsConsistency(
   sections: ReadonlyArray<{ key: string; label: string }>,
   source = "productSections",
 ): void {
   if (typeof import.meta !== "undefined" && (import.meta as any).env?.PROD) {
-    return; // Skip in production builds
+    return;
   }
-  for (const section of sections) {
-    const expected = (PRODUCT_KEY_TO_PITCH_LABEL as Record<string, string>)[section.key];
-    if (!expected) continue; // section.key is not used for pitches (e.g. specialty)
-    if (expected !== section.label) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `[pitchProductMapping] Label mismatch for key "${section.key}" in ${source}: ` +
-          `editor stores "${section.label}" but PartnerCard expects "${expected}". ` +
-          `Update src/data/pitchProductMapping.ts so the public renderer can find the override.`,
-      );
-    }
+  for (const { key, expected, actual } of getPitchLabelMismatches(sections)) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[pitchProductMapping] Label mismatch for key "${key}" in ${source}: ` +
+        `editor stores "${actual}" but PartnerCard expects "${expected}". ` +
+        `Update src/data/pitchProductMapping.ts so the public renderer can find the override.`,
+    );
   }
 }
