@@ -61,8 +61,8 @@ const Branscher = () => {
         canonicalPath="/branscher"
       />
       <Navbar />
-      <main className="min-h-screen bg-background pt-24 md:pt-28">
-        <section className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-b border-border">
+      <main className="min-h-screen bg-background pt-20">
+        <section className="py-5 md:py-6 bg-gradient-to-b from-muted/30 to-background border-b border-border">
           <div className="container mx-auto px-4 max-w-6xl">
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
               Branschöversikt
@@ -73,7 +73,7 @@ const Branscher = () => {
           </div>
         </section>
 
-        <section className="py-8 md:py-10">
+        <section className="py-4 md:py-5">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
               {visibleIndustries.map((ind) => {
