@@ -103,6 +103,13 @@ export function PartnerIndustryPitchPreview({
         )}
       </div>
 
+      {/* Prioriteringsregel — speglar PartnerCard.tsx exakt */}
+      <p className="text-[11px] text-muted-foreground bg-muted/40 border border-border rounded-md px-3 py-2">
+        <span className="font-semibold text-foreground">Prioritering:</span> produktspecifik
+        text vinner alltid över allmän bransch-text. Saknas produktvariant används
+        bransch-textens standardversion. Saknas båda visas ingen pitch-ruta.
+      </p>
+
       {/* Selector */}
       <div className="space-y-2 rounded-lg border border-border bg-muted/30 p-3">
         <div className="flex items-center gap-2 flex-wrap">
