@@ -218,7 +218,7 @@ const Navbar = () => {
                   to="/branscher/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
-                  Branscher
+                  Hitta din bransch
                 </Link>
                 {/* Branschlösningar – dold tills vidare */}
                 <Link
