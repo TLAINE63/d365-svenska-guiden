@@ -223,7 +223,7 @@ const IndustryPage = () => {
             )}
             <a
               href="#partners"
-              className="lg:hidden mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
+              className="mt-5 inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
             >
               <Building2 className="w-4 h-4" />
               Se {matchingPartners.length} partners inom {industryName.toLowerCase()}
