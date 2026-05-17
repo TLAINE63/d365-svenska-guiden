@@ -390,6 +390,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
         if (partner?.youtube_video_id !== undefined) updateData.youtube_video_id = partner.youtube_video_id?.trim() || null;
+        if (partner?.industry_pitches !== undefined) updateData.industry_pitches = partner.industry_pitches;
 
         const { data, error } = await supabase
           .from("partners")
