@@ -175,6 +175,7 @@ serve(async (req: Request): Promise<Response> => {
             applications, industries, secondary_industries,
             geography, product_filters, industry_apps,
             is_featured, office_cities, map_url, customer_examples,
+            industry_pitches,
             created_at, updated_at
           `)
           .eq("id", invitation.partner_id)
