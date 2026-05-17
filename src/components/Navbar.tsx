@@ -102,7 +102,7 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-xs font-medium text-foreground hover:text-primary transition-colors px-0">
-                  Det kritiska partnervalet
+                  Hitta rätt partner
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
