@@ -184,6 +184,21 @@ const ALL_INDUSTRY_PILLS = [
   "Logistik & transport", "Offentlig sektor", "Non-profit",
 ];
 
+const PILL_TO_SLUG: Record<string, string> = {
+  "Tillverkning": "tillverkning",
+  "Grossist & distribution": "grossist-distribution",
+  "Konsulttjänster": "konsulttjanster",
+  "Bygg & entreprenad": "bygg-entreprenad",
+  "Retail & e-handel": "retail-ehandel",
+  "Fastighet & förvaltning": "fastighet-forvaltning",
+  "Life Science & Medtech": "life-science-medtech",
+  "Finans & försäkring": "finans-forsakring",
+  "Energi & utilities": "energi-utilities",
+  "Logistik & transport": "logistik-transport",
+  "Offentlig sektor": "offentlig-sektor",
+  "Non-profit": "nonprofit-organisationer",
+};
+
 // Only show industries where at least one partner exists (loose match).
 const normalizeIndustry = (s: string) =>
   s.toLowerCase()
@@ -753,13 +768,13 @@ const Index = () => {
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">Vägledning per bransch</h2>
               <p className="text-sm text-muted-foreground mt-2 max-w-xl">Olika branscher har olika krav på Dynamics 365 — välj er och se relevant innehåll och partners.</p>
             </div>
-            <Link to="/branschlosningar/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
+            <Link to="/branscher/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {industryPills.map((pill) => (
               <Link
                 key={pill}
-                to="/branschlosningar/"
+                to={`/branscher/${PILL_TO_SLUG[pill]}/`}
                 className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
               >
                 <span className="text-[14px] font-medium text-foreground">{pill}</span>
