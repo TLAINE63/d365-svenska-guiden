@@ -215,9 +215,7 @@ const productSections: ProductSection[] = [
   { key: 'fsc', label: 'Finance & Supply Chain', apps: ['Finance', 'Supply Chain Management'], colorClass: 'bg-finance-supply', icon: FinanceIcon },
   { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
   { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
-];
 // Dev-time guard: keep editor labels in sync with PartnerCard's pitch resolver.
-import { assertPitchLabelsConsistency } from "@/data/pitchProductMapping";
 assertPitchLabelsConsistency(productSections, "AdminDashboard productSections");
 
 // Helper to calculate monthly fee from product_filters
