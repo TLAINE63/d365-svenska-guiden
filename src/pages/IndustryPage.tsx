@@ -233,7 +233,7 @@ const IndustryPage = () => {
         </section>
 
         {/* Innehåll – full bredd */}
-        <section className="py-10 border-b border-border">
+        <section className="pt-4 md:pt-6 pb-10 border-b border-border">
           <div className="container mx-auto px-4 max-w-5xl space-y-10">
             {/* Collapsible sektioner – endast rubriker visas tills man klickar */}
             <Accordion type="multiple" className="space-y-3">
