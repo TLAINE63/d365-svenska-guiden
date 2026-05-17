@@ -1104,6 +1104,7 @@ export type Database = {
           id: string | null
           industries: string[] | null
           industry_apps: Json | null
+          industry_pitches: Json | null
           invoice_contact: string | null
           invoice_email: string | null
           is_featured: boolean | null
@@ -1134,6 +1135,7 @@ export type Database = {
           id?: string | null
           industries?: string[] | null
           industry_apps?: Json | null
+          industry_pitches?: Json | null
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
@@ -1164,6 +1166,7 @@ export type Database = {
           id?: string | null
           industries?: string[] | null
           industry_apps?: Json | null
+          industry_pitches?: Json | null
           invoice_contact?: string | null
           invoice_email?: string | null
           is_featured?: boolean | null
