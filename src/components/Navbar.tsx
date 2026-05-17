@@ -225,7 +225,7 @@ const Navbar = () => {
                   to="/valj-partner/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
-                  Det kritiska partnervalet
+                  Hitta rätt partner
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
