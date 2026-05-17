@@ -774,7 +774,7 @@ const Index = () => {
             {industryPills.map((pill) => (
               <Link
                 key={pill}
-                to="/branschlosningar/"
+                to={`/branscher/${PILL_TO_SLUG[pill]}/`}
                 className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
               >
                 <span className="text-[14px] font-medium text-foreground">{pill}</span>
