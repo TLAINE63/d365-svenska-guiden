@@ -45,6 +45,9 @@ const productSections: ProductSection[] = [
   { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
   { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
 ];
+// Dev-time guard: keep editor labels in sync with PartnerCard's pitch resolver.
+import { assertPitchLabelsConsistency } from "@/data/pitchProductMapping";
+assertPitchLabelsConsistency(productSections, "PartnerUpdate productSections");
 
 // Specialty products (no industry selection needed)
 const specialtyProducts = ['Project Operations', 'Commerce', 'Human Resources'] as const;
