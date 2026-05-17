@@ -768,7 +768,7 @@ const Index = () => {
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">Vägledning per bransch</h2>
               <p className="text-sm text-muted-foreground mt-2 max-w-xl">Olika branscher har olika krav på Dynamics 365 — välj er och se relevant innehåll och partners.</p>
             </div>
-            <Link to="/branschlosningar/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
+            <Link to="/branscher/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {industryPills.map((pill) => (
