@@ -306,7 +306,7 @@ const IndustryPage = () => {
                   <AccordionTrigger className="hover:no-underline py-4">
                     <span className="flex items-center gap-2 text-lg md:text-xl font-bold">
                       <Layers className="w-5 h-5 text-primary" />
-                      D365-applikationer som passar
+                      Dynamics 365-applikationer som passar branschen
                     </span>
                   </AccordionTrigger>
                   <AccordionContent>
