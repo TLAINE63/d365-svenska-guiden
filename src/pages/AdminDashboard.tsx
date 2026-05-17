@@ -1167,6 +1167,7 @@ Thomas`,
     setEditingPartner(null);
     setFormErrors({});
     setIndustryApps([]);
+    setIndustryPitches([]);
   };
 
   const openCreatePartnerDialog = () => {
