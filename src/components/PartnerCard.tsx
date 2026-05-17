@@ -344,11 +344,36 @@ const PartnerCard = ({
             </div>
           )}
 
+          {/* Industry pitch (when filtered by industry) */}
+          {(() => {
+            if (!highlightedIndustry || !isDatabasePartner(partner)) return null;
+            const pitches = partner.industry_pitches || [];
+            const productLabel = productKey ? productKeyToPitchLabel[productKey] : null;
+            const matchOverride = productLabel
+              ? pitches.find((p) => p.industry === highlightedIndustry && p.product === productLabel)
+              : null;
+            const matchDefault = pitches.find(
+              (p) => p.industry === highlightedIndustry && (p.product === null || p.product === undefined),
+            );
+            const pitch = matchOverride || matchDefault;
+            if (!pitch?.text?.trim()) return null;
+            return (
+              <div className="mb-3 p-3 rounded-lg bg-primary/5 border-l-2 border-primary/60">
+                <p className="text-xs font-semibold text-primary mb-1 uppercase tracking-wider">
+                  Inom {highlightedIndustry}
+                </p>
+                <p className="text-sm text-foreground/90 leading-relaxed line-clamp-4">
+                  {pitch.text}
+                </p>
+              </div>
+            );
+          })()}
+
           {/* Description */}
           <p className="text-sm text-muted-foreground leading-relaxed mb-3 line-clamp-3">
             {partner.description}
           </p>
-          
+
           {/* Product-specific description */}
           {productDescription && (
             <div className="mb-4 p-2.5 rounded-lg bg-muted/50 border-l-2 border-primary/40">
