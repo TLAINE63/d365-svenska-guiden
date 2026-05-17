@@ -1250,6 +1250,9 @@ Thomas`,
     setIndustryApps(
       Array.isArray((partner as any).industry_apps) ? (partner as any).industry_apps : []
     );
+    setIndustryPitches(
+      Array.isArray((partner as any).industry_pitches) ? (partner as any).industry_pitches : []
+    );
     // Auto-expand product sections that already have data
     const initialOpen: Record<string, boolean> = {};
     productSections.forEach((s) => {
