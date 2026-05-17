@@ -391,7 +391,7 @@ const AIOverview = () => {
                   "AI-optimerad produktionsplanering",
                   "Automatisk kvalitetskontroll med avvikelseanalys",
                 ],
-                link: "/branschlosningar",
+                link: "/branscher/tillverkning/",
               },
               {
                 emoji: "🛒",
@@ -401,7 +401,7 @@ const AIOverview = () => {
                   "Personaliserade produktrekommendationer",
                   "Automatisk prissättning utifrån marknadstrender",
                 ],
-                link: "/branschlosningar",
+                link: "/branscher/grossist-distribution/",
               },
               {
                 emoji: "💼",
@@ -411,7 +411,7 @@ const AIOverview = () => {
                   "Resursplanering med AI-baserad beläggningsprognos",
                   "Automatisk tidrapportering och fakturering",
                 ],
-                link: "/branschlosningar",
+                link: "/branscher/konsulttjanster/",
               },
               {
                 emoji: "🏛️",
@@ -421,7 +421,7 @@ const AIOverview = () => {
                   "Copilot som stöd i medborgarservice",
                   "Budgetprognoser och avvikelsedetektering",
                 ],
-                link: "/branschlosningar",
+                link: "/branscher/offentlig-sektor/",
               },
             ].map((industry) => (
               <Link key={industry.title} to={industry.link}>

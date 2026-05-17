@@ -54,7 +54,7 @@ export const bcRelatedPages: RelatedPage[] = [
   { title: "Finance & Supply Chain", description: "Enterprise ERP för globala koncerner med avancerad tillverkning", href: "/finance-supply-chain/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/behovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Business Central", href: "/copilot/" },
-  { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branschlosningar/" },
+  { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
   { title: "Hitta partner", description: "Filtrera och jämför Business Central-partners i Sverige", href: "/valj-partner/" },
 ];
 
@@ -63,7 +63,7 @@ export const fscRelatedPages: RelatedPage[] = [
   { title: "Business Central", description: "ERP för SMB – enklare och snabbare att implementera", href: "/business-central/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/behovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Finance & Supply Chain", href: "/copilot/" },
-  { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branschlosningar/" },
+  { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
   { title: "Hitta partner", description: "Filtrera och jämför Finance & SCM-partners i Sverige", href: "/valj-partner/" },
 ];
 
@@ -71,7 +71,7 @@ export const erpRelatedPages: RelatedPage[] = [
   { title: "Business Central", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/business-central/" },
   { title: "Finance & Supply Chain", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – vilken ERP-lösning passar dig?", href: "/behovsanalys/" },
-  { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branschlosningar/" },
+  { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
   { title: "Hitta partner", description: "Jämför ERP-partners i Sverige", href: "/valj-partner/" },
 ];
 
@@ -163,5 +163,5 @@ export const indexRelatedPages: RelatedPage[] = [
   { title: "MS Dynamics 365 CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "MS Dynamics 365 ERP-översikt", description: "Jämför Business Central och Finance & SCM", href: "/erp/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
-  { title: "Branschlösningar för Dynamics 365", description: "Tillverkning, handel, service och fler branscher", href: "/branschlosningar/" },
+  { title: "Branschlösningar för Dynamics 365", description: "Tillverkning, handel, service och fler branscher", href: "/branscher/" },
 ];
