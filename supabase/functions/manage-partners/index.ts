@@ -326,6 +326,7 @@ serve(async (req: Request): Promise<Response> => {
             office_cities: partner.office_cities || [],
             map_url: partner.map_url?.trim() || null,
             youtube_video_id: partner.youtube_video_id?.trim() || null,
+            industry_pitches: partner.industry_pitches || [],
           })
           .select()
           .single();
