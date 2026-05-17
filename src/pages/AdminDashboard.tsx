@@ -4571,6 +4571,45 @@ Thomas`,
                 </Card>
               </PremiumCollapsibleSection>
 
+              {/* Industry Pitches Section */}
+              {(() => {
+                const productsPerIndustry: Record<string, string[]> = {};
+                const industriesSet = new Set<string>();
+                productSections.forEach((section) => {
+                  const inds = partnerFormData.product_filters?.[section.key]?.industries || [];
+                  inds.forEach((ind) => {
+                    industriesSet.add(ind);
+                    if (!productsPerIndustry[ind]) productsPerIndustry[ind] = [];
+                    if (!productsPerIndustry[ind].includes(section.label)) {
+                      productsPerIndustry[ind].push(section.label);
+                    }
+                  });
+                });
+                const industriesList = Array.from(industriesSet);
+                const pitchCount = industryPitches.filter((p) => p.text?.trim()).length;
+                return (
+                  <PremiumCollapsibleSection
+                    title="Branschpitchar"
+                    description="Korta branschspecifika texter som visas på branschsidor och partnerprofilen. Generera AI-förslag och redigera fritt."
+                    icon={Sparkles}
+                    accent="primary"
+                    status={industriesList.length === 0 ? 'empty' : (pitchCount === 0 ? 'empty' : (pitchCount >= industriesList.length ? 'complete' : 'partial'))}
+                    open={openSections.pitches}
+                    onOpenChange={(o) => setSectionOpen('pitches', o)}
+                    badge={pitchCount > 0 ? <Badge variant="outline">{pitchCount} pitchar</Badge> : undefined}
+                  >
+                    <PartnerIndustryPitchesEditor
+                      industries={industriesList}
+                      productsPerIndustry={productsPerIndustry}
+                      value={industryPitches}
+                      onChange={setIndustryPitches}
+                      adminToken={token || null}
+                      partnerId={editingPartner?.id || null}
+                    />
+                  </PremiumCollapsibleSection>
+                );
+              })()}
+
               {/* Industry Apps Section */}
               <PremiumCollapsibleSection
                 title="Branschapplikationer"
