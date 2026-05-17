@@ -61,19 +61,19 @@ const Branscher = () => {
         canonicalPath="/branscher"
       />
       <Navbar />
-      <main className="min-h-screen bg-background pt-16">
-        <section className="py-8 md:py-10 bg-gradient-to-b from-muted/30 to-background border-b border-border">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <h1 className="text-xl md:text-2xl font-bold text-foreground mb-1.5">
+      <main className="min-h-screen bg-background pt-24 md:pt-28">
+        <section className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-b border-border">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2">
               Branschöversikt
             </h1>
-            <p className="text-xs md:text-sm text-muted-foreground max-w-2xl">
+            <p className="text-xs md:text-sm text-muted-foreground max-w-4xl">
               Upptäck hur Microsoft Dynamics 365 kan förändra din bransch – från smidigare affärsprocesser och tydligare roller till lösningar på de utmaningar som verkligen betyder något. Välj din bransch nedan för konkreta insikter, vägledning och rätt applikationer för att driva din verksamhet framåt.
             </p>
           </div>
         </section>
 
-        <section className="py-6">
+        <section className="py-8 md:py-10">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
               {visibleIndustries.map((ind) => {
