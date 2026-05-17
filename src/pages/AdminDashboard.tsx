@@ -1446,6 +1446,7 @@ Thomas`,
         applications: [...new Set(applications)],
         slug: partnerFormData.slug || generateSlug(partnerFormData.name),
         industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
+        industry_pitches: industryPitches.filter(p => p.text?.trim()),
       } as any;
 
       if (editingPartner) {
