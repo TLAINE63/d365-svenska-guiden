@@ -184,6 +184,21 @@ const ALL_INDUSTRY_PILLS = [
   "Logistik & transport", "Offentlig sektor", "Non-profit",
 ];
 
+const PILL_TO_SLUG: Record<string, string> = {
+  "Tillverkning": "tillverkning",
+  "Grossist & distribution": "grossist-distribution",
+  "Konsulttjänster": "konsulttjanster",
+  "Bygg & entreprenad": "bygg-entreprenad",
+  "Retail & e-handel": "retail-ehandel",
+  "Fastighet & förvaltning": "fastighet-forvaltning",
+  "Life Science & Medtech": "life-science-medtech",
+  "Finans & försäkring": "finans-forsakring",
+  "Energi & utilities": "energi-utilities",
+  "Logistik & transport": "logistik-transport",
+  "Offentlig sektor": "offentlig-sektor",
+  "Non-profit": "nonprofit-organisationer",
+};
+
 // Only show industries where at least one partner exists (loose match).
 const normalizeIndustry = (s: string) =>
   s.toLowerCase()
