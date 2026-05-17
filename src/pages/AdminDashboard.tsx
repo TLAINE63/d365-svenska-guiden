@@ -81,6 +81,7 @@ import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
 import PartnerIndustryPitchPreview from "@/components/PartnerIndustryPitchPreview";
+import { assertPitchLabelsConsistency } from "@/data/pitchProductMapping";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
@@ -215,6 +216,8 @@ const productSections: ProductSection[] = [
   { key: 'sales', label: 'Sales & Customer Insights', apps: ['Sales', 'Customer Insights (Marketing)'], colorClass: 'bg-crm', icon: SalesIcon },
   { key: 'service', label: 'Customer Service / Field Service / Contact Center', apps: ['Customer Service', 'Field Service', 'Contact Center'], colorClass: 'bg-customer-service', icon: CustomerServiceIcon },
 ];
+// Dev-time guard: keep editor labels in sync with PartnerCard's pitch resolver.
+assertPitchLabelsConsistency(productSections, "AdminDashboard productSections");
 
 // Helper to calculate monthly fee from product_filters
 function calcMonthlyFee(productFilters: Record<string, any> | undefined): number {
