@@ -4632,6 +4632,49 @@ Thomas`,
                                   </li>
                                 ))}
                               </ul>
+                              <div className="mt-2 rounded border border-destructive/30 bg-background/60 p-2 text-xs text-foreground space-y-1.5">
+                                <p className="font-semibold text-destructive">Så här åtgärdar du:</p>
+                                <ol className="list-decimal pl-5 space-y-1">
+                                  <li>
+                                    Öppna varje pitchrad nedan där fältet{" "}
+                                    <strong>"Produktvariant"</strong> är satt till{" "}
+                                    {mismatches.map((m, i) => (
+                                      <span key={m.key}>
+                                        {i > 0 && " eller "}
+                                        <code className="px-1 rounded bg-muted">"{m.actual}"</code>
+                                      </span>
+                                    ))}
+                                    .
+                                  </li>
+                                  <li>
+                                    Ändra produktvarianten till motsvarande förväntad etikett:
+                                    <ul className="list-disc pl-5 mt-0.5">
+                                      {mismatches.map((m) => (
+                                        <li key={m.key}>
+                                          <code className="px-1 rounded bg-muted">"{m.actual}"</code>
+                                          {" → "}
+                                          <code className="px-1 rounded bg-muted">"{m.expected}"</code>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </li>
+                                  <li>
+                                    Spara partnern. Kontrollera att rutan här ovanför försvinner — då
+                                    matchar lagrad <code>product</code> i <code>industry_pitches</code>{" "}
+                                    den publika renderarens uppslagning.
+                                  </li>
+                                  <li>
+                                    Alternativt (om etiketten med flit har bytts namn): uppdatera{" "}
+                                    <code>PRODUCT_KEY_TO_PITCH_LABEL</code> i{" "}
+                                    <code>src/data/pitchProductMapping.ts</code> och be utvecklare
+                                    migrera befintliga rader.
+                                  </li>
+                                </ol>
+                                <p className="text-muted-foreground">
+                                  Tills detta är åtgärdat fortsätter publika partnerkortet att falla
+                                  tillbaka på branschens allmänna pitch istället för den produktspecifika.
+                                </p>
+                              </div>
                             </div>
                           </div>
                         );
