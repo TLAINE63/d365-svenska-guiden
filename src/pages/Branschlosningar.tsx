@@ -25,7 +25,7 @@ import { ServiceSchema, FAQSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const branschBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Branschlösningar", url: "https://d365.se/branschlosningar" },
+  { name: "Branscher", url: "https://d365.se/branscher/" },
 ];
 
 // FAQ items for schema
