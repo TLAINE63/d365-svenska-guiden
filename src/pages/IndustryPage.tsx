@@ -408,14 +408,19 @@ const IndustryPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {matchingPartners.map((p) => (
-                  <PartnerCard
-                    key={p.id}
-                    partner={p as any}
-                    profileUrl={`/partner/${(p as any).slug}`}
-                    highlightedIndustry={meta?.name}
-                  />
-                ))}
+                {matchingPartners.map((p) => {
+                  const activeProductKey =
+                    selected.length === 1 ? FILTER_TO_UNDERLYING[selected[0]] : null;
+                  return (
+                    <PartnerCard
+                      key={p.id}
+                      partner={p as any}
+                      profileUrl={`/partner/${(p as any).slug}`}
+                      highlightedIndustry={meta?.name}
+                      productKey={activeProductKey as any}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>

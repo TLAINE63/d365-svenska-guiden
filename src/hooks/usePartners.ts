@@ -97,6 +97,14 @@ export interface DatabasePartner {
   agreement_signed?: boolean | null;
   agreement_notes?: string | null;
   youtube_video_id?: string | null;
+  industry_pitches?: Array<{
+    industry: string;
+    product: string | null;
+    text: string;
+    generated_at?: string | null;
+    edited_by?: string | null;
+    updated_at?: string;
+  }>;
 }
 
 export interface PartnerInput {
@@ -131,6 +139,14 @@ export interface PartnerInput {
   office_cities?: string[];
   map_url?: string;
   youtube_video_id?: string;
+  industry_pitches?: Array<{
+    industry: string;
+    product: string | null;
+    text: string;
+    generated_at?: string | null;
+    edited_by?: string | null;
+    updated_at?: string;
+  }>;
 }
 
 // Fetch all featured partners from database (public view - excludes sensitive contact info)
@@ -158,6 +174,7 @@ export function usePartners() {
         geography: p.geography || ['Sverige'],
         product_filters: (p.product_filters as ProductFilters) || {},
         industry_apps: (p.industry_apps as DatabasePartner['industry_apps']) || [],
+        industry_pitches: (p.industry_pitches as DatabasePartner['industry_pitches']) || [],
         invoice_email: null,
         invoice_contact: null,
         org_number: null,
@@ -203,6 +220,7 @@ export function usePartner(slug: string | undefined) {
         geography: data.geography || ['Sverige'],
         product_filters: (data.product_filters as ProductFilters) || {},
         industry_apps: (data.industry_apps as DatabasePartner['industry_apps']) || [],
+        industry_pitches: (data.industry_pitches as DatabasePartner['industry_pitches']) || [],
         invoice_email: (data as any).invoice_email || null,
         invoice_contact: (data as any).invoice_contact || null,
         org_number: (data as any).org_number || null,

@@ -10,11 +10,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare } from "lucide-react";
+import { Loader2, CheckCircle2, AlertCircle, Building2, Upload, X, ImageIcon, Plus, Trash2, ExternalLink, CalendarDays, Clock, MapPin, Globe, Link, Layers, Package, MessageSquare, Sparkles } from "lucide-react";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
+import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
 
 // Import product icons
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
@@ -245,12 +246,14 @@ const PartnerUpdate = () => {
   const [productFilters, setProductFilters] = useState<ProductFilters>({});
   const [activeProducts, setActiveProducts] = useState<ProductKey[]>([]);
   const [selectedSpecialtyProducts, setSelectedSpecialtyProducts] = useState<SpecialtyProduct[]>([]);
+  const [industryPitches, setIndustryPitches] = useState<IndustryPitch[]>([]);
 
-  type SectionKey = "basic" | "products" | "specialty" | "industryApps" | "events" | "notes";
+  type SectionKey = "basic" | "products" | "specialty" | "pitches" | "industryApps" | "events" | "notes";
   const [openSections, setOpenSections] = useState<Record<SectionKey, boolean>>({
     basic: true,
     products: true,
     specialty: false,
+    pitches: false,
     industryApps: false,
     events: false,
     notes: false,
@@ -267,10 +270,12 @@ const PartnerUpdate = () => {
     const specialtyComplete = selectedSpecialtyProducts.length > 0;
     const industryAppsComplete = industryApps.some((a) => a.name?.trim() && a.url?.trim());
     const eventsComplete = partnerEvents.length > 0;
+    const pitchesComplete = industryPitches.some((p) => p.text?.trim());
     setOpenSections({
       basic: !basicComplete,
       products: !productsComplete,
       specialty: !specialtyComplete && productsComplete,
+      pitches: !pitchesComplete && productsComplete,
       industryApps: !industryAppsComplete && productsComplete,
       events: !eventsComplete && !!invitation?.partner_id,
       notes: false,
@@ -361,6 +366,11 @@ const PartnerUpdate = () => {
           // Pre-fill industry apps if available
           if (result.existingData.industry_apps && Array.isArray(result.existingData.industry_apps)) {
             setIndustryApps(result.existingData.industry_apps);
+          }
+
+          // Pre-fill industry pitches if available
+          if (result.existingData.industry_pitches && Array.isArray(result.existingData.industry_pitches)) {
+            setIndustryPitches(result.existingData.industry_pitches);
           }
         } else {
           setFormData(prev => ({
@@ -801,6 +811,7 @@ const PartnerUpdate = () => {
         geography: [],
         product_filters: productFilters,
         industry_apps: industryApps.filter(app => app.name.trim() && app.url.trim()),
+        industry_pitches: industryPitches.filter(p => p.text?.trim()),
         office_cities: officeCities,
       };
 
@@ -1815,6 +1826,47 @@ const PartnerUpdate = () => {
                 </div>
               </div>
             </PremiumCollapsibleSection>
+
+            {/* Industry Pitches Section */}
+            {activeProducts.length > 0 && (() => {
+              const productsPerIndustry: Record<string, string[]> = {};
+              const industriesSet = new Set<string>();
+              activeProducts.forEach((key) => {
+                const section = productSections.find((s) => s.key === key);
+                if (!section) return;
+                const inds = productFilters[key]?.industries || [];
+                inds.forEach((ind) => {
+                  industriesSet.add(ind);
+                  if (!productsPerIndustry[ind]) productsPerIndustry[ind] = [];
+                  if (!productsPerIndustry[ind].includes(section.label)) {
+                    productsPerIndustry[ind].push(section.label);
+                  }
+                });
+              });
+              const industriesList = Array.from(industriesSet);
+              if (industriesList.length === 0) return null;
+              const pitchCount = industryPitches.filter((p) => p.text?.trim()).length;
+              return (
+                <PremiumCollapsibleSection
+                  title="Branschpitchar"
+                  description="Korta, branschspecifika texter som visas på branschsidorna och på er partnerprofil"
+                  icon={Sparkles}
+                  accent="primary"
+                  status={pitchCount === 0 ? "empty" : (pitchCount >= industriesList.length ? "complete" : "partial")}
+                  open={openSections.pitches}
+                  onOpenChange={() => toggleSection("pitches")}
+                  badge={pitchCount > 0 ? <Badge variant="outline">{pitchCount} pitchar</Badge> : undefined}
+                >
+                  <PartnerIndustryPitchesEditor
+                    industries={industriesList}
+                    productsPerIndustry={productsPerIndustry}
+                    value={industryPitches}
+                    onChange={setIndustryPitches}
+                    invitationToken={token || null}
+                  />
+                </PremiumCollapsibleSection>
+              );
+            })()}
 
             {/* Industry Apps Section */}
             {activeProducts.length > 0 && (
