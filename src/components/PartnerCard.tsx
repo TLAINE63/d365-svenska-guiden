@@ -93,14 +93,10 @@ const productKeyToSwedish: Record<string, string> = {
   service: "Kundservice",
 };
 
-// Map productKey to the product label stored in industry_pitches
-const productKeyToPitchLabel: Record<string, string> = {
-  bc: "Business Central",
-  fsc: "Finance & Supply Chain",
-  sales: "Sales & Customer Insights",
-  service: "Customer Service / Field Service / Contact Center",
-  crm: "Sales & Customer Insights",
-};
+// Map productKey to the product label stored in industry_pitches.
+// Canonical source: src/data/pitchProductMapping.ts (single source of truth
+// shared between editor + public renderer).
+import { getPitchLabelForKey } from "@/data/pitchProductMapping";
 // Union type to support both static and database partners
 type PartnerData = Partner | DatabasePartner;
 
