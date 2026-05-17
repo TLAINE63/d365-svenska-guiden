@@ -57,7 +57,7 @@ const homeFaqs = [
   },
   {
     question: "Är Dynamics 365 ett bra alternativ till SAP, Salesforce eller Fortnox?",
-    answer: "Ja. Dynamics 365 Business Central är ett starkt alternativ till Fortnox, Visma och Monitor för SMB – med bättre skalbarhet och djupare Microsoft-integration. Finance & Supply Chain Management är ett modernt alternativ till SAP S/4HANA med lägre licenspriser och inbyggd Copilot AI. Dynamics 365 Sales och Customer Service konkurrerar direkt med Salesforce och HubSpot, med fördelen att allt ligger i samma Microsoft-ekosystem som Office 365. För svenska företag med befintlig Microsoft-infrastruktur är D365 ofta det naturligaste valet."
+    answer: "Ja. Dynamics 365 Business Central är ett starkt alternativ till Fortnox, Visma och Monitor för SMB – med bättre skalbarhet och djupare Microsoft-integration. Finance & Supply Chain Management är ett modernt alternativ till SAP S/4HANA med lägre licenspriser och inbyggd Copilot AI. Dynamics 365 Sales och Customer Service konkurrerar direkt med Salesforce och HubSpot, med fördelen att allt ligger i samma Microsoft-ekosystem som Office 365. För svenska företag med befintlig Microsoft-infrastruktur är Dynamics 365 ofta det naturligaste valet."
   },
   {
     question: "Hur fungerar Microsoft Copilot AI i Dynamics 365?",
@@ -170,7 +170,7 @@ const popularGuides = [
   { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
   { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valj-partner/", tag: "Partner" },
   { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/business-central/", tag: "Kostnad" },
-  { text: "Hur lång tid tar en D365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
+  { text: "Hur lång tid tar en Dynamics 365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
   { text: "Den typiska upphandlingsresan — 7 stadier", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
   { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", link: "/ai-readiness/", tag: "AI" },
 ];
