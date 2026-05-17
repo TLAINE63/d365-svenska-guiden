@@ -79,6 +79,7 @@ import {
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
+import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
