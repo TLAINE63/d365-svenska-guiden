@@ -97,6 +97,14 @@ export interface DatabasePartner {
   agreement_signed?: boolean | null;
   agreement_notes?: string | null;
   youtube_video_id?: string | null;
+  industry_pitches?: Array<{
+    industry: string;
+    product: string | null;
+    text: string;
+    generated_at?: string | null;
+    edited_by?: string | null;
+    updated_at?: string;
+  }>;
 }
 
 export interface PartnerInput {
@@ -131,6 +139,14 @@ export interface PartnerInput {
   office_cities?: string[];
   map_url?: string;
   youtube_video_id?: string;
+  industry_pitches?: Array<{
+    industry: string;
+    product: string | null;
+    text: string;
+    generated_at?: string | null;
+    edited_by?: string | null;
+    updated_at?: string;
+  }>;
 }
 
 // Fetch all featured partners from database (public view - excludes sensitive contact info)
