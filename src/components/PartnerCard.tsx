@@ -344,7 +344,7 @@ const PartnerCard = ({
           {(() => {
             if (!highlightedIndustry || !isDatabasePartner(partner)) return null;
             const pitches = partner.industry_pitches || [];
-            const productLabel = productKey ? productKeyToPitchLabel[productKey] : null;
+            const productLabel = getPitchLabelForKey(productKey);
             const matchOverride = productLabel
               ? pitches.find((p) => p.industry === highlightedIndustry && p.product === productLabel)
               : null;
