@@ -92,7 +92,7 @@ const AppShell = () => {
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/erp" element={<ERPOverview />} />
           <Route path="/affarssystem" element={<Affarssystem />} />
-          <Route path="/affarssystem/partners" element={<Navigate to="/branschlosningar/?product=Business+Central" replace />} />
+          <Route path="/affarssystem/partners" element={<Navigate to="/valj-partner/?product=Business+Central" replace />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/ai-oversikt" element={<AIOverview />} />

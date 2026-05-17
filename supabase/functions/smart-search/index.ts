@@ -23,7 +23,7 @@ const ROUTES = [
   { path: '/ai-readiness', label: 'AI Readiness Assessment – mät AI-mognad' },
   { path: '/copilot', label: 'Microsoft Copilot i Dynamics 365' },
   { path: '/agents', label: 'AI-agenter och Copilot Studio' },
-  { path: '/branschlosningar', label: 'Branschlösningar för olika industrier' },
+  { path: '/branscher', label: 'Branschöversikt – Dynamics 365 per bransch (tillverkning, handel, service m.fl.)' },
   { path: '/valj-partner', label: 'Välj rätt Dynamics 365-partner – partnerguide & matchning' },
   { path: '/kom-igang', label: 'Kom igång-wizard: hjälp att hitta rätt produkt och partner' },
   { path: '/behovsanalys', label: 'Behovsanalys – generell' },
