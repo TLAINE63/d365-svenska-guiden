@@ -75,14 +75,13 @@ import {
   Users, Building2, Plus, Pencil, Upload, Lock, TrendingUp, Calendar, Inbox, Globe,
   ImageIcon, User, Phone, Mail, Link, FileText, CalendarCheck, CalendarX, AlertCircle,
   CheckCircle2, Circle, ArrowRight, MailPlus, CalendarDays, Download, ArrowUpDown, Clock, Award, ChevronDown,
-  MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature, Sparkles
+  MailCheck, ScrollText, Megaphone, LineChart, Gauge, LayoutDashboard, FileSignature, Sparkles, AlertTriangle
 } from "lucide-react";
 import PartnerInvitationsTab from "@/components/PartnerInvitationsTab";
 import { PremiumCollapsibleSection } from "@/components/admin/PremiumCollapsibleSection";
 import PartnerIndustryPitchesEditor, { type IndustryPitch } from "@/components/PartnerIndustryPitchesEditor";
 import PartnerIndustryPitchPreview from "@/components/PartnerIndustryPitchPreview";
 import { assertPitchLabelsConsistency, getPitchLabelMismatches } from "@/data/pitchProductMapping";
-import { AlertTriangle } from "lucide-react";
 import AdminAgreementTab from "@/components/AdminAgreementTab";
 import AdminPartnerStatsTab from "@/components/AdminPartnerStatsTab";
 import AdminPartnerAgreementTab from "@/components/AdminPartnerAgreementTab";
