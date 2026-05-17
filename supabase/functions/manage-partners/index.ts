@@ -152,6 +152,14 @@ interface PartnerData {
   office_cities?: string[];
   map_url?: string;
   youtube_video_id?: string;
+  industry_pitches?: Array<{
+    industry: string;
+    product: string | null;
+    text: string;
+    generated_at?: string | null;
+    edited_by?: string | null;
+    updated_at?: string;
+  }>;
 }
 
 interface RequestBody {
