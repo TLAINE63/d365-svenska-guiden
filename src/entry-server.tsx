@@ -69,7 +69,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/business-central', priority: '0.9', changefreq: 'monthly' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
-  { path: '/branschlosningar', priority: '0.9', changefreq: 'monthly' },
+  // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
   { path: '/d365-sales', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365-marketing', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365-customer-service', priority: '0.8', changefreq: 'monthly' },
@@ -176,7 +176,8 @@ export function render(url: string) {
               <Route path="/kom-igang" element={<KomIgang />} />
               <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
-              <Route path="/branschlosningar" element={<Branschlosningar />} />
+              <Route path="/branschlosningar" element={<Navigate to="/branscher/" replace />} />
+              <Route path="/branschlosningar/*" element={<Navigate to="/branscher/" replace />} />
               <Route path="/d365-sales" element={<D365Sales />} />
               <Route path="/d365-marketing" element={<D365Marketing />} />
               <Route path="/d365-customer-service" element={<D365CustomerService />} />
