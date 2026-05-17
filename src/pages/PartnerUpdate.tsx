@@ -1827,6 +1827,47 @@ const PartnerUpdate = () => {
               </div>
             </PremiumCollapsibleSection>
 
+            {/* Industry Pitches Section */}
+            {activeProducts.length > 0 && (() => {
+              const productsPerIndustry: Record<string, string[]> = {};
+              const industriesSet = new Set<string>();
+              activeProducts.forEach((key) => {
+                const section = productSections.find((s) => s.key === key);
+                if (!section) return;
+                const inds = productFilters[key]?.industries || [];
+                inds.forEach((ind) => {
+                  industriesSet.add(ind);
+                  if (!productsPerIndustry[ind]) productsPerIndustry[ind] = [];
+                  if (!productsPerIndustry[ind].includes(section.label)) {
+                    productsPerIndustry[ind].push(section.label);
+                  }
+                });
+              });
+              const industriesList = Array.from(industriesSet);
+              if (industriesList.length === 0) return null;
+              const pitchCount = industryPitches.filter((p) => p.text?.trim()).length;
+              return (
+                <PremiumCollapsibleSection
+                  title="Branschpitchar"
+                  description="Korta, branschspecifika texter som visas på branschsidorna och på er partnerprofil"
+                  icon={Sparkles}
+                  accent="primary"
+                  status={pitchCount === 0 ? "empty" : (pitchCount >= industriesList.length ? "complete" : "partial")}
+                  open={openSections.pitches}
+                  onOpenChange={() => toggleSection("pitches")}
+                  badge={pitchCount > 0 ? <Badge variant="outline">{pitchCount} pitchar</Badge> : undefined}
+                >
+                  <PartnerIndustryPitchesEditor
+                    industries={industriesList}
+                    productsPerIndustry={productsPerIndustry}
+                    value={industryPitches}
+                    onChange={setIndustryPitches}
+                    invitationToken={token || null}
+                  />
+                </PremiumCollapsibleSection>
+              );
+            })()}
+
             {/* Industry Apps Section */}
             {activeProducts.length > 0 && (
               <PremiumCollapsibleSection
