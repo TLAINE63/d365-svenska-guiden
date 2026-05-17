@@ -379,15 +379,8 @@ const ValjPartner = () => {
     return shuffled;
   }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
   // Track which partners get shown in filter results (admin sales summary)
+  // MUST be called before any early return to preserve hook order
   useTrackFilterExposure({
     partners: filteredPartners.map((p) => ({ slug: p.slug, id: p.id })),
     pagePath: "/valj-partner",
@@ -399,6 +392,14 @@ const ValjPartner = () => {
     },
     enabled: !isLoading,
   });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
