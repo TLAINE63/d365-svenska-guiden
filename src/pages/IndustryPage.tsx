@@ -191,7 +191,7 @@ const IndustryPage = () => {
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero med bakgrundsbild */}
-        <section className="relative border-b border-border overflow-hidden min-h-[240px] md:min-h-[300px] flex items-center">
+        <section className="relative border-b border-border overflow-hidden min-h-[320px] md:min-h-[420px] flex items-center">
           {heroImage ? (
             <>
               <div
@@ -233,7 +233,7 @@ const IndustryPage = () => {
         </section>
 
         {/* Innehåll – full bredd */}
-        <section className="py-10 border-b border-border">
+        <section className="pt-4 md:pt-6 pb-10 border-b border-border">
           <div className="container mx-auto px-4 max-w-5xl space-y-10">
             {/* Collapsible sektioner – endast rubriker visas tills man klickar */}
             <Accordion type="multiple" className="space-y-3">
