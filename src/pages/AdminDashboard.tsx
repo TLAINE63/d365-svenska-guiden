@@ -4598,14 +4598,25 @@ Thomas`,
                     onOpenChange={(o) => setSectionOpen('pitches', o)}
                     badge={pitchCount > 0 ? <Badge variant="outline">{pitchCount} pitchar</Badge> : undefined}
                   >
-                    <PartnerIndustryPitchesEditor
-                      industries={industriesList}
-                      productsPerIndustry={productsPerIndustry}
-                      value={industryPitches}
-                      onChange={setIndustryPitches}
-                      adminToken={token || null}
-                      partnerId={editingPartner?.id || null}
-                    />
+                    <div className="space-y-6">
+                      <PartnerIndustryPitchesEditor
+                        industries={industriesList}
+                        productsPerIndustry={productsPerIndustry}
+                        value={industryPitches}
+                        onChange={setIndustryPitches}
+                        adminToken={token || null}
+                        partnerId={editingPartner?.id || null}
+                      />
+                      <div className="pt-4 border-t border-border">
+                        <PartnerIndustryPitchPreview
+                          partnerName={partnerFormData.name}
+                          generalDescription={partnerFormData.description}
+                          industries={industriesList}
+                          productsPerIndustry={productsPerIndustry}
+                          pitches={industryPitches}
+                        />
+                      </div>
+                    </div>
                   </PremiumCollapsibleSection>
                 );
               })()}
