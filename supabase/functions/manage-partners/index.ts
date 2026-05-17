@@ -152,6 +152,14 @@ interface PartnerData {
   office_cities?: string[];
   map_url?: string;
   youtube_video_id?: string;
+  industry_pitches?: Array<{
+    industry: string;
+    product: string | null;
+    text: string;
+    generated_at?: string | null;
+    edited_by?: string | null;
+    updated_at?: string;
+  }>;
 }
 
 interface RequestBody {
@@ -318,6 +326,7 @@ serve(async (req: Request): Promise<Response> => {
             office_cities: partner.office_cities || [],
             map_url: partner.map_url?.trim() || null,
             youtube_video_id: partner.youtube_video_id?.trim() || null,
+            industry_pitches: partner.industry_pitches || [],
           })
           .select()
           .single();
@@ -381,6 +390,7 @@ serve(async (req: Request): Promise<Response> => {
         if (partner?.office_cities !== undefined) updateData.office_cities = partner.office_cities;
         if (partner?.map_url !== undefined) updateData.map_url = partner.map_url?.trim() || null;
         if (partner?.youtube_video_id !== undefined) updateData.youtube_video_id = partner.youtube_video_id?.trim() || null;
+        if (partner?.industry_pitches !== undefined) updateData.industry_pitches = partner.industry_pitches;
 
         const { data, error } = await supabase
           .from("partners")

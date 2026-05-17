@@ -175,6 +175,7 @@ serve(async (req: Request): Promise<Response> => {
             applications, industries, secondary_industries,
             geography, product_filters, industry_apps,
             is_featured, office_cities, map_url, customer_examples,
+            industry_pitches,
             created_at, updated_at
           `)
           .eq("id", invitation.partner_id)
@@ -324,6 +325,7 @@ serve(async (req: Request): Promise<Response> => {
         product_filters: submissionData.product_filters || {},
         industry_apps: submissionData.industry_apps || [],
         office_cities: submissionData.office_cities || [],
+        industry_pitches: submissionData.industry_pitches || [],
         updated_at: new Date().toISOString(),
       };
 
