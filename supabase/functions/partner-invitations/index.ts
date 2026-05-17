@@ -324,6 +324,7 @@ serve(async (req: Request): Promise<Response> => {
         product_filters: submissionData.product_filters || {},
         industry_apps: submissionData.industry_apps || [],
         office_cities: submissionData.office_cities || [],
+        industry_pitches: submissionData.industry_pitches || [],
         updated_at: new Date().toISOString(),
       };
 
