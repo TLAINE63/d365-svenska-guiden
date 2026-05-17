@@ -416,6 +416,7 @@ const AdminDashboard = () => {
     contact: true,
     geography: true,
     products: true,
+    pitches: true,
     industryApps: true,
   });
   const toggleSection = (id: string) =>
@@ -431,6 +432,8 @@ const AdminDashboard = () => {
 
   // Industry apps state
   const [industryApps, setIndustryApps] = useState<IndustryApp[]>([]);
+  // Industry pitches state
+  const [industryPitches, setIndustryPitches] = useState<IndustryPitch[]>([]);
 
   // Empty product filter template
   const emptyProductFilter: ProductFilterInput = {
