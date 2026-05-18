@@ -154,6 +154,21 @@ async function buildSummary(
 ): Promise<{
   partner: any;
   sajtAll: { uniqueVisitors: number; pageViews: number; valjPartnerVisits: number; komIgangVisits: number; analysesCompleted: number; partnerProfileVisitsGlobal: number; partnerClicksGlobal: number; avgTimeOnPageSec: number };
+  dashboard: {
+    uniqueVisitors90d: number;
+    pageViews90d: number;
+    uniqueVisitors30d: number;
+    swedishSharePct: number;
+    valjPartner30d: number;
+    behovsanalyser30d: number;
+    komIgang30d: number;
+    leadsTotal: number;
+    leads90d: number;
+    publishedPartners: number;
+    partnerProfileViews90d: number;
+    partnerClicks90d: number;
+    avgTimeOnPageSec: number;
+  };
   site30: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   site90: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   partnerAll: SummaryWindow;
