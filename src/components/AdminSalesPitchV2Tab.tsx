@@ -457,7 +457,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     ];
     const intent: Box[] = [
       { label: "Välj partner", value: fmt(d.valjPartner30d ?? 0), hint: "aktiva utvärderare", accent: "orange" },
-      { label: "Behovsanalyser", value: fmt(d.behovsanalyser30d ?? 0), hint: "& kravspec", accent: "orange" },
+      { label: "Behovsanalyser", value: fmt(d.behovsanalyser30d ?? 0), hint: "startade sessioner", accent: "orange" },
       { label: "Kom igång-guiden", value: fmt(d.komIgang30d ?? 0), hint: "strukturerade köpresor", accent: "orange" },
       { label: "Leads totalt", value: fmt(d.leadsTotal ?? 0), hint: `varav ${fmt(d.leads90d ?? 0)} senaste 90d`, accent: "green" },
     ];
