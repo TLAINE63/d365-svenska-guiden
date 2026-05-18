@@ -134,13 +134,23 @@ function buildEmailHtml(opts: {
 
   const rows = companies.map((c, idx) => {
     const allOther = new Set<string>();
-    c.sessions.forEach(s => s.other_urls.forEach(u => allOther.add(u)));
+    const allProfile = new Set<string>();
+    c.sessions.forEach(s => {
+      s.other_urls.forEach(u => allOther.add(u));
+      s.profile_urls.forEach(u => allProfile.add(u));
+    });
     const otherList = Array.from(allOther).slice(0, 6).map(u => {
       try {
         const url = new URL(u);
         const label = url.pathname === "/" ? "Startsidan" : labelForPath(url.pathname);
         return `<li style="margin:3px 0;font-size:13px;color:#475569"><a href="${esc(u)}" style="color:#1e3a5f;text-decoration:none">${esc(label)}</a></li>`;
       } catch { return ""; }
+    }).join("");
+
+    const matchedList = Array.from(allProfile).slice(0, 10).map(u => {
+      let pathOnly = u;
+      try { pathOnly = new URL(u).pathname; } catch {}
+      return `<li style="margin:3px 0;font-size:12px;color:#475569;font-family:ui-monospace,SFMono-Regular,Menlo,monospace"><a href="${esc(u)}" style="color:#15803d;text-decoration:none">${esc(pathOnly)}</a></li>`;
     }).join("");
 
     const domainLink = c.company_domain
@@ -165,8 +175,12 @@ function buildEmailHtml(opts: {
                   <div style="display:inline-block;background:#fff7ed;color:#9a3412;border-radius:999px;padding:4px 12px;font-weight:600;font-size:12px">${c.visit_count} besök</div>
                 </td>
               </tr></table>
+              <div style="margin-top:14px;padding:10px 12px;border:1px solid #d1fae5;background:#f0fdf4;border-radius:8px">
+                <div style="font-size:11px;color:#15803d;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px;font-weight:600">✓ Matchade profil-URL:er (${allProfile.size})</div>
+                ${matchedList ? `<ul style="margin:0;padding-left:18px">${matchedList}</ul>` : `<div style="font-size:12px;color:#64748b">Inga URL:er sparade (äldre data).</div>`}
+              </div>
               ${otherList ? `
-                <div style="margin-top:14px;padding-top:14px;border-top:1px dashed #e2e8f0">
+                <div style="margin-top:10px;padding-top:12px;border-top:1px dashed #e2e8f0">
                   <div style="font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px">Andra sidor de tittade på</div>
                   <ul style="margin:0;padding-left:18px">${otherList}</ul>
                 </div>` : ""}
@@ -205,7 +219,12 @@ function buildEmailHtml(opts: {
         </tr>
       </table>
 
-      <h2 style="margin:0 0 14px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
+      <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
+      <div style="margin:0 0 16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e3a8a">
+        <strong>Filtreringsregel:</strong> endast företag vars Snitcher-session innehåller en URL som matchar
+        <code style="background:#dbeafe;padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">d365.se/partner/${esc(partnerSlug)}</code>
+        listas nedan. Varje företagskort visar exakt vilka URL:er som matchade (grön ruta) så ni kan kontrollera.
+      </div>
 
       <table style="width:100%;border-collapse:collapse">
         ${rows || `<tr><td style="padding:24px;color:#94a3b8;text-align:center;background:#f8fafc;border-radius:10px">Inga identifierade besök denna period.</td></tr>`}
