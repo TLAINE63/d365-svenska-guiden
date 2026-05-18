@@ -1,104 +1,61 @@
 ## Mål
-Låt partners ha en kort, branschspecifik pitch (~280 ord max, valfri produkt-override) som visas både i listan på `/branscher/<slug>` och i expanderad vy. Texten kan AI-genereras som förslag och redigeras av partner eller admin.
 
-## Datamodell
+I admin → Införsäljningsmail, kunna välja **en** partner och skicka ett **preview-mail till dig själv** (default `thomas.laine@dynamicfactory.se`) som ser ut precis som det riktiga införsäljningsmailet (publicerad eller ej publicerad-mall) **plus** ett tillagt statistik-block:
 
-Ny kolumn på `partners`:
+- Totalt antal besökare på d365.se (30/90 dagar)
+- Antal som tittat på just denna partners profilsida
+- Antal som klickat vidare till partnerns sajt
+- Lista på identifierade företag (från Snitcher) som besökt partnerns profil eller relaterade sidor
 
-```
-industry_pitches  jsonb  default '[]'
-```
+Syftet är att du ska kunna finjustera mailet innan du skickar det vidare till partnerkontakten.
 
-Struktur (array av objekt):
-```json
-[
-  {
-    "industry": "Livsmedel & processindustri",
-    "product": null,
-    "text": "Vi har levererat F&SCM till 12 svenska livsmedelsbolag…",
-    "generated_at": "2026-05-17T10:00:00Z",
-    "edited_by": "partner"
-  },
-  {
-    "industry": "Livsmedel & processindustri",
-    "product": "Business Central",
-    "text": "För mindre livsmedelsbolag erbjuder vi BC med…",
-    "generated_at": null,
-    "edited_by": "partner"
-  }
-]
-```
+## Hur det fungerar
 
-- `product: null` = bransch-default. Visas när inget produktfilter är valt, eller som fallback.
-- `product: "Business Central"` etc. = override som visas när det produktfiltret är aktivt.
-- Lookup-logik: matcha först `(industry, product)`, annars `(industry, null)`, annars visa inget extra (befintlig generell `description` används som fallback).
+1. I `AdminSalesPitchV2Tab` läggs en ny rad in i partner-listan: knapp **"Pitch-preview till mig"** bredvid varje partner.
+2. Klick öppnar en liten dialog med:
+   - Mottagare (förifyllt `thomas.laine@dynamicfactory.se`, går att ändra)
+   - Val av mall (publicerad / ej publicerad – default styrs av partnerns `is_featured`)
+   - Knapp **Skicka preview**
+3. Vid skick hämtas statistiken via befintlig edge function `partner-sales-summary` (den returnerar redan `profileViews`, `websiteClicks`, `identifiedCompanies` per partner). Totalbesökarsiffran för hela sajten hämtas från `site-traffic-stats`.
+4. Statistikblocket byggs som ren text och **prependas** till mallens brödtext, t.ex.:
 
-## UI – Partnerportal (`PartnerUpdate.tsx`)
+   ```
+   ── INTERNT PREVIEW (skickas inte till partner) ──
+   Period: senaste 30 / 90 dagar
+   Sajtbesökare totalt (30d): 4 812
+   Visningar av {{partner}}s profil (30d / 90d): 142 / 318
+   Klick vidare till {{partner.se}} (30d / 90d): 27 / 61
 
-Ny sektion **"Branschpitchar"** under befintlig branschsektion:
-- Lista en rad per vald primär+sekundär bransch.
-- Per bransch: textfält (max 280 ord, räknare), knapp **"Generera förslag med AI"**, knapp **"+ Lägg till produktvariant"** som öppnar dropdown med partnerns valda produkter.
-- Produktvarianter visas indenterade under bransch-default.
-- AI-knappen anropar edge function med kontext: partnernamn, branschnamn, valbar produkt, partner-description, kundexempel, industry_apps.
+   Identifierade företag som besökt profilen (90d, från Snitcher):
+   • Acme AB – Tillverkning – Sverige – 4 sessioner
+   • Beta Konsult – IT – Norge – 2 sessioner
+   ...
+   ──────────────────────────────────────────────
+   ```
 
-## UI – Admin (`AdminPartnerEditor` / motsv.)
+   Därefter följer mallens vanliga text (inkl. `{{INVITATION_LINK}}` för publicerade).
+5. Mailet skickas via befintliga `partner-invitations?action=send-sales-pitch` (samma som testmail idag), så loggning i `email_send_log` fungerar redan.
+6. Ämnesraden får prefix `[PREVIEW – {partner.name}]` så det är tydligt i inkorgen.
 
-Samma komponent återanvänds i adminvyn – admin kan generera och redigera å partnerns vägnar. Stämplas `edited_by: "admin"` i metadata.
+## Teknisk del
 
-## UI – Publik branschsida (`IndustryPage.tsx`)
+**Frontend** – `src/components/AdminSalesPitchV2Tab.tsx`
+- Lägg till state `previewPartner`, `previewEmail`, `previewSegment`, `sendingPreview`.
+- Ny `Button` per rad i mottagar-tabellen: "Preview till mig".
+- Ny `Dialog` med fält + skicka-knapp.
+- Funktion `sendPreview(partner)`:
+  1. `supabase.functions.invoke('partner-sales-summary', { body: { partnerId } })` (eller motsv. nuvarande signatur – verifieras vid implementation).
+  2. `supabase.functions.invoke('site-traffic-stats')` för totalbesökare.
+  3. Bygg statistik-prefix-text + ersätt `[NAMN]` med kontaktnamnet.
+  4. POST till `partner-invitations?action=send-sales-pitch` med `partners: [{ id, name, email: previewEmail, contact_name }]`, subject `"[PREVIEW – ${partner.name}] ${tpl.subject}"`, body = statistik + tpl.body.
+- Profileringslänken: om partnern är `is_featured` används publicerad-mallen (med `{{INVITATION_LINK}}` – funktionen genererar/återanvänder befintlig invitation precis som idag för testmail). Detta måste verifieras mot edge function – om den inte hanterar `{{INVITATION_LINK}}` när `id` är ett riktigt partner-id, så lägger vi en mock-länk för previewen.
 
-På `PartnerCard` (i listan):
-- Om matchande pitch finns: visa **kort utdrag** (~140 tecken med "…") under partnerns namn/beskrivning.
-- "Läs mer"-länk eller expand → full text.
-- I expanderad vy / partnerprofil: full pitch ovanför generell description.
+**Backend** – ingen ny edge function behövs. `partner-sales-summary` och `site-traffic-stats` finns redan, liksom `partner-invitations`.
 
-Logik tar hänsyn till nuvarande aktivt produktfilter (`selected[]` i IndustryPage) – om en produkt valts och partnern har en produkt-override för den branschen+produkten, visa den, annars bransch-default.
+## Avgränsningar / öppna frågor
 
-## Edge function: `generate-partner-industry-pitch`
+- Det är fortfarande **du** som manuellt vidarebefordrar (eller copy-pastar) det justerade mailet till partnerkontakten – preview-flödet skickar **inte automatiskt** något till partnern.
+- Snitcher-listan i previewen kan vara lång; jag föreslår topp 25 företag (sorterat profilbesökare först, sedan sessioner). Säg till om du vill ha alla eller ett annat tak.
+- "Totalt antal besökare" – ska det vara unika sessioner senaste 30 dagar eller en annan period? Default: 30d och 90d sida vid sida.
 
-- Input: `{ partner_id, industry, product?: string }`
-- Hämtar partnerdata + ev. industry_pages.intro för branschen som kontext.
-- Anropar Lovable AI Gateway (`google/gemini-3-flash-preview`).
-- Systemprompt: TAYA-ton, max 280 ord, konkret/neutral, ingen säljjargong, nämn relevant kompetens/erfarenhet, anpassa till produkt om angiven.
-- Returnerar `{ text }`. Sparas inte automatiskt – partner/admin granskar och sparar.
-- Auth: kräver giltig partner-token (för partnerportal) eller admin-lösenord (för admin).
-- Rate limit via `ai_usage_log` (befintlig tabell, per partner_id + dag).
-
-## Lagring & synk
-
-- Sparas via befintliga update-mutationer (`useAdminPartners` / `partner-self-update` edge function).
-- `partnerData.json` byggsteg (SSG) inkluderar `industry_pitches`-fältet så SSG-renderade branschsidor får pitcharna inbakade.
-
-## SEO
-
-Pitchen blir unik partner-content per branschsida → stark SEO-signal. Säkerställs via SSG-injektion.
-
-## Out of scope (denna iteration)
-
-- Versionshistorik/diff av pitchar
-- Bulkgenerering för alla branscher i ett klick (kan läggas till senare)
-- Översättning till engelska
-
-## Teknisk översikt
-
-```
-DB:              ALTER TABLE partners ADD COLUMN industry_pitches jsonb DEFAULT '[]'
-Edge function:   supabase/functions/generate-partner-industry-pitch/index.ts
-Frontend:
-  - src/components/PartnerIndustryPitchesEditor.tsx  (ny, delas mellan partner & admin)
-  - src/pages/PartnerUpdate.tsx                       (mount editor)
-  - src/components/AdminPartnerEditor.tsx (motsv.)    (mount editor)
-  - src/components/PartnerCard.tsx                    (visa utdrag + expand)
-  - src/pages/IndustryPage.tsx                        (skicka aktivt produktfilter till kort)
-SSG:
-  - scripts/build-partner-data.* inkluderar fältet
-```
-
-## Implementationsordning
-
-1. Migration (ny jsonb-kolumn)
-2. Edge function för AI-förslag
-3. `PartnerIndustryPitchesEditor`-komponent
-4. Mounta i PartnerUpdate + admin
-5. Visning i PartnerCard på branschsidan (utdrag + expand) med produkt-override-logik
-6. SSG-uppdatering för att inkludera fältet
+Säg till om något ska ändras innan jag bygger.

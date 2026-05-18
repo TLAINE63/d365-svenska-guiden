@@ -10,12 +10,15 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2, Eye } from "lucide-react";
 
 type SegmentKey = "published" | "not_published";
 
 interface PartnerRow {
   id: string;
+  slug: string;
   name: string;
   email: string | null;
   admin_contact_email: string | null;
@@ -143,6 +146,12 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   const [testEmail, setTestEmail] = useState("thomas.laine@dynamicfactory.se");
   const [sendingTest, setSendingTest] = useState(false);
+
+  // Preview-mail (per partner med statistik) → till mig själv för finjustering
+  const [previewPartner, setPreviewPartner] = useState<PartnerRow | null>(null);
+  const [previewEmail, setPreviewEmail] = useState("thomas.laine@dynamicfactory.se");
+  const [previewSegment, setPreviewSegment] = useState<SegmentKey>("published");
+  const [sendingPreview, setSendingPreview] = useState(false);
 
   const [templates, setTemplates] = useState<Record<SegmentKey, Template>>(() => {
     if (typeof window === "undefined") return DEFAULT_TEMPLATES;
@@ -392,6 +401,117 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   const sendTestBoth = () =>
     sendTest(["published", "not_published"], `Skicka testmail av båda mallarna till ${testEmail.trim()}?`);
 
+  const openPreview = (p: PartnerRow) => {
+    setPreviewPartner(p);
+    setPreviewSegment(p.is_featured ? "published" : "not_published");
+    setPreviewEmail("thomas.laine@dynamicfactory.se");
+  };
+
+  const fmt = (n: number | null | undefined) => (n ?? 0).toLocaleString("sv-SE");
+
+  const buildStatsBlock = (partner: PartnerRow, summary: any): string => {
+    const s = summary || {};
+    const sajt30 = s.sajt30 || {};
+    const sajt90 = s.sajt90 || {};
+    const p30 = s.partner30 || {};
+    const p90 = s.partner90 || {};
+    const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
+    const topCompanies = companies.slice(0, 25);
+
+    const lines: string[] = [];
+    lines.push("── INTERNT PREVIEW (skickas INTE till partnern) ──");
+    lines.push(`Partner: ${partner.name}`);
+    lines.push("");
+    lines.push("Sajtbesökare totalt (unika sessioner):");
+    lines.push(`• Senaste 30 dagar: ${fmt(sajt30.uniqueVisitors)}`);
+    lines.push(`• Senaste 90 dagar: ${fmt(sajt90.uniqueVisitors)}`);
+    lines.push("");
+    lines.push(`Visningar av ${partner.name}s profilsida:`);
+    lines.push(`• 30 dagar: ${fmt(p30.profileViews)}  ·  90 dagar: ${fmt(p90.profileViews)}`);
+    lines.push("");
+    lines.push(`Klick vidare till ${partner.name}s sajt:`);
+    lines.push(`• 30 dagar: ${fmt(p30.websiteClicks)}  ·  90 dagar: ${fmt(p90.websiteClicks)}`);
+    lines.push("");
+
+    if (topCompanies.length > 0) {
+      lines.push(`Identifierade besökande företag (90 dagar, från Snitcher) – topp ${topCompanies.length} av ${companies.length}:`);
+      for (const c of topCompanies) {
+        const meta = [c.industry, c.country].filter(Boolean).join(" · ");
+        const tag = c.matchedProfile ? "profil" : "relaterad sida";
+        lines.push(`• ${c.name}${meta ? ` (${meta})` : ""} – ${c.sessions} sessioner [${tag}]`);
+      }
+    } else {
+      lines.push("Identifierade besökande företag (90 dagar): inga matchningar från Snitcher.");
+    }
+    lines.push("");
+    lines.push("── Mallens text följer nedan (justera fritt innan vidaresändning) ──");
+    lines.push("");
+    return lines.join("\n");
+  };
+
+  const sendPreview = async () => {
+    if (!previewPartner) return;
+    const addr = previewEmail.trim();
+    if (!/\S+@\S+\.\S+/.test(addr)) {
+      toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
+      return;
+    }
+
+    setSendingPreview(true);
+    try {
+      // 1) Hämta statistik via befintlig edge function
+      const { data: summaryRes, error: summaryErr } = await supabase.functions.invoke(
+        "partner-sales-summary",
+        { body: { token, partnerSlug: previewPartner.slug, mode: "summary" } },
+      );
+      if (summaryErr) throw summaryErr;
+      if (summaryRes?.error) throw new Error(summaryRes.error);
+
+      const statsBlock = buildStatsBlock(previewPartner, summaryRes?.summary);
+      const tpl = templates[previewSegment];
+      const contactName = previewPartner.admin_contact_name || previewPartner.contact_person || previewPartner.name;
+      const composedBody = `${statsBlock}\n${tpl.body}`;
+      const composedSubject = `[PREVIEW – ${previewPartner.name}] ${tpl.subject}`;
+
+      // 2) Skicka via befintlig send-sales-pitch (id=null så vi inte rör partnerns riktiga pending invitation)
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            partners: [{ id: null, name: previewPartner.name, email: addr, contact_name: contactName }],
+            subject: composedSubject,
+            body: composedBody,
+          }),
+        },
+      );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut", variant: "destructive" });
+        onSessionExpired();
+        return;
+      }
+      if (!response.ok) {
+        const txt = await response.text();
+        throw new Error(txt || "Kunde inte skicka preview");
+      }
+      toast({
+        title: "Preview skickat",
+        description: `${previewPartner.name} → ${addr}`,
+      });
+      setPreviewPartner(null);
+    } catch (err: any) {
+      console.error("preview send error", err);
+      toast({ title: "Fel vid preview-utskick", description: err.message, variant: "destructive" });
+    } finally {
+      setSendingPreview(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="space-y-4">
@@ -534,11 +654,12 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             </div>
           ) : (
             <div className="border rounded-md overflow-hidden">
-              <div className="grid grid-cols-[40px_1fr_1.5fr_1fr] gap-2 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground bg-muted/40">
+              <div className="grid grid-cols-[40px_1fr_1.5fr_1fr_auto] gap-2 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground bg-muted/40">
                 <div></div>
                 <div>Partner</div>
                 <div>Mottagaradress (kan ändras)</div>
                 <div>Kontaktnamn</div>
+                <div className="text-right">Preview</div>
               </div>
               <div className="max-h-[480px] overflow-auto divide-y">
                 {filteredList.map(p => {
@@ -560,7 +681,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                   return (
                     <div
                       key={p.id}
-                      className={`grid grid-cols-[40px_1fr_1.5fr_1fr] gap-2 px-3 py-2 items-center text-sm ${
+                      className={`grid grid-cols-[40px_1fr_1.5fr_1fr_auto] gap-2 px-3 py-2 items-center text-sm ${
                         checked ? "bg-pink-50/60" : ""
                       }`}
                     >
@@ -585,6 +706,17 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                         )}
                       </div>
                       <div className="text-xs truncate">{resolveContactName(p)}</div>
+                      <div className="text-right">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-8"
+                          onClick={() => openPreview(p)}
+                          title="Skicka pitch-preview med statistik till mig själv"
+                        >
+                          <Eye className="h-3.5 w-3.5 mr-1.5" /> Preview till mig
+                        </Button>
+                      </div>
                     </div>
                   );
                 })}
@@ -618,6 +750,52 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           </Button>
         </CardContent>
       </Card>
+
+      <Dialog open={!!previewPartner} onOpenChange={(open) => !open && setPreviewPartner(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Pitch-preview till mig själv</DialogTitle>
+            <DialogDescription>
+              Skickar valt mailutkast {previewPartner ? `för ${previewPartner.name}` : ""} – kompletterat med ett internt statistik-block (sajtbesökare, profilvisningar, klick till partnerns sajt och identifierade företag från Snitcher de senaste 90 dagarna). Inget skickas till partnern.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-2">
+            <div>
+              <Label htmlFor="preview-email">Mottagare (du)</Label>
+              <Input
+                id="preview-email"
+                value={previewEmail}
+                onChange={(e) => setPreviewEmail(e.target.value)}
+                placeholder="thomas.laine@dynamicfactory.se"
+              />
+            </div>
+            <div>
+              <Label htmlFor="preview-segment">Mall</Label>
+              <Select value={previewSegment} onValueChange={(v) => setPreviewSegment(v as SegmentKey)}>
+                <SelectTrigger id="preview-segment">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="published">{DEFAULT_TEMPLATES.published.label}</SelectItem>
+                  <SelectItem value="not_published">{DEFAULT_TEMPLATES.not_published.label}</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-[11px] text-muted-foreground mt-1">
+                Default följer partnerns status; ändra om du vill testa andra mallen.
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPreviewPartner(null)} disabled={sendingPreview}>
+              Avbryt
+            </Button>
+            <Button onClick={sendPreview} disabled={sendingPreview} className="bg-pink-600 hover:bg-pink-700 text-white">
+              <Send className="h-4 w-4 mr-2" />
+              {sendingPreview ? "Skickar…" : "Skicka preview"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
