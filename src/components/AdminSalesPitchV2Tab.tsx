@@ -409,8 +409,35 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   const fmt = (n: number | null | undefined) => (n ?? 0).toLocaleString("sv-SE");
 
+  const LEGACY_SUMMARY_KEYS = ["sajt30", "sajt90", "partner30", "partner90"] as const;
+  const warnedLegacyKeys = new Set<string>();
+  const guardSummary = (summary: any, partnerName: string): any => {
+    if (!summary || typeof summary !== "object") return summary;
+    const present = LEGACY_SUMMARY_KEYS.filter((k) => k in summary);
+    if (present.length > 0) {
+      console.warn(
+        `[AdminSalesPitchV2] Summary för ${partnerName} innehåller föråldrade nycklar: ${present.join(", ")}. Använd sajtAll / partnerAll istället.`,
+      );
+    }
+    return new Proxy(summary, {
+      get(target, prop: string) {
+        if (LEGACY_SUMMARY_KEYS.includes(prop as any) && !(prop in target)) {
+          const key = `${partnerName}:${prop}`;
+          if (!warnedLegacyKeys.has(key)) {
+            warnedLegacyKeys.add(key);
+            console.warn(
+              `[AdminSalesPitchV2] Frontend försökte läsa borttagen summary-nyckel "${prop}" för ${partnerName}. Använd sajtAll / partnerAll istället.`,
+            );
+          }
+          return undefined;
+        }
+        return (target as any)[prop];
+      },
+    });
+  };
+
   const buildStatsBlock = (partner: PartnerRow, summary: any): string => {
-    const s = summary || {};
+    const s = guardSummary(summary, partner.name) || {};
     const sajtAll = s.sajtAll || {};
     const pAll = s.partnerAll || {};
     const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
