@@ -219,7 +219,12 @@ function buildEmailHtml(opts: {
         </tr>
       </table>
 
-      <h2 style="margin:0 0 14px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
+      <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
+      <div style="margin:0 0 16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e3a8a">
+        <strong>Filtreringsregel:</strong> endast företag vars Snitcher-session innehåller en URL som matchar
+        <code style="background:#dbeafe;padding:1px 6px;border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace">d365.se/partner/${esc(partnerSlug)}</code>
+        listas nedan. Varje företagskort visar exakt vilka URL:er som matchade (grön ruta) så ni kan kontrollera.
+      </div>
 
       <table style="width:100%;border-collapse:collapse">
         ${rows || `<tr><td style="padding:24px;color:#94a3b8;text-align:center;background:#f8fafc;border-radius:10px">Inga identifierade besök denna period.</td></tr>`}
