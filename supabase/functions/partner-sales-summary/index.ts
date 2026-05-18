@@ -201,12 +201,14 @@ async function buildSummary(
     supabase.from("partner_clicks").select("*", { count: "exact", head: true }).gte("clicked_at", since90),
     supabase.from("leads").select("source_page, source_type, created_at").gte("created_at", since90),
   ]);
+  const isAnalysisPath = (p?: string) =>
+    !!p && (p.includes("behovsanalys") || p.includes("ai-readiness") || p.includes("kravspec"));
   const sessions30 = new Set<string>();
   const analysisSessions30 = new Set<string>();
   const startedByDay = new Map<string, Set<string>>();
   for (const r of v30.data || []) {
     if (r.session_id) sessions30.add(r.session_id);
-    if (r.session_id && (r.page_path?.includes("behovsanalys") || r.page_path?.includes("ai-readiness"))) {
+    if (r.session_id && isAnalysisPath(r.page_path)) {
       analysisSessions30.add(r.session_id);
       const day = (r.visited_at || "").slice(0, 10);
       if (day) {
@@ -219,7 +221,7 @@ async function buildSummary(
   const analysisSessions90 = new Set<string>();
   for (const r of v90.data || []) {
     if (r.session_id) sessions90.add(r.session_id);
-    if (r.session_id && (r.page_path?.includes("behovsanalys") || r.page_path?.includes("ai-readiness"))) {
+    if (r.session_id && isAnalysisPath(r.page_path)) {
       analysisSessions90.add(r.session_id);
     }
   }
@@ -307,7 +309,7 @@ async function buildSummary(
     uniqueVisitors30d: totalSessions30,
     swedishSharePct,
     valjPartner30d: valj30Res.count || 0,
-    behovsanalyser30d: completed30,
+    behovsanalyser30d: analysisSessions30.size,
     komIgang30d: komigang30Res.count || 0,
     leadsTotal: leadsAllRes.count || 0,
     leads90d: (leads90Res.data || []).length,
