@@ -288,17 +288,18 @@ const Index = () => {
               {/* Mobile hero (under sm) */}
               <div className="sm:hidden">
                 <h1 className="text-2xl font-semibold leading-[1.2] tracking-tight text-white mb-4">
-                  Det här beslutet följer er i tio år. Välj en <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partner ni kan försvara</em>.
+                  Ni väljer inte bara Dynamics 365.
+                  <span className="block mt-3">Ni väljer <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partnern som ska få det att fungera</em>.</span>
                 </h1>
                 <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
                   Affärssystem · CRM · Kundservice
                 </p>
                 <div className="text-base text-white/70 font-light leading-relaxed mb-8 space-y-3">
                   <p>
-                    Den största risken är inte att en funktion saknas — det är att ni väljer fel partner.
+                    Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
                   </p>
                   <p>
-                    Vi hjälper er att fatta ett beslut som håller inför ledning, styrelse och organisation.
+                    d365.se hjälper er att jämföra relevanta Dynamics 365-partners utifrån lösning, bransch och behov — innan ni går vidare i dialogen.
                   </p>
                 </div>
               </div>
