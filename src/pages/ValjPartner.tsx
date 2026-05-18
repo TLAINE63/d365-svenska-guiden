@@ -369,14 +369,18 @@ const ValjPartner = () => {
       }
     }
     
-    // Shuffle partners randomly when filters are applied for fair exposure
-    // Use Fisher-Yates shuffle algorithm
-    const shuffled = [...result];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
+    // Prioritera signerat avtal först, sedan slumpa inom respektive grupp (Fisher-Yates)
+    const shuffleArr = (arr: DatabasePartner[]) => {
+      const s = [...arr];
+      for (let i = s.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [s[i], s[j]] = [s[j], s[i]];
+      }
+      return s;
+    };
+    const signed = result.filter(p => p.agreement_signed);
+    const unsigned = result.filter(p => !p.agreement_signed);
+    return [...shuffleArr(signed), ...shuffleArr(unsigned)];
   }, [partners, selectedApplications, selectedIndustry, selectedCompanySize, selectedRevenue, selectedGeography]);
 
   // Track which partners get shown in filter results (admin sales summary)
