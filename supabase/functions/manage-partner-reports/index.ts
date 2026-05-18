@@ -241,10 +241,9 @@ function buildEmailHtml(opts: {
       </p>
 
       <div style="margin:28px 0 8px;padding-top:20px;border-top:1px solid #e2e8f0">
-        <h3 style="margin:0 0 4px;font-size:15px;color:#0f172a">Snabbfakta om rapportens kontext</h3>
+        <h3 style="margin:0 0 6px;font-size:15px;color:#0f172a">Besökarstatistik – d365.se senaste 90 dagar</h3>
         <p style="margin:0 0 14px;color:#64748b;font-size:12px;line-height:1.5">
-          ${stat("Identifierade företag (er)", companies.length, "#1e3a5f").replace(/<\/?td[^>]*>/g,"")}
-          Översikt över sajten d365.se senaste 90 dagar – så ni ser i vilket sammanhang er profil syns.
+          Översikt över sajten d365.se så ni ser i vilket sammanhang er profil syns.
         </p>
         <div style="text-align:center">
           <img src="https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/email-assets/besokarstatistik.png"
