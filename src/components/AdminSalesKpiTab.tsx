@@ -86,7 +86,7 @@ export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSales
   const { toast } = useToast();
   const { data: featuredPartners } = usePartners();
   const [loading, setLoading] = useState(true);
-  const [range, setRange] = useState<RangeKey>("90");
+  const [range, setRange] = useState<RangeKey>("all");
   const [view, setView] = useState<"channel" | "product">("channel");
   const [leads, setLeads] = useState<Lead[]>([]);
   const [clickStats, setClickStats] = useState<ClickStat[]>([]);
@@ -230,7 +230,7 @@ export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSales
       .sort((a, b) => (b.leads + b.clicks * 0.1) - (a.leads + a.clicks * 0.1));
   }, [filteredLeads, filteredClicks, featuredPartners]);
 
-  const rangeLabel = range === "30" ? "30 dagar" : range === "90" ? "90 dagar" : "all tid";
+  const rangeLabel = range === "30" ? "30 dagar" : range === "90" ? "90 dagar" : "totalt sedan start";
 
   if (loading) {
     return (
@@ -260,9 +260,9 @@ export default function AdminSalesKpiTab({ token, onSessionExpired }: AdminSales
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all">Totalt (sedan start)</SelectItem>
               <SelectItem value="30">Senaste 30 dagarna</SelectItem>
               <SelectItem value="90">Senaste 90 dagarna</SelectItem>
-              <SelectItem value="all">All tid</SelectItem>
             </SelectContent>
           </Select>
           <Button variant="outline" size="sm" onClick={loadData}>

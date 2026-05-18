@@ -39,7 +39,7 @@ const PAGE_FILTERS = [
 
 export default function AdminFunnelTab({ token, onSessionExpired }: Props) {
   const { toast } = useToast();
-  const [days, setDays] = useState("30");
+  const [days, setDays] = useState("all");
   const [pageFilter, setPageFilter] = useState("");
   const [stats, setStats] = useState<FunnelStats | null>(null);
   const [loading, setLoading] = useState(false);
@@ -49,7 +49,7 @@ export default function AdminFunnelTab({ token, onSessionExpired }: Props) {
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("funnel-stats", {
-        body: { token, days: Number(days), page_filter: pageFilter || null },
+        body: { token, days: days === "all" ? null : Number(days), page_filter: pageFilter || null },
       });
       if (error) throw error;
       if (data?.error) {
@@ -89,6 +89,7 @@ export default function AdminFunnelTab({ token, onSessionExpired }: Props) {
               <Select value={days} onValueChange={setDays}>
                 <SelectTrigger className="w-32"><SelectValue /></SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="all">Totalt</SelectItem>
                   <SelectItem value="7">7 dagar</SelectItem>
                   <SelectItem value="30">30 dagar</SelectItem>
                   <SelectItem value="90">90 dagar</SelectItem>

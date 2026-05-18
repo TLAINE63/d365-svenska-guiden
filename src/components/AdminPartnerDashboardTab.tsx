@@ -39,7 +39,7 @@ interface Props {
 }
 
 interface DashboardData {
-  days: number;
+  days: number | "all";
   partner: { id: string | null; name: string | null; slug: string | null };
   traffic: {
     uniqueVisitors: number;
@@ -86,7 +86,7 @@ function StatCard({
 export default function AdminPartnerDashboardTab({ token }: Props) {
   const { data: partners } = useAdminPartners(token);
   const [partnerId, setPartnerId] = useState<string>("");
-  const [days, setDays] = useState<7 | 30 | 90>(30);
+  const [days, setDays] = useState<7 | 30 | 90 | "all">("all");
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -128,7 +128,7 @@ export default function AdminPartnerDashboardTab({ token }: Props) {
     (async () => {
       const { data: res, error: err } = await invokeAdminEdgeWithRetry<DashboardData>(
         "partner-dashboard",
-        { token, partnerId: partnerId || null, days },
+        { token, partnerId: partnerId || null, days: days === "all" ? null : days },
       );
       if (cancelled) return;
       if (err) {
@@ -179,8 +179,9 @@ export default function AdminPartnerDashboardTab({ token }: Props) {
                 </SelectContent>
               </Select>
             </div>
-            <Tabs value={String(days)} onValueChange={(v) => setDays(Number(v) as 7 | 30 | 90)}>
+            <Tabs value={String(days)} onValueChange={(v) => setDays(v === "all" ? "all" : (Number(v) as 7 | 30 | 90))}>
               <TabsList>
+                <TabsTrigger value="all">Totalt</TabsTrigger>
                 <TabsTrigger value="7">7 dagar</TabsTrigger>
                 <TabsTrigger value="30">30 dagar</TabsTrigger>
                 <TabsTrigger value="90">90 dagar</TabsTrigger>
@@ -220,7 +221,7 @@ export default function AdminPartnerDashboardTab({ token }: Props) {
               icon={Users}
               label="Unika besökare (sajt)"
               value={data.traffic.uniqueVisitors.toLocaleString("sv-SE")}
-              hint={`${data.days} dagar`}
+              hint={data.days === "all" ? "totalt sedan start" : `${data.days} dagar`}
             />
             <StatCard
               icon={Eye}

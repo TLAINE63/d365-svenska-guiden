@@ -79,7 +79,9 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json().catch(() => ({}));
     const token = body?.token || "";
-    const days = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+    const daysRaw = body?.days;
+    const isAllTime = daysRaw === null || daysRaw === "all" || daysRaw === 0;
+    const days: number | null = isAllTime ? null : Math.min(Math.max(Number(daysRaw) || 30, 1), 365);
     const pageFilter: string | null = body?.page_filter || null; // e.g. "/business-central"
 
     const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -102,14 +104,16 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    const since = new Date(Date.now() - days * 86400000).toISOString();
+    const since: string | null = days === null ? null : new Date(Date.now() - days * 86400000).toISOString();
+    const gte = <T extends { gte: (col: string, v: string) => T }>(q: T, col: string): T =>
+      since ? q.gte(col, since) : q;
 
     // ─── 1. Page visits (visitor_analytics) ───
     let visitQuery = supabase
       .from("visitor_analytics")
       .select("session_id, page_path", { count: "exact", head: false })
-      .gte("visited_at", since)
       .limit(50000);
+    visitQuery = gte(visitQuery, "visited_at");
     if (pageFilter) visitQuery = visitQuery.like("page_path", `${pageFilter}%`);
     const { data: visits, error: visitsErr } = await visitQuery;
     if (visitsErr) console.error("visits err", visitsErr);
@@ -125,8 +129,8 @@ Deno.serve(async (req) => {
     let feQuery = supabase
       .from("funnel_events")
       .select("event_type, event_name, page_path, session_id")
-      .gte("occurred_at", since)
       .limit(50000);
+    feQuery = gte(feQuery, "occurred_at");
     if (pageFilter) feQuery = feQuery.like("page_path", `${pageFilter}%`);
     const { data: feRows, error: feErr } = await feQuery;
     if (feErr) console.error("funnel events err", feErr);
@@ -156,23 +160,20 @@ Deno.serve(async (req) => {
     }
 
     // ─── 3. Partner profile views & website clicks ───
-    const { data: profileViews } = await supabase
-      .from("partner_profile_views")
-      .select("id")
-      .gte("viewed_at", since)
-      .limit(50000);
-    const { data: partnerClicks } = await supabase
-      .from("partner_clicks")
-      .select("id")
-      .gte("clicked_at", since)
-      .limit(50000);
+    const { data: profileViews } = await gte(
+      supabase.from("partner_profile_views").select("id").limit(50000),
+      "viewed_at",
+    );
+    const { data: partnerClicks } = await gte(
+      supabase.from("partner_clicks").select("id").limit(50000),
+      "clicked_at",
+    );
 
     // ─── 4. Leads ───
-    const { data: leads } = await supabase
-      .from("leads")
-      .select("id, source_page, source_type")
-      .gte("created_at", since)
-      .limit(50000);
+    const { data: leads } = await gte(
+      supabase.from("leads").select("id, source_page, source_type").limit(50000),
+      "created_at",
+    );
 
     let leadCount = leads?.length || 0;
     if (pageFilter) {
@@ -181,10 +182,12 @@ Deno.serve(async (req) => {
       ).length;
     }
 
-    // ─── 5. Time series (daily) for last N days ───
+    // ─── 5. Time series (daily). When all-time, cap to 365 days for chart. ───
+    const seriesDays = days ?? 365;
+    const seriesSince = since ?? new Date(Date.now() - seriesDays * 86400000).toISOString();
     const dailyMap = new Map<string, { visits: number; clicks: number; analyses: number; leads: number }>();
     const dayKey = (iso: string) => iso.slice(0, 10);
-    for (let i = 0; i < days; i++) {
+    for (let i = 0; i < seriesDays; i++) {
       const d = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
       dailyMap.set(d, { visits: 0, clicks: 0, analyses: 0, leads: 0 });
     }
@@ -192,7 +195,7 @@ Deno.serve(async (req) => {
     const { data: dailyVisits } = await supabase
       .from("visitor_analytics")
       .select("visited_at")
-      .gte("visited_at", since)
+      .gte("visited_at", seriesSince)
       .limit(50000);
     for (const r of dailyVisits || []) {
       const k = dayKey(r.visited_at as string);
@@ -203,7 +206,7 @@ Deno.serve(async (req) => {
       .from("funnel_events")
       .select("occurred_at")
       .eq("event_type", "cta_click")
-      .gte("occurred_at", since)
+      .gte("occurred_at", seriesSince)
       .limit(50000);
     for (const r of dailyClicks || []) {
       const k = dayKey(r.occurred_at as string);
@@ -214,20 +217,17 @@ Deno.serve(async (req) => {
       .from("funnel_events")
       .select("occurred_at")
       .eq("event_type", "analysis_complete")
-      .gte("occurred_at", since)
+      .gte("occurred_at", seriesSince)
       .limit(50000);
     for (const r of dailyAnal || []) {
       const k = dayKey(r.occurred_at as string);
       const cur = dailyMap.get(k);
       if (cur) cur.analyses++;
     }
-    for (const l of leads || []) {
-      // Use created_at would require selecting it; re-query lightweight
-    }
     const { data: dailyLeads } = await supabase
       .from("leads")
       .select("created_at")
-      .gte("created_at", since)
+      .gte("created_at", seriesSince)
       .limit(50000);
     for (const r of dailyLeads || []) {
       const k = dayKey(r.created_at as string);
@@ -255,7 +255,7 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({
         success: true,
-        days,
+        days: days ?? "all",
         page_filter: pageFilter,
         funnel,
         by_event_name: byEventName,

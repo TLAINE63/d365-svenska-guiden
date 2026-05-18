@@ -106,7 +106,10 @@ function deriveMetrics(stats: any) {
 
 function buildCopyText(stats: any, dateRange: string, excludePartners: boolean) {
   const m = deriveMetrics(stats);
-  const periodLabel = dateRange === "7" ? "senaste 7 dagarna" : dateRange === "30" ? "senaste 30 dagarna" : "senaste 90 dagarna";
+  const periodLabel = dateRange === "all" ? "totalt sedan start"
+    : dateRange === "7" ? "senaste 7 dagarna"
+    : dateRange === "30" ? "senaste 30 dagarna"
+    : "senaste 90 dagarna";
   const today = format(new Date(), "d MMMM yyyy", { locale: sv });
   const lines: string[] = [];
   const suffix = excludePartners ? " (exkl. partnertrafik)" : "";
@@ -472,11 +475,11 @@ function buildOneLine90d(stats: any): string {
 export default function AdminSalesOverview({ token, onSessionExpired }: AdminSalesOverviewProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
-  const [dateRange, setDateRange] = useState("30");
+  const [dateRange, setDateRange] = useState("all");
   const [statsAll, setStatsAll] = useState<any>(null);
   const [statsFiltered, setStatsFiltered] = useState<any>(null);
-  const [stats90d, setStats90d] = useState<any>(null);
-  const [salesSummary90d, setSalesSummary90d] = useState<{ valjPartner: number; komIgang: number; analysisTotal: number } | null>(null);
+  const [statsTotal, setStatsTotal] = useState<any>(null);
+  const [salesSummaryTotal, setSalesSummaryTotal] = useState<{ valjPartner: number; komIgang: number; analysisTotal: number } | null>(null);
 
   const postWithRetry = async (body: any, attempts = 3): Promise<Response> => {
     let lastErr: any;
@@ -507,14 +510,14 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
-      const startDate90 = startOfDay(subDays(new Date(), 90));
+      const isAll = dateRange === "all";
+      const startDateIso = isAll ? null : startOfDay(subDays(new Date(), parseInt(dateRange))).toISOString();
 
-      const [allRes, filteredRes, clickRes, ninetyRes] = await Promise.all([
-        postWithRetry({ action: "visitor-stats", token, startDate: startDate.toISOString(), excludePartnerTraffic: false }),
-        postWithRetry({ action: "visitor-stats", token, startDate: startDate.toISOString(), excludePartnerTraffic: true }),
+      const [allRes, filteredRes, clickRes, totalRes] = await Promise.all([
+        postWithRetry({ action: "visitor-stats", token, startDate: startDateIso, excludePartnerTraffic: false }),
+        postWithRetry({ action: "visitor-stats", token, startDate: startDateIso, excludePartnerTraffic: true }),
         postWithRetry({ action: "click-stats", token }),
-        postWithRetry({ action: "visitor-stats", token, startDate: startDate90.toISOString(), excludePartnerTraffic: true }),
+        postWithRetry({ action: "visitor-stats", token, startDate: null, excludePartnerTraffic: true }),
       ]);
 
       if (allRes.status >= 500) {
@@ -524,7 +527,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
       const allData = await allRes.json().catch(() => ({}));
       const filteredData = await filteredRes.json().catch(() => ({}));
       const clickData = await clickRes.json().catch(() => ({}));
-      const ninetyData = await ninetyRes.json().catch(() => ({}));
+      const totalData = await totalRes.json().catch(() => ({}));
 
       if (!allRes.ok) {
         if (allData.error?.includes("gått ut")) onSessionExpired();
@@ -533,31 +536,27 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
 
       setStatsAll(allData.stats);
       setStatsFiltered(filteredData.stats || null);
-      setStats90d(ninetyData.stats || null);
+      setStatsTotal(totalData.stats || null);
 
-      const startDate90Iso = startDate90.toISOString();
-      const [guide90, selector90, analysis90] = await Promise.all([
+      const [guideAll, selectorAll, analysisAll] = await Promise.all([
         supabase
           .from("visitor_analytics")
           .select("id", { count: "exact", head: true })
-          .gte("visited_at", startDate90Iso)
           .like("page_path", "/kom-igang%"),
         supabase
           .from("visitor_analytics")
           .select("id", { count: "exact", head: true })
-          .gte("visited_at", startDate90Iso)
           .like("page_path", "/valj-partner%"),
         supabase
           .from("visitor_analytics")
           .select("id", { count: "exact", head: true })
-          .gte("visited_at", startDate90Iso)
           .or("page_path.like.%behovsanalys%,page_path.like.%kravspec%,page_path.like.%ai-readiness%"),
       ]);
 
-      setSalesSummary90d({
-        komIgang: guide90.count || 0,
-        valjPartner: selector90.count || 0,
-        analysisTotal: analysis90.count || 0,
+      setSalesSummaryTotal({
+        komIgang: guideAll.count || 0,
+        valjPartner: selectorAll.count || 0,
+        analysisTotal: analysisAll.count || 0,
       });
     } catch (error: any) {
       console.error("Error fetching sales overview:", error);
@@ -610,7 +609,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
     );
   }
 
-  const periodLabel = dateRange === "7" ? "7 dagar" : dateRange === "30" ? "30 dagar" : "90 dagar";
+  const periodLabel = dateRange === "all" ? "totalt" : dateRange === "7" ? "7 dagar" : dateRange === "30" ? "30 dagar" : "90 dagar";
 
   return (
     <div className="space-y-8">
@@ -631,6 +630,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all">Totalt (sedan start)</SelectItem>
               <SelectItem value="7">Senaste 7 dagar</SelectItem>
               <SelectItem value="30">Senaste 30 dagar</SelectItem>
               <SelectItem value="90">Senaste 90 dagar</SelectItem>
@@ -642,14 +642,14 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         </div>
       </div>
 
-      {/* ===== 90-DAY SALES SUMMARY (boxes) ===== */}
-      {stats90d && statsAll && salesSummary90d && (() => {
-        const ext = stats90d;
+      {/* ===== TOTAL SALES SUMMARY (boxes) ===== */}
+      {statsTotal && statsAll && salesSummaryTotal && (() => {
+        const ext = statsTotal;
         const extVisitors = ext.totalVisitors || 0;
         const extPageViews = ext.totalPageViews || 0;
-        const valjPartner = salesSummary90d.valjPartner || 0;
-        const komIgang = salesSummary90d.komIgang || 0;
-        const analysisTotal = salesSummary90d.analysisTotal || 0;
+        const valjPartner = salesSummaryTotal.valjPartner || 0;
+        const komIgang = salesSummaryTotal.komIgang || 0;
+        const analysisTotal = salesSummaryTotal.analysisTotal || 0;
         const avgSec = ext.avgTimeOnPage || 0;
         const avgMin = Math.floor(avgSec / 60);
         const avgRest = avgSec % 60;
@@ -657,7 +657,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         const partnerProfileVisits = (ext.partnerProfileStats || []).reduce((s: number, p: any) => s + p.visits, 0);
         const partnerClicks = (ext.partnerClickStats || []).reduce((s: number, p: any) => s + p.clicks, 0);
 
-        const oneLine = `D365.se senaste 90 dagar: ${extVisitors.toLocaleString("sv-SE")} unika besökare · ${extPageViews.toLocaleString("sv-SE")} sidvisningar · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · Partnerprofiler ${partnerProfileVisits} besök · Partnerklick ${partnerClicks} · snitt-tid ${avgStr}`;
+        const oneLine = `D365.se totalt sedan start: ${extVisitors.toLocaleString("sv-SE")} unika besökare · ${extPageViews.toLocaleString("sv-SE")} sidvisningar · Välj partner ${valjPartner} besök · Behovsanalyser ${analysisTotal} besök · Kom igång-guiden ${komIgang} besök · Partnerprofiler ${partnerProfileVisits} besök · Partnerklick ${partnerClicks} · snitt-tid ${avgStr}`;
 
         const boxes = [
           { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "\n" },
@@ -677,7 +677,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
                 <div>
                   <CardTitle className="text-base flex items-center gap-2">
                     <FileText className="h-4 w-4 text-primary" />
-                    Säljunderlag – senaste 90 dagar
+                    Säljunderlag – totalt sedan start
                   </CardTitle>
                   <CardDescription>
                     Exkl. partnertrafik (svensk %, partner-% och alla nyckeltal). Klicka för att kopiera som textrad.

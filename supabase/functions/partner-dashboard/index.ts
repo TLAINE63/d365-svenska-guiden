@@ -83,7 +83,9 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const token = body?.token || "";
     const partnerId: string | null = body?.partnerId || null;
-    const days: number = [7, 30, 90].includes(body?.days) ? body.days : 30;
+    const daysRaw = body?.days;
+    const isAllTime = daysRaw === null || daysRaw === "all" || daysRaw === 0;
+    const days: number | null = isAllTime ? null : ([7, 30, 90, 180, 365].includes(daysRaw) ? daysRaw : 30);
 
     const SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
     if (!SECRET) {
@@ -105,7 +107,7 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
     );
 
-    const since = new Date(Date.now() - days * 86400000).toISOString();
+    const since: string | null = days === null ? null : new Date(Date.now() - days * 86400000).toISOString();
 
     // ── Build exclusion sets (admin IP, partner-update IP, partner orgs) ──
     const adminIp = (v.payload?.ip as string) || "";
@@ -169,12 +171,13 @@ Deno.serve(async (req) => {
       geo_org: string | null;
     }[] = [];
     for (let from = 0; from < 200000; from += 1000) {
-      const { data, error } = await supabase
+      let q = supabase
         .from("visitor_analytics")
         .select("page_path, session_id, visited_at, referrer, ip_anonymized, geo_org")
-        .gte("visited_at", since)
         .order("visited_at", { ascending: false })
         .range(from, from + 999);
+      if (since) q = q.gte("visited_at", since);
+      const { data, error } = await q;
       if (error) break;
       if (!data || data.length === 0) break;
       visits.push(...data);
@@ -213,10 +216,11 @@ Deno.serve(async (req) => {
     );
     const analysisStarted = new Set(analysisPaths.map((r) => r.session_id).filter(Boolean));
     // "Completed" proxy: lead submission with source_type/source_page tied to analysis
-    const { data: analysisLeads } = await supabase
+    let leadsQ = supabase
       .from("leads")
-      .select("id, source_page, source_type, industry, selected_product")
-      .gte("created_at", since);
+      .select("id, source_page, source_type, industry, selected_product");
+    if (since) leadsQ = leadsQ.gte("created_at", since);
+    const { data: analysisLeads } = await leadsQ;
     const completed = (analysisLeads || []).filter(
       (l) => (l.source_page || "").includes("behovsanalys") || (l.source_type || "").includes("analys"),
     ).length;
@@ -231,32 +235,36 @@ Deno.serve(async (req) => {
       partnerName = partner?.name || null;
       partnerSlug = partner?.slug || null;
 
-      const { count: pvCount } = await supabase
+      let pvQ = supabase
         .from("partner_profile_views")
         .select("*", { count: "exact", head: true })
-        .eq("partner_id", partnerId)
-        .gte("viewed_at", since);
+        .eq("partner_id", partnerId);
+      if (since) pvQ = pvQ.gte("viewed_at", since);
+      const { count: pvCount } = await pvQ;
       partnerProfileViews = pvCount || 0;
 
       if (partnerName) {
-        const { count: clCount } = await supabase
+        let clQ = supabase
           .from("partner_clicks")
           .select("*", { count: "exact", head: true })
-          .eq("partner_name", partnerName)
-          .gte("clicked_at", since);
+          .eq("partner_name", partnerName);
+        if (since) clQ = clQ.gte("clicked_at", since);
+        const { count: clCount } = await clQ;
         partnerClicks = clCount || 0;
       }
     }
 
     // Globala partner-tot (alltid)
-    const { count: globalProfileViews } = await supabase
+    let gpvQ = supabase
       .from("partner_profile_views")
-      .select("*", { count: "exact", head: true })
-      .gte("viewed_at", since);
-    const { count: globalClicks } = await supabase
+      .select("*", { count: "exact", head: true });
+    if (since) gpvQ = gpvQ.gte("viewed_at", since);
+    const { count: globalProfileViews } = await gpvQ;
+    let gclQ = supabase
       .from("partner_clicks")
-      .select("*", { count: "exact", head: true })
-      .gte("clicked_at", since);
+      .select("*", { count: "exact", head: true });
+    if (since) gclQ = gclQ.gte("clicked_at", since);
+    const { count: globalClicks } = await gclQ;
 
     // ── 4. Mest använda filter (industry + product) från leads ─────────
     const industryMap = new Map<string, number>();
@@ -299,7 +307,7 @@ Deno.serve(async (req) => {
 
     return new Response(
       JSON.stringify({
-        days,
+        days: days ?? "all",
         partner: { id: partnerId, name: partnerName, slug: partnerSlug },
         traffic: {
           uniqueVisitors: uniqueSessions.size,
