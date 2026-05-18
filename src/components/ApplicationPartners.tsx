@@ -91,7 +91,13 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
       return shuffled;
     };
     
-    return seededShuffle(result, sessionSeed);
+    // Avtals-signerade partners prioriteras alltid först
+    const signed = result.filter(p => p.agreement_signed);
+    const unsigned = result.filter(p => !p.agreement_signed);
+    return [
+      ...seededShuffle(signed, sessionSeed),
+      ...seededShuffle(unsigned, sessionSeed + 1),
+    ];
   }, [productKey, partners, selectedIndustry, selectedGeography, sessionSeed]);
 
   // Show all 18 industries in the filter
