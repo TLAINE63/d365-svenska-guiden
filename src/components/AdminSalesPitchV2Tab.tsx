@@ -654,11 +654,12 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             </div>
           ) : (
             <div className="border rounded-md overflow-hidden">
-              <div className="grid grid-cols-[40px_1fr_1.5fr_1fr] gap-2 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground bg-muted/40">
+              <div className="grid grid-cols-[40px_1fr_1.5fr_1fr_auto] gap-2 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground bg-muted/40">
                 <div></div>
                 <div>Partner</div>
                 <div>Mottagaradress (kan ändras)</div>
                 <div>Kontaktnamn</div>
+                <div className="text-right">Preview</div>
               </div>
               <div className="max-h-[480px] overflow-auto divide-y">
                 {filteredList.map(p => {
@@ -680,7 +681,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                   return (
                     <div
                       key={p.id}
-                      className={`grid grid-cols-[40px_1fr_1.5fr_1fr] gap-2 px-3 py-2 items-center text-sm ${
+                      className={`grid grid-cols-[40px_1fr_1.5fr_1fr_auto] gap-2 px-3 py-2 items-center text-sm ${
                         checked ? "bg-pink-50/60" : ""
                       }`}
                     >
@@ -705,6 +706,17 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                         )}
                       </div>
                       <div className="text-xs truncate">{resolveContactName(p)}</div>
+                      <div className="text-right">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-8"
+                          onClick={() => openPreview(p)}
+                          title="Skicka pitch-preview med statistik till mig själv"
+                        >
+                          <Eye className="h-3.5 w-3.5 mr-1.5" /> Preview till mig
+                        </Button>
+                      </div>
                     </div>
                   );
                 })}
