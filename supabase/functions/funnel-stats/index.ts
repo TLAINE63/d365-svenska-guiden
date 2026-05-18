@@ -79,7 +79,9 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json().catch(() => ({}));
     const token = body?.token || "";
-    const days = Math.min(Math.max(Number(body?.days) || 30, 1), 365);
+    const daysRaw = body?.days;
+    const isAllTime = daysRaw === null || daysRaw === "all" || daysRaw === 0;
+    const days: number | null = isAllTime ? null : Math.min(Math.max(Number(daysRaw) || 30, 1), 365);
     const pageFilter: string | null = body?.page_filter || null; // e.g. "/business-central"
 
     const JWT_SECRET = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -102,14 +104,16 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    const since = new Date(Date.now() - days * 86400000).toISOString();
+    const since: string | null = days === null ? null : new Date(Date.now() - days * 86400000).toISOString();
+    const gte = <T extends { gte: (col: string, v: string) => T }>(q: T, col: string): T =>
+      since ? q.gte(col, since) : q;
 
     // ─── 1. Page visits (visitor_analytics) ───
     let visitQuery = supabase
       .from("visitor_analytics")
       .select("session_id, page_path", { count: "exact", head: false })
-      .gte("visited_at", since)
       .limit(50000);
+    visitQuery = gte(visitQuery, "visited_at");
     if (pageFilter) visitQuery = visitQuery.like("page_path", `${pageFilter}%`);
     const { data: visits, error: visitsErr } = await visitQuery;
     if (visitsErr) console.error("visits err", visitsErr);
@@ -125,8 +129,8 @@ Deno.serve(async (req) => {
     let feQuery = supabase
       .from("funnel_events")
       .select("event_type, event_name, page_path, session_id")
-      .gte("occurred_at", since)
       .limit(50000);
+    feQuery = gte(feQuery, "occurred_at");
     if (pageFilter) feQuery = feQuery.like("page_path", `${pageFilter}%`);
     const { data: feRows, error: feErr } = await feQuery;
     if (feErr) console.error("funnel events err", feErr);
@@ -156,23 +160,20 @@ Deno.serve(async (req) => {
     }
 
     // ─── 3. Partner profile views & website clicks ───
-    const { data: profileViews } = await supabase
-      .from("partner_profile_views")
-      .select("id")
-      .gte("viewed_at", since)
-      .limit(50000);
-    const { data: partnerClicks } = await supabase
-      .from("partner_clicks")
-      .select("id")
-      .gte("clicked_at", since)
-      .limit(50000);
+    const { data: profileViews } = await gte(
+      supabase.from("partner_profile_views").select("id").limit(50000),
+      "viewed_at",
+    );
+    const { data: partnerClicks } = await gte(
+      supabase.from("partner_clicks").select("id").limit(50000),
+      "clicked_at",
+    );
 
     // ─── 4. Leads ───
-    const { data: leads } = await supabase
-      .from("leads")
-      .select("id, source_page, source_type")
-      .gte("created_at", since)
-      .limit(50000);
+    const { data: leads } = await gte(
+      supabase.from("leads").select("id, source_page, source_type").limit(50000),
+      "created_at",
+    );
 
     let leadCount = leads?.length || 0;
     if (pageFilter) {
