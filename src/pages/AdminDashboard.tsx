@@ -3048,7 +3048,7 @@ Thomas`,
 
           {/* ==================== SALES PITCH TAB ==================== */}
           <TabsContent value="sales-pitch">
-            <AdminSalesPitchTab />
+            <AdminSalesPitchTab token={token || ""} onSessionExpired={logout} />
           </TabsContent>
 
           {/* ==================== SALES PITCH V2 TAB ==================== */}
