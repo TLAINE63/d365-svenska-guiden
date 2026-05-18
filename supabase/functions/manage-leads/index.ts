@@ -735,6 +735,7 @@ case "click-stats": {
         const stats = {
           totalVisitors: totalUniqueVisitors,
           totalPageViews: totalPageViews,
+          publishedPartners: (pubPartners || []).length,
           swedishVisitors: swedishSessions || swedishVisitors.length,
           nordicVisitors: nordicSessions || nordicVisitors.length,
           europeanVisitors: europeanSessions || europeanVisitors.length,

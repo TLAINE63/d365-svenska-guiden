@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { TrendingUp, Users, Target, Eye, MousePointerClick, Globe, Sparkles, Copy, RefreshCw, Mail } from "lucide-react";
+import { invokeAdminEdgeWithRetry } from "@/lib/adminEdge";
+
+interface AdminSalesPitchTabProps {
+  token: string;
+  onSessionExpired: () => void;
+}
 
 interface SalesStats {
   visitors30d: number;
@@ -49,7 +54,7 @@ thomas.laine@dynamicfactory.se`;
 
 const STORAGE_KEY = "admin_sales_pitch_template_v1";
 
-export default function AdminSalesPitchTab() {
+export default function AdminSalesPitchTab({ token, onSessionExpired }: AdminSalesPitchTabProps) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<SalesStats | null>(null);
@@ -60,70 +65,54 @@ export default function AdminSalesPitchTab() {
   const [recipientName, setRecipientName] = useState("");
 
   const loadStats = async () => {
+    if (!token) return;
     setLoading(true);
     try {
       const now = new Date();
       const d30 = new Date(now.getTime() - 30 * 86400000).toISOString();
       const d90 = new Date(now.getTime() - 90 * 86400000).toISOString();
 
-      const [
-        v30, v90, pv30, pv90, swe30, time30,
-        guide30, analysis30, selector30,
-        leadsAll, leads90,
-        partners,
-        profile90, clicks90,
-        cities90,
-      ] = await Promise.all([
-        supabase.from("visitor_analytics").select("session_id", { count: "exact", head: false }).gte("visited_at", d30),
-        supabase.from("visitor_analytics").select("session_id", { count: "exact", head: false }).gte("visited_at", d90),
-        supabase.from("visitor_analytics").select("id", { count: "exact", head: true }).gte("visited_at", d30),
-        supabase.from("visitor_analytics").select("id", { count: "exact", head: true }).gte("visited_at", d90),
-        supabase.from("visitor_analytics").select("session_id", { count: "exact", head: false }).gte("visited_at", d30).eq("geo_country_code", "SE"),
-        supabase.from("visitor_analytics").select("time_on_page_seconds").gte("visited_at", d30).gt("time_on_page_seconds", 0).limit(5000),
-        supabase.from("visitor_analytics").select("id", { count: "exact", head: true }).gte("visited_at", d30).like("page_path", "/kom-igang%"),
-        supabase.from("visitor_analytics").select("id", { count: "exact", head: true }).gte("visited_at", d30).or("page_path.like.%behovsanalys%,page_path.like.%kravspec%,page_path.like.%ai-readiness%"),
-        supabase.from("visitor_analytics").select("id", { count: "exact", head: true }).gte("visited_at", d30).like("page_path", "/valj-partner%"),
-        supabase.from("leads").select("id", { count: "exact", head: true }),
-        supabase.from("leads").select("id", { count: "exact", head: true }).gte("created_at", d90),
-        supabase.from("partners").select("id", { count: "exact", head: true }).eq("is_featured", true),
-        supabase.from("partner_profile_views").select("id", { count: "exact", head: true }).gte("viewed_at", d90),
-        supabase.from("partner_clicks").select("id", { count: "exact", head: true }).gte("clicked_at", d90),
-        supabase.from("visitor_analytics").select("geo_city").gte("visited_at", d90).eq("geo_country_code", "SE").not("geo_city", "is", null).limit(5000),
+      const [stats30Res, stats90Res, leadsRes] = await Promise.all([
+        invokeAdminEdgeWithRetry<{ stats?: any; error?: string }>("manage-leads", { action: "visitor-stats", token, startDate: d30, excludePartnerTraffic: true }),
+        invokeAdminEdgeWithRetry<{ stats?: any; error?: string }>("manage-leads", { action: "visitor-stats", token, startDate: d90, excludePartnerTraffic: true }),
+        invokeAdminEdgeWithRetry<{ leads?: Array<{ created_at: string }>; error?: string }>("manage-leads", { action: "list", token }),
       ]);
 
-      const uniq = (rows: any[] | null) => new Set((rows || []).map((r) => r.session_id).filter(Boolean)).size;
-      const avg = (rows: any[] | null) => {
-        if (!rows?.length) return 0;
-        const total = rows.reduce((sum, r) => sum + (r.time_on_page_seconds || 0), 0);
-        return Math.round(total / rows.length);
-      };
-      const topCitiesMap: Record<string, number> = {};
-      (cities90.data || []).forEach((r: any) => {
-        if (r.geo_city) topCitiesMap[r.geo_city] = (topCitiesMap[r.geo_city] || 0) + 1;
-      });
-      const topCities = Object.entries(topCitiesMap)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 8)
-        .map(([city, visits]) => ({ city, visits }));
+      if (stats30Res.error?.message?.includes("401") || stats90Res.error?.message?.includes("401") || leadsRes.error?.message?.includes("401")) {
+        onSessionExpired();
+        return;
+      }
+      if (stats30Res.error) throw stats30Res.error;
+      if (stats90Res.error) throw stats90Res.error;
+      if (leadsRes.error) throw leadsRes.error;
+      if (stats30Res.data?.error?.includes("gått ut") || stats90Res.data?.error?.includes("gått ut") || leadsRes.data?.error?.includes("gått ut")) {
+        onSessionExpired();
+        return;
+      }
 
-      const visitors30 = uniq(v30.data);
-      const swedish30 = uniq(swe30.data);
+      const s30 = stats30Res.data?.stats || {};
+      const s90 = stats90Res.data?.stats || {};
+      const leads = leadsRes.data?.leads || [];
+      const leads90d = leads.filter((lead) => new Date(lead.created_at).getTime() >= new Date(d90).getTime()).length;
+      const topCities = (s90.topCities || [])
+        .slice(0, 8)
+        .map((c: any) => ({ city: c.city, visits: c.visits }));
 
       setStats({
-        visitors30d: visitors30,
-        visitors90d: uniq(v90.data),
-        pageViews30d: pv30.count || 0,
-        pageViews90d: pv90.count || 0,
-        swedishShare: visitors30 > 0 ? Math.round((swedish30 / visitors30) * 100) : 0,
-        avgTimeSec: avg(time30.data),
-        guideVisits30d: guide30.count || 0,
-        analysisVisits30d: analysis30.count || 0,
-        partnerSelectorVisits30d: selector30.count || 0,
-        leadsTotal: leadsAll.count || 0,
-        leads90d: leads90.count || 0,
-        publishedPartners: partners.count || 0,
-        profileViews90d: profile90.count || 0,
-        partnerClicks90d: clicks90.count || 0,
+        visitors30d: s30.totalVisitors || 0,
+        visitors90d: s90.totalVisitors || 0,
+        pageViews30d: s30.totalPageViews || 0,
+        pageViews90d: s90.totalPageViews || 0,
+        swedishShare: s30.totalVisitors > 0 ? Math.round(((s30.swedishVisitors || 0) / s30.totalVisitors) * 100) : 0,
+        avgTimeSec: s30.avgTimeOnPage || 0,
+        guideVisits30d: s30.komIgangCount || 0,
+        analysisVisits30d: s30.analysisCount || 0,
+        partnerSelectorVisits30d: s30.valjPartnerCount || 0,
+        leadsTotal: leads.length,
+        leads90d,
+        publishedPartners: s90.publishedPartners || 0,
+        profileViews90d: (s90.partnerProfileStats || []).reduce((sum: number, p: any) => sum + (p.visits || 0), 0),
+        partnerClicks90d: (s90.partnerClickStats || []).reduce((sum: number, p: any) => sum + (p.clicks || 0), 0),
         topCities,
       });
     } catch (err) {
@@ -136,7 +125,7 @@ export default function AdminSalesPitchTab() {
 
   useEffect(() => {
     loadStats();
-  }, []);
+  }, [token]);
 
   const formatTime = (sec: number) => {
     const m = Math.floor(sec / 60);
