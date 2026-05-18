@@ -147,6 +147,12 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   const [testEmail, setTestEmail] = useState("thomas.laine@dynamicfactory.se");
   const [sendingTest, setSendingTest] = useState(false);
 
+  // Preview-mail (per partner med statistik) → till mig själv för finjustering
+  const [previewPartner, setPreviewPartner] = useState<PartnerRow | null>(null);
+  const [previewEmail, setPreviewEmail] = useState("thomas.laine@dynamicfactory.se");
+  const [previewSegment, setPreviewSegment] = useState<SegmentKey>("published");
+  const [sendingPreview, setSendingPreview] = useState(false);
+
   const [templates, setTemplates] = useState<Record<SegmentKey, Template>>(() => {
     if (typeof window === "undefined") return DEFAULT_TEMPLATES;
     try {
