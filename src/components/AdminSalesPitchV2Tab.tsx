@@ -105,7 +105,7 @@ Priset ligger fast under 2026
 
 Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 kr/mån (tidigare 1 990 kr).
 
-Vill ni vara med enligt detta upplägg, svara bara "ok" så lägger vi in er och skickar profileringslänken.
+Vill ni vara med enligt detta upplägg, svara bara **OK** så lägger vi in er och skickar profileringslänken.
 
 Pris, villkor och nedladdningsbart avtal:
 
