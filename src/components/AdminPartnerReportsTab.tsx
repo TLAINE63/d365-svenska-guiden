@@ -390,12 +390,64 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
                   </div>
                 </div>
               </div>
-              <div className="border rounded-lg overflow-hidden bg-slate-900">
-                <iframe
-                  title="Förhandsvisning"
-                  srcDoc={previewHtml}
-                  className="w-full h-[70vh] bg-white"
-                />
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-end gap-2 p-3 border rounded-lg bg-muted/30">
+                  <div className="flex-1 min-w-[200px]">
+                    <label className="text-xs font-medium block mb-1">Skicka testmejl till</label>
+                    <Input
+                      type="email"
+                      placeholder="din@email.se"
+                      value={testEmail}
+                      onChange={(e) => {
+                        setTestEmail(e.target.value);
+                        localStorage.setItem("partner_report_test_email", e.target.value);
+                      }}
+                    />
+                  </div>
+                  <Button
+                    size="sm"
+                    disabled={sendingTest || !testEmail || !viewing}
+                    onClick={async () => {
+                      if (!viewing || !testEmail) return;
+                      setSendingTest(true);
+                      const { data, error } = await supabase.functions.invoke("manage-partner-reports", {
+                        body: { action: "send-test", token, id: viewing.id, test_email: testEmail },
+                      });
+                      setSendingTest(false);
+                      if (error || data?.error) {
+                        toast({ title: "Kunde inte skicka test", description: data?.error || error?.message, variant: "destructive" });
+                      } else {
+                        toast({ title: "Testmejl skickat", description: `Skickat till ${testEmail}` });
+                      }
+                    }}
+                  >
+                    {sendingTest ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
+                    Skicka test
+                  </Button>
+                  <div className="flex gap-1 ml-auto">
+                    <Button
+                      size="sm"
+                      variant={previewDevice === "desktop" ? "default" : "outline"}
+                      onClick={() => setPreviewDevice("desktop")}
+                    >Desktop</Button>
+                    <Button
+                      size="sm"
+                      variant={previewDevice === "mobile" ? "default" : "outline"}
+                      onClick={() => setPreviewDevice("mobile")}
+                    >Mobil</Button>
+                  </div>
+                </div>
+                <div className="border rounded-lg overflow-hidden bg-slate-900 flex justify-center">
+                  <iframe
+                    title="Förhandsvisning"
+                    srcDoc={previewHtml}
+                    className="bg-white h-[70vh]"
+                    style={{ width: previewDevice === "mobile" ? 390 : "100%", maxWidth: "100%" }}
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Tips: skicka ett testmejl till din egen adress för att se exakt hur det renderas i Gmail/Outlook innan du skickar till partnern.
+                </p>
               </div>
             </div>
           )}
