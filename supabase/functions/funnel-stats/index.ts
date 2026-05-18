@@ -182,10 +182,12 @@ Deno.serve(async (req) => {
       ).length;
     }
 
-    // ─── 5. Time series (daily) for last N days ───
+    // ─── 5. Time series (daily). When all-time, cap to 365 days for chart. ───
+    const seriesDays = days ?? 365;
+    const seriesSince = since ?? new Date(Date.now() - seriesDays * 86400000).toISOString();
     const dailyMap = new Map<string, { visits: number; clicks: number; analyses: number; leads: number }>();
     const dayKey = (iso: string) => iso.slice(0, 10);
-    for (let i = 0; i < days; i++) {
+    for (let i = 0; i < seriesDays; i++) {
       const d = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
       dailyMap.set(d, { visits: 0, clicks: 0, analyses: 0, leads: 0 });
     }
@@ -193,7 +195,7 @@ Deno.serve(async (req) => {
     const { data: dailyVisits } = await supabase
       .from("visitor_analytics")
       .select("visited_at")
-      .gte("visited_at", since)
+      .gte("visited_at", seriesSince)
       .limit(50000);
     for (const r of dailyVisits || []) {
       const k = dayKey(r.visited_at as string);
@@ -204,7 +206,7 @@ Deno.serve(async (req) => {
       .from("funnel_events")
       .select("occurred_at")
       .eq("event_type", "cta_click")
-      .gte("occurred_at", since)
+      .gte("occurred_at", seriesSince)
       .limit(50000);
     for (const r of dailyClicks || []) {
       const k = dayKey(r.occurred_at as string);
@@ -215,20 +217,17 @@ Deno.serve(async (req) => {
       .from("funnel_events")
       .select("occurred_at")
       .eq("event_type", "analysis_complete")
-      .gte("occurred_at", since)
+      .gte("occurred_at", seriesSince)
       .limit(50000);
     for (const r of dailyAnal || []) {
       const k = dayKey(r.occurred_at as string);
       const cur = dailyMap.get(k);
       if (cur) cur.analyses++;
     }
-    for (const l of leads || []) {
-      // Use created_at would require selecting it; re-query lightweight
-    }
     const { data: dailyLeads } = await supabase
       .from("leads")
       .select("created_at")
-      .gte("created_at", since)
+      .gte("created_at", seriesSince)
       .limit(50000);
     for (const r of dailyLeads || []) {
       const k = dayKey(r.created_at as string);
@@ -256,7 +255,7 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({
         success: true,
-        days,
+        days: days ?? "all",
         page_filter: pageFilter,
         funnel,
         by_event_name: byEventName,
