@@ -42,7 +42,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border md:bg-background/95 md:backdrop-blur md:supports-[backdrop-filter]:bg-background/60">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
       {/* Top utility bar (desktop only) */}
       <div className="hidden lg:block border-b border-border/60 bg-muted/30">
         <div className="container mx-auto px-4">
