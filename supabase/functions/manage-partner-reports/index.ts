@@ -211,14 +211,6 @@ function buildEmailHtml(opts: {
 
       <p style="margin:0 0 22px;color:#334155;font-size:15px;line-height:1.55">${esc(intro)}</p>
 
-      <table style="width:100%;border-collapse:separate;border-spacing:8px 0;margin:0 0 24px">
-        <tr>
-          ${stat("Identifierade företag", companies.length, "#1e3a5f")}
-          ${stat("Profilbesök totalt", totalVisits, "#2d5a87")}
-          ${stat("Med branschdata", withIndustry, "#ea580c")}
-        </tr>
-      </table>
-
       <h2 style="margin:0 0 8px;font-size:17px;color:#0f172a">Företag som besökt er profil</h2>
       <div style="margin:0 0 16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:12px;color:#1e3a8a">
         <strong>Filtreringsregel:</strong> endast företag vars Snitcher-session innehåller en URL som matchar
@@ -240,6 +232,28 @@ function buildEmailHtml(opts: {
         <a href="${esc(profileUrl)}" style="display:inline-block;background:#1e3a5f;color:#fff;text-decoration:none;padding:12px 26px;border-radius:8px;font-weight:600;font-size:14px">
           Öppna er partnerprofil →
         </a>
+      </div>
+
+      <p style="color:#475569;font-size:13px;line-height:1.6;margin:28px 0 6px">
+        Vänliga hälsningar,<br/>
+        <strong style="color:#0f172a">Thomas Laine &amp; Michael Uhman</strong><br/>
+        d365.se · Den oberoende guiden till Microsoft Dynamics 365
+      </p>
+
+      <div style="margin:28px 0 8px;padding-top:20px;border-top:1px solid #e2e8f0">
+        <h3 style="margin:0 0 6px;font-size:15px;color:#0f172a">Besökarstatistik – d365.se senaste 90 dagar</h3>
+        <p style="margin:0 0 14px;color:#64748b;font-size:12px;line-height:1.5">
+          Översikt över sajten d365.se så ni ser i vilket sammanhang er profil syns.
+        </p>
+        <div style="text-align:center">
+          <img src="https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/email-assets/besokarstatistik.png"
+               alt="Besökarstatistik d365.se senaste 90 dagar"
+               width="600"
+               style="display:block;width:100%;max-width:600px;height:auto;margin:0 auto;border:1px solid #e2e8f0;border-radius:10px" />
+          <a href="${esc(siteOrigin)}/partnerstatistik" style="display:inline-block;margin-top:10px;color:#1e3a5f;font-size:12px;text-decoration:none">
+            Se aktuell statistik på d365.se/partnerstatistik →
+          </a>
+        </div>
       </div>
 
       <p style="color:#94a3b8;font-size:11px;line-height:1.55;margin:26px 0 0;text-align:center">
