@@ -154,6 +154,21 @@ async function buildSummary(
 ): Promise<{
   partner: any;
   sajtAll: { uniqueVisitors: number; pageViews: number; valjPartnerVisits: number; komIgangVisits: number; analysesCompleted: number; partnerProfileVisitsGlobal: number; partnerClicksGlobal: number; avgTimeOnPageSec: number };
+  dashboard: {
+    uniqueVisitors90d: number;
+    pageViews90d: number;
+    uniqueVisitors30d: number;
+    swedishSharePct: number;
+    valjPartner30d: number;
+    behovsanalyser30d: number;
+    komIgang30d: number;
+    leadsTotal: number;
+    leads90d: number;
+    publishedPartners: number;
+    partnerProfileViews90d: number;
+    partnerClicks90d: number;
+    avgTimeOnPageSec: number;
+  };
   site30: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   site90: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   partnerAll: SummaryWindow;
@@ -262,6 +277,46 @@ async function buildSummary(
     partnerClicksGlobal: clicksAllGRes.count || 0,
     avgTimeOnPageSec,
   };
+
+  // ── Dashboard-siffror (matchar /admin sales-overview-bilden) ────────
+  const [
+    swede30Res,
+    valj30Res,
+    behov30Res,
+    komigang30Res,
+    leadsAllRes,
+    publishedRes,
+  ] = await Promise.all([
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).eq("geo_country_code", "SE").gte("visited_at", since30),
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/valj-partner%").gte("visited_at", since30),
+    supabase.from("leads").select("*", { count: "exact", head: true }).or("source_type.ilike.%analys%,source_page.ilike.%behovsanalys%").gte("created_at", since30),
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/kom-igang%").gte("visited_at", since30),
+    supabase.from("leads").select("*", { count: "exact", head: true }),
+    supabase.from("partners").select("*", { count: "exact", head: true }).eq("is_featured", true),
+  ]);
+
+  const totalSessions30 = sessions30.size;
+  const swedishCount30 = swede30Res.count || 0;
+  // approximate Swedish share via page views (since count is on rows, not sessions)
+  const pv30 = v30.count || 0;
+  const swedishSharePct = pv30 > 0 ? Math.round((swedishCount30 / pv30) * 100) : 0;
+
+  const dashboard = {
+    uniqueVisitors90d: sessions90.size,
+    pageViews90d: v90.count || 0,
+    uniqueVisitors30d: totalSessions30,
+    swedishSharePct,
+    valjPartner30d: valj30Res.count || 0,
+    behovsanalyser30d: completed30,
+    komIgang30d: komigang30Res.count || 0,
+    leadsTotal: leadsAllRes.count || 0,
+    leads90d: (leads90Res.data || []).length,
+    publishedPartners: publishedRes.count || 0,
+    partnerProfileViews90d: globalProfileViews90,
+    partnerClicks90d: globalClicks90,
+    avgTimeOnPageSec,
+  };
+
 
   // ── Per-partner exponering (all-time) ───────────────────────────────
   const [
@@ -594,6 +649,7 @@ ${recentNews.map((n) => {
   return {
     partner,
     sajtAll,
+    dashboard,
     site30: {
       analysesStarted: analysisSessions30.size,
       analysesCompleted: completed30,
