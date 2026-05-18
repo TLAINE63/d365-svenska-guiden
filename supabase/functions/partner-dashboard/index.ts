@@ -307,7 +307,7 @@ Deno.serve(async (req) => {
 
     return new Response(
       JSON.stringify({
-        days,
+        days: days ?? "all",
         partner: { id: partnerId, name: partnerName, slug: partnerSlug },
         traffic: {
           uniqueVisitors: uniqueSessions.size,
