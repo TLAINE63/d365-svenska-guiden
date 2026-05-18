@@ -427,7 +427,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     lines.push(`• Senaste 90 dagar: ${fmt(sajt90.uniqueVisitors)}`);
     lines.push("");
     lines.push(`Visningar av ${partner.name}s profilsida:`);
-    lines.push(`• 30 dagar: ${fmt(p30.profileViews)}  ·  90 dagar: ${fmt(p90.profileViews)}`);
+    const pv30 = (p30.profileVisits ?? 0) + (p30.cardClicks ?? 0);
+    const pv90 = (p90.profileVisits ?? 0) + (p90.cardClicks ?? 0);
+    lines.push(`• 30 dagar: ${fmt(pv30)}  ·  90 dagar: ${fmt(pv90)}  (varav direktvisning av profilsidan: ${fmt(p30.profileVisits ?? 0)} / ${fmt(p90.profileVisits ?? 0)})`);
     lines.push("");
     lines.push(`Klick vidare till ${partner.name}s sajt:`);
     lines.push(`• 30 dagar: ${fmt(p30.websiteClicks)}  ·  90 dagar: ${fmt(p90.websiteClicks)}`);
