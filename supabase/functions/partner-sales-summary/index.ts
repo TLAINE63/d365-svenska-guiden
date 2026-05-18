@@ -205,15 +205,19 @@ async function buildSummary(
     !!p && (p.includes("behovsanalys") || p.includes("ai-readiness") || p.includes("kravspec"));
   const sessions30 = new Set<string>();
   const analysisSessions30 = new Set<string>();
+  let analysisVisits30 = 0;
   const startedByDay = new Map<string, Set<string>>();
   for (const r of v30.data || []) {
     if (r.session_id) sessions30.add(r.session_id);
-    if (r.session_id && isAnalysisPath(r.page_path)) {
-      analysisSessions30.add(r.session_id);
-      const day = (r.visited_at || "").slice(0, 10);
-      if (day) {
-        if (!startedByDay.has(day)) startedByDay.set(day, new Set());
-        startedByDay.get(day)!.add(r.session_id);
+    if (isAnalysisPath(r.page_path)) {
+      analysisVisits30++;
+      if (r.session_id) {
+        analysisSessions30.add(r.session_id);
+        const day = (r.visited_at || "").slice(0, 10);
+        if (day) {
+          if (!startedByDay.has(day)) startedByDay.set(day, new Set());
+          startedByDay.get(day)!.add(r.session_id);
+        }
       }
     }
   }
@@ -309,7 +313,7 @@ async function buildSummary(
     uniqueVisitors30d: totalSessions30,
     swedishSharePct,
     valjPartner30d: valj30Res.count || 0,
-    behovsanalyser30d: analysisSessions30.size,
+    behovsanalyser30d: analysisVisits30,
     komIgang30d: komigang30Res.count || 0,
     leadsTotal: leadsAllRes.count || 0,
     leads90d: (leads90Res.data || []).length,

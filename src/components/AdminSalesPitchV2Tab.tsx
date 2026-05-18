@@ -457,15 +457,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     ];
     const intent: Box[] = [
       { label: "Välj partner", value: fmt(d.valjPartner30d ?? 0), hint: "aktiva utvärderare", accent: "orange" },
-      { label: "Behovsanalyser", value: fmt(d.behovsanalyser30d ?? 0), hint: "startade sessioner", accent: "orange" },
+      { label: "Behovsanalyser", value: fmt(d.behovsanalyser30d ?? 0), hint: "besök analys-sidor", accent: "orange" },
       { label: "Kom igång-guiden", value: fmt(d.komIgang30d ?? 0), hint: "strukturerade köpresor", accent: "orange" },
       { label: "Leads totalt", value: fmt(d.leadsTotal ?? 0), hint: `varav ${fmt(d.leads90d ?? 0)} senaste 90d`, accent: "green" },
-    ];
-    const exponering: Box[] = [
-      { label: "Publicerade partners", value: fmt(d.publishedPartners ?? 0), accent: "orange" },
-      { label: "Partnerprofilvisningar", value: fmt(d.partnerProfileViews90d ?? 0), accent: "orange" },
-      { label: "Klick till partners", value: fmt(d.partnerClicks90d ?? 0), accent: "orange" },
-      { label: "Snitt-tid på sida", value: avgStr, hint: "min:sek", accent: "green" },
     ];
     const partnerBoxes: Box[] = [
       { label: "Visad i filterresultat", value: fmt(pAll.filterExposures ?? 0), hint: partner.name, accent: "orange" },
@@ -507,7 +501,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   <p style="margin:0 0 6px;color:#64748b;font-size:13px">Live-siffror från d365.se och ${esc(partner.name)}s exponering.</p>
   ${section("Trafik & räckvidd", trafik)}
   ${section("Köpintention (senaste 30 dagar)", intent)}
-  ${section("Partnerexponering (90 dagar)", exponering)}
+  
   ${section(`${partner.name} – exponering (all-time)`, partnerBoxes)}
   ${companiesHtml}
 </div>`;
