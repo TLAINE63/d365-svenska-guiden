@@ -313,7 +313,7 @@ async function buildSummary(
     uniqueVisitors30d: totalSessions30,
     swedishSharePct,
     valjPartner30d: valj30Res.count || 0,
-    behovsanalyser30d: analysisSessions30.size,
+    behovsanalyser30d: analysisVisits30,
     komIgang30d: komigang30Res.count || 0,
     leadsTotal: leadsAllRes.count || 0,
     leads90d: (leads90Res.data || []).length,
