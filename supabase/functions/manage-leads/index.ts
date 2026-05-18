@@ -721,6 +721,17 @@ case "click-stats": {
           .map(([date, sessions]) => ({ date, visitors: sessions.size }))
           .sort((a, b) => a.date.localeCompare(b.date));
 
+        // Sales summary page-path counts (pageviews) using the same filtered set
+        let komIgangCount = 0;
+        let valjPartnerCount = 0;
+        let analysisCount = 0;
+        for (const v of filteredVisitors) {
+          const p = v.page_path || "";
+          if (p.startsWith("/kom-igang")) komIgangCount++;
+          if (p.startsWith("/valj-partner")) valjPartnerCount++;
+          if (p.includes("behovsanalys") || p.includes("kravspec") || p.includes("ai-readiness")) analysisCount++;
+        }
+
         const stats = {
           totalVisitors: totalUniqueVisitors,
           totalPageViews: totalPageViews,
@@ -735,6 +746,9 @@ case "click-stats": {
           partnerProfileStats,
           partnerClickStats,
           dailyVisitors,
+          komIgangCount,
+          valjPartnerCount,
+          analysisCount,
         };
 
         return new Response(
