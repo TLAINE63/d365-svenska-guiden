@@ -401,6 +401,117 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   const sendTestBoth = () =>
     sendTest(["published", "not_published"], `Skicka testmail av båda mallarna till ${testEmail.trim()}?`);
 
+  const openPreview = (p: PartnerRow) => {
+    setPreviewPartner(p);
+    setPreviewSegment(p.is_featured ? "published" : "not_published");
+    setPreviewEmail("thomas.laine@dynamicfactory.se");
+  };
+
+  const fmt = (n: number | null | undefined) => (n ?? 0).toLocaleString("sv-SE");
+
+  const buildStatsBlock = (partner: PartnerRow, summary: any): string => {
+    const s = summary || {};
+    const sajt30 = s.sajt30 || {};
+    const sajt90 = s.sajt90 || {};
+    const p30 = s.partner30 || {};
+    const p90 = s.partner90 || {};
+    const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
+    const topCompanies = companies.slice(0, 25);
+
+    const lines: string[] = [];
+    lines.push("── INTERNT PREVIEW (skickas INTE till partnern) ──");
+    lines.push(`Partner: ${partner.name}`);
+    lines.push("");
+    lines.push("Sajtbesökare totalt (unika sessioner):");
+    lines.push(`• Senaste 30 dagar: ${fmt(sajt30.uniqueVisitors)}`);
+    lines.push(`• Senaste 90 dagar: ${fmt(sajt90.uniqueVisitors)}`);
+    lines.push("");
+    lines.push(`Visningar av ${partner.name}s profilsida:`);
+    lines.push(`• 30 dagar: ${fmt(p30.profileViews)}  ·  90 dagar: ${fmt(p90.profileViews)}`);
+    lines.push("");
+    lines.push(`Klick vidare till ${partner.name}s sajt:`);
+    lines.push(`• 30 dagar: ${fmt(p30.websiteClicks)}  ·  90 dagar: ${fmt(p90.websiteClicks)}`);
+    lines.push("");
+
+    if (topCompanies.length > 0) {
+      lines.push(`Identifierade besökande företag (90 dagar, från Snitcher) – topp ${topCompanies.length} av ${companies.length}:`);
+      for (const c of topCompanies) {
+        const meta = [c.industry, c.country].filter(Boolean).join(" · ");
+        const tag = c.matchedProfile ? "profil" : "relaterad sida";
+        lines.push(`• ${c.name}${meta ? ` (${meta})` : ""} – ${c.sessions} sessioner [${tag}]`);
+      }
+    } else {
+      lines.push("Identifierade besökande företag (90 dagar): inga matchningar från Snitcher.");
+    }
+    lines.push("");
+    lines.push("── Mallens text följer nedan (justera fritt innan vidaresändning) ──");
+    lines.push("");
+    return lines.join("\n");
+  };
+
+  const sendPreview = async () => {
+    if (!previewPartner) return;
+    const addr = previewEmail.trim();
+    if (!/\S+@\S+\.\S+/.test(addr)) {
+      toast({ title: "Ange en giltig e-postadress", variant: "destructive" });
+      return;
+    }
+
+    setSendingPreview(true);
+    try {
+      // 1) Hämta statistik via befintlig edge function
+      const { data: summaryRes, error: summaryErr } = await supabase.functions.invoke(
+        "partner-sales-summary",
+        { body: { token, partnerSlug: previewPartner.slug, mode: "summary" } },
+      );
+      if (summaryErr) throw summaryErr;
+      if (summaryRes?.error) throw new Error(summaryRes.error);
+
+      const statsBlock = buildStatsBlock(previewPartner, summaryRes?.summary);
+      const tpl = templates[previewSegment];
+      const contactName = previewPartner.admin_contact_name || previewPartner.contact_person || previewPartner.name;
+      const composedBody = `${statsBlock}\n${tpl.body}`;
+      const composedSubject = `[PREVIEW – ${previewPartner.name}] ${tpl.subject}`;
+
+      // 2) Skicka via befintlig send-sales-pitch (id=null så vi inte rör partnerns riktiga pending invitation)
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+          body: JSON.stringify({
+            partners: [{ id: null, name: previewPartner.name, email: addr, contact_name: contactName }],
+            subject: composedSubject,
+            body: composedBody,
+          }),
+        },
+      );
+      if (response.status === 401) {
+        toast({ title: "Sessionen har gått ut", variant: "destructive" });
+        onSessionExpired();
+        return;
+      }
+      if (!response.ok) {
+        const txt = await response.text();
+        throw new Error(txt || "Kunde inte skicka preview");
+      }
+      toast({
+        title: "Preview skickat",
+        description: `${previewPartner.name} → ${addr}`,
+      });
+      setPreviewPartner(null);
+    } catch (err: any) {
+      console.error("preview send error", err);
+      toast({ title: "Fel vid preview-utskick", description: err.message, variant: "destructive" });
+    } finally {
+      setSendingPreview(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="space-y-4">
