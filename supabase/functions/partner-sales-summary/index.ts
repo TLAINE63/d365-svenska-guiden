@@ -153,7 +153,7 @@ async function buildSummary(
   partner: PartnerRow,
 ): Promise<{
   partner: any;
-  sajtAll: { uniqueVisitors: number; pageViews: number };
+  sajtAll: { uniqueVisitors: number; pageViews: number; valjPartnerVisits: number; komIgangVisits: number; analysesCompleted: number; partnerProfileVisitsGlobal: number; partnerClicksGlobal: number; avgTimeOnPageSec: number };
   site30: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   site90: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   partnerAll: SummaryWindow;
