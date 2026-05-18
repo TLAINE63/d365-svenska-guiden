@@ -65,7 +65,7 @@ Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 
 
 Ni ligger redan bra till – och är en del av den grupp som sätter strukturen framåt.
 
-Vill ni fortsätta vara med enligt detta upplägg, svara bara "ok" så löser vi resten.
+Vill ni fortsätta vara med enligt detta upplägg, svara bara **OK** så löser vi resten.
 
 Pris, villkor och nedladdningsbart avtal: https://d365.se/avtalssida
 
@@ -105,7 +105,7 @@ Priset ligger fast under 2026
 
 Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 kr/mån (tidigare 1 990 kr).
 
-Vill ni vara med enligt detta upplägg, svara bara "ok" så lägger vi in er och skickar profileringslänken.
+Vill ni vara med enligt detta upplägg, svara bara **OK** så lägger vi in er och skickar profileringslänken.
 
 Pris, villkor och nedladdningsbart avtal:
 
@@ -121,7 +121,7 @@ Thomas & Michael`,
   },
 };
 
-const STORAGE_KEY = "admin_sales_pitch_v2_templates_v4";
+const STORAGE_KEY = "admin_sales_pitch_v2_templates_v5";
 
 interface Props {
   token: string;
@@ -436,39 +436,95 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     });
   };
 
-  const buildStatsBlock = (partner: PartnerRow, summary: any): string => {
+  const buildStatsHtml = (partner: PartnerRow, summary: any): string => {
     const s = guardSummary(summary, partner.name) || {};
     const sajtAll = s.sajtAll || {};
     const pAll = s.partnerAll || {};
     const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
     const topCompanies = companies.slice(0, 25);
 
-    const lines: string[] = [];
-    lines.push("── INTERNT PREVIEW (skickas INTE till partnern) ──");
-    lines.push(`Partner: ${partner.name}`);
-    lines.push("");
-    lines.push(`Sajtbesökare totalt (sedan start): ${fmt(sajtAll.uniqueVisitors)} unika sessioner · ${fmt(sajtAll.pageViews)} sidvisningar`);
-    lines.push("");
-    lines.push(`Visningar av ${partner.name}s profilsida (totalt): ${fmt(pAll.profileVisits ?? 0)}`);
-    lines.push("");
-    lines.push(`Klick vidare till ${partner.name}s sajt från profilsidan (totalt): ${fmt(pAll.websiteClicks ?? 0)}`);
-    lines.push("");
+    const avgSec = Number(sajtAll.avgTimeOnPageSec || 0);
+    const avgMin = Math.floor(avgSec / 60);
+    const avgRest = avgSec % 60;
+    const avgStr = avgMin > 0 ? `${avgMin}m ${avgRest}s` : `${avgRest}s`;
 
-    if (topCompanies.length > 0) {
-      lines.push(`Identifierade besökande företag (från Snitcher) – topp ${topCompanies.length} av ${companies.length}:`);
-      for (const c of topCompanies) {
-        const meta = [c.industry, c.country].filter(Boolean).join(" · ");
-        const tag = c.matchedProfile ? "profil" : "relaterad sida";
-        lines.push(`• ${c.name}${meta ? ` (${meta})` : ""} – ${c.sessions} sessioner [${tag}]`);
-      }
-    } else {
-      lines.push("Identifierade besökande företag: inga matchningar från Snitcher.");
+    const boxes: { label: string; value: string; hint?: string; color?: string }[] = [
+      { label: "Unika besökare", value: fmt(sajtAll.uniqueVisitors), hint: "d365.se" },
+      { label: "Sidvisningar", value: fmt(sajtAll.pageViews), hint: "d365.se" },
+      { label: "Välj partner", value: fmt(sajtAll.valjPartnerVisits), hint: "besök /valj-partner" },
+      { label: "Behovsanalyser", value: fmt(sajtAll.analysesCompleted), hint: "slutförda (leads)" },
+      { label: "Kom igång-guiden", value: fmt(sajtAll.komIgangVisits), hint: "besök /kom-igang" },
+      { label: "Partnerprofiler", value: fmt(sajtAll.partnerProfileVisitsGlobal), hint: "globalt" },
+      { label: "Partnerklick", value: fmt(sajtAll.partnerClicksGlobal), hint: "globalt" },
+      { label: "Snitt-tid på sida", value: avgStr, hint: "engagemang" },
+      { label: `Visad i filterresultat`, value: fmt(pAll.filterExposures ?? 0), hint: partner.name, color: "#ea580c" },
+      { label: "Klick på partnerkort", value: fmt(pAll.cardClicks ?? 0), hint: partner.name, color: "#ea580c" },
+      { label: "Besök på profilsida", value: fmt(pAll.profileVisits ?? 0), hint: partner.name, color: "#ea580c" },
+      { label: "Klick till hemsida", value: fmt(pAll.websiteClicks ?? 0), hint: partner.name, color: "#ea580c" },
+    ];
+
+    const boxHtml = boxes
+      .map(
+        (b) => `
+        <td width="25%" valign="top" style="padding:6px">
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 12px;text-align:left">
+            <div style="font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.4px;font-weight:600">${b.label}</div>
+            <div style="font-size:22px;font-weight:800;color:${b.color || "#1e3a5f"};line-height:1.1;margin-top:6px">${b.value}</div>
+            ${b.hint ? `<div style="font-size:11px;color:#94a3b8;margin-top:4px">${b.hint}</div>` : ""}
+          </div>
+        </td>`,
+      )
+      .join("");
+
+    // Build rows of 4 boxes
+    const rows: string[] = [];
+    for (let i = 0; i < boxes.length; i += 4) {
+      const slice = boxes.slice(i, i + 4);
+      rows.push(
+        `<tr>${slice
+          .map(
+            (b) => `
+        <td width="25%" valign="top" style="padding:6px">
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 12px;text-align:left">
+            <div style="font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.4px;font-weight:600">${b.label}</div>
+            <div style="font-size:22px;font-weight:800;color:${b.color || "#1e3a5f"};line-height:1.1;margin-top:6px">${b.value}</div>
+            ${b.hint ? `<div style="font-size:11px;color:#94a3b8;margin-top:4px">${b.hint}</div>` : ""}
+          </div>
+        </td>`,
+          )
+          .join("")}</tr>`,
+      );
     }
-    lines.push("");
-    lines.push("── Mallens text följer nedan (justera fritt innan vidaresändning) ──");
-    lines.push("");
-    return lines.join("\n");
+
+    const companiesHtml = topCompanies.length
+      ? `<h3 style="margin:28px 0 10px;font-size:15px;color:#0f172a">Identifierade besökande företag (topp ${topCompanies.length} av ${companies.length})</h3>
+         <ul style="margin:0;padding-left:20px;color:#334155;font-size:13px;line-height:1.6">
+           ${topCompanies
+             .map((c: any) => {
+               const meta = [c.industry, c.country].filter(Boolean).join(" · ");
+               const tag = c.matchedProfile ? "profil" : "relaterad sida";
+               return `<li><strong>${esc(c.name)}</strong>${meta ? ` <span style="color:#64748b">(${esc(meta)})</span>` : ""} – ${c.sessions} sessioner <span style="color:#94a3b8">[${tag}]</span></li>`;
+             })
+             .join("")}
+         </ul>`
+      : `<p style="margin:24px 0 0;color:#64748b;font-size:13px">Identifierade besökande företag: inga matchningar från Snitcher.</p>`;
+
+    return `
+<div style="margin:32px 0 0;padding:24px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+  <div style="font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Internt preview – skickas INTE till partnern</div>
+  <h2 style="margin:6px 0 4px;font-size:20px;color:#0f172a">Säljunderlag för ${esc(partner.name)}</h2>
+  <p style="margin:0 0 14px;color:#64748b;font-size:13px">Nyckeltal från d365.se (sajttotaler) och ${esc(partner.name)}s exponering.</p>
+  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0">
+    ${rows.join("")}
+  </table>
+  ${companiesHtml}
+</div>`;
   };
+
+  function esc(v: any) {
+    return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
 
   const sendPreview = async () => {
     if (!previewPartner) return;
@@ -488,10 +544,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       if (summaryErr) throw summaryErr;
       if (summaryRes?.error) throw new Error(summaryRes.error);
 
-      const statsBlock = buildStatsBlock(previewPartner, summaryRes?.summary);
+      const statsHtml = buildStatsHtml(previewPartner, summaryRes?.summary);
       const tpl = templates[previewSegment];
       const contactName = previewPartner.admin_contact_name || previewPartner.contact_person || previewPartner.name;
-      const composedBody = `${statsBlock}\n${tpl.body}`;
       const composedSubject = `[PREVIEW – ${previewPartner.name}] ${tpl.subject}`;
 
       // 2) Skicka via befintlig send-sales-pitch (id=null så vi inte rör partnerns riktiga pending invitation)
@@ -507,7 +562,8 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           body: JSON.stringify({
             partners: [{ id: null, name: previewPartner.name, email: addr, contact_name: contactName }],
             subject: composedSubject,
-            body: composedBody,
+            body: tpl.body,
+            previewSuffixHtml: statsHtml,
           }),
         },
       );

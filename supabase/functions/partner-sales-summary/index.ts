@@ -153,7 +153,7 @@ async function buildSummary(
   partner: PartnerRow,
 ): Promise<{
   partner: any;
-  sajtAll: { uniqueVisitors: number; pageViews: number };
+  sajtAll: { uniqueVisitors: number; pageViews: number; valjPartnerVisits: number; komIgangVisits: number; analysesCompleted: number; partnerProfileVisitsGlobal: number; partnerClicksGlobal: number; avgTimeOnPageSec: number };
   site30: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   site90: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   partnerAll: SummaryWindow;
@@ -233,18 +233,34 @@ async function buildSummary(
   const globalClicks30 = gc30.count || 0;
   const globalClicks90 = gc90.count || 0;
 
-  // ── Sajttotaler all-time (unika sessioner + sidvisningar) ──────────
-  const [vAllSessions, vAllPv] = await Promise.all([
-    supabase.from("visitor_analytics").select("session_id").limit(200000),
+  // ── Sajttotaler all-time (unika sessioner + sidvisningar + nyckelsidor) ──
+  const [vAllSessions, vAllPv, valjPartnerRes, komIgangRes, analysesAllRes, pvAllRes, clicksAllGRes] = await Promise.all([
+    supabase.from("visitor_analytics").select("session_id, page_path, time_on_page").limit(200000),
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }),
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/valj-partner%"),
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/kom-igang%"),
+    supabase.from("leads").select("source_type, source_page", { count: "exact", head: true }).or("source_type.ilike.%analys%,source_page.ilike.%behovsanalys%"),
+    supabase.from("partner_profile_views").select("*", { count: "exact", head: true }),
+    supabase.from("partner_clicks").select("*", { count: "exact", head: true }),
   ]);
   const sessionsAll = new Set<string>();
+  let timeSum = 0, timeCount = 0;
   for (const r of vAllSessions.data || []) {
     if (r.session_id) sessionsAll.add(r.session_id);
+    if (typeof r.time_on_page === "number" && r.time_on_page > 0 && r.time_on_page < 3600) {
+      timeSum += r.time_on_page; timeCount++;
+    }
   }
+  const avgTimeOnPageSec = timeCount > 0 ? Math.round(timeSum / timeCount) : 0;
   const sajtAll = {
     uniqueVisitors: sessionsAll.size,
     pageViews: vAllPv.count || 0,
+    valjPartnerVisits: valjPartnerRes.count || 0,
+    komIgangVisits: komIgangRes.count || 0,
+    analysesCompleted: analysesAllRes.count || 0,
+    partnerProfileVisitsGlobal: pvAllRes.count || 0,
+    partnerClicksGlobal: clicksAllGRes.count || 0,
+    avgTimeOnPageSec,
   };
 
   // ── Per-partner exponering (all-time) ───────────────────────────────

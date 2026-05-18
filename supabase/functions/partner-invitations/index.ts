@@ -1960,7 +1960,7 @@ D365.se`;
 
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList, subject: overrideSubject, body: overrideBody } = body;
+      const { partners: partnerList, subject: overrideSubject, body: overrideBody, previewSuffixHtml } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
@@ -2085,6 +2085,7 @@ d365.se`;
                 <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
               </div>
               ${htmlBody}
+              ${previewSuffixHtml || ""}
             </body>
             </html>`;
 
