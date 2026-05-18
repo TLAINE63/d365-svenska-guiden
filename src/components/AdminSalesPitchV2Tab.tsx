@@ -438,53 +438,64 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   const buildStatsHtml = (partner: PartnerRow, summary: any): string => {
     const s = guardSummary(summary, partner.name) || {};
-    const sajtAll = s.sajtAll || {};
+    const d = s.dashboard || {};
     const pAll = s.partnerAll || {};
     const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
 
-    const avgSec = Number(sajtAll.avgTimeOnPageSec || 0);
+    const avgSec = Number(d.avgTimeOnPageSec || 0);
     const avgMin = Math.floor(avgSec / 60);
     const avgRest = avgSec % 60;
-    const avgStr = avgMin > 0 ? `${avgMin}m ${avgRest}s` : `${avgRest}s`;
+    const avgStr = `${avgMin}:${String(avgRest).padStart(2, "0")}`;
 
-    const boxes: { label: string; value: string; hint?: string; color?: string }[] = [
-      { label: "Unika besökare", value: fmt(sajtAll.uniqueVisitors), hint: "d365.se" },
-      { label: "Sidvisningar", value: fmt(sajtAll.pageViews), hint: "d365.se" },
-      { label: "Välj partner", value: fmt(sajtAll.valjPartnerVisits), hint: "besök /valj-partner" },
-      { label: "Behovsanalyser", value: fmt(sajtAll.analysesCompleted), hint: "slutförda (leads)" },
-      { label: "Kom igång-guiden", value: fmt(sajtAll.komIgangVisits), hint: "besök /kom-igang" },
-      { label: "Partnerprofiler", value: fmt(sajtAll.partnerProfileVisitsGlobal), hint: "globalt" },
-      { label: "Partnerklick", value: fmt(sajtAll.partnerClicksGlobal), hint: "globalt" },
-      { label: "Snitt-tid på sida", value: avgStr, hint: "engagemang" },
-      { label: `Visad i filterresultat`, value: fmt(pAll.filterExposures ?? 0), hint: partner.name, color: "#ea580c" },
-      { label: "Klick på partnerkort", value: fmt(pAll.cardClicks ?? 0), hint: partner.name, color: "#ea580c" },
-      { label: "Besök på profilsida", value: fmt(pAll.profileVisits ?? 0), hint: partner.name, color: "#ea580c" },
-      { label: "Klick till hemsida", value: fmt(pAll.websiteClicks ?? 0), hint: partner.name, color: "#ea580c" },
+    type Box = { label: string; value: string; hint?: string; accent?: "orange" | "green" };
+
+    const trafik: Box[] = [
+      { label: "Unika besökare", value: fmt(d.uniqueVisitors90d ?? 0), hint: "senaste 90 dagar", accent: "orange" },
+      { label: "Sidvisningar", value: fmt(d.pageViews90d ?? 0), hint: "senaste 90 dagar", accent: "orange" },
+      { label: "Unika besökare", value: fmt(d.uniqueVisitors30d ?? 0), hint: "senaste 30 dagar", accent: "orange" },
+      { label: "Svensk trafik", value: `${d.swedishSharePct ?? 0}%`, hint: "ren målgrupp", accent: "green" },
+    ];
+    const intent: Box[] = [
+      { label: "Välj partner", value: fmt(d.valjPartner30d ?? 0), hint: "aktiva utvärderare", accent: "orange" },
+      { label: "Behovsanalyser", value: fmt(d.behovsanalyser30d ?? 0), hint: "& kravspec", accent: "orange" },
+      { label: "Kom igång-guiden", value: fmt(d.komIgang30d ?? 0), hint: "strukturerade köpresor", accent: "orange" },
+      { label: "Leads totalt", value: fmt(d.leadsTotal ?? 0), hint: `varav ${fmt(d.leads90d ?? 0)} senaste 90d`, accent: "green" },
+    ];
+    const exponering: Box[] = [
+      { label: "Publicerade partners", value: fmt(d.publishedPartners ?? 0), accent: "orange" },
+      { label: "Partnerprofilvisningar", value: fmt(d.partnerProfileViews90d ?? 0), accent: "orange" },
+      { label: "Klick till partners", value: fmt(d.partnerClicks90d ?? 0), accent: "orange" },
+      { label: "Snitt-tid på sida", value: avgStr, hint: "min:sek", accent: "green" },
+    ];
+    const partnerBoxes: Box[] = [
+      { label: "Visad i filterresultat", value: fmt(pAll.filterExposures ?? 0), hint: partner.name, accent: "orange" },
+      { label: "Klick på partnerkort", value: fmt(pAll.cardClicks ?? 0), hint: partner.name, accent: "orange" },
+      { label: "Besök på profilsida", value: fmt(pAll.profileVisits ?? 0), hint: partner.name, accent: "orange" },
+      { label: "Klick till hemsida", value: fmt(pAll.websiteClicks ?? 0), hint: partner.name, accent: "orange" },
     ];
 
-    // Build rows of 4 boxes
-    const rows: string[] = [];
-    for (let i = 0; i < boxes.length; i += 4) {
-      const slice = boxes.slice(i, i + 4);
-      rows.push(
-        `<tr>${slice
-          .map(
-            (b) => `
+    const renderBoxes = (boxes: Box[]) =>
+      `<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0"><tr>${boxes
+        .map((b) => {
+          const barColor = b.accent === "green" ? "#16a34a" : "#ea580c";
+          return `
         <td width="25%" valign="top" style="padding:6px">
-          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 12px;text-align:left">
-            <div style="font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.4px;font-weight:600">${b.label}</div>
-            <div style="font-size:22px;font-weight:800;color:${b.color || "#1e3a5f"};line-height:1.1;margin-top:6px">${b.value}</div>
-            ${b.hint ? `<div style="font-size:11px;color:#94a3b8;margin-top:4px">${b.hint}</div>` : ""}
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-left:4px solid ${barColor};border-radius:10px;padding:14px 14px;text-align:left">
+            <div style="font-size:24px;font-weight:800;color:#0f172a;line-height:1.1">${b.value}</div>
+            <div style="font-size:13px;color:#0f172a;margin-top:6px;font-weight:600">${b.label}</div>
+            ${b.hint ? `<div style="font-size:11px;color:#94a3b8;margin-top:3px">${b.hint}</div>` : ""}
           </div>
-        </td>`,
-          )
-          .join("")}</tr>`,
-      );
-    }
+        </td>`;
+        })
+        .join("")}</tr></table>`;
+
+    const section = (title: string, boxes: Box[]) => `
+  <h3 style="margin:18px 0 8px;font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700">${title}</h3>
+  ${renderBoxes(boxes)}`;
 
     const companiesHtml = companies.length
-      ? `<h3 style="margin:28px 0 10px;font-size:15px;color:#0f172a">Identifierade besökande företag (${companies.length})</h3>
-         <ul style="margin:0;padding-left:20px;color:#334155;font-size:13px;line-height:1.6">
+      ? `<h3 style="margin:24px 0 10px;font-size:13px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700">Identifierade besökande företag (${companies.length})</h3>
+         <ul style="margin:0;padding-left:20px;color:#334155;font-size:13px;line-height:1.7">
            ${companies.map((c: any) => `<li>${esc(c.name)}</li>`).join("")}
          </ul>`
       : `<p style="margin:24px 0 0;color:#64748b;font-size:13px">Identifierade besökande företag: inga matchningar från Snitcher.</p>`;
@@ -493,10 +504,11 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 <div style="margin:32px 0 0;padding:24px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
   <div style="font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;font-weight:700">Internt preview – skickas INTE till partnern</div>
   <h2 style="margin:6px 0 4px;font-size:20px;color:#0f172a">Säljunderlag för ${esc(partner.name)}</h2>
-  <p style="margin:0 0 14px;color:#64748b;font-size:13px">Nyckeltal från d365.se (sajttotaler) och ${esc(partner.name)}s exponering.</p>
-  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0">
-    ${rows.join("")}
-  </table>
+  <p style="margin:0 0 6px;color:#64748b;font-size:13px">Live-siffror från d365.se och ${esc(partner.name)}s exponering.</p>
+  ${section("Trafik & räckvidd", trafik)}
+  ${section("Köpintention (senaste 30 dagar)", intent)}
+  ${section("Partnerexponering (90 dagar)", exponering)}
+  ${section(`${partner.name} – exponering (all-time)`, partnerBoxes)}
   ${companiesHtml}
 </div>`;
   };
