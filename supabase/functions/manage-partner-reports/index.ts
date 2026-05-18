@@ -81,6 +81,32 @@ interface CompanyEntry {
   }[];
 }
 
+const PRODUCT_LABELS: Record<string, string> = {
+  "/business-central": "Business Central",
+  "/finance-supply-chain": "Finance & Supply Chain",
+  "/d365-sales": "Sales (CRM)",
+  "/d365-customer-service": "Customer Service",
+  "/d365-field-service": "Field Service",
+  "/d365-marketing": "Customer Insights – Journeys",
+  "/d365-contact-center": "Contact Center",
+  "/crm": "CRM-översikt",
+  "/erp-oversikt": "ERP-översikt",
+  "/agents": "AI-agenter",
+  "/copilot": "Copilot",
+  "/ai-oversikt": "AI-översikt",
+  "/branschlosningar": "Branschlösningar",
+  "/valj-partner": "Välj partner",
+  "/kom-igang": "Kom igång",
+  "/kunskapscenter": "Kunskapscenter",
+  "/": "Startsidan",
+};
+function labelForPath(path: string): string {
+  if (PRODUCT_LABELS[path]) return PRODUCT_LABELS[path];
+  const stripped = path.replace(/\/$/, "");
+  if (PRODUCT_LABELS[stripped]) return PRODUCT_LABELS[stripped];
+  return path;
+}
+
 function initials(name: string | null): string {
   if (!name) return "?";
   const parts = name.trim().split(/\s+/).slice(0, 2);
