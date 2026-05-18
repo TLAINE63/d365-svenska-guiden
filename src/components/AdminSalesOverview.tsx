@@ -538,25 +538,12 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
       setStatsFiltered(filteredData.stats || null);
       setStatsTotal(totalData.stats || null);
 
-      const [guideAll, selectorAll, analysisAll] = await Promise.all([
-        supabase
-          .from("visitor_analytics")
-          .select("id", { count: "exact", head: true })
-          .like("page_path", "/kom-igang%"),
-        supabase
-          .from("visitor_analytics")
-          .select("id", { count: "exact", head: true })
-          .like("page_path", "/valj-partner%"),
-        supabase
-          .from("visitor_analytics")
-          .select("id", { count: "exact", head: true })
-          .or("page_path.like.%behovsanalys%,page_path.like.%kravspec%,page_path.like.%ai-readiness%"),
-      ]);
-
+      const countsRes = await postWithRetry({ action: "page-path-counts", token, startDate: null });
+      const countsData = await countsRes.json().catch(() => ({}));
       setSalesSummaryTotal({
-        komIgang: guideAll.count || 0,
-        valjPartner: selectorAll.count || 0,
-        analysisTotal: analysisAll.count || 0,
+        komIgang: countsData.komIgang || 0,
+        valjPartner: countsData.valjPartner || 0,
+        analysisTotal: countsData.analysisTotal || 0,
       });
     } catch (error: any) {
       console.error("Error fetching sales overview:", error);
