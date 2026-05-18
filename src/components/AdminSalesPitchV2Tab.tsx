@@ -411,10 +411,8 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   const buildStatsBlock = (partner: PartnerRow, summary: any): string => {
     const s = summary || {};
-    const sajt30 = s.sajt30 || {};
-    const sajt90 = s.sajt90 || {};
-    const p30 = s.partner30 || {};
-    const p90 = s.partner90 || {};
+    const sajtAll = s.sajtAll || {};
+    const pAll = s.partnerAll || {};
     const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
     const topCompanies = companies.slice(0, 25);
 
@@ -422,26 +420,22 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     lines.push("── INTERNT PREVIEW (skickas INTE till partnern) ──");
     lines.push(`Partner: ${partner.name}`);
     lines.push("");
-    lines.push("Sajtbesökare totalt (unika sessioner):");
-    lines.push(`• Senaste 30 dagar: ${fmt(sajt30.uniqueVisitors)}`);
-    lines.push(`• Senaste 90 dagar: ${fmt(sajt90.uniqueVisitors)}`);
+    lines.push(`Sajtbesökare totalt (sedan start): ${fmt(sajtAll.uniqueVisitors)} unika sessioner · ${fmt(sajtAll.pageViews)} sidvisningar`);
     lines.push("");
-    lines.push(`Visningar av ${partner.name}s profilsida:`);
-    lines.push(`• 30 dagar: ${fmt(p30.profileVisits ?? 0)}  ·  90 dagar: ${fmt(p90.profileVisits ?? 0)}`);
+    lines.push(`Visningar av ${partner.name}s profilsida (totalt): ${fmt(pAll.profileVisits ?? 0)}`);
     lines.push("");
-    lines.push(`Klick vidare till ${partner.name}s sajt (från profilsidan):`);
-    lines.push(`• 30 dagar: ${fmt(p30.websiteClicks ?? 0)}  ·  90 dagar: ${fmt(p90.websiteClicks ?? 0)}`);
+    lines.push(`Klick vidare till ${partner.name}s sajt från profilsidan (totalt): ${fmt(pAll.websiteClicks ?? 0)}`);
     lines.push("");
 
     if (topCompanies.length > 0) {
-      lines.push(`Identifierade besökande företag (90 dagar, från Snitcher) – topp ${topCompanies.length} av ${companies.length}:`);
+      lines.push(`Identifierade besökande företag (från Snitcher) – topp ${topCompanies.length} av ${companies.length}:`);
       for (const c of topCompanies) {
         const meta = [c.industry, c.country].filter(Boolean).join(" · ");
         const tag = c.matchedProfile ? "profil" : "relaterad sida";
         lines.push(`• ${c.name}${meta ? ` (${meta})` : ""} – ${c.sessions} sessioner [${tag}]`);
       }
     } else {
-      lines.push("Identifierade besökande företag (90 dagar): inga matchningar från Snitcher.");
+      lines.push("Identifierade besökande företag: inga matchningar från Snitcher.");
     }
     lines.push("");
     lines.push("── Mallens text följer nedan (justera fritt innan vidaresändning) ──");

@@ -155,10 +155,12 @@ async function buildSummary(
   partner: any;
   sajt30: { uniqueVisitors: number; pageViews: number };
   sajt90: { uniqueVisitors: number; pageViews: number };
+  sajtAll: { uniqueVisitors: number; pageViews: number };
   site30: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   site90: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   partner30: SummaryWindow;
   partner90: SummaryWindow;
+  partnerAll: SummaryWindow;
   topFilterContexts: { label: string; count: number }[];
   topFilterPages: { path: string; count: number }[];
   identifiedCompanies: CompanyHit[];
@@ -235,34 +237,50 @@ async function buildSummary(
   const globalClicks30 = gc30.count || 0;
   const globalClicks90 = gc90.count || 0;
 
-  // ── Per-partner exponering ──────────────────────────────────────────
+  // ── Sajttotaler all-time (unika sessioner + sidvisningar) ──────────
+  const [vAllSessions, vAllPv] = await Promise.all([
+    supabase.from("visitor_analytics").select("session_id").limit(200000),
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }),
+  ]);
+  const sessionsAll = new Set<string>();
+  for (const r of vAllSessions.data || []) {
+    if (r.session_id) sessionsAll.add(r.session_id);
+  }
+  const sajtAll = {
+    uniqueVisitors: sessionsAll.size,
+    pageViews: vAllPv.count || 0,
+  };
+
+  // ── Per-partner exponering (all-time) ───────────────────────────────
   const [
-    exposures90Res,
-    views90Res,
-    clicks90Res,
+    exposuresAllRes,
+    viewsAllRes,
+    clicksAllRes,
   ] = await Promise.all([
     supabase
       .from("partner_filter_exposures")
       .select("page_path, filter_context, viewed_at")
-      .eq("partner_slug", partner.slug)
-      .gte("viewed_at", since90),
+      .eq("partner_slug", partner.slug),
     supabase
       .from("partner_profile_views")
       .select("view_type, viewed_at")
-      .eq("partner_slug", partner.slug)
-      .gte("viewed_at", since90),
+      .eq("partner_slug", partner.slug),
     partner.name
       ? supabase
           .from("partner_clicks")
           .select("clicked_at")
           .eq("partner_name", partner.name)
-          .gte("clicked_at", since90)
       : Promise.resolve({ data: [] as any[] }),
   ]);
 
-  const exposures = exposures90Res.data || [];
-  const views = views90Res.data || [];
-  const clicks = clicks90Res.data || [];
+  const exposuresAll = exposuresAllRes.data || [];
+  const viewsAll = viewsAllRes.data || [];
+  const clicksAll = clicksAllRes.data || [];
+
+  // 90d och 30d slices från all-time-datan
+  const exposures = exposuresAll.filter((r: any) => (r.viewed_at || "") >= since90);
+  const views = viewsAll.filter((r: any) => (r.viewed_at || "") >= since90);
+  const clicks = clicksAll.filter((r: any) => (r.clicked_at || "") >= since90);
 
   const win = (arr: any[], key: string, since: string) =>
     arr.filter((r) => (r[key] || "") >= since).length;
@@ -278,6 +296,12 @@ async function buildSummary(
     cardClicks: views.filter((v: any) => v.view_type === "card_click").length,
     profileVisits: views.filter((v: any) => v.view_type === "profile_visit").length,
     websiteClicks: clicks.length,
+  };
+  const partnerAll: SummaryWindow = {
+    filterExposures: exposuresAll.length,
+    cardClicks: viewsAll.filter((v: any) => v.view_type === "card_click").length,
+    profileVisits: viewsAll.filter((v: any) => v.view_type === "profile_visit").length,
+    websiteClicks: clicksAll.length,
   };
 
   // Top filter pages (where partner shown)
@@ -559,6 +583,7 @@ ${recentNews.map((n) => {
     partner,
     sajt30: { uniqueVisitors: sessions30.size, pageViews: v30.count || 0 },
     sajt90: { uniqueVisitors: sessions90.size, pageViews: v90.count || 0 },
+    sajtAll,
     site30: {
       analysesStarted: analysisSessions30.size,
       analysesCompleted: completed30,
@@ -573,6 +598,7 @@ ${recentNews.map((n) => {
     },
     partner30,
     partner90,
+    partnerAll,
     topFilterContexts,
     topFilterPages,
     identifiedCompanies,
