@@ -529,19 +529,20 @@ case "click-stats": {
         let from = 0;
         const pageSize = 1000;
         while (true) {
-          const { data: batch, error: batchError } = await supabase
+          let q = supabase
             .from("visitor_analytics")
             .select("id, session_id, visited_at, page_path, referrer, ip_anonymized, geo_org, geo_country_code, geo_country, geo_region, geo_city, is_bounce, time_on_page_seconds")
-            .gte("visited_at", startDate)
             .order("visited_at", { ascending: false })
             .range(from, from + pageSize - 1);
+          if (startDate) q = q.gte("visited_at", startDate);
+          const { data: batch, error: batchError } = await q;
           if (batchError) throw batchError;
           if (!batch || batch.length === 0) break;
           allVisitors = allVisitors.concat(batch);
           if (batch.length < pageSize) break;
           from += pageSize;
         }
-        console.log(`[visitor-stats] Fetched ${allVisitors.length} rows since ${startDate}`);
+        console.log(`[visitor-stats] Fetched ${allVisitors.length} rows since ${startDate ?? "start"}`);
         const visitors = allVisitors;
 
         // Helper to check if visitor is from a partner organization
@@ -668,11 +669,12 @@ case "click-stats": {
           .sort((a, b) => b.visits - a.visits);
 
         // Partner clicks (website clicks) within date range, filtered by IP
-        const { data: clickData } = await supabase
+        let clickQuery = supabase
           .from("partner_clicks")
           .select("partner_name, clicked_at, ip_address_anonymized")
-          .gte("clicked_at", startDate)
           .order("clicked_at", { ascending: false });
+        if (startDate) clickQuery = clickQuery.gte("clicked_at", startDate);
+        const { data: clickData } = await clickQuery;
 
         // Historical partner name aliases
         const partnerAliases: Record<string, string> = {
