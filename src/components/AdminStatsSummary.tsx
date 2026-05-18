@@ -85,21 +85,24 @@ function getPageLabel(path: string): string {
 
 export default function AdminStatsSummary({ token, onSessionExpired }: AdminStatsSummaryProps) {
   const { toast } = useToast();
-  const [dateRange, setDateRange] = useState("30");
+  const [dateRange, setDateRange] = useState("all");
   const [isLoading, setIsLoading] = useState(false);
   const [summaryText, setSummaryText] = useState("");
 
   const generateSummary = async () => {
     setIsLoading(true);
     try {
-      const startDate = startOfDay(subDays(new Date(), parseInt(dateRange)));
-      const periodLabel = dateRange === "7" ? "senaste 7 dagarna" : dateRange === "30" ? "senaste 30 dagarna" : "senaste 90 dagarna";
+      const isAll = dateRange === "all";
+      const startDate = isAll ? null : startOfDay(subDays(new Date(), parseInt(dateRange)));
+      const periodLabel = isAll
+        ? "totalt sedan start"
+        : dateRange === "7" ? "senaste 7 dagarna" : dateRange === "30" ? "senaste 30 dagarna" : "senaste 90 dagarna";
 
       // Fetch visitor stats
       const { data: visitorData, error: visitorError } = await invokeAdminEdgeWithRetry<{ stats?: any; error?: string }>("manage-leads", {
         action: "visitor-stats",
         token,
-        startDate: startDate.toISOString(),
+        startDate: startDate ? startDate.toISOString() : null,
       });
       if (visitorError) throw visitorError;
       if (visitorData?.error) {
@@ -304,6 +307,7 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="all">Totalt (sedan start)</SelectItem>
                 <SelectItem value="7">Senaste 7 dagar</SelectItem>
                 <SelectItem value="30">Senaste 30 dagar</SelectItem>
                 <SelectItem value="90">Senaste 90 dagar</SelectItem>
