@@ -2085,6 +2085,7 @@ d365.se`;
                 <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
               </div>
               ${htmlBody}
+              ${previewSuffixHtml || ""}
             </body>
             </html>`;
 
