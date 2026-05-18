@@ -65,7 +65,7 @@ Detta ersätter den modell vi kommunicerade 27 april. Ingångspriset är nu 995 
 
 Ni ligger redan bra till – och är en del av den grupp som sätter strukturen framåt.
 
-Vill ni fortsätta vara med enligt detta upplägg, svara bara "ok" så löser vi resten.
+Vill ni fortsätta vara med enligt detta upplägg, svara bara **OK** så löser vi resten.
 
 Pris, villkor och nedladdningsbart avtal: https://d365.se/avtalssida
 
