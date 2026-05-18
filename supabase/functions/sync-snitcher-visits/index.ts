@@ -115,7 +115,8 @@ serve(async (req) => {
     let orgsScanned = 0;
     let orgsWithPartnerVisit = 0;
     let page = 1;
-    const maxPages = Math.min(Math.max(Number(body.maxPages) || 20, 1), 50);
+    const maxPages = Math.min(Math.max(Number(body.maxPages) || 50, 1), 200);
+    let lastPage = 1;
 
     while (page <= maxPages) {
       const orgResp = await snitcherFetch(
@@ -123,6 +124,7 @@ serve(async (req) => {
         SNITCHER_API_KEY,
       );
       const items: any[] = orgResp.data || [];
+      lastPage = Number(orgResp.last_page) || lastPage;
       if (items.length === 0) break;
 
       for (const org of items) {
@@ -158,7 +160,8 @@ serve(async (req) => {
         else console.error("Upsert error", org.uuid, error.message);
       }
 
-      if (items.length < 100) break;
+      // Snitcher ignores per_page and returns a fixed page size; rely on last_page from response.
+      if (page >= lastPage) break;
       page++;
     }
 
