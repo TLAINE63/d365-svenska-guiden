@@ -750,6 +750,52 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           </Button>
         </CardContent>
       </Card>
+
+      <Dialog open={!!previewPartner} onOpenChange={(open) => !open && setPreviewPartner(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Pitch-preview till mig själv</DialogTitle>
+            <DialogDescription>
+              Skickar valt mailutkast {previewPartner ? `för ${previewPartner.name}` : ""} – kompletterat med ett internt statistik-block (sajtbesökare, profilvisningar, klick till partnerns sajt och identifierade företag från Snitcher de senaste 90 dagarna). Inget skickas till partnern.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 py-2">
+            <div>
+              <Label htmlFor="preview-email">Mottagare (du)</Label>
+              <Input
+                id="preview-email"
+                value={previewEmail}
+                onChange={(e) => setPreviewEmail(e.target.value)}
+                placeholder="thomas.laine@dynamicfactory.se"
+              />
+            </div>
+            <div>
+              <Label htmlFor="preview-segment">Mall</Label>
+              <Select value={previewSegment} onValueChange={(v) => setPreviewSegment(v as SegmentKey)}>
+                <SelectTrigger id="preview-segment">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="published">{DEFAULT_TEMPLATES.published.label}</SelectItem>
+                  <SelectItem value="not_published">{DEFAULT_TEMPLATES.not_published.label}</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-[11px] text-muted-foreground mt-1">
+                Default följer partnerns status; ändra om du vill testa andra mallen.
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPreviewPartner(null)} disabled={sendingPreview}>
+              Avbryt
+            </Button>
+            <Button onClick={sendPreview} disabled={sendingPreview} className="bg-pink-600 hover:bg-pink-700 text-white">
+              <Send className="h-4 w-4 mr-2" />
+              {sendingPreview ? "Skickar…" : "Skicka preview"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
