@@ -42,6 +42,9 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [viewing, setViewing] = useState<Draft | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string>("");
+  const [previewDevice, setPreviewDevice] = useState<"desktop" | "mobile">("desktop");
+  const [testEmail, setTestEmail] = useState<string>(() => localStorage.getItem("partner_report_test_email") || "");
+  const [sendingTest, setSendingTest] = useState(false);
 
   // Explore (besök per partner) – default: senaste 90 dagarna t.o.m. idag
   const today = new Date();
