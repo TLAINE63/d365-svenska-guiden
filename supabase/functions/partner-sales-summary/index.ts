@@ -155,10 +155,12 @@ async function buildSummary(
   partner: any;
   sajt30: { uniqueVisitors: number; pageViews: number };
   sajt90: { uniqueVisitors: number; pageViews: number };
+  sajtAll: { uniqueVisitors: number; pageViews: number };
   site30: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   site90: { analysesStarted: number; analysesCompleted: number; profileViews: number; partnerClicks: number };
   partner30: SummaryWindow;
   partner90: SummaryWindow;
+  partnerAll: SummaryWindow;
   topFilterContexts: { label: string; count: number }[];
   topFilterPages: { path: string; count: number }[];
   identifiedCompanies: CompanyHit[];
