@@ -544,10 +544,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       if (summaryErr) throw summaryErr;
       if (summaryRes?.error) throw new Error(summaryRes.error);
 
-      const statsBlock = buildStatsBlock(previewPartner, summaryRes?.summary);
+      const statsHtml = buildStatsHtml(previewPartner, summaryRes?.summary);
       const tpl = templates[previewSegment];
       const contactName = previewPartner.admin_contact_name || previewPartner.contact_person || previewPartner.name;
-      const composedBody = `${statsBlock}\n${tpl.body}`;
       const composedSubject = `[PREVIEW – ${previewPartner.name}] ${tpl.subject}`;
 
       // 2) Skicka via befintlig send-sales-pitch (id=null så vi inte rör partnerns riktiga pending invitation)
@@ -563,7 +562,8 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           body: JSON.stringify({
             partners: [{ id: null, name: previewPartner.name, email: addr, contact_name: contactName }],
             subject: composedSubject,
-            body: composedBody,
+            body: tpl.body,
+            previewSuffixHtml: statsHtml,
           }),
         },
       );
