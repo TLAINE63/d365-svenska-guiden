@@ -44,7 +44,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border">
       {/* Top utility bar (desktop only) */}
-      <div className="hidden lg:block border-b border-border/60 bg-muted/30">
+      <div className="hidden lg:block border-b border-border/60 bg-background">
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-xs">
             <Link
