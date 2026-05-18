@@ -1093,6 +1093,7 @@ export type Database = {
     Views: {
       partners_public: {
         Row: {
+          agreement_signed: boolean | null
           applications: string[] | null
           contact_person: string | null
           contact_photo_url: string | null
@@ -1124,6 +1125,7 @@ export type Database = {
           youtube_video_id: string | null
         }
         Insert: {
+          agreement_signed?: boolean | null
           applications?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null
@@ -1155,6 +1157,7 @@ export type Database = {
           youtube_video_id?: string | null
         }
         Update: {
+          agreement_signed?: boolean | null
           applications?: string[] | null
           contact_person?: string | null
           contact_photo_url?: string | null

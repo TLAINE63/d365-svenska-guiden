@@ -185,6 +185,7 @@ export function usePartners() {
         admin_notes: null,
         admin_contact_name: null,
         admin_contact_email: null,
+        agreement_signed: (p as any).agreement_signed ?? false,
         youtube_video_id: (p as any).youtube_video_id || null,
       }));
     },
@@ -231,6 +232,7 @@ export function usePartner(slug: string | undefined) {
         admin_notes: null,
         admin_contact_name: null,
         admin_contact_email: null,
+        agreement_signed: (data as any).agreement_signed ?? false,
         youtube_video_id: (data as any).youtube_video_id || null,
       };
     },
