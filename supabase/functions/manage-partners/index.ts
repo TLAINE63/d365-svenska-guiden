@@ -236,7 +236,7 @@ serve(async (req: Request): Promise<Response> => {
         const [partnersRes, subsRes, invitesRes, refreshRes] = await Promise.all([
           supabase
             .from("partners")
-            .select("id, name, email, admin_contact_email, admin_contact_name, contact_person, is_featured")
+            .select("id, slug, name, email, admin_contact_email, admin_contact_name, contact_person, is_featured")
             .order("name"),
           supabase.from("partner_submissions").select("partner_id"),
           supabase.from("partner_invitations").select("partner_id, email"),
