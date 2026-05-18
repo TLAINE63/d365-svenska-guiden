@@ -10,12 +10,15 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Mail, Send, RefreshCw, Filter, AlertCircle, CheckCircle2, Eye } from "lucide-react";
 
 type SegmentKey = "published" | "not_published";
 
 interface PartnerRow {
   id: string;
+  slug: string;
   name: string;
   email: string | null;
   admin_contact_email: string | null;
