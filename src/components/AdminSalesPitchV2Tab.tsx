@@ -441,7 +441,6 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     const sajtAll = s.sajtAll || {};
     const pAll = s.partnerAll || {};
     const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
-    const topCompanies = companies.slice(0, 25);
 
     const avgSec = Number(sajtAll.avgTimeOnPageSec || 0);
     const avgMin = Math.floor(avgSec / 60);
@@ -463,19 +462,6 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       { label: "Klick till hemsida", value: fmt(pAll.websiteClicks ?? 0), hint: partner.name, color: "#ea580c" },
     ];
 
-    const boxHtml = boxes
-      .map(
-        (b) => `
-        <td width="25%" valign="top" style="padding:6px">
-          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 12px;text-align:left">
-            <div style="font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.4px;font-weight:600">${b.label}</div>
-            <div style="font-size:22px;font-weight:800;color:${b.color || "#1e3a5f"};line-height:1.1;margin-top:6px">${b.value}</div>
-            ${b.hint ? `<div style="font-size:11px;color:#94a3b8;margin-top:4px">${b.hint}</div>` : ""}
-          </div>
-        </td>`,
-      )
-      .join("");
-
     // Build rows of 4 boxes
     const rows: string[] = [];
     for (let i = 0; i < boxes.length; i += 4) {
@@ -496,16 +482,10 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       );
     }
 
-    const companiesHtml = topCompanies.length
-      ? `<h3 style="margin:28px 0 10px;font-size:15px;color:#0f172a">Identifierade besökande företag (topp ${topCompanies.length} av ${companies.length})</h3>
+    const companiesHtml = companies.length
+      ? `<h3 style="margin:28px 0 10px;font-size:15px;color:#0f172a">Identifierade besökande företag (${companies.length})</h3>
          <ul style="margin:0;padding-left:20px;color:#334155;font-size:13px;line-height:1.6">
-           ${topCompanies
-             .map((c: any) => {
-               const meta = [c.industry, c.country].filter(Boolean).join(" · ");
-               const tag = c.matchedProfile ? "profil" : "relaterad sida";
-               return `<li><strong>${esc(c.name)}</strong>${meta ? ` <span style="color:#64748b">(${esc(meta)})</span>` : ""} – ${c.sessions} sessioner <span style="color:#94a3b8">[${tag}]</span></li>`;
-             })
-             .join("")}
+           ${companies.map((c: any) => `<li>${esc(c.name)}</li>`).join("")}
          </ul>`
       : `<p style="margin:24px 0 0;color:#64748b;font-size:13px">Identifierade besökande företag: inga matchningar från Snitcher.</p>`;
 
