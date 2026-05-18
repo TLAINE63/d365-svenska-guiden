@@ -239,8 +239,8 @@ export default function AdminSalesPitchTab({ token, onSessionExpired }: AdminSal
         <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Partnerexponering (90 dagar)</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <Stat icon={Users} value={stats.publishedPartners} label="Publicerade partners" />
-          <Stat icon={Eye} value={stats.profileViews90d} label="Profilvisningar" />
-          <Stat icon={MousePointerClick} value={stats.partnerClicks90d} label="Klick mot partners" />
+          <Stat icon={Eye} value={stats.profileViews90d} label="Partnerprofilvisningar" />
+          <Stat icon={MousePointerClick} value={stats.partnerClicks90d} label="Klick till partners" />
           <Stat icon={TrendingUp} value={formatTime(stats.avgTimeSec)} label="Snitt-tid på sida" sublabel="min:sek" accent="hsl(142 76% 36%)" />
         </div>
       </div>
