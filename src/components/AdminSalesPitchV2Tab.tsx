@@ -461,12 +461,6 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       { label: "Kom igång-guiden", value: fmt(d.komIgang30d ?? 0), hint: "strukturerade köpresor", accent: "orange" },
       { label: "Leads totalt", value: fmt(d.leadsTotal ?? 0), hint: `varav ${fmt(d.leads90d ?? 0)} senaste 90d`, accent: "green" },
     ];
-    const exponering: Box[] = [
-      { label: "Publicerade partners", value: fmt(d.publishedPartners ?? 0), accent: "orange" },
-      { label: "Partnerprofilvisningar", value: fmt(d.partnerProfileViews90d ?? 0), accent: "orange" },
-      { label: "Klick till partners", value: fmt(d.partnerClicks90d ?? 0), accent: "orange" },
-      { label: "Snitt-tid på sida", value: avgStr, hint: "min:sek", accent: "green" },
-    ];
     const partnerBoxes: Box[] = [
       { label: "Visad i filterresultat", value: fmt(pAll.filterExposures ?? 0), hint: partner.name, accent: "orange" },
       { label: "Klick på partnerkort", value: fmt(pAll.cardClicks ?? 0), hint: partner.name, accent: "orange" },
