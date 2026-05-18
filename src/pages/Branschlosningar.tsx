@@ -261,6 +261,9 @@ const Branschlosningar = () => {
         })
       )
       .sort((a, b) => {
+        const aSigned = (a as any).agreement_signed ? 1 : 0;
+        const bSigned = (b as any).agreement_signed ? 1 : 0;
+        if (aSigned !== bSigned) return bSigned - aSigned;
         const rankA = Math.min(
           ...keys.map(k => a.product_filters?.[k]?.ranking ?? 999)
         );
