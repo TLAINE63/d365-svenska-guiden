@@ -501,7 +501,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   <p style="margin:0 0 6px;color:#64748b;font-size:13px">Live-siffror från d365.se och ${esc(partner.name)}s exponering.</p>
   ${section("Trafik & räckvidd", trafik)}
   ${section("Köpintention (senaste 30 dagar)", intent)}
-  ${section("Partnerexponering (90 dagar)", exponering)}
+  
   ${section(`${partner.name} – exponering (all-time)`, partnerBoxes)}
   ${companiesHtml}
 </div>`;
