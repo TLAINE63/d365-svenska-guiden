@@ -779,6 +779,27 @@ case "click-stats": {
         );
       }
 
+      case "page-path-counts": {
+        const { startDate: pStart = null } = data;
+        const runCount = async (filter: (q: any) => any) => {
+          let q = supabase.from("visitor_analytics").select("id", { count: "exact", head: true });
+          q = filter(q);
+          if (pStart) q = q.gte("visited_at", pStart);
+          const { count, error } = await q;
+          if (error) throw error;
+          return count || 0;
+        };
+        const [komIgang, valjPartner, analysisTotal] = await Promise.all([
+          runCount((q) => q.like("page_path", "/kom-igang%")),
+          runCount((q) => q.like("page_path", "/valj-partner%")),
+          runCount((q) => q.or("page_path.like.%behovsanalys%,page_path.like.%kravspec%,page_path.like.%ai-readiness%")),
+        ]);
+        return new Response(
+          JSON.stringify({ komIgang, valjPartner, analysisTotal }),
+          { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
       default:
         return new Response(
           JSON.stringify({ error: "Invalid action" }),
