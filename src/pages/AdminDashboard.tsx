@@ -1868,9 +1868,9 @@ Thomas`,
         </div>
 
         <div className="container mx-auto px-4 py-8">
-        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-sm text-amber-100">
+        <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-amber-500/40 bg-amber-50 dark:bg-amber-950/30 px-4 py-2 text-sm text-amber-900 dark:text-amber-100">
           <span className="font-medium">All statistik utgår från d365.se</span>
-          <span className="text-amber-200/70">– trafik från preview/staging spåras inte och syns inte i siffrorna.</span>
+          <span className="text-amber-800/80 dark:text-amber-200/70">– trafik från preview/staging spåras inte och syns inte i siffrorna.</span>
         </div>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
           {/* Group selector */}
