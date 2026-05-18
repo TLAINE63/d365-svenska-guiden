@@ -583,6 +583,7 @@ ${recentNews.map((n) => {
     partner,
     sajt30: { uniqueVisitors: sessions30.size, pageViews: v30.count || 0 },
     sajt90: { uniqueVisitors: sessions90.size, pageViews: v90.count || 0 },
+    sajtAll,
     site30: {
       analysesStarted: analysisSessions30.size,
       analysesCompleted: completed30,
@@ -597,6 +598,7 @@ ${recentNews.map((n) => {
     },
     partner30,
     partner90,
+    partnerAll,
     topFilterContexts,
     topFilterPages,
     identifiedCompanies,
