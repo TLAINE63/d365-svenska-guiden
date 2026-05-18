@@ -649,6 +649,7 @@ ${recentNews.map((n) => {
   return {
     partner,
     sajtAll,
+    dashboard,
     site30: {
       analysesStarted: analysisSessions30.size,
       analysesCompleted: completed30,
