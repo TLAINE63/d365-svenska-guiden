@@ -538,12 +538,11 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
       setStatsFiltered(filteredData.stats || null);
       setStatsTotal(totalData.stats || null);
 
-      const countsRes = await postWithRetry({ action: "page-path-counts", token, startDate: null });
-      const countsData = await countsRes.json().catch(() => ({}));
+      const t = totalData.stats || {};
       setSalesSummaryTotal({
-        komIgang: countsData.komIgang || 0,
-        valjPartner: countsData.valjPartner || 0,
-        analysisTotal: countsData.analysisTotal || 0,
+        komIgang: t.komIgangCount || 0,
+        valjPartner: t.valjPartnerCount || 0,
+        analysisTotal: t.analysisCount || 0,
       });
     } catch (error: any) {
       console.error("Error fetching sales overview:", error);
