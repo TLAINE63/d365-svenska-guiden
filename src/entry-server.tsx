@@ -160,7 +160,8 @@ export function render(url: string) {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/crm" element={<CRM />} />
-              <Route path="/business-central" element={<BusinessCentral />} />
+              <Route path="/businesscentral" element={<BusinessCentral />} />
+              <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
               <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
               <Route path="/erp" element={<ERPOverview />} />
               <Route path="/affarssystem" element={<Affarssystem />} />
