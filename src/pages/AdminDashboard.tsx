@@ -102,6 +102,7 @@ import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
 import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminGscTab from "@/components/AdminGscTab";
+import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
