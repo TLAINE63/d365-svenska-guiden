@@ -886,6 +886,154 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
         </div>
       )}
 
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <div>
+              <CardTitle className="text-base flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                Ersättningslogg: {"{{SITE_STATS}} / {{SNITCHER_COMPANIES}}"}
+              </CardTitle>
+              <CardDescription className="text-xs">
+                Vad varje mottagare faktiskt fick i sitt mail (källa, bild-URL, fallback).
+              </CardDescription>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => { setLogsOpen((o) => !o); if (!logsOpen && logs.length === 0) fetchPitchLogs(); }}
+              >
+                {logsOpen ? "Dölj logg" : "Visa logg"}
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={fetchPitchLogs} disabled={logsLoading}>
+                <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${logsLoading ? "animate-spin" : ""}`} />
+                Uppdatera
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        {logsOpen && (
+          <CardContent className="space-y-3">
+            {logsSummary && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                <div className="rounded border bg-muted/40 p-2">
+                  <div className="text-muted-foreground">Totalt</div>
+                  <div className="text-lg font-semibold">{logsSummary.total}</div>
+                </div>
+                <div className="rounded border bg-muted/40 p-2">
+                  <div className="text-muted-foreground">Site-stats fallback</div>
+                  <div className={`text-lg font-semibold ${logsSummary.siteStatsFallback > 0 ? "text-amber-600" : "text-emerald-600"}`}>
+                    {logsSummary.siteStatsFallback}
+                  </div>
+                </div>
+                <div className="rounded border bg-muted/40 p-2">
+                  <div className="text-muted-foreground">Snitcher fallback</div>
+                  <div className={`text-lg font-semibold ${logsSummary.snitcherFallback > 0 ? "text-amber-600" : "text-emerald-600"}`}>
+                    {logsSummary.snitcherFallback}
+                  </div>
+                </div>
+                <div className="rounded border bg-muted/40 p-2">
+                  <div className="text-muted-foreground">Suffix använd (utan placeholder)</div>
+                  <div className="text-lg font-semibold">{logsSummary.suffixAppended}</div>
+                </div>
+              </div>
+            )}
+
+            {logsLoading && <div className="text-xs text-muted-foreground">Laddar…</div>}
+            {!logsLoading && logs.length === 0 && (
+              <div className="text-xs text-muted-foreground">Ingen logg ännu. Skicka ett mail för att se data här.</div>
+            )}
+
+            {logs.length > 0 && (
+              <div className="overflow-auto max-h-[500px] border rounded">
+                <table className="w-full text-xs">
+                  <thead className="bg-muted/60 sticky top-0">
+                    <tr className="text-left">
+                      <th className="p-2">Tid</th>
+                      <th className="p-2">Mottagare</th>
+                      <th className="p-2">Status</th>
+                      <th className="p-2">SITE_STATS</th>
+                      <th className="p-2">SNITCHER_COMPANIES</th>
+                      <th className="p-2">Suffix</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {logs.map((l) => {
+                      const ss = l.metadata?.site_stats || {};
+                      const sn = l.metadata?.snitcher_companies || {};
+                      return (
+                        <tr key={l.id} className="border-t align-top">
+                          <td className="p-2 whitespace-nowrap text-muted-foreground">
+                            {new Date(l.created_at).toLocaleString("sv-SE")}
+                          </td>
+                          <td className="p-2">
+                            <div className="font-medium">{l.recipient_email}</div>
+                            <div className="text-[11px] text-muted-foreground">{l.metadata?.partner_name}</div>
+                          </td>
+                          <td className="p-2">
+                            <Badge variant={l.status === "sent" ? "secondary" : "destructive"} className="text-[10px]">
+                              {l.status}
+                            </Badge>
+                            {l.error_message && (
+                              <div className="text-[10px] text-red-600 mt-0.5 max-w-[180px] truncate" title={l.error_message}>
+                                {l.error_message}
+                              </div>
+                            )}
+                          </td>
+                          <td className="p-2">
+                            <Badge
+                              variant="outline"
+                              className={`text-[10px] ${ss.source === "server-fallback" ? "border-amber-400 text-amber-700" : "border-emerald-400 text-emerald-700"}`}
+                            >
+                              {ss.source || "—"}
+                            </Badge>
+                            <div className="text-[10px] text-muted-foreground">
+                              placeholder: {String(ss.placeholder_in_body ?? "—")}
+                            </div>
+                            {ss.img_url && (
+                              <a href={ss.img_url} target="_blank" rel="noopener noreferrer" className="text-[10px] text-blue-600 underline break-all">
+                                {ss.img_url.split("/").pop()}
+                              </a>
+                            )}
+                          </td>
+                          <td className="p-2">
+                            <Badge
+                              variant="outline"
+                              className={`text-[10px] ${sn.source === "server-fallback" ? "border-amber-400 text-amber-700" : "border-emerald-400 text-emerald-700"}`}
+                            >
+                              {sn.source || "—"}
+                            </Badge>
+                            <div className="text-[10px] text-muted-foreground">
+                              placeholder: {String(sn.placeholder_in_body ?? "—")}
+                            </div>
+                            {sn.img_url && (
+                              <a href={sn.img_url} target="_blank" rel="noopener noreferrer" className="text-[10px] text-blue-600 underline break-all">
+                                {sn.img_url.split("/").pop()}
+                              </a>
+                            )}
+                          </td>
+                          <td className="p-2 text-center">
+                            {l.metadata?.suffix_appended ? (
+                              <Badge variant="outline" className="text-[10px] border-amber-400 text-amber-700">ja</Badge>
+                            ) : (
+                              <span className="text-muted-foreground text-[10px]">nej</span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </CardContent>
+        )}
+      </Card>
+
+
+
 
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SegmentKey)}>
         <TabsList className="grid grid-cols-2 w-full">
