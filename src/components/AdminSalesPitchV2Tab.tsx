@@ -539,6 +539,17 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   // Kontroll: varna om bilderna saknas på publika sajten så placeholders inte blir trasiga i mailen.
   const [missingAssets, setMissingAssets] = useState<{ label: string; url: string }[]>([]);
+  const [payloadOpen, setPayloadOpen] = useState(false);
+  const [payloadLoading, setPayloadLoading] = useState(false);
+  const [payloadData, setPayloadData] = useState<{
+    siteStatsUrl: string;
+    snitcherUrl: string;
+    siteStatsHtml: string;
+    snitcherCompaniesHtml: string;
+    anchorSlug: string | null;
+    headStatusSiteStats: number | null;
+    headStatusSnitcher: number | null;
+  } | null>(null);
   const [assetCheckLoading, setAssetCheckLoading] = useState(false);
   const checkEmailAssets = async () => {
     const assets = [
@@ -609,6 +620,40 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   // Bakåtkompatibilitet
   const fetchSiteStatsHtml = async (): Promise<string> => (await fetchEmailBlocks()).siteStatsHtml;
+
+  const inspectPayload = async () => {
+    setPayloadLoading(true);
+    try {
+      const anchor = partners.find((p) => p.is_featured && p.slug) || partners.find((p) => p.slug) || partners[0];
+      const blocks = await fetchEmailBlocks();
+      let s1: number | null = null;
+      let s2: number | null = null;
+      try { s1 = (await fetch(SITE_STATS_IMG_URL, { method: "HEAD", cache: "no-store" })).status; } catch { s1 = null; }
+      try { s2 = (await fetch(SNITCHER_IMG_URL, { method: "HEAD", cache: "no-store" })).status; } catch { s2 = null; }
+      setPayloadData({
+        siteStatsUrl: SITE_STATS_IMG_URL,
+        snitcherUrl: SNITCHER_IMG_URL,
+        siteStatsHtml: blocks.siteStatsHtml,
+        snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
+        anchorSlug: anchor?.slug ?? null,
+        headStatusSiteStats: s1,
+        headStatusSnitcher: s2,
+      });
+      setPayloadOpen(true);
+    } finally {
+      setPayloadLoading(false);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    try {
+      navigator.clipboard.writeText(text);
+      toast({ title: "Kopierat" });
+    } catch {
+      toast({ title: "Kunde inte kopiera", variant: "destructive" });
+    }
+  };
+
 
   const insertPlaceholder = (placeholder: string) => {
     const id = `body-${activeTab}`;
@@ -785,9 +830,21 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       )}
 
       {missingAssets.length === 0 && !assetCheckLoading && (
-        <div className="flex items-center gap-2 text-xs text-emerald-700">
-          <CheckCircle2 className="h-3.5 w-3.5" />
-          Alla e-postbilder ({SITE_STATS_IMG_URL.split("/").pop()}, {SNITCHER_IMG_URL.split("/").pop()}) finns publikt.
+        <div className="flex items-center justify-between gap-2 text-xs text-emerald-700">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-3.5 w-3.5" />
+            Alla e-postbilder ({SITE_STATS_IMG_URL.split("/").pop()}, {SNITCHER_IMG_URL.split("/").pop()}) finns publikt.
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={inspectPayload}
+            disabled={payloadLoading}
+          >
+            <Eye className={`h-3.5 w-3.5 mr-1.5 ${payloadLoading ? "animate-pulse" : ""}`} />
+            {payloadLoading ? "Hämtar…" : "Visa exakt utskicks-payload"}
+          </Button>
         </div>
       )}
 
@@ -1035,6 +1092,59 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             <Button onClick={sendPreview} disabled={sendingPreview} className="bg-pink-600 hover:bg-pink-700 text-white">
               <Send className="h-4 w-4 mr-2" />
               {sendingPreview ? "Skickar…" : "Skicka preview"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={payloadOpen} onOpenChange={setPayloadOpen}>
+        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Exakt utskicks-payload</DialogTitle>
+            <DialogDescription>
+              Detta är de exakta URL:er och HTML-block som skickas med varje införsäljnings-mail just nu.
+              Ankare-partner för site-stats: <code>{payloadData?.anchorSlug ?? "—"}</code>
+            </DialogDescription>
+          </DialogHeader>
+          {payloadData && (
+            <div className="space-y-5 text-sm">
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">Sajtstatistik-bild URL (HEAD {payloadData.headStatusSiteStats ?? "fail"})</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.siteStatsUrl)}>Kopiera</Button>
+                </div>
+                <code className="block p-2 bg-muted rounded text-xs break-all">{payloadData.siteStatsUrl}</code>
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">Snitcher-bild URL (HEAD {payloadData.headStatusSnitcher ?? "fail"})</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.snitcherUrl)}>Kopiera</Button>
+                </div>
+                <code className="block p-2 bg-muted rounded text-xs break-all">{payloadData.snitcherUrl}</code>
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">siteStatsHtml (skickas i body)</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.siteStatsHtml)}>Kopiera</Button>
+                </div>
+                <Textarea readOnly value={payloadData.siteStatsHtml} className="font-mono text-[11px] h-32" />
+                <div className="mt-2 p-3 border rounded bg-white" dangerouslySetInnerHTML={{ __html: payloadData.siteStatsHtml }} />
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">snitcherCompaniesHtml (skickas i body)</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.snitcherCompaniesHtml)}>Kopiera</Button>
+                </div>
+                <Textarea readOnly value={payloadData.snitcherCompaniesHtml} className="font-mono text-[11px] h-32" />
+                <div className="mt-2 p-3 border rounded bg-white" dangerouslySetInnerHTML={{ __html: payloadData.snitcherCompaniesHtml }} />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPayloadOpen(false)}>Stäng</Button>
+            <Button onClick={inspectPayload} disabled={payloadLoading}>
+              <RefreshCw className={`h-4 w-4 mr-2 ${payloadLoading ? "animate-spin" : ""}`} />
+              Hämta igen
             </Button>
           </DialogFooter>
         </DialogContent>
