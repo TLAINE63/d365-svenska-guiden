@@ -267,6 +267,10 @@ const PartnerCard = ({
             <img 
               src={partner.logo_url} 
               alt={`${partner.name} logotyp`}
+              width="72"
+              height="72"
+              loading="lazy"
+              decoding="async"
               className={`w-[4.5rem] h-[4.5rem] object-contain rounded-lg p-2 border ${
                 partner.logo_dark_bg 
                   ? 'bg-slate-700 border-slate-600 brightness-125 drop-shadow-[0_0_4px_rgba(255,255,255,0.2)]' 
@@ -394,7 +398,7 @@ const PartnerCard = ({
                     className="text-xs bg-accent text-accent-foreground border-0 font-medium shadow-sm hover:shadow-md hover:bg-accent/90 transition-all"
                   >
                     {appIcon && (
-                      <img src={appIcon} alt="" aria-hidden="true" className="w-4 h-4 mr-1.5" />
+                      <img src={appIcon} alt="" aria-hidden="true" width="16" height="16" loading="lazy" decoding="async" className="w-4 h-4 mr-1.5" />
                     )}
                     {app}
                   </Badge>

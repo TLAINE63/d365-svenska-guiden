@@ -28,6 +28,8 @@ const VideoCard = ({ title, description, videoId }: VideoCardProps) => {
               className="absolute inset-0 w-full h-full"
               src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`}
               title={title}
+              width="1280"
+              height="720"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
@@ -41,11 +43,15 @@ const VideoCard = ({ title, description, videoId }: VideoCardProps) => {
                 src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
                 alt={title}
                 className="w-full h-full object-cover"
+                width="1280"
+                height="720"
                 loading="lazy"
+                decoding="async"
                 onError={(e) => {
                   e.currentTarget.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
                 }}
               />
+
               <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 bg-destructive rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
                   <Play className="w-8 h-8 sm:w-10 sm:h-10 text-destructive-foreground ml-1" fill="currentColor" />

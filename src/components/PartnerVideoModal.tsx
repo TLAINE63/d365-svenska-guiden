@@ -21,6 +21,8 @@ const PartnerVideoModal = ({ videoId, partnerName, onClose }: PartnerVideoModalP
               src={youtubeEmbedUrl(videoId)}
               title={`Video från ${partnerName}`}
               className="w-full h-full"
+              width="1280"
+              height="720"
               frameBorder={0}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
