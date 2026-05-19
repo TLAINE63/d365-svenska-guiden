@@ -1561,7 +1561,13 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://www.d365.se";
+      const baseUrl = PUBLIC_BASE_URL;
+      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
+        ? siteStatsHtml
+        : salesPitchSiteStatsHtml();
+      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
+        ? snitcherCompaniesHtml
+        : salesPitchSnitcherHtml();
       const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
       const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges oberoende guide till Dynamics 365";
       const emailBody = customBody || "Hej,\n\nVi vill gärna ha med er som partner på d365.se.\n\n{{INVITATION_LINK}}\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
@@ -2100,13 +2106,15 @@ d365.se`;
           const hasSiteStatsPlaceholder = /\{\{SITE_STATS\}\}/.test(personalizedBody);
           const hasSnitcherPlaceholder = /\{\{SNITCHER_COMPANIES\}\}/.test(personalizedBody);
           htmlBody = htmlBody
-            .replace(/<p>\s*\{\{SITE_STATS\}\}\s*<\/p>/g, siteStatsHtml || "")
-            .replace(/\{\{SITE_STATS\}\}/g, siteStatsHtml || "")
-            .replace(/<p>\s*\{\{SNITCHER_COMPANIES\}\}\s*<\/p>/g, snitcherCompaniesHtml || "")
-            .replace(/\{\{SNITCHER_COMPANIES\}\}/g, snitcherCompaniesHtml || "");
+            .replace(/<p>\s*\{\{SITE_STATS\}\}\s*<\/p>/g, resolvedSiteStatsHtml)
+            .replace(/\{\{SITE_STATS\}\}/g, resolvedSiteStatsHtml)
+            .replace(/<p>\s*\{\{SNITCHER_COMPANIES\}\}\s*<\/p>/g, resolvedSnitcherCompaniesHtml)
+            .replace(/\{\{SNITCHER_COMPANIES\}\}/g, resolvedSnitcherCompaniesHtml);
 
           // Fallback: if no inline placeholders, keep legacy behaviour (append at the end)
-          const suffix = (!hasSiteStatsPlaceholder && !hasSnitcherPlaceholder) ? (previewSuffixHtml || "") : "";
+          const suffix = (!hasSiteStatsPlaceholder && !hasSnitcherPlaceholder)
+            ? (previewSuffixHtml || `${resolvedSiteStatsHtml}${resolvedSnitcherCompaniesHtml}`)
+            : "";
 
           const fullHtml = `<!DOCTYPE html>
             <html>
