@@ -181,8 +181,10 @@ export function render(url: string) {
               <Route path="/sok" element={<Navigate to="/AIsok" replace />} />
               <Route path="/dataskydd" element={<PrivacyPolicy />} />
               <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
+              <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
               <Route path="/kom-igang" element={<KomIgang />} />
               <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
+              <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
               <Route path="/branschlosningar" element={<Navigate to="/branscher/" replace />} />
               <Route path="/branschlosningar/*" element={<Navigate to="/branscher/" replace />} />
