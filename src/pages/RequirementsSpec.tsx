@@ -175,7 +175,7 @@ const RequirementsSpec = () => {
     <>
       <SEOHead
         title="Kravspecifikation för Dynamics 365 ERP | d365.se"
-        description="Skapa en systemoberoende kravspecifikation för ERP. Anpassad efter din bransch med AI-berikade krav, KPI:er och produktrekommendation."
+        description="Skapa en systemoberoende kravspecifikation för ERP. Anpassad efter din bransch med AI-berikade krav, KPI:er och produktrekommendation. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/kravspecifikation"
       />
       <BreadcrumbSchema items={breadcrumbs} />

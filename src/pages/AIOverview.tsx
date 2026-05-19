@@ -196,12 +196,12 @@ const AIOverview = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="AI i Dynamics 365 – Copilot & Agenter | d365.se"
-        description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
+        description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/aioversikt"
       />
       <WebPageSchema
         name="AI i Dynamics 365 – Copilot & Agenter"
-        description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
+        description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365. Oberoende vägledning inför val av Dynamics 365 och partner."
         url="https://d365.se/aioversikt/"
         breadcrumb={[
           { name: "Hem", url: "https://d365.se/" },
