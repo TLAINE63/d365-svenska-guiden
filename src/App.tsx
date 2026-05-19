@@ -151,9 +151,10 @@ const AppShell = () => {
           <Route path="/aktuellt" element={<Navigate to="/events/" replace />} />
           <Route path="/aktuellt/*" element={<Navigate to="/events/" replace />} />
           <Route path="/projektpaket" element={<Navigate to="/" replace />} />
-          <Route path="/sok" element={<SmartSearch />} />
+          <Route path="/AIsok" element={<SmartSearch />} />
+          <Route path="/sok" element={<Navigate to="/AIsok" replace />} />
           <Route path="/fraga-ai" element={<AskAi />} />
-          <Route path="/search" element={<Navigate to="/sok" replace />} />
+          <Route path="/search" element={<Navigate to="/AIsok" replace />} />
           <Route path="/våratjänster" element={<Navigate to="/" replace />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
