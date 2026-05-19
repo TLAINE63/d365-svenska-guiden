@@ -169,14 +169,15 @@ export const aiOverviewRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare", href: "/d365sales/" },
 ];
 
-// Homepage hub: strengthens "Microsoft Dynamics 365" / "MS Dynamics 365" topical authority
+// Homepage hub – partner discovery. Länkar till pelarsidorna med TOFU/MOFU-ankare
+// så de inte konkurrerar med /:s primära "partner"-intent eller med varandras sökord.
 export const indexRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365sales/" },
   { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Microsoft Dynamics 365 Finance & SCM", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
-  { title: "MS Dynamics 365 CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
-  { title: "MS Dynamics 365 ERP-översikt", description: "Jämför Business Central och Finance & SCM", href: "/erp/" },
+  { title: "Vad är ett affärssystem?", description: "Utbildande guide för dig som utvärderar ett första affärssystem", href: "/affarssystem/" },
+  { title: "Jämför Business Central och Finance & SCM", description: "Teknisk MOFU-jämförelse av Microsofts två ERP-system", href: "/erp/" },
+  { title: "CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
-  { title: "Branschlösningar för Dynamics 365", description: "Tillverkning, handel, service och fler branscher", href: "/branscher/" },
 ];
