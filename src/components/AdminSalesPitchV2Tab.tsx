@@ -536,6 +536,34 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   const SITE_STATS_IMG_URL = `${PUBLIC_BASE}/email-assets/sajtstatistik-snip.png`;
   const SNITCHER_IMG_URL = `${PUBLIC_BASE}/email-assets/snitcher-snip.png`;
 
+  // Kontroll: varna om bilderna saknas på publika sajten så placeholders inte blir trasiga i mailen.
+  const [missingAssets, setMissingAssets] = useState<{ label: string; url: string }[]>([]);
+  const [assetCheckLoading, setAssetCheckLoading] = useState(false);
+  const checkEmailAssets = async () => {
+    const assets = [
+      { label: "Sajtstatistik ({{SITE_STATS}})", url: SITE_STATS_IMG_URL },
+      { label: "Snitcher-företag ({{SNITCHER_COMPANIES}})", url: SNITCHER_IMG_URL },
+    ];
+    setAssetCheckLoading(true);
+    const missing: { label: string; url: string }[] = [];
+    await Promise.all(
+      assets.map(async (a) => {
+        try {
+          const res = await fetch(a.url, { method: "HEAD", cache: "no-store" });
+          if (!res.ok) missing.push(a);
+        } catch {
+          missing.push(a);
+        }
+      }),
+    );
+    setMissingAssets(missing);
+    setAssetCheckLoading(false);
+  };
+  useEffect(() => {
+    checkEmailAssets();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const buildSiteStatsHtml = (_summary?: any): string => {
     return `
 <div style="margin:24px 0 0">
