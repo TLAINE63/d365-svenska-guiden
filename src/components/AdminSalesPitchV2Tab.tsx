@@ -322,7 +322,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
     setSending(true);
     try {
-      const siteStatsHtml = await fetchSiteStatsHtml();
+      const blocks = await fetchEmailBlocks();
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
         {
@@ -336,7 +336,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             partners: partnerList,
             subject: tpl.subject,
             body: tpl.body,
-            previewSuffixHtml: siteStatsHtml,
+            siteStatsHtml: blocks.siteStatsHtml,
+            snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
+            previewSuffixHtml: blocks.siteStatsHtml, // legacy fallback
           }),
         }
       );
