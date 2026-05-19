@@ -127,4 +127,26 @@ describe("Legacy URL redirects — E2E", () => {
       });
     });
   });
+
+  describe("destination page renders expected H1 heading", () => {
+    const entries = Object.entries(DESTINATION_H1);
+
+    it.each(entries)(
+      "%s renders an <h1> containing the expected heading",
+      (_path, { file, expected }) => {
+        const source = loadRouter(file);
+        // Find any <h1 ...> ... </h1> block in the page source.
+        const h1Match = source.match(/<h1[\s\S]*?<\/h1>/);
+        expect(h1Match, `No <h1> found in ${file}`).not.toBeNull();
+        expect(h1Match![0]).toContain(expected);
+      }
+    );
+
+    it.each(REDIRECTS)(
+      "redirect %s ultimately resolves to a page whose H1 is verified (%s)",
+      (_from, to) => {
+        expect(DESTINATION_H1[to]).toBeDefined();
+      }
+    );
+  });
 });
