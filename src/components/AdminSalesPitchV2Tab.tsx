@@ -802,8 +802,23 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
                 </div>
                 <div>
                   <Label htmlFor={`body-${k}`}>
-                    Brödtext (använd <code className="text-xs">[NAMN]</code> för mottagarens kontaktnamn{k === "published" ? <>, <code className="text-xs">{"{{INVITATION_LINK}}"}</code> för profileringslänk</> : null})
+                    Brödtext (använd <code className="text-xs">[NAMN]</code> för mottagarens kontaktnamn{k === "published" ? <>, <code className="text-xs">{"{{INVITATION_LINK}}"}</code> för profileringslänk</> : null}, <code className="text-xs">{"{{SITE_STATS}}"}</code> för 8-rutors statistikblock, <code className="text-xs">{"{{SNITCHER_COMPANIES}}"}</code> för identifierade besökande företag)
                   </Label>
+                  {activeTab === k && (
+                    <div className="flex flex-wrap gap-2 my-2">
+                      <Button type="button" variant="outline" size="sm" onClick={() => insertPlaceholder("{{SITE_STATS}}")}>
+                        + Infoga sajtstatistik
+                      </Button>
+                      <Button type="button" variant="outline" size="sm" onClick={() => insertPlaceholder("{{SNITCHER_COMPANIES}}")}>
+                        + Infoga Snitcher-företag
+                      </Button>
+                      {k === "published" && (
+                        <Button type="button" variant="outline" size="sm" onClick={() => insertPlaceholder("{{INVITATION_LINK}}")}>
+                          + Infoga profileringslänk
+                        </Button>
+                      )}
+                    </div>
+                  )}
                   <Textarea
                     id={`body-${k}`}
                     value={templates[k].body}
