@@ -146,7 +146,6 @@ describe("Legacy URL redirects — E2E", () => {
       "%s renders an <h1> containing the expected heading",
       (_path, { file, expected }) => {
         const source = loadRouter(file);
-        // Find any <h1 ...> ... </h1> block in the page source.
         const h1Match = source.match(/<h1[\s\S]*?<\/h1>/);
         expect(h1Match, `No <h1> found in ${file}`).not.toBeNull();
         expect(h1Match![0]).toContain(expected);
@@ -157,6 +156,56 @@ describe("Legacy URL redirects — E2E", () => {
       "redirect %s ultimately resolves to a page whose H1 is verified (%s)",
       (_from, to) => {
         expect(DESTINATION_H1[to]).toBeDefined();
+      }
+    );
+  });
+
+  describe("destination page renders expected H2 subheading", () => {
+    const entries = Object.entries(DESTINATION_H1).filter(
+      ([, v]) => v.h2 !== null
+    ) as Array<[string, { file: string; h2: string }]>;
+
+    it.each(entries)(
+      "%s contains an <h2> with the expected subheading",
+      (_path, { file, h2 }) => {
+        const source = loadRouter(file);
+        // Match every <h2 …>…</h2> block on the page and assert at least one
+        // contains the expected substring.
+        const blocks = source.match(/<h2[\s\S]*?<\/h2>/g) ?? [];
+        expect(blocks.length, `No <h2> found in ${file}`).toBeGreaterThan(0);
+        const hit = blocks.some((b) => b.includes(h2));
+        expect(
+          hit,
+          `Expected an <h2> in ${file} to contain "${h2}". Found:\n${blocks
+            .map((b) => `  • ${b.replace(/\s+/g, " ").slice(0, 120)}`)
+            .join("\n")}`
+        ).toBe(true);
+      }
+    );
+  });
+
+  describe("destination page declares expected meta description", () => {
+    const entries = Object.entries(DESTINATION_H1);
+
+    it.each(entries)(
+      "%s declares a meta description containing the expected snippet",
+      (_path, { file, meta }) => {
+        const source = loadRouter(file);
+        // Accept either:
+        //   <SEOHead … description="…" … />
+        //   <meta name="description" content="…" />
+        const seoHeadDesc = source.match(
+          /<SEOHead[\s\S]*?description=["']([^"']+)["'][\s\S]*?\/>/
+        );
+        const helmetMeta = source.match(
+          /<meta\s+name=["']description["']\s+content=["']([^"']+)["']/
+        );
+        const desc = seoHeadDesc?.[1] ?? helmetMeta?.[1];
+        expect(
+          desc,
+          `No meta description found in ${file} (looked for <SEOHead description="…"> and <meta name="description" content="…" />)`
+        ).toBeDefined();
+        expect(desc!).toContain(meta);
       }
     );
   });
