@@ -66,7 +66,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/erp', priority: '0.9', changefreq: 'monthly' },
   { path: '/affarssystem', priority: '0.9', changefreq: 'monthly' },
   
-  { path: '/business-central', priority: '0.9', changefreq: 'monthly' },
+  { path: '/businesscentral', priority: '0.9', changefreq: 'monthly' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
   // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
