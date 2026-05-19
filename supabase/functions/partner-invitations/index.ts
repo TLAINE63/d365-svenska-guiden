@@ -1828,12 +1828,6 @@ D365.se`;
 
       const resend = new Resend(resendApiKey);
       const baseUrl = PUBLIC_BASE_URL;
-      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
-        ? siteStatsHtml
-        : salesPitchSiteStatsHtml();
-      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
-        ? snitcherCompaniesHtml
-        : salesPitchSnitcherHtml();
 
       // Resolve template body (override > saved > default)
       let emailBody = "";
@@ -2003,7 +1997,13 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://www.d365.se";
+      const baseUrl = PUBLIC_BASE_URL;
+      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
+        ? siteStatsHtml
+        : salesPitchSiteStatsHtml();
+      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
+        ? snitcherCompaniesHtml
+        : salesPitchSnitcherHtml();
 
       // Resolve template body (override > saved > default)
       let emailBody = "";
