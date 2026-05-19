@@ -67,12 +67,27 @@ export const fscRelatedPages: RelatedPage[] = [
   { title: "Hitta partner", description: "Filtrera och jämför Finance & SCM-partners i Sverige", href: "/valjdynamics365partner/" },
 ];
 
+// MOFU – teknisk jämförelse Business Central vs Finance & SCM.
+// Länkar FRAMÅT till produktsidor (BOFU) och stödjande sidor.
+// Innehåller INTE /affarssystem (TOFU) — skickar inte tillbaka köpmogna besökare.
 export const erpRelatedPages: RelatedPage[] = [
-  { title: "Business Central", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/businesscentral/" },
-  { title: "Finance & Supply Chain", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
-  { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – vilken ERP-lösning passar dig?", href: "/behovsanalys/" },
+  { title: "Business Central – pris & funktioner", description: "Produktdetaljer, licensnivåer och paketering för SMB", href: "/businesscentral/" },
+  { title: "Finance & Supply Chain", description: "Enterprise-ERP för koncerner med global drift och avancerad produktion", href: "/finance-supply-chain/" },
+  { title: "Behovsanalys", description: "Få en rekommendation om BC vs F&SCM passar er bäst", href: "/behovsanalys/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
-  { title: "Hitta partner", description: "Jämför ERP-partners i Sverige", href: "/valjdynamics365partner/" },
+  { title: "Hitta partner", description: "Jämför Microsoft-partners specialiserade på BC och F&SCM", href: "/valjdynamics365partner/" },
+];
+
+// TOFU – allmän utbildning "vad är ett affärssystem".
+// Länkar FRAMÅT till /erp (MOFU jämförelse) och /businesscentral (produkt).
+// Använder INTE ordet "ERP" som ankartext för /erp (vi vill inte krocka med /erp:s primära sökord).
+export const affarssystemRelatedPages: RelatedPage[] = [
+  { title: "Jämför Business Central och Finance & SCM", description: "Teknisk jämförelse av Microsofts två affärssystem", href: "/erp/" },
+  { title: "Business Central – produktsida", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/businesscentral/" },
+  { title: "Finance & Supply Chain", description: "För större bolag med global koncernstruktur", href: "/finance-supply-chain/" },
+  { title: "Behovsanalys", description: "Få en kostnadsfri rekommendation baserad på era behov", href: "/behovsanalys/" },
+  { title: "Branschlösningar", description: "Hur Dynamics 365 anpassas för olika branscher", href: "/branscher/" },
+  { title: "Hitta partner", description: "Oberoende katalog över certifierade Microsoft-partners", href: "/valjdynamics365partner/" },
 ];
 
 export const crmRelatedPages: RelatedPage[] = [
@@ -154,14 +169,15 @@ export const aiOverviewRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare", href: "/d365sales/" },
 ];
 
-// Homepage hub: strengthens "Microsoft Dynamics 365" / "MS Dynamics 365" topical authority
+// Homepage hub – partner discovery. Länkar till pelarsidorna med TOFU/MOFU-ankare
+// så de inte konkurrerar med /:s primära "partner"-intent eller med varandras sökord.
 export const indexRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365sales/" },
   { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Microsoft Dynamics 365 Finance & SCM", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
-  { title: "MS Dynamics 365 CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
-  { title: "MS Dynamics 365 ERP-översikt", description: "Jämför Business Central och Finance & SCM", href: "/erp/" },
+  { title: "Vad är ett affärssystem?", description: "Utbildande guide för dig som utvärderar ett första affärssystem", href: "/affarssystem/" },
+  { title: "Jämför Business Central och Finance & SCM", description: "Teknisk MOFU-jämförelse av Microsofts två ERP-system", href: "/erp/" },
+  { title: "CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "Copilot i Microsoft Dynamics 365", description: "AI-assistenten som ingår i alla appar", href: "/copilot/" },
-  { title: "Branschlösningar för Dynamics 365", description: "Tillverkning, handel, service och fler branscher", href: "/branscher/" },
 ];

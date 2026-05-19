@@ -7,7 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BreadcrumbSchema, FAQSchema, ServiceSchema } from "@/components/StructuredData";
-import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
+import RelatedPages, { affarssystemRelatedPages } from "@/components/RelatedPages";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
@@ -158,7 +158,8 @@ const Affarssystem = () => {
             <p className="text-lg text-muted-foreground">
               Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
               <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> för små och medelstora bolag, och&nbsp;
-              <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Vilket som passar dig avgörs av storlek, komplexitet och ambitioner – inte av vilken licens partnern råkar sälja mest av.
+              <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Vill du se en teknisk sida-vid-sida-jämförelse av dem, läs vår&nbsp;
+              <Link to="/erp/" className="text-primary font-medium hover:underline">jämförelse av Business Central och Finance &amp; SCM</Link>. Vilket som passar dig avgörs av storlek, komplexitet och ambitioner – inte av vilken licens partnern råkar sälja mest av.
             </p>
           </div>
         </div>
@@ -383,7 +384,7 @@ const Affarssystem = () => {
         </div>
       </section>
 
-      <RelatedPages pages={erpRelatedPages} />
+      <RelatedPages pages={affarssystemRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );
