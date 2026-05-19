@@ -539,6 +539,17 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
   // Kontroll: varna om bilderna saknas på publika sajten så placeholders inte blir trasiga i mailen.
   const [missingAssets, setMissingAssets] = useState<{ label: string; url: string }[]>([]);
+  const [payloadOpen, setPayloadOpen] = useState(false);
+  const [payloadLoading, setPayloadLoading] = useState(false);
+  const [payloadData, setPayloadData] = useState<{
+    siteStatsUrl: string;
+    snitcherUrl: string;
+    siteStatsHtml: string;
+    snitcherCompaniesHtml: string;
+    anchorSlug: string | null;
+    headStatusSiteStats: number | null;
+    headStatusSnitcher: number | null;
+  } | null>(null);
   const [assetCheckLoading, setAssetCheckLoading] = useState(false);
   const checkEmailAssets = async () => {
     const assets = [
