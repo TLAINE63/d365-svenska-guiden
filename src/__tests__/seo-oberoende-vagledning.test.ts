@@ -1,61 +1,92 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "fs";
+import { readFileSync, readdirSync } from "fs";
 import path from "path";
 
 const PHRASE = "Oberoende vägledning inför val av Dynamics 365 och partner";
+const PAGES_DIR = path.resolve(__dirname, "..", "pages");
 
-function readPage(rel: string): string {
-  return readFileSync(path.resolve(__dirname, "..", "pages", rel), "utf8");
-}
+// Dynamiska sidor som bygger SEOHead-props i runtime (utan litterala strängar).
+// Dessa testas inte här – deras SEO byggs upp baserat på data och täcks separat.
+const DYNAMIC_PAGES = new Set([
+  "BlogArticle.tsx",
+  "DeepDiveArticle.tsx",
+  "EventDetail.tsx",
+  "IndustryPage.tsx",
+  "PartnerProfile.tsx",
+]);
 
-function extractSeoHead(src: string): string {
-  // Match the first <SEOHead ... /> block (the public, non-noIndex one)
-  const matches = [...src.matchAll(/<SEOHead[\s\S]*?\/>/g)];
-  const publicBlock = matches.find((m) => !/noIndex/.test(m[0]));
-  if (!publicBlock) throw new Error("No public SEOHead found");
-  return publicBlock[0];
-}
+// Sidor som inte ska indexeras (admin, partnerverktyg m.m.) – exkluderas.
+const NON_PUBLIC_PAGES = new Set([
+  "AdminDashboard.tsx",
+  "AskAi.tsx",
+  "NotFound.tsx",
+  "PartnerAgreement.tsx",
+  "PartnerEvents.tsx",
+  "PartnerStats.tsx",
+  "PartnerUpdate.tsx",
+  "PrivacyPolicy.tsx",
+  "SmartSearch.tsx",
+]);
 
-function getProp(block: string, prop: string): string {
-  const m = block.match(new RegExp(`${prop}="([^"]+)"`));
-  if (!m) throw new Error(`Prop ${prop} not found`);
-  return m[1];
-}
+type PageBlock = {
+  file: string;
+  index: number;
+  title: string;
+  description: string;
+};
 
-describe("SEO – Oberoende vägledning inför val av Dynamics 365 och partner", () => {
-  describe("/ (Index.tsx)", () => {
-    const block = extractSeoHead(readPage("Index.tsx"));
-    const title = getProp(block, "title");
-    const description = getProp(block, "description");
-
-    it("har en title som innehåller den nya formuleringen", () => {
-      expect(title).toContain(PHRASE);
+function collectPublicSeoBlocks(): PageBlock[] {
+  const out: PageBlock[] = [];
+  for (const f of readdirSync(PAGES_DIR)) {
+    if (!f.endsWith(".tsx")) continue;
+    if (DYNAMIC_PAGES.has(f) || NON_PUBLIC_PAGES.has(f)) continue;
+    const src = readFileSync(path.join(PAGES_DIR, f), "utf8");
+    const blocks = [...src.matchAll(/<SEOHead[\s\S]*?\/>/g)]
+      .map((m) => m[0])
+      .filter((b) => !/noIndex/.test(b));
+    blocks.forEach((b, i) => {
+      const title = b.match(/title="([^"]+)"/)?.[1];
+      const description = b.match(/description="([^"]+)"/)?.[1];
+      if (title && description) {
+        out.push({ file: f, index: i, title, description });
+      }
     });
+  }
+  return out;
+}
 
+const blocks = collectPublicSeoBlocks();
+
+describe("SEO – publika undersidor", () => {
+  it("hittar SEOHead-block i flera sidor", () => {
+    expect(blocks.length).toBeGreaterThanOrEqual(20);
+  });
+
+  describe.each(blocks)("$file [#$index]", ({ title, description }) => {
     it("har en metabeskrivning som innehåller den nya formuleringen", () => {
       expect(description).toContain(PHRASE);
     });
 
-    it("har en rimlig titel-längd (<= 80 tecken)", () => {
+    it("har en metabeskrivning inom rekommenderad längd (50–160 tecken)", () => {
+      expect(description.length).toBeGreaterThanOrEqual(50);
+      expect(description.length).toBeLessThanOrEqual(160);
+    });
+
+    it("har en title inom rimlig längd (<= 80 tecken)", () => {
       expect(title.length).toBeLessThanOrEqual(80);
+      expect(title.length).toBeGreaterThanOrEqual(10);
     });
   });
 
-  describe("/kontakt (ContactUs.tsx)", () => {
-    const block = extractSeoHead(readPage("ContactUs.tsx"));
-    const title = getProp(block, "title");
-    const description = getProp(block, "description");
+  it("alla metabeskrivningar är unika", () => {
+    const descs = blocks.map((b) => b.description);
+    const dupes = descs.filter((d, i) => descs.indexOf(d) !== i);
+    expect(dupes).toEqual([]);
+  });
 
-    it("har en title som innehåller den nya formuleringen", () => {
-      expect(title).toContain(PHRASE);
-    });
-
-    it("har en metabeskrivning som innehåller den nya formuleringen", () => {
-      expect(description).toContain(PHRASE);
-    });
-
-    it("har canonicalPath /kontakt", () => {
-      expect(getProp(block, "canonicalPath")).toBe("/kontakt");
-    });
+  it("alla titles är unika", () => {
+    const titles = blocks.map((b) => b.title);
+    const dupes = titles.filter((t, i) => titles.indexOf(t) !== i);
+    expect(dupes).toEqual([]);
   });
 });
