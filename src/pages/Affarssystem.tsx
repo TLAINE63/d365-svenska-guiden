@@ -383,7 +383,7 @@ const Affarssystem = () => {
         </div>
       </section>
 
-      <RelatedPages pages={erpRelatedPages} />
+      <RelatedPages pages={affarssystemRelatedPages} heading="Utforska vidare" />
       <Footer />
     </div>
   );
