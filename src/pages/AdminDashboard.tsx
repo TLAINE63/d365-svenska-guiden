@@ -102,6 +102,7 @@ import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
 import AdminCompetitorTab from "@/components/AdminCompetitorTab";
 import AdminGscTab from "@/components/AdminGscTab";
+import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
@@ -271,7 +272,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
     id: "seo",
     label: "SEO & Konkurrens",
     icon: TrendingUp,
-    tabs: ["seo-rankings", "semrush", "competitor", "gsc"],
+    tabs: ["seo-rankings", "semrush", "competitor", "gsc", "pillar-followup"],
   },
   {
     id: "partnerportal",
@@ -2060,6 +2061,12 @@ Thomas`,
               </span>
               Search Console
             </TabsTrigger>
+            <TabsTrigger value="pillar-followup" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-600/10 ring-1 ring-amber-400/20">
+                <TrendingUp className="h-3.5 w-3.5 text-amber-300" strokeWidth={1.75} />
+              </span>
+              Pelar-uppföljning
+            </TabsTrigger>
           </TabsList>
 
           {/* ==================== LEADS TAB ==================== */}
@@ -3109,6 +3116,10 @@ Thomas`,
 
           <TabsContent value="gsc">
             <AdminGscTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+          <TabsContent value="pillar-followup">
+            <AdminPillarFollowupTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
         </Tabs>
 
