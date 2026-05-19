@@ -169,6 +169,7 @@ export function render(url: string) {
               <Route path="/copilot" element={<Copilot />} />
               <Route path="/agents" element={<Agents />} />
               <Route path="/aioversikt" element={<AIOverview />} />
+              <Route path="/ai-oversikt" element={<Navigate to="/aioversikt" replace />} />
               <Route path="/ai-readiness" element={<AIReadiness />} />
               <Route path="/kontakt" element={<ContactUs />} />
               <Route path="/valj-partner" element={<ValjPartner />} />
