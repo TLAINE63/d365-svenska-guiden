@@ -37,20 +37,31 @@ const REDIRECTS: Array<[oldPath: string, newPath: string]> = [
 ];
 
 /**
- * Expected H1 (or first heading) for each destination page.
- * Asserted against the actual page component file so a heading rename
- * or removal fails this test rather than silently shipping.
+ * Expected page-source signals for each destination route.
+ *
+ *  - expected: must appear inside the first <h1>…</h1> block on the page.
+ *  - h2:       must appear inside any <h2>…</h2> block (null = page
+ *              intentionally has no h2, e.g. a search landing).
+ *  - meta:     substring that must appear in the page's meta description
+ *              (rendered via <SEOHead description="…"> or a <Helmet>
+ *              <meta name="description" content="…" />).
+ *
+ * Asserted directly against the page component source so a heading or meta
+ * rename fails this test rather than silently shipping an SEO regression.
  */
-const DESTINATION_H1: Record<string, { file: string; expected: string }> = {
-  "/businesscentral":      { file: "src/pages/BusinessCentral.tsx",     expected: "Dynamics 365" },
-  "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "Mer effekt, mindre manuellt arbete" },
-  "/d365sales":            { file: "src/pages/D365Sales.tsx",           expected: "Dynamics 365 Sales" },
-  "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Dynamics 365 Customer Insights" },
-  "/d365customerservice":  { file: "src/pages/D365CustomerService.tsx", expected: "Dynamics 365 Customer Service" },
-  "/d365fieldservice":     { file: "src/pages/D365FieldService.tsx",    expected: "Dynamics 365 Field Service" },
-  "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center" },
-  "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet" },
-  "/AIsok":                { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?" },
+const DESTINATION_H1: Record<
+  string,
+  { file: string; expected: string; h2: string | null; meta: string }
+> = {
+  "/businesscentral":      { file: "src/pages/BusinessCentral.tsx",     expected: "Dynamics 365",                       h2: "Vanliga frågor om Dynamics 365 Business Central",    meta: "Essentials 765 kr/mån" },
+  "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "Mer effekt, mindre manuellt arbete", h2: "Copilot vs Agenter",                                 meta: "Copilot och intelligenta agenter" },
+  "/d365sales":            { file: "src/pages/D365Sales.tsx",           expected: "Dynamics 365 Sales",                 h2: "Microsoft Dynamics 365 Sales",                       meta: "Dynamics 365 Sales från 621 kr/mån" },
+  "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Dynamics 365 Customer Insights",     h2: "Microsoft Dynamics 365 Customer Insights",           meta: "Dynamics 365 Customer Insights (Marketing)" },
+  "/d365customerservice":  { file: "src/pages/D365CustomerService.tsx", expected: "Dynamics 365 Customer Service",      h2: "Microsoft Dynamics 365 Customer Service",            meta: "Dynamics 365 Customer Service från 478 kr/mån" },
+  "/d365fieldservice":     { file: "src/pages/D365FieldService.tsx",    expected: "Dynamics 365 Field Service",         h2: "Microsoft Dynamics 365 Field Service",               meta: "Dynamics 365 Field Service från 1 004 kr/mån" },
+  "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center",        h2: "Microsoft Dynamics 365 Contact Center",              meta: "Dynamics 365 Contact Center från 1 051 kr/agent/mån" },
+  "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet",          h2: "Fem viktiga frågor vid val av implementationspartner", meta: "Jämför certifierade Dynamics 365-partners i Sverige" },
+  "/AIsok":                { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?",                h2: null,                                                 meta: "Beskriv ditt behov i naturligt språk" },
 };
 
 const ROUTER_FILES = [
@@ -135,7 +146,6 @@ describe("Legacy URL redirects — E2E", () => {
       "%s renders an <h1> containing the expected heading",
       (_path, { file, expected }) => {
         const source = loadRouter(file);
-        // Find any <h1 ...> ... </h1> block in the page source.
         const h1Match = source.match(/<h1[\s\S]*?<\/h1>/);
         expect(h1Match, `No <h1> found in ${file}`).not.toBeNull();
         expect(h1Match![0]).toContain(expected);
@@ -146,6 +156,56 @@ describe("Legacy URL redirects — E2E", () => {
       "redirect %s ultimately resolves to a page whose H1 is verified (%s)",
       (_from, to) => {
         expect(DESTINATION_H1[to]).toBeDefined();
+      }
+    );
+  });
+
+  describe("destination page renders expected H2 subheading", () => {
+    const entries = Object.entries(DESTINATION_H1).filter(
+      ([, v]) => v.h2 !== null
+    ) as Array<[string, { file: string; h2: string }]>;
+
+    it.each(entries)(
+      "%s contains an <h2> with the expected subheading",
+      (_path, { file, h2 }) => {
+        const source = loadRouter(file);
+        // Match every <h2 …>…</h2> block on the page and assert at least one
+        // contains the expected substring.
+        const blocks = source.match(/<h2[\s\S]*?<\/h2>/g) ?? [];
+        expect(blocks.length, `No <h2> found in ${file}`).toBeGreaterThan(0);
+        const hit = blocks.some((b) => b.includes(h2));
+        expect(
+          hit,
+          `Expected an <h2> in ${file} to contain "${h2}". Found:\n${blocks
+            .map((b) => `  • ${b.replace(/\s+/g, " ").slice(0, 120)}`)
+            .join("\n")}`
+        ).toBe(true);
+      }
+    );
+  });
+
+  describe("destination page declares expected meta description", () => {
+    const entries = Object.entries(DESTINATION_H1);
+
+    it.each(entries)(
+      "%s declares a meta description containing the expected snippet",
+      (_path, { file, meta }) => {
+        const source = loadRouter(file);
+        // Accept either:
+        //   <SEOHead … description="…" … />
+        //   <meta name="description" content="…" />
+        const seoHeadDesc = source.match(
+          /<SEOHead[\s\S]*?description=["']([^"']+)["'][\s\S]*?\/>/
+        );
+        const helmetMeta = source.match(
+          /<meta\s+name=["']description["']\s+content=["']([^"']+)["']/
+        );
+        const desc = seoHeadDesc?.[1] ?? helmetMeta?.[1];
+        expect(
+          desc,
+          `No meta description found in ${file} (looked for <SEOHead description="…"> and <meta name="description" content="…" />)`
+        ).toBeDefined();
+        expect(desc!).toContain(meta);
       }
     );
   });
