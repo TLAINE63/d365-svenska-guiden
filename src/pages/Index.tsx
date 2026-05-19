@@ -472,7 +472,7 @@ const Index = () => {
             <div className="flex flex-col items-start">
               <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Vem står bakom d365.se</span>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
-                Oberoende vägledning från personer som kan Dynamics 365 på riktigt
+                Oberoende vägledning inför valet av Dynamics 365 och partner
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                 <div className="flex items-start gap-3">
