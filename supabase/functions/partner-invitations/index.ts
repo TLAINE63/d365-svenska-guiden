@@ -66,8 +66,9 @@ function parseRecipients(input: string | null | undefined): string[] {
 }
 
 const PUBLIC_BASE_URL = "https://www.d365.se";
-const SITE_STATS_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/sajtstatistik-snip.png`;
-const SNITCHER_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/snitcher-snip.png`;
+const EMAIL_ASSET_VERSION = "20260519-snippets-v2";
+const SITE_STATS_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/sajtstatistik-snip.png?v=${EMAIL_ASSET_VERSION}`;
+const SNITCHER_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/snitcher-snip.png?v=${EMAIL_ASSET_VERSION}`;
 
 function imageBlockHtml(title: string, src: string, alt: string): string {
   return `<div style="margin:24px 0 0">
