@@ -567,23 +567,87 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 </div>`;
   };
 
+  // Bygger en tabell över identifierade besökande företag (Snitcher) – endast site-wide,
+  // ingen koppling till enskild partner. Visar Företag, Bransch, Storlek, Land.
+  const buildSnitcherCompaniesHtml = (summary: any): string => {
+    const s = summary || {};
+    const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
+    if (!companies.length) return "";
+    const rows = companies
+      .map(
+        (c: any) => `
+        <tr>
+          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#0f172a;font-weight:600">${esc(c.name || "—")}</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#334155">${esc(c.industry || "—")}</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#334155">${esc(c.size || "—")}</td>
+          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#334155">${esc(c.country || "—")}</td>
+        </tr>`,
+      )
+      .join("");
+    return `
+<div style="margin:24px 0 0;padding:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+  <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">Identifierade besökande företag (${companies.length})</div>
+  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+    <thead>
+      <tr style="background:#f1f5f9">
+        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Besökande företag</th>
+        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Bransch</th>
+        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Storlek</th>
+        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Land</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>
+</div>`;
+  };
+
   // Cacha site-stats per session så vi inte gör onödiga anrop vid bulk/test
-  const fetchSiteStatsHtml = async (): Promise<string> => {
-    const anchor = partners.find((p) => p.slug) || partners[0];
-    if (!anchor?.slug) return "";
+  const fetchEmailBlocks = async (): Promise<{ siteStatsHtml: string; snitcherCompaniesHtml: string }> => {
+    const anchor = partners.find((p) => p.is_featured && p.slug) || partners.find((p) => p.slug) || partners[0];
+    if (!anchor?.slug) return { siteStatsHtml: "", snitcherCompaniesHtml: "" };
     try {
       const { data, error } = await supabase.functions.invoke("partner-sales-summary", {
         body: { token, partnerSlug: anchor.slug, mode: "summary" },
       });
       if (error || data?.error) {
         console.warn("Kunde inte hämta site-stats till mail", error || data?.error);
-        return "";
+        return { siteStatsHtml: "", snitcherCompaniesHtml: "" };
       }
-      return buildSiteStatsHtml(data?.summary);
+      return {
+        siteStatsHtml: buildSiteStatsHtml(data?.summary),
+        snitcherCompaniesHtml: buildSnitcherCompaniesHtml(data?.summary),
+      };
     } catch (e) {
-      console.warn("fetchSiteStatsHtml fel", e);
-      return "";
+      console.warn("fetchEmailBlocks fel", e);
+      return { siteStatsHtml: "", snitcherCompaniesHtml: "" };
     }
+  };
+
+  // Bakåtkompatibilitet
+  const fetchSiteStatsHtml = async (): Promise<string> => (await fetchEmailBlocks()).siteStatsHtml;
+
+  const insertPlaceholder = (placeholder: string) => {
+    const id = `body-${activeTab}`;
+    const el = document.getElementById(id) as HTMLTextAreaElement | null;
+    const current = templates[activeTab].body;
+    if (!el) {
+      updateTemplateField("body", `${current}\n\n${placeholder}`);
+      return;
+    }
+    const start = el.selectionStart ?? current.length;
+    const end = el.selectionEnd ?? current.length;
+    const before = current.slice(0, start);
+    const after = current.slice(end);
+    const needsLeadBlank = before.length > 0 && !before.endsWith("\n\n");
+    const needsTrailBlank = after.length > 0 && !after.startsWith("\n\n");
+    const insertion = `${needsLeadBlank ? "\n\n" : ""}${placeholder}${needsTrailBlank ? "\n\n" : ""}`;
+    const next = before + insertion + after;
+    updateTemplateField("body", next);
+    setTimeout(() => {
+      el.focus();
+      const pos = before.length + insertion.length;
+      el.setSelectionRange(pos, pos);
+    }, 0);
   };
 
 
