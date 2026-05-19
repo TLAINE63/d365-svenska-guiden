@@ -142,7 +142,7 @@ const Navbar = () => {
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Guide</p>
                 </div>
                 <DropdownMenuItem asChild>
-                  <Link to="/valjdynamics365partner/#guide" className="cursor-pointer">
+                  <Link to="/valjdynamics365partner/?ai=1" className="cursor-pointer">
                     📘 Så väljer du rätt Dynamics 365-partner
                   </Link>
                 </DropdownMenuItem>
