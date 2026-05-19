@@ -621,6 +621,40 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   // Bakåtkompatibilitet
   const fetchSiteStatsHtml = async (): Promise<string> => (await fetchEmailBlocks()).siteStatsHtml;
 
+  const inspectPayload = async () => {
+    setPayloadLoading(true);
+    try {
+      const anchor = partners.find((p) => p.is_featured && p.slug) || partners.find((p) => p.slug) || partners[0];
+      const blocks = await fetchEmailBlocks();
+      let s1: number | null = null;
+      let s2: number | null = null;
+      try { s1 = (await fetch(SITE_STATS_IMG_URL, { method: "HEAD", cache: "no-store" })).status; } catch { s1 = null; }
+      try { s2 = (await fetch(SNITCHER_IMG_URL, { method: "HEAD", cache: "no-store" })).status; } catch { s2 = null; }
+      setPayloadData({
+        siteStatsUrl: SITE_STATS_IMG_URL,
+        snitcherUrl: SNITCHER_IMG_URL,
+        siteStatsHtml: blocks.siteStatsHtml,
+        snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
+        anchorSlug: anchor?.slug ?? null,
+        headStatusSiteStats: s1,
+        headStatusSnitcher: s2,
+      });
+      setPayloadOpen(true);
+    } finally {
+      setPayloadLoading(false);
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    try {
+      navigator.clipboard.writeText(text);
+      toast({ title: "Kopierat" });
+    } catch {
+      toast({ title: "Kunde inte kopiera", variant: "destructive" });
+    }
+  };
+
+
   const insertPlaceholder = (placeholder: string) => {
     const id = `body-${activeTab}`;
     const el = document.getElementById(id) as HTMLTextAreaElement | null;
