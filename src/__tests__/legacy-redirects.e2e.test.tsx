@@ -21,14 +21,10 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 // Mock SEOHead (depends on Helmet + Supabase env) and trim heavy imports.
 vi.mock("@/components/SEOHead", () => ({ default: () => null }));
-vi.mock("@/components/StructuredData", () => ({
-  FAQSchema: () => null,
-  ServiceSchema: () => null,
-  BreadcrumbSchema: () => null,
-  WebSiteSchema: () => null,
-  OrganizationSchema: () => null,
-  ArticleSchema: () => null,
-}));
+vi.mock("@/components/StructuredData", () => {
+  const Stub = () => null;
+  return new Proxy({}, { get: () => Stub });
+});
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: {
     from: () => ({ select: () => ({ eq: () => ({ data: [], error: null }) }) }),
