@@ -62,12 +62,14 @@ export interface PrerenderRoute {
 }
 
 export const routes: PrerenderRoute[] = [
-  { path: '/', priority: '1.0', changefreq: 'weekly' },
+  // Intent-separation refresh 2026-05-19: bumped lastmod on the four pillar URLs
+  // so Google re-crawls the updated titles/H1/meta after the cannibalization fix.
+  { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: '2026-05-19' },
   { path: '/valjdynamics365partner', priority: '1.0', changefreq: 'weekly' },
-  { path: '/erp', priority: '0.9', changefreq: 'monthly' },
-  { path: '/affarssystem', priority: '0.9', changefreq: 'monthly' },
-  
-  { path: '/businesscentral', priority: '0.9', changefreq: 'monthly' },
+  { path: '/erp', priority: '0.9', changefreq: 'weekly', lastmod: '2026-05-19' },
+  { path: '/affarssystem', priority: '0.9', changefreq: 'weekly', lastmod: '2026-05-19' },
+
+  { path: '/businesscentral', priority: '0.9', changefreq: 'weekly', lastmod: '2026-05-19' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
   // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
