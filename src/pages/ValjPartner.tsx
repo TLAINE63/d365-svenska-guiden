@@ -436,7 +436,7 @@ const ValjPartner = () => {
       />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[420px] sm:h-[450px] md:h-[550px]">
+      <header className="relative overflow-hidden mt-28 min-h-[420px] sm:h-[450px] md:h-[550px]">
         <div className="absolute inset-0">
           <img 
             src={partnersComparisonImg} 
