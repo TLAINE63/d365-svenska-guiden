@@ -122,7 +122,7 @@ const DeepDiveArticle = () => {
             {/* Authoritative external sources (Microsoft Learn) */}
             {(() => {
               const learnLinks: Record<string, { label: string; url: string }[]> = {
-                "business-central": [
+                "businesscentral": [
                   { label: "Microsoft Learn: Dynamics 365 Business Central", url: "https://learn.microsoft.com/dynamics365/business-central/" },
                   { label: "Microsoft Docs: BC produktöversikt", url: "https://learn.microsoft.com/dynamics365/business-central/across-business-functionality" },
                 ],
@@ -132,16 +132,16 @@ const DeepDiveArticle = () => {
                 "supply-chain": [
                   { label: "Microsoft Learn: Dynamics 365 Supply Chain Management", url: "https://learn.microsoft.com/dynamics365/supply-chain/" },
                 ],
-                "d365-sales": [
+                "d365sales": [
                   { label: "Microsoft Learn: Dynamics 365 Sales", url: "https://learn.microsoft.com/dynamics365/sales/" },
                 ],
-                "d365-customer-service": [
+                "d365customerservice": [
                   { label: "Microsoft Learn: Dynamics 365 Customer Service", url: "https://learn.microsoft.com/dynamics365/customer-service/" },
                 ],
-                "d365-field-service": [
+                "d365fieldservice": [
                   { label: "Microsoft Learn: Dynamics 365 Field Service", url: "https://learn.microsoft.com/dynamics365/field-service/" },
                 ],
-                "d365-contact-center": [
+                "d365contactcenter": [
                   { label: "Microsoft Learn: Dynamics 365 Contact Center", url: "https://learn.microsoft.com/dynamics365/contact-center/" },
                 ],
                 "customer-insights": [

@@ -638,7 +638,7 @@ const Branschlosningar = () => {
                 {
                   label: "Customer Service",
                   desc: "Kundservice, Field Service och Contact Center",
-                  path: "/d365-customer-service",
+                  path: "/d365customerservice",
                   industries: "Retail, Energi, Hälsa, Non-profit",
                   badge: "bg-crm/10 text-crm border-crm/30",
                   cta: "hover:border-crm/70 hover:bg-crm/5",

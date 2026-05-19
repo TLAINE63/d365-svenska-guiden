@@ -70,14 +70,14 @@ export const routes: PrerenderRoute[] = [
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
   // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
-  { path: '/d365-sales', priority: '0.8', changefreq: 'monthly' },
-  { path: '/d365-marketing', priority: '0.8', changefreq: 'monthly' },
-  { path: '/d365-customer-service', priority: '0.8', changefreq: 'monthly' },
-  { path: '/d365-field-service', priority: '0.8', changefreq: 'monthly' },
-  { path: '/d365-contact-center', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365sales', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365marketing', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365customerservice', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365fieldservice', priority: '0.8', changefreq: 'monthly' },
+  { path: '/d365contactcenter', priority: '0.8', changefreq: 'monthly' },
   { path: '/copilot', priority: '0.8', changefreq: 'monthly' },
   { path: '/agents', priority: '0.9', changefreq: 'monthly' },
-  { path: '/ai-oversikt', priority: '0.7', changefreq: 'monthly' },
+  { path: '/aioversikt', priority: '0.7', changefreq: 'monthly' },
   { path: '/ai-readiness', priority: '0.6', changefreq: 'monthly' },
   { path: '/behovsanalys', priority: '0.8', changefreq: 'monthly' },
   { path: '/salj-marknad-behovsanalys', priority: '0.7', changefreq: 'monthly' },
@@ -168,7 +168,8 @@ export function render(url: string) {
               
               <Route path="/copilot" element={<Copilot />} />
               <Route path="/agents" element={<Agents />} />
-              <Route path="/ai-oversikt" element={<AIOverview />} />
+              <Route path="/aioversikt" element={<AIOverview />} />
+              <Route path="/ai-oversikt" element={<Navigate to="/aioversikt" replace />} />
               <Route path="/ai-readiness" element={<AIReadiness />} />
               <Route path="/kontakt" element={<ContactUs />} />
               <Route path="/valj-partner" element={<ValjPartner />} />
@@ -179,11 +180,16 @@ export function render(url: string) {
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
               <Route path="/branschlosningar" element={<Navigate to="/branscher/" replace />} />
               <Route path="/branschlosningar/*" element={<Navigate to="/branscher/" replace />} />
-              <Route path="/d365-sales" element={<D365Sales />} />
-              <Route path="/d365-marketing" element={<D365Marketing />} />
-              <Route path="/d365-customer-service" element={<D365CustomerService />} />
-              <Route path="/d365-field-service" element={<D365FieldService />} />
-              <Route path="/d365-contact-center" element={<D365ContactCenter />} />
+              <Route path="/d365sales" element={<D365Sales />} />
+              <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
+              <Route path="/d365marketing" element={<D365Marketing />} />
+              <Route path="/d365-marketing" element={<Navigate to="/d365marketing" replace />} />
+              <Route path="/d365customerservice" element={<D365CustomerService />} />
+              <Route path="/d365-customer-service" element={<Navigate to="/d365customerservice" replace />} />
+              <Route path="/d365fieldservice" element={<D365FieldService />} />
+              <Route path="/d365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
+              <Route path="/d365contactcenter" element={<D365ContactCenter />} />
+              <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
               <Route path="/events" element={<Events />} />
               <Route path="/events/:eventId" element={<EventDetail />} />
               <Route path="/qa" element={<QA />} />

@@ -312,7 +312,7 @@ export default function AdminSeoRankingsTab({ token, onSessionExpired }: Props) 
                     <Input
                       value={editing.target_url || ""}
                       onChange={(e) => setEditing({ ...editing, target_url: e.target.value })}
-                      placeholder="/d365-sales/"
+                      placeholder="/d365sales/"
                     />
                   </div>
                   <div className="col-span-2">

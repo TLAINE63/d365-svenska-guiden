@@ -27,7 +27,7 @@ import {
 
 const breadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
+  { name: "Kundservice", url: "https://d365.se/d365customerservice" },
   { name: "Kravspecifikation Kundservice", url: "https://d365.se/kravspecifikation-kundservice" },
 ];
 

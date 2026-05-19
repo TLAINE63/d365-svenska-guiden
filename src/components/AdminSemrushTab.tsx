@@ -427,7 +427,7 @@ export default function AdminSemrushTab({ token, onSessionExpired }: Props) {
                 <div className="col-span-2">
                   <Label>Top pages (JSON-array)</Label>
                   <Textarea rows={4} className="font-mono text-xs"
-                    placeholder='[{"url":"/d365-sales/","traffic":120,"keywords":18}]'
+                    placeholder='[{"url":"/d365sales/","traffic":120,"keywords":18}]'
                     value={topPgJson}
                     onChange={(e) => setTopPgJson(e.target.value)} />
                 </div>

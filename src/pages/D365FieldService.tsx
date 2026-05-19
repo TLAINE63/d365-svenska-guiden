@@ -17,8 +17,8 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const fieldServiceBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
-  { name: "Dynamics 365 Field Service", url: "https://d365.se/d365-field-service" },
+  { name: "Kundservice", url: "https://d365.se/d365customerservice" },
+  { name: "Dynamics 365 Field Service", url: "https://d365.se/d365fieldservice" },
 ];
 import {
   Accordion,
@@ -64,7 +64,7 @@ const D365FieldService = () => {
       <SEOHead 
         title="Dynamics 365 Field Service – Priser & guide | d365.se"
         description="Dynamics 365 Field Service från 1 004 kr/mån. Intelligent schemaläggning, IoT-integration och mobilapp. Jämför med IFS och SAP."
-        canonicalPath="/d365-field-service"
+        canonicalPath="/d365fieldservice"
         keywords="Dynamics 365 Field Service pris, fältservice system, underhållshantering Microsoft, Field Service mobilapp, IoT fältservice, schemaläggning fälttekniker, prediktivt underhåll, Microsoft Field Service Sverige, fältservicehantering, Resource Scheduling Optimization"
         ogImage="https://d365.se/og-field-service.png"
       />

@@ -23,7 +23,7 @@ import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 // Breadcrumb items
 const salesMarketingBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Marknad & Sälj", url: "https://d365.se/d365-sales" },
+  { name: "Marknad & Sälj", url: "https://d365.se/d365sales" },
   { name: "Behovsanalys", url: "https://d365.se/salj-marknad-behovsanalys" },
 ];
 

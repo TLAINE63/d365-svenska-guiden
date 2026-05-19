@@ -367,8 +367,8 @@ const Copilot = () => {
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {[
                   { label: "Business Central", desc: "Produktbeskrivningar & bankavstämning", path: "/businesscentral", color: "text-business-central border-business-central/30 hover:border-business-central/60 hover:bg-business-central/5" },
-                  { label: "Dynamics 365 Sales", desc: "Mötes­samman­fattningar & lead-scoring", path: "/d365-sales", color: "text-crm border-crm/30 hover:border-crm/60 hover:bg-crm/5" },
-                  { label: "Customer Service", desc: "Ärendestöd & svarsgenerering", path: "/d365-customer-service", color: "text-crm border-crm/30 hover:border-crm/60 hover:bg-crm/5" },
+                  { label: "Dynamics 365 Sales", desc: "Mötes­samman­fattningar & lead-scoring", path: "/d365sales", color: "text-crm border-crm/30 hover:border-crm/60 hover:bg-crm/5" },
+                  { label: "Customer Service", desc: "Ärendestöd & svarsgenerering", path: "/d365customerservice", color: "text-crm border-crm/30 hover:border-crm/60 hover:bg-crm/5" },
                   { label: "Finance & Supply Chain", desc: "Ekonomianalys & supply chain-AI", path: "/finance-supply-chain", color: "text-finance-supply border-finance-supply/30 hover:border-finance-supply/60 hover:bg-finance-supply/5" },
                 ].map((item) => (
                   <Link

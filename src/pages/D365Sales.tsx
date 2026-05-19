@@ -17,8 +17,8 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const salesBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Marknad & Sälj", url: "https://d365.se/d365-sales" },
-  { name: "Dynamics 365 Sales", url: "https://d365.se/d365-sales" },
+  { name: "Marknad & Sälj", url: "https://d365.se/d365sales" },
+  { name: "Dynamics 365 Sales", url: "https://d365.se/d365sales" },
 ];
 import {
   Accordion,
@@ -88,7 +88,7 @@ const D365Sales = () => {
       <SEOHead 
         title="Dynamics 365 Sales – CRM för sälj | Priser | d365.se"
         description="Dynamics 365 Sales från 621 kr/mån med Copilot AI. Jämför med Salesforce. Hitta certifierad Microsoft CRM-partner i Sverige."
-        canonicalPath="/d365-sales"
+        canonicalPath="/d365sales"
         keywords="Dynamics 365 Sales pris, Dynamics 365 Sales licens, CRM för sälj, Microsoft CRM system, Salesforce alternativ Sverige, Dynamics 365 Sales vs Salesforce, CRM system säljteam, Dynamics 365 Sales implementering, Sales Enterprise Copilot, Microsoft CRM partner Sverige"
         ogImage="https://d365.se/og-sales.png"
       />

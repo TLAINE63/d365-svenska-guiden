@@ -90,12 +90,12 @@ describe("Index – situationskort renderar bild + bakgrundsbild", () => {
       // Kortlänkarna pekar på kända rutter – vänta tills de finns i DOM.
       const expectedLinks = [
         "/erp/",
-        "/d365-sales/",
-        "/d365-marketing/",
-        "/d365-customer-service/",
-        "/d365-field-service/",
-        "/d365-contact-center/",
-        "/ai-oversikt/",
+        "/d365sales/",
+        "/d365marketing/",
+        "/d365customerservice/",
+        "/d365fieldservice/",
+        "/d365contactcenter/",
+        "/aioversikt/",
         "/valj-partner/",
       ];
 
