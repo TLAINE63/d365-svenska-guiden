@@ -119,7 +119,7 @@ const Affarssystem = () => {
                 utan säljpåverkan.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link to="/behovsanalys/">
+                <Link to="/ERPbehovsanalys/">
                   <Button size="lg" className="bg-cta-orange hover:bg-cta-orange/90 text-white text-base sm:text-lg h-14 rounded-xl">
                     <ClipboardList className="mr-2 h-5 w-5" />
                     Gör en kostnadsfri behovsanalys
@@ -367,7 +367,7 @@ const Affarssystem = () => {
               betalt av dig som söker – och styr inte resultatet.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/behovsanalys/">
+              <Link to="/ERPbehovsanalys/">
                 <Button size="lg" className="bg-cta-orange hover:bg-cta-orange/90 text-white text-base sm:text-lg h-14 rounded-xl px-8">
                   <ClipboardList className="mr-2 h-5 w-5" />
                   Starta behovsanalysen

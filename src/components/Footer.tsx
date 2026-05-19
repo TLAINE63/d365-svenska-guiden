@@ -16,7 +16,7 @@ const Footer = () => {
               <li><Link to="/erp/" className="text-muted-foreground hover:text-foreground transition-colors">Business Central vs F&SCM</Link></li>
               <li><Link to="/businesscentral/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Business Central</Link></li>
               <li><Link to="/finance-supply-chain/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Finance & SCM</Link></li>
-              <li><Link to="/behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">ERP Behovsanalys</Link></li>
+              <li><Link to="/ERPbehovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">ERP Behovsanalys</Link></li>
             </ul>
           </div>
 
@@ -27,7 +27,7 @@ const Footer = () => {
               <li><Link to="/crm/" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
               <li><Link to="/d365sales/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
               <li><Link to="/d365marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
-              <li><Link to="/salj-marknad-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
+              <li><Link to="/CRMbehovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
             </ul>
           </div>
 

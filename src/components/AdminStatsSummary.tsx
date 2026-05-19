@@ -50,7 +50,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/d365fieldservice": "Dynamics 365 Field Service",
   "/d365contactcenter": "Dynamics 365 Contact Center",
   "/finance-supply-chain": "Finance & Supply Chain",
-  "/behovsanalys": "Behovsanalys ERP",
+  "/ERPbehovsanalys": "Behovsanalys ERP",
   "/behovsanalys-salj-marknad": "Behovsanalys Sälj & Marknad",
   "/behovsanalys-kundservice": "Behovsanalys Kundservice",
   "/kravspecifikation": "Kravspecifikation ERP",
@@ -71,7 +71,7 @@ const MENU_SECTIONS: { label: string; paths: string[] }[] = [
   { label: "Startsidan", paths: ["/"] },
   { label: "Branschlösningar", paths: ["/branschlosningar"] },
   { label: "Det kritiska partnervalet", paths: ["/valjdynamics365partner"] },
-  { label: "Affärssystem (ERP)", paths: ["/erp", "/business-central", "/finance-supply-chain", "/behovsanalys", "/kravspecifikation"] },
+  { label: "Affärssystem (ERP)", paths: ["/erp", "/business-central", "/finance-supply-chain", "/ERPbehovsanalys", "/kravspecifikation"] },
   { label: "Marknad & Sälj", paths: ["/crm", "/d365sales", "/d365marketing", "/behovsanalys-salj-marknad", "/kravspecifikation-sales", "/kravspecifikation-marketing"] },
   { label: "Kundservice", paths: ["/d365customerservice", "/d365fieldservice", "/d365contactcenter", "/behovsanalys-kundservice", "/kravspecifikation-customer-service"] },
   { label: "Microsoft AI", paths: ["/copilot", "/aioversikt", "/ai-readiness", "/agents"] },
@@ -189,7 +189,7 @@ export default function AdminStatsSummary({ token, onSessionExpired }: AdminStat
 
       // Behovsanalyser, Kravspec & AI Assessment
       const toolPages = [
-        "/behovsanalys",
+        "/ERPbehovsanalys",
         "/behovsanalys-salj-marknad",
         "/behovsanalys-kundservice",
         "/kravspecifikation",

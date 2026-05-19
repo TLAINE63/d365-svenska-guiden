@@ -21,7 +21,7 @@ import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 // Breadcrumb items
 const needsAnalysisBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "ERP Behovsanalys", url: "https://d365.se/behovsanalys" },
+  { name: "ERP Behovsanalys", url: "https://d365.se/ERPbehovsanalys" },
 ];
 
 // Contact form validation schema
@@ -3256,7 +3256,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
       <SEOHead 
         title="ERP Behovsanalys | Hitta rätt Dynamics 365-lösning"
         description="Gör vår kostnadsfria ERP-behovsanalys och få en personlig rekommendation för Business Central eller Finance & Supply Chain Management."
-        canonicalPath="/behovsanalys"
+        canonicalPath="/ERPbehovsanalys"
         keywords="ERP behovsanalys, Dynamics 365, Business Central, Finance Supply Chain, affärssystem, kravspecifikation"
         ogImage="https://d365.se/og-behovsanalys.png"
       />

@@ -156,7 +156,7 @@ const IndustryPage = () => {
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link to="/valjdynamics365partner" className="text-primary hover:underline">Hitta partner →</Link>
-              <Link to="/behovsanalys" className="text-primary hover:underline">Gör behovsanalys →</Link>
+              <Link to="/ERPbehovsanalys" className="text-primary hover:underline">Gör behovsanalys →</Link>
               <Link to="/branscher" className="text-primary hover:underline">Alla branscher →</Link>
             </div>
           </div>
@@ -438,7 +438,7 @@ const IndustryPage = () => {
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <Link
-                  to="/behovsanalys"
+                  to="/ERPbehovsanalys"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:opacity-90"
                 >
                   Behovsanalys ERP <ArrowRight className="w-4 h-4" />

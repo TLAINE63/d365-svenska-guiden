@@ -59,11 +59,11 @@ const STAGES: Stage[] = [
     recommendationHref: "/kunskapscenter",
     nextStep: {
       label: "Gör en behovsanalys",
-      href: "/behovsanalys",
+      href: "/ERPbehovsanalys",
       helper: "Välj vilket område som skaver mest — analysen anpassas efter det.",
       options: [
-        { label: "ERP (ekonomi, operations)", href: "/behovsanalys" },
-        { label: "Sälj & Marknad", href: "/salj-marknad-behovsanalys" },
+        { label: "ERP (ekonomi, operations)", href: "/ERPbehovsanalys" },
+        { label: "Sälj & Marknad", href: "/CRMbehovsanalys" },
         { label: "Kundservice", href: "/kundservice-behovsanalys" },
       ],
     },

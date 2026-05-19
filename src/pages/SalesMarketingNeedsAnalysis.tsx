@@ -24,7 +24,7 @@ import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 const salesMarketingBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Marknad & Sälj", url: "https://d365.se/d365sales" },
-  { name: "Behovsanalys", url: "https://d365.se/salj-marknad-behovsanalys" },
+  { name: "Behovsanalys", url: "https://d365.se/CRMbehovsanalys" },
 ];
 
 const contactFormSchema = z.object({
@@ -3047,7 +3047,7 @@ const SalesMarketingNeedsAnalysis = () => {
       <SEOHead 
         title="Sälj & Marknad Behovsanalys | Dynamics 365 CRM"
         description="Gör vår kostnadsfria behovsanalys och få en personlig rekommendation för Dynamics 365 Sales och Customer Insights (Marketing)."
-        canonicalPath="/salj-marknad-behovsanalys"
+        canonicalPath="/CRMbehovsanalys"
         keywords="CRM behovsanalys, Dynamics 365 Sales, Marketing, Customer Insights, försäljning"
         ogImage="https://d365.se/og-salj-marknad-behovsanalys.png"
       />
