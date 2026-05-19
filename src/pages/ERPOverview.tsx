@@ -68,15 +68,15 @@ const ERPOverview = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="ERP system Sverige – Business Central vs Finance | d365.se"
-        description="Jämför ERP: Business Central från 765 kr/mån vs Finance & SCM från 2 007 kr/mån. Oberoende guide till Microsoft ERP."
+        title="ERP – jämför Microsoft Dynamics 365 ERP-system | d365.se"
+        description="ERP-jämförelse: Microsoft Dynamics 365 Business Central (765 kr/mån) vs Finance & Supply Chain (2 007 kr/mån). Oberoende guide till Microsoft ERP i Sverige."
         canonicalPath="/erp"
-        keywords="ERP system Sverige jämförelse, Microsoft ERP Sverige, Business Central vs Finance SCM, affärssystem jämförelse Sverige, Dynamics 365 ERP pris, ERP implementation Sverige, Microsoft affärssystem SMB, Dynamics 365 Finance Supply Chain, ERP system medelstora företag"
+        keywords="erp, erp system, erp system sverige, microsoft erp, dynamics 365 erp, erp dynamics, business central vs finance scm, erp software, erp systems, dynamics 365 finance supply chain, microsoft affärssystem"
         ogImage="https://d365.se/og-erp.png"
       />
       <ServiceSchema 
-        name="Microsoft Dynamics 365 ERP – Rådgivning & Partnerval"
-        description="Oberoende rådgivning för val av rätt Microsoft Dynamics 365 ERP-system i Sverige. Jämför Business Central och Finance & Supply Chain Management baserat på dina krav och budget."
+        name="Microsoft Dynamics 365 ERP – jämförelse & rådgivning"
+        description="Oberoende jämförelse av Microsoft Dynamics 365 ERP-system: Business Central för små och medelstora företag, Finance & Supply Chain Management för stora organisationer."
       />
       <FAQSchema faqs={erpFaqs} />
       <BreadcrumbSchema items={erpBreadcrumbs} />
@@ -97,12 +97,12 @@ const ERPOverview = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
+                <span className="block">ERP-system</span>
                 <span className="block">Microsoft Dynamics 365</span>
-                <span className="block">ERP – Affärssystem</span>
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
-                <span className="block">Välj rätt affärssystem för din organisation.</span>
-                <span className="block">Är det Business Central eller Finance & Supply Chain Management?</span>
+                <span className="block">Jämför Microsofts två ERP-system.</span>
+                <span className="block">Business Central eller Finance &amp; Supply Chain Management?</span>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">

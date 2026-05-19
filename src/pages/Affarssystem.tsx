@@ -82,15 +82,15 @@ const Affarssystem = () => {
   return (
     <div className="min-h-screen">
       <SEOHead
-        title="Affärssystem – ärlig guide till val 2026 | d365.se"
-        description="Vad är ett affärssystem, vad kostar det och när väljer du Business Central vs Finance & Supply Chain? Oberoende guide utan säljpåverkan."
+        title="Affärssystem – vad det är, vad det kostar & hur du väljer | d365.se"
+        description="Oberoende guide till affärssystem i Sverige: vad ett affärssystem är, vad det kostar, hur du väljer rätt och vilka alternativ som finns på marknaden 2026."
         canonicalPath="/affarssystem"
-        keywords="affärssystem, affärssystem jämförelse, affärssystem pris, ERP Sverige, Business Central, Dynamics 365 Finance, välja affärssystem, affärssystem för mindre företag"
+        keywords="affärssystem, vad är ett affärssystem, affärssystem sverige, affärssystem jämförelse, affärssystem pris, välja affärssystem, affärssystem för småföretag, affärssystem för medelstora företag, molnbaserade affärssystem"
         ogImage="https://d365.se/og-erp.png"
       />
       <ServiceSchema
-        name="Affärssystem – Oberoende rådgivning"
-        description="Oberoende guide till val av affärssystem (ERP) i Sverige med fokus på Microsoft Dynamics 365 Business Central och Finance & Supply Chain Management."
+        name="Affärssystem – oberoende guide"
+        description="Oberoende guide till affärssystem i Sverige. Förklarar vad ett affärssystem är, hur du väljer rätt och vilka alternativ som finns på marknaden."
       />
       <BreadcrumbSchema items={breadcrumbs} />
       <FAQSchema faqs={faqs} />
@@ -111,12 +111,12 @@ const Affarssystem = () => {
             <div className="max-w-3xl">
               <Badge className="mb-4 bg-cta-orange text-white border-0">Pelarsida · Oberoende guide</Badge>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                Affärssystem – ärlig guide till val
+                Affärssystem – vad det är och hur du väljer rätt
               </h1>
               <p className="text-lg sm:text-xl text-white/95 mb-6">
-                Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa – och hur väljer du
-                rätt mellan Business Central och Finance &amp; Supply Chain Management? Här får du svaren utan
-                säljpåverkan.
+                Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa
+                och vilka alternativ finns på den svenska marknaden? Här får du svaren
+                utan säljpåverkan.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to="/behovsanalys/">
