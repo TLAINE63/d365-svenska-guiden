@@ -22,8 +22,8 @@ const ContactUs = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Kontakta oss | Dynamics 365 Rådgivning"
-        description="Kontakta våra senior rådgivare för kostnadsfri rådgivning om Microsoft Dynamics 365. Boka möte med Thomas Laine eller Michael Uhman."
+        title="Kontakt – Oberoende vägledning inför val av Dynamics 365 och partner | d365.se"
+        description="Oberoende vägledning inför valet av Dynamics 365 och partner. Boka kostnadsfritt möte med Thomas Laine eller Michael Uhman för rådgivning utan säljpåverkan."
         canonicalPath="/kontakt"
         keywords="kontakt, Dynamics 365, rådgivning, konsult, Microsoft"
         ogImage="https://d365.se/og-kontakt.png"
