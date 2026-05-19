@@ -2979,7 +2979,7 @@ const SalesMarketingNeedsAnalysis = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <main className="pt-24 pb-16">
+        <main className="pt-28 pb-16">
           <div className="container mx-auto px-4 max-w-4xl">
             <Card className="border-2 border-crm/30">
               <CardHeader className="text-center bg-gradient-to-r from-crm/10 to-crm/5">
