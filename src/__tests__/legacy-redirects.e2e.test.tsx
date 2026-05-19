@@ -64,6 +64,8 @@ const DESTINATION_H1: Record<
   "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center",        h2: "Microsoft Dynamics 365 Contact Center",              meta: "Dynamics 365 Contact Center från 1 051 kr/agent/mån" },
   "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet",          h2: "Fem viktiga frågor vid val av implementationspartner", meta: "Jämför certifierade Dynamics 365-partners i Sverige" },
   "/AIsok":                { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?",                h2: null,                                                 meta: "Beskriv ditt behov i naturligt språk" },
+  "/ERPbehovsanalys":      { file: "src/pages/NeedsAnalysis.tsx",       expected: "Behovsanalys för Dynamics 365 ERP", h2: null,                                                 meta: "kostnadsfria ERP-behovsanalys" },
+  "/CRMbehovsanalys":      { file: "src/pages/SalesMarketingNeedsAnalysis.tsx", expected: "Behovsanalys Sälj & Marknad", h2: null,                                          meta: "Dynamics 365 Sales och Customer Insights" },
 };
 
 const ROUTER_FILES = [
