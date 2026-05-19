@@ -453,7 +453,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
                 <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
                   {(partner as any).ai_summary}
                 </p>
-                <p className="mt-2 text-[11px] text-slate-400">
+                <p className="mt-2 text-[11px] text-slate-600">
                   Genererad av d365.se utifrån partnerdata. Uppdateras löpande.
                 </p>
               </div>
