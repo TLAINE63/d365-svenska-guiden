@@ -338,7 +338,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             body: tpl.body,
             siteStatsHtml: blocks.siteStatsHtml,
             snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
-            previewSuffixHtml: blocks.siteStatsHtml, // legacy fallback
+            previewSuffixHtml: `${blocks.siteStatsHtml}${blocks.snitcherCompaniesHtml}`, // legacy fallback
           }),
         }
       );
@@ -395,7 +395,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
               body: tpl.body,
               siteStatsHtml: blocks.siteStatsHtml,
               snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
-              previewSuffixHtml: blocks.siteStatsHtml, // legacy fallback
+              previewSuffixHtml: `${blocks.siteStatsHtml}${blocks.snitcherCompaniesHtml}`, // legacy fallback
             }),
           }
         );
@@ -533,8 +533,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   // genererad HTML. Bilderna ligger i /public/email-assets/ och serveras
   // publikt från sajten så de fungerar direkt i e-postklienter.
   const PUBLIC_BASE = "https://www.d365.se";
-  const SITE_STATS_IMG_URL = `${PUBLIC_BASE}/email-assets/sajtstatistik-snip.png`;
-  const SNITCHER_IMG_URL = `${PUBLIC_BASE}/email-assets/snitcher-snip.png`;
+  const EMAIL_ASSET_VERSION = "20260519-snippets-v2";
+  const SITE_STATS_IMG_URL = `${PUBLIC_BASE}/email-assets/sajtstatistik-snip.png?v=${EMAIL_ASSET_VERSION}`;
+  const SNITCHER_IMG_URL = `${PUBLIC_BASE}/email-assets/snitcher-snip.png?v=${EMAIL_ASSET_VERSION}`;
 
   // Kontroll: varna om bilderna saknas på publika sajten så placeholders inte blir trasiga i mailen.
   const [missingAssets, setMissingAssets] = useState<{ label: string; url: string }[]>([]);
@@ -646,15 +647,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
     setSendingPreview(true);
     try {
-      // 1) Hämta statistik via befintlig edge function
-      const { data: summaryRes, error: summaryErr } = await supabase.functions.invoke(
-        "partner-sales-summary",
-        { body: { token, partnerSlug: previewPartner.slug, mode: "summary" } },
-      );
-      if (summaryErr) throw summaryErr;
-      if (summaryRes?.error) throw new Error(summaryRes.error);
-
-      const statsHtml = buildStatsHtml(previewPartner, summaryRes?.summary);
+      const blocks = await fetchEmailBlocks();
       const tpl = templates[previewSegment];
       const contactName = previewPartner.admin_contact_name || previewPartner.contact_person || previewPartner.name;
       const composedSubject = `[PREVIEW – ${previewPartner.name}] ${tpl.subject}`;
@@ -673,7 +666,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             partners: [{ id: null, name: previewPartner.name, email: addr, contact_name: contactName }],
             subject: composedSubject,
             body: tpl.body,
-            previewSuffixHtml: statsHtml,
+            siteStatsHtml: blocks.siteStatsHtml,
+            snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
+            previewSuffixHtml: `${blocks.siteStatsHtml}${blocks.snitcherCompaniesHtml}`,
           }),
         },
       );

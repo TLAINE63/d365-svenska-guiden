@@ -65,6 +65,26 @@ function parseRecipients(input: string | null | undefined): string[] {
     .filter((s) => s.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s));
 }
 
+const PUBLIC_BASE_URL = "https://www.d365.se";
+const EMAIL_ASSET_VERSION = "20260519-snippets-v2";
+const SITE_STATS_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/sajtstatistik-snip.png?v=${EMAIL_ASSET_VERSION}`;
+const SNITCHER_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/snitcher-snip.png?v=${EMAIL_ASSET_VERSION}`;
+
+function imageBlockHtml(title: string, src: string, alt: string): string {
+  return `<div style="margin:24px 0 0">
+    <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">${title}</div>
+    <img src="${src}" alt="${alt}" style="display:block;width:100%;max-width:600px;height:auto;border:1px solid #e2e8f0;border-radius:10px" />
+  </div>`;
+}
+
+function salesPitchSiteStatsHtml(): string {
+  return imageBlockHtml("Aktuell sajtstatistik", SITE_STATS_SNIP_URL, "Aktuell sajtstatistik");
+}
+
+function salesPitchSnitcherHtml(): string {
+  return imageBlockHtml("Identifierade besökande företag", SNITCHER_SNIP_URL, "Identifierade besökande företag");
+}
+
 // JWT verification for admin operations
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
   try {
@@ -1542,7 +1562,7 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://www.d365.se";
+      const baseUrl = PUBLIC_BASE_URL;
       const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
       const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges oberoende guide till Dynamics 365";
       const emailBody = customBody || "Hej,\n\nVi vill gärna ha med er som partner på d365.se.\n\n{{INVITATION_LINK}}\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
@@ -1808,7 +1828,7 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://www.d365.se";
+      const baseUrl = PUBLIC_BASE_URL;
 
       // Resolve template body (override > saved > default)
       let emailBody = "";
@@ -1978,7 +1998,13 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://www.d365.se";
+      const baseUrl = PUBLIC_BASE_URL;
+      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
+        ? siteStatsHtml
+        : salesPitchSiteStatsHtml();
+      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
+        ? snitcherCompaniesHtml
+        : salesPitchSnitcherHtml();
 
       // Resolve template body (override > saved > default)
       let emailBody = "";
@@ -2081,13 +2107,15 @@ d365.se`;
           const hasSiteStatsPlaceholder = /\{\{SITE_STATS\}\}/.test(personalizedBody);
           const hasSnitcherPlaceholder = /\{\{SNITCHER_COMPANIES\}\}/.test(personalizedBody);
           htmlBody = htmlBody
-            .replace(/<p>\s*\{\{SITE_STATS\}\}\s*<\/p>/g, siteStatsHtml || "")
-            .replace(/\{\{SITE_STATS\}\}/g, siteStatsHtml || "")
-            .replace(/<p>\s*\{\{SNITCHER_COMPANIES\}\}\s*<\/p>/g, snitcherCompaniesHtml || "")
-            .replace(/\{\{SNITCHER_COMPANIES\}\}/g, snitcherCompaniesHtml || "");
+            .replace(/<p>\s*\{\{SITE_STATS\}\}\s*<\/p>/g, resolvedSiteStatsHtml)
+            .replace(/\{\{SITE_STATS\}\}/g, resolvedSiteStatsHtml)
+            .replace(/<p>\s*\{\{SNITCHER_COMPANIES\}\}\s*<\/p>/g, resolvedSnitcherCompaniesHtml)
+            .replace(/\{\{SNITCHER_COMPANIES\}\}/g, resolvedSnitcherCompaniesHtml);
 
           // Fallback: if no inline placeholders, keep legacy behaviour (append at the end)
-          const suffix = (!hasSiteStatsPlaceholder && !hasSnitcherPlaceholder) ? (previewSuffixHtml || "") : "";
+          const suffix = (!hasSiteStatsPlaceholder && !hasSnitcherPlaceholder)
+            ? (previewSuffixHtml || `${resolvedSiteStatsHtml}${resolvedSnitcherCompaniesHtml}`)
+            : "";
 
           const fullHtml = `<!DOCTYPE html>
             <html>
