@@ -217,7 +217,7 @@ const ERPOverview = () => {
                   </li>
                 </ul>
                 
-                <Link to="/business-central/">
+                <Link to="/businesscentral/">
                   <Button variant="outline" className="w-full border-business-central text-business-central hover:bg-business-central hover:text-white">
                     Läs mer om Business Central
                     <ArrowRight className="ml-2 h-4 w-4" />

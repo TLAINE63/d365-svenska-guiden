@@ -614,7 +614,7 @@ const Branschlosningar = () => {
                 {
                   label: "Business Central",
                   desc: "ERP för medelstora bolag – ekonomi, lager och produktion",
-                  path: "/business-central",
+                  path: "/businesscentral",
                   industries: "Tillverkning, Grossist, Konsult, Bygg",
                   badge: "bg-business-central/10 text-business-central border-business-central/30",
                   cta: "hover:border-business-central/70 hover:bg-business-central/5",

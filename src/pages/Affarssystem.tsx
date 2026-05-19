@@ -157,7 +157,7 @@ const Affarssystem = () => {
             </p>
             <p className="text-lg text-muted-foreground">
               Microsoft erbjuder två affärssystem inom Dynamics 365-familjen:&nbsp;
-              <Link to="/business-central/" className="text-primary font-medium hover:underline">Business Central</Link> för små och medelstora bolag, och&nbsp;
+              <Link to="/businesscentral/" className="text-primary font-medium hover:underline">Business Central</Link> för små och medelstora bolag, och&nbsp;
               <Link to="/finance-supply-chain/" className="text-primary font-medium hover:underline">Finance &amp; Supply Chain Management</Link> för stora, internationella organisationer. Vilket som passar dig avgörs av storlek, komplexitet och ambitioner – inte av vilken licens partnern råkar sälja mest av.
             </p>
           </div>
@@ -255,7 +255,7 @@ const Affarssystem = () => {
                   <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" /> Från 765 kr/användare/månad</li>
                   <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" /> Ekonomi, lager, inköp, försäljning, produktion, service</li>
                 </ul>
-                <Link to="/business-central/">
+                <Link to="/businesscentral/">
                   <Button variant="outline" className="w-full border-business-central text-business-central hover:bg-business-central hover:text-white">
                     Läs mer om Business Central
                     <ArrowRight className="ml-2 h-4 w-4" />
