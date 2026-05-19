@@ -314,6 +314,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
     setSending(true);
     try {
+      const siteStatsHtml = await fetchSiteStatsHtml();
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
         {
@@ -327,9 +328,11 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             partners: partnerList,
             subject: tpl.subject,
             body: tpl.body,
+            previewSuffixHtml: siteStatsHtml,
           }),
         }
       );
+
       if (response.status === 401) {
         toast({ title: "Sessionen har gått ut", variant: "destructive" });
         onSessionExpired();
@@ -364,6 +367,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     setSendingTest(true);
     try {
       let okCount = 0;
+      const siteStatsHtml = await fetchSiteStatsHtml();
       for (const seg of segs) {
         const tpl = templates[seg];
         const response = await fetch(
@@ -379,9 +383,11 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
               partners: [{ id: null, name: `TEST – ${tpl.label}`, email: addr, contact_name: "Thomas" }],
               subject: `[TEST ${tpl.label}] ${tpl.subject}`,
               body: tpl.body,
+              previewSuffixHtml: siteStatsHtml,
             }),
           }
         );
+
         if (response.status === 401) {
           toast({ title: "Sessionen har gått ut", variant: "destructive" });
           onSessionExpired();
@@ -510,6 +516,69 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   function esc(v: any) {
     return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
+
+  // Bygger 8-rutors site-wide statistikblock (samma som visas i admin "Säljunderlag"-bilden)
+  const buildSiteStatsHtml = (summary: any): string => {
+    const s = summary || {};
+    const sAll = s.sajtAll || {};
+    const avgSec = Number(sAll.avgTimeOnPageSec || 0);
+    const avgMin = Math.floor(avgSec / 60);
+    const avgRest = avgSec % 60;
+    const avgStr = `${avgMin}m ${String(avgRest).padStart(2, "0")}s`;
+
+    const boxes: Array<{ label: string; value: string; hint?: string }> = [
+      { label: "Unika besökare", value: fmt(sAll.uniqueVisitors ?? 0) },
+      { label: "Sidvisningar", value: fmt(sAll.pageViews ?? 0) },
+      { label: "Välj partner", value: fmt(sAll.valjPartnerVisits ?? 0), hint: "besök på /valj-partner" },
+      { label: "Behovsanalyser", value: fmt(sAll.analysesCompleted ?? 0), hint: "alla olika behovsanalyser" },
+      { label: "Kom igång-guiden", value: fmt(sAll.komIgangVisits ?? 0), hint: "besök på /kom-igang" },
+      { label: "Partnerprofiler", value: fmt(sAll.partnerProfileVisitsGlobal ?? 0), hint: "besök på partnerprofil" },
+      { label: "Partnerklick", value: fmt(sAll.partnerClicksGlobal ?? 0), hint: "klickat vidare till partner" },
+      { label: "Snitt-tid på sida", value: avgStr, hint: "engagemang" },
+    ];
+
+    const row = (items: typeof boxes) =>
+      `<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0"><tr>${items
+        .map(
+          (b) => `
+        <td width="25%" valign="top" style="padding:6px">
+          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;text-align:left">
+            <div style="font-size:12px;color:#475569;font-weight:600">${esc(b.label)}</div>
+            <div style="font-size:26px;font-weight:800;color:#0f172a;line-height:1.1;margin-top:6px">${esc(b.value)}</div>
+            ${b.hint ? `<div style="font-size:11px;color:#94a3b8;margin-top:6px">${esc(b.hint)}</div>` : ""}
+          </div>
+        </td>`,
+        )
+        .join("")}</tr></table>`;
+
+    return `
+<div style="margin:24px 0 0;padding:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+  <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">Aktuell sajtstatistik</div>
+  ${row(boxes.slice(0, 4))}
+  ${row(boxes.slice(4, 8))}
+</div>`;
+  };
+
+  // Cacha site-stats per session så vi inte gör onödiga anrop vid bulk/test
+  const fetchSiteStatsHtml = async (): Promise<string> => {
+    const anchor = partners.find((p) => p.slug) || partners[0];
+    if (!anchor?.slug) return "";
+    try {
+      const { data, error } = await supabase.functions.invoke("partner-sales-summary", {
+        body: { token, partnerSlug: anchor.slug, mode: "summary" },
+      });
+      if (error || data?.error) {
+        console.warn("Kunde inte hämta site-stats till mail", error || data?.error);
+        return "";
+      }
+      return buildSiteStatsHtml(data?.summary);
+    } catch (e) {
+      console.warn("fetchSiteStatsHtml fel", e);
+      return "";
+    }
+  };
+
+
 
 
   const sendPreview = async () => {
