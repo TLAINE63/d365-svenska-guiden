@@ -480,6 +480,8 @@ const Index = () => {
                     src={thomasLaine}
                     alt="Thomas Laine, oberoende rådgivare inom Microsoft Dynamics 365"
                     loading="lazy"
+                    width={80}
+                    height={80}
                     className="w-20 h-20 rounded-full object-cover shadow-lg flex-shrink-0"
                   />
                   <div className="pt-1">
@@ -494,6 +496,8 @@ const Index = () => {
                     src={michaelUhman}
                     alt="Michael Uhman, oberoende rådgivare inom Microsoft Dynamics 365"
                     loading="lazy"
+                    width={80}
+                    height={80}
                     className="w-20 h-20 rounded-full object-cover shadow-lg flex-shrink-0"
                   />
                   <div className="pt-1">
