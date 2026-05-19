@@ -3058,7 +3058,7 @@ const SalesMarketingNeedsAnalysis = () => {
       <BreadcrumbSchema items={salesMarketingBreadcrumbs} />
       <Navbar />
       <main className="pb-16">
-        <div className="relative bg-cover bg-center pt-24 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>
+        <div className="relative bg-cover bg-center pt-28 pb-8 mb-4" style={{ backgroundImage: `url(${heroBehovsanalysSalj})` }}>
           <div className="absolute inset-0 bg-black/60" />
           <div className="relative container mx-auto px-4 max-w-4xl text-center">
             <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
