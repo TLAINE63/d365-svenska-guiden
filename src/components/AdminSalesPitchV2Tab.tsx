@@ -533,8 +533,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   // genererad HTML. Bilderna ligger i /public/email-assets/ och serveras
   // publikt från sajten så de fungerar direkt i e-postklienter.
   const PUBLIC_BASE = "https://www.d365.se";
-  const SITE_STATS_IMG_URL = `${PUBLIC_BASE}/email-assets/sajtstatistik-snip.png`;
-  const SNITCHER_IMG_URL = `${PUBLIC_BASE}/email-assets/snitcher-snip.png`;
+  const EMAIL_ASSET_VERSION = "20260519-snippets-v2";
+  const SITE_STATS_IMG_URL = `${PUBLIC_BASE}/email-assets/sajtstatistik-snip.png?v=${EMAIL_ASSET_VERSION}`;
+  const SNITCHER_IMG_URL = `${PUBLIC_BASE}/email-assets/snitcher-snip.png?v=${EMAIL_ASSET_VERSION}`;
 
   // Kontroll: varna om bilderna saknas på publika sajten så placeholders inte blir trasiga i mailen.
   const [missingAssets, setMissingAssets] = useState<{ label: string; url: string }[]>([]);
