@@ -1770,7 +1770,7 @@ Thomas`,
         <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 border-b border-slate-700/50">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.15),_transparent_50%)] pointer-events-none" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(249,115,22,0.08),_transparent_50%)] pointer-events-none" />
-          <div className="container mx-auto px-4 py-8 relative">
+          <div className="container mx-auto px-4 pt-14 pb-8 relative">
             <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
               <div className="flex items-center gap-3">
                 <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center shadow-lg shadow-blue-900/40 ring-1 ring-white/10">
