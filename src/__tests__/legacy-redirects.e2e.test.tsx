@@ -46,14 +46,16 @@ const REDIRECTS: Array<[oldPath: string, newPath: string, headingPattern: RegExp
 
 // Mirror the real App routes for the URLs under test. Using lazy imports
 // keeps the test honest — it loads the same components users do.
-const BusinessCentral = lazy(() => import("@/pages/BusinessCentral"));
-const AIOverview = lazy(() => import("@/pages/AIOverview"));
-const D365Sales = lazy(() => import("@/pages/D365Sales"));
-const D365Marketing = lazy(() => import("@/pages/D365Marketing"));
-const D365CustomerService = lazy(() => import("@/pages/D365CustomerService"));
-const D365FieldService = lazy(() => import("@/pages/D365FieldService"));
-const D365ContactCenter = lazy(() => import("@/pages/D365ContactCenter"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
+// Eager imports so any module-evaluation error surfaces immediately
+// (lazy() would silently keep Suspense pending).
+import BusinessCentral from "@/pages/BusinessCentral";
+import AIOverview from "@/pages/AIOverview";
+import D365Sales from "@/pages/D365Sales";
+import D365Marketing from "@/pages/D365Marketing";
+import D365CustomerService from "@/pages/D365CustomerService";
+import D365FieldService from "@/pages/D365FieldService";
+import D365ContactCenter from "@/pages/D365ContactCenter";
+import NotFound from "@/pages/NotFound";
 
 const LocationProbe = () => {
   const loc = useLocation();
