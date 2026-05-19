@@ -314,6 +314,8 @@ const Affarssystem = () => {
                       className="w-full h-full"
                       src={`https://www.youtube-nocookie.com/embed/${v.embedId}`}
                       title={v.title}
+                      width="1280"
+                      height="720"
                       loading="lazy"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen

@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-border pt-8 text-center text-muted-foreground">
-          <img src={siteLogo} alt="d365.se logotyp" className="h-10 mx-auto mb-4" />
+          <img src={siteLogo} alt="d365.se logotyp" width="194" height="40" loading="lazy" decoding="async" className="h-10 w-auto mx-auto mb-4" />
           <p className="mb-2">© 2025 Dynamic Factory</p>
           <p className="text-sm mb-3">
             Microsoft Business Applications Evangelister
@@ -101,7 +101,7 @@ const Footer = () => {
             </button>
           </div>
           <div className="flex justify-center items-center gap-2">
-            <img src={linkedinLogo} alt="LinkedIn logotyp" className="w-5 h-5" />
+            <img src={linkedinLogo} alt="LinkedIn logotyp" width="20" height="20" loading="lazy" decoding="async" className="w-5 h-5" />
             <a 
               href="https://www.linkedin.com/showcase/d365se/" 
               target="_blank" 
