@@ -338,7 +338,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             body: tpl.body,
             siteStatsHtml: blocks.siteStatsHtml,
             snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
-            previewSuffixHtml: blocks.siteStatsHtml, // legacy fallback
+            previewSuffixHtml: `${blocks.siteStatsHtml}${blocks.snitcherCompaniesHtml}`, // legacy fallback
           }),
         }
       );
@@ -395,7 +395,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
               body: tpl.body,
               siteStatsHtml: blocks.siteStatsHtml,
               snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
-              previewSuffixHtml: blocks.siteStatsHtml, // legacy fallback
+              previewSuffixHtml: `${blocks.siteStatsHtml}${blocks.snitcherCompaniesHtml}`, // legacy fallback
             }),
           }
         );
