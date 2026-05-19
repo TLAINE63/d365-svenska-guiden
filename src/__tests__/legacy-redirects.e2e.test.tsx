@@ -34,6 +34,8 @@ const REDIRECTS: Array<[oldPath: string, newPath: string]> = [
   ["/d365-contact-center", "/d365contactcenter"],
   ["/valj-partner", "/valjdynamics365partner"],
   ["/sok", "/AIsok"],
+  ["/behovsanalys", "/ERPbehovsanalys"],
+  ["/salj-marknad-behovsanalys", "/CRMbehovsanalys"],
 ];
 
 /**
