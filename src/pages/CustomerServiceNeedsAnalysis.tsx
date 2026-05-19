@@ -1750,7 +1750,7 @@ const CustomerServiceNeedsAnalysis = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Kundservice Behovsanalys | Dynamics 365"
-        description="Gör vår kostnadsfria behovsanalys och få en personlig rekommendation för Dynamics 365 Customer Service, Field Service och Contact Center. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Kostnadsfri behovsanalys för Dynamics 365 Customer Service, Field Service och Contact Center. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/kundservice-behovsanalys"
         keywords="kundservice behovsanalys, Dynamics 365 Customer Service, Field Service, Contact Center"
         ogImage="https://d365.se/og-kundservice-behovsanalys.png"

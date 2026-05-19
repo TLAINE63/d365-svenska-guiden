@@ -430,12 +430,12 @@ const KomIgang = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
         title="Kom igång – Hitta rätt Dynamics 365-partner | d365.se"
-        description="Besvara fyra snabba frågor och få matchade partnerrekommendationer för din Dynamics 365-implementation. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Fyra snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/kom-igang"
       />
       <WebPageSchema
         name="Kom igång – Hitta rätt Dynamics 365-partner"
-        description="Besvara fyra snabba frågor och få matchade partnerrekommendationer för din Dynamics 365-implementation. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Fyra snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Oberoende vägledning inför val av Dynamics 365 och partner."
         url="https://d365.se/kom-igang/"
         breadcrumb={[
           { name: "Hem", url: "https://d365.se/" },

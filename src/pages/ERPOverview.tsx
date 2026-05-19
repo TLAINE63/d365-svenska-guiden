@@ -69,7 +69,7 @@ const ERPOverview = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="ERP – jämför Microsoft Dynamics 365 ERP-system | d365.se"
-        description="ERP-jämförelse: Microsoft Dynamics 365 Business Central (765 kr/mån) vs Finance & Supply Chain (2 007 kr/mån). Oberoende guide till Microsoft ERP i Sverige. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="ERP-jämförelse: Business Central (765 kr/mån) vs Finance & Supply Chain (2 007 kr/mån). Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/erp"
         keywords="erp, erp system, erp system sverige, microsoft erp, dynamics 365 erp, erp dynamics, business central vs finance scm, erp software, erp systems, dynamics 365 finance supply chain, microsoft affärssystem"
         ogImage="https://d365.se/og-erp.png"

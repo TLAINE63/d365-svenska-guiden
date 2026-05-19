@@ -178,7 +178,7 @@ const RequirementsSpecCustomerService = () => {
     <>
       <SEOHead
         title="Kravspecifikation för Dynamics 365 Customer Service | d365.se"
-        description="Skapa en skräddarsydd kravspecifikation för Dynamics 365 Customer Service, Contact Center och Field Service. AI-berikad med branschspecifika krav. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Skräddarsydd kravspec för Customer Service, Contact Center och Field Service – AI-berikad. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/kravspecifikation-kundservice"
       />
       <BreadcrumbSchema items={breadcrumbs} />
