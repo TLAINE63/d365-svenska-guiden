@@ -243,7 +243,7 @@ const ContactUs = () => {
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">Partnerutvärdering</h4>
                       <p className="text-sm text-muted-foreground mb-2">Hjälp att välja rätt implementeringspartner</p>
-                      <Link to="/valj-partner/" className="text-sm text-primary hover:underline font-medium">
+                      <Link to="/valjdynamics365partner/" className="text-sm text-primary hover:underline font-medium">
                         Prova gärna vår Partnerväljare →
                       </Link>
                     </div>

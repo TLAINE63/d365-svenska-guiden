@@ -39,7 +39,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/business-central": "Business Central",
   "/crm": "CRM-översikt",
   "/erp": "ERP-översikt",
-  "/valj-partner": "Välj Partner",
+  "/valjdynamics365partner": "Välj Partner",
   "/copilot": "Copilot",
   "/branschlosningar": "Branschlösningar",
   "/kontakt": "Kontakt",
@@ -462,7 +462,7 @@ function buildOneLine90d(stats: any): string {
   const swedishPct = totalVisitors > 0 ? Math.round((swedish / totalVisitors) * 100) : 0;
   const pages = stats.topPages || [];
   const findVisits = (path: string) => pages.find((p: any) => p.path === path)?.visits || 0;
-  const valjPartner = findVisits("/valj-partner");
+  const valjPartner = findVisits("/valjdynamics365partner");
   const komIgang = findVisits("/kom-igang");
   const analysisTotal = ANALYSIS_PAGES.reduce((s, a) => s + findVisits(a.path), 0);
   const avgSec = stats.avgTimeOnPage || 0;
@@ -648,7 +648,7 @@ export default function AdminSalesOverview({ token, onSessionExpired }: AdminSal
         const boxes = [
           { icon: Users, label: "Unika besökare", value: extVisitors.toLocaleString("sv-SE"), hint: "\n" },
           { icon: TrendingUp, label: "Sidvisningar", value: extPageViews.toLocaleString("sv-SE"), hint: "\n" },
-          { icon: Award, label: "Välj partner", value: valjPartner.toLocaleString("sv-SE"), hint: "besök på /valj-partner" },
+          { icon: Award, label: "Välj partner", value: valjPartner.toLocaleString("sv-SE"), hint: "besök på /valjdynamics365partner" },
           { icon: ClipboardCheck, label: "Behovsanalyser", value: analysisTotal.toLocaleString("sv-SE"), hint: "alla olika behovanalyser" },
           { icon: FileText, label: "Kom igång-guiden", value: komIgang.toLocaleString("sv-SE"), hint: "besök på /kom-igang" },
           { icon: Building2, label: "Partnerprofiler", value: partnerProfileVisits.toLocaleString("sv-SE"), hint: "besök på partnerprofil" },

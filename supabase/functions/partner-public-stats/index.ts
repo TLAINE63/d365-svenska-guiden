@@ -208,7 +208,7 @@ Deno.serve(async (req) => {
       return s.size;
     };
 
-    const valjPartner = countSessions((p) => p.startsWith("/valj-partner"));
+    const valjPartner = countSessions((p) => p.startsWith("/valjdynamics365partner"));
     const komIgang = countSessions((p) => p.startsWith("/kom-igang"));
     const analysisTotal = countSessions((p) => ANALYSIS_PATHS.some((ap) => p === ap || p.startsWith(ap + "/")));
 

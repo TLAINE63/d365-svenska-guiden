@@ -40,7 +40,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/business-central": "Business Central",
   "/crm": "CRM",
   "/erp": "ERP-översikt",
-  "/valj-partner": "Välj Partner",
+  "/valjdynamics365partner": "Välj Partner",
   "/copilot": "Copilot",
   "/branschlosningar": "Branschlösningar",
   "/kontakt": "Kontakt",
@@ -70,7 +70,7 @@ const PAGE_LABELS: Record<string, string> = {
 const MENU_SECTIONS: { label: string; paths: string[] }[] = [
   { label: "Startsidan", paths: ["/"] },
   { label: "Branschlösningar", paths: ["/branschlosningar"] },
-  { label: "Det kritiska partnervalet", paths: ["/valj-partner"] },
+  { label: "Det kritiska partnervalet", paths: ["/valjdynamics365partner"] },
   { label: "Affärssystem (ERP)", paths: ["/erp", "/business-central", "/finance-supply-chain", "/behovsanalys", "/kravspecifikation"] },
   { label: "Marknad & Sälj", paths: ["/crm", "/d365sales", "/d365marketing", "/behovsanalys-salj-marknad", "/kravspecifikation-sales", "/kravspecifikation-marketing"] },
   { label: "Kundservice", paths: ["/d365customerservice", "/d365fieldservice", "/d365contactcenter", "/behovsanalys-kundservice", "/kravspecifikation-customer-service"] },

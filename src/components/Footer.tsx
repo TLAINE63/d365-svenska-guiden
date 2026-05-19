@@ -52,7 +52,7 @@ const Footer = () => {
               <li><Link to="/kunskapscenter/" className="text-muted-foreground hover:text-foreground transition-colors">Kravspecifikationer</Link></li>
               <li><Link to="/qa/" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
               <li><Link to="/branscher/" className="text-muted-foreground hover:text-foreground transition-colors">Hitta din bransch</Link></li>
-              <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Hitta din partner</Link></li>
+              <li><Link to="/valjdynamics365partner/" className="text-muted-foreground hover:text-foreground transition-colors">Hitta din partner</Link></li>
             </ul>
           </div>
 
@@ -64,7 +64,7 @@ const Footer = () => {
               <li><Link to="/agents/" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Agenter</Link></li>
               <li><Link to="/aioversikt/" className="text-muted-foreground hover:text-foreground transition-colors">AI Översikt</Link></li>
               <li><Link to="/ai-readiness/" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
-              <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
+              <li><Link to="/valjdynamics365partner/" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branscher/" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>
               <li><Link to="/kontakt/" className="text-muted-foreground hover:text-foreground transition-colors">Kontakta oss</Link></li>
             </ul>

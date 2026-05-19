@@ -147,7 +147,7 @@ const situationCards = [
     icon: <Users className="h-5 w-5 text-white" />,
     title: "Vi vet vad vi vill - Nu behöver vi en matchande partner",
     desc: "Ni har ringat in behovet och vill jämföra partners utifrån bransch, produktområde, storlek och geografi.",
-    link: "/valj-partner/",
+    link: "/valjdynamics365partner/",
     linkText: "Starta partnermatchning",
     image: selectorService,
     accent: "from-orange-500/90 to-teal-600/90",
@@ -168,7 +168,7 @@ const whyItems = [
 
 const popularGuides = [
   { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
-  { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valj-partner/", tag: "Partner" },
+  { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valjdynamics365partner/", tag: "Partner" },
   { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/businesscentral/", tag: "Kostnad" },
   { text: "Hur lång tid tar en Dynamics 365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
   { text: "Den typiska upphandlingsresan — 7 stadier", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
@@ -324,7 +324,7 @@ const Index = () => {
               </div>
               <div className="mb-4">
                 <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
-                  <Link to="/valj-partner/">Hitta rätt Dynamics 365-partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
+                  <Link to="/valjdynamics365partner/">Hitta rätt Dynamics 365-partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
                 </Button>
               </div>
               <p className="text-xs sm:text-[13px] text-white/60 leading-relaxed max-w-[520px]">
@@ -642,7 +642,7 @@ const Index = () => {
                   asChild
                   className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/40 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/50 hover:-translate-y-0.5 transition-all group/btn"
                 >
-                  <Link to="/valj-partner/">
+                  <Link to="/valjdynamics365partner/">
                     Starta partnermatchning
                     <ArrowRight className="w-4 h-4 ml-1.5 group-hover/btn:translate-x-1 transition-transform" />
                   </Link>
@@ -802,7 +802,7 @@ const Index = () => {
             <p className="text-sm text-primary-foreground/65 max-w-[400px]">Börja med att beskriva din situation — kostnadsfritt och utan förpliktelser.</p>
           </div>
           <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 text-sm font-semibold h-12 px-7 rounded-lg whitespace-nowrap flex-shrink-0">
-            <Link to="/valj-partner/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
+            <Link to="/valjdynamics365partner/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
           </Button>
         </div>
       </section>
@@ -899,7 +899,7 @@ const Index = () => {
                     <p>• <strong>Applikationsfokus:</strong> Kontrollera att partnern är specialiserad på rätt app.</p>
                     <p>• <strong>Storlek och kapacitet:</strong> Matcha partnerns kapacitet med ditt projekts storlek.</p>
                     <p className="pt-2">
-                      <Link to="/valj-partner/" className="text-primary hover:underline font-semibold">
+                      <Link to="/valjdynamics365partner/" className="text-primary hover:underline font-semibold">
                         → Utforska partnerkatalogen
                       </Link>
                     </p>

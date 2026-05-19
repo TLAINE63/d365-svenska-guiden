@@ -258,7 +258,7 @@ async function buildSummary(
   const [vAllSessions, vAllPv, valjPartnerRes, komIgangRes, analysesAllRes, pvAllRes, clicksAllGRes] = await Promise.all([
     supabase.from("visitor_analytics").select("session_id, page_path, time_on_page").limit(200000),
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }),
-    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/valj-partner%"),
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/valjdynamics365partner%"),
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/kom-igang%"),
     supabase.from("leads").select("source_type, source_page", { count: "exact", head: true }).or("source_type.ilike.%analys%,source_page.ilike.%behovsanalys%"),
     supabase.from("partner_profile_views").select("*", { count: "exact", head: true }),
@@ -294,7 +294,7 @@ async function buildSummary(
     publishedRes,
   ] = await Promise.all([
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).eq("geo_country_code", "SE").gte("visited_at", since30),
-    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/valj-partner%").gte("visited_at", since30),
+    supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/valjdynamics365partner%").gte("visited_at", since30),
     supabase.from("leads").select("*", { count: "exact", head: true }).or("source_type.ilike.%analys%,source_page.ilike.%behovsanalys%").gte("created_at", since30),
     supabase.from("visitor_analytics").select("*", { count: "exact", head: true }).like("page_path", "%/kom-igang%").gte("visited_at", since30),
     supabase.from("leads").select("*", { count: "exact", head: true }),

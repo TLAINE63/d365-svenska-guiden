@@ -393,7 +393,7 @@ const BusinessCentral = () => {
                   <div className="bg-business-central/10 border border-business-central/30 rounded-lg p-4 mt-4">
                     <p className="font-semibold text-foreground mb-2">🔍 Hitta rätt partner:</p>
                     <p>
-                      På vår <a href="/valj-partner/" className="text-business-central hover:underline font-semibold">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav.
+                      På vår <a href="/valjdynamics365partner/" className="text-business-central hover:underline font-semibold">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav.
                     </p>
                   </div>
                 </AccordionContent>
@@ -804,7 +804,7 @@ const BusinessCentral = () => {
 
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">
-              <Link to="/valj-partner/">
+              <Link to="/valjdynamics365partner/">
                 Se alla partners
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

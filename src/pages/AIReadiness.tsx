@@ -2118,7 +2118,7 @@ const AIReadiness = () => {
                 </div>
               ))}
               <div className="text-center mt-5 pt-4 border-t border-border/50">
-                <Link to={`/valj-partner${(() => {
+                <Link to={`/valjdynamics365partner${(() => {
                   const avgAi = (scores.automation + scores.augmentation + scores.prediction) / 3;
                   if (avgAi >= 60) return '?ai=high';
                   if (avgAi >= 35) return '?ai=medium';

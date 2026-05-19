@@ -24,7 +24,7 @@ const ROUTES = [
   { path: '/copilot', label: 'Microsoft Copilot i Dynamics 365' },
   { path: '/agents', label: 'AI-agenter och Copilot Studio' },
   { path: '/branscher', label: 'Branschöversikt – Dynamics 365 per bransch (tillverkning, handel, service m.fl.)' },
-  { path: '/valj-partner', label: 'Välj rätt Dynamics 365-partner – partnerguide & matchning' },
+  { path: '/valjdynamics365partner', label: 'Välj rätt Dynamics 365-partner – partnerguide & matchning' },
   { path: '/kom-igang', label: 'Kom igång-wizard: hjälp att hitta rätt produkt och partner' },
   { path: '/behovsanalys', label: 'Behovsanalys – generell' },
   { path: '/salj-marknad-behovsanalys', label: 'Behovsanalys för Sälj & Marknad' },
@@ -154,7 +154,7 @@ Returnera JSON:
     if (parsed.primary) {
       const fixed = fixPath(parsed.primary.path, parsed.primary.label);
       if (fixed) parsed.primary.path = fixed;
-      else parsed.primary = { path: '/valj-partner', label: 'Hitta partner', reason: 'Vi kunde inte hitta exakt sida – börja här' };
+      else parsed.primary = { path: '/valjdynamics365partner', label: 'Hitta partner', reason: 'Vi kunde inte hitta exakt sida – börja här' };
     }
     if (Array.isArray(parsed.alternatives)) {
       parsed.alternatives = parsed.alternatives

@@ -373,7 +373,7 @@ const CRM = () => {
                   ❓ Vilken partner borde passa vår verksamhet bäst?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground pb-6">
-                  Rätt partner beror på er bransch, företagsstorlek och vilka CRM-applikationer ni behöver. Vi rekommenderar att ni väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna ni är intresserade av. På vår <a href="/valj-partner/" className="text-crm hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
+                  Rätt partner beror på er bransch, företagsstorlek och vilka CRM-applikationer ni behöver. Vi rekommenderar att ni väljer en partner med erfarenhet från liknande implementeringar och som har certifieringar för de specifika Dynamics 365-applikationerna ni är intresserade av. På vår <a href="/valjdynamics365partner/" className="text-crm hover:underline font-medium">partnerkatalog</a> kan ni filtrera på bransch, företagsstorlek och applikationer för att hitta partners som matchar era krav. Ni kan också använda vårt verktyg för att få personliga partnerrekommendationer.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -544,7 +544,7 @@ const CRM = () => {
 
           <div className="text-center mt-8">
             <Button asChild variant="outline" size="lg">
-              <Link to="/valj-partner/">
+              <Link to="/valjdynamics365partner/">
                 Se alla partners
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

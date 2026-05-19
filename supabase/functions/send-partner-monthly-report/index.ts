@@ -34,7 +34,7 @@ const PRODUCT_LABELS: Record<string, string> = {
   "/copilot": "Copilot",
   "/aioversikt": "AI-översikt",
   "/branschlosningar": "Branschlösningar",
-  "/valj-partner": "Välj partner",
+  "/valjdynamics365partner": "Välj partner",
   "/kom-igang": "Kom igång",
   "/kunskapscenter": "Kunskapscenter",
   "/": "Startsidan",

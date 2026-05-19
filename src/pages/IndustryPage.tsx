@@ -155,7 +155,7 @@ const IndustryPage = () => {
               Innehållet för denna bransch är på väg. Under tiden kan du hitta partners eller göra en behovsanalys.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Link to="/valj-partner" className="text-primary hover:underline">Hitta partner →</Link>
+              <Link to="/valjdynamics365partner" className="text-primary hover:underline">Hitta partner →</Link>
               <Link to="/behovsanalys" className="text-primary hover:underline">Gör behovsanalys →</Link>
               <Link to="/branscher" className="text-primary hover:underline">Alla branscher →</Link>
             </div>
@@ -444,7 +444,7 @@ const IndustryPage = () => {
                   Behovsanalys ERP <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  to="/valj-partner"
+                  to="/valjdynamics365partner"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md border border-border text-sm font-medium hover:border-primary/50"
                 >
                   Hitta partner

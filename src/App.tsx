@@ -93,7 +93,7 @@ const AppShell = () => {
           <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
           <Route path="/erp" element={<ERPOverview />} />
           <Route path="/affarssystem" element={<Affarssystem />} />
-          <Route path="/affarssystem/partners" element={<Navigate to="/valj-partner/?product=Business+Central" replace />} />
+          <Route path="/affarssystem/partners" element={<Navigate to="/valjdynamics365partner/?product=Business+Central" replace />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/aioversikt" element={<AIOverview />} />
@@ -102,7 +102,9 @@ const AppShell = () => {
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
           
-          <Route path="/valj-partner" element={<ValjPartner />} />
+          <Route path="/valjdynamics365partner" element={<ValjPartner />} />
+          <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
+          <Route path="/valj-partner/*" element={<Navigate to="/valjdynamics365partner" replace />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/behovsanalys" element={<NeedsAnalysis />} />
           <Route path="/kom-igang" element={<KomIgang />} />
@@ -139,7 +141,7 @@ const AppShell = () => {
           <Route path="/f/*" element={<Navigate to="/events/" replace />} />
           <Route path="/dynamics-365-introduktion" element={<Navigate to="/" replace />} />
           <Route path="/dynamics-365-demos" element={<Navigate to="/" replace />} />
-          <Route path="/partner" element={<Navigate to="/valj-partner/" replace />} />
+          <Route path="/partner" element={<Navigate to="/valjdynamics365partner/" replace />} />
           <Route path="/konfigurator" element={<Navigate to="/" replace />} />
           <Route path="/sekretesspolicy" element={<Navigate to="/dataskydd/" replace />} />
           <Route path="/start" element={<Navigate to="/" replace />} />

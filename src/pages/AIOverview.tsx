@@ -737,7 +737,7 @@ const AIOverview = () => {
 
           <div className="text-center">
             <Link
-              to="/valj-partner/"
+              to="/valjdynamics365partner/"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium text-lg hover:bg-primary/90 transition-colors"
             >
               👉 Hitta rätt Dynamics 365-partner för AI <ArrowRight className="h-5 w-5" />

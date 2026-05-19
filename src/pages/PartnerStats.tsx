@@ -120,7 +120,7 @@ export default function PartnerStats() {
             const boxes = [
               { icon: Users, label: "Unika besökare", value: s.totalVisitors.toLocaleString("sv-SE"), hint: " " },
               { icon: TrendingUp, label: "Sidvisningar", value: s.totalPageViews.toLocaleString("sv-SE"), hint: " " },
-              { icon: Award, label: "Välj partner", value: s.valjPartner.toLocaleString("sv-SE"), hint: "besök på /valj-partner" },
+              { icon: Award, label: "Välj partner", value: s.valjPartner.toLocaleString("sv-SE"), hint: "besök på /valjdynamics365partner" },
               { icon: ClipboardCheck, label: "Behovsanalyser", value: s.analysisTotal.toLocaleString("sv-SE"), hint: "alla olika behovsanalyser" },
               { icon: FileText, label: "Kom igång-guiden", value: s.komIgang.toLocaleString("sv-SE"), hint: "besök på /kom-igang" },
               { icon: Building2, label: "Partnerprofiler", value: s.partnerProfileVisits.toLocaleString("sv-SE"), hint: "besök på partnerprofil" },

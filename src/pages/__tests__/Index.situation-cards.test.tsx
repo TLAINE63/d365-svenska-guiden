@@ -96,7 +96,7 @@ describe("Index – situationskort renderar bild + bakgrundsbild", () => {
         "/d365fieldservice/",
         "/d365contactcenter/",
         "/aioversikt/",
-        "/valj-partner/",
+        "/valjdynamics365partner/",
       ];
 
       await waitFor(() => {

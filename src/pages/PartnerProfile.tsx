@@ -385,7 +385,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
       <BreadcrumbSchema
         items={[
           { name: "Hem", url: "https://d365.se/" },
-          { name: "Välj partner", url: "https://d365.se/valj-partner/" },
+          { name: "Välj partner", url: "https://d365.se/valjdynamics365partner/" },
           { name: partner.name, url: `https://d365.se/partner/${partner.slug}/` },
         ]}
       />

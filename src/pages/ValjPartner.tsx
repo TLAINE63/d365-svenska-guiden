@@ -21,7 +21,7 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const partnerBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Välj Partner", url: "https://d365.se/valj-partner" },
+  { name: "Välj Partner", url: "https://d365.se/valjdynamics365partner" },
 ];
 import { allIndustries } from "@/data/partners";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
@@ -387,7 +387,7 @@ const ValjPartner = () => {
   // MUST be called before any early return to preserve hook order
   useTrackFilterExposure({
     partners: filteredPartners.map((p) => ({ slug: p.slug, id: p.id })),
-    pagePath: "/valj-partner",
+    pagePath: "/valjdynamics365partner",
     filterContext: {
       product: selectedApplications.join(", ") || null,
       industry: selectedIndustry,
@@ -410,7 +410,7 @@ const ValjPartner = () => {
       <SEOHead 
         title="Dynamics 365 Partner Sverige – Jämför & hitta | d365.se"
         description="Jämför certifierade Dynamics 365-partners i Sverige. Filtrera på bransch, applikation och geografi. Kostnadsfri matchning."
-        canonicalPath="/valj-partner"
+        canonicalPath="/valjdynamics365partner"
         keywords="hitta Dynamics 365 partner Sverige, Business Central partner jämförelse, Microsoft partner certifierad, Dynamics 365 implementering Sverige, ERP partner Sverige, CRM partner Sverige, Microsoft Solutions Partner, Business Central konsult"
         ogImage="https://d365.se/og-partner.png"
       />
@@ -577,7 +577,7 @@ const ValjPartner = () => {
         <section id="guide" className="px-4 py-8 bg-muted/30">
           <div className="container mx-auto max-w-4xl">
             <LeadMagnetBanner 
-              sourcePage="/valj-partner" 
+              sourcePage="/valjdynamics365partner" 
               onClose={() => setShowLeadMagnet(false)}
             />
           </div>
@@ -823,7 +823,7 @@ const ValjPartner = () => {
                 )}
                 
                 <LeadCTA
-                  sourcePage="/valj-partner"
+                  sourcePage="/valjdynamics365partner"
                   selectedProducts={selectedApplications.length > 0 ? selectedApplications : undefined}
                   selectedIndustry={selectedIndustry || undefined}
                   selectedCompanySize={selectedCompanySize || undefined}
