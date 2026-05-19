@@ -76,7 +76,11 @@ Glöm inte att uppdatera er partnerprofil här:
 {{INVITATION_LINK}}
 
 Allt gott,
-Thomas & Michael`,
+Thomas & Michael
+
+{{SITE_STATS}}
+
+{{SNITCHER_COMPANIES}}`,
   },
   not_published: {
     key: "not_published",
