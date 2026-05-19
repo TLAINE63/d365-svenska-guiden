@@ -21,7 +21,7 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 const bcBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
   { name: "Affärssystem (ERP)", url: "https://d365.se/erp" },
-  { name: "Business Central", url: "https://d365.se/business-central" },
+  { name: "Business Central", url: "https://d365.se/businesscentral" },
 ];
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -177,7 +177,7 @@ const BusinessCentral = () => {
       <SEOHead 
         title="Business Central pris – Licenser & partners | d365.se"
         description="Business Central: Essentials 765 kr/mån, Premium 1 051 kr/mån. Implementering 3–6 månader. Jämför certifierade partners per bransch."
-        canonicalPath="/business-central"
+        canonicalPath="/businesscentral"
         keywords="Business Central pris Sverige, Business Central implementering, Business Central licens, Dynamics 365 Business Central Sverige, Business Central Essentials Premium, Business Central partner Sverige, Microsoft ERP SMB Sverige, affärssystem tillverkning grossist, Business Central vs Fortnox, Business Central kostnad"
         ogImage="https://d365.se/og-business-central.png"
       />

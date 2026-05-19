@@ -169,7 +169,7 @@ const whyItems = [
 const popularGuides = [
   { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
   { text: "Hur väljer man rätt Dynamics 365-partner?", link: "/valj-partner/", tag: "Partner" },
-  { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/business-central/", tag: "Kostnad" },
+  { text: "Vad kostar Dynamics 365 — licens och projekt?", link: "/businesscentral/", tag: "Kostnad" },
   { text: "Hur lång tid tar en Dynamics 365-implementation?", link: "/kunskapscenter/", tag: "Tid" },
   { text: "Den typiska upphandlingsresan — 7 stadier", link: "/kunskapscenter/upphandlingsresan/", tag: "Process" },
   { text: "Är vi redo för AI och Copilot? Gör en AI-readiness", link: "/ai-readiness/", tag: "AI" },

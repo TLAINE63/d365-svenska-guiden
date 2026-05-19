@@ -119,7 +119,7 @@ const goals = [
         "Kreditriskbedömning vid offerter",
         "Copilot som sammanfattar risker i projekt",
       ],
-      cta: { label: "Läs om Business Central", link: "/business-central" },
+      cta: { label: "Läs om Business Central", link: "/businesscentral" },
     },
   },
   {

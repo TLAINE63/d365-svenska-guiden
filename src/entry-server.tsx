@@ -66,7 +66,7 @@ export const routes: PrerenderRoute[] = [
   { path: '/erp', priority: '0.9', changefreq: 'monthly' },
   { path: '/affarssystem', priority: '0.9', changefreq: 'monthly' },
   
-  { path: '/business-central', priority: '0.9', changefreq: 'monthly' },
+  { path: '/businesscentral', priority: '0.9', changefreq: 'monthly' },
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
   // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
@@ -160,7 +160,8 @@ export function render(url: string) {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/crm" element={<CRM />} />
-              <Route path="/business-central" element={<BusinessCentral />} />
+              <Route path="/businesscentral" element={<BusinessCentral />} />
+              <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
               <Route path="/finance-supply-chain" element={<FinanceSupplyChain />} />
               <Route path="/erp" element={<ERPOverview />} />
               <Route path="/affarssystem" element={<Affarssystem />} />

@@ -3182,7 +3182,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                     asChild 
                     className={`flex-1 ${isBC ? 'bg-business-central hover:bg-business-central/90 text-business-central-foreground' : 'bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground'}`}
                   >
-                    <a href={isBC ? "/business-central" : "/finance-supply-chain"}>
+                    <a href={isBC ? "/businesscentral" : "/finance-supply-chain"}>
                       Läs mer om {recommendation.product}
                     </a>
                   </Button>
