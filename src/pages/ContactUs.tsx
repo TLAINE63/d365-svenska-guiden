@@ -48,7 +48,7 @@ const ContactUs = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Oberoende vägledning från personer som kan Dynamics 365 på riktigt
+                Oberoende vägledning inför valet av Dynamics 365 och partner
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95">
                 Låt oss guida dig i valet av Dynamics 365 lösning och implementationspartner
