@@ -735,7 +735,12 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       const contactName = previewPartner.admin_contact_name || previewPartner.contact_person || previewPartner.name;
       const composedSubject = `[PREVIEW – ${previewPartner.name}] ${tpl.subject}`;
 
-      // 2) Skicka via befintlig send-sales-pitch (id=null så vi inte rör partnerns riktiga pending invitation)
+      // 2) Skicka via befintlig send-sales-pitch.
+      // VIKTIGT: skicka med previewPartner.id så att invitation-länken kopplas
+      // till partnern och PartnerUpdate-sidan kan ladda befintlig profildata
+      // (annars blir formuläret tomt och kontakten faller tillbaka till mottagaradressen).
+      // send-sales-pitch ersätter ev. pending invitation för partnern – det är
+      // samma beteende som vid riktig bulkutskick, så ingen data går förlorad.
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
         {
@@ -746,7 +751,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
           },
           body: JSON.stringify({
-            partners: [{ id: null, name: previewPartner.name, email: addr, contact_name: contactName }],
+            partners: [{ id: previewPartner.id, name: previewPartner.name, email: addr, contact_name: contactName }],
             subject: composedSubject,
             body: tpl.body,
             siteStatsHtml: blocks.siteStatsHtml,
