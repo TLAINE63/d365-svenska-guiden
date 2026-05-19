@@ -32,7 +32,26 @@ const REDIRECTS: Array<[oldPath: string, newPath: string]> = [
   ["/d365-customer-service", "/d365customerservice"],
   ["/d365-field-service", "/d365fieldservice"],
   ["/d365-contact-center", "/d365contactcenter"],
+  ["/valj-partner", "/valjdynamics365partner"],
+  ["/sok", "/AIsok"],
 ];
+
+/**
+ * Expected H1 (or first heading) for each destination page.
+ * Asserted against the actual page component file so a heading rename
+ * or removal fails this test rather than silently shipping.
+ */
+const DESTINATION_H1: Record<string, { file: string; expected: string }> = {
+  "/businesscentral":      { file: "src/pages/BusinessCentral.tsx",     expected: "Dynamics 365" },
+  "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "Mer effekt, mindre manuellt arbete" },
+  "/d365sales":            { file: "src/pages/D365Sales.tsx",           expected: "Dynamics 365 Sales" },
+  "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Dynamics 365 Customer Insights" },
+  "/d365customerservice":  { file: "src/pages/D365CustomerService.tsx", expected: "Dynamics 365 Customer Service" },
+  "/d365fieldservice":     { file: "src/pages/D365FieldService.tsx",    expected: "Dynamics 365 Field Service" },
+  "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center" },
+  "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet" },
+  "/AIsok":                { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?" },
+};
 
 const ROUTER_FILES = [
   "src/App.tsx",
