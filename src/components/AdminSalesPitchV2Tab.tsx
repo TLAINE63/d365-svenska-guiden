@@ -314,6 +314,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
     setSending(true);
     try {
+      const siteStatsHtml = await fetchSiteStatsHtml();
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=send-sales-pitch`,
         {
@@ -327,9 +328,11 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             partners: partnerList,
             subject: tpl.subject,
             body: tpl.body,
+            previewSuffixHtml: siteStatsHtml,
           }),
         }
       );
+
       if (response.status === 401) {
         toast({ title: "Sessionen har gått ut", variant: "destructive" });
         onSessionExpired();
