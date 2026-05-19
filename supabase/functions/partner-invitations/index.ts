@@ -65,6 +65,25 @@ function parseRecipients(input: string | null | undefined): string[] {
     .filter((s) => s.length > 0 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s));
 }
 
+const PUBLIC_BASE_URL = "https://www.d365.se";
+const SITE_STATS_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/sajtstatistik-snip.png`;
+const SNITCHER_SNIP_URL = `${PUBLIC_BASE_URL}/email-assets/snitcher-snip.png`;
+
+function imageBlockHtml(title: string, src: string, alt: string): string {
+  return `<div style="margin:24px 0 0">
+    <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">${title}</div>
+    <img src="${src}" alt="${alt}" style="display:block;width:100%;max-width:600px;height:auto;border:1px solid #e2e8f0;border-radius:10px" />
+  </div>`;
+}
+
+function salesPitchSiteStatsHtml(): string {
+  return imageBlockHtml("Aktuell sajtstatistik", SITE_STATS_SNIP_URL, "Aktuell sajtstatistik");
+}
+
+function salesPitchSnitcherHtml(): string {
+  return imageBlockHtml("Identifierade besökande företag", SNITCHER_SNIP_URL, "Identifierade besökande företag");
+}
+
 // JWT verification for admin operations
 async function verifyJWT(token: string, secret: string): Promise<{ valid: boolean; error?: string }> {
   try {
