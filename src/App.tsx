@@ -139,7 +139,7 @@ const AppShell = () => {
           <Route path="/start" element={<Navigate to="/" replace />} />
           <Route path="/evenemang" element={<Navigate to="/events/" replace />} />
           <Route path="/dynamics-365-customer-engagement-crm" element={<Navigate to="/crm/" replace />} />
-          <Route path="/dynamics-365-erp-business-central" element={<Navigate to="/business-central/" replace />} />
+          <Route path="/dynamics-365-erp-business-central" element={<Navigate to="/businesscentral/" replace />} />
           <Route path="/aktuellt" element={<Navigate to="/events/" replace />} />
           <Route path="/aktuellt/*" element={<Navigate to="/events/" replace />} />
           <Route path="/projektpaket" element={<Navigate to="/" replace />} />

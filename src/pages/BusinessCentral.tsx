@@ -792,7 +792,7 @@ const BusinessCentral = () => {
                   </div>
                   
                   <LeadCTA
-                    sourcePage="/business-central"
+                    sourcePage="/businesscentral"
                     selectedProduct="Business Central"
                     selectedIndustry={selectedIndustry || undefined}
                     variant="inline"
