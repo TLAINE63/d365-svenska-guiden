@@ -903,6 +903,38 @@ D365.se`;
       );
     }
 
+    // Admin: list sales-pitch email send log entries (with placeholder/fallback metadata)
+    if (action === "list-sales-pitch-log" && req.method === "GET") {
+      const limit = Math.min(parseInt(url.searchParams.get("limit") || "100", 10) || 100, 500);
+      const { data: logs, error: logErr } = await supabase
+        .from("email_send_log")
+        .select("id, recipient_email, subject, status, error_message, metadata, created_at, template_name")
+        .eq("template_name", "partner_sales_pitch")
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+      if (logErr) {
+        console.error("List sales-pitch log error:", logErr);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte hämta logg" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const total = logs?.length || 0;
+      const siteStatsFallback = (logs || []).filter((l: any) => l.metadata?.site_stats?.source === "server-fallback").length;
+      const snitcherFallback = (logs || []).filter((l: any) => l.metadata?.snitcher_companies?.source === "server-fallback").length;
+      const suffixAppended = (logs || []).filter((l: any) => l.metadata?.suffix_appended).length;
+
+      return new Response(
+        JSON.stringify({
+          logs: logs || [],
+          summary: { total, siteStatsFallback, snitcherFallback, suffixAppended },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     // Admin: Approve submission
     if (action === "approve" && req.method === "POST") {
       const body = await req.json();
@@ -1999,12 +2031,19 @@ D365.se`;
 
       const resend = new Resend(resendApiKey);
       const baseUrl = PUBLIC_BASE_URL;
-      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
-        ? siteStatsHtml
-        : salesPitchSiteStatsHtml();
-      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
-        ? snitcherCompaniesHtml
-        : salesPitchSnitcherHtml();
+      const clientSiteStatsValid = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png");
+      const clientSnitcherValid = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png");
+      const resolvedSiteStatsHtml = clientSiteStatsValid ? siteStatsHtml : salesPitchSiteStatsHtml();
+      const resolvedSnitcherCompaniesHtml = clientSnitcherValid ? snitcherCompaniesHtml : salesPitchSnitcherHtml();
+      const siteStatsSource = clientSiteStatsValid ? "client" : "server-fallback";
+      const snitcherSource = clientSnitcherValid ? "client" : "server-fallback";
+      const extractImgSrc = (html: string): string | null => {
+        const m = html.match(/<img[^>]+src="([^"]+)"/i);
+        return m ? m[1] : null;
+      };
+      const siteStatsImgUrl = extractImgSrc(resolvedSiteStatsHtml);
+      const snitcherImgUrl = extractImgSrc(resolvedSnitcherCompaniesHtml);
+
 
       // Resolve template body (override > saved > default)
       let emailBody = "";
@@ -2144,7 +2183,21 @@ d365.se`;
             template_name: "partner_sales_pitch",
             subject: personalizedSubject,
             status: "sent",
-            metadata: { partner_name: partner.name },
+            metadata: {
+              partner_name: partner.name,
+              partner_id: partner.id || null,
+              site_stats: {
+                source: siteStatsSource,
+                placeholder_in_body: hasSiteStatsPlaceholder,
+                img_url: siteStatsImgUrl,
+              },
+              snitcher_companies: {
+                source: snitcherSource,
+                placeholder_in_body: hasSnitcherPlaceholder,
+                img_url: snitcherImgUrl,
+              },
+              suffix_appended: !hasSiteStatsPlaceholder && !hasSnitcherPlaceholder,
+            },
           });
         } catch (sendErr: any) {
           failed++;
@@ -2156,7 +2209,12 @@ d365.se`;
             subject: emailSubject,
             status: "failed",
             error_message: sendErr.message,
-            metadata: { partner_name: partner.name },
+            metadata: {
+              partner_name: partner.name,
+              partner_id: partner.id || null,
+              site_stats: { source: siteStatsSource, img_url: siteStatsImgUrl },
+              snitcher_companies: { source: snitcherSource, img_url: snitcherImgUrl },
+            },
           });
         }
       }
