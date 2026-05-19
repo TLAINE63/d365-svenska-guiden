@@ -446,7 +446,7 @@ const KomIgang = () => {
 
       <main className="flex-1 flex flex-col">
         {/* Hero */}
-        <section className="relative pt-14 pb-4 sm:pt-16 sm:pb-6 overflow-hidden">
+        <section className="relative pt-28 pb-4 sm:pt-32 sm:pb-6 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-muted/40 to-muted/80" />
           <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-1">
