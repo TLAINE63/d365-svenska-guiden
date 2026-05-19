@@ -553,39 +553,8 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
   };
 
 
-  // Bygger en tabell över identifierade besökande företag (Snitcher) – endast site-wide,
-  // ingen koppling till enskild partner. Visar Företag, Bransch, Storlek, Land.
-  const buildSnitcherCompaniesHtml = (summary: any): string => {
-    const s = summary || {};
-    const companies: any[] = Array.isArray(s.identifiedCompanies) ? s.identifiedCompanies : [];
-    if (!companies.length) return "";
-    const rows = companies
-      .map(
-        (c: any) => `
-        <tr>
-          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#0f172a;font-weight:600">${esc(c.name || "—")}</td>
-          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#334155">${esc(c.industry || "—")}</td>
-          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#334155">${esc(c.size || "—")}</td>
-          <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#334155">${esc(c.country || "—")}</td>
-        </tr>`,
-      )
-      .join("");
-    return `
-<div style="margin:24px 0 0;padding:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
-  <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">Identifierade besökande företag (${companies.length})</div>
-  <table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;background:#ffffff;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
-    <thead>
-      <tr style="background:#f1f5f9">
-        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Besökande företag</th>
-        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Bransch</th>
-        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Storlek</th>
-        <th align="left" style="padding:10px;font-size:12px;color:#0f172a;text-transform:uppercase;letter-spacing:0.5px">Land</th>
-      </tr>
-    </thead>
-    <tbody>${rows}</tbody>
-  </table>
-</div>`;
-  };
+
+
 
   // Cacha site-stats per session så vi inte gör onödiga anrop vid bulk/test
   const fetchEmailBlocks = async (): Promise<{ siteStatsHtml: string; snitcherCompaniesHtml: string }> => {
