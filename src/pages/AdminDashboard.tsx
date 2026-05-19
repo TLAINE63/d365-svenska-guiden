@@ -3117,6 +3117,10 @@ Thomas`,
           <TabsContent value="gsc">
             <AdminGscTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
+
+          <TabsContent value="pillar-followup">
+            <AdminPillarFollowupTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
         </Tabs>
 
         {/* ==================== LEAD VIEW DIALOG ==================== */}
