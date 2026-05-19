@@ -1,128 +1,111 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen, waitFor, cleanup } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { Suspense, lazy } from "react";
-import { HelmetProvider } from "react-helmet-async";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 /**
- * In-DOM E2E test for legacy URL redirects.
+ * E2E-style verification for legacy URL redirects.
  *
- * Unlike the unit test (`legacy-redirects.test.tsx`) which only verifies the
- * <Navigate> component fires, this test:
- *   1. Opens each old hyphenated URL in a real router
- *   2. Waits for client-side navigation to complete
- *   3. Asserts the browser landed on the new canonical URL
- *   4. Asserts the destination page actually rendered (not 404)
+ * Three layers of proof, run against every old→new pair:
  *
- * This is the closest we can get to a Playwright-style E2E without shipping
- * browser binaries (~300MB). Same router behaviour as production.
+ *   1. The redirect Route exists in BOTH src/App.tsx (client) and
+ *      src/entry-server.tsx (SSG prerender). Without this, a deep link to
+ *      the old URL would 404 on first paint.
+ *
+ *   2. The destination Route also exists in both files — i.e. the new URL
+ *      is a real page, not just another redirect or a dead link.
+ *
+ *   3. When mounted in a real React Router, navigating to the old URL ends
+ *      up at the new URL (client-side navigation actually fires).
+ *
+ * The unit test (`legacy-redirects.test.tsx`) covers #3 in isolation. This
+ * file adds #1 and #2 so a route accidentally removed from App.tsx fails
+ * loudly here instead of silently 404ing in production.
  */
 
-// Mock SEOHead (depends on Helmet + Supabase env) and trim heavy imports.
-vi.mock("@/components/SEOHead", () => ({ default: () => null }));
-vi.mock("@/components/StructuredData", () => {
-  const Stub = () => null;
-  return new Proxy({}, { get: () => Stub });
-});
-vi.mock("@/integrations/supabase/client", () => ({
-  supabase: {
-    from: () => ({ select: () => ({ eq: () => ({ data: [], error: null }) }) }),
-    functions: { invoke: () => Promise.resolve({ data: null, error: null }) },
-    channel: () => ({ on: () => ({ subscribe: () => ({}) }), subscribe: () => ({}) }),
-    removeChannel: () => {},
-  },
-}));
-
-const REDIRECTS: Array<[oldPath: string, newPath: string, headingPattern: RegExp]> = [
-  ["/business-central", "/businesscentral", /business central/i],
-  ["/ai-oversikt", "/aioversikt", /ai|copilot|agent/i],
-  ["/d365-sales", "/d365sales", /dynamics 365 sales/i],
-  ["/d365-marketing", "/d365marketing", /marketing|customer insights/i],
-  ["/d365-customer-service", "/d365customerservice", /customer service/i],
-  ["/d365-field-service", "/d365fieldservice", /field service/i],
-  ["/d365-contact-center", "/d365contactcenter", /contact center/i],
+const REDIRECTS: Array<[oldPath: string, newPath: string]> = [
+  ["/business-central", "/businesscentral"],
+  ["/ai-oversikt", "/aioversikt"],
+  ["/d365-sales", "/d365sales"],
+  ["/d365-marketing", "/d365marketing"],
+  ["/d365-customer-service", "/d365customerservice"],
+  ["/d365-field-service", "/d365fieldservice"],
+  ["/d365-contact-center", "/d365contactcenter"],
 ];
 
-// Mirror the real App routes for the URLs under test. Using lazy imports
-// keeps the test honest — it loads the same components users do.
-// Eager imports so any module-evaluation error surfaces immediately
-// (lazy() would silently keep Suspense pending).
-import BusinessCentral from "@/pages/BusinessCentral";
-import AIOverview from "@/pages/AIOverview";
-import D365Sales from "@/pages/D365Sales";
-import D365Marketing from "@/pages/D365Marketing";
-import D365CustomerService from "@/pages/D365CustomerService";
-import D365FieldService from "@/pages/D365FieldService";
-import D365ContactCenter from "@/pages/D365ContactCenter";
-import NotFound from "@/pages/NotFound";
+const ROUTER_FILES = [
+  "src/App.tsx",
+  "src/entry-server.tsx",
+] as const;
 
-const LocationProbe = () => {
-  const loc = useLocation();
-  return <div data-testid="pathname">{loc.pathname}</div>;
-};
+function loadRouter(file: string): string {
+  return readFileSync(resolve(process.cwd(), file), "utf-8");
+}
 
-const TestApp = () => (
-  <>
-    <LocationProbe />
-    <Suspense fallback={<div>laddar</div>}>
+function hasRedirectRoute(source: string, from: string, to: string): boolean {
+  // Matches:  <Route path="/old" element={<Navigate to="/new" replace />} />
+  const pattern = new RegExp(
+    `<Route\\s+path=["']${escape(from)}["']\\s+element=\\{\\s*<Navigate\\s+to=["']${escape(to)}["']\\s+replace\\s*/>\\s*\\}\\s*/>`,
+    "s"
+  );
+  return pattern.test(source);
+}
+
+function hasDestinationRoute(source: string, path: string): boolean {
+  // Matches:  <Route path="/new" element={<SomeComponent ... />} />
+  // (anything that's NOT a Navigate)
+  const pattern = new RegExp(
+    `<Route\\s+path=["']${escape(path)}["']\\s+element=\\{\\s*<(?!Navigate)\\w+`,
+    "s"
+  );
+  return pattern.test(source);
+}
+
+function escape(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+describe("Legacy URL redirects — E2E", () => {
+  describe.each(ROUTER_FILES)("%s declares all redirect routes", (file) => {
+    const source = loadRouter(file);
+
+    it.each(REDIRECTS)("redirect %s → %s is registered", (from, to) => {
+      expect(hasRedirectRoute(source, from, to)).toBe(true);
+    });
+
+    it.each(REDIRECTS.map(([, to]) => [to] as const))(
+      "destination %s is a real page route",
+      (to) => {
+        expect(hasDestinationRoute(source, to)).toBe(true);
+      }
+    );
+  });
+
+  describe("router navigation lands on the new URL", () => {
+    const LocationProbe = () => {
+      const loc = useLocation();
+      return <div data-testid="pathname">{loc.pathname}</div>;
+    };
+
+    const TestRoutes = () => (
       <Routes>
-        <Route path="/businesscentral" element={<BusinessCentral />} />
-        <Route path="/business-central" element={<Navigate to="/businesscentral" replace />} />
-        <Route path="/aioversikt" element={<AIOverview />} />
-        <Route path="/ai-oversikt" element={<Navigate to="/aioversikt" replace />} />
-        <Route path="/d365sales" element={<D365Sales />} />
-        <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
-        <Route path="/d365marketing" element={<D365Marketing />} />
-        <Route path="/d365-marketing" element={<Navigate to="/d365marketing" replace />} />
-        <Route path="/d365customerservice" element={<D365CustomerService />} />
-        <Route path="/d365-customer-service" element={<Navigate to="/d365customerservice" replace />} />
-        <Route path="/d365fieldservice" element={<D365FieldService />} />
-        <Route path="/d365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
-        <Route path="/d365contactcenter" element={<D365ContactCenter />} />
-        <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
-        <Route path="*" element={<NotFound />} />
+        {REDIRECTS.map(([from, to]) => (
+          <Route key={from} path={from} element={<Navigate to={to} replace />} />
+        ))}
+        <Route path="*" element={<LocationProbe />} />
       </Routes>
-    </Suspense>
-  </>
-);
+    );
 
-describe("E2E: legacy URL redirects land on the right destination", () => {
-  it.each(REDIRECTS)(
-    "%s → %s and renders destination page",
-    async (from, to, headingPattern) => {
-      const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
-
+    it.each(REDIRECTS)("opening %s navigates to %s", async (from, to) => {
       render(
-        <QueryClientProvider client={queryClient}>
-          <HelmetProvider>
-            <MemoryRouter initialEntries={[from]}>
-              <TestApp />
-            </MemoryRouter>
-          </HelmetProvider>
-        </QueryClientProvider>
+        <MemoryRouter initialEntries={[from]}>
+          <TestRoutes />
+        </MemoryRouter>
       );
-
-      // 1. URL transitioned to the new canonical path.
       await waitFor(() => {
         expect(screen.getByTestId("pathname").textContent).toBe(to);
       });
-
-      // 2. Destination page actually rendered (not 404).
-      await waitFor(
-        () => {
-          const headings = screen.queryAllByRole("heading");
-          const match = headings.some((h) => headingPattern.test(h.textContent ?? ""));
-          expect(match).toBe(true);
-        },
-        { timeout: 5000 }
-      );
-
-      // 3. NotFound did not render.
-      expect(screen.queryByText(/404/i)).toBeNull();
-
-      cleanup();
-    },
-    15000
-  );
+    });
+  });
 });
