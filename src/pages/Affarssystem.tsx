@@ -7,7 +7,7 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BreadcrumbSchema, FAQSchema, ServiceSchema } from "@/components/StructuredData";
-import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
+import RelatedPages, { affarssystemRelatedPages } from "@/components/RelatedPages";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import FinanceIcon from "@/assets/icons/Finance.svg";
 import SupplyChainIcon from "@/assets/icons/SupplyChain.svg";
