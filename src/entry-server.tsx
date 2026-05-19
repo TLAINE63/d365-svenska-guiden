@@ -41,6 +41,7 @@ import RequirementsSpecMarketing from './pages/RequirementsSpecMarketing';
 import RequirementsSpecCustomerService from './pages/RequirementsSpecCustomerService';
 import DeepDiveArticle from './pages/DeepDiveArticle';
 import BlogArticle from './pages/BlogArticle';
+import SmartSearch from './pages/SmartSearch';
 import { ALL_DEEP_DIVE_ARTICLES } from './data/bcArticles';
 import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
