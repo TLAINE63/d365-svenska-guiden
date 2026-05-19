@@ -751,6 +751,52 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
         </CardContent>
       </Card>
 
+      {missingAssets.length > 0 && (
+        <Card className="border-amber-300 bg-amber-50">
+          <CardContent className="pt-4 pb-4">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-amber-600 mt-0.5 shrink-0" />
+              <div className="flex-1 text-sm text-amber-900">
+                <div className="font-semibold mb-1">
+                  Varning: {missingAssets.length} e-postbild saknas i <code className="text-xs">public/email-assets/</code>
+                </div>
+                <p className="mb-2 text-amber-800">
+                  Mailen kommer visa trasiga placeholders. Ladda upp bilden och publicera om sajten.
+                </p>
+                <ul className="list-disc pl-5 space-y-1">
+                  {missingAssets.map((a) => (
+                    <li key={a.url}>
+                      <span className="font-medium">{a.label}</span> –{" "}
+                      <a href={a.url} target="_blank" rel="noopener noreferrer" className="underline break-all">
+                        {a.url}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={checkEmailAssets}
+                disabled={assetCheckLoading}
+                className="border-amber-400"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${assetCheckLoading ? "animate-spin" : ""}`} />
+                Kontrollera igen
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {missingAssets.length === 0 && !assetCheckLoading && (
+        <div className="flex items-center gap-2 text-xs text-emerald-700">
+          <CheckCircle2 className="h-3.5 w-3.5" />
+          Alla e-postbilder ({SITE_STATS_IMG_URL.split("/").pop()}, {SNITCHER_IMG_URL.split("/").pop()}) finns publikt.
+        </div>
+      )}
+
+
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as SegmentKey)}>
         <TabsList className="grid grid-cols-2 w-full">
           {(Object.keys(DEFAULT_TEMPLATES) as SegmentKey[]).map(k => (
