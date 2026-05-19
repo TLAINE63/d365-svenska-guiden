@@ -31,7 +31,7 @@ VIKTIGA SIDOR du kan länka till:
 - AI Readiness: [/ai-readiness](/ai-readiness)
 - Kunskapscenter: [/kunskapscenter](/kunskapscenter)
 - Kontakt: [/kontakt](/kontakt)
-- Produkter: /business-central, /finance-supply-chain, /erp, /crm, /d365-sales, /d365-marketing, /d365-customer-service, /d365-field-service, /d365-contact-center, /ai-oversikt
+- Produkter: /business-central, /finance-supply-chain, /erp, /crm, /d365sales, /d365marketing, /d365customerservice, /d365fieldservice, /d365contactcenter, /aioversikt
 
 REGLER:
 - Nämn ALDRIG Power Platform som en separat produkt vi täcker.

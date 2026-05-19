@@ -25,8 +25,8 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">CRM / Marknad & Sälj</h3>
             <ul className="space-y-2 text-sm">
               <li><Link to="/crm/" className="text-muted-foreground hover:text-foreground transition-colors">CRM Översikt</Link></li>
-              <li><Link to="/d365-sales/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
-              <li><Link to="/d365-marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
+              <li><Link to="/d365sales/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Sales</Link></li>
+              <li><Link to="/d365marketing/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Insights</Link></li>
               <li><Link to="/salj-marknad-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Sälj & Marknad</Link></li>
             </ul>
           </div>
@@ -35,9 +35,9 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">CRM / Kundservice</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/d365-customer-service/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Service</Link></li>
-              <li><Link to="/d365-field-service/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Field Service</Link></li>
-              <li><Link to="/d365-contact-center/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Contact Center</Link></li>
+              <li><Link to="/d365customerservice/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Customer Service</Link></li>
+              <li><Link to="/d365fieldservice/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Field Service</Link></li>
+              <li><Link to="/d365contactcenter/" className="text-muted-foreground hover:text-foreground transition-colors">Dynamics 365 Contact Center</Link></li>
               <li><Link to="/kundservice-behovsanalys/" className="text-muted-foreground hover:text-foreground transition-colors">Behovsanalys Kundservice</Link></li>
             </ul>
           </div>
@@ -62,7 +62,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li><Link to="/copilot/" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Copilot</Link></li>
               <li><Link to="/agents/" className="text-muted-foreground hover:text-foreground transition-colors">Microsoft Agenter</Link></li>
-              <li><Link to="/ai-oversikt/" className="text-muted-foreground hover:text-foreground transition-colors">AI Översikt</Link></li>
+              <li><Link to="/aioversikt/" className="text-muted-foreground hover:text-foreground transition-colors">AI Översikt</Link></li>
               <li><Link to="/ai-readiness/" className="text-muted-foreground hover:text-foreground transition-colors">AI Readiness Assessment</Link></li>
               <li><Link to="/valj-partner/" className="text-muted-foreground hover:text-foreground transition-colors">Välj Partner</Link></li>
               <li><Link to="/branscher/" className="text-muted-foreground hover:text-foreground transition-colors">Branschlösningar</Link></li>

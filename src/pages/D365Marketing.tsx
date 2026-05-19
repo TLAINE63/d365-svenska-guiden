@@ -17,8 +17,8 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const marketingBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Marknad & Sälj", url: "https://d365.se/d365-sales" },
-  { name: "Customer Insights (Marketing)", url: "https://d365.se/d365-marketing" },
+  { name: "Marknad & Sälj", url: "https://d365.se/d365sales" },
+  { name: "Customer Insights (Marketing)", url: "https://d365.se/d365marketing" },
 ];
 import {
   Accordion,
@@ -74,7 +74,7 @@ const D365Marketing = () => {
       <SEOHead 
         title="Dynamics 365 Marketing – Priser & HubSpot-alternativ | d365.se"
         description="Dynamics 365 Customer Insights (Marketing) från 9 559 kr/mån. AI-drivna kundresor, lead scoring och CDP. Jämför med HubSpot."
-        canonicalPath="/d365-marketing"
+        canonicalPath="/d365marketing"
         keywords="Dynamics 365 Customer Insights pris, marketing automation Microsoft, HubSpot alternativ, Marketo alternativ Sverige, Dynamics 365 Marketing pris, kundresor automation, CDP customer data platform, lead scoring CRM, marknadsföringsautomation Microsoft, Customer Insights Journeys"
         ogImage="https://d365.se/og-marketing.png"
       />

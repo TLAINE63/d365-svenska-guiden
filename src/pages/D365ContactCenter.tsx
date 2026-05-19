@@ -17,8 +17,8 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const contactCenterBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
-  { name: "Dynamics 365 Contact Center", url: "https://d365.se/d365-contact-center" },
+  { name: "Kundservice", url: "https://d365.se/d365customerservice" },
+  { name: "Dynamics 365 Contact Center", url: "https://d365.se/d365contactcenter" },
 ];
 import {
   Accordion,
@@ -64,7 +64,7 @@ const D365ContactCenter = () => {
       <SEOHead 
         title="Dynamics 365 Contact Center – Priser & guide | d365.se"
         description="Dynamics 365 Contact Center från 1 051 kr/agent/mån. AI-drivna virtuella agenter, intelligent routing och omnichannel. Jämför med Genesys."
-        canonicalPath="/d365-contact-center"
+        canonicalPath="/d365contactcenter"
         keywords="Dynamics 365 Contact Center pris, contact center Microsoft, omnichannel kontaktcenter, virtuella agenter AI, intelligent routing, Genesys alternativ, Avaya alternativ Microsoft, kontaktcenter system Sverige, Teams kontaktcenter, contact center molntjänst"
         ogImage="https://d365.se/og-contact-center.png"
       />

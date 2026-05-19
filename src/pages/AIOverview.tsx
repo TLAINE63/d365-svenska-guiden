@@ -26,7 +26,7 @@ const roles = [
     focus: "Bättre pipeline, träffsäkrare prioritering, snabbare avslut",
     icon: BarChart3,
     color: "from-emerald-600/20 to-teal-600/20 border-emerald-500/30",
-    link: "/d365-sales",
+    link: "/d365sales",
   },
   {
     emoji: "🎧",
@@ -34,7 +34,7 @@ const roles = [
     focus: "Kortare svarstid, automatiserade ärenden, högre kundnöjdhet",
     icon: Headphones,
     color: "from-purple-600/20 to-fuchsia-600/20 border-purple-500/30",
-    link: "/d365-customer-service",
+    link: "/d365customerservice",
   },
   {
     emoji: "🚚",
@@ -50,7 +50,7 @@ const roles = [
     focus: "Segmentering, kampanjoptimering, kundinsikter med AI",
     icon: Users,
     color: "from-pink-600/20 to-rose-600/20 border-pink-500/30",
-    link: "/d365-marketing",
+    link: "/d365marketing",
   },
   {
     emoji: "🖥️",
@@ -136,7 +136,7 @@ const goals = [
         "Sentimentanalys i realtid på kundsamtal",
         "Agenter som löser vanliga ärenden helt autonomt",
       ],
-      cta: { label: "Utforska Customer Service", link: "/d365-customer-service" },
+      cta: { label: "Utforska Customer Service", link: "/d365customerservice" },
     },
   },
   {
@@ -153,7 +153,7 @@ const goals = [
         "Copilot-förslag på nästa bästa åtgärd",
         "Merförsäljning baserat på kundbeteende",
       ],
-      cta: { label: "Utforska Dynamics 365 Sales", link: "/d365-sales" },
+      cta: { label: "Utforska Dynamics 365 Sales", link: "/d365sales" },
     },
   },
 ];
@@ -197,15 +197,15 @@ const AIOverview = () => {
       <SEOHead
         title="AI i Dynamics 365 – Copilot & Agenter | d365.se"
         description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
-        canonicalPath="/ai-oversikt"
+        canonicalPath="/aioversikt"
       />
       <WebPageSchema
         name="AI i Dynamics 365 – Copilot & Agenter"
         description="Öka lönsamheten, spara tid och förenkla processer med Copilot och intelligenta agenter i Dynamics 365."
-        url="https://d365.se/ai-oversikt/"
+        url="https://d365.se/aioversikt/"
         breadcrumb={[
           { name: "Hem", url: "https://d365.se/" },
-          { name: "AI-översikt", url: "https://d365.se/ai-oversikt/" },
+          { name: "AI-översikt", url: "https://d365.se/aioversikt/" },
         ]}
       />
       <Navbar />

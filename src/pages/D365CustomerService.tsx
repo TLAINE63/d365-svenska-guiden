@@ -17,8 +17,8 @@ import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/Structu
 // Breadcrumb items
 const customerServiceBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
-  { name: "Dynamics 365 Customer Service", url: "https://d365.se/d365-customer-service" },
+  { name: "Kundservice", url: "https://d365.se/d365customerservice" },
+  { name: "Dynamics 365 Customer Service", url: "https://d365.se/d365customerservice" },
 ];
 import {
   Accordion,
@@ -78,7 +78,7 @@ const D365CustomerService = () => {
       <SEOHead 
         title="Dynamics 365 Customer Service – Priser & guide | d365.se"
         description="Dynamics 365 Customer Service från 478 kr/mån. Molnbaserad helpdesk med Copilot AI och omnikanalstöd. Hitta certifierad partner."
-        canonicalPath="/d365-customer-service"
+        canonicalPath="/d365customerservice"
         keywords="Dynamics 365 Customer Service pris, helpdesk system Microsoft, kundservice system, ärendehantering system, Microsoft helpdesk, Dynamics 365 Customer Service Enterprise, CRM kundservice, omnichannel kundservice, Zendesk alternativ Microsoft, kundservice AI Copilot Sverige"
         ogImage="https://d365.se/og-customer-service.png"
       />

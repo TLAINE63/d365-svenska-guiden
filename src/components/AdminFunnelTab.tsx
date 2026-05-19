@@ -30,7 +30,7 @@ const PAGE_FILTERS = [
   { value: "/business-central", label: "Business Central" },
   { value: "/finance-supply-chain", label: "Finance & SCM" },
   { value: "/crm", label: "CRM" },
-  { value: "/ai-oversikt", label: "AI" },
+  { value: "/aioversikt", label: "AI" },
   { value: "/branschlosningar", label: "Branschlösningar" },
   { value: "/partner/", label: "Partnerprofiler" },
   { value: "/kunskapscenter", label: "Kunskapscenter" },

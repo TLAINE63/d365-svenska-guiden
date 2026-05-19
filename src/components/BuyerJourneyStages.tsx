@@ -118,7 +118,7 @@ const STAGES: Stage[] = [
       "Det är sällan en ren teknisk fråga. Den hänger ihop med verksamhetens komplexitet, tillväxttakt och vilken förvaltningsmodell ni klarar av att bära långsiktigt.",
     ],
     recommendation: "Översikt över de olika vägarna och hur valet brukar landa",
-    recommendationHref: "/ai-oversikt",
+    recommendationHref: "/aioversikt",
     nextStep: {
       label: "Jämför ERP- och CRM-vägarna",
       href: "/ai-readiness",

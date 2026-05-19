@@ -20,7 +20,7 @@ import AnalysisDisclaimer from "@/components/AnalysisDisclaimer";
 
 const customerServiceBreadcrumbs = [
   { name: "Hem", url: "https://d365.se" },
-  { name: "Kundservice", url: "https://d365.se/d365-customer-service" },
+  { name: "Kundservice", url: "https://d365.se/d365customerservice" },
   { name: "Behovsanalys", url: "https://d365.se/kundservice-behovsanalys" },
 ];
 

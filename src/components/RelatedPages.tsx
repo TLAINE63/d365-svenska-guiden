@@ -76,19 +76,19 @@ export const erpRelatedPages: RelatedPage[] = [
 ];
 
 export const crmRelatedPages: RelatedPage[] = [
-  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365-sales/" },
-  { title: "Customer Service", description: "Helpdesk och ärendehantering med omnikanalstöd", href: "/d365-customer-service/" },
-  { title: "Field Service", description: "Fältservicehantering med schemaläggning och mobilapp", href: "/d365-field-service/" },
-  { title: "Marketing", description: "Customer Insights och marketing automation", href: "/d365-marketing/" },
-  { title: "Contact Center", description: "Omnikanal-kontaktcenter för kundservice", href: "/d365-contact-center/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365sales/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering med omnikanalstöd", href: "/d365customerservice/" },
+  { title: "Field Service", description: "Fältservicehantering med schemaläggning och mobilapp", href: "/d365fieldservice/" },
+  { title: "Marketing", description: "Customer Insights och marketing automation", href: "/d365marketing/" },
+  { title: "Contact Center", description: "Omnikanal-kontaktcenter för kundservice", href: "/d365contactcenter/" },
   { title: "Behovsanalys CRM", description: "Kostnadsfri behovsanalys för sälj och marknad", href: "/salj-marknad-behovsanalys/" },
   { title: "Hitta CRM-partner", description: "Jämför CRM-partners i Sverige", href: "/valj-partner/" },
 ];
 
 export const salesRelatedPages: RelatedPage[] = [
   { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
-  { title: "Marketing", description: "Customer Insights – marketing automation och kunddata", href: "/d365-marketing/" },
-  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365-customer-service/" },
+  { title: "Marketing", description: "Customer Insights – marketing automation och kunddata", href: "/d365marketing/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365customerservice/" },
   { title: "Copilot AI", description: "Hur Copilot hjälper säljare i Dynamics 365 Sales", href: "/copilot/" },
   { title: "Behovsanalys Sälj", description: "Kostnadsfri behovsanalys för sälj och marknad", href: "/salj-marknad-behovsanalys/" },
   { title: "Hitta partner", description: "Jämför Dynamics 365 Sales-partners i Sverige", href: "/valj-partner/" },
@@ -96,8 +96,8 @@ export const salesRelatedPages: RelatedPage[] = [
 
 export const customerServiceRelatedPages: RelatedPage[] = [
   { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
-  { title: "Contact Center", description: "Omnikanal-kontaktcenter med telefoni och chatt", href: "/d365-contact-center/" },
-  { title: "Field Service", description: "Fältservicehantering och schemaläggning", href: "/d365-field-service/" },
+  { title: "Contact Center", description: "Omnikanal-kontaktcenter med telefoni och chatt", href: "/d365contactcenter/" },
+  { title: "Field Service", description: "Fältservicehantering och schemaläggning", href: "/d365fieldservice/" },
   { title: "Copilot AI", description: "Hur Copilot hjälper kundservicemedarbetare", href: "/copilot/" },
   { title: "Behovsanalys Kundservice", description: "Kostnadsfri behovsanalys för kundservice", href: "/kundservice-behovsanalys/" },
   { title: "Hitta partner", description: "Jämför kundservice-partners i Sverige", href: "/valj-partner/" },
@@ -105,16 +105,16 @@ export const customerServiceRelatedPages: RelatedPage[] = [
 
 export const fieldServiceRelatedPages: RelatedPage[] = [
   { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
-  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365-customer-service/" },
-  { title: "Contact Center", description: "Omnikanal-kontaktcenter", href: "/d365-contact-center/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365customerservice/" },
+  { title: "Contact Center", description: "Omnikanal-kontaktcenter", href: "/d365contactcenter/" },
   { title: "Behovsanalys Kundservice", description: "Kostnadsfri behovsanalys", href: "/kundservice-behovsanalys/" },
   { title: "Hitta partner", description: "Jämför Field Service-partners i Sverige", href: "/valj-partner/" },
 ];
 
 export const marketingRelatedPages: RelatedPage[] = [
   { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
-  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam med Copilot AI", href: "/d365-sales/" },
-  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365-customer-service/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam med Copilot AI", href: "/d365sales/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365customerservice/" },
   { title: "Copilot AI", description: "AI-driven marketing automation med Copilot", href: "/copilot/" },
   { title: "Behovsanalys Sälj & Marknad", description: "Kostnadsfri behovsanalys", href: "/salj-marknad-behovsanalys/" },
   { title: "Hitta partner", description: "Jämför Marketing-partners i Sverige", href: "/valj-partner/" },
@@ -122,8 +122,8 @@ export const marketingRelatedPages: RelatedPage[] = [
 
 export const contactCenterRelatedPages: RelatedPage[] = [
   { title: "CRM-översikt", description: "Jämför alla Dynamics 365 CRM-applikationer", href: "/crm/" },
-  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365-customer-service/" },
-  { title: "Field Service", description: "Fältservicehantering", href: "/d365-field-service/" },
+  { title: "Customer Service", description: "Helpdesk och ärendehantering", href: "/d365customerservice/" },
+  { title: "Field Service", description: "Fältservicehantering", href: "/d365fieldservice/" },
   { title: "Copilot AI", description: "AI i kontaktcentret med Copilot", href: "/copilot/" },
   { title: "Behovsanalys Kundservice", description: "Kostnadsfri behovsanalys", href: "/kundservice-behovsanalys/" },
   { title: "Hitta partner", description: "Jämför Contact Center-partners i Sverige", href: "/valj-partner/" },
@@ -131,10 +131,10 @@ export const contactCenterRelatedPages: RelatedPage[] = [
 
 export const copilotRelatedPages: RelatedPage[] = [
   { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/business-central/" },
-  { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare – mötessammanfattningar och e-post", href: "/d365-sales/" },
-  { title: "Customer Service", description: "Copilot för kundservice – ärendehantering och svar", href: "/d365-customer-service/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare – mötessammanfattningar och e-post", href: "/d365sales/" },
+  { title: "Customer Service", description: "Copilot för kundservice – ärendehantering och svar", href: "/d365customerservice/" },
   { title: "AI-agenter", description: "Autonoma AI-agenter i Dynamics 365", href: "/agents/" },
-  { title: "AI-översikt", description: "AI med Copilot och Agenter – strategisk guide", href: "/ai-oversikt/" },
+  { title: "AI-översikt", description: "AI med Copilot och Agenter – strategisk guide", href: "/aioversikt/" },
   { title: "AI Readiness", description: "Bedöm din organisations AI-mognad", href: "/ai-readiness/" },
 ];
 
@@ -151,14 +151,14 @@ export const aiOverviewRelatedPages: RelatedPage[] = [
   { title: "AI-agenter", description: "Autonoma AI-agenter för automatiserade arbetsflöden", href: "/agents/" },
   { title: "AI Readiness", description: "Bedöm din organisations AI-mognad", href: "/ai-readiness/" },
   { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/business-central/" },
-  { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare", href: "/d365-sales/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare", href: "/d365sales/" },
 ];
 
 // Homepage hub: strengthens "Microsoft Dynamics 365" / "MS Dynamics 365" topical authority
 export const indexRelatedPages: RelatedPage[] = [
-  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365-sales/" },
+  { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365sales/" },
   { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/business-central/" },
-  { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365-customer-service/" },
+  { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Microsoft Dynamics 365 Finance & SCM", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
   { title: "MS Dynamics 365 CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
   { title: "MS Dynamics 365 ERP-översikt", description: "Jämför Business Central och Finance & SCM", href: "/erp/" },

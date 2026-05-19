@@ -96,7 +96,7 @@ const AppShell = () => {
           <Route path="/affarssystem/partners" element={<Navigate to="/valj-partner/?product=Business+Central" replace />} />
           <Route path="/copilot" element={<Copilot />} />
           <Route path="/agents" element={<Agents />} />
-          <Route path="/ai-oversikt" element={<AIOverview />} />
+          <Route path="/aioversikt" element={<AIOverview />} />
           <Route path="/ai-readiness" element={<AIReadiness />} />
           <Route path="/qa" element={<QA />} />
           <Route path="/kontakt" element={<ContactUs />} />
@@ -112,11 +112,11 @@ const AppShell = () => {
           <Route path="/branschlosningar/*" element={<Navigate to="/branscher/" replace />} />
           <Route path="/branscher" element={<Branscher />} />
           <Route path="/branscher/:slug" element={<IndustryPage />} />
-          <Route path="/d365-sales" element={<D365Sales />} />
-          <Route path="/d365-marketing" element={<D365Marketing />} />
-          <Route path="/d365-customer-service" element={<D365CustomerService />} />
-          <Route path="/d365-field-service" element={<D365FieldService />} />
-          <Route path="/d365-contact-center" element={<D365ContactCenter />} />
+          <Route path="/d365sales" element={<D365Sales />} />
+          <Route path="/d365marketing" element={<D365Marketing />} />
+          <Route path="/d365customerservice" element={<D365CustomerService />} />
+          <Route path="/d365fieldservice" element={<D365FieldService />} />
+          <Route path="/d365contactcenter" element={<D365ContactCenter />} />
           <Route path="/partner/:slug" element={<PartnerProfile />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/partner-admin" element={<Navigate to="/admin" replace />} />
