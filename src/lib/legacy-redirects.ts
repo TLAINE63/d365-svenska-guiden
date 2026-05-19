@@ -71,8 +71,6 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: "/start",                     to: "/",                    intendedStatus: 301 },
   { from: "/om-oss",                    to: "/",                    intendedStatus: 301 },
   { from: "/vara-tjanster",             to: "/",                    intendedStatus: 301 },
-  { from: "/v%C3%A5ra-tj%C3%A4nster",   to: "/",                    intendedStatus: 301 },
-  { from: "/v%C3%A5ratj%C3%A4nster",    to: "/",                    intendedStatus: 301 },
   { from: "/konfigurator",              to: "/",                    intendedStatus: 301 },
   { from: "/projektpaket",              to: "/",                    intendedStatus: 301 },
   { from: "/dynamics-365-introduktion", to: "/",                    intendedStatus: 301 },
