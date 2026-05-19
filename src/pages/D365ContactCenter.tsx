@@ -63,7 +63,7 @@ const D365ContactCenter = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Contact Center – Priser & guide | d365.se"
-        description="Dynamics 365 Contact Center från 1 051 kr/agent/mån. AI-drivna virtuella agenter, intelligent routing och omnichannel. Jämför med Genesys."
+        description="Dynamics 365 Contact Center från 1 051 kr/agent/mån. AI-drivna virtuella agenter, intelligent routing och omnichannel. Jämför med Genesys. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/d365contactcenter"
         keywords="Dynamics 365 Contact Center pris, contact center Microsoft, omnichannel kontaktcenter, virtuella agenter AI, intelligent routing, Genesys alternativ, Avaya alternativ Microsoft, kontaktcenter system Sverige, Teams kontaktcenter, contact center molntjänst"
         ogImage="https://d365.se/og-contact-center.png"
@@ -71,7 +71,7 @@ const D365ContactCenter = () => {
       <FAQSchema faqs={contactCenterFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Contact Center – Omnichannel & AI-kontaktcenter"
-        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 051 kr per agent och månad. Implementationstid 2–12 månader."
+        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 051 kr per agent och månad. Implementationstid 2–12 månader. Oberoende vägledning inför val av Dynamics 365 och partner."
       />
       <BreadcrumbSchema items={contactCenterBreadcrumbs} />
       <Navbar />
@@ -161,7 +161,7 @@ const D365ContactCenter = () => {
             </h2>
             <VideoCard
               title="Dynamics 365 Contact Center"
-              description="Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation"
+              description="Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation."
               videoId="MYl0lN5_-L8"
             />
           </div>

@@ -172,7 +172,7 @@ const RequirementsSpecMarketing = () => {
     <>
       <SEOHead
         title="Kravspecifikation för Dynamics 365 Marketing | d365.se"
-        description="Skapa en skräddarsydd kravspecifikation för Microsoft Dynamics 365 Customer Insights (Marketing). Anpassad efter din bransch med AI-berikade krav."
+        description="Skapa en skräddarsydd kravspecifikation för Microsoft Dynamics 365 Customer Insights (Marketing). Anpassad efter din bransch med AI-berikade krav. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/kravspecifikation-marketing"
       />
       <BreadcrumbSchema items={breadcrumbs} />
