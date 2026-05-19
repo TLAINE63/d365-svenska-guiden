@@ -60,7 +60,7 @@ export const bcRelatedPages: RelatedPage[] = [
 
 export const fscRelatedPages: RelatedPage[] = [
   { title: "ERP-översikt", description: "Jämför Business Central och Finance & Supply Chain Management", href: "/erp/" },
-  { title: "Business Central", description: "ERP för SMB – enklare och snabbare att implementera", href: "/business-central/" },
+  { title: "Business Central", description: "ERP för SMB – enklare och snabbare att implementera", href: "/businesscentral/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – få en personlig rekommendation", href: "/behovsanalys/" },
   { title: "Copilot AI", description: "Så fungerar Microsoft Copilot i Finance & Supply Chain", href: "/copilot/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
@@ -68,7 +68,7 @@ export const fscRelatedPages: RelatedPage[] = [
 ];
 
 export const erpRelatedPages: RelatedPage[] = [
-  { title: "Business Central", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/business-central/" },
+  { title: "Business Central", description: "ERP för SMB med 10–300 anställda – från 765 kr/mån", href: "/businesscentral/" },
   { title: "Finance & Supply Chain", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys – vilken ERP-lösning passar dig?", href: "/behovsanalys/" },
   { title: "Branschlösningar", description: "Dynamics 365 per bransch – tillverkning, handel, service", href: "/branscher/" },
@@ -130,7 +130,7 @@ export const contactCenterRelatedPages: RelatedPage[] = [
 ];
 
 export const copilotRelatedPages: RelatedPage[] = [
-  { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/business-central/" },
+  { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare – mötessammanfattningar och e-post", href: "/d365sales/" },
   { title: "Customer Service", description: "Copilot för kundservice – ärendehantering och svar", href: "/d365customerservice/" },
   { title: "AI-agenter", description: "Autonoma AI-agenter i Dynamics 365", href: "/agents/" },
@@ -139,7 +139,7 @@ export const copilotRelatedPages: RelatedPage[] = [
 ];
 
 export const branschRelatedPages: RelatedPage[] = [
-  { title: "Business Central", description: "ERP för SMB med branschanpassningar", href: "/business-central/" },
+  { title: "Business Central", description: "ERP för SMB med branschanpassningar", href: "/businesscentral/" },
   { title: "Finance & Supply Chain", description: "Enterprise ERP med branschfunktionalitet", href: "/finance-supply-chain/" },
   { title: "CRM-översikt", description: "CRM-applikationer per bransch", href: "/crm/" },
   { title: "Behovsanalys ERP", description: "Kostnadsfri behovsanalys anpassad efter din bransch", href: "/behovsanalys/" },
@@ -150,14 +150,14 @@ export const aiOverviewRelatedPages: RelatedPage[] = [
   { title: "Copilot", description: "Microsoft Copilot AI i alla Dynamics 365-appar", href: "/copilot/" },
   { title: "AI-agenter", description: "Autonoma AI-agenter för automatiserade arbetsflöden", href: "/agents/" },
   { title: "AI Readiness", description: "Bedöm din organisations AI-mognad", href: "/ai-readiness/" },
-  { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/business-central/" },
+  { title: "Business Central", description: "Copilot i ERP – produktbeskrivningar och bankavstämning", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Sales", description: "Copilot för säljare", href: "/d365sales/" },
 ];
 
 // Homepage hub: strengthens "Microsoft Dynamics 365" / "MS Dynamics 365" topical authority
 export const indexRelatedPages: RelatedPage[] = [
   { title: "Microsoft Dynamics 365 Sales", description: "CRM för säljteam – pipeline, leads och Copilot AI", href: "/d365sales/" },
-  { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/business-central/" },
+  { title: "Microsoft Dynamics 365 Business Central", description: "ERP för SMB – ekonomi, lager och produktion", href: "/businesscentral/" },
   { title: "Microsoft Dynamics 365 Customer Service", description: "Helpdesk och ärendehantering med omnikanal", href: "/d365customerservice/" },
   { title: "Microsoft Dynamics 365 Finance & SCM", description: "Enterprise ERP för globala koncerner", href: "/finance-supply-chain/" },
   { title: "MS Dynamics 365 CRM-översikt", description: "Jämför alla CRM-applikationer i Dynamics 365", href: "/crm/" },
