@@ -192,6 +192,12 @@ const ValjPartner = () => {
   const aiParam = searchParams.get("ai");
   const [showLeadMagnet, setShowLeadMagnet] = useState(true);
   const [guideOpen, setGuideOpen] = useState(!!aiParam);
+
+  // Re-open guide when navigating to /valjdynamics365partner/?ai=1 from elsewhere
+  // (e.g. Navbar "Så väljer du rätt Dynamics 365-partner" menu item).
+  useEffect(() => {
+    if (aiParam) setGuideOpen(true);
+  }, [aiParam]);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
   const [selectedCompanySize, setSelectedCompanySize] = useState<string | null>(null);
