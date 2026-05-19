@@ -24,7 +24,7 @@ function trend(weeks: Week[], key: "position" | "ctr" | "clicks" | "impressions"
   if (!first && !last) return { dir: "flat" as const, delta: 0 };
   const delta = last - first;
   const better = key === "position" ? delta < 0 : delta > 0;
-  const dir = Math.abs(delta) < 0.05 ? "flat" : better ? "up" : "down";
+  const dir: "up" | "down" | "flat" = Math.abs(delta) < 0.05 ? "flat" : better ? "up" : "down";
   return { dir, delta };
 }
 
