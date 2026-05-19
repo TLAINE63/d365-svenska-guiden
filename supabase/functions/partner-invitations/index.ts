@@ -903,6 +903,38 @@ D365.se`;
       );
     }
 
+    // Admin: list sales-pitch email send log entries (with placeholder/fallback metadata)
+    if (action === "list-sales-pitch-log" && req.method === "GET") {
+      const limit = Math.min(parseInt(url.searchParams.get("limit") || "100", 10) || 100, 500);
+      const { data: logs, error: logErr } = await supabase
+        .from("email_send_log")
+        .select("id, recipient_email, subject, status, error_message, metadata, created_at, template_name")
+        .eq("template_name", "partner_sales_pitch")
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+      if (logErr) {
+        console.error("List sales-pitch log error:", logErr);
+        return new Response(
+          JSON.stringify({ error: "Kunde inte hämta logg" }),
+          { status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        );
+      }
+
+      const total = logs?.length || 0;
+      const siteStatsFallback = (logs || []).filter((l: any) => l.metadata?.site_stats?.source === "server-fallback").length;
+      const snitcherFallback = (logs || []).filter((l: any) => l.metadata?.snitcher_companies?.source === "server-fallback").length;
+      const suffixAppended = (logs || []).filter((l: any) => l.metadata?.suffix_appended).length;
+
+      return new Response(
+        JSON.stringify({
+          logs: logs || [],
+          summary: { total, siteStatsFallback, snitcherFallback, suffixAppended },
+        }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     // Admin: Approve submission
     if (action === "approve" && req.method === "POST") {
       const body = await req.json();
