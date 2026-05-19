@@ -28,8 +28,59 @@ export type LegacyRedirect = {
 };
 
 export const LEGACY_REDIRECTS: LegacyRedirect[] = [
+  // Renamed needs-analysis tools
   { from: "/behovsanalys",              to: "/ERPbehovsanalys", intendedStatus: 301 },
   { from: "/salj-marknad-behovsanalys", to: "/CRMbehovsanalys", intendedStatus: 301 },
+
+  // Hyphenated → canonical non-hyphenated product URLs
+  { from: "/business-central",          to: "/businesscentral",     intendedStatus: 301 },
+  { from: "/ai-oversikt",               to: "/aioversikt",          intendedStatus: 301 },
+  { from: "/d365-sales",                to: "/d365sales",           intendedStatus: 301 },
+  { from: "/d365-marketing",            to: "/d365marketing",       intendedStatus: 301 },
+  { from: "/d365-customer-service",     to: "/d365customerservice", intendedStatus: 301 },
+  { from: "/d365-field-service",        to: "/d365fieldservice",    intendedStatus: 301 },
+  { from: "/d365-contact-center",       to: "/d365contactcenter",   intendedStatus: 301 },
+
+  // Partnerväljare aliases
+  { from: "/valj-partner",              to: "/valjdynamics365partner", intendedStatus: 301 },
+  { from: "/partner",                   to: "/valjdynamics365partner", intendedStatus: 301 },
+
+  // Branscher (gammalt namn)
+  { from: "/branschlosningar",          to: "/branscher",           intendedStatus: 301 },
+
+  // Tidigare admin-paths
+  { from: "/partner-admin",             to: "/admin",               intendedStatus: 301 },
+  { from: "/lead-admin",                to: "/admin",               intendedStatus: 301 },
+
+  // Kontakt
+  { from: "/kontakta-oss",              to: "/kontakt",             intendedStatus: 301 },
+
+  // Sekretess
+  { from: "/sekretesspolicy",           to: "/dataskydd",           intendedStatus: 301 },
+
+  // Sök
+  { from: "/sok",                       to: "/AIsok",               intendedStatus: 301 },
+  { from: "/search",                    to: "/AIsok",               intendedStatus: 301 },
+
+  // Events / nyheter
+  { from: "/nyheter",                   to: "/events",              intendedStatus: 301 },
+  { from: "/evenemang",                 to: "/events",              intendedStatus: 301 },
+  { from: "/aktuellt",                  to: "/events",              intendedStatus: 301 },
+
+  // Tidigare hemsidesidor som konsoliderats till /
+  { from: "/start",                     to: "/",                    intendedStatus: 301 },
+  { from: "/om-oss",                    to: "/",                    intendedStatus: 301 },
+  { from: "/vara-tjanster",             to: "/",                    intendedStatus: 301 },
+  { from: "/v%C3%A5ra-tj%C3%A4nster",   to: "/",                    intendedStatus: 301 },
+  { from: "/v%C3%A5ratj%C3%A4nster",    to: "/",                    intendedStatus: 301 },
+  { from: "/konfigurator",              to: "/",                    intendedStatus: 301 },
+  { from: "/projektpaket",              to: "/",                    intendedStatus: 301 },
+  { from: "/dynamics-365-introduktion", to: "/",                    intendedStatus: 301 },
+  { from: "/dynamics-365-demos",        to: "/",                    intendedStatus: 301 },
+
+  // Tidigare produktlandningssidor
+  { from: "/dynamics-365-customer-engagement-crm", to: "/crm",            intendedStatus: 301 },
+  { from: "/dynamics-365-erp-business-central",    to: "/businesscentral", intendedStatus: 301 },
 ];
 
 const SITE_ORIGIN = "https://d365.se";
