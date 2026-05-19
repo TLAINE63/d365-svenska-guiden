@@ -64,7 +64,6 @@ describe("Legacy URL SEO (canonical + noindex)", () => {
         expect(value).toContain("noindex");
         expect(value).toContain("follow");
         // Defensive: must not accidentally re-allow indexing.
-        expect(value).not.toContain("index,");
         expect(value).not.toMatch(/(^|,)index($|,)/);
       });
 
