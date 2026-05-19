@@ -551,6 +551,44 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     headStatusSnitcher: number | null;
   } | null>(null);
   const [assetCheckLoading, setAssetCheckLoading] = useState(false);
+
+  type PitchLogEntry = {
+    id: string;
+    recipient_email: string;
+    subject: string | null;
+    status: string;
+    error_message: string | null;
+    created_at: string;
+    metadata: any;
+  };
+  const [logsOpen, setLogsOpen] = useState(false);
+  const [logsLoading, setLogsLoading] = useState(false);
+  const [logs, setLogs] = useState<PitchLogEntry[]>([]);
+  const [logsSummary, setLogsSummary] = useState<{ total: number; siteStatsFallback: number; snitcherFallback: number; suffixAppended: number } | null>(null);
+
+  const fetchPitchLogs = async () => {
+    setLogsLoading(true);
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=list-sales-pitch-log&limit=200`,
+        {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          },
+        },
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        toast({ title: "Kunde inte hämta logg", description: data?.error, variant: "destructive" });
+        return;
+      }
+      setLogs(data.logs || []);
+      setLogsSummary(data.summary || null);
+    } finally {
+      setLogsLoading(false);
+    }
+  };
   const checkEmailAssets = async () => {
     const assets = [
       { label: "Sajtstatistik ({{SITE_STATS}})", url: SITE_STATS_IMG_URL },
