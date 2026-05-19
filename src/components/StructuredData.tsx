@@ -213,7 +213,7 @@ export const WebSiteSchema = () => {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://d365.se/valj-partner?q={search_term_string}"
+        "urlTemplate": "https://d365.se/valjdynamics365partner?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }

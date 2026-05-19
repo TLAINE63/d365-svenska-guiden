@@ -108,7 +108,7 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
                 <DropdownMenuItem asChild>
-                  <Link to="/valj-partner/" className="cursor-pointer font-medium text-primary">
+                  <Link to="/valjdynamics365partner/" className="cursor-pointer font-medium text-primary">
                     🔍 Hitta rätt partner
                   </Link>
                 </DropdownMenuItem>
@@ -142,7 +142,7 @@ const Navbar = () => {
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Guide</p>
                 </div>
                 <DropdownMenuItem asChild>
-                  <Link to="/valj-partner/#guide" className="cursor-pointer">
+                  <Link to="/valjdynamics365partner/#guide" className="cursor-pointer">
                     📘 Så väljer du rätt Dynamics 365-partner
                   </Link>
                 </DropdownMenuItem>
@@ -222,7 +222,7 @@ const Navbar = () => {
                 </Link>
                 {/* Branschlösningar – dold tills vidare */}
                 <Link
-                  to="/valj-partner/"
+                  to="/valjdynamics365partner/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
                   Hitta rätt partner
@@ -242,7 +242,7 @@ const Navbar = () => {
                     🤖 AI Readiness Assessment
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
-                  <Link to="/valj-partner/#guide" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/valjdynamics365partner/#guide" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📘 Så väljer du rätt Dynamics 365-partner
                   </Link>
                 </div>

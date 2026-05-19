@@ -718,7 +718,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
         <h2>Svenska partners med stark kompetens</h2>
         <p>
           Sverige har ett antal välrenommerade Business Central-partners. Sök gärna partners i Business Central-menyn{" "}
-          <Link to="/valj-partner/" className="text-primary hover:underline">här</Link>.
+          <Link to="/valjdynamics365partner/" className="text-primary hover:underline">här</Link>.
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">

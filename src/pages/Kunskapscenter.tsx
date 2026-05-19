@@ -194,7 +194,7 @@ const STATIC_TOOLS: Array<{
     title: "Så väljer du rätt Dynamics 365-partner",
     description: "En komplett guide med checklistor och tips för att utvärdera och välja rätt implementeringspartner.",
     type: "guide",
-    url: "/valj-partner/#guide",
+    url: "/valjdynamics365partner/#guide",
     image_url: guideValjPartnerImage,
     icon: BookOpen,
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],

@@ -62,7 +62,7 @@ export interface PrerenderRoute {
 
 export const routes: PrerenderRoute[] = [
   { path: '/', priority: '1.0', changefreq: 'weekly' },
-  { path: '/valj-partner', priority: '1.0', changefreq: 'weekly' },
+  { path: '/valjdynamics365partner', priority: '1.0', changefreq: 'weekly' },
   { path: '/erp', priority: '0.9', changefreq: 'monthly' },
   { path: '/affarssystem', priority: '0.9', changefreq: 'monthly' },
   
@@ -172,7 +172,7 @@ export function render(url: string) {
               <Route path="/ai-oversikt" element={<Navigate to="/aioversikt" replace />} />
               <Route path="/ai-readiness" element={<AIReadiness />} />
               <Route path="/kontakt" element={<ContactUs />} />
-              <Route path="/valj-partner" element={<ValjPartner />} />
+              <Route path="/valjdynamics365partner" element={<ValjPartner />} />
               <Route path="/dataskydd" element={<PrivacyPolicy />} />
               <Route path="/behovsanalys" element={<NeedsAnalysis />} />
               <Route path="/kom-igang" element={<KomIgang />} />

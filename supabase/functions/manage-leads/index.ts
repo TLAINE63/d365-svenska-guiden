@@ -728,7 +728,7 @@ case "click-stats": {
         for (const v of filteredVisitors) {
           const p = v.page_path || "";
           if (p.startsWith("/kom-igang")) komIgangCount++;
-          if (p.startsWith("/valj-partner")) valjPartnerCount++;
+          if (p.startsWith("/valjdynamics365partner")) valjPartnerCount++;
           if (p.includes("behovsanalys") || p.includes("kravspec") || p.includes("ai-readiness")) analysisCount++;
         }
 
@@ -806,7 +806,7 @@ case "click-stats": {
         };
         const [komIgang, valjPartner, analysisTotal] = await Promise.all([
           runCount((q) => q.like("page_path", "/kom-igang%")),
-          runCount((q) => q.like("page_path", "/valj-partner%")),
+          runCount((q) => q.like("page_path", "/valjdynamics365partner%")),
           runCount((q) => q.or("page_path.like.%behovsanalys%,page_path.like.%kravspec%,page_path.like.%ai-readiness%")),
         ]);
         return new Response(

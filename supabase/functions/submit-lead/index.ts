@@ -238,7 +238,7 @@ const handler = async (req: Request): Promise<Response> => {
                     <p style="color: #6b7280; font-size: 14px; margin: 0 0 16px 0;">
                       Vi hjälper dig gärna att hitta rätt partner för dina behov.
                     </p>
-                    <a href="https://www.d365.se/valj-partner" 
+                    <a href="https://www.d365.se/valjdynamics365partner" 
                        style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold;">
                       Se våra partners →
                     </a>

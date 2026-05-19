@@ -211,7 +211,7 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
 
         <div className="text-center mt-8">
           <Button asChild variant="outline" size="lg">
-            <Link to="/valj-partner/">
+            <Link to="/valjdynamics365partner/">
               Se alla partners
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
