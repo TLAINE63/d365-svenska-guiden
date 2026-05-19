@@ -529,47 +529,29 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     return String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  // Bygger 8-rutors site-wide statistikblock (samma som visas i admin "Säljunderlag"-bilden)
-  const buildSiteStatsHtml = (summary: any): string => {
-    const s = summary || {};
-    const sAll = s.sajtAll || {};
-    const avgSec = Number(sAll.avgTimeOnPageSec || 0);
-    const avgMin = Math.floor(avgSec / 60);
-    const avgRest = avgSec % 60;
-    const avgStr = `${avgMin}m ${String(avgRest).padStart(2, "0")}s`;
+  // Använder de faktiska "snip"-bilder Thomas delade istället för dynamiskt
+  // genererad HTML. Bilderna ligger i /public/email-assets/ och serveras
+  // publikt från sajten så de fungerar direkt i e-postklienter.
+  const PUBLIC_BASE = "https://www.d365.se";
+  const SITE_STATS_IMG_URL = `${PUBLIC_BASE}/email-assets/sajtstatistik-snip.png`;
+  const SNITCHER_IMG_URL = `${PUBLIC_BASE}/email-assets/snitcher-snip.png`;
 
-    const boxes: Array<{ label: string; value: string; hint?: string }> = [
-      { label: "Unika besökare", value: fmt(sAll.uniqueVisitors ?? 0) },
-      { label: "Sidvisningar", value: fmt(sAll.pageViews ?? 0) },
-      { label: "Välj partner", value: fmt(sAll.valjPartnerVisits ?? 0), hint: "besök på /valj-partner" },
-      { label: "Behovsanalyser", value: fmt(sAll.analysesCompleted ?? 0), hint: "alla olika behovsanalyser" },
-      { label: "Kom igång-guiden", value: fmt(sAll.komIgangVisits ?? 0), hint: "besök på /kom-igang" },
-      { label: "Partnerprofiler", value: fmt(sAll.partnerProfileVisitsGlobal ?? 0), hint: "besök på partnerprofil" },
-      { label: "Partnerklick", value: fmt(sAll.partnerClicksGlobal ?? 0), hint: "klickat vidare till partner" },
-      { label: "Snitt-tid på sida", value: avgStr, hint: "engagemang" },
-    ];
-
-    const row = (items: typeof boxes) =>
-      `<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:separate;border-spacing:0"><tr>${items
-        .map(
-          (b) => `
-        <td width="25%" valign="top" style="padding:6px">
-          <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 14px;text-align:left">
-            <div style="font-size:12px;color:#475569;font-weight:600">${esc(b.label)}</div>
-            <div style="font-size:26px;font-weight:800;color:#0f172a;line-height:1.1;margin-top:6px">${esc(b.value)}</div>
-            ${b.hint ? `<div style="font-size:11px;color:#94a3b8;margin-top:6px">${esc(b.hint)}</div>` : ""}
-          </div>
-        </td>`,
-        )
-        .join("")}</tr></table>`;
-
+  const buildSiteStatsHtml = (_summary?: any): string => {
     return `
-<div style="margin:24px 0 0;padding:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif">
+<div style="margin:24px 0 0">
   <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">Aktuell sajtstatistik</div>
-  ${row(boxes.slice(0, 4))}
-  ${row(boxes.slice(4, 8))}
+  <img src="${SITE_STATS_IMG_URL}" alt="Aktuell sajtstatistik" style="display:block;width:100%;max-width:600px;height:auto;border:1px solid #e2e8f0;border-radius:10px" />
 </div>`;
   };
+
+  const buildSnitcherCompaniesHtml = (_summary?: any): string => {
+    return `
+<div style="margin:24px 0 0">
+  <div style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">Identifierade besökande företag</div>
+  <img src="${SNITCHER_IMG_URL}" alt="Identifierade besökande företag" style="display:block;width:100%;max-width:600px;height:auto;border:1px solid #e2e8f0;border-radius:10px" />
+</div>`;
+  };
+
 
   // Bygger en tabell över identifierade besökande företag (Snitcher) – endast site-wide,
   // ingen koppling till enskild partner. Visar Företag, Bransch, Storlek, Land.
