@@ -2993,7 +2993,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     return (
       <div className="min-h-screen flex flex-col bg-background">
         <Navbar />
-        <main className="flex-grow pt-24 pb-12">
+        <main className="flex-grow pt-28 pb-12">
           <div className="container mx-auto px-4 max-w-4xl">
             {/* Success Message */}
             <Card className="text-center mb-8">
