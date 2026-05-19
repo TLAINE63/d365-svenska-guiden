@@ -1999,12 +1999,19 @@ D365.se`;
 
       const resend = new Resend(resendApiKey);
       const baseUrl = PUBLIC_BASE_URL;
-      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
-        ? siteStatsHtml
-        : salesPitchSiteStatsHtml();
-      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
-        ? snitcherCompaniesHtml
-        : salesPitchSnitcherHtml();
+      const clientSiteStatsValid = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png");
+      const clientSnitcherValid = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png");
+      const resolvedSiteStatsHtml = clientSiteStatsValid ? siteStatsHtml : salesPitchSiteStatsHtml();
+      const resolvedSnitcherCompaniesHtml = clientSnitcherValid ? snitcherCompaniesHtml : salesPitchSnitcherHtml();
+      const siteStatsSource = clientSiteStatsValid ? "client" : "server-fallback";
+      const snitcherSource = clientSnitcherValid ? "client" : "server-fallback";
+      const extractImgSrc = (html: string): string | null => {
+        const m = html.match(/<img[^>]+src="([^"]+)"/i);
+        return m ? m[1] : null;
+      };
+      const siteStatsImgUrl = extractImgSrc(resolvedSiteStatsHtml);
+      const snitcherImgUrl = extractImgSrc(resolvedSnitcherCompaniesHtml);
+
 
       // Resolve template body (override > saved > default)
       let emailBody = "";
