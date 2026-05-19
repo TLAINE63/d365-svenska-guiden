@@ -90,7 +90,7 @@ export default function prerenderPlugin(): Plugin {
         // ── 3. Import the built SSR module ───────────────────────────────
         const modulePath = pathToFileURL(resolve(tempDir, 'entry-server.js')).href;
         const mod = await import(modulePath);
-        const { render, routes, getDynamicRoutes } = mod;
+        const { render, routes, getDynamicRoutes, LEGACY_REDIRECTS, buildRedirectHtml } = mod;
 
         if (!render || !routes) {
           console.error('❌ Prerender: entry-server.js missing render() or routes export');
