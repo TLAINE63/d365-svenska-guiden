@@ -47,6 +47,9 @@ import { BLOG_ARTICLES } from './data/blogArticles';
 import partnerRoutesData from './data/partnerRoutes.json';
 import partnerDataJson from './data/partnerData.json';
 
+// Re-export so the SSG prerender plugin can emit static legacy-redirect HTML.
+export { LEGACY_REDIRECTS, buildRedirectHtml } from './lib/legacy-redirects';
+
 // Build a slug→partner lookup for SSR
 const partnerDataBySlug: Record<string, typeof partnerDataJson[number]> = {};
 partnerDataJson.forEach((p) => {

@@ -90,7 +90,7 @@ export default function prerenderPlugin(): Plugin {
         // ── 3. Import the built SSR module ───────────────────────────────
         const modulePath = pathToFileURL(resolve(tempDir, 'entry-server.js')).href;
         const mod = await import(modulePath);
-        const { render, routes, getDynamicRoutes } = mod;
+        const { render, routes, getDynamicRoutes, LEGACY_REDIRECTS, buildRedirectHtml } = mod;
 
         if (!render || !routes) {
           console.error('❌ Prerender: entry-server.js missing render() or routes export');
@@ -354,6 +354,25 @@ export default function prerenderPlugin(): Plugin {
         // ── 9. Generate .nojekyll for GitHub Pages ───────────────────────
         writeFileSync(resolve(root, outDir, '.nojekyll'), '', 'utf-8');
         console.log('  ✅ .nojekyll');
+
+        // ── 9b. Emit legacy-redirect HTML pages ──────────────────────────
+        // Lovable's static hosting can't issue HTTP 301 headers, so we
+        // prerender a tiny HTML file at each legacy path containing meta
+        // refresh + canonical + noindex + JS redirect. Google treats this
+        // combination as a permanent (301-equivalent) redirect.
+        if (Array.isArray(LEGACY_REDIRECTS) && typeof buildRedirectHtml === 'function') {
+          for (const redirect of LEGACY_REDIRECTS) {
+            try {
+              const html = buildRedirectHtml(redirect);
+              const legacyDir = resolve(root, outDir, redirect.from.replace(/^\//, ''));
+              mkdirSync(legacyDir, { recursive: true });
+              writeFileSync(join(legacyDir, 'index.html'), html, 'utf-8');
+              console.log(`  ↪️  ${redirect.from} → ${redirect.to} (intended ${redirect.intendedStatus})`);
+            } catch (err: any) {
+              console.warn(`  ⚠️  Legacy redirect ${redirect.from} failed: ${err.message}`);
+            }
+          }
+        }
 
         // ── 10. Generate CNAME for custom domain ─────────────────────────
         writeFileSync(resolve(root, outDir, 'CNAME'), 'd365.se', 'utf-8');
