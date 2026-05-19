@@ -1562,12 +1562,6 @@ D365.se`;
 
       const resend = new Resend(resendApiKey);
       const baseUrl = PUBLIC_BASE_URL;
-      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
-        ? siteStatsHtml
-        : salesPitchSiteStatsHtml();
-      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
-        ? snitcherCompaniesHtml
-        : salesPitchSnitcherHtml();
       const pdfUrl = `${supabaseUrl}/storage/v1/object/public/partner-documents/D365_Partner_Agreement_2026.pdf`;
       const emailSubject = customSubject || "Bli synlig på d365.se – Sveriges oberoende guide till Dynamics 365";
       const emailBody = customBody || "Hej,\n\nVi vill gärna ha med er som partner på d365.se.\n\n{{INVITATION_LINK}}\n\n{{PDF_LINK}}\n\nVänliga hälsningar\nThomas Laine & Michael Uhman";
@@ -1833,7 +1827,13 @@ D365.se`;
       }
 
       const resend = new Resend(resendApiKey);
-      const baseUrl = "https://www.d365.se";
+      const baseUrl = PUBLIC_BASE_URL;
+      const resolvedSiteStatsHtml = typeof siteStatsHtml === "string" && siteStatsHtml.includes("sajtstatistik-snip.png")
+        ? siteStatsHtml
+        : salesPitchSiteStatsHtml();
+      const resolvedSnitcherCompaniesHtml = typeof snitcherCompaniesHtml === "string" && snitcherCompaniesHtml.includes("snitcher-snip.png")
+        ? snitcherCompaniesHtml
+        : salesPitchSnitcherHtml();
 
       // Resolve template body (override > saved > default)
       let emailBody = "";
