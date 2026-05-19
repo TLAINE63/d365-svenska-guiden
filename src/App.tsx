@@ -114,10 +114,15 @@ const AppShell = () => {
           <Route path="/branscher" element={<Branscher />} />
           <Route path="/branscher/:slug" element={<IndustryPage />} />
           <Route path="/d365sales" element={<D365Sales />} />
+          <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
           <Route path="/d365marketing" element={<D365Marketing />} />
+          <Route path="/d365-marketing" element={<Navigate to="/d365marketing" replace />} />
           <Route path="/d365customerservice" element={<D365CustomerService />} />
+          <Route path="/d365-customer-service" element={<Navigate to="/d365customerservice" replace />} />
           <Route path="/d365fieldservice" element={<D365FieldService />} />
+          <Route path="/d365-field-service" element={<Navigate to="/d365fieldservice" replace />} />
           <Route path="/d365contactcenter" element={<D365ContactCenter />} />
+          <Route path="/d365-contact-center" element={<Navigate to="/d365contactcenter" replace />} />
           <Route path="/partner/:slug" element={<PartnerProfile />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/partner-admin" element={<Navigate to="/admin" replace />} />
