@@ -796,9 +796,21 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
       )}
 
       {missingAssets.length === 0 && !assetCheckLoading && (
-        <div className="flex items-center gap-2 text-xs text-emerald-700">
-          <CheckCircle2 className="h-3.5 w-3.5" />
-          Alla e-postbilder ({SITE_STATS_IMG_URL.split("/").pop()}, {SNITCHER_IMG_URL.split("/").pop()}) finns publikt.
+        <div className="flex items-center justify-between gap-2 text-xs text-emerald-700">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="h-3.5 w-3.5" />
+            Alla e-postbilder ({SITE_STATS_IMG_URL.split("/").pop()}, {SNITCHER_IMG_URL.split("/").pop()}) finns publikt.
+          </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={inspectPayload}
+            disabled={payloadLoading}
+          >
+            <Eye className={`h-3.5 w-3.5 mr-1.5 ${payloadLoading ? "animate-pulse" : ""}`} />
+            {payloadLoading ? "Hämtar…" : "Visa exakt utskicks-payload"}
+          </Button>
         </div>
       )}
 
