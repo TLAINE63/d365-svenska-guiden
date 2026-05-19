@@ -43,6 +43,5 @@ Disallow: /partner-statistik
 Disallow: /avtalssida
 Disallow: /partner-avtal
 
-# Sitemaps (canonical non-www host – matches sitemap entries and what GSC actually fetches without redirect)
-Sitemap: https://d365.se/sitemap_index.xml
+# Sitemap (canonical non-www host – matches sitemap entries and what GSC actually fetches without redirect)
 Sitemap: https://d365.se/sitemap.xml
