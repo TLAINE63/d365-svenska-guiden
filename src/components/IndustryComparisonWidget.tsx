@@ -276,7 +276,7 @@ const IndustryComparisonWidget = () => {
 
           {/* CTA links */}
           <div className="flex flex-wrap gap-3 justify-center pt-3">
-            <a href="/business-central/" className="px-5 py-2.5 text-sm border-2 border-[hsl(210_60%_80%)] rounded-xl bg-[hsl(210_60%_97%)] text-[hsl(210_60%_30%)] font-medium hover:bg-[hsl(210_60%_93%)] hover:shadow-md transition-all dark:bg-[hsl(210_30%_15%)] dark:text-[hsl(210_60%_70%)] dark:border-[hsl(210_30%_35%)] dark:hover:bg-[hsl(210_30%_20%)]">
+            <a href="/businesscentral/" className="px-5 py-2.5 text-sm border-2 border-[hsl(210_60%_80%)] rounded-xl bg-[hsl(210_60%_97%)] text-[hsl(210_60%_30%)] font-medium hover:bg-[hsl(210_60%_93%)] hover:shadow-md transition-all dark:bg-[hsl(210_30%_15%)] dark:text-[hsl(210_60%_70%)] dark:border-[hsl(210_30%_35%)] dark:hover:bg-[hsl(210_30%_20%)]">
               Mer om Business Central
             </a>
             <a href="/finance-supply-chain/" className="px-5 py-2.5 text-sm border-2 border-[hsl(250_50%_80%)] rounded-xl bg-[hsl(250_50%_97%)] text-[hsl(250_50%_30%)] font-medium hover:bg-[hsl(250_50%_93%)] hover:shadow-md transition-all dark:bg-[hsl(250_30%_15%)] dark:text-[hsl(250_50%_70%)] dark:border-[hsl(250_30%_35%)] dark:hover:bg-[hsl(250_30%_20%)]">

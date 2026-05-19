@@ -33,7 +33,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     description: "En introduktion till ett av Sveriges populäraste affärssystem för SMB.",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     image: bcOverviewImg,
     parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
@@ -76,7 +76,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
 
         <h2>För vem passar Business Central?</h2>
         <p>
-          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <Link to="/business-central/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</Link>
+          Systemet passar företag med ungefär 10–500 anställda som vill ha ett professionellt affärssystem utan den komplexitet som traditionella enterprise-lösningar medför. Det är flexibelt nog för de flesta branscher — handel, tillverkning, tjänster och distribution. Business Central implementeras av certifierade Microsoft-partners i Sverige. Du hittar mer information och kan hitta en passande partner här: <Link to="/businesscentral/" className="text-primary underline hover:text-primary/80">Business Central pris – Licenser &amp; partners | d365.se</Link>
         </p>
 
         <div className="my-10 p-8 bg-secondary/50 rounded-xl text-center border border-border">
@@ -98,7 +98,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Ekonomi & redovisning",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: ekonomiImg,
     content: (
@@ -169,7 +169,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Lager & logistik",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: lagerImg,
     content: (
@@ -240,7 +240,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Försäljning & CRM",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: forsaljningImg,
     content: (
@@ -311,7 +311,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Produktion",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: produktionImg,
     content: (
@@ -382,7 +382,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Inköp & leverantörsstyrning",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: inkopImg,
     content: (
@@ -453,7 +453,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Projekthantering",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: projektImg,
     content: (
@@ -524,7 +524,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "AI & Copilot",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: aiCopilotImg,
     content: (
@@ -595,7 +595,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Licensmodellen",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: licenserImg,
     content: (
@@ -661,7 +661,7 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     headerLabel: "Att välja partner",
     product: "Business Central",
     productSlug: "business-central",
-    parentPath: "/business-central/",
+    parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
     image: valjaPartnerImg,
     content: (
