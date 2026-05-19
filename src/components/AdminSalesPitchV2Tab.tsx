@@ -1096,6 +1096,59 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <Dialog open={payloadOpen} onOpenChange={setPayloadOpen}>
+        <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Exakt utskicks-payload</DialogTitle>
+            <DialogDescription>
+              Detta är de exakta URL:er och HTML-block som skickas med varje införsäljnings-mail just nu.
+              Ankare-partner för site-stats: <code>{payloadData?.anchorSlug ?? "—"}</code>
+            </DialogDescription>
+          </DialogHeader>
+          {payloadData && (
+            <div className="space-y-5 text-sm">
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">Sajtstatistik-bild URL (HEAD {payloadData.headStatusSiteStats ?? "fail"})</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.siteStatsUrl)}>Kopiera</Button>
+                </div>
+                <code className="block p-2 bg-muted rounded text-xs break-all">{payloadData.siteStatsUrl}</code>
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">Snitcher-bild URL (HEAD {payloadData.headStatusSnitcher ?? "fail"})</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.snitcherUrl)}>Kopiera</Button>
+                </div>
+                <code className="block p-2 bg-muted rounded text-xs break-all">{payloadData.snitcherUrl}</code>
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">siteStatsHtml (skickas i body)</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.siteStatsHtml)}>Kopiera</Button>
+                </div>
+                <Textarea readOnly value={payloadData.siteStatsHtml} className="font-mono text-[11px] h-32" />
+                <div className="mt-2 p-3 border rounded bg-white" dangerouslySetInnerHTML={{ __html: payloadData.siteStatsHtml }} />
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <Label className="text-xs uppercase tracking-wide">snitcherCompaniesHtml (skickas i body)</Label>
+                  <Button size="sm" variant="ghost" onClick={() => copyToClipboard(payloadData.snitcherCompaniesHtml)}>Kopiera</Button>
+                </div>
+                <Textarea readOnly value={payloadData.snitcherCompaniesHtml} className="font-mono text-[11px] h-32" />
+                <div className="mt-2 p-3 border rounded bg-white" dangerouslySetInnerHTML={{ __html: payloadData.snitcherCompaniesHtml }} />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPayloadOpen(false)}>Stäng</Button>
+            <Button onClick={inspectPayload} disabled={payloadLoading}>
+              <RefreshCw className={`h-4 w-4 mr-2 ${payloadLoading ? "animate-spin" : ""}`} />
+              Hämta igen
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
