@@ -1225,7 +1225,7 @@ const PartnerUpdate = () => {
             {/* Products Section */}
             <PremiumCollapsibleSection
               title="Dynamics 365-produkter"
-              description="Välj produkter ni arbetar med och fyll i detaljer per produkt. Oberoende vägledning inför val av Dynamics 365 och partner."
+              description="Välj produkter ni arbetar med och fyll i detaljer per produkt."
               icon={Layers}
               accent="crm"
               status={activeProducts.length === 0 ? "empty" : (activeProducts.length >= 2 ? "complete" : "partial")}
@@ -1852,7 +1852,7 @@ const PartnerUpdate = () => {
               return (
                 <PremiumCollapsibleSection
                   title="Branschpitchar"
-                  description="Korta, branschspecifika texter som visas på branschsidorna och på er partnerprofil. Oberoende vägledning inför val av Dynamics 365 och partner."
+                  description="Korta, branschspecifika texter som visas på branschsidorna och på er partnerprofil."
                   icon={Sparkles}
                   accent="primary"
                   status={pitchCount === 0 ? "empty" : (pitchCount >= industriesList.length ? "complete" : "partial")}
@@ -1875,7 +1875,7 @@ const PartnerUpdate = () => {
             {activeProducts.length > 0 && (
               <PremiumCollapsibleSection
                 title="Branschapplikationer (Microsoft Marketplace)"
-                description="Era certifierade branschspecifika tillägg från Microsoft Marketplace. Oberoende vägledning inför val av Dynamics 365 och partner."
+                description="Era certifierade branschspecifika tillägg från Microsoft Marketplace."
                 icon={ExternalLink}
                 accent="business-central"
                 status={industryApps.some((a) => a.name?.trim() && a.url?.trim()) ? "complete" : "empty"}
@@ -2001,7 +2001,7 @@ const PartnerUpdate = () => {
             {invitation?.partner_id && (
               <PremiumCollapsibleSection
                 title="Kommande events"
-                description="Webinarier, workshops eller demos – granskas av admin innan publicering. Oberoende vägledning inför val av Dynamics 365 och partner."
+                description="Webinarier, workshops eller demos – granskas av admin innan publicering."
                 icon={CalendarDays}
                 accent="agents"
                 status={partnerEvents.length === 0 ? "empty" : "complete"}

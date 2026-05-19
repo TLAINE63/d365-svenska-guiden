@@ -162,7 +162,7 @@ const D365FieldService = () => {
             </h2>
             <VideoCard
               title="Dynamics 365 Field Service"
-              description="Optimera fältservice med intelligent schemaläggning och mobilitet. Oberoende vägledning inför val av Dynamics 365 och partner."
+              description="Optimera fältservice med intelligent schemaläggning och mobilitet."
               videoId="OujvbnyGqDY"
             />
           </div>

@@ -161,7 +161,7 @@ const D365ContactCenter = () => {
             </h2>
             <VideoCard
               title="Dynamics 365 Contact Center"
-              description="Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation. Oberoende vägledning inför val av Dynamics 365 och partner."
+              description="Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation."
               videoId="MYl0lN5_-L8"
             />
           </div>

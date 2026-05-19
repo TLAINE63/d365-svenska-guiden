@@ -172,7 +172,7 @@ const D365Marketing = () => {
             </h2>
             <VideoCard
               title="Dynamics 365 Customer Insights"
-              description="Skapa personliga kundresor med Microsoft Dynamics 365 Customer Insights / Marketing Automation. Oberoende vägledning inför val av Dynamics 365 och partner."
+              description="Skapa personliga kundresor med Microsoft Dynamics 365 Customer Insights / Marketing Automation."
               videoId="41lG3EHo4Lw"
             />
           </div>
