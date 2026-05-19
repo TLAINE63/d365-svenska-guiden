@@ -48,7 +48,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex h-9 items-center justify-end gap-5 text-xs">
             <Link
-              to="/sok"
+              to="/AIsok"
               className="inline-flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
             >
               <Sparkles className="h-3.5 w-3.5" />
@@ -211,7 +211,7 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent className="overflow-y-auto">
               <div className="flex flex-col gap-4 mt-8 pb-8">
-                <Link to="/sok" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-primary/80 transition-colors">
+                <Link to="/AIsok" className="inline-flex items-center gap-2 text-lg font-medium text-primary hover:text-primary/80 transition-colors">
                   <Sparkles className="h-4 w-4" /> AI-sök
                 </Link>
                 <Link
