@@ -646,15 +646,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
 
     setSendingPreview(true);
     try {
-      // 1) Hämta statistik via befintlig edge function
-      const { data: summaryRes, error: summaryErr } = await supabase.functions.invoke(
-        "partner-sales-summary",
-        { body: { token, partnerSlug: previewPartner.slug, mode: "summary" } },
-      );
-      if (summaryErr) throw summaryErr;
-      if (summaryRes?.error) throw new Error(summaryRes.error);
-
-      const statsHtml = buildStatsHtml(previewPartner, summaryRes?.summary);
+      const blocks = await fetchEmailBlocks();
       const tpl = templates[previewSegment];
       const contactName = previewPartner.admin_contact_name || previewPartner.contact_person || previewPartner.name;
       const composedSubject = `[PREVIEW – ${previewPartner.name}] ${tpl.subject}`;
@@ -673,7 +665,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
             partners: [{ id: null, name: previewPartner.name, email: addr, contact_name: contactName }],
             subject: composedSubject,
             body: tpl.body,
-            previewSuffixHtml: statsHtml,
+            siteStatsHtml: blocks.siteStatsHtml,
+            snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
+            previewSuffixHtml: `${blocks.siteStatsHtml}${blocks.snitcherCompaniesHtml}`,
           }),
         },
       );
