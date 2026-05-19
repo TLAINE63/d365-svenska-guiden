@@ -242,7 +242,7 @@ const Navbar = () => {
                     🤖 AI Readiness Assessment
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
-                  <Link to="/valjdynamics365partner/#guide" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📘 Så väljer du rätt Dynamics 365-partner
                   </Link>
                 </div>
