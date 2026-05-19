@@ -377,7 +377,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     setSendingTest(true);
     try {
       let okCount = 0;
-      const siteStatsHtml = await fetchSiteStatsHtml();
+      const blocks = await fetchEmailBlocks();
       for (const seg of segs) {
         const tpl = templates[seg];
         const response = await fetch(
@@ -393,7 +393,9 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
               partners: [{ id: null, name: `TEST – ${tpl.label}`, email: addr, contact_name: "Thomas" }],
               subject: `[TEST ${tpl.label}] ${tpl.subject}`,
               body: tpl.body,
-              previewSuffixHtml: siteStatsHtml,
+              siteStatsHtml: blocks.siteStatsHtml,
+              snitcherCompaniesHtml: blocks.snitcherCompaniesHtml,
+              previewSuffixHtml: blocks.siteStatsHtml, // legacy fallback
             }),
           }
         );
