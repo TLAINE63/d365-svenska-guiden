@@ -1960,7 +1960,7 @@ D365.se`;
 
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList, subject: overrideSubject, body: overrideBody, previewSuffixHtml } = body;
+      const { partners: partnerList, subject: overrideSubject, body: overrideBody, previewSuffixHtml, siteStatsHtml, snitcherCompaniesHtml } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
