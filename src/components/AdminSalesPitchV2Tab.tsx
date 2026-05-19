@@ -367,6 +367,7 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
     setSendingTest(true);
     try {
       let okCount = 0;
+      const siteStatsHtml = await fetchSiteStatsHtml();
       for (const seg of segs) {
         const tpl = templates[seg];
         const response = await fetch(
@@ -382,9 +383,11 @@ export default function AdminSalesPitchV2Tab({ token, onSessionExpired }: Props)
               partners: [{ id: null, name: `TEST – ${tpl.label}`, email: addr, contact_name: "Thomas" }],
               subject: `[TEST ${tpl.label}] ${tpl.subject}`,
               body: tpl.body,
+              previewSuffixHtml: siteStatsHtml,
             }),
           }
         );
+
         if (response.status === 401) {
           toast({ title: "Sessionen har gått ut", variant: "destructive" });
           onSessionExpired();
