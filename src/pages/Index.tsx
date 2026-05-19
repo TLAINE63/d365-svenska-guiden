@@ -232,8 +232,8 @@ const Index = () => {
       title: "Vilken behovsanalys vill ni göra?",
       desc: "Välj område — så får ni rätt frågor och en rekommendation som faktiskt passar er situation.",
       options: [
-        { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/behovsanalys/" },
-        { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights (Marketing)", link: "/salj-marknad-behovsanalys/" },
+        { label: "ERP / Affärssystem", sub: "Business Central eller Finance & SCM", link: "/ERPbehovsanalys/" },
+        { label: "Sälj & Marknad (CRM)", sub: "Sales, Customer Insights (Marketing)", link: "/CRMbehovsanalys/" },
         { label: "Kundservice", sub: "Customer Service, Field Service, Contact Center", link: "/kundservice-behovsanalys/" },
       ],
     },
@@ -852,7 +852,7 @@ const Index = () => {
                     <p>• <strong>Dynamics 365 Sales</strong> passar dig om du vill digitalisera och effektivisera din säljprocess.</p>
                     <p>• <strong>Customer Service & Field Service</strong> passar dig om du hanterar ärenden, garantier och fälttekniker.</p>
                     <p className="pt-1">
-                      → Gör gärna någon av våra kostnadsfria behovsanalyser för <Link to="/behovsanalys/" className="text-primary hover:underline font-semibold">ERP/Affärssystem</Link>, <Link to="/salj-marknad-behovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link>.
+                      → Gör gärna någon av våra kostnadsfria behovsanalyser för <Link to="/ERPbehovsanalys/" className="text-primary hover:underline font-semibold">ERP/Affärssystem</Link>, <Link to="/CRMbehovsanalys/" className="text-primary hover:underline font-semibold">Sälj & Marknad</Link> eller <Link to="/kundservice-behovsanalys/" className="text-primary hover:underline font-semibold">Kundservice</Link>.
                     </p>
                   </div>
                 </AccordionContent>

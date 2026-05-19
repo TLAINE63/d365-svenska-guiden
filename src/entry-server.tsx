@@ -82,8 +82,8 @@ export const routes: PrerenderRoute[] = [
   { path: '/agents', priority: '0.9', changefreq: 'monthly' },
   { path: '/aioversikt', priority: '0.7', changefreq: 'monthly' },
   { path: '/ai-readiness', priority: '0.6', changefreq: 'monthly' },
-  { path: '/behovsanalys', priority: '0.8', changefreq: 'monthly' },
-  { path: '/salj-marknad-behovsanalys', priority: '0.7', changefreq: 'monthly' },
+  { path: '/ERPbehovsanalys', priority: '0.8', changefreq: 'monthly' },
+  { path: '/CRMbehovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/kundservice-behovsanalys', priority: '0.7', changefreq: 'monthly' },
   { path: '/events', priority: '0.8', changefreq: 'weekly' },
   { path: '/qa', priority: '0.6', changefreq: 'monthly' },
@@ -180,9 +180,9 @@ export function render(url: string) {
               <Route path="/AIsok" element={<SmartSearch />} />
               <Route path="/sok" element={<Navigate to="/AIsok" replace />} />
               <Route path="/dataskydd" element={<PrivacyPolicy />} />
-              <Route path="/behovsanalys" element={<NeedsAnalysis />} />
+              <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
               <Route path="/kom-igang" element={<KomIgang />} />
-              <Route path="/salj-marknad-behovsanalys" element={<SalesMarketingNeedsAnalysis />} />
+              <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
               <Route path="/branschlosningar" element={<Navigate to="/branscher/" replace />} />
               <Route path="/branschlosningar/*" element={<Navigate to="/branscher/" replace />} />

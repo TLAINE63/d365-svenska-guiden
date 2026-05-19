@@ -49,7 +49,7 @@ const PAGE_LABELS: Record<string, string> = {
   "/d365fieldservice": "Dynamics 365 Field Service",
   "/d365contactcenter": "Dynamics 365 Contact Center",
   "/finance-supply-chain": "Finance & Supply Chain",
-  "/behovsanalys": "Behovsanalys ERP",
+  "/ERPbehovsanalys": "Behovsanalys ERP",
   "/behovsanalys-salj-marknad": "Behovsanalys Sälj & Marknad",
   "/behovsanalys-kundservice": "Behovsanalys Kundservice",
   "/kravspecifikation": "Kravspecifikation ERP",
@@ -66,7 +66,7 @@ const PAGE_LABELS: Record<string, string> = {
 };
 
 const ANALYSIS_PAGES = [
-  { path: "/behovsanalys", label: "Behovsanalys ERP" },
+  { path: "/ERPbehovsanalys", label: "Behovsanalys ERP" },
   { path: "/behovsanalys-salj-marknad", label: "Behovsanalys Sälj & Marknad" },
   { path: "/behovsanalys-kundservice", label: "Behovsanalys Kundservice" },
   { path: "/kravspecifikation", label: "Kravspecifikation ERP" },

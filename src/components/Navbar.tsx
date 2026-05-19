@@ -117,12 +117,12 @@ const Navbar = () => {
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</p>
                 </div>
                 <DropdownMenuItem asChild>
-                  <Link to="/behovsanalys/" className="cursor-pointer">
+                  <Link to="/ERPbehovsanalys/" className="cursor-pointer">
                     📊 ERP (Affärssystem)
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/salj-marknad-behovsanalys/" className="cursor-pointer">
+                  <Link to="/CRMbehovsanalys/" className="cursor-pointer">
                     📈 Sälj & Marknad (CRM)
                   </Link>
                 </DropdownMenuItem>
@@ -229,10 +229,10 @@ const Navbar = () => {
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
-                  <Link to="/behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/ERPbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📊 ERP (Affärssystem)
                   </Link>
-                  <Link to="/salj-marknad-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/CRMbehovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📈 Sälj & Marknad (CRM)
                   </Link>
                   <Link to="/kundservice-behovsanalys/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">

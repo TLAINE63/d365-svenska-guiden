@@ -106,7 +106,7 @@ const ERPOverview = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link to="/behovsanalys/">
+                <Link to="/ERPbehovsanalys/">
                   <Button 
                     size="lg"
                     className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
@@ -153,7 +153,7 @@ const ERPOverview = () => {
                 Gör vår kostnadsfria ERP-behovsanalys för att få en personlig rekommendation 
                 baserad på er verksamhet, storlek och specifika behov.
               </p>
-              <Link to="/behovsanalys/">
+              <Link to="/ERPbehovsanalys/">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   Starta behovsanalysen
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -292,7 +292,7 @@ const ERPOverview = () => {
               Vår ERP-behovsanalys tar bara några minuter och ger dig en 
               vägledning baserad på ditt företags specifika förutsättningar.
             </p>
-            <Link to="/behovsanalys/">
+            <Link to="/ERPbehovsanalys/">
               <Button 
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg h-14 sm:h-16 rounded-xl px-8"
