@@ -121,11 +121,15 @@ https://d365.se/partnerstatistik
 
 Allt gott,
 
-Thomas & Michael`,
+Thomas & Michael
+
+{{SITE_STATS}}
+
+{{SNITCHER_COMPANIES}}`,
   },
 };
 
-const STORAGE_KEY = "admin_sales_pitch_v2_templates_v5";
+const STORAGE_KEY = "admin_sales_pitch_v2_templates_v6";
 
 interface Props {
   token: string;
