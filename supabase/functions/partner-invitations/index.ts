@@ -2151,7 +2151,21 @@ d365.se`;
             template_name: "partner_sales_pitch",
             subject: personalizedSubject,
             status: "sent",
-            metadata: { partner_name: partner.name },
+            metadata: {
+              partner_name: partner.name,
+              partner_id: partner.id || null,
+              site_stats: {
+                source: siteStatsSource,
+                placeholder_in_body: hasSiteStatsPlaceholder,
+                img_url: siteStatsImgUrl,
+              },
+              snitcher_companies: {
+                source: snitcherSource,
+                placeholder_in_body: hasSnitcherPlaceholder,
+                img_url: snitcherImgUrl,
+              },
+              suffix_appended: !hasSiteStatsPlaceholder && !hasSnitcherPlaceholder,
+            },
           });
         } catch (sendErr: any) {
           failed++;
@@ -2163,7 +2177,12 @@ d365.se`;
             subject: emailSubject,
             status: "failed",
             error_message: sendErr.message,
-            metadata: { partner_name: partner.name },
+            metadata: {
+              partner_name: partner.name,
+              partner_id: partner.id || null,
+              site_stats: { source: siteStatsSource, img_url: siteStatsImgUrl },
+              snitcher_companies: { source: snitcherSource, img_url: snitcherImgUrl },
+            },
           });
         }
       }
