@@ -251,7 +251,7 @@ const Index = () => {
   return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
         title="Oberoende vägledning inför val av Dynamics 365 och partner | d365.se"
-        description="Oberoende vägledning inför val av Dynamics 365 och partner. Jämför certifierade Microsoftpartners i Sverige per bransch, applikation och storlek – utan säljpåverkan."
+        description="Jämför certifierade Microsoftpartners per bransch, applikation och storlek. Oberoende vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/"
         keywords="Dynamics 365 partner Sverige, D365 partners, Microsoftpartners Dynamics 365, Microsoft partner Sverige, Dynamics 365 partners, certifierad Microsoft partner, välja Dynamics 365 partner, Dynamics 365 Sverige, d365.se"
         ogImage="https://d365.se/og-image.png"
