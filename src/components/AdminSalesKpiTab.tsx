@@ -58,7 +58,7 @@ function classifyChannel(sourcePage: string | null): string {
   if (!sourcePage) return "Okänd";
   const p = sourcePage.toLowerCase();
   if (p.startsWith("partner-profile-") || p.includes("partner-profile")) return "Partnerprofil";
-  if (p.includes("partner-guide") || p.includes("valj-partner")) return "Välj partner / guide";
+  if (p.includes("partner-guide") || p.includes("valj-partner") || p.includes("valjdynamics365partner")) return "Välj partner / guide";
   if (p.includes("kom-igang")) return "Kom igång-guide";
   if (p.includes("kravspec")) return "Kravspecifikation";
   if (p.includes("behovsanalys")) return "Behovsanalys";
