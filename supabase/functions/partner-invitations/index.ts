@@ -1960,7 +1960,7 @@ D365.se`;
 
     if (action === "send-sales-pitch" && req.method === "POST") {
       const body = await req.json();
-      const { partners: partnerList, subject: overrideSubject, body: overrideBody, previewSuffixHtml } = body;
+      const { partners: partnerList, subject: overrideSubject, body: overrideBody, previewSuffixHtml, siteStatsHtml, snitcherCompaniesHtml } = body;
 
       if (!partnerList || !Array.isArray(partnerList) || partnerList.length === 0) {
         return new Response(
@@ -2062,7 +2062,7 @@ d365.se`;
           <p style="color: #6b7280; font-size: 14px;">Om knappen inte fungerar, kopiera och klistra in denna länk i din webbläsare:</p>
           <p style="color: #2563eb; font-size: 14px; word-break: break-all;">${invitationLink}</p>`;
 
-          const htmlBody = personalizedBody
+          let htmlBody = personalizedBody
             .split("{{INVITATION_LINK}}")
             .map((part: string) => {
               return part
@@ -2077,6 +2077,18 @@ d365.se`;
             })
             .join(invitationButton);
 
+          // Inject inline block placeholders (replace the rendered <p>{{...}}</p>)
+          const hasSiteStatsPlaceholder = /\{\{SITE_STATS\}\}/.test(personalizedBody);
+          const hasSnitcherPlaceholder = /\{\{SNITCHER_COMPANIES\}\}/.test(personalizedBody);
+          htmlBody = htmlBody
+            .replace(/<p>\s*\{\{SITE_STATS\}\}\s*<\/p>/g, siteStatsHtml || "")
+            .replace(/\{\{SITE_STATS\}\}/g, siteStatsHtml || "")
+            .replace(/<p>\s*\{\{SNITCHER_COMPANIES\}\}\s*<\/p>/g, snitcherCompaniesHtml || "")
+            .replace(/\{\{SNITCHER_COMPANIES\}\}/g, snitcherCompaniesHtml || "");
+
+          // Fallback: if no inline placeholders, keep legacy behaviour (append at the end)
+          const suffix = (!hasSiteStatsPlaceholder && !hasSnitcherPlaceholder) ? (previewSuffixHtml || "") : "";
+
           const fullHtml = `<!DOCTYPE html>
             <html>
             <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -2085,7 +2097,7 @@ d365.se`;
                 <h1 style="color: #1e40af; margin: 0;">D365.se</h1>
               </div>
               ${htmlBody}
-              ${previewSuffixHtml || ""}
+              ${suffix}
             </body>
             </html>`;
 
