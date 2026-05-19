@@ -58,13 +58,13 @@ const DESTINATION_H1: Record<
   "/businesscentral":      { file: "src/pages/BusinessCentral.tsx",     expected: "Dynamics 365",                       h2: "Vanliga frågor om Dynamics 365 Business Central",    meta: "Essentials 765 kr/mån" },
   "/aioversikt":           { file: "src/pages/AIOverview.tsx",          expected: "Mer effekt, mindre manuellt arbete", h2: "Copilot vs Agenter",                                 meta: "Copilot och intelligenta agenter" },
   "/d365sales":            { file: "src/pages/D365Sales.tsx",           expected: "Dynamics 365 Sales",                 h2: "Microsoft Dynamics 365 Sales",                       meta: "Dynamics 365 Sales från 621 kr/mån" },
-  "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Dynamics 365 Customer Insights",     h2: "Microsoft Dynamics 365 Customer Insights",           meta: "Dynamics 365 Customer Insights (Marketing)" },
+  "/d365marketing":        { file: "src/pages/D365Marketing.tsx",       expected: "Dynamics 365 Customer Insights",     h2: "Microsoft Dynamics 365 Customer Insights",           meta: "Customer Insights (Marketing)" },
   "/d365customerservice":  { file: "src/pages/D365CustomerService.tsx", expected: "Dynamics 365 Customer Service",      h2: "Microsoft Dynamics 365 Customer Service",            meta: "Dynamics 365 Customer Service från 478 kr/mån" },
   "/d365fieldservice":     { file: "src/pages/D365FieldService.tsx",    expected: "Dynamics 365 Field Service",         h2: "Microsoft Dynamics 365 Field Service",               meta: "Dynamics 365 Field Service från 1 004 kr/mån" },
   "/d365contactcenter":    { file: "src/pages/D365ContactCenter.tsx",   expected: "Dynamics 365 Contact Center",        h2: "Microsoft Dynamics 365 Contact Center",              meta: "Dynamics 365 Contact Center från 1 051 kr/agent/mån" },
-  "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet",          h2: "Fem viktiga frågor vid val av implementationspartner", meta: "Jämför certifierade Dynamics 365-partners i Sverige" },
+  "/valjdynamics365partner": { file: "src/pages/ValjPartner.tsx",       expected: "Det kritiska partnervalet",          h2: "Fem viktiga frågor vid val av implementationspartner", meta: "Jämför certifierade Dynamics 365-partners" },
   "/AIsok":                { file: "src/pages/SmartSearch.tsx",         expected: "Vad letar du efter?",                h2: null,                                                 meta: "Beskriv ditt behov i naturligt språk" },
-  "/ERPbehovsanalys":      { file: "src/pages/NeedsAnalysis.tsx",       expected: "Behovsanalys för Dynamics 365 ERP", h2: null,                                                 meta: "kostnadsfria ERP-behovsanalys" },
+  "/ERPbehovsanalys":      { file: "src/pages/NeedsAnalysis.tsx",       expected: "Behovsanalys för Dynamics 365 ERP", h2: null,                                                 meta: "Kostnadsfri ERP-behovsanalys" },
   "/CRMbehovsanalys":      { file: "src/pages/SalesMarketingNeedsAnalysis.tsx", expected: "Behovsanalys Sälj & Marknad", h2: null,                                          meta: "Dynamics 365 Sales och Customer Insights" },
 };
 
