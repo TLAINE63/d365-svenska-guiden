@@ -101,6 +101,7 @@ import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
 import AdminCompetitorTab from "@/components/AdminCompetitorTab";
+import AdminCompetitorInsightsTab from "@/components/AdminCompetitorInsightsTab";
 import AdminGscTab from "@/components/AdminGscTab";
 import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
@@ -272,7 +273,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
     id: "seo",
     label: "SEO & Konkurrens",
     icon: TrendingUp,
-    tabs: ["seo-rankings", "semrush", "competitor", "gsc", "pillar-followup"],
+    tabs: ["seo-rankings", "semrush", "competitor", "competitor-insights", "gsc", "pillar-followup"],
   },
   {
     id: "partnerportal",
@@ -2055,6 +2056,12 @@ Thomas`,
               </span>
               Konkurrent
             </TabsTrigger>
+            <TabsTrigger value="competitor-insights" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-fuchsia-600/10 ring-1 ring-fuchsia-400/20">
+                <TrendingUp className="h-3.5 w-3.5 text-fuchsia-300" strokeWidth={1.75} />
+              </span>
+              Konkurrentinsikter
+            </TabsTrigger>
             <TabsTrigger value="gsc" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
                 <LineChart className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
@@ -3113,6 +3120,11 @@ Thomas`,
           <TabsContent value="competitor">
             <AdminCompetitorTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
+
+          <TabsContent value="competitor-insights">
+            <AdminCompetitorInsightsTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
 
           <TabsContent value="gsc">
             <AdminGscTab token={token || null} onSessionExpired={logout} />
