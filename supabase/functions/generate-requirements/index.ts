@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { D365_MARKET_CONTEXT_SV } from "../_shared/market-context.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -301,6 +302,8 @@ VIKTIGA REGLER:
   if (product === "erp") {
     return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om BÅDE Business Central OCH Finance & Supply Chain Management, samt deras respektive branschlösningar (ISV-appar).
 
+${D365_MARKET_CONTEXT_SV}
+
 Din uppgift är att:
 1. Berika en kravspecifikation med branschspecifika krav, KPI:er och rekommendationer
 2. Ge en PRODUKTREKOMMENDATION: Baserat på bransch, företagsstorlek och valda funktionsområden, rekommendera vilken produktkombination som passar bäst:
@@ -319,7 +322,9 @@ VIKTIGA REGLER:
 - Returnera ALLTID som JSON med exakt denna struktur`;
   }
 
-  return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om Business Central och Finance & Supply Chain Management. 
+  return `Du är en expert på Microsoft Dynamics 365 affärssystem med djup kunskap om Business Central och Finance & Supply Chain Management.
+
+${D365_MARKET_CONTEXT_SV}
 
 Din uppgift är att berika en kravspecifikation med branschspecifika krav, KPI:er och rekommendationer.
 
