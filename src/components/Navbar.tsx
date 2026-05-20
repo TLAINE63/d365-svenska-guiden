@@ -46,7 +46,7 @@ const Navbar = () => {
       {/* Top utility bar (desktop only) */}
       <div className="hidden lg:block border-b border-border/60 bg-background">
         <div className="container mx-auto px-4">
-          <div className="flex h-9 items-center justify-end gap-5 text-xs">
+          <div className="flex h-9 items-center justify-end gap-5 text-sm">
             <Link
               to="/AIsok"
               className="inline-flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
@@ -94,14 +94,14 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4 xl:gap-6">
             <Link
               to="/branscher/"
-              className="text-xs font-medium text-foreground hover:text-primary transition-colors"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
               Hitta din bransch
             </Link>
             {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-xs font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
                   Hitta rätt partner
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -150,7 +150,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-xs font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
                   Affärssystem (ERP)
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -167,7 +167,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-xs font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
                   Marknad, Sälj & Service
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
@@ -184,7 +184,7 @@ const Navbar = () => {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-xs font-medium text-foreground hover:text-primary transition-colors px-0">
+                <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
                   Microsoft AI
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
