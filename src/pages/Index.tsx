@@ -519,36 +519,6 @@ const Index = () => {
             </Suspense>
           </div>
 
-          {/* Tre pillars: Vem / Oberoende / Metod */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12 pt-10 border-t border-border">
-            <div className="flex flex-col">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-3">
-                <Users className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-semibold text-foreground mb-2">Drivs av oberoende rådgivare</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Bakom d365.se står Thomas Laine och Michael Uhman — båda med lång erfarenhet av Microsoft Dynamics 365, ERP- och CRM-projekt och det svenska partnerlandskapet.
-              </p>
-            </div>
-            <div className="flex flex-col">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-3">
-                <Shield className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-semibold text-foreground mb-2">Så fungerar oberoendet</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Vi tar inget arvode för att rekommendera en specifik partner. Du som företagare betalar ingenting. Partners syns på samma villkor utifrån bransch, app, geografi och er situation.
-              </p>
-            </div>
-            <div className="flex flex-col">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-3">
-                <BarChart3 className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-semibold text-foreground mb-2">Så görs matchningen</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Bransch och produktområde väger tyngst, sedan storlek och geografi. Ni får alltid flera alternativ — aldrig bara ett "bästa val" — så att ni själva kan jämföra.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
