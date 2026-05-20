@@ -2063,6 +2063,12 @@ Thomas`,
               </span>
               Konkurrentinsikter
             </TabsTrigger>
+            <TabsTrigger value="keyword-trends" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/10 ring-1 ring-sky-400/20">
+                <TrendingUp className="h-3.5 w-3.5 text-sky-300" strokeWidth={1.75} />
+              </span>
+              Nyckelord-trender
+            </TabsTrigger>
             <TabsTrigger value="gsc" className={`flex items-center gap-2 ${activeGroup === "seo" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 ring-1 ring-emerald-400/20">
                 <LineChart className="h-3.5 w-3.5 text-emerald-300" strokeWidth={1.75} />
