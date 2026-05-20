@@ -963,6 +963,75 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_keyword_weekly: {
+        Row: {
+          clicks: number
+          created_at: string
+          ctr: number | null
+          id: string
+          impressions: number
+          keyword: string
+          position: number | null
+          source: string
+          target_url: string | null
+          week_start: string
+        }
+        Insert: {
+          clicks?: number
+          created_at?: string
+          ctr?: number | null
+          id?: string
+          impressions?: number
+          keyword: string
+          position?: number | null
+          source?: string
+          target_url?: string | null
+          week_start: string
+        }
+        Update: {
+          clicks?: number
+          created_at?: string
+          ctr?: number | null
+          id?: string
+          impressions?: number
+          keyword?: string
+          position?: number | null
+          source?: string
+          target_url?: string | null
+          week_start?: string
+        }
+        Relationships: []
+      }
+      seo_tracked_keywords: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          keyword: string
+          notes: string | null
+          target_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          keyword: string
+          notes?: string | null
+          target_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          keyword?: string
+          notes?: string | null
+          target_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string
