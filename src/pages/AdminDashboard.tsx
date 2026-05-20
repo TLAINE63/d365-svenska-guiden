@@ -274,7 +274,7 @@ const tabGroups: { id: string; label: string; icon: LucideIcon; tabs: string[] }
     id: "seo",
     label: "SEO & Konkurrens",
     icon: TrendingUp,
-    tabs: ["seo-rankings", "semrush", "competitor", "competitor-insights", "gsc", "pillar-followup"],
+    tabs: ["seo-rankings", "keyword-trends", "semrush", "competitor", "competitor-insights", "gsc", "pillar-followup"],
   },
   {
     id: "partnerportal",
