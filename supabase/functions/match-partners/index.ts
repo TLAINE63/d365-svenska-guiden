@@ -126,8 +126,12 @@ Plattformskompetens: ${platformCaps.length > 0 ? platformCaps.join(', ') : 'Ej a
     const systemPrompt = `Du är en expert på Microsoft Dynamics 365 och hjälper svenska företag att hitta rätt implementeringspartner.
 Du ska analysera partnerbeskrivningar och RANGORDNA dem mot kundens specifika behov.
 
+${D365_MARKET_CONTEXT_SV}
+
 VIKTIGT – HÅRDA FILTER REDAN APPLICERADE:
 Alla partners som skickas till dig har REDAN passerat hårda filter på produkt och (om angiven) bransch och geografi. Du ska RANGORDNA samtliga partners som skickas – aldrig exkludera någon från resultatet och aldrig ge en partner score 0 enbart för att branschmatchen är svag. Alla partners i listan ska få ett ID i din "matches"-array.
+
+Använd marknadskontexten ovan för att tolka partnerns kategori (Globalt konsulthus, Internationell systemintegratör, Nordisk systemintegratör, Lokal/nischad specialist) och matcha mot kundens storlek/komplexitet. Citera inte rapporten ordagrant.
 
 Svara ALLTID med giltig JSON i exakt det format som anges. Inga extra kommentarer.`;
 
