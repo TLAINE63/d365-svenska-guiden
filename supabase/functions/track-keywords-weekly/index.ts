@@ -240,19 +240,18 @@ serve(async (req) => {
               position: pos,
               source: "gsc",
             };
-            // Använd vanlig upsert via unique-index (keyword, week_start, COALESCE(target_url,''))
-            // Postgres tillåter inte direkt upsert mot COALESCE-index, kör delete-then-insert
-            await supabase
+            // Radera ev. tidigare rad för (keyword, week_start, target_url) – unique-indexet använder
+            // COALESCE(target_url,'') vilket Postgres inte tillåter i ON CONFLICT, så vi gör delete+insert.
+            const delQ = supabase
               .from("seo_keyword_weekly")
               .delete()
               .eq("keyword", row.keyword)
-              .eq("week_start", row.week_start)
-              .is("target_url", row.target_url === null ? null : undefined as any)
-              .eq("target_url", row.target_url || "");
-            // Den ovanstående är klumpig — gör enklare: radera matchande och infoga.
-            const delQ = supabase.from("seo_keyword_weekly").delete().eq("keyword", row.keyword).eq("week_start", row.week_start);
-            if (row.target_url) await delQ.eq("target_url", row.target_url);
-            else await delQ.is("target_url", null);
+              .eq("week_start", row.week_start);
+            if (row.target_url) {
+              await delQ.eq("target_url", row.target_url);
+            } else {
+              await delQ.is("target_url", null);
+            }
 
             const { error: insErr } = await supabase.from("seo_keyword_weekly").insert(row);
             if (insErr) throw insErr;
