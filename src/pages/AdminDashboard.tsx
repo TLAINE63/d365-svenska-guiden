@@ -3132,6 +3132,12 @@ Thomas`,
             <AdminCompetitorInsightsTab token={token || null} onSessionExpired={logout} />
           </TabsContent>
 
+          <TabsContent value="keyword-trends">
+            <AdminKeywordTrendsTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
+
+
 
           <TabsContent value="gsc">
             <AdminGscTab token={token || null} onSessionExpired={logout} />
