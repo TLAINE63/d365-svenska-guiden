@@ -1,5 +1,6 @@
 // Streaming AI chat for d365.se – neutral D365 advisor
 import { checkAndLogQuota } from '../_shared/ai-quota.ts';
+import { D365_MARKET_CONTEXT_SV } from '../_shared/market-context.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -84,7 +85,7 @@ Deno.serve(async (req) => {
       console.error('Failed to load partners for ai-chat', e);
     }
 
-    const systemPrompt = SYSTEM_PROMPT_BASE + partnerBlock;
+    const systemPrompt = SYSTEM_PROMPT_BASE + '\n\n' + D365_MARKET_CONTEXT_SV + partnerBlock;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',

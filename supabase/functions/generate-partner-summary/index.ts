@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { D365_MARKET_CONTEXT_SV } from "../_shared/market-context.ts";
 
 function isAllowedOrigin(origin: string): boolean {
   if (!origin) return false;
@@ -106,7 +107,7 @@ async function generateSummary(partner: any, apiKey: string): Promise<string> {
     body: JSON.stringify({
       model: "google/gemini-2.5-flash",
       messages: [
-        { role: "system", content: "Du är en neutral redaktör som skriver korta, faktabaserade partnerprofiler för en jämförelsesajt." },
+        { role: "system", content: `Du är en neutral redaktör som skriver korta, faktabaserade partnerprofiler för en jämförelsesajt.\n\n${D365_MARKET_CONTEXT_SV}\n\nAnvänd marknadskontexten ovan för att placera partnern i rätt kategori (globalt konsulthus, internationell/nordisk systemintegratör, lokal/nischad specialist) när det är relevant. Citera inte rapporten ordagrant.` },
         { role: "user", content: buildPrompt(partner) },
       ],
     }),
