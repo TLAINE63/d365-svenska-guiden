@@ -101,6 +101,7 @@ import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
 import AdminCompetitorTab from "@/components/AdminCompetitorTab";
+import AdminCompetitorInsightsTab from "@/components/AdminCompetitorInsightsTab";
 import AdminGscTab from "@/components/AdminGscTab";
 import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
