@@ -28,6 +28,28 @@ export default function AiChatPanel({ suggestions = DEFAULT_SUGGESTIONS, classNa
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
 
+  // Extract partner slugs the assistant has mentioned (/partner/<slug>) and log
+  // them as filter exposures so admins can see when a partner was suggested by AI.
+  const exposedPartners = useMemo(() => {
+    const slugs = new Set<string>();
+    for (const m of messages) {
+      if (m.role !== "assistant" || !m.content) continue;
+      const re = /\/partner\/([a-z0-9-]+)/gi;
+      let match: RegExpExecArray | null;
+      while ((match = re.exec(m.content)) !== null) {
+        slugs.add(match[1].toLowerCase());
+      }
+    }
+    return Array.from(slugs).map((slug) => ({ slug }));
+  }, [messages]);
+
+  useTrackFilterExposure({
+    partners: exposedPartners,
+    pagePath: "/ai-chat",
+    filterContext: { source: "ai-chat" },
+    enabled: !loading && exposedPartners.length > 0,
+  });
+
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const v = inputRef.current?.value || "";
