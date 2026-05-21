@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { Loader2, Send, Sparkles, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAiChat, type ChatMsg } from "@/hooks/useAiChat";
+import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 
 interface Props {
   suggestions?: string[];
