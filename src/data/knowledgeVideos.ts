@@ -23,6 +23,8 @@ export interface KnowledgeVideo {
   uploadDate: string;
   /** ISO 8601 duration, t.ex. "PT1M30S" */
   duration: string;
+  /** Kort transkribering/sammanfattning som brödtext på landningssidan */
+  transcript: string[];
 }
 
 export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
