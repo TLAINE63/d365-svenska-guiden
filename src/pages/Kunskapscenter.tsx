@@ -262,6 +262,16 @@ const STATIC_TOOLS: Array<{
     icon: Play,
     products: ["Business Central", "Finance & SCM", "AI/Copilot/Agents"],
   },
+  {
+    id: "video-partners-skillnader",
+    title: "Alla Dynamics 365-partners är inte likadana och skillnaderna är större än man tror",
+    description: "Kort film om vikten av att förstå att alla Dynamics 365-partners skiljer sig åt – och varför rätt val av partner är avgörande.",
+    type: "video",
+    url: "/kunskapscenter/video/partners-skillnader",
+    image_url: "https://i.ytimg.com/vi/71hzvTRWF_0/hqdefault.jpg",
+    icon: Play,
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
+  },
 ];
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [

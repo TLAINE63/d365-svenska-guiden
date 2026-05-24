@@ -62,6 +62,18 @@ export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
     uploadDate: "2026-05-10",
     duration: "PT1M20S",
   },
+  {
+    slug: "partners-skillnader",
+    youtubeId: "71hzvTRWF_0",
+    title: "Alla Dynamics 365-partners är inte likadana och skillnaderna är större än man tror",
+    description:
+      "Kort film om vikten av att förstå att alla Dynamics 365-partners skiljer sig åt – och varför rätt val av partner är avgörande för projektets framgång.",
+    longDescription:
+      "Valet av Dynamics 365-partner är ett av de viktigaste strategiska besluten i ett IT-projekt, men många underskattar hur stora skillnaderna faktiskt är mellan olika partners. I den här korta filmen går vi igenom varför partners inte är utbytbara: kompetensdjup, branscherfarenhet, certifieringar, organisationens storlek och vilken plattform de primärt jobbar med. Oavsett om du ska implementera Microsoft Dynamics 365 Business Central, Finance & Supply Chain Management, Sales, Customer Service eller AI/Copilot-lösningar, är det avgörande att välja en partner som matchar er specifika situation.",
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
+    uploadDate: "2026-05-17",
+    duration: "PT1M35S",
+  },
 ];
 
 export const getVideoBySlug = (slug: string): KnowledgeVideo | undefined =>
