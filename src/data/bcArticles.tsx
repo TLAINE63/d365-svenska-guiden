@@ -1,15 +1,5 @@
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import bcOverviewImg from "@/assets/images/business-central-overview.png";
-import valjaPartnerImg from "@/assets/articles/valja-partner-overview.jpg";
-import ekonomiImg from "@/assets/articles/ekonomi-overview.png";
-import lagerImg from "@/assets/articles/lager-overview.jpg";
-import forsaljningImg from "@/assets/articles/forsaljning-overview.jpg";
-import produktionImg from "@/assets/articles/produktion-overview.jpg";
-import inkopImg from "@/assets/articles/inkop-overview.jpg";
-import projektImg from "@/assets/articles/projekt-overview.jpg";
-import aiCopilotImg from "@/assets/articles/ai-copilot-overview.jpg";
-import licenserImg from "@/assets/articles/licenser-overview.jpg";
 
 export interface DeepDiveArticle {
   slug: string;
@@ -34,20 +24,9 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     product: "Business Central",
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
-    image: bcOverviewImg,
     parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
-        <figure className="my-6">
-          <img
-            src={bcOverviewImg}
-            alt="Översikt över Business Central-moduler: Ekonomi, Försäljning, Inköp, Lager, Produktion, Projekt, Service och Rapportering"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Business Central samlar alla affärsprocesser runt en gemensam kärna.
-          </figcaption>
-        </figure>
         <p>
           <strong>En komplett introduktion till Sveriges populäraste affärssystem för små och medelstora företag.</strong> Microsoft Dynamics 365 Business Central är ett molnbaserat affärssystem (ERP) utvecklat för att ge små och medelstora företag full kontroll över sin verksamhet — från ekonomi och inköp till lager, produktion och försäljning. Det är en modern efterföljare till det välkända Dynamics NAV (Navision) och ingår i Microsofts breda Dynamics 365-svit.
         </p>
@@ -100,20 +79,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: ekonomiImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={ekonomiImg}
-            alt="Ekonomimodulen i Business Central: Redovisning, Kundreskontra, Leverantörsreskontra, Bankintegration, Kassaflöde, Dimensioner, Konsolidering och Power BI"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Ekonomimodulen täcker hela flödet — från transaktion till beslutsunderlag.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Så ger Business Central din ekonomiavdelning full kontroll — i realtid.</strong> För många företag är ekonomiavdelningen hjärtat i verksamheten. Microsoft Dynamics 365 Business Central är byggt med ekonomifunktioner i centrum och ger ekonomiteamet kraftfulla verktyg för att arbeta effektivt, träffsäkert och i realtid.
         </p>
@@ -171,20 +138,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: lagerImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={lagerImg}
-            alt="Lager- och logistikflöde i Business Central: Inleverans, Lagerstyrning med zoner och AI-prognos, Utleverans"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Hela flödet från leverantör till kund i ett system.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Optimera din lagerhantering och minska kostnaderna med smarta verktyg.</strong> Effektiv lagerhantering är avgörande för lönsamheten — för mycket lager binder kapital, för lite leder till förlorad försäljning. Microsoft Dynamics 365 Business Central ger dig precis rätt verktyg för att hitta den optimala balansen.
         </p>
@@ -242,20 +197,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: forsaljningImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={forsaljningImg}
-            alt="Säljprocessen i Business Central: Kontakt, Offert, Order, Leverans, Faktura med Outlook-integration, Kampanjer och Power BI"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Hela säljflödet hanteras i ett och samma system.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Från offert till betalad faktura — hela säljprocessen i ett system.</strong> Att ha full koll på säljprocesser och kundrelationer är avgörande för tillväxt. Microsoft Dynamics 365 Business Central innehåller inbyggd CRM-funktionalitet och ett komplett flöde för försäljning — från den första kontakten med en prospekt till att fakturan är betald.
         </p>
@@ -313,20 +256,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: produktionImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={produktionImg}
-            alt="Produktionscykel i Business Central: Stycklistor, Kapacitetsplanering, Produktionsorder, Materialåtgång, Spårbarhet, Kostnadskalkyl"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Tre parallella spår: planering, utförande och kostnad.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Styr din tillverkning med full kontroll — från produktionsorder till färdig produkt.</strong> För tillverkande företag är förmågan att planera, genomföra och följa upp produktionen avgörande. Microsoft Dynamics 365 Business Central erbjuder en komplett uppsättning produktionsfunktioner som täcker hela tillverkningscykeln.
         </p>
@@ -384,20 +315,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: inkopImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={inkopImg}
-            alt="Inköpsflöde i Business Central: Behov, Inköpsförslag, Inköpsorder, Godsmottagning, Betalning med E-faktura och Leverantörsanalys"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Inköpsflödet från behov till betalad leverantör.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Effektivisera inköpsprocessen och stärk relationen med dina leverantörer.</strong> En välskött inköpsprocess sparar pengar, säkrar leveranser och stärker leverantörsrelationerna. Microsoft Dynamics 365 Business Central ger inköpsavdelningen kraftfulla verktyg för att hantera hela flödet från behovsidentifiering till leverantörsbetalning.
         </p>
@@ -455,20 +374,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: projektImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={projektImg}
-            alt="Projektets livscykel i Business Central: Planering, Utförande, Uppföljning och Fakturering med Teams och mobilapp"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Projektets livscykel — från planering till faktura.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Styr projekt lönsamt från start till faktura.</strong> Projektbaserade företag — konsultfirmor, bygg- och anläggningsbolag, ingenjörsföretag och IT-bolag — har särskilda krav på sina affärssystem. Microsoft Dynamics 365 Business Central har en dedikerad projektmodul som täcker hela projektlivscykeln.
         </p>
@@ -526,20 +433,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: aiCopilotImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={aiCopilotImg}
-            alt="Copilot i Business Central: Orderhantering, Produkttexter, Lagerprognoser, Leverantörsfaktura, Datainsikter och Ny funktionalitet"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Copilot i centrum — sex konkreta användningsområden.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Hur artificiell intelligens gör Business Central smartare varje dag.</strong> Artificiell intelligens är inte längre framtidsmusik i affärssystem — det är verklighet. Microsoft har integrerat AI djupt i Dynamics 365 Business Central via sin Copilot-teknik, och det förändrar hur användarna arbetar med allt från ordrar till lagerstyrning.
         </p>
@@ -597,20 +492,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: licenserImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={licenserImg}
-            alt="Licensmodellen i Business Central: Team Member, Essential, Premium och Device — från enklare roll till fler funktioner"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            De fyra licensnivåerna — välj rätt för varje användare.
-          </figcaption>
-        </figure>
-
         <p>
           <strong>Förstå hur licenserna fungerar och välj rätt nivå för din verksamhet.</strong> En vanlig fråga för företag som överväger Business Central är: vilken licens behöver vi? Microsoft erbjuder flera licensnivåer anpassade för olika roller och behov inom organisationen.
         </p>
@@ -663,20 +546,8 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     productSlug: "businesscentral",
     parentPath: "/businesscentral/",
     parentLabel: "Affärssystem (ERP) – Business Central",
-    image: valjaPartnerImg,
     content: (
       <>
-        <figure className="my-8">
-          <img
-            src={valjaPartnerImg}
-            alt="Att välja partner — sex kriterier att bedöma: Support efter go-live, Referenser, Geografisk närvaro, Certifiering, Branschkunnande och Leveransmodell"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Att välja partner — vad ska man bedöma?
-          </figcaption>
-        </figure>
-
         <p>
           <em>Sex kriterier att bedöma när du väljer partner.</em>
         </p>
