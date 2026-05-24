@@ -595,6 +595,13 @@ const Kunskapscenter = () => {
           }))
         ).filter((f) => f.answer.length > 0)}
       />
+      <Helmet>
+        {KNOWLEDGE_VIDEOS.map((v) => (
+          <script key={v.slug} type="application/ld+json">
+            {JSON.stringify(buildVideoObjectSchema(v))}
+          </script>
+        ))}
+      </Helmet>
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero */}
