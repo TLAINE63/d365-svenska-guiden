@@ -230,6 +230,16 @@ const STATIC_TOOLS: Array<{
     icon: Play,
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
   },
+  {
+    id: "video-byta-affarssystem",
+    title: "Vad föranleder beslutet att byta affärssystem?",
+    description: "Kort film där Thomas Laine resonerar kring de vanligaste drivkrafterna bakom ett byte av affärssystem (ERP).",
+    type: "video",
+    url: "https://youtube.com/shorts/CjU7ner8888",
+    image_url: "https://i.ytimg.com/vi/CjU7ner8888/hqdefault.jpg",
+    icon: Play,
+    products: ["Business Central", "Finance & SCM"],
+  },
 ];
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
