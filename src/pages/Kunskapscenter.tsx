@@ -240,6 +240,16 @@ const STATIC_TOOLS: Array<{
     icon: Play,
     products: ["Business Central", "Finance & SCM"],
   },
+  {
+    id: "video-crm-affarssystem-byte",
+    title: "När vet man att CRM och/eller Affärssystemet behöver bytas ut?",
+    description: "Kort film som hjälper dig identifiera signalerna på att det är dags att byta ut ditt CRM eller affärssystem.",
+    type: "video",
+    url: "https://youtube.com/shorts/-MnQUYiIOU0",
+    image_url: "https://i.ytimg.com/vi/-MnQUYiIOU0/hqdefault.jpg",
+    icon: Play,
+    products: ["Sales", "Customer Insights", "Business Central", "Finance & SCM"],
+  },
 ];
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
