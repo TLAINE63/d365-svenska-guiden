@@ -27,16 +27,6 @@ export const BC_ARTICLES: DeepDiveArticle[] = [
     parentLabel: "Affärssystem (ERP) – Business Central",
     content: (
       <>
-        <figure className="my-6">
-          <img
-            src={bcOverviewImg}
-            alt="Översikt över Business Central-moduler: Ekonomi, Försäljning, Inköp, Lager, Produktion, Projekt, Service och Rapportering"
-            className="w-full max-w-2xl mx-auto rounded-lg"
-          />
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            Business Central samlar alla affärsprocesser runt en gemensam kärna.
-          </figcaption>
-        </figure>
         <p>
           <strong>En komplett introduktion till Sveriges populäraste affärssystem för små och medelstora företag.</strong> Microsoft Dynamics 365 Business Central är ett molnbaserat affärssystem (ERP) utvecklat för att ge små och medelstora företag full kontroll över sin verksamhet — från ekonomi och inköp till lager, produktion och försäljning. Det är en modern efterföljare till det välkända Dynamics NAV (Navision) och ingår i Microsofts breda Dynamics 365-svit.
         </p>
