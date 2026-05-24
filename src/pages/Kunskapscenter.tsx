@@ -250,6 +250,16 @@ const STATIC_TOOLS: Array<{
     icon: Play,
     products: ["Sales", "Customer Insights", "Business Central", "Finance & SCM"],
   },
+  {
+    id: "video-inspirerad-personal",
+    title: "Håll personalen inspirerad med moderna affärssystem",
+    description: "Kort film om hur moderna affärssystem kan engagera och inspirera medarbetarna genom bättre verktyg och arbetsflöden.",
+    type: "video",
+    url: "https://youtube.com/shorts/bKN7_JXQlJs",
+    image_url: "https://i.ytimg.com/vi/bKN7_JXQlJs/hqdefault.jpg",
+    icon: Play,
+    products: ["Business Central", "Finance & SCM", "AI/Copilot/Agents"],
+  },
 ];
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
