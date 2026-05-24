@@ -23,6 +23,8 @@ export interface KnowledgeVideo {
   uploadDate: string;
   /** ISO 8601 duration, t.ex. "PT1M30S" */
   duration: string;
+  /** Kort transkribering/sammanfattning som brödtext på landningssidan */
+  transcript: string[];
 }
 
 export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
@@ -37,6 +39,11 @@ export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
     products: ["Business Central", "Finance & SCM"],
     uploadDate: "2026-04-26",
     duration: "PT1M30S",
+    transcript: [
+      "Det vanligaste skälet till att en organisation börjar utvärdera ett nytt affärssystem är att det befintliga inte längre håller jämna steg med verksamheten. Processer har förändrats, nya bolag har tillkommit, och systemet kräver allt fler manuella arbetssätt vid sidan om.",
+      "En annan tydlig drivkraft är kostnaden för integrationer och anpassningar. När varje förändring kräver en utvecklare, och uppgraderingar blir dyra projekt i sig, börjar molnbaserade alternativ som Microsoft Dynamics 365 Business Central eller Finance & Supply Chain Management framstå som mer förutsägbara.",
+      "Slutligen handlar det ofta om rapportering och beslutsstöd. När ledningen inte längre litar på siffrorna, eller när controllern lägger halva månaden i Excel, är det ett tecken på att grundplattformen behöver bytas snarare än lappas.",
+    ],
   },
   {
     slug: "crm-affarssystem-byte",
@@ -49,6 +56,11 @@ export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
     products: ["Sales", "Customer Insights", "Business Central", "Finance & SCM"],
     uploadDate: "2026-05-03",
     duration: "PT1M45S",
+    transcript: [
+      "Ett CRM eller affärssystem behöver sällan bytas över en natt – det är oftast en gradvis insikt. Signalerna brukar börja med dubbelarbete: samma kund läggs upp i flera system, och uppgifter måste hållas synkade manuellt.",
+      "Nästa varningsklocka är när Excel tar över. Säljteamet bygger sina egna pipelines, ekonomi exporterar rapporter till kalkylblad och servicepersonalen för anteckningar utanför systemet. Då finns ingen gemensam sanning längre.",
+      "När ledningen inte kan få fram tillförlitliga nyckeltal i realtid, och när nya medarbetare har svårt att förstå arbetsflödena, är det dags att utvärdera Microsoft Dynamics 365 Sales, Customer Insights, Business Central eller Finance & Supply Chain Management som en samlad plattform.",
+    ],
   },
   {
     slug: "inspirerad-personal",
@@ -61,6 +73,11 @@ export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
     products: ["Business Central", "Finance & SCM", "AI/Copilot/Agents"],
     uploadDate: "2026-05-10",
     duration: "PT1M20S",
+    transcript: [
+      "Ett affärssystem är inte bara ett verktyg för ledning och ekonomi – det är den miljö där medarbetarna tillbringar en stor del av sin arbetsdag. Om systemet känns långsamt, fragmenterat och svårt att lära sig påverkar det engagemanget direkt.",
+      "Moderna lösningar som Microsoft Dynamics 365 Business Central och Finance & SCM, kombinerade med Copilot och AI-agenter, kan ta bort mycket av det repetitiva arbetet. Att slippa leta information i fem system, eller mata in samma data två gånger, frigör tid till mer värdeskapande uppgifter.",
+      "När personalen får verktyg som faktiskt hjälper dem stiger både produktiviteten och arbetsglädjen. Det blir lättare att attrahera nya medarbetare, och de som redan finns på plats orkar engagera sig i förbättringar och nya initiativ.",
+    ],
   },
   {
     slug: "partners-skillnader",
@@ -73,6 +90,11 @@ export const KNOWLEDGE_VIDEOS: KnowledgeVideo[] = [
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
     uploadDate: "2026-05-17",
     duration: "PT1M35S",
+    transcript: [
+      "Många utgår från att Dynamics 365-partners är ungefär likvärdiga – att det främst handlar om timpris och geografisk närhet. I praktiken är skillnaderna betydligt större och påverkar både projektets risk och slutresultat.",
+      "Den viktigaste skillnaden ligger i kompetensdjup och branscherfarenhet. En partner som genomfört tio implementationer i din bransch hittar fallgroparna direkt, medan en generalist behöver lära sig dem på din bekostnad. Certifieringar, referensprojekt och vilken Dynamics 365-applikation de fokuserar på säger mer än storlek.",
+      "Även arbetssätt skiljer sig: vissa partners är vassa på Business Central för medelstora bolag, andra på Finance & Supply Chain Management i större koncerner, och en tredje grupp på Sales, Customer Service eller AI och Copilot. Att välja en partner som matchar just er situation är ofta det enskilt viktigaste beslutet i hela projektet.",
+    ],
   },
 ];
 
