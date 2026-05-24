@@ -219,6 +219,16 @@ const STATIC_TOOLS: Array<{
     icon: BookOpen,
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center"],
   },
+  {
+    id: "tool-youtube-kanal",
+    title: "D365 Guide – YouTube-kanal",
+    description: "Se alla våra filmer om Dynamics 365, partnerval och branschlösningar på vår YouTube-kanal.",
+    type: "video",
+    url: "https://www.youtube.com/@D365Guide",
+    image_url: null,
+    icon: Play,
+    products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
+  },
 ];
 
 const CATEGORIES: { label: string; value: CategoryFilter }[] = [
