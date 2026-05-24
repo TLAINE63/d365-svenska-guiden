@@ -96,7 +96,7 @@ const VideoLanding = () => {
                 Publicerad
               </p>
               <p className="text-sm text-foreground">
-                {video.uploadDate.replaceAll("-", "/")}
+                {video.uploadDate.split("-").join("/")}
               </p>
             </div>
 
