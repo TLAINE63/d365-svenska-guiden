@@ -89,6 +89,19 @@ const VideoLanding = () => {
               <p className="text-muted-foreground leading-relaxed">
                 {video.longDescription}
               </p>
+
+              <h2 className="text-xl font-semibold text-foreground mt-8">
+                Sammanfattning av innehållet
+              </h2>
+              {video.transcript.map((para, i) => (
+                <p key={i} className="text-muted-foreground leading-relaxed">
+                  {para}
+                </p>
+              ))}
+              <p className="text-xs text-muted-foreground/70 italic mt-4">
+                Sammanfattningen är en redigerad textversion av innehållet i filmen och kan
+                skilja sig något från det exakta ordvalet i videon.
+              </p>
             </div>
 
             <div className="mt-10 pt-8 border-t border-border">
