@@ -8,6 +8,7 @@ import PartnerCard from "@/components/PartnerCard";
 import { useIndustryPage } from "@/hooks/useIndustryPage";
 import { usePartners } from "@/hooks/usePartners";
 import { findIndustryBySlug } from "@/data/standardIndustries";
+import { getIndustrySEO } from "@/data/industrySEO";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowRight, Briefcase, Users, AlertTriangle, Layers, HelpCircle, Filter, Building2 } from "lucide-react";
@@ -115,6 +116,7 @@ const IndustryPage = () => {
 
   const industryName = page?.name || meta?.name || "Bransch";
   const heroImage = slug ? INDUSTRY_IMAGES[slug] : undefined;
+  const seoDefaults = getIndustrySEO(slug);
 
   const matchingPartners = useMemo(() => {
     if (!partners || !meta) return [];
@@ -169,9 +171,14 @@ const IndustryPage = () => {
   return (
     <>
       <SEOHead
-        title={page?.meta_title || `${industryName} – Microsoft Dynamics 365`}
+        title={
+          page?.meta_title ||
+          seoDefaults?.title ||
+          `${industryName} – Microsoft Dynamics 365`
+        }
         description={
           page?.meta_description ||
+          seoDefaults?.description ||
           `Microsoft Dynamics 365 för ${industryName.toLowerCase()}: affärsprocesser, utmaningar, roller och partners.`
         }
         canonicalPath={`/branscher/${slug}`}
@@ -214,7 +221,7 @@ const IndustryPage = () => {
               <span className="text-foreground">{industryName}</span>
             </nav>
             <h1 className="text-xl md:text-2xl font-bold text-foreground mb-2 drop-shadow-sm">
-              {industryName}
+              {seoDefaults?.h1 || industryName}
             </h1>
             {page?.intro && (
               <p className="text-xs md:text-sm text-foreground/90 leading-relaxed max-w-3xl whitespace-pre-line">
