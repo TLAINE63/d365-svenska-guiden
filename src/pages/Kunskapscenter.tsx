@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { BreadcrumbSchema, FAQSchema } from "@/components/StructuredData";
+import { Helmet } from "react-helmet-async";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { KNOWLEDGE_VIDEOS, buildVideoObjectSchema } from "@/data/knowledgeVideos";
 import kunskapscenterHero from "@/assets/kunskapscenter-hero.jpg";
 import kravspecErpImage from "@/assets/kravspec-erp-card.jpg";
 import ebookCoverImage from "@/assets/ebook-partnervalet-cover.webp";
@@ -235,7 +237,7 @@ const STATIC_TOOLS: Array<{
     title: "Vad föranleder beslutet att byta affärssystem?",
     description: "Kort film där Thomas Laine resonerar kring de vanligaste drivkrafterna bakom ett byte av affärssystem (ERP).",
     type: "video",
-    url: "https://youtube.com/shorts/CjU7ner8888",
+    url: "/kunskapscenter/video/byta-affarssystem",
     image_url: "https://i.ytimg.com/vi/CjU7ner8888/hqdefault.jpg",
     icon: Play,
     products: ["Business Central", "Finance & SCM"],
@@ -245,7 +247,7 @@ const STATIC_TOOLS: Array<{
     title: "När vet man att CRM och/eller Affärssystemet behöver bytas ut?",
     description: "Kort film som hjälper dig identifiera signalerna på att det är dags att byta ut ditt CRM eller affärssystem.",
     type: "video",
-    url: "https://youtube.com/shorts/-MnQUYiIOU0",
+    url: "/kunskapscenter/video/crm-affarssystem-byte",
     image_url: "https://i.ytimg.com/vi/-MnQUYiIOU0/hqdefault.jpg",
     icon: Play,
     products: ["Sales", "Customer Insights", "Business Central", "Finance & SCM"],
@@ -255,7 +257,7 @@ const STATIC_TOOLS: Array<{
     title: "Håll personalen inspirerad med moderna affärssystem",
     description: "Kort film om hur moderna affärssystem kan engagera och inspirera medarbetarna genom bättre verktyg och arbetsflöden.",
     type: "video",
-    url: "https://youtube.com/shorts/bKN7_JXQlJs",
+    url: "/kunskapscenter/video/inspirerad-personal",
     image_url: "https://i.ytimg.com/vi/bKN7_JXQlJs/hqdefault.jpg",
     icon: Play,
     products: ["Business Central", "Finance & SCM", "AI/Copilot/Agents"],
@@ -593,6 +595,13 @@ const Kunskapscenter = () => {
           }))
         ).filter((f) => f.answer.length > 0)}
       />
+      <Helmet>
+        {KNOWLEDGE_VIDEOS.map((v) => (
+          <script key={v.slug} type="application/ld+json">
+            {JSON.stringify(buildVideoObjectSchema(v))}
+          </script>
+        ))}
+      </Helmet>
       <Navbar />
       <main className="min-h-screen bg-background pt-16">
         {/* Hero */}
