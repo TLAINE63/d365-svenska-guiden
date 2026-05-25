@@ -1758,7 +1758,7 @@ const AIReadiness = () => {
               <>
                 <div className="mb-6 flex items-center gap-2">
                   <span className="text-2xl">🔹</span>
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Steg 2 – Välj roll</span>
+                  <span className="text-sm font-semibold text-[#15363F] uppercase tracking-wide">Steg 2 – Välj roll</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Jag arbetar inom:</h2>
                 <p className="text-sm text-muted-foreground mb-6">Härifrån anpassas analysen efter din roll med AI-spetsade frågor.</p>
