@@ -264,20 +264,19 @@ const Index = () => {
       <main>
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[hsl(180_30%_12%)] via-[hsl(180_25%_16%)] to-[hsl(200_20%_18%)] border-b border-primary/20 relative overflow-visible">
+      <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-primary/20 relative overflow-visible">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-16 relative">
           {/* Headline */}
           <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[1.15] tracking-tight text-white mb-5 max-w-4xl">
-            Ni väljer inte bara Dynamics 365.{" "}
+            Ni väljer inte bara Dynamics 365.<br />
             <span className="text-[hsl(180_75%_65%)] font-normal italic">
               Ni väljer partnern som ska få det att fungera.
             </span>
           </h1>
           <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-2xl">
             Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
-            Så här hjälper vi er undvika det.
           </p>
 
           {/* 3 numbered steps */}
