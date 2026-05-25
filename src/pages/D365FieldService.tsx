@@ -83,7 +83,7 @@ const D365FieldService = () => {
         eyebrow="Dynamics 365 Field Service"
         title="Field Service."
         titleAccent="Schemaläggning, mobilitet och integration mot ERP - i den ordningen."
-        subhead="Fältservice är 80% logistik och 20% teknik. Vilken partner har faktiskt rullat ut Field Service åt liknande verksamheter i Sverige? Här ser ni svaret."
+        subhead="Microsoft levererar plattformen och mobilappen. Partnern bygger schemaläggningsreglerna, kompetensmatchningen och IoT-integrationerna som faktiskt höjer andelen lösta ärenden vid första besök och sänker körtiden. Det är där fältprojekt vinns. Här jämför ni partners som faktiskt levererat Field Service i er bransch."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         secondary={{
           label: "Jämför FS-partners",
