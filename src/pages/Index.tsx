@@ -359,7 +359,9 @@ const Index = () => {
       </Dialog>
 
 
-      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
+      {/* Block 3 — Hitta er ingång: situationskort */}
+      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-[#F4F8F8] border-b border-border relative overflow-hidden">
+
         {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.06),transparent_60%)]" />
