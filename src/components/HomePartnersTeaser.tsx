@@ -169,7 +169,7 @@ export default function HomePartnersTeaser() {
           </div>
           <Link
             to="/valjdynamics365partner/"
-            className="text-[hsl(var(--cta-orange))] font-semibold text-sm hover:underline inline-flex items-center gap-1.5"
+            className="bg-[hsl(var(--cta-orange))] text-white font-semibold text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-1.5 hover:brightness-110 transition-all shadow"
           >
             Se alla partners <ArrowRight className="w-4 h-4" />
           </Link>
