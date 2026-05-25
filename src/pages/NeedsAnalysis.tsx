@@ -3313,9 +3313,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   onClick={() => setCurrentStep(stepNum)}
                   className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                     isActive
-                      ? "bg-finance-supply text-finance-supply-foreground"
+                      ? "bg-[#15363F] text-white"
                       : isCompleted
-                      ? "bg-finance-supply/20 text-finance-supply"
+                      ? "bg-[#15363F]/20 text-[#15363F]"
                       : "bg-muted text-muted-foreground"
                   }`}
                 >
