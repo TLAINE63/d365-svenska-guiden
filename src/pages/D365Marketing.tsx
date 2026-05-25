@@ -92,7 +92,7 @@ const D365Marketing = () => {
         icon={MarketingIcon}
         eyebrow="Dynamics 365 Customer Insights"
         title="Customer Insights — Journeys & Data."
-        titleAccent="Två moduler, två partner-profiler. Välj rätt från start."
+        titleAccent="Två moduler. Välj partner med omsorg."
         subhead="Customer Insights handlar lika mycket om datakvalitet och segmentering som om kampanjer. Här ser ni vilka partners som faktiskt levererat marketing automation i Norden."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-marketing/", icon: FileText }}
         secondary={{
