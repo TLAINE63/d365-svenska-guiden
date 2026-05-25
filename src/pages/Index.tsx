@@ -322,7 +322,7 @@ const Index = () => {
       {/* Block — Upphandlingsresan: 7 stadier */}
       <section className="bg-white border-b border-border">
         <Suspense fallback={null}>
-          <BuyerJourneyStages />
+          <BuyerJourneyStages compact />
         </Suspense>
       </section>
 
