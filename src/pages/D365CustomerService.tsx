@@ -96,7 +96,7 @@ const D365CustomerService = () => {
         icon={CustomerServiceIcon}
         eyebrow="Dynamics 365 Customer Service"
         title="Customer Service."
-        titleAccent="Ärendehantering är enkelt. Att få det att fungera i drift är inte det."
+        titleAccent="Ärendehantering är enkelt. Att få det att flyta på är inte det."
         subhead="Customer Service-implementationer faller sällan på systemet — de faller på processdesign, integration och adoption. Här jämför ni partners som har gjort jobbet förut."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         secondary={{
