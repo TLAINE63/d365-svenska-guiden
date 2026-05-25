@@ -174,7 +174,7 @@ const CRM = () => {
         icon={SalesIcon}
         eyebrow="CRM (Customer Engagement)"
         title="Dynamics 365 CRM."
-        titleAccent="Sex appar — och olika partners är vassa på olika delar."
+        titleAccent="6 applikationer – är alla partners specialister på allt?"
         subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper er hitta dem som faktiskt levererat det ni behöver."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
         secondary={{
