@@ -1,3 +1,4 @@
+import ProductHero from "@/components/ProductHero";
 import RelatedPages, { marketingRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";
@@ -87,61 +88,19 @@ const D365Marketing = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2070" 
-            alt="Marketing analytics and insights" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                <img src={MarketingIcon} alt="Marketing" className="h-10 w-10 sm:h-12 sm:w-12" />
-              </div>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Dynamics 365 Customer Insights
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6">
-                Skapa personliga kundresor med avancerad marknadsföringsautomation och AI
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link to="/branscher/">
-                  <Button size="lg"
-                    className="bg-marketing hover:bg-marketing/90 text-marketing-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-                <Button 
-                  size="lg"
-                  className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Hitta rätt partner
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button 
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                >
-                  <Link to="/kravspecifikation-marketing/">
-                    <FileText className="mr-2 h-5 w-5" />
-                    Generera en kravspecifikation
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ProductHero
+        icon={MarketingIcon}
+        eyebrow="Dynamics 365 Customer Insights"
+        title="Customer Insights — Journeys & Data."
+        titleAccent="Två moduler, två partner-profiler. Välj rätt från start."
+        subhead="Customer Insights handlar lika mycket om datakvalitet och segmentering som om kampanjer. Här ser ni vilka partners som faktiskt levererat marketing automation i Norden."
+        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-marketing/", icon: FileText }}
+        secondary={{
+          label: "Jämför CI-partners",
+          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+        }}
+      />
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">

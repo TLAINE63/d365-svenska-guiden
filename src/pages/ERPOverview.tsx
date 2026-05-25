@@ -1,3 +1,4 @@
+import ProductHero from "@/components/ProductHero";
 import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -83,43 +84,15 @@ const ERPOverview = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2070" 
-            alt="ERP system overview" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                <span className="block">ERP-system</span>
-                <span className="block">Microsoft Dynamics 365</span>
-              </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
-                <span className="block">Jämför Microsofts två ERP-system.</span>
-                <span className="block">Business Central eller Finance &amp; Supply Chain Management?</span>
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link to="/ERPbehovsanalys/">
-                  <Button 
-                    size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  >
-                    <ClipboardList className="mr-2 h-5 w-5" />
-                    Gör en ERP Behovsanalys
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ProductHero
+        eyebrow="ERP"
+        title="Två ERP. Två helt olika partner-marknader."
+        titleAccent="Vi hjälper er välja rätt — innan ni väljer leverantör."
+        subhead="Business Central och Finance & Supply Chain Management löser olika problem för olika bolag. Vi visar skillnaden i klartext — och vilka partners som faktiskt har levererat den ena eller andra."
+        primary={{ label: "Gör en ERP-behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
+        secondary={{ label: "Jämför BC vs F&SCM", to: "/affarssystem/" }}
+      />
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">

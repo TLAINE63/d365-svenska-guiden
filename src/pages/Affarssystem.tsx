@@ -1,3 +1,4 @@
+import ProductHero from "@/components/ProductHero";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList, CheckCircle2, AlertTriangle, Lightbulb, Coins, Clock, Users } from "lucide-react";
@@ -97,44 +98,15 @@ const Affarssystem = () => {
       <Navbar />
 
       {/* Hero */}
-      <header className="relative overflow-hidden mt-16 min-h-[480px] sm:min-h-[520px]">
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2070"
-            alt="Affärssystem – översikt"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
-        <div className="relative min-h-[480px] sm:min-h-[520px] flex items-center pt-14 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <Badge className="mb-4 bg-cta-orange text-white border-0">Pelarsida · Oberoende guide</Badge>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
-                Affärssystem – vad det är och hur du väljer rätt
-              </h1>
-              <p className="text-lg sm:text-xl text-white/95 mb-6">
-                Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa
-                och vilka alternativ finns på den svenska marknaden? Här får du svaren
-                utan säljpåverkan.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link to="/ERPbehovsanalys/">
-                  <Button size="lg" className="bg-cta-orange hover:bg-cta-orange/90 text-white text-base sm:text-lg h-14 rounded-xl">
-                    <ClipboardList className="mr-2 h-5 w-5" />
-                    Gör en kostnadsfri behovsanalys
-                  </Button>
-                </Link>
-                <a href="#jamfor">
-                  <Button size="lg" variant="outline" className="bg-white/10 text-white border-white/40 hover:bg-white/20 text-base sm:text-lg h-14 rounded-xl">
-                    Jämför BC vs F&amp;SCM
-                  </Button>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ProductHero
+        eyebrow="Pelarsida · Oberoende guide"
+        title="Affärssystem — vad det är."
+        titleAccent="Och hur ni väljer rätt utan säljpåverkan."
+        subhead="Vad är ett affärssystem, vad kostar det, hur lång tid tar det att införa och vilka alternativ finns på den svenska marknaden? Här får ni svaren — utan säljpåverkan."
+        primary={{ label: "Gör en kostnadsfri behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
+        secondary={{ label: "Jämför BC vs F&SCM", href: "#jamfor" }}
+      />
+
 
       {/* TAYA: Vad är ett affärssystem */}
       <section className="py-12 sm:py-16 bg-background">

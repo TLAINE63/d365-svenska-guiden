@@ -1,3 +1,4 @@
+import ProductHero from "@/components/ProductHero";
 import RelatedPages, { crmRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -169,64 +170,19 @@ const CRM = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2070" 
-            alt="Team collaboration and CRM" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 flex-wrap">
-                <img src={SalesIcon} alt="Sales" className="h-8 w-8 sm:h-10 sm:w-10" />
-                <img src={MarketingIcon} alt="Customer Insights" className="h-8 w-8 sm:h-10 sm:w-10" />
-                <img src={CustomerServiceIcon} alt="Customer Service" className="h-8 w-8 sm:h-10 sm:w-10" />
-              </div>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                <span className="block">Microsoft Dynamics 365</span>
-                <span className="block sm:whitespace-nowrap">CRM (Customer Engagement)</span>
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6">
-                Microsoft Dynamics 365 Sales, Customer Insights/Marketing, Customer Service, Contact Center, Field Service, Project Operations m.m.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link to="/branscher/">
-                  <Button size="lg"
-                    className="bg-crm hover:bg-crm/90 text-crm-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-                <Button 
-                  size="lg"
-                  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Hitta rätt partner
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button 
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="bg-card text-foreground hover:bg-secondary hover:text-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                >
-                  <Link to="/kravspecifikation-sales/">
-                    <FileText className="mr-2 h-5 w-5" />
-                    Generera en kravspecifikation
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ProductHero
+        icon={SalesIcon}
+        eyebrow="CRM (Customer Engagement)"
+        title="Dynamics 365 CRM."
+        titleAccent="Sex appar — och olika partners är vassa på olika delar."
+        subhead="Sales, Customer Insights, Customer Service, Field Service, Contact Center och Project Operations. Få partners kan allt. Vi hjälper er hitta dem som faktiskt levererat det ni behöver."
+        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
+        secondary={{
+          label: "Jämför CRM-partners",
+          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+        }}
+      />
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
