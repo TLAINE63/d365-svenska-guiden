@@ -659,43 +659,46 @@ const Index = () => {
       </section>
 
 
-      <section className="py-10 sm:py-12 bg-secondary/30">
+      {/* Block 8 — Vad vi hjälper dig med */}
+      <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
-              <p className="text-sm text-muted-foreground mb-4">Realistisk vägledning — anpassad för svenska företag.</p>
-              <ul className="space-y-2.5">
-                {whyItems.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                    <span className="w-[18px] h-[18px] rounded-full bg-primary/10 text-primary text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
-              <p className="text-sm text-muted-foreground mb-4">Frågorna svenska företag söker svar på.</p>
-              <div className="flex flex-col gap-2">
-                {popularGuides.map((g) => (
-                  <Link
-                    key={g.text}
-                    to={g.link}
-                    className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
-                  >
-                    <span className="flex-1">{g.text}</span>
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">{g.tag}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <div className="max-w-3xl">
+            <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
+            <p className="text-sm text-muted-foreground mb-5">Realistisk vägledning — anpassad för svenska företag.</p>
+            <ul className="space-y-2.5">
+              {whyItems.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                  <span className="w-[18px] h-[18px] rounded-full bg-primary/10 text-primary text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Branschvägar */}
-      <section className="py-12 sm:py-16 bg-card border-y border-border">
+      {/* Block 9 — Mest lästa guider */}
+      <section className="py-12 sm:py-16 bg-[#F4F8F8]">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
+          <p className="text-sm text-muted-foreground mb-5">Frågorna svenska företag söker svar på.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+            {popularGuides.map((g) => (
+              <Link
+                key={g.text}
+                to={g.link}
+                className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
+              >
+                <span className="flex-1">{g.text}</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">{g.tag}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Block 10 — Branschvägar */}
+      <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
             <div>
@@ -710,7 +713,7 @@ const Index = () => {
               <Link
                 key={pill}
                 to={`/branscher/${PILL_TO_SLUG[pill]}/`}
-                className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+                className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-[#F4F8F8] hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
               >
                 <span className="text-[14px] font-medium text-foreground">{pill}</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
@@ -720,29 +723,37 @@ const Index = () => {
         </div>
       </section>
 
-
-
-
-
-      {/* Footer CTA band */}
-      <section className="bg-primary py-10 sm:py-12">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-primary-foreground mb-1.5">Redo att komma igång?</h2>
-            <p className="text-sm text-primary-foreground/65 max-w-[400px]">Börja med att beskriva din situation — kostnadsfritt och utan förpliktelser.</p>
-          </div>
-          <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 text-sm font-semibold h-12 px-7 rounded-lg whitespace-nowrap flex-shrink-0">
-            <Link to="/valjdynamics365partner/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
+      {/* Block 11 — Slut-CTA (BOOKEND 2): mörk teal, speglar hero, en orange CTA */}
+      <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-16 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
+            Redo att komma igång?
+          </h2>
+          <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-xl mx-auto">
+            Börja med er bransch — så guidar vi er till partners som faktiskt levererat det ni behöver. Kostnadsfritt, utan registrering.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+          >
+            <Link to="/branscher/">
+              Starta — välj bransch
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
           </Button>
         </div>
       </section>
 
-      {/* Vanliga frågor */}
-      <section id="questions" className="py-10 sm:py-14 bg-secondary/30">
+      {/* Block 12 — Vanliga frågor */}
+      <section id="questions" className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
             Vanliga frågor
           </h2>
+
           <div className="max-w-4xl mx-auto">
             <Suspense fallback={<div className="space-y-3 sm:space-y-4" />}>
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
