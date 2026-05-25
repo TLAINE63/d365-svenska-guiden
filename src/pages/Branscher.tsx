@@ -53,7 +53,8 @@ const INDUSTRY_IMAGES: Record<string, string> = {
 };
 
 const Branscher = () => {
-  const visibleIndustries = STANDARD_INDUSTRIES;
+  const { covered } = useCoveredIndustries();
+  const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
   return (
     <>
       <SEOHead
