@@ -29,6 +29,7 @@ const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
+import HomePartnersTeaser from "@/components/HomePartnersTeaser";
 
 const homeFaqs = [
   {
