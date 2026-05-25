@@ -761,7 +761,7 @@ const Index = () => {
               <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Vad är Microsoft Dynamics 365 – och hur fungerar det?</span>
                   </span>
                 </AccordionTrigger>
@@ -781,7 +781,7 @@ const Index = () => {
               <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Vilken Dynamics 365-lösning passar vårt företag bäst?</span>
                   </span>
                 </AccordionTrigger>
@@ -803,7 +803,7 @@ const Index = () => {
               <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Vad kostar Dynamics 365 – och vad påverkar priset?</span>
                   </span>
                 </AccordionTrigger>
@@ -829,7 +829,7 @@ const Index = () => {
               <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">🤝</span>
+                    <Users className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Hur hittar jag rätt Dynamics 365-partner?</span>
                   </span>
                 </AccordionTrigger>
@@ -852,7 +852,7 @@ const Index = () => {
               <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">⚖️</span>
+                    <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Är Dynamics 365 ett bra alternativ till SAP, Salesforce eller Fortnox?</span>
                   </span>
                 </AccordionTrigger>
@@ -870,7 +870,7 @@ const Index = () => {
               <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">🤖</span>
+                    <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Hur fungerar Microsoft Copilot AI i Dynamics 365?</span>
                   </span>
                 </AccordionTrigger>
