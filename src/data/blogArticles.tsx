@@ -3,6 +3,7 @@ import aiErpRiskbildHero from "@/assets/articles/ai-erp-riskbild-hero.jpg";
 import partnervaletAvgorHero from "@/assets/articles/partnervalet-avgor-hero.jpg";
 import ownedIntelligenceHero from "@/assets/articles/owned-intelligence-hero.jpg";
 import ownedIntelligenceSkiljelinje from "@/assets/articles/owned-intelligence-skiljelinje.jpg";
+import releaseWave1Hero from "@/assets/articles/d365-release-wave-1-2026-hero.jpg";
 
 export interface BlogArticleAuthor {
   name: string;
@@ -49,6 +50,243 @@ const THOMAS_LAINE: BlogArticleAuthor = {
 
 export const BLOG_ARTICLES: BlogArticle[] = [
   {
+    slug: "dynamics-365-release-wave-1-2026",
+    title: "Dynamics 365 Release Wave 1 2026 — vad som faktiskt kommer, per produkt",
+    metaTitle: "Dynamics 365 Release Wave 1 2026: nyheter per produkt | d365.se",
+    metaDescription:
+      "Oberoende sammanställning av Microsofts Release Wave 1 2026 för Dynamics 365. Per produkt: vad som rullas ut april–september 2026, och vad som redan finns inom AI, Copilot och agenter.",
+    summary:
+      "Microsoft publicerade Release Wave 1 2026 den 18 mars. Här är d365.se:s oberoende genomgång — per produkt: vad som rullas ut mellan april och september, och vad som redan är på plats inom AI, Copilot och agenter.",
+    category: "Produktnyheter",
+    tags: ["dynamics365", "release wave", "ai", "copilot", "agenter", "roadmap"],
+    products: [
+      "Business Central",
+      "Finance & SCM",
+      "Sales",
+      "Customer Service",
+      "Contact Center",
+      "Field Service",
+      "Customer Insights",
+      "AI/Copilot/Agents",
+    ],
+    publishedAt: "2026-05-25",
+    author: THOMAS_LAINE,
+    heroImage: releaseWave1Hero,
+    readingTimeMinutes: 10,
+    featured: true,
+    content: (
+      <>
+        <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
+          Microsoft publicerade Release Wave 1 2026 för Dynamics 365 den{" "}
+          <strong>18 mars 2026</strong>. Planen omfattar uppdateringar som rullas
+          ut mellan 1 april och september 2026. Här är en oberoende
+          sammanställning per produkt — både det som kommer och det som redan
+          finns inom AI, Copilot och agenter.
+        </p>
+
+        <aside className="my-10 rounded-md border border-[#9CC2E5] bg-[#DEEBF7] px-7 py-6">
+          <p className="!text-[1.25rem] !font-bold !text-[#1F4E79] !mb-3 !mt-0">
+            Nyckeldatum
+          </p>
+          <ul className="!my-0 !pl-7 !space-y-2 list-disc marker:text-[#1F4E79] !text-foreground/90">
+            <li>18 mars 2026 — release-planer publicerade</li>
+            <li>1 april 2026 — General Availability startar regionalt</li>
+            <li>3 april 2026 — plan tillgänglig på svenska</li>
+            <li>September 2026 — slutpunkt för Release Wave 1</li>
+          </ul>
+        </aside>
+
+        <h2>Genomgående tema i RW1 2026</h2>
+        <ul>
+          <li>
+            <strong>Agentic experiences</strong> — autonoma agenter över Sales,
+            Service, Finance, Supply Chain och fler.
+          </li>
+          <li>
+            <strong>Djupare Copilot-integration</strong> i alla appar och i
+            Microsoft 365.
+          </li>
+          <li>
+            <strong>Model Context Protocol (MCP)</strong> — agenter får direkt
+            access till D365-data.
+          </li>
+          <li>
+            <strong>Enhetlig data via Customer Insights</strong> som grund för
+            CRM-Copilots.
+          </li>
+        </ul>
+
+        <h2>Dynamics 365 Sales</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Utökad Copilot på data från CRM och Microsoft 365 — mejl, mötesreferat och kalendrar.</li>
+          <li>AI-rekommendationer som hjälper säljare bygga pipeline, berika opportunities och accelerera avslut.</li>
+          <li>Proaktiva notiser med tydligt nästa steg.</li>
+          <li>Enhetlig Copilot-upplevelse mellan Dynamics 365 och Microsoft 365-appar.</li>
+          <li>Sales Agent i M365 Copilot utvecklas till säljarens dagliga kommandocentral (Sales Chat, Sales Home).</li>
+        </ul>
+        <h3>AI, Copilot och agenter idag</h3>
+        <p><strong>Copilot:</strong> record summarization, sammanfattningar i lead- och opportunity-formulär, mötesförberedelse, e-postassistans, nyhetssammanfattningar.</p>
+        <p><strong>Agenter:</strong> Sales Qualification Agent, Sales Close Agent (Research &amp; Engage), Sales Research Agent.</p>
+
+        <h2>Dynamics 365 Customer Service</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Förstärkta agentiska kapabiliteter inom case management, e-post, kundintent, kvalitetsutvärdering och kunskapshantering.</li>
+          <li>AI-stärkta admin- och supervisor-upplevelser för snabbare time-to-value.</li>
+          <li>Bättre transparens i hur agenter resonerar och agerar.</li>
+          <li>Autonoma flöden från intent-identifiering till case-stängning.</li>
+        </ul>
+        <h3>AI, Copilot och agenter idag</h3>
+        <p><strong>Copilot:</strong> ask a question, konversationssammanfattningar, case-sammanfattningar, e-postdrafter, resolutionsanteckningar, knowledge drafts, supervisor-analytics.</p>
+        <p><strong>Agenter:</strong> Case Management Agent, Customer Knowledge Management Agent, Quality Evaluation Agent, Customer Intent Agent, intent-based routing, Rollout Manager.</p>
+
+        <h2>Dynamics 365 Contact Center</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Agentic contact center med djupare automation och högre containment.</li>
+          <li>Stöd för framväxande kanaler utöver röst och chatt.</li>
+          <li>Förbättrade supervisor-insikter i realtid.</li>
+          <li>Custom Neural Voices — egna märkesröster för text-till-tal.</li>
+        </ul>
+        <h3>AI, Copilot och agenter idag</h3>
+        <p><strong>Copilot:</strong> realtidssammanfattning av röst och chatt, ask a question, svarsmejl-drafter, resolutionsanteckningar, kunskapsartiklar från cases.</p>
+        <p><strong>Agenter:</strong> Customer Intent Agent for voice, Quality Evaluation Agent, Case Management Agent, Customer Knowledge Management Agent, agent insights dashboard.</p>
+
+        <h2>Dynamics 365 Field Service</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Förbättrad mobil användbarhet för tekniker i fält.</li>
+          <li>Intelligent schemaläggning via Scheduling Operations Agent.</li>
+          <li>End-to-end execution över tillgångar, projekt och finansiella flöden.</li>
+        </ul>
+        <h3>AI, Copilot och agenter idag</h3>
+        <p><strong>Copilot:</strong> naturligt språk mot Field Service-data, AI-uppdatering av work orders via tal/text, on-demand work order-sammanfattningar, inspektionsmallar från PDF/bild.</p>
+        <p><strong>Agenter:</strong> Scheduling Operations Agent — optimerar schema, hanterar avbokningar och förseningar utan manuell omplanering.</p>
+
+        <h2>Customer Insights (Data + Journeys)</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Data: AI-färdig datakärna som grund för CRM-Copilots och agenter.</li>
+          <li>Data: realtids unified customer profiles.</li>
+          <li>Journeys: skapa kundresor via naturligt språk, query assist, AI-genererad content.</li>
+        </ul>
+        <h3>Agenter idag</h3>
+        <p>Conversational journeys som kombinerar Customer Insights – Journeys, Contact Center och agenter byggda i Copilot Studio.</p>
+
+        <h2>Dynamics 365 Finance</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Global scale-förbättringar för stora och internationella organisationer.</li>
+          <li>Ökad finansiell automation över hela close-cykeln.</li>
+          <li>Stärkt global regulatorisk compliance.</li>
+          <li>Förbättrad planning och analytics.</li>
+        </ul>
+        <h3>AI, Copilot och agenter idag</h3>
+        <p><strong>Copilot:</strong> chat with finance and operations data, generative help and guidance.</p>
+        <p><strong>Agenter:</strong> Account Reconciliation Agent, Finance Agent i M365 Copilot (Outlook och Excel).</p>
+
+        <h2>Dynamics 365 Supply Chain Management</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Demand and supply planning med price-demand correlation.</li>
+          <li>Capacity-to-promise (CTP) date protection.</li>
+          <li>AI-drivet plock i lagret och automatisk inventory rebalancing.</li>
+          <li>Förbättrad leverantörskommunikation.</li>
+        </ul>
+        <h3>AI, Copilot och agenter idag</h3>
+        <p><strong>Copilot:</strong> analysera demand plans, workload insights i Warehouse Management mobile app, chat with finance and operations data.</p>
+        <p><strong>Agenter:</strong> Supplier Communications Agent — automatiserar leverantörsuppföljning och inköpsorderhantering.</p>
+
+        <h2>Dynamics 365 Project Operations</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Stöd för change orders och smartare projektplanering.</li>
+          <li>Smidigare flöden för offert, budget och kontrakt.</li>
+          <li>Mobile expense management och subscription billing.</li>
+        </ul>
+        <h3>Agenter idag</h3>
+        <p>Time Entry Agent, Expense Agent, Approvals Agent — autoutkast och förgranskning mot policy.</p>
+
+        <h2>Dynamics 365 Commerce</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>B2B: multi-outlet ordering, enhetlig sign-in, outlet-specifika kataloger.</li>
+          <li>B2B: inbyggd credit management.</li>
+          <li>Moderniserade order management-flöden.</li>
+        </ul>
+        <p>
+          Inga Commerce-specifika Copilot-funktioner eller agenter listade idag.
+          Använder gemensamma F&amp;O-kapabiliteter via plattformen och MCP-server.
+        </p>
+
+        <h2>Dynamics 365 Human Resources</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Vidareutveckling av rekrytering och onboarding.</li>
+          <li>Förbättrad rapportering och integrerad workforce management.</li>
+          <li>Utökade regionala payroll-samarbeten.</li>
+        </ul>
+        <p>
+          Inga HR-specifika agenter listade idag. Egna HR-agenter byggs via
+          Copilot Studio och Dynamics 365 ERP MCP-servern.
+        </p>
+
+        <h2>Dynamics 365 Business Central</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Förstärkta AI-agenter som automatiserar sales- och purchase-scenarios.</li>
+          <li>Acceleration mot agentic ERP — fler autonoma flöden.</li>
+          <li>Förbättrad AL-testning och debugging för utvecklare.</li>
+          <li>Copilot-extensibility — bygg egna Copilot-upplevelser.</li>
+        </ul>
+        <h3>AI, Copilot och agenter idag</h3>
+        <p><strong>Copilot:</strong> bankkontoavstämning, föreslå rader på säljdokument, alternativa artiklar vid lagerbrist, nummerserier, record-sammanfattningar.</p>
+        <p><strong>Agenter:</strong> Sales Order Agent (fångar order från inkommande e-post), Payables Agent (analyserar leverantörsfakturor).</p>
+
+        <h2>Microsoft Sustainability Manager</h2>
+        <h3>Nyheter — RW1 2026</h3>
+        <ul>
+          <li>Mer intuitiv navigering.</li>
+          <li>Advanced calculation versioning och granular data-locking.</li>
+          <li>Utökad integration mot finans.</li>
+        </ul>
+        <p><strong>Copilot:</strong> query data, find facts (ESG-disclosures), modelldrivna appkapabiliteter. Agent feed i preview; inga produktspecifika autonoma agenter idag.</p>
+
+        <h2>Vad d365.se tar med sig</h2>
+        <p>
+          Två observationer värda att lyfta: <strong>agenter går från demo till
+          leverans</strong> i den här vågen — flera av dem är redan i
+          produktionsmogen förhandsversion eller GA. Och{" "}
+          <strong>MCP-servern</strong> som ger agenter direkt access till
+          D365-data är den arkitektoniska förändring som mest sannolikt påverkar
+          hur framtida lösningar designas, snarare än enskilda Copilot-funktioner.
+        </p>
+        <p>
+          Som alltid: release-planen är ett levande dokument. Microsoft justerar
+          funktioner och tidpunkter löpande. Verifiera mot Release Planner före
+          beslut, och låt inte en kommande funktion ensam motivera ett
+          plattformsval.
+        </p>
+
+        <h3>Källor</h3>
+        <ul>
+          <li>
+            <a
+              href="https://learn.microsoft.com/dynamics365/release-plan/2026wave1/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Microsoft Dynamics 365 — 2026 release wave 1 plan
+            </a>
+          </li>
+          <li>Microsoft Dynamics 365-bloggen — 2026 release wave 1 plans (18 mars 2026).</li>
+          <li>Produktspecifika release wave-översikter på learn.microsoft.com.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
     slug: "owned-intelligence-dynamics-365",
     title: "Owned Intelligence — vad Microsofts senaste rapport säger till Dynamics 365-köpare",
     metaTitle: "Owned Intelligence: Microsofts rapport och Dynamics 365 | d365.se",
@@ -63,7 +301,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
     author: THOMAS_LAINE,
     heroImage: ownedIntelligenceHero,
     readingTimeMinutes: 8,
-    featured: true,
+    featured: false,
     content: (
       <>
         <p className="!text-[1.15rem] md:!text-[1.25rem] !leading-[1.7] italic text-foreground/85 !mb-8">
