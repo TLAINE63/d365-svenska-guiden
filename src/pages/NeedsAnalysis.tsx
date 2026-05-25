@@ -3354,7 +3354,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   Tillbaka
                 </Button>
                 {currentStep < totalSteps ? (
-                  <Button onClick={handleNext} className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
+                  <Button onClick={handleNext} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                     Nästa
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
