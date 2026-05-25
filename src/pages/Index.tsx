@@ -321,7 +321,7 @@ const Index = () => {
           </Button>
 
           {/* Trust row */}
-          <div className="mt-7 pt-5 border-t border-white/10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-white/55">
+          <div className="mt-7 pt-5 border-t border-white/10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-white/80">
             <span>Oberoende</span>
             <span className="text-white/25">·</span>
             <span>Kostnadsfritt</span>
