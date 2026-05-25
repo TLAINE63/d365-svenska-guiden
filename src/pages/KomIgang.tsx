@@ -594,8 +594,8 @@ const KomIgang = () => {
                         <span className="text-sm font-semibold text-foreground leading-tight">{opt.label}</span>
                         <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{opt.desc}</span>
                         {isSelected && (
-                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                            <Check className="h-3 w-3 text-primary-foreground" />
+                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-[#15363F] flex items-center justify-center">
+                            <Check className="h-3 w-3 text-white" />
                           </div>
                         )}
                       </button>
