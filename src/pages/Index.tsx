@@ -485,16 +485,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Dual CTA Banners — differentiated: dark/match vs light/document */}
-      <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 bg-secondary/30">
-        <div className="container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          {/* Box 2 — Kravunderlag: ljus, dokument-look, "vad behöver vi?" */}
+      {/* Block 5 — Steg 1: Kravspecifikation */}
+      <section className="px-4 sm:px-6 py-12 sm:py-16 bg-[#F4F8F8]">
+        <div className="container mx-auto max-w-6xl">
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-[hsl(40_30%_98%)] to-[hsl(180_25%_95%)] border border-border shadow-2xl p-7 sm:p-9 flex flex-col">
-            {/* Subtle "paper" decoration — vertical accent bar */}
             <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-primary/70 to-[hsl(var(--cta-orange))] pointer-events-none" />
             <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
-            {/* Lined paper hint */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(0deg, hsl(var(--foreground)) 0, hsl(var(--foreground)) 1px, transparent 1px, transparent 28px)' }} />
 
             <div className="relative flex flex-col h-full">
@@ -502,14 +498,14 @@ const Index = () => {
                 <Check className="w-3 h-3" />
                 Steg 1 · Vad behöver ni?
               </div>
-              <h3 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-foreground mb-3 leading-[1.15] tracking-tight">
+              <h2 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-foreground mb-3 leading-[1.15] tracking-tight">
                 Kom igång med er <span className="text-primary">kravspecifikation</span>
-              </h3>
-              <p className="text-[14px] sm:text-[15px] text-muted-foreground leading-relaxed mb-6">
+              </h2>
+              <p className="text-[14px] sm:text-[15px] text-muted-foreground leading-relaxed mb-6 max-w-3xl">
                 Få ett strukturerat underlag som hjälper er att beskriva behov, processer och prioriteringar inför dialogen med Dynamics 365-partners. Välj område och börja direkt.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
                 {[
                   { label: "ERP / Affärssystem", link: "/kravspecifikation/" },
                   { label: "Försäljning", link: "/kravspecifikation-sales/" },
@@ -532,45 +528,46 @@ const Index = () => {
               </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Box 1 — Partnermatchning: mörk, premium, "vem ska jag prata med" */}
+      {/* Block 6 — Steg 2: Partner-matchning */}
+      <section className="px-4 sm:px-6 py-12 sm:py-16 bg-white">
+        <div className="container mx-auto max-w-6xl">
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border border-[hsl(var(--cta-orange))]/30 shadow-2xl p-7 sm:p-9 flex flex-col">
-            {/* Decorative glows */}
             <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-[hsl(var(--cta-orange))]/30 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_55%)] pointer-events-none" />
-            {/* Subtle grid pattern */}
             <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
-            <div className="relative flex flex-col h-full">
-              <div className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.12em] text-white shadow-lg shadow-[hsl(var(--cta-orange))]/40 mb-5">
-                <Sparkles className="w-3 h-3" />
-                Steg 2 · Vem ska ni prata med?
-              </div>
-              <h3 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-white mb-3 leading-[1.15] tracking-tight">
-                Hitta rätt typ av <span className="text-[hsl(var(--cta-orange))]">Dynamics 365-partner</span>
-              </h3>
-              <p className="text-[14px] sm:text-[15px] text-white/75 leading-relaxed mb-6">
-                Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en oberoende rekommendation om vilken typ av partner som passar bäst.
-              </p>
+            <div className="relative grid lg:grid-cols-[1fr_auto] gap-6 items-end">
+              <div>
+                <div className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.12em] text-white shadow-lg shadow-[hsl(var(--cta-orange))]/40 mb-5">
+                  <Sparkles className="w-3 h-3" />
+                  Steg 2 · Vem ska ni prata med?
+                </div>
+                <h2 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-white mb-3 leading-[1.15] tracking-tight">
+                  Hitta rätt typ av <span className="text-[hsl(var(--cta-orange))]">Dynamics 365-partner</span>
+                </h2>
+                <p className="text-[14px] sm:text-[15px] text-white/75 leading-relaxed mb-6 max-w-2xl">
+                  Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en oberoende rekommendation om vilken typ av partner som passar bäst.
+                </p>
 
-              {/* Stats row — visuellt särskiljande */}
-              <div className="grid grid-cols-3 gap-3 mb-6 py-4 border-y border-white/10">
-                <div>
-                  <div className="text-2xl font-bold text-[hsl(var(--cta-orange))] leading-none">2 min</div>
-                  <div className="text-[11px] text-white/60 mt-1">Tar att fylla i</div>
+                <div className="grid grid-cols-3 gap-3 mb-6 py-4 border-y border-white/10 max-w-xl">
+                  <div>
+                    <div className="text-2xl font-bold text-[hsl(var(--cta-orange))] leading-none">2 min</div>
+                    <div className="text-[11px] text-white/60 mt-1">Tar att fylla i</div>
+                  </div>
+                  <div className="border-l border-white/10 pl-3">
+                    <div className="text-2xl font-bold text-white leading-none">100%</div>
+                    <div className="text-[11px] text-white/60 mt-1">Oberoende</div>
+                  </div>
+                  <div className="border-l border-white/10 pl-3">
+                    <div className="text-2xl font-bold text-white leading-none">0 kr</div>
+                    <div className="text-[11px] text-white/60 mt-1">Ingen registrering</div>
+                  </div>
                 </div>
-                <div className="border-l border-white/10 pl-3">
-                  <div className="text-2xl font-bold text-white leading-none">100%</div>
-                  <div className="text-[11px] text-white/60 mt-1">Oberoende</div>
-                </div>
-                <div className="border-l border-white/10 pl-3">
-                  <div className="text-2xl font-bold text-white leading-none">0 kr</div>
-                  <div className="text-[11px] text-white/60 mt-1">Ingen registrering</div>
-                </div>
-              </div>
 
-              <div className="mt-auto">
                 <Button
                   asChild
                   className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/40 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/50 hover:-translate-y-0.5 transition-all group/btn"
@@ -583,12 +580,12 @@ const Index = () => {
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Lär dig mer — Kunskapsresurser */}
-      <section className="py-14 sm:py-20 bg-white border-t border-border/60">
+      {/* Block 7 — Lär dig mer */}
+      <section className="py-14 sm:py-20 bg-[#F4F8F8] border-t border-border/60">
+
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="max-w-2xl mb-10">
             <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
