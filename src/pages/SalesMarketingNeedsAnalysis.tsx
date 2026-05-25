@@ -3101,13 +3101,13 @@ const SalesMarketingNeedsAnalysis = () => {
                   className="flex flex-col items-center min-w-[70px] max-w-[100px] cursor-pointer hover:opacity-80 transition-opacity flex-1"
                 >
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1.5 transition-colors ${
-                    isActive ? 'bg-crm text-white' : 
-                    isCompleted ? 'bg-crm/20 text-crm' : 
+                    isActive ? 'bg-[#15363F] text-white' : 
+                    isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 
                     'bg-muted text-muted-foreground'
                   }`}>
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className={`text-[10px] leading-tight text-center ${isActive ? 'text-crm font-medium' : 'text-muted-foreground'}`}>
+                  <span className={`text-[10px] leading-tight text-center ${isActive ? 'text-[#15363F] font-medium' : 'text-muted-foreground'}`}>
                     {title}
                   </span>
                 </button>
