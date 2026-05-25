@@ -735,7 +735,7 @@ const Index = () => {
             <Link to="/branscher/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {industryPills.map((pill) => (
+            {ALL_INDUSTRY_PILLS.map((pill) => (
               <Link
                 key={pill}
                 to={`/branscher/${PILL_TO_SLUG[pill]}/`}
