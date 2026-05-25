@@ -104,7 +104,7 @@ const ProductHero = ({
               </div>
             )}
 
-            <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[1.15] tracking-tight text-white mb-5 max-w-3xl">
+            <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[1.2] tracking-tight text-white mb-8 max-w-3xl">
               {title}
               {titleAccent && (
                 <>
@@ -116,7 +116,7 @@ const ProductHero = ({
               )}
             </h1>
 
-            <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-2xl">
+            <p className="text-base sm:text-lg text-white/70 font-light leading-[1.7] mb-8 max-w-2xl">
               {subhead}
             </p>
 
