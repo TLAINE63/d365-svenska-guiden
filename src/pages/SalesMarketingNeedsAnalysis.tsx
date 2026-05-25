@@ -3116,10 +3116,10 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
 
           <Card className="shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-crm/10 to-crm/5 border-b py-3">
+            <CardHeader className="bg-gradient-to-r from-[#15363F]/10 to-[#15363F]/5 border-b py-3">
               <div className="flex items-center gap-2">
-                <StepIcon className="w-5 h-5 text-crm" />
-                <CardTitle className="text-lg text-crm">
+                <StepIcon className="w-5 h-5 text-[#15363F]" />
+                <CardTitle className="text-lg text-[#15363F]">
                   {stepTitles[currentStep - 1]}
                 </CardTitle>
               </div>
