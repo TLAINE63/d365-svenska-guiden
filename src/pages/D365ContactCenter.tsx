@@ -77,60 +77,19 @@ const D365ContactCenter = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=2070" 
-            alt="Contact center agent" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                <img src={ContactCenterIcon} alt="Contact Center" className="h-10 w-10 sm:h-12 sm:w-12" />
-              </div>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Dynamics 365 Contact Center
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6">
-                Modern och innovativ kontaktcenterlösning med Omnichannel, AI och automation
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link to="/branscher/">
-                  <Button size="lg"
-                    className="bg-contact-center hover:bg-contact-center/90 text-contact-center-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-                <Button 
-                  size="lg"
-                  className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Hitta rätt partner
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-              <div className="mt-3">
-                <Button
-                  size="lg"
-                  className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  onClick={() => window.location.href = '/kravspecifikation-kundservice'}
-                >
-                  📋 Generera en kravspecifikation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ProductHero
+        icon={ContactCenterIcon}
+        eyebrow="Dynamics 365 Contact Center"
+        title="Contact Center."
+        titleAccent="Omnichannel är inte plug-and-play. Partner-valet avgör projektet."
+        subhead="Telefoni, chatt, routing och AI som faktiskt fungerar tillsammans kräver en partner som har gjort det förut — inte en som vill öva på er. Här jämför ni på det som spelar roll."
+        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
+        secondary={{
+          label: "Jämför CC-partners",
+          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+        }}
+      />
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
