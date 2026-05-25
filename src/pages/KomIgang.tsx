@@ -582,8 +582,8 @@ const KomIgang = () => {
                         }}
                         className={`flex flex-col items-center justify-center text-center px-3 py-4 rounded-lg border-2 transition-all ${
                           isSelected
-                            ? "border-primary bg-primary/5 shadow-sm"
-                            : "border-border bg-card hover:border-primary/40"
+                            ? "border-[#15363F] bg-[#15363F]/5 shadow-sm"
+                            : "border-border bg-card hover:border-[#15363F]/40"
                         }`}
                       >
                         {opt.icon ? (
