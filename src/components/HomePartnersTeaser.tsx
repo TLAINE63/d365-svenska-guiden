@@ -37,13 +37,17 @@ const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Marketing" },
 ];
 
-type Quick = "all" | "bc" | "fscm" | "crm";
+type Quick = "all" | "bc" | "fscm" | "sales" | "marketing" | "customer-service" | "field-service" | "contact-center";
 
 const QUICK_FILTERS: Array<{ id: Quick; label: string }> = [
   { id: "all", label: "Alla" },
   { id: "bc", label: "Business Central" },
-  { id: "fscm", label: "F&SCM" },
-  { id: "crm", label: "CRM (Marknad, Sälj & Service)" },
+  { id: "fscm", label: "Finance & Supply Chain" },
+  { id: "sales", label: "Sales" },
+  { id: "marketing", label: "Marketing" },
+  { id: "customer-service", label: "Customer Service" },
+  { id: "field-service", label: "Field Service" },
+  { id: "contact-center", label: "Contact Center" },
 ];
 
 
@@ -88,7 +92,11 @@ const partnerMatchesQuick = (p: RawPartner, q: Quick) => {
   if (q === "all") return true;
   if (q === "bc") return apps.includes("Business Central");
   if (q === "fscm") return apps.some((a) => FSCM_APPS.has(a));
-  if (q === "crm") return apps.some((a) => CRM_APPS.has(a));
+  if (q === "sales") return apps.includes("Sales");
+  if (q === "marketing") return apps.includes("Customer Insights (Marketing)");
+  if (q === "customer-service") return apps.includes("Customer Service");
+  if (q === "field-service") return apps.includes("Field Service");
+  if (q === "contact-center") return apps.includes("Contact Center");
   return true;
 };
 
