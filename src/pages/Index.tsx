@@ -205,28 +205,6 @@ const PILL_TO_SLUG: Record<string, string> = {
   "Jordbruk & skogsbruk": "jordbruk-skogsbruk",
 };
 
-// Only show industries where at least one partner exists (loose match).
-const normalizeIndustry = (s: string) =>
-  s.toLowerCase()
-    .replace(/industri$/, "")
-    .replace(/[\s&/-]+/g, " ")
-    .trim();
-
-const partnerIndustrySet = new Set<string>();
-for (const p of partnerDataJson as Array<{ industries?: string[]; secondary_industries?: string[] }>) {
-  for (const i of [...(p.industries || []), ...(p.secondary_industries || [])]) {
-    const n = normalizeIndustry(i);
-    partnerIndustrySet.add(n);
-    // also add tokens to enable matches like "tillverkning" vs "tillverkningsindustri"
-    n.split(" ").forEach((tok) => tok.length > 3 && partnerIndustrySet.add(tok));
-  }
-}
-
-const industryPills = ALL_INDUSTRY_PILLS.filter((pill) => {
-  const n = normalizeIndustry(pill);
-  if (partnerIndustrySet.has(n)) return true;
-  return n.split(" ").some((tok) => tok.length > 3 && partnerIndustrySet.has(tok));
-});
 
 const publishedPartnerCount = (partnerDataJson as Array<{ is_featured?: boolean }>).filter(p => p.is_featured).length;
 
