@@ -4,6 +4,9 @@ import { ArrowRight } from "lucide-react";
 import partnerDataJson from "@/data/partnerData.json";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { companySizes } from "@/data/partners";
+import PartnerCard from "@/components/PartnerCard";
+import type { DatabasePartner } from "@/hooks/usePartners";
+
 
 type RawPartner = {
   slug: string;
