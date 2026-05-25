@@ -3077,10 +3077,10 @@ const SalesMarketingNeedsAnalysis = () => {
                 Steg {currentStep} av {totalSteps}
               </span>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-crm">
+                <span className="text-sm font-medium text-[hsl(var(--cta-orange))]">
                   {Math.round(progress)}%
                 </span>
-                <Button onClick={handleNext} size="sm" className="bg-crm hover:bg-crm/90">
+                <Button onClick={handleNext} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   Nästa
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
