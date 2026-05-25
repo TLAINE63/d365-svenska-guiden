@@ -196,7 +196,7 @@ export default function HomePartnersTeaser() {
               aria-label="Filtrera på bransch"
             >
               <option value="">Bransch</option>
-              {STANDARD_INDUSTRIES.map((i) => (
+              {availableIndustries.map((i) => (
                 <option key={i.slug} value={i.name}>
                   {i.name}
                 </option>
