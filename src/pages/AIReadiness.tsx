@@ -1703,7 +1703,7 @@ const AIReadiness = () => {
               <>
                 <div className="mb-6 flex items-center gap-2">
                   <span className="text-2xl">{isAiMapping ? "🧠" : "🔹"}</span>
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">
+                  <span className="text-sm font-semibold text-[#15363F] uppercase tracking-wide">
                     Steg {sectionNumber} – {sectionLabel}
                   </span>
                 </div>
