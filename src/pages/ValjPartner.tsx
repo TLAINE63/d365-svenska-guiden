@@ -661,7 +661,7 @@ const ValjPartner = () => {
           <FilterButtons
             title="Filtrera på bransch"
             icon="industry"
-            options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+            options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
             selectedValue={selectedIndustry}
             onSelect={setSelectedIndustry}
             colorScheme="amber"
