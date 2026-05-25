@@ -22,18 +22,12 @@ const AccordionItem = lazy(() => import("@/components/ui/accordion").then(m => (
 const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionTrigger })));
 
 // Lazy load below-fold components
-const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
-const UrgencyBadge = lazy(() => import("@/components/UrgencyBadge"));
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
-const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
-const EbookBanner = lazy(() => import("@/components/EbookBanner"));
-const BuyerJourneyStages = lazy(() => import("@/components/BuyerJourneyStages"));
 
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
-import HomePartnersTeaser from "@/components/HomePartnersTeaser";
 
 const homeFaqs = [
   {
