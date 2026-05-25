@@ -198,8 +198,10 @@ export function render(url: string) {
               <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
-              <Route path="/branschlosningar" element={<Navigate to="/branscher/" replace />} />
-              <Route path="/branschlosningar/*" element={<Navigate to="/branscher/" replace />} />
+              <Route path="/branschlosningar" element={<Navigate to="/branscher" replace />} />
+              <Route path="/branschlosningar/*" element={<Navigate to="/branscher" replace />} />
+              <Route path="/branscher" element={<Branscher />} />
+              <Route path="/branscher/:slug" element={<IndustryPage />} />
               <Route path="/d365sales" element={<D365Sales />} />
               <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
               <Route path="/d365marketing" element={<D365Marketing />} />
