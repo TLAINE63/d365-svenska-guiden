@@ -33,6 +33,7 @@ const BuyerJourneyStages = lazy(() => import("@/components/BuyerJourneyStages"))
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
+import HomePartnersTeaser from "@/components/HomePartnersTeaser";
 
 const homeFaqs = [
   {
@@ -222,6 +223,8 @@ const industryPills = ALL_INDUSTRY_PILLS.filter((pill) => {
   return n.split(" ").some((tok) => tok.length > 3 && partnerIndustrySet.has(tok));
 });
 
+const publishedPartnerCount = (partnerDataJson as Array<{ is_featured?: boolean }>).filter(p => p.is_featured).length;
+
 
 const Index = () => {
   
@@ -281,76 +284,57 @@ const Index = () => {
       <section className="bg-gradient-to-br from-[hsl(180_30%_12%)] via-[hsl(180_25%_16%)] to-[hsl(200_20%_18%)] border-b border-primary/20 relative overflow-visible">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-8 sm:pb-10 md:pb-12 relative">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 md:gap-14 items-center">
-            {/* Left column */}
-            <div>
-              {/* Mobile hero (under sm) */}
-              <div className="sm:hidden">
-                <h1 className="text-2xl font-semibold leading-[1.2] tracking-tight text-white mb-4">
-                  Ni väljer inte bara Dynamics 365.
-                  <span className="block mt-3">Ni väljer <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partnern som ska få det att fungera</em>.</span>
-                </h1>
-                <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
-                  Affärssystem · CRM · Kundservice
-                </p>
-                <div className="text-base text-white/70 font-light leading-relaxed mb-8 space-y-3">
-                  <p>
-                    Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
-                  </p>
-                  <p>
-                    d365.se hjälper er att jämföra relevanta Dynamics 365-partners utifrån lösning, bransch och behov — innan ni går vidare i dialogen.
-                  </p>
-                </div>
-              </div>
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-16 relative">
+          {/* Headline */}
+          <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[1.15] tracking-tight text-white mb-5 max-w-4xl">
+            Ni väljer inte bara Dynamics 365.{" "}
+            <span className="text-[hsl(180_75%_65%)] font-normal italic">
+              Ni väljer partnern som ska få det att fungera.
+            </span>
+          </h1>
+          <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-2xl">
+            Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
+            Så här hjälper vi er undvika det.
+          </p>
 
-              {/* Desktop / tablet hero (sm and up) */}
-              <div className="hidden sm:block">
-                <h1 className="text-3xl md:text-[40px] font-semibold leading-[1.15] tracking-tight text-white mb-6">
-                  Ni väljer inte bara Dynamics 365.<br />
-                  <span className="block mt-4">Ni väljer <em className="not-italic text-[hsl(180_75%_65%)] font-normal">partnern som ska få det att fungera</em>.</span>
-                </h1>
-                <p className="text-sm text-white/60 font-medium uppercase tracking-wider mb-4">
-                  Affärssystem · CRM · Kundservice
-                </p>
-                <div className="text-base text-white/70 font-light leading-relaxed mb-8 max-w-[520px] space-y-3">
-                  <p>
-                    Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
-                  </p>
-                  <p>
-                    d365.se hjälper er att jämföra relevanta Dynamics 365-partners utifrån lösning, bransch och behov — innan ni går vidare i dialogen.
-                  </p>
+          {/* 3 numbered steps */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
+            {[
+              { n: 1, eyebrow: "Bransch", title: "Välj din bransch", desc: "Vi visar relevanta lösningar för er sektor", accent: "bg-[hsl(var(--cta-orange))]" },
+              { n: 2, eyebrow: "Jämför", title: "Jämför partners", desc: "Storlek, fokus, referenser, prisbild", accent: "bg-white/15" },
+              { n: 3, eyebrow: "Underlag", title: "Få oberoende underlag", desc: "Innan ni går vidare i partner-dialogen", accent: "bg-white/15" },
+            ].map((step) => (
+              <div key={step.n} className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 backdrop-blur-sm">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <span className={`${step.accent} text-white text-[12px] font-bold w-6 h-6 rounded-full flex items-center justify-center`}>{step.n}</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60">{step.eyebrow}</span>
                 </div>
+                <h3 className="text-[15px] sm:text-base font-semibold text-white leading-snug mb-1.5">{step.title}</h3>
+                <p className="text-[12.5px] text-white/55 leading-relaxed">{step.desc}</p>
               </div>
-              <div className="mb-4">
-                <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
-                  <Link to="/valjdynamics365partner/">Hitta rätt Dynamics 365-partner <ArrowRight className="w-5 h-5 ml-2" /></Link>
-                </Button>
-              </div>
-              <p className="text-xs sm:text-[13px] text-white/60 leading-relaxed max-w-[520px]">
-                Sveriges oberoende guide till Microsoft Dynamics 365 · Kostnadsfritt · Byggt för den svenska marknaden
-              </p>
-            </div>
+            ))}
+          </div>
 
-            {/* Right column – industry entry card */}
-            <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-5 sm:p-6 overflow-visible relative z-10">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-[hsl(180_75%_65%)] mb-3">
-                Börja här
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2 leading-tight">
-                Välj den bransch du tillhör
-              </h3>
-              <p className="text-sm text-white/70 leading-relaxed mb-5">
-                Få vägledning om vilken Dynamics 365-lösning och partner som passar just din bransch — innan du går vidare i dialogen.
-              </p>
-              <Button asChild className="w-full bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-sm h-11 rounded-lg font-semibold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
-                <Link to="/branscher/">Se alla branscher <ArrowRight className="w-4 h-4 ml-1.5" /></Link>
-              </Button>
-              <p className="text-center text-[11px] text-white/50 mt-2">Oberoende vägledning · Kostnadsfritt</p>
-            </div>
+          {/* Primary CTA */}
+          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
+            <Link to="/branscher/">Starta — välj bransch <ArrowRight className="w-5 h-5 ml-2" /></Link>
+          </Button>
+
+          {/* Trust row */}
+          <div className="mt-7 pt-5 border-t border-white/10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-white/55">
+            <span>Oberoende</span>
+            <span className="text-white/25">·</span>
+            <span>Kostnadsfritt</span>
+            <span className="text-white/25">·</span>
+            <span>{publishedPartnerCount} partners</span>
+            <span className="text-white/25">·</span>
+            <span>{industryPills.length} branscher</span>
           </div>
         </div>
       </section>
+
+      {/* Partners teaser */}
+      <HomePartnersTeaser />
 
       {/* Featured article banner */}
       <section className="pt-6 sm:pt-8 bg-secondary/30">
