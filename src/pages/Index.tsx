@@ -29,6 +29,7 @@ const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
+import HomePartnersTeaser from "@/components/HomePartnersTeaser";
 
 const homeFaqs = [
   {
@@ -577,6 +578,11 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Block 6b — Jämför partners-teaser */}
+      <HomePartnersTeaser />
+
+
 
       {/* Block 7 — Lär dig mer */}
       <section className="py-14 sm:py-20 bg-[#F4F8F8] border-t border-border/60">
