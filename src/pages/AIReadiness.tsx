@@ -1696,7 +1696,7 @@ const AIReadiness = () => {
                 </span>
                 <span className="text-sm text-muted-foreground">{Math.round(progressPct)}%</span>
               </div>
-              <Progress value={progressPct} className="h-2" />
+              <Progress value={progressPct} className="h-2" indicatorClassName="bg-[hsl(var(--cta-orange))]" />
             </div>
 
             {step === "foundation" && (
