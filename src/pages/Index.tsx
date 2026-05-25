@@ -183,6 +183,7 @@ const ALL_INDUSTRY_PILLS = [
   "Bygg & entreprenad", "Retail & e-handel", "Fastighet & förvaltning",
   "Life Science & Medtech", "Finans & försäkring", "Energi & utilities",
   "Logistik & transport", "Offentlig sektor", "Non-profit",
+  "Livsmedel & process", "Telekom & IT", "Hälsa & sjukvård", "Jordbruk & skogsbruk",
 ];
 
 const PILL_TO_SLUG: Record<string, string> = {
@@ -198,30 +199,12 @@ const PILL_TO_SLUG: Record<string, string> = {
   "Logistik & transport": "logistik-transport",
   "Offentlig sektor": "offentlig-sektor",
   "Non-profit": "nonprofit-organisationer",
+  "Livsmedel & process": "livsmedel-processindustri",
+  "Telekom & IT": "telekom-it-tjanster",
+  "Hälsa & sjukvård": "halsa-sjukvard",
+  "Jordbruk & skogsbruk": "jordbruk-skogsbruk",
 };
 
-// Only show industries where at least one partner exists (loose match).
-const normalizeIndustry = (s: string) =>
-  s.toLowerCase()
-    .replace(/industri$/, "")
-    .replace(/[\s&/-]+/g, " ")
-    .trim();
-
-const partnerIndustrySet = new Set<string>();
-for (const p of partnerDataJson as Array<{ industries?: string[]; secondary_industries?: string[] }>) {
-  for (const i of [...(p.industries || []), ...(p.secondary_industries || [])]) {
-    const n = normalizeIndustry(i);
-    partnerIndustrySet.add(n);
-    // also add tokens to enable matches like "tillverkning" vs "tillverkningsindustri"
-    n.split(" ").forEach((tok) => tok.length > 3 && partnerIndustrySet.add(tok));
-  }
-}
-
-const industryPills = ALL_INDUSTRY_PILLS.filter((pill) => {
-  const n = normalizeIndustry(pill);
-  if (partnerIndustrySet.has(n)) return true;
-  return n.split(" ").some((tok) => tok.length > 3 && partnerIndustrySet.has(tok));
-});
 
 const publishedPartnerCount = (partnerDataJson as Array<{ is_featured?: boolean }>).filter(p => p.is_featured).length;
 
@@ -301,7 +284,7 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
             {[
               { n: 1, eyebrow: "Bransch", title: "Välj din bransch", desc: "Vi visar relevanta lösningar för er sektor", accent: "bg-[hsl(var(--cta-orange))]" },
-              { n: 2, eyebrow: "Jämför", title: "Jämför partners", desc: "Storlek, fokus, referenser, prisbild", accent: "bg-white/15" },
+              { n: 2, eyebrow: "Jämför", title: "Jämför partners", desc: "Storlek, fokus, referenser", accent: "bg-white/15" },
               { n: 3, eyebrow: "Underlag", title: "Få oberoende underlag", desc: "Innan ni går vidare i partner-dialogen", accent: "bg-white/15" },
             ].map((step) => (
               <div key={step.n} className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 backdrop-blur-sm">
@@ -328,7 +311,7 @@ const Index = () => {
             <span className="text-white/25">·</span>
             <span>{publishedPartnerCount} partners</span>
             <span className="text-white/25">·</span>
-            <span>{industryPills.length} branscher</span>
+            <span>16 branscher</span>
           </div>
         </div>
       </section>
@@ -730,7 +713,7 @@ const Index = () => {
             <Link to="/branscher/" className="text-sm font-semibold text-primary hover:underline whitespace-nowrap">Se alla branscher →</Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {industryPills.map((pill) => (
+            {ALL_INDUSTRY_PILLS.map((pill) => (
               <Link
                 key={pill}
                 to={`/branscher/${PILL_TO_SLUG[pill]}/`}
