@@ -86,12 +86,9 @@ const avatarGradient = (slug: string) => {
 const partnerMatchesQuick = (p: RawPartner, q: Quick) => {
   const apps = p.applications || [];
   if (q === "all") return true;
-  if (q === "erp") return apps.some((a) => ERP_APPS.has(a));
-  if (q === "sales") return apps.some((a) => SALES_SERVICE_APPS.has(a));
-  if (q === "ai") {
-    const hay = `${p.description || ""}`.toLowerCase();
-    return hay.includes("copilot") || hay.includes(" ai ") || hay.includes("ai-") || hay.includes("agent");
-  }
+  if (q === "bc") return apps.includes("Business Central");
+  if (q === "fscm") return apps.some((a) => FSCM_APPS.has(a));
+  if (q === "crm") return apps.some((a) => CRM_APPS.has(a));
   return true;
 };
 
