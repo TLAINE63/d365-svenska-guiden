@@ -1,3 +1,4 @@
+import ProductHero from "@/components/ProductHero";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ClipboardList, CheckCircle2, AlertTriangle, Lightbulb, Coins, Clock, Users } from "lucide-react";

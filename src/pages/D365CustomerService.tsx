@@ -1,3 +1,4 @@
+import ProductHero from "@/components/ProductHero";
 import RelatedPages, { customerServiceRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import VideoCard from "@/components/VideoCard";

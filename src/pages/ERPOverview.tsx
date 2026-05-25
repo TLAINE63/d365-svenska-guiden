@@ -1,3 +1,4 @@
+import ProductHero from "@/components/ProductHero";
 import RelatedPages, { erpRelatedPages } from "@/components/RelatedPages";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
