@@ -86,7 +86,7 @@ const ERPOverview = () => {
       {/* Header */}
       <ProductHero
         eyebrow="ERP"
-        title="Två ERP. Två helt olika partner-marknader."
+        title="Två ERP. Två olika inriktningar."
         titleAccent="Vi hjälper er välja rätt — innan ni väljer leverantör."
         subhead="Business Central och Finance & Supply Chain Management löser olika problem för olika bolag. Vi visar skillnaden i klartext — och vilka partners som faktiskt har levererat den ena eller andra."
         primary={{ label: "Gör en ERP-behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
