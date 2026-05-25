@@ -24,6 +24,7 @@ const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m =
 // Lazy load below-fold components
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
+const EbookBanner = lazy(() => import("@/components/EbookBanner"));
 
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
