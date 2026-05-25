@@ -3297,7 +3297,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 </Button>
               </div>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2" indicatorClassName="bg-[hsl(var(--cta-orange))]" />
           </div>
 
           {/* Step indicators */}
