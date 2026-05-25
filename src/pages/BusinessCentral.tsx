@@ -195,7 +195,7 @@ const BusinessCentral = () => {
         icon={BusinessCentralIcon}
         eyebrow="Business Central"
         title="Dynamics 365 Business Central."
-        titleAccent="Så jämför ni partners och kostnad — oberoende."
+        titleAccent="Så jämför ni partners och inriktning"
         subhead="Business Central säljs av många. Få av dem är rätt för just er bransch och storlek. Här får ni underlaget att jämföra på det som faktiskt skiljer dem åt — innan ni går vidare i partner-dialogen."
         primary={{
           label: "Generera kravspecifikation",
