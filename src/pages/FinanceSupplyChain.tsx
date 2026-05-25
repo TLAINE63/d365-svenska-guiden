@@ -179,7 +179,7 @@ const FinanceSupplyChain = () => {
         icon={FinanceIcon}
         eyebrow="Finance & Supply Chain Management"
         title="Finance & Supply Chain Management."
-        titleAccent="För större bolag — och för partners som faktiskt kan det."
+        titleAccent="För större och gärna internationella verksamheter och för partners som faktiskt kan hantera detta."
         subhead="Microsoft levererar en kraftfull Enterpriseplattform. Partnern skapar branschmodellen, integrationerna mot era befintliga system och den förändringsledning som faktiskt ger användarnytta. Det är där F&SCM-projekt blir framgångsrika - eller missar målet. Här jämför ni partners som levererat F&SCM i er bransch."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation/", icon: FileText }}
         secondary={{
