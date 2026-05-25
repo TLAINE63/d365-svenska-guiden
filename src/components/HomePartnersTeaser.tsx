@@ -153,17 +153,17 @@ export default function HomePartnersTeaser() {
     "px-4 py-2 rounded-full text-[13px] font-semibold border transition-all whitespace-nowrap";
   const activeChip = "bg-primary text-primary-foreground border-primary shadow";
   const inactiveChip =
-    "bg-card text-foreground/80 border-border hover:border-primary/40 hover:text-foreground";
+    "bg-white/10 text-white/80 border-white/20 hover:border-white/40 hover:text-white";
 
   return (
     <section className="py-14 sm:py-20 bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-white/10">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="flex items-end justify-between gap-6 mb-6 flex-wrap">
           <div>
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground mb-2">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60 mb-2">
               Partners
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-foreground tracking-tight leading-tight max-w-3xl">
+            <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-white tracking-tight leading-tight max-w-3xl">
               Jämför {totalCount} partners på det som faktiskt skiljer dem åt
             </h2>
           </div>
@@ -225,9 +225,9 @@ export default function HomePartnersTeaser() {
 
         {/* Partner cards */}
         {filtered.length === 0 ? (
-          <div className="bg-card border border-border rounded-2xl p-8 text-center text-sm text-muted-foreground">
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center text-sm text-white/60">
             Inga partners matchar valet just nu.{" "}
-            <Link to="/valjdynamics365partner/" className="text-primary font-semibold hover:underline">
+            <Link to="/valjdynamics365partner/" className="text-[hsl(var(--cta-orange))] font-semibold hover:underline">
               Se alla partners
             </Link>
             .
