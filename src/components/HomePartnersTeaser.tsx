@@ -219,75 +219,30 @@ export default function HomePartnersTeaser() {
             .
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
             {filtered.map((p) => {
-              const apps = p.applications || [];
-              const badges = APP_BADGES.filter((b) => b.match(apps))
-                .slice(0, 2)
-                .map((b) => b.label);
-              const city = (p.office_cities || [])[0];
-              const desc =
-                (p.description || "")
-                  .replace(/\s+/g, " ")
-                  .trim()
-                  .slice(0, 110) + ((p.description || "").length > 110 ? "…" : "");
+              let productKey: 'bc' | 'fsc' | 'crm' | 'sales' | 'service' | null = null;
+              const pf = p.product_filters || {};
+              if (quick === "bc" || pf.bc) productKey = 'bc';
+              else if (quick === "fscm" || pf.fsc) productKey = 'fsc';
+              else if (quick === "sales" || quick === "marketing" || pf.sales) productKey = 'sales';
+              else if (quick === "customer-service" || quick === "field-service" || quick === "contact-center" || pf.service) productKey = 'service';
 
               return (
-                <Link
+                <PartnerCard
                   key={p.slug}
-                  to={`/partner/${p.slug}/`}
-                  className="group bg-card border border-border rounded-2xl p-5 flex flex-col gap-3 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
-                >
-                  <div className="flex items-start gap-3">
-                    {p.logo_url ? (
-                      <div className="w-12 h-12 rounded-lg bg-white border border-border flex items-center justify-center overflow-hidden flex-shrink-0">
-                        <img
-                          src={p.logo_url}
-                          alt={`${p.name} logotyp`}
-                          loading="lazy"
-                          className="w-full h-full object-contain p-1"
-                        />
-                      </div>
-                    ) : (
-                      <div
-                        className={`w-12 h-12 rounded-lg bg-gradient-to-br ${avatarGradient(
-                          p.slug
-                        )} flex items-center justify-center text-white text-sm font-bold flex-shrink-0`}
-                      >
-                        {initials(p.name)}
-                      </div>
-                    )}
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-[15px] font-semibold text-foreground leading-tight truncate group-hover:text-primary transition-colors">
-                        {p.name}
-                      </h3>
-                      {city && (
-                        <p className="text-[12.5px] text-muted-foreground mt-0.5 truncate">{city}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  {badges.length > 0 && (
-                    <div className="flex gap-1.5 flex-wrap">
-                      {badges.map((b) => (
-                        <span
-                          key={b}
-                          className="text-[11px] font-semibold px-2 py-0.5 rounded bg-secondary text-secondary-foreground border border-border"
-                        >
-                          {b}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {desc && (
-                    <p className="text-[12.5px] text-muted-foreground leading-relaxed">{desc}</p>
-                  )}
-                </Link>
+                  partner={p as unknown as DatabasePartner}
+                  profileUrl={`/partner/${p.slug}/`}
+                  colorScheme="primary"
+                  productKey={productKey}
+                  highlightedIndustry={industry || undefined}
+                  highlightedCompanySize={size || undefined}
+                />
               );
             })}
           </div>
         )}
+
       </div>
     </section>
   );
