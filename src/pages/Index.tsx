@@ -183,6 +183,7 @@ const ALL_INDUSTRY_PILLS = [
   "Bygg & entreprenad", "Retail & e-handel", "Fastighet & förvaltning",
   "Life Science & Medtech", "Finans & försäkring", "Energi & utilities",
   "Logistik & transport", "Offentlig sektor", "Non-profit",
+  "Livsmedel & process", "Telekom & IT", "Hälsa & sjukvård", "Jordbruk & skogsbruk",
 ];
 
 const PILL_TO_SLUG: Record<string, string> = {
@@ -198,6 +199,10 @@ const PILL_TO_SLUG: Record<string, string> = {
   "Logistik & transport": "logistik-transport",
   "Offentlig sektor": "offentlig-sektor",
   "Non-profit": "nonprofit-organisationer",
+  "Livsmedel & process": "livsmedel-processindustri",
+  "Telekom & IT": "telekom-it-tjanster",
+  "Hälsa & sjukvård": "halsa-sjukvard",
+  "Jordbruk & skogsbruk": "jordbruk-skogsbruk",
 };
 
 // Only show industries where at least one partner exists (loose match).
