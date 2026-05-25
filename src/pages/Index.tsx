@@ -579,6 +579,11 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Block 6b — Jämför partners-teaser */}
+      <HomePartnersTeaser />
+
+
+
       {/* Block 7 — Lär dig mer */}
       <section className="py-14 sm:py-20 bg-[#F4F8F8] border-t border-border/60">
 
