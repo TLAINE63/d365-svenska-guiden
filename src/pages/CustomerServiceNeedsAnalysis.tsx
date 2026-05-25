@@ -1828,7 +1828,7 @@ const CustomerServiceNeedsAnalysis = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />Tillbaka
             </Button>
             {currentStep < totalSteps ? (
-              <Button onClick={handleNext} className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground">
+              <Button onClick={handleNext} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 Nästa <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             ) : null}
