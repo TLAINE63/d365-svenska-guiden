@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Lightbulb,
   Search,
@@ -611,6 +612,22 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           </div>
         </div>
         )}
+
+        {/* CTA */}
+        <div className="mt-14 md:mt-20 text-center max-w-2xl mx-auto">
+          <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#0B0B0F] mb-3">
+            Vill du ha hjälp på vägen?
+          </h3>
+          <p className="text-sm text-[#5A5A66] mb-6">
+            Boka en kostnadsfri rådgivning med våra experter – oberoende, konfidentiellt och utan fortsättningskrav.
+          </p>
+          <Link
+            to="/kontakt"
+            className="inline-flex items-center justify-center rounded-xl bg-[hsl(var(--cta-orange))] text-white px-7 py-3.5 text-[15px] font-semibold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all duration-200"
+          >
+            Boka en kostnadsfri rådgivning
+          </Link>
+        </div>
       </div>
     </section>
   );
