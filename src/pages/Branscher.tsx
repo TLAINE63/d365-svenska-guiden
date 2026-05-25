@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ArrowRight } from "lucide-react";
+import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
+
 
 
 // Industry images (same as /branschlosningar)
