@@ -501,22 +501,22 @@ const KomIgang = () => {
                 </div>
                 <div>
                   {step === 3 && (
-                    <Button onClick={() => setStep(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 4 && (
-                    <Button onClick={() => setStep(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 5 && (
-                    <Button onClick={() => setStep(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 6 && (
-                    <Button onClick={() => findPartners()} size="sm" className="px-6">
+                    <Button onClick={() => findPartners()} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Visa partners
                     </Button>
                   )}
