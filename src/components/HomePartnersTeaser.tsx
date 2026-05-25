@@ -18,8 +18,10 @@ type RawPartner = {
   secondary_industries?: string[];
   office_cities?: string[];
   is_featured?: boolean;
-  product_filters?: Record<string, { companySize?: string[] }>;
+  product_filters?: Record<string, { companySize?: string[]; industries?: string[] }>;
 };
+
+const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
 
 const FSCM_APPS = new Set(["Finance", "Supply Chain Management"]);
 const CRM_APPS = new Set([
