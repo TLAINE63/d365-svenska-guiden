@@ -30,6 +30,7 @@ import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
 import HomePartnersTeaser from "@/components/HomePartnersTeaser";
+const BuyerJourneyStages = lazy(() => import("@/components/BuyerJourneyStages"));
 
 const homeFaqs = [
   {
@@ -317,6 +318,15 @@ const Index = () => {
           <FeaturedArticleBanner />
         </div>
       </section>
+
+      {/* Block — Upphandlingsresan: 7 stadier */}
+      <section className="bg-white border-b border-border">
+        <Suspense fallback={null}>
+          <BuyerJourneyStages />
+        </Suspense>
+      </section>
+
+
 
 
 
