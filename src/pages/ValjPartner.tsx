@@ -209,6 +209,16 @@ const ValjPartner = () => {
     return (dbPartners || []).filter(p => p.is_featured === true);
   }, [dbPartners]);
 
+  // Show only industries that have at least one featured partner
+  const availableIndustries = useMemo(() => {
+    const covered = new Set<string>();
+    partners.forEach((p) => {
+      (p.industries || []).forEach((ind) => covered.add(ind));
+      (p.secondary_industries || []).forEach((ind) => covered.add(ind));
+    });
+    return allIndustries.filter((ind) => covered.has(ind));
+  }, [partners]);
+
   const toggleApplication = (app: string) => {
     setSelectedApplications(prev => 
       prev.includes(app) 
@@ -651,7 +661,7 @@ const ValjPartner = () => {
           <FilterButtons
             title="Filtrera på bransch"
             icon="industry"
-            options={allIndustries.map(ind => ({ label: ind, value: ind }))}
+            options={availableIndustries.map(ind => ({ label: ind, value: ind }))}
             selectedValue={selectedIndustry}
             onSelect={setSelectedIndustry}
             colorScheme="amber"
