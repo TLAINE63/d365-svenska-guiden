@@ -3086,7 +3086,7 @@ const SalesMarketingNeedsAnalysis = () => {
                 </Button>
               </div>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2" indicatorClassName="bg-[hsl(var(--cta-orange))]" />
           </div>
 
           <div className="hidden md:flex justify-between mb-4 overflow-x-auto pb-2 gap-1">
