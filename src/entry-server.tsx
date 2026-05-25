@@ -79,6 +79,12 @@ export const routes: PrerenderRoute[] = [
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
   // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
+  { path: '/branscher', priority: '0.8', changefreq: 'monthly' },
+  ...STANDARD_INDUSTRIES.map((i) => ({
+    path: `/branscher/${i.slug}`,
+    priority: '0.7',
+    changefreq: 'monthly' as const,
+  })),
   { path: '/d365sales', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365marketing', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365customerservice', priority: '0.8', changefreq: 'monthly' },
