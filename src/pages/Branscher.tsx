@@ -1,10 +1,37 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
-import { ArrowRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
+import { usePartners } from "@/hooks/usePartners";
+
+const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
+
+const INDUSTRY_CONTEXT: Record<string, string> = {
+  "tillverkning": "MES, spårbarhet, kvalitet",
+  "livsmedel-processindustri": "Batch, spårbarhet, HACCP",
+  "grossist-distribution": "Lager, WMS, prissättning",
+  "retail-ehandel": "POS, omnikanal, lojalitet",
+  "konsulttjanster": "Projekt, tid, fakturering",
+  "bygg-entreprenad": "Projekt, ÄTA, underentreprenörer",
+  "fastighet-forvaltning": "Hyresavtal, drift, underhåll",
+  "energi-utilities": "Mätvärden, fältservice, avtal",
+  "finans-forsakring": "Compliance, KYC, rapportering",
+  "life-science-medtech": "GxP, validering, spårbarhet",
+  "telekom-it-tjanster": "Abonnemang, ärenden, SLA",
+  "logistik-transport": "TMS, ruttplanering, EDI",
+  "media-publishing": "Prenumerationer, rättigheter, annons",
+  "jordbruk-skogsbruk": "Säsong, lager, maskinpark",
+  "halsa-sjukvard": "Patientflöden, journaler, GDPR",
+  "nonprofit-organisationer": "Bidrag, givare, projekt",
+  "medlemsorganisationer": "Medlemmar, avgifter, event",
+  "utbildning": "Kurser, deltagare, certifikat",
+  "offentlig-sektor": "Upphandling, diarier, ärenden",
+  "uthyrning": "Uthyrning, retur, underhåll",
+};
 
 
 
