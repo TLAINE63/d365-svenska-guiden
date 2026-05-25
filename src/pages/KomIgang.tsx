@@ -551,11 +551,11 @@ const KomIgang = () => {
                             />
                           )}
                           <div className={`absolute inset-0 transition-colors ${
-                            isSelected ? "bg-primary/40" : "bg-black/45 group-hover:bg-black/35"
+                            isSelected ? "bg-[#15363F]/40" : "bg-black/45 group-hover:bg-black/35"
                           }`} />
                           {isSelected && (
-                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                              <Check className="h-3 w-3 text-primary-foreground" />
+                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[#15363F] flex items-center justify-center">
+                              <Check className="h-3 w-3 text-white" />
                             </div>
                           )}
                           <span className="absolute bottom-0 left-0 right-0 px-1 py-1.5 text-white text-[10px] sm:text-xs font-semibold text-center leading-tight">
