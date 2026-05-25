@@ -1774,9 +1774,9 @@ const CustomerServiceNeedsAnalysis = () => {
             <div className="flex justify-between items-center mb-1">
               <span className="text-sm text-muted-foreground">Steg {currentStep} av {totalSteps}</span>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-customer-service">{Math.round(progress)}%</span>
+                <span className="text-sm font-medium text-[hsl(var(--cta-orange))]">{Math.round(progress)}%</span>
                 {currentStep < totalSteps && (
-                  <Button onClick={handleNext} size="sm" className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground">
+                  <Button onClick={handleNext} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                     Nästa <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
                 )}
