@@ -116,7 +116,7 @@ const ProductHero = ({
               )}
             </h1>
 
-            <p className="text-base sm:text-lg text-white/70 font-light leading-[1.9] mb-8 max-w-2xl">
+            <p className="text-base sm:text-lg text-white/70 font-light leading-[2.2] mt-4 mb-10 max-w-2xl">
               {subhead}
             </p>
 
