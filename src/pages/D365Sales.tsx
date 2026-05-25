@@ -106,7 +106,7 @@ const D365Sales = () => {
         icon={SalesIcon}
         eyebrow="Dynamics 365 Sales"
         title="Dynamics 365 Sales."
-        titleAccent="Verktyget är en sak. Partnern som sätter er pipeline är en annan."
+        titleAccent="Verktyget är en sak. Partnern som sätter era säljprocesser är en annan."
         subhead="Ett bra Sales-projekt handlar mindre om funktioner — och mer om vem som förstår er säljprocess. Här jämför ni partners som faktiskt levererat Sales i er bransch."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
         secondary={{
