@@ -24,6 +24,7 @@ const partnerBreadcrumbs = [
   { name: "Välj Partner", url: "https://d365.se/valjdynamics365partner" },
 ];
 import { allIndustries } from "@/data/partners";
+import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
