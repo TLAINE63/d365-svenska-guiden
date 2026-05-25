@@ -315,19 +315,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Partners teaser */}
-      <HomePartnersTeaser />
-
-      {/* Featured article banner */}
-      <section className="pt-6 sm:pt-8 bg-secondary/30">
+      {/* Block 2 — Kunskapscenter: utvald artikel */}
+      <section className="py-10 sm:py-14 bg-white">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <FeaturedArticleBanner />
         </div>
       </section>
 
-      <Suspense fallback={null}>
-        <BuyerJourneyStages compact />
-      </Suspense>
+
 
 
 
