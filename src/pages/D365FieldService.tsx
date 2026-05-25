@@ -77,61 +77,19 @@ const D365FieldService = () => {
       <Navbar />
       
       {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80&w=2070" 
-            alt="Field service technician" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                <img src={FieldServiceIcon} alt="Field Service" className="h-10 w-10 sm:h-12 sm:w-12" />
-              </div>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Dynamics 365 Field Service
-              </h1>
-              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-4 sm:mb-6">
-                Optimera fältservice med intelligent schemaläggning och mobilitet
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link to="/branscher/">
-                  <Button size="lg"
-                    className="bg-field-service hover:bg-field-service/90 text-field-service-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-                <Button 
-                  size="lg"
-                  className="bg-amber-500 hover:bg-amber-600 text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Hitta rätt partner
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button 
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="bg-white/95 text-slate-800 hover:bg-slate-200 hover:text-slate-800 w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                >
-                  <Link to="/kravspecifikation-kundservice/">
-                    <FileText className="mr-2 h-5 w-5" />
-                    Generera en kravspecifikation
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ProductHero
+        icon={FieldServiceIcon}
+        eyebrow="Dynamics 365 Field Service"
+        title="Field Service."
+        titleAccent="Schemaläggning, mobilitet och integration mot ERP — i den ordningen."
+        subhead="Fältservice är 80% logistik och 20% teknik. Vilken partner har faktiskt rullat ut Field Service åt liknande verksamheter i Sverige? Här ser ni svaret."
+        primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
+        secondary={{
+          label: "Jämför FS-partners",
+          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+        }}
+      />
+
 
       {/* Introduction Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-background">
