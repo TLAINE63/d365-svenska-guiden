@@ -189,63 +189,24 @@ const BusinessCentral = () => {
       <BreadcrumbSchema items={bcBreadcrumbs} />
       <Navbar />
       
-      {/* Header */}
-      <header className="relative overflow-hidden mt-16 min-h-[560px] sm:h-[450px] md:h-[550px]">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=2070" 
-            alt="Business analytics and planning" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        </div>
-        
-        <div className="relative min-h-[560px] sm:h-[450px] md:h-[550px] flex items-center pt-14 sm:pt-0">
-          <div className="container mx-auto px-4 sm:px-6">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-                <img src={BusinessCentralIcon} alt="Business Central" className="h-10 w-10 sm:h-12 sm:w-12" />
-              </div>
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                <span className="block">Dynamics 365</span>
-                <span className="block">Business Central</span>
-              </h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-4 sm:mb-6">
-                Komplett affärslösning för mindre och medelstora företag
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Link to="/branscher/">
-                  <Button size="lg"
-                    className="bg-business-central hover:bg-business-central/90 text-business-central-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  >
-                    Hitta din bransch och rätt partner
-                  </Button>
-                </Link>
-                <Button 
-                  size="lg"
-                  className="bg-cta-orange hover:bg-cta-orange-hover text-white w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                  onClick={() => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Hitta rätt partner
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button 
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="bg-card text-foreground hover:bg-secondary hover:text-foreground w-full sm:w-auto text-base sm:text-lg h-14 sm:h-16 rounded-xl"
-                >
-                  <Link to="/kravspecifikation/">
-                    <FileText className="mr-2 h-5 w-5" />
-                    Generera en kravspecifikation
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Hero */}
+      <ProductHero
+        icon={BusinessCentralIcon}
+        eyebrow="Business Central"
+        title="Dynamics 365 Business Central."
+        titleAccent="Så jämför ni partners och kostnad — oberoende."
+        subhead="Business Central säljs av många. Få av dem är rätt för just er bransch och storlek. Här får ni underlaget att jämföra på det som faktiskt skiljer dem åt — innan ni går vidare i partner-dialogen."
+        primary={{
+          label: "Generera kravspecifikation",
+          to: "/kravspecifikation/",
+          icon: FileText,
+        }}
+        secondary={{
+          label: "Jämför BC-partners",
+          onClick: () => document.getElementById('partners')?.scrollIntoView({ behavior: 'smooth' }),
+        }}
+      />
+
 
       {/* FAQ Section */}
       <section className="py-12 sm:py-16 md:py-20 bg-secondary/50">
