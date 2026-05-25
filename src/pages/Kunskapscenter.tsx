@@ -215,7 +215,7 @@ const STATIC_TOOLS: Array<{
   {
     id: "tool-upphandlingsresan",
     title: "Den typiska upphandlingsresan – 7 stadier",
-    description: "Var i systemlivscykeln står ni? Två korta frågor leder er till rätt stadie för ERP och CRM – inga uppgifter samlas in.",
+    description: "Var i systemlivscykeln står ni? Upptäck de sju stadierna i en typisk upphandlingsresa för ERP och CRM.",
     type: "guide",
     url: "/kunskapscenter/upphandlingsresan",
     image_url: upphandlingsresanImage,
