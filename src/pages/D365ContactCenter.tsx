@@ -83,7 +83,7 @@ const D365ContactCenter = () => {
         eyebrow="Dynamics 365 Contact Center"
         title="Contact Center."
         titleAccent="Omnichannel är inte plug-and-play. Partner-valet avgör projektet."
-        subhead="Telefoni, chatt, routing och AI som faktiskt fungerar tillsammans kräver en partner som har gjort det förut — inte en som vill öva på er. Här jämför ni på det som spelar roll."
+        subhead="En bank med hård regelefterlevnad och identitetsverifiering driver Contact Center helt annorlunda än en e-handelsaktör med säsongstoppar och returer. AI:n och kanalerna är samma — men hur partnern designar röstflöden, automatiseringen och anpassningarna till era branschkrav avgör om systemet sänker samtalstid och höjer kundnöjdhet eller bara läggs ovanpå ett gammalt arbetssätt. Här jämför ni partners som faktiskt levererat Contact Center i er bransch och samtalsvolym."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         secondary={{
           label: "Jämför CC-partners",
