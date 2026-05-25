@@ -18,8 +18,10 @@ type RawPartner = {
   secondary_industries?: string[];
   office_cities?: string[];
   is_featured?: boolean;
-  product_filters?: Record<string, { companySize?: string[] }>;
+  product_filters?: Record<string, { companySize?: string[]; industries?: string[] }>;
 };
+
+const PRODUCT_KEYS = ["bc", "fsc", "sales", "service"] as const;
 
 const FSCM_APPS = new Set(["Finance", "Supply Chain Management"]);
 const CRM_APPS = new Set([
@@ -118,6 +120,18 @@ export default function HomePartnersTeaser() {
   const allPartners = (partnerDataJson as RawPartner[]).filter((p) => p.is_featured);
   const totalCount = allPartners.length;
 
+  // Only show industries that have at least one featured partner profiled
+  // against them via product_filters (matches /branscher and partner filter).
+  const availableIndustries = useMemo(() => {
+    const covered = new Set<string>();
+    allPartners.forEach((p) => {
+      PRODUCT_KEYS.forEach((k) => {
+        (p.product_filters?.[k]?.industries || []).forEach((i) => covered.add(i));
+      });
+    });
+    return STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
+  }, [allPartners]);
+
   const [quick, setQuick] = useState<Quick>("all");
   const [industry, setIndustry] = useState<string>("");
   const [size, setSize] = useState<string>("");
@@ -182,7 +196,7 @@ export default function HomePartnersTeaser() {
               aria-label="Filtrera på bransch"
             >
               <option value="">Bransch</option>
-              {STANDARD_INDUSTRIES.map((i) => (
+              {availableIndustries.map((i) => (
                 <option key={i.slug} value={i.name}>
                   {i.name}
                 </option>
