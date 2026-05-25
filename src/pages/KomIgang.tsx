@@ -538,8 +538,8 @@ const KomIgang = () => {
                           }}
                           className={`relative group rounded-lg overflow-hidden border-2 transition-all aspect-[5/4] ${
                             isSelected
-                              ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
-                              : "border-border hover:border-primary/40"
+                              ? "border-[#15363F] ring-2 ring-[#15363F]/30 scale-[1.02]"
+                              : "border-border hover:border-[#15363F]/40"
                           }`}
                         >
                           {img && (
