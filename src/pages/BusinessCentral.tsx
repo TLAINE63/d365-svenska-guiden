@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
 import SEOHead from "@/components/SEOHead";
+import ProductHero from "@/components/ProductHero";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
 // Breadcrumb items
