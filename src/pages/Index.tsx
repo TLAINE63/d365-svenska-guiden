@@ -306,7 +306,7 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
             {[
               { n: 1, eyebrow: "Bransch", title: "Välj din bransch", desc: "Vi visar relevanta lösningar för er sektor", accent: "bg-[hsl(var(--cta-orange))]" },
-              { n: 2, eyebrow: "Jämför", title: "Jämför partners", desc: "Storlek, fokus, referenser, prisbild", accent: "bg-white/15" },
+              { n: 2, eyebrow: "Jämför", title: "Jämför partners", desc: "Storlek, fokus, referenser", accent: "bg-white/15" },
               { n: 3, eyebrow: "Underlag", title: "Få oberoende underlag", desc: "Innan ni går vidare i partner-dialogen", accent: "bg-white/15" },
             ].map((step) => (
               <div key={step.n} className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 backdrop-blur-sm">
