@@ -82,7 +82,7 @@ const D365FieldService = () => {
         icon={FieldServiceIcon}
         eyebrow="Dynamics 365 Field Service"
         title="Field Service."
-        titleAccent="Schemaläggning, mobilitet och integration mot ERP — i den ordningen."
+        titleAccent="Schemaläggning, mobilitet och integration mot ERP - i den ordningen."
         subhead="Fältservice är 80% logistik och 20% teknik. Vilken partner har faktiskt rullat ut Field Service åt liknande verksamheter i Sverige? Här ser ni svaret."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-kundservice/", icon: FileText }}
         secondary={{
