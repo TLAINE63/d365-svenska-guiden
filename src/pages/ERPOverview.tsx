@@ -87,7 +87,7 @@ const ERPOverview = () => {
       <ProductHero
         eyebrow="ERP"
         title="Två ERP. Två olika inriktningar."
-        titleAccent="Vi hjälper er välja rätt — innan ni väljer leverantör."
+        titleAccent="Vi guidar er rätt — innan ni väljer partner."
         subhead="Business Central och Finance & Supply Chain Management löser olika problem för olika bolag. Vi visar skillnaden i klartext — och vilka partners som faktiskt har levererat den ena eller andra."
         primary={{ label: "Gör en ERP-behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
         secondary={{ label: "Jämför BC vs F&SCM", to: "/affarssystem/" }}
