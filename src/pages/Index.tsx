@@ -333,7 +333,7 @@ const Index = () => {
             <span className="text-white/25">·</span>
             <span>{publishedPartnerCount} partners</span>
             <span className="text-white/25">·</span>
-            <span>{industryPills.length} branscher</span>
+            <span>16 branscher</span>
           </div>
         </div>
       </section>
