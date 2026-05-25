@@ -469,7 +469,7 @@ const KomIgang = () => {
                     <div
                       key={i}
                       className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                        i + 1 === step ? "bg-primary" : i + 1 < step ? "bg-primary/50" : "bg-border"
+                        i + 1 === step ? "bg-[#15363F]" : i + 1 < step ? "bg-[#15363F]/50" : "bg-border"
                       }`}
                     />
                   ))}
