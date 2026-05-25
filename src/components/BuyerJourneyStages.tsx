@@ -323,28 +323,12 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           <p className="text-sm text-[#5A5A66] mb-3">
             Gäller både ERP (Business Central, Finance &amp; Supply Chain) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center).
           </p>
-          {!compact && (
-            <>
-              <p className="text-base sm:text-lg text-[#5A5A66] leading-relaxed mb-4">
-                Två korta frågor leder er till det avsnitt som passar bäst. Inga uppgifter samlas in.
-              </p>
-              <button
-                type="button"
-                onClick={scrollToOverview}
-                className={`text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
-              >
-                Eller hoppa direkt till översikten över de sju stadierna →
-              </button>
-            </>
-          )}
-          {compact && (
-            <a
-              href="/kunskapscenter/upphandlingsresan/"
-              className={`inline-block text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
-            >
-              Se fördjupning och självskattning →
-            </a>
-          )}
+          <a
+            href="/kunskapscenter/upphandlingsresan/"
+            className={`inline-block text-sm font-medium text-[#E5006D] hover:underline underline-offset-4 ${focusRing} rounded`}
+          >
+            Se fördjupning och självskattning →
+          </a>
         </header>
 
         {/* Klickbar köpresekarta */}
