@@ -33,6 +33,7 @@ const BuyerJourneyStages = lazy(() => import("@/components/BuyerJourneyStages"))
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
+import HomePartnersTeaser from "@/components/HomePartnersTeaser";
 
 const homeFaqs = [
   {
@@ -221,6 +222,8 @@ const industryPills = ALL_INDUSTRY_PILLS.filter((pill) => {
   if (partnerIndustrySet.has(n)) return true;
   return n.split(" ").some((tok) => tok.length > 3 && partnerIndustrySet.has(tok));
 });
+
+const publishedPartnerCount = (partnerDataJson as Array<{ is_featured?: boolean }>).filter(p => p.is_featured).length;
 
 
 const Index = () => {
