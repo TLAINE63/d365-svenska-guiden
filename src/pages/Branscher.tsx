@@ -81,7 +81,25 @@ const INDUSTRY_IMAGES: Record<string, string> = {
 
 const Branscher = () => {
   const { covered } = useCoveredIndustries();
+  const { data: partners } = usePartners();
   const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
+
+  const partnerCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    (partners || [])
+      .filter((p) => p.is_featured === true)
+      .forEach((p) => {
+        const inds = new Set<string>();
+        PRODUCT_KEYS.forEach((k) => {
+          (p.product_filters?.[k]?.industries || []).forEach((i: string) => inds.add(i));
+        });
+        inds.forEach((name) => {
+          counts[name] = (counts[name] || 0) + 1;
+        });
+      });
+    return counts;
+  }, [partners]);
+
   return (
     <>
       <SEOHead
@@ -102,16 +120,18 @@ const Branscher = () => {
           </div>
         </section>
 
-        <section className="py-4 md:py-5">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+        <section className="py-6 md:py-8">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {visibleIndustries.map((ind) => {
                 const img = INDUSTRY_IMAGES[ind.slug];
+                const context = INDUSTRY_CONTEXT[ind.slug];
+                const count = partnerCounts[ind.name] || 0;
                 return (
                   <Link
                     key={ind.slug}
                     to={`/branscher/${ind.slug}`}
-                    className="group flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
+                    className="group relative flex flex-col rounded-lg border border-border bg-card overflow-hidden hover:border-primary/40 hover:shadow-md transition-all"
                   >
                     {img && (
                       <div className="aspect-[4/3] overflow-hidden bg-muted">
@@ -123,14 +143,20 @@ const Branscher = () => {
                         />
                       </div>
                     )}
-                    <div className="flex flex-col gap-1 p-2.5">
-                      <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
+                    <div className="flex flex-col gap-1 p-3 pr-8">
+                      <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-tight">
                         {ind.name}
                       </span>
-                      <span className="flex items-center gap-1 text-xs font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-                        Öppna <ArrowRight className="h-3 w-3" />
+                      {context && (
+                        <span className="text-xs text-muted-foreground leading-snug">
+                          {context}
+                        </span>
+                      )}
+                      <span className="text-xs font-medium text-primary/80 mt-0.5">
+                        {count > 0 ? `${count} ${count === 1 ? "partner" : "partners"} listade` : "Kommer snart"}
                       </span>
                     </div>
+                    <ChevronRight className="absolute bottom-3 right-3 h-4 w-4 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                   </Link>
                 );
               })}
