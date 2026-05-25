@@ -265,13 +265,13 @@ const Index = () => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-16 relative">
           {/* Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[1.7] tracking-tight text-white mb-10 max-w-4xl">
+          <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[2.1] tracking-tight text-white mb-10 max-w-4xl">
             Ni väljer inte bara Dynamics 365.<br />
             <span className="text-[hsl(180_75%_65%)] font-normal italic">
               Ni väljer partnern som ska få det att fungera.
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-white/70 font-light leading-[2] mt-6 mb-12 max-w-2xl">
+          <p className="text-base sm:text-lg text-white/70 font-light leading-[2.3] mt-8 mb-12 max-w-2xl">
             Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
           </p>
 
