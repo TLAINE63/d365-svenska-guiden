@@ -1730,7 +1730,7 @@ const AIReadiness = () => {
                     <button
                       disabled={foundationAnswers.system.length === 0}
                       onClick={advanceFromMultiSelect}
-                      className="mt-6 w-full py-3 rounded-lg font-semibold text-sm transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="mt-6 w-full py-3 rounded-lg font-semibold text-sm transition-all duration-200 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Nästa →
                     </button>
