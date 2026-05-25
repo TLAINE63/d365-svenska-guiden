@@ -3333,7 +3333,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <CardTitle className="flex items-center gap-2 text-lg">
                 {(() => {
                   const Icon = stepIcons[currentStep - 1];
-                  return <Icon className="w-5 h-5 text-finance-supply" />;
+                  return <Icon className="w-5 h-5 text-[#15363F]" />;
                 })()}
                 {stepTitles[currentStep - 1]}
               </CardTitle>
