@@ -22,18 +22,13 @@ const AccordionItem = lazy(() => import("@/components/ui/accordion").then(m => (
 const AccordionTrigger = lazy(() => import("@/components/ui/accordion").then(m => ({ default: m.AccordionTrigger })));
 
 // Lazy load below-fold components
-const LeadMagnetBanner = lazy(() => import("@/components/LeadMagnetBanner"));
-const UrgencyBadge = lazy(() => import("@/components/UrgencyBadge"));
 const ContactFormDialog = lazy(() => import("@/components/ContactFormDialog"));
-const CommonMistakesTeaser = lazy(() => import("@/components/CommonMistakesTeaser"));
 const ScrollCTA = lazy(() => import("@/components/ScrollCTA"));
 const EbookBanner = lazy(() => import("@/components/EbookBanner"));
-const BuyerJourneyStages = lazy(() => import("@/components/BuyerJourneyStages"));
 
 import FeaturedArticleBanner from "@/components/FeaturedArticleBanner";
 
 import RelatedPages, { indexRelatedPages } from "@/components/RelatedPages";
-import HomePartnersTeaser from "@/components/HomePartnersTeaser";
 
 const homeFaqs = [
   {
@@ -315,19 +310,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Partners teaser */}
-      <HomePartnersTeaser />
-
-      {/* Featured article banner */}
-      <section className="pt-6 sm:pt-8 bg-secondary/30">
+      {/* Block 2 — Kunskapscenter: utvald artikel */}
+      <section className="py-10 sm:py-14 bg-white">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <FeaturedArticleBanner />
         </div>
       </section>
 
-      <Suspense fallback={null}>
-        <BuyerJourneyStages compact />
-      </Suspense>
+
 
 
 
@@ -364,7 +354,9 @@ const Index = () => {
       </Dialog>
 
 
-      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-white border-b border-border relative overflow-hidden">
+      {/* Block 3 — Hitta er ingång: situationskort */}
+      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-[#F4F8F8] border-b border-border relative overflow-hidden">
+
         {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.06),transparent_60%)]" />
@@ -488,16 +480,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Dual CTA Banners — differentiated: dark/match vs light/document */}
-      <section className="px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 bg-secondary/30">
-        <div className="container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          {/* Box 2 — Kravunderlag: ljus, dokument-look, "vad behöver vi?" */}
+      {/* Block 5 — Steg 1: Kravspecifikation */}
+      <section className="px-4 sm:px-6 py-12 sm:py-16 bg-[#F4F8F8]">
+        <div className="container mx-auto max-w-6xl">
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-[hsl(40_30%_98%)] to-[hsl(180_25%_95%)] border border-border shadow-2xl p-7 sm:p-9 flex flex-col">
-            {/* Subtle "paper" decoration — vertical accent bar */}
             <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-primary via-primary/70 to-[hsl(var(--cta-orange))] pointer-events-none" />
             <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
-            {/* Lined paper hint */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(0deg, hsl(var(--foreground)) 0, hsl(var(--foreground)) 1px, transparent 1px, transparent 28px)' }} />
 
             <div className="relative flex flex-col h-full">
@@ -505,14 +493,14 @@ const Index = () => {
                 <Check className="w-3 h-3" />
                 Steg 1 · Vad behöver ni?
               </div>
-              <h3 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-foreground mb-3 leading-[1.15] tracking-tight">
+              <h2 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-foreground mb-3 leading-[1.15] tracking-tight">
                 Kom igång med er <span className="text-primary">kravspecifikation</span>
-              </h3>
-              <p className="text-[14px] sm:text-[15px] text-muted-foreground leading-relaxed mb-6">
+              </h2>
+              <p className="text-[14px] sm:text-[15px] text-muted-foreground leading-relaxed mb-6 max-w-3xl">
                 Få ett strukturerat underlag som hjälper er att beskriva behov, processer och prioriteringar inför dialogen med Dynamics 365-partners. Välj område och börja direkt.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
                 {[
                   { label: "ERP / Affärssystem", link: "/kravspecifikation/" },
                   { label: "Försäljning", link: "/kravspecifikation-sales/" },
@@ -535,45 +523,46 @@ const Index = () => {
               </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Box 1 — Partnermatchning: mörk, premium, "vem ska jag prata med" */}
+      {/* Block 6 — Steg 2: Partner-matchning */}
+      <section className="px-4 sm:px-6 py-12 sm:py-16 bg-white">
+        <div className="container mx-auto max-w-6xl">
           <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[hsl(195_45%_10%)] via-[hsl(190_40%_14%)] to-[hsl(20_55%_18%)] border border-[hsl(var(--cta-orange))]/30 shadow-2xl p-7 sm:p-9 flex flex-col">
-            {/* Decorative glows */}
             <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-[hsl(var(--cta-orange))]/30 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-32 -left-20 w-72 h-72 rounded-full bg-primary/25 blur-3xl pointer-events-none" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_55%)] pointer-events-none" />
-            {/* Subtle grid pattern */}
             <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
-            <div className="relative flex flex-col h-full">
-              <div className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.12em] text-white shadow-lg shadow-[hsl(var(--cta-orange))]/40 mb-5">
-                <Sparkles className="w-3 h-3" />
-                Steg 2 · Vem ska ni prata med?
-              </div>
-              <h3 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-white mb-3 leading-[1.15] tracking-tight">
-                Hitta rätt typ av <span className="text-[hsl(var(--cta-orange))]">Dynamics 365-partner</span>
-              </h3>
-              <p className="text-[14px] sm:text-[15px] text-white/75 leading-relaxed mb-6">
-                Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en oberoende rekommendation om vilken typ av partner som passar bäst.
-              </p>
+            <div className="relative grid lg:grid-cols-[1fr_auto] gap-6 items-end">
+              <div>
+                <div className="inline-flex self-start items-center gap-2 px-3 py-1.5 rounded-full bg-[hsl(var(--cta-orange))] text-[10.5px] font-bold uppercase tracking-[0.12em] text-white shadow-lg shadow-[hsl(var(--cta-orange))]/40 mb-5">
+                  <Sparkles className="w-3 h-3" />
+                  Steg 2 · Vem ska ni prata med?
+                </div>
+                <h2 className="text-2xl sm:text-[26px] md:text-[30px] font-bold text-white mb-3 leading-[1.15] tracking-tight">
+                  Hitta rätt typ av <span className="text-[hsl(var(--cta-orange))]">Dynamics 365-partner</span>
+                </h2>
+                <p className="text-[14px] sm:text-[15px] text-white/75 leading-relaxed mb-6 max-w-2xl">
+                  Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en oberoende rekommendation om vilken typ av partner som passar bäst.
+                </p>
 
-              {/* Stats row — visuellt särskiljande */}
-              <div className="grid grid-cols-3 gap-3 mb-6 py-4 border-y border-white/10">
-                <div>
-                  <div className="text-2xl font-bold text-[hsl(var(--cta-orange))] leading-none">2 min</div>
-                  <div className="text-[11px] text-white/60 mt-1">Tar att fylla i</div>
+                <div className="grid grid-cols-3 gap-3 mb-6 py-4 border-y border-white/10 max-w-xl">
+                  <div>
+                    <div className="text-2xl font-bold text-[hsl(var(--cta-orange))] leading-none">2 min</div>
+                    <div className="text-[11px] text-white/60 mt-1">Tar att fylla i</div>
+                  </div>
+                  <div className="border-l border-white/10 pl-3">
+                    <div className="text-2xl font-bold text-white leading-none">100%</div>
+                    <div className="text-[11px] text-white/60 mt-1">Oberoende</div>
+                  </div>
+                  <div className="border-l border-white/10 pl-3">
+                    <div className="text-2xl font-bold text-white leading-none">0 kr</div>
+                    <div className="text-[11px] text-white/60 mt-1">Ingen registrering</div>
+                  </div>
                 </div>
-                <div className="border-l border-white/10 pl-3">
-                  <div className="text-2xl font-bold text-white leading-none">100%</div>
-                  <div className="text-[11px] text-white/60 mt-1">Oberoende</div>
-                </div>
-                <div className="border-l border-white/10 pl-3">
-                  <div className="text-2xl font-bold text-white leading-none">0 kr</div>
-                  <div className="text-[11px] text-white/60 mt-1">Ingen registrering</div>
-                </div>
-              </div>
 
-              <div className="mt-auto">
                 <Button
                   asChild
                   className="w-full sm:w-auto bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange))]/90 text-white text-[15px] font-semibold h-12 px-7 rounded-xl shadow-lg shadow-[hsl(var(--cta-orange))]/40 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/50 hover:-translate-y-0.5 transition-all group/btn"
@@ -586,12 +575,12 @@ const Index = () => {
               </div>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Lär dig mer — Kunskapsresurser */}
-      <section className="py-14 sm:py-20 bg-white border-t border-border/60">
+      {/* Block 7 — Lär dig mer */}
+      <section className="py-14 sm:py-20 bg-[#F4F8F8] border-t border-border/60">
+
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="max-w-2xl mb-10">
             <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
@@ -665,43 +654,46 @@ const Index = () => {
       </section>
 
 
-      <section className="py-10 sm:py-12 bg-secondary/30">
+      {/* Block 8 — Vad vi hjälper dig med */}
+      <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14">
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
-              <p className="text-sm text-muted-foreground mb-4">Realistisk vägledning — anpassad för svenska företag.</p>
-              <ul className="space-y-2.5">
-                {whyItems.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                    <span className="w-[18px] h-[18px] rounded-full bg-primary/10 text-primary text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
-              <p className="text-sm text-muted-foreground mb-4">Frågorna svenska företag söker svar på.</p>
-              <div className="flex flex-col gap-2">
-                {popularGuides.map((g) => (
-                  <Link
-                    key={g.text}
-                    to={g.link}
-                    className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
-                  >
-                    <span className="flex-1">{g.text}</span>
-                    <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">{g.tag}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
+          <div className="max-w-3xl">
+            <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
+            <p className="text-sm text-muted-foreground mb-5">Realistisk vägledning — anpassad för svenska företag.</p>
+            <ul className="space-y-2.5">
+              {whyItems.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                  <span className="w-[18px] h-[18px] rounded-full bg-primary/10 text-primary text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* Branschvägar */}
-      <section className="py-12 sm:py-16 bg-card border-y border-border">
+      {/* Block 9 — Mest lästa guider */}
+      <section className="py-12 sm:py-16 bg-[#F4F8F8]">
+        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
+          <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
+          <p className="text-sm text-muted-foreground mb-5">Frågorna svenska företag söker svar på.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+            {popularGuides.map((g) => (
+              <Link
+                key={g.text}
+                to={g.link}
+                className="group flex items-center justify-between gap-3 bg-card border border-border rounded-[10px] px-4 py-3 text-[13px] font-medium text-foreground hover:border-primary/50 hover:text-primary hover:bg-primary/[0.03] hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200"
+              >
+                <span className="flex-1">{g.text}</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded-full whitespace-nowrap">{g.tag}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Block 10 — Branschvägar */}
+      <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
             <div>
@@ -716,7 +708,7 @@ const Index = () => {
               <Link
                 key={pill}
                 to={`/branscher/${PILL_TO_SLUG[pill]}/`}
-                className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
+                className="group flex items-center justify-between gap-2 px-4 py-3.5 rounded-xl border border-border bg-[#F4F8F8] hover:border-primary/50 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200"
               >
                 <span className="text-[14px] font-medium text-foreground">{pill}</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
@@ -726,29 +718,37 @@ const Index = () => {
         </div>
       </section>
 
-
-
-
-
-      {/* Footer CTA band */}
-      <section className="bg-primary py-10 sm:py-12">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-5">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-primary-foreground mb-1.5">Redo att komma igång?</h2>
-            <p className="text-sm text-primary-foreground/65 max-w-[400px]">Börja med att beskriva din situation — kostnadsfritt och utan förpliktelser.</p>
-          </div>
-          <Button asChild size="lg" className="bg-card text-primary hover:bg-card/90 text-sm font-semibold h-12 px-7 rounded-lg whitespace-nowrap flex-shrink-0">
-            <Link to="/valjdynamics365partner/">Matcha med rätt partner <ArrowRight className="w-4 h-4 ml-1" /></Link>
+      {/* Block 11 — Slut-CTA (BOOKEND 2): mörk teal, speglar hero, en orange CTA */}
+      <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-16 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
+          <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
+            Redo att komma igång?
+          </h2>
+          <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-8 max-w-xl mx-auto">
+            Börja med er bransch — så guidar vi er till partners som faktiskt levererat det ni behöver. Kostnadsfritt, utan registrering.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+          >
+            <Link to="/branscher/">
+              Starta — välj bransch
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
           </Button>
         </div>
       </section>
 
-      {/* Vanliga frågor */}
-      <section id="questions" className="py-10 sm:py-14 bg-secondary/30">
+      {/* Block 12 — Vanliga frågor */}
+      <section id="questions" className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
             Vanliga frågor
           </h2>
+
           <div className="max-w-4xl mx-auto">
             <Suspense fallback={<div className="space-y-3 sm:space-y-4" />}>
             <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
@@ -756,7 +756,7 @@ const Index = () => {
               <AccordionItem value="item-1" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Vad är Microsoft Dynamics 365 – och hur fungerar det?</span>
                   </span>
                 </AccordionTrigger>
@@ -776,7 +776,7 @@ const Index = () => {
               <AccordionItem value="item-2" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Vilken Dynamics 365-lösning passar vårt företag bäst?</span>
                   </span>
                 </AccordionTrigger>
@@ -798,7 +798,7 @@ const Index = () => {
               <AccordionItem value="item-3" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">❓</span>
+                    <HelpCircle className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Vad kostar Dynamics 365 – och vad påverkar priset?</span>
                   </span>
                 </AccordionTrigger>
@@ -824,7 +824,7 @@ const Index = () => {
               <AccordionItem value="item-4" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">🤝</span>
+                    <Users className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Hur hittar jag rätt Dynamics 365-partner?</span>
                   </span>
                 </AccordionTrigger>
@@ -847,7 +847,7 @@ const Index = () => {
               <AccordionItem value="item-5" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">⚖️</span>
+                    <BarChart3 className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Är Dynamics 365 ett bra alternativ till SAP, Salesforce eller Fortnox?</span>
                   </span>
                 </AccordionTrigger>
@@ -865,7 +865,7 @@ const Index = () => {
               <AccordionItem value="item-6" className="bg-card rounded-lg px-4 sm:px-6 border border-border shadow-sm">
                 <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
                   <span className="text-base sm:text-lg md:text-xl font-bold text-card-foreground flex items-start gap-2 sm:gap-3">
-                    <span className="text-xl sm:text-2xl flex-shrink-0">🤖</span>
+                    <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-[hsl(var(--cta-orange))] flex-shrink-0 mt-0.5" />
                     <span>Hur fungerar Microsoft Copilot AI i Dynamics 365?</span>
                   </span>
                 </AccordionTrigger>
@@ -889,18 +889,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Common Mistakes Teaser */}
-      <Suspense fallback={null}><CommonMistakesTeaser /></Suspense>
+      {/* Block 13 — Utforska Dynamics 365 */}
+      <section className="bg-[#F4F8F8]">
+        <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
+      </section>
 
-      {/* Lead Magnet Banner */}
-      <div className="flex justify-center mb-4">
-        <Suspense fallback={null}>
-          <UrgencyBadge variant="consultation" />
-        </Suspense>
-      </div>
-      <Suspense fallback={null}><LeadMagnetBanner sourcePage="index" /></Suspense>
-
-      <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
 
       </main>
 
