@@ -140,6 +140,14 @@ serve(async (req) => {
     if (action === "toggle-publish" && req.method === "POST") {
       const { id, is_published } = await req.json();
       if (!id) return json({ error: "id krävs" }, 400, corsHeaders);
+      if (is_published) {
+        const { data: existing, error: fetchErr } = await supabase
+          .from("knowledge_articles").select("url").eq("id", id).single();
+        if (fetchErr) return json({ error: fetchErr.message }, 400, corsHeaders);
+        if (!existing?.url || !existing.url.trim()) {
+          return json({ error: "Artikeln saknar url – öppna artikeln och lägg till en url innan du publicerar." }, 400, corsHeaders);
+        }
+      }
       const patch: Record<string, unknown> = { is_published: !!is_published };
       if (is_published) patch.published_at = new Date().toISOString();
       const { data, error } = await supabase
