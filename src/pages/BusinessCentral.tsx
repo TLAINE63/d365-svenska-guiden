@@ -196,7 +196,7 @@ const BusinessCentral = () => {
         eyebrow="Business Central"
         title="Dynamics 365 Business Central."
         titleAccent="Så jämför ni partners och inriktning"
-        subhead="Business Central säljs av många. Få av dem är rätt för just er bransch och storlek. Här får ni underlaget att jämföra på det som faktiskt skiljer dem åt — innan ni går vidare i partner-dialogen."
+        subhead="Microsoft levererar det kraftfulla affärssystemet. Partnern bygger processerna, väljer rätt branschspecifika tillägg och designar integrationerna mot era befintliga system. Det är nyckeln till framgångsrika BC-projekt. Här jämför ni partners som faktiskt levererat Business Central i er bransch."
         primary={{
           label: "Generera kravspecifikation",
           to: "/kravspecifikation/",
