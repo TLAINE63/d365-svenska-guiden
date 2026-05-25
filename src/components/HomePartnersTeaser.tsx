@@ -156,7 +156,7 @@ export default function HomePartnersTeaser() {
     "bg-card text-foreground/80 border-border hover:border-primary/40 hover:text-foreground";
 
   return (
-    <section className="py-14 sm:py-20 bg-secondary/30 border-b border-border">
+    <section className="py-14 sm:py-20 bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-white/10">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="flex items-end justify-between gap-6 mb-6 flex-wrap">
           <div>
