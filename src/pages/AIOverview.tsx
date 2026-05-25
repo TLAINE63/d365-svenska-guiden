@@ -211,8 +211,9 @@ const AIOverview = () => {
       <Navbar />
       <main className="pb-16">
         {/* Hero */}
-        <div className="relative bg-cover bg-center pt-28 pb-12 mb-16" style={{ backgroundImage: `url(${heroAiReadiness})` }}>
-          <div className="absolute inset-0 bg-black/60" />
+        <div className="relative bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-primary/20 pt-28 pb-12 mb-16 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
           <section className="relative max-w-4xl mx-auto text-center px-4">
             <div className="inline-flex items-center gap-2 bg-white/20 text-white rounded-full px-4 py-1.5 text-sm font-medium mb-6">
               <Sparkles className="h-4 w-4" />
