@@ -107,7 +107,7 @@ const D365Sales = () => {
         eyebrow="Dynamics 365 Sales"
         title="Dynamics 365 Sales."
         titleAccent="Verktyget är en sak. Partnern som sätter era säljprocesser är en annan."
-        subhead="Ett bra Sales-projekt handlar mindre om funktioner — och mer om vem som förstår er säljprocess. Här jämför ni partners som faktiskt levererat Sales i er bransch."
+        subhead="En konsultverksamhets säljprocess ser inte ut som en distributörs. Funktionerna är desamma — men hur partnern bygger Sales runt er specifika modell avgör om det blir er pipeline eller bara ett dyrt CRM. Här jämför ni partners som faktiskt levererat Sales i er typ av verksamhet."
         primary={{ label: "Generera kravspecifikation", to: "/kravspecifikation-sales/", icon: FileText }}
         secondary={{
           label: "Jämför Sales-partners",
