@@ -18,8 +18,8 @@ type RawPartner = {
   product_filters?: Record<string, { companySize?: string[] }>;
 };
 
-const ERP_APPS = new Set(["Business Central", "Finance", "Supply Chain Management"]);
-const SALES_SERVICE_APPS = new Set([
+const FSCM_APPS = new Set(["Finance", "Supply Chain Management"]);
+const CRM_APPS = new Set([
   "Sales",
   "Customer Service",
   "Field Service",
@@ -37,14 +37,15 @@ const APP_BADGES: Array<{ match: (a: string[]) => boolean; label: string }> = [
   { match: (a) => a.includes("Customer Insights (Marketing)"), label: "Marketing" },
 ];
 
-type Quick = "all" | "erp" | "sales" | "ai";
+type Quick = "all" | "bc" | "fscm" | "crm";
 
 const QUICK_FILTERS: Array<{ id: Quick; label: string }> = [
   { id: "all", label: "Alla" },
-  { id: "erp", label: "Affärssystem" },
-  { id: "sales", label: "Sälj & Service" },
-  { id: "ai", label: "AI / Copilot" },
+  { id: "bc", label: "Business Central" },
+  { id: "fscm", label: "F&SCM" },
+  { id: "crm", label: "CRM (Marknad, Sälj & Service)" },
 ];
+
 
 // Deterministic shuffle seeded by date so the row is stable per session but rotates daily
 const seededShuffle = <T,>(arr: T[], seed: number): T[] => {
