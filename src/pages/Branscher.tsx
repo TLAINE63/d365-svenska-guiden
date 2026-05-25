@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { STANDARD_INDUSTRIES } from "@/data/standardIndustries";
 import { ArrowRight } from "lucide-react";
+import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
+
 
 
 // Industry images (same as /branschlosningar)
@@ -51,7 +53,8 @@ const INDUSTRY_IMAGES: Record<string, string> = {
 };
 
 const Branscher = () => {
-  const visibleIndustries = STANDARD_INDUSTRIES;
+  const { covered } = useCoveredIndustries();
+  const visibleIndustries = STANDARD_INDUSTRIES.filter((i) => covered.has(i.name));
   return (
     <>
       <SEOHead

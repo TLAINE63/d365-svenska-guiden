@@ -24,6 +24,7 @@ const partnerBreadcrumbs = [
   { name: "Välj Partner", url: "https://d365.se/valjdynamics365partner" },
 ];
 import { allIndustries } from "@/data/partners";
+import { useCoveredIndustries } from "@/hooks/useCoveredIndustries";
 import { usePartners, DatabasePartner } from "@/hooks/usePartners";
 import { useTrackFilterExposure } from "@/hooks/useTrackFilterExposure";
 import partnerMapSweden from "@/assets/partner-map-sweden.png";
@@ -209,15 +210,13 @@ const ValjPartner = () => {
     return (dbPartners || []).filter(p => p.is_featured === true);
   }, [dbPartners]);
 
-  // Show only industries that have at least one featured partner
-  const availableIndustries = useMemo(() => {
-    const covered = new Set<string>();
-    partners.forEach((p) => {
-      (p.industries || []).forEach((ind) => covered.add(ind));
-      (p.secondary_industries || []).forEach((ind) => covered.add(ind));
-    });
-    return allIndustries.filter((ind) => covered.has(ind));
-  }, [partners]);
+  // Show only industries that have at least one featured partner profiled
+  // against them via product_filters (same source as /branscher).
+  const { covered: coveredIndustries } = useCoveredIndustries();
+  const availableIndustries = useMemo(
+    () => allIndustries.filter((ind) => coveredIndustries.has(ind)),
+    [coveredIndustries],
+  );
 
   const toggleApplication = (app: string) => {
     setSelectedApplications(prev => 
