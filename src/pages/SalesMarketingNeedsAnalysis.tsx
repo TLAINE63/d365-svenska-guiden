@@ -3141,7 +3141,7 @@ const SalesMarketingNeedsAnalysis = () => {
               Tillbaka
             </Button>
             {currentStep < totalSteps && (
-              <Button onClick={handleNext} className="bg-crm hover:bg-crm/90">
+              <Button onClick={handleNext} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 Nästa
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
