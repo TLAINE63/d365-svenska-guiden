@@ -25,6 +25,9 @@ import SalesMarketingNeedsAnalysis from './pages/SalesMarketingNeedsAnalysis';
 import CustomerServiceNeedsAnalysis from './pages/CustomerServiceNeedsAnalysis';
 import KomIgang from './pages/KomIgang';
 import Branschlosningar from './pages/Branschlosningar';
+import Branscher from './pages/Branscher';
+import IndustryPage from './pages/IndustryPage';
+import { STANDARD_INDUSTRIES } from './data/standardIndustries';
 import D365Sales from './pages/D365Sales';
 import D365Marketing from './pages/D365Marketing';
 import D365CustomerService from './pages/D365CustomerService';
@@ -76,6 +79,12 @@ export const routes: PrerenderRoute[] = [
   { path: '/finance-supply-chain', priority: '0.8', changefreq: 'monthly' },
   { path: '/crm', priority: '0.9', changefreq: 'monthly' },
   // /branschlosningar är ersatt av /branscher (301-redirect i App.tsx)
+  { path: '/branscher', priority: '0.8', changefreq: 'monthly' },
+  ...STANDARD_INDUSTRIES.map((i) => ({
+    path: `/branscher/${i.slug}`,
+    priority: '0.7',
+    changefreq: 'monthly' as const,
+  })),
   { path: '/d365sales', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365marketing', priority: '0.8', changefreq: 'monthly' },
   { path: '/d365customerservice', priority: '0.8', changefreq: 'monthly' },
@@ -189,8 +198,10 @@ export function render(url: string) {
               <Route path="/CRMbehovsanalys" element={<SalesMarketingNeedsAnalysis />} />
               <Route path="/salj-marknad-behovsanalys" element={<Navigate to="/CRMbehovsanalys" replace />} />
               <Route path="/kundservice-behovsanalys" element={<CustomerServiceNeedsAnalysis />} />
-              <Route path="/branschlosningar" element={<Navigate to="/branscher/" replace />} />
-              <Route path="/branschlosningar/*" element={<Navigate to="/branscher/" replace />} />
+              <Route path="/branschlosningar" element={<Navigate to="/branscher" replace />} />
+              <Route path="/branschlosningar/*" element={<Navigate to="/branscher" replace />} />
+              <Route path="/branscher" element={<Branscher />} />
+              <Route path="/branscher/:slug" element={<IndustryPage />} />
               <Route path="/d365sales" element={<D365Sales />} />
               <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
               <Route path="/d365marketing" element={<D365Marketing />} />
