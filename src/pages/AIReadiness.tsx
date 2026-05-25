@@ -1696,14 +1696,14 @@ const AIReadiness = () => {
                 </span>
                 <span className="text-sm text-muted-foreground">{Math.round(progressPct)}%</span>
               </div>
-              <Progress value={progressPct} className="h-2" />
+              <Progress value={progressPct} className="h-2" indicatorClassName="bg-[hsl(var(--cta-orange))]" />
             </div>
 
             {step === "foundation" && (
               <>
                 <div className="mb-6 flex items-center gap-2">
                   <span className="text-2xl">{isAiMapping ? "🧠" : "🔹"}</span>
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">
+                  <span className="text-sm font-semibold text-[#15363F] uppercase tracking-wide">
                     Steg {sectionNumber} – {sectionLabel}
                   </span>
                 </div>
@@ -1730,7 +1730,7 @@ const AIReadiness = () => {
                     <button
                       disabled={foundationAnswers.system.length === 0}
                       onClick={advanceFromMultiSelect}
-                      className="mt-6 w-full py-3 rounded-lg font-semibold text-sm transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="mt-6 w-full py-3 rounded-lg font-semibold text-sm transition-all duration-200 bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange-hover))] disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Nästa →
                     </button>
@@ -1758,7 +1758,7 @@ const AIReadiness = () => {
               <>
                 <div className="mb-6 flex items-center gap-2">
                   <span className="text-2xl">🔹</span>
-                  <span className="text-sm font-semibold text-primary uppercase tracking-wide">Steg 2 – Välj roll</span>
+                  <span className="text-sm font-semibold text-[#15363F] uppercase tracking-wide">Steg 2 – Välj roll</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Jag arbetar inom:</h2>
                 <p className="text-sm text-muted-foreground mb-6">Härifrån anpassas analysen efter din roll med AI-spetsade frågor.</p>
@@ -1768,7 +1768,7 @@ const AIReadiness = () => {
                     return (
                       <button key={t.id} onClick={() => handleRoleSelect(t.id)}
                         className={`w-full text-left rounded-lg border-2 px-5 py-4 transition-all duration-200 flex items-center gap-4 ${
-                          selectedRole === t.id ? "border-primary bg-primary/10 ring-2 ring-primary/30" : "border-border bg-card hover:bg-muted/50 hover:border-primary/30"
+                          selectedRole === t.id ? "border-[#15363F] bg-[#15363F]/10 ring-2 ring-[#15363F]/30" : "border-border bg-card hover:bg-muted/50 hover:border-[#15363F]/30"
                         }`}>
                         <div className={`w-10 h-10 rounded-lg bg-muted flex items-center justify-center ${t.color}`}>
                           <Icon className="h-5 w-5" />

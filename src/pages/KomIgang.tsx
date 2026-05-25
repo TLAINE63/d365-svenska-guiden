@@ -469,7 +469,7 @@ const KomIgang = () => {
                     <div
                       key={i}
                       className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                        i + 1 === step ? "bg-primary" : i + 1 < step ? "bg-primary/50" : "bg-border"
+                        i + 1 === step ? "bg-[#15363F]" : i + 1 < step ? "bg-[#15363F]/50" : "bg-border"
                       }`}
                     />
                   ))}
@@ -501,22 +501,22 @@ const KomIgang = () => {
                 </div>
                 <div>
                   {step === 3 && (
-                    <Button onClick={() => setStep(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(4)} disabled={selectedGoals.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 4 && (
-                    <Button onClick={() => setStep(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(5)} disabled={selectedSituations.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 5 && (
-                    <Button onClick={() => setStep(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6">
+                    <Button onClick={() => setStep(6)} disabled={selectedComplexities.length === 0} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Nästa
                     </Button>
                   )}
                   {step === 6 && (
-                    <Button onClick={() => findPartners()} size="sm" className="px-6">
+                    <Button onClick={() => findPartners()} size="sm" className="px-6 bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                       Visa partners
                     </Button>
                   )}
@@ -538,8 +538,8 @@ const KomIgang = () => {
                           }}
                           className={`relative group rounded-lg overflow-hidden border-2 transition-all aspect-[5/4] ${
                             isSelected
-                              ? "border-primary ring-2 ring-primary/30 scale-[1.02]"
-                              : "border-border hover:border-primary/40"
+                              ? "border-[#15363F] ring-2 ring-[#15363F]/30 scale-[1.02]"
+                              : "border-border hover:border-[#15363F]/40"
                           }`}
                         >
                           {img && (
@@ -551,11 +551,11 @@ const KomIgang = () => {
                             />
                           )}
                           <div className={`absolute inset-0 transition-colors ${
-                            isSelected ? "bg-primary/40" : "bg-black/45 group-hover:bg-black/35"
+                            isSelected ? "bg-[#15363F]/40" : "bg-black/45 group-hover:bg-black/35"
                           }`} />
                           {isSelected && (
-                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                              <Check className="h-3 w-3 text-primary-foreground" />
+                            <div className="absolute top-1 right-1 w-5 h-5 rounded-full bg-[#15363F] flex items-center justify-center">
+                              <Check className="h-3 w-3 text-white" />
                             </div>
                           )}
                           <span className="absolute bottom-0 left-0 right-0 px-1 py-1.5 text-white text-[10px] sm:text-xs font-semibold text-center leading-tight">
@@ -582,8 +582,8 @@ const KomIgang = () => {
                         }}
                         className={`flex flex-col items-center justify-center text-center px-3 py-4 rounded-lg border-2 transition-all ${
                           isSelected
-                            ? "border-primary bg-primary/5 shadow-sm"
-                            : "border-border bg-card hover:border-primary/40"
+                            ? "border-[#15363F] bg-[#15363F]/5 shadow-sm"
+                            : "border-border bg-card hover:border-[#15363F]/40"
                         }`}
                       >
                         {opt.icon ? (
@@ -594,8 +594,8 @@ const KomIgang = () => {
                         <span className="text-sm font-semibold text-foreground leading-tight">{opt.label}</span>
                         <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight">{opt.desc}</span>
                         {isSelected && (
-                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-primary flex items-center justify-center">
-                            <Check className="h-3 w-3 text-primary-foreground" />
+                          <div className="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-[#15363F] flex items-center justify-center">
+                            <Check className="h-3 w-3 text-white" />
                           </div>
                         )}
                       </button>

@@ -3077,16 +3077,16 @@ const SalesMarketingNeedsAnalysis = () => {
                 Steg {currentStep} av {totalSteps}
               </span>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-crm">
+                <span className="text-sm font-medium text-[hsl(var(--cta-orange))]">
                   {Math.round(progress)}%
                 </span>
-                <Button onClick={handleNext} size="sm" className="bg-crm hover:bg-crm/90">
+                <Button onClick={handleNext} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   Nästa
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </div>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2" indicatorClassName="bg-[hsl(var(--cta-orange))]" />
           </div>
 
           <div className="hidden md:flex justify-between mb-4 overflow-x-auto pb-2 gap-1">
@@ -3101,13 +3101,13 @@ const SalesMarketingNeedsAnalysis = () => {
                   className="flex flex-col items-center min-w-[70px] max-w-[100px] cursor-pointer hover:opacity-80 transition-opacity flex-1"
                 >
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-1.5 transition-colors ${
-                    isActive ? 'bg-crm text-white' : 
-                    isCompleted ? 'bg-crm/20 text-crm' : 
+                    isActive ? 'bg-[#15363F] text-white' : 
+                    isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 
                     'bg-muted text-muted-foreground'
                   }`}>
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className={`text-[10px] leading-tight text-center ${isActive ? 'text-crm font-medium' : 'text-muted-foreground'}`}>
+                  <span className={`text-[10px] leading-tight text-center ${isActive ? 'text-[#15363F] font-medium' : 'text-muted-foreground'}`}>
                     {title}
                   </span>
                 </button>
@@ -3116,10 +3116,10 @@ const SalesMarketingNeedsAnalysis = () => {
           </div>
 
           <Card className="shadow-lg">
-            <CardHeader className="bg-gradient-to-r from-crm/10 to-crm/5 border-b py-3">
+            <CardHeader className="bg-gradient-to-r from-[#15363F]/10 to-[#15363F]/5 border-b py-3">
               <div className="flex items-center gap-2">
-                <StepIcon className="w-5 h-5 text-crm" />
-                <CardTitle className="text-lg text-crm">
+                <StepIcon className="w-5 h-5 text-[#15363F]" />
+                <CardTitle className="text-lg text-[#15363F]">
                   {stepTitles[currentStep - 1]}
                 </CardTitle>
               </div>
@@ -3141,7 +3141,7 @@ const SalesMarketingNeedsAnalysis = () => {
               Tillbaka
             </Button>
             {currentStep < totalSteps && (
-              <Button onClick={handleNext} className="bg-crm hover:bg-crm/90">
+              <Button onClick={handleNext} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 Nästa
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>

@@ -1774,15 +1774,15 @@ const CustomerServiceNeedsAnalysis = () => {
             <div className="flex justify-between items-center mb-1">
               <span className="text-sm text-muted-foreground">Steg {currentStep} av {totalSteps}</span>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-customer-service">{Math.round(progress)}%</span>
+                <span className="text-sm font-medium text-[hsl(var(--cta-orange))]">{Math.round(progress)}%</span>
                 {currentStep < totalSteps && (
-                  <Button onClick={handleNext} size="sm" className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground">
+                  <Button onClick={handleNext} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                     Nästa <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
                 )}
               </div>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2" indicatorClassName="bg-[hsl(var(--cta-orange))]" />
           </div>
 
           <div className="hidden md:flex justify-between mb-4 overflow-x-auto pb-2">
@@ -1795,10 +1795,10 @@ const CustomerServiceNeedsAnalysis = () => {
               const isCompleted = currentStep > stepNum;
               return (
                 <button key={index} onClick={() => setCurrentStep(stepNum)} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:opacity-80 transition-opacity">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${isActive ? 'bg-customer-service text-customer-service-foreground' : isCompleted ? 'bg-customer-service/20 text-customer-service' : 'bg-muted text-muted-foreground'}`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2 transition-colors ${isActive ? 'bg-[#15363F] text-white' : isCompleted ? 'bg-[#15363F]/20 text-[#15363F]' : 'bg-muted text-muted-foreground'}`}>
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className={`text-xs text-center ${isActive ? 'text-customer-service font-medium' : 'text-muted-foreground'}`}>{title}</span>
+                  <span className={`text-xs text-center ${isActive ? 'text-[#15363F] font-medium' : 'text-muted-foreground'}`}>{title}</span>
                 </button>
               );
             })}
@@ -1828,7 +1828,7 @@ const CustomerServiceNeedsAnalysis = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />Tillbaka
             </Button>
             {currentStep < totalSteps ? (
-              <Button onClick={handleNext} className="bg-customer-service hover:bg-customer-service/90 text-customer-service-foreground">
+              <Button onClick={handleNext} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                 Nästa <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             ) : null}

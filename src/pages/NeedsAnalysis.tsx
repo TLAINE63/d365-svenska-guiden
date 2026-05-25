@@ -3288,16 +3288,16 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                 Steg {currentStep} av {totalSteps}
               </span>
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-finance-supply">
+                <span className="text-sm font-medium text-[hsl(var(--cta-orange))]">
                   {Math.round(progress)}%
                 </span>
-                <Button onClick={handleNext} size="sm" className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
+                <Button onClick={handleNext} size="sm" className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                   Nästa
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </div>
             </div>
-            <Progress value={progress} className="h-2" />
+            <Progress value={progress} className="h-2" indicatorClassName="bg-[hsl(var(--cta-orange))]" />
           </div>
 
           {/* Step indicators */}
@@ -3313,9 +3313,9 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   onClick={() => setCurrentStep(stepNum)}
                   className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                     isActive
-                      ? "bg-finance-supply text-finance-supply-foreground"
+                      ? "bg-[#15363F] text-white"
                       : isCompleted
-                      ? "bg-finance-supply/20 text-finance-supply"
+                      ? "bg-[#15363F]/20 text-[#15363F]"
                       : "bg-muted text-muted-foreground"
                   }`}
                 >
@@ -3333,7 +3333,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
               <CardTitle className="flex items-center gap-2 text-lg">
                 {(() => {
                   const Icon = stepIcons[currentStep - 1];
-                  return <Icon className="w-5 h-5 text-finance-supply" />;
+                  return <Icon className="w-5 h-5 text-[#15363F]" />;
                 })()}
                 {stepTitles[currentStep - 1]}
               </CardTitle>
@@ -3354,7 +3354,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
                   Tillbaka
                 </Button>
                 {currentStep < totalSteps ? (
-                  <Button onClick={handleNext} className="bg-finance-supply hover:bg-finance-supply/90 text-finance-supply-foreground">
+                  <Button onClick={handleNext} className="bg-[hsl(var(--cta-orange))] hover:bg-[hsl(var(--cta-orange-hover))] text-white">
                     Nästa
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
