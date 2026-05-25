@@ -25,7 +25,7 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 15%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 200 9% 32%;
 
     --accent: 180 75% 35%;
     --accent-foreground: 0 0% 100%;
@@ -36,9 +36,9 @@ All colors MUST be HSL.
     --warning: 38 92% 38%;
     --warning-foreground: 0 0% 10%;
     
-    /* CTA orange – used for primary action buttons */
-    --cta-orange: 25 90% 48%;
-    --cta-orange-hover: 25 90% 42%;
+    /* CTA orange – used for primary action buttons (AAA contrast on white text) */
+    --cta-orange: 13 94% 32%;
+    --cta-orange-hover: 13 94% 26%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
