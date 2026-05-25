@@ -894,18 +894,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Common Mistakes Teaser */}
-      <Suspense fallback={null}><CommonMistakesTeaser /></Suspense>
+      {/* Block 13 — Utforska Dynamics 365 */}
+      <section className="bg-[#F4F8F8]">
+        <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
+      </section>
 
-      {/* Lead Magnet Banner */}
-      <div className="flex justify-center mb-4">
-        <Suspense fallback={null}>
-          <UrgencyBadge variant="consultation" />
-        </Suspense>
-      </div>
-      <Suspense fallback={null}><LeadMagnetBanner sourcePage="index" /></Suspense>
-
-      <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
 
       </main>
 
