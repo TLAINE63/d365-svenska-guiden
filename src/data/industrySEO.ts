@@ -49,6 +49,12 @@ export const INDUSTRY_SEO: Record<string, IndustrySEO> = {
       "Omnikanalförsäljning, POS, lager, kundklubb och e-handel: så används Dynamics 365 Commerce, Business Central och Customer Insights inom svensk retail.",
     h1: "Dynamics 365 för retail & e-handel",
   },
+  "mode-sport-textil": {
+    title: "Dynamics 365 för mode, sport & textil",
+    description:
+      "Kollektioner, säsong, storleks-/färgmatris, PLM, lager och omnikanal: hur Dynamics 365 Commerce, Business Central och F&SCM stödjer mode-, sport- och textilbranschen.",
+    h1: "Dynamics 365 för mode, sport & textil",
+  },
   konsulttjanster: {
     title: "Dynamics 365 för konsultbolag & tjänsteföretag",
     description:
