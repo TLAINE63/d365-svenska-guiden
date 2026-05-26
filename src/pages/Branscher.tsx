@@ -15,6 +15,7 @@ const INDUSTRY_CONTEXT: Record<string, string> = {
   "livsmedel-processindustri": "Batch, spårbarhet, HACCP",
   "grossist-distribution": "Lager, WMS, prissättning",
   "retail-ehandel": "POS, omnikanal, lojalitet",
+  "mode-sport-textil": "Säsong, kollektion, storlek/färg",
   "konsulttjanster": "Projekt, tid, fakturering",
   "bygg-entreprenad": "Projekt, ÄTA, underentreprenörer",
   "fastighet-forvaltning": "Hyresavtal, drift, underhåll",
