@@ -74,6 +74,7 @@ import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelsImg from "@/assets/industries/livsmedel.webp";
 import handelDistributionImg from "@/assets/industries/handel-distribution.webp";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import modeSportTextilImg from "@/assets/industries/mode-sport-textil.webp";
 import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
 import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
 import fastigheterImg from "@/assets/industries/fastigheter.webp";
@@ -113,6 +114,7 @@ const industries: Industry[] = [
   { name: "Livsmedel & Processindustri", slug: "livsmedel-processindustri", image: livsmedelsImg, description: "Lösningar för livsmedels- och processindustrin", products: ["bc", "fsc"], partnerIndustries: ["Livsmedel & Processindustri"] },
   { name: "Grossist & Distribution", slug: "grossist-distribution", image: handelDistributionImg, description: "System för grossist- och distributionsföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Grossist & Distribution"] },
   { name: "Retail & E-handel", slug: "retail-ehandel", image: detaljhandelImg, description: "Lösningar för detaljhandel och e-handel", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Retail & E-handel"] },
+  { name: "Mode, Sport & Textil", slug: "mode-sport-textil", image: modeSportTextilImg, description: "Affärssystem för mode-, sport- och textilbranschen", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Mode, Sport & Textil"] },
   { name: "Konsulttjänster", slug: "konsulttjanster", image: konsultforetagImg, description: "System för konsultbolag och tjänsteföretag", products: ["bc", "crm-sales", "crm-service"], partnerIndustries: ["Konsulttjänster"] },
   { name: "Bygg & Entreprenad", slug: "bygg-entreprenad", image: byggEntreprenadImg, description: "Affärssystem för bygg- och entreprenadföretag", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Bygg & Entreprenad"] },
   { name: "Fastighet & Förvaltning", slug: "fastighet-forvaltning", image: fastigheterImg, description: "Lösningar för fastighets- och förvaltningsbranschen", products: ["bc", "fsc", "crm-sales", "crm-service"], partnerIndustries: ["Fastighet & Förvaltning"] },

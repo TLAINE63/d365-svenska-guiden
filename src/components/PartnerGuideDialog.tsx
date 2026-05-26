@@ -43,6 +43,7 @@ import tillverkningImg from "@/assets/industries/tillverkning.webp";
 import livsmedelsImg from "@/assets/industries/livsmedel.webp";
 import handelDistributionImg from "@/assets/industries/handel-distribution.webp";
 import detaljhandelImg from "@/assets/industries/detaljhandel.webp";
+import modeSportTextilImg from "@/assets/industries/mode-sport-textil.webp";
 import konsultforetagImg from "@/assets/industries/konsultforetag.webp";
 import byggEntreprenadImg from "@/assets/industries/bygg-entreprenad.webp";
 import fastigheterImg from "@/assets/industries/fastigheter.webp";
@@ -64,6 +65,7 @@ const industryImages: Record<string, string> = {
   "Livsmedel & Processindustri": livsmedelsImg,
   "Grossist & Distribution": handelDistributionImg,
   "Retail & E-handel": detaljhandelImg,
+  "Mode, Sport & Textil": modeSportTextilImg,
   "Konsulttjänster": konsultforetagImg,
   "Bygg & Entreprenad": byggEntreprenadImg,
   "Fastighet & Förvaltning": fastigheterImg,
