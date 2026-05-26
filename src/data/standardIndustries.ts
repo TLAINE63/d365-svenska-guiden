@@ -13,6 +13,7 @@ export const STANDARD_INDUSTRIES: StandardIndustry[] = [
   { slug: "livsmedel-processindustri", name: "Livsmedel & Processindustri", short: "Livsmedel" },
   { slug: "grossist-distribution", name: "Grossist & Distribution", short: "Grossist" },
   { slug: "retail-ehandel", name: "Retail & E-handel", short: "Retail" },
+  { slug: "mode-sport-textil", name: "Mode, Sport & Textil", short: "Mode & Textil" },
   { slug: "konsulttjanster", name: "Konsulttjänster", short: "Konsult" },
   { slug: "bygg-entreprenad", name: "Bygg & Entreprenad", short: "Bygg" },
   { slug: "fastighet-forvaltning", name: "Fastighet & Förvaltning", short: "Fastighet" },
