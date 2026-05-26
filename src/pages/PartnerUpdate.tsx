@@ -64,6 +64,7 @@ const INDUSTRY_OPTIONS = [
   "Livsmedel & Processindustri",
   "Grossist & Distribution",
   "Retail & E-handel",
+  "Mode, Sport & Textil",
   "Konsulttjänster",
   "Bygg & Entreprenad",
   "Fastighet & Förvaltning",
