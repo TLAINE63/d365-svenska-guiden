@@ -63,6 +63,7 @@ const INDUSTRY_IMAGES: Record<string, string> = {
   "livsmedel-processindustri": livsmedelsImg,
   "grossist-distribution": handelDistributionImg,
   "retail-ehandel": detaljhandelImg,
+  "mode-sport-textil": modeSportTextilImg,
   "konsulttjanster": konsultforetagImg,
   "bygg-entreprenad": byggEntreprenadImg,
   "fastighet-forvaltning": fastigheterImg,
