@@ -179,6 +179,10 @@ const AppShell = () => {
           <Route path="/partner-statistik" element={<PartnerStats />} />
           <Route path="/avtalssida" element={<PartnerAgreement />} />
           <Route path="/partner-avtal" element={<PartnerAgreement />} />
+          {/* Beslutsmognadsindex — editorial publication */}
+          <Route path="/beslutsmognadsindex" element={<Beslutsmognadsindex />} />
+          <Route path="/beslutsmognadsindex/diagnostik" element={<BeslutsmognadDiagnostik />} />
+          <Route path="/beslutsmognadsindex/tack" element={<BeslutsmognadTack />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
