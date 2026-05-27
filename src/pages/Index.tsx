@@ -175,6 +175,7 @@ const popularGuides = [
 
 import partnerDataJson from "@/data/partnerData.json";
 
+/* Dolt: Branschvägar-sektion
 const ALL_INDUSTRY_PILLS = [
   "Tillverkning", "Grossist & distribution", "Konsulttjänster",
   "Bygg & entreprenad", "Retail & e-handel", "Fastighet & förvaltning",
@@ -201,6 +202,7 @@ const PILL_TO_SLUG: Record<string, string> = {
   "Hälsa & sjukvård": "halsa-sjukvard",
   "Jordbruk & skogsbruk": "jordbruk-skogsbruk",
 };
+*/
 
 
 const publishedPartnerCount = (partnerDataJson as Array<{ is_featured?: boolean }>).filter(p => p.is_featured).length;
