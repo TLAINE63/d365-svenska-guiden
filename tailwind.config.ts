@@ -125,6 +125,24 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
+        // ─── Beslutsmognadsindex (publication aesthetic) ───
+        // Prefixed bm-* to avoid colliding with site design tokens.
+        "bm-paper": "#F4EEE1",
+        "bm-paper-edge": "#EBE3D0",
+        "bm-ink": "#1A2845",
+        "bm-ink-soft": "#424A60",
+        "bm-ink-muted": "#8B8478",
+        "bm-accent": "#2A7F94",
+        "bm-accent-soft": "rgba(42, 127, 148, 0.14)",
+        "bm-accent-deep": "#1F6377",
+        "bm-highlight": "#C46E2A",
+        "bm-highlight-soft": "rgba(196, 110, 42, 0.18)",
+        "bm-rule": "rgba(26, 40, 69, 0.12)",
+        "bm-rule-strong": "rgba(26, 40, 69, 0.30)",
+      },
+      fontFamily: {
+        "bm-display": ['Fraunces', 'Georgia', 'serif'],
+        "bm-body": ['Geist', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
