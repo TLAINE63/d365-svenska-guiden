@@ -38,6 +38,51 @@ export type Database = {
         }
         Relationships: []
       }
+      assessments: {
+        Row: {
+          background: Json
+          company: string
+          consent: boolean
+          contact_email: string
+          contact_name: string
+          created_at: string
+          dimension_scores: Json
+          followup_preference: string | null
+          free_text: string | null
+          id: string
+          meta: Json
+          responses: Json
+        }
+        Insert: {
+          background?: Json
+          company: string
+          consent?: boolean
+          contact_email: string
+          contact_name: string
+          created_at?: string
+          dimension_scores?: Json
+          followup_preference?: string | null
+          free_text?: string | null
+          id?: string
+          meta?: Json
+          responses?: Json
+        }
+        Update: {
+          background?: Json
+          company?: string
+          consent?: boolean
+          contact_email?: string
+          contact_name?: string
+          created_at?: string
+          dimension_scores?: Json
+          followup_preference?: string | null
+          free_text?: string | null
+          id?: string
+          meta?: Json
+          responses?: Json
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
