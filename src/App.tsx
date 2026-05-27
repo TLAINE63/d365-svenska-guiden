@@ -64,6 +64,9 @@ const PartnerStats = lazy(() => import("./pages/PartnerStats"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 const SmartSearch = lazy(() => import("./pages/SmartSearch"));
 const AskAi = lazy(() => import("./pages/AskAi"));
+const Beslutsmognadsindex = lazy(() => import("./pages/Beslutsmognadsindex"));
+const BeslutsmognadDiagnostik = lazy(() => import("./pages/BeslutsmognadDiagnostik"));
+const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
@@ -176,6 +179,10 @@ const AppShell = () => {
           <Route path="/partner-statistik" element={<PartnerStats />} />
           <Route path="/avtalssida" element={<PartnerAgreement />} />
           <Route path="/partner-avtal" element={<PartnerAgreement />} />
+          {/* Beslutsmognadsindex — editorial publication */}
+          <Route path="/beslutsmognadsindex" element={<Beslutsmognadsindex />} />
+          <Route path="/beslutsmognadsindex/diagnostik" element={<BeslutsmognadDiagnostik />} />
+          <Route path="/beslutsmognadsindex/tack" element={<BeslutsmognadTack />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

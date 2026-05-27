@@ -53,3 +53,6 @@ verify_jwt = false
 
 [functions.gsc-stats]
 verify_jwt = false
+
+[functions.submit-assessment-notify]
+verify_jwt = false
