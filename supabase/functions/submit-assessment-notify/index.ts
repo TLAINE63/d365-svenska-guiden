@@ -23,7 +23,7 @@ function getCorsHeaders(req: Request): Record<string, string> {
   };
 }
 
-const TEAM_INBOX = "hej@d365.se";
+const TEAM_INBOX = "thomas.laine@dynamicfactory.se";
 
 interface SubmitBody {
   contact_name: string;
