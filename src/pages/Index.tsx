@@ -175,6 +175,7 @@ const popularGuides = [
 
 import partnerDataJson from "@/data/partnerData.json";
 
+/* Dolt: Branschvägar-sektion
 const ALL_INDUSTRY_PILLS = [
   "Tillverkning", "Grossist & distribution", "Konsulttjänster",
   "Bygg & entreprenad", "Retail & e-handel", "Fastighet & förvaltning",
@@ -201,6 +202,7 @@ const PILL_TO_SLUG: Record<string, string> = {
   "Hälsa & sjukvård": "halsa-sjukvard",
   "Jordbruk & skogsbruk": "jordbruk-skogsbruk",
 };
+*/
 
 
 const publishedPartnerCount = (partnerDataJson as Array<{ is_featured?: boolean }>).filter(p => p.is_featured).length;
@@ -708,7 +710,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Block 10 — Branschvägar */}
+      {/* Block 10 — Branschvägar (dold) */}
+      {/*
       <section className="py-12 sm:py-16 bg-white">
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
@@ -733,6 +736,7 @@ const Index = () => {
           </div>
         </div>
       </section>
+      */}
 
       {/* Block 11 — Slut-CTA (BOOKEND 2): mörk teal, speglar hero, en orange CTA */}
       <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-16 sm:py-20 relative overflow-hidden">
