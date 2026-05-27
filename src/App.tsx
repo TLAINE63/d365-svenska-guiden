@@ -64,6 +64,9 @@ const PartnerStats = lazy(() => import("./pages/PartnerStats"));
 const PartnerAgreement = lazy(() => import("./pages/PartnerAgreement"));
 const SmartSearch = lazy(() => import("./pages/SmartSearch"));
 const AskAi = lazy(() => import("./pages/AskAi"));
+const Beslutsmognadsindex = lazy(() => import("./pages/Beslutsmognadsindex"));
+const BeslutsmognadDiagnostik = lazy(() => import("./pages/BeslutsmognadDiagnostik"));
+const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
