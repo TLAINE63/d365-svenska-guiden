@@ -137,6 +137,11 @@ const Navbar = () => {
                     🤖 AI Readiness Assessment
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/beslutsmognadsindex/" className="cursor-pointer">
+                    📋 Beslutsmognadsindex
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Guide</p>
@@ -240,6 +245,9 @@ const Navbar = () => {
                   </Link>
                   <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🤖 AI Readiness Assessment
+                  </Link>
+                  <Link to="/beslutsmognadsindex/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                    📋 Beslutsmognadsindex
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
                   <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
