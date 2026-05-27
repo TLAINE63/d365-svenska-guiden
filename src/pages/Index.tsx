@@ -482,6 +482,20 @@ const Index = () => {
               <p className="text-[15px] text-muted-foreground leading-relaxed">
                 Ett Dynamics 365-val handlar sällan bara om systemfunktioner. Det handlar om rätt omfattning, rätt vägval och framför allt rätt partner. d365.se är byggt för att hjälpa svenska företag komma in i den processen med bättre struktur — innan dialogen blir för bred, för teknisk eller för säljorienterad.
               </p>
+              <div className="mt-8">
+                <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground mb-2">
+                  Vill du ha hjälp på vägen?
+                </h3>
+                <p className="text-sm text-muted-foreground mb-5">
+                  Boka en kostnadsfri rådgivning med våra experter – oberoende, konfidentiellt och utan fortsättningskrav.
+                </p>
+                <Link
+                  to="/kontakt"
+                  className="inline-flex items-center justify-center rounded-xl bg-[hsl(var(--cta-orange))] text-white px-7 py-3.5 text-[15px] font-semibold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  Boka en kostnadsfri rådgivning
+                </Link>
+              </div>
             </div>
 
             {/* Right: E-bok banner */}
