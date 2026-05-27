@@ -156,13 +156,6 @@ const situationCards = [
 
 
 
-const whyItems = [
-  "Jämför partners utifrån bransch och behov",
-  "Realistisk bild av kostnad och implementationstid",
-  "Undvik vanliga misstag i ERP- och CRM-projekt",
-  "Kostnadsfria behovsanalyser för ERP, CRM och kundservice",
-  "Anpassat för svenska företag och den svenska marknaden",
-];
 
 const popularGuides = [
   { text: "Business Central vs Finance & SCM — vilket passar oss?", link: "/erp/", tag: "ERP" },
@@ -588,23 +581,6 @@ const Index = () => {
       </section>
 
 
-      {/* Block 8 — Vad vi hjälper dig med */}
-      <section className="py-12 sm:py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
-          <div className="max-w-3xl">
-            <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Vad vi hjälper dig med</h2>
-            <p className="text-sm text-muted-foreground mb-5">Realistisk vägledning — anpassad för svenska företag.</p>
-            <ul className="space-y-2.5">
-              {whyItems.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                  <span className="w-[18px] h-[18px] rounded-full bg-primary/10 text-primary text-[9px] font-bold flex items-center justify-center flex-shrink-0 mt-0.5">✓</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
       {/* Block 9 — Mest lästa guider */}
       <section className="py-12 sm:py-16 bg-[#F4F8F8]">
