@@ -6,6 +6,7 @@ export interface StandardIndustry {
   slug: string;
   name: string;
   short: string;
+  sniCode?: string;
 }
 
 export const STANDARD_INDUSTRIES: StandardIndustry[] = [
