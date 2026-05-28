@@ -129,7 +129,7 @@ export default function Beslutsmognadsindex() {
           )}
           <Link
             to="/beslutsmognadsindex/diagnostik"
-            className="inline-block bg-bm-ink text-bm-paper px-10 py-4 font-bm-body uppercase tracking-[0.2em] text-xs hover:bg-bm-accent-deep transition-colors rounded-sm"
+            className="inline-block bg-cta-orange text-white px-10 py-4 font-bm-body uppercase tracking-[0.2em] text-xs hover:bg-cta-orange-hover transition-colors rounded-sm"
           >
             Starta diagnostiken
           </Link>
