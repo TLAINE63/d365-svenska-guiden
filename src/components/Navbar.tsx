@@ -102,14 +102,14 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="text-sm font-medium text-foreground hover:text-primary transition-colors px-0">
-                  Hitta rätt partner
+                  Verksamhetsguider
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/" className="cursor-pointer font-medium text-primary">
-                    🔍 Hitta rätt partner
+                    🔍 Verksamhetsguider
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -254,7 +254,7 @@ const Navbar = () => {
                   to="/valjdynamics365partner/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
-                  Hitta rätt partner
+                  Verksamhetsguider
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
