@@ -166,7 +166,8 @@ export default function HomePartnersTeaser() {
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-white tracking-tight leading-tight max-w-3xl">
               Jämför {totalCount} partners på det som faktiskt skiljer dem åt
             </h2>
-          </div>
+    <section className="section-divider section-divider-dark py-14 sm:py-20 bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-white/10">
+
           <Link
             to="/valjdynamics365partner/"
             className="bg-[hsl(var(--cta-orange))] text-white font-semibold text-sm px-5 py-2.5 rounded-full inline-flex items-center gap-1.5 hover:brightness-110 transition-all shadow"
