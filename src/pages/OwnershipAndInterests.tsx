@@ -35,8 +35,9 @@ export default function OwnershipAndInterests() {
           </h2>
           <ul className="space-y-2 text-muted-foreground leading-relaxed">
             <li>
-              <strong className="text-foreground">Ägare:</strong> Cloud Ahead AB – ett svenskt
-              bolag med ekonomiska intressen i flera aktörer i Microsoft-ekosystemet (se nedan).
+              <strong className="text-foreground">Ägare:</strong> Moveahead AB äger och driver
+              d365.se. Cloud Ahead AB äger 50 % av Moveahead AB och har därigenom ett indirekt
+              ägarintresse i sajten samt i flera aktörer i Microsoft-ekosystemet (se nedan).
             </li>
             <li>
               <strong className="text-foreground">Operativ avsändare:</strong> Dynamic Factory AB,
