@@ -16,6 +16,14 @@ export type Question =
   | {
       id: string;
       section: string;
+      type: "multi_select";
+      text: string;
+      hint?: string;
+      options: { value: string; label: string }[];
+    }
+  | {
+      id: string;
+      section: string;
       type: "likert_5";
       text: string;
       anchor_low: string;
