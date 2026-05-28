@@ -151,7 +151,7 @@ export const questions: Question[] = [
     text: "Hur djupgående har er hittillsvarande utvärdering av partners varit?",
     anchor_low: "Säljmaterial och presentationer", anchor_high: "Referenser, metodikgenomgång, teamintervjuer" },
   { id: "q16", section: "Partnermarknad", type: "likert_5", dimension: "partnermarknad",
-    text: "Hur väl känner ni till de vanligaste fallgroparna i partnerleveranser inom Dynamics 365?",
+    text: "Hur väl känner ni till de vanligaste fallgroparna i större partnerleveranser av affärssystem?",
     anchor_low: "Vi vet inte vad vi inte vet", anchor_high: "Vi har en konkret lista att utvärdera mot" },
 
   // ───── SEKTION VI: BESLUTSSTRUKTUR ─────
