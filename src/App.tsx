@@ -67,6 +67,7 @@ const AskAi = lazy(() => import("./pages/AskAi"));
 const Beslutsmognadsindex = lazy(() => import("./pages/Beslutsmognadsindex"));
 const BeslutsmognadDiagnostik = lazy(() => import("./pages/BeslutsmognadDiagnostik"));
 const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
+const BeslutsmognadResultat = lazy(() => import("./pages/BeslutsmognadResultat"));
 const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
