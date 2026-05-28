@@ -70,8 +70,9 @@ export const questions: Question[] = [
     ],
   },
   {
-    id: "b4", section: "Bakgrund", type: "single_select",
-    text: "Vilket ERP-system använder ni huvudsakligen idag?",
+    id: "b4", section: "Bakgrund", type: "multi_select",
+    text: "Vilka ERP-system använder ni idag?",
+    hint: "Välj ett eller flera – många organisationer har flera system parallellt.",
     options: [
       { value: "d365fo", label: "Dynamics 365 Finance & Operations" },
       { value: "d365bc", label: "Dynamics 365 Business Central" },
@@ -83,7 +84,6 @@ export const questions: Question[] = [
       { value: "oracle", label: "Oracle / NetSuite" },
       { value: "visma", label: "Visma, Fortnox, Monitor, Pyramid och Unit/4" },
       { value: "egen", label: "Egenutvecklat / föråldrat" },
-      { value: "flera", label: "Flera parallellt" },
     ],
   },
   {
