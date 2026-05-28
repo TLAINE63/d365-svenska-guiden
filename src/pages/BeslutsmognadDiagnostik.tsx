@@ -413,6 +413,7 @@ export default function BeslutsmognadDiagnostik() {
       }
     });
     const background = {
+      domain,
       industry: (answers.b1 as string) ?? "",
       revenue: (answers.b2 as string) ?? "",
       role: (answers.b3 as string) ?? "",
@@ -421,6 +422,7 @@ export default function BeslutsmognadDiagnostik() {
         : ((answers.b4 as string) ?? ""),
       eval_stage: (answers.b5 as string) ?? "",
     };
+
     const dimension_scores = computeScores();
     const meta = {
       completion_time_seconds: Math.round((Date.now() - startedAt.current) / 1000),
