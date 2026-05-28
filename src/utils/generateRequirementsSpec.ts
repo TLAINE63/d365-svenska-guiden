@@ -174,7 +174,7 @@ export const generateRequirementsSpec = async (
     doc.setFontSize(8);
     doc.setTextColor(mutedColor.r, mutedColor.g, mutedColor.b);
     doc.text(`Sida ${pageNum}`, pageWidth - margin, pageHeight - 10, { align: "right" });
-    doc.text("Genererad via d365.se - Köparsidig guide till Dynamics 365", margin, pageHeight - 10);
+    doc.text("Genererad via d365.se - Beslutsstöd för val av Microsoft Dynamics 365", margin, pageHeight - 10);
   };
 
   const checkPageBreak = (needed: number) => {
