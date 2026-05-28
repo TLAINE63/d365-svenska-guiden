@@ -463,6 +463,7 @@ export default function BeslutsmognadDiagnostik() {
           /* ignore */
         });
 
+      localStorage.removeItem(DRAFT_KEY);
       navigate("/beslutsmognad/resultat", {
         state: {
           means: dimension_scores,
@@ -473,7 +474,6 @@ export default function BeslutsmognadDiagnostik() {
         },
       });
 
-      });
     } catch (e) {
       setErrorMsg(
         "Något gick fel. Försök igen, eller hör av er till hej@d365.se så löser vi det manuellt."
