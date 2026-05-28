@@ -107,6 +107,10 @@ export const questions: Question[] = [
     text: "Hur realistisk är beslutsgruppens bild av vad ett ERP faktiskt kan — och inte kan — lösa?",
     anchor_low: "Stora förväntansgap finns",
     anchor_high: "Realistisk förståelse hos alla nyckelroller" },
+  { id: "q4b", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
+    text: "Hur tydligt har ni definierat hur ni ska mäta om investeringen blev lyckad?",
+    anchor_low: "Inga framgångsmått definierade",
+    anchor_high: "Mätbara framgångsmått fastställda i förväg" },
 
   // ───── SEKTION III: INTERN SAMSYN ─────
   { id: "q5", section: "Intern samsyn", type: "likert_5", dimension: "samsyn",
