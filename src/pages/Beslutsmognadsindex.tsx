@@ -11,7 +11,7 @@ const TopBar = () => (
         </Link>
         <span className="h-5 w-px bg-bm-rule-strong" />
         <span className="font-bm-display italic text-bm-ink-soft text-sm hidden sm:inline">
-          Oberoende vägledning vid val av Dynamics 365-partner
+          Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner
         </span>
       </div>
       <span className="font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
