@@ -73,7 +73,7 @@ export const questions: Question[] = [
       { value: "infor", label: "Infor / M3" },
       { value: "ifs", label: "IFS" },
       { value: "oracle", label: "Oracle / NetSuite" },
-      { value: "visma", label: "Visma / Fortnox / Monitor / Pyramid / Unit/4" },
+      { value: "visma", label: "Visma, Fortnox, Monitor, Pyramid och Unit/4" },
       { value: "egen", label: "Egenutvecklat / föråldrat" },
       { value: "flera", label: "Flera parallellt" },
     ],
