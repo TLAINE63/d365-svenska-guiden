@@ -74,7 +74,7 @@ export const questions: Question[] = [
     text: "Vilka ERP-system använder ni idag?",
     hint: "Välj ett eller flera – många organisationer har flera system parallellt.",
     options: [
-      { value: "d365fo", label: "Dynamics 365 Finance & Operations" },
+      { value: "d365fo", label: "Dynamics 365 Finance & Supply Chain Management" },
       { value: "d365bc", label: "Dynamics 365 Business Central" },
       { value: "dynax", label: "Dynamics AX (2009/2012/R3)" },
       { value: "dynnav", label: "Dynamics NAV (Navision)" },
