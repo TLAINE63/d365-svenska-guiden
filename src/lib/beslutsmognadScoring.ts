@@ -73,12 +73,6 @@ type LevelTexts = { low: string; mid: string; high: string };
 export const RECOMMENDATIONS: Record<Dimension, LevelTexts> = {
   behovsbild: {
     low:
-      "Era affärsproblem är ännu inte tillräckligt formulerade för att styra ett systemval. Samla beslutsgruppen och skriv ner de tre till fem konkreta affärsproblem ni vill lösa, i verksamhetstermer och inte systemtermer. Definiera samtidigt hur ni ska mäta om de är lösta. Utan detta riskerar ni att köpa en lösning på ett odefinierat problem.",
-    mid:
-      "Ni har en bild av era behov, men den behöver skärpas. Separera tydligt absoluta krav från önskemål, och säkerställ att kraven utgår från vart verksamheten ska, inte från vad nuvarande system saknar. Komplettera med tydliga framgångsmått innan ni går vidare till leverantörsdialog.",
-export const RECOMMENDATIONS: Record<Dimension, LevelTexts> = {
-  behovsbild: {
-    low:
       "Era affärsproblem är ännu inte tillräckligt formulerade för att styra ett val av {systemterm}. Samla beslutsgruppen och skriv ner de tre till fem konkreta affärsproblem ni vill lösa, i verksamhetstermer och inte systemtermer. Definiera samtidigt hur ni ska mäta om de är lösta. Utan detta riskerar ni att köpa en lösning på ett odefinierat problem.",
     mid:
       "Ni har en bild av era behov, men den behöver skärpas. Separera tydligt absoluta krav från önskemål, och säkerställ att kraven utgår från vart verksamheten ska, inte från vad nuvarande system saknar. Komplettera med tydliga framgångsmått innan ni går vidare till leverantörsdialog.",
@@ -109,6 +103,15 @@ export const RECOMMENDATIONS: Record<Dimension, LevelTexts> = {
     high:
       "Ni har god överblick över partnermarknaden och dess skillnader. Använd den kunskapen för att ställa de svåra frågorna tidigt, innan ni investerar tid i en specifik partner.",
   },
+  beslutsstruktur: {
+    low:
+      "Ert sätt att jämföra partners och fatta beslut är ännu ostrukturerat. Bygg en enkel men tydlig utvärderingsmodell med samma kriterier för alla partners, säkerställ att underlaget skulle hålla om styrelse eller revisor granskade det, och definiera en konkret beslutspunkt: vem säger ja, när, och baserat på vad. Se till att utvärderingen omfattar tiden efter avtal, alltså implementation och förvaltning, och inte bara själva valet.",
+    mid:
+      "Ni har en struktur men den har luckor. Stärk särskilt två saker: att beslutsunderlaget är försvarbart inför en extern granskare, och att utvärderingen täcker implementation och förvaltning, inte bara valet. Definiera tydligt var och när beslutet fattas.",
+    high:
+      "Er beslutsstruktur är robust och försvarbar, och den sträcker sig bortom valet till leverans och förvaltning. Ni är väl rustade att fatta ett beslut som håller över tid.",
+  },
+};
 
 
 export type Recommendation = {
