@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Info } from "lucide-react";
 import {
   Tooltip,
@@ -28,18 +27,15 @@ export default function RelatedPartyBadge({ size = "sm", className = "" }: Relat
     <TooltipProvider delayDuration={150}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Link
-            to="/agande-och-intressen/"
-            onClick={(e) => e.stopPropagation()}
-            className={`inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 font-medium text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 transition-colors ${sizing} ${className}`}
+          <span
+            className={`inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 font-medium text-amber-700 dark:text-amber-300 ${sizing} ${className}`}
           >
             <Info className={size === "md" ? "h-3.5 w-3.5" : "h-3 w-3"} />
             Närstående bolag
-          </Link>
+          </span>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[260px] text-xs">
-          d365.se:s ägare har ekonomiska intressen i denna partner. Klicka för full
-          intresseredovisning.
+          d365.se:s ägare har ekonomiska intressen i denna partner.
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
