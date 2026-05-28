@@ -292,7 +292,7 @@ const KomIgang = () => {
   if (showResults) {
     return (
       <div className="min-h-screen bg-background">
-        <SEOHead title="Dina partnerförslag – d365.se" description="Anpassade partnerrekommendationer baserat på din verksamhet. Oberoende vägledning inför val av Dynamics 365 och partner." canonicalPath="/kom-igang" noIndex />
+        <SEOHead title="Dina partnerförslag – d365.se" description="Anpassade partnerrekommendationer baserat på din verksamhet. Köparsidig vägledning inför val av Dynamics 365 och partner." canonicalPath="/kom-igang" noIndex />
         <Navbar />
         <main className="pt-16 pb-20">
           <div className="container mx-auto px-4 sm:px-6">
@@ -432,12 +432,12 @@ const KomIgang = () => {
     <div className="min-h-screen bg-background flex flex-col">
       <SEOHead
         title="Kom igång – Hitta rätt Dynamics 365-partner | d365.se"
-        description="Fyra snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Fyra snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Köparsidig vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/kom-igang"
       />
       <WebPageSchema
         name="Kom igång – Hitta rätt Dynamics 365-partner"
-        description="Fyra snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Fyra snabba frågor ger matchade partnerförslag för din Dynamics 365-implementation. Köparsidig vägledning inför val av Dynamics 365 och partner."
         url="https://d365.se/kom-igang/"
         breadcrumb={[
           { name: "Hem", url: "https://d365.se/" },
