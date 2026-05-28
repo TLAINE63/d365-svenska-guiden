@@ -1,3 +1,5 @@
+import { STANDARD_INDUSTRIES } from "./standardIndustries";
+
 export type Dimension =
   | "behovsbild"
   | "samsyn"
@@ -37,11 +39,7 @@ export const questions: Question[] = [
     id: "b1", section: "Bakgrund", type: "single_select",
     text: "Vilken bransch tillhör er verksamhet?",
     options: [
-      { value: "tillverkning", label: "Tillverkning" },
-      { value: "handel", label: "Handel & distribution" },
-      { value: "tjanst", label: "Tjänsteföretag" },
-      { value: "offentlig", label: "Offentlig sektor" },
-      { value: "bygg", label: "Bygg & anläggning" },
+      ...STANDARD_INDUSTRIES.map((i) => ({ value: i.slug, label: i.name })),
       { value: "annan", label: "Annan" },
     ],
   },
