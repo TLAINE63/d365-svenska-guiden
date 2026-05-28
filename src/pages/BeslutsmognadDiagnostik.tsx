@@ -258,7 +258,6 @@ const Input = ({
 
 export default function BeslutsmognadDiagnostik() {
   const navigate = useNavigate();
-  const total = questions.length;
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [showTransition, setShowTransition] = useState<string | null>(null);
@@ -267,6 +266,19 @@ export default function BeslutsmognadDiagnostik() {
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const startedAt = useRef(Date.now());
+
+  const domain = (answers.b0 as string) ?? "";
+  const systemTerm = termForDomain(domain);
+
+  // Hide ERP-specific question b4 for non-ERP domains
+  const questions = useMemo(() => {
+    return allQuestions.filter((qq) => {
+      if (qq.id === "b4" && domain && !["erp", "flera"].includes(domain)) return false;
+      return true;
+    });
+  }, [domain]);
+  const total = questions.length;
+
 
   // Contact phase fields
   const [contactName, setContactName] = useState("");
