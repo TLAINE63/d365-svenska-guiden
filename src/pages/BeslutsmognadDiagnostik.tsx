@@ -2,12 +2,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  questions,
+  questions as allQuestions,
   SECTION_ROMAN,
+  termForDomain,
+  applyTerm,
   type Dimension,
   type Question,
 } from "@/data/beslutsmognadQuestions";
 import { supabase } from "@/integrations/supabase/client";
+
 
 const DRAFT_KEY = "beslutsmognadsindex_draft";
 
@@ -255,7 +258,6 @@ const Input = ({
 
 export default function BeslutsmognadDiagnostik() {
   const navigate = useNavigate();
-  const total = questions.length;
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [showTransition, setShowTransition] = useState<string | null>(null);
@@ -264,6 +266,19 @@ export default function BeslutsmognadDiagnostik() {
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const startedAt = useRef(Date.now());
+
+  const domain = (answers.b0 as string) ?? "";
+  const systemTerm = termForDomain(domain);
+
+  // Hide ERP-specific question b4 for non-ERP domains
+  const questions = useMemo(() => {
+    return allQuestions.filter((qq) => {
+      if (qq.id === "b4" && domain && !["erp", "flera"].includes(domain)) return false;
+      return true;
+    });
+  }, [domain]);
+  const total = questions.length;
+
 
   // Contact phase fields
   const [contactName, setContactName] = useState("");
@@ -374,7 +389,7 @@ export default function BeslutsmognadDiagnostik() {
     const out: Record<Dimension, number> = {} as Record<Dimension, number>;
     dims.forEach((dim) => {
       const vals: number[] = [];
-      questions.forEach((qq) => {
+      allQuestions.forEach((qq) => {
         if (qq.type === "likert_5" && qq.dimension === dim) {
           const v = answers[qq.id];
           if (typeof v === "number") vals.push(v);
@@ -392,12 +407,13 @@ export default function BeslutsmognadDiagnostik() {
     setSubmitting(true);
     setErrorMsg(null);
     const responses: Record<string, number> = {};
-    questions.forEach((qq) => {
+    allQuestions.forEach((qq) => {
       if (qq.type === "likert_5" && typeof answers[qq.id] === "number") {
         responses[qq.id] = answers[qq.id] as number;
       }
     });
     const background = {
+      domain,
       industry: (answers.b1 as string) ?? "",
       revenue: (answers.b2 as string) ?? "",
       role: (answers.b3 as string) ?? "",
@@ -406,6 +422,7 @@ export default function BeslutsmognadDiagnostik() {
         : ((answers.b4 as string) ?? ""),
       eval_stage: (answers.b5 as string) ?? "",
     };
+
     const dimension_scores = computeScores();
     const meta = {
       completion_time_seconds: Math.round((Date.now() - startedAt.current) / 1000),
@@ -451,10 +468,12 @@ export default function BeslutsmognadDiagnostik() {
         state: {
           means: dimension_scores,
           evalStage: background.eval_stage,
+          domain,
           contactName,
           company,
         },
       });
+
     } catch (e) {
       setErrorMsg(
         "Något gick fel. Försök igen, eller hör av er till hej@d365.se så löser vi det manuellt."
@@ -578,17 +597,21 @@ export default function BeslutsmognadDiagnostik() {
               </button>
             </div>
           </div>
-        ) : (
-          <div className="flex-1 flex items-center justify-center px-6 py-12">
-            {q.type === "single_select" ? (
-              <SingleSelect q={q} value={answers[q.id] as string | undefined} onPick={(v) => handlePick(v)} />
-            ) : q.type === "multi_select" ? (
-              <MultiSelect q={q} value={answers[q.id] as string[] | undefined} onToggle={handleToggleMulti} />
-            ) : (
-              <Likert q={q} value={answers[q.id] as number | undefined} onPick={(v) => handlePick(v)} />
-            )}
-          </div>
-        )}
+        ) : (() => {
+          const renderQ = { ...q, text: applyTerm(q.text, systemTerm) } as Question;
+          return (
+            <div className="flex-1 flex items-center justify-center px-6 py-12">
+              {renderQ.type === "single_select" ? (
+                <SingleSelect q={renderQ} value={answers[renderQ.id] as string | undefined} onPick={(v) => handlePick(v)} />
+              ) : renderQ.type === "multi_select" ? (
+                <MultiSelect q={renderQ} value={answers[renderQ.id] as string[] | undefined} onToggle={handleToggleMulti} />
+              ) : (
+                <Likert q={renderQ} value={answers[renderQ.id] as number | undefined} onPick={(v) => handlePick(v)} />
+              )}
+            </div>
+          );
+        })()}
+
 
         {/* Footer nav */}
         {!showTransition && phase === "questions" && (

@@ -14,6 +14,7 @@ const RESULT_KEY = "beslutsmognadsindex_result";
 type ResultPayload = {
   means: DimensionMeans;
   evalStage?: string;
+  domain?: string;
   contactName?: string;
   company?: string;
 };
@@ -30,6 +31,8 @@ const TopBar = () => (
     </div>
   </header>
 );
+
+
 
 const Bar = ({ label, code, score }: { label: string; code: string; score: number }) => {
   const pct = Math.round(score);
@@ -84,7 +87,7 @@ export default function BeslutsmognadResultat() {
 
   if (!payload) return null;
 
-  const result = buildResult(payload.means, payload.evalStage);
+  const result = buildResult(payload.means, payload.evalStage, payload.domain);
 
   return (
     <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-display font-light">
