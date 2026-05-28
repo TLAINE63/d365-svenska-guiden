@@ -24,7 +24,7 @@ const TopStrip = ({
 }) => (
   <header className="w-full border-b border-bm-rule">
     <div className="max-w-[1200px] mx-auto px-6 py-5 grid grid-cols-3 items-center">
-      <Link to="/beslutsmognadsindex" className="font-bm-display text-bm-ink text-lg tracking-tight">
+      <Link to="/beslutsmognad" className="font-bm-display text-bm-ink text-lg tracking-tight">
         d365<span className="italic text-bm-accent-deep">.se</span>
       </Link>
       <p className="text-center font-bm-display italic text-bm-ink-soft text-sm">
@@ -378,7 +378,7 @@ export default function BeslutsmognadDiagnostik() {
         });
 
       localStorage.removeItem(DRAFT_KEY);
-      navigate("/beslutsmognadsindex/tack");
+      navigate("/beslutsmognad/tack");
     } catch (e) {
       setErrorMsg(
         "Något gick fel. Försök igen, eller hör av er till hej@d365.se så löser vi det manuellt."

@@ -180,10 +180,13 @@ const AppShell = () => {
           <Route path="/partner-statistik" element={<PartnerStats />} />
           <Route path="/avtalssida" element={<PartnerAgreement />} />
           <Route path="/partner-avtal" element={<PartnerAgreement />} />
-          {/* Beslutsmognadsindex — editorial publication */}
-          <Route path="/beslutsmognadsindex" element={<Beslutsmognadsindex />} />
-          <Route path="/beslutsmognadsindex/diagnostik" element={<BeslutsmognadDiagnostik />} />
-          <Route path="/beslutsmognadsindex/tack" element={<BeslutsmognadTack />} />
+          {/* Beslutsmognad — editorial publication (kortad från /beslutsmognadsindex) */}
+          <Route path="/beslutsmognad" element={<Beslutsmognadsindex />} />
+          <Route path="/beslutsmognad/diagnostik" element={<BeslutsmognadDiagnostik />} />
+          <Route path="/beslutsmognad/tack" element={<BeslutsmognadTack />} />
+          <Route path="/beslutsmognadsindex" element={<Navigate to="/beslutsmognad" replace />} />
+          <Route path="/beslutsmognadsindex/diagnostik" element={<Navigate to="/beslutsmognad/diagnostik" replace />} />
+          <Route path="/beslutsmognadsindex/tack" element={<Navigate to="/beslutsmognad/tack" replace />} />
           {/* Ägande- och intresseredovisning – transparenssida */}
           <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
