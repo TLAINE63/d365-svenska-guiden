@@ -67,6 +67,8 @@ export const questions: Question[] = [
     options: [
       { value: "d365fo", label: "Dynamics 365 Finance & Operations" },
       { value: "d365bc", label: "Dynamics 365 Business Central" },
+      { value: "dynax", label: "Dynamics AX (2009/2012/R3)" },
+      { value: "dynnav", label: "Dynamics NAV (Navision)" },
       { value: "sap", label: "SAP" },
       { value: "oracle", label: "Oracle / NetSuite" },
       { value: "ifs", label: "IFS" },
@@ -105,6 +107,10 @@ export const questions: Question[] = [
     text: "Hur realistisk är beslutsgruppens bild av vad ett ERP faktiskt kan — och inte kan — lösa?",
     anchor_low: "Stora förväntansgap finns",
     anchor_high: "Realistisk förståelse hos alla nyckelroller" },
+  { id: "q4b", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
+    text: "Hur tydligt har ni definierat hur ni ska mäta om investeringen blev lyckad?",
+    anchor_low: "Inga framgångsmått definierade",
+    anchor_high: "Mätbara framgångsmått fastställda i förväg" },
 
   // ───── SEKTION III: INTERN SAMSYN ─────
   { id: "q5", section: "Intern samsyn", type: "likert_5", dimension: "samsyn",
@@ -145,7 +151,7 @@ export const questions: Question[] = [
     text: "Hur djupgående har er hittillsvarande utvärdering av partners varit?",
     anchor_low: "Säljmaterial och presentationer", anchor_high: "Referenser, metodikgenomgång, teamintervjuer" },
   { id: "q16", section: "Partnermarknad", type: "likert_5", dimension: "partnermarknad",
-    text: "Hur väl känner ni till de vanligaste fallgroparna i partnerleveranser inom Dynamics 365?",
+    text: "Hur väl känner ni till de vanligaste fallgroparna i större partnerleveranser av affärssystem?",
     anchor_low: "Vi vet inte vad vi inte vet", anchor_high: "Vi har en konkret lista att utvärdera mot" },
 
   // ───── SEKTION VI: BESLUTSSTRUKTUR ─────
