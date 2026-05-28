@@ -596,7 +596,7 @@ export default function BeslutsmognadDiagnostik() {
             <button
               onClick={back}
               disabled={idx === 0}
-              className="font-bm-display italic text-bm-ink-muted hover:text-bm-ink-soft text-sm disabled:opacity-30"
+              className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink hover:text-bm-accent-deep px-4 py-3 border border-transparent hover:border-bm-ink/30 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper"
             >
               ← Föregående
             </button>
@@ -606,9 +606,9 @@ export default function BeslutsmognadDiagnostik() {
                 answers[q.id] === undefined ||
                 (Array.isArray(answers[q.id]) && (answers[q.id] as string[]).length === 0)
               }
-              className="border border-bm-ink px-6 py-3 font-bm-body uppercase tracking-[0.18em] text-[11px] hover:bg-bm-ink hover:text-bm-paper transition-colors rounded-sm disabled:opacity-30 disabled:cursor-not-allowed"
+              className="border-2 border-bm-ink px-6 py-3 font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink hover:bg-bm-ink hover:text-bm-paper transition-colors rounded-sm disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper"
             >
-              Nästa
+              Nästa →
             </button>
           </div>
         )}
