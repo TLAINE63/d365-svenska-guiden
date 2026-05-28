@@ -321,10 +321,18 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-3">
             Var i systemlivscykeln står ni?
           </h2>
-          <p className="text-sm text-[#5A5A66]">
+          <p className="text-sm text-[#5A5A66] mb-5">
             Gäller både ERP (Business Central, Finance &amp; Supply Chain) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center).
           </p>
+          <a
+            href="/beslutsmognadsindex"
+            className="inline-flex items-center gap-2 rounded-md bg-[#0B0B0F] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#1f1f24] transition-colors"
+          >
+            Gör Beslutsmognadsindex — 8–10 min
+            <span aria-hidden>→</span>
+          </a>
         </header>
+
 
         {/* Klickbar köpresekarta */}
         <div className="mb-12 md:mb-16">
