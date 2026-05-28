@@ -580,6 +580,8 @@ export default function BeslutsmognadDiagnostik() {
           <div className="flex-1 flex items-center justify-center px-6 py-12">
             {q.type === "single_select" ? (
               <SingleSelect q={q} value={answers[q.id] as string | undefined} onPick={(v) => handlePick(v)} />
+            ) : q.type === "multi_select" ? (
+              <MultiSelect q={q} value={answers[q.id] as string[] | undefined} onToggle={handleToggleMulti} />
             ) : (
               <Likert q={q} value={answers[q.id] as number | undefined} onPick={(v) => handlePick(v)} />
             )}
