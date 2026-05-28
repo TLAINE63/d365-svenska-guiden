@@ -67,6 +67,8 @@ export const questions: Question[] = [
     options: [
       { value: "d365fo", label: "Dynamics 365 Finance & Operations" },
       { value: "d365bc", label: "Dynamics 365 Business Central" },
+      { value: "dynax", label: "Dynamics AX (2009/2012/R3)" },
+      { value: "dynnav", label: "Dynamics NAV (Navision)" },
       { value: "sap", label: "SAP" },
       { value: "oracle", label: "Oracle / NetSuite" },
       { value: "ifs", label: "IFS" },
