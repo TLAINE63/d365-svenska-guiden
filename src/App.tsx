@@ -185,6 +185,7 @@ const AppShell = () => {
           <Route path="/beslutsmognad" element={<Beslutsmognadsindex />} />
           <Route path="/beslutsmognad/diagnostik" element={<BeslutsmognadDiagnostik />} />
           <Route path="/beslutsmognad/tack" element={<BeslutsmognadTack />} />
+          <Route path="/beslutsmognad/resultat" element={<BeslutsmognadResultat />} />
           <Route path="/beslutsmognadsindex" element={<Navigate to="/beslutsmognad" replace />} />
           <Route path="/beslutsmognadsindex/diagnostik" element={<Navigate to="/beslutsmognad/diagnostik" replace />} />
           <Route path="/beslutsmognadsindex/tack" element={<Navigate to="/beslutsmognad/tack" replace />} />
