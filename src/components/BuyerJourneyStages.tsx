@@ -317,21 +317,48 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
     <section className="bg-[#FAFAFA] py-12 md:py-20 border-b border-[#E5E5E8]">
       <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
         {/* Header */}
-        <header className="mb-10 md:mb-14 max-w-2xl">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-3">
+        <header className="mb-10 md:mb-14">
+          <span className="inline-block mb-4 px-3 py-1 rounded-full bg-cta-orange/10 text-cta-orange text-[11px] font-semibold uppercase tracking-[0.16em]">
+            Nytt för 2026 · Beslutsmognadsindex
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-4 max-w-3xl">
             Var i systemlivscykeln står ni?
           </h2>
-          <p className="text-sm text-[#5A5A66] mb-5">
-            Gäller både ERP (Business Central, Finance &amp; Supply Chain) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center).
+          <p className="text-base sm:text-lg text-[#2A2A33] mb-3 max-w-3xl leading-relaxed">
+            Hur moget är ert beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice? Beslutsmognadsindex är en diagnostik för svenska beslutsgrupper — utvecklad av d365.se, som står på köparens sida.
           </p>
-          <a
-            href="/beslutsmognadsindex"
-            className="inline-flex items-center gap-2 rounded-md bg-cta-orange px-4 py-2.5 text-sm font-medium text-white hover:bg-cta-orange-hover transition-colors"
-          >
-            Gör Beslutsmognadsindex — 8–10 min
-            <span aria-hidden>→</span>
-          </a>
+          <p className="text-sm text-[#5A5A66] mb-6 max-w-3xl leading-relaxed">
+            Gäller både ERP (Business Central, Finance &amp; Supply Chain Management) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center). Konfidentiell sammanställning — inga svar sparas innan ni väljer att skicka in.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-4 mb-8 max-w-4xl">
+            {[
+              { num: "I", title: "Personlig mognadsprofil", body: "Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur." },
+              { num: "II", title: "Peer benchmark", body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken." },
+              { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter." },
+            ].map((c) => (
+              <div key={c.num} className="rounded-xl border border-[#E5E5E8] bg-white p-5">
+                <div className="text-2xl font-serif italic text-cta-orange mb-2 leading-none">{c.num}</div>
+                <div className="text-sm font-semibold text-[#0B0B0F] mb-1.5">{c.title}</div>
+                <p className="text-[13px] text-[#5A5A66] leading-relaxed">{c.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <a
+              href="/beslutsmognad/"
+              className={`inline-flex items-center justify-center gap-3 rounded-lg bg-cta-orange px-8 py-5 text-base sm:text-lg font-semibold text-white shadow-lg hover:bg-cta-orange-hover hover:shadow-xl hover:-translate-y-0.5 transition-all ${focusRing}`}
+            >
+              Starta Beslutsmognadsindex
+              <span aria-hidden className="text-xl">→</span>
+            </a>
+            <span className="text-sm text-[#5A5A66]">
+              8–10 minuter · 25 frågor · konfidentiellt
+            </span>
+          </div>
         </header>
+
 
 
         {/* Klickbar köpresekarta */}
