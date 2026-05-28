@@ -266,7 +266,61 @@ All colors MUST be HSL.
   .theme-erp {
     --theme-accent: var(--finance-supply);
   }
+
+  /* ─── Tydlig avgränsning mellan sektioner på förstasidan ───
+     Lägger en subtil färgad linje + svag skugga ovanpå sektionen
+     så att läsaren tydligt ser var en ny sektion börjar. */
+  .section-divider {
+    position: relative;
+  }
+  .section-divider::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--primary) / 0.35) 20%,
+      hsl(var(--primary) / 0.55) 50%,
+      hsl(var(--primary) / 0.35) 80%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+  .section-divider::after {
+    content: "";
+    position: absolute;
+    inset: 1px 0 auto 0;
+    height: 14px;
+    background: linear-gradient(
+      to bottom,
+      hsl(0 0% 0% / 0.06),
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  /* Mörk variant används mot mörka gradientsektioner */
+  .section-divider-dark::before {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(180 75% 65% / 0.35) 20%,
+      hsl(180 75% 65% / 0.6) 50%,
+      hsl(180 75% 65% / 0.35) 80%,
+      transparent 100%
+    );
+  }
+  .section-divider-dark::after {
+    background: linear-gradient(
+      to bottom,
+      hsl(0 0% 0% / 0.25),
+      transparent
+    );
+  }
 }
+
 
 /* ============================================
    Premium Admin Tables
