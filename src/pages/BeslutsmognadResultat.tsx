@@ -87,7 +87,7 @@ export default function BeslutsmognadResultat() {
 
   if (!payload) return null;
 
-  const result = buildResult(payload.means, payload.evalStage);
+  const result = buildResult(payload.means, payload.evalStage, payload.domain);
 
   return (
     <div className="min-h-screen bg-bm-paper text-bm-ink font-bm-display font-light">
