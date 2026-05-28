@@ -463,14 +463,16 @@ export default function BeslutsmognadDiagnostik() {
           /* ignore */
         });
 
-      localStorage.removeItem(DRAFT_KEY);
       navigate("/beslutsmognad/resultat", {
         state: {
           means: dimension_scores,
           evalStage: background.eval_stage,
+          domain,
           contactName,
           company,
         },
+      });
+
       });
     } catch (e) {
       setErrorMsg(
