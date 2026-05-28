@@ -24,8 +24,8 @@ const TopBar = () => (
 const TrustBand = () => (
   <div className="border-t border-bm-rule-strong">
     <p className="max-w-[760px] mx-auto px-6 py-8 text-center font-bm-display italic text-bm-ink-soft text-base leading-relaxed">
-      Beslutsmognadsindex publiceras kvartalsvis av d365.se. Tvärsnittet omfattar
-      tillverkning, distribution, tjänsteföretag och offentlig sektor.
+      Beslutsmognadsindex publiceras kvartalsvis av d365.se. Tvärsnittet speglar
+      samtliga branscher och sektorer på plattformen.
     </p>
   </div>
 );
