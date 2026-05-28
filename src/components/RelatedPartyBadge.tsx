@@ -1,4 +1,5 @@
 import { Info } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   Tooltip,
   TooltipContent,
@@ -13,9 +14,9 @@ interface RelatedPartyBadgeProps {
 }
 
 /**
- * Visible badge that signals a partner where d365.se's owner (Cloud Ahead)
- * has an economic interest. Required on every list/profile surface where the
- * partner appears, per the ownership-and-interests transparency policy.
+ * Visible badge that signals a partner where d365.se's owner has an economic
+ * interest. Links to the transparency page describing how the partnership
+ * model works.
  */
 export default function RelatedPartyBadge({ size = "sm", className = "" }: RelatedPartyBadgeProps) {
   const sizing =
@@ -27,15 +28,16 @@ export default function RelatedPartyBadge({ size = "sm", className = "" }: Relat
     <TooltipProvider delayDuration={150}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <span
-            className={`inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 font-medium text-amber-700 dark:text-amber-300 ${sizing} ${className}`}
+          <Link
+            to="/agande-och-intressen/"
+            className={`inline-flex items-center rounded-full border border-amber-500/40 bg-amber-500/10 font-medium text-amber-700 dark:text-amber-300 hover:bg-amber-500/20 transition-colors ${sizing} ${className}`}
           >
             <Info className={size === "md" ? "h-3.5 w-3.5" : "h-3 w-3"} />
             Närstående bolag
-          </span>
+          </Link>
         </TooltipTrigger>
         <TooltipContent side="top" className="max-w-[260px] text-xs">
-          d365.se:s ägare har ekonomiska intressen i denna partner.
+          d365.se:s ägare har ekonomiska intressen i denna partner. Läs mer om hur partnersamarbetet fungerar.
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
