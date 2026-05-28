@@ -62,13 +62,13 @@ export default function Beslutsmognadsindex() {
         <title>Beslutsmognadsindex — diagnostik inför partnerval | d365.se</title>
         <meta
           name="description"
-          content="En diagnostik för svenska beslutsgrupper inför partnerval för ERP och CRM. 8–10 minuter, 25 frågor, konfidentiell sammanställning."
+          content="En diagnostik för svenska beslutsgrupper: hur redo är ni inför en större ERP- eller CRM-investering? 8–10 minuter, 25 frågor, konfidentiell sammanställning."
         />
         <link rel="canonical" href="https://d365.se/beslutsmognad" />
         <meta property="og:title" content="Beslutsmognadsindex — d365.se" />
         <meta
           property="og:description"
-          content="En diagnostik för svenska beslutsgrupper inför partnerval för ERP och CRM."
+          content="En diagnostik för svenska beslutsgrupper: hur redo är ni inför en större ERP- eller CRM-investering?"
         />
         <meta property="og:url" content="https://d365.se/beslutsmognad" />
       </Helmet>
@@ -91,7 +91,7 @@ export default function Beslutsmognadsindex() {
             className="font-bm-display italic text-bm-ink-soft leading-snug mb-10"
             style={{ fontSize: "clamp(1.125rem, 2vw, 1.5rem)", fontWeight: 320 }}
           >
-            En diagnostik för svenska beslutsgrupper inför partnerval för ERP och CRM.
+            En diagnostik för svenska beslutsgrupper: hur redo är ni inför en större ERP- eller CRM-investering?
           </p>
           <p className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink-muted">
             8–10 minuter · 25 frågor · konfidentiell sammanställning
