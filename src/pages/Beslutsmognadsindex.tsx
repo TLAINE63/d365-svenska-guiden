@@ -144,7 +144,7 @@ export default function Beslutsmognadsindex() {
               {
                 num: "II",
                 title: "En peer benchmark",
-                body: "Jämförelse mot 347 svenska beslutsgrupper inom samma branschsegment och storleksklass.",
+                body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken.",
               },
               {
                 num: "III",
