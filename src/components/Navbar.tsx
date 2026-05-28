@@ -149,7 +149,6 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Guide</p>
                 </div>
@@ -259,7 +258,6 @@ const Navbar = () => {
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🗺️ Upphandlingsresan
                   </Link>
-                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
                   <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📘 Så väljer du rätt Dynamics 365-partner
