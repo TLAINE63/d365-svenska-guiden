@@ -78,6 +78,9 @@ const Footer = () => {
           <p className="text-sm text-muted-foreground mb-2 max-w-4xl">
             Oberoende guide till Microsoft Dynamics 365 - hjälper företag välja rätt affärssystem och partner.
           </p>
+          <p className="text-xs text-muted-foreground italic max-w-4xl mb-2">
+            d365.se är en oberoende vägledningsplattform. Vi är inte anslutna till, sponsrade av eller godkända av Microsoft Corporation. Dynamics 365, Business Central och andra Microsoft-produktnamn är varumärken som tillhör Microsoft.
+          </p>
           <p className="text-xs text-muted-foreground italic max-w-4xl">
             Disclaimer: Information på denna hemsida har ambitionen att ge en neutral bild av marknaden, men utvecklingen går fort och därför är det alltid en god idé att kontrollera senaste nytt i detaljerna.
           </p>
