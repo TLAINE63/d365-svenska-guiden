@@ -125,6 +125,8 @@ export type Recommendation = {
   score: number;
   band: Band;
   text: string;
+};
+
 export function topRecommendations(
   scores: DimensionScores,
   count = 3,
@@ -152,8 +154,6 @@ export function topRecommendations(
   });
 }
 
-  });
-}
 
 // ─────────────────────────── Processflaggor ──────────────────────────────────
 
