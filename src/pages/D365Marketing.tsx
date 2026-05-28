@@ -74,7 +74,7 @@ const D365Marketing = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Marketing – Priser & HubSpot-alternativ | d365.se"
-        description="Customer Insights (Marketing) från 9 559 kr/mån. AI-kundresor, lead scoring och CDP. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Customer Insights (Marketing) från 9 559 kr/mån. AI-kundresor, lead scoring och CDP. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
         canonicalPath="/d365marketing"
         keywords="Dynamics 365 Customer Insights pris, marketing automation Microsoft, HubSpot alternativ, Marketo alternativ Sverige, Dynamics 365 Marketing pris, kundresor automation, CDP customer data platform, lead scoring CRM, marknadsföringsautomation Microsoft, Customer Insights Journeys"
         ogImage="https://d365.se/og-marketing.png"
@@ -82,7 +82,7 @@ const D365Marketing = () => {
       <FAQSchema faqs={customerInsightsFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Customer Insights – Marketing Automation & CDP"
-        description="Molnbaserad marknadsföringsautomation med AI-drivna kundresor, Customer Data Platform (CDP), lead scoring och omnikanalskampanjer. Grundlicens från 9 559 kr/mån (Attach). Implementationstid 6 veckor till 10 månader beroende på komplexitet. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Molnbaserad marknadsföringsautomation med AI-drivna kundresor, Customer Data Platform (CDP), lead scoring och omnikanalskampanjer. Grundlicens från 9 559 kr/mån (Attach). Implementationstid 6 veckor till 10 månader beroende på komplexitet. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
       />
       <BreadcrumbSchema items={marketingBreadcrumbs} />
       <Navbar />

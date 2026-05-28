@@ -1575,12 +1575,12 @@ const AIReadiness = () => {
       <div className="min-h-screen bg-background">
         <SEOHead
           title="AI Readiness Assessment – Mät AI-effekt | d365.se"
-          description="Rollbaserad AI-analys: mät automation och prediktion, få uppskattat ROI och rollspecifik roadmap. Köparsidig vägledning inför val av Dynamics 365 och partner."
+          description="Rollbaserad AI-analys: mät automation och prediktion, få uppskattat ROI och rollspecifik roadmap. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
           canonicalPath="/ai-readiness"
         />
         <WebPageSchema
           name="AI Readiness Assessment – Mät AI-effekt"
-          description="Rollbaserad AI-analys: mät automation och prediktion, få uppskattat ROI och rollspecifik roadmap. Köparsidig vägledning inför val av Dynamics 365 och partner."
+          description="Rollbaserad AI-analys: mät automation och prediktion, få uppskattat ROI och rollspecifik roadmap. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
           url="https://d365.se/ai-readiness/"
           breadcrumb={[
             { name: "Hem", url: "https://d365.se/" },

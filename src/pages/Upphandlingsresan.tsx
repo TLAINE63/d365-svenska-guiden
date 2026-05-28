@@ -11,7 +11,7 @@ const Upphandlingsresan = () => {
     <>
       <SEOHead
         title="Den typiska upphandlingsresan – 7 stadier för ERP & CRM"
-        description="Två frågor visar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Två frågor visar var ni står i upphandlingsresan för Dynamics 365 (ERP och CRM). Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
         canonicalPath="/kunskapscenter/upphandlingsresan"
       />
       <Navbar />
@@ -83,7 +83,7 @@ const Upphandlingsresan = () => {
                     Hitta rätt typ av <span className="text-[hsl(var(--cta-orange))]">Dynamics 365-partner</span>
                   </h2>
                   <p className="text-[14px] sm:text-[15px] text-white/75 leading-relaxed mb-6 max-w-2xl">
-                    Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en köparsidig rekommendation om vilken typ av partner som passar bäst.
+                    Svara på några frågor om er verksamhet, ert behov och er situation. På ett par minuter får ni en rekommendation från köparens sida om vilken typ av partner som passar bäst.
                   </p>
 
                   <div className="grid grid-cols-3 gap-3 mb-6 py-4 border-y border-white/10 max-w-xl">
@@ -93,7 +93,7 @@ const Upphandlingsresan = () => {
                     </div>
                     <div className="border-l border-white/10 pl-3">
                       <div className="text-2xl font-bold text-white leading-none">100%</div>
-                      <div className="text-[11px] text-white/60 mt-1">Köparsidig</div>
+                      <div className="text-[11px] text-white/60 mt-1">Köparens sida</div>
                     </div>
                     <div className="border-l border-white/10 pl-3">
                       <div className="text-2xl font-bold text-white leading-none">0 kr</div>

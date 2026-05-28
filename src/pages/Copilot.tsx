@@ -66,14 +66,14 @@ const Copilot = () => {
     } as React.CSSProperties}>
       <SEOHead 
         title="Copilot i Dynamics 365 – AI för ERP & CRM | d365.se"
-        description="Copilot i Dynamics 365 ingår i licensen. AI för Finance, Sales och Customer Service. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Copilot i Dynamics 365 ingår i licensen. AI för Finance, Sales och Customer Service. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
         canonicalPath="/copilot"
         keywords="Microsoft Copilot Dynamics 365, Copilot ERP, Microsoft Copilot pris, AI affärssystem, Copilot Finance Supply Chain, Copilot Business Central, Dynamics 365 AI, Microsoft Copilot ROI, ChatGPT alternativ ERP, AI automation CRM"
         ogImage="https://d365.se/og-copilot.png"
       />
       <ServiceSchema 
         name="Microsoft Copilot i Dynamics 365 – AI för ERP och CRM"
-        description="Inbyggd AI-assistent i Dynamics 365 utan extra licensavgift. Copilot automatiserar processer i Finance, Supply Chain, Sales, Customer Service och Business Central. 353% potentiell ROI över 3 år enligt Forrester TEI-studie 2024. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Inbyggd AI-assistent i Dynamics 365 utan extra licensavgift. Copilot automatiserar processer i Finance, Supply Chain, Sales, Customer Service och Business Central. 353% potentiell ROI över 3 år enligt Forrester TEI-studie 2024. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
       />
       <FAQSchema faqs={copilotFaqs} />
       <BreadcrumbSchema items={copilotBreadcrumbs} />

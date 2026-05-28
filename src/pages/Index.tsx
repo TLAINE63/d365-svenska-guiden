@@ -228,8 +228,8 @@ const Index = () => {
   } as const;
   return <div className="min-h-screen bg-secondary/30">
       <SEOHead 
-        title="Köparsidig vägledning inför val av Dynamics 365 och partner | d365.se"
-        description="Jämför certifierade Microsoftpartners per bransch, applikation och storlek. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        title="Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365 | d365.se"
+        description="Jämför certifierade Microsoftpartners per bransch, applikation och storlek. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
         canonicalPath="/"
         keywords="Dynamics 365 partner Sverige, D365 partners, Microsoftpartners Dynamics 365, Microsoft partner Sverige, Dynamics 365 partners, certifierad Microsoft partner, välja Dynamics 365 partner, Dynamics 365 Sverige, d365.se"
         ogImage="https://d365.se/og-image.png"
@@ -436,7 +436,7 @@ const Index = () => {
             <div className="flex flex-col items-start">
               <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Vem står bakom d365.se</span>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-6">
-                Köparsidig vägledning inför val av Dynamics 365 och partner
+                Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                 <div className="flex items-start gap-3">

@@ -76,7 +76,7 @@ const Footer = () => {
         <div className="border-t border-border pt-6 mb-8">
           <h3 className="font-semibold text-foreground mb-3">Om d365.se</h3>
           <p className="text-sm text-muted-foreground mb-2 max-w-4xl">
-            Köparsidig vägledning för företag som väljer Microsoft Dynamics 365 och partner.
+            Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365.
             Vi förmedlar kunskap – inte kontrakt – och står på köparens sida i valet av system och partner.
           </p>
           <p className="text-xs text-muted-foreground italic max-w-4xl mb-2">
