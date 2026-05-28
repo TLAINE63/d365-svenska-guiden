@@ -192,8 +192,8 @@ const Likert = ({
       {q.text}
     </h2>
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-3 mb-4">
-      <span className="font-bm-display italic text-bm-ink-muted text-sm sm:max-w-[140px] text-center sm:text-left">
-        1 = {q.anchor_low}
+      <span className="font-bm-display text-bm-ink text-base sm:max-w-[160px] text-center sm:text-left">
+        <span className="font-semibold">1</span> = {q.anchor_low}
       </span>
       <div className="flex flex-row sm:flex-row items-center justify-center gap-3 sm:gap-4 flex-1">
         {[1, 2, 3, 4, 5].map((n) => {
@@ -203,23 +203,23 @@ const Likert = ({
               key={n}
               onClick={() => onPick(n)}
               aria-label={`${n} av 5`}
-              className={`w-14 h-14 rounded-full border transition-colors font-bm-display text-lg ${
+              className={`w-14 h-14 rounded-full border-2 transition-colors font-bm-display text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper ${
                 sel
                   ? "border-bm-accent-deep bg-bm-accent-deep text-bm-paper"
-                  : "border-bm-rule bg-bm-paper text-bm-ink hover:border-bm-accent hover:bg-bm-accent-soft"
+                  : "border-bm-ink/40 bg-bm-paper text-bm-ink hover:border-bm-accent-deep hover:bg-bm-accent-soft"
               }`}
-              style={{ fontWeight: 380 }}
+              style={{ fontWeight: 420 }}
             >
               {n}
             </button>
           );
         })}
       </div>
-      <span className="font-bm-display italic text-bm-ink-muted text-sm sm:max-w-[140px] text-center sm:text-right">
-        5 = {q.anchor_high}
+      <span className="font-bm-display text-bm-ink text-base sm:max-w-[160px] text-center sm:text-right">
+        <span className="font-semibold">5</span> = {q.anchor_high}
       </span>
     </div>
-    <p className="text-center font-bm-display italic text-bm-ink-muted text-sm mt-6">
+    <p className="text-center font-bm-display text-bm-ink-soft text-base mt-6">
       Välj det som ligger närmast sanningen — ni behöver inte tveka.
     </p>
   </div>
@@ -596,7 +596,7 @@ export default function BeslutsmognadDiagnostik() {
             <button
               onClick={back}
               disabled={idx === 0}
-              className="font-bm-display italic text-bm-ink-muted hover:text-bm-ink-soft text-sm disabled:opacity-30"
+              className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink hover:text-bm-accent-deep px-4 py-3 border border-transparent hover:border-bm-ink/30 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper"
             >
               ← Föregående
             </button>
@@ -606,9 +606,9 @@ export default function BeslutsmognadDiagnostik() {
                 answers[q.id] === undefined ||
                 (Array.isArray(answers[q.id]) && (answers[q.id] as string[]).length === 0)
               }
-              className="border border-bm-ink px-6 py-3 font-bm-body uppercase tracking-[0.18em] text-[11px] hover:bg-bm-ink hover:text-bm-paper transition-colors rounded-sm disabled:opacity-30 disabled:cursor-not-allowed"
+              className="border-2 border-bm-ink px-6 py-3 font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink hover:bg-bm-ink hover:text-bm-paper transition-colors rounded-sm disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bm-accent-deep focus-visible:ring-offset-2 focus-visible:ring-offset-bm-paper"
             >
-              Nästa
+              Nästa →
             </button>
           </div>
         )}
