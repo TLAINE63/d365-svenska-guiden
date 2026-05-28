@@ -144,6 +144,30 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Upphandlingsresan · 7 stadier</p>
+                </div>
+                <DropdownMenuItem asChild>
+                  <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer font-medium">
+                    🗺️ Översikt – alla 7 stadier
+                  </Link>
+                </DropdownMenuItem>
+                {[
+                  { id: 1, label: "1. Allt fungerar – ni orienterar er" },
+                  { id: 2, label: "2. Det skaver i vardagen" },
+                  { id: 3, label: "3. Något tvingar fram utvärdering" },
+                  { id: 4, label: "4. Strukturera behovet" },
+                  { id: 5, label: "5. Väg olika vägar framåt" },
+                  { id: 6, label: "6. Jämför partners" },
+                  { id: 7, label: "7. Nära beslut – stresstesta" },
+                ].map((s) => (
+                  <DropdownMenuItem key={s.id} asChild>
+                    <Link to={`/kunskapscenter/upphandlingsresan#steg-${s.id}`} className="cursor-pointer text-sm">
+                      {s.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator />
+                <div className="px-2 py-1.5">
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Guide</p>
                 </div>
                 <DropdownMenuItem asChild>
