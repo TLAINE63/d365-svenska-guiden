@@ -407,7 +407,7 @@ export default function BeslutsmognadDiagnostik() {
     setSubmitting(true);
     setErrorMsg(null);
     const responses: Record<string, number> = {};
-    questions.forEach((qq) => {
+    allQuestions.forEach((qq) => {
       if (qq.type === "likert_5" && typeof answers[qq.id] === "number") {
         responses[qq.id] = answers[qq.id] as number;
       }
