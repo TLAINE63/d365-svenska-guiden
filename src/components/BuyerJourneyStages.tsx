@@ -153,10 +153,10 @@ const STAGES: Stage[] = [
       "Det är nu valet kan stresstestas — metodiken, scope, leveransmodellen, och hur partnern hanterar avvikelser. Det är också nu det är billigast att justera.",
     ],
     recommendation: "Beslutsmognadsindex — stresstesta mognaden inför viktiga investeringsbeslut",
-    recommendationHref: "/beslutsmognadsindex",
+    recommendationHref: "/beslutsmognad",
     nextStep: {
       label: "Gå till Beslutsmognadsindex",
-      href: "/beslutsmognadsindex",
+      href: "/beslutsmognad",
       helper: "Mät er beslutsmognad och få en objektiv bedömning av hur väl förberedda ni är innan kontraktet skrivs under.",
     },
     Icon: CheckCircle,

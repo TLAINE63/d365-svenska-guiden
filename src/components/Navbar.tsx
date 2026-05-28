@@ -138,7 +138,7 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/beslutsmognadsindex/" className="cursor-pointer">
+                  <Link to="/beslutsmognad/" className="cursor-pointer">
                     📋 Beslutsmognadsindex
                   </Link>
                 </DropdownMenuItem>
@@ -246,7 +246,7 @@ const Navbar = () => {
                   <Link to="/ai-readiness/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     🤖 AI Readiness Assessment
                   </Link>
-                  <Link to="/beslutsmognadsindex/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
+                  <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📋 Beslutsmognadsindex
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>

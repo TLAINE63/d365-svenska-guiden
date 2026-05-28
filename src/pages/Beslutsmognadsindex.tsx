@@ -70,7 +70,7 @@ export default function Beslutsmognadsindex() {
           property="og:description"
           content="En diagnostik för svenska beslutsgrupper inför partnerval för ERP och CRM."
         />
-        <meta property="og:url" content="https://d365.se/beslutsmognadsindex" />
+        <meta property="og:url" content="https://d365.se/beslutsmognad" />
       </Helmet>
 
       <TopBar />
