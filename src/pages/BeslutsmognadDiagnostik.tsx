@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const DRAFT_KEY = "beslutsmognadsindex_draft";
 
-type Answers = Record<string, string | number>;
+type Answers = Record<string, string | number | string[]>;
 
 const TopStrip = ({
   current,
@@ -117,6 +117,63 @@ const SingleSelect = ({
     </div>
   </div>
 );
+
+const MultiSelect = ({
+  q,
+  value,
+  onToggle,
+}: {
+  q: Extract<Question, { type: "multi_select" }>;
+  value: string[] | undefined;
+  onToggle: (v: string) => void;
+}) => {
+  const selectedSet = new Set(value ?? []);
+  return (
+    <div className="max-w-[640px] mx-auto w-full">
+      <h2
+        className="font-bm-display text-bm-ink mb-3 leading-snug text-center"
+        style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)", fontWeight: 360 }}
+      >
+        {q.text}
+      </h2>
+      {q.hint && (
+        <p className="font-bm-display italic text-bm-ink-muted text-center mb-8 text-sm">
+          {q.hint}
+        </p>
+      )}
+      <div className="flex flex-col gap-3">
+        {q.options.map((opt, i) => {
+          const selected = selectedSet.has(opt.value);
+          return (
+            <button
+              key={opt.value}
+              onClick={() => onToggle(opt.value)}
+              className={`text-left px-5 py-4 border transition-colors font-bm-display flex items-center gap-3 ${
+                selected
+                  ? "border-bm-accent-deep bg-bm-accent-soft"
+                  : "border-bm-rule bg-bm-paper hover:border-bm-accent hover:bg-bm-accent-soft"
+              }`}
+              style={{ fontWeight: 320, fontSize: "1.05rem" }}
+            >
+              <span
+                className={`inline-flex items-center justify-center w-5 h-5 border ${
+                  selected ? "border-bm-accent-deep bg-bm-accent-deep text-bm-paper" : "border-bm-rule bg-bm-paper"
+                }`}
+                aria-hidden
+              >
+                {selected ? "✓" : ""}
+              </span>
+              <span className="font-bm-display italic text-bm-ink-muted mr-1">
+                {String.fromCharCode(97 + i)}.
+              </span>
+              <span>{opt.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const Likert = ({
   q,
@@ -276,6 +333,16 @@ export default function BeslutsmognadDiagnostik() {
     setTimeout(() => advance(), 400);
   };
 
+  const handleToggleMulti = (value: string) => {
+    setAnswers((a) => {
+      const current = Array.isArray(a[q.id]) ? (a[q.id] as string[]) : [];
+      const next = current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value];
+      return { ...a, [q.id]: next };
+    });
+  };
+
   // Keyboard
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -334,7 +401,9 @@ export default function BeslutsmognadDiagnostik() {
       industry: (answers.b1 as string) ?? "",
       revenue: (answers.b2 as string) ?? "",
       role: (answers.b3 as string) ?? "",
-      current_erp: (answers.b4 as string) ?? "",
+      current_erp: Array.isArray(answers.b4)
+        ? (answers.b4 as string[]).join(", ")
+        : ((answers.b4 as string) ?? ""),
       eval_stage: (answers.b5 as string) ?? "",
     };
     const dimension_scores = computeScores();
@@ -513,6 +582,8 @@ export default function BeslutsmognadDiagnostik() {
           <div className="flex-1 flex items-center justify-center px-6 py-12">
             {q.type === "single_select" ? (
               <SingleSelect q={q} value={answers[q.id] as string | undefined} onPick={(v) => handlePick(v)} />
+            ) : q.type === "multi_select" ? (
+              <MultiSelect q={q} value={answers[q.id] as string[] | undefined} onToggle={handleToggleMulti} />
             ) : (
               <Likert q={q} value={answers[q.id] as number | undefined} onPick={(v) => handlePick(v)} />
             )}
@@ -531,7 +602,10 @@ export default function BeslutsmognadDiagnostik() {
             </button>
             <button
               onClick={advance}
-              disabled={answers[q.id] === undefined}
+              disabled={
+                answers[q.id] === undefined ||
+                (Array.isArray(answers[q.id]) && (answers[q.id] as string[]).length === 0)
+              }
               className="border border-bm-ink px-6 py-3 font-bm-body uppercase tracking-[0.18em] text-[11px] hover:bg-bm-ink hover:text-bm-paper transition-colors rounded-sm disabled:opacity-30 disabled:cursor-not-allowed"
             >
               Nästa
