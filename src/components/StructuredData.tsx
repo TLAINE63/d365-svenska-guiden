@@ -33,8 +33,6 @@ export const OrganizationSchema = () => {
       "CRM-system"
     ],
     "sameAs": [
-      "https://www.linkedin.com/showcase/d365se/",
-      "https://www.linkedin.com/company/dynamic-factory-ab/",
       "https://dynamicfactory.se"
     ],
     "contactPoint": {
