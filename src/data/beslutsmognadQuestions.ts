@@ -71,6 +71,7 @@ export const questions: Question[] = [
       { value: "dynnav", label: "Dynamics NAV (Navision)" },
       { value: "sap", label: "SAP" },
       { value: "oracle", label: "Oracle / NetSuite" },
+      { value: "infor", label: "Infor / M3" },
       { value: "ifs", label: "IFS" },
       { value: "visma", label: "Visma / Fortnox / Monitor / Pyramid" },
       { value: "egen", label: "Egenutvecklat / föråldrat" },
