@@ -389,7 +389,7 @@ export default function BeslutsmognadDiagnostik() {
     const out: Record<Dimension, number> = {} as Record<Dimension, number>;
     dims.forEach((dim) => {
       const vals: number[] = [];
-      questions.forEach((qq) => {
+      allQuestions.forEach((qq) => {
         if (qq.type === "likert_5" && qq.dimension === dim) {
           const v = answers[qq.id];
           if (typeof v === "number") vals.push(v);
