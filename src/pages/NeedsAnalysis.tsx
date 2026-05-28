@@ -3256,14 +3256,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead 
         title="ERP Behovsanalys | Hitta rätt Dynamics 365-lösning"
-        description="Kostnadsfri ERP-behovsanalys: rekommendation för Business Central eller Finance & Supply Chain. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Kostnadsfri ERP-behovsanalys: rekommendation för Business Central eller Finance & Supply Chain. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/ERPbehovsanalys"
         keywords="ERP behovsanalys, Dynamics 365, Business Central, Finance Supply Chain, affärssystem, kravspecifikation"
         ogImage="https://d365.se/og-behovsanalys.png"
       />
       <ServiceSchema 
         name="ERP Behovsanalys"
-        description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={needsAnalysisBreadcrumbs} />
       <Navbar />

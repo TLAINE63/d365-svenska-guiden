@@ -3047,14 +3047,14 @@ const SalesMarketingNeedsAnalysis = () => {
     <div className="min-h-screen bg-background">
       <SEOHead 
         title="Sälj & Marknad Behovsanalys | Dynamics 365 CRM"
-        description="Kostnadsfri behovsanalys för Dynamics 365 Sales och Customer Insights (Marketing). Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Kostnadsfri behovsanalys för Dynamics 365 Sales och Customer Insights (Marketing). Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/CRMbehovsanalys"
         keywords="CRM behovsanalys, Dynamics 365 Sales, Marketing, Customer Insights, försäljning"
         ogImage="https://d365.se/og-salj-marknad-behovsanalys.png"
       />
       <ServiceSchema 
         name="Sälj & Marknad Behovsanalys"
-        description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={salesMarketingBreadcrumbs} />
       <Navbar />

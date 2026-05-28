@@ -22,8 +22,8 @@ const ContactUs = () => {
   return (
     <div className="min-h-screen">
       <SEOHead 
-        title="Kontakt – Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365 | d365.se"
-        description="Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365. Boka kostnadsfritt möte med Thomas Laine eller Michael Uhman för rådgivning utan säljpåverkan."
+        title="Kontakt – Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner | d365.se"
+        description="Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner. Boka kostnadsfritt möte med Thomas Laine eller Michael Uhman för rådgivning utan säljpåverkan."
         canonicalPath="/kontakt"
         keywords="kontakt, Dynamics 365, rådgivning, konsult, Microsoft"
         ogImage="https://d365.se/og-kontakt.png"
@@ -48,7 +48,7 @@ const ContactUs = () => {
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 sm:mb-4">
-                Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365
+                Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl text-white/95">
                 Låt oss guida dig i valet av Dynamics 365 lösning och implementationspartner

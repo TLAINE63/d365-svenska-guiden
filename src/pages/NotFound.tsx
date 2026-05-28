@@ -15,7 +15,7 @@ const NotFound = () => {
     <>
       <SEOHead
         title="Sidan hittades inte"
-        description="Sidan du söker finns inte. Hitta rätt bland våra guider för Microsoft Dynamics 365. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Sidan du söker finns inte. Hitta rätt bland våra guider för Microsoft Dynamics 365. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         noIndex={true}
       />
       <Navbar />
