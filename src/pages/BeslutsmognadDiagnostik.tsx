@@ -333,6 +333,16 @@ export default function BeslutsmognadDiagnostik() {
     setTimeout(() => advance(), 400);
   };
 
+  const handleToggleMulti = (value: string) => {
+    setAnswers((a) => {
+      const current = Array.isArray(a[q.id]) ? (a[q.id] as string[]) : [];
+      const next = current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value];
+      return { ...a, [q.id]: next };
+    });
+  };
+
   // Keyboard
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
