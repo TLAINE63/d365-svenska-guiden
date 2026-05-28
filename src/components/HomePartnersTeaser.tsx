@@ -156,7 +156,7 @@ export default function HomePartnersTeaser() {
     "bg-white/10 text-white/80 border-white/20 hover:border-white/40 hover:text-white";
 
   return (
-    <section className="py-14 sm:py-20 bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-white/10">
+    <section className="section-divider section-divider-dark py-14 sm:py-20 bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-white/10">
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         <div className="flex items-end justify-between gap-6 mb-6 flex-wrap">
           <div>
@@ -166,7 +166,8 @@ export default function HomePartnersTeaser() {
             <h2 className="text-2xl sm:text-3xl md:text-[34px] font-semibold text-white tracking-tight leading-tight max-w-3xl">
               Jämför {totalCount} partners på det som faktiskt skiljer dem åt
             </h2>
-    <section className="section-divider section-divider-dark py-14 sm:py-20 bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-white/10">
+          </div>
+
 
           <Link
             to="/valjdynamics365partner/"
