@@ -32,7 +32,7 @@ export default function AiChatBubble() {
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-primary/10 to-transparent">
             <div>
               <p className="font-semibold text-sm">Fråga AI om Dynamics 365</p>
-              <p className="text-[11px] text-muted-foreground">Oberoende rådgivning från d365.se</p>
+              <p className="text-[11px] text-muted-foreground">Köparsidig rådgivning från d365.se</p>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Stäng" className="text-muted-foreground hover:text-foreground">
               <X className="h-4 w-4" />
