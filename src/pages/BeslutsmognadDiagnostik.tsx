@@ -401,7 +401,9 @@ export default function BeslutsmognadDiagnostik() {
       industry: (answers.b1 as string) ?? "",
       revenue: (answers.b2 as string) ?? "",
       role: (answers.b3 as string) ?? "",
-      current_erp: (answers.b4 as string) ?? "",
+      current_erp: Array.isArray(answers.b4)
+        ? (answers.b4 as string[]).join(", ")
+        : ((answers.b4 as string) ?? ""),
       eval_stage: (answers.b5 as string) ?? "",
     };
     const dimension_scores = computeScores();
