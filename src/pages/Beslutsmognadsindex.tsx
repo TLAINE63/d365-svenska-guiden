@@ -93,9 +93,15 @@ export default function Beslutsmognadsindex() {
           >
             En diagnostik för svenska beslutsgrupper: hur redo är ni inför en större ERP- eller CRM-investering?
           </p>
-          <p className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink-muted mb-2">
+          <p className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink-muted mb-6">
             8–10 minuter · 25 frågor · konfidentiell sammanställning
           </p>
+          <h2
+            className="font-bm-display italic text-bm-accent-deep mb-4"
+            style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: 360 }}
+          >
+            Var i systemlivscykeln står ni?
+          </h2>
         </section>
 
         {/* CTA */}
