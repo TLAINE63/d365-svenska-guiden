@@ -326,7 +326,7 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
           </p>
           <a
             href="/beslutsmognadsindex"
-            className="inline-flex items-center gap-2 rounded-md bg-[#0B0B0F] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#1f1f24] transition-colors"
+            className="inline-flex items-center gap-2 rounded-md bg-cta-orange px-4 py-2.5 text-sm font-medium text-white hover:bg-cta-orange-hover transition-colors"
           >
             Gör Beslutsmognadsindex — 8–10 min
             <span aria-hidden>→</span>
