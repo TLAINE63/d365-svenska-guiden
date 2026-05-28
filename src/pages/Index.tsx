@@ -431,7 +431,7 @@ const Index = () => {
       {/* Förtroendesektion: Oberoende rådgivare + E-bok + 3 pillars */}
       <section className="px-4 sm:px-6 py-12 sm:py-16 bg-white border-b border-border">
         <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-8 lg:gap-12 items-center">
+          <div className="flex flex-col gap-12 lg:gap-16">
             {/* Left: Thomas Laine & Michael Uhman */}
             <div className="flex flex-col items-start">
               <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-3">Vem står bakom d365.se</span>
