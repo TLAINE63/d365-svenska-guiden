@@ -33,8 +33,37 @@ export type Question =
       dimension: Dimension;
     };
 
+export type DomainKey = "erp" | "crm" | "marketing" | "service" | "flera";
+
+export const SYSTEM_TERMS: Record<string, string> = {
+  erp: "affärssystem",
+  crm: "CRM-system",
+  marketing: "system för marknadsföring",
+  service: "system för kundservice",
+  flera: "systemstöd",
+};
+
+export const DEFAULT_SYSTEM_TERM = "systemstöd";
+
+export const applyTerm = (text: string, term: string = DEFAULT_SYSTEM_TERM): string =>
+  text.replace(/\{systemterm\}/g, term);
+
+export const termForDomain = (domain?: string): string =>
+  (domain && SYSTEM_TERMS[domain]) || DEFAULT_SYSTEM_TERM;
+
 export const questions: Question[] = [
   // ───── SEKTION I: BAKGRUND ─────
+  {
+    id: "b0", section: "Bakgrund", type: "single_select",
+    text: "Vilket område gäller utvärderingen?",
+    options: [
+      { value: "erp", label: "ERP / Affärssystem" },
+      { value: "crm", label: "Försäljning (CRM)" },
+      { value: "marketing", label: "Marknadsföring (Marketing Automation)" },
+      { value: "service", label: "Ärendehantering, kundservice och fältservice" },
+      { value: "flera", label: "Flera områden / hela plattformen" },
+    ],
+  },
   {
     id: "b1", section: "Bakgrund", type: "single_select",
     text: "Vilken bransch tillhör er verksamhet?",
@@ -101,7 +130,7 @@ export const questions: Question[] = [
 
   // ───── SEKTION II: BEHOVSBILD ─────
   { id: "q1", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
-    text: "Hur tydligt formulerade är de affärsproblem ni vill lösa med en ny ERP-lösning?",
+    text: "Hur tydligt formulerade är de affärsproblem ni vill lösa med ett nytt {systemterm}?",
     anchor_low: "Ingen dokumentation finns",
     anchor_high: "Dokumenterade, kvantifierade och prioriterade" },
   { id: "q2", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
@@ -113,7 +142,7 @@ export const questions: Question[] = [
     anchor_low: "Vi listar saker vi saknar idag",
     anchor_high: "Kraven utgår från var verksamheten ska om 3–5 år" },
   { id: "q4", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
-    text: "Hur realistisk är beslutsgruppens bild av vad ett ERP faktiskt kan — och inte kan — lösa?",
+    text: "Hur realistisk är beslutsgruppens bild av vad ett nytt {systemterm} faktiskt kan — och inte kan — lösa?",
     anchor_low: "Stora förväntansgap finns",
     anchor_high: "Realistisk förståelse hos alla nyckelroller" },
   { id: "q4b", section: "Behovsbild", type: "likert_5", dimension: "behovsbild",
@@ -123,7 +152,7 @@ export const questions: Question[] = [
 
   // ───── SEKTION III: INTERN SAMSYN ─────
   { id: "q5", section: "Intern samsyn", type: "likert_5", dimension: "samsyn",
-    text: "Hur samstämmiga är ekonomi, IT och verksamheten om projektets syfte?",
+    text: "Hur samstämmiga är de berörda funktionerna och IT om projektets syfte?",
     anchor_low: "Olika bilder finns", anchor_high: "Dokumenterad, gemensam syn" },
   { id: "q6", section: "Intern samsyn", type: "likert_5", dimension: "samsyn",
     text: "Hur tydligt är ägarskapet för beslutet definierat?",
@@ -137,7 +166,7 @@ export const questions: Question[] = [
 
   // ───── SEKTION IV: RISKINSIKT ─────
   { id: "q9", section: "Riskinsikt", type: "likert_5", dimension: "riskinsikt",
-    text: "Hur tydligt har ni identifierat de största riskerna med ett ERP-byte?",
+    text: "Hur tydligt har ni identifierat de största riskerna med ett systembyte?",
     anchor_low: "Ej diskuterat", anchor_high: "Dokumenterad riskmatris" },
   { id: "q10", section: "Riskinsikt", type: "likert_5", dimension: "riskinsikt",
     text: "Hur stor del av dessa risker har en utpekad ägare med åtgärdsmandat?",
@@ -160,7 +189,7 @@ export const questions: Question[] = [
     text: "Hur djupgående har er hittillsvarande utvärdering av partners varit?",
     anchor_low: "Säljmaterial och presentationer", anchor_high: "Referenser, metodikgenomgång, teamintervjuer" },
   { id: "q16", section: "Partnermarknad", type: "likert_5", dimension: "partnermarknad",
-    text: "Hur väl känner ni till de vanligaste fallgroparna i större partnerleveranser av affärssystem?",
+    text: "Hur väl känner ni till de vanligaste fallgroparna i större partnerleveranser?",
     anchor_low: "Vi vet inte vad vi inte vet", anchor_high: "Vi har en konkret lista att utvärdera mot" },
 
   // ───── SEKTION VI: BESLUTSSTRUKTUR ─────
@@ -177,6 +206,7 @@ export const questions: Question[] = [
     text: "Hur tydligt är en beslutspunkt definierad — vem säger ja, när, baserat på vad?",
     anchor_low: "Obestämt", anchor_high: "Tydlig beslutsmilstolpe i planen" },
 ];
+
 
 export const SECTION_ORDER = [
   "Bakgrund",
