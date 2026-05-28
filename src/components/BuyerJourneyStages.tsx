@@ -135,12 +135,12 @@ const STAGES: Stage[] = [
       "Partnerdialogen är igång. Eller också är ni på väg att sätta en kortlista. Frågan är vilka som faktiskt passar er bransch, er storlek, det område ni prioriterar (ERP, Sales, Marketing/Customer Insights, Customer Service, Field Service eller Contact Center) och er metodik — och hur ni jämför dem på rättvisa grunder.",
       "Det är här d365.se gör störst skillnad. Den traditionella RFP-processen jämför ofta fel saker, och kortlistan formas tidigare än de flesta tror.",
     ],
-    recommendation: "Köparsidig matchning mot partners som passar er bransch och era förutsättningar",
+    recommendation: "Matchning mot partners som passar er bransch och era förutsättningar – vi står på köparens sida",
     recommendationHref: "/valjdynamics365partner",
     nextStep: {
       label: "Hitta matchande partners",
       href: "/valjdynamics365partner",
-      helper: "Få en köparsidig kortlista som matchar bransch, storlek och fokusområde.",
+      helper: "Få en kortlista som matchar bransch, storlek och fokusområde – vi står på köparens sida.",
     },
     Icon: Users,
   },
@@ -157,7 +157,7 @@ const STAGES: Stage[] = [
     nextStep: {
       label: "Gå till Beslutsmognadsindex",
       href: "/beslutsmognadsindex",
-      helper: "Mät er beslutsmognad och få en köparsidig bedömning av hur väl förberedda ni är innan kontraktet skrivs under.",
+      helper: "Mät er beslutsmognad och få en objektiv bedömning av hur väl förberedda ni är innan kontraktet skrivs under.",
     },
     Icon: CheckCircle,
   },

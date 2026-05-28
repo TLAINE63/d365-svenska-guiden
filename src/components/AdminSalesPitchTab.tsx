@@ -35,7 +35,7 @@ interface SalesStats {
 
 const DEFAULT_EMAIL_TEMPLATE = `Hej [NAMN],
 
-Jag vill kort dela några siffror från d365.se – Sveriges köparsidiga guide för Microsoft Dynamics 365.
+Jag vill kort dela några siffror från d365.se – Beslutsstöd för dig som ska välja Microsoft Dynamics 365 och rätt partner.
 
 Plattformen är där svenska företag aktivt jämför partners innan de tar kontakt:
 

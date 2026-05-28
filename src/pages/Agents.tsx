@@ -67,7 +67,7 @@ const Agents = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Microsoft AI Agents – Autonoma agenter i Dynamics 365 Sverige"
-        description="AI Agents i Dynamics 365: Sales, Customer Service och Supply Chain – AI-automation för Sverige. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="AI Agents i Dynamics 365: Sales, Customer Service och Supply Chain – AI-automation för Sverige. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
         canonicalPath="/agents"
         keywords="Dynamics 365 AI agents, Microsoft autonomous agents Sverige, Microsoft AI agenter, Copilot agents Dynamics 365, autonoma AI-system affärssystem, Copilot Studio agenter, AI automation Dynamics 365"
         ogImage="https://d365.se/og-copilot.png"
@@ -75,7 +75,7 @@ const Agents = () => {
       <FAQSchema faqs={agentsFaqs} />
       <ServiceSchema 
         name="Microsoft AI Agents – Autonoma agenter i Dynamics 365"
-        description="Autonoma AI-agenter i Dynamics 365 som arbetar självständigt för att lösa komplexa affärsuppgifter inom försäljning, kundservice, ekonomi och supply chain. Redo för svenska företag. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Autonoma AI-agenter i Dynamics 365 som arbetar självständigt för att lösa komplexa affärsuppgifter inom försäljning, kundservice, ekonomi och supply chain. Redo för svenska företag. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
       />
       <BreadcrumbSchema items={agentsBreadcrumbs} />
       <Navbar />

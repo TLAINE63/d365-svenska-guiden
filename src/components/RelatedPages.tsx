@@ -87,7 +87,7 @@ export const affarssystemRelatedPages: RelatedPage[] = [
   { title: "Finance & Supply Chain", description: "För större bolag med global koncernstruktur", href: "/finance-supply-chain/" },
   { title: "Behovsanalys", description: "Få en kostnadsfri rekommendation baserad på era behov", href: "/ERPbehovsanalys/" },
   { title: "Branschlösningar", description: "Hur Dynamics 365 anpassas för olika branscher", href: "/branscher/" },
-  { title: "Hitta partner", description: "Köparsidig katalog över certifierade Microsoft-partners", href: "/valjdynamics365partner/" },
+  { title: "Hitta partner", description: "Katalog över certifierade Microsoft-partners – vi står på köparens sida", href: "/valjdynamics365partner/" },
 ];
 
 export const crmRelatedPages: RelatedPage[] = [

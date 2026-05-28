@@ -107,7 +107,7 @@ Thomas Laine & Michael Uhman
 Moveahead AB / Dynamic Factory
 d365.se`;
 
-const PROSPECT_DEFAULT_SUBJECT = "Bli synlig på d365.se – Sveriges köparsidiga guide till Dynamics 365";
+const PROSPECT_DEFAULT_SUBJECT = "Bli synlig på d365.se – Beslutsstöd för dig som ska välja Microsoft Dynamics 365 och rätt partner";
 
 const PROSPECT_DEFAULT_BODY = `Hej,
 

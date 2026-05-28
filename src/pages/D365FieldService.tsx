@@ -64,7 +64,7 @@ const D365FieldService = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Field Service – Priser & guide | d365.se"
-        description="Dynamics 365 Field Service från 1 004 kr/mån. Schemaläggning, IoT och mobilapp. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Dynamics 365 Field Service från 1 004 kr/mån. Schemaläggning, IoT och mobilapp. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
         canonicalPath="/d365fieldservice"
         keywords="Dynamics 365 Field Service pris, fältservice system, underhållshantering Microsoft, Field Service mobilapp, IoT fältservice, schemaläggning fälttekniker, prediktivt underhåll, Microsoft Field Service Sverige, fältservicehantering, Resource Scheduling Optimization"
         ogImage="https://d365.se/og-field-service.png"
@@ -72,7 +72,7 @@ const D365FieldService = () => {
       <FAQSchema faqs={fieldServiceFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Field Service – Fältservice & Underhållshantering"
-        description="Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från 1 004 kr per användare och månad. Implementationstid 2–12 månader beroende på komplexitet. Köparsidig vägledning inför val av Dynamics 365 och partner."
+        description="Molnbaserat fältservicesystem med intelligent schemaläggning (RSO), IoT-integration för prediktivt underhåll och mobilapp för fälttekniker. Licenspris från 1 004 kr per användare och månad. Implementationstid 2–12 månader beroende på komplexitet. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
       />
       <BreadcrumbSchema items={fieldServiceBreadcrumbs} />
       <Navbar />
