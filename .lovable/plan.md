@@ -1,31 +1,78 @@
-## Mål
-Ersätt 30/90-dagarsfönster i admin-statistik med "totalt sedan start" som standard, i linje med ändringen vi gjorde i partner-sales-summary.
 
-## Vyer som påverkas
+# Plan: Hantera intressekonflikt vs. "oberoende"-positionering
 
-1. **AdminStatsSummary.tsx** — `dateRange` default "30", väljare 7/30/90 → lägg till "Totalt" + sätt som default.
-2. **AdminSalesOverview.tsx** — `dateRange` default "30" + hårdkodade 90-dagars säljunderlag-boxar → väljare med "Totalt" som default; "Säljunderlag – senaste 90 dagar"-blocket byter rubrik och query till totalt.
-3. **AdminSalesKpiTab.tsx** — har redan `"all"`-läge, default "90" → ändra default till `"all"` och döp om "all tid" → "Totalt".
-4. **AdminPartnerDashboardTab.tsx** — tabs 7/30/90, default 30 → lägg till "Totalt"-tab + sätt som default. Edge function `partner-dashboard` måste stötta `days: null` / `all`.
-5. **AdminFunnelTab.tsx** — väljare 7/30/90, default 30 → lägg till "Totalt" + sätt som default. Edge function `funnel-analytics` måste stötta `days: null`.
-6. **AdminPartnerReportsTab.tsx** — `days` default 30 i partner-report-draft + 90 dagar default i Explore-vyn → behåller datumväljare (rapporter är per period), men sätt Explore-default till bredare fönster (365 dagar) som "i praktiken allt".
+## Bakgrund
 
-## Edge functions
+Cloud Ahead (ägare till d365.se) har ekonomiska intressen i flera aktörer i Microsoft-ekosystemet: Nectar/MVI, Aimplan, samt rådgivningsuppdrag åt Knowit. Att marknadsföra sajten som "oberoende" samtidigt som matchningen kan leda affärer till närstående bolag riskerar att klassas som vilseledande marknadsföring (MFL 8–10 §§) och underminerar trovärdigheten om det avslöjas.
 
-- `partner-dashboard` — acceptera `days: null` → ingen `gte("...", since)`-filtrering.
-- `funnel-analytics` — samma.
-- `visitor-stats` (anropas i AdminSalesOverview/AdminStatsSummary) — acceptera `startDate: null` → ingen tidsfilter.
+Vald strategi: **Hybrid** – ta bort/omformulera "oberoende" i kommersiell copy, ersätt med ärligare positionering ("köparsidig vägledning", "specialiserad guide"), och bygg en synlig, lättillgänglig intressedeklaration. Närstående partners markeras tydligt om de visas. Detta är den balanserade vägen: behåller varumärkets kärna utan att exponera dig juridiskt.
 
-## Etiketter
+## Vad som ska göras
 
-"Totalt" / "Sedan start" istället för "all tid". Periodtext på sidor blir "sedan start" när Totalt är valt.
+### 1. Ny sida: `/agande-och-intressen`
 
-## Utanför scope
+Skapa `src/pages/OwnershipAndInterests.tsx` med:
 
-- `AdminPartnerReportsTab` rapport-genereringen (per-period är poängen).
-- `AdminAllVisitorsTab` (har egna datumväljare, ej 30/90-knappar).
-- `sync-snitcher-visits` daysBack-parameter (handlar om API-sync, inte visning).
+- **Vem som driver d365.se** – Cloud Ahead AB som ägare, Dynamic Factory som operativ avsändare, rådgivarna Thomas Laine & Michael Uhman.
+- **Ekonomiska intressen** – tydlig tabell över bolag i Microsoft-ekosystemet där Cloud Ahead har ägande eller pågående uppdrag: Nectar/MVI, Aimplan, Knowit (rådgivningsuppdrag).
+- **Hur vi hanterar intressekonflikten** – tre principer: (1) närstående partners markeras synligt i alla listor, (2) AI-matchningens ranking-algoritm beskrivs öppet och påverkas inte av ägarintressen, (3) partners betalar samma villkor oavsett relation (1 990 kr/mån per produktområde).
+- **Så finansieras sajten** – partneravgifter, ingen kickback per lead, transparent prissättning.
+- **Kontakt för frågor** – mail till info@d365.se.
 
-## Risker
+Lägg till i `App.tsx`, sitemap, `partnerRoutes.json` om relevant, och i footern under "Om d365.se".
 
-- Stora aggregat över hela perioden kan vara tunga på `visitor_analytics` och `funnel_events`. Edge functions returnerar redan aggregerade siffror, så det bör klara sig.
+### 2. Omformulera "oberoende" på alla ~15 platser
+
+Sök/ersätt-tabell (semantisk, inte mekanisk):
+
+| Var | Idag | Nytt |
+|---|---|---|
+| SEO-titel, meta-description (Index, m.fl.) | "Oberoende guide till Microsoft Dynamics 365" | "Köparsidig guide till Microsoft Dynamics 365" |
+| Footer ("Om d365.se") | "Oberoende guide..." | "Köparsidig vägledning för företag som väljer Dynamics 365 och partner." |
+| Navbar alt-text, logotyp-tagline | "Oberoende guide..." | "Köparsidig D365-guide" |
+| JSON-LD (Organization `description`) | "...oberoende..." | "...specialiserad köparsidig vägledning..." |
+| PDF-rapporter, e-postmallar, admin sales pitch | "oberoende" | "köparsidig" / "specialiserad" |
+| `llms.txt` | "Sveriges oberoende guide..." | "Sveriges specialiserade köparsidiga guide..." + nytt stycke om intresseredovisning som hänvisar till `/agande-och-intressen` |
+| Microsoft-disclaimer i footer (redan tillagd) | "oberoende vägledningsplattform" | behåll som juridisk disclaimer (gäller relation till Microsoft – inte oberoende från D365-marknaden) – men förtydliga: "fristående från Microsoft Corporation" |
+| Analysrapporter / `AnalysisDisclaimer` | – | ingen ändring (handlar om vägledning, inte oberoende) |
+
+Tester som verifierar förekomsten av ordet "oberoende" (`seo-oberoende-vagledning.test.ts`) skrivs om till att verifiera "köparsidig" + att intressedeklarations-länken finns.
+
+### 3. Märk närstående partners
+
+Lägg till ett fält `related_party: boolean` (eller använd ett tag-fält som redan finns) i partner-datan. När detta är true:
+
+- Visa en liten neutral badge "Närstående bolag – se [intresseredovisning](#)" på `PartnerCard`, `PartnerProfile`, samt i guidens resultat.
+- AI-rankingen påverkas inte – men badgen måste alltid synas där partnern listas.
+- I admin: enkelt toggle-fält i partnerredigeringen.
+
+Initiala värden för Nectar/MVI, Aimplan, Knowit (om de finns i partner-tabellen) sätts via migration.
+
+### 4. Uppdatera footer & navbar
+
+- Footern: lägg till länk till `/agande-och-intressen` i "Om d365.se"-sektionen, ovanför Microsoft-disclaimern.
+- Cookie-bannerns "Anpassa"-läge: oförändrad, men i privacy policy lägg till en mening med länk till intressedeklarationen.
+
+### 5. Uppdatera memory
+
+- Uppdatera `mem://content-strategy/taya-filosofi`: TAYA-principen kvarstår, men "oberoende" ersätts av "köparsidig + radikalt transparent om intressen".
+- Skapa `mem://legal/intressekonflikt-och-kopar-sidig-positionering-sv`: dokumenterar vald strategi, listar närstående bolag, beskriver badge-logiken så framtida AI-loopar inte återinför "oberoende".
+- Uppdatera Core-regeln i `mem://index.md`: "TAYA: köparsidig, radikalt transparent. Använd aldrig 'oberoende' i kommersiell copy – se intressekonfliktmemory."
+
+## Tekniska detaljer
+
+- Filer som ändras: `index.html`, `src/components/Footer.tsx`, `src/components/Navbar.tsx`, `src/pages/Index.tsx` (+ alla SEO-titlar via `SEOHead`-anrop), `src/pages/PrivacyPolicy.tsx`, `public/llms.txt`, `src/utils/generatePartnerGuide.ts`, `src/utils/generateRequirementsSpec.ts`, e-postmallar i `supabase/functions/send-*`, `src/components/AdminSalesPitchTab.tsx` + V2.
+- Nya filer: `src/pages/OwnershipAndInterests.tsx`, ev. `src/components/RelatedPartyBadge.tsx`.
+- Route: `/agande-och-intressen/` (trailing slash enligt projektets konvention) prerendras via SSG.
+- Tester: uppdatera `seo-oberoende-vagledning.test.ts` → `seo-kopar-sidig-vagledning.test.ts`.
+- Migration: lägg till `related_party boolean default false` på partner-tabellen + GRANTs enligt projektets policy.
+
+## Vad jag INTE rör i denna iteration
+
+- Ranking-algoritmen (oförändrad – beskrivs bara öppet på den nya sidan).
+- Utesluter inte närstående partners från matchningen (du valde transparens framför separation – om du vill det senare är det en separat ändring).
+- Ingen juridisk granskning beställs – jag rekommenderar att du låter en MFL-kunnig jurist läsa `/agande-och-intressen` och den nya footer-copyn innan publicering. Tekniskt går allt att deploya direkt; texten är det som behöver verifieras.
+
+## Resultat
+
+Efter implementation kan d365.se ärligt säga "köparsidig, specialiserad guide med transparent intresseredovisning" istället för "oberoende". Det är försvarbart juridiskt, mer trovärdigt om någon gräver, och behåller TAYA-positioneringen i sin starkare form: radikal transparens.

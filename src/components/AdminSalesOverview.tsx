@@ -157,7 +157,7 @@ function buildCopyText(stats: any, dateRange: string, excludePartners: boolean) 
   }
 
   lines.push("───────────────");
-  lines.push("Källa: d365.se – Sveriges oberoende guide till Microsoft Dynamics 365");
+  lines.push("Källa: d365.se – Sveriges köparsidiga guide till Microsoft Dynamics 365");
   return lines.join("\n");
 }
 

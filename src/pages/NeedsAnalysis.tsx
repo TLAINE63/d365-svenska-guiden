@@ -1961,7 +1961,7 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din oberoende guide till ratt Dynamics 365-losning", margin + 8, yPos + 18);
+    pdf.text("Din kopar-sidiga guide till ratt Dynamics 365-losning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
@@ -3256,14 +3256,14 @@ Finance & Supply Chain passar organisationer med höga krav på funktionalitet, 
     <div className="min-h-screen flex flex-col bg-background">
       <SEOHead 
         title="ERP Behovsanalys | Hitta rätt Dynamics 365-lösning"
-        description="Kostnadsfri ERP-behovsanalys: rekommendation för Business Central eller Finance & Supply Chain. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Kostnadsfri ERP-behovsanalys: rekommendation för Business Central eller Finance & Supply Chain. Köparsidig vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/ERPbehovsanalys"
         keywords="ERP behovsanalys, Dynamics 365, Business Central, Finance Supply Chain, affärssystem, kravspecifikation"
         ogImage="https://d365.se/og-behovsanalys.png"
       />
       <ServiceSchema 
         name="ERP Behovsanalys"
-        description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Kostnadsfri behovsanalys för att hitta rätt Microsoft Dynamics 365 ERP-lösning för din verksamhet. Köparsidig vägledning inför val av Dynamics 365 och partner."
       />
       <BreadcrumbSchema items={needsAnalysisBreadcrumbs} />
       <Navbar />

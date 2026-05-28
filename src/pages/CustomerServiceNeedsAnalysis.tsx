@@ -1751,12 +1751,12 @@ const CustomerServiceNeedsAnalysis = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Kundservice Behovsanalys | Dynamics 365"
-        description="Kostnadsfri behovsanalys för Dynamics 365 Customer Service, Field Service och Contact Center. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Kostnadsfri behovsanalys för Dynamics 365 Customer Service, Field Service och Contact Center. Köparsidig vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/kundservice-behovsanalys"
         keywords="kundservice behovsanalys, Dynamics 365 Customer Service, Field Service, Contact Center"
         ogImage="https://d365.se/og-kundservice-behovsanalys.png"
       />
-      <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice. Oberoende vägledning inför val av Dynamics 365 och partner." />
+      <ServiceSchema name="Kundservice Behovsanalys" description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 lösning för kundservice och fältservice. Köparsidig vägledning inför val av Dynamics 365 och partner." />
       <BreadcrumbSchema items={customerServiceBreadcrumbs} />
       <Navbar />
       <main className="pb-16">

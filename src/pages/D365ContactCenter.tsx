@@ -64,7 +64,7 @@ const D365ContactCenter = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Contact Center – Priser & guide | d365.se"
-        description="Dynamics 365 Contact Center från 1 051 kr/agent/mån. AI-agenter, routing och omnichannel. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Dynamics 365 Contact Center från 1 051 kr/agent/mån. AI-agenter, routing och omnichannel. Köparsidig vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/d365contactcenter"
         keywords="Dynamics 365 Contact Center pris, contact center Microsoft, omnichannel kontaktcenter, virtuella agenter AI, intelligent routing, Genesys alternativ, Avaya alternativ Microsoft, kontaktcenter system Sverige, Teams kontaktcenter, contact center molntjänst"
         ogImage="https://d365.se/og-contact-center.png"
@@ -72,7 +72,7 @@ const D365ContactCenter = () => {
       <FAQSchema faqs={contactCenterFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Contact Center – Omnichannel & AI-kontaktcenter"
-        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 051 kr per agent och månad. Implementationstid 2–12 månader. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Molnbaserat contact center med omnichannel-stöd (telefon, chatt, e-post, SMS, sociala medier), AI-drivna virtuella agenter och intelligent routing. Licenspris från 1 051 kr per agent och månad. Implementationstid 2–12 månader. Köparsidig vägledning inför val av Dynamics 365 och partner."
       />
       <BreadcrumbSchema items={contactCenterBreadcrumbs} />
       <Navbar />

@@ -1466,7 +1466,7 @@ const SalesMarketingNeedsAnalysis = () => {
     pdf.text("Dynamic Factory", margin + 8, yPos + 10);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text("Din oberoende guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
+    pdf.text("Din köparsidiga guide till rätt Dynamics 365-lösning", margin + 8, yPos + 18);
     pdf.text("+46 72 232 40 60", pageWidth - margin - 55, yPos + 10);
     pdf.text("thomas.laine@dynamicfactory.se", pageWidth - margin - 55, yPos + 18);
     pdf.text("d365.se", pageWidth - margin - 55, yPos + 26);
@@ -3047,14 +3047,14 @@ const SalesMarketingNeedsAnalysis = () => {
     <div className="min-h-screen bg-background">
       <SEOHead 
         title="Sälj & Marknad Behovsanalys | Dynamics 365 CRM"
-        description="Kostnadsfri behovsanalys för Dynamics 365 Sales och Customer Insights (Marketing). Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Kostnadsfri behovsanalys för Dynamics 365 Sales och Customer Insights (Marketing). Köparsidig vägledning inför val av Dynamics 365 och partner."
         canonicalPath="/CRMbehovsanalys"
         keywords="CRM behovsanalys, Dynamics 365 Sales, Marketing, Customer Insights, försäljning"
         ogImage="https://d365.se/og-salj-marknad-behovsanalys.png"
       />
       <ServiceSchema 
         name="Sälj & Marknad Behovsanalys"
-        description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring. Oberoende vägledning inför val av Dynamics 365 och partner."
+        description="Kostnadsfri behovsanalys för att hitta rätt Dynamics 365 CRM-lösning för sälj och marknadsföring. Köparsidig vägledning inför val av Dynamics 365 och partner."
       />
       <BreadcrumbSchema items={salesMarketingBreadcrumbs} />
       <Navbar />
