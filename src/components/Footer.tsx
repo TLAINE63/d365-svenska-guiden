@@ -93,9 +93,13 @@ const Footer = () => {
           <p className="text-sm mb-3">
             Microsoft Business Applications Evangelister
           </p>
-          <div className="flex justify-center gap-4 text-sm mb-4">
+          <div className="flex justify-center gap-4 text-sm mb-4 flex-wrap">
             <Link to="/dataskydd/" className="hover:text-foreground transition-colors">
               Dataskyddspolicy
+            </Link>
+            <span className="text-border">|</span>
+            <Link to="/agande-och-intressen/" className="hover:text-foreground transition-colors">
+              Så fungerar partnersamarbetet
             </Link>
             <span className="text-border">|</span>
             <button 
