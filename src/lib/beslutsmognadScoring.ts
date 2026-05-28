@@ -7,6 +7,8 @@ import {
   type Dimension,
 } from "@/data/beslutsmognadQuestions";
 
+export type Band = "Utforskande" | "Förberedande" | "Mogen" | "Beslutsklar";
+
 export const DIMENSION_LABELS: Record<Dimension, string> = {
   behovsbild: "Behovsbild",
   samsyn: "Intern samsyn",
