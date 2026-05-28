@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const DRAFT_KEY = "beslutsmognadsindex_draft";
 
-type Answers = Record<string, string | number>;
+type Answers = Record<string, string | number | string[]>;
 
 const TopStrip = ({
   current,
