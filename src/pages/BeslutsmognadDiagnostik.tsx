@@ -2,12 +2,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  questions,
+  questions as allQuestions,
   SECTION_ROMAN,
+  termForDomain,
+  applyTerm,
   type Dimension,
   type Question,
 } from "@/data/beslutsmognadQuestions";
 import { supabase } from "@/integrations/supabase/client";
+
 
 const DRAFT_KEY = "beslutsmognadsindex_draft";
 
