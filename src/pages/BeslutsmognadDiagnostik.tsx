@@ -378,7 +378,14 @@ export default function BeslutsmognadDiagnostik() {
         });
 
       localStorage.removeItem(DRAFT_KEY);
-      navigate("/beslutsmognad/tack");
+      navigate("/beslutsmognad/resultat", {
+        state: {
+          means: dimension_scores,
+          evalStage: background.eval_stage,
+          contactName,
+          company,
+        },
+      });
     } catch (e) {
       setErrorMsg(
         "Något gick fel. Försök igen, eller hör av er till hej@d365.se så löser vi det manuellt."
