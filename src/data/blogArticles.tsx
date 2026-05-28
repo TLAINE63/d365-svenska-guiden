@@ -856,7 +856,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
               som tänkt, beslutet blir svårt att försvara.
             </li>
             <li>
-              Oberoende vägledning, rätt frågor i säljprocessen och en
+              Köparsidig vägledning, rätt frågor i säljprocessen och en
               strukturerad utvärdering minskar risken markant.
             </li>
           </ul>
@@ -998,7 +998,7 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           skillnad.
         </p>
 
-        <h3>Oberoende vägledning tidigt i processen</h3>
+        <h3>Köparsidig vägledning tidigt i processen</h3>
         <p>
           Partnerlandskapet är svårt att överblicka för den som bara gör den här
           typen av val vart tionde eller femtonde år.
