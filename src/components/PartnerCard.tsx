@@ -14,6 +14,7 @@ import {
   Award,
   ExternalLink
 } from "lucide-react";
+import RelatedPartyBadge from "@/components/RelatedPartyBadge";
 import {
   calculateAiScore,
   getAiLevel,
@@ -316,6 +317,11 @@ const PartnerCard = ({
               {partner.name || 'Partner'}
             </h3>
           </Link>
+          {isDatabasePartner(partner) && (partner as any).related_party && (
+            <div className="mb-2 -mt-1">
+              <RelatedPartyBadge />
+            </div>
+          )}
 
           {/* Highlighted search criteria */}
           {hasHighlights && (
