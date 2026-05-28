@@ -91,8 +91,9 @@ export default function Beslutsmognadsindex() {
             className="font-bm-display italic text-bm-ink-soft leading-snug mb-10"
             style={{ fontSize: "clamp(1.125rem, 2vw, 1.5rem)", fontWeight: 320 }}
           >
-            En diagnostik för svenska beslutsgrupper: hur redo är ni inför en större ERP- eller CRM-investering?
+            Hur moget är ert beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice?
           </p>
+
           <p className="font-bm-body uppercase tracking-[0.18em] text-[11px] text-bm-ink-muted mb-6">
             8–10 minuter · 25 frågor · konfidentiell sammanställning
           </p>
