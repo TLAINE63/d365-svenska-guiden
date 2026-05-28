@@ -602,7 +602,10 @@ export default function BeslutsmognadDiagnostik() {
             </button>
             <button
               onClick={advance}
-              disabled={answers[q.id] === undefined}
+              disabled={
+                answers[q.id] === undefined ||
+                (Array.isArray(answers[q.id]) && (answers[q.id] as string[]).length === 0)
+              }
               className="border border-bm-ink px-6 py-3 font-bm-body uppercase tracking-[0.18em] text-[11px] hover:bg-bm-ink hover:text-bm-paper transition-colors rounded-sm disabled:opacity-30 disabled:cursor-not-allowed"
             >
               Nästa
