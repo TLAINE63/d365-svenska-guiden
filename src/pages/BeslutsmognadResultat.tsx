@@ -14,12 +14,14 @@ const RESULT_KEY = "beslutsmognadsindex_result";
 type ResultPayload = {
   means: DimensionMeans;
   evalStage?: string;
+type ResultPayload = {
+  means: DimensionMeans;
+  evalStage?: string;
+  domain?: string;
   contactName?: string;
   company?: string;
 };
 
-const TopBar = () => (
-  <header className="w-full border-b border-bm-rule">
     <div className="max-w-[1200px] mx-auto px-6 py-5 flex items-center justify-between">
       <Link to="/beslutsmognad" className="font-bm-display text-bm-ink text-lg tracking-tight">
         d365<span className="italic text-bm-accent-deep">.se</span>
