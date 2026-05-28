@@ -308,14 +308,16 @@ const Index = () => {
       </section>
 
       {/* Block 2 — Kunskapscenter: utvald artikel */}
-      <section className="py-10 sm:py-14 bg-white">
+      <section className="section-divider py-10 sm:py-14 bg-white">
+
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <FeaturedArticleBanner />
         </div>
       </section>
 
       {/* Block — Upphandlingsresan: 7 stadier */}
-      <section className="bg-white border-b border-border">
+      <section className="section-divider bg-white border-b border-border">
+
         <Suspense fallback={null}>
           <BuyerJourneyStages compact />
         </Suspense>
@@ -361,7 +363,8 @@ const Index = () => {
 
 
       {/* Block 3 — Hitta er ingång: situationskort */}
-      <section className="pt-14 sm:pt-20 pb-14 sm:pb-20 bg-[#F4F8F8] border-b border-border relative overflow-hidden">
+      <section className="section-divider pt-14 sm:pt-20 pb-14 sm:pb-20 bg-[#E8EFF1] border-b border-border relative overflow-hidden">
+
 
         {/* Subtle ambient background */}
         <div className="absolute inset-0 pointer-events-none">
@@ -429,7 +432,8 @@ const Index = () => {
 
 
       {/* Block 5.5 — Beslutsmognadsindex CTA */}
-      <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 sm:py-20 relative overflow-hidden border-b border-white/10">
+      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 sm:py-20 relative overflow-hidden border-b border-white/10">
+
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
@@ -518,7 +522,8 @@ const Index = () => {
 
 
       {/* Förtroendesektion: Oberoende rådgivare + E-bok + 3 pillars */}
-      <section className="px-4 sm:px-6 py-12 sm:py-16 bg-white border-b border-border">
+      <section className="section-divider px-4 sm:px-6 py-12 sm:py-16 bg-white border-b border-border">
+
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col gap-12 lg:gap-16">
             {/* Left: Thomas Laine & Michael Uhman */}
@@ -595,7 +600,8 @@ const Index = () => {
 
 
       {/* Block 7 — Lär dig mer */}
-      <section className="py-14 sm:py-20 bg-[#F4F8F8] border-t border-border/60">
+      <section className="section-divider py-14 sm:py-20 bg-[#E8EFF1] border-t border-border/60">
+
 
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
           <div className="max-w-2xl mb-10">
@@ -672,7 +678,8 @@ const Index = () => {
 
 
       {/* Block 9 — Mest lästa guider */}
-      <section className="py-12 sm:py-16 bg-[#F4F8F8]">
+      <section className="section-divider py-12 sm:py-16 bg-white">
+
         <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
           <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-1">Mest lästa guider</h2>
           <p className="text-sm text-muted-foreground mb-5">Frågorna svenska företag söker svar på.</p>
@@ -720,7 +727,8 @@ const Index = () => {
       */}
 
       {/* Block 11 — Slut-CTA (BOOKEND 2): mörk teal, speglar hero, en orange CTA */}
-      <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-16 sm:py-20 relative overflow-hidden">
+      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-16 sm:py-20 relative overflow-hidden">
+
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-4xl relative text-center">
@@ -744,7 +752,8 @@ const Index = () => {
       </section>
 
       {/* Block 12 — Vanliga frågor */}
-      <section id="questions" className="py-12 sm:py-16 bg-white">
+      <section id="questions" className="section-divider py-12 sm:py-16 bg-[#E8EFF1]">
+
         <div className="container mx-auto px-4 sm:px-6">
           <h2 className="text-2xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
             Vanliga frågor
@@ -891,7 +900,8 @@ const Index = () => {
       </section>
 
       {/* Block 13 — Utforska Dynamics 365 */}
-      <section className="bg-[#F4F8F8]">
+      <section className="section-divider bg-white">
+
         <RelatedPages pages={indexRelatedPages} heading="Utforska Microsoft Dynamics 365" />
       </section>
 
