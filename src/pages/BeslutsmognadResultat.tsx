@@ -32,16 +32,7 @@ const TopBar = () => (
   </header>
 );
 
-    <div className="max-w-[1200px] mx-auto px-6 py-5 flex items-center justify-between">
-      <Link to="/beslutsmognad" className="font-bm-display text-bm-ink text-lg tracking-tight">
-        d365<span className="italic text-bm-accent-deep">.se</span>
-      </Link>
-      <span className="font-bm-body uppercase tracking-[0.18em] text-[10px] text-bm-ink-muted">
-        Volym 01 · Kvartal 2 · 2026
-      </span>
-    </div>
-  </header>
-);
+
 
 const Bar = ({ label, code, score }: { label: string; code: string; score: number }) => {
   const pct = Math.round(score);
