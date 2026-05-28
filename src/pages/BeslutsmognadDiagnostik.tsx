@@ -597,17 +597,21 @@ export default function BeslutsmognadDiagnostik() {
               </button>
             </div>
           </div>
-        ) : (
-          <div className="flex-1 flex items-center justify-center px-6 py-12">
-            {q.type === "single_select" ? (
-              <SingleSelect q={q} value={answers[q.id] as string | undefined} onPick={(v) => handlePick(v)} />
-            ) : q.type === "multi_select" ? (
-              <MultiSelect q={q} value={answers[q.id] as string[] | undefined} onToggle={handleToggleMulti} />
-            ) : (
-              <Likert q={q} value={answers[q.id] as number | undefined} onPick={(v) => handlePick(v)} />
-            )}
-          </div>
-        )}
+        ) : (() => {
+          const renderQ = { ...q, text: applyTerm(q.text, systemTerm) } as Question;
+          return (
+            <div className="flex-1 flex items-center justify-center px-6 py-12">
+              {renderQ.type === "single_select" ? (
+                <SingleSelect q={renderQ} value={answers[renderQ.id] as string | undefined} onPick={(v) => handlePick(v)} />
+              ) : renderQ.type === "multi_select" ? (
+                <MultiSelect q={renderQ} value={answers[renderQ.id] as string[] | undefined} onToggle={handleToggleMulti} />
+              ) : (
+                <Likert q={renderQ} value={answers[renderQ.id] as number | undefined} onPick={(v) => handlePick(v)} />
+              )}
+            </div>
+          );
+        })()}
+
 
         {/* Footer nav */}
         {!showTransition && phase === "questions" && (
