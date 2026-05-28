@@ -96,6 +96,7 @@ export interface DatabasePartner {
   admin_contact_email: string | null;
   agreement_signed?: boolean | null;
   agreement_notes?: string | null;
+  related_party?: boolean | null;
   youtube_video_id?: string | null;
   industry_pitches?: Array<{
     industry: string;
@@ -186,6 +187,7 @@ export function usePartners() {
         admin_contact_name: null,
         admin_contact_email: null,
         agreement_signed: (p as any).agreement_signed ?? false,
+        related_party: (p as any).related_party ?? false,
         youtube_video_id: (p as any).youtube_video_id || null,
       }));
     },
@@ -233,6 +235,7 @@ export function usePartner(slug: string | undefined) {
         admin_contact_name: null,
         admin_contact_email: null,
         agreement_signed: (data as any).agreement_signed ?? false,
+        related_party: (data as any).related_party ?? false,
         youtube_video_id: (data as any).youtube_video_id || null,
       };
     },

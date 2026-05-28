@@ -67,6 +67,7 @@ const AskAi = lazy(() => import("./pages/AskAi"));
 const Beslutsmognadsindex = lazy(() => import("./pages/Beslutsmognadsindex"));
 const BeslutsmognadDiagnostik = lazy(() => import("./pages/BeslutsmognadDiagnostik"));
 const BeslutsmognadTack = lazy(() => import("./pages/BeslutsmognadTack"));
+const OwnershipAndInterests = lazy(() => import("./pages/OwnershipAndInterests"));
 const AiChatBubble = lazy(() => import("@/components/AiChatBubble"));
 
 const queryClient = new QueryClient();
@@ -183,6 +184,8 @@ const AppShell = () => {
           <Route path="/beslutsmognadsindex" element={<Beslutsmognadsindex />} />
           <Route path="/beslutsmognadsindex/diagnostik" element={<BeslutsmognadDiagnostik />} />
           <Route path="/beslutsmognadsindex/tack" element={<BeslutsmognadTack />} />
+          {/* Ägande- och intresseredovisning – transparenssida */}
+          <Route path="/agande-och-intressen" element={<OwnershipAndInterests />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

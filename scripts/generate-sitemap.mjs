@@ -54,6 +54,7 @@ const STATIC_ROUTES = [
   { path: "/kravspecifikation-sales/", changefreq: "monthly", priority: "0.7" },
   { path: "/kravspecifikation-marketing/", changefreq: "monthly", priority: "0.7" },
   { path: "/kravspecifikation-kundservice/", changefreq: "monthly", priority: "0.7" },
+  { path: "/agande-och-intressen/", changefreq: "yearly", priority: "0.5" },
 ];
 
 function readText(p) {
