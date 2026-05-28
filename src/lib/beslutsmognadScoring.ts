@@ -125,12 +125,12 @@ export type Recommendation = {
   score: number;
   band: Band;
   text: string;
-};
-
 export function topRecommendations(
   scores: DimensionScores,
-  count = 3
+  count = 3,
+  domain?: string
 ): Recommendation[] {
+  const term = termForDomain(domain);
   const sorted = (Object.keys(scores) as Dimension[]).sort((a, b) => {
     const diff = scores[a] - scores[b];
     if (diff !== 0) return diff;
@@ -147,8 +147,11 @@ export function topRecommendations(
       label: DIMENSION_LABELS[d],
       score,
       band: bandFor(score),
-      text: RECOMMENDATIONS[d][level],
+      text: applyTerm(RECOMMENDATIONS[d][level], term),
     };
+  });
+}
+
   });
 }
 
