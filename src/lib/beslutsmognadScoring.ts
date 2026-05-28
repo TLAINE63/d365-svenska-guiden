@@ -220,7 +220,8 @@ export type AssessmentResult = {
 
 export function buildResult(
   means: DimensionMeans,
-  evalStage?: string
+  evalStage?: string,
+  domain?: string
 ): AssessmentResult {
   const scores = toDimensionScores(means);
   const total = totalIndex(scores);
@@ -228,7 +229,8 @@ export function buildResult(
     scores,
     total,
     totalBand: bandFor(total),
-    recommendations: topRecommendations(scores),
+    recommendations: topRecommendations(scores, 3, domain),
     flag: processFlag(evalStage, scores, total),
   };
+
 }
