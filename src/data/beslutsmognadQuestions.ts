@@ -39,7 +39,9 @@ export const questions: Question[] = [
     id: "b1", section: "Bakgrund", type: "single_select",
     text: "Vilken bransch tillhör er verksamhet?",
     options: [
-      ...STANDARD_INDUSTRIES.map((i) => ({ value: i.slug, label: i.name })),
+      ...STANDARD_INDUSTRIES
+        .sort((a, b) => (a.sniCode ?? "99").localeCompare(b.sniCode ?? "99"))
+        .map((i) => ({ value: i.slug, label: `${i.sniCode ? `${i.sniCode} – ` : ""}${i.name}` })),
       { value: "annan", label: "Annan" },
     ],
   },
