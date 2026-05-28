@@ -572,7 +572,8 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
                     return (
                       <article
                         key={stage.id}
-                        className="rounded-xl border border-[#E5E5E8] bg-white p-6 transition-shadow duration-200 hover:shadow-md flex flex-col"
+                        id={`steg-${stage.id}`}
+                        className="rounded-xl border border-[#E5E5E8] bg-white p-6 transition-shadow duration-200 hover:shadow-md flex flex-col scroll-mt-24"
                       >
                         <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#5A5A66] mb-2">
                           Stadie {stage.id}
