@@ -1,9 +1,11 @@
 // Poängsättning, band, rekommendationer och processflaggor för
 // Beslutsmognadsindex. Spec: Volym 01, alla fem dimensioner lika viktade.
 
-import type { Dimension } from "@/data/beslutsmognadQuestions";
-
-export type Band = "Utforskande" | "Förberedande" | "Mogen" | "Beslutsklar";
+import {
+  applyTerm,
+  termForDomain,
+  type Dimension,
+} from "@/data/beslutsmognadQuestions";
 
 export const DIMENSION_LABELS: Record<Dimension, string> = {
   behovsbild: "Behovsbild",
