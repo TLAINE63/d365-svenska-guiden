@@ -355,7 +355,7 @@ export default function AdminKeywordTrendsTab({ token, onSessionExpired }: Props
                 <Input
                   value={editing.target_url || ""}
                   onChange={(e) => setEditing({ ...editing, target_url: e.target.value })}
-                  placeholder="https://d365.se/businesscentral/pris"
+                  placeholder="https://d365.se/businesscentral"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
                   Om angiven filtreras GSC-data till just denna sida. Lämna tom för hela domänen.

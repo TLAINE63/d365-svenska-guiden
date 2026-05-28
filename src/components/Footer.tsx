@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import linkedinLogo from "@/assets/linkedin-logo.jfif";
+
 import siteLogo from "@/assets/d365guide-logo-new.webp";
 
 const Footer = () => {
@@ -108,17 +108,6 @@ const Footer = () => {
             >
               Cookie-inställningar
             </button>
-          </div>
-          <div className="flex justify-center items-center gap-2">
-            <img src={linkedinLogo} alt="LinkedIn logotyp" width="20" height="20" loading="lazy" decoding="async" className="w-5 h-5" />
-            <a 
-              href="https://www.linkedin.com/showcase/d365se/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-primary hover:text-foreground transition-colors text-sm"
-            >
-              D365.se på LinkedIn
-            </a>
           </div>
         </div>
       </div>

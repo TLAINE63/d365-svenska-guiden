@@ -21,7 +21,7 @@ import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import guideValjPartnerImage from "@/assets/guide-valj-partner-card.jpg";
 import branschjamforelseImage from "@/assets/branschjamforelse-card.jpg";
 import upphandlingsresanImage from "@/assets/upphandlingsresan-card.jpg";
-import youtubeChannelImage from "@/assets/youtube-channel-thomas.png";
+
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
@@ -221,16 +221,6 @@ const STATIC_TOOLS: Array<{
     image_url: upphandlingsresanImage,
     icon: BookOpen,
     products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center"],
-  },
-  {
-    id: "tool-youtube-kanal",
-    title: "D365 Guide – YouTube-kanal",
-    description: "Se alla våra filmer om Dynamics 365, partnerval och branschlösningar på vår YouTube-kanal.",
-    type: "video",
-    url: "https://www.youtube.com/@D365Guide",
-    image_url: youtubeChannelImage,
-    icon: Play,
-    products: ["Business Central", "Finance & SCM", "Sales", "Customer Insights", "Customer Service", "Field Service", "Contact Center", "AI/Copilot/Agents"],
   },
   {
     id: "video-byta-affarssystem",

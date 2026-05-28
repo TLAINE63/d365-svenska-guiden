@@ -123,7 +123,7 @@ export const buildVideoObjectSchema = (video: KnowledgeVideo) => ({
     name: "d365.se",
     logo: {
       "@type": "ImageObject",
-      url: "https://d365.se/d365guide-logo-new.png",
+      url: "https://d365.se/d365guide-logo.png",
     },
   },
 });

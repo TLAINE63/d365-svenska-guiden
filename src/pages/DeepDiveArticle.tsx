@@ -148,7 +148,7 @@ const DeepDiveArticle = () => {
                   { label: "Microsoft Learn: Dynamics 365 Customer Insights", url: "https://learn.microsoft.com/dynamics365/customer-insights/" },
                 ],
                 "copilot": [
-                  { label: "Microsoft Learn: Copilot för Dynamics 365", url: "https://learn.microsoft.com/dynamics365/guidance/develop/copilot-overview" },
+                  { label: "Microsoft Learn: Copilot för Dynamics 365", url: "https://learn.microsoft.com/dynamics365/guidance/develop/" },
                 ],
                 "agents": [
                   { label: "Microsoft Learn: Copilot Studio agents", url: "https://learn.microsoft.com/microsoft-copilot-studio/" },
