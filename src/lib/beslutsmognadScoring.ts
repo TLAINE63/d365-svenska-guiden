@@ -76,12 +76,18 @@ export const RECOMMENDATIONS: Record<Dimension, LevelTexts> = {
       "Era affärsproblem är ännu inte tillräckligt formulerade för att styra ett systemval. Samla beslutsgruppen och skriv ner de tre till fem konkreta affärsproblem ni vill lösa, i verksamhetstermer och inte systemtermer. Definiera samtidigt hur ni ska mäta om de är lösta. Utan detta riskerar ni att köpa en lösning på ett odefinierat problem.",
     mid:
       "Ni har en bild av era behov, men den behöver skärpas. Separera tydligt absoluta krav från önskemål, och säkerställ att kraven utgår från vart verksamheten ska, inte från vad nuvarande system saknar. Komplettera med tydliga framgångsmått innan ni går vidare till leverantörsdialog.",
+export const RECOMMENDATIONS: Record<Dimension, LevelTexts> = {
+  behovsbild: {
+    low:
+      "Era affärsproblem är ännu inte tillräckligt formulerade för att styra ett val av {systemterm}. Samla beslutsgruppen och skriv ner de tre till fem konkreta affärsproblem ni vill lösa, i verksamhetstermer och inte systemtermer. Definiera samtidigt hur ni ska mäta om de är lösta. Utan detta riskerar ni att köpa en lösning på ett odefinierat problem.",
+    mid:
+      "Ni har en bild av era behov, men den behöver skärpas. Separera tydligt absoluta krav från önskemål, och säkerställ att kraven utgår från vart verksamheten ska, inte från vad nuvarande system saknar. Komplettera med tydliga framgångsmått innan ni går vidare till leverantörsdialog.",
     high:
       "Er behovsbild är välformulerad och verksamhetsdriven. Bevara den disciplinen genom utvärderingen: låt kravbilden, inte leverantörernas demos, styra vad ni bedömer.",
   },
   samsyn: {
     low:
-      "Ekonomi, IT och verksamheten har ännu inte en gemensam bild av varför projektet görs. Det är den vanligaste orsaken till att ERP-projekt spårar ur. Utse en tydlig ägare med mandat, och håll ett gemensamt möte där ni enas om projektets syfte och om vad som händer om ni inte gör något. Gå inte vidare till leverantörer förrän den samsynen finns.",
+      "De berörda funktionerna och IT har ännu inte en gemensam bild av varför projektet görs. Det är den vanligaste orsaken till att den här typen av projekt spårar ur. Utse en tydlig ägare med mandat, och håll ett gemensamt möte där ni enas om projektets syfte och om vad som händer om ni inte gör något. Gå inte vidare till leverantörer förrän den samsynen finns.",
     mid:
       "Det finns en grundläggande samsyn, men ägarskapet eller mötesdisciplinen är otydlig. Definiera vem som äger beslutet och inför en fast mötesrytm för just den här frågan. Säkerställ också att alla i gruppen delar bilden av kostnaden för att inte agera.",
     high:
@@ -89,7 +95,7 @@ export const RECOMMENDATIONS: Record<Dimension, LevelTexts> = {
   },
   riskinsikt: {
     low:
-      "Ni har ännu inte kartlagt de största riskerna med ett ERP-byte. Notera särskilt att de flesta ERP-projekt inte fallerar tekniskt utan organisatoriskt: förändringsmotstånd, kompetensbrist och svag adoption. Gör en riskinventering där varje större risk får en utpekad ägare med åtgärdsmandat, och planera redan nu för att scope växer och budget pressas, eftersom det är regel snarare än undantag.",
+      "Ni har ännu inte kartlagt de största riskerna med ett systembyte. Notera särskilt att de flesta sådana projekt inte fallerar tekniskt utan organisatoriskt: förändringsmotstånd, kompetensbrist och svag adoption. Gör en riskinventering där varje större risk får en utpekad ägare med åtgärdsmandat, och planera redan nu för att scope växer och budget pressas, eftersom det är regel snarare än undantag.",
     mid:
       "Ni ser riskerna men hanteringen är ojämn. Säkerställ att varje större risk har en ägare med mandat att agera, och att de organisatoriska riskerna får lika mycket utrymme som de tekniska. Lägg in en realistisk buffert för scope och budget.",
     high:
@@ -103,15 +109,7 @@ export const RECOMMENDATIONS: Record<Dimension, LevelTexts> = {
     high:
       "Ni har god överblick över partnermarknaden och dess skillnader. Använd den kunskapen för att ställa de svåra frågorna tidigt, innan ni investerar tid i en specifik partner.",
   },
-  beslutsstruktur: {
-    low:
-      "Ert sätt att jämföra partners och fatta beslut är ännu ostrukturerat. Bygg en enkel men tydlig utvärderingsmodell med samma kriterier för alla partners, säkerställ att underlaget skulle hålla om styrelse eller revisor granskade det, och definiera en konkret beslutspunkt: vem säger ja, när, och baserat på vad. Se till att utvärderingen omfattar tiden efter avtal, alltså implementation och förvaltning, och inte bara själva valet.",
-    mid:
-      "Ni har en struktur men den har luckor. Stärk särskilt två saker: att beslutsunderlaget är försvarbart inför en extern granskare, och att utvärderingen täcker implementation och förvaltning, inte bara valet. Definiera tydligt var och när beslutet fattas.",
-    high:
-      "Er beslutsstruktur är robust och försvarbar, och den sträcker sig bortom valet till leverans och förvaltning. Ni är väl rustade att fatta ett beslut som håller över tid.",
-  },
-};
+
 
 export type Recommendation = {
   dimension: Dimension;
