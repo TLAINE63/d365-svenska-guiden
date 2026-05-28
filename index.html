@@ -74,19 +74,53 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Google tag (gtag.js) - deferred well past LCP -->
+    <!-- Google Consent Mode v2 + gtag.js (deferred past LCP, gated by samtycke) -->
     <script>
+      // 1) Initiera dataLayer + gtag-stub SYNKRONT så consent default sätts före något tag laddas
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+
+      // 2) Läs lagrat samtycke (granulärt v2-format)
+      var __consent = null;
+      try { __consent = JSON.parse(localStorage.getItem('cookie-consent-v2') || 'null'); } catch(e) {}
+      var __analytics = (__consent && __consent.statistics) ? 'granted' : 'denied';
+      var __ads = (__consent && __consent.marketing) ? 'granted' : 'denied';
+
+      // 3) Default = denied (krävs av LEK/ePrivacy) tills användaren aktivt samtyckt
+      gtag('consent', 'default', {
+        'ad_storage': __ads,
+        'ad_user_data': __ads,
+        'ad_personalization': __ads,
+        'analytics_storage': __analytics,
+        'functionality_storage': 'granted',
+        'security_storage': 'granted',
+        'wait_for_update': 500
+      });
+      gtag('js', new Date());
+      gtag('config', 'G-BBC4N0F9W9', { 'anonymize_ip': true });
+      gtag('config', 'AW-17947547907');
+
+      // 4) Reagera på ändrat samtycke från CookieBanner
+      window.addEventListener('cookie-consent-changed', function () {
+        var s = null;
+        try { s = JSON.parse(localStorage.getItem('cookie-consent-v2') || 'null'); } catch(e) {}
+        var a = (s && s.statistics) ? 'granted' : 'denied';
+        var m = (s && s.marketing) ? 'granted' : 'denied';
+        gtag('consent', 'update', {
+          'ad_storage': m,
+          'ad_user_data': m,
+          'ad_personalization': m,
+          'analytics_storage': a
+        });
+      });
+
+      // 5) Ladda själva gtag.js-skriptet först efter LCP
       function loadGTM() {
         var s = document.createElement('script');
         s.async = true;
         s.src = 'https://www.googletagmanager.com/gtag/js?id=G-BBC4N0F9W9';
         document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-BBC4N0F9W9');
-        gtag('config', 'AW-17947547907');
       }
       if ('requestIdleCallback' in window) {
         requestIdleCallback(loadGTM, { timeout: 8000 });
