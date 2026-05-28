@@ -1,3 +1,5 @@
+import { STANDARD_INDUSTRIES } from "./standardIndustries";
+
 export type Dimension =
   | "behovsbild"
   | "samsyn"
