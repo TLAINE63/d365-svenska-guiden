@@ -821,6 +821,7 @@ export type Database = {
           phone: string | null
           platform_capabilities: string[] | null
           product_filters: Json | null
+          related_party: boolean
           secondary_industries: string[] | null
           slug: string
           updated_at: string
@@ -864,6 +865,7 @@ export type Database = {
           phone?: string | null
           platform_capabilities?: string[] | null
           product_filters?: Json | null
+          related_party?: boolean
           secondary_industries?: string[] | null
           slug: string
           updated_at?: string
@@ -907,6 +909,7 @@ export type Database = {
           phone?: string | null
           platform_capabilities?: string[] | null
           product_filters?: Json | null
+          related_party?: boolean
           secondary_industries?: string[] | null
           slug?: string
           updated_at?: string

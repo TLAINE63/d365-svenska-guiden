@@ -1,0 +1,2 @@
+ALTER TABLE public.partners ADD COLUMN IF NOT EXISTS related_party boolean NOT NULL DEFAULT false;
+COMMENT ON COLUMN public.partners.related_party IS 'True om d365.se:s ägare (Cloud Ahead) har ekonomiska intressen i denna partner. Visas som synlig "Närstående bolag"-badge i offentliga listor och länkar till /agande-och-intressen.';
