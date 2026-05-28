@@ -143,29 +143,11 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <div className="px-2 py-1.5">
-                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Upphandlingsresan · 7 stadier</p>
-                </div>
                 <DropdownMenuItem asChild>
-                  <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer font-medium">
-                    🗺️ Översikt – alla 7 stadier
+                  <Link to="/kunskapscenter/upphandlingsresan" className="cursor-pointer">
+                    🗺️ Upphandlingsresan
                   </Link>
                 </DropdownMenuItem>
-                {[
-                  { id: 1, label: "1. Allt fungerar – ni orienterar er" },
-                  { id: 2, label: "2. Det skaver i vardagen" },
-                  { id: 3, label: "3. Något tvingar fram utvärdering" },
-                  { id: 4, label: "4. Strukturera behovet" },
-                  { id: 5, label: "5. Väg olika vägar framåt" },
-                  { id: 6, label: "6. Jämför partners" },
-                  { id: 7, label: "7. Nära beslut – stresstesta" },
-                ].map((s) => (
-                  <DropdownMenuItem key={s.id} asChild>
-                    <Link to={`/kunskapscenter/upphandlingsresan#steg-${s.id}`} className="cursor-pointer text-sm">
-                      {s.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
                 <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Guide</p>
@@ -273,23 +255,9 @@ const Navbar = () => {
                   <Link to="/beslutsmognad/" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📋 Beslutsmognadsindex
                   </Link>
-                  <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Upphandlingsresan · 7 stadier</span>
                   <Link to="/kunskapscenter/upphandlingsresan" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
-                    🗺️ Översikt – alla 7 stadier
+                    🗺️ Upphandlingsresan
                   </Link>
-                  {[
-                    { id: 1, label: "1. Allt fungerar – ni orienterar er" },
-                    { id: 2, label: "2. Det skaver i vardagen" },
-                    { id: 3, label: "3. Något tvingar fram utvärdering" },
-                    { id: 4, label: "4. Strukturera behovet" },
-                    { id: 5, label: "5. Väg olika vägar framåt" },
-                    { id: 6, label: "6. Jämför partners" },
-                    { id: 7, label: "7. Nära beslut – stresstesta" },
-                  ].map((s) => (
-                    <Link key={s.id} to={`/kunskapscenter/upphandlingsresan#steg-${s.id}`} className="text-sm text-muted-foreground hover:text-primary transition-colors ml-2">
-                      {s.label}
-                    </Link>
-                  ))}
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
                   <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
                     📘 Så väljer du rätt Dynamics 365-partner
