@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "fs";
 import path from "path";
 
-const PHRASE = "Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365";
+const PHRASE = "Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner";
 const PAGES_DIR = path.resolve(__dirname, "..", "pages");
 
 // Dynamiska sidor som bygger SEOHead-props i runtime (utan litterala strängar).

@@ -88,7 +88,7 @@ const D365Sales = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Sales – CRM för sälj | Priser | d365.se"
-        description="Dynamics 365 Sales från 621 kr/mån med Copilot AI. Jämför mot Salesforce. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Dynamics 365 Sales från 621 kr/mån med Copilot AI. Jämför mot Salesforce. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/d365sales"
         keywords="Dynamics 365 Sales pris, Dynamics 365 Sales licens, CRM för sälj, Microsoft CRM system, Salesforce alternativ Sverige, Dynamics 365 Sales vs Salesforce, CRM system säljteam, Dynamics 365 Sales implementering, Sales Enterprise Copilot, Microsoft CRM partner Sverige"
         ogImage="https://d365.se/og-sales.png"
@@ -96,7 +96,7 @@ const D365Sales = () => {
       <FAQSchema faqs={salesFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Sales – CRM för Säljteam"
-        description="Molnbaserat CRM-system för moderna säljteam med inbyggd Copilot AI, förutsägande leadpoängsättning och sömlös Microsoft 365-integration. Licenspriser från 621 kr/användare/mån. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Molnbaserat CRM-system för moderna säljteam med inbyggd Copilot AI, förutsägande leadpoängsättning och sömlös Microsoft 365-integration. Licenspriser från 621 kr/användare/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={salesBreadcrumbs} />
       <Navbar />

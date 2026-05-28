@@ -161,7 +161,7 @@ const FinanceSupplyChain = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Finance & Supply Chain – Priser & guide | d365.se"
-        description="Dynamics 365 Finance & Supply Chain från 2 007 kr/mån. SAP-alternativ för tillverkning. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Dynamics 365 Finance & Supply Chain från 2 007 kr/mån. SAP-alternativ för tillverkning. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/finance-supply-chain"
         keywords="Dynamics 365 Finance pris, Supply Chain Management Microsoft, SAP alternativ ERP, Dynamics 365 Finance SCM, enterprise ERP Sverige, ERP tillverkning, global ekonomihantering, Dynamics 365 vs SAP, supply chain system Microsoft, ERP grossist distribution"
         ogImage="https://d365.se/og-finance-scm.png"
@@ -169,7 +169,7 @@ const FinanceSupplyChain = () => {
       <FAQSchema faqs={fscFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Finance & Supply Chain Management – Enterprise ERP"
-        description="Enterprise ERP-lösning för global ekonomihantering, supply chain, tillverkning och distribution. Licenspris från 2 007,30 kr per användare och månad. SAP-alternativ med inbyggd Copilot AI. Implementationstid 9–36 månader beroende på komplexitet. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Enterprise ERP-lösning för global ekonomihantering, supply chain, tillverkning och distribution. Licenspris från 2 007,30 kr per användare och månad. SAP-alternativ med inbyggd Copilot AI. Implementationstid 9–36 månader beroende på komplexitet. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={fscBreadcrumbs} />
       <Navbar />

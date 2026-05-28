@@ -177,7 +177,7 @@ const BusinessCentral = () => {
     <div className="min-h-screen">
       <SEOHead 
         title="Dynamics 365 Business Central – pris, licens & partners | d365.se"
-        description="Business Central: Essentials 765 kr/mån, Premium 1 051 kr/mån. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Business Central: Essentials 765 kr/mån, Premium 1 051 kr/mån. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
         canonicalPath="/businesscentral"
         keywords="business central, dynamics 365 business central, d365 bc, dynamics 365 bc, business central pris, business central licens, business central essentials, business central premium, business central partner sverige, business central implementering"
         ogImage="https://d365.se/og-business-central.png"
@@ -185,7 +185,7 @@ const BusinessCentral = () => {
       <FAQSchema faqs={bcFaqs} />
       <ServiceSchema 
         name="Microsoft Dynamics 365 Business Central"
-        description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI. Vi står på köparens sida när du väljer partner för Microsoft Dynamics 365."
+        description="Molnbaserat ERP-system för mindre och medelstora företag. Inkluderar ekonomi, lager, försäljning, inköp och produktion med inbyggd Microsoft Copilot AI. Vi står på köparens sida när du väljer Microsoft Dynamics 365-partner."
       />
       <BreadcrumbSchema items={bcBreadcrumbs} />
       <Navbar />
