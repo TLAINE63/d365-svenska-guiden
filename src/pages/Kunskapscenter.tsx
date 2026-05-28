@@ -21,7 +21,7 @@ import behovsAiImage from "@/assets/behovsanalys-ai-card.jpg";
 import guideValjPartnerImage from "@/assets/guide-valj-partner-card.jpg";
 import branschjamforelseImage from "@/assets/branschjamforelse-card.jpg";
 import upphandlingsresanImage from "@/assets/upphandlingsresan-card.jpg";
-import youtubeChannelImage from "@/assets/youtube-channel-thomas.png";
+
 import { Badge } from "@/components/ui/badge";
 import ProductQASection from "@/components/ProductQASection";
 import { PRODUCT_QA_DATA } from "@/data/productQA";
