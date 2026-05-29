@@ -109,7 +109,7 @@ const Navbar = () => {
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/" className="cursor-pointer font-medium text-primary">
-                    🔍 Verksamhetsguider
+                    🔍 Hitta din partner
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
