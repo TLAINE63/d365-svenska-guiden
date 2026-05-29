@@ -317,17 +317,17 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
     <section className="bg-[#FAFAFA] py-12 md:py-20 border-b border-[#E5E5E8]">
       <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
         {/* Header */}
-        <header className="mb-10 md:mb-14">
-          <span className="inline-block mb-4 px-3 py-1 rounded-full bg-cta-orange/10 text-cta-orange text-[11px] font-semibold uppercase tracking-[0.16em]">
+        <header className="mb-10 md:mb-14 rounded-2xl bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border border-white/10 shadow-xl p-6 sm:p-10 md:p-12">
+          <span className="inline-block mb-4 px-3 py-1 rounded-full bg-cta-orange/20 text-cta-orange text-[11px] font-semibold uppercase tracking-[0.16em] ring-1 ring-cta-orange/30">
             Nytt för 2026 · Beslutsmognadsindex
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-[#0B0B0F] leading-tight mb-4 max-w-3xl">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white leading-tight mb-4 max-w-3xl">
             Var i systemlivscykeln står ni?
           </h2>
-          <p className="text-base sm:text-lg text-[#2A2A33] mb-3 max-w-3xl leading-relaxed">
+          <p className="text-base sm:text-lg text-white/85 mb-3 max-w-3xl leading-relaxed">
             Hur moget är ert beslutsunderlag inför en investering i affärssystem, CRM, marknadsföring eller kundservice? Beslutsmognadsindex är en diagnostik för svenska beslutsgrupper — utvecklad av d365.se, som står på köparens sida.
           </p>
-          <p className="text-sm text-[#5A5A66] mb-6 max-w-3xl leading-relaxed">
+          <p className="text-sm text-white/65 mb-6 max-w-3xl leading-relaxed">
             Gäller både ERP (Business Central, Finance &amp; Supply Chain Management) och CRM/kundnära system (Sales, Marketing/Customer Insights, Customer Service, Field Service, Contact Center). Konfidentiell sammanställning — inga svar sparas innan ni väljer att skicka in.
           </p>
 
@@ -337,10 +337,10 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
               { num: "II", title: "Peer benchmark", body: "Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken." },
               { num: "III", title: "Tre konkreta rekommendationer", body: "Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter." },
             ].map((c) => (
-              <div key={c.num} className="rounded-xl border border-[#E5E5E8] bg-white p-5">
+              <div key={c.num} className="rounded-xl border border-white/15 bg-white/5 backdrop-blur-sm p-5">
                 <div className="text-2xl font-serif italic text-cta-orange mb-2 leading-none">{c.num}</div>
-                <div className="text-sm font-semibold text-[#0B0B0F] mb-1.5">{c.title}</div>
-                <p className="text-[13px] text-[#5A5A66] leading-relaxed">{c.body}</p>
+                <div className="text-sm font-semibold text-white mb-1.5">{c.title}</div>
+                <p className="text-[13px] text-white/70 leading-relaxed">{c.body}</p>
               </div>
             ))}
           </div>
@@ -353,11 +353,12 @@ const BuyerJourneyStages = ({ compact = false }: { compact?: boolean } = {}) => 
               Starta Beslutsmognadsindex
               <span aria-hidden className="text-xl">→</span>
             </a>
-            <span className="text-sm text-[#5A5A66]">
+            <span className="text-sm text-white/70">
               8–10 minuter · 25 frågor · konfidentiellt
             </span>
           </div>
         </header>
+
 
 
 
