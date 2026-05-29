@@ -109,7 +109,7 @@ const Navbar = () => {
               <DropdownMenuContent className="bg-background border border-border z-50 w-64">
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/" className="cursor-pointer font-medium text-primary">
-                    🔍 Hitta Dynamics 365-partner
+                    🔍 Hitta Dynamics&nbsp;365-partner
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -154,7 +154,7 @@ const Navbar = () => {
                 </div>
                 <DropdownMenuItem asChild>
                   <Link to="/valjdynamics365partner/?ai=1" className="cursor-pointer">
-                    📘 Så väljer du rätt Dynamics 365-partner
+                    📘 Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -260,7 +260,7 @@ const Navbar = () => {
                   </Link>
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide mt-2">Guide</span>
                   <Link to="/valjdynamics365partner/?ai=1" className="text-base font-medium text-muted-foreground hover:text-primary transition-colors">
-                    📘 Så väljer du rätt Dynamics 365-partner
+                    📘 Så väljer du rätt Dynamics&nbsp;365-partner
                   </Link>
                 </div>
                 <div className="flex flex-col gap-2">
