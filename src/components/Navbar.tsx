@@ -96,7 +96,7 @@ const Navbar = () => {
               to="/branscher/"
               className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
-              Hitta din bransch
+              Hitta din bransch & partner
             </Link>
             {/* Branschlösningar – dold tills vidare */}
             <DropdownMenu>
@@ -229,7 +229,7 @@ const Navbar = () => {
                   to="/branscher/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
-                  Hitta din bransch
+                  Hitta din bransch & partner
                 </Link>
                 {/* Branschlösningar – dold tills vidare */}
                 <Link
