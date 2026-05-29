@@ -262,7 +262,7 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-16 relative">
           {/* Headline */}
           <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[1.25] tracking-tight text-white mb-12 max-w-4xl">
-            <span className="block mb-6">Ni väljer inte bara Dynamics 365.</span>
+            <span className="block mb-6">Ni väljer inte bara <span className="whitespace-nowrap">Dynamics 365.</span></span>
             <span className="block text-[hsl(180_75%_65%)] font-normal italic">
               Ni väljer partnern som ska få det att fungera.
             </span>
