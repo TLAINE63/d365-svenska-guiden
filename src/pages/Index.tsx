@@ -394,92 +394,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Block — Beslutsmognadsindex CTA (flyttad upp, ersätter tidigare Upphandlingsresan-teaser) */}
-      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 sm:py-20 relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            {/* Left: Text */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80 mb-5">
-                <ClipboardCheck className="w-3.5 h-3.5" />
-                Nytt för 2026
-              </div>
-              <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
-                Hur moget är ert beslutsunderlag?
-              </h2>
-              <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-6 max-w-xl">
-                Innan ni investerar i affärssystem, CRM, marknadsföring eller kundservice — ta reda på hur redo ni faktiskt är. Beslutsmognadsindex ger er en personlig profil, en peer benchmark och tre konkreta rekommendationer.
-              </p>
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <BarChart3 className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
-                  </div>
-                  <div>
-                    <p className="text-[15px] font-semibold text-white/90">I. En personlig mognadsprofil</p>
-                    <p className="text-sm text-white/55 leading-relaxed">Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Users className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
-                  </div>
-                  <div>
-                    <p className="text-[15px] font-semibold text-white/90">II. En peer benchmark</p>
-                    <p className="text-sm text-white/55 leading-relaxed">Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken.</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Check className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
-                  </div>
-                  <div>
-                    <p className="text-[15px] font-semibold text-white/90">III. Tre konkreta rekommendationer</p>
-                    <p className="text-sm text-white/55 leading-relaxed">Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter.</p>
-                  </div>
-                </div>
-              </div>
-              <Button
-                asChild
-                size="lg"
-                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
-              >
-                <Link to="/beslutsmognad/">
-                  Starta Beslutsmognadsindex
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Link>
-              </Button>
-              <p className="mt-4 text-[13px] text-white/50">
-                8–10 minuter · 25 frågor · konfidentiell sammanställning · inga svar sparas innan ni skickar in
-              </p>
-            </div>
-            {/* Right: Visual / Quote */}
-            <div className="relative">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
-                <p className="font-light italic text-white/80 text-lg sm:text-xl leading-relaxed mb-6">
-                  "Var i systemlivscykeln står ni?"
-                </p>
-                <p className="text-white/50 text-sm leading-relaxed mb-8">
-                  Beslutsmognadsindex är en diagnostik för svenska beslutsgrupper. Det låter er kartlägga era styrkor och luckor innan partnerdialogen börjar — så att ni går in i den med bättre underlag och tydligare frågor.
-                </p>
-                <div className="flex items-center gap-3 pt-6 border-t border-white/10">
-                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                    <BarChart3 className="w-5 h-5 text-[hsl(var(--cta-orange))]" />
-                  </div>
-                  <div>
-                    <p className="text-[13px] font-semibold text-white/90">d365.se Beslutsmognadsindex</p>
-                    <p className="text-[11px] text-white/40 uppercase tracking-wider">Volym 01 · Kvartal 2 · 2026</p>
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -top-8 -right-8 w-48 h-48 bg-[hsl(var(--cta-orange))]/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-            </div>
-          </div>
-        </div>
-      </section>
 
 
 
@@ -664,6 +578,93 @@ const Index = () => {
 
       {/* Block 6b — Jämför partners-teaser */}
       <HomePartnersTeaser />
+
+      {/* Block — Beslutsmognadsindex CTA */}
+      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 sm:py-20 relative overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Left: Text */}
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/80 mb-5">
+                <ClipboardCheck className="w-3.5 h-3.5" />
+                Nytt för 2026
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-4 leading-[1.15]">
+                Hur moget är ert beslutsunderlag?
+              </h2>
+              <p className="text-base sm:text-lg text-white/70 font-light leading-relaxed mb-6 max-w-xl">
+                Innan ni investerar i affärssystem, CRM, marknadsföring eller kundservice — ta reda på hur redo ni faktiskt är. Beslutsmognadsindex ger er en personlig profil, en peer benchmark och tre konkreta rekommendationer.
+              </p>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <BarChart3 className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-semibold text-white/90">I. En personlig mognadsprofil</p>
+                    <p className="text-sm text-white/55 leading-relaxed">Er position på fem dimensioner: behovsbild, intern samsyn, riskinsikt, partnermarknad, beslutsstruktur.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Users className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-semibold text-white/90">II. En peer benchmark</p>
+                    <p className="text-sm text-white/55 leading-relaxed">Jämförelse mot andra svenska beslutsgrupper som genomfört diagnostiken.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-4 h-4 text-[hsl(var(--cta-orange))]" />
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-semibold text-white/90">III. Tre konkreta rekommendationer</p>
+                    <p className="text-sm text-white/55 leading-relaxed">Inriktade på där hävstången är störst i ert nuvarande skede — inte på era svagheter.</p>
+                  </div>
+                </div>
+              </div>
+              <Button
+                asChild
+                size="lg"
+                className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+              >
+                <Link to="/beslutsmognad/">
+                  Starta Beslutsmognadsindex
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+              <p className="mt-4 text-[13px] text-white/50">
+                8–10 minuter · 25 frågor · konfidentiell sammanställning · inga svar sparas innan ni skickar in
+              </p>
+            </div>
+            {/* Right: Visual / Quote */}
+            <div className="relative">
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 backdrop-blur-sm">
+                <p className="font-light italic text-white/80 text-lg sm:text-xl leading-relaxed mb-6">
+                  "Var i systemlivscykeln står ni?"
+                </p>
+                <p className="text-white/50 text-sm leading-relaxed mb-8">
+                  Beslutsmognadsindex är en diagnostik för svenska beslutsgrupper. Det låter er kartlägga era styrkor och luckor innan partnerdialogen börjar — så att ni går in i den med bättre underlag och tydligare frågor.
+                </p>
+                <div className="flex items-center gap-3 pt-6 border-t border-white/10">
+                  <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+                    <BarChart3 className="w-5 h-5 text-[hsl(var(--cta-orange))]" />
+                  </div>
+                  <div>
+                    <p className="text-[13px] font-semibold text-white/90">d365.se Beslutsmognadsindex</p>
+                    <p className="text-[11px] text-white/40 uppercase tracking-wider">Volym 01 · Kvartal 2 · 2026</p>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -top-8 -right-8 w-48 h-48 bg-[hsl(var(--cta-orange))]/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      </section>
 
 
 
