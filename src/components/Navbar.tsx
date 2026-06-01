@@ -112,6 +112,11 @@ const Navbar = () => {
                     🔍 Hitta Dynamics&nbsp;365-partner
                   </Link>
                 </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/upphandlingsguiden/" className="cursor-pointer font-medium text-primary">
+                    🗺️ Upphandlingsguiden
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <div className="px-2 py-1.5">
                   <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</p>
@@ -236,7 +241,13 @@ const Navbar = () => {
                   to="/valjdynamics365partner/"
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
-                  Verksamhetsguider
+                  Hitta Dynamics&nbsp;365-partner
+                </Link>
+                <Link
+                  to="/upphandlingsguiden/"
+                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  🗺️ Upphandlingsguiden
                 </Link>
                 <div className="flex flex-col gap-2 ml-4">
                   <span className="text-xs text-muted-foreground font-semibold uppercase tracking-wide">Börja med en behovsanalys</span>
