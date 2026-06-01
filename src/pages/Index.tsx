@@ -307,6 +307,129 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Steg-för-steg process — köparens väg */}
+      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 sm:py-20 relative overflow-hidden border-b border-white/10">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
+        <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
+          <div className="text-center mb-10 sm:mb-12">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(180_75%_65%)] mb-3">Köparens väg</span>
+            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-3 leading-[1.15]">
+              Tre steg till rätt Dynamics 365-beslut
+            </h2>
+            <p className="text-sm sm:text-base text-white/65 font-light max-w-2xl mx-auto leading-relaxed">
+              En tydlig process — från första behovsbild till rätt partner. Helt kostnadsfritt och utan att ni binder upp er.
+            </p>
+          </div>
+
+          {/* 3 step cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
+            {[
+              {
+                n: 1,
+                eyebrow: "Steg 1",
+                icon: <ClipboardCheck className="w-5 h-5 text-white" />,
+                title: "Behovsanalys",
+                desc: "Kartlägg era behov inom ERP, CRM eller kundservice — och få en rekommendation som matchar er situation.",
+                cta: "Starta behovsanalys",
+                onClick: () => setDirectionPicker("behovsanalys"),
+              },
+              {
+                n: 2,
+                eyebrow: "Steg 2",
+                icon: <BookOpen className="w-5 h-5 text-white" />,
+                title: "Kravspecifikation",
+                desc: "Bygg ett strukturerat underlag som matchar rätt Dynamics 365-applikation — redo att skicka till partners.",
+                cta: "Bygg kravspec",
+                onClick: () => setDirectionPicker("kravspec"),
+              },
+              {
+                n: 3,
+                eyebrow: "Steg 3",
+                icon: <Users className="w-5 h-5 text-white" />,
+                title: "Hitta rätt partner",
+                desc: "Jämför certifierade Microsoft-partners utifrån bransch, applikation, storlek och geografi.",
+                cta: "Öppna branschväljaren",
+                to: "/branscher/",
+              },
+            ].map((step) => (
+              <div
+                key={step.n}
+                className="group relative bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/20 transition-all flex flex-col"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="bg-[hsl(var(--cta-orange))] text-white text-[13px] font-bold w-7 h-7 rounded-full flex items-center justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30">
+                    {step.n}
+                  </span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">{step.eyebrow}</span>
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+                  {step.icon}
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold text-white leading-snug mb-2">{step.title}</h3>
+                <p className="text-[13.5px] text-white/65 leading-relaxed mb-5 flex-1">{step.desc}</p>
+                {step.to ? (
+                  <Button
+                    asChild
+                    className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded-lg font-semibold w-full justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+                  >
+                    <Link to={step.to}>
+                      {step.cta}
+                      <ArrowRight className="w-4 h-4 ml-1.5" />
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={step.onClick}
+                    className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 h-11 rounded-lg font-semibold w-full justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all"
+                  >
+                    {step.cta}
+                    <ArrowRight className="w-4 h-4 ml-1.5" />
+                  </Button>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Full-width Mognadsindex CTA under the three steps */}
+          <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-gradient-to-r from-white/[0.08] via-white/[0.05] to-[hsl(var(--cta-orange))]/[0.12] backdrop-blur-sm p-5 sm:p-7">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_right,hsl(var(--cta-orange)/0.18),transparent_60%)] pointer-events-none" />
+            <div className="relative flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+              <div className="flex items-center gap-4 flex-1 min-w-0">
+                <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0">
+                  <BarChart3 className="w-5 h-5 text-[hsl(180_75%_65%)]" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[hsl(180_75%_65%)]">Komplement</span>
+                    <span className="text-white/25">·</span>
+                    <span className="text-[10.5px] uppercase tracking-[0.14em] text-white/45">Nytt för 2026</span>
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white leading-snug">
+                    Mognadsindex — hur redo är ert beslutsunderlag?
+                  </h3>
+                  <p className="text-[13.5px] text-white/60 leading-relaxed mt-1">
+                    En diagnostik på 8–10 minuter. Få en personlig mognadsprofil, peer benchmark och tre konkreta rekommendationer.
+                  </p>
+                </div>
+              </div>
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-[hsl(192_48%_14%)] hover:bg-white/90 h-12 sm:h-14 px-6 rounded-lg font-bold w-full md:w-auto justify-center shadow-lg hover:-translate-y-0.5 transition-all flex-shrink-0"
+              >
+                <Link to="/beslutsmognad/">
+                  Starta Mognadsindex
+                  <ArrowRight className="w-4 h-4 ml-1.5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
       {/* Block 2 — Kunskapscenter: utvald artikel */}
       <section className="section-divider py-10 sm:py-14 bg-white">
 
