@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import siteLogo from "@/assets/d365guide-logo-new.webp";
+const siteLogo = "/d365-logo.svg";
 
 const Footer = () => {
   return (
