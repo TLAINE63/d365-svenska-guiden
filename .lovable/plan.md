@@ -1,78 +1,67 @@
+## Mål
 
-# Plan: Hantera intressekonflikt vs. "oberoende"-positionering
+Skapa en ny pelarsida **Upphandlingsguiden** (/upphandlingsguiden/) som guidar köpare genom hela upphandlingsresan för Dynamics 365 – inspirerad av strukturen på herbertnathan.com/tjanster/upphandling/, men i d365.se:s ton (köparsidig vägledning, TAYA, aldrig "oberoende"). Lägg till en menypunkt i Verksamhetsguider-dropdownen (desktop + mobil).
 
-## Bakgrund
+## Innehållsstruktur på sidan
 
-Cloud Ahead (ägare till d365.se) har ekonomiska intressen i flera aktörer i Microsoft-ekosystemet: Nectar/MVI, Aimplan, samt rådgivningsuppdrag åt Knowit. Att marknadsföra sajten som "oberoende" samtidigt som matchningen kan leda affärer till närstående bolag riskerar att klassas som vilseledande marknadsföring (MFL 8–10 §§) och underminerar trovärdigheten om det avslöjas.
+Sex tematiska steg, alla anpassade till Dynamics 365-kontexten och med deep-länkar in i befintliga verktyg på sajten:
 
-Vald strategi: **Hybrid** – ta bort/omformulera "oberoende" i kommersiell copy, ersätt med ärligare positionering ("köparsidig vägledning", "specialiserad guide"), och bygg en synlig, lättillgänglig intressedeklaration. Närstående partners markeras tydligt om de visas. Detta är den balanserade vägen: behåller varumärkets kärna utan att exponera dig juridiskt.
+```text
+Hero: "Kvalitetssäkrad upphandling av Dynamics 365 – från behov till avtal"
+ └─ ingress + två CTA: "Starta behovsanalys" / "Hitta partner"
 
-## Vad som ska göras
+1. Behovsanalys        → /ERPbehovsanalys/, /CRMbehovsanalys/, /kundservice-behovsanalys/
+2. Kravspecifikation   → /kravspecifikation/ (+ Sales/Marketing/Kundservice)
+3. Marknads- & partneranalys → /valjdynamics365partner/, /branscher/
+4. Utvärdering av system & partner → /valjdynamics365partner/?ai=1 (AI-guide)
+5. Val av implementeringspartner   → partnerprofiler, kundexempel
+6. Införandeplan & avtal           → /kunskapscenter/upphandlingsresan, relevanta artiklar
 
-### 1. Ny sida: `/agande-och-intressen`
+Avslutning:
+ - "Så jobbar vi köparsidigt" (TAYA-block, länk till /agande-och-intressen)
+ - Relaterade sidor (RelatedPages)
+ - CTA-banner: kontakta rådgivare (Thomas Laine / Michael Uhman)
+```
 
-Skapa `src/pages/OwnershipAndInterests.tsx` med:
+Varje steg = kort + rubrik + 2–4 raders förklaring + primär CTA-knapp. Återanvänd visuellt språk från `BuyerJourneyStages` och stegsektionerna i `Upphandlingsresan.tsx` (mörkt premiumkort för "hetare" steg, ljust kort för analyssteg) så det känns enhetligt.
 
-- **Vem som driver d365.se** – Cloud Ahead AB som ägare, Dynamic Factory som operativ avsändare, rådgivarna Thomas Laine & Michael Uhman.
-- **Ekonomiska intressen** – tydlig tabell över bolag i Microsoft-ekosystemet där Cloud Ahead har ägande eller pågående uppdrag: Nectar/MVI, Aimplan, Knowit (rådgivningsuppdrag).
-- **Hur vi hanterar intressekonflikten** – tre principer: (1) närstående partners markeras synligt i alla listor, (2) AI-matchningens ranking-algoritm beskrivs öppet och påverkas inte av ägarintressen, (3) partners betalar samma villkor oavsett relation (1 990 kr/mån per produktområde).
-- **Så finansieras sajten** – partneravgifter, ingen kickback per lead, transparent prissättning.
-- **Kontakt för frågor** – mail till info@d365.se.
+## Navigation
 
-Lägg till i `App.tsx`, sitemap, `partnerRoutes.json` om relevant, och i footern under "Om d365.se".
+I `src/components/Navbar.tsx`, Verksamhetsguider-dropdown, lägg till en ny post **högst upp** (eller direkt under "Hitta Dynamics 365-partner") som primär, accentfärgad länk:
 
-### 2. Omformulera "oberoende" på alla ~15 platser
+- Desktop: ny `DropdownMenuItem` "🗺️ Upphandlingsguiden" → `/upphandlingsguiden/`
+- Mobil: motsvarande länk i mobilmenyns Verksamhetsguider-block
 
-Sök/ersätt-tabell (semantisk, inte mekanisk):
+Befintlig länk till `/kunskapscenter/upphandlingsresan` ("Upphandlingsresan") behålls – den är en mer kompakt 7-stegs-översikt; nya sidan är den fördjupade pelaren.
 
-| Var | Idag | Nytt |
-|---|---|---|
-| SEO-titel, meta-description (Index, m.fl.) | "Oberoende guide till Microsoft Dynamics 365" | "Köparsidig guide till Microsoft Dynamics 365" |
-| Footer ("Om d365.se") | "Oberoende guide..." | "Köparsidig vägledning för företag som väljer Dynamics 365 och partner." |
-| Navbar alt-text, logotyp-tagline | "Oberoende guide..." | "Köparsidig D365-guide" |
-| JSON-LD (Organization `description`) | "...oberoende..." | "...specialiserad köparsidig vägledning..." |
-| PDF-rapporter, e-postmallar, admin sales pitch | "oberoende" | "köparsidig" / "specialiserad" |
-| `llms.txt` | "Sveriges oberoende guide..." | "Sveriges specialiserade köparsidiga guide..." + nytt stycke om intresseredovisning som hänvisar till `/agande-och-intressen` |
-| Microsoft-disclaimer i footer (redan tillagd) | "oberoende vägledningsplattform" | behåll som juridisk disclaimer (gäller relation till Microsoft – inte oberoende från D365-marknaden) – men förtydliga: "fristående från Microsoft Corporation" |
-| Analysrapporter / `AnalysisDisclaimer` | – | ingen ändring (handlar om vägledning, inte oberoende) |
+## SEO
 
-Tester som verifierar förekomsten av ordet "oberoende" (`seo-oberoende-vagledning.test.ts`) skrivs om till att verifiera "köparsidig" + att intressedeklarations-länken finns.
+- `SEOHead` med title "Upphandlingsguiden – så upphandlar du Dynamics 365" (<60 tecken), meta-desc <160 tecken med köparsidig vinkel.
+- canonicalPath `/upphandlingsguiden`
+- En H1, semantiska H2 per steg, alt-text på bilder.
+- Lägg till route i `App.tsx` + i `scripts/generate-sitemap.mjs` så den prerenderas (SSG).
+- Lägg in OG-bild (återanvänd befintlig generell OG eller skapa enkel ny via `src/lib/ogImage.ts`-mönstret om behövs).
+- Intern länkning enligt minnesregler: pelarna `/`, `/erp`, `/affarssystem`, `/businesscentral` – lägg "Upphandlingsguiden" i `RelatedPages`/footer-länklistan där det är relevant (MOFU/BOFU).
 
-### 3. Märk närstående partners
+## Filer som påverkas
 
-Lägg till ett fält `related_party: boolean` (eller använd ett tag-fält som redan finns) i partner-datan. När detta är true:
+```text
+src/pages/Upphandlingsguiden.tsx        (NY – pelarsida)
+src/components/Navbar.tsx               (lägg till menypunkt desktop + mobil)
+src/App.tsx                             (route /upphandlingsguiden/)
+scripts/generate-sitemap.mjs            (lägg till URL i SSG-listan)
+src/components/Footer.tsx               (valfri länk under "Guider")
+```
 
-- Visa en liten neutral badge "Närstående bolag – se [intresseredovisning](#)" på `PartnerCard`, `PartnerProfile`, samt i guidens resultat.
-- AI-rankingen påverkas inte – men badgen måste alltid synas där partnern listas.
-- I admin: enkelt toggle-fält i partnerredigeringen.
+Inga DB- eller backend-ändringar. Ingen ny logik, bara presentation + navigation + SEO.
 
-Initiala värden för Nectar/MVI, Aimplan, Knowit (om de finns i partner-tabellen) sätts via migration.
+## TAYA-vakt
 
-### 4. Uppdatera footer & navbar
+Ingen text om "oberoende". Formuleringar = "köparsidig vägledning", "vi står på din sida". Inga direktlänkar till partners webbplatser – CTA går via plattformens partnermatchning/lead-flöde.
 
-- Footern: lägg till länk till `/agande-och-intressen` i "Om d365.se"-sektionen, ovanför Microsoft-disclaimern.
-- Cookie-bannerns "Anpassa"-läge: oförändrad, men i privacy policy lägg till en mening med länk till intressedeklarationen.
+## Klart-kriterier
 
-### 5. Uppdatera memory
-
-- Uppdatera `mem://content-strategy/taya-filosofi`: TAYA-principen kvarstår, men "oberoende" ersätts av "köparsidig + radikalt transparent om intressen".
-- Skapa `mem://legal/intressekonflikt-och-kopar-sidig-positionering-sv`: dokumenterar vald strategi, listar närstående bolag, beskriver badge-logiken så framtida AI-loopar inte återinför "oberoende".
-- Uppdatera Core-regeln i `mem://index.md`: "TAYA: köparsidig, radikalt transparent. Använd aldrig 'oberoende' i kommersiell copy – se intressekonfliktmemory."
-
-## Tekniska detaljer
-
-- Filer som ändras: `index.html`, `src/components/Footer.tsx`, `src/components/Navbar.tsx`, `src/pages/Index.tsx` (+ alla SEO-titlar via `SEOHead`-anrop), `src/pages/PrivacyPolicy.tsx`, `public/llms.txt`, `src/utils/generatePartnerGuide.ts`, `src/utils/generateRequirementsSpec.ts`, e-postmallar i `supabase/functions/send-*`, `src/components/AdminSalesPitchTab.tsx` + V2.
-- Nya filer: `src/pages/OwnershipAndInterests.tsx`, ev. `src/components/RelatedPartyBadge.tsx`.
-- Route: `/agande-och-intressen/` (trailing slash enligt projektets konvention) prerendras via SSG.
-- Tester: uppdatera `seo-oberoende-vagledning.test.ts` → `seo-kopar-sidig-vagledning.test.ts`.
-- Migration: lägg till `related_party boolean default false` på partner-tabellen + GRANTs enligt projektets policy.
-
-## Vad jag INTE rör i denna iteration
-
-- Ranking-algoritmen (oförändrad – beskrivs bara öppet på den nya sidan).
-- Utesluter inte närstående partners från matchningen (du valde transparens framför separation – om du vill det senare är det en separat ändring).
-- Ingen juridisk granskning beställs – jag rekommenderar att du låter en MFL-kunnig jurist läsa `/agande-och-intressen` och den nya footer-copyn innan publicering. Tekniskt går allt att deploya direkt; texten är det som behöver verifieras.
-
-## Resultat
-
-Efter implementation kan d365.se ärligt säga "köparsidig, specialiserad guide med transparent intresseredovisning" istället för "oberoende". Det är försvarbart juridiskt, mer trovärdigt om någon gräver, och behåller TAYA-positioneringen i sin starkare form: radikal transparens.
+- /upphandlingsguiden/ renderas, prerendreras i SSG och syns i sitemap.
+- Menypunkt syns och fungerar i desktop-dropdown och mobilmeny.
+- Sidan har 6 stegsektioner + hero + avslutnings-CTA, fullt responsiv.
+- SEO-taggar och canonical satta, inga "oberoende"-ord.
