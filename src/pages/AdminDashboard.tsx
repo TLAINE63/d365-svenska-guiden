@@ -316,7 +316,7 @@ const AdminDashboard = () => {
   const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
   const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
-  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed' | 'has_email' | 'missing_email'>('all');
+  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed' | 'billable' | 'has_email' | 'missing_email'>('all');
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
@@ -2372,6 +2372,14 @@ Thomas`,
                   { key: 'invited_unpublished', label: 'Inbjudna ej publ.', count: fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length, tone: 'violet' },
                   { key: 'not_invited', label: 'Ej inbjudna', count: fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length, tone: 'amber' },
                   { key: 'agreement_signed', label: 'Avtal tecknat', count: fullPartners.filter(p => (p as any).agreement_signed).length, tone: 'emerald', icon: Award },
+                  { key: 'billable', label: 'Fakturerar (aktivt avtal)', count: fullPartners.filter(p => {
+                    const pp = p as any;
+                    if (!pp.agreement_signed) return false;
+                    const today = new Date().toISOString().slice(0, 10);
+                    if (pp.activation_date && pp.activation_date > today) return false;
+                    if (pp.cancellation_date && pp.cancellation_date <= today) return false;
+                    return true;
+                  }).length, tone: 'emerald', icon: Award },
                   { key: 'has_email', label: 'Har e-post', count: fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length, tone: 'sky', icon: Mail },
                   { key: 'missing_email', label: 'Saknar e-post', count: fullPartners.filter(p => !(p.admin_contact_email || p.email)).length, tone: 'rose', icon: AlertCircle },
                 ] as Array<{ key: typeof partnerStatusFilter; label: string; count: number; tone: string; icon?: typeof Award }>).map(({ key, label, count, tone, icon: Icon }) => {
@@ -2452,6 +2460,14 @@ Thomas`,
                     if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
+                    if (partnerStatusFilter === 'billable') {
+                      const pp = p as any;
+                      if (!pp.agreement_signed) return false;
+                      const today = new Date().toISOString().slice(0, 10);
+                      if (pp.activation_date && pp.activation_date > today) return false;
+                      if (pp.cancellation_date && pp.cancellation_date <= today) return false;
+                      return true;
+                    }
                     if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
                     if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
                     return true;
