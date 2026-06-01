@@ -2372,6 +2372,14 @@ Thomas`,
                   { key: 'invited_unpublished', label: 'Inbjudna ej publ.', count: fullPartners.filter(p => !p.is_featured && everInvitedPartnerIds.has(p.id)).length, tone: 'violet' },
                   { key: 'not_invited', label: 'Ej inbjudna', count: fullPartners.filter(p => !p.is_featured && !everInvitedPartnerIds.has(p.id)).length, tone: 'amber' },
                   { key: 'agreement_signed', label: 'Avtal tecknat', count: fullPartners.filter(p => (p as any).agreement_signed).length, tone: 'emerald', icon: Award },
+                  { key: 'billable', label: 'Fakturerar (aktivt avtal)', count: fullPartners.filter(p => {
+                    const pp = p as any;
+                    if (!pp.agreement_signed) return false;
+                    const today = new Date().toISOString().slice(0, 10);
+                    if (pp.activation_date && pp.activation_date > today) return false;
+                    if (pp.cancellation_date && pp.cancellation_date <= today) return false;
+                    return true;
+                  }).length, tone: 'emerald', icon: Award },
                   { key: 'has_email', label: 'Har e-post', count: fullPartners.filter(p => !!(p.admin_contact_email || p.email)).length, tone: 'sky', icon: Mail },
                   { key: 'missing_email', label: 'Saknar e-post', count: fullPartners.filter(p => !(p.admin_contact_email || p.email)).length, tone: 'rose', icon: AlertCircle },
                 ] as Array<{ key: typeof partnerStatusFilter; label: string; count: number; tone: string; icon?: typeof Award }>).map(({ key, label, count, tone, icon: Icon }) => {
