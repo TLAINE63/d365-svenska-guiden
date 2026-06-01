@@ -54,6 +54,7 @@ const RequirementsSpecMarketing = lazy(() => import("./pages/RequirementsSpecMar
 const RequirementsSpecCustomerService = lazy(() => import("./pages/RequirementsSpecCustomerService"));
 const Kunskapscenter = lazy(() => import("./pages/Kunskapscenter"));
 const Upphandlingsresan = lazy(() => import("./pages/Upphandlingsresan"));
+const Upphandlingsguiden = lazy(() => import("./pages/Upphandlingsguiden"));
 const VideoLanding = lazy(() => import("./pages/VideoLanding"));
 const Branscher = lazy(() => import("./pages/Branscher"));
 const IndustryPage = lazy(() => import("./pages/IndustryPage"));
@@ -166,6 +167,7 @@ const AppShell = () => {
           <Route path="/våratjänster" element={<Navigate to="/" replace />} />
           <Route path="/kunskapscenter" element={<Kunskapscenter />} />
           <Route path="/kunskapscenter/upphandlingsresan" element={<Upphandlingsresan />} />
+          <Route path="/upphandlingsguiden" element={<Upphandlingsguiden />} />
           <Route path="/kunskapscenter/video/:slug" element={<VideoLanding />} />
           <Route path="/kunskapscenter/:productSlug/:articleSlug" element={<DeepDiveArticle />} />
           <Route path="/artiklar/:slug" element={<BlogArticle />} />

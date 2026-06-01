@@ -45,6 +45,7 @@ const STATIC_ROUTES = [
   { path: "/d365contactcenter/", changefreq: "monthly", priority: "0.8" },
   { path: "/kunskapscenter/", changefreq: "weekly", priority: "0.8" },
   { path: "/kunskapscenter/upphandlingsresan/", changefreq: "monthly", priority: "0.7" },
+  { path: "/upphandlingsguiden/", changefreq: "monthly", priority: "0.8" },
   { path: "/kunskapscenter/video/byta-affarssystem/", changefreq: "monthly", priority: "0.6" },
   { path: "/kunskapscenter/video/crm-affarssystem-byte/", changefreq: "monthly", priority: "0.6" },
   { path: "/kunskapscenter/video/inspirerad-personal/", changefreq: "monthly", priority: "0.6" },
