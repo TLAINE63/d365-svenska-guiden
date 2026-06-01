@@ -265,9 +265,11 @@ const Index = () => {
               <Sparkles className="w-3 h-3" />
               Upphandlingsguiden för Microsoft Dynamics 365
             </div>
-            <h1 className="text-[28px] sm:text-4xl md:text-[44px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-              Kvalitetssäkrad upphandling av{" "}
-              <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
+            <h1 className="text-[26px] sm:text-[34px] md:text-[40px] font-bold text-white leading-[1.15] tracking-tight mb-5">
+              <span className="block whitespace-nowrap">
+                Kvalitetssäkrad upphandling av{" "}
+                <span className="text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
+              </span>
               <span className="block text-white/90 mt-1">– från behov till avtal</span>
             </h1>
             <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
