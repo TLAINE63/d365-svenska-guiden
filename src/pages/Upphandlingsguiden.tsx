@@ -140,9 +140,8 @@ const Upphandlingsguiden = () => {
               Upphandlingsguiden för Dynamics 365
             </div>
             <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-bold text-white leading-[1.15] tracking-tight mb-5">
-              Kvalitetssäkrad upphandling av{" "}
-              <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
-              <span className="block text-white/90 mt-1">– från behov till avtal</span>
+              På <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">d365.se</span> får din verksamhet
+              <span className="block text-white/90 mt-1">vägledning genom upphandlingsresan</span>
             </h1>
             <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
               På d365.se får din verksamhet köparsidig vägledning genom hela resan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
