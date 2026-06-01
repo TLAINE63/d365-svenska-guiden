@@ -304,7 +304,7 @@ const Index = () => {
                 eyebrow: "Steg 3",
                 icon: <Users className="w-5 h-5 text-white" />,
                 title: "Hitta rätt partner",
-                desc: "Jämför certifierade Microsoft-partners utifrån bransch, applikation, storlek och geografi.",
+                desc: "Jämför Microsoft-partners utifrån bransch, applikation, storlek och geografi.",
                 cta: "Öppna branschväljaren",
                 to: "/branscher/",
               },
