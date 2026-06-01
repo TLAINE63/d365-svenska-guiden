@@ -137,7 +137,7 @@ const Upphandlingsguiden = () => {
           <div className="relative container mx-auto px-4 sm:px-6 py-14 sm:py-20 max-w-5xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
               <Sparkles className="w-3 h-3" />
-              Upphandlingsguiden för Dynamics 365
+              Upphandlingsguiden för Microsoft Dynamics 365
             </div>
             <h1 className="text-[26px] sm:text-4xl md:text-[44px] font-bold text-white leading-[1.15] tracking-tight mb-5">
               Kvalitetssäkrad upphandling av{" "}
