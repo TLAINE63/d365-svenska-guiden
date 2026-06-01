@@ -145,7 +145,7 @@ const Upphandlingsguiden = () => {
               <span className="block text-white/90 mt-1">– från behov till avtal</span>
             </h1>
             <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl mb-8">
-              En upphandling handlar om att välja rätt lösning och rätt partner genom en strukturerad och transparent process. Vi guidar er köparsidigt genom hela resan – från en grundlig behovsanalys till ett tryggt avtal och en realistisk införandeplan.
+              På d365.se får din verksamhet köparsidig vägledning genom hela resan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button
