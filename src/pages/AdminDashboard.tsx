@@ -2460,6 +2460,14 @@ Thomas`,
                     if (partnerStatusFilter === 'invited_unpublished') return !p.is_featured && everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'not_invited') return !p.is_featured && !everInvitedPartnerIds.has(p.id);
                     if (partnerStatusFilter === 'agreement_signed') return !!(p as any).agreement_signed;
+                    if (partnerStatusFilter === 'billable') {
+                      const pp = p as any;
+                      if (!pp.agreement_signed) return false;
+                      const today = new Date().toISOString().slice(0, 10);
+                      if (pp.activation_date && pp.activation_date > today) return false;
+                      if (pp.cancellation_date && pp.cancellation_date <= today) return false;
+                      return true;
+                    }
                     if (partnerStatusFilter === 'has_email') return !!(p.admin_contact_email || p.email);
                     if (partnerStatusFilter === 'missing_email') return !(p.admin_contact_email || p.email);
                     return true;
