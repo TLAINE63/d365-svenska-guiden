@@ -18,6 +18,7 @@ type RawPartner = {
   secondary_industries?: string[];
   office_cities?: string[];
   is_featured?: boolean;
+  agreement_signed?: boolean;
   product_filters?: Record<string, { companySize?: string[]; industries?: string[] }>;
 };
 
@@ -117,7 +118,7 @@ const partnerMatchesSize = (p: RawPartner, size: string) => {
 };
 
 export default function HomePartnersTeaser() {
-  const allPartners = (partnerDataJson as RawPartner[]).filter((p) => p.is_featured);
+  const allPartners = (partnerDataJson as RawPartner[]).filter((p) => p.is_featured && p.agreement_signed);
   const totalCount = allPartners.length;
 
   // Only show industries that have at least one featured partner profiled
