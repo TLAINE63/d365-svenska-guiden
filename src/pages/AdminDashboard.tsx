@@ -316,7 +316,7 @@ const AdminDashboard = () => {
   const [isLoadingFullPartners, setIsLoadingFullPartners] = useState(false);
   const [partnerSortBy, setPartnerSortBy] = useState<'name' | 'updated_at'>('name');
   const [partnerSortDir, setPartnerSortDir] = useState<'asc' | 'desc'>('asc');
-  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed' | 'has_email' | 'missing_email'>('all');
+  const [partnerStatusFilter, setPartnerStatusFilter] = useState<'all' | 'published' | 'invited_unpublished' | 'not_invited' | 'agreement_signed' | 'billable' | 'has_email' | 'missing_email'>('all');
   const createPartner = useCreatePartner();
   const updatePartner = useUpdatePartner();
   const deletePartner = useDeletePartner();
