@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import companyLogo from "@/assets/d365guide-logo-new.webp";
+const companyLogo = "/d365-logo.svg";
 import { Menu, ChevronDown, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -81,9 +81,9 @@ const Navbar = () => {
             <img 
               src={companyLogo} 
               alt="d365.se - Beslutsstöd för dig som ska välja Microsoft Dynamics 365 och rätt partner" 
-               className="h-[88px] lg:h-[104px] w-auto object-contain -my-3 lg:-my-9 relative z-10"
-              width="194"
-              height="104"
+              className="h-10 lg:h-12 w-auto object-contain relative z-10"
+              width="225"
+              height="60"
               loading="eager"
               fetchPriority="high"
               decoding="async"
