@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="80" fill="hsl(195,45%,11%)"/>
+  <rect x="70" y="120" width="36" height="272" rx="18" fill="#C8461E"/>
+  <text x="256" y="345" text-anchor="middle"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="240" font-weight="800"
+        fill="#FFFFFF" letter-spacing="-6">d365</text>
+</svg>

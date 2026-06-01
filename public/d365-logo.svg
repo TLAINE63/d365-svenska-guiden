@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="160" viewBox="0 0 600 160">
+  <rect width="600" height="160" fill="hsl(195,45%,11%)"/>
+  <!-- Vertikal orange stripe -->
+  <rect x="28" y="19" width="8" height="121"
+        rx="4" fill="#C8461E"/>
+  <!-- Ordmärke: d365.se -->
+  <text x="50" y="96"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="67" font-weight="800"
+        fill="#FFFFFF" letter-spacing="-1.5">d365</text>
+  <text x="232" y="96"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="67" font-weight="800"
+        fill="#C8461E" letter-spacing="-1.5">.</text>
+  <text x="255" y="96"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="67" font-weight="300"
+        fill="rgba(255,255,255,0.70)">se</text>
+  
+</svg>
