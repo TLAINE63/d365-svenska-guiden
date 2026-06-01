@@ -3079,5 +3079,216 @@
     "platform_capabilities": [],
     "id": "d863d43e-f5a7-461a-a289-ba285b905d9e",
     "agreement_signed": true
+  },
+  {
+    "slug": "adbriq",
+    "name": "adbriq",
+    "description": "Vi möjliggör er digitalisering\nMed hjälp av affärssystem, branschspecifik kunskap och lång erfarenhet av moderna IT-verktyg digitaliserar vi informationsflöden och affärsprocesser, främst för företag inom mode, sport och textil.",
+    "website": "https://www.adbriq.com/",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/adbriq.png",
+    "logo_dark_bg": false,
+    "email": "martin.rosenqvist@adbriq.com",
+    "phone": "+46-705-277455",
+    "contact_person": "Martin Rosenqvist",
+    "applications": [
+      "Business Central"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "revenue": [
+          "500-999 MSEK",
+          "100-499 MSEK",
+          "25-99 MSEK"
+        ],
+        "geography": [
+          "Sverige"
+        ],
+        "industries": [
+          "Mode, Sport & Textil",
+          "Retail & E-handel"
+        ],
+        "companySize": [
+          "50-99",
+          "100-249",
+          "1-49"
+        ],
+        "contactName": "Martin Rosenqvist",
+        "contactEmail": "martin.rosenqvist@adbriq.com",
+        "contactPhone": "+46-705-277455",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": false,
+        "landingPageUrl": "https://www.adbriq.com/losningar/",
+        "youtubeVideoId": "",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [
+          "Oscar Jacobson - Filippa K - Stenströms - Cellbes - Tranemo Workwear - GalvinGreen - Casall - Kids Brandstore - MnO International - Båstad Gruppen - House of SAKI - Pinewood - Saucony - ASHE - Hellenic Group - Fruit - Holebrook - Cavaliere - Salming"
+        ],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [
+          "https://www.adbriq.com/case/"
+        ],
+        "productDescription": "Specialister inom mode, sport, skor och textil. ",
+        "aiPredictiveDetails": [],
+        "secondaryIndustries": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "industry_apps": [
+      {
+        "url": "https://marketplace.microsoft.com/en-us/product/dynamics-365-business-central/pubid.trimitdevelopmentas1583754646521%7Caid.trimit%7Cpappid.94927c12-6061-4e3f-b07d-ce1b66584585?tab=overview",
+        "name": "TRIMIT",
+        "industry": "Mode, Sport & Textil",
+        "application": "Business Central",
+        "description": "Covers all the needs of fashion and apparel companies. Features include a built-in PDM system, an Adobe Illustrator plugin, and many other tools tailored for the fashion industry"
+      },
+      {
+        "url": "https://marketplace.microsoft.com/sv-se/product/dynamics-365-business-central/pubid.bistinglicenseab1588086837069%7Caid.bisting%7Cpappid.a6282db0-64d7-4f2e-bc68-823459b14914?tab=overview",
+        "name": "bisting",
+        "industry": "Mode, Sport & Textil",
+        "application": "Business Central",
+        "description": "Bisting Core app is a powerful toolbox with generic functions that simplify the way to set up integrations and data import/export in Microsoft Dynamics 365 Business Central with a centralized monitoring, logging, and proactive alerts. In addition, there are much more features that optimize your business with smart features, and which simplifies your working day. bisting Core can be used by both people with limited technical skills and by hardcore developers."
+      }
+    ],
+    "customer_examples": [],
+    "office_cities": [],
+    "is_featured": true,
+    "map_url": null,
+    "invoice_email": "martin.rosenqvist@adbriq.com",
+    "invoice_contact": "Martin Rosenqvist",
+    "platform_capabilities": [],
+    "id": "67211d79-5e9e-4113-b6c2-ac77f54fc17b",
+    "agreement_signed": true
+  },
+  {
+    "slug": "sherpas-group-ab",
+    "name": "Sherpas Group AB",
+    "description": null,
+    "website": "https://sherpas.se",
+    "logo_url": "https://vnvphfrrmoaskiwlspeo.supabase.co/storage/v1/object/public/partner-logos/sherpas-group-ab.png",
+    "logo_dark_bg": false,
+    "email": "Peter.selin@sherpas.se",
+    "phone": "0702668506",
+    "contact_person": "Peter Selin",
+    "applications": [
+      "Business Central",
+      "Finance",
+      "Supply Chain Management"
+    ],
+    "industries": [],
+    "secondary_industries": [],
+    "geography": [],
+    "product_filters": {
+      "bc": {
+        "ranking": 999,
+        "revenue": [
+          "25-99 MSEK",
+          "100-499 MSEK",
+          "500-999 MSEK"
+        ],
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Bygg & Entreprenad",
+          "Energi & Utilities"
+        ],
+        "companySize": [
+          "100-249",
+          "1-49",
+          "50-99"
+        ],
+        "contactName": "Ludwig Stenlund",
+        "contactEmail": "ludwig.stenlund@sherpas.se",
+        "contactPhone": "+46 76-768 00 05",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [
+          "ai-partner",
+          "ai-standard"
+        ],
+        "aiOtherPartner": "",
+        "aiProjectCount": "0–2",
+        "hasBuiltAgents": null,
+        "landingPageUrl": "https://www.sherpas.se/plattformar/business-central/",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      },
+      "fsc": {
+        "ranking": 999,
+        "revenue": [
+          ">5.000 MSEK",
+          "500-999 MSEK",
+          "1.000-4.999 MSEK"
+        ],
+        "geography": [
+          "Sverige",
+          "Norden",
+          "Europa"
+        ],
+        "industries": [
+          "Tillverkningsindustri",
+          "Energi & Utilities"
+        ],
+        "companySize": [
+          "250-999",
+          "100-249"
+        ],
+        "contactName": "Peter Selin",
+        "contactEmail": "peter.selin@sherpas.se",
+        "contactPhone": "0702668506",
+        "swedenCities": [],
+        "swedenRegions": [],
+        "aiCapabilities": [],
+        "aiOtherPartner": "",
+        "aiProjectCount": "",
+        "hasBuiltAgents": null,
+        "landingPageUrl": "https://www.sherpas.se/plattformar/dynamics-365-f-scm/",
+        "aiOtherAdvanced": "",
+        "contactPhotoUrl": "",
+        "aiBusinessImpact": "",
+        "customerExamples": [],
+        "aiCaseDescription": "",
+        "customerCaseLinks": [],
+        "productDescription": "Experter på F&SCM samt underhåll i Dynamics",
+        "aiPredictiveDetails": [],
+        "aiSegmentationDetails": []
+      }
+    },
+    "industry_apps": [],
+    "customer_examples": [],
+    "office_cities": [
+      "Skellefteå",
+      "Stockholm",
+      "Malmö",
+      "Göteborg",
+      "Västerås"
+    ],
+    "is_featured": true,
+    "map_url": null,
+    "invoice_email": "Peter.selin@sherpas.se",
+    "invoice_contact": "Peter Selin",
+    "platform_capabilities": [],
+    "id": "f1947f70-3320-43b0-af09-8387d7546fa3",
+    "agreement_signed": true
   }
 ]
