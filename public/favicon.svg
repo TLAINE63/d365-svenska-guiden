@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="hsl(195,45%,11%)"/>
+  <rect x="120" y="180" width="60" height="440" rx="30" fill="#C8461E"/>
+  <text x="220" y="540"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="380" font-weight="800"
+        fill="#FFFFFF" letter-spacing="-8">d</text>
+  <text x="475" y="540"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="380" font-weight="800"
+        fill="#C8461E">.</text>
+  <text x="555" y="540"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-size="380" font-weight="300"
+        fill="rgba(255,255,255,0.75)">se</text>
+</svg>
