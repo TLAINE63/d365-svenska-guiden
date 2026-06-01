@@ -255,72 +255,26 @@ const Index = () => {
       
       <main>
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] border-b border-primary/20 relative overflow-visible">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--primary)/0.08),transparent_50%)]" />
-        <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-28 sm:pt-32 md:pt-36 pb-10 sm:pb-14 md:pb-16 relative">
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-[44px] font-semibold leading-[1.25] tracking-tight text-white mb-12 max-w-4xl">
-            <span className="block mb-6">Ni väljer inte bara <span className="whitespace-nowrap">Dynamics 365.</span></span>
-            <span className="block text-[hsl(180_75%_65%)] font-normal italic">
-              Ni väljer partnern som ska få det att fungera.
-            </span>
-          </h1>
-          <p className="text-base sm:text-lg text-white/70 font-light leading-[1.9] mt-10 mb-14 max-w-2xl">
-            Fel partner, fel omfattning eller fel lösningsval kostar ofta mer än en saknad funktion.
-          </p>
-
-          {/* 3 numbered steps */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8 max-w-4xl">
-            {[
-              { n: 1, eyebrow: "Bransch", title: "Välj din bransch", desc: "Vi visar relevanta lösningar för er sektor", accent: "bg-[hsl(var(--cta-orange))]" },
-              { n: 2, eyebrow: "Jämför", title: "Jämför partners", desc: "Storlek, fokus, referenser", accent: "bg-white/15" },
-              { n: 3, eyebrow: "Underlag", title: "Få oberoende underlag", desc: "Innan ni går vidare i partner-dialogen", accent: "bg-white/15" },
-            ].map((step) => (
-              <div key={step.n} className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 backdrop-blur-sm">
-                <div className="flex items-center gap-2.5 mb-3">
-                  <span className={`${step.accent} text-white text-[12px] font-bold w-6 h-6 rounded-full flex items-center justify-center`}>{step.n}</span>
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/60">{step.eyebrow}</span>
-                </div>
-                <h3 className="text-[15px] sm:text-base font-semibold text-white leading-snug mb-1.5">{step.title}</h3>
-                <p className="text-[12.5px] text-white/55 leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Primary CTA */}
-          <Button asChild size="lg" className="bg-[hsl(var(--cta-orange))] text-white hover:bg-[hsl(var(--cta-orange))]/90 text-base sm:text-lg h-14 sm:h-16 px-8 rounded-xl font-bold w-full sm:w-auto justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30 hover:shadow-xl hover:shadow-[hsl(var(--cta-orange))]/40 hover:-translate-y-0.5 transition-all">
-            <Link to="/branscher/">Starta — välj bransch <ArrowRight className="w-5 h-5 ml-2" /></Link>
-          </Button>
-
-          {/* Trust row */}
-          <div className="mt-7 pt-5 border-t border-white/10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-white/80">
-            <span>Oberoende</span>
-            <span className="text-white/25">·</span>
-            <span>Kostnadsfritt</span>
-            <span className="text-white/25">·</span>
-            <span>{publishedPartnerCount} partners</span>
-            <span className="text-white/25">·</span>
-            <span>16 branscher</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Steg-för-steg process — köparens väg */}
-      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] py-14 sm:py-20 relative overflow-hidden border-b border-white/10">
+      {/* Hero — Upphandlingsguiden */}
+      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] pt-28 sm:pt-32 md:pt-36 pb-14 sm:pb-20 relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
-          <div className="text-center mb-10 sm:mb-12">
-            <span className="inline-block text-[11px] font-semibold uppercase tracking-[0.14em] text-[hsl(180_75%_65%)] mb-3">Köparens väg</span>
-            <h2 className="text-2xl sm:text-3xl md:text-[36px] font-semibold text-white tracking-tight mb-3 leading-[1.15]">
-              Tre steg till rätt Dynamics 365-beslut
-            </h2>
-            <p className="text-sm sm:text-base text-white/65 font-light max-w-2xl mx-auto leading-relaxed">
-              En tydlig process — från första behovsbild till rätt partner. Helt kostnadsfritt och utan att ni binder upp er.
+          <div className="max-w-4xl mb-10 sm:mb-14">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
+              <Sparkles className="w-3 h-3" />
+              Upphandlingsguiden för Microsoft Dynamics 365
+            </div>
+            <h1 className="text-[28px] sm:text-4xl md:text-[44px] font-bold text-white leading-[1.15] tracking-tight mb-5">
+              Kvalitetssäkrad upphandling av{" "}
+              <span className="whitespace-nowrap text-[hsl(var(--cta-orange))]">Dynamics&nbsp;365</span>
+              <span className="block text-white/90 mt-1">– från behov till avtal</span>
+            </h1>
+            <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
+              På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
             </p>
           </div>
+
 
           {/* 3 step cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-5 sm:mb-6">
