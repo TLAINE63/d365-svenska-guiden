@@ -321,7 +321,7 @@ const PartnerCard = ({
         <div className="flex flex-col flex-1 min-w-0">
           {/* Partner name */}
           <Link 
-            to={profileUrl}
+            to={cleanProfileUrl}
             onClick={handleCardClick}
             className="group/link mb-3"
           >
