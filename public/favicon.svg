@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="92" fill="hsl(195,45%,11%)"/>
-  <rect x="60" y="110" width="26" height="292" rx="13" fill="#C8461E"/>
-  <text x="110" y="340" font-family="Arial, sans-serif" font-size="180" font-weight="900" fill="#FFFFFF" letter-spacing="-6">d365</text>
+  <rect x="60" y="120" width="24" height="272" rx="12" fill="#C8461E"/>
+  <text x="108" y="335" font-family="Arial, sans-serif" font-size="165" font-weight="900" fill="#FFFFFF" letter-spacing="-6">d365</text>
 </svg>
