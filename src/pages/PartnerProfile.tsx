@@ -566,7 +566,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             {/* Sales contact card with optional photo - per product if applicable */}
             {(() => {
               // Map URL ?product= value to product_filters key
-              const selectedProduct = searchParams.get('product') || '';
+              const selectedProduct = stashedParams.get('product') || '';
               const productToKey = (p: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
                 const v = p.toLowerCase();
                 if (v.includes('business central')) return 'bc';
@@ -1159,7 +1159,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
       <PartnerVideoModal
         videoId={videoOpen ? (extractYouTubeId((() => {
-          const sp = searchParams.get('product') || '';
+          const sp = stashedParams.get('product') || '';
           const v = sp.toLowerCase();
           let key: 'bc' | 'fsc' | 'sales' | 'service' | null = null;
           if (v.includes('business central')) key = 'bc';
