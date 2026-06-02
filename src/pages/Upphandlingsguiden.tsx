@@ -100,13 +100,12 @@ const steps: Step[] = [
   {
     num: 6,
     icon: Rocket,
-    tag: "Steg 6 · Införande & avtal",
-    title: "Införandeplan och avtal",
-    highlight: "från beslut till go-live",
+    tag: "Fördjupning & resurser",
+    title: "Fördjupa dig innan ni bestämmer er",
+    highlight: "produktjämförelser, guider & insikter",
     description:
-      "Strukturera mål, tidplan, roller, milstolpar och risker innan ni skriver avtal. En tydlig införandeplan minskar riskerna och skapar förutsägbarhet – och avtalet ska spegla det ni faktiskt har kommit överens om.",
+      "Innan ni skriver på avtalet är det värt att ha koll på produktskillnaderna, vad marknaden faktiskt erbjuder och vad liknande verksamheter har lärt sig på vägen. Här hittar ni produktjämförelser, guider, videos och ett kunskapscenter — utan säljfilter.",
     links: [
-      { label: "Upphandlingsresan – 7 stadier", to: "/kunskapscenter/upphandlingsresan" },
       { label: "Kunskapscenter", to: "/kunskapscenter" },
     ],
   },
