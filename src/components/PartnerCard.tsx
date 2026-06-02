@@ -172,7 +172,19 @@ const PartnerCard = ({
     const partnerId = isDatabasePartner(partner) ? partner.id : null;
     const pageSource = typeof window !== "undefined" ? window.location.pathname : "unknown";
     void trackPartnerView(slug, "card_click", pageSource, partnerId);
+    // Stash filter context in sessionStorage so URL stays clean
+    if (typeof window !== "undefined") {
+      const qIdx = profileUrl.indexOf("?");
+      const qs = qIdx >= 0 ? profileUrl.slice(qIdx + 1) : "";
+      try {
+        if (qs) sessionStorage.setItem(`partner-context:${slug}`, qs);
+        else sessionStorage.removeItem(`partner-context:${slug}`);
+      } catch {}
+    }
   };
+
+  // Clean URL — query context is preserved via sessionStorage
+  const cleanProfileUrl = profileUrl.split("?")[0];
 
   // Get product-specific data - handle both data types
   const getProductFilter = () => {
