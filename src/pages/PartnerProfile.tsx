@@ -136,8 +136,21 @@ interface PartnerProfileProps {
 
 const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const { slug } = useParams<{ slug: string }>();
-  const [searchParams] = useSearchParams();
-  
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Hydrate filter context from sessionStorage if URL is clean (no params)
+  useEffect(() => {
+    if (typeof window === "undefined" || !slug) return;
+    if (searchParams.toString()) return;
+    try {
+      const stashed = sessionStorage.getItem(`partner-context:${slug}`);
+      if (stashed) {
+        setSearchParams(new URLSearchParams(stashed), { replace: true });
+      }
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
   // Get filter context from URL params
   const selectedProduct = searchParams.get("product") || undefined;
   const selectedIndustry = searchParams.get("industry") || undefined;
