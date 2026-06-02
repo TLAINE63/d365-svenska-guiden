@@ -90,7 +90,7 @@ const ERPOverview = () => {
         titleAccent="Vi guidar er rätt — innan ni väljer partner."
         subhead="Båda är fullvärdiga affärssystem. Båda heter Dynamics 365. Där börjar nyansen. Business Central är byggt för snabbare implementationer och har ett ekosystem på 7 000+ tilläggsappar som lyfter funktionaliteten långt utöver &quot;SMB-system&quot;. F&SCM är byggt med djup komplexitet i kärnan - flera entiteter, avancerad supply chain, branschvertikaler. Storleken på er verksamhet är inte det som avgör. Era processer är."
         primary={{ label: "Gör en ERP-behovsanalys", to: "/ERPbehovsanalys/", icon: ClipboardList }}
-        secondary={{ label: "Jämför BC vs F&SCM", to: "/affarssystem/" }}
+        secondary={{ label: "Jämför Business Central vs Finance & Supply Chain Management", to: "/affarssystem/" }}
       />
 
 
