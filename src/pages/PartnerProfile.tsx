@@ -136,27 +136,26 @@ interface PartnerProfileProps {
 
 const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const { slug } = useParams<{ slug: string }>();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  // Hydrate filter context from sessionStorage if URL is clean (no params)
-  useEffect(() => {
-    if (typeof window === "undefined" || !slug) return;
-    if (searchParams.toString()) return;
+  // Filter context: prefer URL params, fall back to sessionStorage (set by PartnerCard)
+  // so URLs stay clean (/partner/<slug>) without losing the user's filter context.
+  const stashedParams = useMemo(() => {
+    if (typeof window === "undefined" || !slug) return new URLSearchParams();
+    if (searchParams.toString()) return searchParams;
     try {
       const stashed = sessionStorage.getItem(`partner-context:${slug}`);
-      if (stashed) {
-        setSearchParams(new URLSearchParams(stashed), { replace: true });
-      }
-    } catch {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+      return stashed ? new URLSearchParams(stashed) : new URLSearchParams();
+    } catch {
+      return new URLSearchParams();
+    }
+  }, [slug, searchParams]);
 
-  // Get filter context from URL params
-  const selectedProduct = searchParams.get("product") || undefined;
-  const selectedIndustry = searchParams.get("industry") || undefined;
-  const selectedCompanySize = searchParams.get("companySize") || undefined;
-  const selectedRevenue = searchParams.get("revenue") || undefined;
-  const selectedGeography = searchParams.get("geography") || undefined;
+  const selectedProduct = stashedParams.get("product") || undefined;
+  const selectedIndustry = stashedParams.get("industry") || undefined;
+  const selectedCompanySize = stashedParams.get("companySize") || undefined;
+  const selectedRevenue = stashedParams.get("revenue") || undefined;
+  const selectedGeography = stashedParams.get("geography") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   
   // Use initialData for SSR, then hydrate with live data from DB
