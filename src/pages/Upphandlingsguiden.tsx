@@ -285,30 +285,6 @@ const Upphandlingsguiden = () => {
           </div>
         </section>
 
-        {/* TAYA / köparsidig vägledning */}
-        <section className="px-4 sm:px-6 py-12 sm:py-16 bg-[#F4F8F8]">
-          <div className="container mx-auto max-w-4xl text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/30 text-[10.5px] font-bold uppercase tracking-[0.12em] text-primary mb-5">
-              Så jobbar vi köparsidigt
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight tracking-tight mb-4">
-              Radikal transparens i hela upphandlingen
-            </h2>
-            <p className="text-[15px] text-muted-foreground leading-relaxed mb-6">
-              Vi visar öppet vilka partners som har avtal med plattformen och vilka som inte har det, och vi redovisar våra egna ägar- och intresseförhållanden. Du ska kunna lita på rekommendationerna – och själv se hur de räknas fram.
-            </p>
-            <Button
-              asChild
-              variant="outline"
-              className="border-primary/30 text-primary hover:bg-primary/5"
-            >
-              <Link to="/agande-och-intressen">
-                Läs om ägande och intressen
-                <ArrowRight className="w-4 h-4 ml-1.5" />
-              </Link>
-            </Button>
-          </div>
-        </section>
 
         {/* Avslut CTA */}
         <section className="px-4 sm:px-6 py-12 sm:py-16 bg-background">
