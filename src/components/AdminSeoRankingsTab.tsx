@@ -338,7 +338,12 @@ export default function AdminSeoRankingsTab({ token, onSessionExpired }: Props) 
             )}
             <DialogFooter>
               <Button variant="outline" onClick={() => setEditing(null)}>Avbryt</Button>
-              <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara"}</Button>
+              <Button
+                onClick={save}
+                disabled={saving || !(editing?.keyword || "").trim() || !(editing?.month || "").trim()}
+              >
+                {saving ? "Sparar…" : "Spara"}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
