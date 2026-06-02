@@ -196,8 +196,15 @@ const ValjPartner = () => {
 
   // Re-open guide when navigating to /valjdynamics365partner/?ai=1 from elsewhere
   // (e.g. Navbar "Så väljer du rätt Dynamics 365-partner" menu item).
+  // Strip the ?ai=1 query so the URL stays clean.
   useEffect(() => {
-    if (aiParam) setGuideOpen(true);
+    if (aiParam) {
+      setGuideOpen(true);
+      if (typeof window !== "undefined") {
+        const clean = window.location.pathname + window.location.hash;
+        window.history.replaceState(null, "", clean);
+      }
+    }
   }, [aiParam]);
   const [selectedApplications, setSelectedApplications] = useState<string[]>([]);
   const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
