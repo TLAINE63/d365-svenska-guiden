@@ -16,7 +16,7 @@ interface Props {
  * stays identical across both contexts.
  */
 const FeaturedArticleBannerView = ({ article, preview = false }: Props) => {
-  const targetUrl = `/artiklar/${article.slug}/?ref=kc-banner`;
+  const targetUrl = `/artiklar/${article.slug}/`;
 
   const trackClick = (placement: "card" | "cta") => {
     if (preview) return;
