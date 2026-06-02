@@ -86,12 +86,22 @@ export default function AdminSeoRankingsTab({ token, onSessionExpired }: Props) 
 
   const save = async () => {
     if (!editing) return;
+    const keyword = (editing.keyword || "").trim();
+    const month = (editing.month || "").trim();
+    if (!keyword) {
+      toast({ title: "Sökord saknas", description: "Fyll i ett sökord innan du sparar.", variant: "destructive" });
+      return;
+    }
+    if (!month) {
+      toast({ title: "Månad saknas", description: "Välj en månad (YYYY-MM) innan du sparar.", variant: "destructive" });
+      return;
+    }
     setSaving(true);
     try {
       const res = await fetch(`${baseUrl}?action=save`, {
         method: "POST",
         headers: headers(),
-        body: JSON.stringify(editing),
+        body: JSON.stringify({ ...editing, keyword, month }),
       });
       if (res.status === 401) return onSessionExpired();
       const data = await res.json();
@@ -328,7 +338,12 @@ export default function AdminSeoRankingsTab({ token, onSessionExpired }: Props) 
             )}
             <DialogFooter>
               <Button variant="outline" onClick={() => setEditing(null)}>Avbryt</Button>
-              <Button onClick={save} disabled={saving}>{saving ? "Sparar…" : "Spara"}</Button>
+              <Button
+                onClick={save}
+                disabled={saving || !(editing?.keyword || "").trim() || !(editing?.month || "").trim()}
+              >
+                {saving ? "Sparar…" : "Spara"}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
