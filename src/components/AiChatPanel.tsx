@@ -95,13 +95,28 @@ export default function AiChatPanel({ suggestions = DEFAULT_SUGGESTIONS, classNa
                   <ReactMarkdown
                     components={{
                       a: ({ href, children }) => {
-                        const isInternal = href?.startsWith("/");
+                        // Om AI:n genererat absolut URL till någon av våra egna domäner
+                        // (lovableproject.com, lovable.app, d365.se) → konvertera till relativ path
+                        // så länken alltid följer aktuell origin (t.ex. d365.se).
+                        let normalized = href || "";
+                        try {
+                          if (/^https?:\/\//i.test(normalized)) {
+                            const u = new URL(normalized);
+                            const ownHost =
+                              u.hostname.endsWith("lovableproject.com") ||
+                              u.hostname.endsWith("lovable.app") ||
+                              u.hostname === "d365.se" ||
+                              u.hostname === "www.d365.se";
+                            if (ownHost) normalized = u.pathname + u.search + u.hash;
+                          }
+                        } catch { /* ignore */ }
+                        const isInternal = normalized.startsWith("/");
                         return isInternal ? (
-                          <Link to={href!} className="text-primary underline hover:no-underline">
+                          <Link to={normalized} className="text-primary underline hover:no-underline">
                             {children}
                           </Link>
                         ) : (
-                          <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+                          <a href={normalized} target="_blank" rel="noopener noreferrer">{children}</a>
                         );
                       },
                     }}
