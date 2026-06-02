@@ -172,7 +172,19 @@ const PartnerCard = ({
     const partnerId = isDatabasePartner(partner) ? partner.id : null;
     const pageSource = typeof window !== "undefined" ? window.location.pathname : "unknown";
     void trackPartnerView(slug, "card_click", pageSource, partnerId);
+    // Stash filter context in sessionStorage so URL stays clean
+    if (typeof window !== "undefined") {
+      const qIdx = profileUrl.indexOf("?");
+      const qs = qIdx >= 0 ? profileUrl.slice(qIdx + 1) : "";
+      try {
+        if (qs) sessionStorage.setItem(`partner-context:${slug}`, qs);
+        else sessionStorage.removeItem(`partner-context:${slug}`);
+      } catch {}
+    }
   };
+
+  // Clean URL — query context is preserved via sessionStorage
+  const cleanProfileUrl = profileUrl.split("?")[0];
 
   // Get product-specific data - handle both data types
   const getProductFilter = () => {
@@ -309,7 +321,7 @@ const PartnerCard = ({
         <div className="flex flex-col flex-1 min-w-0">
           {/* Partner name */}
           <Link 
-            to={profileUrl}
+            to={cleanProfileUrl}
             onClick={handleCardClick}
             className="group/link mb-3"
           >
@@ -475,7 +487,7 @@ const PartnerCard = ({
               asChild 
               className="w-full relative overflow-hidden bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group/btn"
             >
-              <Link to={profileUrl} onClick={handleCardClick} className="flex items-center justify-center gap-2">
+              <Link to={cleanProfileUrl} onClick={handleCardClick} className="flex items-center justify-center gap-2">
                 <span className="relative z-10">Läs mer om denna partner</span>
                 <ArrowRight className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1" />
                 {/* Button shimmer effect */}

@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -137,13 +137,25 @@ interface PartnerProfileProps {
 const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams] = useSearchParams();
-  
-  // Get filter context from URL params
-  const selectedProduct = searchParams.get("product") || undefined;
-  const selectedIndustry = searchParams.get("industry") || undefined;
-  const selectedCompanySize = searchParams.get("companySize") || undefined;
-  const selectedRevenue = searchParams.get("revenue") || undefined;
-  const selectedGeography = searchParams.get("geography") || undefined;
+
+  // Filter context: prefer URL params, fall back to sessionStorage (set by PartnerCard)
+  // so URLs stay clean (/partner/<slug>) without losing the user's filter context.
+  const stashedParams = useMemo(() => {
+    if (typeof window === "undefined" || !slug) return new URLSearchParams();
+    if (searchParams.toString()) return searchParams;
+    try {
+      const stashed = sessionStorage.getItem(`partner-context:${slug}`);
+      return stashed ? new URLSearchParams(stashed) : new URLSearchParams();
+    } catch {
+      return new URLSearchParams();
+    }
+  }, [slug, searchParams]);
+
+  const selectedProduct = stashedParams.get("product") || undefined;
+  const selectedIndustry = stashedParams.get("industry") || undefined;
+  const selectedCompanySize = stashedParams.get("companySize") || undefined;
+  const selectedRevenue = stashedParams.get("revenue") || undefined;
+  const selectedGeography = stashedParams.get("geography") || undefined;
   const { data: dbPartner, isLoading } = usePartner(slug);
   
   // Use initialData for SSR, then hydrate with live data from DB
@@ -554,7 +566,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
             {/* Sales contact card with optional photo - per product if applicable */}
             {(() => {
               // Map URL ?product= value to product_filters key
-              const selectedProduct = searchParams.get('product') || '';
+              const selectedProduct = stashedParams.get('product') || '';
               const productToKey = (p: string): 'bc' | 'fsc' | 'sales' | 'service' | null => {
                 const v = p.toLowerCase();
                 if (v.includes('business central')) return 'bc';
@@ -1147,7 +1159,7 @@ const PartnerProfile = ({ initialData }: PartnerProfileProps = {}) => {
 
       <PartnerVideoModal
         videoId={videoOpen ? (extractYouTubeId((() => {
-          const sp = searchParams.get('product') || '';
+          const sp = stashedParams.get('product') || '';
           const v = sp.toLowerCase();
           let key: 'bc' | 'fsc' | 'sales' | 'service' | null = null;
           if (v.includes('business central')) key = 'bc';
