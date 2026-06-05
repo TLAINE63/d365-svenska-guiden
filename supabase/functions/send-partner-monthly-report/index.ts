@@ -131,85 +131,112 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
   return `<!DOCTYPE html>
 <html lang="sv">
 <head><meta charset="utf-8"><title>Månadsrapport ${esc(partner.name)}</title></head>
-<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
-  <div style="max-width:640px;margin:0 auto;padding:24px 16px">
+<body style="margin:0;padding:0;background:#eef2f7;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eef2f7" style="background:#eef2f7">
+    <tr><td align="center" style="padding:24px 12px">
 
-    <div style="background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 100%);color:#fff;padding:28px;border-radius:12px 12px 0 0">
-      <div style="font-size:13px;opacity:0.85;letter-spacing:1px;text-transform:uppercase">D365.se · Månadsrapport</div>
-      <h1 style="margin:6px 0 0;font-size:24px">${esc(partner.name)}</h1>
-      <div style="margin-top:6px;font-size:14px;opacity:0.9">Period: ${esc(periodLabel)}</div>
-    </div>
+      <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="max-width:640px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(15,23,42,0.08)">
 
-    <div style="background:#fff;padding:28px;border-radius:0 0 12px 12px;box-shadow:0 1px 3px rgba(0,0,0,0.06)">
-
-      <p style="margin:0 0 18px;color:#334155;font-size:15px;line-height:1.5">
-        Hej! Här kommer er månadsöversikt över aktiviteten på er partnerprofil hos D365.se.
-        Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er under perioden.
-      </p>
-
-      <table style="width:100%;border-collapse:separate;border-spacing:8px 0;margin:20px 0">
+        <!-- Header -->
         <tr>
-          ${stat("Profilbesök", profileVisits, "#1e3a5f")}
-          ${stat("Kortklick", cardClicks, "#2d5a87")}
-          ${stat("Klick till er sajt", websiteClicks, "#ea580c")}
+          <td bgcolor="#0f1f3d" style="background-color:#0f1f3d;background:#0f1f3d;padding:28px 28px 24px">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="vertical-align:middle">
+                  <img src="https://www.d365.se/d365guide-logo.png" alt="D365.se" width="140" height="36" style="display:block;border:0;outline:none;height:36px;width:auto;max-width:160px">
+                </td>
+                <td align="right" style="vertical-align:middle;color:#94a3b8;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600">
+                  Månadsrapport
+                </td>
+              </tr>
+            </table>
+            <div style="height:1px;background:#1e3a5f;margin:20px 0 18px"></div>
+            <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2">${esc(partner.name)}</div>
+            <div style="color:#cbd5e1;font-size:14px;margin-top:6px">Period: ${esc(periodLabel)}</div>
+          </td>
         </tr>
+
+        <!-- Orange accent strip -->
+        <tr><td bgcolor="#ea580c" style="background:#ea580c;height:4px;line-height:4px;font-size:0">&nbsp;</td></tr>
+
+        <!-- Body -->
+        <tr><td style="padding:28px">
+
+          <p style="margin:0 0 18px;color:#334155;font-size:15px;line-height:1.5">
+            Hej! Här kommer er månadsöversikt över aktiviteten på er partnerprofil hos D365.se.
+            Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er under perioden.
+          </p>
+
+          <table style="width:100%;border-collapse:separate;border-spacing:8px 0;margin:20px 0">
+            <tr>
+              ${stat("Profilbesök", profileVisits, "#0f1f3d")}
+              ${stat("Kortklick", cardClicks, "#1e3a5f")}
+              ${stat("Klick till er sajt", websiteClicks, "#ea580c")}
+            </tr>
+          </table>
+
+          <p style="margin:18px 0 8px;color:#64748b;font-size:13px;line-height:1.5">
+            <strong>Profilbesök</strong> = personer som öppnade er fullständiga partnerprofil.<br>
+            <strong>Kortklick</strong> = klick på ert partnerkort i sökresultat och listor.<br>
+            <strong>Klick till er sajt</strong> = klick på er webblänk eller produktlandningssida.
+          </p>
+
+          <h2 style="margin:28px 0 12px;font-size:17px;color:#0f172a">Vad var besökarna intresserade av?</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">
+            Topp 5 sidor på D365.se där besökarna kom från innan de interagerade med er.
+          </p>
+
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <thead>
+              <tr style="background:#f8fafc">
+                <th style="padding:10px 12px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">#</th>
+                <th style="padding:10px 12px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Produktsida / område</th>
+                <th style="padding:10px 12px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Antal</th>
+              </tr>
+            </thead>
+            <tbody>${topRows}</tbody>
+          </table>
+
+          <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
+            <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
+            <div style="color:#7c2d12;font-size:13px;line-height:1.5">
+              Om besökaren har snappats upp av vårt verktyg för identifiering av webbplatsbesökare kan vi komplettera rapporten med en lista över identifierade företag (namn, bransch, storlek) som besökt er profil. Alla besök går dock inte att koppla till ett företag – t.ex. mobil- eller privattrafik förblir anonym.
+              Svara på detta mejl så återkommer vi.
+            </div>
+          </div>
+
+          <div style="text-align:center;margin:28px 0 8px">
+            <a href="${esc(profileUrl)}" style="display:inline-block;background:#ea580c;color:#ffffff;text-decoration:none;padding:13px 26px;border-radius:8px;font-weight:600;font-size:14px">
+              Öppna er partnerprofil →
+            </a>
+          </div>
+
+          <p style="margin:24px 0 0;color:#94a3b8;font-size:12px;text-align:center;line-height:1.5">
+            Rapporten genereras automatiskt månadsvis. Har ni frågor eller vill ändra mottagare?<br>
+            Svara direkt på detta mejl eller hör av er till <a href="mailto:info@d365.se" style="color:#1e3a5f">info@d365.se</a>.
+          </p>
+        </td></tr>
+
+        <!-- Footer band -->
+        <tr><td bgcolor="#0f1f3d" style="background:#0f1f3d;padding:18px 28px;text-align:center;color:#94a3b8;font-size:11px;letter-spacing:0.5px">
+          D365.se · Guiden till Microsoft Dynamics 365-partners
+        </td></tr>
+
       </table>
 
-      <p style="margin:18px 0 8px;color:#64748b;font-size:13px;line-height:1.5">
-        <strong>Profilbesök</strong> = personer som öppnade er fullständiga partnerprofil.<br>
-        <strong>Kortklick</strong> = klick på ert partnerkort i sökresultat och listor.<br>
-        <strong>Klick till er sajt</strong> = klick på er webblänk eller produktlandningssida.
-      </p>
-
-      <h2 style="margin:28px 0 12px;font-size:17px;color:#0f172a">Vad var besökarna intresserade av?</h2>
-      <p style="margin:0 0 12px;color:#64748b;font-size:13px">
-        Topp 5 sidor på D365.se där besökarna kom från innan de interagerade med er.
-      </p>
-
-      <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
-        <thead>
-          <tr style="background:#f8fafc">
-            <th style="padding:10px 12px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">#</th>
-            <th style="padding:10px 12px;text-align:left;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Produktsida / område</th>
-            <th style="padding:10px 12px;text-align:right;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:0.5px">Antal</th>
-          </tr>
-        </thead>
-        <tbody>${topRows}</tbody>
-      </table>
-
-      <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
-        <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
-        <div style="color:#7c2d12;font-size:13px;line-height:1.5">
-          Om besökaren har snappats upp av vårt verktyg för identifiering av webbplatsbesökare kan vi komplettera rapporten med en lista över identifierade företag (namn, bransch, storlek) som besökt er profil. Alla besök går dock inte att koppla till ett företag – t.ex. mobil- eller privattrafik förblir anonym.
-          Svara på detta mejl så återkommer vi.
-        </div>
-      </div>
-
-      <div style="text-align:center;margin:28px 0 8px">
-        <a href="${esc(profileUrl)}" style="display:inline-block;background:#1e3a5f;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-weight:600;font-size:14px">
-          Öppna er partnerprofil →
-        </a>
-      </div>
-
-      <p style="margin:24px 0 0;color:#94a3b8;font-size:12px;text-align:center;line-height:1.5">
-        Rapporten genereras automatiskt månadsvis. Har ni frågor eller vill ändra mottagare?<br>
-        Svara direkt på detta mejl eller hör av er till <a href="mailto:info@d365.se" style="color:#2d5a87">info@d365.se</a>.
-      </p>
-    </div>
-
-    <p style="text-align:center;color:#94a3b8;font-size:11px;margin:16px 0 0">
-      D365.se · Den oberoende guiden till Microsoft Dynamics 365
-    </p>
-  </div>
+    </td></tr>
+  </table>
 </body>
 </html>`;
 }
 
-async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean) {
-  const recipient = partner.admin_contact_email || partner.email;
+
+async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean, overrideRecipient?: string) {
+  const recipient = overrideRecipient || partner.admin_contact_email || partner.email;
   if (!recipient) {
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
   }
+
 
   const stats = await buildStats(supabase, partner, startIso);
 
@@ -280,7 +307,9 @@ serve(async (req) => {
       dryRun = false,     // if true: don't send, return preview HTML
       days = 30,          // lookback window
       siteOrigin = "https://www.d365.se",
+      overrideRecipient,  // optional: send to this email instead of partner's
     } = body || {};
+
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
@@ -325,7 +354,7 @@ serve(async (req) => {
     const results: any[] = [];
     for (const p of partners) {
       try {
-        results.push(await sendOne(supabase, p, startIso, periodLabel, siteOrigin, dryRun));
+        results.push(await sendOne(supabase, p, startIso, periodLabel, siteOrigin, dryRun, overrideRecipient));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
         results.push({ partner: p.name, status: "error", error: e?.message });
