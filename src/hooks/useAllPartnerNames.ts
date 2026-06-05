@@ -7,6 +7,7 @@ export interface PartnerNameRow {
   slug: string;
   is_featured: boolean;
   agreement_signed: boolean;
+  product_filters: Record<string, any>;
 }
 
 /**
@@ -19,7 +20,7 @@ export function useAllPartnerNames() {
     queryFn: async (): Promise<PartnerNameRow[]> => {
       const { data, error } = await supabase
         .from("partners_public")
-        .select("id, name, slug, is_featured, agreement_signed")
+        .select("id, name, slug, is_featured, agreement_signed, product_filters")
         .order("name");
       if (error) throw error;
       return (data || []).map((p: any) => ({
@@ -28,6 +29,7 @@ export function useAllPartnerNames() {
         slug: p.slug,
         is_featured: !!p.is_featured,
         agreement_signed: !!p.agreement_signed,
+        product_filters: (p.product_filters as Record<string, any>) || {},
       }));
     },
     staleTime: 5 * 60 * 1000,
