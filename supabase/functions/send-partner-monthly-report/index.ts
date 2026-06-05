@@ -286,7 +286,7 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
 
   return `<!DOCTYPE html>
 <html lang="sv">
-<head><meta charset="utf-8"><title>Månadsrapport ${esc(partner.name)}</title></head>
+<head><meta charset="utf-8"><title>${esc(reportLabel)} ${esc(partner.name)}</title></head>
 <body style="margin:0;padding:0;background:#eef2f7;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eef2f7" style="background:#eef2f7">
     <tr><td align="center" style="padding:24px 12px">
@@ -305,7 +305,7 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
                   </tr></table>
                 </td>
                 <td align="right" style="vertical-align:middle;color:#94a3b8;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600">
-                  Månadsrapport
+                  ${esc(reportLabel)}
                 </td>
               </tr>
             </table>
@@ -323,8 +323,8 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
         <tr><td style="padding:28px">
 
           <p style="margin:0 0 18px;color:#334155;font-size:15px;line-height:1.5">
-            Hej! Här kommer er månadsöversikt över aktiviteten på er partnerprofil hos D365.se.
-            Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er under perioden.
+            Hej! Här kommer er översikt över aktiviteten på er partnerprofil hos D365.se under perioden.
+            Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er.
           </p>
 
           <table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:20px 0">
