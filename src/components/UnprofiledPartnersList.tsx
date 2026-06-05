@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
+import { useMemo } from "react";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
+import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 
 interface Props {
   /** Show a compact teaser (Välj Partner) vs. full page list */
@@ -12,10 +14,31 @@ interface Props {
 }
 
 const UnprofiledPartnersList = ({ variant = "teaser", showSeeAllLink = true }: Props) => {
-  const { data: partners, isLoading } = useUnprofiledPartners();
+  const { data: unprofiled, isLoading: l1 } = useUnprofiledPartners();
+  const { data: allNames, isLoading: l2 } = useAllPartnerNames();
 
-  if (isLoading) return null;
-  if (!partners || partners.length === 0) return null;
+  const combined = useMemo(() => {
+    const items: { id: string; name: string }[] = [];
+    // Non-featured partners in DB (exists in our system but not yet published)
+    (allNames || [])
+      .filter((p) => !p.is_featured)
+      .forEach((p) => items.push({ id: `db-${p.id}`, name: p.name }));
+    // Manually curated "listed but not profiled" partners
+    (unprofiled || []).forEach((p) => items.push({ id: `up-${p.id}`, name: p.name }));
+    // Dedupe by lowercased name, keep first occurrence
+    const seen = new Set<string>();
+    const deduped = items.filter((it) => {
+      const key = it.name.trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
+    return deduped;
+  }, [unprofiled, allNames]);
+
+  if (l1 || l2) return null;
+  if (combined.length === 0) return null;
 
   return (
     <section className="py-12 sm:py-16 bg-background border-t border-border">
@@ -32,7 +55,7 @@ const UnprofiledPartnersList = ({ variant = "teaser", showSeeAllLink = true }: P
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
-          {partners.map((p) => (
+          {combined.map((p) => (
             <Badge
               key={p.id}
               variant="outline"
