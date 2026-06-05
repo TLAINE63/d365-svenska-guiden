@@ -571,10 +571,8 @@ serve(async (req) => {
           fetchAll(() => supabase.from("snitcher_visits").select("company_name, partner_slugs, visited_urls, session_started_at").gte("session_started_at", comparisonStartIso)),
         ]);
 
-        const views = viewsRes.data || [];
-        const clicks = clicksRes.data || [];
-        const exposures = exposureRes.data || [];
-        const snitcher = snitcherRes.data || [];
+
+
 
         const partnerNames = new Set((partners || []).map((p: any) => p.name));
         const partnerSlugs = new Set((partners || []).map((p: any) => p.slug));
