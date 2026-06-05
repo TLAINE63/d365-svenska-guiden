@@ -775,6 +775,8 @@ const BusinessCentral = () => {
         </div>
       </section>
 
+      <UnprofiledPartnersList variant="teaser" showSeeAllLink productKey="bc" productLabel="Business Central" />
+
       {/* CTA Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">

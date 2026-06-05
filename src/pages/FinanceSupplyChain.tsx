@@ -741,6 +741,8 @@ const FinanceSupplyChain = () => {
         </div>
       </section>
 
+      <UnprofiledPartnersList variant="teaser" showSeeAllLink productKey="fsc" productLabel="Finance & Supply Chain" />
+
       {/* CTA Section */}
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
