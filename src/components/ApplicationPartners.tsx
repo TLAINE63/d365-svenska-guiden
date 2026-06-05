@@ -8,6 +8,7 @@ import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
 import { allIndustries } from "@/data/partners";
 import { usePartners } from "@/hooks/usePartners";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 
 // Geography filter options
 const geographyFilters = [
