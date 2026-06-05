@@ -189,13 +189,15 @@ async function buildStats(supabase: any, partner: any, startIso: string, siteSta
 
   // Site-wide engagement signals (not partner-specific) — useful to show ecosystem activity
   // Helps motivate partners to add events and shows demand on tools/assessments.
+  // Site-wide stats use a fixed 30-day window so numbers are comparable across partners
+  const siteStart = siteStartIso || new Date(Date.now() - 30 * 86400000).toISOString();
   async function countPaths(patterns: string[]): Promise<number> {
     let total = 0;
     for (const p of patterns) {
       const { count } = await supabase
         .from("visitor_analytics")
         .select("id", { count: "exact", head: true })
-        .gte("visited_at", startIso)
+        .gte("visited_at", siteStart)
         .like("page_path", p);
       total += count || 0;
     }
