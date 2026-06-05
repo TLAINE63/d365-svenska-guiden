@@ -1921,6 +1921,12 @@ Thomas`,
               </span>
               Partners
             </TabsTrigger>
+            <TabsTrigger value="unprofiled-partners" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
+              <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-slate-500/20 to-slate-600/10 ring-1 ring-slate-400/20">
+                <Building2 className="h-3.5 w-3.5 text-slate-300" strokeWidth={1.75} />
+              </span>
+              Ej profilerade
+            </TabsTrigger>
             <TabsTrigger value="invitations" className={`flex items-center gap-2 ${activeGroup === "leads-partners" ? "" : "hidden"}`}>
               <span className="tab-icon p-1.5 rounded-lg bg-gradient-to-br from-violet-500/20 to-violet-600/10 ring-1 ring-violet-400/20">
                 <MailPlus className="h-3.5 w-3.5 text-violet-300" strokeWidth={1.75} />
