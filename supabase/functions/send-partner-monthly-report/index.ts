@@ -530,7 +530,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     metadata: {
       partner_slug: partner.slug,
       partner_name: partner.name,
-      period_start: startIso,
+      period_start: effectiveStartIso,
       profile_visits: stats.profileVisits,
       card_clicks: stats.cardClicks,
       website_clicks: stats.websiteClicks,
