@@ -307,7 +307,9 @@ serve(async (req) => {
       dryRun = false,     // if true: don't send, return preview HTML
       days = 30,          // lookback window
       siteOrigin = "https://www.d365.se",
+      overrideRecipient,  // optional: send to this email instead of partner's
     } = body || {};
+
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
