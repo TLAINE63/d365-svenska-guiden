@@ -601,7 +601,7 @@ serve(async (req) => {
       .from("partners")
       .select("id, slug, name, email, admin_contact_email, is_featured")
       .eq("is_featured", true);
-    if (partnerSlug) query = query.eq("slug", partnerSlug);
+    if (partnerSlug) query = query.eq("slug", String(partnerSlug).trim().toLowerCase());
 
     const { data: partners, error } = await query;
     if (error) throw error;
