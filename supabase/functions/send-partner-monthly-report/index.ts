@@ -233,7 +233,7 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
 
 
 
-function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string): string {
+function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string, reportLabel = "Månadsrapport"): string {
   const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers, siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments } = stats;
   const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
   const totalEngagement = profileVisits + cardClicks + websiteClicks;
@@ -286,7 +286,7 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
 
   return `<!DOCTYPE html>
 <html lang="sv">
-<head><meta charset="utf-8"><title>Månadsrapport ${esc(partner.name)}</title></head>
+<head><meta charset="utf-8"><title>${esc(reportLabel)} ${esc(partner.name)}</title></head>
 <body style="margin:0;padding:0;background:#eef2f7;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#0f172a">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eef2f7" style="background:#eef2f7">
     <tr><td align="center" style="padding:24px 12px">
@@ -305,7 +305,7 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
                   </tr></table>
                 </td>
                 <td align="right" style="vertical-align:middle;color:#94a3b8;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600">
-                  Månadsrapport
+                  ${esc(reportLabel)}
                 </td>
               </tr>
             </table>
@@ -323,8 +323,8 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
         <tr><td style="padding:28px">
 
           <p style="margin:0 0 18px;color:#334155;font-size:15px;line-height:1.5">
-            Hej! Här kommer er månadsöversikt över aktiviteten på er partnerprofil hos D365.se.
-            Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er under perioden.
+            Hej! Här kommer er översikt över aktiviteten på er partnerprofil hos D365.se under perioden.
+            Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er.
           </p>
 
           <table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:20px 0">
@@ -459,7 +459,7 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
 }
 
 
-async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean, overrideRecipient?: string) {
+async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport") {
   const recipient = overrideRecipient || partner.admin_contact_email || partner.email;
   if (!recipient) {
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
@@ -473,8 +473,8 @@ async function sendOne(supabase: any, partner: any, startIso: string, periodLabe
     return { partner: partner.name, status: "skipped", reason: "no_activity" };
   }
 
-  const html = buildHtml(stats, periodLabel, siteOrigin);
-  const subject = `Månadsrapport för ${partner.name} – ${periodLabel}`;
+  const html = buildHtml(stats, periodLabel, siteOrigin, reportLabel);
+  const subject = `${reportLabel} för ${partner.name} – ${periodLabel}`;
 
   if (dryRun) {
     return { partner: partner.name, status: "preview", recipient, stats, html };
@@ -534,6 +534,8 @@ serve(async (req) => {
       partnerSlug,        // optional: send to a single partner
       dryRun = false,     // if true: don't send, return preview HTML
       days = 30,          // lookback window
+      sinceBeginning = false, // if true: use the earliest tracked date as start
+      reportLabel: reportLabelOverride, // optional override (e.g. "Slutrapport")
       siteOrigin = "https://www.d365.se",
       overrideRecipient,  // optional: send to this email instead of partner's
     } = body || {};
@@ -558,11 +560,29 @@ serve(async (req) => {
       });
     }
 
-    const startDate = new Date(Date.now() - days * 86400000);
-    const startIso = startDate.toISOString();
+    let startIso: string;
+    if (sinceBeginning) {
+      // Find the earliest tracked timestamp across the relevant tables
+      const [pv, pc, fe] = await Promise.all([
+        supabase.from("partner_profile_views").select("viewed_at").order("viewed_at", { ascending: true }).limit(1),
+        supabase.from("partner_clicks").select("clicked_at").order("clicked_at", { ascending: true }).limit(1),
+        supabase.from("partner_filter_exposures").select("viewed_at").order("viewed_at", { ascending: true }).limit(1),
+      ]);
+      const candidates = [
+        pv.data?.[0]?.viewed_at,
+        pc.data?.[0]?.clicked_at,
+        fe.data?.[0]?.viewed_at,
+      ].filter(Boolean) as string[];
+      const earliest = candidates.sort()[0];
+      startIso = earliest || new Date(Date.now() - 365 * 86400000).toISOString();
+    } else {
+      const startDate = new Date(Date.now() - days * 86400000);
+      startIso = startDate.toISOString();
+    }
     const endLabel = new Date().toISOString().slice(0, 10).replace(/-/g, "/");
     const startLabel = startIso.slice(0, 10).replace(/-/g, "/");
     const periodLabel = `${startLabel} – ${endLabel}`;
+    const reportLabel = reportLabelOverride || (sinceBeginning ? "Slutrapport" : "Månadsrapport");
 
     // Fetch featured partners
     let query = supabase
@@ -582,7 +602,7 @@ serve(async (req) => {
     const results: any[] = [];
     for (const p of partners) {
       try {
-        results.push(await sendOne(supabase, p, startIso, periodLabel, siteOrigin, dryRun, overrideRecipient));
+        results.push(await sendOne(supabase, p, startIso, periodLabel, siteOrigin, dryRun, overrideRecipient, reportLabel));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
         results.push({ partner: p.name, status: "error", error: e?.message });
