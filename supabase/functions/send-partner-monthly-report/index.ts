@@ -67,11 +67,13 @@ interface PartnerStats {
   profileVisits: number;
   cardClicks: number;
   websiteClicks: number;
+  identifiedCompanies: number;
   topProductPages: { path: string; label: string; count: number }[];
 }
 
 async function buildStats(supabase: any, partner: any, startIso: string): Promise<PartnerStats> {
-  const [viewsRes, clicksRes] = await Promise.all([
+  const profilePath = `/partner/${partner.slug}`;
+  const [viewsRes, clicksRes, snitcherRes] = await Promise.all([
     supabase
       .from("partner_profile_views")
       .select("view_type, page_source")
@@ -82,6 +84,11 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
       .select("page_source")
       .eq("partner_name", partner.name)
       .gte("clicked_at", startIso),
+    supabase
+      .from("snitcher_visits")
+      .select("company_name, partner_slugs, visited_urls")
+      .gte("session_started_at", startIso)
+      .limit(2000),
   ]);
 
   const views = viewsRes.data || [];
@@ -89,6 +96,21 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
 
   const profileVisits = views.filter((v: any) => v.view_type === "profile_visit");
   const cardClicks = views.filter((v: any) => v.view_type === "card_click");
+
+  // Count unique identified companies that visited this partner's profile
+  const companyNames = new Set<string>();
+  for (const r of snitcherRes.data || []) {
+    const partnerSlugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
+    const visitedUrls: string[] = Array.isArray(r.visited_urls)
+      ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
+      : [];
+    const matched =
+      partnerSlugs.includes(partner.slug) ||
+      visitedUrls.some((u) => u.includes(profilePath));
+    if (!matched) continue;
+    const name = (r.company_name || "").trim().toLowerCase();
+    if (name) companyNames.add(name);
+  }
 
   // Top product page sources combine all interaction sources (where they came from)
   const allInteractions = [
@@ -101,9 +123,11 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     profileVisits: profileVisits.length,
     cardClicks: cardClicks.length,
     websiteClicks: clicks.length,
+    identifiedCompanies: companyNames.size,
     topProductPages: aggregateTop(allInteractions, 5),
   };
 }
+
 
 function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string): string {
   const { partner, profileVisits, cardClicks, websiteClicks, topProductPages } = stats;
