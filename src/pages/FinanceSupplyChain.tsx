@@ -12,6 +12,7 @@ import { FilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import FinanceIcon from "@/assets/icons/Finance.svg";
@@ -740,6 +741,8 @@ const FinanceSupplyChain = () => {
           </div>
         </div>
       </section>
+
+      <UnprofiledPartnersList variant="teaser" showSeeAllLink productKey="fsc" productLabel="Finance & Supply Chain" />
 
       {/* CTA Section */}
       <section className="py-20 bg-secondary/50">
