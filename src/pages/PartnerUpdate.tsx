@@ -298,11 +298,14 @@ const PartnerUpdate = () => {
 
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-invitation&token=${token}`,
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/partner-invitations?action=get-invitation&token=${encodeURIComponent(token)}&_=${Date.now()}`,
           {
             method: "GET",
+            cache: "no-store",
             headers: {
               "Content-Type": "application/json",
+              "Cache-Control": "no-cache",
+              "Pragma": "no-cache",
               "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
             },
           }
