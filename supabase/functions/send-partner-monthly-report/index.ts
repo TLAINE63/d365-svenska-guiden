@@ -465,21 +465,27 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
   }
 
-  // Compute per-partner earliest tracked date when sinceBeginning is requested
+  // Compute per-partner start date when sinceBeginning is requested.
+  // Priority: 1) partner.published_at (when the partner was first published),
+  // 2) earliest tracked event for the partner, 3) 30 days ago as last resort.
   let effectiveStartIso = startIso;
   if (sinceBeginning) {
-    const [pv, pc, fe] = await Promise.all([
-      supabase.from("partner_profile_views").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
-      supabase.from("partner_clicks").select("clicked_at").eq("partner_name", partner.name).order("clicked_at", { ascending: true }).limit(1),
-      supabase.from("partner_filter_exposures").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
-    ]);
-    const candidates = [
-      pv.data?.[0]?.viewed_at,
-      pc.data?.[0]?.clicked_at,
-      fe.data?.[0]?.viewed_at,
-    ].filter(Boolean) as string[];
-    const earliest = candidates.sort()[0];
-    effectiveStartIso = earliest || new Date(Date.now() - 30 * 86400000).toISOString();
+    if (partner.published_at) {
+      effectiveStartIso = partner.published_at;
+    } else {
+      const [pv, pc, fe] = await Promise.all([
+        supabase.from("partner_profile_views").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
+        supabase.from("partner_clicks").select("clicked_at").eq("partner_name", partner.name).order("clicked_at", { ascending: true }).limit(1),
+        supabase.from("partner_filter_exposures").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
+      ]);
+      const candidates = [
+        pv.data?.[0]?.viewed_at,
+        pc.data?.[0]?.clicked_at,
+        fe.data?.[0]?.viewed_at,
+      ].filter(Boolean) as string[];
+      const earliest = candidates.sort()[0];
+      effectiveStartIso = earliest || new Date(Date.now() - 30 * 86400000).toISOString();
+    }
   }
   if (!effectiveStartIso) {
     return { partner: partner.name, status: "skipped", reason: "no_start_date" };
