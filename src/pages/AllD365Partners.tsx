@@ -106,8 +106,8 @@ export default function AllD365Partners() {
           </div>
         </section>
 
-        {/* Unprofiled partners */}
-        {unprofiled && unprofiled.length > 0 && (
+        {/* Other partners (non-featured DB entries + curated list) */}
+        {others.length > 0 && (
           <section className="py-12 sm:py-16 bg-secondary/40 border-t border-border">
             <div className="container mx-auto px-4 sm:px-6 max-w-5xl">
               <div className="mb-8">
@@ -121,7 +121,7 @@ export default function AllD365Partners() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-2 sm:gap-3 mb-10">
-                {unprofiled.map((p) => (
+                {others.map((p) => (
                   <Badge
                     key={p.id}
                     variant="outline"
