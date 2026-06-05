@@ -15,6 +15,7 @@ import LeadCTA from "@/components/LeadCTA";
 import LeadMagnetBanner from "@/components/LeadMagnetBanner";
 import UrgencyBadge from "@/components/UrgencyBadge";
 import PartnerCard from "@/components/PartnerCard";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import SEOHead from "@/components/SEOHead";
 import { FAQSchema, ServiceSchema, BreadcrumbSchema } from "@/components/StructuredData";
 
@@ -857,6 +858,8 @@ const ValjPartner = () => {
           </div>
         </div>
       </section>
+
+      <UnprofiledPartnersList variant="teaser" />
 
       {/* CTA Section */}
       <section className="py-20 bg-secondary/50">

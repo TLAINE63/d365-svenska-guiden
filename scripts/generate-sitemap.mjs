@@ -33,6 +33,7 @@ const STATIC_ROUTES = [
   { path: "/qa/", changefreq: "weekly", priority: "0.7" },
   { path: "/kontakt/", changefreq: "monthly", priority: "0.7" },
   { path: "/valjdynamics365partner/", changefreq: "weekly", priority: "0.9" },
+  { path: "/alla-d365-partners/", changefreq: "monthly", priority: "0.6" },
   { path: "/ERPbehovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/CRMbehovsanalys/", changefreq: "monthly", priority: "0.8" },
   { path: "/kundservice-behovsanalys/", changefreq: "monthly", priority: "0.8" },
