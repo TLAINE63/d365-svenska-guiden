@@ -97,7 +97,7 @@ function normalizeReferrer(ref: string | null): string | null {
   }
 }
 
-async function buildStats(supabase: any, partner: any, startIso: string): Promise<PartnerStats> {
+async function buildStats(supabase: any, partner: any, startIso: string, siteStartIso?: string): Promise<PartnerStats> {
   const profilePath = `/partner/${partner.slug}`;
   const [viewsRes, clicksRes, snitcherRes, exposureRes] = await Promise.all([
     supabase
