@@ -97,6 +97,7 @@ import AdminStatsSummary from "@/components/AdminStatsSummary";
 import AdminEmailLogTab from "@/components/AdminEmailLogTab";
 import AdminFeaturedArticleTab from "@/components/AdminFeaturedArticleTab";
 import AdminKnowledgeArticlesTab from "@/components/AdminKnowledgeArticlesTab";
+import AdminUnprofiledPartnersTab from "@/components/AdminUnprofiledPartnersTab";
 import AdminIndustryPagesTab from "@/components/AdminIndustryPagesTab";
 import AdminSeoRankingsTab from "@/components/AdminSeoRankingsTab";
 import AdminSemrushTab from "@/components/AdminSemrushTab";
