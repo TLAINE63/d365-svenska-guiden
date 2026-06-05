@@ -395,13 +395,6 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
               </tr>
               <tr>
                 <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Enskilda event-sidor</div>
-                  <div style="color:#64748b;font-size:11px">Besök på specifika event (alla arrangörer).</div>
-                </td>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteEventsDetail}</td>
-              </tr>
-              <tr>
-                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
                   <div style="font-weight:600">Behovsanalyser (påbörjade besök)</div>
                   <div style="color:#64748b;font-size:11px">ERP, CRM och Kundservice behovsanalys.</div>
                 </td>
