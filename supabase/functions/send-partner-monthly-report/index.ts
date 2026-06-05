@@ -354,7 +354,7 @@ serve(async (req) => {
     const results: any[] = [];
     for (const p of partners) {
       try {
-        results.push(await sendOne(supabase, p, startIso, periodLabel, siteOrigin, dryRun));
+        results.push(await sendOne(supabase, p, startIso, periodLabel, siteOrigin, dryRun, overrideRecipient));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
         results.push({ partner: p.name, status: "error", error: e?.message });
