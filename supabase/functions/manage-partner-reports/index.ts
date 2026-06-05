@@ -535,6 +535,119 @@ serve(async (req) => {
         }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
       }
 
+      case "stats_matrix": {
+        // Per-partner activity counts for both a primary and comparison window.
+        // Used by admin overview (matrix) and embedded in partner edit dialog.
+        const { primary_days = 30, comparison_days = 90, partner_slug } = data as {
+          primary_days?: number; comparison_days?: number; partner_slug?: string;
+        };
+        const now = new Date();
+        const primaryStartIso = new Date(now.getTime() - primary_days * 86400000).toISOString();
+        const comparisonStartIso = new Date(now.getTime() - comparison_days * 86400000).toISOString();
+
+        let partnersQ = supabase.from("partners").select("id, slug, name, is_featured, agreement_signed");
+        if (partner_slug) partnersQ = partnersQ.eq("slug", partner_slug);
+        else partnersQ = partnersQ.eq("is_featured", true);
+        const { data: partners, error: pErr } = await partnersQ;
+        if (pErr) throw pErr;
+
+        // Fetch all raw rows once over the comparison (longer) window, then derive primary counts in-memory.
+        const [viewsRes, clicksRes, exposureRes, snitcherRes] = await Promise.all([
+          supabase.from("partner_profile_views").select("partner_slug, view_type, viewed_at").gte("viewed_at", comparisonStartIso),
+          supabase.from("partner_clicks").select("partner_name, clicked_at").gte("clicked_at", comparisonStartIso),
+          supabase.from("partner_filter_exposures").select("partner_slug, viewed_at").gte("viewed_at", comparisonStartIso),
+          supabase.from("snitcher_visits").select("company_name, partner_slugs, visited_urls, session_started_at").gte("session_started_at", comparisonStartIso).limit(5000),
+        ]);
+
+        const views = viewsRes.data || [];
+        const clicks = clicksRes.data || [];
+        const exposures = exposureRes.data || [];
+        const snitcher = snitcherRes.data || [];
+
+        const partnerNames = new Set((partners || []).map((p: any) => p.name));
+        const partnerSlugs = new Set((partners || []).map((p: any) => p.slug));
+
+        type Bucket = { exposures: number; profileVisits: number; cardClicks: number; websiteClicks: number; identified: Set<string> };
+        const mk = (): Bucket => ({ exposures: 0, profileVisits: 0, cardClicks: 0, websiteClicks: 0, identified: new Set() });
+        const primary = new Map<string, Bucket>();
+        const compare = new Map<string, Bucket>();
+        for (const p of partners || []) { primary.set(p.slug, mk()); compare.set(p.slug, mk()); }
+
+        const inPrimary = (iso: string | null) => !!iso && iso >= primaryStartIso;
+
+        for (const e of exposures) {
+          if (!partnerSlugs.has(e.partner_slug)) continue;
+          compare.get(e.partner_slug)!.exposures++;
+          if (inPrimary(e.viewed_at)) primary.get(e.partner_slug)!.exposures++;
+        }
+        for (const v of views) {
+          if (!partnerSlugs.has(v.partner_slug)) continue;
+          const c = compare.get(v.partner_slug)!;
+          const p = primary.get(v.partner_slug)!;
+          if (v.view_type === "profile_visit") { c.profileVisits++; if (inPrimary(v.viewed_at)) p.profileVisits++; }
+          else if (v.view_type === "card_click") { c.cardClicks++; if (inPrimary(v.viewed_at)) p.cardClicks++; }
+        }
+        // partner_clicks keyed by partner_name
+        const nameToSlug = new Map<string, string>();
+        for (const p of partners || []) nameToSlug.set(p.name, p.slug);
+        for (const c of clicks) {
+          const slug = nameToSlug.get(c.partner_name);
+          if (!slug) continue;
+          compare.get(slug)!.websiteClicks++;
+          if (inPrimary(c.clicked_at)) primary.get(slug)!.websiteClicks++;
+        }
+        for (const r of snitcher) {
+          const slugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
+          const urls: string[] = Array.isArray(r.visited_urls)
+            ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
+            : [];
+          const company = (r.company_name || "").trim().toLowerCase();
+          if (!company) continue;
+          for (const p of partners || []) {
+            const matched = slugs.includes(p.slug) || urls.some((u) => u.includes(`/partner/${p.slug}`));
+            if (!matched) continue;
+            compare.get(p.slug)!.identified.add(company);
+            if (inPrimary(r.session_started_at)) primary.get(p.slug)!.identified.add(company);
+          }
+        }
+
+        const rows = (partners || []).map((p: any) => {
+          const a = primary.get(p.slug)!;
+          const b = compare.get(p.slug)!;
+          return {
+            partner_slug: p.slug,
+            partner_name: p.name,
+            is_featured: p.is_featured,
+            agreement_signed: p.agreement_signed,
+            primary: {
+              exposures: a.exposures,
+              profile_visits: a.profileVisits,
+              card_clicks: a.cardClicks,
+              website_clicks: a.websiteClicks,
+              identified_companies: a.identified.size,
+            },
+            comparison: {
+              exposures: b.exposures,
+              profile_visits: b.profileVisits,
+              card_clicks: b.cardClicks,
+              website_clicks: b.websiteClicks,
+              identified_companies: b.identified.size,
+            },
+          };
+        }).sort((a: any, b: any) => {
+          const av = a.primary.profile_visits + a.primary.card_clicks + a.primary.website_clicks + a.primary.exposures;
+          const bv = b.primary.profile_visits + b.primary.card_clicks + b.primary.website_clicks + b.primary.exposures;
+          return bv - av;
+        });
+
+        return new Response(JSON.stringify({
+          primary_days, comparison_days,
+          generated_at: now.toISOString(),
+          rows,
+        }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+      }
+
+
       case "generate": {
         const result = await generateDrafts(supabase, data);
         return new Response(JSON.stringify({ success: true, ...result }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });

@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, RefreshCw, Send, Eye, Trash2, Sparkles } from "lucide-react";
+import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
 
 interface Draft {
   id: string;
@@ -162,6 +163,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
 
   return (
     <div className="space-y-6">
+    <PartnerStatsMatrix token={token} />
     <MonthlyStatsReportCard />
     <Card>
       <CardHeader>

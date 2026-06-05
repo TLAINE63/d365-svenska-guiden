@@ -107,6 +107,7 @@ import AdminGscTab from "@/components/AdminGscTab";
 import AdminPillarFollowupTab from "@/components/AdminPillarFollowupTab";
 import AdminPartnerDashboardTab from "@/components/AdminPartnerDashboardTab";
 import AdminPartnerReportsTab from "@/components/AdminPartnerReportsTab";
+import PartnerStatsMatrix from "@/components/PartnerStatsMatrix";
 import PartnerViewStatsCard from "@/components/PartnerViewStatsCard";
 import SiteTrafficStatsCard from "@/components/SiteTrafficStatsCard";
 import { SwedishDatePicker } from "@/components/ui/swedish-date-picker";
@@ -3368,6 +3369,12 @@ Thomas`,
                   {editingPartner ? "Spara ändringar" : "Skapa partner"}
                 </Button>
               </div>
+
+              {/* Inline activity stats for existing partner */}
+              {editingPartner && (
+                <PartnerStatsMatrix token={token} partnerSlug={editingPartner.slug} />
+              )}
+
 
               {/* Permanent self-service link (only for published partners) */}
               {editingPartner && editingPartner.is_featured && (
