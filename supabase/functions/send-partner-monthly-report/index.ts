@@ -459,14 +459,37 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
 }
 
 
-async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport") {
+async function sendOne(supabase: any, partner: any, startIso: string | null, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport", sinceBeginning = false) {
   const recipient = overrideRecipient || partner.admin_contact_email || partner.email;
   if (!recipient) {
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
   }
 
+  // Compute per-partner earliest tracked date when sinceBeginning is requested
+  let effectiveStartIso = startIso;
+  if (sinceBeginning) {
+    const [pv, pc, fe] = await Promise.all([
+      supabase.from("partner_profile_views").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
+      supabase.from("partner_clicks").select("clicked_at").eq("partner_name", partner.name).order("clicked_at", { ascending: true }).limit(1),
+      supabase.from("partner_filter_exposures").select("viewed_at").eq("partner_slug", partner.slug).order("viewed_at", { ascending: true }).limit(1),
+    ]);
+    const candidates = [
+      pv.data?.[0]?.viewed_at,
+      pc.data?.[0]?.clicked_at,
+      fe.data?.[0]?.viewed_at,
+    ].filter(Boolean) as string[];
+    const earliest = candidates.sort()[0];
+    effectiveStartIso = earliest || new Date(Date.now() - 30 * 86400000).toISOString();
+  }
+  if (!effectiveStartIso) {
+    return { partner: partner.name, status: "skipped", reason: "no_start_date" };
+  }
 
-  const stats = await buildStats(supabase, partner, startIso);
+  const endLabel = new Date().toISOString().slice(0, 10).replace(/-/g, "/");
+  const startLabel = effectiveStartIso.slice(0, 10).replace(/-/g, "/");
+  const periodLabel = `${startLabel} – ${endLabel}`;
+
+  const stats = await buildStats(supabase, partner, effectiveStartIso);
 
   // Skip if no activity at all
   if (stats.profileVisits + stats.cardClicks + stats.websiteClicks + stats.exposures === 0) {
