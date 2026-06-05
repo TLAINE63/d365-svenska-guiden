@@ -1161,6 +1161,39 @@ export type Database = {
         }
         Relationships: []
       }
+      unprofiled_partners: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          is_visible: boolean
+          name: string
+          note: string | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          name: string
+          note?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_visible?: boolean
+          name?: string
+          note?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       visitor_analytics: {
         Row: {
           geo_city: string | null

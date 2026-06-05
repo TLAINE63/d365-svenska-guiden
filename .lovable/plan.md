@@ -1,67 +1,61 @@
 ## Mål
 
-Skapa en ny pelarsida **Upphandlingsguiden** (/upphandlingsguiden/) som guidar köpare genom hela upphandlingsresan för Dynamics 365 – inspirerad av strukturen på herbertnathan.com/tjanster/upphandling/, men i d365.se:s ton (köparsidig vägledning, TAYA, aldrig "oberoende"). Lägg till en menypunkt i Verksamhetsguider-dropdownen (desktop + mobil).
+Komplettera marknadsbilden: avtalspartners visas som idag (fullt profilkort), medan övriga relevanta D365-partners listas mer återhållsamt – utan logotyp och utan länk till deras webbplats. All kontakt går via /kontakt enligt mediated-contact-regeln.
 
-## Innehållsstruktur på sidan
+## Databas
 
-Sex tematiska steg, alla anpassade till Dynamics 365-kontexten och med deep-länkar in i befintliga verktyg på sajten:
+Ny enkel tabell `public.unprofiled_partners` (admin-styrd, ej kopplad till `partners`):
 
-```text
-Hero: "Kvalitetssäkrad upphandling av Dynamics 365 – från behov till avtal"
- └─ ingress + två CTA: "Starta behovsanalys" / "Hitta partner"
+- `name` (text, unik)
+- `note` (text, valfri intern kommentar)
+- `website` (text, valfri – syns inte publikt, bara för admin-referens)
+- `display_order` (int, default 100)
+- `is_visible` (bool, default true)
+- standard `id`, `created_at`, `updated_at`
 
-1. Behovsanalys        → /ERPbehovsanalys/, /CRMbehovsanalys/, /kundservice-behovsanalys/
-2. Kravspecifikation   → /kravspecifikation/ (+ Sales/Marketing/Kundservice)
-3. Marknads- & partneranalys → /valjdynamics365partner/, /branscher/
-4. Utvärdering av system & partner → /valjdynamics365partner/?ai=1 (AI-guide)
-5. Val av implementeringspartner   → partnerprofiler, kundexempel
-6. Införandeplan & avtal           → /kunskapscenter/upphandlingsresan, relevanta artiklar
+RLS:
+- `SELECT` öppen för anon/authenticated (publik läsning av synliga rader sker via edge function eller direkt query med `is_visible=true`).
+- `ALL` för `service_role` (admin gör CRUD via ny edge function `manage-unprofiled-partners` med admin-token, samma mönster som `manage-partners`).
 
-Avslutning:
- - "Så jobbar vi köparsidigt" (TAYA-block, länk till /agande-och-intressen)
- - Relaterade sidor (RelatedPages)
- - CTA-banner: kontakta rådgivare (Thomas Laine / Michael Uhman)
-```
+## Admin (sida `/admin`)
 
-Varje steg = kort + rubrik + 2–4 raders förklaring + primär CTA-knapp. Återanvänd visuellt språk från `BuyerJourneyStages` och stegsektionerna i `Upphandlingsresan.tsx` (mörkt premiumkort för "hetare" steg, ljust kort för analyssteg) så det känns enhetligt.
+Ny flik **"Listad men ej profilerad"**:
+- Tabell med Namn, Intern not, Synlig (toggle), Ordning, åtgärder (Lägg till / Redigera / Ta bort).
+- Enkelt formulär – bara namn krävs.
+- Återanvänder befintlig admin-auth (`useAdminAuth`) och token-mönster.
 
-## Navigation
+## Publika vyer
 
-I `src/components/Navbar.tsx`, Verksamhetsguider-dropdown, lägg till en ny post **högst upp** (eller direkt under "Hitta Dynamics 365-partner") som primär, accentfärgad länk:
+1. **Sektion längst ner på `/valjdynamics365partner`**
+   - Rubrik: "Övriga D365-partners på marknaden"
+   - Kort intro-text (TAYA-ton): vi listar fler aktörer för transparens, men har inte profilerat dem här.
+   - Renderar namnen som enkla pills/rader (inget kort, ingen logotyp, ingen extern länk).
+   - Knapp "Kontakta oss för matchning" → `/kontakt/`.
+   - Länk "Se hela listan" → ny sida.
 
-- Desktop: ny `DropdownMenuItem` "🗺️ Upphandlingsguiden" → `/upphandlingsguiden/`
-- Mobil: motsvarande länk i mobilmenyns Verksamhetsguider-block
+2. **Ny sida `/alla-d365-partners/`**
+   - Visar alla avtalspartners överst som länkbara namn (länk till deras profilsida på d365.se), grupperade eller alfabetiskt.
+   - Visar "Listad men ej profilerad" under – endast namn, inga länkar, ingen logotyp.
+   - Tydlig förklaring av skillnaden (köparsidig transparens, ingen "oberoende"-formulering).
+   - Gemensam CTA längst ner: "Kontakta oss för matchning" → `/kontakt/`.
+   - Läggs in i sitemap + footer.
 
-Befintlig länk till `/kunskapscenter/upphandlingsresan` ("Upphandlingsresan") behålls – den är en mer kompakt 7-stegs-översikt; nya sidan är den fördjupade pelaren.
+## Datakälla / hook
 
-## SEO
+- Ny hook `useUnprofiledPartners()` (publik, läser bara `is_visible=true`, sorterad på `display_order, name`).
+- Ny hook/edge-anrop för admin via `manage-unprofiled-partners`.
 
-- `SEOHead` med title "Upphandlingsguiden – så upphandlar du Dynamics 365" (<60 tecken), meta-desc <160 tecken med köparsidig vinkel.
-- canonicalPath `/upphandlingsguiden`
-- En H1, semantiska H2 per steg, alt-text på bilder.
-- Lägg till route i `App.tsx` + i `scripts/generate-sitemap.mjs` så den prerenderas (SSG).
-- Lägg in OG-bild (återanvänd befintlig generell OG eller skapa enkel ny via `src/lib/ogImage.ts`-mönstret om behövs).
-- Intern länkning enligt minnesregler: pelarna `/`, `/erp`, `/affarssystem`, `/businesscentral` – lägg "Upphandlingsguiden" i `RelatedPages`/footer-länklistan där det är relevant (MOFU/BOFU).
+## Regler som följs
 
-## Filer som påverkas
+- Ingen logotyp, ingen länk till partners webbplatser (mediated contact).
+- Ingen ranking-påverkan – dessa partners deltar inte i guide/matchning eller filter.
+- Inga klickspårningar mot externa sidor (de existerar inte här).
+- Texter använder köparsidig ton; ordet "oberoende" undviks.
 
-```text
-src/pages/Upphandlingsguiden.tsx        (NY – pelarsida)
-src/components/Navbar.tsx               (lägg till menypunkt desktop + mobil)
-src/App.tsx                             (route /upphandlingsguiden/)
-scripts/generate-sitemap.mjs            (lägg till URL i SSG-listan)
-src/components/Footer.tsx               (valfri länk under "Guider")
-```
+## Tekniska detaljer
 
-Inga DB- eller backend-ändringar. Ingen ny logik, bara presentation + navigation + SEO.
-
-## TAYA-vakt
-
-Ingen text om "oberoende". Formuleringar = "köparsidig vägledning", "vi står på din sida". Inga direktlänkar till partners webbplatser – CTA går via plattformens partnermatchning/lead-flöde.
-
-## Klart-kriterier
-
-- /upphandlingsguiden/ renderas, prerendreras i SSG och syns i sitemap.
-- Menypunkt syns och fungerar i desktop-dropdown och mobilmeny.
-- Sidan har 6 stegsektioner + hero + avslutnings-CTA, fullt responsiv.
-- SEO-taggar och canonical satta, inga "oberoende"-ord.
+- Tabell + RLS + GRANTs läggs i en migration.
+- Edge function `manage-unprofiled-partners` med actions `list|create|update|delete` (admin-token).
+- Komponent `UnprofiledPartnersList` återanvänds av både `/valjdynamics365partner` och `/alla-d365-partners`.
+- Sidan `/alla-d365-partners/` läggs till i `App.tsx`, sitemap-generatorn och footer-länklistan.
+- Minne uppdateras: ny entry under "Features & Logic" som beskriver "Listad men ej profilerad"-konceptet.
