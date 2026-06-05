@@ -113,6 +113,7 @@ const AppShell = () => {
           <Route path="/valjdynamics365partner" element={<ValjPartner />} />
           <Route path="/valj-partner" element={<Navigate to="/valjdynamics365partner" replace />} />
           <Route path="/valj-partner/*" element={<Navigate to="/valjdynamics365partner" replace />} />
+          <Route path="/alla-d365-partners" element={<AllD365Partners />} />
           <Route path="/dataskydd" element={<PrivacyPolicy />} />
           <Route path="/ERPbehovsanalys" element={<NeedsAnalysis />} />
           <Route path="/behovsanalys" element={<Navigate to="/ERPbehovsanalys" replace />} />
