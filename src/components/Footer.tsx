@@ -54,6 +54,7 @@ const Footer = () => {
               <li><Link to="/qa/" className="text-muted-foreground hover:text-foreground transition-colors">Vanliga frågor</Link></li>
               <li><Link to="/branscher/" className="text-muted-foreground hover:text-foreground transition-colors">Hitta din bransch</Link></li>
               <li><Link to="/valjdynamics365partner/" className="text-muted-foreground hover:text-foreground transition-colors">Hitta din partner</Link></li>
+              <li><Link to="/alla-d365-partners/" className="text-muted-foreground hover:text-foreground transition-colors">Alla D365-partners</Link></li>
             </ul>
           </div>
 
