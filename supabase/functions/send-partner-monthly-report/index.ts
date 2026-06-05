@@ -68,15 +68,35 @@ interface PartnerStats {
   cardClicks: number;
   websiteClicks: number;
   identifiedCompanies: number;
+  exposures: number;
+  exposuresByPage: { path: string; label: string; count: number }[];
+  topFilterContexts: { label: string; count: number }[];
+  topReferrers: { label: string; count: number }[];
   topProductPages: { path: string; label: string; count: number }[];
+}
+
+function normalizeReferrer(ref: string | null): string | null {
+  if (!ref) return null;
+  try {
+    const u = new URL(ref);
+    const h = u.hostname.replace(/^www\./, "");
+    if (h.includes("google")) return "Google";
+    if (h.includes("bing")) return "Bing";
+    if (h.includes("linkedin")) return "LinkedIn";
+    if (h.includes("facebook")) return "Facebook";
+    if (h.includes("d365.se")) return null; // internal
+    return h;
+  } catch {
+    return null;
+  }
 }
 
 async function buildStats(supabase: any, partner: any, startIso: string): Promise<PartnerStats> {
   const profilePath = `/partner/${partner.slug}`;
-  const [viewsRes, clicksRes, snitcherRes] = await Promise.all([
+  const [viewsRes, clicksRes, snitcherRes, exposureRes] = await Promise.all([
     supabase
       .from("partner_profile_views")
-      .select("view_type, page_source")
+      .select("view_type, page_source, referrer")
       .eq("partner_slug", partner.slug)
       .gte("viewed_at", startIso),
     supabase
@@ -89,10 +109,16 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
       .select("company_name, partner_slugs, visited_urls")
       .gte("session_started_at", startIso)
       .limit(2000),
+    supabase
+      .from("partner_filter_exposures")
+      .select("page_path, filter_context")
+      .eq("partner_slug", partner.slug)
+      .gte("viewed_at", startIso),
   ]);
 
   const views = viewsRes.data || [];
   const clicks = clicksRes.data || [];
+  const exposures = exposureRes.data || [];
 
   const profileVisits = views.filter((v: any) => v.view_type === "profile_visit");
   const cardClicks = views.filter((v: any) => v.view_type === "card_click");
@@ -112,6 +138,43 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     if (name) companyNames.add(name);
   }
 
+  // Exposures by page (where partner card was shown after a filter)
+  const expPageMap = new Map<string, number>();
+  const filterCtxMap = new Map<string, number>();
+  for (const e of exposures) {
+    const path = (e.page_path || "").split("?")[0].split("#")[0];
+    if (path) expPageMap.set(path, (expPageMap.get(path) || 0) + 1);
+    const fc = (e.filter_context || {}) as Record<string, string | null>;
+    const parts: string[] = [];
+    if (fc.product) parts.push(`Produkt: ${fc.product}`);
+    if (fc.industry) parts.push(`Bransch: ${fc.industry}`);
+    if (fc.geography) parts.push(`Geografi: ${fc.geography}`);
+    if (fc.size) parts.push(`Storlek: ${fc.size}`);
+    if (parts.length) {
+      const label = parts.join(" · ");
+      filterCtxMap.set(label, (filterCtxMap.get(label) || 0) + 1);
+    }
+  }
+  const exposuresByPage = Array.from(expPageMap.entries())
+    .map(([path, count]) => ({ path, label: labelForPath(path), count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+  const topFilterContexts = Array.from(filterCtxMap.entries())
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  // Referrers from profile views
+  const refMap = new Map<string, number>();
+  for (const v of views) {
+    const r = normalizeReferrer(v.referrer);
+    if (r) refMap.set(r, (refMap.get(r) || 0) + 1);
+  }
+  const topReferrers = Array.from(refMap.entries())
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
   // Top product page sources combine all interaction sources (where they came from)
   const allInteractions = [
     ...views.map((v: any) => ({ page_source: v.page_source })),
@@ -124,13 +187,19 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     cardClicks: cardClicks.length,
     websiteClicks: clicks.length,
     identifiedCompanies: companyNames.size,
+    exposures: exposures.length,
+    exposuresByPage,
+    topFilterContexts,
+    topReferrers,
     topProductPages: aggregateTop(allInteractions, 5),
   };
 }
 
 
+
+
 function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string): string {
-  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies } = stats;
+  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers } = stats;
   const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
   const totalEngagement = profileVisits + cardClicks + websiteClicks;
 
@@ -146,11 +215,39 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
         </tr>`).join("")
     : `<tr><td colspan="3" style="padding:18px;text-align:center;color:#94a3b8;font-size:13px">Inga produktsidor registrerade under perioden</td></tr>`;
 
-  const stat = (label: string, value: number, color: string) => `
-    <td style="padding:18px 12px;text-align:center;background:#f8fafc;border-radius:10px;width:33%">
-      <div style="font-size:32px;font-weight:700;color:${color};line-height:1">${value}</div>
-      <div style="font-size:12px;color:#64748b;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>
+  const stat = (label: string, value: number | string, color: string) => `
+    <td style="padding:16px 8px;text-align:center;background:#f8fafc;border-radius:10px">
+      <div style="font-size:28px;font-weight:700;color:${color};line-height:1">${value}</div>
+      <div style="font-size:11px;color:#64748b;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>
     </td>`;
+
+  const exposurePagesRows = exposuresByPage.length
+    ? exposuresByPage.map((p) => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+            <div style="font-weight:600">${esc(p.label)}</div>
+            <div style="color:#64748b;font-size:11px;font-family:monospace">${esc(p.path)}</div>
+          </td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${p.count}</td>
+        </tr>`).join("")
+    : "";
+
+  const filterCtxRows = topFilterContexts.length
+    ? topFilterContexts.map((c) => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">${esc(c.label)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${c.count}</td>
+        </tr>`).join("")
+    : "";
+
+  const referrerRows = topReferrers.length
+    ? topReferrers.map((r) => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">${esc(r.label)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${r.count}</td>
+        </tr>`).join("")
+    : "";
+
 
   return `<!DOCTYPE html>
 <html lang="sv">
@@ -167,13 +264,17 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td style="vertical-align:middle">
-                  <img src="https://www.d365.se/d365guide-logo.png" alt="D365.se" width="140" height="36" style="display:block;border:0;outline:none;height:36px;width:auto;max-width:160px">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                    <td style="background:#ea580c;width:4px;height:28px;line-height:28px;font-size:0">&nbsp;</td>
+                    <td style="padding-left:10px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#ffffff;line-height:1">d365<span style="color:#ea580c">.</span><span style="color:rgba(255,255,255,0.65);font-weight:300">se</span></td>
+                  </tr></table>
                 </td>
                 <td align="right" style="vertical-align:middle;color:#94a3b8;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600">
                   Månadsrapport
                 </td>
               </tr>
             </table>
+
             <div style="height:1px;background:#1e3a5f;margin:20px 0 18px"></div>
             <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2">${esc(partner.name)}</div>
             <div style="color:#cbd5e1;font-size:14px;margin-top:6px">Period: ${esc(periodLabel)}</div>
@@ -191,19 +292,35 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
             Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er under perioden.
           </p>
 
-          <table style="width:100%;border-collapse:separate;border-spacing:8px 0;margin:20px 0">
+          <table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:20px 0">
             <tr>
-              ${stat("Profilbesök", profileVisits, "#0f1f3d")}
-              ${stat("Kortklick", cardClicks, "#1e3a5f")}
+              ${stat("Exponeringar", exposures, "#0f1f3d")}
+              ${stat("Profilbesök", profileVisits, "#1e3a5f")}
+              ${stat("Kortklick", cardClicks, "#2d5a87")}
               ${stat("Klick till er sajt", websiteClicks, "#ea580c")}
             </tr>
           </table>
 
           <p style="margin:18px 0 8px;color:#64748b;font-size:13px;line-height:1.5">
+            <strong>Exponeringar</strong> = antal gånger ert kort visades i en filtrerad partnerlista.<br>
             <strong>Profilbesök</strong> = personer som öppnade er fullständiga partnerprofil.<br>
             <strong>Kortklick</strong> = klick på ert partnerkort i sökresultat och listor.<br>
             <strong>Klick till er sajt</strong> = klick på er webblänk eller produktlandningssida.
           </p>
+
+          ${exposurePagesRows ? `
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Var visades ert kort?</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Sidor där ert partnerkort exponerades efter att en besökare filtrerat.</p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>${exposurePagesRows}</tbody>
+          </table>` : ""}
+
+          ${filterCtxRows ? `
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Vilka filter ledde till exponering?</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Topp filterkombinationer (bransch, produkt, geografi, storlek) som matchade er profil. Visar vad köparna faktiskt sökte efter.</p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>${filterCtxRows}</tbody>
+          </table>` : ""}
 
           <h2 style="margin:28px 0 12px;font-size:17px;color:#0f172a">Vad var besökarna intresserade av?</h2>
           <p style="margin:0 0 12px;color:#64748b;font-size:13px">
@@ -220,6 +337,14 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
             </thead>
             <tbody>${topRows}</tbody>
           </table>
+
+          ${referrerRows ? `
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Externa trafikkällor</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Externa sajter som skickade besökare till er profil.</p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>${referrerRows}</tbody>
+          </table>` : ""}
+
 
           <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
             <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
@@ -270,7 +395,7 @@ async function sendOne(supabase: any, partner: any, startIso: string, periodLabe
   const stats = await buildStats(supabase, partner, startIso);
 
   // Skip if no activity at all
-  if (stats.profileVisits + stats.cardClicks + stats.websiteClicks === 0) {
+  if (stats.profileVisits + stats.cardClicks + stats.websiteClicks + stats.exposures === 0) {
     return { partner: partner.name, status: "skipped", reason: "no_activity" };
   }
 
