@@ -264,13 +264,17 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td style="vertical-align:middle">
-                  <img src="https://www.d365.se/d365guide-logo.png" alt="D365.se" width="140" height="36" style="display:block;border:0;outline:none;height:36px;width:auto;max-width:160px">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                    <td style="background:#ea580c;width:4px;height:28px;line-height:28px;font-size:0">&nbsp;</td>
+                    <td style="padding-left:10px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#ffffff;line-height:1">d365<span style="color:#ea580c">.</span><span style="color:rgba(255,255,255,0.65);font-weight:300">se</span></td>
+                  </tr></table>
                 </td>
                 <td align="right" style="vertical-align:middle;color:#94a3b8;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600">
                   Månadsrapport
                 </td>
               </tr>
             </table>
+
             <div style="height:1px;background:#1e3a5f;margin:20px 0 18px"></div>
             <div style="color:#ffffff;font-size:24px;font-weight:700;line-height:1.2">${esc(partner.name)}</div>
             <div style="color:#cbd5e1;font-size:14px;margin-top:6px">Period: ${esc(periodLabel)}</div>
