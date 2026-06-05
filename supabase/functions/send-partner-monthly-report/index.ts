@@ -395,21 +395,21 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
               </tr>
               <tr>
                 <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Behovsanalyser (påbörjade besök)</div>
+                  <div style="font-weight:600">Behovsanalyser</div>
                   <div style="color:#64748b;font-size:11px">ERP, CRM och Kundservice behovsanalys.</div>
                 </td>
                 <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteNeedsAnalysis}</td>
               </tr>
               <tr>
                 <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Kravspecifikationer (påbörjade besök)</div>
+                  <div style="font-weight:600">Kravspecifikationer</div>
                   <div style="color:#64748b;font-size:11px">Alla kravspec-mallar (ERP, Sales, Marketing, Kundservice).</div>
                 </td>
                 <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteRequirementsSpec}</td>
               </tr>
               <tr>
                 <td style="padding:10px 12px;color:#0f172a;font-size:13px">
-                  <div style="font-weight:600">Assessments (påbörjade besök)</div>
+                  <div style="font-weight:600">Assessments</div>
                   <div style="color:#64748b;font-size:11px">AI-readiness och Beslutsmognadsindex.</div>
                 </td>
                 <td style="padding:10px 12px;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteAssessments}</td>
