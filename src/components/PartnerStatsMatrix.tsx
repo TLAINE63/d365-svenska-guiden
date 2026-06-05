@@ -84,10 +84,21 @@ export default function PartnerStatsMatrix({
   const heading = title || (single ? "Aktivitet" : "Partner-jämförelse");
 
   type SortKey = "name" | keyof Row["primary"];
-  const [search, setSearch] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState<"all" | "agreement" | "no_agreement" | "featured" | "active" | "inactive">("all");
-  const [sortKey, setSortKey] = useState<SortKey>("exposures");
-  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
+  type CategoryFilter = "all" | "agreement" | "no_agreement" | "featured" | "active" | "inactive";
+  const STORAGE_KEY = "partnerStatsMatrix:prefs:v1";
+  const persisted = (() => {
+    if (single || typeof window === "undefined") return null;
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); } catch { return null; }
+  })();
+  const [search, setSearch] = useState<string>(persisted?.search ?? "");
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>(persisted?.categoryFilter ?? "all");
+  const [sortKey, setSortKey] = useState<SortKey>(persisted?.sortKey ?? "exposures");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">(persisted?.sortDir ?? "desc");
+
+  useEffect(() => {
+    if (single || typeof window === "undefined") return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ search, categoryFilter, sortKey, sortDir })); } catch {}
+  }, [single, search, categoryFilter, sortKey, sortDir]);
 
   const totalActivity = (r: Row) =>
     r.primary.exposures + r.primary.profile_visits + r.primary.card_clicks + r.primary.website_clicks + r.primary.identified_companies;
