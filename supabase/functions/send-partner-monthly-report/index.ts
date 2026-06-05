@@ -90,6 +90,7 @@ function normalizeReferrer(ref: string | null): string | null {
     if (h.includes("linkedin")) return "LinkedIn";
     if (h.includes("facebook")) return "Facebook";
     if (h.includes("d365.se")) return null; // internal
+    if (h.includes("lovable.dev") || h.includes("lovable.app") || h.includes("lovableproject.com")) return null; // preview/dev
     return h;
   } catch {
     return null;
