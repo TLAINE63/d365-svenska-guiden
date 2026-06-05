@@ -231,11 +231,12 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
 }
 
 
-async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean) {
-  const recipient = partner.admin_contact_email || partner.email;
+async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean, overrideRecipient?: string) {
+  const recipient = overrideRecipient || partner.admin_contact_email || partner.email;
   if (!recipient) {
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
   }
+
 
   const stats = await buildStats(supabase, partner, startIso);
 
