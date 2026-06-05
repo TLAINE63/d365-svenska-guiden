@@ -383,9 +383,9 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
             <tbody>${referrerRows}</tbody>
           </table>` : ""}
 
-          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet (senaste 30 dagarna)</h2>
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet</h2>
           <p style="margin:0 0 12px;color:#64748b;font-size:13px">
-            Totalt antal besök på olika delar av D365.se de senaste 30 dagarna (alla partners sammanlagt). Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
+            Period: ${new Date(Date.now() - 30 * 86400000).toISOString().slice(0,10).replace(/-/g,"/")} – ${endLabel}. Totalt antal besök på olika delar av D365.se (alla partners sammanlagt). Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
           </p>
           <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
             <tbody>
