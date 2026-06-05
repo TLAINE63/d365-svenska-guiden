@@ -292,19 +292,35 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
             Totalt registrerade vi <strong>${totalEngagement}</strong> interaktioner kopplade till er under perioden.
           </p>
 
-          <table style="width:100%;border-collapse:separate;border-spacing:8px 0;margin:20px 0">
+          <table style="width:100%;border-collapse:separate;border-spacing:6px 0;margin:20px 0">
             <tr>
-              ${stat("Profilbesök", profileVisits, "#0f1f3d")}
-              ${stat("Kortklick", cardClicks, "#1e3a5f")}
+              ${stat("Exponeringar", exposures, "#0f1f3d")}
+              ${stat("Profilbesök", profileVisits, "#1e3a5f")}
+              ${stat("Kortklick", cardClicks, "#2d5a87")}
               ${stat("Klick till er sajt", websiteClicks, "#ea580c")}
             </tr>
           </table>
 
           <p style="margin:18px 0 8px;color:#64748b;font-size:13px;line-height:1.5">
+            <strong>Exponeringar</strong> = antal gånger ert kort visades i en filtrerad partnerlista.<br>
             <strong>Profilbesök</strong> = personer som öppnade er fullständiga partnerprofil.<br>
             <strong>Kortklick</strong> = klick på ert partnerkort i sökresultat och listor.<br>
             <strong>Klick till er sajt</strong> = klick på er webblänk eller produktlandningssida.
           </p>
+
+          ${exposurePagesRows ? `
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Var visades ert kort?</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Sidor där ert partnerkort exponerades efter att en besökare filtrerat.</p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>${exposurePagesRows}</tbody>
+          </table>` : ""}
+
+          ${filterCtxRows ? `
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Vilka filter ledde till exponering?</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Topp filterkombinationer (bransch, produkt, geografi, storlek) som matchade er profil. Visar vad köparna faktiskt sökte efter.</p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>${filterCtxRows}</tbody>
+          </table>` : ""}
 
           <h2 style="margin:28px 0 12px;font-size:17px;color:#0f172a">Vad var besökarna intresserade av?</h2>
           <p style="margin:0 0 12px;color:#64748b;font-size:13px">
@@ -321,6 +337,14 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
             </thead>
             <tbody>${topRows}</tbody>
           </table>
+
+          ${referrerRows ? `
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Externa trafikkällor</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">Externa sajter som skickade besökare till er profil.</p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>${referrerRows}</tbody>
+          </table>` : ""}
+
 
           <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
             <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
