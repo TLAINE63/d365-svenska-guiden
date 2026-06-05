@@ -186,6 +186,31 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     ...clicks.map((c: any) => ({ page_source: c.page_source })),
   ];
 
+  // Site-wide engagement signals (not partner-specific) — useful to show ecosystem activity
+  // Helps motivate partners to add events and shows demand on tools/assessments.
+  async function countPaths(patterns: string[]): Promise<number> {
+    let total = 0;
+    for (const p of patterns) {
+      const { count } = await supabase
+        .from("visitor_analytics")
+        .select("id", { count: "exact", head: true })
+        .gte("visited_at", startIso)
+        .like("page_path", p);
+      total += count || 0;
+    }
+    return total;
+  }
+
+  const [siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments] = await Promise.all([
+    countPaths(["/events", "/events/"]),
+    countPaths(["/events/%"]),
+    countPaths(["/ERPbehovsanalys%", "/CRMbehovsanalys%", "/kundservice-behovsanalys%", "/behovsanalys%"]),
+    countPaths(["/kravspecifikation%"]),
+    countPaths(["/ai-readiness%", "/beslutsmognad%", "/Beslutsmognad%"]),
+  ]);
+  // siteEventsDetail includes the list page pattern in some DBs; subtract list to keep clean
+  const eventsDetailOnly = Math.max(0, siteEventsDetail - siteEventsList);
+
   return {
     partner,
     profileVisits: profileVisits.length,
@@ -197,6 +222,11 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     topFilterContexts,
     topReferrers,
     topProductPages: aggregateTop(allInteractions, 5),
+    siteEventsList,
+    siteEventsDetail: eventsDetailOnly,
+    siteNeedsAnalysis,
+    siteRequirementsSpec,
+    siteAssessments,
   };
 }
 
