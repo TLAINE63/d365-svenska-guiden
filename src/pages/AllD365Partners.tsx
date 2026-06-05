@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare, ArrowRight, Users } from "lucide-react";
 import { usePartners } from "@/hooks/usePartners";
 import { useUnprofiledPartners } from "@/hooks/useUnprofiledPartners";
+import { useAllPartnerNames } from "@/hooks/useAllPartnerNames";
 import { useMemo } from "react";
 
 const breadcrumbs = [
@@ -18,12 +19,30 @@ const breadcrumbs = [
 export default function AllD365Partners() {
   const { data: dbPartners } = usePartners();
   const { data: unprofiled } = useUnprofiledPartners();
+  const { data: allNames } = useAllPartnerNames();
 
   const profiled = useMemo(() => {
     return (dbPartners || [])
       .filter((p) => p.is_featured)
       .sort((a, b) => a.name.localeCompare(b.name, "sv"));
   }, [dbPartners]);
+
+  const others = useMemo(() => {
+    const items: { id: string; name: string }[] = [];
+    (allNames || [])
+      .filter((p) => !p.is_featured)
+      .forEach((p) => items.push({ id: `db-${p.id}`, name: p.name }));
+    (unprofiled || []).forEach((p) => items.push({ id: `up-${p.id}`, name: p.name }));
+    const seen = new Set<string>();
+    const deduped = items.filter((it) => {
+      const key = it.name.trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    deduped.sort((a, b) => a.name.localeCompare(b.name, "sv"));
+    return deduped;
+  }, [allNames, unprofiled]);
 
   return (
     <div className="min-h-screen bg-background">
