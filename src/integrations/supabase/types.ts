@@ -792,6 +792,7 @@ export type Database = {
           admin_notes: string | null
           agreement_notes: string | null
           agreement_signed: boolean
+          agreement_signed_at: string | null
           ai_summary: string | null
           ai_summary_generated_at: string | null
           applications: string[] | null
@@ -821,6 +822,7 @@ export type Database = {
           phone: string | null
           platform_capabilities: string[] | null
           product_filters: Json | null
+          published_at: string | null
           related_party: boolean
           secondary_industries: string[] | null
           slug: string
@@ -836,6 +838,7 @@ export type Database = {
           admin_notes?: string | null
           agreement_notes?: string | null
           agreement_signed?: boolean
+          agreement_signed_at?: string | null
           ai_summary?: string | null
           ai_summary_generated_at?: string | null
           applications?: string[] | null
@@ -865,6 +868,7 @@ export type Database = {
           phone?: string | null
           platform_capabilities?: string[] | null
           product_filters?: Json | null
+          published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
           slug: string
@@ -880,6 +884,7 @@ export type Database = {
           admin_notes?: string | null
           agreement_notes?: string | null
           agreement_signed?: boolean
+          agreement_signed_at?: string | null
           ai_summary?: string | null
           ai_summary_generated_at?: string | null
           applications?: string[] | null
@@ -909,6 +914,7 @@ export type Database = {
           phone?: string | null
           platform_capabilities?: string[] | null
           product_filters?: Json | null
+          published_at?: string | null
           related_party?: boolean
           secondary_industries?: string[] | null
           slug?: string
