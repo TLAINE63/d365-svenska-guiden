@@ -552,11 +552,23 @@ serve(async (req) => {
         if (pErr) throw pErr;
 
         // Fetch all raw rows once over the comparison (longer) window, then derive primary counts in-memory.
-        const [viewsRes, clicksRes, exposureRes, snitcherRes] = await Promise.all([
-          supabase.from("partner_profile_views").select("partner_slug, view_type, viewed_at").gte("viewed_at", comparisonStartIso),
-          supabase.from("partner_clicks").select("partner_name, clicked_at").gte("clicked_at", comparisonStartIso),
-          supabase.from("partner_filter_exposures").select("partner_slug, viewed_at").gte("viewed_at", comparisonStartIso),
-          supabase.from("snitcher_visits").select("company_name, partner_slugs, visited_urls, session_started_at").gte("session_started_at", comparisonStartIso).limit(5000),
+        // Paginate to bypass PostgREST default 1000-row cap
+        async function fetchAll<T = any>(builder: () => any, pageSize = 1000): Promise<T[]> {
+          const out: T[] = [];
+          for (let from = 0; ; from += pageSize) {
+            const { data, error } = await builder().range(from, from + pageSize - 1);
+            if (error) throw error;
+            const rows = (data || []) as T[];
+            out.push(...rows);
+            if (rows.length < pageSize) break;
+          }
+          return out;
+        }
+        const [views, clicks, exposures, snitcher] = await Promise.all([
+          fetchAll(() => supabase.from("partner_profile_views").select("partner_slug, view_type, viewed_at").gte("viewed_at", comparisonStartIso)),
+          fetchAll(() => supabase.from("partner_clicks").select("partner_name, clicked_at").gte("clicked_at", comparisonStartIso)),
+          fetchAll(() => supabase.from("partner_filter_exposures").select("partner_slug, viewed_at").gte("viewed_at", comparisonStartIso)),
+          fetchAll(() => supabase.from("snitcher_visits").select("company_name, partner_slugs, visited_urls, session_started_at").gte("session_started_at", comparisonStartIso)),
         ]);
 
         const views = viewsRes.data || [];
