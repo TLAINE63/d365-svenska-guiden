@@ -67,11 +67,13 @@ interface PartnerStats {
   profileVisits: number;
   cardClicks: number;
   websiteClicks: number;
+  identifiedCompanies: number;
   topProductPages: { path: string; label: string; count: number }[];
 }
 
 async function buildStats(supabase: any, partner: any, startIso: string): Promise<PartnerStats> {
-  const [viewsRes, clicksRes] = await Promise.all([
+  const profilePath = `/partner/${partner.slug}`;
+  const [viewsRes, clicksRes, snitcherRes] = await Promise.all([
     supabase
       .from("partner_profile_views")
       .select("view_type, page_source")
@@ -82,6 +84,11 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
       .select("page_source")
       .eq("partner_name", partner.name)
       .gte("clicked_at", startIso),
+    supabase
+      .from("snitcher_visits")
+      .select("company_name, partner_slugs, visited_urls")
+      .gte("session_started_at", startIso)
+      .limit(2000),
   ]);
 
   const views = viewsRes.data || [];
@@ -89,6 +96,21 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
 
   const profileVisits = views.filter((v: any) => v.view_type === "profile_visit");
   const cardClicks = views.filter((v: any) => v.view_type === "card_click");
+
+  // Count unique identified companies that visited this partner's profile
+  const companyNames = new Set<string>();
+  for (const r of snitcherRes.data || []) {
+    const partnerSlugs: string[] = Array.isArray(r.partner_slugs) ? r.partner_slugs : [];
+    const visitedUrls: string[] = Array.isArray(r.visited_urls)
+      ? r.visited_urls.map((u: any) => (typeof u === "string" ? u : u?.url || u?.path || "")).filter(Boolean)
+      : [];
+    const matched =
+      partnerSlugs.includes(partner.slug) ||
+      visitedUrls.some((u) => u.includes(profilePath));
+    if (!matched) continue;
+    const name = (r.company_name || "").trim().toLowerCase();
+    if (name) companyNames.add(name);
+  }
 
   // Top product page sources combine all interaction sources (where they came from)
   const allInteractions = [
@@ -101,12 +123,14 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     profileVisits: profileVisits.length,
     cardClicks: cardClicks.length,
     websiteClicks: clicks.length,
+    identifiedCompanies: companyNames.size,
     topProductPages: aggregateTop(allInteractions, 5),
   };
 }
 
+
 function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string): string {
-  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages } = stats;
+  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies } = stats;
   const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
   const totalEngagement = profileVisits + cardClicks + websiteClicks;
 
@@ -200,10 +224,15 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
           <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
             <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
             <div style="color:#7c2d12;font-size:13px;line-height:1.5">
-              Om besökaren har snappats upp av vårt verktyg för identifiering av webbplatsbesökare kan vi komplettera rapporten med en lista över identifierade företag (namn, bransch, storlek) som besökt er profil. Alla besök går dock inte att koppla till ett företag – t.ex. mobil- eller privattrafik förblir anonym.
-              Svara på detta mejl så återkommer vi.
+              ${identifiedCompanies > 0
+                ? `<div style="margin-bottom:8px;padding:8px 12px;background:#fed7aa;border-radius:4px;color:#7c2d12;font-weight:600">
+                    ✓ Vi har identifierat <strong>${identifiedCompanies}</strong> ${identifiedCompanies === 1 ? "företag" : "företag"} som besökt er profil under perioden. Svara på detta mejl så delar vi listan (namn, bransch, storlek).
+                  </div>`
+                : ""}
+              Identifieringen sker via vårt verktyg för uppslag av webbplatsbesökare. Alla besök går inte att koppla till ett företag – t.ex. mobil- eller privattrafik förblir anonym – men för de som identifieras får ni namn, bransch och storlek.
             </div>
           </div>
+
 
           <div style="text-align:center;margin:28px 0 8px">
             <a href="${esc(profileUrl)}" style="display:inline-block;background:#ea580c;color:#ffffff;text-decoration:none;padding:13px 26px;border-radius:8px;font-weight:600;font-size:14px">
