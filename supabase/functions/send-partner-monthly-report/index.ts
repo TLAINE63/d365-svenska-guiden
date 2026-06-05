@@ -459,7 +459,7 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
 }
 
 
-async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean, overrideRecipient?: string) {
+async function sendOne(supabase: any, partner: any, startIso: string, periodLabel: string, siteOrigin: string, dryRun: boolean, overrideRecipient?: string, reportLabel = "Månadsrapport") {
   const recipient = overrideRecipient || partner.admin_contact_email || partner.email;
   if (!recipient) {
     return { partner: partner.name, status: "skipped", reason: "no_recipient" };
@@ -473,8 +473,8 @@ async function sendOne(supabase: any, partner: any, startIso: string, periodLabe
     return { partner: partner.name, status: "skipped", reason: "no_activity" };
   }
 
-  const html = buildHtml(stats, periodLabel, siteOrigin);
-  const subject = `Månadsrapport för ${partner.name} – ${periodLabel}`;
+  const html = buildHtml(stats, periodLabel, siteOrigin, reportLabel);
+  const subject = `${reportLabel} för ${partner.name} – ${periodLabel}`;
 
   if (dryRun) {
     return { partner: partner.name, status: "preview", recipient, stats, html };
