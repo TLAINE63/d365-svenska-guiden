@@ -608,7 +608,7 @@ serve(async (req) => {
     const results: any[] = [];
     for (const p of partners) {
       try {
-        results.push(await sendOne(supabase, p, startIso, periodLabel, siteOrigin, dryRun, overrideRecipient, reportLabel));
+        results.push(await sendOne(supabase, p, startIso, siteOrigin, dryRun, overrideRecipient, reportLabel, sinceBeginning));
       } catch (e: any) {
         console.error("Partner failed:", p.slug, e);
         results.push({ partner: p.name, status: "error", error: e?.message });
@@ -623,7 +623,7 @@ serve(async (req) => {
       preview: results.filter(r => r.status === "preview").length,
     };
 
-    return new Response(JSON.stringify({ summary, results, periodLabel }), {
+    return new Response(JSON.stringify({ summary, results }), {
       status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e: any) {
