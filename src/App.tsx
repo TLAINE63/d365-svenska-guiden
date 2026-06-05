@@ -31,6 +31,7 @@ const AIReadiness = lazy(() => import("./pages/AIReadiness"));
 const QA = lazy(() => import("./pages/QA"));
 const ContactUs = lazy(() => import("./pages/ContactUs"));
 const ValjPartner = lazy(() => import("./pages/ValjPartner"));
+const AllD365Partners = lazy(() => import("./pages/AllD365Partners"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const NeedsAnalysis = lazy(() => import("./pages/NeedsAnalysis"));
 
