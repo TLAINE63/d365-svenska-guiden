@@ -395,7 +395,7 @@ async function sendOne(supabase: any, partner: any, startIso: string, periodLabe
   const stats = await buildStats(supabase, partner, startIso);
 
   // Skip if no activity at all
-  if (stats.profileVisits + stats.cardClicks + stats.websiteClicks === 0) {
+  if (stats.profileVisits + stats.cardClicks + stats.websiteClicks + stats.exposures === 0) {
     return { partner: partner.name, status: "skipped", reason: "no_activity" };
   }
 
