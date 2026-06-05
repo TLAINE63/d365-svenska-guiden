@@ -73,6 +73,11 @@ interface PartnerStats {
   topFilterContexts: { label: string; count: number }[];
   topReferrers: { label: string; count: number }[];
   topProductPages: { path: string; label: string; count: number }[];
+  siteEventsList: number;
+  siteEventsDetail: number;
+  siteNeedsAnalysis: number;
+  siteRequirementsSpec: number;
+  siteAssessments: number;
 }
 
 function normalizeReferrer(ref: string | null): string | null {
@@ -181,6 +186,31 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     ...clicks.map((c: any) => ({ page_source: c.page_source })),
   ];
 
+  // Site-wide engagement signals (not partner-specific) — useful to show ecosystem activity
+  // Helps motivate partners to add events and shows demand on tools/assessments.
+  async function countPaths(patterns: string[]): Promise<number> {
+    let total = 0;
+    for (const p of patterns) {
+      const { count } = await supabase
+        .from("visitor_analytics")
+        .select("id", { count: "exact", head: true })
+        .gte("visited_at", startIso)
+        .like("page_path", p);
+      total += count || 0;
+    }
+    return total;
+  }
+
+  const [siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments] = await Promise.all([
+    countPaths(["/events", "/events/"]),
+    countPaths(["/events/%"]),
+    countPaths(["/ERPbehovsanalys%", "/CRMbehovsanalys%", "/kundservice-behovsanalys%", "/behovsanalys%"]),
+    countPaths(["/kravspecifikation%"]),
+    countPaths(["/ai-readiness%", "/beslutsmognad%", "/Beslutsmognad%"]),
+  ]);
+  // siteEventsDetail includes the list page pattern in some DBs; subtract list to keep clean
+  const eventsDetailOnly = Math.max(0, siteEventsDetail - siteEventsList);
+
   return {
     partner,
     profileVisits: profileVisits.length,
@@ -192,6 +222,11 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     topFilterContexts,
     topReferrers,
     topProductPages: aggregateTop(allInteractions, 5),
+    siteEventsList,
+    siteEventsDetail: eventsDetailOnly,
+    siteNeedsAnalysis,
+    siteRequirementsSpec,
+    siteAssessments,
   };
 }
 
@@ -199,7 +234,7 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
 
 
 function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string): string {
-  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers } = stats;
+  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers, siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments } = stats;
   const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
   const totalEngagement = profileVisits + cardClicks + websiteClicks;
 
@@ -344,6 +379,52 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
           <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
             <tbody>${referrerRows}</tbody>
           </table>` : ""}
+
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">
+            Totalt antal besök på olika delar av D365.se under perioden (alla partners sammanlagt). Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
+          </p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Eventkalendern</div>
+                  <div style="color:#64748b;font-size:11px">Besök på /events – synligt både i Kunskapscentret och på partnerprofiler. Lägg gärna upp alla era events.</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteEventsList}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Enskilda event-sidor</div>
+                  <div style="color:#64748b;font-size:11px">Besök på specifika event (alla arrangörer).</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteEventsDetail}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Behovsanalyser (påbörjade besök)</div>
+                  <div style="color:#64748b;font-size:11px">ERP, CRM och Kundservice behovsanalys.</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteNeedsAnalysis}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Kravspecifikationer (påbörjade besök)</div>
+                  <div style="color:#64748b;font-size:11px">Alla kravspec-mallar (ERP, Sales, Marketing, Kundservice).</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteRequirementsSpec}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Assessments (påbörjade besök)</div>
+                  <div style="color:#64748b;font-size:11px">AI-readiness och Beslutsmognadsindex.</div>
+                </td>
+                <td style="padding:10px 12px;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteAssessments}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
 
 
           <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
