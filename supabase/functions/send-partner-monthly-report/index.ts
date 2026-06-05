@@ -380,6 +380,52 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
             <tbody>${referrerRows}</tbody>
           </table>` : ""}
 
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet</h2>
+          <p style="margin:0 0 12px;color:#64748b;font-size:13px">
+            Totalt antal besök på olika delar av D365.se under perioden (alla partners sammanlagt). Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
+          </p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
+            <tbody>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Eventkalendern</div>
+                  <div style="color:#64748b;font-size:11px">Besök på /events – synligt både i Kunskapscentret och på partnerprofiler. Lägg gärna upp alla era events.</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteEventsList}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Enskilda event-sidor</div>
+                  <div style="color:#64748b;font-size:11px">Besök på specifika event (alla arrangörer).</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteEventsDetail}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Behovsanalyser (påbörjade besök)</div>
+                  <div style="color:#64748b;font-size:11px">ERP, CRM och Kundservice behovsanalys.</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteNeedsAnalysis}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Kravspecifikationer (påbörjade besök)</div>
+                  <div style="color:#64748b;font-size:11px">Alla kravspec-mallar (ERP, Sales, Marketing, Kundservice).</div>
+                </td>
+                <td style="padding:10px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteRequirementsSpec}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 12px;color:#0f172a;font-size:13px">
+                  <div style="font-weight:600">Assessments (påbörjade besök)</div>
+                  <div style="color:#64748b;font-size:11px">AI-readiness och Beslutsmognadsindex.</div>
+                </td>
+                <td style="padding:10px 12px;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${siteAssessments}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
 
           <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
             <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
