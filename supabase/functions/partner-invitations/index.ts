@@ -152,10 +152,18 @@ serve(async (req: Request): Promise<Response> => {
     // Public actions (no auth required)
     if (action === "get-invitation") {
       const token = url.searchParams.get("token");
+      const invitationHeaders = {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+        "Pragma": "no-cache",
+        "Expires": "0",
+        ...corsHeaders,
+      };
+
       if (!token) {
         return new Response(
           JSON.stringify({ error: "Token krävs" }),
-          { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          { status: 400, headers: invitationHeaders }
         );
       }
 
@@ -168,7 +176,7 @@ serve(async (req: Request): Promise<Response> => {
       if (error || !invitation) {
         return new Response(
           JSON.stringify({ error: "Inbjudan hittades inte" }),
-          { status: 404, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          { status: 404, headers: invitationHeaders }
         );
       }
 
@@ -176,7 +184,7 @@ serve(async (req: Request): Promise<Response> => {
       if (new Date(invitation.expires_at) < new Date() && invitation.status === "pending") {
         return new Response(
           JSON.stringify({ error: "Inbjudan har gått ut" }),
-          { status: 410, headers: { "Content-Type": "application/json", ...corsHeaders } }
+          { status: 410, headers: invitationHeaders }
         );
       }
 
@@ -217,7 +225,7 @@ serve(async (req: Request): Promise<Response> => {
 
       return new Response(
         JSON.stringify({ invitation, existingData }),
-        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+        { status: 200, headers: invitationHeaders }
       );
     }
 
