@@ -280,8 +280,6 @@ const ApplicationPartners = ({ applicationFilter, pageSource }: ApplicationPartn
             </article>
           </div>
         )}
-          </div>
-        )}
       </div>
 
       {/* Övriga partners som angett att de arbetar med denna produkt men inte är publicerade */}
