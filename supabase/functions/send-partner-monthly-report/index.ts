@@ -97,7 +97,7 @@ function normalizeReferrer(ref: string | null): string | null {
   }
 }
 
-async function buildStats(supabase: any, partner: any, startIso: string): Promise<PartnerStats> {
+async function buildStats(supabase: any, partner: any, startIso: string, siteStartIso?: string): Promise<PartnerStats> {
   const profilePath = `/partner/${partner.slug}`;
   const [viewsRes, clicksRes, snitcherRes, exposureRes] = await Promise.all([
     supabase
@@ -189,13 +189,15 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
 
   // Site-wide engagement signals (not partner-specific) — useful to show ecosystem activity
   // Helps motivate partners to add events and shows demand on tools/assessments.
+  // Site-wide stats use a fixed 30-day window so numbers are comparable across partners
+  const siteStart = siteStartIso || new Date(Date.now() - 30 * 86400000).toISOString();
   async function countPaths(patterns: string[]): Promise<number> {
     let total = 0;
     for (const p of patterns) {
       const { count } = await supabase
         .from("visitor_analytics")
         .select("id", { count: "exact", head: true })
-        .gte("visited_at", startIso)
+        .gte("visited_at", siteStart)
         .like("page_path", p);
       total += count || 0;
     }
@@ -381,9 +383,9 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
             <tbody>${referrerRows}</tbody>
           </table>` : ""}
 
-          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet</h2>
+          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet (senaste 30 dagarna)</h2>
           <p style="margin:0 0 12px;color:#64748b;font-size:13px">
-            Totalt antal besök på olika delar av D365.se under perioden (alla partners sammanlagt). Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
+            Totalt antal besök på olika delar av D365.se de senaste 30 dagarna (alla partners sammanlagt). Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
           </p>
           <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
             <tbody>
@@ -496,7 +498,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
   const startLabel = effectiveStartIso.slice(0, 10).replace(/-/g, "/");
   const periodLabel = `${startLabel} – ${endLabel}`;
 
-  const stats = await buildStats(supabase, partner, effectiveStartIso);
+  const stats = await buildStats(supabase, partner, effectiveStartIso, new Date(Date.now() - 30 * 86400000).toISOString());
 
   // Skip if no activity at all
   if (stats.profileVisits + stats.cardClicks + stats.websiteClicks + stats.exposures === 0) {
