@@ -583,28 +583,11 @@ serve(async (req) => {
       });
     }
 
-    let startIso: string;
-    if (sinceBeginning) {
-      // Find the earliest tracked timestamp across the relevant tables
-      const [pv, pc, fe] = await Promise.all([
-        supabase.from("partner_profile_views").select("viewed_at").order("viewed_at", { ascending: true }).limit(1),
-        supabase.from("partner_clicks").select("clicked_at").order("clicked_at", { ascending: true }).limit(1),
-        supabase.from("partner_filter_exposures").select("viewed_at").order("viewed_at", { ascending: true }).limit(1),
-      ]);
-      const candidates = [
-        pv.data?.[0]?.viewed_at,
-        pc.data?.[0]?.clicked_at,
-        fe.data?.[0]?.viewed_at,
-      ].filter(Boolean) as string[];
-      const earliest = candidates.sort()[0];
-      startIso = earliest || new Date(Date.now() - 365 * 86400000).toISOString();
-    } else {
+    let startIso: string | null = null;
+    if (!sinceBeginning) {
       const startDate = new Date(Date.now() - days * 86400000);
       startIso = startDate.toISOString();
     }
-    const endLabel = new Date().toISOString().slice(0, 10).replace(/-/g, "/");
-    const startLabel = startIso.slice(0, 10).replace(/-/g, "/");
-    const periodLabel = `${startLabel} – ${endLabel}`;
     const reportLabel = reportLabelOverride || (sinceBeginning ? "Slutrapport" : "Månadsrapport");
 
     // Fetch featured partners
