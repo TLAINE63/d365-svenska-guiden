@@ -2811,6 +2811,11 @@ Thomas`,
             )}
           </TabsContent>
 
+          {/* ==================== UNPROFILED PARTNERS TAB ==================== */}
+          <TabsContent value="unprofiled-partners">
+            <AdminUnprofiledPartnersTab token={token || null} onSessionExpired={logout} />
+          </TabsContent>
+
           {/* ==================== INVITATIONS TAB ==================== */}
           <TabsContent value="invitations">
             <PartnerInvitationsTab 
