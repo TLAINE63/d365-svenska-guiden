@@ -73,6 +73,11 @@ interface PartnerStats {
   topFilterContexts: { label: string; count: number }[];
   topReferrers: { label: string; count: number }[];
   topProductPages: { path: string; label: string; count: number }[];
+  siteEventsList: number;
+  siteEventsDetail: number;
+  siteNeedsAnalysis: number;
+  siteRequirementsSpec: number;
+  siteAssessments: number;
 }
 
 function normalizeReferrer(ref: string | null): string | null {
