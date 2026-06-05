@@ -498,7 +498,7 @@ async function sendOne(supabase: any, partner: any, startIso: string | null, sit
   const startLabel = effectiveStartIso.slice(0, 10).replace(/-/g, "/");
   const periodLabel = `${startLabel} – ${endLabel}`;
 
-  const stats = await buildStats(supabase, partner, effectiveStartIso);
+  const stats = await buildStats(supabase, partner, effectiveStartIso, new Date(Date.now() - 30 * 86400000).toISOString());
 
   // Skip if no activity at all
   if (stats.profileVisits + stats.cardClicks + stats.websiteClicks + stats.exposures === 0) {
