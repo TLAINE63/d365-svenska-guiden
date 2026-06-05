@@ -68,15 +68,35 @@ interface PartnerStats {
   cardClicks: number;
   websiteClicks: number;
   identifiedCompanies: number;
+  exposures: number;
+  exposuresByPage: { path: string; label: string; count: number }[];
+  topFilterContexts: { label: string; count: number }[];
+  topReferrers: { label: string; count: number }[];
   topProductPages: { path: string; label: string; count: number }[];
+}
+
+function normalizeReferrer(ref: string | null): string | null {
+  if (!ref) return null;
+  try {
+    const u = new URL(ref);
+    const h = u.hostname.replace(/^www\./, "");
+    if (h.includes("google")) return "Google";
+    if (h.includes("bing")) return "Bing";
+    if (h.includes("linkedin")) return "LinkedIn";
+    if (h.includes("facebook")) return "Facebook";
+    if (h.includes("d365.se")) return null; // internal
+    return h;
+  } catch {
+    return null;
+  }
 }
 
 async function buildStats(supabase: any, partner: any, startIso: string): Promise<PartnerStats> {
   const profilePath = `/partner/${partner.slug}`;
-  const [viewsRes, clicksRes, snitcherRes] = await Promise.all([
+  const [viewsRes, clicksRes, snitcherRes, exposureRes] = await Promise.all([
     supabase
       .from("partner_profile_views")
-      .select("view_type, page_source")
+      .select("view_type, page_source, referrer")
       .eq("partner_slug", partner.slug)
       .gte("viewed_at", startIso),
     supabase
@@ -89,10 +109,16 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
       .select("company_name, partner_slugs, visited_urls")
       .gte("session_started_at", startIso)
       .limit(2000),
+    supabase
+      .from("partner_filter_exposures")
+      .select("page_path, filter_context")
+      .eq("partner_slug", partner.slug)
+      .gte("viewed_at", startIso),
   ]);
 
   const views = viewsRes.data || [];
   const clicks = clicksRes.data || [];
+  const exposures = exposureRes.data || [];
 
   const profileVisits = views.filter((v: any) => v.view_type === "profile_visit");
   const cardClicks = views.filter((v: any) => v.view_type === "card_click");
@@ -112,6 +138,43 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     if (name) companyNames.add(name);
   }
 
+  // Exposures by page (where partner card was shown after a filter)
+  const expPageMap = new Map<string, number>();
+  const filterCtxMap = new Map<string, number>();
+  for (const e of exposures) {
+    const path = (e.page_path || "").split("?")[0].split("#")[0];
+    if (path) expPageMap.set(path, (expPageMap.get(path) || 0) + 1);
+    const fc = (e.filter_context || {}) as Record<string, string | null>;
+    const parts: string[] = [];
+    if (fc.product) parts.push(`Produkt: ${fc.product}`);
+    if (fc.industry) parts.push(`Bransch: ${fc.industry}`);
+    if (fc.geography) parts.push(`Geografi: ${fc.geography}`);
+    if (fc.size) parts.push(`Storlek: ${fc.size}`);
+    if (parts.length) {
+      const label = parts.join(" · ");
+      filterCtxMap.set(label, (filterCtxMap.get(label) || 0) + 1);
+    }
+  }
+  const exposuresByPage = Array.from(expPageMap.entries())
+    .map(([path, count]) => ({ path, label: labelForPath(path), count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+  const topFilterContexts = Array.from(filterCtxMap.entries())
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
+  // Referrers from profile views
+  const refMap = new Map<string, number>();
+  for (const v of views) {
+    const r = normalizeReferrer(v.referrer);
+    if (r) refMap.set(r, (refMap.get(r) || 0) + 1);
+  }
+  const topReferrers = Array.from(refMap.entries())
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
+
   // Top product page sources combine all interaction sources (where they came from)
   const allInteractions = [
     ...views.map((v: any) => ({ page_source: v.page_source })),
@@ -124,9 +187,15 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
     cardClicks: cardClicks.length,
     websiteClicks: clicks.length,
     identifiedCompanies: companyNames.size,
+    exposures: exposures.length,
+    exposuresByPage,
+    topFilterContexts,
+    topReferrers,
     topProductPages: aggregateTop(allInteractions, 5),
   };
 }
+
+
 
 
 function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string): string {
