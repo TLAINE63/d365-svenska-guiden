@@ -199,7 +199,7 @@ async function buildStats(supabase: any, partner: any, startIso: string): Promis
 
 
 function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string): string {
-  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies } = stats;
+  const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers } = stats;
   const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
   const totalEngagement = profileVisits + cardClicks + websiteClicks;
 
