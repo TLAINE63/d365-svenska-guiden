@@ -180,7 +180,7 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
       <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
         <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
         <div style="color:#7c2d12;font-size:13px;line-height:1.5">
-          Vi kan komplettera rapporten med en lista över identifierade företag (namn, bransch, storlek) som besökt er profil.
+          Om besökaren har snappats upp av vårt verktyg för identifiering av webbplatsbesökare kan vi komplettera rapporten med en lista över identifierade företag (namn, bransch, storlek) som besökt er profil. Alla besök går dock inte att koppla till ett företag – t.ex. mobil- eller privattrafik förblir anonym.
           Svara på detta mejl så återkommer vi.
         </div>
       </div>
