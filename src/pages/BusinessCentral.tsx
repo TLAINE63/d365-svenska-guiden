@@ -11,6 +11,7 @@ import { FilterButtons } from "@/components/FilterButtons";
 import { SizeFilters } from "@/components/SizeFilters";
 import LeadCTA from "@/components/LeadCTA";
 import PartnerCard from "@/components/PartnerCard";
+import UnprofiledPartnersList from "@/components/UnprofiledPartnersList";
 import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import BusinessCentralIcon from "@/assets/icons/BusinessCentral-new.webp";
