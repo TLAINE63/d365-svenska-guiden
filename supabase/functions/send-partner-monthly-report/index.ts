@@ -240,6 +240,10 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
   const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers, siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments } = stats;
   const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
   const totalEngagement = profileVisits + cardClicks + websiteClicks;
+  // Site-wide stats always use a fixed 30-day window so numbers are comparable across partners
+  const siteEndLabel = new Date().toISOString().slice(0, 10).replace(/-/g, "/");
+  const siteStartLabel = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10).replace(/-/g, "/");
+  const sitePeriodLabel = `${siteStartLabel} – ${siteEndLabel}`;
 
   const topRows = topProductPages.length
     ? topProductPages.map((p, i) => `
@@ -383,9 +387,10 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
             <tbody>${referrerRows}</tbody>
           </table>` : ""}
 
-          <h2 style="margin:28px 0 8px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet</h2>
+          <h2 style="margin:28px 0 4px;font-size:17px;color:#0f172a">Aktivitet i ekosystemet <span style="font-weight:400;color:#64748b;font-size:13px">(senaste 30 dagarna)</span></h2>
+          <p style="margin:0 0 4px;color:#0f172a;font-size:13px;font-weight:600">Period: ${sitePeriodLabel}</p>
           <p style="margin:0 0 12px;color:#64748b;font-size:13px">
-            Period: ${new Date(Date.now() - 30 * 86400000).toISOString().slice(0,10).replace(/-/g,"/")} – ${endLabel}. Totalt antal besök på olika delar av D365.se (alla partners sammanlagt). Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
+            Totalt antal besök på olika delar av D365.se (alla partners sammanlagt) under de senaste 30 dagarna. Visar var köparna lägger sin tid – och var det är värt att synas eller publicera innehåll/events.
           </p>
           <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
             <tbody>
