@@ -3369,6 +3369,12 @@ Thomas`,
                 </Button>
               </div>
 
+              {/* Inline activity stats for existing partner */}
+              {editingPartner && (
+                <PartnerStatsMatrix token={token} partnerSlug={editingPartner.slug} />
+              )}
+
+
               {/* Permanent self-service link (only for published partners) */}
               {editingPartner && editingPartner.is_featured && (
                 <div className="rounded-lg border bg-muted/40 p-4 flex items-start justify-between gap-4">
