@@ -240,6 +240,10 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
   const { partner, profileVisits, cardClicks, websiteClicks, topProductPages, identifiedCompanies, exposures, exposuresByPage, topFilterContexts, topReferrers, siteEventsList, siteEventsDetail, siteNeedsAnalysis, siteRequirementsSpec, siteAssessments } = stats;
   const profileUrl = `${siteOrigin}/partner/${partner.slug}`;
   const totalEngagement = profileVisits + cardClicks + websiteClicks;
+  // Site-wide stats always use a fixed 30-day window so numbers are comparable across partners
+  const siteEndLabel = new Date().toISOString().slice(0, 10).replace(/-/g, "/");
+  const siteStartLabel = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10).replace(/-/g, "/");
+  const sitePeriodLabel = `${siteStartLabel} – ${siteEndLabel}`;
 
   const topRows = topProductPages.length
     ? topProductPages.map((p, i) => `
