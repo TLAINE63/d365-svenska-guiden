@@ -215,11 +215,39 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string)
         </tr>`).join("")
     : `<tr><td colspan="3" style="padding:18px;text-align:center;color:#94a3b8;font-size:13px">Inga produktsidor registrerade under perioden</td></tr>`;
 
-  const stat = (label: string, value: number, color: string) => `
-    <td style="padding:18px 12px;text-align:center;background:#f8fafc;border-radius:10px;width:33%">
-      <div style="font-size:32px;font-weight:700;color:${color};line-height:1">${value}</div>
-      <div style="font-size:12px;color:#64748b;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>
+  const stat = (label: string, value: number | string, color: string) => `
+    <td style="padding:16px 8px;text-align:center;background:#f8fafc;border-radius:10px">
+      <div style="font-size:28px;font-weight:700;color:${color};line-height:1">${value}</div>
+      <div style="font-size:11px;color:#64748b;margin-top:6px;text-transform:uppercase;letter-spacing:0.5px">${label}</div>
     </td>`;
+
+  const exposurePagesRows = exposuresByPage.length
+    ? exposuresByPage.map((p) => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">
+            <div style="font-weight:600">${esc(p.label)}</div>
+            <div style="color:#64748b;font-size:11px;font-family:monospace">${esc(p.path)}</div>
+          </td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${p.count}</td>
+        </tr>`).join("")
+    : "";
+
+  const filterCtxRows = topFilterContexts.length
+    ? topFilterContexts.map((c) => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">${esc(c.label)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${c.count}</td>
+        </tr>`).join("")
+    : "";
+
+  const referrerRows = topReferrers.length
+    ? topReferrers.map((r) => `
+        <tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px">${esc(r.label)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #eef0f3;color:#0f172a;font-size:13px;text-align:right;font-weight:600">${r.count}</td>
+        </tr>`).join("")
+    : "";
+
 
   return `<!DOCTYPE html>
 <html lang="sv">
