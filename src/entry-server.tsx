@@ -58,6 +58,51 @@ const partnerDataBySlug: Record<string, typeof partnerDataJson[number]> = {};
 partnerDataJson.forEach((p) => {
   if (p.slug) partnerDataBySlug[p.slug] = p;
 });
+
+// Map a raw partnerData.json entry to the DatabasePartner shape used by components
+function mapPartnerForSSR(p: typeof partnerDataJson[number]): any {
+  return {
+    ...p,
+    contactPerson: (p as any).contact_person,
+    address: null,
+    secondary_industries: (p as any).secondary_industries || [],
+    geography: (p as any).geography || ['Sverige'],
+    product_filters: ((p as any).product_filters as any) || {},
+    industry_apps: ((p as any).industry_apps as any) || [],
+    industry_pitches: ((p as any).industry_pitches as any) || [],
+    invoice_email: (p as any).invoice_email || null,
+    invoice_contact: (p as any).invoice_contact || null,
+    org_number: (p as any).org_number || null,
+    legal_name: (p as any).legal_name || null,
+    contact_photo_url: (p as any).contact_photo_url || null,
+    youtube_video_id: (p as any).youtube_video_id || null,
+    activation_date: null,
+    monthly_fee: null,
+    cancellation_date: null,
+    admin_notes: null,
+    admin_contact_name: null,
+    admin_contact_email: null,
+    agreement_signed: (p as any).agreement_signed ?? false,
+    related_party: (p as any).related_party ?? false,
+  };
+}
+
+// Pre-build per-industry partner lists (filtered + mapped) for SSR injection.
+// Only includes featured partners (matches usePartners behavior).
+const partnersByIndustrySlug: Record<string, any[]> = {};
+{
+  const featured = partnerDataJson.filter((p: any) => p.is_featured !== false);
+  for (const ind of STANDARD_INDUSTRIES) {
+    const matches = featured.filter((p: any) => {
+      const pf = p.product_filters || {};
+      return (['bc', 'fsc', 'sales', 'service'] as const).some((k) => {
+        const inds = (pf as any)[k]?.industries || [];
+        return inds.includes(ind.name);
+      });
+    });
+    partnersByIndustrySlug[ind.slug] = matches.map(mapPartnerForSSR);
+  }
+}
 export interface PrerenderRoute {
   path: string;
   priority: string;
@@ -144,6 +189,13 @@ export function render(url: string) {
   const partnerSlug = partnerMatch ? partnerMatch[1].replace(/\/$/, '') : null;
   const partnerInitialData = partnerSlug ? partnerDataBySlug[partnerSlug] || null : null;
 
+  // Extract industry slug for SSR partner-list injection on /branscher/:slug
+  const industryMatch = url.match(/^\/branscher\/([^/?#]+)/);
+  const industrySlug = industryMatch ? industryMatch[1].replace(/\/$/, '') : null;
+  const industryInitialPartners = industrySlug
+    ? partnersByIndustrySlug[industrySlug] || null
+    : null;
+
   // Map DB fields to the shape PartnerProfile expects (DatabasePartner)
   const mappedPartnerData = partnerInitialData ? {
     ...partnerInitialData,
@@ -201,7 +253,7 @@ export function render(url: string) {
               <Route path="/branschlosningar" element={<Navigate to="/branscher" replace />} />
               <Route path="/branschlosningar/*" element={<Navigate to="/branscher" replace />} />
               <Route path="/branscher" element={<Branscher />} />
-              <Route path="/branscher/:slug" element={<IndustryPage />} />
+              <Route path="/branscher/:slug" element={<IndustryPage initialPartners={industryInitialPartners} />} />
               <Route path="/d365sales" element={<D365Sales />} />
               <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
               <Route path="/d365marketing" element={<D365Marketing />} />

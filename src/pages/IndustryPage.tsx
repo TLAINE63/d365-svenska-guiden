@@ -107,11 +107,17 @@ const hashString = (s: string): number => {
   return Math.abs(h);
 };
 
-const IndustryPage = () => {
+interface IndustryPageProps {
+  initialPartners?: any[] | null;
+}
+
+const IndustryPage = ({ initialPartners }: IndustryPageProps = {}) => {
   const { slug } = useParams<{ slug: string }>();
   const meta = slug ? findIndustryBySlug(slug) : undefined;
   const { page, loading } = useIndustryPage(slug);
-  const { data: partners } = usePartners();
+  const { data: partnersLive } = usePartners();
+  // Prefer live data after hydration; fall back to SSR-injected partners
+  const partners = partnersLive ?? initialPartners ?? undefined;
   const [selected, setSelected] = useState<FilterKey[]>([]);
 
   const industryName = page?.name || meta?.name || "Bransch";
@@ -125,7 +131,7 @@ const IndustryPage = () => {
     const underlyingSelected = Array.from(
       new Set(selected.map((k) => FILTER_TO_UNDERLYING[k])),
     );
-    const filtered = partners.filter((p) => {
+    const filtered = partners.filter((p: any) => {
       const pf = p.product_filters || {};
       const productsToCheck: UnderlyingKey[] = underlyingSelected.length > 0
         ? underlyingSelected
