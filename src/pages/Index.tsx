@@ -274,7 +274,11 @@ const Index = () => {
               <span className="block text-white/90 mt-1">– från behov till avtal</span>
             </h1>
             <p className="text-[15px] sm:text-lg text-white/80 leading-relaxed max-w-3xl">
-              På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i Dynamics 365-applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
+              På d365.se får din verksamhet vägledning genom hela upphandlingsresan – från behovsanalys och hjälp att skriva kravspecifikation, till jämförelser av Dynamics 365-partners och fördjupade insikter i applikationerna. Allt samlat på ett ställe, så att ni kan fatta trygga beslut hela vägen fram till avtal och införande.
+            </p>
+            <p className="mt-3 inline-flex items-center gap-2 text-[12.5px] sm:text-[13px] text-white/65">
+              <Sparkles className="w-3.5 h-3.5 text-[hsl(180_75%_65%)]" />
+              AI-assisterat innehåll, granskat av erfarna Dynamics 365-rådgivare
             </p>
           </div>
 
