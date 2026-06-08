@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
-import aiLogoAsset from "@/assets/ai-logo.png.asset.json";
+
 
 // Standard fallback image used by all situation cards when card.image is missing
 const DEFAULT_CARD_IMAGE = selectorService;
@@ -321,12 +321,13 @@ const Index = () => {
                 className="group relative bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/20 transition-all flex flex-col"
               >
                 {step.aiPowered && (
-                  <img
-                    src={aiLogoAsset.url}
-                    alt="AI-driven"
-                    loading="lazy"
-                    className="absolute top-3 right-3 w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-lg pointer-events-none"
-                  />
+                  <span
+                    className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/80 backdrop-blur"
+                    aria-label="AI-assisterat"
+                  >
+                    <Sparkles className="w-3 h-3 text-[hsl(180_75%_65%)]" />
+                    AI
+                  </span>
                 )}
                 <div className="flex items-center gap-3 mb-4">
                   <span className="bg-[hsl(var(--cta-orange))] text-white text-[13px] font-bold w-7 h-7 rounded-full flex items-center justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30">
