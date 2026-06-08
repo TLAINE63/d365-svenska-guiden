@@ -58,6 +58,51 @@ const partnerDataBySlug: Record<string, typeof partnerDataJson[number]> = {};
 partnerDataJson.forEach((p) => {
   if (p.slug) partnerDataBySlug[p.slug] = p;
 });
+
+// Map a raw partnerData.json entry to the DatabasePartner shape used by components
+function mapPartnerForSSR(p: typeof partnerDataJson[number]): any {
+  return {
+    ...p,
+    contactPerson: (p as any).contact_person,
+    address: null,
+    secondary_industries: (p as any).secondary_industries || [],
+    geography: (p as any).geography || ['Sverige'],
+    product_filters: ((p as any).product_filters as any) || {},
+    industry_apps: ((p as any).industry_apps as any) || [],
+    industry_pitches: ((p as any).industry_pitches as any) || [],
+    invoice_email: (p as any).invoice_email || null,
+    invoice_contact: (p as any).invoice_contact || null,
+    org_number: (p as any).org_number || null,
+    legal_name: (p as any).legal_name || null,
+    contact_photo_url: (p as any).contact_photo_url || null,
+    youtube_video_id: (p as any).youtube_video_id || null,
+    activation_date: null,
+    monthly_fee: null,
+    cancellation_date: null,
+    admin_notes: null,
+    admin_contact_name: null,
+    admin_contact_email: null,
+    agreement_signed: (p as any).agreement_signed ?? false,
+    related_party: (p as any).related_party ?? false,
+  };
+}
+
+// Pre-build per-industry partner lists (filtered + mapped) for SSR injection.
+// Only includes featured partners (matches usePartners behavior).
+const partnersByIndustrySlug: Record<string, any[]> = {};
+{
+  const featured = partnerDataJson.filter((p: any) => p.is_featured !== false);
+  for (const ind of STANDARD_INDUSTRIES) {
+    const matches = featured.filter((p: any) => {
+      const pf = p.product_filters || {};
+      return (['bc', 'fsc', 'sales', 'service'] as const).some((k) => {
+        const inds = (pf as any)[k]?.industries || [];
+        return inds.includes(ind.name);
+      });
+    });
+    partnersByIndustrySlug[ind.slug] = matches.map(mapPartnerForSSR);
+  }
+}
 export interface PrerenderRoute {
   path: string;
   priority: string;
