@@ -36,9 +36,19 @@ export interface IndustryPage {
   ai_generated_at: string | null;
 }
 
+import industryPagesSnapshot from "@/data/industryPages.json";
+
+// Build-time snapshot for SSR / instant first paint.
+const snapshotBySlug: Record<string, IndustryPage> = {};
+(industryPagesSnapshot as unknown as IndustryPage[]).forEach((p) => {
+  if (p?.slug) snapshotBySlug[p.slug] = p;
+});
+
 export function useIndustryPage(slug: string | undefined) {
-  const [page, setPage] = useState<IndustryPage | null>(null);
-  const [loading, setLoading] = useState(true);
+  const initial = slug ? snapshotBySlug[slug] || null : null;
+  const [page, setPage] = useState<IndustryPage | null>(initial);
+  // If we have a static snapshot, never show loading state — we already have content.
+  const [loading, setLoading] = useState(!initial);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -48,8 +58,7 @@ export function useIndustryPage(slug: string | undefined) {
     }
     let cancelled = false;
     (async () => {
-      setLoading(true);
-      setError(null);
+      // Re-fetch in the background to pick up edits since last build.
       const { data, error } = await supabase
         .from("industry_pages")
         .select("*")
@@ -59,9 +68,11 @@ export function useIndustryPage(slug: string | undefined) {
       if (cancelled) return;
       if (error) {
         setError(error.message);
+        // Keep snapshot value on error — do not blank out content.
+      } else if (data) {
+        setPage(data as unknown as IndustryPage);
+      } else if (!initial) {
         setPage(null);
-      } else {
-        setPage((data as unknown as IndustryPage) || null);
       }
       setLoading(false);
     })();
