@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs",
+    "predev": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs",
+    "prebuild": "node scripts/check-logo-usage.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-industry-pages.mjs",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
