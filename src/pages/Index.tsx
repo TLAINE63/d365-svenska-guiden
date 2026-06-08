@@ -290,6 +290,7 @@ const Index = () => {
                 desc: "Kartlägg era behov inom ERP, CRM eller kundservice — och få en rekommendation som matchar er situation.",
                 cta: "Starta behovsanalys",
                 onClick: () => setDirectionPicker("behovsanalys"),
+                aiPowered: true,
               },
               {
                 n: 2,
@@ -299,6 +300,7 @@ const Index = () => {
                 desc: "Bygg ett strukturerat underlag som matchar rätt Dynamics 365-applikation — redo att skicka till partners.",
                 cta: "Bygg kravspec",
                 onClick: () => setDirectionPicker("kravspec"),
+                aiPowered: true,
               },
               {
                 n: 3,
