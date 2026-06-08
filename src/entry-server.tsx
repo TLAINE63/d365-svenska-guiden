@@ -253,7 +253,7 @@ export function render(url: string) {
               <Route path="/branschlosningar" element={<Navigate to="/branscher" replace />} />
               <Route path="/branschlosningar/*" element={<Navigate to="/branscher" replace />} />
               <Route path="/branscher" element={<Branscher />} />
-              <Route path="/branscher/:slug" element={<IndustryPage />} />
+              <Route path="/branscher/:slug" element={<IndustryPage initialPartners={industryInitialPartners} />} />
               <Route path="/d365sales" element={<D365Sales />} />
               <Route path="/d365-sales" element={<Navigate to="/d365sales" replace />} />
               <Route path="/d365marketing" element={<D365Marketing />} />
