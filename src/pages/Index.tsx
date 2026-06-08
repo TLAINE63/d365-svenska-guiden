@@ -322,10 +322,10 @@ const Index = () => {
               >
                 {step.aiPowered && (
                   <span
-                    className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/80 backdrop-blur"
+                    className="absolute top-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/15 border border-white/25 text-[12px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur shadow-lg"
                     aria-label="AI-assisterat"
                   >
-                    <Sparkles className="w-3 h-3 text-[hsl(180_75%_65%)]" />
+                    <Sparkles className="w-4 h-4 text-[hsl(180_75%_65%)]" />
                     AI
                   </span>
                 )}
