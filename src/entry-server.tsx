@@ -189,6 +189,13 @@ export function render(url: string) {
   const partnerSlug = partnerMatch ? partnerMatch[1].replace(/\/$/, '') : null;
   const partnerInitialData = partnerSlug ? partnerDataBySlug[partnerSlug] || null : null;
 
+  // Extract industry slug for SSR partner-list injection on /branscher/:slug
+  const industryMatch = url.match(/^\/branscher\/([^/?#]+)/);
+  const industrySlug = industryMatch ? industryMatch[1].replace(/\/$/, '') : null;
+  const industryInitialPartners = industrySlug
+    ? partnersByIndustrySlug[industrySlug] || null
+    : null;
+
   // Map DB fields to the shape PartnerProfile expects (DatabasePartner)
   const mappedPartnerData = partnerInitialData ? {
     ...partnerInitialData,
