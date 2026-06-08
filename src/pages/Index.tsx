@@ -257,11 +257,11 @@ const Index = () => {
       <main>
       
       {/* Hero — Upphandlingsguiden */}
-      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] pt-28 sm:pt-32 md:pt-36 pb-14 sm:pb-20 relative overflow-hidden border-b border-white/10">
+      <section className="section-divider section-divider-dark bg-gradient-to-br from-[hsl(192_48%_14%)] via-[hsl(192_46%_18%)] to-[hsl(197_42%_22%)] pt-24 sm:pt-28 md:pt-32 pb-10 sm:pb-14 relative overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--primary)/0.15),transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,hsl(var(--cta-orange)/0.10),transparent_55%)]" />
         <div className="container mx-auto px-4 sm:px-6 max-w-6xl relative">
-          <div className="max-w-4xl mb-10 sm:mb-14">
+          <div className="max-w-4xl mb-6 sm:mb-8">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10.5px] font-bold uppercase tracking-[0.14em] text-white mb-6 backdrop-blur">
               <Sparkles className="w-3 h-3" />
               Upphandlingsguiden för Microsoft Dynamics 365
