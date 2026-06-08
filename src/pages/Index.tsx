@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
+import aiLogoAsset from "@/assets/ai-logo.png.asset.json";
 
 // Standard fallback image used by all situation cards when card.image is missing
 const DEFAULT_CARD_IMAGE = selectorService;
@@ -289,6 +290,7 @@ const Index = () => {
                 desc: "Kartlägg era behov inom ERP, CRM eller kundservice — och få en rekommendation som matchar er situation.",
                 cta: "Starta behovsanalys",
                 onClick: () => setDirectionPicker("behovsanalys"),
+                aiPowered: true,
               },
               {
                 n: 2,
@@ -298,6 +300,7 @@ const Index = () => {
                 desc: "Bygg ett strukturerat underlag som matchar rätt Dynamics 365-applikation — redo att skicka till partners.",
                 cta: "Bygg kravspec",
                 onClick: () => setDirectionPicker("kravspec"),
+                aiPowered: true,
               },
               {
                 n: 3,
@@ -313,6 +316,14 @@ const Index = () => {
                 key={step.n}
                 className="group relative bg-white/5 border border-white/10 rounded-2xl p-5 sm:p-6 backdrop-blur-sm hover:bg-white/[0.08] hover:border-white/20 transition-all flex flex-col"
               >
+                {step.aiPowered && (
+                  <img
+                    src={aiLogoAsset.url}
+                    alt="AI-driven"
+                    loading="lazy"
+                    className="absolute top-3 right-3 w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-lg pointer-events-none"
+                  />
+                )}
                 <div className="flex items-center gap-3 mb-4">
                   <span className="bg-[hsl(var(--cta-orange))] text-white text-[13px] font-bold w-7 h-7 rounded-full flex items-center justify-center shadow-lg shadow-[hsl(var(--cta-orange))]/30">
                     {step.n}
