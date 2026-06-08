@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import selectorErp from "@/assets/selector/erp.jpg";
 import selectorCrm from "@/assets/selector/crm.jpg";
 import selectorService from "@/assets/selector/service.jpg";
+import aiLogoAsset from "@/assets/ai-logo.png.asset.json";
 
 // Standard fallback image used by all situation cards when card.image is missing
 const DEFAULT_CARD_IMAGE = selectorService;
