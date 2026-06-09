@@ -91,11 +91,7 @@ const Branscher = () => {
     (partners || [])
       .filter((p) => p.is_featured === true)
       .forEach((p) => {
-        const inds = new Set<string>();
-        PRODUCT_KEYS.forEach((k) => {
-          (p.product_filters?.[k]?.industries || []).forEach((i: string) => inds.add(i));
-        });
-        inds.forEach((name) => {
+        collectPartnerIndustries(p).forEach((name) => {
           counts[name] = (counts[name] || 0) + 1;
         });
       });
