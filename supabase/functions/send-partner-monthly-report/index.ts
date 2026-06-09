@@ -11,6 +11,33 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+function b64urlToBytes(str: string): Uint8Array {
+  let b = str.replace(/-/g, "+").replace(/_/g, "/");
+  while (b.length % 4) b += "=";
+  const bin = atob(b);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+async function verifyAdminJWT(token: string): Promise<boolean> {
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 3) return false;
+    const [h, p, s] = parts;
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      "raw", enc.encode(SERVICE_ROLE),
+      { name: "HMAC", hash: "SHA-256" }, false, ["verify"],
+    );
+    const ok = await crypto.subtle.verify("HMAC", key, b64urlToBytes(s) as unknown as BufferSource, enc.encode(`${h}.${p}`));
+    if (!ok) return false;
+    const payload = JSON.parse(new TextDecoder().decode(b64urlToBytes(p)));
+    const now = Math.floor(Date.now() / 1000);
+    if (payload.exp && payload.exp < now) return false;
+    return payload.role === "admin";
+  } catch { return false; }
+}
+
 function esc(s: any): string {
   if (s == null) return "";
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
@@ -578,6 +605,7 @@ serve(async (req) => {
     const body = await req.json().catch(() => ({}));
     const {
       adminPassword,
+      token: adminToken,
       cronSecret,
       partnerSlug,        // optional: send to a single partner
       dryRun = false,     // if true: don't send, return preview HTML
@@ -594,8 +622,11 @@ serve(async (req) => {
 
     const supabase = createClient(SUPABASE_URL, SERVICE_ROLE);
 
-    // Auth: either admin password (manual trigger) or cron secret stored in site_settings
-    const isAdmin = ADMIN_PASSWORD && adminPassword === ADMIN_PASSWORD;
+    // Auth: admin password, admin JWT token (from logged-in admin UI), or cron secret
+    let isAdmin = !!(ADMIN_PASSWORD && adminPassword === ADMIN_PASSWORD);
+    if (!isAdmin && adminToken) {
+      isAdmin = await verifyAdminJWT(adminToken);
+    }
     let isCron = false;
     if (!isAdmin && cronSecret) {
       const { data: secretRow } = await supabase

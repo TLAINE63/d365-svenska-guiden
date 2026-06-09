@@ -164,7 +164,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   return (
     <div className="space-y-6">
     <PartnerStatsMatrix token={token} />
-    <MonthlyStatsReportCard />
+    <MonthlyStatsReportCard token={token} />
     <Card>
       <CardHeader>
         <CardTitle>Företag som besökt partnerprofiler</CardTitle>
@@ -463,12 +463,11 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
 const THOMAS_EMAIL = "thomas.laine@dynamicfactory.se";
 type SendMode = "partner" | "thomas" | "both";
 
-function MonthlyStatsReportCard() {
+function MonthlyStatsReportCard({ token }: { token: string | null }) {
   const { toast } = useToast();
   const [busy, setBusy] = useState<"dry" | SendMode | null>(null);
   const [partnerSlug, setPartnerSlug] = useState("");
   const [days, setDays] = useState(30);
-  const [adminPassword, setAdminPassword] = useState("");
   const [lastSummary, setLastSummary] = useState<any>(null);
   const [lastResults, setLastResults] = useState<any[] | null>(null);
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
@@ -478,8 +477,8 @@ function MonthlyStatsReportCard() {
     dryRun: boolean,
     extras: { overrideRecipient?: string; extraRecipients?: string[] } = {},
   ) => {
-    if (!adminPassword) {
-      toast({ title: "Lösenord krävs", description: "Ange admin-lösenord för att köra.", variant: "destructive" });
+    if (!token) {
+      toast({ title: "Inloggning krävs", description: "Logga in som admin för att köra rapport.", variant: "destructive" });
       return;
     }
     setBusy(busyKey);
@@ -488,7 +487,7 @@ function MonthlyStatsReportCard() {
     if (dryRun) setPreviewHtml(null);
     const { data, error } = await supabase.functions.invoke("send-partner-monthly-report", {
       body: {
-        adminPassword,
+        token,
         dryRun,
         days,
         partnerSlug: partnerSlug.trim() || undefined,
@@ -544,11 +543,8 @@ function MonthlyStatsReportCard() {
             <label className="text-xs font-medium block mb-1">Partner-slug (valfritt)</label>
             <Input value={partnerSlug} onChange={e => setPartnerSlug(e.target.value)} placeholder="lämna tomt = alla publicerade" className="w-72" />
           </div>
-          <div>
-            <label className="text-xs font-medium block mb-1">Admin-lösenord</label>
-            <Input type="password" value={adminPassword} onChange={e => setAdminPassword(e.target.value)} className="w-56" />
-          </div>
         </div>
+
 
         <div className="flex flex-wrap gap-2 pt-2">
           <Button onClick={() => invoke("dry", true)} disabled={isBusy} variant="outline" size="sm">
