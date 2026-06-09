@@ -455,17 +455,17 @@ function buildHtml(stats: PartnerStats, periodLabel: string, siteOrigin: string,
 
 
 
+          ${identifiedCompanies > 0 ? `
           <div style="margin:28px 0 0;padding:18px;background:#fff7ed;border-left:4px solid #ea580c;border-radius:6px">
             <div style="font-weight:600;color:#9a3412;margin-bottom:6px;font-size:14px">Vill ni veta vilka företag som besökt er?</div>
             <div style="color:#7c2d12;font-size:13px;line-height:1.5">
-              ${identifiedCompanies > 0
-                ? `<div style="margin-bottom:8px;padding:8px 12px;background:#fed7aa;border-radius:4px;color:#7c2d12;font-weight:600">
-                    ✓ Vi har identifierat <strong>${identifiedCompanies}</strong> ${identifiedCompanies === 1 ? "företag" : "företag"} som besökt er profil under perioden. Svara på detta mejl så delar vi listan (namn, bransch, storlek).
-                  </div>`
-                : ""}
+              <div style="margin-bottom:8px;padding:8px 12px;background:#fed7aa;border-radius:4px;color:#7c2d12;font-weight:600">
+                ✓ Vi har identifierat <strong>${identifiedCompanies}</strong> företag som besökt er profil under perioden. Svara på detta mejl så delar vi listan (namn, bransch, storlek).
+              </div>
               Identifieringen sker via vårt verktyg för uppslag av webbplatsbesökare. Alla besök går inte att koppla till ett företag – t.ex. mobil- eller privattrafik förblir anonym – men för de som identifieras får ni namn, bransch och storlek.
             </div>
-          </div>
+          </div>` : ""}
+
 
 
           <div style="text-align:center;margin:28px 0 8px">
