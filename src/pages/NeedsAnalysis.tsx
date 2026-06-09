@@ -338,7 +338,7 @@ const industryOptions = [
   "Finans & Försäkring",
   "Life Science / Medtech",
   "Telekom & IT-tjänster",
-  "Logistik & Transport",
+  "Transport & Logistik",
   "Media & Publishing",
   "Jordbruk & Skogsbruk",
   "Hälsa- & sjukvård",
@@ -503,7 +503,7 @@ const industryKpiMapping: Record<string, string[]> = {
     "Supportärendetid",
     "Projektlönsamhet",
   ],
-  "Logistik & Transport": [
+  "Transport & Logistik": [
     "Leveransprecision",
     "Fyllnadsgrad",
     "Kostnad per km/ton",

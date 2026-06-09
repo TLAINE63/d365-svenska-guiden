@@ -72,7 +72,7 @@ const INDUSTRY_OPTIONS = [
   "Finans & Försäkring",
   "Life Science / Medtech",
   "Telekom & IT-tjänster",
-  "Logistik & Transport",
+  "Transport & Logistik",
   "Media & Publishing",
   "Jordbruk & Skogsbruk",
   "Hälsa- & sjukvård",
