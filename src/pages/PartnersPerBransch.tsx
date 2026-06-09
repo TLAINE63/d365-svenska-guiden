@@ -87,7 +87,14 @@ const PartnersPerBransch = () => {
               <p className="text-muted-foreground">Laddar partners…</p>
             ) : (
               <div className="space-y-10">
-                {STANDARD_INDUSTRIES.map((industry) => {
+                {[...STANDARD_INDUSTRIES]
+                  .sort((a, b) => {
+                    const ac = (byIndustry.get(a.name) || []).length;
+                    const bc = (byIndustry.get(b.name) || []).length;
+                    if ((ac === 0) !== (bc === 0)) return ac === 0 ? 1 : -1;
+                    return 0;
+                  })
+                  .map((industry) => {
                   const list = byIndustry.get(industry.name) || [];
                   return (
                     <div key={industry.slug} id={industry.slug} className="scroll-mt-24">
