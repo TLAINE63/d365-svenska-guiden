@@ -1886,7 +1886,6 @@ export const BLOG_ARTICLES: BlogArticle[] = [
           markerade.
         </p>
 
-        <h3>Avtalspartners</h3>
 
         <p>
           <strong>BE-terna</strong><br />
