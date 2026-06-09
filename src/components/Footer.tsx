@@ -55,6 +55,7 @@ const Footer = () => {
               <li><Link to="/branscher/" className="text-muted-foreground hover:text-foreground transition-colors">Hitta din bransch</Link></li>
               <li><Link to="/valjdynamics365partner/" className="text-muted-foreground hover:text-foreground transition-colors">Hitta din partner</Link></li>
               <li><Link to="/alla-d365-partners/" className="text-muted-foreground hover:text-foreground transition-colors">Alla D365-partners</Link></li>
+              <li><Link to="/partners-per-bransch/" className="text-muted-foreground hover:text-foreground transition-colors">Partners per bransch</Link></li>
             </ul>
           </div>
 

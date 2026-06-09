@@ -113,6 +113,11 @@ const Navbar = () => {
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
+                  <Link to="/partners-per-bransch/" className="cursor-pointer">
+                    🏭 Partners per bransch
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to="/upphandlingsguiden/" className="cursor-pointer font-medium text-primary">
                     🗺️ Upphandlingsguiden
                   </Link>
@@ -242,6 +247,12 @@ const Navbar = () => {
                   className="text-lg font-medium text-foreground hover:text-primary transition-colors"
                 >
                   Hitta Dynamics&nbsp;365-partner
+                </Link>
+                <Link
+                  to="/partners-per-bransch/"
+                  className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                >
+                  🏭 Partners per bransch
                 </Link>
                 <Link
                   to="/upphandlingsguiden/"
