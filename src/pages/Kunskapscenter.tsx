@@ -89,7 +89,20 @@ interface UnifiedItem {
   isExternal: boolean;
   icon: typeof CalendarDays;
   products: string[];
+  partnerCount?: number | null;
 }
+
+// Map BLOG_ARTICLES slug → industry name (used to count listed partners per industry).
+const BRANSCHGUIDE_INDUSTRY_BY_SLUG: Record<string, string> = {
+  "dynamics-365-retail-ehandel": "Retail & E-handel",
+  "dynamics-365-tillverkningsindustri": "Tillverkningsindustri",
+  "dynamics-365-livsmedel-processindustri": "Livsmedel & Processindustri",
+  "dynamics-365-grossist-distribution": "Grossist & Distribution",
+  "dynamics-365-jordbruk-skogsbruk": "Jordbruk & Skogsbruk",
+  "dynamics-365-bygg-entreprenad": "Bygg & Entreprenad",
+  "dynamics-365-energi-utilities": "Energi & Utilities",
+  "dynamics-365-konsultbolag-tjansteforetag": "Konsulttjänster",
+};
 
 // ── Static content ─────────────────────────────────────
 
