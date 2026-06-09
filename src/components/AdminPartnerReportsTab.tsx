@@ -164,7 +164,7 @@ export default function AdminPartnerReportsTab({ token }: { token: string | null
   return (
     <div className="space-y-6">
     <PartnerStatsMatrix token={token} />
-    <MonthlyStatsReportCard />
+    <MonthlyStatsReportCard token={token} />
     <Card>
       <CardHeader>
         <CardTitle>Företag som besökt partnerprofiler</CardTitle>
